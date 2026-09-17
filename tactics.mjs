@@ -1,18 +1,19 @@
+import {unitAttributes} from './unit-stats.mjs';
 // Data and deterministic targeting for the three automatic tactics on each unit.
 const tactic = (name, threshold, cooldown, effect, visual, description) => ({ name, threshold, cooldown, effect, visual, description });
 const scheme = (name,threshold,cooldown,effect,visual,description,range=3) => ({...tactic(name,threshold,cooldown,effect,visual,description),category:'intellect',range});
 export const TACTICS_BOOK = {
-  smoke: scheme('烽烟惑阵',65,28,'confuse','shockwave','扰乱射程内敌军，使其混乱 2～4 步；混乱时随机转移阵位、无法攻击或施法',4),
+  smoke: scheme('烽烟惑阵',65,28,'confuse','shockwave','扰乱射程内敌军，使其混乱；时长随谋略威力增长、受军纪减免；混乱时随机转移阵位、无法攻击或施法',4),
   wildfire: scheme('火计连营',90,30,'wildfire','fire','对相邻的最多 2 队施加智力伤害和持续灼烧',4),
-  rally: scheme('鸣镝振旅',55,26,'rally','banner','鼓舞 2 格内其他友军，增加 16～32 战意',2),
-  doubt: scheme('疑阵扰敌',60,28,'confuse','shockwave','以疑阵使 2 格内敌军混乱 2～4 步',2),
-  ward: scheme('八门镇军',70,28,'ward','banner','为自身与 1 格内友军提供 15%～30% 减伤，持续 7 步',1),
+  rally: scheme('鸣镝振旅',55,26,'rally','banner','鼓舞 2 格内其他友军，增加战意，数值随谋略威力增长',2),
+  doubt: scheme('疑阵扰敌',60,28,'confuse','shockwave','以疑阵使 2 格内敌军混乱；时长随谋略威力增长、受军纪减免',2),
+  ward: scheme('八门镇军',70,28,'ward','banner','为自身与 1 格内友军提供随谋略威力增长的减伤，持续 7 步',1),
   cleanse: scheme('整阵解围',80,26,'cleanse','banner','清除 2 格内一队友军的控制与减益，并给予智力护盾',2),
   lure: scheme('佯退诱敌',55,24,'lure','charge','诱使 3 格内敌军向自身移动 1 格，并降低其防御 6 步；方阵不受诱导',3),
-  harass: scheme('截辎挫锐',80,28,'harass','banner','降低敌军 20～40 战意并削弱其攻击 6 步，不打断当前施法',3),
-  relay: scheme('游军策应',90,30,'relay','banner','让 2 格内其他友军战法冷却缩短 3～6 步，并提升其移动力 6 步',2),
-  ambush: scheme('伏弩疑兵',65,28,'confuse','shockwave','以伏弩威慑使敌军混乱 2～4 步',4),
-  seal: scheme('机括封喉',85,30,'seal','slash','造成智力伤害，并封锁目标后续战法 3～5 步；不取消已经蓄势的战法',4),
+  harass: scheme('截辎挫锐',80,28,'harass','banner','降低敌军战意（随谋略威力增长）并削弱其攻击 6 步，不打断当前施法',3),
+  relay: scheme('游军策应',90,30,'relay','banner','让 2 格内其他友军战法冷却缩短（随谋略威力增长），并提升其移动力 6 步',2),
+  ambush: scheme('伏弩疑兵',65,28,'confuse','shockwave','以伏弩威慑使敌军混乱；时长随谋略威力增长、受军纪减免',4),
+  seal: scheme('机括封喉',85,30,'seal','slash','造成智力伤害，并封锁目标后续战法（时长随谋略威力增长、受军纪减免）；不取消已经蓄势的战法',4),
   screen: scheme('烟幕掩军',60,26,'screen','banner','为 2 格内最多 2 支受损友军提供智力护盾，持续 8 步',2),
   fire: tactic('燎原火矢',40,22,'fire','fire','射击并灼烧 6 步；灼烧不产生战意'),
   scatter: tactic('漫天箭雨',70,26,'scatter','volley','攻击射程内最多 3 支相邻敌军，单队伤害较低'),
@@ -61,12 +62,32 @@ export function configureTactics(unit,ids) {
   unit.tactics=[...ids];return null;
 }
 export const NEGATIVE_STATUSES=['stun','confuse','seal','slow','armorBreak','weaken','burn','scorch'];
-export const statusPower = (unit,skill) => skill.category==='intellect'?unit.intellect:unit.force;
+export const statusPower = (unit,skill,b=null) => {const stats=unitAttributes(unit,b);return skill.category==='intellect'?stats.strategyPower:stats.martialPower;};
 export const distance = (a,b) => Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
 export const living = (b,side) => b.sides[side].units.filter(u=>u.status==='active' && u.hp>0);
-export const hasStatus = (b,u,key) => (u.statuses?.[key]?.until || 0)>b.tick && (key!=='shield' || u.statuses[key].amount>0);
+export function shieldLayers(b,u) {
+  const shield=u.statuses?.shield;if(!shield)return [];
+  return shield.layers.filter(l=>l.until>b.tick&&l.amount>0).map(l=>({...l}));
+}
+export const shieldAmount=(b,u)=>shieldLayers(b,u).reduce((n,l)=>n+l.amount,0);
+export function refreshShield(b,u,layers=shieldLayers(b,u)) {
+  if(!layers.length){if(u.statuses)delete u.statuses.shield;return;}
+  u.statuses ||= {};u.statuses.shield={until:Math.max(...layers.map(l=>l.until)),amount:layers.reduce((n,l)=>n+l.amount,0),layers};
+}
+export function absorbShield(b,u,damage) {
+  const layers=shieldLayers(b,u).sort((a,c)=>a.until-c.until||a.source.localeCompare(c.source));
+  for(const l of layers){const used=Math.min(l.amount,damage);l.amount-=used;damage-=used;if(!damage)break;}
+  refreshShield(b,u,layers.filter(l=>l.amount>0));return damage;
+}
+export const hasStatus = (b,u,key) => key==='shield'?shieldAmount(b,u)>0:(u.statuses?.[key]?.until||0)>b.tick;
 export function setStatus(b,u,key,duration,extra={}) {
   u.statuses ||= {};
+  if(key==='shield') {
+    const source=extra.source||'unattributed',layers=shieldLayers(b,u).filter(l=>l.source!==source);
+    const amount=Math.max(0,Math.min(extra.amount,u.maxHp-layers.reduce((n,l)=>n+l.amount,0)));
+    if(amount)layers.push({source,label:extra.label||'护盾',amount,until:b.tick+duration+1});
+    refreshShield(b,u,layers);return;
+  }
   u.statuses[key] = { until:b.tick+duration+1,...extra };
 }
 export function openCell(b,x,y) {

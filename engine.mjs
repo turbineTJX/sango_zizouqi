@@ -1,10 +1,12 @@
+import { TROOPS, unitAttributes, disciplineDuration, POLITICS } from './unit-stats.mjs';
+export { TROOPS, unitAttributes, disciplineDuration } from './unit-stats.mjs';
 // The simulation has no DOM, network, clock, or storage dependencies.
-import { TACTICS_BOOK, unitTactics, readyTactic, tacticTarget, hasStatus, setStatus, routeTo, retreatCell, openCell, configureTactics, validLoadout, defaultTacticIds, NEGATIVE_STATUSES, statusPower, lureCell } from './tactics.mjs';
+import { TACTICS_BOOK, unitTactics, readyTactic, tacticTarget, hasStatus, setStatus, routeTo, retreatCell, openCell, configureTactics, validLoadout, defaultTacticIds, NEGATIVE_STATUSES, statusPower, lureCell, absorbShield, refreshShield } from './tactics.mjs';
 export { TACTICS_BOOK, unitTactics, hasStatus } from './tactics.mjs';
-export const VERSION = 1;
+export const VERSION = 2;
 export const GRID = { cols: 14, rows: 8 };
 export const COMBO = { window:3, doubleBonus:25, tripleBonus:40 };
-export const COMBAT = { stepMs: 700, damageScale: .30, attackInterval: 3, skillWindup: 2, intentOnAttack: 12, intentOnHit: 10, intentCap: 160 };
+export const COMBAT = { stepMs: 700, damageScale: .7, skillWindup: 2, intentOnAttack: 12, intentOnHit: 10, intentCap: 160 };
 export const SKILL_THRESHOLDS = { cao:110, dun:85, liao:95, chu:80, jia:100, yu:90, yuanxia:85, jin:80, shao:100, yan:85, wen:95, he:90, ju:100, tian:105, gao:85 };
 export const skillThreshold = unit => Math.min(...unitTactics(unit).map(s=>s.threshold));
 export const STRATAGEMS = {
@@ -39,7 +41,7 @@ export function armyCommanders(army) {
 export const armyStratagems = army => [...new Set(armyCommanders(army).flatMap(c=>officerStratagems(c.id)))];
 export const battleStratagems = b => [...new Set((b.sides[0].commanders||[]).flatMap(c=>officerStratagems(c.id)))];
 export const commandIntellect = b => b.sides[0].retreat ? 0 : activeUnits(b,0).reduce((n,u)=>n+u.intellect,0);
-export function attackRange(b,u) {return TROOPS[u.type].range+(['archer','crossbow'].includes(u.type)&&b.sides[u.side].rangeUntil>b.tick?2:0);}
+export function attackRange(b,u) {return unitAttributes(u,b).range;}
 export function battleWounded(u) {return Math.max(0,Math.floor((u.battleDamage??u.initial-u.hp)*.35)-(u.healed||0));}
 function takeCasualties(u,damage) {
   u.battleDamage ??= u.initial-u.hp;u.healed ??=0;
@@ -61,12 +63,6 @@ export function skillVisual(unit) {
   if (['chu', 'dun'].includes(unit.id)) return 'shockwave';
   return unit.type === 'cavalry' ? 'charge' : unit.type === 'archer' ? 'volley' : 'slash';
 }
-export const TROOPS = {
-  spear: { name: '枪兵', icon: '槍', attack: 1.02, defense: 1.15, range: 1, move: 1, beats: 'cavalry' },
-  cavalry: { name: '骑兵', icon: '騎', attack: 1.22, defense: 0.95, range: 1, move: 2, beats: 'archer' },
-  archer: { name: '弓兵', icon: '弓', attack: 0.88, defense: 0.8, range: 4, move: 1, beats: 'spear' },
-  crossbow: { name: '弩兵', icon: '弩', attack: 0.96, defense: 0.8, range: 4, move: 1, beats: 'spear' },
-};
 export const TACTICS = { balanced: '稳健', aggressive: '激进', defensive: '防守' };
 export const FACTIONS = {
   cao: { name: '曹操', short: '曹', color: '#79b3a1' },
@@ -94,7 +90,7 @@ export function makeOfficer(id, troops = 3000, index = 0) {
   const row = OFFICERS.find(o => o[0] === id);
   if (!row) throw new Error('未知武将');
   const [key, name, courtesy, leadership, force, intellect, skill, type, formation, trait] = row;
-  return { id: key, name, courtesy, leadership, force, intellect, politics: Math.round(intellect * .9), charm: Math.round((leadership + intellect) / 2), skill, type, formation, trait, troops, wounded: 0, first: index < 6, loyalty: 100 };
+  return { id: key, name, courtesy, leadership, force, intellect, politics: POLITICS[key], skill, type, formation, trait, troops, wounded: 0, first: index < 6, loyalty: 100 };
 }
 export function newGame(seed = 521200) {
   const cities = [
@@ -109,7 +105,7 @@ export function newGame(seed = 521200) {
     ['wan', '宛城', 275, 687, 'neutral', 4200, '南阳门户', '荆州'],
   ].map(([id, name, x, y, owner, garrison, subtitle, province]) => ({ id, name, x, y, owner, garrison, subtitle, province }));
   const state = {
-    version: VERSION, rulesVersion:2, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
+    version: VERSION, rulesVersion:3, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
     cities, roads: [['ye', 'jinyang'], ['ye', 'baima'], ['ye', 'guandu'], ['jinyang', 'luoyang'], ['luoyang', 'guandu'], ['luoyang', 'xuchang'], ['guandu', 'baima'], ['guandu', 'xuchang'], ['baima', 'chenliu'], ['guandu', 'chenliu'], ['chenliu', 'xuchang'], ['chenliu', 'runan'], ['xuchang', 'runan'], ['xuchang', 'wan'], ['luoyang', 'wan'], ['wan', 'runan']],
     armies: [
       { id: 'a1', name: '虎贲军', faction: 'cao', location: 'xuchang', route: [], target: null, supply: 900, morale: 80, tactic: 'balanced', leader: 'cao', advisor: 'jia', deputy: 'dun', units: OFFICERS.slice(0, 8).map((r, i) => makeOfficer(r[0], 3000, i)), task: '驻守' },
@@ -236,10 +232,10 @@ export function advanceTurn(state) {
 function garrisonUnits(city) {
   const count = Math.min(6, Math.max(1, Math.ceil(city.garrison / 2400)));
   const types = ['spear', 'archer', 'spear', 'cavalry', 'archer', 'spear'];
-  return Array.from({ length: count }, (_, i) => ({ id: `g-${city.id}-${i}`, name: `${city.name}${['守将', '校尉', '都尉', '偏将', '参军', '牙将'][i]}`, courtesy: '守军', leadership: 72, force: 70, intellect: 65, skill: '据险固守', trait: '守土有责', type: types[i], formation: types[i] === 'archer' ? 'back' : 'front', troops: Math.floor(city.garrison / count) + (i === 0 ? city.garrison % count : 0), wounded: 0, first: true }));
+  return Array.from({ length: count }, (_, i) => ({ id: `g-${city.id}-${i}`, name: `${city.name}${['守将', '校尉', '都尉', '偏将', '参军', '牙将'][i]}`, courtesy: '守军', leadership: 72, force: 70, intellect: 65, politics:65, skill: '据险固守', trait: '守土有责', type: types[i], formation: types[i] === 'archer' ? 'back' : 'front', troops: Math.floor(city.garrison / count) + (i === 0 ? city.garrison % count : 0), wounded: 0, first: true }));
 }
 function combatUnit(u, armyId, side, morale) {
-  return { ...u, armyId, side, hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, cast: null, skillReady:{}, tacticCasts:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
+  return { ...u, armyId, side, hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, cast: null, skillReady:{}, tacticCasts:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
 }
 export function configureUnitTactics(state,unitId,ids) {
   if(state.battle&&!isDeploying(state.battle))return '开战后战法锁定，暂停也不能更换';
@@ -315,7 +311,7 @@ function fillSlots(b, side) {
   for (const unit of b.sides[side].units.filter(u => u.status === 'reserve' && u.hp > 0)) {
     if (activeUnits(b, side).length >= 6) break;
     spawn(b, unit);
-    if((b.sides[side].reliefUntil||0)>b.tick)setStatus(b,unit,'shield',8,{amount:Math.round(unit.maxHp*.15)});
+    if((b.sides[side].reliefUntil||0)>b.tick)setStatus(b,unit,'shield',8,{amount:Math.round(unit.maxHp*.15),source:'army:relief',label:'后军固阵'});
     if (b.tick) battleLog(b, `${unit.name}率${TROOPS[unit.type].name}补入战线。`);
   }
 }
@@ -391,7 +387,8 @@ function pickTarget(b, unit, inRangeOnly = false) {
   })[0];
 }
 function moveUnit(b, unit, target, retreat = false) {
-  if (hasStatus(b,unit,'phalanx') || hasStatus(b,unit,'slow') && b.tick%2) {unit.action='固守 / 迟滞';return;}
+  const speed=unitAttributes(unit,b).move;
+  if(speed<=0){unit.moveProgress=0;unit.action='固守 / 迟滞';return;}
   const occupied = b.sides.flatMap(s => s.units).filter(u => u.status === 'active' && u !== unit);
   // Breadth-first pathfinding handles blocked allies without passing through them.
   const goal = retreat ? p => p.x === (unit.side === 0 ? 0 : 13) : p => distance(p, target) <= attackRange(b,unit);
@@ -409,7 +406,9 @@ function moveUnit(b, unit, target, retreat = false) {
     }
   }
   if (route?.length) {
-    const next = route[Math.min(route.length, TROOPS[unit.type].move+(hasStatus(b,unit,'haste')||b.sides[unit.side].hasteUntil>b.tick?1:0)) - 1];
+    unit.moveProgress=(unit.moveProgress||0)+speed;const steps=Math.floor(unit.moveProgress);unit.moveProgress-=steps;
+    if(!steps){unit.action='迟滞行军';return;}
+    const next = route[Math.min(route.length, steps) - 1];
     unit.x = next.x; unit.y = next.y; unit.action = retreat ? '撤离' : `接近${target.name}`;
   } else unit.action = retreat ? '等待撤离' : '调整阵线';
 }
@@ -418,23 +417,16 @@ function combatEffect(b, attacker, target, skill, damage, phase = 'impact', defi
 }
 function counters(a,c) { return TROOPS[a].beats===c || a==='cavalry' && c==='crossbow'; }
 function damageUnit(b, attacker, target, skill, scale=1, definition=null, generateIntent=true) {
-  const type = TROOPS[attacker.type], defense = TROOPS[target.type];
-  const counter = counters(attacker.type,target.type) ? 1.28 : counters(target.type,attacker.type) ? .84 : 1;
-  const ownTactic = b.sides[attacker.side].tactic, enemyTactic = b.sides[target.side].tactic;
-  const attackBuff = ownTactic === 'aggressive' ? 1.18 : ownTactic === 'defensive' ? .92 : 1;
-  const defenseBuff = enemyTactic === 'defensive' ? 1.15 : enemyTactic === 'aggressive' ? .91 : 1;
-  const own = b.sides[attacker.side], enemy = b.sides[target.side];
-  const armyAttack = (own.assaultUntil > b.tick ? 1.25 : 1) * (own.disruptUntil > b.tick ? .8 : 1);
-  const armyDefense = (enemy.fortifyUntil > b.tick ? 1.3 : 1) * (enemy.disruptUntil > b.tick ? .8 : 1);
-  const strength = .5 + .5 * Math.sqrt(attacker.hp / attacker.maxHp);
-  const stat = definition?.category==='intellect' ? attacker.intellect : attacker.force;
-  const officerBonus = 1 + (attacker.commandBonus || 0) + (attacker.deputyBonus || 0) + (skill ? attacker.advisorBonus || 0 : 0);
-  const base = (85 + stat * 1.65 + attacker.leadership * .5) * strength * type.attack * counter * attackBuff * armyAttack * officerBonus;
-  const mitigation = defense.defense * defenseBuff * armyDefense * (.8 + (definition?.category==='intellect'?target.intellect:target.leadership) / 200);
-  let damage = Math.max(1, Math.round(base / mitigation * (.9 + random(b) * .2) * COMBAT.damageScale * scale * (hasStatus(b,attacker,'valor')?1.25:1) * (hasStatus(b,attacker,'weaken')?.8:1) * (hasStatus(b,target,'phalanx')?.7:1) * (hasStatus(b,target,'ward')?1-target.statuses.ward.percent/100:1) / (hasStatus(b,target,'armorBreak')?.8:1)));
-  if (hasStatus(b,target,'shield')) { const shield=target.statuses.shield; const blocked=Math.min(shield.amount,damage);shield.amount-=blocked;damage-=blocked; }
+  const own=unitAttributes(attacker,b),enemy=unitAttributes(target,b);
+  const intellectual=skill&&definition?.category==='intellect';
+  const power=skill?(intellectual?own.strategyPower:own.martialPower):own.attack;
+  const resistance=intellectual?enemy.discipline:enemy.defense;
+  const counter=counters(attacker.type,target.type)?1.28:counters(target.type,attacker.type)?.84:1;
+  const base=power*own.strength*counter*100/(100+resistance)*(1-enemy.damageReduction);
+  let damage=Math.max(1,Math.round(base*(.9+random(b)*.2)*COMBAT.damageScale*scale));
+  damage=absorbShield(b,target,damage);
   damage=takeCasualties(target,damage); target.morale = Math.max(15, target.morale - (skill ? 5 : 1));
-  attacker.morale = Math.min(100, attacker.morale + 3); attacker.cooldown = COMBAT.attackInterval;
+  attacker.morale = Math.min(100, attacker.morale + 3); if(!skill)attacker.cooldown = own.attackInterval;
   if(generateIntent)gainIntent(attacker,COMBAT.intentOnAttack);
   if (target.hp > 0 && damage>0) gainIntent(target,COMBAT.intentOnHit);
   attacker.action = skill ? definition?.name || attacker.skill : `攻击${target.name}`;
@@ -464,29 +456,29 @@ function finishTactic(b,u,s,target) {
   const bonus=level===3?COMBO.tripleBonus:level===2?COMBO.doubleBonus:0;
   const boosted=n=>Math.round(n*(1+bonus/100));
   const duration=n=>n+(bonus?1:0),effectStart=b.effects.length;
-  const status=(t,key,steps,extra={})=>setStatus(b,t,key,duration(steps),extra);
+  const status=(t,key,steps,extra={})=>setStatus(b,t,key,key==='seal'?disciplineDuration(b,t,duration(steps)):duration(steps),{...extra,...(key==='shield'?{source:u.id+':'+s.id,label:u.name+' · '+s.name}:{})});
   const hit=(t,scale=1.5,charge=true)=>damageUnit(b,u,t,true,scale*(1+bonus/100),s,charge);
   const signal=(t=u,text=s.name)=>combatEffect(b,u,t,true,0,'impact',s,{text});
   const start={x:u.x,y:u.y};
-  const power=statusPower(u,s), friends=activeUnits(b,u.side).filter(a=>distance(u,a)<=(s.range??2));
-  const controlSteps=Math.max(2,Math.min(4,Math.round(2+(u.intellect-target.intellect)/30)));
+  const power=statusPower(u,s,b), friends=activeUnits(b,u.side).filter(a=>distance(u,a)<=(s.range??2));
+  const controlSteps=Math.max(2,Math.min(4,Math.round(2+power/140)));
   switch(s.effect) {
-    case 'confuse':stun(b,target,duration(controlSteps),'confuse');signal(target,'混乱');break;
+    case 'confuse':stun(b,target,disciplineDuration(b,target,duration(controlSteps)),'confuse');signal(target,'混乱');break;
     case 'wildfire': {
       const targets=activeUnits(b,1-u.side).filter(t=>distance(target,t)<=1&&distance(u,t)<=s.range).slice(0,2);
-      targets.forEach((t,i)=>{hit(t,.85,i===0);if(t.hp>0)status(t,'burn',6,{sourceId:u.id,amount:boosted(8+u.intellect*.2)});});break;
+      targets.forEach((t,i)=>{hit(t,.85,i===0);if(t.hp>0)status(t,'burn',6,{sourceId:u.id,amount:boosted((8+power*.08)*100/(100+unitAttributes(t,b).discipline))});});break;
     }
-    case 'rally':for(const a of friends.filter(a=>a!==u)){const amount=boosted(16+Math.round(power*.16));gainIntent(a,amount);signal(a,`战意 +${amount}`);}break;
-    case 'ward':for(const a of friends){status(a,'ward',7,{percent:15+Math.round(power*.15)});signal(a,'八门 · 减伤');}break;
-    case 'cleanse':for(const key of NEGATIVE_STATUSES)delete target.statuses[key];status(target,'resolve',3);status(target,'shield',8,{amount:boosted(target.maxHp*(.05+power/1000))});signal(target,'解围 · 护盾');break;
-    case 'screen':for(const a of friends.filter(a=>a.hp/a.maxHp<.9&&!hasStatus(b,a,'shield')).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp).slice(0,2)){status(a,'shield',8,{amount:boosted(a.maxHp*(.05+power/1000))});signal(a,'烟幕 · 护盾');}break;
+    case 'rally':for(const a of friends.filter(a=>a!==u)){const amount=boosted(10+Math.round(power*.08));gainIntent(a,amount);signal(a,`战意 +${amount}`);}break;
+    case 'ward':for(const a of friends){status(a,'ward',7,{percent:10+Math.round(power*.06)});signal(a,'八门 · 减伤');}break;
+    case 'cleanse':for(const key of NEGATIVE_STATUSES)delete target.statuses[key];status(target,'resolve',3);status(target,'shield',8,{amount:boosted(target.maxHp*(.025+power/2500))});signal(target,'解围 · 护盾');break;
+    case 'screen':for(const a of friends.filter(a=>a.hp/a.maxHp<.9&&!hasStatus(b,a,'shield')).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp).slice(0,2)){status(a,'shield',8,{amount:boosted(a.maxHp*(.025+power/2500))});signal(a,'烟幕 · 护盾');}break;
     case 'lure': {
       const cell=lureCell(b,u,target);if(!cell)return false;
       const from={x:target.x,y:target.y};Object.assign(target,cell);status(target,'armorBreak',6);
       combatEffect(b,u,target,true,0,'impact',s,{fromX:from.x,fromY:from.y,text:'诱敌 · 破防'});break;
     }
-    case 'harass':{const amount=boosted(20+Math.round(power*.2));lowerIntent(target,amount);status(target,'weaken',6);signal(target,`战意 −${amount}`);break;}
-    case 'relay':for(const a of friends.filter(a=>a!==u)){for(const id of Object.keys(a.skillReady))a.skillReady[id]=Math.max(b.tick,a.skillReady[id]-boosted(3+Math.round(power*.03)));status(a,'haste',6);signal(a,'策应 · 冷却缩短');}break;
+    case 'harass':{const amount=boosted(12+Math.round(power*.1));lowerIntent(target,amount);status(target,'weaken',6);signal(target,`战意 −${amount}`);break;}
+    case 'relay':for(const a of friends.filter(a=>a!==u)){for(const id of Object.keys(a.skillReady))a.skillReady[id]=Math.max(b.tick,a.skillReady[id]-boosted(2+Math.round(power*.014)));status(a,'haste',6);signal(a,'策应 · 冷却缩短');}break;
     case 'seal':hit(target,1.1);if(target.hp>0)status(target,'seal',controlSteps+1);signal(target,'封技');break;
     case 'phalanx':status(u,'phalanx',8);signal(u,'方阵 · 减伤');break;
     case 'gallop':status(u,'haste',6);signal(u,'疾驰 · 加速');break;
@@ -549,13 +541,13 @@ function finishTactic(b,u,s,target) {
 }
 function tickStatuses(b) {
   for(const u of b.sides.flatMap(s=>s.units)) {
-    u.statuses ||= {};u.skillReady ||= {};u.tacticCasts ||= {};
+    u.statuses ||= {};u.skillReady ||= {};u.tacticCasts ||= {};refreshShield(b,u);
     for(const [key,status] of Object.entries(u.statuses))if(status.until<=b.tick)delete u.statuses[key];
     if(u.status!=='active'||u.hp<=0)continue;
     for(const key of ['burn','scorch'])if(u.hp>0&&hasStatus(b,u,key)) {
       const burn=u.statuses[key],source=b.sides.flatMap(s=>s.units).find(s=>s.id===burn.sourceId);
       let damage=burn.amount;
-      if(hasStatus(b,u,'shield')) {const shield=u.statuses.shield,blocked=Math.min(shield.amount,damage);shield.amount-=blocked;damage-=blocked;}
+      damage=absorbShield(b,u,damage);
       damage=takeCasualties(u,damage);
       if(source)combatEffect(b,u,u,false,damage,'impact',TACTICS_BOOK.fire,{text:key==='scorch'?'火攻':'灼烧'});
       if(u.hp<=0) {u.status='defeated';u.cast=null;u.action='溃败';battleLog(b,`${u.name}所部在灼烧中溃败。`);}
@@ -678,13 +670,7 @@ export function validateSave(value) {
   require(value && value.version === VERSION && number(value.turn) && value.turn > 0 && number(value.seed), '存档版本不兼容或数据损坏');
   const initial = newGame();
   require(Array.isArray(value.cities) && value.cities.length === initial.cities.length && Array.isArray(value.armies) && value.armies.length <= 15 && Array.isArray(value.logs) && value.logs.length <= 60 && JSON.stringify(value.roads) === JSON.stringify(initial.roads), '存档结构不完整');
-  if(value.rulesVersion===undefined) {
-    // Old archer was displayed and played as 弩兵. Preserve that choice when splitting the types.
-    const groups=[...value.armies,...(Array.isArray(value.battle?.sides)?value.battle.sides:[])];
-    for(const group of groups)if(Array.isArray(group?.units))for(const u of group.units)if(u?.type==='archer')u.type='crossbow';
-    value.rulesVersion=2;
-  }
-  require(value.rulesVersion===2,'战斗规则版本不兼容');
+  require(value.rulesVersion===3,'战斗规则版本不兼容');
   for (const key of ['gold', 'grain', 'fame', 'nextId', 'victories']) require(number(value[key]), '资源数据无效');
   require(value.nextId >= 3 && [null, 'victory', 'defeat'].includes(value.finished));
   for (const entry of value.logs) require(entry && number(entry.turn) && typeof entry.text === 'string' && entry.text.length < 1000 && ['info', 'event', 'order', 'good', 'war'].includes(entry.type));
@@ -700,9 +686,9 @@ export function validateSave(value) {
     require(u && Object.hasOwn(TROOPS, u.type) && ['front', 'middle', 'back', 'left', 'right'].includes(u.formation) && number(u.troops) && number(u.wounded) && typeof u.first === 'boolean', '武将数据无效');
     if (OFFICERS.some(o => o[0] === u.id)) {
       const source = makeOfficer(u.id);
-      for (const key of ['name', 'courtesy', 'leadership', 'force', 'intellect', 'politics', 'charm', 'skill', 'trait', 'loyalty']) require(u[key] === source[key], '武将基础数据不匹配');
+      for (const key of ['name', 'courtesy', 'leadership', 'force', 'intellect', 'politics', 'skill', 'trait', 'loyalty']) require(u[key] === source[key], '武将基础数据不匹配');
     } else {
-      require(combat && /^g-[a-z]+-\d$/.test(u.id) && text(u.name, 20) && text(u.skill) && number(u.leadership, 100) && number(u.force, 100) && number(u.intellect, 100), '守军数据无效');
+      require(combat && /^g-[a-z]+-\d$/.test(u.id) && text(u.name, 20) && text(u.skill) && number(u.leadership, 100) && number(u.force, 100) && number(u.intellect, 100) && number(u.politics,100), '守军数据无效');
     }
   }
   const armyIds = new Set();
@@ -724,9 +710,6 @@ export function validateSave(value) {
   if (value.pending !== null) context(value.pending);
   if (value.battle !== null) {
     const b = value.battle; context(b?.context);
-    // Version-1 saves from earlier prototypes remain playable under the new rules.
-    if(b.points!==undefined) {b.commandProgress=b.tick===0&&!b.deploymentLocked?0:b.points>0?COMMAND_RESOURCE.capacity:0;delete b.points;}
-    b.commandProgress ??=0;
     require(number(b.commandProgress,COMMAND_RESOURCE.capacity),'军略积累数据无效');
     b.deploymentLocked ??= b.tick > 0; b.commandReady ??= {}; b.commandSerial ??= 0; b.lastCommand ??= null;
     require(typeof b.deploymentLocked === 'boolean' && (b.tick === 0 || b.deploymentLocked) && b.commandReady && !Array.isArray(b.commandReady) && typeof b.commandReady === 'object' && number(b.commandSerial));
@@ -743,7 +726,7 @@ export function validateSave(value) {
       for (const u of side.units) {
         validateUnit(u, true);
         require(!unitIds.has(u.id) && u.side === index && typeof u.armyId === 'string' && (armyIds.has(u.armyId) || u.armyId === `city:${b.cityId}`)); unitIds.add(u.id);
-        u.intent ??= 0;
+        u.intent ??= 0;u.moveProgress ??=0;require(Number.isFinite(u.moveProgress)&&u.moveProgress>=0&&u.moveProgress<1,'移动进度无效');
         u.battleDamage ??= u.initial-u.hp;u.healed ??=0;
         require(number(u.battleDamage)&&number(u.healed)&&u.battleDamage-u.healed===u.initial-u.hp&&u.healed<=Math.floor(u.battleDamage*.35),'伤兵治疗数据无效');
         u.skillReady ??= {};u.tacticCasts ??= {};u.statuses ??= {};
@@ -756,12 +739,11 @@ export function validateSave(value) {
         for(const [key,status] of Object.entries(u.statuses)) {
           require(['phalanx','haste','valor','burn','scorch','slow','armorBreak','shield','stun','resolve','confuse','seal','weaken','ward'].includes(key) && status && number(status.until),'状态数据无效');
           if(key==='ward')require(number(status.percent,80));
-          if(key==='shield')require(number(status.amount,u.maxHp));
+          if(key==='shield') {
+            require(number(status.amount,u.maxHp));
+            require(Array.isArray(status.layers)&&status.layers.length>0&&status.layers.length<=60&&status.layers.every(l=>l&&number(l.amount,u.maxHp)&&l.amount>0&&number(l.until)&&text(l.source)&&text(l.label)), '护盾层无效');require(new Set(status.layers.map(l=>l.source)).size===status.layers.length,'护盾来源重复');require(status.amount===status.layers.reduce((n,l)=>n+l.amount,0)&&status.until===Math.max(...status.layers.map(l=>l.until)),'护盾汇总无效');
+          }
           if(key==='burn'||key==='scorch')require(number(status.amount,1000000) && typeof status.sourceId==='string');
-        }
-        if(u.cast && !u.cast.skillId) {
-          if(u.cast.cost!==undefined) {require(u.cast.cost===(SKILL_THRESHOLDS[u.id]||80),'旧战法消耗无效');gainIntent(u,u.cast.cost);delete u.cast.cost;}
-          u.cast.skillId=skills[0];
         }
         require(['active', 'reserve', 'defeated', 'withdrawn'].includes(u.status) && number(u.hp) && number(u.initial) && u.initial > 0 && u.hp <= u.initial && u.maxHp === u.initial && number(u.morale, 100) && number(u.cooldown) && number(u.intent,COMBAT.intentCap) && text(u.action), '部队状态无效');
         require(u.skillCasts === undefined || number(u.skillCasts), '战法次数无效');

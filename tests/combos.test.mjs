@@ -1,3 +1,4 @@
+import {unitAttributes,disciplineDuration} from '../unit-stats.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,stepBattle,validateSave,COMBO} from '../engine.mjs';
@@ -32,14 +33,14 @@ test('an interrupted cast and pure self buffs do not prime a combo',()=>{
 });
 test('combo enhances damage-over-time, intent reduction and control duration while respecting immunity',()=>{
  const x=scene();cast(x,x.own[0],'repeat');cast(x,x.own[1],'fire');assert.equal(x.target.statuses.burn.amount,30);assert.equal(x.target.statuses.burn.until,x.b.tick+8);
- const y=scene();y.own[1].x=4;cast(y,y.own[0],'repeat');y.target.intent=160;cast(y,y.own[1],'harass');assert.equal(y.target.intent,160-Math.round((20+Math.round(y.own[1].intellect*.2))*1.25));
- const z=scene();cast(z,z.own[0],'repeat');const e=cast(z,z.own[1],'ambush')[0];assert.equal(e.combo.level,2);const basic=Math.max(2,Math.min(4,Math.round(2+(z.own[1].intellect-z.target.intellect)/30)));assert.equal(z.target.statuses.confuse.until,z.b.tick+basic+2);
+ const y=scene();y.own[1].x=4;cast(y,y.own[0],'repeat');y.target.intent=160;cast(y,y.own[1],'harass');assert.equal(y.target.intent,160-Math.round((12+Math.round(unitAttributes(y.own[1],y.b).strategyPower*.1))*1.25));
+ const z=scene();cast(z,z.own[0],'repeat');const e=cast(z,z.own[1],'ambush')[0];assert.equal(e.combo.level,2);const basic=Math.max(2,Math.min(4,Math.round(2+unitAttributes(z.own[1],z.b).strategyPower/140)));assert.equal(z.target.statuses.confuse.until,z.b.tick+disciplineDuration(z.b,z.target,basic+1)+1);
  const immune=scene();cast(immune,immune.own[0],'repeat');immune.target.statuses.resolve={until:99};assert.equal(cast(immune,immune.own[1],'ambush').length,0);assert.equal(immune.target.statuses.confuse,undefined);
 });
 test('support combos really strengthen shields and do not include unrelated primary targets',()=>{
  const x=scene(),patient=x.own[1],protector=x.own[3];patient.hp=1000;patient.battleDamage=2000;patient.x=4;patient.y=3;x.target.x=5;x.target.y=3;protector.x=4;protector.y=4;
- cast(x,x.own[0],'screen',patient);assert.ok(patient.statuses.shield);
- const e=cast(x,protector,'protect',patient)[0];assert.equal(e.combo.level,2);assert.equal(e.combo.targetName,patient.name);assert.equal(patient.statuses.shield.amount,450);assert.equal(patient.statuses.shield.until,x.b.tick+10);
+ cast(x,x.own[0],'screen',patient);assert.ok(patient.statuses.shield);const firstShield=patient.statuses.shield.amount;
+ const e=cast(x,protector,'protect',patient)[0];assert.equal(e.combo.level,2);assert.equal(e.combo.targetName,patient.name);assert.equal(patient.statuses.shield.amount,firstShield+450);assert.equal(patient.statuses.shield.layers.length,2);assert.equal(patient.statuses.shield.until,x.b.tick+10);
 });
 test('ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed',()=>{
  const s=campaign();while(!s.battle.effects.some(e=>e.combo))stepBattle(s.battle);

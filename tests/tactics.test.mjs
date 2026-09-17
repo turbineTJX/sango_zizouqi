@@ -103,20 +103,17 @@ test('independent cooldowns, statuses and active casts survive save and resume i
 
 test('formation mitigates actual damage and blocks displacement; shields absorb before soldiers',()=>{
   function attack(statuses) {const x=scene();x.a.cooldown=0;x.d.statuses=statuses;const before=x.d.hp;stepBattle(x.b);return {damage:before-x.d.hp,...x};}
-  const normal=attack({}),fortified=attack({phalanx:{until:20}}),shielded=attack({shield:{until:20,amount:500}});
+  const normal=attack({}),fortified=attack({phalanx:{until:20}}),shielded=attack({shield:{until:20,amount:500,layers:[{until:20,amount:500,source:"test",label:"护盾"}]}});
   assert.ok(fortified.damage<normal.damage);assert.equal(shielded.damage,0);assert.ok(shielded.d.statuses.shield.amount<500);
   const c=scene('spear','chu');const ally={...structuredClone(c.a),id:'ally',x:5,intent:0,cooldown:999};c.d.x=6;c.d.statuses.phalanx={until:20};c.b.sides[0].units.push(ally);
   allowOnly(c.a,'protect');complete(c.b,c.a);assert.equal(c.d.x,6);assert.ok(hasStatus(c.b,ally,'shield'));
 });
-test('legacy prepaid casting intent migrates once without losing the ongoing cast',()=>{
-  const {state,a,d}=scene();a.intent=12;a.cast={targetId:d.id,remaining:2,cost:110};
-  delete a.skillReady;delete a.tacticCasts;delete a.statuses;
-  validateSave(state);assert.equal(a.intent,122);assert.equal(a.cast.skillId,'thrust');assert.equal(a.cast.remaining,2);
-  validateSave(state);assert.equal(a.intent,122);
+test('prepaid casts and previous save formats are rejected',()=>{
+ const {state,a,d}=scene();a.intent=12;a.cast={targetId:d.id,remaining:2,cost:110};assert.throws(()=>validateSave(state));
+ const old=scene().state;old.version=1;assert.throws(()=>validateSave(old));
 });
-test('splitting bows and crossbows preserves the troop choice of legacy saves',()=>{
-  const {state,a}=scene('archer');delete state.rulesVersion;
-  state.armies[0].units[0].type='archer';
-  validateSave(state);assert.equal(a.type,'crossbow');assert.equal(state.armies[0].units[0].type,'crossbow');
-  assert.equal(state.rulesVersion,2);a.type='archer';validateSave(state);assert.equal(a.type,'archer');
+test('new saves distinguish bows and crossbows and require current rules',()=>{
+ const {state}=scene('archer');state.armies[0].units[0].type='archer';state.armies[0].units[0].tactics=['fire','scatter','suppress'];
+ const copy=validateSave(structuredClone(state));assert.equal(copy.armies[0].units[0].type,'archer');
+ delete state.rulesVersion;assert.throws(()=>validateSave(state));
 });

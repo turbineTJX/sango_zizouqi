@@ -23,12 +23,12 @@ test('only leader/advisor union unlocks tactics, duplicates collapse, deputy add
  assert.equal(armyCommanders(a).length,2);
  const changed=scene('jin','yu');assert.ok(battleStratagems(changed.battle).includes('regenerate'));assert.ok(battleStratagems(changed.battle).includes('heal'));assert.ok(!battleStratagems(changed.battle).includes('assault'));
 });
-test('gauge, commanders, injury ledger and effects resume deterministically; old points migrate once',()=>{
+test('gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected',()=>{
  const s=scene();for(let i=0;i<34;i++)stepBattle(s.battle);s.battle.commandProgress=full;assert.equal(issueCommand(s.battle,'firestorm'),null);
  const copy=validateSave(structuredClone(s));for(let i=0;i<12;i++){stepBattle(s.battle);stepBattle(copy.battle);}assert.deepEqual(copy.battle,s.battle);
- const old=scene();old.battle.points=5;delete old.battle.commandProgress;delete old.battle.deploymentLocked;
+ const old=scene();old.version=1;old.battle.points=5;delete old.battle.commandProgress;delete old.battle.deploymentLocked;
  for(const u of old.battle.sides.flatMap(s=>s.units)){delete u.battleDamage;delete u.healed;}
- const migrated=validateSave(old);assert.equal(migrated.battle.commandProgress,0);assert.equal(migrated.battle.points,undefined);
+ assert.throws(()=>validateSave(old));
  const broken=structuredClone(s);broken.battle.commandProgress=full+1;assert.throws(()=>validateSave(broken));
 });
 test('first aid consumes only recoverable casualties and cannot heal dead or reserve units',()=>{
@@ -58,7 +58,7 @@ test('range changes real attacks and weapon tactic legality; intelligence ranges
 test('firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse',()=>{
  const s=scene(),b=s.battle;still(b);b.commandProgress=full;assert.equal(issueCommand(b,'firestorm'),null);
  const u=b.sides[1].units[0],reserve=b.sides[1].units.find(u=>u.status==='reserve');assert.ok(!reserve.statuses.scorch);
- u.statuses.shield={until:999,amount:30};for(let i=0;i<12;i++)stepBattle(b);
+ u.statuses.shield={until:999,amount:30,layers:[{until:999,amount:30,source:"test",label:"护盾"}]};for(let i=0;i<12;i++)stepBattle(b);
  assert.equal(u.hp,u.initial-150);assert.equal(u.battleDamage,150);assert.equal(u.intent,0);const hp=u.hp;stepBattle(b);assert.equal(u.hp,hp);
  const c=scene('cao','yu'),cb=c.battle,own=cb.sides[0].units[0];own.statuses.scorch={until:99,amount:18,sourceId:cb.sides[1].units[0].id};cb.commandProgress=full;
  assert.equal(issueCommand(cb,'cleanse'),null);assert.equal(own.statuses.scorch,undefined);
