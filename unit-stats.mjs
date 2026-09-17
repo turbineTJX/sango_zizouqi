@@ -1,3 +1,4 @@
+import {passiveAttributes} from './passives.mjs';
 // Shared, derived battle attributes. Never store a second mutable copy in saves.
 export const TROOPS = {
  spear:{name:'枪兵',icon:'槍',attack:80,defense:90,discipline:40,move:1,interval:3,range:1,siege:0,beats:'cavalry'},
@@ -10,8 +11,9 @@ export const POLITICS={cao:94,dun:70,liao:78,chu:32,jia:86,yu:95,yuanxia:61,jin:
 export function unitAttributes(u,b=null) {
  const t=TROOPS[u.type],tick=b?.tick||0,side=b?.sides?.[u.side]||{};
  const on=k=>(u.statuses?.[k]?.until||0)>tick,army=k=>(side[k]||0)>tick;
- const breakdown={},out={breakdown};
+ const breakdown={},out={breakdown},passives=passiveAttributes(b,u);
  function stat(key,base,officer,source,mods=[]) {
+   mods=[...(passives[key]||[]),...mods];
    let value=base+officer;for(const m of mods)value=m.add!==undefined?value+m.add:value*m.factor;
    value=Math.max(0,value);out[key]=value;breakdown[key]={base,officer,source,modifiers:mods,value};return value;
  }
@@ -35,7 +37,7 @@ export function unitAttributes(u,b=null) {
  stat('attack',t.attack,leadership*1.6,'统率 × 1.6',atk);
  stat('defense',t.defense,leadership*.65,'统率 × 0.65',def);
  stat('move',t.move,0,'兵种决定',move);stat('range',t.range,0,'兵种决定',range);stat('siege',t.siege,0,'预留，尚无建筑伤害结算');
- stat('attackSpeed',1000/(700*t.interval),0,'兵种攻击间隔 '+t.interval+' 步');out.attackInterval=t.interval;
+ stat('attackSpeed',1000/(700*t.interval),0,'兵种攻击间隔 '+t.interval+' 步');out.attackInterval=t.interval/(passives.attackSpeed?.[0]?.factor||1);
  stat('discipline',t.discipline,politics*.8,'政治 × 0.8');
  stat('martialPower',80,(u.force||0)*2,'武力 × 2',martial);
  stat('strategyPower',80,(u.intellect||0)*2,'智力 × 2',strategy);

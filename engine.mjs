@@ -1,4 +1,6 @@
 import { TROOPS, unitAttributes, disciplineDuration, POLITICS } from './unit-stats.mjs';
+import {hasPassive, initialPassiveState, moved, recordBasicAttack, passiveDamageMultiplier, passiveDamageTaken, supportMultiplier, SKILL_ROUTES} from './passives.mjs';
+import {gainExperience, experienceNeeded, PROGRESSION} from './progression.mjs';
 export { TROOPS, unitAttributes, disciplineDuration } from './unit-stats.mjs';
 // The simulation has no DOM, network, clock, or storage dependencies.
 import { TACTICS_BOOK, unitTactics, readyTactic, tacticTarget, hasStatus, setStatus, routeTo, retreatCell, openCell, configureTactics, validLoadout, defaultTacticIds, NEGATIVE_STATUSES, statusPower, lureCell, absorbShield, refreshShield } from './tactics.mjs';
@@ -56,7 +58,11 @@ function healWounded(b,u,fraction) {
 }
 export const isDeploying = b => !!b && !b.deploymentLocked && b.tick === 0 && !b.result;
 function gainIntent(unit, amount) { unit.intent = Math.min(COMBAT.intentCap, (unit.intent || 0) + amount); }
-export function lowerIntent(unit, amount) { unit.intent = Math.max(0,(unit.intent || 0)-Math.max(0,amount)); }
+export function lowerIntent(unit, amount, source=null) {
+  const before=unit.intent||0;
+  const adjusted=Math.round(Math.max(0,amount)*(source&&hasPassive(source,'suppress')?1.2:1)*(hasPassive(unit,'calm')?.8:1));
+  unit.intent=Math.max(0,before-adjusted);return before-unit.intent;
+}
 export function skillVisual(unit) {
   if (['jia', 'yu', 'tian'].includes(unit.id)) return 'fire';
   if (['cao', 'shao', 'jin', 'ju'].includes(unit.id)) return 'banner';
@@ -90,7 +96,7 @@ export function makeOfficer(id, troops = 3000, index = 0) {
   const row = OFFICERS.find(o => o[0] === id);
   if (!row) throw new Error('未知武将');
   const [key, name, courtesy, leadership, force, intellect, skill, type, formation, trait] = row;
-  return { id: key, name, courtesy, leadership, force, intellect, politics: POLITICS[key], skill, type, formation, trait, troops, wounded: 0, first: index < 6, loyalty: 100 };
+  return { id: key, name, courtesy, leadership, force, intellect, politics: POLITICS[key], skill, type, formation, trait, troops, wounded: 0, first: index < 6, loyalty: 100, level:1, experience:0 };
 }
 export function newGame(seed = 521200) {
   const cities = [
@@ -235,7 +241,7 @@ function garrisonUnits(city) {
   return Array.from({ length: count }, (_, i) => ({ id: `g-${city.id}-${i}`, name: `${city.name}${['守将', '校尉', '都尉', '偏将', '参军', '牙将'][i]}`, courtesy: '守军', leadership: 72, force: 70, intellect: 65, politics:65, skill: '据险固守', trait: '守土有责', type: types[i], formation: types[i] === 'archer' ? 'back' : 'front', troops: Math.floor(city.garrison / count) + (i === 0 ? city.garrison % count : 0), wounded: 0, first: true }));
 }
 function combatUnit(u, armyId, side, morale) {
-  return { ...u, armyId, side, hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, cast: null, skillReady:{}, tacticCasts:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
+  return { ...u, level:u.level??1,experience:u.experience??0,skillRouteType:u.skillRouteType||u.type,passiveState:initialPassiveState(),participated:false,attackCarry:0,armyId, side, hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, cast: null, skillReady:{}, tacticCasts:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
 }
 export function configureUnitTactics(state,unitId,ids) {
   if(state.battle&&!isDeploying(state.battle))return '开战后战法锁定，暂停也不能更换';
@@ -303,14 +309,21 @@ function spawn(b, unit) {
   const occupied = b.sides.flatMap(s => s.units).filter(u => u.status === 'active');
   const open = cells.filter(c => !occupied.some(u => u.x === c.x && u.y === c.y)).sort((a, c) => Math.abs(a.x - x) * 5 + Math.abs(a.y - preferredY) - Math.abs(c.x - x) * 5 - Math.abs(c.y - preferredY));
   if (!open.length) return false;
-  unit.x = open[0].x; unit.y = open[0].y; unit.status = 'active'; unit.action = '列阵'; return true;
+  unit.x = open[0].x; unit.y = open[0].y; unit.status = 'active'; unit.action = '列阵';
+  unit.passiveState ||= initialPassiveState(b.tick);unit.passiveState.lastMoveTick=b.tick;
+  if(b.tick>0&&!unit.passiveState.reserveEntered){
+    unit.passiveState.reserveEntered=true;
+    if(hasPassive(unit,'prepared')){gainIntent(unit,25);battleLog(b,`${unit.name}「备战」：入场战意 +25。`);}
+    if(hasPassive(unit,'adapt')){unit.passiveState.entryUntil=b.tick+15;battleLog(b,`${unit.name}「巧变」：接战增益持续 15 步。`);}
+  }
+  return true;
 }
 function fillSlots(b, side) {
   if (b.sides[side].retreat) return;
   if((b.sides[side].blockadeUntil||0)>b.tick)return;
   for (const unit of b.sides[side].units.filter(u => u.status === 'reserve' && u.hp > 0)) {
     if (activeUnits(b, side).length >= 6) break;
-    spawn(b, unit);
+    if(!spawn(b, unit))continue;
     if((b.sides[side].reliefUntil||0)>b.tick)setStatus(b,unit,'shield',8,{amount:Math.round(unit.maxHp*.15),source:'army:relief',label:'后军固阵'});
     if (b.tick) battleLog(b, `${unit.name}率${TROOPS[unit.type].name}补入战线。`);
   }
@@ -409,7 +422,7 @@ function moveUnit(b, unit, target, retreat = false) {
     unit.moveProgress=(unit.moveProgress||0)+speed;const steps=Math.floor(unit.moveProgress);unit.moveProgress-=steps;
     if(!steps){unit.action='迟滞行军';return;}
     const next = route[Math.min(route.length, steps) - 1];
-    unit.x = next.x; unit.y = next.y; unit.action = retreat ? '撤离' : `接近${target.name}`;
+    const from={x:unit.x,y:unit.y};unit.x = next.x; unit.y = next.y;moved(b,unit,from); unit.action = retreat ? '撤离' : `接近${target.name}`;
   } else unit.action = retreat ? '等待撤离' : '调整阵线';
 }
 function combatEffect(b, attacker, target, skill, damage, phase = 'impact', definition=null, extra={}) {
@@ -417,18 +430,22 @@ function combatEffect(b, attacker, target, skill, damage, phase = 'impact', defi
 }
 function counters(a,c) { return TROOPS[a].beats===c || a==='cavalry' && c==='crossbow'; }
 function damageUnit(b, attacker, target, skill, scale=1, definition=null, generateIntent=true) {
+  if(!skill)recordBasicAttack(attacker,target);
+  attacker.participated=true;target.participated=true;
   const own=unitAttributes(attacker,b),enemy=unitAttributes(target,b);
   const intellectual=skill&&definition?.category==='intellect';
+  const kind=skill?(intellectual?'intellect':'force'):'basic';
   const power=skill?(intellectual?own.strategyPower:own.martialPower):own.attack;
   const resistance=intellectual?enemy.discipline:enemy.defense;
   const counter=counters(attacker.type,target.type)?1.28:counters(target.type,attacker.type)?.84:1;
-  const base=power*own.strength*counter*100/(100+resistance)*(1-enemy.damageReduction);
+  const threshold=Math.min(...unitTactics(target).map(s=>s.threshold));
+  const base=power*own.strength*counter*100/(100+resistance)*(1-enemy.damageReduction)*passiveDamageMultiplier(b,attacker,target,kind,Number.isFinite(threshold)?threshold:0)*passiveDamageTaken(b,target,kind);
   let damage=Math.max(1,Math.round(base*(.9+random(b)*.2)*COMBAT.damageScale*scale));
   damage=absorbShield(b,target,damage);
   damage=takeCasualties(target,damage); target.morale = Math.max(15, target.morale - (skill ? 5 : 1));
-  attacker.morale = Math.min(100, attacker.morale + 3); if(!skill)attacker.cooldown = own.attackInterval;
-  if(generateIntent)gainIntent(attacker,COMBAT.intentOnAttack);
-  if (target.hp > 0 && damage>0) gainIntent(target,COMBAT.intentOnHit);
+  attacker.morale = Math.min(100, attacker.morale + 3); if(!skill){attacker.cooldown = own.attackInterval-(attacker.attackCarry||0);attacker.attackCarry=0;}
+  if(generateIntent)gainIntent(attacker,COMBAT.intentOnAttack+(hasPassive(attacker,'spirit')?2:0));
+  if (target.hp > 0 && damage>0) gainIntent(target,COMBAT.intentOnHit+(hasPassive(target,'endurance')?2:0));
   attacker.action = skill ? definition?.name || attacker.skill : `攻击${target.name}`;
   combatEffect(b, attacker, target, skill, damage,'impact',definition);
   if (target.hp <= 0) { target.status = 'defeated'; target.cast = null; target.action = '溃败'; battleLog(b, `${target.name}所部溃败，战线出现空位。`); }
@@ -453,12 +470,12 @@ function comboCandidate(b,u,s,target) {
 }
 function finishTactic(b,u,s,target) {
   const combo=comboCandidate(b,u,s,target),level=combo?Math.min(3,combo.actors.length):1;
-  const bonus=level===3?COMBO.tripleBonus:level===2?COMBO.doubleBonus:0;
-  const boosted=n=>Math.round(n*(1+bonus/100));
+  const bonus=(level===3?COMBO.tripleBonus:level===2?COMBO.doubleBonus:0)+(level>1&&hasPassive(u,'combo')?5:0);
+  const boosted=(n,t=null,kind=null)=>Math.round(n*(1+bonus/100)*(t?supportMultiplier(u,t,kind):1));
   const duration=n=>n+(bonus?1:0),effectStart=b.effects.length;
   const status=(t,key,steps,extra={})=>setStatus(b,t,key,key==='seal'?disciplineDuration(b,t,duration(steps)):duration(steps),{...extra,...(key==='shield'?{source:u.id+':'+s.id,label:u.name+' · '+s.name}:{})});
   const hit=(t,scale=1.5,charge=true)=>damageUnit(b,u,t,true,scale*(1+bonus/100),s,charge);
-  const signal=(t=u,text=s.name)=>combatEffect(b,u,t,true,0,'impact',s,{text});
+  const signal=(t=u,text=s.name)=>{t.participated=true;combatEffect(b,u,t,true,0,'impact',s,{text});};
   const start={x:u.x,y:u.y};
   const power=statusPower(u,s,b), friends=activeUnits(b,u.side).filter(a=>distance(u,a)<=(s.range??2));
   const controlSteps=Math.max(2,Math.min(4,Math.round(2+power/140)));
@@ -468,17 +485,17 @@ function finishTactic(b,u,s,target) {
       const targets=activeUnits(b,1-u.side).filter(t=>distance(target,t)<=1&&distance(u,t)<=s.range).slice(0,2);
       targets.forEach((t,i)=>{hit(t,.85,i===0);if(t.hp>0)status(t,'burn',6,{sourceId:u.id,amount:boosted((8+power*.08)*100/(100+unitAttributes(t,b).discipline))});});break;
     }
-    case 'rally':for(const a of friends.filter(a=>a!==u)){const amount=boosted(10+Math.round(power*.08));gainIntent(a,amount);signal(a,`战意 +${amount}`);}break;
+    case 'rally':for(const a of friends.filter(a=>a!==u)){const amount=boosted(10+Math.round(power*.08),a,'intent');gainIntent(a,amount);signal(a,`战意 +${amount}`);}break;
     case 'ward':for(const a of friends){status(a,'ward',7,{percent:10+Math.round(power*.06)});signal(a,'八门 · 减伤');}break;
-    case 'cleanse':for(const key of NEGATIVE_STATUSES)delete target.statuses[key];status(target,'resolve',3);status(target,'shield',8,{amount:boosted(target.maxHp*(.025+power/2500))});signal(target,'解围 · 护盾');break;
-    case 'screen':for(const a of friends.filter(a=>a.hp/a.maxHp<.9&&!hasStatus(b,a,'shield')).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp).slice(0,2)){status(a,'shield',8,{amount:boosted(a.maxHp*(.025+power/2500))});signal(a,'烟幕 · 护盾');}break;
+    case 'cleanse':for(const key of NEGATIVE_STATUSES)delete target.statuses[key];status(target,'resolve',3);status(target,'shield',8,{amount:boosted(target.maxHp*(.025+power/2500),target,'shield')});signal(target,'解围 · 护盾');break;
+    case 'screen':for(const a of friends.filter(a=>a.hp/a.maxHp<.9&&!hasStatus(b,a,'shield')).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp).slice(0,2)){status(a,'shield',8,{amount:boosted(a.maxHp*(.025+power/2500),a,'shield')});signal(a,'烟幕 · 护盾');}break;
     case 'lure': {
       const cell=lureCell(b,u,target);if(!cell)return false;
-      const from={x:target.x,y:target.y};Object.assign(target,cell);status(target,'armorBreak',6);
+      const from={x:target.x,y:target.y};Object.assign(target,cell);moved(b,target,from);status(target,'armorBreak',6);
       combatEffect(b,u,target,true,0,'impact',s,{fromX:from.x,fromY:from.y,text:'诱敌 · 破防'});break;
     }
-    case 'harass':{const amount=boosted(12+Math.round(power*.1));lowerIntent(target,amount);status(target,'weaken',6);signal(target,`战意 −${amount}`);break;}
-    case 'relay':for(const a of friends.filter(a=>a!==u)){for(const id of Object.keys(a.skillReady))a.skillReady[id]=Math.max(b.tick,a.skillReady[id]-boosted(2+Math.round(power*.014)));status(a,'haste',6);signal(a,'策应 · 冷却缩短');}break;
+    case 'harass':{const amount=lowerIntent(target,boosted(12+Math.round(power*.1)),u);status(target,'weaken',6);signal(target,`战意 −${amount}`);break;}
+    case 'relay':for(const a of friends.filter(a=>a!==u)){for(const id of Object.keys(a.skillReady))a.skillReady[id]=Math.max(b.tick,a.skillReady[id]-boosted(2+Math.round(power*.014),a,'cooldown'));status(a,'haste',6);signal(a,'策应 · 冷却缩短');}break;
     case 'seal':hit(target,1.1);if(target.hp>0)status(target,'seal',controlSteps+1);signal(target,'封技');break;
     case 'phalanx':status(u,'phalanx',8);signal(u,'方阵 · 减伤');break;
     case 'gallop':status(u,'haste',6);signal(u,'疾驰 · 加速');break;
@@ -499,28 +516,29 @@ function finishTactic(b,u,s,target) {
     case 'pierce':hit(target,1.3);if(target.hp>0)status(target,'armorBreak',8);break;
     case 'retreatShot': {
       const cell=retreatCell(b,u);if(!cell)return false;
-      Object.assign(u,cell);hit(target,1.3);
+      Object.assign(u,cell);moved(b,u,start);hit(target,1.3);
       combatEffect(b,u,u,true,0,'impact',s,{fromX:start.x,fromY:start.y,text:'退射',visual:'charge'});break;
     }
     case 'rush':case 'terror': {
       const route=routeTo(b,u,target,3);if(route===null)return false;
-      if(route.length)Object.assign(u,route.at(-1));
+      if(route.length){Object.assign(u,route.at(-1));moved(b,u,start);}
       hit(target,s.effect==='terror'?1.8:1.6);
       // Keep the original path in the visual event even after moving the simulation unit.
       Object.assign(b.effects.at(-1),{fromX:start.x,fromY:start.y});
       if(s.effect==='terror' && target.hp>0) {stun(b,target,duration(2));signal(target,'眩晕');}break;
     }
     case 'protect': {
-      status(target,'shield',8,{amount:boosted(target.maxHp*.12)});
+      status(target,'shield',8,{amount:boosted(target.maxHp*.12,target,'shield')});
       const enemy=activeUnits(b,1-u.side).find(e=>distance(target,e)===1);
       if(enemy && !hasStatus(b,enemy,'phalanx')) {
         const from={x:enemy.x,y:enemy.y},dx=enemy.x-target.x,dy=enemy.y-target.y;
         for(let i=0;i<2;i++) {const x=enemy.x+dx,y=enemy.y+dy;if(!openCell(b,x,y))break;enemy.x=x;enemy.y=y;}
+        moved(b,enemy,from);
         combatEffect(b,u,enemy,true,0,'impact',s,{fromX:from.x,fromY:from.y,text:'击退'});
       }
       signal(target,'护盾');break;
     }
-    case 'undermine':lowerIntent(target,boosted(45));signal(target,'战意 −'+boosted(45));break;
+    case 'undermine':{const amount=lowerIntent(target,boosted(45),u);signal(target,'战意 −'+amount);break;}
     default:return false;
   }
   if(combo) {
@@ -536,6 +554,7 @@ function finishTactic(b,u,s,target) {
       battleLog(b,title+' · '+combo.actors.map(a=>a.name).join(' → ')+' 对 '+target.name+' 发动「'+s.name+'」，伤害及数值效果 +'+bonus+'%，控制与状态持续 +1 步。');
     }
   }
+  u.participated=true;target.participated=true;
   u.skillCasts=(u.skillCasts||0)+1;u.tacticCasts[s.id]=(u.tacticCasts[s.id]||0)+1;
   u.action=s.name;battleLog(b,`${u.name}发动「${s.name}」：${s.description}。`);return true;
 }
@@ -546,7 +565,7 @@ function tickStatuses(b) {
     if(u.status!=='active'||u.hp<=0)continue;
     for(const key of ['burn','scorch'])if(u.hp>0&&hasStatus(b,u,key)) {
       const burn=u.statuses[key],source=b.sides.flatMap(s=>s.units).find(s=>s.id===burn.sourceId);
-      let damage=burn.amount;
+      let damage=Math.round(burn.amount*passiveDamageTaken(b,u,'dot'));u.participated=true;
       damage=absorbShield(b,u,damage);
       damage=takeCasualties(u,damage);
       if(source)combatEffect(b,u,u,false,damage,'impact',TACTICS_BOOK.fire,{text:key==='scorch'?'火攻':'灼烧'});
@@ -568,11 +587,12 @@ export function stepBattle(b) {
   const sequence = b.tick % 2 ? [0, 1] : [1, 0];
   for (const side of sequence) for (const unit of [...activeUnits(b, side)]) {
     if (unit.status !== 'active') continue;
-    unit.cooldown = Math.max(0, unit.cooldown - 1);
+    unit.attackCarry=unit.cooldown>1e-9&&unit.cooldown<1?1-unit.cooldown:0;
+    unit.cooldown = unit.cooldown-1<1e-9?0:unit.cooldown-1;
     if(hasStatus(b,unit,'stun')) {unit.action='眩晕';continue;}
     if(hasStatus(b,unit,'confuse')) {
       const cells=[[unit.x-1,unit.y],[unit.x+1,unit.y],[unit.x,unit.y-1],[unit.x,unit.y+1]].filter(([x,y])=>openCell(b,x,y));
-      if(cells.length&&!hasStatus(b,unit,'phalanx')){const [x,y]=cells[Math.floor(random(b)*cells.length)];unit.x=x;unit.y=y;}
+      if(cells.length&&!hasStatus(b,unit,'phalanx')){const from={x:unit.x,y:unit.y};const [x,y]=cells[Math.floor(random(b)*cells.length)];unit.x=x;unit.y=y;moved(b,unit,from);}
       unit.action='混乱 · 阵位失序';continue;
     }
     if (b.sides[side].retreat) {
@@ -632,13 +652,21 @@ export function settleBattle(state) {
   const city = cityById(state, b.cityId), context = b.context;
   const attacker = armyById(state, context.attackerId), attackerSide = attacker.faction === 'cao' ? 0 : 1;
   const attackWon = b.result.winner === attackerSide;
+  const growth=[];
   const stats = b.sides.map(s => ({ faction: s.faction, initial: 0, remaining: 0, wounded: 0, killed: 0 }));
   for (let side = 0; side < 2; side++) for (const unit of b.sides[side].units) {
     const lost = unit.initial - unit.hp, wounded = battleWounded(unit);
     stats[side].initial += unit.initial; stats[side].remaining += unit.hp; stats[side].wounded += wounded; stats[side].killed += lost - wounded;
     if (!unit.armyId.startsWith('city:')) {
       const army = armyById(state, unit.armyId), source = army?.units.find(u => u.id === unit.id);
-      if (source) { source.troops = unit.hp; source.wounded += wounded; }
+      if (source) {
+        source.troops = unit.hp; source.wounded += wounded;
+        if(unit.participated){
+          const result=gainExperience(source,PROGRESSION.participation+(b.result.winner===side?PROGRESSION.victory:0));
+          if(result.gained)growth.push({id:source.id,name:source.name,side,...result});
+          if(result.after>result.before)log(state,`${source.name}升至 ${result.after} 级${result.unlocked.length?'，习得「'+result.unlocked.join('」「')+'」':''}。`,'good');
+        }
+      }
     }
   }
   const oldOwner = city.owner;
@@ -651,7 +679,7 @@ export function settleBattle(state) {
     if ((isAttacker && !attackWon) || (!isAttacker && attackWon)) retreatArmy(state, army, isAttacker ? context.origin : null);
   }
   if (b.result.winner === 0) { state.victories++; state.fame += 30; state.gold += 300; }
-  state.report = { id: b.id, city: city.name, winner: b.result.winner, reason: b.result.reason, tick: b.tick, stats, captured: oldOwner !== city.owner, owner: city.owner, reward: b.result.winner === 0 ? 300 : 0 };
+  state.report = { id: b.id, city: city.name, winner: b.result.winner, reason: b.result.reason, tick: b.tick, stats, growth, captured: oldOwner !== city.owner, owner: city.owner, reward: b.result.winner === 0 ? 300 : 0 };
   log(state, `${city.name}之战${b.result.winner === 0 ? '告捷' : b.result.winner === 1 ? '失利' : '未分胜负'}，我军阵亡 ${stats[0].killed} 人，伤兵 ${stats[0].wounded} 人。`, b.result.winner === 0 ? 'good' : 'war');
   state.battle = null;
   checkCampaign(state); return state.report;
@@ -684,6 +712,9 @@ export function validateSave(value) {
   function validateUnit(u, combat = false) {
     if(u?.tactics!==undefined)require(validLoadout(u,u.tactics),'战法配置无效');
     require(u && Object.hasOwn(TROOPS, u.type) && ['front', 'middle', 'back', 'left', 'right'].includes(u.formation) && number(u.troops) && number(u.wounded) && typeof u.first === 'boolean', '武将数据无效');
+    u.level ??=1;u.experience ??=0;
+    require(number(u.level,10)&&u.level>=1&&number(u.experience)&&((u.level===10&&u.experience===0)||(u.level<10&&u.experience<experienceNeeded(u.level))),'武将等级或经验无效');
+    require(u.skillRouteType===undefined||Object.hasOwn(TROOPS,u.skillRouteType),'通用技能路线无效');
     if (OFFICERS.some(o => o[0] === u.id)) {
       const source = makeOfficer(u.id);
       for (const key of ['name', 'courtesy', 'leadership', 'force', 'intellect', 'politics', 'skill', 'trait', 'loyalty']) require(u[key] === source[key], '武将基础数据不匹配');
@@ -728,6 +759,12 @@ export function validateSave(value) {
         require(!unitIds.has(u.id) && u.side === index && typeof u.armyId === 'string' && (armyIds.has(u.armyId) || u.armyId === `city:${b.cityId}`)); unitIds.add(u.id);
         u.intent ??= 0;u.moveProgress ??=0;require(Number.isFinite(u.moveProgress)&&u.moveProgress>=0&&u.moveProgress<1,'移动进度无效');
         u.battleDamage ??= u.initial-u.hp;u.healed ??=0;
+        u.passiveState ??=initialPassiveState(b.tick);u.attackCarry ??=0;u.participated ??=!!(u.skillCasts||u.battleDamage||u.intent);
+        const ps=u.passiveState;
+        require(ps&&typeof ps==='object'&&!Array.isArray(ps)&&number(ps.lastMoveTick,b.tick)&&number(ps.shots,100000)&&typeof ps.reserveEntered==='boolean'&&number(ps.entryUntil,b.tick+15)&&(ps.entryUntil===0||ps.reserveEntered)&&
+          (ps.targetId===null||text(ps.targetId,40))&&(ps.shotType===null||Object.hasOwn(TROOPS,ps.shotType))&&Number.isFinite(u.attackCarry)&&u.attackCarry>=0&&u.attackCarry<1&&typeof u.participated==='boolean','被动技能状态无效');
+        const strategic=armyById(value,u.armyId)?.units.find(v=>v.id===u.id);
+        if(strategic)require(u.level===strategic.level&&u.experience===strategic.experience,'战场等级与武将数据不一致');
         require(number(u.battleDamage)&&number(u.healed)&&u.battleDamage-u.healed===u.initial-u.hp&&u.healed<=Math.floor(u.battleDamage*.35),'伤兵治疗数据无效');
         u.skillReady ??= {};u.tacticCasts ??= {};u.statuses ??= {};
         const skills=unitTactics(u).map(s=>s.id);
@@ -745,7 +782,7 @@ export function validateSave(value) {
           }
           if(key==='burn'||key==='scorch')require(number(status.amount,1000000) && typeof status.sourceId==='string');
         }
-        require(['active', 'reserve', 'defeated', 'withdrawn'].includes(u.status) && number(u.hp) && number(u.initial) && u.initial > 0 && u.hp <= u.initial && u.maxHp === u.initial && number(u.morale, 100) && number(u.cooldown) && number(u.intent,COMBAT.intentCap) && text(u.action), '部队状态无效');
+        require(['active', 'reserve', 'defeated', 'withdrawn'].includes(u.status) && number(u.hp) && number(u.initial) && u.initial > 0 && u.hp <= u.initial && u.maxHp === u.initial && number(u.morale, 100) && Number.isFinite(u.cooldown)&&u.cooldown>=0&&u.cooldown<=Number.MAX_SAFE_INTEGER && number(u.intent,COMBAT.intentCap) && text(u.action), '部队状态无效');
         require(u.skillCasts === undefined || number(u.skillCasts), '战法次数无效');
         if (u.cast != null) require(u.status === 'active' && u.hp > 0 && text(u.cast.targetId) && number(u.cast.remaining, COMBAT.skillWindup) && u.cast.remaining > 0, '蓄势状态无效');
         if (u.cast) require(skills.includes(u.cast.skillId) && u.cast.cost===undefined, '战法编号无效');
@@ -754,6 +791,7 @@ export function validateSave(value) {
       }
     });
     require(Array.isArray(b.logs) && b.logs.length <= 70 && b.logs.every(l => l && number(l.tick) && typeof l.text === 'string' && l.text.length < 1000));
+    for(const u of b.sides.flatMap(s=>s.units))require(u.passiveState.targetId===null||unitIds.has(u.passiveState.targetId),'普攻连续目标无效');
     for(const u of b.sides.flatMap(s=>s.units))for(const key of ['burn','scorch'])if(u.statuses[key])require(unitIds.has(u.statuses[key].sourceId),'灼烧来源无效');
     require(Array.isArray(b.effects) && b.effects.length <= 128 && b.effects.every(e => e && unitIds.has(e.from) && unitIds.has(e.to) && number(e.damage) && typeof e.skill === 'boolean' && number(e.x, 13) && number(e.y, 7) && (e.text===undefined || text(e.text))));
     const comboActors = (actors,side) => Array.isArray(actors)&&actors.length>0&&actors.length<=6&&new Set(actors.map(a=>a.id)).size===actors.length&&actors.every(a=>{
@@ -770,7 +808,7 @@ export function validateSave(value) {
     }
     for(const e of b.effects) {
       if(e.comboLevel!==undefined)require([2,3].includes(e.comboLevel),'连携等级无效');
-      if(e.combo) {const c=e.combo;require(e.phase==='impact'&&e.skill&&[2,3].includes(c.level)&&c.bonus===(c.level===2?COMBO.doubleBonus:COMBO.tripleBonus)&&comboActors(c.actors,e.side)&&c.actors.length>=c.level&&text(c.targetName,20),'连携特效无效');}
+      if(e.combo) {const c=e.combo,source=b.sides[e.side]?.units.find(u=>u.id===e.from);require(e.phase==='impact'&&e.skill&&[2,3].includes(c.level)&&c.bonus===(c.level===2?COMBO.doubleBonus:COMBO.tripleBonus)+(source&&hasPassive(source,'combo')?5:0)&&comboActors(c.actors,e.side)&&c.actors.length>=c.level&&text(c.targetName,20),'连携特效无效');}
     }
     for (const e of b.effects) if (e.phase !== undefined) require(['cast', 'impact'].includes(e.phase) && ['charge', 'fire', 'shockwave', 'banner', 'volley', 'slash'].includes(e.visual) && Object.hasOwn(TROOPS, e.troop) && [0, 1].includes(e.side) && text(e.name) && text(e.label) && number(e.fromX, 13) && number(e.fromY, 7), '战法表现事件无效');
   }
@@ -778,6 +816,8 @@ export function validateSave(value) {
     const r = value.report;
     require(result(r) && text(r.id) && initial.cities.some(c => c.name === r.city) && faction(r.owner) && typeof r.captured === 'boolean' && number(r.tick, 240) && number(r.reward) && Array.isArray(r.stats) && r.stats.length === 2, '战报数据无效');
     for (const s of r.stats) { require(s && faction(s.faction)); for (const key of ['initial', 'remaining', 'wounded', 'killed']) require(number(s[key])); require(s.initial === s.remaining + s.wounded + s.killed); }
+    r.growth ??=[];
+    require(Array.isArray(r.growth)&&r.growth.length<=15&&new Set(r.growth.map(g=>g?.id)).size===r.growth.length&&r.growth.every(g=>g&&Object.hasOwn(SKILL_ROUTES,g.id)&&text(g.name,20)&&[0,1].includes(g.side)&&number(g.before,10)&&g.before>=1&&number(g.after,10)&&g.after>=g.before&&number(g.gained,150)&&Array.isArray(g.unlocked)&&g.unlocked.length<=5&&g.unlocked.every(s=>text(s,20))),'成长战报无效');
   }
   return value;
 }

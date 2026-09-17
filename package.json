@@ -1,13 +1,13 @@
 {
   "name": "sango-sovereign",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "三国 · 君临：离线君主策略玩法原型",
   "scripts": {
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check app.js && node --check engine.mjs && node --check battle-effects.mjs && node --check server.mjs && node --check tactics.mjs && node --check unit-stats.mjs"
+    "check": "node --check app.js && node --check engine.mjs && node --check battle-effects.mjs && node --check server.mjs && node --check tactics.mjs && node --check unit-stats.mjs && node --check passives.mjs && node --check progression.mjs"
   },
   "engines": {
     "node": ">=20"

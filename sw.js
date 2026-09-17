@@ -1,5 +1,5 @@
-const CACHE = 'sango-v2-20260917-unit-attributes';
-const ASSETS = ['./', './index.html', './styles.css', './app.js', './engine.mjs', './tactics.mjs', './unit-stats.mjs', './battle-effects.mjs', './icon.svg', './manifest.webmanifest'];
+const CACHE = 'sango-v3-20260917-passive-skills';
+const ASSETS = ['./', './index.html', './styles.css', './app.js', './engine.mjs', './tactics.mjs', './unit-stats.mjs', './passives.mjs', './progression.mjs', './battle-effects.mjs', './icon.svg', './manifest.webmanifest'];
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('sango-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', event => {
