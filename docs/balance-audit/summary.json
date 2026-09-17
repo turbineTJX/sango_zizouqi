@@ -1,0 +1,1243 @@
+[
+  {
+    "scenario": "field",
+    "mode": "baseline",
+    "shield": 20,
+    "n": 100,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 71.97,
+    "remaining": [
+      0,
+      4952.1
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "baseline",
+    "shield": 20,
+    "n": 100,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 54.45,
+    "remaining": [
+      0,
+      14355.99
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "baseline",
+    "shield": 20,
+    "n": 100,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 87.37,
+    "remaining": [
+      0,
+      18291.63
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "siege",
+    "mode": "baseline",
+    "shield": 20,
+    "n": 100,
+    "wins": 41,
+    "draws": 0,
+    "seconds": 129.98,
+    "remaining": [
+      1047.36,
+      2451.71
+    ],
+    "gateBreaks": 41,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 2272.34
+  },
+  {
+    "scenario": "defense",
+    "mode": "baseline",
+    "shield": 20,
+    "n": 100,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 88.21,
+    "remaining": [
+      0,
+      20800.37
+    ],
+    "gateBreaks": 100,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "rotation",
+    "mode": "baseline",
+    "shield": 20,
+    "n": 100,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 74.21,
+    "remaining": [
+      0,
+      9450.51
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "firestorm",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 81.5,
+    "remaining": [
+      0,
+      2795.03
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 2,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "assault",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 75.53,
+    "remaining": [
+      0,
+      4112.53
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 2,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "fortify",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 85.8,
+    "remaining": [
+      0,
+      2930.83
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 2,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "demoralize",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 72.4,
+    "remaining": [
+      0,
+      4899.5
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 2,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "rotate",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 72.4,
+    "remaining": [
+      0,
+      4899.5
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 92.35,
+    "remaining": [
+      0,
+      3008.83
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "aggressive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 76.88,
+    "remaining": [
+      0,
+      3683.93
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "defensive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 88.69,
+    "remaining": [
+      0,
+      3692.7
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "field",
+    "mode": "level1",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 77.49,
+    "remaining": [
+      0,
+      4381.17
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "firestorm",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 54.46,
+    "remaining": [
+      0,
+      13502.17
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 1,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "assault",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 54.48,
+    "remaining": [
+      0,
+      14091.13
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 1,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "fortify",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 56.23,
+    "remaining": [
+      0,
+      14177.5
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 1,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "demoralize",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 54.46,
+    "remaining": [
+      0,
+      14356.47
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 1,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "rotate",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 54.51,
+    "remaining": [
+      0,
+      14365.53
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 52.17,
+    "remaining": [
+      0,
+      14709.5
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "aggressive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 49.77,
+    "remaining": [
+      0,
+      14055.9
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "defensive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 60.69,
+    "remaining": [
+      0,
+      13835.83
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "level1",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 44.99,
+    "remaining": [
+      0,
+      16125.47
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "firestorm",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 88.22,
+    "remaining": [
+      0,
+      15571.53
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "assault",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 86.38,
+    "remaining": [
+      0,
+      16742.87
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "fortify",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 91.79,
+    "remaining": [
+      0,
+      17131.9
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 3.03,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "demoralize",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 87.92,
+    "remaining": [
+      0,
+      18231.47
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "rotate",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 82.86,
+    "remaining": [
+      826.73,
+      19251.17
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 1,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 89.6,
+    "remaining": [
+      0,
+      17866.53
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "aggressive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 81.43,
+    "remaining": [
+      0,
+      17146.83
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "defensive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 91.84,
+    "remaining": [
+      0,
+      18251.3
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "level1",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 79.89,
+    "remaining": [
+      0,
+      20102.2
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "siege",
+    "mode": "firestorm",
+    "shield": 20,
+    "n": 30,
+    "wins": 29,
+    "draws": 0,
+    "seconds": 120.35,
+    "remaining": [
+      4712.63,
+      792.4
+    ],
+    "gateBreaks": 29,
+    "timeouts": 0,
+    "commands": 4.2,
+    "gateMean": 2.57
+  },
+  {
+    "scenario": "siege",
+    "mode": "assault",
+    "shield": 20,
+    "n": 30,
+    "wins": 30,
+    "draws": 0,
+    "seconds": 113.14,
+    "remaining": [
+      4860.27,
+      1451.77
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 4.27,
+    "gateMean": 0
+  },
+  {
+    "scenario": "siege",
+    "mode": "fortify",
+    "shield": 20,
+    "n": 30,
+    "wins": 26,
+    "draws": 0,
+    "seconds": 122.03,
+    "remaining": [
+      4685.3,
+      1734.07
+    ],
+    "gateBreaks": 26,
+    "timeouts": 0,
+    "commands": 4.5,
+    "gateMean": 464.8
+  },
+  {
+    "scenario": "siege",
+    "mode": "demoralize",
+    "shield": 20,
+    "n": 30,
+    "wins": 16,
+    "draws": 0,
+    "seconds": 123.25,
+    "remaining": [
+      1990.87,
+      2283.33
+    ],
+    "gateBreaks": 16,
+    "timeouts": 0,
+    "commands": 4.2,
+    "gateMean": 2295.03
+  },
+  {
+    "scenario": "siege",
+    "mode": "rotate",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 107.64,
+    "remaining": [
+      625.87,
+      3618.03
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 1,
+    "gateMean": 4954.2
+  },
+  {
+    "scenario": "siege",
+    "mode": "mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 15,
+    "draws": 0,
+    "seconds": 158.29,
+    "remaining": [
+      1008.57,
+      1443.93
+    ],
+    "gateBreaks": 15,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 2441.3
+  },
+  {
+    "scenario": "siege",
+    "mode": "aggressive",
+    "shield": 20,
+    "n": 30,
+    "wins": 29,
+    "draws": 0,
+    "seconds": 92.45,
+    "remaining": [
+      5990.73,
+      2903.33
+    ],
+    "gateBreaks": 29,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 3.03
+  },
+  {
+    "scenario": "siege",
+    "mode": "defensive",
+    "shield": 20,
+    "n": 30,
+    "wins": 11,
+    "draws": 0,
+    "seconds": 143.99,
+    "remaining": [
+      1725.4,
+      1638.87
+    ],
+    "gateBreaks": 11,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 2210.3
+  },
+  {
+    "scenario": "siege",
+    "mode": "level1",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 95.97,
+    "remaining": [
+      0,
+      5364.33
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 5000
+  },
+  {
+    "scenario": "defense",
+    "mode": "firestorm",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 91.26,
+    "remaining": [
+      0,
+      17972.23
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "assault",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 88.92,
+    "remaining": [
+      0,
+      19788.73
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "fortify",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 92.8,
+    "remaining": [
+      0,
+      19844.93
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "demoralize",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 88.78,
+    "remaining": [
+      0,
+      20639.13
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "rotate",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 88.39,
+    "remaining": [
+      556.97,
+      20901.47
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 1.1,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 91.19,
+    "remaining": [
+      0,
+      20775.33
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "aggressive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 86.33,
+    "remaining": [
+      0,
+      19355.47
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "defensive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 96.97,
+    "remaining": [
+      0,
+      19598.27
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "level1",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 84.89,
+    "remaining": [
+      0,
+      21855.93
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "rotation",
+    "mode": "firestorm",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 75.02,
+    "remaining": [
+      0,
+      7081.7
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "assault",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 73.55,
+    "remaining": [
+      0,
+      8419.53
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 2.87,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "fortify",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 78.91,
+    "remaining": [
+      0,
+      8360.5
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 3,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "demoralize",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 72.89,
+    "remaining": [
+      0,
+      9772
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 2.67,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "rotate",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 72.29,
+    "remaining": [
+      254,
+      9086.8
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 1,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 74.67,
+    "remaining": [
+      0,
+      9379.7
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "aggressive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 67.29,
+    "remaining": [
+      0,
+      9353.73
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "defensive",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 78.17,
+    "remaining": [
+      0,
+      9214.23
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "rotation",
+    "mode": "level1",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 69.65,
+    "remaining": [
+      0,
+      10224
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "siege",
+    "mode": "baseline",
+    "shield": 0,
+    "n": 30,
+    "wins": 30,
+    "draws": 0,
+    "seconds": 88.53,
+    "remaining": [
+      9341.27,
+      812
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "siege",
+    "mode": "baseline",
+    "shield": 50,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 92.75,
+    "remaining": [
+      0,
+      7165.97
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 5000
+  },
+  {
+    "scenario": "siege",
+    "mode": "baseline",
+    "shield": 100,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 85.96,
+    "remaining": [
+      0,
+      10931.13
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 5000
+  },
+  {
+    "scenario": "siege",
+    "mode": "focus-gate",
+    "shield": 20,
+    "n": 30,
+    "wins": 14,
+    "draws": 0,
+    "seconds": 102.43,
+    "remaining": [
+      1804.43,
+      4272.43
+    ],
+    "gateBreaks": 14,
+    "timeouts": 0,
+    "commands": 3.93,
+    "gateMean": 1682.43
+  },
+  {
+    "scenario": "defense",
+    "mode": "baseline",
+    "shield": 0,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 79.66,
+    "remaining": [
+      0,
+      22592.8
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "baseline",
+    "shield": 50,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 102.36,
+    "remaining": [
+      0,
+      17380.4
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "defense",
+    "mode": "baseline",
+    "shield": 100,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 124.04,
+    "remaining": [
+      0,
+      12605.7
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "field",
+    "mode": "both-mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 89.32,
+    "remaining": [
+      0,
+      3552.93
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "outnumbered",
+    "mode": "both-mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 51.73,
+    "remaining": [
+      0,
+      15000.33
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "reinforcements",
+    "mode": "both-mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 89.3,
+    "remaining": [
+      0,
+      18745.13
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  },
+  {
+    "scenario": "siege",
+    "mode": "both-mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 3,
+    "draws": 0,
+    "seconds": 114.24,
+    "remaining": [
+      238.6,
+      4124.37
+    ],
+    "gateBreaks": 3,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 4500
+  },
+  {
+    "scenario": "defense",
+    "mode": "both-mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 90.46,
+    "remaining": [
+      0,
+      21238.13
+    ],
+    "gateBreaks": 30,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": 0
+  },
+  {
+    "scenario": "rotation",
+    "mode": "both-mixed",
+    "shield": 20,
+    "n": 30,
+    "wins": 0,
+    "draws": 0,
+    "seconds": 75.65,
+    "remaining": [
+      0,
+      9873.3
+    ],
+    "gateBreaks": 0,
+    "timeouts": 0,
+    "commands": 0,
+    "gateMean": null
+  }
+]

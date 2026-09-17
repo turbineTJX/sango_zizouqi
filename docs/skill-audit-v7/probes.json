@@ -1,0 +1,240 @@
+{
+  "defaultSynergies": [
+    {
+      "id": "cao",
+      "name": "曹操",
+      "type": "spear",
+      "tactics": [
+        "横枪奋击",
+        "铁壁枪阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "dun",
+      "name": "夏侯惇",
+      "type": "spear",
+      "tactics": [
+        "横枪奋击",
+        "铁壁枪阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "liao",
+      "name": "张辽",
+      "type": "cavalry",
+      "tactics": [
+        "八百破阵",
+        "铁骑冲阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "chu",
+      "name": "许褚",
+      "type": "spear",
+      "tactics": [
+        "虎卫折冲",
+        "铁壁枪阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "jia",
+      "name": "郭嘉",
+      "type": "crossbow",
+      "tactics": [
+        "十胜奇谋",
+        "机括封喉",
+        "扰阵轻射"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "yu",
+      "name": "荀攸",
+      "type": "crossbow",
+      "tactics": [
+        "烟幕掩军",
+        "机括封喉",
+        "扰阵轻射"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "yuanxia",
+      "name": "夏侯渊",
+      "type": "cavalry",
+      "tactics": [
+        "骁骑奋战",
+        "铁骑冲阵",
+        "步步进逼"
+      ],
+      "mismatches": [
+        "弓术"
+      ],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "jin",
+      "name": "于禁",
+      "type": "spear",
+      "tactics": [
+        "横枪奋击",
+        "铁壁枪阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "shao",
+      "name": "袁绍",
+      "type": "spear",
+      "tactics": [
+        "横枪奋击",
+        "铁壁枪阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "yan",
+      "name": "颜良",
+      "type": "cavalry",
+      "tactics": [
+        "骁骑奋战",
+        "铁骑冲阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "wen",
+      "name": "文丑",
+      "type": "cavalry",
+      "tactics": [
+        "骁骑奋战",
+        "铁骑冲阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "he",
+      "name": "张合",
+      "type": "spear",
+      "tactics": [
+        "横枪奋击",
+        "铁壁枪阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "ju",
+      "name": "沮授",
+      "type": "archer",
+      "tactics": [
+        "火计连营",
+        "烽烟惑阵",
+        "扰阵轻射"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [
+        "护持",
+        "辅军"
+      ],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "tian",
+      "name": "田丰",
+      "type": "archer",
+      "tactics": [
+        "火计连营",
+        "烽烟惑阵",
+        "扰阵轻射"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": true
+    },
+    {
+      "id": "gao",
+      "name": "高览",
+      "type": "spear",
+      "tactics": [
+        "横枪奋击",
+        "铁壁枪阵",
+        "步步进逼"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    }
+  ],
+  "foresight": {
+    "target": "颜良（推荐战法）",
+    "threshold": 20,
+    "removed": 54,
+    "remaining": 46,
+    "multiplier": 1,
+    "explanation": "满战意受到十胜奇谋 + 挫锐后仍高于20门槛，不能单独触发料敌；其他压制或前期低战意仍可触发。"
+  },
+  "gallop": {
+    "firstIntent": {
+      "tick": 3,
+      "intent": 22,
+      "action": "攻击袁绍"
+    },
+    "casts": 0,
+    "candidate": "门槛0可在接敌前首步发动；这里只验证可触发性，尚未据此调整实装。"
+  },
+  "adapt": {
+    "entryTick": 1,
+    "expiresAt": 16,
+    "intent": 25,
+    "attackWithUltimate": 314.24512000000004,
+    "attackWithoutUltimate": 265.14432000000005
+  },
+  "fire": [
+    {
+      "hp": 3000,
+      "direct": 118,
+      "burnPerTick": 24
+    },
+    {
+      "hp": 30,
+      "direct": 12,
+      "burnPerTick": 24
+    }
+  ]
+}

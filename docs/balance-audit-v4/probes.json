@@ -1,0 +1,310 @@
+{
+  "strength": [
+    {
+      "hp": 1,
+      "maxHp": 3000,
+      "strength": 0.018257418583505537,
+      "attack": 256.02560000000005
+    },
+    {
+      "hp": 1800,
+      "maxHp": 1800,
+      "strength": 0.7745966692414834,
+      "attack": 256.02560000000005
+    },
+    {
+      "hp": 3000,
+      "maxHp": 3000,
+      "strength": 1,
+      "attack": 256.02560000000005
+    }
+  ],
+  "phalanx": [
+    {
+      "tick": 1,
+      "x": 6,
+      "y": 4,
+      "action": "接近田丰",
+      "hp": 2532,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 2,
+      "x": 6,
+      "y": 4,
+      "action": "铁壁枪阵",
+      "hp": 2532,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 3,
+      "x": 6,
+      "y": 4,
+      "action": "步步进逼",
+      "hp": 2485,
+      "damageBySpear": 31
+    },
+    {
+      "tick": 4,
+      "x": 6,
+      "y": 4,
+      "action": "横枪奋击",
+      "hp": 2485,
+      "damageBySpear": 149
+    },
+    {
+      "tick": 5,
+      "x": 6,
+      "y": 4,
+      "action": "攻击田丰",
+      "hp": 2441,
+      "damageBySpear": 74
+    },
+    {
+      "tick": 6,
+      "x": 6,
+      "y": 4,
+      "action": "重整攻势",
+      "hp": 2441,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 7,
+      "x": 6,
+      "y": 4,
+      "action": "重整攻势",
+      "hp": 2396,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 8,
+      "x": 6,
+      "y": 4,
+      "action": "攻击田丰",
+      "hp": 2396,
+      "damageBySpear": 70
+    },
+    {
+      "tick": 9,
+      "x": 6,
+      "y": 4,
+      "action": "重整攻势",
+      "hp": 2349,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 10,
+      "x": 6,
+      "y": 4,
+      "action": "重整攻势",
+      "hp": 2349,
+      "damageBySpear": 0
+    }
+  ],
+  "targetChoice": {
+    "action": "攻击袁绍",
+    "position": {
+      "x": 5,
+      "y": 4
+    },
+    "damage": [
+      {
+        "from": "cao",
+        "to": "shao",
+        "damage": 65,
+        "skill": false,
+        "phase": "impact",
+        "visual": "banner",
+        "troop": "spear",
+        "side": 0,
+        "name": "曹操",
+        "label": "魏武挥鞭",
+        "fromX": 5,
+        "fromY": 4,
+        "x": 6,
+        "y": 4
+      }
+    ],
+    "closeTarget": "袁绍",
+    "pursuedTarget": "颜良"
+  },
+  "demoralize": {
+    "error": null,
+    "before": [
+      {
+        "name": "袁绍",
+        "intent": 110,
+        "thresholds": [
+          90,
+          65,
+          20
+        ]
+      },
+      {
+        "name": "颜良",
+        "intent": 110,
+        "thresholds": [
+          85,
+          60,
+          20
+        ]
+      },
+      {
+        "name": "文丑",
+        "intent": 110,
+        "thresholds": [
+          85,
+          60,
+          20
+        ]
+      },
+      {
+        "name": "张郃",
+        "intent": 110,
+        "thresholds": [
+          90,
+          65,
+          20
+        ]
+      },
+      {
+        "name": "沮授",
+        "intent": 110,
+        "thresholds": [
+          90,
+          65,
+          25
+        ]
+      },
+      {
+        "name": "田丰",
+        "intent": 110,
+        "thresholds": [
+          90,
+          65,
+          25
+        ]
+      }
+    ],
+    "after": [
+      {
+        "name": "袁绍",
+        "intent": 65,
+        "allThresholdsStillMet": false
+      },
+      {
+        "name": "颜良",
+        "intent": 65,
+        "allThresholdsStillMet": false
+      },
+      {
+        "name": "文丑",
+        "intent": 65,
+        "allThresholdsStillMet": false
+      },
+      {
+        "name": "张郃",
+        "intent": 65,
+        "allThresholdsStillMet": false
+      },
+      {
+        "name": "沮授",
+        "intent": 65,
+        "allThresholdsStillMet": false
+      },
+      {
+        "name": "田丰",
+        "intent": 65,
+        "allThresholdsStillMet": false
+      }
+    ]
+  },
+  "waves": [
+    {
+      "name": "援军1队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 25
+    },
+    {
+      "name": "援军2队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 26
+    },
+    {
+      "name": "援军3队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 30
+    },
+    {
+      "name": "援军4队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 31
+    },
+    {
+      "name": "援军5队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 55
+    },
+    {
+      "name": "援军6队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 59
+    },
+    {
+      "name": "援军7队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 60
+    },
+    {
+      "name": "援军8队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 72
+    },
+    {
+      "name": "援军9队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": 85
+    },
+    {
+      "name": "援军10队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": 85
+    },
+    {
+      "name": "援军11队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": 99
+    },
+    {
+      "name": "援军12队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": 102
+    }
+  ],
+  "rotationCommands": [
+    {
+      "id": "heal",
+      "error": "在场部队暂无可救治的本场伤兵"
+    },
+    {
+      "id": "regenerate",
+      "error": null
+    },
+    {
+      "id": "relief",
+      "error": "军略尚未蓄满"
+    }
+  ]
+}

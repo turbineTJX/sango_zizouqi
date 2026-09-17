@@ -1,0 +1,131 @@
+{
+  "rulesVersion": 8,
+  "seeds": 16,
+  "sourceHashes": {
+    "engine.mjs": "0c2276b25f40bd4d80b750b92ff9283b73766a29722e0fd98f79703ed1fe4c34",
+    "tactics.mjs": "31ac064b1ca14c18c042eca94a8d57295a824a25b6ad7c84916dee1da70b695e",
+    "passives.mjs": "a7e4b9f73f9e42cb25e89d89e311e5e09ef358a40319697259d746806c4c0a5f",
+    "unit-stats.mjs": "21a26f85b1f5163d40f8dcc1ee868e43c4da3ca3562be8d6d950d8a73a002157",
+    "relationships.mjs": "4380c0359acd2872f8672c17b60cab5e2d9cf38a1b3c8277abc78f28156d6fc2",
+    "combat-rules.mjs": "346ff98a8d97e3f7e5fe6b5d809772d4c10102954f060801dc5d071b0e26f1bb",
+    "scenarios.mjs": "dc510ba3aaee96cb3263c04c5175a9ac54b6dae90a2b4cbd8665cc5d7281a352",
+    "scenario-catalog.mjs": "739402313c003bfeb644c195591abc0c667bb3c873f08d8e8b04674bd07d5cfd",
+    "officer-catalog.mjs": "c601e160c3a1619b84f00ac8e7ecb0bf57c3639bae90afd1a6802d65fb3566ab",
+    "data/officers.mjs": "3859dc656c23c00c5d9c86c86e04f329cb1ca5f7fa080c8e506c6b6c7c01dbdc",
+    "scripts/skill-audit.mjs": "c98db851fbc0d700d304d5374f6e4e1824a78306cac7bdf9cc1fcffe2014872c"
+  },
+  "officers": 835,
+  "skilledOfficers": 15,
+  "actualBattles": 448,
+  "methodology": "6v6, 3000 troops per unit, paired fixed seeds and both sides, two formations, no commands in marginal tests, ordinary relationship 50; tactic first slot on vs cooldown-disabled; passive same officer level10 vs1/9. Margin gain is percentage points of 18000 starting troops, not win rate. Approximate intervals are exploratory, not population confidence. Scenario commands benefit player side only.",
+  "tactics": [
+    {
+      "id": "gallop",
+      "name": "风驰电掣",
+      "pairs": 128,
+      "marginGainPP": -7.168,
+      "approx95": [
+        -8.269,
+        -6.067
+      ],
+      "scoreGainPP": -8.203,
+      "castMean": 1.336,
+      "zeroCastPct": 0,
+      "seconds": 124.403,
+      "contexts": [
+        {
+          "context": "cavalry/physical/compact",
+          "pairs": 32,
+          "marginGainPP": -6.205,
+          "approx95": [
+            -9.169,
+            -3.24
+          ],
+          "scoreGainPP": -14.062,
+          "castMean": 1,
+          "zeroCastPct": 0,
+          "seconds": 121.45
+        },
+        {
+          "context": "cavalry/physical/spread",
+          "pairs": 32,
+          "marginGainPP": -7.493,
+          "approx95": [
+            -8.475,
+            -6.51
+          ],
+          "scoreGainPP": 0,
+          "castMean": 1.688,
+          "zeroCastPct": 0,
+          "seconds": 135.231
+        },
+        {
+          "context": "cavalry/intellect/compact",
+          "pairs": 32,
+          "marginGainPP": -6.924,
+          "approx95": [
+            -9.925,
+            -3.923
+          ],
+          "scoreGainPP": -18.75,
+          "castMean": 1,
+          "zeroCastPct": 0,
+          "seconds": 121.056
+        },
+        {
+          "context": "cavalry/intellect/spread",
+          "pairs": 32,
+          "marginGainPP": -8.051,
+          "approx95": [
+            -9.108,
+            -6.993
+          ],
+          "scoreGainPP": 0,
+          "castMean": 1.656,
+          "zeroCastPct": 0,
+          "seconds": 119.875
+        }
+      ]
+    }
+  ],
+  "passives": [
+    {
+      "id": "jia",
+      "name": "郭嘉",
+      "type": "crossbow",
+      "route": [
+        "博识",
+        "振奋",
+        "挫锐",
+        "协谋",
+        "料敌"
+      ],
+      "ultimate": "料敌",
+      "routeResult": {
+        "pairs": 64,
+        "marginGainPP": 4.01,
+        "approx95": [
+          2.604,
+          5.416
+        ],
+        "scoreGainPP": 15.625,
+        "castMean": 31.953,
+        "zeroCastPct": 0,
+        "seconds": 153.475
+      },
+      "ultimateResult": {
+        "pairs": 64,
+        "marginGainPP": 0.452,
+        "approx95": [
+          0.178,
+          0.726
+        ],
+        "scoreGainPP": 0.781,
+        "castMean": 31.953,
+        "zeroCastPct": 0,
+        "seconds": 153.475
+      }
+    }
+  ],
+  "scenarios": []
+}

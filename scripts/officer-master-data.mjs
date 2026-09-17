@@ -1,0 +1,64 @@
+import {OFFICER_CATALOG,OFFICER_BY_ID,PERSONALITY_NAMES,RIGHTEOUSNESS_NAMES} from '../officer-catalog.mjs';
+import {FAMOUS_OFFICERS} from '../famous-officers.mjs';
+import {SKILL_ROUTES,PASSIVES,SKILL_LEVELS} from '../passives.mjs';
+import {TACTICS_BOOK,SPECIAL_TACTICS,recommendedTacticIds,unitTactics} from '../tactics.mjs';
+import {makeOfficer,unitAttributes,TROOPS,officerStratagems,STRATAGEMS,newGame} from '../engine.mjs';
+import {RULES_VERSION} from '../combat-rules.mjs';
+
+const formation={front:'前排',middle:'中排',back:'后排',left:'左翼',right:'右翼'};
+const names=ids=>ids?.length?ids.map(id=>`${OFFICER_BY_ID[id]?.name||'未收录'}（${id}）`).join('、'):'未记载';
+const trait=(dict,value)=>value==null?'未载':value===0?'未设置':dict[value]||`未知编号 ${value}`;
+const originalCampaign=newGame().armies;
+const columns=[];
+const add=(key,label,width,group,get,format=null)=>columns.push({key,label,width,group,get,format});
+add('name','姓名',12,'身份',x=>x.u.name);
+add('id','武将编号',19,'身份',x=>x.u.id);
+add('courtesy','字',12,'身份',x=>x.u.courtesy||'未载');
+add('status','技能设计状态',19,'身份',x=>x.route.length?'已设计':'待设计');
+add('role','战术定位',18,'身份',x=>x.design?.role||'待设计');
+add('type','默认兵种',12,'身份',x=>TROOPS[x.u.type].name);
+add('formation','默认阵位',12,'身份',x=>formation[x.u.formation]);
+for(const [key,label] of [['leadership','统率'],['force','武力'],['intellect','智力'],['politics','政治'],['charm','魅力']])add(key,label,9,'能力',x=>x.c[key],'0');
+for(let i=0;i<5;i++){
+ add(`passive${i}`,`${SKILL_LEVELS[i]}级技能`,17,'成长',x=>x.route[i]?PASSIVES[x.route[i]].name:'待设计');
+ add(`passiveEffect${i}`,`${SKILL_LEVELS[i]}级技能效果`,46,'成长',x=>x.route[i]?PASSIVES[x.route[i]].description:'未配置成长路线');
+}
+add('special','专属战法',18,'战法',x=>x.special?.name||'待设计');
+add('category','专属类别',12,'战法',x=>x.special?(x.special.category==='force'?'武力':'智力'):'不适用');
+add('threshold','专属战意门槛',15,'战法',x=>x.special?.threshold??null,'0');
+add('cooldown','专属冷却（步）',16,'战法',x=>x.special?.cooldown??null,'0');
+add('range','专属射程说明',26,'战法',x=>!x.special?'不适用':x.special.range?`${x.special.range} 格`:x.special.effect==='terror'?'最多 3 格路线冲锋 / 相邻':x.special.effect==='protect'?'2 格内贴身受威胁友军':'使用当前兵种射程');
+add('specialEffect','专属战法效果',74,'战法',x=>x.special?.description||'未配置专属战法');
+for(let i=0;i<3;i++)add(`equipped${i}`,`新建默认槽${i+1}`,18,'战法',x=>unitTactics(x.u)[i].name);
+for(let i=0;i<3;i++)add(`recommended${i}`,`推荐战法槽${i+1}`,18,'战法',x=>TACTICS_BOOK[recommendedTacticIds(x.u)[i]].name);
+add('stratagem','主将/军师解锁军略',45,'战法',x=>officerStratagems(x.u.id).map(id=>STRATAGEMS[id].name).join('、')||'未配置');
+for(const [key,label] of [['attack','攻击'],['defense','防御'],['martialPower','武技威力'],['strategyPower','谋略威力'],['discipline','军纪'],['move','移速'],['range','射程'],['attackSpeed','每秒普攻次数'],['siege','攻城属性']])add('base-'+key,`1级${label}`,16,'部队',x=>x.stats[key],'0.00');
+for(const [key,label] of [['level','等级'],['experience','经验'],['loyalty','忠诚'],['troops','兵力'],['wounded','伤兵']])add('initial-'+key,`新建${label}`,13,'部队',x=>x.u[key],'0');
+add('trait','角色说明',24,'部队',x=>x.u.trait);
+add('campaign','初始剧本势力',18,'人物',x=>({cao:'曹操军',yuan:'袁绍军'})[originalCampaign.find(a=>a.units.some(u=>u.id===x.u.id))?.faction]||'未编入初始军团');
+add('personality','性格',13,'人物',x=>trait(PERSONALITY_NAMES,x.c.personality));
+add('righteousness','义理',15,'人物',x=>trait(RIGHTEOUSNESS_NAMES,x.c.righteousness));
+add('compatibility','相性',9,'人物',x=>x.c.compatibility,'0');
+add('sex','性别',9,'人物',x=>x.c.sex===0?'男':x.c.sex===1?'女':'未载');
+add('birth','出生年',12,'人物',x=>x.c.birthYear,'0');
+add('death','去世年',12,'人物',x=>x.c.deathYear,'0');
+add('available','来源登场年',14,'人物',x=>x.c.source.yearAvailable??null,'0');
+for(const [key,label] of [['spearLv','枪兵'],['halberdLv','戟兵'],['crossbowLv','弩兵'],['rideLv','骑兵'],['machineLv','兵器'],['waterLv','水军']])add(key,`来源${label}适性`,15,'适性',x=>['C','B','A','S'][x.c.source[key]]??'未载');
+for(const [key,label] of [['fatherId','父亲'],['motherId','母亲'],['spouseIds','配偶'],['swornSiblingIds','义兄弟'],['likedIds','初始亲爱'],['dislikedIds','初始厌恶']])add(key,label,64,'关系',x=>names(Array.isArray(x.c.relations[key])?x.c.relations[key]:x.c.relations[key]?[x.c.relations[key]]:[]));
+add('aliases','别名/检索名',24,'来源',x=>[...new Set(x.c.aliases)].join('、'));
+add('sourceKind','来源类别',14,'来源',x=>x.c.sourceKind==='custom'?'自建':'武将库');
+add('sourceId','来源编号',12,'来源',x=>x.c.sourceId,'0');
+for(const [key,label] of [['BelongForce','势力编号'],['BelongCorps','军团编号'],['BelongCity','城池编号'],['Official','官职编号'],['state','状态编号'],['loyalty','忠诚'],['Level','等级']])add('source-'+key,`来源${label}`,15,'来源',x=>x.c.source[key]??null,'0');
+add('features','来源特性编号',20,'来源',x=>JSON.stringify(x.c.source.FeatureList||[]));
+add('bio','人物生平',92,'来源',x=>x.c.biography.trim().replace(/\n+/g,' '));
+
+const ordered=[...Object.keys(FAMOUS_OFFICERS).map(id=>OFFICER_BY_ID[id]),...OFFICER_CATALOG.filter(c=>!FAMOUS_OFFICERS[c.id])];
+export const OFFICER_MASTER_COLUMNS=columns.map(({get,...c})=>c);
+export const OFFICER_MASTER_RECORDS=ordered.map(c=>{
+ const u=makeOfficer(c.id),x={c,u,design:FAMOUS_OFFICERS[c.id],route:SKILL_ROUTES[c.id]||[],special:TACTICS_BOOK[SPECIAL_TACTICS[c.id]],stats:unitAttributes(u)};
+ return Object.fromEntries(columns.map(col=>[col.key,col.get(x)]));
+});
+export const OFFICER_MASTER_ROWS=OFFICER_MASTER_RECORDS.map(r=>columns.map(c=>r[c.key]));
+export const ORIGINAL_KEYS=[...new Set(OFFICER_CATALOG.flatMap(c=>Object.keys(c.source)))];
+export const ORIGINAL_ROWS=ordered.map(c=>[c.id,c.name,c.sourceKind,...ORIGINAL_KEYS.map(k=>{const v=c.source[k];return v===undefined?null:v&&typeof v==='object'?JSON.stringify(v):v;})]);
+export const MASTER_RULES_VERSION=RULES_VERSION;

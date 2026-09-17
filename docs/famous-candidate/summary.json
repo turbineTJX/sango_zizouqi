@@ -1,0 +1,749 @@
+{
+  "rulesVersion": 9,
+  "seeds": 4,
+  "sourceHashes": {
+    "engine.mjs": "2bcfcd9ea868076474d9c75acecbadec383ecf8e9bd6ffd9da76339a77f298ea",
+    "tactics.mjs": "93cb604c0cf6f1cb15f17674a5b5a4d92388323d1a5ba1d79208457512c21533",
+    "passives.mjs": "51cb1fb210921d41121e2a8dc02e0108fe22895750e9b87ff2aed286a544901e",
+    "unit-stats.mjs": "21a26f85b1f5163d40f8dcc1ee868e43c4da3ca3562be8d6d950d8a73a002157",
+    "relationships.mjs": "00959ad48c3e57ea2f41be421807ba518324da3ac6708c583c6f5ac51e75b02a",
+    "combat-rules.mjs": "a01aa798673650a2328e1c6ca47af0f76c9d874e87a1e554aa3edfc7279fab3d",
+    "scenarios.mjs": "dc510ba3aaee96cb3263c04c5175a9ac54b6dae90a2b4cbd8665cc5d7281a352",
+    "scenario-catalog.mjs": "739402313c003bfeb644c195591abc0c667bb3c873f08d8e8b04674bd07d5cfd",
+    "officer-catalog.mjs": "bf9a56ec650aee5790437e20201064155a4803e5ad56aa1d84f22802a57d63ce",
+    "data/officers.mjs": "3859dc656c23c00c5d9c86c86e04f329cb1ca5f7fa080c8e506c6b6c7c01dbdc",
+    "scripts/skill-audit.mjs": "c98db851fbc0d700d304d5374f6e4e1824a78306cac7bdf9cc1fcffe2014872c"
+  },
+  "officers": 835,
+  "skilledOfficers": 41,
+  "actualBattles": 720,
+  "methodology": "6v6, 3000 troops per unit, paired fixed seeds and both sides, two formations, no commands in marginal tests, ordinary relationship 50; tactic first slot on vs cooldown-disabled; passive same officer level10 vs1/9. Margin gain is percentage points of 18000 starting troops, not win rate. Approximate intervals are exploratory, not population confidence. Scenario commands benefit player side only.",
+  "tactics": [
+    {
+      "id": "unique-cao",
+      "name": "魏武挥鞭",
+      "pairs": 32,
+      "marginGainPP": 18.474,
+      "approx95": [
+        14.862,
+        22.087
+      ],
+      "scoreGainPP": 46.875,
+      "castMean": 2.5,
+      "zeroCastPct": 0,
+      "seconds": 126.35,
+      "contexts": [
+        {
+          "context": "spear/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 11.706,
+          "approx95": [
+            2.052,
+            21.359
+          ],
+          "scoreGainPP": 37.5,
+          "castMean": 2,
+          "zeroCastPct": 0,
+          "seconds": 135.45
+        },
+        {
+          "context": "spear/physical/spread",
+          "pairs": 8,
+          "marginGainPP": 22.927,
+          "approx95": [
+            20.877,
+            24.977
+          ],
+          "scoreGainPP": 50,
+          "castMean": 3.125,
+          "zeroCastPct": 0,
+          "seconds": 113.05
+        },
+        {
+          "context": "spear/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": 16.703,
+          "approx95": [
+            9.355,
+            24.052
+          ],
+          "scoreGainPP": 50,
+          "castMean": 1.875,
+          "zeroCastPct": 0,
+          "seconds": 123.9
+        },
+        {
+          "context": "spear/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 22.562,
+          "approx95": [
+            22.139,
+            22.984
+          ],
+          "scoreGainPP": 50,
+          "castMean": 3,
+          "zeroCastPct": 0,
+          "seconds": 133
+        }
+      ]
+    },
+    {
+      "id": "unique-ju",
+      "name": "监军持重",
+      "pairs": 32,
+      "marginGainPP": 26.647,
+      "approx95": [
+        25.414,
+        27.88
+      ],
+      "scoreGainPP": 50,
+      "castMean": 6.25,
+      "zeroCastPct": 0,
+      "seconds": 148.356,
+      "contexts": [
+        {
+          "context": "crossbow/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 24.076,
+          "approx95": [
+            22.522,
+            25.63
+          ],
+          "scoreGainPP": 50,
+          "castMean": 5.125,
+          "zeroCastPct": 0,
+          "seconds": 130.2
+        },
+        {
+          "context": "crossbow/physical/spread",
+          "pairs": 8,
+          "marginGainPP": 25.392,
+          "approx95": [
+            24.4,
+            26.383
+          ],
+          "scoreGainPP": 50,
+          "castMean": 8.375,
+          "zeroCastPct": 0,
+          "seconds": 168
+        },
+        {
+          "context": "crossbow/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": 27.747,
+          "approx95": [
+            25.6,
+            29.895
+          ],
+          "scoreGainPP": 50,
+          "castMean": 3.625,
+          "zeroCastPct": 0,
+          "seconds": 127.225
+        },
+        {
+          "context": "crossbow/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 29.373,
+          "approx95": [
+            28.443,
+            30.303
+          ],
+          "scoreGainPP": 50,
+          "castMean": 7.875,
+          "zeroCastPct": 0,
+          "seconds": 168
+        }
+      ]
+    },
+    {
+      "id": "unique-person-636",
+      "name": "仁德济众",
+      "pairs": 32,
+      "marginGainPP": 20.562,
+      "approx95": [
+        14.851,
+        26.273
+      ],
+      "scoreGainPP": 37.5,
+      "castMean": 2.969,
+      "zeroCastPct": 0,
+      "seconds": 134.225,
+      "contexts": [
+        {
+          "context": "spear/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 5.091,
+          "approx95": [
+            -6.64,
+            16.822
+          ],
+          "scoreGainPP": 0,
+          "castMean": 2.125,
+          "zeroCastPct": 0,
+          "seconds": 137.55
+        },
+        {
+          "context": "spear/physical/spread",
+          "pairs": 8,
+          "marginGainPP": 28.483,
+          "approx95": [
+            27.843,
+            29.124
+          ],
+          "scoreGainPP": 50,
+          "castMean": 3.875,
+          "zeroCastPct": 0,
+          "seconds": 131.425
+        },
+        {
+          "context": "spear/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": 18.829,
+          "approx95": [
+            15.69,
+            21.968
+          ],
+          "scoreGainPP": 50,
+          "castMean": 2,
+          "zeroCastPct": 0,
+          "seconds": 139.65
+        },
+        {
+          "context": "spear/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 29.844,
+          "approx95": [
+            28.001,
+            31.687
+          ],
+          "scoreGainPP": 50,
+          "castMean": 3.875,
+          "zeroCastPct": 0,
+          "seconds": 128.275
+        }
+      ]
+    },
+    {
+      "id": "unique-person-99",
+      "name": "青龙偃月",
+      "pairs": 32,
+      "marginGainPP": 8.154,
+      "approx95": [
+        5.47,
+        10.837
+      ],
+      "scoreGainPP": 32.813,
+      "castMean": 1.438,
+      "zeroCastPct": 0,
+      "seconds": 134.269,
+      "contexts": [
+        {
+          "context": "cavalry/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 12.281,
+          "approx95": [
+            10.414,
+            14.147
+          ],
+          "scoreGainPP": 50,
+          "castMean": 1.125,
+          "zeroCastPct": 0,
+          "seconds": 147.875
+        },
+        {
+          "context": "cavalry/physical/spread",
+          "pairs": 8,
+          "marginGainPP": 4.983,
+          "approx95": [
+            -0.573,
+            10.539
+          ],
+          "scoreGainPP": 12.5,
+          "castMean": 1.5,
+          "zeroCastPct": 0,
+          "seconds": 132.65
+        },
+        {
+          "context": "cavalry/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": 10.515,
+          "approx95": [
+            7.982,
+            13.048
+          ],
+          "scoreGainPP": 43.75,
+          "castMean": 1.375,
+          "zeroCastPct": 0,
+          "seconds": 137.2
+        },
+        {
+          "context": "cavalry/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 4.836,
+          "approx95": [
+            -2.042,
+            11.714
+          ],
+          "scoreGainPP": 25,
+          "castMean": 1.75,
+          "zeroCastPct": 0,
+          "seconds": 119.35
+        }
+      ]
+    },
+    {
+      "id": "unique-person-433",
+      "name": "长坂怒喝",
+      "pairs": 32,
+      "marginGainPP": 2.594,
+      "approx95": [
+        -0.095,
+        5.282
+      ],
+      "scoreGainPP": 14.063,
+      "castMean": 2,
+      "zeroCastPct": 0,
+      "seconds": 140.087,
+      "contexts": [
+        {
+          "context": "spear/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 2.232,
+          "approx95": [
+            -5.146,
+            9.61
+          ],
+          "scoreGainPP": 25,
+          "castMean": 1,
+          "zeroCastPct": 0,
+          "seconds": 142.1
+        },
+        {
+          "context": "spear/physical/spread",
+          "pairs": 8,
+          "marginGainPP": 6.054,
+          "approx95": [
+            2.162,
+            9.946
+          ],
+          "scoreGainPP": 12.5,
+          "castMean": 3,
+          "zeroCastPct": 0,
+          "seconds": 129.15
+        },
+        {
+          "context": "spear/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": -0.346,
+          "approx95": [
+            -6.24,
+            5.549
+          ],
+          "scoreGainPP": 6.25,
+          "castMean": 1,
+          "zeroCastPct": 0,
+          "seconds": 151.55
+        },
+        {
+          "context": "spear/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 2.434,
+          "approx95": [
+            -1.255,
+            6.123
+          ],
+          "scoreGainPP": 12.5,
+          "castMean": 3,
+          "zeroCastPct": 0,
+          "seconds": 137.55
+        }
+      ]
+    },
+    {
+      "id": "unique-person-290",
+      "name": "八阵奇门",
+      "pairs": 32,
+      "marginGainPP": 5.718,
+      "approx95": [
+        4.336,
+        7.099
+      ],
+      "scoreGainPP": 23.438,
+      "castMean": 5.281,
+      "zeroCastPct": 0,
+      "seconds": 155.619,
+      "contexts": [
+        {
+          "context": "crossbow/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 3.358,
+          "approx95": [
+            0.57,
+            6.146
+          ],
+          "scoreGainPP": 12.5,
+          "castMean": 4,
+          "zeroCastPct": 0,
+          "seconds": 159.075
+        },
+        {
+          "context": "crossbow/physical/spread",
+          "pairs": 8,
+          "marginGainPP": 5.037,
+          "approx95": [
+            3.667,
+            6.406
+          ],
+          "scoreGainPP": 25,
+          "castMean": 7,
+          "zeroCastPct": 0,
+          "seconds": 150.5
+        },
+        {
+          "context": "crossbow/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": 8.555,
+          "approx95": [
+            5.626,
+            11.484
+          ],
+          "scoreGainPP": 31.25,
+          "castMean": 3.125,
+          "zeroCastPct": 0,
+          "seconds": 157.5
+        },
+        {
+          "context": "crossbow/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 5.921,
+          "approx95": [
+            4.561,
+            7.281
+          ],
+          "scoreGainPP": 25,
+          "castMean": 7,
+          "zeroCastPct": 0,
+          "seconds": 155.4
+        }
+      ]
+    },
+    {
+      "id": "unique-person-246",
+      "name": "赤壁业火",
+      "pairs": 32,
+      "marginGainPP": 1.685,
+      "approx95": [
+        -0.981,
+        4.35
+      ],
+      "scoreGainPP": 15.625,
+      "castMean": 5.25,
+      "zeroCastPct": 0,
+      "seconds": 125.387,
+      "contexts": [
+        {
+          "context": "archer/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 0.976,
+          "approx95": [
+            -5.007,
+            6.958
+          ],
+          "scoreGainPP": 0,
+          "castMean": 4.875,
+          "zeroCastPct": 0,
+          "seconds": 117.775
+        },
+        {
+          "context": "archer/physical/spread",
+          "pairs": 8,
+          "marginGainPP": -0.328,
+          "approx95": [
+            -5.795,
+            5.14
+          ],
+          "scoreGainPP": 0,
+          "castMean": 4.75,
+          "zeroCastPct": 0,
+          "seconds": 116.725
+        },
+        {
+          "context": "archer/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": 5.151,
+          "approx95": [
+            1.635,
+            8.666
+          ],
+          "scoreGainPP": 37.5,
+          "castMean": 5.75,
+          "zeroCastPct": 0,
+          "seconds": 137.2
+        },
+        {
+          "context": "archer/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 0.94,
+          "approx95": [
+            -5.55,
+            7.431
+          ],
+          "scoreGainPP": 25,
+          "castMean": 5.625,
+          "zeroCastPct": 0,
+          "seconds": 129.85
+        }
+      ]
+    },
+    {
+      "id": "unique-person-603",
+      "name": "火烧连营",
+      "pairs": 32,
+      "marginGainPP": -1.161,
+      "approx95": [
+        -3.831,
+        1.509
+      ],
+      "scoreGainPP": 1.563,
+      "castMean": 5.781,
+      "zeroCastPct": 0,
+      "seconds": 132.3,
+      "contexts": [
+        {
+          "context": "archer/physical/compact",
+          "pairs": 8,
+          "marginGainPP": -4.028,
+          "approx95": [
+            -10.982,
+            2.925
+          ],
+          "scoreGainPP": -18.75,
+          "castMean": 6,
+          "zeroCastPct": 0,
+          "seconds": 129.5
+        },
+        {
+          "context": "archer/physical/spread",
+          "pairs": 8,
+          "marginGainPP": -2.183,
+          "approx95": [
+            -6.509,
+            2.143
+          ],
+          "scoreGainPP": 0,
+          "castMean": 4.875,
+          "zeroCastPct": 0,
+          "seconds": 122.15
+        },
+        {
+          "context": "archer/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": 3.377,
+          "approx95": [
+            -1.006,
+            7.76
+          ],
+          "scoreGainPP": 25,
+          "castMean": 6.125,
+          "zeroCastPct": 0,
+          "seconds": 140.35
+        },
+        {
+          "context": "archer/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": -1.808,
+          "approx95": [
+            -5.998,
+            2.381
+          ],
+          "scoreGainPP": 0,
+          "castMean": 6.125,
+          "zeroCastPct": 0,
+          "seconds": 137.2
+        }
+      ]
+    },
+    {
+      "id": "unique-person-661",
+      "name": "无双乱舞",
+      "pairs": 32,
+      "marginGainPP": 4.406,
+      "approx95": [
+        1.662,
+        7.149
+      ],
+      "scoreGainPP": 20.313,
+      "castMean": 1.594,
+      "zeroCastPct": 0,
+      "seconds": 123.419,
+      "contexts": [
+        {
+          "context": "cavalry/physical/compact",
+          "pairs": 8,
+          "marginGainPP": 2.775,
+          "approx95": [
+            0.023,
+            5.527
+          ],
+          "scoreGainPP": 25,
+          "castMean": 1.5,
+          "zeroCastPct": 0,
+          "seconds": 137.725
+        },
+        {
+          "context": "cavalry/physical/spread",
+          "pairs": 8,
+          "marginGainPP": 8.041,
+          "approx95": [
+            2.145,
+            13.937
+          ],
+          "scoreGainPP": 25,
+          "castMean": 1.625,
+          "zeroCastPct": 0,
+          "seconds": 104.3
+        },
+        {
+          "context": "cavalry/intellect/compact",
+          "pairs": 8,
+          "marginGainPP": -1.281,
+          "approx95": [
+            -5.936,
+            3.375
+          ],
+          "scoreGainPP": -6.25,
+          "castMean": 1.5,
+          "zeroCastPct": 0,
+          "seconds": 131.25
+        },
+        {
+          "context": "cavalry/intellect/spread",
+          "pairs": 8,
+          "marginGainPP": 8.087,
+          "approx95": [
+            5.358,
+            10.815
+          ],
+          "scoreGainPP": 37.5,
+          "castMean": 1.75,
+          "zeroCastPct": 0,
+          "seconds": 120.4
+        }
+      ]
+    }
+  ],
+  "passives": [
+    {
+      "id": "person-636",
+      "name": "刘备",
+      "type": "spear",
+      "route": [
+        "铁壁",
+        "严整",
+        "护持",
+        "镇定",
+        "昭烈"
+      ],
+      "ultimate": "昭烈",
+      "routeResult": {
+        "pairs": 16,
+        "marginGainPP": 6.895,
+        "approx95": [
+          3.34,
+          10.451
+        ],
+        "scoreGainPP": 12.5,
+        "castMean": 15.188,
+        "zeroCastPct": 0,
+        "seconds": 126.962
+      },
+      "ultimateResult": {
+        "pairs": 16,
+        "marginGainPP": 0.145,
+        "approx95": [
+          -0.193,
+          0.483
+        ],
+        "scoreGainPP": 0,
+        "castMean": 15.188,
+        "zeroCastPct": 0,
+        "seconds": 126.962
+      }
+    },
+    {
+      "id": "person-290",
+      "name": "诸葛亮",
+      "type": "crossbow",
+      "route": [
+        "博识",
+        "严整",
+        "协谋",
+        "镇定",
+        "卧龙"
+      ],
+      "ultimate": "卧龙",
+      "routeResult": {
+        "pairs": 16,
+        "marginGainPP": 7.027,
+        "approx95": [
+          4.46,
+          9.595
+        ],
+        "scoreGainPP": 21.875,
+        "castMean": 26.688,
+        "zeroCastPct": 0,
+        "seconds": 152.075
+      },
+      "ultimateResult": {
+        "pairs": 16,
+        "marginGainPP": 3.945,
+        "approx95": [
+          2.689,
+          5.2
+        ],
+        "scoreGainPP": 6.25,
+        "castMean": 26.688,
+        "zeroCastPct": 0,
+        "seconds": 152.075
+      }
+    },
+    {
+      "id": "person-661",
+      "name": "吕布",
+      "type": "cavalry",
+      "route": [
+        "强攻",
+        "勇武",
+        "骑术",
+        "合击",
+        "飞将"
+      ],
+      "ultimate": "飞将",
+      "routeResult": {
+        "pairs": 16,
+        "marginGainPP": 5.719,
+        "approx95": [
+          2.754,
+          8.684
+        ],
+        "scoreGainPP": 25,
+        "castMean": 8,
+        "zeroCastPct": 0,
+        "seconds": 121.275
+      },
+      "ultimateResult": {
+        "pairs": 16,
+        "marginGainPP": 4.278,
+        "approx95": [
+          0.528,
+          8.029
+        ],
+        "scoreGainPP": 12.5,
+        "castMean": 8,
+        "zeroCastPct": 0,
+        "seconds": 121.275
+      }
+    }
+  ],
+  "scenarios": []
+}

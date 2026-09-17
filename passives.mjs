@@ -1,3 +1,6 @@
+import {OFFICER_BY_ID} from './officer-catalog.mjs';
+import {hexDistance} from './hex-grid.mjs';
+import {FAMOUS_OFFICERS,famousPassiveId,ultimateDescription} from './famous-officers.mjs';
 // Passive skills are derived from identity and level, never stored as equipped tactics.
 export const SKILL_LEVELS = [2, 3, 5, 8, 10];
 const skill = (name, tier, description) => ({name, tier, description});
@@ -32,7 +35,7 @@ export const PASSIVES = {
   defiant:skill('刚烈','专属','兵力越低，攻击与武技威力越高；兵力降至 50% 时各达 +25%'),
   isolated:skill('摧锋','专属','目标相邻没有其友军时，普攻、武力战法伤害 +25%'),
   guard:skill('虎卫','专属','相邻其他友军受到普攻、武力战法伤害降低 15%；自身降低 10%'),
-  foresight:skill('料敌','专属','对战意低于最低战法门槛的目标，智力战法伤害 +30%'),
+  foresight:skill('料敌','专属','对战意低于 60 的敌军部队，智力战法伤害 +30%'),
   rescue:skill('解危','专属','战法支援兵力低于 50% 的其他友军时，护盾、战意及冷却缩减量 +35%'),
   swift:skill('神行','专属','相邻无敌军时，移速 +30%、攻速 +20%'),
   adapt:skill('巧变','专属','预备队首次入场后 15 步，攻击、武技威力各 +20%，受到伤害降低 15%'),
@@ -51,7 +54,7 @@ export const SKILL_ROUTES = {
   wen:['assault','martial','rider','desperate','veteran'],
   he:['assault','martial','joint','prepared','adapt'],
   ju:['scholar','discipline','shield','calm','aid'],
-  tian:['scholar','spirit','suppress','combo','wisdom'],
+  tian:['scholar','spirit','discipline','combo','wisdom'],
   gao:['iron','endurance','spear','desperate','fortress'],
 };
 export const COMMON_ROUTES = {
@@ -60,10 +63,33 @@ export const COMMON_ROUTES = {
   archer:['assault','spirit','bow','joint','rapid'],
   crossbow:['assault','spirit','crossbow','joint','rapid'],
 };
+for(const [id,p] of Object.entries(FAMOUS_OFFICERS))if(p.route){
+  const key=famousPassiveId(id);
+  PASSIVES[key]=skill(p.ultimate.name,'专属',ultimateDescription(p.ultimate));
+  SKILL_ROUTES[id]=[...p.route,key];
+}
+function personalPassive(u){const key=skillRoute(u).find(k=>k.startsWith('hero-')&&hasPassive(u,k));return key?FAMOUS_OFFICERS[key.slice(5)]?.ultimate:null;}
+function personalCondition(b,u,target,p){
+  if(!p)return false;
+  switch(p.trigger){
+    case 'healthy':return hpRatio(u)>=.7;
+    case 'wounded':return hpRatio(u)<.5;
+    case 'late':return !!b&&b.tick>=40;
+    case 'woundedAlly':return target!==u&&target?.side===u.side&&hpRatio(target)<.6;
+    case 'adjacent':return !!b&&target&&adjacent(u,target)===1;
+    case 'distant':return !!b&&target&&adjacent(u,target)>=3;
+    case 'isolated':return !!b&&target&&!allies(b,target).some(a=>adjacent(a,target)===1);
+    case 'readyEnemy':return target?.intent>=60;
+    case 'lowIntent':return target&&target.intent<60;
+    case 'burning':return !!b&&(target?.statuses?.burn?.until||0)>b.tick;
+    case 'debuffed':return !!b&&['press','harry','stun','confuse','seal','slow','armorBreak','weaken','burn','scorch'].some(k=>(target?.statuses?.[k]?.until||0)>b.tick);
+    default:return false;
+  }
+}
 export const officerLevel = u => u.level ?? 1;
-export const skillRoute = u => SKILL_ROUTES[u.id] || COMMON_ROUTES[u.skillRouteType || u.type] || COMMON_ROUTES.spear;
+export const skillRoute = u => SKILL_ROUTES[u.id] || (Object.hasOwn(OFFICER_BY_ID,u.id)?[]:COMMON_ROUTES[u.skillRouteType || u.type] || COMMON_ROUTES.spear);
 export const hasPassive = (u,id) => skillRoute(u).some((key,i)=>key===id&&officerLevel(u)>=SKILL_LEVELS[i]);
-const adjacent=(a,c)=>Math.abs(a.x-c.x)+Math.abs(a.y-c.y);
+const adjacent=hexDistance;
 const onField=u=>u.status==='active'&&u.hp>0;
 const allies=(b,u)=>(b?.sides?.[u.side]?.units||[]).filter(v=>v!==u&&onField(v));
 const enemies=(b,u)=>(b?.sides?.[1-u.side]?.units||[]).filter(onField);
@@ -97,6 +123,8 @@ export function passiveAttributes(b,u) {
   if(has('rapid')&&['archer','crossbow'].includes(u.type))add('attackSpeed',.2,'疾射');
   if(has('desperate')&&hpRatio(u)<.4){add('defense',.15,'临危');add('discipline',.15,'临危');}
   if(has('defiant')){const n=Math.min(.25,(1-hpRatio(u))*.5);if(n){add('attack',n,'刚烈');add('martialPower',n,'刚烈');}}
+  const personal=personalPassive(u);
+  if(personal?.kind==='defense'&&personalCondition(b,u,null,personal)){add('defense',personal.bonus,personal.name);add('discipline',personal.bonus,personal.name);}
   if(field){
     if(has('spear')&&u.type==='spear'&&allies(b,u).some(v=>adjacent(u,v)===1))add('defense',.15,'枪阵');
     if(has('steady')&&b.tick-(u.passiveState?.lastMoveTick??b.tick)>=3)add('defense',.15,'持重');
@@ -111,14 +139,16 @@ export function passiveAttributes(b,u) {
   }
   return Object.fromEntries(Object.entries(mods).map(([key,items])=>[key,[{label:items.map(m=>`${m.label} +${Math.round(m.value*100)}%`).join('、'),factor:1+items.reduce((n,m)=>n+m.value,0)}]]));
 }
-export function passiveDamageMultiplier(b,u,target,kind,threshold=0) {
+export function passiveDamageMultiplier(b,u,target,kind) {
   let bonus=0;
+  const personal=personalPassive(u);
+  if(target.type!=='gate'&&personal?.kind===kind&&personalCondition(b,u,target,personal))bonus+=personal.bonus;
   if(kind==='basic'){
     if(hasPassive(u,'crossbow')&&u.type==='crossbow'&&u.passiveState?.shots>=3)bonus+=.18;
     if(hasPassive(u,'joint')&&allies(b,u).some(v=>adjacent(v,target)===1))bonus+=.15;
   }
   if(kind!=='intellect'&&hasPassive(u,'isolated')&&!allies(b,target).some(v=>adjacent(v,target)===1))bonus+=.25;
-  if(kind==='intellect'&&hasPassive(u,'foresight')&&(target.intent||0)<threshold)bonus+=.3;
+  if(kind==='intellect'&&target.type!=='gate'&&hasPassive(u,'foresight')&&(target.intent||0)<60)bonus+=.3;
   return 1+bonus;
 }
 export function passiveDamageTaken(b,u,kind) {
@@ -133,6 +163,8 @@ export function passiveDamageTaken(b,u,kind) {
 }
 export function supportMultiplier(u,target,kind) {
   let bonus=kind==='shield'&&hasPassive(u,'shield')?.2:0;
+  const personal=personalPassive(u);
+  if(personal?.kind==='support'&&personalCondition(null,u,target,personal))bonus+=personal.bonus;
   if(u!==target&&u.side===target.side){
     if(hasPassive(u,'aid'))bonus+=.25;
     if(hasPassive(u,'rescue')&&hpRatio(target)<.5)bonus+=.35;
@@ -147,6 +179,7 @@ export function passiveList(u,b=null) {
     const def=PASSIVES[id], unlocked=officerLevel(u)>=SKILL_LEVELS[i];
     let state=unlocked?'被动生效':`${SKILL_LEVELS[i]} 级解锁`;
     if(unlocked){
+      if(id.startsWith('hero-'))state='满足条件时结算';
       if(['rider','rapid'].includes(id))state=labels.includes(def.name)?'已生效':'兵种不符';
       else if(['spear','bow'].includes(id)&&u.type!==(id==='spear'?'spear':'archer'))state='兵种不符';
       else if(['spear','bow','steady','desperate','defiant','swift'].includes(id))state=labels.includes(def.name)?'已生效':field?'条件未满足':'待战场判定';

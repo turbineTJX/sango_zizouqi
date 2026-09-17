@@ -1,14 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { newGame, orderArmy, advanceTurn, startBattle, lockDeployment, stepBattle, issueCommand, validateSave, lowerIntent } from '../engine.mjs';
-import { TACTICS_BOOK, unitTactics, hasStatus, tacticTarget } from '../tactics.mjs';
+import { TACTICS_BOOK, TROOP_TACTICS, unitTactics, hasStatus, tacticTarget } from '../tactics.mjs';
+import { hexNeighbors } from '../hex-grid.mjs';
 
 function scene(type='spear',id='cao') {
   const state=newGame();orderArmy(state,'a1','guandu');advanceTurn(state);startBattle(state);lockDeployment(state.battle);
   const b=state.battle,a=b.sides[0].units.find(u=>u.id===id),d=b.sides[1].units[0];
   b.sides[0].units=[a];b.sides[1].units=[d];
   Object.assign(a,{type,x:4,y:3,status:'active',intent:0,cooldown:999});
+  a.tactics=[...TROOP_TACTICS[type]];
+  if(['liao','chu','jia'].includes(id))a.tactics[2]=({liao:'terror',chu:'protect',jia:'undermine'})[id];
   Object.assign(d,{type:'crossbow',x:5,y:3,intent:0,cooldown:999});
+  d.tactics=[...TROOP_TACTICS.crossbow];
   for(const s of unitTactics(d))d.skillReady[s.id]=999;
   return {state,b,a,d};
 }
@@ -22,36 +26,33 @@ function complete(b,a) {
   assert.equal(a.skillCasts,before+1);
 }
 
-test('four troop types have fixed three slots; only three officers replace slot three',()=>{
+test('four troop types have fixed base slots and named officers have exclusive tactics',()=>{
   const expected={archer:['燎原火矢','漫天箭雨','穿林阻射'],spear:['长枪贯阵','铁壁枪阵','横枪奋击'],cavalry:['风驰电掣','铁骑冲阵','骁骑奋战'],crossbow:['机括连珠','且退且射','重矢破甲']};
-  for(const [type,names] of Object.entries(expected))assert.deepEqual(unitTactics({id:'cao',type}).map(s=>s.name),names);
+  for(const [type,names] of Object.entries(expected))assert.deepEqual(unitTactics({id:'ordinary-test',type}).map(s=>s.name),names);
   const officers=newGame().armies.flatMap(a=>a.units);
-  assert.equal(officers.filter(u=>unitTactics(u).some(s=>s.special)).length,3);
+  assert.equal(officers.filter(u=>unitTactics(u).some(s=>s.special)).length,15);
   const liao={id:'liao',type:'cavalry'};assert.equal(unitTactics(liao)[2].id,'terror');
   liao.type='archer';assert.deepEqual(unitTactics(liao).map(s=>s.id),['fire','scatter','terror']);
 });
-test('casting keeps shared intent and only the completed tactic enters cooldown',()=>{
-  const {b,a}=scene();a.intent=160;
-  complete(b,a);assert.equal(a.intent,160);assert.ok(a.skillReady.thrust>b.tick);assert.equal(a.skillReady.phalanx,undefined);
-  stepBattle(b);assert.equal(a.cast.skillId,'phalanx');
-  complete(b,a);assert.ok(a.skillReady.thrust>b.tick);assert.ok(a.skillReady.phalanx>b.tick);
-  stepBattle(b);assert.equal(a.cast.skillId,'strike');
+test('instant skills keep shared intent and only one tactic enters cooldown per step',()=>{
+  const {b,a}=scene();a.intent=100;
+  stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,100);assert.equal(a.skillReady.phalanx,undefined);
+  stepBattle(b);assert.equal(a.tacticCasts.phalanx,1);assert.equal(a.skillReady.strike,undefined);
+  stepBattle(b);assert.equal(a.tacticCasts.strike,1);assert.equal(a.cast,null);
 });
-test('demoralize clamps all enemies including reserves and never interrupts an existing cast',()=>{
+test('demoralize clamps active and reserve intent and prevents subsequent skills below threshold',()=>{
   const {b,a,d}=scene();allowOnly(a,'thrust');a.intent=100;d.intent=30;
   const reserve={...structuredClone(d),id:'reserve-test',status:'reserve',x:-1,y:-1,intent:80};b.sides[1].units.push(reserve);
-  d.cast={skillId:'repeat',targetId:a.id,remaining:2};
-  b.commandProgress=12000;assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,0);assert.equal(reserve.intent,35);assert.equal(d.cast.remaining,2);
-  stepBattle(b);lowerIntent(a,160);assert.ok(a.cast);
-  const hp=d.hp;stepBattle(b);stepBattle(b);assert.ok(d.hp<hp);assert.equal(a.skillCasts,1);
-  assert.equal(d.skillCasts,1,'enemy cast completes even after its intent was reduced to zero');
+  b.commandProgress=12000;assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,0);assert.equal(reserve.intent,35);
+  stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.cast,null);
+  lowerIntent(a,100);a.skillReady.thrust=0;stepBattle(b);assert.equal(a.tacticCasts.thrust,1);
 });
 test('expired cooldown is insufficient below threshold; regaining intent re-enables the tactic',()=>{
   const {b,a,d}=scene();allowOnly(a,'thrust');complete(b,a);
-  const ready=a.skillReady.thrust;lowerIntent(a,160);a.cooldown=999;d.cooldown=999;
+  const ready=a.skillReady.thrust;lowerIntent(a,100);a.cooldown=999;d.cooldown=999;
   while(b.tick<ready+1)stepBattle(b);
   assert.equal(a.cast,null);assert.equal(a.skillCasts,1);
-  a.intent=40;stepBattle(b);assert.equal(a.cast.skillId,'thrust');assert.equal(a.intent,40);
+  a.intent=40;stepBattle(b);assert.equal(a.tacticCasts.thrust,2);assert.equal(a.cast,null);assert.equal(a.intent,52);
 });
 test('fire burns without intent feedback and ranged skills have distinct real effects',()=>{
   const {b,a,d}=scene('archer');allowOnly(a,'fire');complete(b,a);
@@ -82,7 +83,7 @@ test('blocked displacement never overlaps units or crosses board limits',()=>{
   const wall={...structuredClone(d),id:'wall',x:0,y:1};b.sides[1].units.push(wall);
   assert.equal(tacticTarget(b,a,TACTICS_BOOK.retreatShot,4),null);
   const r=scene('cavalry');r.d.x=8;
-  for(const [i,x,y] of [[0,3,3],[1,5,3],[2,4,2],[3,4,4]])r.b.sides[1].units.push({...structuredClone(r.d),id:`wall-${i}`,x,y});
+  hexNeighbors(r.a).forEach(([x,y],i)=>r.b.sides[1].units.push({...structuredClone(r.d),id:`wall-${i}`,x,y}));
   assert.equal(tacticTarget(r.b,r.a,TACTICS_BOOK.rush,1),null);
 });
 test('rare skills stun, protect and reduce intent without being universal damage attacks',()=>{
@@ -109,7 +110,7 @@ test('formation mitigates actual damage and blocks displacement; shields absorb 
   allowOnly(c.a,'protect');complete(c.b,c.a);assert.equal(c.d.x,6);assert.ok(hasStatus(c.b,ally,'shield'));
 });
 test('prepaid casts and previous save formats are rejected',()=>{
- const {state,a,d}=scene();a.intent=12;a.cast={targetId:d.id,remaining:2,cost:110};assert.throws(()=>validateSave(state));
+ const {state,a,d}=scene();a.intent=12;a.cast={targetId:d.id,remaining:2,cost:100};assert.throws(()=>validateSave(state));
  const old=scene().state;old.version=1;assert.throws(()=>validateSave(old));
 });
 test('new saves distinguish bows and crossbows and require current rules',()=>{

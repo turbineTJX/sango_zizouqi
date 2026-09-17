@@ -1,0 +1,3370 @@
+[
+  {
+    "scenario": "field",
+    "seed": 521201,
+    "mode": "baseline",
+    "shield": 20,
+    "winner": 0,
+    "reason": "击溃",
+    "ticks": 169,
+    "seconds": 118.3,
+    "remaining": [
+      2168,
+      0
+    ],
+    "gate": null,
+    "firstGateHit": null,
+    "commands": 0,
+    "firstReady": 26,
+    "idleFull": 143,
+    "firstLowCast": 3,
+    "thirdWaveEntered": false,
+    "combos": [
+      30,
+      27
+    ],
+    "units": [
+      {
+        "id": "cao",
+        "name": "曹操",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 50,
+        "blocked": 0,
+        "phalanxOutOfRange": 5,
+        "damage": 916,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "phalanx": 2,
+          "press": 6,
+          "strike": 3
+        }
+      },
+      {
+        "id": "liao",
+        "name": "张辽",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "terror",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 63,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2131,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 8,
+          "rush": 3,
+          "terror": 2
+        }
+      },
+      {
+        "id": "chu",
+        "name": "许褚",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "protect",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 36,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 621,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "phalanx": 2,
+          "protect": 1
+        }
+      },
+      {
+        "id": "jia",
+        "name": "郭嘉",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "undermine",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 169,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4144,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 415,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 20,
+          "seal": 6,
+          "undermine": 5
+        }
+      },
+      {
+        "id": "dun",
+        "name": "夏侯惇",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 81,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2364,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 10,
+          "phalanx": 3,
+          "strike": 3
+        }
+      },
+      {
+        "id": "yu",
+        "name": "荀攸",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "screen",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 169,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4824,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 1753,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 20,
+          "seal": 5,
+          "screen": 5
+        }
+      },
+      {
+        "id": "shao",
+        "name": "袁绍",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 54,
+        "blocked": 0,
+        "phalanxOutOfRange": 5,
+        "damage": 922,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "phalanx": 2,
+          "strike": 2
+        }
+      },
+      {
+        "id": "yan",
+        "name": "颜良",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 22,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 293,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "wen",
+        "name": "文丑",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 33,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 602,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "he",
+        "name": "张郃",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 75,
+        "blocked": 0,
+        "phalanxOutOfRange": 10,
+        "damage": 1717,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 9,
+          "phalanx": 3,
+          "strike": 3
+        }
+      },
+      {
+        "id": "ju",
+        "name": "沮授",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 141,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 3838,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 87,
+        "casts": {
+          "harry": 16,
+          "smoke": 5,
+          "wildfire": 5
+        }
+      },
+      {
+        "id": "tian",
+        "name": "田丰",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 168,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4858,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 20,
+          "smoke": 6,
+          "wildfire": 6
+        }
+      }
+    ],
+    "casualties": [
+      {
+        "faction": "cao",
+        "initial": 15600,
+        "remaining": 2168,
+        "wounded": 4696,
+        "killed": 8736
+      },
+      {
+        "faction": "yuan",
+        "initial": 15000,
+        "remaining": 0,
+        "wounded": 5250,
+        "killed": 9750
+      }
+    ]
+  },
+  {
+    "scenario": "outnumbered",
+    "seed": 521202,
+    "mode": "baseline",
+    "shield": 20,
+    "winner": 1,
+    "reason": "击溃",
+    "ticks": 126,
+    "seconds": 88.2,
+    "remaining": [
+      0,
+      3433
+    ],
+    "gate": null,
+    "firstGateHit": null,
+    "commands": 0,
+    "firstReady": 33,
+    "idleFull": 93,
+    "firstLowCast": 3,
+    "thirdWaveEntered": false,
+    "combos": [
+      13,
+      60
+    ],
+    "units": [
+      {
+        "id": "cao",
+        "name": "曹操",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 57,
+        "blocked": 0,
+        "phalanxOutOfRange": 6,
+        "damage": 1379,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "phalanx": 3,
+          "strike": 3
+        }
+      },
+      {
+        "id": "liao",
+        "name": "张辽",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "terror",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 51,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2080,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "rush": 2,
+          "terror": 2
+        }
+      },
+      {
+        "id": "jia",
+        "name": "郭嘉",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "undermine",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 104,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2671,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 13,
+          "seal": 3,
+          "undermine": 3
+        }
+      },
+      {
+        "id": "yu",
+        "name": "荀攸",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "screen",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 125,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 3037,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 15,
+          "seal": 4,
+          "screen": 3
+        }
+      },
+      {
+        "id": "shao",
+        "name": "袁绍",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 33,
+        "blocked": 0,
+        "phalanxOutOfRange": 4,
+        "damage": 406,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "yan",
+        "name": "颜良",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 14,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 149,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "wen",
+        "name": "文丑",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 22,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 351,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "he",
+        "name": "张郃",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 26,
+        "blocked": 0,
+        "phalanxOutOfRange": 3,
+        "damage": 295,
+        "gateDamage": 0,
+        "firstHit": 6,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "ju",
+        "name": "沮授",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 91,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1577,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 11,
+          "smoke": 3,
+          "wildfire": 3
+        }
+      },
+      {
+        "id": "tian",
+        "name": "田丰",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 126,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2817,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 1050,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 15,
+          "smoke": 4,
+          "wildfire": 4
+        }
+      },
+      {
+        "id": "test-6",
+        "name": "援军1队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 33,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 424,
+        "gateDamage": 0,
+        "firstHit": 19,
+        "entry": 15,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 39,
+        "casts": {
+          "press": 4,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "test-7",
+        "name": "援军2队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 104,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1765,
+        "gateDamage": 0,
+        "firstHit": 28,
+        "entry": 23,
+        "hp": 483,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 12,
+          "repeat": 4,
+          "pierce": 4
+        }
+      },
+      {
+        "id": "test-8",
+        "name": "援军3队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 35,
+        "blocked": 0,
+        "phalanxOutOfRange": 4,
+        "damage": 439,
+        "gateDamage": 0,
+        "firstHit": 34,
+        "entry": 27,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "test-9",
+        "name": "援军4队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 93,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1813,
+        "gateDamage": 0,
+        "firstHit": 36,
+        "entry": 34,
+        "hp": 1050,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 11,
+          "fire": 4,
+          "scatter": 4
+        }
+      },
+      {
+        "id": "test-10",
+        "name": "援军5队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 34,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 354,
+        "gateDamage": 0,
+        "firstHit": 51,
+        "entry": 48,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-11",
+        "name": "援军6队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 65,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 989,
+        "gateDamage": 0,
+        "firstHit": 69,
+        "entry": 62,
+        "hp": 850,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 6,
+          "repeat": 3,
+          "pierce": 2
+        }
+      }
+    ],
+    "casualties": [
+      {
+        "faction": "cao",
+        "initial": 12000,
+        "remaining": 0,
+        "wounded": 4200,
+        "killed": 7800
+      },
+      {
+        "faction": "yuan",
+        "initial": 12600,
+        "remaining": 3433,
+        "wounded": 3204,
+        "killed": 5963
+      }
+    ]
+  },
+  {
+    "scenario": "reinforcements",
+    "seed": 521203,
+    "mode": "baseline",
+    "shield": 20,
+    "winner": 0,
+    "reason": "击溃",
+    "ticks": 305,
+    "seconds": 213.5,
+    "remaining": [
+      164,
+      0
+    ],
+    "gate": null,
+    "firstGateHit": null,
+    "commands": 0,
+    "firstReady": 26,
+    "idleFull": 279,
+    "firstLowCast": 3,
+    "thirdWaveEntered": true,
+    "combos": [
+      53,
+      75
+    ],
+    "units": [
+      {
+        "id": "cao",
+        "name": "曹操",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 127,
+        "blocked": 0,
+        "phalanxOutOfRange": 13,
+        "damage": 3082,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "phalanx": 5,
+          "press": 15,
+          "strike": 6
+        }
+      },
+      {
+        "id": "liao",
+        "name": "张辽",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "terror",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 61,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1721,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 7,
+          "rush": 2,
+          "terror": 2
+        }
+      },
+      {
+        "id": "chu",
+        "name": "许褚",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "protect",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 66,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1089,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 7,
+          "phalanx": 3,
+          "protect": 2
+        }
+      },
+      {
+        "id": "jia",
+        "name": "郭嘉",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "undermine",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 178,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 5180,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 22,
+          "seal": 6,
+          "undermine": 6
+        }
+      },
+      {
+        "id": "dun",
+        "name": "夏侯惇",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 137,
+        "blocked": 0,
+        "phalanxOutOfRange": 9,
+        "damage": 4391,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 15,
+          "phalanx": 5,
+          "strike": 6
+        }
+      },
+      {
+        "id": "yu",
+        "name": "荀攸",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "screen",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 305,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 8473,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 164,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 37,
+          "screen": 11,
+          "seal": 10
+        }
+      },
+      {
+        "id": "yuanxia",
+        "name": "夏侯渊",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 51,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2040,
+        "gateDamage": 0,
+        "firstHit": 65,
+        "entry": 62,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "rush": 2,
+          "valor": 2
+        }
+      },
+      {
+        "id": "jin",
+        "name": "于禁",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 53,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1024,
+        "gateDamage": 0,
+        "firstHit": 71,
+        "entry": 67,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "strike": 2,
+          "phalanx": 2
+        }
+      },
+      {
+        "id": "shao",
+        "name": "袁绍",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 25,
+        "blocked": 0,
+        "phalanxOutOfRange": 3,
+        "damage": 246,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "yan",
+        "name": "颜良",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 13,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 144,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "wen",
+        "name": "文丑",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 29,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 398,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "he",
+        "name": "张郃",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 30,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 636,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "ju",
+        "name": "沮授",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 59,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1417,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 6,
+          "smoke": 2,
+          "wildfire": 2
+        }
+      },
+      {
+        "id": "tian",
+        "name": "田丰",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 81,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1818,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 10,
+          "smoke": 3,
+          "wildfire": 3
+        }
+      },
+      {
+        "id": "test-6",
+        "name": "援军1队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 16,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 237,
+        "gateDamage": 0,
+        "firstHit": 27,
+        "entry": 25,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-7",
+        "name": "援军2队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 76,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1517,
+        "gateDamage": 0,
+        "firstHit": 29,
+        "entry": 26,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 9,
+          "repeat": 4,
+          "pierce": 3
+        }
+      },
+      {
+        "id": "test-8",
+        "name": "援军3队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 29,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 373,
+        "gateDamage": 0,
+        "firstHit": 33,
+        "entry": 30,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "strike": 1,
+          "phalanx": 1
+        }
+      },
+      {
+        "id": "test-9",
+        "name": "援军4队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 114,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2920,
+        "gateDamage": 0,
+        "firstHit": 33,
+        "entry": 31,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 14,
+          "fire": 5,
+          "scatter": 5
+        }
+      },
+      {
+        "id": "test-10",
+        "name": "援军5队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 17,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 402,
+        "gateDamage": 0,
+        "firstHit": 56,
+        "entry": 55,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "test-11",
+        "name": "援军6队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 72,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1464,
+        "gateDamage": 0,
+        "firstHit": 61,
+        "entry": 59,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 9,
+          "repeat": 3,
+          "pierce": 3
+        }
+      },
+      {
+        "id": "test-12",
+        "name": "援军7队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 24,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 259,
+        "gateDamage": 0,
+        "firstHit": 64,
+        "entry": 60,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "test-13",
+        "name": "援军8队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 100,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2811,
+        "gateDamage": 0,
+        "firstHit": 74,
+        "entry": 72,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 90,
+        "casts": {
+          "harry": 12,
+          "fire": 5,
+          "scatter": 4
+        }
+      },
+      {
+        "id": "test-14",
+        "name": "援军9队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 14,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 220,
+        "gateDamage": 0,
+        "firstHit": 85,
+        "entry": 85,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-15",
+        "name": "援军10队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 128,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2636,
+        "gateDamage": 0,
+        "firstHit": 85,
+        "entry": 85,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 14,
+          "repeat": 6,
+          "pierce": 5
+        }
+      },
+      {
+        "id": "test-16",
+        "name": "援军11队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 16,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 333,
+        "gateDamage": 0,
+        "firstHit": 100,
+        "entry": 99,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "test-17",
+        "name": "援军12队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 203,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4195,
+        "gateDamage": 0,
+        "firstHit": 103,
+        "entry": 102,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 24,
+          "fire": 9,
+          "scatter": 8
+        }
+      }
+    ],
+    "casualties": [
+      {
+        "faction": "cao",
+        "initial": 24000,
+        "remaining": 164,
+        "wounded": 8342,
+        "killed": 15494
+      },
+      {
+        "faction": "yuan",
+        "initial": 27000,
+        "remaining": 0,
+        "wounded": 9450,
+        "killed": 17550
+      }
+    ]
+  },
+  {
+    "scenario": "siege",
+    "seed": 521204,
+    "mode": "baseline",
+    "shield": 20,
+    "winner": 1,
+    "reason": "击溃",
+    "ticks": 193,
+    "seconds": 135.1,
+    "remaining": [
+      0,
+      4166
+    ],
+    "gate": 3415,
+    "firstGateHit": 93,
+    "commands": 0,
+    "firstReady": 26,
+    "idleFull": 167,
+    "firstLowCast": 4,
+    "thirdWaveEntered": false,
+    "combos": [
+      31,
+      65
+    ],
+    "units": [
+      {
+        "id": "cao",
+        "name": "曹操",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 65,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1417,
+        "gateDamage": 0,
+        "firstHit": 7,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 7,
+          "phalanx": 3,
+          "strike": 3
+        }
+      },
+      {
+        "id": "liao",
+        "name": "张辽",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "terror",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 38,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 362,
+        "gateDamage": 0,
+        "firstHit": 9,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 5,
+          "terror": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "chu",
+        "name": "许褚",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "protect",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 44,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 331,
+        "gateDamage": 0,
+        "firstHit": 11,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "protect": 1,
+          "phalanx": 2
+        }
+      },
+      {
+        "id": "jia",
+        "name": "郭嘉",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "undermine",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 184,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 5209,
+        "gateDamage": 0,
+        "firstHit": 9,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 22,
+          "seal": 6,
+          "undermine": 6
+        }
+      },
+      {
+        "id": "dun",
+        "name": "夏侯惇",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 117,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 3660,
+        "gateDamage": 0,
+        "firstHit": 7,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 14,
+          "phalanx": 4,
+          "strike": 5
+        }
+      },
+      {
+        "id": "yu",
+        "name": "荀攸",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "screen",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 192,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4744,
+        "gateDamage": 1585,
+        "firstHit": 10,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 20,
+          "seal": 6,
+          "screen": 5
+        }
+      },
+      {
+        "id": "yuanxia",
+        "name": "夏侯渊",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 49,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1499,
+        "gateDamage": 0,
+        "firstHit": 48,
+        "entry": 39,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "rush": 2,
+          "valor": 2
+        }
+      },
+      {
+        "id": "jin",
+        "name": "于禁",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 63,
+        "blocked": 0,
+        "phalanxOutOfRange": 1,
+        "damage": 1797,
+        "gateDamage": 0,
+        "firstHit": 53,
+        "entry": 45,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "phalanx": 2,
+          "strike": 2
+        }
+      },
+      {
+        "id": "shao",
+        "name": "袁绍",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 20,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 425,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "yan",
+        "name": "颜良",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 42,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 728,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 5,
+          "rush": 1,
+          "valor": 2
+        }
+      },
+      {
+        "id": "wen",
+        "name": "文丑",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 67,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1371,
+        "gateDamage": 0,
+        "firstHit": 14,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 7,
+          "rush": 2,
+          "valor": 2
+        }
+      },
+      {
+        "id": "he",
+        "name": "张郃",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 41,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1261,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "ju",
+        "name": "沮授",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 193,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 5893,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 1615,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 23,
+          "smoke": 7,
+          "wildfire": 6
+        }
+      },
+      {
+        "id": "tian",
+        "name": "田丰",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 106,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2956,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 13,
+          "smoke": 4,
+          "wildfire": 4
+        }
+      },
+      {
+        "id": "test-6",
+        "name": "援军1队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 48,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 938,
+        "gateDamage": 0,
+        "firstHit": 35,
+        "entry": 35,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 6,
+          "rush": 2,
+          "valor": 2
+        }
+      },
+      {
+        "id": "test-7",
+        "name": "援军2队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 103,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2206,
+        "gateDamage": 0,
+        "firstHit": 43,
+        "entry": 42,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 13,
+          "repeat": 5,
+          "pierce": 4
+        }
+      },
+      {
+        "id": "test-8",
+        "name": "援军3队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 18,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 332,
+        "gateDamage": 0,
+        "firstHit": 44,
+        "entry": 43,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "test-9",
+        "name": "援军4队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 124,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 3681,
+        "gateDamage": 0,
+        "firstHit": 70,
+        "entry": 70,
+        "hp": 1621,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 15,
+          "fire": 6,
+          "scatter": 5
+        }
+      },
+      {
+        "id": "test-10",
+        "name": "援军5队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 19,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 389,
+        "gateDamage": 0,
+        "firstHit": 70,
+        "entry": 70,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-11",
+        "name": "援军6队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 111,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2506,
+        "gateDamage": 0,
+        "firstHit": 84,
+        "entry": 83,
+        "hp": 930,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 13,
+          "repeat": 5,
+          "pierce": 4
+        }
+      }
+    ],
+    "casualties": [
+      {
+        "faction": "cao",
+        "initial": 24000,
+        "remaining": 0,
+        "wounded": 8400,
+        "killed": 15600
+      },
+      {
+        "faction": "yuan",
+        "initial": 21600,
+        "remaining": 4166,
+        "wounded": 6100,
+        "killed": 11334
+      }
+    ]
+  },
+  {
+    "scenario": "defense",
+    "seed": 521205,
+    "mode": "baseline",
+    "shield": 20,
+    "winner": 1,
+    "reason": "城门失守",
+    "ticks": 226,
+    "seconds": 158.2,
+    "remaining": [
+      0,
+      9038
+    ],
+    "gate": 0,
+    "firstGateHit": 201,
+    "commands": 0,
+    "firstReady": 26,
+    "idleFull": 200,
+    "firstLowCast": 5,
+    "thirdWaveEntered": false,
+    "combos": [
+      21,
+      82
+    ],
+    "units": [
+      {
+        "id": "cao",
+        "name": "曹操",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 38,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 812,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "strike": 2,
+          "phalanx": 2
+        }
+      },
+      {
+        "id": "liao",
+        "name": "张辽",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "terror",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 192,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1438,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 5,
+          "rush": 1,
+          "terror": 3
+        }
+      },
+      {
+        "id": "chu",
+        "name": "许褚",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "protect",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 177,
+        "blocked": 0,
+        "phalanxOutOfRange": 11,
+        "damage": 1001,
+        "gateDamage": 0,
+        "firstHit": 10,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "phalanx": 3,
+          "protect": 2
+        }
+      },
+      {
+        "id": "jia",
+        "name": "郭嘉",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "undermine",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 157,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4582,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 19,
+          "seal": 5,
+          "undermine": 5
+        }
+      },
+      {
+        "id": "dun",
+        "name": "夏侯惇",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 63,
+        "blocked": 0,
+        "phalanxOutOfRange": 8,
+        "damage": 1537,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 5,
+          "phalanx": 2,
+          "strike": 2
+        }
+      },
+      {
+        "id": "yu",
+        "name": "荀攸",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "screen",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 106,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2905,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 12,
+          "seal": 3,
+          "screen": 2
+        }
+      },
+      {
+        "id": "yuanxia",
+        "name": "夏侯渊",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 105,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1527,
+        "gateDamage": 0,
+        "firstHit": 43,
+        "entry": 39,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 7,
+          "valor": 3,
+          "rush": 1
+        }
+      },
+      {
+        "id": "jin",
+        "name": "于禁",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 135,
+        "blocked": 0,
+        "phalanxOutOfRange": 4,
+        "damage": 560,
+        "gateDamage": 0,
+        "firstHit": 69,
+        "entry": 64,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "strike": 2,
+          "phalanx": 2
+        }
+      },
+      {
+        "id": "shao",
+        "name": "袁绍",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 31,
+        "blocked": 0,
+        "phalanxOutOfRange": 1,
+        "damage": 344,
+        "gateDamage": 0,
+        "firstHit": 10,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "yan",
+        "name": "颜良",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 19,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 13,
+        "gateDamage": 0,
+        "firstHit": 9,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "wen",
+        "name": "文丑",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 17,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 40,
+        "gateDamage": 0,
+        "firstHit": 10,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "he",
+        "name": "张郃",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 28,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 172,
+        "gateDamage": 0,
+        "firstHit": 9,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "ju",
+        "name": "沮授",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 226,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4985,
+        "gateDamage": 907,
+        "firstHit": 10,
+        "entry": 1,
+        "hp": 441,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 24,
+          "wildfire": 7,
+          "smoke": 7
+        }
+      },
+      {
+        "id": "tian",
+        "name": "田丰",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 106,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2140,
+        "gateDamage": 0,
+        "firstHit": 9,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 13,
+          "smoke": 4,
+          "wildfire": 3
+        }
+      },
+      {
+        "id": "test-6",
+        "name": "援军1队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 22,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 206,
+        "gateDamage": 0,
+        "firstHit": 32,
+        "entry": 30,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 68,
+        "casts": {
+          "press": 3,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-7",
+        "name": "援军2队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 197,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4473,
+        "gateDamage": 1027,
+        "firstHit": 33,
+        "entry": 30,
+        "hp": 1300,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 21,
+          "repeat": 8,
+          "pierce": 6
+        }
+      },
+      {
+        "id": "test-8",
+        "name": "援军3队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 28,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 404,
+        "gateDamage": 0,
+        "firstHit": 35,
+        "entry": 30,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "test-9",
+        "name": "援军4队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 195,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 5370,
+        "gateDamage": 1437,
+        "firstHit": 36,
+        "entry": 32,
+        "hp": 1300,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 20,
+          "fire": 8,
+          "scatter": 6
+        }
+      },
+      {
+        "id": "test-10",
+        "name": "援军5队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 18,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 155,
+        "gateDamage": 0,
+        "firstHit": 54,
+        "entry": 52,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "test-11",
+        "name": "援军6队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 169,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 3706,
+        "gateDamage": 688,
+        "firstHit": 60,
+        "entry": 58,
+        "hp": 797,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 16,
+          "repeat": 6,
+          "pierce": 5
+        }
+      },
+      {
+        "id": "test-12",
+        "name": "援军7队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 17,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 76,
+        "gateDamage": 0,
+        "firstHit": 81,
+        "entry": 70,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 1
+        }
+      },
+      {
+        "id": "test-13",
+        "name": "援军8队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 140,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4011,
+        "gateDamage": 1463,
+        "firstHit": 91,
+        "entry": 87,
+        "hp": 1300,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 14,
+          "fire": 5,
+          "scatter": 4
+        }
+      },
+      {
+        "id": "test-14",
+        "name": "援军9队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 17,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 145,
+        "gateDamage": 0,
+        "firstHit": 112,
+        "entry": 107,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-15",
+        "name": "援军10队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 103,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 2898,
+        "gateDamage": 978,
+        "firstHit": 130,
+        "entry": 124,
+        "hp": 1300,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 8,
+          "repeat": 3,
+          "pierce": 3
+        }
+      },
+      {
+        "id": "test-16",
+        "name": "援军11队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 0,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 0,
+        "gateDamage": 0,
+        "firstHit": null,
+        "entry": null,
+        "hp": 1300,
+        "status": "reserve",
+        "intent": 0,
+        "casts": {}
+      },
+      {
+        "id": "test-17",
+        "name": "援军12队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 0,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 0,
+        "gateDamage": 0,
+        "firstHit": null,
+        "entry": null,
+        "hp": 1300,
+        "status": "reserve",
+        "intent": 0,
+        "casts": {}
+      }
+    ],
+    "casualties": [
+      {
+        "faction": "cao",
+        "initial": 24000,
+        "remaining": 0,
+        "wounded": 8400,
+        "killed": 15600
+      },
+      {
+        "faction": "yuan",
+        "initial": 23400,
+        "remaining": 9038,
+        "wounded": 5016,
+        "killed": 9346
+      }
+    ]
+  },
+  {
+    "scenario": "rotation",
+    "seed": 521206,
+    "mode": "baseline",
+    "shield": 20,
+    "winner": 1,
+    "reason": "击溃",
+    "ticks": 189,
+    "seconds": 132.3,
+    "remaining": [
+      0,
+      2684
+    ],
+    "gate": null,
+    "firstGateHit": null,
+    "commands": 0,
+    "firstReady": 26,
+    "idleFull": 163,
+    "firstLowCast": 3,
+    "thirdWaveEntered": false,
+    "combos": [
+      30,
+      61
+    ],
+    "units": [
+      {
+        "id": "cao",
+        "name": "曹操",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 70,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1291,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "phalanx": 3,
+          "press": 8,
+          "strike": 3
+        }
+      },
+      {
+        "id": "liao",
+        "name": "张辽",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "terror",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 34,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 910,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "rush": 1,
+          "terror": 1
+        }
+      },
+      {
+        "id": "chu",
+        "name": "许褚",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "protect",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 111,
+        "blocked": 0,
+        "phalanxOutOfRange": 5,
+        "damage": 2140,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 12,
+          "phalanx": 4,
+          "protect": 3
+        }
+      },
+      {
+        "id": "jia",
+        "name": "郭嘉",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "undermine",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 141,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4078,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 17,
+          "seal": 5,
+          "undermine": 5
+        }
+      },
+      {
+        "id": "dun",
+        "name": "夏侯惇",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 62,
+        "blocked": 0,
+        "phalanxOutOfRange": 4,
+        "damage": 1996,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 7,
+          "phalanx": 2,
+          "strike": 3
+        }
+      },
+      {
+        "id": "yu",
+        "name": "荀攸",
+        "side": 0,
+        "type": "crossbow",
+        "tactics": [
+          "screen",
+          "seal",
+          "harry"
+        ],
+        "activeTicks": 188,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 5242,
+        "gateDamage": 0,
+        "firstHit": 2,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 22,
+          "seal": 6,
+          "screen": 4
+        }
+      },
+      {
+        "id": "yuanxia",
+        "name": "夏侯渊",
+        "side": 0,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 43,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1458,
+        "gateDamage": 0,
+        "firstHit": 39,
+        "entry": 35,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 5,
+          "rush": 2,
+          "valor": 2
+        }
+      },
+      {
+        "id": "jin",
+        "name": "于禁",
+        "side": 0,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 40,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 601,
+        "gateDamage": 0,
+        "firstHit": 79,
+        "entry": 63,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "strike": 2,
+          "phalanx": 1
+        }
+      },
+      {
+        "id": "shao",
+        "name": "袁绍",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 27,
+        "blocked": 0,
+        "phalanxOutOfRange": 3,
+        "damage": 438,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 2,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "yan",
+        "name": "颜良",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 19,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 216,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 3,
+          "valor": 1,
+          "rush": 1
+        }
+      },
+      {
+        "id": "wen",
+        "name": "文丑",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 39,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 735,
+        "gateDamage": 0,
+        "firstHit": 3,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 5,
+          "valor": 2,
+          "rush": 1
+        }
+      },
+      {
+        "id": "he",
+        "name": "张郃",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 37,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 975,
+        "gateDamage": 0,
+        "firstHit": 5,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "phalanx": 1,
+          "strike": 2
+        }
+      },
+      {
+        "id": "ju",
+        "name": "沮授",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 71,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1742,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 8,
+          "smoke": 3,
+          "wildfire": 2
+        }
+      },
+      {
+        "id": "tian",
+        "name": "田丰",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "wildfire",
+          "smoke",
+          "harry"
+        ],
+        "activeTicks": 118,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 3009,
+        "gateDamage": 0,
+        "firstHit": 4,
+        "entry": 1,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 14,
+          "smoke": 4,
+          "wildfire": 4
+        }
+      },
+      {
+        "id": "test-6",
+        "name": "援军1队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 35,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 593,
+        "gateDamage": 0,
+        "firstHit": 23,
+        "entry": 20,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-7",
+        "name": "援军2队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 162,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 3825,
+        "gateDamage": 0,
+        "firstHit": 31,
+        "entry": 28,
+        "hp": 984,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 20,
+          "repeat": 7,
+          "pierce": 6
+        }
+      },
+      {
+        "id": "test-8",
+        "name": "援军3队",
+        "side": 1,
+        "type": "spear",
+        "tactics": [
+          "strike",
+          "phalanx",
+          "press"
+        ],
+        "activeTicks": 40,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 677,
+        "gateDamage": 0,
+        "firstHit": 42,
+        "entry": 38,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 5,
+          "phalanx": 1,
+          "strike": 1
+        }
+      },
+      {
+        "id": "test-9",
+        "name": "援军4队",
+        "side": 1,
+        "type": "archer",
+        "tactics": [
+          "scatter",
+          "fire",
+          "harry"
+        ],
+        "activeTicks": 150,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 4875,
+        "gateDamage": 0,
+        "firstHit": 42,
+        "entry": 40,
+        "hp": 1700,
+        "status": "active",
+        "intent": 110,
+        "casts": {
+          "harry": 18,
+          "fire": 7,
+          "scatter": 6
+        }
+      },
+      {
+        "id": "test-10",
+        "name": "援军5队",
+        "side": 1,
+        "type": "cavalry",
+        "tactics": [
+          "valor",
+          "rush",
+          "press"
+        ],
+        "activeTicks": 36,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 649,
+        "gateDamage": 0,
+        "firstHit": 57,
+        "entry": 55,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "press": 4,
+          "rush": 1,
+          "valor": 1
+        }
+      },
+      {
+        "id": "test-11",
+        "name": "援军6队",
+        "side": 1,
+        "type": "crossbow",
+        "tactics": [
+          "pierce",
+          "repeat",
+          "harry"
+        ],
+        "activeTicks": 88,
+        "blocked": 0,
+        "phalanxOutOfRange": 0,
+        "damage": 1990,
+        "gateDamage": 0,
+        "firstHit": 74,
+        "entry": 72,
+        "hp": 0,
+        "status": "defeated",
+        "intent": 110,
+        "casts": {
+          "harry": 10,
+          "repeat": 4,
+          "pierce": 3
+        }
+      }
+    ],
+    "casualties": [
+      {
+        "faction": "cao",
+        "initial": 20800,
+        "remaining": 0,
+        "wounded": 7272,
+        "killed": 13528
+      },
+      {
+        "faction": "yuan",
+        "initial": 20400,
+        "remaining": 2684,
+        "wounded": 6200,
+        "killed": 11516
+      }
+    ]
+  }
+]

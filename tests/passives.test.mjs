@@ -1,3 +1,5 @@
+import {primeTactic} from './helpers/prime-tactic.mjs';
+import {relationshipKey} from '../relationships.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newGame,makeOfficer,orderArmy,advanceTurn,startBattle,lockDeployment,stepBattle,settleBattle,validateSave,issueCommand,COMMAND_RESOURCE,lowerIntent} from '../engine.mjs';
@@ -21,15 +23,15 @@ function duel(id='cao',level=1){
   return {state,b,a,d};
 }
 function cast(x,id,target=x.d){
-  const {a,b}=x;a.cast={skillId:id,targetId:target.id,remaining:1};stepBattle(b);
+  const {a,b}=x;primeTactic(a,id);stepBattle(b);
   return b.effects.filter(e=>e.from===a.id&&e.damage).reduce((n,e)=>n+e.damage,0);
 }
 function extra(b,id,side,x,y,level=1){
   const u={...makeOfficer(id),level,side,status:'active',hp:3000,maxHp:3000,initial:3000,battleDamage:0,healed:0,x,y,intent:0,cooldown:999,cast:null,statuses:{phalanx:{until:999}},skillReady:{},tacticCasts:{},passiveState:initialPassiveState()};
   u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));b.sides[side].units.push(u);return u;
 }
-test('all 34 passives and 15 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10',()=>{
-  assert.equal(Object.keys(PASSIVES).length,34);assert.equal(Object.keys(SKILL_ROUTES).length,15);
+test('all 60 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10',()=>{
+  assert.equal(Object.keys(PASSIVES).length,60);assert.equal(Object.keys(SKILL_ROUTES).length,41);
   for(const [id,route] of Object.entries(SKILL_ROUTES)){
     assert.equal(new Set(route).size,5);
     for(let level=1;level<=10;level++){
@@ -89,9 +91,10 @@ test('isolated and joint change actual basic damage and evaluate neighbors from 
   near(shot(10)/shot(9),1.25,.03);near(shot(10,true)/shot(9),1.4,.03);near(shot(10,false,true)/shot(9),1,.03);
   const x=duel('liao',10);assert.equal(passiveDamageMultiplier(x.b,x.a,x.d,'intellect',40),1);
 });
-test('foresight enhances actual intellect damage only below the equipped minimum intent threshold',()=>{
+test('foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold',()=>{
   function hit(level,intent){const x=duel('jia',level);x.d.intent=intent;return cast(x,'seal');}
-  near(hit(10,0)/hit(9,0),1.3,.03);assert.equal(hit(10,160),hit(9,160));
+  near(hit(10,0)/hit(9,0),1.3,.03);near(hit(10,59)/hit(9,59),1.3,.03);
+  assert.equal(hit(10,60),hit(9,60));assert.equal(hit(10,100),hit(9,100));
   const x=duel('jia',10);assert.equal(passiveDamageMultiplier(x.b,x.a,x.d,'force',40),1);
 });
 test('crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics',()=>{
@@ -109,13 +112,13 @@ test('fractional attack intervals produce more actual attacks instead of roundin
   for(const type of ['archer','crossbow']){const u={...makeOfficer('cao'),id:'common',skillRouteType:type,type,level:10};near(unitAttributes(u).attackInterval,(type==='archer'?2:4)/1.2);}
 });
 test('attack and surviving-hit intent bonuses fire once for multi-hit attacks and respect caps',()=>{
-  const x=duel('liao',3);x.d.id='dun';x.d.level=3;cast(x,'repeat');assert.equal(x.a.intent,14);assert.equal(x.d.intent,24);
-  x.a.intent=159;x.a.cooldown=0;stepBattle(x.b);assert.equal(x.a.intent,160);
+  const x=duel('liao',3);x.d.id='dun';x.d.level=3;cast(x,'repeat');assert.equal(x.a.intent,54);assert.equal(x.d.intent,24);
+  x.a.intent=99;x.a.cooldown=0;stepBattle(x.b);assert.equal(x.a.intent,100);
   const y=duel('liao',3);y.d.statuses.shield={until:99,amount:1000,layers:[{source:'test',label:'测试',amount:1000,until:99}]};stepBattle(y.b);assert.equal(y.d.intent,0);
 });
-test('suppress and calm modify intent loss without interrupting casting or changing cooldowns',()=>{
-  const source={...makeOfficer('jia'),level:5},target={...makeOfficer('cao'),level:8,intent:100,cast:{remaining:2},skillReady:{thrust:99}};
-  assert.equal(lowerIntent(target,45,source),43);assert.equal(target.intent,57);assert.deepEqual(target.cast,{remaining:2});assert.equal(target.skillReady.thrust,99);
+test('suppress and calm modify intent loss without changing cooldowns',()=>{
+  const source={...makeOfficer('jia'),level:5},target={...makeOfficer('cao'),level:8,intent:100,skillReady:{thrust:99}};
+  assert.equal(lowerIntent(target,45,source),43);assert.equal(target.intent,57);assert.equal(target.skillReady.thrust,99);
   lowerIntent(target,1000,source);assert.equal(target.intent,0);
   target.intent=100;lowerIntent(target,45);assert.equal(target.intent,64);
 });
@@ -136,10 +139,12 @@ test('rescue increases actual shield, rally and relay effects, and leaves army s
 });
 test('cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly',()=>{
   const s=campaign(10),b=s.battle,u=b.sides[0].units.find(u=>u.id==='jia'),first=b.sides[0].units.find(u=>u.id==='cao'),d=b.sides[1].units[0];
+  s.relationshipTypes[relationshipKey(first.id,u.id)]='sworn';b.relationshipTypes=structuredClone(s.relationshipTypes);
+  s.relationshipScores[relationshipKey(first.id,u.id)]=100;b.relationshipScores=structuredClone(s.relationshipScores);
   b.sides[0].units=[first,u];b.sides[1].units=[d];Object.assign(first,{x:3,y:3,type:'crossbow'});Object.assign(u,{x:4,y:3,type:'crossbow'});Object.assign(d,{x:6,y:3});
   for(const v of [first,u,d]){v.cooldown=999;v.statuses.phalanx={until:999};configureTactics(v,v.type==='crossbow'?['repeat','seal','screen']:['thrust','phalanx','strike']);v.skillReady=Object.fromEntries(unitTactics(v).map(t=>[t.id,999]));}
-  first.cast={skillId:'repeat',targetId:d.id,remaining:1};stepBattle(b);const anchored=b.comboWindows[0].tick;
-  u.cast={skillId:'repeat',targetId:d.id,remaining:1};stepBattle(b);assert.equal(b.effects.find(e=>e.combo).combo.bonus,30);assert.equal(b.comboWindows[0].tick,anchored);assert.deepEqual(validateSave(structuredClone(s)).battle,b);
+  primeTactic(first,'repeat');stepBattle(b);const anchored=b.comboWindows[0].tick;
+  primeTactic(u,'repeat');stepBattle(b);assert.equal(b.effects.find(e=>e.combo).combo.bonus,30);assert.equal(b.comboWindows[0].tick,anchored);assert.deepEqual(validateSave(structuredClone(s)).battle,b);
 });
 test('reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment',()=>{
   const s=campaign(10),b=s.battle,he=b.sides[1].units.find(u=>u.id==='he');
@@ -176,10 +181,9 @@ test('max-level full battles and fractional cooldown saves resume deterministica
     assert.ok(s.battle.result);assert.ok(s.battle.sides.every(side=>side.units.filter(u=>u.status==='active').length<=6));
   }
 });
-test('invalid levels, experience, counters, durations and fractional cooldowns are rejected; old saves default to level one',()=>{
+test('invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected',()=>{
   for(const mutate of [s=>s.armies[0].units[0].level=11,s=>s.armies[0].units[0].experience=100,s=>s.battle.sides[0].units[0].cooldown=-.1,s=>s.battle.sides[0].units[0].passiveState.lastMoveTick=999,s=>s.battle.sides[0].units[0].passiveState.shots=-1,s=>s.battle.sides[0].units[0].attackCarry=1,s=>s.battle.sides[0].units[0].level=2]){
     const s=campaign();mutate(s);assert.throws(()=>validateSave(s));
   }
-  const old=campaign();for(const u of [...old.armies.flatMap(a=>a.units),...old.battle.sides.flatMap(s=>s.units)]){delete u.level;delete u.experience;delete u.passiveState;delete u.attackCarry;delete u.participated;}
-  const migrated=validateSave(old);assert.equal(migrated.armies[0].units[0].level,1);assert.equal(migrated.battle.sides[0].units[0].passiveState.reserveEntered,false);
+  for(const field of ['level','experience','passiveState','attackCarry','participated']){const s=campaign();delete s.battle.sides[0].units[0][field];assert.throws(()=>validateSave(s));}
 });

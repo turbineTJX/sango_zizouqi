@@ -30,6 +30,8 @@ export function unitAttributes(u,b=null) {
  if(on('valor'))atk.push({label:'骁骑奋战',factor:1.25});
  if(on('weaken'))atk.push({label:'疲弱',factor:.8});
  if(on('armorBreak'))def.push({label:'破防',factor:.8});
+ if(on('press'))def.push({label:`破势 ${u.statuses.press.stacks} 层`,factor:1-.04*u.statuses.press.stacks});
+ if(on('harry'))atk.push({label:`扰阵 ${u.statuses.harry.stacks} 层`,factor:1-.04*u.statuses.harry.stacks});
  if(on('haste')||army('hasteUntil'))move.push({label:'疾行（同类不叠加）',add:1});
  if(on('slow'))move.push({label:'迟滞',factor:.5});
  if(on('phalanx')||on('stun'))move.push({label:on('stun')?'眩晕':'铁壁枪阵',factor:0});
@@ -43,7 +45,7 @@ export function unitAttributes(u,b=null) {
  stat('strategyPower',80,(u.intellect||0)*2,'智力 × 2',strategy);
  out.controlResistance=Math.min(.6,out.discipline/(out.discipline+150));
  out.damageReduction=1-(on('phalanx')?.7:1)*(on('ward')?1-u.statuses.ward.percent/100:1);
- out.strength=.5+.5*Math.sqrt(Math.max(0,Math.min(1,(u.hp??u.troops)/Math.max(1,u.maxHp??3000))));
+ out.strength=Math.sqrt(Math.max(0,Math.min(1,(u.hp??u.troops)/3000)));
  return out;
 }
 export function disciplineDuration(b,u,steps){return Math.max(1,Math.round(steps*(1-unitAttributes(u,b).controlResistance)));}

@@ -1,0 +1,378 @@
+{
+  "rulesVersion": 8,
+  "seeds": 16,
+  "sourceHashes": {
+    "engine.mjs": "db81827b5df033d036c8e3b18330eacafad356bad3bc9bae8d7b70d72e23d598",
+    "tactics.mjs": "8d9908d459d87dce410618c087eb4cec556e2e2de4943d280ebcbf03756138d3",
+    "passives.mjs": "9e1d2ed3be28f086d1ed605f0aa0bad6b265814f1c61513113a36d4fb328cbe4",
+    "unit-stats.mjs": "21a26f85b1f5163d40f8dcc1ee868e43c4da3ca3562be8d6d950d8a73a002157",
+    "relationships.mjs": "4380c0359acd2872f8672c17b60cab5e2d9cf38a1b3c8277abc78f28156d6fc2",
+    "combat-rules.mjs": "346ff98a8d97e3f7e5fe6b5d809772d4c10102954f060801dc5d071b0e26f1bb",
+    "scenarios.mjs": "dc510ba3aaee96cb3263c04c5175a9ac54b6dae90a2b4cbd8665cc5d7281a352",
+    "scenario-catalog.mjs": "739402313c003bfeb644c195591abc0c667bb3c873f08d8e8b04674bd07d5cfd",
+    "officer-catalog.mjs": "c601e160c3a1619b84f00ac8e7ecb0bf57c3639bae90afd1a6802d65fb3566ab",
+    "data/officers.mjs": "3859dc656c23c00c5d9c86c86e04f329cb1ca5f7fa080c8e506c6b6c7c01dbdc",
+    "scripts/skill-audit.mjs": "c98db851fbc0d700d304d5374f6e4e1824a78306cac7bdf9cc1fcffe2014872c"
+  },
+  "officers": 835,
+  "skilledOfficers": 15,
+  "actualBattles": 1536,
+  "methodology": "6v6, 3000 troops per unit, paired fixed seeds and both sides, two formations, no commands in marginal tests, ordinary relationship 50; tactic first slot on vs cooldown-disabled; passive same officer level10 vs1/9. Margin gain is percentage points of 18000 starting troops, not win rate. Approximate intervals are exploratory, not population confidence. Scenario commands benefit player side only.",
+  "tactics": [
+    {
+      "id": "screen",
+      "name": "烟幕掩军",
+      "pairs": 128,
+      "marginGainPP": 16.074,
+      "approx95": [
+        15.004,
+        17.144
+      ],
+      "scoreGainPP": 48.828,
+      "castMean": 7.836,
+      "zeroCastPct": 0,
+      "seconds": 164.434,
+      "contexts": [
+        {
+          "context": "crossbow/physical/compact",
+          "pairs": 32,
+          "marginGainPP": 16.393,
+          "approx95": [
+            15.577,
+            17.21
+          ],
+          "scoreGainPP": 50,
+          "castMean": 6.094,
+          "zeroCastPct": 0,
+          "seconds": 156.538
+        },
+        {
+          "context": "crossbow/physical/spread",
+          "pairs": 32,
+          "marginGainPP": 11.084,
+          "approx95": [
+            10.4,
+            11.769
+          ],
+          "scoreGainPP": 45.313,
+          "castMean": 9,
+          "zeroCastPct": 0,
+          "seconds": 168
+        },
+        {
+          "context": "crossbow/intellect/compact",
+          "pairs": 32,
+          "marginGainPP": 22.341,
+          "approx95": [
+            21.6,
+            23.082
+          ],
+          "scoreGainPP": 50,
+          "castMean": 8.156,
+          "zeroCastPct": 0,
+          "seconds": 165.2
+        },
+        {
+          "context": "crossbow/intellect/spread",
+          "pairs": 32,
+          "marginGainPP": 14.478,
+          "approx95": [
+            13.822,
+            15.135
+          ],
+          "scoreGainPP": 50,
+          "castMean": 8.094,
+          "zeroCastPct": 0,
+          "seconds": 168
+        }
+      ]
+    },
+    {
+      "id": "fire",
+      "name": "燎原火矢",
+      "pairs": 128,
+      "marginGainPP": 16.859,
+      "approx95": [
+        16.11,
+        17.608
+      ],
+      "scoreGainPP": 50,
+      "castMean": 7.766,
+      "zeroCastPct": 0,
+      "seconds": 132.18,
+      "contexts": [
+        {
+          "context": "archer/physical/compact",
+          "pairs": 32,
+          "marginGainPP": 19.183,
+          "approx95": [
+            18.035,
+            20.331
+          ],
+          "scoreGainPP": 50,
+          "castMean": 6.5,
+          "zeroCastPct": 0,
+          "seconds": 138.556
+        },
+        {
+          "context": "archer/physical/spread",
+          "pairs": 32,
+          "marginGainPP": 17.628,
+          "approx95": [
+            16.836,
+            18.421
+          ],
+          "scoreGainPP": 50,
+          "castMean": 8.563,
+          "zeroCastPct": 0,
+          "seconds": 128.844
+        },
+        {
+          "context": "archer/intellect/compact",
+          "pairs": 32,
+          "marginGainPP": 15.124,
+          "approx95": [
+            13.161,
+            17.086
+          ],
+          "scoreGainPP": 50,
+          "castMean": 7.875,
+          "zeroCastPct": 0,
+          "seconds": 132.694
+        },
+        {
+          "context": "archer/intellect/spread",
+          "pairs": 32,
+          "marginGainPP": 15.501,
+          "approx95": [
+            14.585,
+            16.417
+          ],
+          "scoreGainPP": 50,
+          "castMean": 8.125,
+          "zeroCastPct": 0,
+          "seconds": 128.625
+        }
+      ]
+    },
+    {
+      "id": "gallop",
+      "name": "风驰电掣",
+      "pairs": 128,
+      "marginGainPP": -1.014,
+      "approx95": [
+        -2.834,
+        0.807
+      ],
+      "scoreGainPP": -6.641,
+      "castMean": 1.063,
+      "zeroCastPct": 0,
+      "seconds": 107.198,
+      "contexts": [
+        {
+          "context": "cavalry/physical/compact",
+          "pairs": 32,
+          "marginGainPP": 2.263,
+          "approx95": [
+            0.608,
+            3.919
+          ],
+          "scoreGainPP": 0,
+          "castMean": 1.125,
+          "zeroCastPct": 0,
+          "seconds": 105.875
+        },
+        {
+          "context": "cavalry/physical/spread",
+          "pairs": 32,
+          "marginGainPP": 1.315,
+          "approx95": [
+            -3.654,
+            6.285
+          ],
+          "scoreGainPP": 1.563,
+          "castMean": 1,
+          "zeroCastPct": 0,
+          "seconds": 106.663
+        },
+        {
+          "context": "cavalry/intellect/compact",
+          "pairs": 32,
+          "marginGainPP": 0.391,
+          "approx95": [
+            -0.978,
+            1.76
+          ],
+          "scoreGainPP": -6.25,
+          "castMean": 1.125,
+          "zeroCastPct": 0,
+          "seconds": 104.212
+        },
+        {
+          "context": "cavalry/intellect/spread",
+          "pairs": 32,
+          "marginGainPP": -8.024,
+          "approx95": [
+            -11.05,
+            -4.999
+          ],
+          "scoreGainPP": -21.875,
+          "castMean": 1,
+          "zeroCastPct": 0,
+          "seconds": 112.044
+        }
+      ]
+    }
+  ],
+  "passives": [
+    {
+      "id": "jia",
+      "name": "郭嘉",
+      "type": "crossbow",
+      "route": [
+        "博识",
+        "振奋",
+        "挫锐",
+        "协谋",
+        "料敌"
+      ],
+      "ultimate": "料敌",
+      "routeResult": {
+        "pairs": 64,
+        "marginGainPP": 3.912,
+        "approx95": [
+          2.507,
+          5.316
+        ],
+        "scoreGainPP": 15.625,
+        "castMean": 32.078,
+        "zeroCastPct": 0,
+        "seconds": 153.956
+      },
+      "ultimateResult": {
+        "pairs": 64,
+        "marginGainPP": 0.324,
+        "approx95": [
+          0.095,
+          0.553
+        ],
+        "scoreGainPP": 0.781,
+        "castMean": 32.078,
+        "zeroCastPct": 0,
+        "seconds": 153.956
+      }
+    },
+    {
+      "id": "yuanxia",
+      "name": "夏侯渊",
+      "type": "archer",
+      "route": [
+        "强攻",
+        "振奋",
+        "弓术",
+        "合击",
+        "神行"
+      ],
+      "ultimate": "神行",
+      "routeResult": {
+        "pairs": 64,
+        "marginGainPP": 25.203,
+        "approx95": [
+          24.383,
+          26.023
+        ],
+        "scoreGainPP": 50,
+        "castMean": 32.766,
+        "zeroCastPct": 0,
+        "seconds": 113.006
+      },
+      "ultimateResult": {
+        "pairs": 64,
+        "marginGainPP": 10.568,
+        "approx95": [
+          8.955,
+          12.182
+        ],
+        "scoreGainPP": 39.063,
+        "castMean": 32.766,
+        "zeroCastPct": 0,
+        "seconds": 113.006
+      }
+    },
+    {
+      "id": "ju",
+      "name": "沮授",
+      "type": "crossbow",
+      "route": [
+        "博识",
+        "严整",
+        "护持",
+        "镇定",
+        "辅军"
+      ],
+      "ultimate": "辅军",
+      "routeResult": {
+        "pairs": 64,
+        "marginGainPP": 5.549,
+        "approx95": [
+          4.49,
+          6.609
+        ],
+        "scoreGainPP": 15.625,
+        "castMean": 41.906,
+        "zeroCastPct": 0,
+        "seconds": 160.694
+      },
+      "ultimateResult": {
+        "pairs": 64,
+        "marginGainPP": 1.514,
+        "approx95": [
+          0.871,
+          2.157
+        ],
+        "scoreGainPP": 5.469,
+        "castMean": 41.906,
+        "zeroCastPct": 0,
+        "seconds": 160.694
+      }
+    },
+    {
+      "id": "tian",
+      "name": "田丰",
+      "type": "archer",
+      "route": [
+        "博识",
+        "振奋",
+        "严整",
+        "协谋",
+        "深谋"
+      ],
+      "ultimate": "深谋",
+      "routeResult": {
+        "pairs": 64,
+        "marginGainPP": 13.346,
+        "approx95": [
+          10.733,
+          15.959
+        ],
+        "scoreGainPP": 39.063,
+        "castMean": 31.359,
+        "zeroCastPct": 0,
+        "seconds": 127.837
+      },
+      "ultimateResult": {
+        "pairs": 64,
+        "marginGainPP": 6.354,
+        "approx95": [
+          4.435,
+          8.273
+        ],
+        "scoreGainPP": 21.875,
+        "castMean": 31.359,
+        "zeroCastPct": 0,
+        "seconds": 127.837
+      }
+    }
+  ],
+  "scenarios": []
+}

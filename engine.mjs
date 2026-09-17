@@ -1,15 +1,23 @@
-import { TROOPS, unitAttributes, disciplineDuration, POLITICS } from './unit-stats.mjs';
+import {OFFICER_BY_ID,officerProfile,PROFILE_FIELDS,RELATION_LIST_FIELDS} from './officer-catalog.mjs';
+import {relationshipInfo,validRelationshipScores,validRelationshipTypes} from './relationships.mjs';
+import {hexDistance, hexNeighbors, hexBeyond} from './hex-grid.mjs';
+import { TROOPS, unitAttributes, disciplineDuration } from './unit-stats.mjs';
 import {hasPassive, initialPassiveState, moved, recordBasicAttack, passiveDamageMultiplier, passiveDamageTaken, supportMultiplier, SKILL_ROUTES} from './passives.mjs';
 import {gainExperience, experienceNeeded, PROGRESSION} from './progression.mjs';
+import { blockedTerrain, gateTarget } from './battlefield.mjs';
+import { SCENARIOS } from './scenario-catalog.mjs';
+import { COMBAT, RULES_VERSION } from './combat-rules.mjs';
+import {FAMOUS_OFFICERS} from './famous-officers.mjs';
+import {famousTargets} from './tactics.mjs';
 export { TROOPS, unitAttributes, disciplineDuration } from './unit-stats.mjs';
 // The simulation has no DOM, network, clock, or storage dependencies.
-import { TACTICS_BOOK, unitTactics, readyTactic, tacticTarget, hasStatus, setStatus, routeTo, retreatCell, openCell, configureTactics, validLoadout, defaultTacticIds, NEGATIVE_STATUSES, statusPower, lureCell, absorbShield, refreshShield } from './tactics.mjs';
+import { TACTICS_BOOK, unitTactics, readyTactic, hasStatus, setStatus, routeTo, retreatCell, openCell, configureTactics, validLoadout, defaultTacticIds, recommendedTacticIds, NEGATIVE_STATUSES, statusPower, lureCell, absorbShield, refreshShield } from './tactics.mjs';
 export { TACTICS_BOOK, unitTactics, hasStatus } from './tactics.mjs';
 export const VERSION = 2;
 export const GRID = { cols: 14, rows: 8 };
 export const COMBO = { window:3, doubleBonus:25, tripleBonus:40 };
-export const COMBAT = { stepMs: 700, damageScale: .7, skillWindup: 2, intentOnAttack: 12, intentOnHit: 10, intentCap: 160 };
-export const SKILL_THRESHOLDS = { cao:110, dun:85, liao:95, chu:80, jia:100, yu:90, yuanxia:85, jin:80, shao:100, yan:85, wen:95, he:90, ju:100, tian:105, gao:85 };
+export { COMBAT } from './combat-rules.mjs';
+export const SKILL_THRESHOLDS = { cao:100, dun:85, liao:95, chu:80, jia:100, yu:90, yuanxia:85, jin:80, shao:100, yan:85, wen:95, he:90, ju:100, tian:100, gao:85 };
 export const skillThreshold = unit => Math.min(...unitTactics(unit).map(s=>s.threshold));
 export const STRATAGEMS = {
   heal: { name:'援军急救', group:'support', cost:1, duration:0, description:'救治在场各队本场伤兵，每队最多恢复初始兵力 8%；不复活溃败部队', side:0, icon:'home' },
@@ -23,7 +31,7 @@ export const STRATAGEMS = {
   demoralize: { name:'夺气攻心', group:'control', cost:1, duration:0, description:'敌军全体战意 −45（最低为 0），不打断施法', side:1, icon:'wind' },
   cleanse: { name:'鸣金整阵', group:'support', cost:1, duration:0, description:'清除我军控制、灼烧与减益，并获得 3 步控制保护', side:0, icon:'flag' },
   haste: { name:'疾行赴援', group:'offense', cost:1, duration:10, description:'我军移动力 +1，预备队入场时同样受益', side:0, field:'hasteUntil', icon:'wind' },
-  cycle: { name:'轮番进击', group:'offense', cost:1, duration:0, description:'我军所有正在冷却的战法缩短 6 步，蓄势不受影响', side:0, icon:'sword' },
+  cycle: { name:'轮番进击', group:'offense', cost:1, duration:0, description:'我军所有正在冷却的战法缩短 6 步', side:0, icon:'sword' },
   blockade: { name:'烽火断援', group:'control', cost:1, duration:10, description:'延迟敌方预备队补入战场 10 步，不移除敌军', side:1, field:'blockadeUntil', icon:'flag' },
   relief: { name:'后军固阵', group:'support', cost:1, duration:16, description:'预备队入场获 15% 护盾；期间主动轮换门槛放宽到 85%', side:0, field:'reliefUntil', icon:'home' },
 };
@@ -82,21 +90,26 @@ const OFFICERS = [
   ['chu', '许褚', '仲康', 80, 98, 40, '虎痴怒击', 'spear', 'middle', '悍勇护主'],
   ['jia', '郭嘉', '奉孝', 79, 42, 98, '奇谋破阵', 'crossbow', 'back', '料敌先机'],
   ['yu', '荀攸', '公达', 83, 45, 96, '声东击西', 'crossbow', 'back', '谋定后动'],
-  ['yuanxia', '夏侯渊', '妙才', 88, 91, 70, '疾风奔袭', 'cavalry', 'front', '神速奔袭'],
+  ['yuanxia', '夏侯渊', '妙才', 88, 91, 70, '疾风奔袭', 'archer', 'back', '神速奔袭'],
   ['jin', '于禁', '文则', 90, 78, 75, '坚壁清野', 'spear', 'middle', '治军严整'],
   ['shao', '袁绍', '本初', 86, 72, 78, '四世三公', 'spear', 'front', '名门雄主'],
   ['yan', '颜良', '公骥', 84, 96, 43, '河北雄锋', 'cavalry', 'front', '勇冠三军'],
   ['wen', '文丑', '子恒', 82, 95, 42, '破阵长驱', 'cavalry', 'front', '锐不可当'],
   ['he', '张郃', '儁乂', 91, 90, 77, '巧变奇袭', 'spear', 'middle', '善识地势'],
-  ['ju', '沮授', '公与', 84, 38, 93, '料敌布防', 'archer', 'back', '筹略深远'],
+  ['ju', '沮授', '公与', 84, 38, 93, '料敌布防', 'crossbow', 'back', '筹略深远'],
   ['tian', '田丰', '元皓', 80, 35, 94, '审势定谋', 'archer', 'back', '刚直多谋'],
   ['gao', '高览', '敬志', 82, 87, 65, '奋武突击', 'spear', 'front', '沉毅善战'],
 ];
 export function makeOfficer(id, troops = 3000, index = 0) {
-  const row = OFFICERS.find(o => o[0] === id);
-  if (!row) throw new Error('未知武将');
-  const [key, name, courtesy, leadership, force, intellect, skill, type, formation, trait] = row;
-  return { id: key, name, courtesy, leadership, force, intellect, politics: POLITICS[key], skill, type, formation, trait, troops, wounded: 0, first: index < 6, loyalty: 100, level:1, experience:0 };
+  const source=OFFICER_BY_ID[id];
+  if(!Object.hasOwn(OFFICER_BY_ID,id))throw new Error('未知武将');
+  const legacy=OFFICERS.find(row=>row[0]===id);
+  const unit={...officerProfile(id),id,name:source.name,courtesy:source.courtesy,leadership:source.leadership,force:source.force,intellect:source.intellect,politics:source.politics,
+    skill:legacy?.[6]||FAMOUS_OFFICERS[id]?.tactic?.name||'',type:source.type,formation:legacy?.[8]||source.formation,trait:legacy?.[9]||FAMOUS_OFFICERS[id]?.role||'技能待设计',
+    troops,wounded:0,first:index<6,loyalty:100,level:1,experience:0};
+  // The support officer starts with support even outside the battle lab.
+  if(FAMOUS_OFFICERS[id])unit.tactics=recommendedTacticIds(unit);
+  return unit;
 }
 export function newGame(seed = 521200) {
   const cities = [
@@ -111,7 +124,7 @@ export function newGame(seed = 521200) {
     ['wan', '宛城', 275, 687, 'neutral', 4200, '南阳门户', '荆州'],
   ].map(([id, name, x, y, owner, garrison, subtitle, province]) => ({ id, name, x, y, owner, garrison, subtitle, province }));
   const state = {
-    version: VERSION, rulesVersion:3, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
+    version: VERSION, rulesVersion:RULES_VERSION, officerDataVersion:2, relationshipScores:{}, relationshipTypes:{}, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
     cities, roads: [['ye', 'jinyang'], ['ye', 'baima'], ['ye', 'guandu'], ['jinyang', 'luoyang'], ['luoyang', 'guandu'], ['luoyang', 'xuchang'], ['guandu', 'baima'], ['guandu', 'xuchang'], ['baima', 'chenliu'], ['guandu', 'chenliu'], ['chenliu', 'xuchang'], ['chenliu', 'runan'], ['xuchang', 'runan'], ['xuchang', 'wan'], ['luoyang', 'wan'], ['wan', 'runan']],
     armies: [
       { id: 'a1', name: '虎贲军', faction: 'cao', location: 'xuchang', route: [], target: null, supply: 900, morale: 80, tactic: 'balanced', leader: 'cao', advisor: 'jia', deputy: 'dun', units: OFFICERS.slice(0, 8).map((r, i) => makeOfficer(r[0], 3000, i)), task: '驻守' },
@@ -241,7 +254,7 @@ function garrisonUnits(city) {
   return Array.from({ length: count }, (_, i) => ({ id: `g-${city.id}-${i}`, name: `${city.name}${['守将', '校尉', '都尉', '偏将', '参军', '牙将'][i]}`, courtesy: '守军', leadership: 72, force: 70, intellect: 65, politics:65, skill: '据险固守', trait: '守土有责', type: types[i], formation: types[i] === 'archer' ? 'back' : 'front', troops: Math.floor(city.garrison / count) + (i === 0 ? city.garrison % count : 0), wounded: 0, first: true }));
 }
 function combatUnit(u, armyId, side, morale) {
-  return { ...u, level:u.level??1,experience:u.experience??0,skillRouteType:u.skillRouteType||u.type,passiveState:initialPassiveState(),participated:false,attackCarry:0,armyId, side, hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, cast: null, skillReady:{}, tacticCasts:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
+  return { ...u, ...officerProfile(u.id), level:u.level??1,experience:u.experience??0,skillRouteType:u.skillRouteType||u.type,passiveState:initialPassiveState(),participated:false,attackCarry:0,armyId, side, hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, cast: null, skillReady:{}, tacticCasts:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
 }
 export function configureUnitTactics(state,unitId,ids) {
   if(state.battle&&!isDeploying(state.battle))return '开战后战法锁定，暂停也不能更换';
@@ -270,7 +283,7 @@ export function startBattle(state) {
     const index = city.owner === 'cao' ? 0 : 1;
     sides[index].units.push(...garrisonUnits(city).map(u => combatUnit(u, `city:${city.id}`, index, 70)));
   }
-  state.battle = { id: `battle-${state.turn}-${state.nextId++}`, cityId: city.id, context: { ...p, attackingIds: attacking.map(a => a.id) }, tick: 0, seed: state.seed + state.turn, sides, comboWindows:[], comboCounts:[0,0], commandProgress:0, commandCooldown: 0, commandReady:{}, commandSerial:0, lastCommand:null, deploymentLocked:false, logs: [], effects: [], result: null, settled: false };
+  state.battle = { id: `battle-${state.turn}-${state.nextId++}`, cityId: city.id, context: { ...p, attackingIds: attacking.map(a => a.id) }, tick: 0, seed: state.seed + state.turn, sides, gridType:'hex', relationshipScores:structuredClone(state.relationshipScores||{}), relationshipTypes:structuredClone(state.relationshipTypes||{}), comboWindows:[], comboCounts:[0,0], commandProgress:0, commandCooldown: 0, commandReady:{}, commandSerial:0, lastCommand:null, deploymentLocked:false, logs: [], effects: [], result: null, settled: false };
   fillSlots(state.battle, 0); fillSlots(state.battle, 1);
   battleLog(state.battle, `${city.name}之战，诸军待命。请先布置首发部队位置。`);
   state.pending = null; return null;
@@ -279,6 +292,7 @@ export const activeUnits = (b, side) => b.sides[side].units.filter(u => u.status
 export function deployUnit(b, unitId, x, y) {
   if (!isDeploying(b)) return '开战后位置锁定，暂停也不能移动部队';
   if (!Number.isInteger(x) || !Number.isInteger(y) || x < 0 || x > 4 || y < 0 || y >= GRID.rows) return '请放在左侧绿色布阵区';
+  if (blockedTerrain(b,x,y)) return '城门所在格不能布置部队';
   const unit = activeUnits(b,0).find(u=>u.id === unitId);
   if (!unit) return '请选择我军在场部队';
   const occupied = b.sides.flatMap(s=>s.units).find(u=>u.status === 'active' && u.x === x && u.y === y && u !== unit);
@@ -298,7 +312,7 @@ export function lockDeployment(b) {
   battleLog(b,'军阵已定，两军交锋。攻击与受击开始积累战意。'); return null;
 }
 const remainingUnits = (b, side) => b.sides[side].units.filter(u => ['active', 'reserve'].includes(u.status) && u.hp > 0);
-const distance = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+const distance = hexDistance;
 function battleLog(b, text) { b.logs.unshift({ tick: b.tick, text }); b.logs = b.logs.slice(0, 70); }
 function random(b) { b.seed = (Math.imul(b.seed, 1664525) + 1013904223) >>> 0; return b.seed / 4294967296; }
 function spawn(b, unit) {
@@ -307,7 +321,7 @@ function spawn(b, unit) {
   const cells = [];
   for (let y = 0; y < GRID.rows; y++) for (let col = 0; col < GRID.cols; col++) cells.push({ x: col, y });
   const occupied = b.sides.flatMap(s => s.units).filter(u => u.status === 'active');
-  const open = cells.filter(c => !occupied.some(u => u.x === c.x && u.y === c.y)).sort((a, c) => Math.abs(a.x - x) * 5 + Math.abs(a.y - preferredY) - Math.abs(c.x - x) * 5 - Math.abs(c.y - preferredY));
+  const open = cells.filter(c => !blockedTerrain(b,c.x,c.y) && !occupied.some(u => u.x === c.x && u.y === c.y)).sort((a, c) => Math.abs(a.x - x) * 5 + Math.abs(a.y - preferredY) - Math.abs(c.x - x) * 5 - Math.abs(c.y - preferredY));
   if (!open.length) return false;
   unit.x = open[0].x; unit.y = open[0].y; unit.status = 'active'; unit.action = '列阵';
   unit.passiveState ||= initialPassiveState(b.tick);unit.passiveState.lastMoveTick=b.tick;
@@ -322,6 +336,7 @@ function fillSlots(b, side) {
   if (b.sides[side].retreat) return;
   if((b.sides[side].blockadeUntil||0)>b.tick)return;
   for (const unit of b.sides[side].units.filter(u => u.status === 'reserve' && u.hp > 0)) {
+    if ((unit.arrivalTick || 0) > b.tick) continue;
     if (activeUnits(b, side).length >= 6) break;
     if(!spawn(b, unit))continue;
     if((b.sides[side].reliefUntil||0)>b.tick)setStatus(b,unit,'shield',8,{amount:Math.round(unit.maxHp*.15),source:'army:relief',label:'后军固阵'});
@@ -356,13 +371,13 @@ export function issueCommand(b, command, targetId = null) {
     battleLog(b,`军略 · ${strategy.name}：${strategy.description}${strategy.duration ? `，持续 ${strategy.duration} 步` : command==='heal'?'（仅在场部队）':'（含预备队）'}。`);
   }
   if (command === 'focus') {
-    const target = activeUnits(b, 1).find(u => u.id === targetId);
+    const target = [...activeUnits(b, 1), gateTarget(b,{side:0})].filter(Boolean).find(u => u.id === targetId);
     if (!target) return '请选择仍在场的敌方单位';
     b.sides[0].focus = targetId; b.sides[0].focusUntil = b.tick + 18;
     battleLog(b, `军令 · 重兵合围：提高对${target.name}的攻击倾向，持续 18 步。`);
   }
   if (command === 'reserve') {
-    const reserves = b.sides[0].units.filter(u => u.status === 'reserve' && u.hp > 0);
+    const reserves = b.sides[0].units.filter(u => u.status === 'reserve' && u.hp > 0 && (u.arrivalTick || 0) <= b.tick);
     if (!reserves.length) return '没有可投入的预备队';
     const weakest = [...activeUnits(b, 0)].sort((a, c) => a.hp / a.maxHp - c.hp / c.maxHp)[0];
     if (activeUnits(b, 0).length >= 6) {
@@ -387,13 +402,14 @@ export function issueCommand(b, command, targetId = null) {
 }
 function pickTarget(b, unit, inRangeOnly = false) {
   const side = b.sides[unit.side];
-  return activeUnits(b, 1 - unit.side).filter(t=>!inRangeOnly || distance(unit,t) <= attackRange(b,unit)).sort((a, c) => {
+  return [...activeUnits(b, 1 - unit.side), gateTarget(b,unit)].filter(Boolean).filter(t=>!inRangeOnly || distance(unit,t) <= attackRange(b,unit)).sort((a, c) => {
     const score = target => {
       let s = distance(unit, target) * 9 + target.hp / target.maxHp * 7;
       if (counters(unit.type,target.type)) s -= 5;
       if (side.focus === target.id && side.focusUntil > b.tick) s -= 22;
       if (unit.type === 'cavalry' && ['archer','crossbow'].includes(target.type)) s -= 5;
       if (side.tactic === 'defensive') s += Math.abs(target.x - (unit.side === 0 ? 2 : 11)) * 2;
+      if (b.siege?.gate.side === unit.side) s += distance(target,b.siege.gate)*4;
       return s;
     };
     return score(a) - score(c);
@@ -404,17 +420,19 @@ function moveUnit(b, unit, target, retreat = false) {
   if(speed<=0){unit.moveProgress=0;unit.action='固守 / 迟滞';return;}
   const occupied = b.sides.flatMap(s => s.units).filter(u => u.status === 'active' && u !== unit);
   // Breadth-first pathfinding handles blocked allies without passing through them.
-  const goal = retreat ? p => p.x === (unit.side === 0 ? 0 : 13) : p => distance(p, target) <= attackRange(b,unit);
+  const defending = !retreat && b.siege?.gate.side === unit.side;
+  const inLine = p => !defending || (unit.side===0 ? p.x<=4 : p.x>=9);
+  const goal = retreat ? p => p.x === (unit.side === 0 ? 0 : 13) : p => inLine(p) && distance(p, target) <= attackRange(b,unit);
   const queue = [{ x: unit.x, y: unit.y, path: [] }], visited = new Set([`${unit.x},${unit.y}`]);
   let route = null;
   while (queue.length) {
     const node = queue.shift();
     if (goal(node)) { route = node.path; break; }
-    const neighbors = [[node.x - 1, node.y], [node.x + 1, node.y], [node.x, node.y - 1], [node.x, node.y + 1]];
-    neighbors.sort((a, c) => Math.abs(a[0] - target.x) + Math.abs(a[1] - target.y) - Math.abs(c[0] - target.x) - Math.abs(c[1] - target.y));
+    const neighbors = hexNeighbors(node);
+    neighbors.sort((a, c) => distance({x:a[0],y:a[1]},target) - distance({x:c[0],y:c[1]},target));
     for (const [x, y] of neighbors) {
       const key = `${x},${y}`;
-      if (x < 0 || y < 0 || x >= GRID.cols || y >= GRID.rows || visited.has(key) || occupied.some(u => u.x === x && u.y === y)) continue;
+      if (x < 0 || y < 0 || x >= GRID.cols || y >= GRID.rows || (!retreat && !inLine({x,y})) || blockedTerrain(b,x,y) || visited.has(key) || occupied.some(u => u.x === x && u.y === y)) continue;
       visited.add(key); queue.push({ x, y, path: [...node.path, { x, y }] });
     }
   }
@@ -423,12 +441,26 @@ function moveUnit(b, unit, target, retreat = false) {
     if(!steps){unit.action='迟滞行军';return;}
     const next = route[Math.min(route.length, steps) - 1];
     const from={x:unit.x,y:unit.y};unit.x = next.x; unit.y = next.y;moved(b,unit,from); unit.action = retreat ? '撤离' : `接近${target.name}`;
-  } else unit.action = retreat ? '等待撤离' : '调整阵线';
+  } else unit.action = retreat ? '等待撤离' : defending ? '守护城门' : '调整阵线';
 }
 function combatEffect(b, attacker, target, skill, damage, phase = 'impact', definition=null, extra={}) {
   b.effects.push({ from: attacker.id, to: target.id, damage, skill, phase, visual: definition?.visual || skillVisual(attacker), troop: attacker.type, side: attacker.side, name: attacker.name, label: definition?.name || attacker.skill, fromX: attacker.x, fromY: attacker.y, x: target.x, y: target.y, ...extra });
 }
 function counters(a,c) { return TROOPS[a].beats===c || a==='cavalry' && c==='crossbow'; }
+function damageGate(b, attacker) {
+  const gate = b.siege.gate, own = unitAttributes(attacker,b);
+  const damage = Math.min(gate.hp,Math.max(1,Math.round(own.attack*own.strength*COMBAT.damageScale*(.9+random(b)*.2))));
+  gate.hp -= damage;
+  attacker.participated = true;
+  attacker.cooldown = own.attackInterval-(attacker.attackCarry||0); attacker.attackCarry = 0;
+  gainIntent(attacker,COMBAT.intentOnAttack+(hasPassive(attacker,'spirit')?2:0));
+  attacker.action = `攻击城门 · ${damage}`;
+  combatEffect(b,attacker,gate,false,damage);
+  if (!gate.hp) {
+    b.result = { winner:b.siege.attackerSide, reason:'城门失守' };
+    battleLog(b,'城门耐久归零，守方败北。');
+  }
+}
 function damageUnit(b, attacker, target, skill, scale=1, definition=null, generateIntent=true) {
   if(!skill)recordBasicAttack(attacker,target);
   attacker.participated=true;target.participated=true;
@@ -438,8 +470,7 @@ function damageUnit(b, attacker, target, skill, scale=1, definition=null, genera
   const power=skill?(intellectual?own.strategyPower:own.martialPower):own.attack;
   const resistance=intellectual?enemy.discipline:enemy.defense;
   const counter=counters(attacker.type,target.type)?1.28:counters(target.type,attacker.type)?.84:1;
-  const threshold=Math.min(...unitTactics(target).map(s=>s.threshold));
-  const base=power*own.strength*counter*100/(100+resistance)*(1-enemy.damageReduction)*passiveDamageMultiplier(b,attacker,target,kind,Number.isFinite(threshold)?threshold:0)*passiveDamageTaken(b,target,kind);
+  const base=power*own.strength*counter*100/(100+resistance)*(1-enemy.damageReduction)*passiveDamageMultiplier(b,attacker,target,kind)*passiveDamageTaken(b,target,kind);
   let damage=Math.max(1,Math.round(base*(.9+random(b)*.2)*COMBAT.damageScale*scale));
   damage=absorbShield(b,target,damage);
   damage=takeCasualties(target,damage); target.morale = Math.max(15, target.morale - (skill ? 5 : 1));
@@ -450,13 +481,9 @@ function damageUnit(b, attacker, target, skill, scale=1, definition=null, genera
   combatEffect(b, attacker, target, skill, damage,'impact',definition);
   if (target.hp <= 0) { target.status = 'defeated'; target.cast = null; target.action = '溃败'; battleLog(b, `${target.name}所部溃败，战线出现空位。`); }
 }
-function cancelCast(b,u) {
-  if(u.cast?.skillId)u.skillReady[u.cast.skillId]=b.tick+TACTICS_BOOK[u.cast.skillId].cooldown;
-  u.cast=null;
-}
 function stun(b,u,steps,key='stun') {
   if(hasStatus(b,u,'resolve'))return;
-  cancelCast(b,u);setStatus(b,u,key,steps);setStatus(b,u,'resolve',steps+3);
+  setStatus(b,u,key,steps);setStatus(b,u,'resolve',steps+3);
 }
 // The window is anchored to the first completed cast, never extended by a chain.
 function comboCandidate(b,u,s,target) {
@@ -469,7 +496,14 @@ function comboCandidate(b,u,s,target) {
   return {side:u.side,targetId:target.id,tick:actors.length?previous.tick:b.tick,actors:[...actors,actor]};
 }
 function finishTactic(b,u,s,target) {
-  const combo=comboCandidate(b,u,s,target),level=combo?Math.min(3,combo.actors.length):1;
+  // Invalid movement casts must not consume a relationship roll.
+  if(s.effect==='lure'&&!lureCell(b,u,target)||s.effect==='retreatShot'&&!retreatCell(b,u)||['rush','terror'].includes(s.effect)&&routeTo(b,u,target,3)===null)return false;
+  const combo=comboCandidate(b,u,s,target);
+  const partner=combo?.actors.at(-2);
+  const relation=partner?relationshipInfo(partner.id,u.id,b.relationshipScores,b.relationshipTypes):null;
+  const linked=relation&&(relation.chance===100||relation.chance>0&&random(b)<relation.chance/100);
+  if(partner&&!linked){combo.actors=[combo.actors.at(-1)];combo.tick=b.tick;}
+  const level=combo?Math.min(3,combo.actors.length):1;
   const bonus=(level===3?COMBO.tripleBonus:level===2?COMBO.doubleBonus:0)+(level>1&&hasPassive(u,'combo')?5:0);
   const boosted=(n,t=null,kind=null)=>Math.round(n*(1+bonus/100)*(t?supportMultiplier(u,t,kind):1));
   const duration=n=>n+(bonus?1:0),effectStart=b.effects.length;
@@ -477,18 +511,58 @@ function finishTactic(b,u,s,target) {
   const hit=(t,scale=1.5,charge=true)=>damageUnit(b,u,t,true,scale*(1+bonus/100),s,charge);
   const signal=(t=u,text=s.name)=>{t.participated=true;combatEffect(b,u,t,true,0,'impact',s,{text});};
   const start={x:u.x,y:u.y};
-  const power=statusPower(u,s,b), friends=activeUnits(b,u.side).filter(a=>distance(u,a)<=(s.range??2));
+  const power=statusPower(u,s,b), strength=unitAttributes(u,b).strength, friends=activeUnits(b,u.side).filter(a=>distance(u,a)<=(s.range??2));
   const controlSteps=Math.max(2,Math.min(4,Math.round(2+power/140)));
   switch(s.effect) {
+    case 'famous': {
+      const targets=famousTargets(b,u,s,target);
+      if(!targets.length)return false;
+      if(s.selfCost){
+        const loss=takeCasualties(u,Math.min(u.hp-1,Math.floor(u.hp*s.selfCost)));
+        if(loss)combatEffect(b,u,u,true,loss,'impact',s,{text:'自损'});
+      }
+      let charged=false;
+      for(const t of targets){
+        if(s.mode==='attack'){
+          const scale=s.scale+(s.execute&&t.hp/t.maxHp<.4?s.execute:0);
+          for(let i=0;i<(s.hits||1)&&t.hp>0;i++){hit(t,scale,!charged);charged=true;}
+          if(t.hp<=0)continue;
+          if(s.debuff)status(t,s.debuff,s.steps);
+          if(s.control)stun(b,t,disciplineDuration(b,t,duration(s.steps)),s.control);
+          if(s.drain)lowerIntent(t,boosted(s.drain),u);
+          if(s.burn)status(t,'burn',s.steps,{sourceId:u.id,amount:boosted(s.burn*strength*100/(100+unitAttributes(t,b).discipline))});
+        }else{
+          if(s.cleanse){for(const key of NEGATIVE_STATUSES)delete t.statuses[key];status(t,'resolve',3);}
+          if(s.shield)status(t,'shield',8,{amount:boosted(t.maxHp*s.shield*(.5+power/200),t,'shield')});
+          if(s.intent&&t!==u)gainIntent(t,boosted(s.intent,t,'intent'));
+          if(s.cooldownReduction&&t!==u)for(const id of Object.keys(t.skillReady||{}))t.skillReady[id]=Math.max(b.tick,t.skillReady[id]-boosted(s.cooldownReduction,t,'cooldown'));
+          if(s.ward)status(t,'ward',5,{percent:s.ward});
+          if(s.valor)status(t,'valor',5);
+        }
+        signal(t,s.name);
+      }
+      if(s.selfCleanse){for(const key of NEGATIVE_STATUSES)delete u.statuses[key];status(u,'resolve',3);}
+      if(s.selfWard)status(u,'ward',5,{percent:s.selfWard});
+      break;
+    }
+    case 'press': case 'harry': {
+      hit(target,.45);
+      if(target.hp>0) {
+        const stacks=Math.min(3,(hasStatus(b,target,s.effect)?target.statuses[s.effect].stacks:0)+1);
+        // Stack strength is deliberately capped; combos only extend duration.
+        status(target,s.effect,10,{stacks});signal(target,`${s.effect==='press'?'破势':'扰阵'} ×${stacks}`);
+      }
+      break;
+    }
     case 'confuse':stun(b,target,disciplineDuration(b,target,duration(controlSteps)),'confuse');signal(target,'混乱');break;
     case 'wildfire': {
       const targets=activeUnits(b,1-u.side).filter(t=>distance(target,t)<=1&&distance(u,t)<=s.range).slice(0,2);
-      targets.forEach((t,i)=>{hit(t,.85,i===0);if(t.hp>0)status(t,'burn',6,{sourceId:u.id,amount:boosted((8+power*.08)*100/(100+unitAttributes(t,b).discipline))});});break;
+      targets.forEach((t,i)=>{hit(t,.85,i===0);if(t.hp>0)status(t,'burn',6,{sourceId:u.id,amount:boosted((8+power*.08)*100/(100+unitAttributes(t,b).discipline)*strength)});});break;
     }
     case 'rally':for(const a of friends.filter(a=>a!==u)){const amount=boosted(10+Math.round(power*.08),a,'intent');gainIntent(a,amount);signal(a,`战意 +${amount}`);}break;
     case 'ward':for(const a of friends){status(a,'ward',7,{percent:10+Math.round(power*.06)});signal(a,'八门 · 减伤');}break;
     case 'cleanse':for(const key of NEGATIVE_STATUSES)delete target.statuses[key];status(target,'resolve',3);status(target,'shield',8,{amount:boosted(target.maxHp*(.025+power/2500),target,'shield')});signal(target,'解围 · 护盾');break;
-    case 'screen':for(const a of friends.filter(a=>a.hp/a.maxHp<.9&&!hasStatus(b,a,'shield')).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp).slice(0,2)){status(a,'shield',8,{amount:boosted(a.maxHp*(.025+power/2500),a,'shield')});signal(a,'烟幕 · 护盾');}break;
+    case 'screen':for(const a of friends.filter(a=>a.hp/a.maxHp<.9&&!hasStatus(b,a,'shield')).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp).slice(0,2)){status(a,'shield',8,{amount:boosted(a.maxHp*(.025+power/2500)*.9,a,'shield')});signal(a,'烟幕 · 护盾');}break;
     case 'lure': {
       const cell=lureCell(b,u,target);if(!cell)return false;
       const from={x:target.x,y:target.y};Object.assign(target,cell);moved(b,target,from);status(target,'armorBreak',6);
@@ -500,15 +574,15 @@ function finishTactic(b,u,s,target) {
     case 'phalanx':status(u,'phalanx',8);signal(u,'方阵 · 减伤');break;
     case 'gallop':status(u,'haste',6);signal(u,'疾驰 · 加速');break;
     case 'valor':status(u,'valor',8);signal(u,'攻击 +25%');break;
-    case 'fire':hit(target,1.2);if(target.hp>0)status(target,'burn',6,{sourceId:u.id,amount:boosted(Math.max(8,Math.round(u.maxHp*.008)))});break;
+    case 'fire':hit(target,1.2);if(target.hp>0)status(target,'burn',6,{sourceId:u.id,amount:boosted(Math.max(8,Math.round(u.maxHp*.008))*strength)});break;
     case 'scatter': {
       const targets=activeUnits(b,1-u.side).filter(t=>distance(target,t)<=2&&distance(u,t)<=attackRange(b,u)).slice(0,3);
       targets.forEach((t,i)=>hit(t,.85,i===0));break;
     }
     case 'suppress':hit(target,1.1);if(target.hp>0)status(target,'slow',6);break;
     case 'thrust': {
-      const dx=target.x-u.x,dy=target.y-u.y;
-      const behind=activeUnits(b,1-u.side).find(t=>t.x===target.x+dx&&t.y===target.y+dy);
+      const next=hexBeyond(u,target);
+      const behind=activeUnits(b,1-u.side).find(t=>t.x===next.x&&t.y===next.y);
       hit(target,1.6);if(behind)hit(behind,1.1,false);break;
     }
     case 'strike':hit(target,2);break;
@@ -531,8 +605,8 @@ function finishTactic(b,u,s,target) {
       status(target,'shield',8,{amount:boosted(target.maxHp*.12,target,'shield')});
       const enemy=activeUnits(b,1-u.side).find(e=>distance(target,e)===1);
       if(enemy && !hasStatus(b,enemy,'phalanx')) {
-        const from={x:enemy.x,y:enemy.y},dx=enemy.x-target.x,dy=enemy.y-target.y;
-        for(let i=0;i<2;i++) {const x=enemy.x+dx,y=enemy.y+dy;if(!openCell(b,x,y))break;enemy.x=x;enemy.y=y;}
+        const from={x:enemy.x,y:enemy.y};
+        for(let i=0;i<2;i++) {const {x,y}=hexBeyond(target,from,i+1);if(!openCell(b,x,y))break;enemy.x=x;enemy.y=y;}
         moved(b,enemy,from);
         combatEffect(b,u,enemy,true,0,'impact',s,{fromX:from.x,fromY:from.y,text:'击退'});
       }
@@ -551,9 +625,10 @@ function finishTactic(b,u,s,target) {
       const title=level===3?'三连携':'二连携';
       const detail={level,bonus,actors:combo.actors.map(a=>({...a})),targetName:target.name};
       combatEffect(b,u,target,true,0,'impact',s,{label:title,visual:'shockwave',combo:detail,text:'效果 +'+bonus+'%'});
-      battleLog(b,title+' · '+combo.actors.map(a=>a.name).join(' → ')+' 对 '+target.name+' 发动「'+s.name+'」，伤害及数值效果 +'+bonus+'%，控制与状态持续 +1 步。');
+      battleLog(b,'关系 '+relation.score+' · 连携概率 '+relation.chance+'% · '+title+' · '+combo.actors.map(a=>a.name).join(' → ')+' 对 '+target.name+' 发动「'+s.name+'」，伤害及数值效果 +'+bonus+'%，控制与状态持续 +1 步。');
     }
   }
+  if(partner&&!linked)battleLog(b,partner.name+' → '+u.name+'：关系 '+relation.score+'，'+relation.chance+'% 连携判定未成功，战法正常生效。');
   u.participated=true;target.participated=true;
   u.skillCasts=(u.skillCasts||0)+1;u.tacticCasts[s.id]=(u.tacticCasts[s.id]||0)+1;
   u.action=s.name;battleLog(b,`${u.name}发动「${s.name}」：${s.description}。`);return true;
@@ -577,6 +652,11 @@ export function stepBattle(b) {
   if (!b || b.result) return;
   if (isDeploying(b)) lockDeployment(b);
   b.tick++; b.effects = [];
+  for (const side of b.sides) for (const u of side.units) {
+    u.intent=Math.min(COMBAT.intentCap,Math.max(0,u.intent||0));
+    if (u.wave && u.arrivalTick === b.tick && side.units.find(v => v.wave === u.wave) === u)
+      battleLog(b, `${u.side === 0 ? '我军' : '敌军'}第 ${u.wave} 批援军抵达，有空位时补入战线。`);
+  }
   b.comboWindows=(b.comboWindows||[]).filter(c=>b.tick-c.tick<=COMBO.window&&b.sides.flatMap(s=>s.units).some(u=>u.id===c.targetId&&u.status==='active'&&u.hp>0));
   b.comboCounts ||= [0,0];
   tickStatuses(b);
@@ -591,7 +671,7 @@ export function stepBattle(b) {
     unit.cooldown = unit.cooldown-1<1e-9?0:unit.cooldown-1;
     if(hasStatus(b,unit,'stun')) {unit.action='眩晕';continue;}
     if(hasStatus(b,unit,'confuse')) {
-      const cells=[[unit.x-1,unit.y],[unit.x+1,unit.y],[unit.x,unit.y-1],[unit.x,unit.y+1]].filter(([x,y])=>openCell(b,x,y));
+      const cells=hexNeighbors(unit).filter(([x,y])=>openCell(b,x,y));
       if(cells.length&&!hasStatus(b,unit,'phalanx')){const from={x:unit.x,y:unit.y};const [x,y]=cells[Math.floor(random(b)*cells.length)];unit.x=x;unit.y=y;moved(b,unit,from);}
       unit.action='混乱 · 阵位失序';continue;
     }
@@ -601,39 +681,28 @@ export function stepBattle(b) {
       if (unit.x === (side === 0 ? 0 : 13)) { unit.status = 'withdrawn'; unit.action = '已撤离'; battleLog(b, `${unit.name}所部成功撤离。`); }
       continue;
     }
-    if (unit.cast) {
-      unit.cast.remaining--;
-      if (unit.cast.remaining <= 0) {
-        const s=TACTICS_BOOK[unit.cast.skillId];
-        // The intent gate was checked when casting began; lowering intent is not an interrupt.
-        const legal=tacticTarget(b,unit,s,attackRange(b,unit));
-        const original=b.sides.flatMap(s=>s.units).find(t=>t.id===unit.cast.targetId && t.status==='active' && t.hp>0);
-        const targeted=s.category!=='intellect'&&!['gallop','phalanx','valor','protect','rush','terror','retreatShot'].includes(s.effect);
-        const target=targeted && original && distance(unit,original)<=attackRange(b,unit) ? original : legal;
-        if (target) finishTactic(b,unit,s,target); else unit.action = '收势待机';
-        unit.skillReady[unit.cast.skillId]=b.tick+s.cooldown;
-        unit.cast = null;
-      } else unit.action = `蓄势 · ${TACTICS_BOOK[unit.cast.skillId].name}`;
-      continue;
-    }
     const ready = readyTactic(b,unit,attackRange(b,unit));
     if (ready) {
       const {skill:s,target}=ready;
-      unit.cast = { skillId:s.id, targetId:target.id, remaining:COMBAT.skillWindup };
-      unit.action = `蓄势 · ${s.name}`;
-      combatEffect(b,unit,target,true,0,'cast',s); continue;
+      finishTactic(b,unit,s,target);
+      unit.skillReady[s.id]=b.tick+s.cooldown;
+      continue;
     }
-    const target = pickTarget(b, unit); if (!target) continue;
+    const focused=pickTarget(b,unit);
+    const explicitFocus=focused && b.sides[side].focus===focused.id && b.sides[side].focusUntil>b.tick;
+    const target = (!unit.cooldown && !explicitFocus ? pickTarget(b,unit,true) : null) || focused; if (!target) continue;
     if (distance(unit, target) <= attackRange(b,unit)) {
       if (!unit.cooldown) {
-        damageUnit(b, unit, target, false);
+        if (target.type === 'gate') damageGate(b,unit);
+        else damageUnit(b, unit, target, false);
+        if (b.result) return;
       } else unit.action = '重整攻势';
     } else moveUnit(b, unit, target);
   }
   fillSlots(b, 0); fillSlots(b, 1);
-  const a = remainingUnits(b, 0).length, c = remainingUnits(b, 1).length;
-  if (!a || !c) b.result = { winner: !a && !c ? null : a ? 0 : 1, reason: b.sides[0].retreat ? '撤退' : '击溃' };
-  if (!b.result && b.tick >= 240) {
+  const counts = [0,1].map(side => remainingUnits(b,side).length + (b.siege?.gate.side === side && b.siege.gate.hp > 0 && !b.sides[side].retreat ? 1 : 0));
+  if (!counts[0] || !counts[1]) b.result = { winner: !counts[0] && !counts[1] ? null : counts[0] ? 0 : 1, reason: b.sides[0].retreat ? '撤退' : '击溃' };
+  if (!b.result && b.tick >= (b.maxTicks || 240)) {
     const ratios = b.sides.map(s => s.units.reduce((n, u) => n + (['active', 'reserve'].includes(u.status) ? u.hp : 0), 0) / Math.max(1, s.units.reduce((n, u) => n + u.initial, 0)));
     b.result = { winner: Math.abs(ratios[0] - ratios[1]) < .05 ? null : ratios[0] > ratios[1] ? 0 : 1, reason: '久战收兵' };
     battleLog(b, '战至日暮，按双方可战兵力比例判定战局，诸军收兵。');
@@ -681,6 +750,7 @@ export function settleBattle(state) {
   if (b.result.winner === 0) { state.victories++; state.fame += 30; state.gold += 300; }
   state.report = { id: b.id, city: city.name, winner: b.result.winner, reason: b.result.reason, tick: b.tick, stats, growth, captured: oldOwner !== city.owner, owner: city.owner, reward: b.result.winner === 0 ? 300 : 0 };
   log(state, `${city.name}之战${b.result.winner === 0 ? '告捷' : b.result.winner === 1 ? '失利' : '未分胜负'}，我军阵亡 ${stats[0].killed} 人，伤兵 ${stats[0].wounded} 人。`, b.result.winner === 0 ? 'good' : 'war');
+  if (b.siege) state.report.gate = { remaining:b.siege.gate.hp, initial:b.siege.gate.maxHp, side:b.siege.gate.side };
   state.battle = null;
   checkCampaign(state); return state.report;
 }
@@ -694,11 +764,22 @@ export function validateSave(value) {
   const text = (v, max = 250) => typeof v === 'string' && v.length <= max && !/[<>"'&]/.test(v);
   const faction = v => Object.hasOwn(FACTIONS, v);
   const tactic = v => Object.hasOwn(TACTICS, v);
-  const result = r => r && [0, 1, null].includes(r.winner) && ['撤退', '击溃', '久战收兵'].includes(r.reason);
+  const result = r => r && [0, 1, null].includes(r.winner) && ['撤退', '击溃', '久战收兵', '城门失守'].includes(r.reason);
   require(value && value.version === VERSION && number(value.turn) && value.turn > 0 && number(value.seed), '存档版本不兼容或数据损坏');
+  require(value.rulesVersion===RULES_VERSION,'存档不是当前规则版本，请重新开始');
+  require(value.officerDataVersion===2,'存档不是当前武将数据版本，请重新开始');
+  const scenario = value.testScenario && SCENARIOS.find(s => s.id === value.testScenario.id);
+  require(value.testScenario === undefined || (scenario && number(value.testScenario.seed,0xffffffff)), '测试战役无效');
+  if(scenario?.id==='officer-lab'){
+    const ids=value.testScenario.officerIds;
+    require(Array.isArray(ids)&&ids.length>=1&&ids.length<=6&&new Set(ids).size===ids.length&&ids.every(id=>Object.hasOwn(OFFICER_BY_ID,id)),'试炼武将阵容无效');
+    require(value.armies?.[0]?.units?.map(u=>u.id).join(',')===ids.join(','),'试炼阵容与武将不一致');
+  }
+  if (scenario) require(number(value.testScenario.shieldPercent,100),'开场护盾比例无效');
   const initial = newGame();
   require(Array.isArray(value.cities) && value.cities.length === initial.cities.length && Array.isArray(value.armies) && value.armies.length <= 15 && Array.isArray(value.logs) && value.logs.length <= 60 && JSON.stringify(value.roads) === JSON.stringify(initial.roads), '存档结构不完整');
-  require(value.rulesVersion===3,'战斗规则版本不兼容');
+  require(validRelationshipTypes(value.relationshipTypes),'人物关系类型无效');
+  require(validRelationshipScores(value.relationshipScores,value.relationshipTypes),'人物关系值无效');
   for (const key of ['gold', 'grain', 'fame', 'nextId', 'victories']) require(number(value[key]), '资源数据无效');
   require(value.nextId >= 3 && [null, 'victory', 'defeat'].includes(value.finished));
   for (const entry of value.logs) require(entry && number(entry.turn) && typeof entry.text === 'string' && entry.text.length < 1000 && ['info', 'event', 'order', 'good', 'war'].includes(entry.type));
@@ -712,21 +793,27 @@ export function validateSave(value) {
   function validateUnit(u, combat = false) {
     if(u?.tactics!==undefined)require(validLoadout(u,u.tactics),'战法配置无效');
     require(u && Object.hasOwn(TROOPS, u.type) && ['front', 'middle', 'back', 'left', 'right'].includes(u.formation) && number(u.troops) && number(u.wounded) && typeof u.first === 'boolean', '武将数据无效');
-    u.level ??=1;u.experience ??=0;
+    const profile=officerProfile(u.id);
+    for(const key of PROFILE_FIELDS)require(u[key]===profile[key],'武将人物资料不匹配');
+    const relation=u.relations;
+    require(relation&&typeof relation==='object'&&!Array.isArray(relation)&&Object.keys(relation).length===6,'人物关系数据无效');
+    for(const key of ['fatherId','motherId'])require(relation[key]===profile.relations[key],'人物关系数据无效');
+    for(const key of RELATION_LIST_FIELDS)require(Array.isArray(relation[key])&&relation[key].length===profile.relations[key].length&&relation[key].every((id,i)=>id===profile.relations[key][i]),'人物关系数据无效');
     require(number(u.level,10)&&u.level>=1&&number(u.experience)&&((u.level===10&&u.experience===0)||(u.level<10&&u.experience<experienceNeeded(u.level))),'武将等级或经验无效');
     require(u.skillRouteType===undefined||Object.hasOwn(TROOPS,u.skillRouteType),'通用技能路线无效');
-    if (OFFICERS.some(o => o[0] === u.id)) {
-      const source = makeOfficer(u.id);
-      for (const key of ['name', 'courtesy', 'leadership', 'force', 'intellect', 'politics', 'skill', 'trait', 'loyalty']) require(u[key] === source[key], '武将基础数据不匹配');
+    if (Object.hasOwn(OFFICER_BY_ID,u.id)) {
+      const source=makeOfficer(u.id);
+      const keys=['name','courtesy','leadership','force','intellect','politics','skill','trait','loyalty'];
+      for(const key of keys)require(u[key]===source[key],'武将基础数据不匹配');
     } else {
-      require(combat && /^g-[a-z]+-\d$/.test(u.id) && text(u.name, 20) && text(u.skill) && number(u.leadership, 100) && number(u.force, 100) && number(u.intellect, 100) && number(u.politics,100), '守军数据无效');
+      require(((combat && /^g-[a-z]+-\d$/.test(u.id)) || (scenario && /^test-\d{1,2}$/.test(u.id))) && text(u.name, 20) && text(u.skill) && number(u.leadership, 100) && number(u.force, 100) && number(u.intellect, 100) && number(u.politics,100), '守军数据无效');
     }
   }
   const armyIds = new Set();
   for (const army of value.armies) {
     require(army && /^a\d+$/.test(army.id) && !armyIds.has(army.id) && faction(army.faction) && cityById(value, army.location) && tactic(army.tactic) && text(army.name, 30) && text(army.task, 20), '军团数据无效');
     armyIds.add(army.id);
-    require(Array.isArray(army.units) && army.units.length > 0 && army.units.length <= 15 && Array.isArray(army.route) && army.route.length <= 9 && army.route.every(id => cityById(value, id)) && number(army.supply) && number(army.morale, 100), '军团数据不完整');
+    require(Array.isArray(army.units) && army.units.length > 0 && army.units.length <= (scenario ? 30 : 15) && Array.isArray(army.route) && army.route.length <= 9 && army.route.every(id => cityById(value, id)) && number(army.supply) && number(army.morale, 100), '军团数据不完整');
     require(army.target === null || cityById(value, army.target));
     require(!army.route.length || army.target === army.route.at(-1));
     for (const role of ['leader', 'advisor']) require(army.units.some(u => u.id === army[role]));
@@ -741,32 +828,40 @@ export function validateSave(value) {
   if (value.pending !== null) context(value.pending);
   if (value.battle !== null) {
     const b = value.battle; context(b?.context);
+    require(validRelationshipTypes(b.relationshipTypes),'战场人物关系类型无效');
+    require(validRelationshipScores(b.relationshipScores,b.relationshipTypes),'战场人物关系值无效');
+    for(const field of ['relationshipScores','relationshipTypes'])require(b.result||Object.keys({...value[field],...b[field]}).every(key=>value[field][key]===b[field][key]),'战场与存档人物关系值或类型不一致');
+    require(b.gridType==='hex','战场网格无效');
+    require(scenario ? b.maxTicks === scenario.limit : b.maxTicks === undefined, '战斗时限无效');
+    if (scenario?.gateHp) {
+      const siege = b.siege, gate = siege?.gate, attackerSide = scenario.id === 'defense' ? 1 : 0;
+      require(siege && siege.attackerSide === attackerSide && gate && gate.id === 'siege-gate' && gate.name === '城门' && gate.type === 'gate' && gate.side === 1-attackerSide && gate.x === (attackerSide===1?1:12) && gate.y === 4 && gate.maxHp === scenario.gateHp && number(gate.hp,gate.maxHp), '城防数据无效');
+      require(gate.hp > 0 || b.result?.winner === attackerSide && b.result?.reason === '城门失守', '城门战果无效');
+    } else require(b.siege === undefined, '城防数据无效');
     require(number(b.commandProgress,COMMAND_RESOURCE.capacity),'军略积累数据无效');
-    b.deploymentLocked ??= b.tick > 0; b.commandReady ??= {}; b.commandSerial ??= 0; b.lastCommand ??= null;
     require(typeof b.deploymentLocked === 'boolean' && (b.tick === 0 || b.deploymentLocked) && b.commandReady && !Array.isArray(b.commandReady) && typeof b.commandReady === 'object' && number(b.commandSerial));
     for (const [key, ready] of Object.entries(b.commandReady)) require([...Object.keys(STRATAGEMS),'focus','reserve','retreat'].includes(key) && number(ready));
     if (b.lastCommand) require([...Object.keys(STRATAGEMS),'focus','reserve','retreat'].includes(b.lastCommand.key) && number(b.lastCommand.tick) && number(b.lastCommand.serial));
     require(!value.pending && !value.report && Array.isArray(b.context.attackingIds) && b.context.attackingIds.includes(b.context.attackerId) && b.context.attackingIds.every(id => armyIds.has(id)));
-    require(text(b.id) && b.cityId === b.context.cityId && number(b.tick, 240) && number(b.seed) && number(b.commandCooldown) && Array.isArray(b.sides) && b.sides.length === 2 && b.settled === false && (b.result === null || result(b.result)), '战斗数据无效');
+    require(text(b.id) && b.cityId === b.context.cityId && number(b.tick, scenario?.limit || 240) && number(b.seed) && number(b.commandCooldown) && Array.isArray(b.sides) && b.sides.length === 2 && b.settled === false && (b.result === null || result(b.result)), '战斗数据无效');
     const unitIds = new Set(), positions = new Set();
     b.sides.forEach((side, index) => {
       side.commanders=[...new Set([...b.context.attackingIds,...b.context.defenderIds])].map(id=>armyById(value,id)).filter(a=>a.faction===side.faction).flatMap(armyCommanders);
-      for (const key of ['rangeUntil','recoveryUntil','assaultUntil','fortifyUntil','disruptUntil','hasteUntil','blockadeUntil','reliefUntil']) { side[key] ??= 0; require(number(side[key])); }
+      for (const key of ['rangeUntil','recoveryUntil','assaultUntil','fortifyUntil','disruptUntil','hasteUntil','blockadeUntil','reliefUntil']) require(number(side[key]));
       require(side && faction(side.faction) && tactic(side.tactic) && typeof side.retreat === 'boolean' && number(side.focusUntil) && number(side.inspireUntil) && (side.focus === null || text(side.focus)) && Array.isArray(side.units) && side.units.length <= 30);
       require(side.units.filter(u => u.status === 'active').length <= 6, '战场超出容量');
       for (const u of side.units) {
         validateUnit(u, true);
+        require(u.arrivalTick === undefined && u.wave === undefined || (scenario && number(u.wave,scenario.waves.length) && u.wave > 0 && u.arrivalTick === scenario.waves[u.wave-1].tick && (u.status === 'reserve' || u.arrivalTick <= b.tick)), '援军到达时间无效');
         require(!unitIds.has(u.id) && u.side === index && typeof u.armyId === 'string' && (armyIds.has(u.armyId) || u.armyId === `city:${b.cityId}`)); unitIds.add(u.id);
-        u.intent ??= 0;u.moveProgress ??=0;require(Number.isFinite(u.moveProgress)&&u.moveProgress>=0&&u.moveProgress<1,'移动进度无效');
-        u.battleDamage ??= u.initial-u.hp;u.healed ??=0;
-        u.passiveState ??=initialPassiveState(b.tick);u.attackCarry ??=0;u.participated ??=!!(u.skillCasts||u.battleDamage||u.intent);
+        require(number(u.intent,COMBAT.intentCap),'战意数据无效');
+        require(Number.isFinite(u.moveProgress)&&u.moveProgress>=0&&u.moveProgress<1,'移动进度无效');
         const ps=u.passiveState;
         require(ps&&typeof ps==='object'&&!Array.isArray(ps)&&number(ps.lastMoveTick,b.tick)&&number(ps.shots,100000)&&typeof ps.reserveEntered==='boolean'&&number(ps.entryUntil,b.tick+15)&&(ps.entryUntil===0||ps.reserveEntered)&&
           (ps.targetId===null||text(ps.targetId,40))&&(ps.shotType===null||Object.hasOwn(TROOPS,ps.shotType))&&Number.isFinite(u.attackCarry)&&u.attackCarry>=0&&u.attackCarry<1&&typeof u.participated==='boolean','被动技能状态无效');
         const strategic=armyById(value,u.armyId)?.units.find(v=>v.id===u.id);
         if(strategic)require(u.level===strategic.level&&u.experience===strategic.experience,'战场等级与武将数据不一致');
         require(number(u.battleDamage)&&number(u.healed)&&u.battleDamage-u.healed===u.initial-u.hp&&u.healed<=Math.floor(u.battleDamage*.35),'伤兵治疗数据无效');
-        u.skillReady ??= {};u.tacticCasts ??= {};u.statuses ??= {};
         const skills=unitTactics(u).map(s=>s.id);
         for(const map of [u.skillReady,u.tacticCasts]) {
           require(map && typeof map==='object' && !Array.isArray(map),'战法冷却数据无效');
@@ -774,7 +869,8 @@ export function validateSave(value) {
         }
         require(u.statuses && typeof u.statuses==='object' && !Array.isArray(u.statuses),'状态数据无效');
         for(const [key,status] of Object.entries(u.statuses)) {
-          require(['phalanx','haste','valor','burn','scorch','slow','armorBreak','shield','stun','resolve','confuse','seal','weaken','ward'].includes(key) && status && number(status.until),'状态数据无效');
+          require(['press','harry','phalanx','haste','valor','burn','scorch','slow','armorBreak','shield','stun','resolve','confuse','seal','weaken','ward'].includes(key) && status && number(status.until),'状态数据无效');
+          if(key==='press'||key==='harry')require(number(status.stacks,3)&&status.stacks>=1,'战法层数无效');
           if(key==='ward')require(number(status.percent,80));
           if(key==='shield') {
             require(number(status.amount,u.maxHp));
@@ -784,12 +880,12 @@ export function validateSave(value) {
         }
         require(['active', 'reserve', 'defeated', 'withdrawn'].includes(u.status) && number(u.hp) && number(u.initial) && u.initial > 0 && u.hp <= u.initial && u.maxHp === u.initial && number(u.morale, 100) && Number.isFinite(u.cooldown)&&u.cooldown>=0&&u.cooldown<=Number.MAX_SAFE_INTEGER && number(u.intent,COMBAT.intentCap) && text(u.action), '部队状态无效');
         require(u.skillCasts === undefined || number(u.skillCasts), '战法次数无效');
-        if (u.cast != null) require(u.status === 'active' && u.hp > 0 && text(u.cast.targetId) && number(u.cast.remaining, COMBAT.skillWindup) && u.cast.remaining > 0, '蓄势状态无效');
-        if (u.cast) require(skills.includes(u.cast.skillId) && u.cast.cost===undefined, '战法编号无效');
+        require(u.cast===null,'不支持旧版待施放状态，请重新开始');
         for (const key of ['commandBonus', 'deputyBonus', 'advisorBonus']) require(u[key] === undefined || Number.isFinite(u[key]) && u[key] >= 0 && u[key] <= 1);
-        if (u.status === 'active') { require(number(u.x, 13) && number(u.y, 7) && u.hp > 0 && !positions.has(`${u.x},${u.y}`), '战场位置无效'); positions.add(`${u.x},${u.y}`); }
+        if (u.status === 'active') { require(number(u.x, 13) && number(u.y, 7) && !blockedTerrain(b,u.x,u.y) && u.hp > 0 && !positions.has(`${u.x},${u.y}`), '战场位置无效'); positions.add(`${u.x},${u.y}`); }
       }
     });
+    if (b.siege) unitIds.add(b.siege.gate.id);
     require(Array.isArray(b.logs) && b.logs.length <= 70 && b.logs.every(l => l && number(l.tick) && typeof l.text === 'string' && l.text.length < 1000));
     for(const u of b.sides.flatMap(s=>s.units))require(u.passiveState.targetId===null||unitIds.has(u.passiveState.targetId),'普攻连续目标无效');
     for(const u of b.sides.flatMap(s=>s.units))for(const key of ['burn','scorch'])if(u.statuses[key])require(unitIds.has(u.statuses[key].sourceId),'灼烧来源无效');
@@ -798,7 +894,6 @@ export function validateSave(value) {
       const u=b.sides[side].units.find(u=>u.id===a.id);
       return u&&a.name===u.name&&Object.hasOwn(TACTICS_BOOK,a.skillId)&&number(a.x,13)&&number(a.y,7);
     });
-    b.comboWindows ??=[];b.comboCounts ??=[0,0];
     require(Array.isArray(b.comboCounts)&&b.comboCounts.length===2&&b.comboCounts.every(n=>number(n,10000)),'连携计数无效');
     require(Array.isArray(b.comboWindows)&&b.comboWindows.length<=120,'连携窗口无效');
     const comboKeys=new Set();
@@ -814,10 +909,11 @@ export function validateSave(value) {
   }
   if (value.report !== null) {
     const r = value.report;
-    require(result(r) && text(r.id) && initial.cities.some(c => c.name === r.city) && faction(r.owner) && typeof r.captured === 'boolean' && number(r.tick, 240) && number(r.reward) && Array.isArray(r.stats) && r.stats.length === 2, '战报数据无效');
+    require(result(r) && text(r.id) && initial.cities.some(c => c.name === r.city) && faction(r.owner) && typeof r.captured === 'boolean' && number(r.tick, scenario?.limit || 240) && number(r.reward) && Array.isArray(r.stats) && r.stats.length === 2, '战报数据无效');
+    if (scenario?.gateHp) require(r.gate && r.gate.initial === scenario.gateHp && number(r.gate.remaining,r.gate.initial) && r.gate.side === (scenario.id==='defense'?0:1), '城门战报无效');
+    else require(r.gate === undefined && r.reason !== '城门失守', '城门战报无效');
     for (const s of r.stats) { require(s && faction(s.faction)); for (const key of ['initial', 'remaining', 'wounded', 'killed']) require(number(s[key])); require(s.initial === s.remaining + s.wounded + s.killed); }
-    r.growth ??=[];
-    require(Array.isArray(r.growth)&&r.growth.length<=15&&new Set(r.growth.map(g=>g?.id)).size===r.growth.length&&r.growth.every(g=>g&&Object.hasOwn(SKILL_ROUTES,g.id)&&text(g.name,20)&&[0,1].includes(g.side)&&number(g.before,10)&&g.before>=1&&number(g.after,10)&&g.after>=g.before&&number(g.gained,150)&&Array.isArray(g.unlocked)&&g.unlocked.length<=5&&g.unlocked.every(s=>text(s,20))),'成长战报无效');
+    require(Array.isArray(r.growth)&&r.growth.length<=(scenario?60:15)&&new Set(r.growth.map(g=>g?.id)).size===r.growth.length&&r.growth.every(g=>g&&(Object.hasOwn(OFFICER_BY_ID,g.id)||scenario&&/^test-\d{1,2}$/.test(g.id))&&text(g.name,20)&&[0,1].includes(g.side)&&number(g.before,10)&&g.before>=1&&number(g.after,10)&&g.after>=g.before&&number(g.gained,150)&&Array.isArray(g.unlocked)&&g.unlocked.length<=5&&g.unlocked.every(s=>text(s,20))),'成长战报无效');
   }
   return value;
 }

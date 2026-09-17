@@ -1,0 +1,293 @@
+{
+  "strength": [
+    {
+      "hp": 1,
+      "maxHp": 3000,
+      "strength": 0.5091287092917528,
+      "attack": 256.02560000000005
+    },
+    {
+      "hp": 1800,
+      "maxHp": 1800,
+      "strength": 1,
+      "attack": 256.02560000000005
+    },
+    {
+      "hp": 3000,
+      "maxHp": 3000,
+      "strength": 1,
+      "attack": 256.02560000000005
+    }
+  ],
+  "phalanx": [
+    {
+      "tick": 1,
+      "x": 5,
+      "y": 4,
+      "action": "铁壁枪阵",
+      "hp": 2548,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 2,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2548,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 3,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2494,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 4,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2494,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 5,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2443,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 6,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2443,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 7,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2386,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 8,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2386,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 9,
+      "x": 5,
+      "y": 4,
+      "action": "固守 / 迟滞",
+      "hp": 2329,
+      "damageBySpear": 0
+    },
+    {
+      "tick": 10,
+      "x": 6,
+      "y": 4,
+      "action": "接近田丰",
+      "hp": 2329,
+      "damageBySpear": 0
+    }
+  ],
+  "targetChoice": {
+    "action": "接近颜良",
+    "position": {
+      "x": 5,
+      "y": 3
+    },
+    "damage": [],
+    "closeTarget": "袁绍",
+    "pursuedTarget": "颜良"
+  },
+  "demoralize": {
+    "error": null,
+    "before": [
+      {
+        "name": "袁绍",
+        "intent": 160,
+        "thresholds": [
+          40,
+          65,
+          90
+        ]
+      },
+      {
+        "name": "颜良",
+        "intent": 160,
+        "thresholds": [
+          30,
+          60,
+          85
+        ]
+      },
+      {
+        "name": "文丑",
+        "intent": 160,
+        "thresholds": [
+          30,
+          60,
+          85
+        ]
+      },
+      {
+        "name": "张郃",
+        "intent": 160,
+        "thresholds": [
+          40,
+          65,
+          90
+        ]
+      },
+      {
+        "name": "沮授",
+        "intent": 160,
+        "thresholds": [
+          40,
+          70,
+          95
+        ]
+      },
+      {
+        "name": "田丰",
+        "intent": 160,
+        "thresholds": [
+          40,
+          70,
+          95
+        ]
+      }
+    ],
+    "after": [
+      {
+        "name": "袁绍",
+        "intent": 115,
+        "allThresholdsStillMet": true
+      },
+      {
+        "name": "颜良",
+        "intent": 115,
+        "allThresholdsStillMet": true
+      },
+      {
+        "name": "文丑",
+        "intent": 115,
+        "allThresholdsStillMet": true
+      },
+      {
+        "name": "张郃",
+        "intent": 115,
+        "allThresholdsStillMet": true
+      },
+      {
+        "name": "沮授",
+        "intent": 115,
+        "allThresholdsStillMet": true
+      },
+      {
+        "name": "田丰",
+        "intent": 115,
+        "allThresholdsStillMet": true
+      }
+    ]
+  },
+  "waves": [
+    {
+      "name": "援军1队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 25
+    },
+    {
+      "name": "援军2队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 30
+    },
+    {
+      "name": "援军3队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 39
+    },
+    {
+      "name": "援军4队",
+      "wave": 1,
+      "arrival": 25,
+      "entry": 42
+    },
+    {
+      "name": "援军5队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 56
+    },
+    {
+      "name": "援军6队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 99
+    },
+    {
+      "name": "援军7队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 103
+    },
+    {
+      "name": "援军8队",
+      "wave": 2,
+      "arrival": 55,
+      "entry": 105
+    },
+    {
+      "name": "援军9队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": null
+    },
+    {
+      "name": "援军10队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": null
+    },
+    {
+      "name": "援军11队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": null
+    },
+    {
+      "name": "援军12队",
+      "wave": 3,
+      "arrival": 85,
+      "entry": null
+    }
+  ],
+  "rotationCommands": [
+    {
+      "id": "heal",
+      "error": "主将与军师未掌握此军略"
+    },
+    {
+      "id": "regenerate",
+      "error": "主将与军师未掌握此军略"
+    },
+    {
+      "id": "relief",
+      "error": "主将与军师未掌握此军略"
+    }
+  ]
+}
