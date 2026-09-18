@@ -1,0 +1,128 @@
+[
+  {
+    "id": "field",
+    "seed": 11,
+    "ticks": 145,
+    "casts": 120,
+    "winner": 1
+  },
+  {
+    "id": "field",
+    "seed": 29,
+    "ticks": 145,
+    "casts": 124,
+    "winner": 1
+  },
+  {
+    "id": "field",
+    "seed": 71,
+    "ticks": 139,
+    "casts": 120,
+    "winner": 1
+  },
+  {
+    "id": "eight-arms",
+    "seed": 11,
+    "ticks": 141,
+    "casts": 134,
+    "winner": 1
+  },
+  {
+    "id": "eight-arms",
+    "seed": 29,
+    "ticks": 150,
+    "casts": 137,
+    "winner": 1
+  },
+  {
+    "id": "eight-arms",
+    "seed": 71,
+    "ticks": 139,
+    "casts": 129,
+    "winner": 1
+  },
+  {
+    "id": "history-guandu",
+    "seed": 11,
+    "ticks": 324,
+    "casts": 228,
+    "winner": 0
+  },
+  {
+    "id": "history-guandu",
+    "seed": 29,
+    "ticks": 172,
+    "casts": 158,
+    "winner": 0
+  },
+  {
+    "id": "history-guandu",
+    "seed": 71,
+    "ticks": 183,
+    "casts": 167,
+    "winner": 0
+  },
+  {
+    "id": "history-chibi",
+    "seed": 11,
+    "ticks": 321,
+    "casts": 142,
+    "winner": 0
+  },
+  {
+    "id": "history-chibi",
+    "seed": 29,
+    "ticks": 319,
+    "casts": 139,
+    "winner": 0
+  },
+  {
+    "id": "history-chibi",
+    "seed": 71,
+    "ticks": 250,
+    "casts": 140,
+    "winner": 0
+  },
+  {
+    "id": "history-hefei",
+    "seed": 11,
+    "ticks": 216,
+    "casts": 119,
+    "winner": 0
+  },
+  {
+    "id": "history-hefei",
+    "seed": 29,
+    "ticks": 185,
+    "casts": 109,
+    "winner": 1
+  },
+  {
+    "id": "history-hefei",
+    "seed": 71,
+    "ticks": 236,
+    "casts": 120,
+    "winner": 0
+  },
+  {
+    "id": "history-yiling",
+    "seed": 11,
+    "ticks": 168,
+    "casts": 142,
+    "winner": 0
+  },
+  {
+    "id": "history-yiling",
+    "seed": 29,
+    "ticks": 166,
+    "casts": 140,
+    "winner": 0
+  },
+  {
+    "id": "history-yiling",
+    "seed": 71,
+    "ticks": 171,
+    "casts": 141,
+    "winner": 0
+  }
+]

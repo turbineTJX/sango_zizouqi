@@ -1,0 +1,32 @@
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (16.1698ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (2.8257ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (2.935ms)
+✔ healing results use wounded budget and show actual shield separately (2.0583ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (233.0021ms)
+✔ command and experience define individual capacity; fielded troops are independent (8.737ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (149.8677ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (64.4235ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (90.9006ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (578.5557ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (194.3971ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (258.6156ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (1.6767ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (17.932ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (26.238ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (20.166ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (14.7811ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (20.3425ms)
+✔ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (15.9938ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (8.3709ms)
+✔ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (15.8301ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (11.2612ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (9.994ms)
+✔ firestorm is bounded by friendly power, not enemy army size (83.8494ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1484.1103

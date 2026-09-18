@@ -1,0 +1,126 @@
+{
+  "mode": "teams",
+  "count": 224,
+  "summary": [
+    {
+      "key": "classic",
+      "name": "classic",
+      "games": 56,
+      "win": 0.8928571428571429,
+      "matchups": {
+        "physical": 0.6875,
+        "curses": 1,
+        "illusions": 0.5625,
+        "passage": 1,
+        "artillery": 1,
+        "medics": 1,
+        "counter": 1
+      }
+    },
+    {
+      "key": "physical",
+      "name": "physical",
+      "games": 56,
+      "win": 0.75,
+      "matchups": {
+        "classic": 0.3125,
+        "curses": 0.6875,
+        "illusions": 0.75,
+        "passage": 1,
+        "artillery": 1,
+        "medics": 1,
+        "counter": 0.5
+      }
+    },
+    {
+      "key": "curses",
+      "name": "curses",
+      "games": 56,
+      "win": 0.5178571428571429,
+      "matchups": {
+        "classic": 0,
+        "physical": 0.3125,
+        "illusions": 0.3125,
+        "passage": 0.75,
+        "artillery": 1,
+        "medics": 0.6875,
+        "counter": 0.5625
+      }
+    },
+    {
+      "key": "illusions",
+      "name": "illusions",
+      "games": 56,
+      "win": 0.7321428571428571,
+      "matchups": {
+        "classic": 0.4375,
+        "physical": 0.25,
+        "curses": 0.6875,
+        "passage": 0.75,
+        "artillery": 1,
+        "medics": 1,
+        "counter": 1
+      }
+    },
+    {
+      "key": "passage",
+      "name": "passage",
+      "games": 56,
+      "win": 0.10714285714285714,
+      "matchups": {
+        "classic": 0,
+        "physical": 0,
+        "curses": 0.25,
+        "illusions": 0.25,
+        "artillery": 0,
+        "medics": 0,
+        "counter": 0.25
+      }
+    },
+    {
+      "key": "artillery",
+      "name": "artillery",
+      "games": 56,
+      "win": 0.20535714285714285,
+      "matchups": {
+        "classic": 0,
+        "physical": 0,
+        "curses": 0,
+        "illusions": 0,
+        "passage": 1,
+        "medics": 0.4375,
+        "counter": 0
+      }
+    },
+    {
+      "key": "medics",
+      "name": "medics",
+      "games": 56,
+      "win": 0.26785714285714285,
+      "matchups": {
+        "classic": 0,
+        "physical": 0,
+        "curses": 0.3125,
+        "illusions": 0,
+        "passage": 1,
+        "artillery": 0.5625,
+        "counter": 0
+      }
+    },
+    {
+      "key": "counter",
+      "name": "counter",
+      "games": 56,
+      "win": 0.5267857142857143,
+      "matchups": {
+        "classic": 0,
+        "physical": 0.5,
+        "curses": 0.4375,
+        "illusions": 0,
+        "passage": 0.75,
+        "artillery": 1,
+        "medics": 1
+      }
+    }
+  ]
+}

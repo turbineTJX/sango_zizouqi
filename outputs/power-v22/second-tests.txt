@@ -1,0 +1,163 @@
+✔ four officer stats affect separate derived attributes, with no charm dimension (2.4425ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (45.7941ms)
+✖ attribute breakdown reproduces effective values, statuses expire and strength declines gently (2.4717ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (7.2043ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (5.2563ms)
+✔ politics reduces actual confusion duration but physical stun remains independent (10.4007ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (1.7535ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (17.6029ms)
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (26.2566ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (16.8624ms)
+✔ a stunned unit and pure self buffs do not prime a combo (3.9439ms)
+✔ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (11.8579ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (3.9218ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (452.461ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (3.0957ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (8.8774ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (1.7901ms)
+✔ cleave charges each victim once without charging the caster (23.252ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (53.9557ms)
+✖ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (4.9944ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (14.8761ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (4.1177ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (3.352ms)
+✔ passage opens a real ZOC route and rear targeting; bodies, terrain, taunt and shared lock still apply (4.86ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (246.6818ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (3.9612ms)
+✔ two real ram casts can link against the gate and increase the second hit (6.0148ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (242.1003ms)
+✔ short passage prioritizes available rear attacks over self-buffs (2.0731ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (45.3807ms)
+✖ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (24.4784ms)
+✔ screen has a useful baseline and scales with support passives (10.3872ms)
+✔ foresight no longer depends on enemy loadout and respects its strict boundary and damage kind (0.3984ms)
+✔ gallop provides travel speed before contact and mitigation while adjacent (8.4607ms)
+✔ new officer defaults activate the intended bow and support routes without removing troop choice (3.6033ms)
+✔ current campaigns and ongoing battles preserve player loadouts and DOT snapshots (123.8915ms)
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (22.0775ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (4.8569ms)
+✖ mixed damage and control report actual duration; resisted control is not claimed (3.8863ms)
+✔ healing results use wounded budget and show actual shield separately (2.8017ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (278.1798ms)
+✔ four troop types have fixed base slots and named officers have exclusive tactics (4.0174ms)
+✔ instant skills keep shared intent and only one tactic enters cooldown per step (24.9304ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (5.1429ms)
+✔ expired cooldown is insufficient below threshold; regaining intent re-enables the tactic (6.0314ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (6.9834ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (5.3683ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (10.5013ms)
+✔ blocked displacement never overlaps units or crosses board limits (2.1336ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (6.3764ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (11.0008ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (7.5347ms)
+✔ prepaid casts and previous save formats are rejected (3.2304ms)
+✔ new saves distinguish bows and crossbows and require current rules (3.677ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (26.5155ms)
+✔ taunt cannot reach six hexes or override control protection (7.05ms)
+✔ taunted ranged offensive skills wait for range, then attack the taunter (3.3531ms)
+✔ cleanse removes a real taunt; its source dying or retreating immediately releases the target (10.2246ms)
+✔ taunt never drags melee out through another active ZOC (2.9574ms)
+✔ a real charge follows a real retreat shot instead of switching back to a disabled front (4.2335ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (2.4812ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (17.7906ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (114.2976ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (88.2263ms)
+✔ all 160 core combinations are legal; every officer has all three role options (22.2893ms)
+✔ positioning targets real columns and clustered enemies and always includes the anchor (14.2372ms)
+✔ allied slow enables a real spear finisher, with no intent or target bypass (5.2909ms)
+✔ fire preparation increases wildfire direct hits without replacing a stronger burn (5.1168ms)
+✔ low-intellect guards retain mitigation and suppression; their support casts deal no damage (3.4906ms)
+✔ cavalry offensive stance increases basic attack at the cost of real defense (2.6468ms)
+✔ screen protects threatened healthy allies, respects its own layer and caps at one recipient (3.8348ms)
+✔ seal exchanges all damage for silence; ambush waits for close range (5.7821ms)
+✔ each role completes a battle and preserves deterministic continuation under current rules (2595.6955ms)
+ℹ tests 73
+ℹ suites 0
+ℹ pass 69
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2900.5834
+
+✖ failing tests:
+
+test at tests\attributes.test.mjs:32:1
+✖ attribute breakdown reproduces effective values, statuses expire and strength declines gently (2.4717ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 0.5
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/attributes.test.mjs:36:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 0.5,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:43:1
+✖ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (4.9944ms)
+  AssertionError [ERR_ASSERTION]: attack
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/expanded-troops.test.mjs:49:101)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\skill-adjustment.test.mjs:21:1
+✖ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (24.4784ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 7
+  
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/skill-adjustment.test.mjs:28:27)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/skill-adjustment.test.mjs:35:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 7,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tactic-outcomes.test.mjs:32:1
+✖ mixed damage and control report actual duration; resisted control is not claimed (3.8863ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactic-outcomes.test.mjs:39:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

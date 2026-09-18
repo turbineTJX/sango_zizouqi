@@ -1,0 +1,2306 @@
+[
+  {
+    "context": "dense",
+    "formation": "compact",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0.17,
+      "margin": -1527.04,
+      "backline": 265.25,
+      "alive60": 38.25,
+      "damage": 281.96,
+      "rearHits": 128.38,
+      "incomingHits": 37.88
+    },
+    "changes": {
+      "margin": {
+        "mean": -205.37,
+        "low": -987.14,
+        "high": 576.39,
+        "positiveSeeds": 5
+      },
+      "backline": {
+        "mean": -22.21,
+        "low": -333.58,
+        "high": 289.17,
+        "positiveSeeds": 4
+      },
+      "alive60": {
+        "mean": 1.83,
+        "low": 0.4,
+        "high": 3.26,
+        "positiveSeeds": 8
+      }
+    },
+    "before": {
+      "win": 0.21,
+      "margin": -1321.67,
+      "backline": 287.46,
+      "alive60": 36.42,
+      "damage": 265.63,
+      "rearHits": 129.29,
+      "incomingHits": 38.13
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "compact",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.54,
+      "margin": 127.58,
+      "backline": 901.83,
+      "alive60": 44.08,
+      "damage": 308.67,
+      "rearHits": 124.38,
+      "incomingHits": 41.83
+    },
+    "changes": {
+      "margin": {
+        "mean": -0.21,
+        "low": -75.12,
+        "high": 74.7,
+        "positiveSeeds": 2
+      },
+      "backline": {
+        "mean": 9.08,
+        "low": -24.86,
+        "high": 43.03,
+        "positiveSeeds": 1
+      },
+      "alive60": {
+        "mean": 0.33,
+        "low": -0.14,
+        "high": 0.81,
+        "positiveSeeds": 3
+      }
+    },
+    "before": {
+      "win": 0.54,
+      "margin": 127.79,
+      "backline": 892.75,
+      "alive60": 43.75,
+      "damage": 305.38,
+      "rearHits": 124.17,
+      "incomingHits": 42.21
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "compact",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.21,
+      "margin": -1033.96,
+      "backline": 277.33,
+      "alive60": 40.04,
+      "damage": 282.83,
+      "rearHits": 131.5,
+      "incomingHits": 36.96
+    },
+    "changes": {
+      "margin": {
+        "mean": 2.75,
+        "low": -302.35,
+        "high": 307.85,
+        "positiveSeeds": 3
+      },
+      "backline": {
+        "mean": 18.75,
+        "low": -131.08,
+        "high": 168.58,
+        "positiveSeeds": 2
+      },
+      "alive60": {
+        "mean": 0.04,
+        "low": -1.01,
+        "high": 1.09,
+        "positiveSeeds": 3
+      }
+    },
+    "before": {
+      "win": 0.21,
+      "margin": -1036.71,
+      "backline": 258.58,
+      "alive60": 40,
+      "damage": 285.08,
+      "rearHits": 132.79,
+      "incomingHits": 37.33
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "compact",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 0.96,
+      "margin": 2510.83,
+      "backline": 2528.54,
+      "alive60": 58.75,
+      "damage": 350.71,
+      "rearHits": 87.71,
+      "incomingHits": 66.71
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.96,
+      "margin": 2510.83,
+      "backline": 2528.54,
+      "alive60": 58.75,
+      "damage": 350.71,
+      "rearHits": 87.71,
+      "incomingHits": 66.71
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "separated",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0.17,
+      "margin": -2193.87,
+      "backline": 191.38,
+      "alive60": 40.71,
+      "damage": 276.54,
+      "rearHits": 125.58,
+      "incomingHits": 39.54
+    },
+    "changes": {
+      "margin": {
+        "mean": -311.75,
+        "low": -1017.71,
+        "high": 394.21,
+        "positiveSeeds": 5
+      },
+      "backline": {
+        "mean": -74.37,
+        "low": -337.91,
+        "high": 189.16,
+        "positiveSeeds": 2
+      },
+      "alive60": {
+        "mean": 2.63,
+        "low": 1.62,
+        "high": 3.63,
+        "positiveSeeds": 12
+      }
+    },
+    "before": {
+      "win": 0.21,
+      "margin": -1882.12,
+      "backline": 265.75,
+      "alive60": 38.08,
+      "damage": 266.63,
+      "rearHits": 123.08,
+      "incomingHits": 38.58
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "separated",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.08,
+      "margin": -2306.87,
+      "backline": 125.58,
+      "alive60": 40.21,
+      "damage": 275.29,
+      "rearHits": 132.54,
+      "incomingHits": 40.13
+    },
+    "changes": {
+      "margin": {
+        "mean": -103.54,
+        "low": -225.79,
+        "high": 18.71,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -0.42,
+        "low": -0.94,
+        "high": 0.11,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.08,
+      "margin": -2203.33,
+      "backline": 125.58,
+      "alive60": 40.63,
+      "damage": 277.67,
+      "rearHits": 133.04,
+      "incomingHits": 40.29
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "separated",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.04,
+      "margin": -2834.54,
+      "backline": 112.83,
+      "alive60": 36,
+      "damage": 241.25,
+      "rearHits": 131,
+      "incomingHits": 36.25
+    },
+    "changes": {
+      "margin": {
+        "mean": -66.08,
+        "low": -195.56,
+        "high": 63.39,
+        "positiveSeeds": 1
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -0.42,
+        "low": -0.84,
+        "high": 0.01,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.04,
+      "margin": -2768.46,
+      "backline": 112.83,
+      "alive60": 36.42,
+      "damage": 245.13,
+      "rearHits": 131.21,
+      "incomingHits": 36.29
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "separated",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 0.38,
+      "margin": -36.37,
+      "backline": 943.25,
+      "alive60": 59.67,
+      "damage": 374.67,
+      "rearHits": 118,
+      "incomingHits": 65.17
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.38,
+      "margin": -36.37,
+      "backline": 943.25,
+      "alive60": 59.67,
+      "damage": 374.67,
+      "rearHits": 118,
+      "incomingHits": 65.17
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "flank",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0.08,
+      "margin": -1987.5,
+      "backline": 110.17,
+      "alive60": 40,
+      "damage": 285.79,
+      "rearHits": 133.92,
+      "incomingHits": 36.67
+    },
+    "changes": {
+      "margin": {
+        "mean": 79.88,
+        "low": -738.27,
+        "high": 898.02,
+        "positiveSeeds": 5
+      },
+      "backline": {
+        "mean": -40.67,
+        "low": -282.97,
+        "high": 201.64,
+        "positiveSeeds": 2
+      },
+      "alive60": {
+        "mean": 1.92,
+        "low": 0.93,
+        "high": 2.9,
+        "positiveSeeds": 9
+      }
+    },
+    "before": {
+      "win": 0.08,
+      "margin": -2067.37,
+      "backline": 150.83,
+      "alive60": 38.08,
+      "damage": 308.46,
+      "rearHits": 130.88,
+      "incomingHits": 36.79
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "flank",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.25,
+      "margin": -611.25,
+      "backline": 558.83,
+      "alive60": 40.13,
+      "damage": 261.79,
+      "rearHits": 120.92,
+      "incomingHits": 39.79
+    },
+    "changes": {
+      "margin": {
+        "mean": -75.37,
+        "low": -333.97,
+        "high": 183.22,
+        "positiveSeeds": 1
+      },
+      "backline": {
+        "mean": -5.46,
+        "low": -101.64,
+        "high": 90.72,
+        "positiveSeeds": 1
+      },
+      "alive60": {
+        "mean": -0.29,
+        "low": -0.71,
+        "high": 0.12,
+        "positiveSeeds": 1
+      }
+    },
+    "before": {
+      "win": 0.21,
+      "margin": -535.87,
+      "backline": 564.29,
+      "alive60": 40.42,
+      "damage": 263.67,
+      "rearHits": 122.33,
+      "incomingHits": 40
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "flank",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.21,
+      "margin": -1819.83,
+      "backline": 257.5,
+      "alive60": 35.42,
+      "damage": 259.38,
+      "rearHits": 121.58,
+      "incomingHits": 35.96
+    },
+    "changes": {
+      "margin": {
+        "mean": -39.75,
+        "low": -165.88,
+        "high": 86.38,
+        "positiveSeeds": 1
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -0.12,
+        "low": -0.51,
+        "high": 0.26,
+        "positiveSeeds": 1
+      }
+    },
+    "before": {
+      "win": 0.21,
+      "margin": -1780.08,
+      "backline": 257.5,
+      "alive60": 35.54,
+      "damage": 261.29,
+      "rearHits": 122.21,
+      "incomingHits": 36.13
+    }
+  },
+  {
+    "context": "dense",
+    "formation": "flank",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 2886.79,
+      "backline": 2951.42,
+      "alive60": 60,
+      "damage": 519.08,
+      "rearHits": 75.17,
+      "incomingHits": 67.25
+    },
+    "changes": {
+      "margin": {
+        "mean": 95.96,
+        "low": -96.87,
+        "high": 288.78,
+        "positiveSeeds": 8
+      },
+      "backline": {
+        "mean": 91.96,
+        "low": -104.68,
+        "high": 288.6,
+        "positiveSeeds": 8
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 2790.83,
+      "backline": 2859.46,
+      "alive60": 60,
+      "damage": 540.29,
+      "rearHits": 75.63,
+      "incomingHits": 62.63
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "compact",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -2462.25,
+      "backline": 0,
+      "alive60": 47.88,
+      "damage": 709.08,
+      "rearHits": 66.54,
+      "incomingHits": 38.25
+    },
+    "changes": {
+      "margin": {
+        "mean": 1831.17,
+        "low": 1756.19,
+        "high": 1906.14,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -12.12,
+        "low": -12.4,
+        "high": -11.85,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -4293.42,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 2340.88,
+      "rearHits": 53.5,
+      "incomingHits": 37.08
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "compact",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.29,
+      "margin": -1349,
+      "backline": 243.83,
+      "alive60": 48,
+      "damage": 738,
+      "rearHits": 69.21,
+      "incomingHits": 40.38
+    },
+    "changes": {
+      "margin": {
+        "mean": 3370.67,
+        "low": 3112.47,
+        "high": 3628.86,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 243.83,
+        "low": 57.86,
+        "high": 429.81,
+        "positiveSeeds": 7
+      },
+      "alive60": {
+        "mean": -12,
+        "low": -12,
+        "high": -12,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -4719.67,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 1595.33,
+      "rearHits": 53.46,
+      "incomingHits": 42.5
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "compact",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3631.67,
+      "backline": 0,
+      "alive60": 33.33,
+      "damage": 449.79,
+      "rearHits": 59.79,
+      "incomingHits": 34.33
+    },
+    "changes": {
+      "margin": {
+        "mean": 68.5,
+        "low": 9.56,
+        "high": 127.44,
+        "positiveSeeds": 10
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -26.67,
+        "low": -26.82,
+        "high": -26.51,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -3700.17,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 1126.46,
+      "rearHits": 58.21,
+      "incomingHits": 38.58
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "compact",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 4839.71,
+      "backline": 4316.71,
+      "alive60": 60,
+      "damage": 1948.5,
+      "rearHits": 24.67,
+      "incomingHits": 58.29
+    },
+    "changes": {
+      "margin": {
+        "mean": 7373.38,
+        "low": 6963.21,
+        "high": 7783.54,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 4316.71,
+        "low": 4272.36,
+        "high": 4361.06,
+        "positiveSeeds": 12
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -2533.67,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 3626.83,
+      "rearHits": 62.46,
+      "incomingHits": 86.25
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "separated",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0.5,
+      "margin": -1388.37,
+      "backline": 523.29,
+      "alive60": 47.17,
+      "damage": 759.25,
+      "rearHits": 60.42,
+      "incomingHits": 35.38
+    },
+    "changes": {
+      "margin": {
+        "mean": 2634.63,
+        "low": 2527.83,
+        "high": 2741.42,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 523.29,
+        "low": 426.37,
+        "high": 620.22,
+        "positiveSeeds": 12
+      },
+      "alive60": {
+        "mean": -12.83,
+        "low": -13.08,
+        "high": -12.59,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -4023,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 2329.33,
+      "rearHits": 54.33,
+      "incomingHits": 41.92
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "separated",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.5,
+      "margin": -749.5,
+      "backline": 965.38,
+      "alive60": 48.25,
+      "damage": 744.63,
+      "rearHits": 55.46,
+      "incomingHits": 37.25
+    },
+    "changes": {
+      "margin": {
+        "mean": 3456.83,
+        "low": 3371.39,
+        "high": 3542.28,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 965.38,
+        "low": 900.57,
+        "high": 1030.18,
+        "positiveSeeds": 12
+      },
+      "alive60": {
+        "mean": -7.79,
+        "low": -7.96,
+        "high": -7.63,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -4206.33,
+      "backline": 0,
+      "alive60": 56.04,
+      "damage": 963.58,
+      "rearHits": 58.83,
+      "incomingHits": 39.58
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "separated",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3994.46,
+      "backline": 0,
+      "alive60": 33,
+      "damage": 451.17,
+      "rearHits": 59.67,
+      "incomingHits": 33.54
+    },
+    "changes": {
+      "margin": {
+        "mean": -111.42,
+        "low": -160.22,
+        "high": -62.62,
+        "positiveSeeds": 1
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -21,
+        "low": -21.43,
+        "high": -20.57,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -3883.04,
+      "backline": 0,
+      "alive60": 54,
+      "damage": 777.33,
+      "rearHits": 59.21,
+      "incomingHits": 34.67
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "separated",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 5456.04,
+      "backline": 4860.33,
+      "alive60": 60,
+      "damage": 1927.79,
+      "rearHits": 14.08,
+      "incomingHits": 58
+    },
+    "changes": {
+      "margin": {
+        "mean": 5824.25,
+        "low": 5794.6,
+        "high": 5853.9,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 3867.29,
+        "low": 3846.51,
+        "high": 3888.07,
+        "positiveSeeds": 12
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.5,
+      "margin": -368.21,
+      "backline": 993.04,
+      "alive60": 60,
+      "damage": 2162.25,
+      "rearHits": 54.33,
+      "incomingHits": 61.83
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "flank",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3171.67,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 1817.83,
+      "rearHits": 57.33,
+      "incomingHits": 44
+    },
+    "changes": {
+      "margin": {
+        "mean": 1595.46,
+        "low": 1529.43,
+        "high": 1661.48,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -4767.12,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 2216.42,
+      "rearHits": 50.29,
+      "incomingHits": 40
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "flank",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3115.46,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 1765.79,
+      "rearHits": 57.83,
+      "incomingHits": 47.17
+    },
+    "changes": {
+      "margin": {
+        "mean": 2129.42,
+        "low": 2044.59,
+        "high": 2214.24,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -5244.87,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 1517.29,
+      "rearHits": 51.96,
+      "incomingHits": 40.75
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "flank",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3186.58,
+      "backline": 0,
+      "alive60": 56.38,
+      "damage": 941.33,
+      "rearHits": 65.29,
+      "incomingHits": 34.08
+    },
+    "changes": {
+      "margin": {
+        "mean": 2213.08,
+        "low": 2142.91,
+        "high": 2283.25,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -3.62,
+        "low": -4.06,
+        "high": -3.19,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -5399.67,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 1587,
+      "rearHits": 49.92,
+      "incomingHits": 39.46
+    }
+  },
+  {
+    "context": "flank",
+    "formation": "flank",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 1364.88,
+      "backline": 370.17,
+      "alive60": 60,
+      "damage": 3625.17,
+      "rearHits": 68.75,
+      "incomingHits": 61.04
+    },
+    "changes": {
+      "margin": {
+        "mean": 4685.96,
+        "low": 4600.72,
+        "high": 4771.19,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 370.17,
+        "low": 335.73,
+        "high": 404.6,
+        "positiveSeeds": 12
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -3321.08,
+      "backline": 0,
+      "alive60": 60,
+      "damage": 3393.46,
+      "rearHits": 56.83,
+      "incomingHits": 103.63
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "compact",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 2447.21,
+      "backline": 2447.21,
+      "alive60": 34.5,
+      "damage": 979.13,
+      "rearHits": 63.29,
+      "incomingHits": 47.04
+    },
+    "changes": {
+      "margin": {
+        "mean": -1166.04,
+        "low": -1292.28,
+        "high": -1039.81,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": -1166.04,
+        "low": -1292.28,
+        "high": -1039.81,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -21.92,
+        "low": -22.49,
+        "high": -21.34,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 3613.25,
+      "backline": 3613.25,
+      "alive60": 56.42,
+      "damage": 1551.63,
+      "rearHits": 39.54,
+      "incomingHits": 51
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "compact",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 1511.25,
+      "backline": 1511.25,
+      "alive60": 33.79,
+      "damage": 685.04,
+      "rearHits": 80.29,
+      "incomingHits": 46.13
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 1511.25,
+      "backline": 1511.25,
+      "alive60": 33.79,
+      "damage": 685.04,
+      "rearHits": 80.29,
+      "incomingHits": 46.13
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "compact",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 2098.08,
+      "backline": 2098.08,
+      "alive60": 41.83,
+      "damage": 880.33,
+      "rearHits": 65.46,
+      "incomingHits": 44.04
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 2098.08,
+      "backline": 2098.08,
+      "alive60": 41.83,
+      "damage": 880.33,
+      "rearHits": 65.46,
+      "incomingHits": 44.04
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "compact",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 2270.04,
+      "backline": 2270.04,
+      "alive60": 46.63,
+      "damage": 468.13,
+      "rearHits": 60.33,
+      "incomingHits": 49.88
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 2270.04,
+      "backline": 2270.04,
+      "alive60": 46.63,
+      "damage": 468.13,
+      "rearHits": 60.33,
+      "incomingHits": 49.88
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "separated",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0.42,
+      "margin": -180.92,
+      "backline": 193.92,
+      "alive60": 32.42,
+      "damage": 742.88,
+      "rearHits": 107.96,
+      "incomingHits": 45.54
+    },
+    "changes": {
+      "margin": {
+        "mean": -2449.37,
+        "low": -2711.91,
+        "high": -2186.84,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": -2074.54,
+        "low": -2248.54,
+        "high": -1900.54,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -17,
+        "low": -17.56,
+        "high": -16.44,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 2268.46,
+      "backline": 2268.46,
+      "alive60": 49.42,
+      "damage": 1406.58,
+      "rearHits": 61.96,
+      "incomingHits": 48.04
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "separated",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.42,
+      "margin": -6.42,
+      "backline": 342,
+      "alive60": 32.5,
+      "damage": 661.17,
+      "rearHits": 102.5,
+      "incomingHits": 45.71
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.42,
+      "margin": -6.42,
+      "backline": 342,
+      "alive60": 32.5,
+      "damage": 661.17,
+      "rearHits": 102.5,
+      "incomingHits": 45.71
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "separated",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.29,
+      "margin": -743.54,
+      "backline": 317.42,
+      "alive60": 32.25,
+      "damage": 633.96,
+      "rearHits": 92.29,
+      "incomingHits": 42.13
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.29,
+      "margin": -743.54,
+      "backline": 317.42,
+      "alive60": 32.25,
+      "damage": 633.96,
+      "rearHits": 92.29,
+      "incomingHits": 42.13
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "separated",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 0.79,
+      "margin": 1553.46,
+      "backline": 1605,
+      "alive60": 49.29,
+      "damage": 478.46,
+      "rearHits": 79.71,
+      "incomingHits": 52.33
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.79,
+      "margin": 1553.46,
+      "backline": 1605,
+      "alive60": 49.29,
+      "damage": 478.46,
+      "rearHits": 79.71,
+      "incomingHits": 52.33
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "flank",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 3519.75,
+      "backline": 3518.79,
+      "alive60": 60,
+      "damage": 1703.04,
+      "rearHits": 37.88,
+      "incomingHits": 58.21
+    },
+    "changes": {
+      "margin": {
+        "mean": 693,
+        "low": 415.74,
+        "high": 970.26,
+        "positiveSeeds": 12
+      },
+      "backline": {
+        "mean": 692.04,
+        "low": 414.08,
+        "high": 970,
+        "positiveSeeds": 12
+      },
+      "alive60": {
+        "mean": 4.67,
+        "low": 4.28,
+        "high": 5.06,
+        "positiveSeeds": 12
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 2826.75,
+      "backline": 2826.75,
+      "alive60": 55.33,
+      "damage": 1383.17,
+      "rearHits": 60.79,
+      "incomingHits": 49.63
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "flank",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 3548.33,
+      "backline": 3526.5,
+      "alive60": 60,
+      "damage": 1546.04,
+      "rearHits": 36.21,
+      "incomingHits": 56.71
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 3548.33,
+      "backline": 3526.5,
+      "alive60": 60,
+      "damage": 1546.04,
+      "rearHits": 36.21,
+      "incomingHits": 56.71
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "flank",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.5,
+      "margin": 546,
+      "backline": 1653.17,
+      "alive60": 51.83,
+      "damage": 1200.83,
+      "rearHits": 63.71,
+      "incomingHits": 46.96
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.5,
+      "margin": 546,
+      "backline": 1653.17,
+      "alive60": 51.83,
+      "damage": 1200.83,
+      "rearHits": 63.71,
+      "incomingHits": 46.96
+    }
+  },
+  {
+    "context": "ranged",
+    "formation": "flank",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 1,
+      "margin": 3499.08,
+      "backline": 3461.96,
+      "alive60": 60,
+      "damage": 1130.42,
+      "rearHits": 39.83,
+      "incomingHits": 68.92
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 1,
+      "margin": 3499.08,
+      "backline": 3461.96,
+      "alive60": 60,
+      "damage": 1130.42,
+      "rearHits": 39.83,
+      "incomingHits": 68.92
+    }
+  },
+  {
+    "context": "control",
+    "formation": "compact",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3973.37,
+      "backline": 0,
+      "alive60": 36.38,
+      "damage": 267.75,
+      "rearHits": 85.04,
+      "incomingHits": 43.83
+    },
+    "changes": {
+      "margin": {
+        "mean": -1026.37,
+        "low": -1767.51,
+        "high": -285.24,
+        "positiveSeeds": 3
+      },
+      "backline": {
+        "mean": -17.46,
+        "low": -55.88,
+        "high": 20.97,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0.29,
+        "low": -1.63,
+        "high": 2.21,
+        "positiveSeeds": 5
+      }
+    },
+    "before": {
+      "win": 0.04,
+      "margin": -2947,
+      "backline": 17.46,
+      "alive60": 36.08,
+      "damage": 695.63,
+      "rearHits": 95.63,
+      "incomingHits": 47.58
+    }
+  },
+  {
+    "context": "control",
+    "formation": "compact",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3572.21,
+      "backline": 0,
+      "alive60": 37.42,
+      "damage": 226.92,
+      "rearHits": 85.88,
+      "incomingHits": 45.75
+    },
+    "changes": {
+      "margin": {
+        "mean": 13.29,
+        "low": -238.11,
+        "high": 264.69,
+        "positiveSeeds": 5
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -1.62,
+        "low": -4.05,
+        "high": 0.8,
+        "positiveSeeds": 1
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -3585.5,
+      "backline": 0,
+      "alive60": 39.04,
+      "damage": 297.13,
+      "rearHits": 86.67,
+      "incomingHits": 46.33
+    }
+  },
+  {
+    "context": "control",
+    "formation": "compact",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -3661.67,
+      "backline": 0,
+      "alive60": 34.38,
+      "damage": 259.17,
+      "rearHits": 84.83,
+      "incomingHits": 41.67
+    },
+    "changes": {
+      "margin": {
+        "mean": -312.17,
+        "low": -662.23,
+        "high": 37.89,
+        "positiveSeeds": 3
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -0.12,
+        "low": -1.74,
+        "high": 1.49,
+        "positiveSeeds": 3
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -3349.5,
+      "backline": 0,
+      "alive60": 34.5,
+      "damage": 338,
+      "rearHits": 87.63,
+      "incomingHits": 42.17
+    }
+  },
+  {
+    "context": "control",
+    "formation": "compact",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 0.13,
+      "margin": -2298.25,
+      "backline": 162.96,
+      "alive60": 38.21,
+      "damage": 317.38,
+      "rearHits": 87,
+      "incomingHits": 47.54
+    },
+    "changes": {
+      "margin": {
+        "mean": 41.71,
+        "low": -23.54,
+        "high": 106.95,
+        "positiveSeeds": 3
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -0.17,
+        "low": -0.45,
+        "high": 0.12,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.13,
+      "margin": -2339.96,
+      "backline": 162.96,
+      "alive60": 38.38,
+      "damage": 327.92,
+      "rearHits": 87.13,
+      "incomingHits": 47.13
+    }
+  },
+  {
+    "context": "control",
+    "formation": "separated",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -4560.54,
+      "backline": 0,
+      "alive60": 36.92,
+      "damage": 256.21,
+      "rearHits": 83.46,
+      "incomingHits": 43.46
+    },
+    "changes": {
+      "margin": {
+        "mean": -721,
+        "low": -1093.46,
+        "high": -348.54,
+        "positiveSeeds": 1
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 3.04,
+        "low": -2.66,
+        "high": 8.75,
+        "positiveSeeds": 4
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -3839.54,
+      "backline": 0,
+      "alive60": 33.88,
+      "damage": 718,
+      "rearHits": 94.71,
+      "incomingHits": 46.58
+    }
+  },
+  {
+    "context": "control",
+    "formation": "separated",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -4013.42,
+      "backline": 0,
+      "alive60": 36.29,
+      "damage": 193.83,
+      "rearHits": 85.67,
+      "incomingHits": 45.42
+    },
+    "changes": {
+      "margin": {
+        "mean": 224.17,
+        "low": -61.42,
+        "high": 509.75,
+        "positiveSeeds": 9
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -0.17,
+        "low": -0.79,
+        "high": 0.46,
+        "positiveSeeds": 3
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -4237.58,
+      "backline": 0,
+      "alive60": 36.46,
+      "damage": 243.71,
+      "rearHits": 85.79,
+      "incomingHits": 45.46
+    }
+  },
+  {
+    "context": "control",
+    "formation": "separated",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0,
+      "margin": -4469.92,
+      "backline": 0,
+      "alive60": 31.96,
+      "damage": 201.13,
+      "rearHits": 86.21,
+      "incomingHits": 40.79
+    },
+    "changes": {
+      "margin": {
+        "mean": -337.96,
+        "low": -682.05,
+        "high": 6.13,
+        "positiveSeeds": 2
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": -0.33,
+        "low": -1.66,
+        "high": 1,
+        "positiveSeeds": 1
+      }
+    },
+    "before": {
+      "win": 0,
+      "margin": -4131.96,
+      "backline": 0,
+      "alive60": 32.29,
+      "damage": 336.25,
+      "rearHits": 88.25,
+      "incomingHits": 41.79
+    }
+  },
+  {
+    "context": "control",
+    "formation": "separated",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 0.04,
+      "margin": -3086.17,
+      "backline": 10.88,
+      "alive60": 36.96,
+      "damage": 256.38,
+      "rearHits": 87.33,
+      "incomingHits": 49.25
+    },
+    "changes": {
+      "margin": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      }
+    },
+    "before": {
+      "win": 0.04,
+      "margin": -3086.17,
+      "backline": 10.88,
+      "alive60": 36.96,
+      "damage": 256.38,
+      "rearHits": 87.33,
+      "incomingHits": 49.25
+    }
+  },
+  {
+    "context": "control",
+    "formation": "flank",
+    "role": "assault",
+    "ids": [
+      "valor",
+      "rush",
+      "gallop"
+    ],
+    "summary": {
+      "win": 0.04,
+      "margin": -3149.29,
+      "backline": 109.75,
+      "alive60": 42.08,
+      "damage": 361.54,
+      "rearHits": 87.79,
+      "incomingHits": 46.38
+    },
+    "changes": {
+      "margin": {
+        "mean": -304.58,
+        "low": -1283.01,
+        "high": 673.84,
+        "positiveSeeds": 5
+      },
+      "backline": {
+        "mean": -9.42,
+        "low": -344.2,
+        "high": 325.36,
+        "positiveSeeds": 1
+      },
+      "alive60": {
+        "mean": 4.75,
+        "low": 1.31,
+        "high": 8.19,
+        "positiveSeeds": 9
+      }
+    },
+    "before": {
+      "win": 0.08,
+      "margin": -2844.71,
+      "backline": 119.17,
+      "alive60": 37.33,
+      "damage": 731.58,
+      "rearHits": 94.54,
+      "incomingHits": 47.25
+    }
+  },
+  {
+    "context": "control",
+    "formation": "flank",
+    "role": "guard",
+    "ids": [
+      "harass",
+      "gallop",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.33,
+      "margin": -1480.67,
+      "backline": 830.46,
+      "alive60": 44.13,
+      "damage": 334.42,
+      "rearHits": 77.58,
+      "incomingHits": 49.25
+    },
+    "changes": {
+      "margin": {
+        "mean": 114.21,
+        "low": -322.43,
+        "high": 550.84,
+        "positiveSeeds": 5
+      },
+      "backline": {
+        "mean": 0,
+        "low": 0,
+        "high": 0,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 1,
+        "low": -0.16,
+        "high": 2.16,
+        "positiveSeeds": 10
+      }
+    },
+    "before": {
+      "win": 0.33,
+      "margin": -1594.87,
+      "backline": 830.46,
+      "alive60": 43.13,
+      "damage": 360.13,
+      "rearHits": 77.96,
+      "incomingHits": 48.83
+    }
+  },
+  {
+    "context": "control",
+    "formation": "flank",
+    "role": "control",
+    "ids": [
+      "lure",
+      "harass",
+      "relay"
+    ],
+    "summary": {
+      "win": 0.08,
+      "margin": -3105.87,
+      "backline": 70.25,
+      "alive60": 35.96,
+      "damage": 247.33,
+      "rearHits": 90.88,
+      "incomingHits": 43.58
+    },
+    "changes": {
+      "margin": {
+        "mean": 98.71,
+        "low": -134.66,
+        "high": 332.08,
+        "positiveSeeds": 8
+      },
+      "backline": {
+        "mean": -43.58,
+        "low": -122.98,
+        "high": 35.81,
+        "positiveSeeds": 0
+      },
+      "alive60": {
+        "mean": 0.5,
+        "low": 0.07,
+        "high": 0.93,
+        "positiveSeeds": 7
+      }
+    },
+    "before": {
+      "win": 0.08,
+      "margin": -3204.58,
+      "backline": 113.83,
+      "alive60": 35.46,
+      "damage": 298.13,
+      "rearHits": 90.79,
+      "incomingHits": 44
+    }
+  },
+  {
+    "context": "control",
+    "formation": "flank",
+    "role": "spearGuard",
+    "ids": [
+      "cleanse",
+      "phalanx",
+      "ward"
+    ],
+    "summary": {
+      "win": 0.17,
+      "margin": -2161.75,
+      "backline": 95.38,
+      "alive60": 41.13,
+      "damage": 257,
+      "rearHits": 92.21,
+      "incomingHits": 49.96
+    },
+    "changes": {
+      "margin": {
+        "mean": -101.75,
+        "low": -876.71,
+        "high": 673.21,
+        "positiveSeeds": 7
+      },
+      "backline": {
+        "mean": 17.75,
+        "low": -171.9,
+        "high": 207.4,
+        "positiveSeeds": 3
+      },
+      "alive60": {
+        "mean": -1.25,
+        "low": -4.18,
+        "high": 1.68,
+        "positiveSeeds": 3
+      }
+    },
+    "before": {
+      "win": 0.13,
+      "margin": -2060,
+      "backline": 77.63,
+      "alive60": 42.38,
+      "damage": 281.92,
+      "rearHits": 93.21,
+      "incomingHits": 50.13
+    }
+  }
+]

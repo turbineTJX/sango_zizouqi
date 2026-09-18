@@ -1,0 +1,1426 @@
+TAP version 13
+# Subtest: four officer stats affect separate derived attributes, with no charm dimension
+ok 1 - four officer stats affect separate derived attributes, with no charm dimension
+  ---
+  duration_ms: 2.6466
+  type: 'test'
+  ...
+# Subtest: basic, martial and intellect damage use distinct offense and resistance paths
+ok 2 - basic, martial and intellect damage use distinct offense and resistance paths
+  ---
+  duration_ms: 33.0414
+  type: 'test'
+  ...
+# Subtest: attribute breakdown reproduces effective values, statuses expire and strength declines gently
+ok 3 - attribute breakdown reproduces effective values, statuses expire and strength declines gently
+  ---
+  duration_ms: 1.3155
+  type: 'test'
+  ...
+# Subtest: troop attack speed changes actual basic attack cadence but not tactic cooldown
+ok 4 - troop attack speed changes actual basic attack cadence but not tactic cooldown
+  ---
+  duration_ms: 5.4183
+  type: 'test'
+  ...
+# Subtest: slow movement accumulates half-steps and active haste cannot stack twice
+ok 5 - slow movement accumulates half-steps and active haste cannot stack twice
+  ---
+  duration_ms: 5.8109
+  type: 'test'
+  ...
+# Subtest: politics reduces actual confusion duration but physical stun remains independent
+ok 6 - politics reduces actual confusion duration but physical stun remains independent
+  ---
+  duration_ms: 7.4497
+  type: 'test'
+  ...
+# Subtest: shield sources refresh separately, expire separately, cap at capacity and absorb earliest first
+ok 7 - shield sources refresh separately, expire separately, cap at capacity and absorb earliest first
+  ---
+  duration_ms: 17.5112
+  type: 'test'
+  ...
+# Subtest: new saves preserve shield layers and fractional movement; reject invalid sources and totals
+ok 8 - new saves preserve shield layers and fractional movement; reject invalid sources and totals
+  ---
+  duration_ms: 18.0918
+  type: 'test'
+  ...
+# Subtest: intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize
+ok 9 - intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize
+  ---
+  duration_ms: 6.9301
+  type: 'test'
+  ...
+# Subtest: only the current rule version loads, and intent is validated without normalization
+ok 10 - only the current rule version loads, and intent is validated without normalization
+  ---
+  duration_ms: 16.379
+  type: 'test'
+  ...
+# Subtest: spearmen close the gap instead of immobilizing outside attack range
+ok 11 - spearmen close the gap instead of immobilizing outside attack range
+  ---
+  duration_ms: 8.4604
+  type: 'test'
+  ...
+# Subtest: ready basic attacks hit an adjacent target rather than chasing a distant counter
+ok 12 - ready basic attacks hit an adjacent target rather than chasing a distant counter
+  ---
+  duration_ms: 4.7948
+  type: 'test'
+  ...
+# Subtest: full troop size affects actual damage and one surviving soldier no longer retains half power
+ok 13 - full troop size affects actual damage and one surviving soldier no longer retains half power
+  ---
+  duration_ms: 14.5552
+  type: 'test'
+  ...
+# Subtest: trial loadouts use legal tools and the advertised support commands are unlocked
+ok 14 - trial loadouts use legal tools and the advertised support commands are unlocked
+  ---
+  duration_ms: 15.1706
+  type: 'test'
+  ...
+# Subtest: siege defenders hold their rear line before enemies approach
+ok 15 - siege defenders hold their rear line before enemies approach
+  ---
+  duration_ms: 81.9406
+  type: 'test'
+  ...
+# Subtest: ZOC breakthrough is explained on the existing skill row without duplicate announcements
+ok 16 - ZOC breakthrough is explained on the existing skill row without duplicate announcements
+  ---
+  duration_ms: 3.9717
+  type: 'test'
+  ...
+# Subtest: legacy windup events never display a preparation animation or log row
+ok 17 - legacy windup events never display a preparation animation or log row
+  ---
+  duration_ms: 0.7335
+  type: 'test'
+  ...
+# Subtest: pause freezes effect time and speed/focus redraws never duplicate effects
+ok 18 - pause freezes effect time and speed/focus redraws never duplicate effects
+  ---
+  duration_ms: 1.223
+  type: 'test'
+  ...
+# Subtest: fatal-hit animation stays busy until finished even when no units remain on the board
+ok 19 - fatal-hit animation stays busy until finished even when no units remain on the board
+  ---
+  duration_ms: 3.7942
+  type: 'test'
+  ...
+# Subtest: effect rendering does not mutate combat events and cleans up hidden-tab animation
+ok 20 - effect rendering does not mutate combat events and cleans up hidden-tab animation
+  ---
+  duration_ms: 0.8485
+  type: 'test'
+  ...
+# Subtest: all six visuals and reduced-motion alternatives can complete their lifecycle
+ok 21 - all six visuals and reduced-motion alternatives can complete their lifecycle
+  ---
+  duration_ms: 5.6849
+  type: 'test'
+  ...
+# Subtest: paused single stepping never replays a stack of hits from earlier turns
+ok 22 - paused single stepping never replays a stack of hits from earlier turns
+  ---
+  duration_ms: 1.4784
+  type: 'test'
+  ...
+# Subtest: clear mode merges same-step damage per target without changing battle events
+ok 23 - clear mode merges same-step damage per target without changing battle events
+  ---
+  duration_ms: 0.9166
+  type: 'test'
+  ...
+# Subtest: clear paused inspection hides transient drawings but preserves event log and clock
+ok 24 - clear paused inspection hides transient drawings but preserves event log and clock
+  ---
+  duration_ms: 0.6424
+  type: 'test'
+  ...
+# Subtest: both factions keep two log rows and multi-hit effects do not flood announcements
+ok 25 - both factions keep two log rows and multi-hit effects do not flood announcements
+  ---
+  duration_ms: 0.9576
+  type: 'test'
+  ...
+# Subtest: speed changes preserve animation progress and scale lifetime with simulation steps
+ok 26 - speed changes preserve animation progress and scale lifetime with simulation steps
+  ---
+  duration_ms: 0.5167
+  type: 'test'
+  ...
+# Subtest: paused command effects append once at the same tick without replaying earlier hits
+ok 27 - paused command effects append once at the same tick without replaying earlier hits
+  ---
+  duration_ms: 0.3362
+  type: 'test'
+  ...
+# Subtest: combo beams and banner survive pause and fatal targets, support reduced motion, and never replay
+ok 28 - combo beams and banner survive pause and fatal targets, support reduced motion, and never replay
+  ---
+  duration_ms: 0.9187
+  type: 'test'
+  ...
+# Subtest: a multi-target cast holds the battlefield once and stays readable at 4x
+ok 29 - a multi-target cast holds the battlefield once and stays readable at 4x
+  ---
+  duration_ms: 2.7603
+  type: 'test'
+  ...
+# Subtest: simultaneous officers play in sequence and manual pause freezes the entire sequence
+ok 30 - simultaneous officers play in sequence and manual pause freezes the entire sequence
+  ---
+  duration_ms: 3.4511
+  type: 'test'
+  ...
+# Subtest: normal attacks and paused inspection never trigger a cinematic; new battles clear it
+ok 31 - normal attacks and paused inspection never trigger a cinematic; new battles clear it
+  ---
+  duration_ms: 0.4455
+  type: 'test'
+  ...
+# Subtest: reduced motion uses static focus and finishes without impact particles
+ok 32 - reduced motion uses static focus and finishes without impact particles
+  ---
+  duration_ms: 0.9235
+  type: 'test'
+  ...
+# Subtest: a real control cast opens ZOC and the next allied charge exploits it
+ok 33 - a real control cast opens ZOC and the next allied charge exploits it
+  ---
+  duration_ms: 15.0594
+  type: 'test'
+  ...
+# Subtest: overlapping ZOC still stops a charge after only one front is controlled
+ok 34 - overlapping ZOC still stops a charge after only one front is controlled
+  ---
+  duration_ms: 22.0418
+  type: 'test'
+  ...
+# Subtest: a flanking lure relocates ZOC and enables rush; a braced front resists the lure
+ok 35 - a flanking lure relocates ZOC and enables rush; a braced front resists the lure
+  ---
+  duration_ms: 7.9106
+  type: 'test'
+  ...
+# Subtest: control protection, silence and restored ZOC cannot be bypassed
+ok 36 - control protection, silence and restored ZOC cannot be bypassed
+  ---
+  duration_ms: 10.6202
+  type: 'test'
+  ...
+# Subtest: ZOC coverage uses live interceptors and respects boundaries and both sides
+ok 37 - ZOC coverage uses live interceptors and respects boundaries and both sides
+  ---
+  duration_ms: 2.2197
+  type: 'test'
+  ...
+# Subtest: zero-intent playable trial shows control then rear penetration while the front lives
+ok 38 - zero-intent playable trial shows control then rear penetration while the front lives
+  ---
+  duration_ms: 183.1397
+  type: 'test'
+  ...
+# Subtest: same target links distinct officers, doubles count once, triples cap at forty percent
+ok 39 - same target links distinct officers, doubles count once, triples cap at forty percent
+  ---
+  duration_ms: 53.2744
+  type: 'test'
+  ...
+# Subtest: self repeats, other targets, expired windows, enemy casts and departed partners cannot link
+ok 40 - self repeats, other targets, expired windows, enemy casts and departed partners cannot link
+  ---
+  duration_ms: 21.7853
+  type: 'test'
+  ...
+# Subtest: a stunned unit and pure self buffs do not prime a combo
+ok 41 - a stunned unit and pure self buffs do not prime a combo
+  ---
+  duration_ms: 5.6621
+  type: 'test'
+  ...
+# Subtest: combo enhances damage-over-time, intent reduction and control duration while respecting immunity
+ok 42 - combo enhances damage-over-time, intent reduction and control duration while respecting immunity
+  ---
+  duration_ms: 8.0717
+  type: 'test'
+  ...
+# Subtest: support combos really strengthen shields and do not include unrelated primary targets
+ok 43 - support combos really strengthen shields and do not include unrelated primary targets
+  ---
+  duration_ms: 3.5966
+  type: 'test'
+  ...
+# Subtest: ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed
+ok 44 - ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed
+  ---
+  duration_ms: 416.2989
+  type: 'test'
+  ...
+# Subtest: relationship rolls use the previous caster, failed links restart the chain and do not boost damage
+ok 45 - relationship rolls use the previous caster, failed links restart the chain and do not boost damage
+  ---
+  duration_ms: 4.1583
+  type: 'test'
+  ...
+# Subtest: intermediate relationship scores produce reproducible probabilities at the exact seeded threshold
+ok 46 - intermediate relationship scores produce reproducible probabilities at the exact seeded threshold
+  ---
+  duration_ms: 11.8823
+  type: 'test'
+  ...
+# Subtest: a changed relationship type supplies its current baseline to the real combo roll
+ok 47 - a changed relationship type supplies its current baseline to the real combo roll
+  ---
+  duration_ms: 3.2569
+  type: 'test'
+  ...
+# Subtest: full gauge announces once, stays quiet while held, and re-arms after spending
+ok 48 - full gauge announces once, stays quiet while held, and re-arms after spending
+  ---
+  duration_ms: 0.9938
+  type: 'test'
+  ...
+# Subtest: restored ready battle and a new battle each get their own announcement
+ok 49 - restored ready battle and a new battle each get their own announcement
+  ---
+  duration_ms: 0.2116
+  type: 'test'
+  ...
+# Subtest: engaged melee attacks the front even with a weak adjacent rear and explicit focus, on both sides
+ok 50 - engaged melee attacks the front even with a weak adjacent rear and explicit focus, on both sides
+  ---
+  duration_ms: 16.104
+  type: 'test'
+  ...
+# Subtest: nearby front takes priority before contact; fast movement stops on contact
+ok 51 - nearby front takes priority before contact; fast movement stops on contact
+  ---
+  duration_ms: 4.8005
+  type: 'test'
+  ...
+# Subtest: rush cannot escape an engagement or charge through a blocking line
+ok 52 - rush cannot escape an engagement or charge through a blocking line
+  ---
+  duration_ms: 3.9028
+  type: 'test'
+  ...
+# Subtest: an open flank allows a real rush to the rear without crossing a melee zone
+ok 53 - an open flank allows a real rush to the rear without crossing a melee zone
+  ---
+  duration_ms: 11.1416
+  type: 'test'
+  ...
+# Subtest: an unreachable rear focus advances into the blocking line instead of stalling
+ok 54 - an unreachable rear focus advances into the blocking line instead of stalling
+  ---
+  duration_ms: 18.2173
+  type: 'test'
+  ...
+# Subtest: stun and line removal release melee, while silence does not
+ok 55 - stun and line removal release melee, while silence does not
+  ---
+  duration_ms: 9.2071
+  type: 'test'
+  ...
+# Subtest: ranged fire and intellect target selection remain independent of melee engagement
+ok 56 - ranged fire and intellect target selection remain independent of melee engagement
+  ---
+  duration_ms: 3.097
+  type: 'test'
+  ...
+# Subtest: confusion and reserve status disable interception immediately; expiry restores it
+ok 57 - confusion and reserve status disable interception immediately; expiry restores it
+  ---
+  duration_ms: 1.3905
+  type: 'test'
+  ...
+# Subtest: a real retreat can leave contact
+ok 58 - a real retreat can leave contact
+  ---
+  duration_ms: 4.2101
+  type: 'test'
+  ...
+# Subtest: current battle saves resume deterministically and rule 10 is rejected
+ok 59 - current battle saves resume deterministically and rule 10 is rejected
+  ---
+  duration_ms: 172.6237
+  type: 'test'
+  ...
+# Subtest: campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves
+ok 60 - campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves
+  ---
+  duration_ms: 2.1165
+  type: 'test'
+  ...
+# Subtest: roads, marching, encounter, and turn lock form a connected loop
+ok 61 - roads, marching, encounter, and turn lock form a connected loop
+  ---
+  duration_ms: 1.823
+  type: 'test'
+  ...
+# Subtest: AI battle terminates automatically with capacity, occupancy and troop conservation
+ok 62 - AI battle terminates automatically with capacity, occupancy and troop conservation
+  ---
+  duration_ms: 167.9733
+  type: 'test'
+  ...
+# Subtest: identical seeds and serialized battle recovery produce identical outcomes
+ok 63 - identical seeds and serialized battle recovery produce identical outcomes
+  ---
+  duration_ms: 348.7676
+  type: 'test'
+  ...
+# Subtest: fresh reserves replace destroyed units without exceeding 6
+ok 64 - fresh reserves replace destroyed units without exceeding 6
+  ---
+  duration_ms: 8.2527
+  type: 'test'
+  ...
+# Subtest: reserve order only rotates a wounded frontline, costs points and preserves survivors
+ok 65 - reserve order only rotates a wounded frontline, costs points and preserves survivors
+  ---
+  duration_ms: 7.1972
+  type: 'test'
+  ...
+# Subtest: focus selects only a living enemy and does not spend points on invalid targets
+ok 66 - focus selects only a living enemy and does not spend points on invalid targets
+  ---
+  duration_ms: 3.363
+  type: 'test'
+  ...
+# Subtest: retreat terminates and sends the attacker back without taking the city
+ok 67 - retreat terminates and sends the attacker back without taking the city
+  ---
+  duration_ms: 31.8814
+  type: 'test'
+  ...
+# Subtest: split and merge conserve officers, soldiers, wounded and supply
+ok 68 - split and merge conserve officers, soldiers, wounded and supply
+  ---
+  duration_ms: 0.9616
+  type: 'test'
+  ...
+# Subtest: friendly recruitment and wounded recovery cannot duplicate soldiers
+ok 69 - friendly recruitment and wounded recovery cannot duplicate soldiers
+  ---
+  duration_ms: 0.8393
+  type: 'test'
+  ...
+# Subtest: enemy launches an attack and city garrison participates in defense
+ok 70 - enemy launches an attack and city garrison participates in defense
+  ---
+  duration_ms: 98.5618
+  type: 'test'
+  ...
+# Subtest: garrison alone can defend a city when player army is elsewhere
+ok 71 - garrison alone can defend a city when player army is elsewhere
+  ---
+  duration_ms: 36.847
+  type: 'test'
+  ...
+# Subtest: multiple same-side armies share the same six battlefield slots
+ok 72 - multiple same-side armies share the same six battlefield slots
+  ---
+  duration_ms: 95.1901
+  type: 'test'
+  ...
+# Subtest: invalid saves are rejected before replacing game state
+ok 73 - invalid saves are rejected before replacing game state
+  ---
+  duration_ms: 1.7416
+  type: 'test'
+  ...
+# Subtest: different seeds finish without deadlocks or overlapping units
+ok 74 - different seeds finish without deadlocks or overlapping units
+  ---
+  duration_ms: 292.6682
+  type: 'test'
+  ...
+# Subtest: save validation accepts the encounter, defense, report and army split lifecycle
+ok 75 - save validation accepts the encounter, defense, report and army split lifecycle
+  ---
+  duration_ms: 38.7685
+  type: 'test'
+  ...
+# Subtest: malformed battle, pending encounter, map, and report data fail closed
+ok 76 - malformed battle, pending encounter, map, and report data fail closed
+  ---
+  duration_ms: 2.1738
+  type: 'test'
+  ...
+# Subtest: left and right formations deploy on opposite flanks
+ok 77 - left and right formations deploy on opposite flanks
+  ---
+  duration_ms: 1.7929
+  type: 'test'
+  ...
+# Subtest: daylight limit ends a stalemate in a draw without capturing the city
+ok 78 - daylight limit ends a stalemate in a draw without capturing the city
+  ---
+  duration_ms: 6.3899
+  type: 'test'
+  ...
+# Subtest: capturing the final city completes the scenario
+ok 79 - capturing the final city completes the scenario
+  ---
+  duration_ms: 20.1493
+  type: 'test'
+  ...
+# Subtest: losing the final friendly city ends the scenario
+ok 80 - losing the final friendly city ends the scenario
+  ---
+  duration_ms: 13.8118
+  type: 'test'
+  ...
+# Subtest: source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills
+ok 81 - source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills
+  ---
+  duration_ms: 123.1486
+  type: 'test'
+  ...
+# Subtest: a ready skill resolves damage and enters cooldown in the same step
+ok 82 - a ready skill resolves damage and enters cooldown in the same step
+  ---
+  duration_ms: 1.8736
+  type: 'test'
+  ...
+# Subtest: saving after immediate skills resumes identically without duplicating a hit
+ok 83 - saving after immediate skills resumes identically without duplicating a hit
+  ---
+  duration_ms: 38.9709
+  type: 'test'
+  ...
+# Subtest: pending casts from the removed windup format are rejected
+ok 84 - pending casts from the removed windup format are rejected
+  ---
+  duration_ms: 1.9948
+  type: 'test'
+  ...
+# Subtest: a defeated unit cannot use a ready skill
+ok 85 - a defeated unit cannot use a ready skill
+  ---
+  duration_ms: 8.068
+  type: 'test'
+  ...
+# Subtest: retreat stops subsequent friendly skills immediately
+ok 86 - retreat stops subsequent friendly skills immediately
+  ---
+  duration_ms: 20.5587
+  type: 'test'
+  ...
+# Subtest: skill events carry enough data to show effects after the victim leaves the board
+ok 87 - skill events carry enough data to show effects after the victim leaves the board
+  ---
+  duration_ms: 41.9147
+  type: 'test'
+  ...
+# Subtest: intent grows from actual attacks and surviving hits, never elapsed time
+ok 88 - intent grows from actual attacks and surviving hits, never elapsed time
+  ---
+  duration_ms: 0.9833
+  type: 'test'
+  ...
+# Subtest: a ready tactic casts without spending intent, regardless of morale or attack cooldown
+ok 89 - a ready tactic casts without spending intent, regardless of morale or attack cooldown
+  ---
+  duration_ms: 1.0197
+  type: 'test'
+  ...
+# Subtest: no valid target preserves intent and leaving range cannot duplicate an instant hit
+ok 90 - no valid target preserves intent and leaving range cannot duplicate an instant hit
+  ---
+  duration_ms: 2.3463
+  type: 'test'
+  ...
+# Subtest: each skill has its own threshold, and intent below threshold cannot cast
+ok 91 - each skill has its own threshold, and intent below threshold cannot cast
+  ---
+  duration_ms: 0.7023
+  type: 'test'
+  ...
+# Subtest: deployment can move, swap, reset and persist without advancing time
+ok 92 - deployment can move, swap, reset and persist without advancing time
+  ---
+  duration_ms: 2.0981
+  type: 'test'
+  ...
+# Subtest: paused stratagem consumes a full gauge, preserves time and includes reserves
+ok 93 - paused stratagem consumes a full gauge, preserves time and includes reserves
+  ---
+  duration_ms: 2.1351
+  type: 'test'
+  ...
+# Subtest: attack and defense stratagems change actual damage and stop at expiration
+ok 94 - attack and defense stratagems change actual damage and stop at expiration
+  ---
+  duration_ms: 4.1821
+  type: 'test'
+  ...
+# Subtest: missing deployment and command state is rejected instead of reconstructed
+ok 95 - missing deployment and command state is rejected instead of reconstructed
+  ---
+  duration_ms: 11.7892
+  type: 'test'
+  ...
+# Subtest: 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them
+ok 96 - 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them
+  ---
+  duration_ms: 9.9075
+  type: 'test'
+  ...
+# Subtest: every exclusive tactic resolves through the real engine and enters only its own cooldown
+ok 97 - every exclusive tactic resolves through the real engine and enters only its own cooldown
+  ---
+  duration_ms: 76.4208
+  type: 'test'
+  ...
+# Subtest: area AI selects the larger cluster and includes the anchor despite enemy array order
+ok 98 - area AI selects the larger cluster and includes the anchor despite enemy array order
+  ---
+  duration_ms: 14.7905
+  type: 'test'
+  ...
+# Subtest: multi-hit and multi-target exclusive attacks generate intent only once per cast
+ok 99 - multi-hit and multi-target exclusive attacks generate intent only once per cast
+  ---
+  duration_ms: 2.117
+  type: 'test'
+  ...
+# Subtest: support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot
+ok 100 - support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot
+  ---
+  duration_ms: 3.4288
+  type: 'test'
+  ...
+# Subtest: exclusive control respects resolve and discipline; deaths do not acquire new statuses
+ok 101 - exclusive control respects resolve and discipline; deaths do not acquire new statuses
+  ---
+  duration_ms: 3.2939
+  type: 'test'
+  ...
+# Subtest: personal passives unlock at ten and their conditional bonuses expire or fail correctly
+ok 102 - personal passives unlock at ten and their conditional bonuses expire or fail correctly
+  ---
+  duration_ms: 3.8392
+  type: 'test'
+  ...
+# Subtest: burn stacks retain the strongest snapshot, refresh duration, and cap at three
+ok 103 - burn stacks retain the strongest snapshot, refresh duration, and cap at three
+  ---
+  duration_ms: 0.872
+  type: 'test'
+  ...
+# Subtest: self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent
+ok 104 - self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent
+  ---
+  duration_ms: 3.5434
+  type: 'test'
+  ...
+# Subtest: new exclusive effects resume deterministically and settle with conserved troops for all 41 officers
+ok 105 - new exclusive effects resume deterministically and settle with conserved troops for all 41 officers
+  ---
+  duration_ms: 716.0713
+  type: 'test'
+  ...
+# Subtest: each offset-row neighbor is reciprocal, one step away, and equally spaced on screen
+ok 106 - each offset-row neighbor is reciprocal, one step away, and equally spaced on screen
+  ---
+  duration_ms: 4.8543
+  type: 'test'
+  ...
+# Subtest: hex paths use six neighbors and cannot cross a gate or an occupied ring
+ok 107 - hex paths use six neighbors and cannot cross a gate or an occupied ring
+  ---
+  duration_ms: 1.5856
+  type: 'test'
+  ...
+# Subtest: diagonal spear thrust hits the next hex on the same axial line
+ok 108 - diagonal spear thrust hits the next hex on the same axial line
+  ---
+  duration_ms: 14.5379
+  type: 'test'
+  ...
+# Subtest: diagonal protection knockback follows the hex line and stops before an occupied cell
+ok 109 - diagonal protection knockback follows the hex line and stops before an occupied cell
+  ---
+  duration_ms: 19.3402
+  type: 'test'
+  ...
+# Subtest: missing grid type is rejected instead of upgrading a pre-hex battle
+ok 110 - missing grid type is rejected instead of upgrading a pre-hex battle
+  ---
+  duration_ms: 12.7233
+  type: 'test'
+  ...
+# Subtest: each troop has exactly six tools and exclusive tactics remain optional
+ok 111 - each troop has exactly six tools and exclusive tactics remain optional
+  ---
+  duration_ms: 1.1053
+  type: 'test'
+  ...
+# Subtest: mixed defaults persist, slot priority works and invalid loadouts fail without mutation
+ok 112 - mixed defaults persist, slot priority works and invalid loadouts fail without mutation
+  ---
+  duration_ms: 20.4568
+  type: 'test'
+  ...
+# Subtest: force and intellect damage scale with their own attribute, not troop weapon type
+ok 113 - force and intellect damage scale with their own attribute, not troop weapon type
+  ---
+  duration_ms: 27.9501
+  type: 'test'
+  ...
+# Subtest: confusion and seal prevent immediate skills while seal still permits basic attacks
+ok 114 - confusion and seal prevent immediate skills while seal still permits basic attacks
+  ---
+  duration_ms: 6.2877
+  type: 'test'
+  ...
+# Subtest: intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns
+ok 115 - intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns
+  ---
+  duration_ms: 43.3765
+  type: 'test'
+  ...
+# Subtest: cavalry schemes induce real movement and suppress intent immediately
+ok 116 - cavalry schemes induce real movement and suppress intent immediately
+  ---
+  duration_ms: 2.3234
+  type: 'test'
+  ...
+# Subtest: new army strategies cleanse controls, shorten cooldowns and persist across saves
+ok 117 - new army strategies cleanse controls, shorten cooldowns and persist across saves
+  ---
+  duration_ms: 5.2936
+  type: 'test'
+  ...
+# Subtest: blockade delays replacement but expires; relief admits a healthier reserve rotation with shield
+ok 118 - blockade delays replacement but expires; relief admits a healthier reserve rotation with shield
+  ---
+  duration_ms: 53.1891
+  type: 'test'
+  ...
+# Subtest: mixed-loadout simulation saves and resumes deterministically with all new status shapes
+ok 119 - mixed-loadout simulation saves and resumes deterministically with all new status shapes
+  ---
+  duration_ms: 518.7905
+  type: 'test'
+  ...
+# Subtest: medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal
+ok 120 - medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal
+  ---
+  duration_ms: 53.0418
+  type: 'test'
+  ...
+# Subtest: front support heals at most two other allies, never itself, and has a real range limit
+ok 121 - front support heals at most two other allies, never itself, and has a real range limit
+  ---
+  duration_ms: 34.2931
+  type: 'test'
+  ...
+# Subtest: healing does not revive defeated troops or restore already recovered wounds
+ok 122 - healing does not revive defeated troops or restore already recovered wounds
+  ---
+  duration_ms: 1.9655
+  type: 'test'
+  ...
+# Subtest: doubt deals strategy damage through control protection without bypassing that protection
+ok 123 - doubt deals strategy damage through control protection without bypassing that protection
+  ---
+  duration_ms: 2.2141
+  type: 'test'
+  ...
+# Subtest: medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit
+ok 124 - medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit
+  ---
+  duration_ms: 1.3096
+  type: 'test'
+  ...
+# Subtest: real zero-intent battles trigger both medical roles and resume deterministically
+ok 125 - real zero-intent battles trigger both medical roles and resume deterministically
+  ---
+  duration_ms: 404.6768
+  type: 'test'
+  ...
+# Subtest: fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement
+ok 126 - fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement
+  ---
+  duration_ms: 5.7649
+  type: 'test'
+  ...
+# Subtest: strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance
+ok 127 - strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance
+  ---
+  duration_ms: 11.8085
+  type: 'test'
+  ...
+# Subtest: medical casting spends the next basic attack interval rather than adding free healing between shots
+ok 128 - medical casting spends the next basic attack interval rather than adding free healing between shots
+  ---
+  duration_ms: 2.6047
+  type: 'test'
+  ...
+# Subtest: only equipped chargers select legal short flanks, and live interception cancels that preference
+ok 129 - only equipped chargers select legal short flanks, and live interception cancels that preference
+  ---
+  duration_ms: 1.526
+  type: 'test'
+  ...
+# Subtest: a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically
+ok 130 - a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically
+  ---
+  duration_ms: 118.068
+  type: 'test'
+  ...
+# Subtest: all 832 library and 3 custom records survive normalization without merging names or source fields
+ok 131 - all 832 library and 3 custom records survive normalization without merging names or source fields
+  ---
+  duration_ms: 12.4123
+  type: 'test'
+  ...
+# Subtest: every officer has five growth skills; ordinary officers have no invented exclusive tactics or stratagems
+ok 132 - every officer has five growth skills; ordinary officers have no invented exclusive tactics or stratagems
+  ---
+  duration_ms: 102.2306
+  type: 'test'
+  ...
+# Subtest: catalogue search, source filters, descending stats, no-result and HTML escaping
+ok 133 - catalogue search, source filters, descending stats, no-result and HTML escaping
+  ---
+  duration_ms: 6.7808
+  type: 'test'
+  ...
+# Subtest: custom rosters including legacy enemies and same-name people save, resume and settle deterministically
+ok 134 - custom rosters including legacy enemies and same-name people save, resume and settle deterministically
+  ---
+  duration_ms: 425.0543
+  type: 'test'
+  ...
+# Subtest: every catalogue record is accepted by battle save validation without relying on name matching
+ok 135 - every catalogue record is accepted by battle save validation without relying on name matching
+  ---
+  duration_ms: 843.6204
+  type: 'test'
+  ...
+# Subtest: invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected
+ok 136 - invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected
+  ---
+  duration_ms: 3.3225
+  type: 'test'
+  ...
+# Subtest: old officer data versions are rejected without changing saved progress
+ok 137 - old officer data versions are rejected without changing saved progress
+  ---
+  duration_ms: 3.6611
+  type: 'test'
+  ...
+# Subtest: all source character traits are formal catalogue and runtime fields, preserving numeric zero
+ok 138 - all source character traits are formal catalogue and runtime fields, preserving numeric zero
+  ---
+  duration_ms: 19.8326
+  type: 'test'
+  ...
+# Subtest: sworn-sibling groups resolve all peers, exclude self, and keep directional likes unchanged
+ok 139 - sworn-sibling groups resolve all peers, exclude self, and keep directional likes unchanged
+  ---
+  duration_ms: 0.9995
+  type: 'test'
+  ...
+# Subtest: profile copies cannot mutate the shared catalogue or another officer instance
+ok 140 - profile copies cannot mutate the shared catalogue or another officer instance
+  ---
+  duration_ms: 0.4
+  type: 'test'
+  ...
+# Subtest: incomplete profile state is rejected without backfilling fields
+ok 141 - incomplete profile state is rejected without backfilling fields
+  ---
+  duration_ms: 21.3452
+  type: 'test'
+  ...
+# Subtest: v2 saves reject invalid, missing and malformed profiles rather than silently changing them
+ok 142 - v2 saves reject invalid, missing and malformed profiles rather than silently changing them
+  ---
+  duration_ms: 9.6149
+  type: 'test'
+  ...
+# Subtest: reserved profile fields do not affect combat decisions, numbers or historical death
+ok 143 - reserved profile fields do not affect combat decisions, numbers or historical death
+  ---
+  duration_ms: 149.7299
+  type: 'test'
+  ...
+# Subtest: all ordinary officers unlock five generic skills at the same levels as famous officers
+ok 144 - all ordinary officers unlock five generic skills at the same levels as famous officers
+  ---
+  duration_ms: 70.764
+  type: 'test'
+  ...
+# Subtest: ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs
+ok 145 - ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs
+  ---
+  duration_ms: 9.2003
+  type: 'test'
+  ...
+# Subtest: ordinary officers use legal support and damage builds in real combat and resume deterministically
+ok 146 - ordinary officers use legal support and damage builds in real combat and resume deterministically
+  ---
+  duration_ms: 309.7837
+  type: 'test'
+  ...
+# Subtest: all 60 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10
+ok 147 - all 60 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10
+  ---
+  duration_ms: 20.7812
+  type: 'test'
+  ...
+# Subtest: base and advanced skills modify only their intended attributes, adding passive percentages
+ok 148 - base and advanced skills modify only their intended attributes, adding passive percentages
+  ---
+  duration_ms: 0.9802
+  type: 'test'
+  ...
+# Subtest: army command aura affects nearby other active allies, does not stack and vanishes on departure
+ok 149 - army command aura affects nearby other active allies, does not stack and vanishes on departure
+  ---
+  duration_ms: 6.5398
+  type: 'test'
+  ...
+# Subtest: spear formation, stationary defense and movement resets respect exact conditions
+ok 150 - spear formation, stationary defense and movement resets respect exact conditions
+  ---
+  duration_ms: 1.9344
+  type: 'test'
+  ...
+# Subtest: desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing
+ok 151 - desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing
+  ---
+  duration_ms: 2.4468
+  type: 'test'
+  ...
+# Subtest: bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes
+ok 152 - bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes
+  ---
+  duration_ms: 1.7936
+  type: 'test'
+  ...
+# Subtest: guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time
+ok 153 - guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time
+  ---
+  duration_ms: 2.1923
+  type: 'test'
+  ...
+# Subtest: isolated and joint change actual basic damage and evaluate neighbors from the correct side
+ok 154 - isolated and joint change actual basic damage and evaluate neighbors from the correct side
+  ---
+  duration_ms: 34.279
+  type: 'test'
+  ...
+# Subtest: foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold
+ok 155 - foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold
+  ---
+  duration_ms: 12.6662
+  type: 'test'
+  ...
+# Subtest: crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics
+ok 156 - crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics
+  ---
+  duration_ms: 2.3953
+  type: 'test'
+  ...
+# Subtest: fractional attack intervals produce more actual attacks instead of rounding away attack speed
+ok 157 - fractional attack intervals produce more actual attacks instead of rounding away attack speed
+  ---
+  duration_ms: 19.2947
+  type: 'test'
+  ...
+# Subtest: attack and surviving-hit intent bonuses fire once for multi-hit attacks and respect caps
+ok 158 - attack and surviving-hit intent bonuses fire once for multi-hit attacks and respect caps
+  ---
+  duration_ms: 3.5993
+  type: 'test'
+  ...
+# Subtest: suppress and calm modify intent loss without changing cooldowns
+ok 159 - suppress and calm modify intent loss without changing cooldowns
+  ---
+  duration_ms: 0.3468
+  type: 'test'
+  ...
+# Subtest: support passives add, exclude self support bonuses, and enforce rescue strict half-health condition
+ok 160 - support passives add, exclude self support bonuses, and enforce rescue strict half-health condition
+  ---
+  duration_ms: 0.4777
+  type: 'test'
+  ...
+# Subtest: rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged
+ok 161 - rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged
+  ---
+  duration_ms: 11.0304
+  type: 'test'
+  ...
+# Subtest: cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly
+ok 162 - cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly
+  ---
+  duration_ms: 7.1228
+  type: 'test'
+  ...
+# Subtest: reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment
+ok 163 - reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment
+  ---
+  duration_ms: 48.531
+  type: 'test'
+  ...
+# Subtest: fortress reduces real burning and army firestorm damage before shields without creating intent
+ok 164 - fortress reduces real burning and army firestorm damage before shields without creating intent
+  ---
+  duration_ms: 2.321
+  type: 'test'
+  ...
+# Subtest: experience carries across thresholds, unlocks all crossed nodes and stops at level 10
+ok 165 - experience carries across thresholds, unlocks all crossed nodes and stops at level 10
+  ---
+  duration_ms: 0.8027
+  type: 'test'
+  ...
+# Subtest: settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats
+ok 166 - settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats
+  ---
+  duration_ms: 8.5666
+  type: 'test'
+  ...
+# Subtest: max-level full battles and fractional cooldown saves resume deterministically
+ok 167 - max-level full battles and fractional cooldown saves resume deterministically
+  ---
+  duration_ms: 542.4165
+  type: 'test'
+  ...
+# Subtest: invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected
+ok 168 - invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected
+  ---
+  duration_ms: 17.2914
+  type: 'test'
+  ...
+# Subtest: source relationships have symmetric baselines, positive floors, negative ceilings and neutral defaults
+ok 169 - source relationships have symmetric baselines, positive floors, negative ceilings and neutral defaults
+  ---
+  duration_ms: 2.5952
+  type: 'test'
+  ...
+# Subtest: scores accept explicit improvements or reduced hostility and reject out-of-range or invalid pairs
+ok 170 - scores accept explicit improvements or reduced hostility and reject out-of-range or invalid pairs
+  ---
+  duration_ms: 25.8379
+  type: 'test'
+  ...
+# Subtest: relationship scores persist independently in deployments and lock during combat, including after reload
+ok 171 - relationship scores persist independently in deployments and lock during combat, including after reload
+  ---
+  duration_ms: 130.784
+  type: 'test'
+  ...
+# Subtest: missing, corrupt and inconsistent relationship maps are rejected
+ok 172 - missing, corrupt and inconsistent relationship maps are rejected
+  ---
+  duration_ms: 6.597
+  type: 'test'
+  ...
+# Subtest: character pages expose saved scores, probability, bounds, and combat locking
+ok 173 - character pages expose saved scores, probability, bounds, and combat locking
+  ---
+  duration_ms: 3.6039
+  type: 'test'
+  ...
+# Subtest: score events cross social tiers without granting marriage or sworn bonds automatically
+ok 174 - score events cross social tiers without granting marriage or sworn bonds automatically
+  ---
+  duration_ms: 9.3741
+  type: 'test'
+  ...
+# Subtest: special relationships have different caps and deterioration preserves source kinship
+ok 175 - special relationships have different caps and deterioration preserves source kinship
+  ---
+  duration_ms: 0.6262
+  type: 'test'
+  ...
+# Subtest: changed relationships persist symmetrically, affect the battle snapshot and lock once combat starts
+ok 176 - changed relationships persist symmetrically, affect the battle snapshot and lock once combat starts
+  ---
+  duration_ms: 83.6437
+  type: 'test'
+  ...
+# Subtest: invalid relationship types and out-of-tier scores are rejected without migration
+ok 177 - invalid relationship types and out-of-tier scores are rejected without migration
+  ---
+  duration_ms: 5.9187
+  type: 'test'
+  ...
+# Subtest: breach: complete battle, reserves, save recovery and settlement
+ok 178 - breach: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 304.5425
+  type: 'test'
+  ...
+# Subtest: officer-lab: complete battle, reserves, save recovery and settlement
+ok 179 - officer-lab: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 242.4428
+  type: 'test'
+  ...
+# Subtest: field: complete battle, reserves, save recovery and settlement
+ok 180 - field: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 165.7593
+  type: 'test'
+  ...
+# Subtest: outnumbered: complete battle, reserves, save recovery and settlement
+ok 181 - outnumbered: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 234.6888
+  type: 'test'
+  ...
+# Subtest: reinforcements: complete battle, reserves, save recovery and settlement
+ok 182 - reinforcements: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 319.5183
+  type: 'test'
+  ...
+# Subtest: siege: complete battle, reserves, save recovery and settlement
+ok 183 - siege: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 197.1641
+  type: 'test'
+  ...
+# Subtest: defense: complete battle, reserves, save recovery and settlement
+ok 184 - defense: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 534.1582
+  type: 'test'
+  ...
+# Subtest: rotation: complete battle, reserves, save recovery and settlement
+ok 185 - rotation: complete battle, reserves, save recovery and settlement
+  ---
+  duration_ms: 184.6376
+  type: 'test'
+  ...
+# Subtest: unarrived waves prevent early victory, arrive on schedule and obey blockade
+ok 186 - unarrived waves prevent early victory, arrive on schedule and obey blockade
+  ---
+  duration_ms: 6.3366
+  type: 'test'
+  ...
+# Subtest: sieges add an independent gate and shields only to defending starters
+ok 187 - sieges add an independent gate and shields only to defending starters
+  ---
+  duration_ms: 11.7953
+  type: 'test'
+  ...
+# Subtest: gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining
+ok 188 - gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining
+  ---
+  duration_ms: 1.923
+  type: 'test'
+  ...
+# Subtest: gate remains a target after all defenders fall, focus can select it, deployment cannot overlap it
+ok 189 - gate remains a target after all defenders fall, focus can select it, deployment cannot overlap it
+  ---
+  duration_ms: 12.554
+  type: 'test'
+  ...
+# Subtest: siege retreat and daylight keep normal battle rules, malformed gates are rejected
+ok 190 - siege retreat and daylight keep normal battle rules, malformed gates are rejected
+  ---
+  duration_ms: 15.9782
+  type: 'test'
+  ...
+# Subtest: fixture and seed validation rejects malformed test state
+ok 191 - fixture and seed validation rejects malformed test state
+  ---
+  duration_ms: 3.3063
+  type: 'test'
+  ...
+# Subtest: fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks
+ok 192 - fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks
+  ---
+  duration_ms: 67.8145
+  type: 'test'
+  ...
+# Subtest: screen has a useful baseline and scales with support passives
+ok 193 - screen has a useful baseline and scales with support passives
+  ---
+  duration_ms: 11.4607
+  type: 'test'
+  ...
+# Subtest: foresight no longer depends on enemy loadout and respects its strict boundary and damage kind
+ok 194 - foresight no longer depends on enemy loadout and respects its strict boundary and damage kind
+  ---
+  duration_ms: 0.6331
+  type: 'test'
+  ...
+# Subtest: gallop provides travel speed before contact and mitigation while adjacent
+ok 195 - gallop provides travel speed before contact and mitigation while adjacent
+  ---
+  duration_ms: 24.3823
+  type: 'test'
+  ...
+# Subtest: new officer defaults activate the intended bow and support routes without removing troop choice
+ok 196 - new officer defaults activate the intended bow and support routes without removing troop choice
+  ---
+  duration_ms: 4.9781
+  type: 'test'
+  ...
+# Subtest: current campaigns and ongoing battles preserve player loadouts and DOT snapshots
+ok 197 - current campaigns and ongoing battles preserve player loadouts and DOT snapshots
+  ---
+  duration_ms: 143.3378
+  type: 'test'
+  ...
+# Subtest: single gauge starts empty, scales with active intellect, caps without storing charges
+ok 198 - single gauge starts empty, scales with active intellect, caps without storing charges
+  ---
+  duration_ms: 60.7916
+  type: 'test'
+  ...
+# Subtest: only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing
+ok 199 - only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing
+  ---
+  duration_ms: 3.8399
+  type: 'test'
+  ...
+# Subtest: gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected
+ok 200 - gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected
+  ---
+  duration_ms: 152.4271
+  type: 'test'
+  ...
+# Subtest: first aid consumes only recoverable casualties and cannot heal dead or reserve units
+ok 201 - first aid consumes only recoverable casualties and cannot heal dead or reserve units
+  ---
+  duration_ms: 2.8558
+  type: 'test'
+  ...
+# Subtest: recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool
+ok 202 - recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool
+  ---
+  duration_ms: 14.6246
+  type: 'test'
+  ...
+# Subtest: range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed
+ok 203 - range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed
+  ---
+  duration_ms: 3.8238
+  type: 'test'
+  ...
+# Subtest: firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse
+ok 204 - firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse
+  ---
+  duration_ms: 20.8878
+  type: 'test'
+  ...
+# Subtest: four troop types have fixed base slots and named officers have exclusive tactics
+ok 205 - four troop types have fixed base slots and named officers have exclusive tactics
+  ---
+  duration_ms: 10.0919
+  type: 'test'
+  ...
+# Subtest: instant skills keep shared intent and only one tactic enters cooldown per step
+ok 206 - instant skills keep shared intent and only one tactic enters cooldown per step
+  ---
+  duration_ms: 16.3837
+  type: 'test'
+  ...
+# Subtest: demoralize clamps active and reserve intent and prevents subsequent skills below threshold
+ok 207 - demoralize clamps active and reserve intent and prevents subsequent skills below threshold
+  ---
+  duration_ms: 19.7611
+  type: 'test'
+  ...
+# Subtest: expired cooldown is insufficient below threshold; regaining intent re-enables the tactic
+ok 208 - expired cooldown is insufficient below threshold; regaining intent re-enables the tactic
+  ---
+  duration_ms: 5.5725
+  type: 'test'
+  ...
+# Subtest: fire burns without intent feedback and ranged skills have distinct real effects
+ok 209 - fire burns without intent feedback and ranged skills have distinct real effects
+  ---
+  duration_ms: 10.522
+  type: 'test'
+  ...
+# Subtest: thrust hits the unit directly behind; scatter hits several nearby targets
+ok 210 - thrust hits the unit directly behind; scatter hits several nearby targets
+  ---
+  duration_ms: 14.1816
+  type: 'test'
+  ...
+# Subtest: formation and valor grant real statuses; gallop needs a path and rush changes position
+ok 211 - formation and valor grant real statuses; gallop needs a path and rush changes position
+  ---
+  duration_ms: 9.7182
+  type: 'test'
+  ...
+# Subtest: blocked displacement never overlaps units or crosses board limits
+ok 212 - blocked displacement never overlaps units or crosses board limits
+  ---
+  duration_ms: 2.2001
+  type: 'test'
+  ...
+# Subtest: rare skills stun, protect and reduce intent without being universal damage attacks
+ok 213 - rare skills stun, protect and reduce intent without being universal damage attacks
+  ---
+  duration_ms: 10.9402
+  type: 'test'
+  ...
+# Subtest: independent cooldowns, statuses and active casts survive save and resume identically
+ok 214 - independent cooldowns, statuses and active casts survive save and resume identically
+  ---
+  duration_ms: 22.4472
+  type: 'test'
+  ...
+# Subtest: formation mitigates actual damage and blocks displacement; shields absorb before soldiers
+ok 215 - formation mitigates actual damage and blocks displacement; shields absorb before soldiers
+  ---
+  duration_ms: 5.6505
+  type: 'test'
+  ...
+# Subtest: prepaid casts and previous save formats are rejected
+ok 216 - prepaid casts and previous save formats are rejected
+  ---
+  duration_ms: 4.5742
+  type: 'test'
+  ...
+# Subtest: new saves distinguish bows and crossbows and require current rules
+ok 217 - new saves distinguish bows and crossbows and require current rules
+  ---
+  duration_ms: 3.0754
+  type: 'test'
+  ...
+# Subtest: five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally
+ok 218 - five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally
+  ---
+  duration_ms: 13.4165
+  type: 'test'
+  ...
+# Subtest: taunt cannot reach six hexes or override control protection
+ok 219 - taunt cannot reach six hexes or override control protection
+  ---
+  duration_ms: 4.7848
+  type: 'test'
+  ...
+# Subtest: taunted ranged offensive skills wait for range, then attack the taunter
+ok 220 - taunted ranged offensive skills wait for range, then attack the taunter
+  ---
+  duration_ms: 3.8853
+  type: 'test'
+  ...
+# Subtest: cleanse removes a real taunt; its source dying or retreating immediately releases the target
+ok 221 - cleanse removes a real taunt; its source dying or retreating immediately releases the target
+  ---
+  duration_ms: 11.5246
+  type: 'test'
+  ...
+# Subtest: taunt never drags melee out through another active ZOC
+ok 222 - taunt never drags melee out through another active ZOC
+  ---
+  duration_ms: 2.9346
+  type: 'test'
+  ...
+# Subtest: a real charge follows a real retreat shot instead of switching back to a disabled front
+ok 223 - a real charge follows a real retreat shot instead of switching back to a disabled front
+  ---
+  duration_ms: 3.468
+  type: 'test'
+  ...
+# Subtest: pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry
+ok 224 - pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry
+  ---
+  duration_ms: 2.5568
+  type: 'test'
+  ...
+# Subtest: a real taunt redirects a pursuing cavalry unit along a legal route
+ok 225 - a real taunt redirects a pursuing cavalry unit along a legal route
+  ---
+  duration_ms: 4.2924
+  type: 'test'
+  ...
+# Subtest: a natural pursuit snapshot validates and resumes deterministically
+ok 226 - a natural pursuit snapshot validates and resumes deterministically
+  ---
+  duration_ms: 87.3448
+  type: 'test'
+  ...
+# Subtest: current saves validate taunt and pursuit references and resume the real battle deterministically
+ok 227 - current saves validate taunt and pursuit references and resume the real battle deterministically
+  ---
+  duration_ms: 52.4621
+  type: 'test'
+  ...
+# Subtest: all 80 core combinations are legal; every officer has all three role options
+ok 228 - all 80 core combinations are legal; every officer has all three role options
+  ---
+  duration_ms: 9.4062
+  type: 'test'
+  ...
+# Subtest: positioning targets real columns and clustered enemies and always includes the anchor
+ok 229 - positioning targets real columns and clustered enemies and always includes the anchor
+  ---
+  duration_ms: 23.2558
+  type: 'test'
+  ...
+# Subtest: allied slow enables a real spear finisher, with no intent or target bypass
+ok 230 - allied slow enables a real spear finisher, with no intent or target bypass
+  ---
+  duration_ms: 13.4406
+  type: 'test'
+  ...
+# Subtest: fire preparation increases wildfire direct hits without replacing a stronger burn
+ok 231 - fire preparation increases wildfire direct hits without replacing a stronger burn
+  ---
+  duration_ms: 3.1371
+  type: 'test'
+  ...
+# Subtest: low-intellect guards retain mitigation and suppression; their support casts deal no damage
+ok 232 - low-intellect guards retain mitigation and suppression; their support casts deal no damage
+  ---
+  duration_ms: 2.0655
+  type: 'test'
+  ...
+# Subtest: cavalry offensive stance increases basic attack at the cost of real defense
+ok 233 - cavalry offensive stance increases basic attack at the cost of real defense
+  ---
+  duration_ms: 1.4415
+  type: 'test'
+  ...
+# Subtest: screen protects threatened healthy allies, respects its own layer and caps at one recipient
+ok 234 - screen protects threatened healthy allies, respects its own layer and caps at one recipient
+  ---
+  duration_ms: 3.3269
+  type: 'test'
+  ...
+# Subtest: seal exchanges all damage for silence; ambush waits for close range
+ok 235 - seal exchanges all damage for silence; ambush waits for close range
+  ---
+  duration_ms: 5.0348
+  type: 'test'
+  ...
+# Subtest: each role completes a battle and preserves deterministic continuation under current rules
+ok 236 - each role completes a battle and preserves deterministic continuation under current rules
+  ---
+  duration_ms: 795.9198
+  type: 'test'
+  ...
+1..236
+# tests 236
+# suites 0
+# pass 236
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2890.764

@@ -1,0 +1,7 @@
+no-ward fireline 5376
+no-ward balanced 6144
+six zoc compact 672
+six zoc spread 1344
+six open compact 2016
+six open spread 2688
+complete 15360

@@ -1,0 +1,41 @@
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (1.8322ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.4363ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.4028ms)
+✔ legacy windup events never display a preparation animation or log row (0.8718ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.7299ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (2.0629ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.4123ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (7.2996ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.5112ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.4352ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (1.4744ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.2789ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.0128ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.3385ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.2157ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.4347ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (2.2458ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (2.4488ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.2376ms)
+✔ reduced motion uses static focus and finishes without impact particles (0.7695ms)
+✔ a real control cast opens ZOC and the next allied charge exploits it (15.5107ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (3.4186ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (4.3595ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (2.437ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (1.4157ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (61.6577ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (25.5667ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (2.585ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (5.4151ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (1.0509ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (3.2877ms)
+✔ two dedicated suppressors can deny casting for the whole fight through real repeated attacks and harass (168.8132ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (201.8662ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 554.9258

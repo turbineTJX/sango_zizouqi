@@ -1,0 +1,4 @@
+spear [ 'unique-person-661', 'strike', 'thrust' ] 0 32 0
+spear [ 'unique-person-661', 'strike', 'phalanx' ] 0 32 0
+cavalry [ 'unique-person-661', 'rush', 'gallop' ] 32 0 0
+cavalry [ 'unique-person-661', 'rush', 'valor' ] 32 0 0

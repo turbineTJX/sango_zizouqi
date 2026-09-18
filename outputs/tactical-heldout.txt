@@ -1,0 +1,2 @@
+{"id":"tactical-three-heroes","wins":53,"losses":73,"draws":2,"count":128}
+{"id":"tactical-lv-cao","wins":62,"losses":64,"draws":2,"count":128}

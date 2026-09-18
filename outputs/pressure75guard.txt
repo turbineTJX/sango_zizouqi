@@ -1,0 +1,412 @@
+pressure75guard 3 compact 880
+pressure75guard 3 spread 1760
+pressure75guard 6 compact 2640
+pressure75guard 6 spread 3520
+[
+  {
+    "count": 3,
+    "teams": [
+      {
+        "team": "spears",
+        "label": "三枪",
+        "games": 320,
+        "win": 0.171875,
+        "matchups": {
+          "riders": 1,
+          "ranged": 0,
+          "fireline": 0,
+          "balanced": 0,
+          "supports": 0,
+          "doubleFront": 0,
+          "breach": 0.71875,
+          "piercers": 0,
+          "flames": 0,
+          "doubleControl": 0
+        }
+      },
+      {
+        "team": "riders",
+        "label": "三骑",
+        "games": 320,
+        "win": 0.18125,
+        "matchups": {
+          "spears": 0,
+          "ranged": 1,
+          "fireline": 0,
+          "balanced": 0,
+          "supports": 0.5,
+          "doubleFront": 0,
+          "breach": 0,
+          "piercers": 0,
+          "flames": 0,
+          "doubleControl": 0.3125
+        }
+      },
+      {
+        "team": "ranged",
+        "label": "纯远程",
+        "games": 320,
+        "win": 0.434375,
+        "matchups": {
+          "spears": 1,
+          "riders": 0,
+          "fireline": 0.09375,
+          "balanced": 0.25,
+          "supports": 1,
+          "doubleFront": 0,
+          "breach": 0.46875,
+          "piercers": 0.5,
+          "flames": 0.03125,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "fireline",
+        "label": "一坦两输出",
+        "games": 320,
+        "win": 0.75,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.90625,
+          "balanced": 0.46875,
+          "supports": 1,
+          "doubleFront": 0,
+          "breach": 0.96875,
+          "piercers": 0.96875,
+          "flames": 0.1875,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "balanced",
+        "label": "坦克＋输出＋辅助",
+        "games": 320,
+        "win": 0.6703125,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.75,
+          "fireline": 0.53125,
+          "supports": 1,
+          "doubleFront": 0,
+          "breach": 0.90625,
+          "piercers": 0.421875,
+          "flames": 0.09375,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "supports",
+        "label": "一坦两辅助",
+        "games": 320,
+        "win": 0.24375,
+        "matchups": {
+          "spears": 1,
+          "riders": 0.5,
+          "ranged": 0,
+          "fireline": 0,
+          "balanced": 0,
+          "doubleFront": 0,
+          "breach": 0.3125,
+          "piercers": 0,
+          "flames": 0,
+          "doubleControl": 0.625
+        }
+      },
+      {
+        "team": "doubleFront",
+        "label": "双前排＋输出",
+        "games": 320,
+        "win": 0.946875,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 1,
+          "fireline": 1,
+          "balanced": 1,
+          "supports": 1,
+          "breach": 1,
+          "piercers": 1,
+          "flames": 0.46875,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "breach",
+        "label": "控制突破",
+        "games": 320,
+        "win": 0.3625,
+        "matchups": {
+          "spears": 0.28125,
+          "riders": 1,
+          "ranged": 0.53125,
+          "fireline": 0.03125,
+          "balanced": 0.09375,
+          "supports": 0.6875,
+          "doubleFront": 0,
+          "piercers": 0.09375,
+          "flames": 0,
+          "doubleControl": 0.90625
+        }
+      },
+      {
+        "team": "piercers",
+        "label": "枪卫双破甲弩",
+        "games": 320,
+        "win": 0.6421875,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.5,
+          "fireline": 0.03125,
+          "balanced": 0.578125,
+          "supports": 1,
+          "doubleFront": 0,
+          "breach": 0.90625,
+          "flames": 0.40625,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "flames",
+        "label": "控制火攻",
+        "games": 320,
+        "win": 0.88125,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.96875,
+          "fireline": 0.8125,
+          "balanced": 0.90625,
+          "supports": 1,
+          "doubleFront": 0.53125,
+          "breach": 1,
+          "piercers": 0.59375,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "doubleControl",
+        "label": "双控破甲",
+        "games": 320,
+        "win": 0.215625,
+        "matchups": {
+          "spears": 1,
+          "riders": 0.6875,
+          "ranged": 0,
+          "fireline": 0,
+          "balanced": 0,
+          "supports": 0.375,
+          "doubleFront": 0,
+          "breach": 0.09375,
+          "piercers": 0,
+          "flames": 0
+        }
+      }
+    ]
+  },
+  {
+    "count": 6,
+    "teams": [
+      {
+        "team": "spears",
+        "label": "三枪",
+        "games": 320,
+        "win": 0.171875,
+        "matchups": {
+          "riders": 1,
+          "ranged": 0,
+          "fireline": 0,
+          "balanced": 0,
+          "supports": 0,
+          "doubleFront": 0,
+          "breach": 0.71875,
+          "piercers": 0,
+          "flames": 0,
+          "doubleControl": 0
+        }
+      },
+      {
+        "team": "riders",
+        "label": "三骑",
+        "games": 320,
+        "win": 0.1765625,
+        "matchups": {
+          "spears": 0,
+          "ranged": 1,
+          "fireline": 0,
+          "balanced": 0,
+          "supports": 0.265625,
+          "doubleFront": 0,
+          "breach": 0,
+          "piercers": 0,
+          "flames": 0,
+          "doubleControl": 0.5
+        }
+      },
+      {
+        "team": "ranged",
+        "label": "纯远程",
+        "games": 320,
+        "win": 0.459375,
+        "matchups": {
+          "spears": 1,
+          "riders": 0,
+          "fireline": 0.03125,
+          "balanced": 0.3125,
+          "supports": 1,
+          "doubleFront": 0,
+          "breach": 0.5625,
+          "piercers": 0.625,
+          "flames": 0.0625,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "fireline",
+        "label": "一坦两输出",
+        "games": 320,
+        "win": 0.8453125,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.96875,
+          "balanced": 0.84375,
+          "supports": 1,
+          "doubleFront": 0.71875,
+          "breach": 1,
+          "piercers": 0.765625,
+          "flames": 0.15625,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "balanced",
+        "label": "坦克＋输出＋辅助",
+        "games": 320,
+        "win": 0.678125,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.6875,
+          "fireline": 0.15625,
+          "supports": 1,
+          "doubleFront": 0.328125,
+          "breach": 1,
+          "piercers": 0.484375,
+          "flames": 0.125,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "supports",
+        "label": "一坦两辅助",
+        "games": 320,
+        "win": 0.284375,
+        "matchups": {
+          "spears": 1,
+          "riders": 0.734375,
+          "ranged": 0,
+          "fireline": 0,
+          "balanced": 0,
+          "doubleFront": 0,
+          "breach": 0.59375,
+          "piercers": 0,
+          "flames": 0,
+          "doubleControl": 0.515625
+        }
+      },
+      {
+        "team": "doubleFront",
+        "label": "双前排＋输出",
+        "games": 320,
+        "win": 0.7453125,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 1,
+          "fireline": 0.28125,
+          "balanced": 0.671875,
+          "supports": 1,
+          "breach": 1,
+          "piercers": 0.5,
+          "flames": 0,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "breach",
+        "label": "控制突破",
+        "games": 320,
+        "win": 0.3125,
+        "matchups": {
+          "spears": 0.28125,
+          "riders": 1,
+          "ranged": 0.4375,
+          "fireline": 0,
+          "balanced": 0,
+          "supports": 0.40625,
+          "doubleFront": 0,
+          "piercers": 0,
+          "flames": 0,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "piercers",
+        "label": "枪卫双破甲弩",
+        "games": 320,
+        "win": 0.68125,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.375,
+          "fireline": 0.234375,
+          "balanced": 0.515625,
+          "supports": 1,
+          "doubleFront": 0.5,
+          "breach": 1,
+          "flames": 0.1875,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "flames",
+        "label": "控制火攻",
+        "games": 320,
+        "win": 0.946875,
+        "matchups": {
+          "spears": 1,
+          "riders": 1,
+          "ranged": 0.9375,
+          "fireline": 0.84375,
+          "balanced": 0.875,
+          "supports": 1,
+          "doubleFront": 1,
+          "breach": 1,
+          "piercers": 0.8125,
+          "doubleControl": 1
+        }
+      },
+      {
+        "team": "doubleControl",
+        "label": "双控破甲",
+        "games": 320,
+        "win": 0.1984375,
+        "matchups": {
+          "spears": 1,
+          "riders": 0.5,
+          "ranged": 0,
+          "fireline": 0,
+          "balanced": 0,
+          "supports": 0.484375,
+          "doubleFront": 0,
+          "breach": 0,
+          "piercers": 0,
+          "flames": 0
+        }
+      }
+    ]
+  }
+]

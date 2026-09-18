@@ -1,0 +1,15 @@
+ranges range3 1 768
+ranges range3 10 1536
+ranges range4 1 2304
+ranges range4 10 3072
+ranges range5 1 3840
+ranges range5 10 4608
+ranges range6 1 5376
+ranges range6 10 6144
+AI tournament before compact 672
+AI tournament before spread 1344
+AI tournament noPursuit compact 2016
+AI tournament noPursuit spread 2688
+AI tournament range5 compact 3360
+AI tournament range5 spread 4032
+complete 10212

@@ -1,0 +1,66 @@
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (24.5987ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (2.783ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (5.108ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (1.1553ms)
+✖ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (3.2614ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (153.5709ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (15.0432ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (5.1519ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (1.4346ms)
+✔ damage tactics against a gate do not charge the caster, basic siege attacks do (1.6778ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (148.4709ms)
+✔ all 62 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10 (9.9428ms)
+✔ base and advanced skills modify only their intended attributes, adding passive percentages (0.5849ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (11.75ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (2.2624ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (1.6757ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (1.3095ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (1.2667ms)
+✔ isolated and joint change actual basic damage and evaluate neighbors from the correct side (14.5467ms)
+✔ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (8.3942ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (1.9928ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (11.1212ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (3.0709ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.1742ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.1951ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (8.2444ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (5.8471ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (3.2282ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (2.6921ms)
+✔ experience carries across thresholds, unlocks all crossed nodes and stops at level 10 (0.4153ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (4.7401ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (425.1751ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (19.2173ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 32
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 682.6603
+
+✖ failing tests:
+
+test at tests\intent-roles.test.mjs:57:1
+✖ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (3.2614ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:61:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,1 @@
+{"battles":57,"checks":904,"failures":239,"criticalHits":445}

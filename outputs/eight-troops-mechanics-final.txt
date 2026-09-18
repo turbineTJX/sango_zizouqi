@@ -1,0 +1,17 @@
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (29.1207ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (10.3461ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (7.2936ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (3.2735ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (2.8785ms)
+✔ passage opens a real ZOC route and rear targeting; bodies, terrain, taunt and shared lock still apply (2.2976ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (157.5391ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (1.8201ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (202.4496ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 556.9716

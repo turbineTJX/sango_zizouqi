@@ -1,0 +1,4 @@
+
+> sango-sovereign@0.3.0 check
+> node --check app.js && node --check engine.mjs && node --check engagement.mjs && node --check combat-rules.mjs && node --check battle-effects.mjs && node --check server.mjs && node --check tactics.mjs && node --check unit-stats.mjs && node --check passives.mjs && node --check progression.mjs && node --check scenarios.mjs && node --check scenario-catalog.mjs && node --check battlefield.mjs && node --check hex-grid.mjs && node --check command-cue.mjs && node --check officer-catalog.mjs && node --check officer-roster.mjs && node --check relationships.mjs && node --check scripts/import-officers.mjs && node --check famous-officers.mjs && node --check scripts/famous-design-doc.mjs && node --check scripts/famous-team-audit.mjs && node --check scripts/famous-balance-report.mjs
+

@@ -1,0 +1,5776 @@
+{
+  "rulesVersion": 12,
+  "count": 96,
+  "seeds": [
+    521208,
+    1009,
+    1103,
+    1201,
+    1301,
+    1409,
+    1511,
+    1601,
+    1709,
+    1801,
+    1907,
+    2003
+  ],
+  "hashes": {
+    "engine.mjs": "d9413a3a1aaa5a96f353358d976df09eecbe35365806277873f30d8e86e467e1",
+    "engagement.mjs": "ece02934b25c463a372c58225b19ee9d44d32e11c302e13a6b658748957f717a",
+    "tactics.mjs": "2fbd717036bdf3a3bfe19a892f187acf5a2febf18536020ec6fdce90cf5c292f",
+    "scenarios.mjs": "6c539e45d13aba3e40e6fe2acd31d96a0782464bed9b7f83d10be11ab99ff750",
+    "scenario-catalog.mjs": "3f7fce34b9e527f6f3ab958c721315b46eea9739c9c6c212b5e9e403a1721327",
+    "combat-rules.mjs": "c88d15fe012f78291bb83184d71c15290583b71c5d73e01331dfd4aaef4d44d9"
+  },
+  "summary": [
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "runs": 24,
+      "success": 21,
+      "wins": 2,
+      "meanFirstBreakTick": 8.86
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "runs": 24,
+      "success": 0,
+      "wins": 11,
+      "meanFirstBreakTick": null
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "runs": 24,
+      "success": 0,
+      "wins": 0,
+      "meanFirstBreakTick": null
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "runs": 24,
+      "success": 19,
+      "wins": 2,
+      "meanFirstBreakTick": 37.74
+    }
+  ],
+  "rows": [
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 521208,
+      "mirror": false,
+      "win": false,
+      "ticks": 110,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2268,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2440,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2268,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1992,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1676,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 544,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 251,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 521208,
+      "mirror": true,
+      "win": false,
+      "ticks": 98,
+      "breakthrough": {
+        "tick": 9,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2412,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2634,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 9,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2412,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2412,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 928,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1009,
+      "mirror": false,
+      "win": false,
+      "ticks": 150,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2284,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2477,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2284,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1982,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1615,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 364,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 44,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1009,
+      "mirror": true,
+      "win": false,
+      "ticks": 97,
+      "breakthrough": {
+        "tick": 12,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2530,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2618,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2530,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2048,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 44,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 1923,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 71,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 755,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1103,
+      "mirror": false,
+      "win": false,
+      "ticks": 111,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2287,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2487,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2287,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1989,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1629,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 561,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 252,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 42,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1103,
+      "mirror": true,
+      "win": false,
+      "ticks": 107,
+      "breakthrough": {
+        "tick": 9,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2427,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2642,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 9,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2427,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2427,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 909,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 743,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1201,
+      "mirror": false,
+      "win": false,
+      "ticks": 106,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2285,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2455,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2285,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2024,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1700,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 420,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 44,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1201,
+      "mirror": true,
+      "win": false,
+      "ticks": 96,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2628,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2268,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 430,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 358,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1301,
+      "mirror": false,
+      "win": true,
+      "ticks": 161,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2280,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2471,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2280,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1976,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1622,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 577,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 553,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 46,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 85,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 56,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1301,
+      "mirror": true,
+      "win": false,
+      "ticks": 117,
+      "breakthrough": {
+        "tick": 9,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2205,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2633,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 9,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2205,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2205,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 603,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 395,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1409,
+      "mirror": false,
+      "win": false,
+      "ticks": 140,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2279,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2454,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2279,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2008,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1681,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 137,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 137,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1409,
+      "mirror": true,
+      "win": false,
+      "ticks": 111,
+      "breakthrough": {
+        "tick": 9,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2235,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2633,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 9,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2235,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2235,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 727,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 494,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1511,
+      "mirror": false,
+      "win": false,
+      "ticks": 155,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2279,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2472,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2279,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1989,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1633,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 65,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 65,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1511,
+      "mirror": true,
+      "win": false,
+      "ticks": 101,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2642,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2229,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 250,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 149,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1601,
+      "mirror": false,
+      "win": false,
+      "ticks": 97,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2277,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2457,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2277,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1983,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1643,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 95,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 95,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1601,
+      "mirror": true,
+      "win": false,
+      "ticks": 101,
+      "breakthrough": {
+        "tick": 9,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2428,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2620,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 9,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2428,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2428,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 979,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 58,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1709,
+      "mirror": false,
+      "win": false,
+      "ticks": 138,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2294,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2472,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2294,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2028,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1707,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 617,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 330,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 42,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1709,
+      "mirror": true,
+      "win": false,
+      "ticks": 96,
+      "breakthrough": {
+        "tick": 12,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2124,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2632,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2124,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2124,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 206,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 65,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1801,
+      "mirror": false,
+      "win": true,
+      "ticks": 188,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2276,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2472,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2276,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1991,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1612,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 513,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 218,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1801,
+      "mirror": true,
+      "win": false,
+      "ticks": 98,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2624,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 551,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 40,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 386,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1907,
+      "mirror": false,
+      "win": false,
+      "ticks": 111,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2307,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2478,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2307,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2035,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1719,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 588,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 274,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 42,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 1907,
+      "mirror": true,
+      "win": false,
+      "ticks": 136,
+      "breakthrough": {
+        "tick": 9,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2228,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2622,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 9,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2228,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2228,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 663,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 439,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 2003,
+      "mirror": false,
+      "win": false,
+      "ticks": 141,
+      "breakthrough": {
+        "tick": 8,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2269,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2441,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 8,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2269,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1999,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1692,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 610,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 586,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 42,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 249,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "label": "控制＋冲阵",
+      "seed": 2003,
+      "mirror": true,
+      "win": false,
+      "ticks": 96,
+      "breakthrough": {
+        "tick": 12,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 2171,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2651,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2171,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 2171,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 346,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 177,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 521208,
+      "mirror": false,
+      "win": false,
+      "ticks": 121,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 521208,
+      "mirror": true,
+      "win": false,
+      "ticks": 103,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 39,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 63,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1009,
+      "mirror": false,
+      "win": false,
+      "ticks": 127,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1009,
+      "mirror": true,
+      "win": false,
+      "ticks": 119,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 56,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1103,
+      "mirror": false,
+      "win": false,
+      "ticks": 125,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1103,
+      "mirror": true,
+      "win": true,
+      "ticks": 145,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1201,
+      "mirror": false,
+      "win": false,
+      "ticks": 134,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1201,
+      "mirror": true,
+      "win": true,
+      "ticks": 143,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1301,
+      "mirror": false,
+      "win": false,
+      "ticks": 129,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1301,
+      "mirror": true,
+      "win": true,
+      "ticks": 136,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1409,
+      "mirror": false,
+      "win": false,
+      "ticks": 125,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1409,
+      "mirror": true,
+      "win": true,
+      "ticks": 126,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1511,
+      "mirror": false,
+      "win": false,
+      "ticks": 121,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1511,
+      "mirror": true,
+      "win": true,
+      "ticks": 122,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1601,
+      "mirror": false,
+      "win": false,
+      "ticks": 134,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1601,
+      "mirror": true,
+      "win": true,
+      "ticks": 138,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1709,
+      "mirror": false,
+      "win": false,
+      "ticks": 133,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1709,
+      "mirror": true,
+      "win": true,
+      "ticks": 147,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1801,
+      "mirror": false,
+      "win": false,
+      "ticks": 133,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1801,
+      "mirror": true,
+      "win": true,
+      "ticks": 119,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1907,
+      "mirror": false,
+      "win": false,
+      "ticks": 121,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 1907,
+      "mirror": true,
+      "win": true,
+      "ticks": 122,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 2003,
+      "mirror": false,
+      "win": true,
+      "ticks": 118,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 30,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 54,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noControl",
+      "label": "撤掉控制",
+      "seed": 2003,
+      "mirror": true,
+      "win": true,
+      "ticks": 141,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 57,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 521208,
+      "mirror": false,
+      "win": false,
+      "ticks": 118,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2477,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1873,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1387,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 59,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 521208,
+      "mirror": true,
+      "win": false,
+      "ticks": 99,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2634,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2412,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 933,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 868,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1009,
+      "mirror": false,
+      "win": false,
+      "ticks": 106,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2510,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1907,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1407,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 14,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1009,
+      "mirror": true,
+      "win": false,
+      "ticks": 132,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2618,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 756,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1103,
+      "mirror": false,
+      "win": false,
+      "ticks": 96,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2523,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2007,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1568,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 308,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 42,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1103,
+      "mirror": true,
+      "win": false,
+      "ticks": 99,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2642,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2410,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 882,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 879,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1201,
+      "mirror": false,
+      "win": false,
+      "ticks": 101,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2493,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1976,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1529,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 95,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1201,
+      "mirror": true,
+      "win": false,
+      "ticks": 109,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2628,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2209,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 603,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 408,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1301,
+      "mirror": false,
+      "win": false,
+      "ticks": 125,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2503,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1899,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1409,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 293,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1301,
+      "mirror": true,
+      "win": false,
+      "ticks": 102,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2633,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2182,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 198,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1409,
+      "mirror": false,
+      "win": false,
+      "ticks": 140,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2492,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1971,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1523,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 57,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1409,
+      "mirror": true,
+      "win": false,
+      "ticks": 110,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2633,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2216,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 603,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 442,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1511,
+      "mirror": false,
+      "win": false,
+      "ticks": 101,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2504,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1912,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1434,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 179,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1511,
+      "mirror": true,
+      "win": false,
+      "ticks": 121,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2642,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2247,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 672,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 502,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1601,
+      "mirror": false,
+      "win": false,
+      "ticks": 101,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2493,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1899,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1427,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1601,
+      "mirror": true,
+      "win": false,
+      "ticks": 105,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2620,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2428,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1027,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 952,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1709,
+      "mirror": false,
+      "win": false,
+      "ticks": 96,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2507,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1994,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1554,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 359,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 42,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1709,
+      "mirror": true,
+      "win": false,
+      "ticks": 112,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2632,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2123,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 193,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 181,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1801,
+      "mirror": false,
+      "win": false,
+      "ticks": 100,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2504,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1989,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1538,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 426,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 46,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 80,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1801,
+      "mirror": true,
+      "win": false,
+      "ticks": 102,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2624,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 184,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1907,
+      "mirror": false,
+      "win": false,
+      "ticks": 97,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2516,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2005,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1558,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 331,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 42,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 0,
+          "frontHp": 0,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 1907,
+      "mirror": true,
+      "win": false,
+      "ticks": 109,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2622,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2203,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 653,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 539,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 2003,
+      "mirror": false,
+      "win": false,
+      "ticks": 109,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2475,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1951,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 18,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1509,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 139,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "noCharge",
+      "label": "撤掉冲阵",
+      "seed": 2003,
+      "mirror": true,
+      "win": false,
+      "ticks": 103,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2651,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 11,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2166,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 264,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 111,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 521208,
+      "mirror": false,
+      "win": true,
+      "ticks": 131,
+      "breakthrough": {
+        "tick": 32,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 2769,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5600,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5248,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4790,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2769,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 2769,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2450,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2398,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 60,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 965,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 535,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 72,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 286,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 521208,
+      "mirror": true,
+      "win": false,
+      "ticks": 113,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3439,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5626,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5366,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5308,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3439,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3439,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3398,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3073,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 61,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2028,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1009,
+      "mirror": false,
+      "win": false,
+      "ticks": 127,
+      "breakthrough": {
+        "tick": 60,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 1968,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5630,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5270,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4846,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3304,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3219,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 40,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3121,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 60,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1968,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 60,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 1968,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1677,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 73,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1447,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1009,
+      "mirror": true,
+      "win": false,
+      "ticks": 126,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3349,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5610,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5347,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5200,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3349,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3349,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3320,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2994,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1103,
+      "mirror": false,
+      "win": false,
+      "ticks": 97,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5625,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5228,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4846,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3331,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3194,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3166,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 60,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2085,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 66,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1951,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 94,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1192,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1103,
+      "mirror": true,
+      "win": false,
+      "ticks": 118,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3359,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5636,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5375,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5311,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3359,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3359,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3327,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3257,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 67,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1999,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1201,
+      "mirror": false,
+      "win": false,
+      "ticks": 118,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5609,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5283,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4791,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3080,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2810,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 60,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1051,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 855,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1201,
+      "mirror": true,
+      "win": false,
+      "ticks": 116,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3460,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5622,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5351,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5300,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3460,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3460,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3460,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3375,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 67,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2056,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1301,
+      "mirror": false,
+      "win": true,
+      "ticks": 135,
+      "breakthrough": {
+        "tick": 60,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 745,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5613,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5257,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4731,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2658,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2295,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2234,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 60,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 745,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 60,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 745,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 444,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 72,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 125,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1301,
+      "mirror": true,
+      "win": false,
+      "ticks": 116,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3426,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5626,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5363,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5241,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3426,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3426,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3385,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3040,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 61,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1977,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 67,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1711,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1409,
+      "mirror": false,
+      "win": false,
+      "ticks": 112,
+      "breakthrough": {
+        "tick": 32,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3053,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5618,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5286,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4790,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3053,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3053,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2969,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2969,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1695,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 94,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 975,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1409,
+      "mirror": true,
+      "win": false,
+      "ticks": 124,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3316,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5626,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5352,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5288,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3316,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3316,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3316,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 39,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3217,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 67,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1977,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1511,
+      "mirror": false,
+      "win": false,
+      "ticks": 116,
+      "breakthrough": {
+        "tick": 32,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3244,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5625,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5167,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4744,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3244,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3244,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3127,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 40,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2917,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 60,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1849,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 66,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1445,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 68,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1431,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 96,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 257,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1511,
+      "mirror": true,
+      "win": false,
+      "ticks": 115,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3458,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5636,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5368,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5233,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3458,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3458,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3414,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3083,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 61,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 2072,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1601,
+      "mirror": false,
+      "win": false,
+      "ticks": 132,
+      "breakthrough": {
+        "tick": 32,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3091,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5607,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5295,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4809,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3091,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3091,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2846,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2829,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 60,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1593,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 66,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1391,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1391,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1601,
+      "mirror": true,
+      "win": false,
+      "ticks": 113,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3464,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5612,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5334,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5284,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3464,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3464,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3435,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3116,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 61,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2084,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1709,
+      "mirror": false,
+      "win": false,
+      "ticks": 96,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5612,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5210,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4769,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3237,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3188,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3144,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1857,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 94,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1111,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1709,
+      "mirror": true,
+      "win": false,
+      "ticks": 105,
+      "breakthrough": {
+        "tick": 37,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3163,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5625,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5278,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5065,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3306,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3163,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3163,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2736,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 61,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1845,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 71,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1480,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1801,
+      "mirror": false,
+      "win": false,
+      "ticks": 107,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5622,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5242,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4828,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3308,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3156,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 40,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3066,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 68,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1895,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1801,
+      "mirror": true,
+      "win": false,
+      "ticks": 115,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3482,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5616,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5334,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5233,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3482,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3482,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3448,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3110,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 61,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1958,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1907,
+      "mirror": false,
+      "win": false,
+      "ticks": 100,
+      "breakthrough": null,
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5641,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5310,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4789,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3034,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2946,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 38,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2891,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 66,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1616,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 94,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 765,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 1907,
+      "mirror": true,
+      "win": false,
+      "ticks": 113,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3438,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5615,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5355,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5305,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3438,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3438,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3410,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3055,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 61,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 1957,
+          "activeZocOwners": 1
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 2003,
+      "mirror": false,
+      "win": false,
+      "ticks": 114,
+      "breakthrough": {
+        "tick": 69,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 1,
+        "frontHp": 1418,
+        "activeZocOwners": 0
+      },
+      "events": [
+        {
+          "tick": 4,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5598,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 6,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5220,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 12,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 4867,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 32,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3320,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 36,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3246,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 40,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3149,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 68,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1516,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 69,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 1,
+          "frontHp": 1418,
+          "activeZocOwners": 0
+        }
+      ]
+    },
+    {
+      "variant": "overlap",
+      "label": "敌方双前排重叠 ZOC",
+      "seed": 2003,
+      "mirror": true,
+      "win": false,
+      "ticks": 115,
+      "breakthrough": {
+        "tick": 33,
+        "name": "关羽",
+        "tactic": "冲阵",
+        "event": "突入后阵",
+        "frontAlive": 2,
+        "frontHp": 3131,
+        "activeZocOwners": 1
+      },
+      "events": [
+        {
+          "tick": 5,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5644,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 7,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5286,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 10,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 5075,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "张飞",
+          "tactic": "疑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 3131,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 33,
+          "name": "关羽",
+          "tactic": "冲阵",
+          "event": "突入后阵",
+          "frontAlive": 2,
+          "frontHp": 3131,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 37,
+          "name": "张飞",
+          "tactic": "长坂怒喝",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2987,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 43,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 2,
+          "frontHp": 2752,
+          "activeZocOwners": 1
+        },
+        {
+          "tick": 71,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 1336,
+          "activeZocOwners": 0
+        },
+        {
+          "tick": 99,
+          "name": "黄忠",
+          "tactic": "惑阵",
+          "event": "拦截中断",
+          "frontAlive": 1,
+          "frontHp": 169,
+          "activeZocOwners": 0
+        }
+      ]
+    }
+  ]
+}

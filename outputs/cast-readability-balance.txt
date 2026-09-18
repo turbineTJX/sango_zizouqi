@@ -1,0 +1,61 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (17.0767ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (1.7805ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (3.5434ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (1.9654ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (1.016ms)
+✖ zero-intent playable trial shows control then rear penetration while the front lives (56.4062ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (22.5592ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (2.463ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (4.6291ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (0.6761ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (2.2918ms)
+✖ two dedicated suppressors can deny casting for the whole fight through real repeated attacks and harass (143.4225ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (200.4887ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 11
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 506.3175
+
+✖ failing tests:
+
+test at tests\breakthrough.test.mjs:74:1
+✖ zero-intent playable trial shows control then rear penetration while the front lives (56.4062ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(openingTick!==null&&breakTick!==null&&openingTick<breakTick)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/breakthrough.test.mjs:85:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:66:1
+✖ two dedicated suppressors can deny casting for the whole fight through real repeated attacks and harass (143.4225ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:78:37)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

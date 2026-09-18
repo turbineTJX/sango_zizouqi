@@ -9,7 +9,7 @@ const probes={};
 probes.strength=[1,1800,3000].map(hp=>{
   const b=createScenario('field',1).battle,u=b.sides[0].units[0];
   u.hp=hp;u.maxHp=hp===1?3000:hp;
-  return {hp,maxHp:u.maxHp,strength:unitAttributes(u,b).strength,attack:unitAttributes(u,b).attack};
+  return {hp,maxHp:u.maxHp,martialPower:unitAttributes(u,b).martialPower,strategyPower:unitAttributes(u,b).strategyPower,attack:unitAttributes(u,b).attack};
 });
 // Spearman enters phalanx at distance two and cannot close on an archer.
 {

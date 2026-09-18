@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {makeOfficer,newGame,stepBattle,lockDeployment,validateSave,unitAttributes,lowerIntent} from '../engine.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
+import {powerFactor} from '../tactic-power.mjs';
 import {configureTactics,unitTactics,hasStatus,recommendedTacticIds} from '../tactics.mjs';
 import {passiveList,passiveDamageMultiplier,SKILL_ROUTES} from '../passives.mjs';
 
@@ -11,7 +12,7 @@ function fixture(type,skill){
   b.sides[0].units=[u];b.sides[1].units=[d];
   Object.assign(u,{type,level:1,hp:3000,maxHp:3000,initial:3000,x:4,y:3,cooldown:999,intent:100});
   Object.assign(d,{level:1,hp:3000,maxHp:3000,initial:3000,x:7,y:3,cooldown:999,intent:0});
-  const rest=type==='archer'?['scatter','harry']:type==='crossbow'?['seal','harry']:['rush','press'];
+  const rest=type==='archer'?['scatter','suppress']:type==='crossbow'?['seal','pierce']:['rush','harass'];
   assert.equal(configureTactics(u,[skill,...rest]),null);
   for(const a of [u,d])a.skillReady=Object.fromEntries(unitTactics(a).map(s=>[s.id,999]));
   u.skillReady[skill]=0;lockDeployment(b);return {b,u,d};
@@ -22,7 +23,7 @@ test('fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and
     function cast(hp){
       const {b,u,d}=fixture('archer',skill);u.hp=hp;
       const strategy=unitAttributes(u,b).strategyPower;
-      const full=skill==='fire'?24:Math.round((8+strategy*.08)*100/(100+unitAttributes(d,b).discipline));
+      const full=Math.round((skill==='fire'?unitAttributes(u,b).martialPower*(6/280+.03):strategy*(6/280+.04))*100/(100+unitAttributes(d,b).discipline));
       stepBattle(b);const burn={...d.statuses.burn};assert.ok(burn.amount>=0);
       if(hp===3000)assert.equal(burn.amount,full);
       const enemyIntent=d.intent,ownIntent=u.intent,before=d.hp;
@@ -36,11 +37,11 @@ test('fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and
   }
 });
 
-test('screen applies the 10% reduction before rounding and still scales with support passives',()=>{
+test('screen has a useful baseline and scales with support passives',()=>{
   function shield(id,level){
     const {b,u,d}=fixture('crossbow','screen');u.id=id;u.level=level;
-    const ally={...structuredClone(d),id:'dun',side:0,x:3,y:3,hp:1200};b.sides[0].units.push(ally);
-    const base=ally.maxHp*(.025+unitAttributes(u,b).strategyPower/2500)*.9;
+    const ally={...structuredClone(d),id:'dun',side:0,x:3,y:3,hp:1200,battleDamage:1800};b.sides[0].units.push(ally);
+    const base=ally.maxHp*.04*powerFactor(unitAttributes(u,b).strategyPower);
     stepBattle(b);const amount=ally.statuses.shield.amount;
     assert.equal(amount,Math.round(base*(id==='ju'&&level===10?1.45:1)));
     return amount;
@@ -50,7 +51,7 @@ test('screen applies the 10% reduction before rounding and still scales with sup
 
 test('foresight no longer depends on enemy loadout and respects its strict boundary and damage kind',()=>{
   const jia={...makeOfficer('jia'),level:10,side:0};
-  for(const tactics of [['gallop','rush','press'],['valor','rush','press']]){
+  for(const tactics of [['gallop','rush','harass'],['valor','rush','harass']]){
     const enemy={...makeOfficer('yan'),side:1,tactics,intent:100};
     assert.equal(lowerIntent(enemy,45,jia),54);assert.equal(enemy.intent,46);
     assert.equal(passiveDamageMultiplier(null,jia,enemy,'intellect'),1.3);
@@ -62,12 +63,12 @@ test('foresight no longer depends on enemy loadout and respects its strict bound
   }
 });
 
-test('gallop works before first contact with no intent and cannot be spammed or used while adjacent',()=>{
+test('gallop provides travel speed before contact and mitigation while adjacent',()=>{
   const {b,u,d}=fixture('cavalry','gallop');Object.assign(u,{x:3,y:4,intent:0});Object.assign(d,{x:10,y:4});
   stepBattle(b);assert.equal(u.tacticCasts.gallop,1);assert.ok(hasStatus(b,u,'haste'));assert.equal(u.intent,0);
   stepBattle(b);assert.equal(u.tacticCasts.gallop,1);
   const close=fixture('cavalry','gallop');Object.assign(close.d,{x:5,y:3});close.u.intent=0;
-  stepBattle(close.b);assert.equal(close.u.tacticCasts.gallop,undefined);
+  stepBattle(close.b);assert.equal(close.u.tacticCasts.gallop,1);assert.ok(hasStatus(close.b,close.u,'ward'));assert.ok(!hasStatus(close.b,close.u,'haste'));
 });
 
 test('new officer defaults activate the intended bow and support routes without removing troop choice',()=>{
@@ -87,10 +88,10 @@ test('current campaigns and ongoing battles preserve player loadouts and DOT sna
     const x=units.find(u=>u.id==='yuanxia');x.type='cavalry';x.formation='front';x.tactics=['gallop','rush','valor'];
   }
   for(const units of [state.armies[1].units,b.sides[1].units]){
-    const ju=units.find(u=>u.id==='ju');ju.type='archer';ju.tactics=['wildfire','smoke','harry'];
+    const ju=units.find(u=>u.id==='ju');ju.type='archer';ju.tactics=['wildfire','smoke','suppress'];
   }
   lockDeployment(b);for(let i=0;i<10;i++)stepBattle(b);
-  b.sides[1].units[0].statuses.burn={until:b.tick+5,amount:24,sourceId:b.sides[0].units[0].id};
+  b.sides[1].units[0].statuses.burn={until:b.tick+5,amount:24,baseAmount:24,stacks:1,sourceId:b.sides[0].units[0].id};
   const expected=structuredClone(state);
   const loaded=validateSave(structuredClone(state));assert.deepEqual(loaded,expected);
   const copy=validateSave(structuredClone(loaded));for(let i=0;i<20;i++){stepBattle(loaded.battle);stepBattle(copy.battle);}

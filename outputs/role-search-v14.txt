@@ -1,0 +1,10 @@
+关羽 cavalry named discovery 656 validation 192
+关羽 spear named discovery 1312 validation 384
+吕布 cavalry front discovery 1968 validation 552
+吕布 spear rear discovery 2624 validation 720
+张飞 spear rear discovery 3280 validation 864
+郝昭 spear rear discovery 3648 validation 1008
+王平 archer rear discovery 4016 validation 1152
+满宠 crossbow rear discovery 4352 validation 1296
+庞德 cavalry front discovery 4720 validation 1464
+complete 6184

@@ -1,0 +1,46 @@
+✔ 官渡之战: historical roster, real command accumulation and saved replay (199.0819ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (170.7745ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (142.4177ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (146.0836ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (69.3109ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (312.5431ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (491.6342ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (261.9755ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (277.3562ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (128.1718ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (68.2593ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (182.5305ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (745.2654ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (474.2154ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (218.9307ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (223.4451ms)
+✔ river: complete battle, reserves, save recovery and settlement (253.3895ms)
+✔ breach: complete battle, reserves, save recovery and settlement (70.3743ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (195.4339ms)
+✔ field: complete battle, reserves, save recovery and settlement (190.1382ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (234.6728ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (441.4938ms)
+✔ siege: complete battle, reserves, save recovery and settlement (362.5132ms)
+✔ defense: complete battle, reserves, save recovery and settlement (911.7344ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (358.4285ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (11.611ms)
+✔ sieges add an independent gate and shields only to defending starters (15.0929ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (2.9875ms)
+✔ gate remains a target after all defenders fall, focus can select it, deployment cannot overlap it (18.6206ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (19.2528ms)
+✔ fixture and seed validation rejects malformed test state (4.8796ms)
+✔ command and experience define individual capacity; fielded troops are independent (7.2357ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (111.7916ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (39.1547ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (62.0398ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (548.6844ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (235.4038ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (221.5176ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6619.8682

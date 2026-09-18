@@ -1,0 +1,34 @@
+[
+  {
+    "variant": "control",
+    "label": "控制＋冲阵",
+    "runs": 24,
+    "success": 21,
+    "wins": 2,
+    "meanFirstBreakTick": 8.86
+  },
+  {
+    "variant": "noControl",
+    "label": "撤掉控制",
+    "runs": 24,
+    "success": 0,
+    "wins": 11,
+    "meanFirstBreakTick": null
+  },
+  {
+    "variant": "noCharge",
+    "label": "撤掉冲阵",
+    "runs": 24,
+    "success": 0,
+    "wins": 0,
+    "meanFirstBreakTick": null
+  },
+  {
+    "variant": "overlap",
+    "label": "敌方双前排重叠 ZOC",
+    "runs": 24,
+    "success": 19,
+    "wins": 2,
+    "meanFirstBreakTick": 37.74
+  }
+]

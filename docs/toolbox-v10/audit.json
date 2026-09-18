@@ -1,0 +1,5529 @@
+{
+  "rulesVersion": 10,
+  "seeds": 4,
+  "runs": 3912,
+  "results": [
+    {
+      "type": "spear",
+      "profile": "force",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "thrust"
+          ],
+          "margin": 4747,
+          "damage": 1181,
+          "remaining": 60,
+          "backline": 4687
+        },
+        {
+          "ids": [
+            "phalanx",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4741,
+          "damage": 991,
+          "remaining": 129,
+          "backline": 4612
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4737,
+          "damage": 982,
+          "remaining": 470,
+          "backline": 4266
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 4702,
+          "damage": 966,
+          "remaining": 153,
+          "backline": 4549
+        },
+        {
+          "ids": [
+            "cleanse",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4669,
+          "damage": 1181,
+          "remaining": 341,
+          "backline": 4328
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4638,
+          "damage": 834,
+          "remaining": 206,
+          "backline": 4432
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 4620,
+          "damage": 1114,
+          "remaining": 287,
+          "backline": 4333
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "ward"
+          ],
+          "margin": 4593,
+          "damage": 1160,
+          "remaining": 203,
+          "backline": 4390
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 4591,
+          "damage": 923,
+          "remaining": 23,
+          "backline": 4569
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4574,
+          "damage": 1057,
+          "remaining": 259,
+          "backline": 4316
+        },
+        {
+          "ids": [
+            "strike",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4569,
+          "damage": 1450,
+          "remaining": 291,
+          "backline": 4278
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "ward"
+          ],
+          "margin": 4558,
+          "damage": 851,
+          "remaining": 99,
+          "backline": 4459
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 4514,
+          "damage": 1351,
+          "remaining": 151,
+          "backline": 4362
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "ward"
+          ],
+          "margin": 4490,
+          "damage": 920,
+          "remaining": 52,
+          "backline": 4438
+        },
+        {
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4480,
+          "damage": 1275,
+          "remaining": 569,
+          "backline": 3910
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 4456,
+          "damage": 905,
+          "remaining": 310,
+          "backline": 4146
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "doubt"
+          ],
+          "margin": 4428,
+          "damage": 969,
+          "remaining": 151,
+          "backline": 4277
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 4308,
+          "damage": 1198,
+          "remaining": 242,
+          "backline": 4066
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 4267,
+          "damage": 958,
+          "remaining": 143,
+          "backline": 4124
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "cleanse"
+          ],
+          "margin": 4082,
+          "damage": 782,
+          "remaining": 34,
+          "backline": 4047
+        }
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "force",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 2828,
+          "damage": 3748,
+          "remaining": 1025,
+          "backline": 1803
+        },
+        {
+          "ids": [
+            "strike",
+            "ward",
+            "thrust"
+          ],
+          "margin": 2817,
+          "damage": 4115,
+          "remaining": 1237,
+          "backline": 1580
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "thrust"
+          ],
+          "margin": 2534,
+          "damage": 4179,
+          "remaining": 1077,
+          "backline": 1457
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "ward"
+          ],
+          "margin": 2506,
+          "damage": 3410,
+          "remaining": 1146,
+          "backline": 1364
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "ward"
+          ],
+          "margin": 2419,
+          "damage": 3563,
+          "remaining": 1162,
+          "backline": 1257
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 2414,
+          "damage": 4091,
+          "remaining": 924,
+          "backline": 1490
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 2144,
+          "damage": 3334,
+          "remaining": 896,
+          "backline": 1308
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 2131,
+          "damage": 3507,
+          "remaining": 936,
+          "backline": 1195
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "cleanse"
+          ],
+          "margin": 2125,
+          "damage": 3541,
+          "remaining": 940,
+          "backline": 1186
+        },
+        {
+          "ids": [
+            "cleanse",
+            "ward",
+            "thrust"
+          ],
+          "margin": 1782,
+          "damage": 3757,
+          "remaining": 710,
+          "backline": 1072
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 1776,
+          "damage": 2986,
+          "remaining": 940,
+          "backline": 855
+        },
+        {
+          "ids": [
+            "phalanx",
+            "ward",
+            "thrust"
+          ],
+          "margin": 1760,
+          "damage": 3908,
+          "remaining": 794,
+          "backline": 966
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 1478,
+          "damage": 3792,
+          "remaining": 438,
+          "backline": 1041
+        },
+        {
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "margin": 1151,
+          "damage": 4413,
+          "remaining": 1014,
+          "backline": 227
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 1035,
+          "damage": 3926,
+          "remaining": 832,
+          "backline": 588
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "doubt"
+          ],
+          "margin": 639,
+          "damage": 4241,
+          "remaining": 969,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 496,
+          "damage": 4230,
+          "remaining": 776,
+          "backline": 43
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 462,
+          "damage": 3099,
+          "remaining": 582,
+          "backline": 467
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "ward"
+          ],
+          "margin": 454,
+          "damage": 3178,
+          "remaining": 846,
+          "backline": 344
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": -24,
+          "damage": 3047,
+          "remaining": 550,
+          "backline": 304
+        }
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "force",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4127,
+          "damage": 762,
+          "remaining": 0,
+          "backline": 4127
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 3677,
+          "damage": 852,
+          "remaining": 0,
+          "backline": 3677
+        },
+        {
+          "ids": [
+            "cleanse",
+            "ward",
+            "thrust"
+          ],
+          "margin": 3661,
+          "damage": 827,
+          "remaining": 0,
+          "backline": 3661
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 3553,
+          "damage": 835,
+          "remaining": 0,
+          "backline": 3553
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "cleanse"
+          ],
+          "margin": 3529,
+          "damage": 813,
+          "remaining": 0,
+          "backline": 3529
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 3366,
+          "damage": 645,
+          "remaining": 0,
+          "backline": 3366
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 3177,
+          "damage": 581,
+          "remaining": 3,
+          "backline": 3174
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 3172,
+          "damage": 908,
+          "remaining": 0,
+          "backline": 3172
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "ward"
+          ],
+          "margin": 3160,
+          "damage": 745,
+          "remaining": 0,
+          "backline": 3160
+        },
+        {
+          "ids": [
+            "phalanx",
+            "ward",
+            "thrust"
+          ],
+          "margin": 3108,
+          "damage": 698,
+          "remaining": 0,
+          "backline": 3108
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "ward"
+          ],
+          "margin": 2745,
+          "damage": 479,
+          "remaining": 0,
+          "backline": 2745
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "thrust"
+          ],
+          "margin": 2682,
+          "damage": 844,
+          "remaining": 0,
+          "backline": 2682
+        },
+        {
+          "ids": [
+            "strike",
+            "ward",
+            "thrust"
+          ],
+          "margin": 2638,
+          "damage": 797,
+          "remaining": 0,
+          "backline": 2638
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 2547,
+          "damage": 724,
+          "remaining": 0,
+          "backline": 2565
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "doubt"
+          ],
+          "margin": 2458,
+          "damage": 629,
+          "remaining": 0,
+          "backline": 2458
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 2202,
+          "damage": 696,
+          "remaining": 0,
+          "backline": 2282
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "ward"
+          ],
+          "margin": 1846,
+          "damage": 710,
+          "remaining": 0,
+          "backline": 1982
+        },
+        {
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "margin": 1835,
+          "damage": 636,
+          "remaining": 0,
+          "backline": 1897
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 1758,
+          "damage": 575,
+          "remaining": 0,
+          "backline": 1878
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 1243,
+          "damage": 782,
+          "remaining": 0,
+          "backline": 1501
+        }
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "intellect",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4752,
+          "damage": 1008,
+          "remaining": 547,
+          "backline": 4205
+        },
+        {
+          "ids": [
+            "phalanx",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4686,
+          "damage": 860,
+          "remaining": 73,
+          "backline": 4613
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4655,
+          "damage": 798,
+          "remaining": 147,
+          "backline": 4508
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 4628,
+          "damage": 851,
+          "remaining": 119,
+          "backline": 4509
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 4587,
+          "damage": 991,
+          "remaining": 294,
+          "backline": 4293
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "ward"
+          ],
+          "margin": 4570,
+          "damage": 871,
+          "remaining": 105,
+          "backline": 4465
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "thrust"
+          ],
+          "margin": 4552,
+          "damage": 930,
+          "remaining": 73,
+          "backline": 4479
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4527,
+          "damage": 924,
+          "remaining": 254,
+          "backline": 4274
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 4523,
+          "damage": 937,
+          "remaining": 427,
+          "backline": 4095
+        },
+        {
+          "ids": [
+            "cleanse",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4520,
+          "damage": 1065,
+          "remaining": 285,
+          "backline": 4235
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "ward"
+          ],
+          "margin": 4505,
+          "damage": 1039,
+          "remaining": 138,
+          "backline": 4367
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 4473,
+          "damage": 777,
+          "remaining": 51,
+          "backline": 4423
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "ward"
+          ],
+          "margin": 4456,
+          "damage": 808,
+          "remaining": 46,
+          "backline": 4410
+        },
+        {
+          "ids": [
+            "strike",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4421,
+          "damage": 1151,
+          "remaining": 145,
+          "backline": 4276
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 4412,
+          "damage": 1070,
+          "remaining": 179,
+          "backline": 4234
+        },
+        {
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "margin": 4354,
+          "damage": 1119,
+          "remaining": 515,
+          "backline": 3839
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "doubt"
+          ],
+          "margin": 4302,
+          "damage": 810,
+          "remaining": 129,
+          "backline": 4174
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 4160,
+          "damage": 789,
+          "remaining": 112,
+          "backline": 4048
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 4107,
+          "damage": 961,
+          "remaining": 226,
+          "backline": 3881
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "cleanse"
+          ],
+          "margin": 4012,
+          "damage": 677,
+          "remaining": 22,
+          "backline": 3990
+        }
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "intellect",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 3110,
+          "damage": 2712,
+          "remaining": 478,
+          "backline": 2632
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "ward"
+          ],
+          "margin": 2524,
+          "damage": 2958,
+          "remaining": 856,
+          "backline": 1791
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 2168,
+          "damage": 2841,
+          "remaining": 589,
+          "backline": 1744
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "ward"
+          ],
+          "margin": 2007,
+          "damage": 3447,
+          "remaining": 1078,
+          "backline": 929
+        },
+        {
+          "ids": [
+            "strike",
+            "ward",
+            "thrust"
+          ],
+          "margin": 1982,
+          "damage": 3714,
+          "remaining": 804,
+          "backline": 1178
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 1777,
+          "damage": 3004,
+          "remaining": 981,
+          "backline": 814
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 1757,
+          "damage": 3332,
+          "remaining": 825,
+          "backline": 933
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "cleanse"
+          ],
+          "margin": 1700,
+          "damage": 3335,
+          "remaining": 753,
+          "backline": 948
+        },
+        {
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "margin": 1673,
+          "damage": 3063,
+          "remaining": 633,
+          "backline": 1343
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "ward"
+          ],
+          "margin": 1287,
+          "damage": 2982,
+          "remaining": 1021,
+          "backline": 721
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "thrust"
+          ],
+          "margin": 1223,
+          "damage": 3790,
+          "remaining": 393,
+          "backline": 942
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 1203,
+          "damage": 2845,
+          "remaining": 383,
+          "backline": 1260
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 1148,
+          "damage": 3573,
+          "remaining": 207,
+          "backline": 1012
+        },
+        {
+          "ids": [
+            "cleanse",
+            "ward",
+            "thrust"
+          ],
+          "margin": 1094,
+          "damage": 3504,
+          "remaining": 344,
+          "backline": 918
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 934,
+          "damage": 3021,
+          "remaining": 835,
+          "backline": 609
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 906,
+          "damage": 2905,
+          "remaining": 730,
+          "backline": 710
+        },
+        {
+          "ids": [
+            "phalanx",
+            "ward",
+            "thrust"
+          ],
+          "margin": 889,
+          "damage": 3596,
+          "remaining": 369,
+          "backline": 776
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 547,
+          "damage": 3042,
+          "remaining": 304,
+          "backline": 944
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "doubt"
+          ],
+          "margin": 134,
+          "damage": 3666,
+          "remaining": 781,
+          "backline": 199
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": -120,
+          "damage": 3208,
+          "remaining": 49,
+          "backline": 534
+        }
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "intellect",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 4375,
+          "damage": 840,
+          "remaining": 27,
+          "backline": 4348
+        },
+        {
+          "ids": [
+            "cleanse",
+            "ward",
+            "thrust"
+          ],
+          "margin": 3938,
+          "damage": 783,
+          "remaining": 0,
+          "backline": 3938
+        },
+        {
+          "ids": [
+            "phalanx",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 3873,
+          "damage": 799,
+          "remaining": 0,
+          "backline": 3873
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 3676,
+          "damage": 698,
+          "remaining": 35,
+          "backline": 3641
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 3676,
+          "damage": 779,
+          "remaining": 0,
+          "backline": 3676
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "ward"
+          ],
+          "margin": 3659,
+          "damage": 789,
+          "remaining": 16,
+          "backline": 3643
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "cleanse"
+          ],
+          "margin": 3497,
+          "damage": 726,
+          "remaining": 0,
+          "backline": 3497
+        },
+        {
+          "ids": [
+            "strike",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 3151,
+          "damage": 741,
+          "remaining": 0,
+          "backline": 3151
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "ward"
+          ],
+          "margin": 3062,
+          "damage": 652,
+          "remaining": 0,
+          "backline": 3062
+        },
+        {
+          "ids": [
+            "phalanx",
+            "ward",
+            "thrust"
+          ],
+          "margin": 3044,
+          "damage": 612,
+          "remaining": 0,
+          "backline": 3044
+        },
+        {
+          "ids": [
+            "doubt",
+            "cleanse",
+            "thrust"
+          ],
+          "margin": 2864,
+          "damage": 667,
+          "remaining": 0,
+          "backline": 2864
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "ward"
+          ],
+          "margin": 2785,
+          "damage": 518,
+          "remaining": 0,
+          "backline": 2785
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "thrust"
+          ],
+          "margin": 2516,
+          "damage": 647,
+          "remaining": 0,
+          "backline": 2516
+        },
+        {
+          "ids": [
+            "strike",
+            "ward",
+            "thrust"
+          ],
+          "margin": 2503,
+          "damage": 618,
+          "remaining": 0,
+          "backline": 2503
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "cleanse"
+          ],
+          "margin": 2351,
+          "damage": 651,
+          "remaining": 0,
+          "backline": 2443
+        },
+        {
+          "ids": [
+            "strike",
+            "phalanx",
+            "doubt"
+          ],
+          "margin": 2182,
+          "damage": 529,
+          "remaining": 0,
+          "backline": 2182
+        },
+        {
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "margin": 2084,
+          "damage": 568,
+          "remaining": 0,
+          "backline": 2084
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "ward"
+          ],
+          "margin": 1916,
+          "damage": 649,
+          "remaining": 0,
+          "backline": 2107
+        },
+        {
+          "ids": [
+            "phalanx",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 1296,
+          "damage": 476,
+          "remaining": 0,
+          "backline": 1601
+        },
+        {
+          "ids": [
+            "strike",
+            "doubt",
+            "thrust"
+          ],
+          "margin": 848,
+          "damage": 596,
+          "remaining": 0,
+          "backline": 1219
+        }
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "force",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "gallop"
+          ],
+          "margin": 2904,
+          "damage": 520,
+          "remaining": 0,
+          "backline": 2904
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "gallop"
+          ],
+          "margin": 2825,
+          "damage": 471,
+          "remaining": 0,
+          "backline": 2825
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "gallop"
+          ],
+          "margin": 2799,
+          "damage": 436,
+          "remaining": 0,
+          "backline": 2799
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "margin": 2536,
+          "damage": 511,
+          "remaining": 0,
+          "backline": 2536
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "harass"
+          ],
+          "margin": 2376,
+          "damage": 347,
+          "remaining": 0,
+          "backline": 2376
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "gallop"
+          ],
+          "margin": 2325,
+          "damage": 404,
+          "remaining": 0,
+          "backline": 2365
+        },
+        {
+          "ids": [
+            "relay",
+            "harass",
+            "gallop"
+          ],
+          "margin": 2239,
+          "damage": 334,
+          "remaining": 0,
+          "backline": 2327
+        },
+        {
+          "ids": [
+            "lure",
+            "harass",
+            "gallop"
+          ],
+          "margin": 2229,
+          "damage": 336,
+          "remaining": 0,
+          "backline": 2341
+        },
+        {
+          "ids": [
+            "rush",
+            "harass",
+            "gallop"
+          ],
+          "margin": 2228,
+          "damage": 388,
+          "remaining": 0,
+          "backline": 2308
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "gallop"
+          ],
+          "margin": 2171,
+          "damage": 477,
+          "remaining": 0,
+          "backline": 2216
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "harass"
+          ],
+          "margin": 2083,
+          "damage": 331,
+          "remaining": 0,
+          "backline": 2103
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "relay"
+          ],
+          "margin": 1749,
+          "damage": 308,
+          "remaining": 0,
+          "backline": 1909
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "harass"
+          ],
+          "margin": 1464,
+          "damage": 255,
+          "remaining": 0,
+          "backline": 1638
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "harass"
+          ],
+          "margin": 1100,
+          "damage": 298,
+          "remaining": 0,
+          "backline": 1372
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "relay"
+          ],
+          "margin": 998,
+          "damage": 282,
+          "remaining": 0,
+          "backline": 1437
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "relay"
+          ],
+          "margin": 884,
+          "damage": 284,
+          "remaining": 0,
+          "backline": 1207
+        },
+        {
+          "ids": [
+            "valor",
+            "harass",
+            "gallop"
+          ],
+          "margin": 868,
+          "damage": 327,
+          "remaining": 0,
+          "backline": 1209
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "lure"
+          ],
+          "margin": 790,
+          "damage": 266,
+          "remaining": 0,
+          "backline": 1197
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "harass"
+          ],
+          "margin": 659,
+          "damage": 249,
+          "remaining": 0,
+          "backline": 1092
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "harass"
+          ],
+          "margin": 151,
+          "damage": 242,
+          "remaining": 0,
+          "backline": 1004
+        }
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "force",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "rush",
+            "harass",
+            "gallop"
+          ],
+          "margin": -1600,
+          "damage": 3056,
+          "remaining": 478,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "gallop"
+          ],
+          "margin": -2006,
+          "damage": 1970,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "gallop"
+          ],
+          "margin": -2099,
+          "damage": 2061,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "gallop"
+          ],
+          "margin": -2136,
+          "damage": 2041,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "gallop"
+          ],
+          "margin": -2200,
+          "damage": 2906,
+          "remaining": 149,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "relay"
+          ],
+          "margin": -2346,
+          "damage": 1480,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "margin": -2509,
+          "damage": 3037,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "harass",
+            "gallop"
+          ],
+          "margin": -2563,
+          "damage": 2133,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "lure",
+            "harass",
+            "gallop"
+          ],
+          "margin": -2623,
+          "damage": 2001,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "gallop"
+          ],
+          "margin": -2627,
+          "damage": 2846,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "harass"
+          ],
+          "margin": -2630,
+          "damage": 1398,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "relay",
+            "harass",
+            "gallop"
+          ],
+          "margin": -2633,
+          "damage": 1962,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "harass"
+          ],
+          "margin": -2759,
+          "damage": 2637,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "harass"
+          ],
+          "margin": -2814,
+          "damage": 2502,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "harass"
+          ],
+          "margin": -2814,
+          "damage": 1424,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "lure"
+          ],
+          "margin": -2828,
+          "damage": 2930,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "relay"
+          ],
+          "margin": -2947,
+          "damage": 2619,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "relay"
+          ],
+          "margin": -2958,
+          "damage": 2659,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "harass"
+          ],
+          "margin": -3097,
+          "damage": 1487,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "harass"
+          ],
+          "margin": -3152,
+          "damage": 2636,
+          "remaining": 0,
+          "backline": 0
+        }
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "force",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "rush",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4778,
+          "damage": 2293,
+          "remaining": 439,
+          "backline": 4339
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "gallop"
+          ],
+          "margin": 4738,
+          "damage": 2162,
+          "remaining": 117,
+          "backline": 4621
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "margin": 4706,
+          "damage": 2301,
+          "remaining": 196,
+          "backline": 4510
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "gallop"
+          ],
+          "margin": 4576,
+          "damage": 2280,
+          "remaining": 653,
+          "backline": 3923
+        },
+        {
+          "ids": [
+            "valor",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4489,
+          "damage": 1524,
+          "remaining": 35,
+          "backline": 4455
+        },
+        {
+          "ids": [
+            "lure",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4434,
+          "damage": 969,
+          "remaining": 0,
+          "backline": 4434
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "gallop"
+          ],
+          "margin": 4405,
+          "damage": 1015,
+          "remaining": 0,
+          "backline": 4405
+        },
+        {
+          "ids": [
+            "relay",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4362,
+          "damage": 1368,
+          "remaining": 12,
+          "backline": 4350
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "gallop"
+          ],
+          "margin": 4331,
+          "damage": 1411,
+          "remaining": 0,
+          "backline": 4331
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "gallop"
+          ],
+          "margin": 4238,
+          "damage": 928,
+          "remaining": 0,
+          "backline": 4238
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "harass"
+          ],
+          "margin": 4052,
+          "damage": 1372,
+          "remaining": 117,
+          "backline": 3935
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "harass"
+          ],
+          "margin": 4020,
+          "damage": 1305,
+          "remaining": 141,
+          "backline": 3879
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "harass"
+          ],
+          "margin": 4007,
+          "damage": 1747,
+          "remaining": 55,
+          "backline": 3952
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "harass"
+          ],
+          "margin": 3984,
+          "damage": 1610,
+          "remaining": 29,
+          "backline": 3954
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "harass"
+          ],
+          "margin": 3961,
+          "damage": 1654,
+          "remaining": 156,
+          "backline": 3805
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "lure"
+          ],
+          "margin": 3954,
+          "damage": 1658,
+          "remaining": 162,
+          "backline": 3792
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "relay"
+          ],
+          "margin": 3924,
+          "damage": 1558,
+          "remaining": 149,
+          "backline": 3775
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "harass"
+          ],
+          "margin": 3698,
+          "damage": 1184,
+          "remaining": 0,
+          "backline": 3698
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "relay"
+          ],
+          "margin": 3557,
+          "damage": 1660,
+          "remaining": 111,
+          "backline": 3446
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "relay"
+          ],
+          "margin": 3200,
+          "damage": 1000,
+          "remaining": 0,
+          "backline": 3200
+        }
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "intellect",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "gallop"
+          ],
+          "margin": 2941,
+          "damage": 474,
+          "remaining": 0,
+          "backline": 2941
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "gallop"
+          ],
+          "margin": 2799,
+          "damage": 436,
+          "remaining": 0,
+          "backline": 2799
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "gallop"
+          ],
+          "margin": 2798,
+          "damage": 427,
+          "remaining": 0,
+          "backline": 2798
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "margin": 2352,
+          "damage": 454,
+          "remaining": 0,
+          "backline": 2352
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "gallop"
+          ],
+          "margin": 2325,
+          "damage": 404,
+          "remaining": 0,
+          "backline": 2365
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "harass"
+          ],
+          "margin": 2276,
+          "damage": 306,
+          "remaining": 0,
+          "backline": 2276
+        },
+        {
+          "ids": [
+            "relay",
+            "harass",
+            "gallop"
+          ],
+          "margin": 2239,
+          "damage": 334,
+          "remaining": 0,
+          "backline": 2327
+        },
+        {
+          "ids": [
+            "lure",
+            "harass",
+            "gallop"
+          ],
+          "margin": 2229,
+          "damage": 336,
+          "remaining": 0,
+          "backline": 2341
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "gallop"
+          ],
+          "margin": 2171,
+          "damage": 477,
+          "remaining": 0,
+          "backline": 2216
+        },
+        {
+          "ids": [
+            "rush",
+            "harass",
+            "gallop"
+          ],
+          "margin": 2111,
+          "damage": 344,
+          "remaining": 0,
+          "backline": 2196
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "harass"
+          ],
+          "margin": 2038,
+          "damage": 293,
+          "remaining": 0,
+          "backline": 2064
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "relay"
+          ],
+          "margin": 1702,
+          "damage": 269,
+          "remaining": 0,
+          "backline": 1888
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "harass"
+          ],
+          "margin": 1464,
+          "damage": 255,
+          "remaining": 0,
+          "backline": 1638
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "relay"
+          ],
+          "margin": 998,
+          "damage": 282,
+          "remaining": 0,
+          "backline": 1437
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "harass"
+          ],
+          "margin": 991,
+          "damage": 263,
+          "remaining": 0,
+          "backline": 1292
+        },
+        {
+          "ids": [
+            "valor",
+            "harass",
+            "gallop"
+          ],
+          "margin": 868,
+          "damage": 327,
+          "remaining": 0,
+          "backline": 1209
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "relay"
+          ],
+          "margin": 794,
+          "damage": 247,
+          "remaining": 0,
+          "backline": 1146
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "lure"
+          ],
+          "margin": 686,
+          "damage": 229,
+          "remaining": 0,
+          "backline": 1129
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "harass"
+          ],
+          "margin": 659,
+          "damage": 249,
+          "remaining": 0,
+          "backline": 1092
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "harass"
+          ],
+          "margin": 151,
+          "damage": 242,
+          "remaining": 0,
+          "backline": 1004
+        }
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "intellect",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "rush",
+            "harass",
+            "gallop"
+          ],
+          "margin": -1870,
+          "damage": 2847,
+          "remaining": 445,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "gallop"
+          ],
+          "margin": -2006,
+          "damage": 1970,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "gallop"
+          ],
+          "margin": -2099,
+          "damage": 2061,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "gallop"
+          ],
+          "margin": -2136,
+          "damage": 2041,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "relay"
+          ],
+          "margin": -2346,
+          "damage": 1480,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "gallop"
+          ],
+          "margin": -2372,
+          "damage": 2797,
+          "remaining": 116,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "harass",
+            "gallop"
+          ],
+          "margin": -2563,
+          "damage": 2133,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "lure",
+            "harass",
+            "gallop"
+          ],
+          "margin": -2627,
+          "damage": 2001,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "harass"
+          ],
+          "margin": -2630,
+          "damage": 1398,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "relay",
+            "harass",
+            "gallop"
+          ],
+          "margin": -2633,
+          "damage": 1962,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "margin": -2787,
+          "damage": 2796,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "harass"
+          ],
+          "margin": -2814,
+          "damage": 1424,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "gallop"
+          ],
+          "margin": -2952,
+          "damage": 2551,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "harass"
+          ],
+          "margin": -3091,
+          "damage": 2289,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "harass"
+          ],
+          "margin": -3097,
+          "damage": 1487,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "harass"
+          ],
+          "margin": -3116,
+          "damage": 2350,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "lure"
+          ],
+          "margin": -3202,
+          "damage": 2602,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "relay"
+          ],
+          "margin": -3227,
+          "damage": 2441,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "relay"
+          ],
+          "margin": -3258,
+          "damage": 2342,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "harass"
+          ],
+          "margin": -3446,
+          "damage": 2377,
+          "remaining": 0,
+          "backline": 0
+        }
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "intellect",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "rush",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4585,
+          "damage": 2137,
+          "remaining": 443,
+          "backline": 4142
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "margin": 4580,
+          "damage": 2248,
+          "remaining": 390,
+          "backline": 4191
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "gallop"
+          ],
+          "margin": 4553,
+          "damage": 2140,
+          "remaining": 438,
+          "backline": 4114
+        },
+        {
+          "ids": [
+            "valor",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4489,
+          "damage": 1524,
+          "remaining": 35,
+          "backline": 4455
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "gallop"
+          ],
+          "margin": 4485,
+          "damage": 2180,
+          "remaining": 609,
+          "backline": 3876
+        },
+        {
+          "ids": [
+            "lure",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4434,
+          "damage": 969,
+          "remaining": 0,
+          "backline": 4434
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "gallop"
+          ],
+          "margin": 4405,
+          "damage": 1015,
+          "remaining": 0,
+          "backline": 4405
+        },
+        {
+          "ids": [
+            "relay",
+            "harass",
+            "gallop"
+          ],
+          "margin": 4362,
+          "damage": 1368,
+          "remaining": 12,
+          "backline": 4350
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "gallop"
+          ],
+          "margin": 4331,
+          "damage": 1411,
+          "remaining": 0,
+          "backline": 4331
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "gallop"
+          ],
+          "margin": 4238,
+          "damage": 928,
+          "remaining": 0,
+          "backline": 4238
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "harass"
+          ],
+          "margin": 4052,
+          "damage": 1372,
+          "remaining": 117,
+          "backline": 3935
+        },
+        {
+          "ids": [
+            "lure",
+            "relay",
+            "harass"
+          ],
+          "margin": 4020,
+          "damage": 1305,
+          "remaining": 141,
+          "backline": 3879
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "harass"
+          ],
+          "margin": 3885,
+          "damage": 1550,
+          "remaining": 31,
+          "backline": 3854
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "lure"
+          ],
+          "margin": 3849,
+          "damage": 1525,
+          "remaining": 125,
+          "backline": 3724
+        },
+        {
+          "ids": [
+            "rush",
+            "relay",
+            "harass"
+          ],
+          "margin": 3846,
+          "damage": 1516,
+          "remaining": 35,
+          "backline": 3811
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "harass"
+          ],
+          "margin": 3794,
+          "damage": 1512,
+          "remaining": 121,
+          "backline": 3673
+        },
+        {
+          "ids": [
+            "rush",
+            "lure",
+            "relay"
+          ],
+          "margin": 3757,
+          "damage": 1452,
+          "remaining": 129,
+          "backline": 3628
+        },
+        {
+          "ids": [
+            "valor",
+            "relay",
+            "harass"
+          ],
+          "margin": 3698,
+          "damage": 1184,
+          "remaining": 0,
+          "backline": 3698
+        },
+        {
+          "ids": [
+            "valor",
+            "rush",
+            "relay"
+          ],
+          "margin": 3398,
+          "damage": 1476,
+          "remaining": 42,
+          "backline": 3356
+        },
+        {
+          "ids": [
+            "valor",
+            "lure",
+            "relay"
+          ],
+          "margin": 3200,
+          "damage": 1000,
+          "remaining": 0,
+          "backline": 3200
+        }
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "force",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "fire"
+          ],
+          "margin": 5007,
+          "damage": 2247,
+          "remaining": 926,
+          "backline": 4081
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "suppress"
+          ],
+          "margin": 4977,
+          "damage": 2377,
+          "remaining": 937,
+          "backline": 4040
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "margin": 4951,
+          "damage": 2400,
+          "remaining": 724,
+          "backline": 4227
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "suppress"
+          ],
+          "margin": 4897,
+          "damage": 2094,
+          "remaining": 717,
+          "backline": 4180
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "rally"
+          ],
+          "margin": 4894,
+          "damage": 1734,
+          "remaining": 319,
+          "backline": 4575
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "suppress"
+          ],
+          "margin": 4862,
+          "damage": 2181,
+          "remaining": 652,
+          "backline": 4210
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "rally"
+          ],
+          "margin": 4853,
+          "damage": 1886,
+          "remaining": 316,
+          "backline": 4538
+        },
+        {
+          "ids": [
+            "scatter",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4838,
+          "damage": 2109,
+          "remaining": 814,
+          "backline": 4024
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "smoke"
+          ],
+          "margin": 4820,
+          "damage": 2406,
+          "remaining": 918,
+          "backline": 3902
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "suppress"
+          ],
+          "margin": 4804,
+          "damage": 2320,
+          "remaining": 713,
+          "backline": 4091
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 4790,
+          "damage": 2153,
+          "remaining": 666,
+          "backline": 4124
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "rally"
+          ],
+          "margin": 4789,
+          "damage": 2119,
+          "remaining": 399,
+          "backline": 4391
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "rally"
+          ],
+          "margin": 4750,
+          "damage": 1976,
+          "remaining": 631,
+          "backline": 4119
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "rally"
+          ],
+          "margin": 4738,
+          "damage": 2053,
+          "remaining": 1011,
+          "backline": 3727
+        },
+        {
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4691,
+          "damage": 1949,
+          "remaining": 658,
+          "backline": 4033
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "fire"
+          ],
+          "margin": 4676,
+          "damage": 1796,
+          "remaining": 578,
+          "backline": 4098
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 4610,
+          "damage": 2066,
+          "remaining": 797,
+          "backline": 3813
+        },
+        {
+          "ids": [
+            "wildfire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4579,
+          "damage": 1777,
+          "remaining": 658,
+          "backline": 3921
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "rally"
+          ],
+          "margin": 4517,
+          "damage": 1599,
+          "remaining": 322,
+          "backline": 4195
+        },
+        {
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4289,
+          "damage": 1615,
+          "remaining": 343,
+          "backline": 3946
+        }
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "force",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "fire"
+          ],
+          "margin": -1918,
+          "damage": 1929,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "margin": -2107,
+          "damage": 2020,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "smoke"
+          ],
+          "margin": -2196,
+          "damage": 1890,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "fire"
+          ],
+          "margin": -2298,
+          "damage": 1987,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "suppress"
+          ],
+          "margin": -2482,
+          "damage": 1730,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "rally"
+          ],
+          "margin": -2487,
+          "damage": 1736,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "suppress"
+          ],
+          "margin": -2526,
+          "damage": 1703,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "suppress"
+          ],
+          "margin": -2590,
+          "damage": 1960,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "suppress"
+          ],
+          "margin": -2646,
+          "damage": 1908,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "suppress"
+          ],
+          "margin": -2656,
+          "damage": 1824,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "rally"
+          ],
+          "margin": -2659,
+          "damage": 1897,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "rally"
+          ],
+          "margin": -2768,
+          "damage": 1621,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "rally"
+          ],
+          "margin": -2912,
+          "damage": 1761,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "suppress"
+          ],
+          "margin": -2937,
+          "damage": 1863,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "margin": -2945,
+          "damage": 1550,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "rally"
+          ],
+          "margin": -2976,
+          "damage": 1823,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "suppress",
+            "rally"
+          ],
+          "margin": -3010,
+          "damage": 1668,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "rally"
+          ],
+          "margin": -3111,
+          "damage": 1749,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "suppress",
+            "rally"
+          ],
+          "margin": -3198,
+          "damage": 1807,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "margin": -3516,
+          "damage": 1637,
+          "remaining": 0,
+          "backline": 0
+        }
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "force",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "margin": 2942,
+          "damage": 1137,
+          "remaining": 0,
+          "backline": 2942
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "suppress"
+          ],
+          "margin": 2931,
+          "damage": 1571,
+          "remaining": 103,
+          "backline": 2828
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "fire"
+          ],
+          "margin": 2928,
+          "damage": 1745,
+          "remaining": 4,
+          "backline": 2924
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "rally"
+          ],
+          "margin": 2880,
+          "damage": 1068,
+          "remaining": 0,
+          "backline": 2880
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "fire"
+          ],
+          "margin": 2845,
+          "damage": 1675,
+          "remaining": 33,
+          "backline": 2812
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "rally"
+          ],
+          "margin": 2838,
+          "damage": 1302,
+          "remaining": 0,
+          "backline": 2871
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "suppress"
+          ],
+          "margin": 2804,
+          "damage": 1154,
+          "remaining": 0,
+          "backline": 2804
+        },
+        {
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2782,
+          "damage": 1031,
+          "remaining": 0,
+          "backline": 2782
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "rally"
+          ],
+          "margin": 2779,
+          "damage": 1031,
+          "remaining": 0,
+          "backline": 2779
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "suppress"
+          ],
+          "margin": 2775,
+          "damage": 1161,
+          "remaining": 0,
+          "backline": 2775
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "rally"
+          ],
+          "margin": 2749,
+          "damage": 1144,
+          "remaining": 0,
+          "backline": 2749
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "rally"
+          ],
+          "margin": 2742,
+          "damage": 1145,
+          "remaining": 18,
+          "backline": 2724
+        },
+        {
+          "ids": [
+            "scatter",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2683,
+          "damage": 995,
+          "remaining": 0,
+          "backline": 2683
+        },
+        {
+          "ids": [
+            "wildfire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2642,
+          "damage": 957,
+          "remaining": 0,
+          "backline": 2642
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "suppress"
+          ],
+          "margin": 2565,
+          "damage": 1058,
+          "remaining": 0,
+          "backline": 2565
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "rally"
+          ],
+          "margin": 2476,
+          "damage": 962,
+          "remaining": 0,
+          "backline": 2476
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 2428,
+          "damage": 1530,
+          "remaining": 0,
+          "backline": 2428
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 2395,
+          "damage": 1274,
+          "remaining": 0,
+          "backline": 2469
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "smoke"
+          ],
+          "margin": 2195,
+          "damage": 1142,
+          "remaining": 0,
+          "backline": 2218
+        },
+        {
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2130,
+          "damage": 1272,
+          "remaining": 0,
+          "backline": 2284
+        }
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "intellect",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "rally"
+          ],
+          "margin": 5137,
+          "damage": 2459,
+          "remaining": 1050,
+          "backline": 4087
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "rally"
+          ],
+          "margin": 5059,
+          "damage": 2262,
+          "remaining": 981,
+          "backline": 4078
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "suppress"
+          ],
+          "margin": 4987,
+          "damage": 2219,
+          "remaining": 802,
+          "backline": 4184
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "rally"
+          ],
+          "margin": 4913,
+          "damage": 2160,
+          "remaining": 733,
+          "backline": 4180
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "smoke"
+          ],
+          "margin": 4903,
+          "damage": 2404,
+          "remaining": 934,
+          "backline": 3969
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "margin": 4877,
+          "damage": 2317,
+          "remaining": 759,
+          "backline": 4118
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "suppress"
+          ],
+          "margin": 4812,
+          "damage": 2273,
+          "remaining": 748,
+          "backline": 4065
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "fire"
+          ],
+          "margin": 4774,
+          "damage": 1944,
+          "remaining": 954,
+          "backline": 3820
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "fire"
+          ],
+          "margin": 4770,
+          "damage": 1875,
+          "remaining": 614,
+          "backline": 4157
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "suppress"
+          ],
+          "margin": 4736,
+          "damage": 1841,
+          "remaining": 606,
+          "backline": 4130
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "rally"
+          ],
+          "margin": 4725,
+          "damage": 1940,
+          "remaining": 802,
+          "backline": 3923
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 4723,
+          "damage": 1984,
+          "remaining": 651,
+          "backline": 4072
+        },
+        {
+          "ids": [
+            "wildfire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4704,
+          "damage": 2035,
+          "remaining": 611,
+          "backline": 4093
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "rally"
+          ],
+          "margin": 4697,
+          "damage": 1876,
+          "remaining": 1000,
+          "backline": 3697
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "rally"
+          ],
+          "margin": 4621,
+          "damage": 2017,
+          "remaining": 737,
+          "backline": 3884
+        },
+        {
+          "ids": [
+            "scatter",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4608,
+          "damage": 1908,
+          "remaining": 635,
+          "backline": 3973
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "suppress"
+          ],
+          "margin": 4578,
+          "damage": 1750,
+          "remaining": 492,
+          "backline": 4086
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 4549,
+          "damage": 1898,
+          "remaining": 618,
+          "backline": 3932
+        },
+        {
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4539,
+          "damage": 1846,
+          "remaining": 769,
+          "backline": 3770
+        },
+        {
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "margin": 4426,
+          "damage": 1492,
+          "remaining": 232,
+          "backline": 4194
+        }
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "intellect",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "fire"
+          ],
+          "margin": -1251,
+          "damage": 2194,
+          "remaining": 29,
+          "backline": 42
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "rally"
+          ],
+          "margin": -1971,
+          "damage": 1519,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "margin": -2054,
+          "damage": 1909,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "suppress"
+          ],
+          "margin": -2079,
+          "damage": 1990,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "smoke"
+          ],
+          "margin": -2117,
+          "damage": 1935,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "rally"
+          ],
+          "margin": -2161,
+          "damage": 1827,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "suppress"
+          ],
+          "margin": -2299,
+          "damage": 1720,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "suppress"
+          ],
+          "margin": -2537,
+          "damage": 1393,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "suppress"
+          ],
+          "margin": -2553,
+          "damage": 1851,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "fire"
+          ],
+          "margin": -2624,
+          "damage": 1718,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "suppress",
+            "rally"
+          ],
+          "margin": -2687,
+          "damage": 1766,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "rally"
+          ],
+          "margin": -2707,
+          "damage": 1554,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "rally"
+          ],
+          "margin": -2915,
+          "damage": 1743,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "rally"
+          ],
+          "margin": -3057,
+          "damage": 1609,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "rally"
+          ],
+          "margin": -3076,
+          "damage": 1555,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "suppress"
+          ],
+          "margin": -3150,
+          "damage": 1545,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "suppress"
+          ],
+          "margin": -3178,
+          "damage": 1655,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "margin": -3215,
+          "damage": 1359,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "margin": -3372,
+          "damage": 1466,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "scatter",
+            "suppress",
+            "rally"
+          ],
+          "margin": -3539,
+          "damage": 1549,
+          "remaining": 0,
+          "backline": 0
+        }
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "intellect",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "rally"
+          ],
+          "margin": 3156,
+          "damage": 1119,
+          "remaining": 0,
+          "backline": 3156
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "rally"
+          ],
+          "margin": 3106,
+          "damage": 1281,
+          "remaining": 98,
+          "backline": 3008
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "rally"
+          ],
+          "margin": 3016,
+          "damage": 1033,
+          "remaining": 0,
+          "backline": 3016
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "rally"
+          ],
+          "margin": 2946,
+          "damage": 969,
+          "remaining": 0,
+          "backline": 2946
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "rally"
+          ],
+          "margin": 2914,
+          "damage": 941,
+          "remaining": 0,
+          "backline": 2914
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "rally"
+          ],
+          "margin": 2889,
+          "damage": 991,
+          "remaining": 0,
+          "backline": 2889
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "fire"
+          ],
+          "margin": 2872,
+          "damage": 1576,
+          "remaining": 0,
+          "backline": 2888
+        },
+        {
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2855,
+          "damage": 1463,
+          "remaining": 60,
+          "backline": 2796
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "fire"
+          ],
+          "margin": 2814,
+          "damage": 1405,
+          "remaining": 0,
+          "backline": 2844
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "margin": 2763,
+          "damage": 1067,
+          "remaining": 0,
+          "backline": 2763
+        },
+        {
+          "ids": [
+            "smoke",
+            "fire",
+            "suppress"
+          ],
+          "margin": 2703,
+          "damage": 1353,
+          "remaining": 3,
+          "backline": 2700
+        },
+        {
+          "ids": [
+            "wildfire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2687,
+          "damage": 965,
+          "remaining": 0,
+          "backline": 2687
+        },
+        {
+          "ids": [
+            "wildfire",
+            "fire",
+            "suppress"
+          ],
+          "margin": 2646,
+          "damage": 1076,
+          "remaining": 0,
+          "backline": 2646
+        },
+        {
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2640,
+          "damage": 919,
+          "remaining": 0,
+          "backline": 2640
+        },
+        {
+          "ids": [
+            "scatter",
+            "suppress",
+            "rally"
+          ],
+          "margin": 2607,
+          "damage": 899,
+          "remaining": 0,
+          "backline": 2607
+        },
+        {
+          "ids": [
+            "scatter",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 2542,
+          "damage": 1146,
+          "remaining": 0,
+          "backline": 2558
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "suppress"
+          ],
+          "margin": 2532,
+          "damage": 1005,
+          "remaining": 0,
+          "backline": 2532
+        },
+        {
+          "ids": [
+            "scatter",
+            "fire",
+            "suppress"
+          ],
+          "margin": 2440,
+          "damage": 958,
+          "remaining": 0,
+          "backline": 2440
+        },
+        {
+          "ids": [
+            "wildfire",
+            "smoke",
+            "suppress"
+          ],
+          "margin": 2274,
+          "damage": 1227,
+          "remaining": 0,
+          "backline": 2366
+        },
+        {
+          "ids": [
+            "wildfire",
+            "scatter",
+            "smoke"
+          ],
+          "margin": 2125,
+          "damage": 1150,
+          "remaining": 0,
+          "backline": 2148
+        }
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "force",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "pierce"
+          ],
+          "margin": 5746,
+          "damage": 2329,
+          "remaining": 1665,
+          "backline": 4081
+        },
+        {
+          "ids": [
+            "screen",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 5682,
+          "damage": 1693,
+          "remaining": 1088,
+          "backline": 4594
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "screen"
+          ],
+          "margin": 5580,
+          "damage": 2512,
+          "remaining": 1750,
+          "backline": 3829
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "ambush"
+          ],
+          "margin": 5528,
+          "damage": 2208,
+          "remaining": 1767,
+          "backline": 3761
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "screen"
+          ],
+          "margin": 5517,
+          "damage": 2060,
+          "remaining": 1465,
+          "backline": 4052
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "pierce"
+          ],
+          "margin": 5376,
+          "damage": 2147,
+          "remaining": 1595,
+          "backline": 3782
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "ambush"
+          ],
+          "margin": 5335,
+          "damage": 2115,
+          "remaining": 1852,
+          "backline": 3484
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "ambush"
+          ],
+          "margin": 5332,
+          "damage": 1453,
+          "remaining": 933,
+          "backline": 4399
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "pierce"
+          ],
+          "margin": 5294,
+          "damage": 1762,
+          "remaining": 1255,
+          "backline": 4040
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "screen"
+          ],
+          "margin": 5118,
+          "damage": 2115,
+          "remaining": 1971,
+          "backline": 3147
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 4770,
+          "damage": 2592,
+          "remaining": 1309,
+          "backline": 3461
+        },
+        {
+          "ids": [
+            "repeat",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 4666,
+          "damage": 1854,
+          "remaining": 716,
+          "backline": 3950
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "repeat"
+          ],
+          "margin": 4631,
+          "damage": 2460,
+          "remaining": 1572,
+          "backline": 3059
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 4581,
+          "damage": 1703,
+          "remaining": 433,
+          "backline": 4147
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 4550,
+          "damage": 2258,
+          "remaining": 1418,
+          "backline": 3132
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 4522,
+          "damage": 2801,
+          "remaining": 1793,
+          "backline": 2729
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 4465,
+          "damage": 1845,
+          "remaining": 840,
+          "backline": 3625
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "pierce"
+          ],
+          "margin": 4273,
+          "damage": 2356,
+          "remaining": 1223,
+          "backline": 3050
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "ambush"
+          ],
+          "margin": 4150,
+          "damage": 2301,
+          "remaining": 1346,
+          "backline": 2804
+        },
+        {
+          "ids": [
+            "seal",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 4137,
+          "damage": 2033,
+          "remaining": 1339,
+          "backline": 2799
+        }
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "force",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "pierce"
+          ],
+          "margin": -1239,
+          "damage": 1703,
+          "remaining": 7,
+          "backline": 374
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "ambush"
+          ],
+          "margin": -1362,
+          "damage": 1675,
+          "remaining": 49,
+          "backline": 355
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "pierce"
+          ],
+          "margin": -2611,
+          "damage": 2073,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "ambush"
+          ],
+          "margin": -2912,
+          "damage": 1867,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "pierce"
+          ],
+          "margin": -2926,
+          "damage": 1341,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "screen"
+          ],
+          "margin": -3021,
+          "damage": 2013,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "screen",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3134,
+          "damage": 1557,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "ambush"
+          ],
+          "margin": -3146,
+          "damage": 1317,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "pierce"
+          ],
+          "margin": -3308,
+          "damage": 1526,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "repeat",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3386,
+          "damage": 1397,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "ambush"
+          ],
+          "margin": -3392,
+          "damage": 1511,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "screen"
+          ],
+          "margin": -3472,
+          "damage": 1611,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "pierce"
+          ],
+          "margin": -3526,
+          "damage": 1294,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3542,
+          "damage": 1354,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "pierce"
+          ],
+          "margin": -3705,
+          "damage": 1141,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "ambush"
+          ],
+          "margin": -3729,
+          "damage": 1232,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "screen"
+          ],
+          "margin": -3729,
+          "damage": 1481,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3831,
+          "damage": 1057,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "repeat"
+          ],
+          "margin": -3889,
+          "damage": 1365,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "ambush"
+          ],
+          "margin": -3922,
+          "damage": 1098,
+          "remaining": 0,
+          "backline": 0
+        }
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "force",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "pierce"
+          ],
+          "margin": 4051,
+          "damage": 1201,
+          "remaining": 0,
+          "backline": 4051
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "screen"
+          ],
+          "margin": 3769,
+          "damage": 1053,
+          "remaining": 0,
+          "backline": 3769
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "ambush"
+          ],
+          "margin": 3769,
+          "damage": 1053,
+          "remaining": 0,
+          "backline": 3769
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "screen"
+          ],
+          "margin": 3551,
+          "damage": 982,
+          "remaining": 0,
+          "backline": 3551
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "pierce"
+          ],
+          "margin": 3521,
+          "damage": 849,
+          "remaining": 0,
+          "backline": 3521
+        },
+        {
+          "ids": [
+            "screen",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 3521,
+          "damage": 849,
+          "remaining": 0,
+          "backline": 3521
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "pierce"
+          ],
+          "margin": 3383,
+          "damage": 800,
+          "remaining": 0,
+          "backline": 3383
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "screen"
+          ],
+          "margin": 3311,
+          "damage": 695,
+          "remaining": 0,
+          "backline": 3311
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "ambush"
+          ],
+          "margin": 3311,
+          "damage": 695,
+          "remaining": 0,
+          "backline": 3311
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "ambush"
+          ],
+          "margin": 3194,
+          "damage": 718,
+          "remaining": 0,
+          "backline": 3194
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 2698,
+          "damage": 930,
+          "remaining": 0,
+          "backline": 2698
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 2476,
+          "damage": 932,
+          "remaining": 0,
+          "backline": 2476
+        },
+        {
+          "ids": [
+            "repeat",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 2476,
+          "damage": 932,
+          "remaining": 0,
+          "backline": 2476
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "repeat"
+          ],
+          "margin": 2316,
+          "damage": 799,
+          "remaining": 0,
+          "backline": 2316
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 2316,
+          "damage": 799,
+          "remaining": 0,
+          "backline": 2316
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 2266,
+          "damage": 826,
+          "remaining": 0,
+          "backline": 2266
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 2139,
+          "damage": 674,
+          "remaining": 0,
+          "backline": 2139
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "pierce"
+          ],
+          "margin": 2130,
+          "damage": 651,
+          "remaining": 0,
+          "backline": 2130
+        },
+        {
+          "ids": [
+            "seal",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 2130,
+          "damage": 651,
+          "remaining": 0,
+          "backline": 2130
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "ambush"
+          ],
+          "margin": 2107,
+          "damage": 558,
+          "remaining": 0,
+          "backline": 2107
+        }
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "intellect",
+      "context": "dense",
+      "rows": [
+        {
+          "ids": [
+            "screen",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 5901,
+          "damage": 1746,
+          "remaining": 1189,
+          "backline": 4712
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "pierce"
+          ],
+          "margin": 5671,
+          "damage": 2009,
+          "remaining": 1792,
+          "backline": 3880
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "ambush"
+          ],
+          "margin": 5639,
+          "damage": 1994,
+          "remaining": 1629,
+          "backline": 4009
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "ambush"
+          ],
+          "margin": 5580,
+          "damage": 1544,
+          "remaining": 869,
+          "backline": 4711
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "screen"
+          ],
+          "margin": 5415,
+          "damage": 1828,
+          "remaining": 1432,
+          "backline": 3983
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "screen"
+          ],
+          "margin": 5399,
+          "damage": 2063,
+          "remaining": 1726,
+          "backline": 3673
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "pierce"
+          ],
+          "margin": 5367,
+          "damage": 1640,
+          "remaining": 1208,
+          "backline": 4159
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "pierce"
+          ],
+          "margin": 5328,
+          "damage": 1891,
+          "remaining": 1476,
+          "backline": 3852
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "ambush"
+          ],
+          "margin": 5319,
+          "damage": 2070,
+          "remaining": 1828,
+          "backline": 3492
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "screen"
+          ],
+          "margin": 5089,
+          "damage": 1992,
+          "remaining": 1962,
+          "backline": 3127
+        },
+        {
+          "ids": [
+            "repeat",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 4501,
+          "damage": 1665,
+          "remaining": 834,
+          "backline": 3666
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 4391,
+          "damage": 1381,
+          "remaining": 305,
+          "backline": 4085
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 4385,
+          "damage": 2194,
+          "remaining": 1399,
+          "backline": 2986
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 4340,
+          "damage": 1704,
+          "remaining": 798,
+          "backline": 3541
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "repeat"
+          ],
+          "margin": 4312,
+          "damage": 2061,
+          "remaining": 1291,
+          "backline": 3022
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 4269,
+          "damage": 2626,
+          "remaining": 1842,
+          "backline": 2427
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 4265,
+          "damage": 2155,
+          "remaining": 1139,
+          "backline": 3125
+        },
+        {
+          "ids": [
+            "seal",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 4131,
+          "damage": 2046,
+          "remaining": 1344,
+          "backline": 2787
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "pierce"
+          ],
+          "margin": 4061,
+          "damage": 2090,
+          "remaining": 962,
+          "backline": 3098
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "ambush"
+          ],
+          "margin": 4050,
+          "damage": 2257,
+          "remaining": 1240,
+          "backline": 2810
+        }
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "intellect",
+      "context": "charge",
+      "rows": [
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "ambush"
+          ],
+          "margin": -1305,
+          "damage": 1673,
+          "remaining": 60,
+          "backline": 393
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "pierce"
+          ],
+          "margin": -1543,
+          "damage": 1527,
+          "remaining": 28,
+          "backline": 284
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "ambush"
+          ],
+          "margin": -2859,
+          "damage": 1531,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "pierce"
+          ],
+          "margin": -2962,
+          "damage": 1323,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "pierce"
+          ],
+          "margin": -2999,
+          "damage": 1761,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "ambush"
+          ],
+          "margin": -3029,
+          "damage": 1802,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "screen",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3063,
+          "damage": 1636,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "screen"
+          ],
+          "margin": -3408,
+          "damage": 1672,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "ambush"
+          ],
+          "margin": -3619,
+          "damage": 1359,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "repeat",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3624,
+          "damage": 1254,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3652,
+          "damage": 1278,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "screen"
+          ],
+          "margin": -3723,
+          "damage": 1469,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "pierce"
+          ],
+          "margin": -3801,
+          "damage": 1181,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "pierce",
+            "ambush"
+          ],
+          "margin": -3813,
+          "damage": 1081,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "ambush"
+          ],
+          "margin": -3838,
+          "damage": 1160,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "pierce"
+          ],
+          "margin": -3845,
+          "damage": 1075,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "screen"
+          ],
+          "margin": -3906,
+          "damage": 1368,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "ambush"
+          ],
+          "margin": -3920,
+          "damage": 1087,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "pierce"
+          ],
+          "margin": -3941,
+          "damage": 985,
+          "remaining": 0,
+          "backline": 0
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "repeat"
+          ],
+          "margin": -4174,
+          "damage": 1153,
+          "remaining": 0,
+          "backline": 0
+        }
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "intellect",
+      "context": "ranged",
+      "rows": [
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "pierce"
+          ],
+          "margin": 4024,
+          "damage": 1013,
+          "remaining": 0,
+          "backline": 4024
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "screen"
+          ],
+          "margin": 3727,
+          "damage": 927,
+          "remaining": 0,
+          "backline": 3727
+        },
+        {
+          "ids": [
+            "repeat",
+            "screen",
+            "ambush"
+          ],
+          "margin": 3727,
+          "damage": 927,
+          "remaining": 0,
+          "backline": 3727
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "pierce"
+          ],
+          "margin": 3720,
+          "damage": 835,
+          "remaining": 0,
+          "backline": 3720
+        },
+        {
+          "ids": [
+            "screen",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 3720,
+          "damage": 835,
+          "remaining": 0,
+          "backline": 3720
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "pierce"
+          ],
+          "margin": 3604,
+          "damage": 786,
+          "remaining": 0,
+          "backline": 3604
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "screen"
+          ],
+          "margin": 3556,
+          "damage": 735,
+          "remaining": 0,
+          "backline": 3556
+        },
+        {
+          "ids": [
+            "seal",
+            "screen",
+            "ambush"
+          ],
+          "margin": 3556,
+          "damage": 735,
+          "remaining": 0,
+          "backline": 3556
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "screen"
+          ],
+          "margin": 3507,
+          "damage": 852,
+          "remaining": 0,
+          "backline": 3507
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "screen",
+            "ambush"
+          ],
+          "margin": 3425,
+          "damage": 751,
+          "remaining": 0,
+          "backline": 3425
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 2338,
+          "damage": 747,
+          "remaining": 0,
+          "backline": 2338
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "pierce"
+          ],
+          "margin": 2331,
+          "damage": 749,
+          "remaining": 0,
+          "backline": 2331
+        },
+        {
+          "ids": [
+            "repeat",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 2331,
+          "damage": 749,
+          "remaining": 0,
+          "backline": 2331
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "ambush"
+          ],
+          "margin": 2107,
+          "damage": 558,
+          "remaining": 0,
+          "backline": 2107
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "pierce"
+          ],
+          "margin": 2077,
+          "damage": 601,
+          "remaining": 0,
+          "backline": 2077
+        },
+        {
+          "ids": [
+            "seal",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 2077,
+          "damage": 601,
+          "remaining": 0,
+          "backline": 2077
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "ambush"
+          ],
+          "margin": 2071,
+          "damage": 625,
+          "remaining": 0,
+          "backline": 2071
+        },
+        {
+          "ids": [
+            "retreatShot",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 2067,
+          "damage": 690,
+          "remaining": 0,
+          "backline": 2067
+        },
+        {
+          "ids": [
+            "seal",
+            "retreatShot",
+            "repeat"
+          ],
+          "margin": 2061,
+          "damage": 663,
+          "remaining": 0,
+          "backline": 2061
+        },
+        {
+          "ids": [
+            "seal",
+            "repeat",
+            "ambush"
+          ],
+          "margin": 2061,
+          "damage": 663,
+          "remaining": 0,
+          "backline": 2061
+        }
+      ]
+    }
+  ],
+  "guan": [
+    {
+      "context": "dense",
+      "role": "assault",
+      "margin": 2503,
+      "damage": 558,
+      "remaining": 0,
+      "backline": 2503
+    },
+    {
+      "context": "dense",
+      "role": "guard",
+      "margin": 2537,
+      "damage": 372,
+      "remaining": 0,
+      "backline": 2550
+    },
+    {
+      "context": "dense",
+      "role": "control",
+      "margin": 1615,
+      "damage": 284,
+      "remaining": 0,
+      "backline": 1861
+    },
+    {
+      "context": "charge",
+      "role": "assault",
+      "margin": -2122,
+      "damage": 3408,
+      "remaining": 0,
+      "backline": 0
+    },
+    {
+      "context": "charge",
+      "role": "guard",
+      "margin": -2295,
+      "damage": 2217,
+      "remaining": 38,
+      "backline": 0
+    },
+    {
+      "context": "charge",
+      "role": "control",
+      "margin": -2422,
+      "damage": 1551,
+      "remaining": 0,
+      "backline": 0
+    },
+    {
+      "context": "ranged",
+      "role": "assault",
+      "margin": 4898,
+      "damage": 2511,
+      "remaining": 382,
+      "backline": 4516
+    },
+    {
+      "context": "ranged",
+      "role": "guard",
+      "margin": 4647,
+      "damage": 1572,
+      "remaining": 91,
+      "backline": 4556
+    },
+    {
+      "context": "ranged",
+      "role": "control",
+      "margin": 4211,
+      "damage": 1439,
+      "remaining": 212,
+      "backline": 3999
+    }
+  ]
+}

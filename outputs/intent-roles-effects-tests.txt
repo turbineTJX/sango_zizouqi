@@ -1,0 +1,35 @@
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (2.3596ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.4907ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.4927ms)
+✔ legacy windup events never display a preparation animation or log row (0.3964ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (1.0031ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (2.6088ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.7079ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (5.1101ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (1.0632ms)
+✔ clear mode merges same-step damage per target without changing battle events (1.0773ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (2.1212ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.4994ms)
+✔ both factions keep two log rows and multi-hit effects do not flood announcements (0.9504ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.4603ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.331ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.6162ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (1.4038ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (2.0994ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.2952ms)
+✔ reduced motion uses static focus and finishes without impact particles (0.4695ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (30.5543ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (3.8166ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (5.6199ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (1.2603ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (2.7268ms)
+✔ two dedicated suppressors can deny casting for the whole fight through real repeated attacks and harass (160.631ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (210.0949ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 569.7322

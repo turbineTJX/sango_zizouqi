@@ -1,0 +1,24 @@
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (14.8916ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (2.9368ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (3.1598ms)
+✔ healing results use wounded budget and show actual shield separately (2.7613ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (184.1315ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (1.6238ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (35.519ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (16.2504ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (12.491ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (18.1452ms)
+✔ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (14.928ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (7.7759ms)
+✔ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (16.2312ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (10.4471ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (7.5304ms)
+✔ firestorm is bounded by friendly power, not enemy army size (60.6394ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 331.1235

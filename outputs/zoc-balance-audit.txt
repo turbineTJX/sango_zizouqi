@@ -1,0 +1,15 @@
+tournament zoc 1 compact 672
+tournament zoc 1 spread 1344
+tournament zoc 10 compact 2016
+tournament zoc 10 spread 2688
+tournament open 1 compact 3360
+tournament open 1 spread 4032
+tournament open 10 compact 4704
+tournament open 10 spread 5376
+taunt zoc fireline 768
+taunt zoc balanced 1536
+taunt tauntMelee fireline 2304
+taunt tauntMelee balanced 3072
+taunt tauntAll fireline 3840
+taunt tauntAll balanced 4608
+complete 11136

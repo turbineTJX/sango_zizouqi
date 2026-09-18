@@ -1,0 +1,130 @@
+{
+  "count": 448,
+  "summary": [
+    {
+      "count": 6,
+      "teams": [
+        {
+          "key": "leanFire",
+          "games": 112,
+          "win": 0.6964285714285714,
+          "timeout": 0,
+          "matchups": {
+            "dualControl": 0.5,
+            "frontSupport": 0.75,
+            "rearSupport": 0.0625,
+            "breachSix": 1,
+            "combinedCare": 0.6875,
+            "brawlers": 0.9375,
+            "allMixed": 0.9375
+          }
+        },
+        {
+          "key": "dualControl",
+          "games": 112,
+          "win": 0.7544642857142857,
+          "timeout": 0.008928571428571428,
+          "matchups": {
+            "leanFire": 0.5,
+            "frontSupport": 0.625,
+            "rearSupport": 0.53125,
+            "breachSix": 1,
+            "combinedCare": 0.75,
+            "brawlers": 1,
+            "allMixed": 0.875
+          }
+        },
+        {
+          "key": "frontSupport",
+          "games": 112,
+          "win": 0.45535714285714285,
+          "timeout": 0.017857142857142856,
+          "matchups": {
+            "leanFire": 0.25,
+            "dualControl": 0.375,
+            "rearSupport": 0.0625,
+            "breachSix": 0.625,
+            "combinedCare": 0.5625,
+            "brawlers": 1,
+            "allMixed": 0.3125
+          }
+        },
+        {
+          "key": "rearSupport",
+          "games": 112,
+          "win": 0.8928571428571429,
+          "timeout": 0.017857142857142856,
+          "matchups": {
+            "leanFire": 0.9375,
+            "dualControl": 0.46875,
+            "frontSupport": 0.9375,
+            "breachSix": 1,
+            "combinedCare": 0.90625,
+            "brawlers": 1,
+            "allMixed": 1
+          }
+        },
+        {
+          "key": "breachSix",
+          "games": 112,
+          "win": 0.30357142857142855,
+          "timeout": 0.03571428571428571,
+          "matchups": {
+            "leanFire": 0,
+            "dualControl": 0,
+            "frontSupport": 0.375,
+            "rearSupport": 0,
+            "combinedCare": 0.21875,
+            "brawlers": 0.84375,
+            "allMixed": 0.6875
+          }
+        },
+        {
+          "key": "combinedCare",
+          "games": 112,
+          "win": 0.4419642857142857,
+          "timeout": 0.125,
+          "matchups": {
+            "leanFire": 0.3125,
+            "dualControl": 0.25,
+            "frontSupport": 0.4375,
+            "rearSupport": 0.09375,
+            "breachSix": 0.78125,
+            "brawlers": 0.875,
+            "allMixed": 0.34375
+          }
+        },
+        {
+          "key": "brawlers",
+          "games": 112,
+          "win": 0.09375,
+          "timeout": 0.0625,
+          "matchups": {
+            "leanFire": 0.0625,
+            "dualControl": 0,
+            "frontSupport": 0,
+            "rearSupport": 0,
+            "breachSix": 0.15625,
+            "combinedCare": 0.125,
+            "allMixed": 0.3125
+          }
+        },
+        {
+          "key": "allMixed",
+          "games": 112,
+          "win": 0.36160714285714285,
+          "timeout": 0.05357142857142857,
+          "matchups": {
+            "leanFire": 0.0625,
+            "dualControl": 0.125,
+            "frontSupport": 0.6875,
+            "rearSupport": 0,
+            "breachSix": 0.3125,
+            "combinedCare": 0.65625,
+            "brawlers": 0.6875
+          }
+        }
+      ]
+    }
+  ]
+}

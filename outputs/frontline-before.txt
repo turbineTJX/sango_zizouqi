@@ -1,0 +1,12 @@
+before: dense compact
+before: dense separated
+before: dense flank
+before: flank compact
+before: flank separated
+before: flank flank
+before: ranged compact
+before: ranged separated
+before: ranged flank
+before: control compact
+before: control separated
+before: control flank

@@ -1,0 +1,52 @@
+✔ command and experience define individual capacity; fielded troops are independent (8.2001ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (134.678ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (50.6542ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (38.4856ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (547.4162ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (159.4574ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (252.4411ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (2.2599ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (38.0085ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (17.2699ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (14.2365ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (17.8465ms)
+✔ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (14.0882ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (8.0688ms)
+✖ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (1.4955ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (12.5421ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (10.2383ms)
+✔ firestorm is bounded by friendly power, not enemy army size (69.2597ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1311.4819
+
+✖ failing tests:
+
+test at tests\troop-output.test.mjs:38:3
+✖ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (1.4955ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '请选择本兵种或本武将可用的 3 个不同战法'
+  - null
+  
+      at remnant (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/troop-output.test.mjs:23:9)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/troop-output.test.mjs:39:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '请选择本兵种或本武将可用的 3 个不同战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

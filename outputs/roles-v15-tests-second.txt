@@ -1,0 +1,86 @@
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (20.8491ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (9.0051ms)
+✔ a stunned unit and pure self buffs do not prime a combo (1.075ms)
+✔ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (4.9311ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (1.8096ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (193.137ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (1.8457ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (7.5087ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (1.728ms)
+✔ each troop has exactly six tools and exclusive tactics remain optional (0.9355ms)
+✔ mixed defaults persist, slot priority works and invalid loadouts fail without mutation (9.4128ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (7.7619ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (1.889ms)
+✔ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (5.9768ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (1.2476ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (3.7448ms)
+✔ blockade delays replacement but expires; relief admits a healthier reserve rotation with shield (30.7624ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (239.5579ms)
+✔ all 60 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10 (9.5478ms)
+✔ base and advanced skills modify only their intended attributes, adding passive percentages (0.7086ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (3.0285ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (1.2389ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (0.9815ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (0.8799ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (0.8614ms)
+✔ isolated and joint change actual basic damage and evaluate neighbors from the correct side (9.1731ms)
+✔ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (7.2236ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (2.1334ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (11.0433ms)
+✔ attack and surviving-hit intent bonuses fire once for multi-hit attacks and respect caps (2.5401ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.2724ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.2463ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (5.2725ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (6.0265ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (11.2251ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (1.9197ms)
+✔ experience carries across thresholds, unlocks all crossed nodes and stops at level 10 (0.4198ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (3.8344ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (253.395ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (9.2815ms)
+✔ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (16.6023ms)
+✔ screen has a useful baseline and scales with support passives (3.6413ms)
+✔ foresight no longer depends on enemy loadout and respects its strict boundary and damage kind (0.4395ms)
+✔ gallop provides travel speed before contact and mitigation while adjacent (5.2096ms)
+✔ new officer defaults activate the intended bow and support routes without removing troop choice (4.2468ms)
+✔ current campaigns and ongoing battles preserve player loadouts and DOT snapshots (83.3846ms)
+✔ all 80 core combinations are legal; every officer has all three role options (5.0542ms)
+✔ positioning targets real columns and clustered enemies and always includes the anchor (14.6736ms)
+✔ allied slow enables a real spear finisher, with no intent or target bypass (2.9126ms)
+✔ fire preparation increases wildfire direct hits without replacing a stronger burn (2.5557ms)
+✔ low-intellect guards retain mitigation and suppression; their support casts deal no damage (2.0557ms)
+✔ cavalry offensive stance increases basic attack at the cost of real defense (1.6258ms)
+✖ screen protects threatened healthy allies, respects its own layer and caps at one recipient (6.0372ms)
+✔ seal exchanges all damage for silence; ambush waits for close range (2.3346ms)
+✔ each role completes a battle and preserves deterministic continuation under current rules (644.2951ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 54
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 855.6273
+
+✖ failing tests:
+
+test at tests\toolbox.test.mjs:66:1
+✖ screen protects threatened healthy allies, respects its own layer and caps at one recipient (6.0372ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(shieldAmount(x.b,x.a)>=x.a.maxHp*.08)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/toolbox.test.mjs:70:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

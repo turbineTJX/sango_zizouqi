@@ -1,0 +1,1 @@
+Historical UI verification passed. Screenshots: outputs/historical-ui

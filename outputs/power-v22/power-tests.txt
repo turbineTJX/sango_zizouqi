@@ -1,0 +1,20 @@
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (14.4875ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (2.9237ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (2.6891ms)
+✔ healing results use wounded budget and show actual shield separately (2.0377ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (191.5694ms)
+✔ every tactic declares its actual power, chance effects and critical policy (0.7402ms)
+✔ defensive status magnitude snapshots martial power and ignores intellect (19.5219ms)
+✔ control succeeds and fails through real casts, pays cooldown, and reports actual chance (41.5839ms)
+✔ resolve blocks control and outcome never claims an applied status (1.7823ms)
+✔ multi-hit burst shares one power-dependent critical roll per target (34.4266ms)
+✔ control duration grows with power and potency remains bounded (1.5129ms)
+✔ current saves resume identical probability rolls and reject malformed event probabilities (187.3731ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 412.1701

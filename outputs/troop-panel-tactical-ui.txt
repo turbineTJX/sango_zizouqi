@@ -1,0 +1,1 @@
+Tactical UI checks passed: five entries, capacity display, paused refresh, same/new seed, continuation, mobile and offline.

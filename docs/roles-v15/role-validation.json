@@ -1,0 +1,2407 @@
+[
+  {
+    "id": "cao",
+    "name": "曹操",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.75,
+      "margin": 1702.6666666666667,
+      "damage": 4144.958333333333,
+      "magic": 1768.5833333333333,
+      "dot": 1113.2083333333333,
+      "healing": 0,
+      "taken": 2083.9583333333335,
+      "alive": 142.66666666666666,
+      "allyHp": 1125.5,
+      "ticks": 155.375
+    },
+    "adaptResult": {
+      "win": 0.8333333333333334,
+      "margin": 2968.1666666666665,
+      "damage": 3170.9166666666665,
+      "magic": 632.4166666666666,
+      "dot": 388.2083333333333,
+      "healing": 487.0833333333333,
+      "taken": 1793.1666666666667,
+      "alive": 152.66666666666666,
+      "allyHp": 2014.4166666666667,
+      "ticks": 162.125
+    }
+  },
+  {
+    "id": "dun",
+    "name": "夏侯惇",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "backMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.375,
+      "margin": 22.416666666666668,
+      "damage": 2413.0833333333335,
+      "magic": 87.08333333333333,
+      "dot": 0,
+      "healing": 1507.625,
+      "taken": 2928,
+      "alive": 162.58333333333334,
+      "allyHp": 739.25,
+      "ticks": 186.95833333333334
+    },
+    "adaptResult": {
+      "win": 0.5,
+      "margin": 1133.9583333333333,
+      "damage": 3017.4166666666665,
+      "magic": 496.5,
+      "dot": 336,
+      "healing": 719.125,
+      "taken": 2293.125,
+      "alive": 147.5,
+      "allyHp": 1331,
+      "ticks": 165.58333333333334
+    }
+  },
+  {
+    "id": "liao",
+    "name": "张辽",
+    "fixed": "shooter",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "shooter",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "shooter"
+    },
+    "fixedResult": {
+      "win": 0.6458333333333334,
+      "margin": 853.7916666666666,
+      "damage": 4113.833333333333,
+      "magic": 0,
+      "dot": 0,
+      "healing": 0,
+      "taken": 2493.5833333333335,
+      "alive": 147.29166666666666,
+      "allyHp": 907.375,
+      "ticks": 161.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.7708333333333334,
+      "margin": 2595.2916666666665,
+      "damage": 3685.375,
+      "magic": 0,
+      "dot": 0,
+      "healing": 480.0833333333333,
+      "taken": 1803.9166666666667,
+      "alive": 155.125,
+      "allyHp": 1730.5833333333333,
+      "ticks": 164.83333333333334
+    }
+  },
+  {
+    "id": "chu",
+    "name": "许褚",
+    "fixed": "tank",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "frontMedic",
+      "riders": "physicalTank",
+      "ranged": "assassin",
+      "rearCare": "tank"
+    },
+    "fixedResult": {
+      "win": 0.4166666666666667,
+      "margin": -630.2916666666666,
+      "damage": 1457.2083333333333,
+      "magic": 0,
+      "dot": 0,
+      "healing": 0,
+      "taken": 2592.1666666666665,
+      "alive": 139,
+      "allyHp": 1044.625,
+      "ticks": 174.95833333333334
+    },
+    "adaptResult": {
+      "win": 0.4583333333333333,
+      "margin": 216.16666666666666,
+      "damage": 2188.4583333333335,
+      "magic": 121.45833333333333,
+      "dot": 99.04166666666667,
+      "healing": 351.0416666666667,
+      "taken": 2317.5833333333335,
+      "alive": 129.83333333333334,
+      "allyHp": 1141.9166666666667,
+      "ticks": 163.29166666666666
+    }
+  },
+  {
+    "id": "jia",
+    "name": "郭嘉",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4166666666666667,
+      "margin": -294,
+      "damage": 3618.5833333333335,
+      "magic": 1840.2083333333333,
+      "dot": 1108.2083333333333,
+      "healing": 0,
+      "taken": 2634.1666666666665,
+      "alive": 127.83333333333333,
+      "allyHp": 597.25,
+      "ticks": 151.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.4375,
+      "margin": 407.1666666666667,
+      "damage": 2915.125,
+      "magic": 1151,
+      "dot": 668.625,
+      "healing": 586.2083333333334,
+      "taken": 2541.4166666666665,
+      "alive": 146.33333333333334,
+      "allyHp": 935.25,
+      "ticks": 167.33333333333334
+    }
+  },
+  {
+    "id": "yu",
+    "name": "荀攸",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5625,
+      "margin": 656.2083333333334,
+      "damage": 4105.166666666667,
+      "magic": 1894.7916666666667,
+      "dot": 1182.625,
+      "healing": 0,
+      "taken": 2281.6666666666665,
+      "alive": 140.125,
+      "allyHp": 650.4166666666666,
+      "ticks": 159.08333333333334
+    },
+    "adaptResult": {
+      "win": 0.6458333333333334,
+      "margin": 1776,
+      "damage": 3227.5416666666665,
+      "magic": 995.7083333333334,
+      "dot": 610.2083333333334,
+      "healing": 511.625,
+      "taken": 1691.1666666666667,
+      "alive": 153.29166666666666,
+      "allyHp": 1139.4583333333333,
+      "ticks": 169.58333333333334
+    }
+  },
+  {
+    "id": "yuanxia",
+    "name": "夏侯渊",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "backMedic",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "backMedic"
+    },
+    "fixedResult": {
+      "win": 0.5208333333333334,
+      "margin": 888.75,
+      "damage": 2963.6666666666665,
+      "magic": 68.58333333333333,
+      "dot": 0,
+      "healing": 1479.25,
+      "taken": 2499.2083333333335,
+      "alive": 168.95833333333334,
+      "allyHp": 917.625,
+      "ticks": 188.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2283.625,
+      "damage": 2809.7083333333335,
+      "magic": 7.416666666666667,
+      "dot": 0,
+      "healing": 1038.2916666666667,
+      "taken": 2105.7083333333335,
+      "alive": 154.25,
+      "allyHp": 1717.6666666666667,
+      "ticks": 176.08333333333334
+    }
+  },
+  {
+    "id": "jin",
+    "name": "于禁",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "frontMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4166666666666667,
+      "margin": 82.29166666666667,
+      "damage": 2186.125,
+      "magic": 99.75,
+      "dot": 0,
+      "healing": 1649.875,
+      "taken": 2958.75,
+      "alive": 174.70833333333334,
+      "allyHp": 844,
+      "ticks": 193.25
+    },
+    "adaptResult": {
+      "win": 0.6041666666666666,
+      "margin": 1640,
+      "damage": 3012.875,
+      "magic": 610.5833333333334,
+      "dot": 416.5,
+      "healing": 621.5416666666666,
+      "taken": 2099.0833333333335,
+      "alive": 158.58333333333334,
+      "allyHp": 1552,
+      "ticks": 170.75
+    }
+  },
+  {
+    "id": "shao",
+    "name": "袁绍",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "backMedic",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5416666666666666,
+      "margin": 1151.4166666666667,
+      "damage": 2837.375,
+      "magic": 77.04166666666667,
+      "dot": 0,
+      "healing": 1613.0416666666667,
+      "taken": 2548.125,
+      "alive": 172.91666666666666,
+      "allyHp": 969.6666666666666,
+      "ticks": 193.875
+    },
+    "adaptResult": {
+      "win": 0.7916666666666666,
+      "margin": 2832.2916666666665,
+      "damage": 3295.1666666666665,
+      "magic": 370.5416666666667,
+      "dot": 248.54166666666666,
+      "healing": 715.4583333333334,
+      "taken": 1923.7083333333333,
+      "alive": 154.29166666666666,
+      "allyHp": 1876.4166666666667,
+      "ticks": 170.375
+    }
+  },
+  {
+    "id": "yan",
+    "name": "颜良",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "shooter",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "shooter"
+    },
+    "fixedResult": {
+      "win": 0.2916666666666667,
+      "margin": -1093.4583333333333,
+      "damage": 1943,
+      "magic": 66.125,
+      "dot": 0,
+      "healing": 1366.3333333333333,
+      "taken": 2872.875,
+      "alive": 149.20833333333334,
+      "allyHp": 624.625,
+      "ticks": 167.5
+    },
+    "adaptResult": {
+      "win": 0.5,
+      "margin": 900.1666666666666,
+      "damage": 2651.0416666666665,
+      "magic": 4.041666666666667,
+      "dot": 0,
+      "healing": 516.2916666666666,
+      "taken": 2193.4583333333335,
+      "alive": 140.79166666666666,
+      "allyHp": 1303.25,
+      "ticks": 160.79166666666666
+    }
+  },
+  {
+    "id": "wen",
+    "name": "文丑",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "shooter",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "shooter"
+    },
+    "fixedResult": {
+      "win": 0.3333333333333333,
+      "margin": -336.4583333333333,
+      "damage": 2228.9166666666665,
+      "magic": 53.416666666666664,
+      "dot": 0,
+      "healing": 1399.5,
+      "taken": 2883.6666666666665,
+      "alive": 157.58333333333334,
+      "allyHp": 631.2083333333334,
+      "ticks": 181.625
+    },
+    "adaptResult": {
+      "win": 0.5833333333333334,
+      "margin": 1407.2083333333333,
+      "damage": 2871.0833333333335,
+      "magic": 2.875,
+      "dot": 0,
+      "healing": 476.7916666666667,
+      "taken": 2123.0416666666665,
+      "alive": 144.875,
+      "allyHp": 1517.9166666666667,
+      "ticks": 159.29166666666666
+    }
+  },
+  {
+    "id": "he",
+    "name": "张合",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.375,
+      "margin": 147.45833333333334,
+      "damage": 2340.6666666666665,
+      "magic": 81.08333333333333,
+      "dot": 0,
+      "healing": 1413.2916666666667,
+      "taken": 2697.5416666666665,
+      "alive": 154.16666666666666,
+      "allyHp": 707.125,
+      "ticks": 183.16666666666666
+    },
+    "adaptResult": {
+      "win": 0.6875,
+      "margin": 2110.5,
+      "damage": 3115.875,
+      "magic": 478.5,
+      "dot": 310.0833333333333,
+      "healing": 480.7916666666667,
+      "taken": 1880.2916666666667,
+      "alive": 142.875,
+      "allyHp": 1630.9583333333333,
+      "ticks": 162.29166666666666
+    }
+  },
+  {
+    "id": "ju",
+    "name": "沮授",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "backMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.6041666666666666,
+      "margin": 739.4166666666666,
+      "damage": 4103.291666666667,
+      "magic": 1860,
+      "dot": 1162.1666666666667,
+      "healing": 0,
+      "taken": 2324.875,
+      "alive": 140.25,
+      "allyHp": 738.5833333333334,
+      "ticks": 158.375
+    },
+    "adaptResult": {
+      "win": 0.7291666666666666,
+      "margin": 2111.4166666666665,
+      "damage": 3035.1666666666665,
+      "magic": 719.9583333333334,
+      "dot": 410.7916666666667,
+      "healing": 783.75,
+      "taken": 1873.25,
+      "alive": 152.04166666666666,
+      "allyHp": 1397.5416666666667,
+      "ticks": 171.83333333333334
+    }
+  },
+  {
+    "id": "tian",
+    "name": "田丰",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "mage",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.7916666666666666,
+      "margin": 1911.25,
+      "damage": 4556,
+      "magic": 2401.7083333333335,
+      "dot": 1277.8333333333333,
+      "healing": 0,
+      "taken": 1934.5,
+      "alive": 126.875,
+      "allyHp": 1054.125,
+      "ticks": 146.66666666666666
+    },
+    "adaptResult": {
+      "win": 0.7916666666666666,
+      "margin": 2484.0833333333335,
+      "damage": 4221.291666666667,
+      "magic": 2095.4166666666665,
+      "dot": 1046.375,
+      "healing": 252.04166666666666,
+      "taken": 1681.6666666666667,
+      "alive": 135.33333333333334,
+      "allyHp": 1374.125,
+      "ticks": 149.5
+    }
+  },
+  {
+    "id": "gao",
+    "name": "高览",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.2708333333333333,
+      "margin": -687.6666666666666,
+      "damage": 1967.5833333333333,
+      "magic": 95.79166666666667,
+      "dot": 0,
+      "healing": 1528.1666666666667,
+      "taken": 3034.625,
+      "alive": 165.29166666666666,
+      "allyHp": 599.6666666666666,
+      "ticks": 186.41666666666666
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1258.3333333333333,
+      "damage": 2743.1666666666665,
+      "magic": 496.0416666666667,
+      "dot": 338.5416666666667,
+      "healing": 497.2083333333333,
+      "taken": 2176.5416666666665,
+      "alive": 149.45833333333334,
+      "allyHp": 1282.9583333333333,
+      "ticks": 171.875
+    }
+  },
+  {
+    "id": "person-636",
+    "name": "刘备",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.3333333333333333,
+      "margin": -252.25,
+      "damage": 1976.4166666666667,
+      "magic": 98.16666666666667,
+      "dot": 0,
+      "healing": 1701.375,
+      "taken": 2829.7083333333335,
+      "alive": 168.08333333333334,
+      "allyHp": 681.75,
+      "ticks": 189.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1438.625,
+      "damage": 2933.4583333333335,
+      "magic": 592.0416666666666,
+      "dot": 389.625,
+      "healing": 495.5416666666667,
+      "taken": 1945.9583333333333,
+      "alive": 155.91666666666666,
+      "allyHp": 1357.5,
+      "ticks": 171.04166666666666
+    }
+  },
+  {
+    "id": "person-99",
+    "name": "关羽",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4166666666666667,
+      "margin": 260.0416666666667,
+      "damage": 3492.4583333333335,
+      "magic": 1494.125,
+      "dot": 936.1666666666666,
+      "healing": 0,
+      "taken": 2480.125,
+      "alive": 125.25,
+      "allyHp": 640.2916666666666,
+      "ticks": 157.54166666666666
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1872.2916666666667,
+      "damage": 2936.625,
+      "magic": 484.6666666666667,
+      "dot": 265.7916666666667,
+      "healing": 490.25,
+      "taken": 2003.7083333333333,
+      "alive": 140.45833333333334,
+      "allyHp": 1523.3333333333333,
+      "ticks": 163.875
+    }
+  },
+  {
+    "id": "person-433",
+    "name": "张飞",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "shooter",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "shooter"
+    },
+    "fixedResult": {
+      "win": 0.2708333333333333,
+      "margin": -1002.5833333333334,
+      "damage": 1960.4166666666667,
+      "magic": 56.875,
+      "dot": 0,
+      "healing": 1315.0833333333333,
+      "taken": 2937.875,
+      "alive": 148.54166666666666,
+      "allyHp": 591.875,
+      "ticks": 169.91666666666666
+    },
+    "adaptResult": {
+      "win": 0.4583333333333333,
+      "margin": 463.5416666666667,
+      "damage": 2502.7916666666665,
+      "magic": 3.4583333333333335,
+      "dot": 0,
+      "healing": 492.5833333333333,
+      "taken": 2232.5416666666665,
+      "alive": 135.91666666666666,
+      "allyHp": 1171.5833333333333,
+      "ticks": 159.29166666666666
+    }
+  },
+  {
+    "id": "person-396",
+    "name": "赵云",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5,
+      "margin": -122.125,
+      "damage": 3856.7916666666665,
+      "magic": 1553.25,
+      "dot": 1074.1666666666667,
+      "healing": 0,
+      "taken": 2543.6666666666665,
+      "alive": 145.95833333333334,
+      "allyHp": 582.375,
+      "ticks": 159.08333333333334
+    },
+    "adaptResult": {
+      "win": 0.6666666666666666,
+      "margin": 1830.75,
+      "damage": 3204.2083333333335,
+      "magic": 602.9583333333334,
+      "dot": 388.1666666666667,
+      "healing": 509.25,
+      "taken": 2003.5833333333333,
+      "alive": 156.125,
+      "allyHp": 1574.0833333333333,
+      "ticks": 164.58333333333334
+    }
+  },
+  {
+    "id": "person-516",
+    "name": "马超",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "shooter",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "shooter"
+    },
+    "fixedResult": {
+      "win": 0.3125,
+      "margin": -321.25,
+      "damage": 2207.5416666666665,
+      "magic": 58.375,
+      "dot": 0,
+      "healing": 1353.5833333333333,
+      "taken": 2697.6666666666665,
+      "alive": 152.91666666666666,
+      "allyHp": 606.3333333333334,
+      "ticks": 177.79166666666666
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1943.5416666666667,
+      "damage": 3021.2916666666665,
+      "magic": 0,
+      "dot": 0,
+      "healing": 491.875,
+      "taken": 1885.5416666666667,
+      "alive": 146.625,
+      "allyHp": 1527.7916666666667,
+      "ticks": 162.79166666666666
+    }
+  },
+  {
+    "id": "person-186",
+    "name": "黄忠",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4166666666666667,
+      "margin": 441.75,
+      "damage": 2505.1666666666665,
+      "magic": 73.20833333333333,
+      "dot": 0,
+      "healing": 1458.9166666666667,
+      "taken": 2598.25,
+      "alive": 159.95833333333334,
+      "allyHp": 797.5,
+      "ticks": 185.08333333333334
+    },
+    "adaptResult": {
+      "win": 0.5833333333333334,
+      "margin": 1767.0833333333333,
+      "damage": 2916.7916666666665,
+      "magic": 447.5416666666667,
+      "dot": 238.33333333333334,
+      "healing": 480.2916666666667,
+      "taken": 1998.625,
+      "alive": 134.58333333333334,
+      "allyHp": 1521.9583333333333,
+      "ticks": 159.16666666666666
+    }
+  },
+  {
+    "id": "person-290",
+    "name": "诸葛亮",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.875,
+      "margin": 2348.1666666666665,
+      "damage": 4450.75,
+      "magic": 2220.5416666666665,
+      "dot": 1110.2916666666667,
+      "healing": 0,
+      "taken": 1823.2916666666667,
+      "alive": 126.58333333333333,
+      "allyHp": 1240.2083333333333,
+      "ticks": 145.5
+    },
+    "adaptResult": {
+      "win": 0.875,
+      "margin": 2946.75,
+      "damage": 3161.4583333333335,
+      "magic": 745.0833333333334,
+      "dot": 365.3333333333333,
+      "healing": 522.5,
+      "taken": 1913.5,
+      "alive": 145.33333333333334,
+      "allyHp": 1988.2083333333333,
+      "ticks": 162.91666666666666
+    }
+  },
+  {
+    "id": "person-558",
+    "name": "庞统",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "mage",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5833333333333334,
+      "margin": 1283.2083333333333,
+      "damage": 4421.25,
+      "magic": 2302.875,
+      "dot": 1173.1666666666667,
+      "healing": 0,
+      "taken": 2077.5,
+      "alive": 131.20833333333334,
+      "allyHp": 732.5416666666666,
+      "ticks": 156.41666666666666
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1950.375,
+      "damage": 4122.291666666667,
+      "magic": 2011,
+      "dot": 963.5,
+      "healing": 237.95833333333334,
+      "taken": 1787.6666666666667,
+      "alive": 138.04166666666666,
+      "allyHp": 1084.7083333333333,
+      "ticks": 158.04166666666666
+    }
+  },
+  {
+    "id": "person-137",
+    "name": "姜维",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.7916666666666666,
+      "margin": 1743.2083333333333,
+      "damage": 4332.541666666667,
+      "magic": 2134.25,
+      "dot": 1118.0416666666667,
+      "healing": 0,
+      "taken": 1947.375,
+      "alive": 131.5,
+      "allyHp": 970.375,
+      "ticks": 149.16666666666666
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2474.25,
+      "damage": 3123.9166666666665,
+      "magic": 716.5,
+      "dot": 358.5833333333333,
+      "healing": 528.4583333333334,
+      "taken": 1931.4166666666667,
+      "alive": 144.20833333333334,
+      "allyHp": 1767.2083333333333,
+      "ticks": 163.16666666666666
+    }
+  },
+  {
+    "id": "person-125",
+    "name": "魏延",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.3125,
+      "margin": -219.16666666666666,
+      "damage": 2237.5833333333335,
+      "magic": 82,
+      "dot": 0,
+      "healing": 1436.9166666666667,
+      "taken": 2752.8333333333335,
+      "alive": 156.25,
+      "allyHp": 619.8333333333334,
+      "ticks": 182.45833333333334
+    },
+    "adaptResult": {
+      "win": 0.6458333333333334,
+      "margin": 1883.3333333333333,
+      "damage": 3049.875,
+      "magic": 494.9583333333333,
+      "dot": 321.6666666666667,
+      "healing": 488.2083333333333,
+      "taken": 1937.6666666666667,
+      "alive": 145.95833333333334,
+      "allyHp": 1572.25,
+      "ticks": 163.08333333333334
+    }
+  },
+  {
+    "id": "person-368",
+    "name": "孙权",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.375,
+      "margin": -137.5,
+      "damage": 2025.125,
+      "magic": 105.33333333333333,
+      "dot": 0,
+      "healing": 1715.9166666666667,
+      "taken": 2830.4583333333335,
+      "alive": 170.5,
+      "allyHp": 730.3333333333334,
+      "ticks": 189.625
+    },
+    "adaptResult": {
+      "win": 0.6458333333333334,
+      "margin": 1692.625,
+      "damage": 3046.7916666666665,
+      "magic": 623.0833333333334,
+      "dot": 420.1666666666667,
+      "healing": 495.7083333333333,
+      "taken": 1893.375,
+      "alive": 157.33333333333334,
+      "allyHp": 1423.0833333333333,
+      "ticks": 169.29166666666666
+    }
+  },
+  {
+    "id": "person-371",
+    "name": "孙策",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "shooter"
+    },
+    "fixedResult": {
+      "win": 0.375,
+      "margin": 328.9583333333333,
+      "damage": 2455.125,
+      "magic": 80.125,
+      "dot": 0,
+      "healing": 1516.2083333333333,
+      "taken": 2751.7083333333335,
+      "alive": 159.625,
+      "allyHp": 768.1666666666666,
+      "ticks": 187.29166666666666
+    },
+    "adaptResult": {
+      "win": 0.7083333333333334,
+      "margin": 2222.5833333333335,
+      "damage": 3175,
+      "magic": 176.25,
+      "dot": 111.20833333333333,
+      "healing": 474.375,
+      "taken": 1794.25,
+      "alive": 145.29166666666666,
+      "allyHp": 1717.0416666666667,
+      "ticks": 157.08333333333334
+    }
+  },
+  {
+    "id": "person-246",
+    "name": "周瑜",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.875,
+      "margin": 2222.875,
+      "damage": 4603.75,
+      "magic": 2345.0833333333335,
+      "dot": 1152.3333333333333,
+      "healing": 0,
+      "taken": 1880.25,
+      "alive": 129.29166666666666,
+      "allyHp": 1206.2916666666667,
+      "ticks": 147.625
+    },
+    "adaptResult": {
+      "win": 0.9166666666666666,
+      "margin": 2946.6666666666665,
+      "damage": 3669.2916666666665,
+      "magic": 1171.0833333333333,
+      "dot": 544.3333333333334,
+      "healing": 516.375,
+      "taken": 1852.625,
+      "alive": 146.375,
+      "allyHp": 1806.375,
+      "ticks": 161.54166666666666
+    }
+  },
+  {
+    "id": "person-668",
+    "name": "鲁肃",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "backMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.6458333333333334,
+      "margin": 948.875,
+      "damage": 4202.291666666667,
+      "magic": 1899.4166666666667,
+      "dot": 1199.2916666666667,
+      "healing": 0,
+      "taken": 2237.7083333333335,
+      "alive": 140.45833333333334,
+      "allyHp": 762.8333333333334,
+      "ticks": 157.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.7708333333333334,
+      "margin": 1979.0833333333333,
+      "damage": 3079.75,
+      "magic": 738.5833333333334,
+      "dot": 430.5416666666667,
+      "healing": 769.125,
+      "taken": 2002.0416666666667,
+      "alive": 156.54166666666666,
+      "allyHp": 1341.9166666666667,
+      "ticks": 175.83333333333334
+    }
+  },
+  {
+    "id": "person-662",
+    "name": "吕蒙",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.8125,
+      "margin": 1991.2083333333333,
+      "damage": 4476.083333333333,
+      "magic": 2139.2916666666665,
+      "dot": 1135.75,
+      "healing": 0,
+      "taken": 1851.0833333333333,
+      "alive": 130.125,
+      "allyHp": 992.5416666666666,
+      "ticks": 151.66666666666666
+    },
+    "adaptResult": {
+      "win": 0.8125,
+      "margin": 2827.4583333333335,
+      "damage": 3478.7083333333335,
+      "magic": 784.2083333333334,
+      "dot": 403.8333333333333,
+      "healing": 475.0833333333333,
+      "taken": 1687.375,
+      "alive": 144.5,
+      "allyHp": 1786.7083333333333,
+      "ticks": 159.75
+    }
+  },
+  {
+    "id": "person-603",
+    "name": "陆逊",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.8333333333333334,
+      "margin": 2060.2916666666665,
+      "damage": 4466.625,
+      "magic": 2156.0833333333335,
+      "dot": 1128.25,
+      "healing": 0,
+      "taken": 1877.5416666666667,
+      "alive": 129.75,
+      "allyHp": 1117.5,
+      "ticks": 148.70833333333334
+    },
+    "adaptResult": {
+      "win": 0.875,
+      "margin": 2897.4166666666665,
+      "damage": 3345.4583333333335,
+      "magic": 778.125,
+      "dot": 395.25,
+      "healing": 514.3333333333334,
+      "taken": 1816.625,
+      "alive": 147.83333333333334,
+      "allyHp": 1863.6666666666667,
+      "ticks": 164.95833333333334
+    }
+  },
+  {
+    "id": "person-119",
+    "name": "甘宁",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.3125,
+      "margin": -343.5,
+      "damage": 2164.3333333333335,
+      "magic": 83.08333333333333,
+      "dot": 0,
+      "healing": 1405.5416666666667,
+      "taken": 2659.7083333333335,
+      "alive": 149.41666666666666,
+      "allyHp": 608.2916666666666,
+      "ticks": 178
+    },
+    "adaptResult": {
+      "win": 0.5833333333333334,
+      "margin": 1599.7916666666667,
+      "damage": 2784.9583333333335,
+      "magic": 476.6666666666667,
+      "dot": 253.66666666666666,
+      "healing": 502.8333333333333,
+      "taken": 2030.2916666666667,
+      "alive": 136.66666666666666,
+      "allyHp": 1381.5,
+      "ticks": 164
+    }
+  },
+  {
+    "id": "person-390",
+    "name": "太史慈",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.2916666666666667,
+      "margin": -822.9583333333334,
+      "damage": 1964.125,
+      "magic": 83.375,
+      "dot": 0,
+      "healing": 1422.4583333333333,
+      "taken": 2803.0833333333335,
+      "alive": 152.25,
+      "allyHp": 583.125,
+      "ticks": 175.25
+    },
+    "adaptResult": {
+      "win": 0.5833333333333334,
+      "margin": 1427.125,
+      "damage": 2635.0416666666665,
+      "magic": 428.1666666666667,
+      "dot": 244.79166666666666,
+      "healing": 518.375,
+      "taken": 2096.75,
+      "alive": 138.54166666666666,
+      "allyHp": 1342.3333333333333,
+      "ticks": 165.375
+    }
+  },
+  {
+    "id": "person-164",
+    "name": "黄盖",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.2708333333333333,
+      "margin": -851.3333333333334,
+      "damage": 1978.7916666666667,
+      "magic": 88.91666666666667,
+      "dot": 0,
+      "healing": 1425.625,
+      "taken": 3010.0416666666665,
+      "alive": 153.79166666666666,
+      "allyHp": 608,
+      "ticks": 175.83333333333334
+    },
+    "adaptResult": {
+      "win": 0.5416666666666666,
+      "margin": 1074,
+      "damage": 2950.3333333333335,
+      "magic": 520.7083333333334,
+      "dot": 353.7083333333333,
+      "healing": 513,
+      "taken": 2121.8333333333335,
+      "alive": 147.66666666666666,
+      "allyHp": 1190.0416666666667,
+      "ticks": 169.125
+    }
+  },
+  {
+    "id": "person-226",
+    "name": "司马懿",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.8333333333333334,
+      "margin": 2151.1666666666665,
+      "damage": 4485.541666666667,
+      "magic": 2171,
+      "dot": 1128.2916666666667,
+      "healing": 0,
+      "taken": 1796.875,
+      "alive": 127.08333333333333,
+      "allyHp": 1171.4583333333333,
+      "ticks": 142.70833333333334
+    },
+    "adaptResult": {
+      "win": 0.875,
+      "margin": 3004.1666666666665,
+      "damage": 3369.0833333333335,
+      "magic": 773.0416666666666,
+      "dot": 391.6666666666667,
+      "healing": 513.1666666666666,
+      "taken": 1723.9583333333333,
+      "alive": 145.58333333333334,
+      "allyHp": 1909.875,
+      "ticks": 159.79166666666666
+    }
+  },
+  {
+    "id": "person-291",
+    "name": "徐晃",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4166666666666667,
+      "margin": -95.875,
+      "damage": 3519.5416666666665,
+      "magic": 1439.0416666666667,
+      "dot": 951.6666666666666,
+      "healing": 0,
+      "taken": 2534.125,
+      "alive": 130,
+      "allyHp": 594.5833333333334,
+      "ticks": 156.70833333333334
+    },
+    "adaptResult": {
+      "win": 0.6666666666666666,
+      "margin": 1872.5,
+      "damage": 2923.875,
+      "magic": 494.6666666666667,
+      "dot": 306.2083333333333,
+      "healing": 506.0416666666667,
+      "taken": 1996.9166666666667,
+      "alive": 145.04166666666666,
+      "allyHp": 1552.0833333333333,
+      "ticks": 164.83333333333334
+    }
+  },
+  {
+    "id": "person-472",
+    "name": "典韦",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.25,
+      "margin": -1868.5416666666667,
+      "damage": 1422.5833333333333,
+      "magic": 56.958333333333336,
+      "dot": 0,
+      "healing": 1357.2083333333333,
+      "taken": 3232.4166666666665,
+      "alive": 145.16666666666666,
+      "allyHp": 587.5833333333334,
+      "ticks": 163.5
+    },
+    "adaptResult": {
+      "win": 0.375,
+      "margin": -605.25,
+      "damage": 1921.125,
+      "magic": 237.75,
+      "dot": 197.125,
+      "healing": 539.3333333333334,
+      "taken": 2534.25,
+      "alive": 135,
+      "allyHp": 885.8333333333334,
+      "ticks": 161.66666666666666
+    }
+  },
+  {
+    "id": "person-661",
+    "name": "吕布",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "shooter",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "shooter"
+    },
+    "fixedResult": {
+      "win": 0.3125,
+      "margin": -451.5416666666667,
+      "damage": 2179.125,
+      "magic": 49,
+      "dot": 0,
+      "healing": 1292.125,
+      "taken": 2739.0833333333335,
+      "alive": 149,
+      "allyHp": 642.0833333333334,
+      "ticks": 173.875
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1784.375,
+      "damage": 2987.0416666666665,
+      "magic": 2.7083333333333335,
+      "dot": 0,
+      "healing": 475.0416666666667,
+      "taken": 1987.875,
+      "alive": 142.45833333333334,
+      "allyHp": 1502.7083333333333,
+      "ticks": 161.875
+    }
+  },
+  {
+    "id": "person-425",
+    "name": "貂蝉",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "mage",
+      "fireline": "mage",
+      "breach": "backMedic",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.16666666666666666,
+      "margin": -1801.5833333333333,
+      "damage": 3090.875,
+      "magic": 1711.4583333333333,
+      "dot": 992.2916666666666,
+      "healing": 0,
+      "taken": 2970.6666666666665,
+      "alive": 124.70833333333333,
+      "allyHp": 248.95833333333334,
+      "ticks": 151.29166666666666
+    },
+    "adaptResult": {
+      "win": 0.2916666666666667,
+      "margin": -874.4583333333334,
+      "damage": 2526.375,
+      "magic": 1254.8333333333333,
+      "dot": 655.9166666666666,
+      "healing": 460.0416666666667,
+      "taken": 2679.9166666666665,
+      "alive": 139.125,
+      "allyHp": 653.75,
+      "ticks": 160.875
+    }
+  },
+  {
+    "id": "person-404",
+    "name": "张角",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.6666666666666666,
+      "margin": 1180.6666666666667,
+      "damage": 4382.375,
+      "magic": 2231.5833333333335,
+      "dot": 1153.0833333333333,
+      "healing": 0,
+      "taken": 2121.1666666666665,
+      "alive": 131.79166666666666,
+      "allyHp": 764.125,
+      "ticks": 155.08333333333334
+    },
+    "adaptResult": {
+      "win": 0.7083333333333334,
+      "margin": 1959.5,
+      "damage": 3300.9583333333335,
+      "magic": 1070.5833333333333,
+      "dot": 524.5,
+      "healing": 522.75,
+      "taken": 2039.625,
+      "alive": 143.45833333333334,
+      "allyHp": 1300.625,
+      "ticks": 171.08333333333334
+    }
+  },
+  {
+    "id": "person-494",
+    "name": "董卓",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.2708333333333333,
+      "margin": -1207,
+      "damage": 1859.4583333333333,
+      "magic": 90.375,
+      "dot": 0,
+      "healing": 1391.0416666666667,
+      "taken": 2963.125,
+      "alive": 149.41666666666666,
+      "allyHp": 599.7916666666666,
+      "ticks": 168.625
+    },
+    "adaptResult": {
+      "win": 0.4583333333333333,
+      "margin": 500.75,
+      "damage": 2808.3333333333335,
+      "magic": 554.6666666666666,
+      "dot": 375.0416666666667,
+      "healing": 516.375,
+      "taken": 2230.1666666666665,
+      "alive": 145.625,
+      "allyHp": 1078.8333333333333,
+      "ticks": 166.125
+    }
+  },
+  {
+    "id": "person-482",
+    "name": "邓艾",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.7916666666666666,
+      "margin": 1773.3333333333333,
+      "damage": 4508.958333333333,
+      "magic": 1926.875,
+      "dot": 1221.4166666666667,
+      "healing": 0,
+      "taken": 2028.0416666666667,
+      "alive": 154.33333333333334,
+      "allyHp": 1027.75,
+      "ticks": 162.20833333333334
+    },
+    "adaptResult": {
+      "win": 0.8333333333333334,
+      "margin": 3032.625,
+      "damage": 3622.1666666666665,
+      "magic": 769.25,
+      "dot": 477.2083333333333,
+      "healing": 507.2916666666667,
+      "taken": 1609.625,
+      "alive": 162.66666666666666,
+      "allyHp": 1823.7083333333333,
+      "ticks": 167.66666666666666
+    }
+  },
+  {
+    "id": "person-366",
+    "name": "孙坚",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.6666666666666666,
+      "margin": 744.9583333333334,
+      "damage": 4159.291666666667,
+      "magic": 1666.9583333333333,
+      "dot": 1157.9166666666667,
+      "healing": 0,
+      "taken": 2331.0833333333335,
+      "alive": 158.83333333333334,
+      "allyHp": 737.6666666666666,
+      "ticks": 170.45833333333334
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2430.5833333333335,
+      "damage": 3455,
+      "magic": 658.625,
+      "dot": 437.9583333333333,
+      "healing": 499.3333333333333,
+      "taken": 1752.2083333333333,
+      "alive": 163.75,
+      "allyHp": 1684.9583333333333,
+      "ticks": 169.08333333333334
+    }
+  },
+  {
+    "id": "person-69",
+    "name": "郝昭",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.6041666666666666,
+      "margin": 690.875,
+      "damage": 4187.625,
+      "magic": 1731.4166666666667,
+      "dot": 1177.5,
+      "healing": 0,
+      "taken": 2330.7916666666665,
+      "alive": 157.625,
+      "allyHp": 619.3333333333334,
+      "ticks": 176.16666666666666
+    },
+    "adaptResult": {
+      "win": 0.7708333333333334,
+      "margin": 2391.2916666666665,
+      "damage": 3452.5416666666665,
+      "magic": 710.8333333333334,
+      "dot": 464.0416666666667,
+      "healing": 503.625,
+      "taken": 1775.7916666666667,
+      "alive": 163.95833333333334,
+      "allyHp": 1605.7916666666667,
+      "ticks": 172.95833333333334
+    }
+  },
+  {
+    "id": "person-77",
+    "name": "郭淮",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.6666666666666666,
+      "margin": 926.7083333333334,
+      "damage": 4220.125,
+      "magic": 1760.3333333333333,
+      "dot": 1200.7916666666667,
+      "healing": 0,
+      "taken": 2310.625,
+      "alive": 156.125,
+      "allyHp": 812.3333333333334,
+      "ticks": 168.125
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2469.75,
+      "damage": 3458.9166666666665,
+      "magic": 718.375,
+      "dot": 470.1666666666667,
+      "healing": 517.5,
+      "taken": 1775.5833333333333,
+      "alive": 165.41666666666666,
+      "allyHp": 1659.3333333333333,
+      "ticks": 171.91666666666666
+    }
+  },
+  {
+    "id": "person-70",
+    "name": "乐进",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "frontMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.3125,
+      "margin": -347.6666666666667,
+      "damage": 1993.25,
+      "magic": 82.16666666666667,
+      "dot": 0,
+      "healing": 1517.1666666666667,
+      "taken": 3019.9583333333335,
+      "alive": 167,
+      "allyHp": 723.875,
+      "ticks": 189.29166666666666
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1386.875,
+      "damage": 2582.5,
+      "magic": 400.875,
+      "dot": 305.5,
+      "healing": 586.0833333333334,
+      "taken": 2187.625,
+      "alive": 148.91666666666666,
+      "allyHp": 1438.625,
+      "ticks": 170.79166666666666
+    }
+  },
+  {
+    "id": "person-342",
+    "name": "曹仁",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "backMedic",
+      "breach": "frontMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4583333333333333,
+      "margin": 242.25,
+      "damage": 2190.5,
+      "magic": 84.79166666666667,
+      "dot": 0,
+      "healing": 1548.25,
+      "taken": 2907.4166666666665,
+      "alive": 173.75,
+      "allyHp": 798.5416666666666,
+      "ticks": 197.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2106.5416666666665,
+      "damage": 2589.4166666666665,
+      "magic": 276.8333333333333,
+      "dot": 198.95833333333334,
+      "healing": 881.875,
+      "taken": 2260.625,
+      "alive": 158.33333333333334,
+      "allyHp": 1701.9583333333333,
+      "ticks": 177.41666666666666
+    }
+  },
+  {
+    "id": "person-559",
+    "name": "庞德",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "backMedic",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.375,
+      "margin": 643.5,
+      "damage": 2744.0416666666665,
+      "magic": 80.33333333333333,
+      "dot": 0,
+      "healing": 1509.375,
+      "taken": 2497.4583333333335,
+      "alive": 165.625,
+      "allyHp": 743.5,
+      "ticks": 190.29166666666666
+    },
+    "adaptResult": {
+      "win": 0.6875,
+      "margin": 2429.25,
+      "damage": 3190.2916666666665,
+      "magic": 363.5833333333333,
+      "dot": 245.125,
+      "healing": 696.7083333333334,
+      "taken": 1953.2083333333333,
+      "alive": 151.625,
+      "allyHp": 1665.5,
+      "ticks": 172.83333333333334
+    }
+  },
+  {
+    "id": "person-170",
+    "name": "高顺",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "backMedic"
+    },
+    "fixedResult": {
+      "win": 0.5208333333333334,
+      "margin": 992.4583333333334,
+      "damage": 2800,
+      "magic": 69.83333333333333,
+      "dot": 0,
+      "healing": 1500.2083333333333,
+      "taken": 2450.25,
+      "alive": 165.125,
+      "allyHp": 839.75,
+      "ticks": 191.41666666666666
+    },
+    "adaptResult": {
+      "win": 0.6458333333333334,
+      "margin": 2160,
+      "damage": 3040.875,
+      "magic": 142.45833333333334,
+      "dot": 93.5,
+      "healing": 843.5,
+      "taken": 1773.5833333333333,
+      "alive": 151.875,
+      "allyHp": 1734.625,
+      "ticks": 161
+    }
+  },
+  {
+    "id": "person-513",
+    "name": "马岱",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "backMedic",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4375,
+      "margin": 667.875,
+      "damage": 2645.4583333333335,
+      "magic": 70.08333333333333,
+      "dot": 0,
+      "healing": 1435.75,
+      "taken": 2554.7083333333335,
+      "alive": 160.08333333333334,
+      "allyHp": 766.5,
+      "ticks": 190.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.7083333333333334,
+      "margin": 2383,
+      "damage": 3088.5416666666665,
+      "magic": 306.2916666666667,
+      "dot": 215.58333333333334,
+      "healing": 692.7083333333334,
+      "taken": 1970.4166666666667,
+      "alive": 149.16666666666666,
+      "allyHp": 1701.0833333333333,
+      "ticks": 169.91666666666666
+    }
+  },
+  {
+    "id": "person-478",
+    "name": "田予",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5208333333333334,
+      "margin": 972.2916666666666,
+      "damage": 2815.25,
+      "magic": 83.83333333333333,
+      "dot": 0,
+      "healing": 1607.0416666666667,
+      "taken": 2538.5833333333335,
+      "alive": 170.625,
+      "allyHp": 876.75,
+      "ticks": 193.33333333333334
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2707.5833333333335,
+      "damage": 3355.1666666666665,
+      "magic": 554,
+      "dot": 333.4583333333333,
+      "healing": 476.2916666666667,
+      "taken": 1785.375,
+      "alive": 145.20833333333334,
+      "allyHp": 1930.1666666666667,
+      "ticks": 157
+    }
+  },
+  {
+    "id": "person-547",
+    "name": "文聘",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5,
+      "margin": 423.625,
+      "damage": 2252.5416666666665,
+      "magic": 99.375,
+      "dot": 0,
+      "healing": 1651.5833333333333,
+      "taken": 2936.375,
+      "alive": 178.5,
+      "allyHp": 905.5,
+      "ticks": 198
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 1880.9166666666667,
+      "damage": 3105.25,
+      "magic": 535.0833333333334,
+      "dot": 363.7083333333333,
+      "healing": 495.5416666666667,
+      "taken": 2018.5833333333333,
+      "alive": 156.58333333333334,
+      "allyHp": 1638.6666666666667,
+      "ticks": 167.29166666666666
+    }
+  },
+  {
+    "id": "person-470",
+    "name": "丁奉",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "frontMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.3958333333333333,
+      "margin": -213.25,
+      "damage": 3996.25,
+      "magic": 1633.5833333333333,
+      "dot": 1164.4166666666667,
+      "healing": 0,
+      "taken": 2549.2916666666665,
+      "alive": 157.95833333333334,
+      "allyHp": 494.7916666666667,
+      "ticks": 169.70833333333334
+    },
+    "adaptResult": {
+      "win": 0.6041666666666666,
+      "margin": 1597.9166666666667,
+      "damage": 2986.7916666666665,
+      "magic": 606.75,
+      "dot": 416.0416666666667,
+      "healing": 616.25,
+      "taken": 2058.75,
+      "alive": 158.45833333333334,
+      "allyHp": 1503.375,
+      "ticks": 170.83333333333334
+    }
+  },
+  {
+    "id": "person-46",
+    "name": "王平",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.75,
+      "margin": 1840.0416666666667,
+      "damage": 4253.541666666667,
+      "magic": 1864.8333333333333,
+      "dot": 1092.75,
+      "healing": 0,
+      "taken": 2121.9166666666665,
+      "alive": 130.95833333333334,
+      "allyHp": 1235.7916666666667,
+      "ticks": 147.08333333333334
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2467.4166666666665,
+      "damage": 3241.875,
+      "magic": 648.5416666666666,
+      "dot": 346.5,
+      "healing": 478.2083333333333,
+      "taken": 1883.9583333333333,
+      "alive": 140.625,
+      "allyHp": 1707.4583333333333,
+      "ticks": 161.58333333333334
+    }
+  },
+  {
+    "id": "person-155",
+    "name": "严颜",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "backMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.625,
+      "margin": 1159.4583333333333,
+      "damage": 4117.541666666667,
+      "magic": 1755.875,
+      "dot": 1089.0416666666667,
+      "healing": 0,
+      "taken": 2326.5,
+      "alive": 134.83333333333334,
+      "allyHp": 930.75,
+      "ticks": 158.25
+    },
+    "adaptResult": {
+      "win": 0.625,
+      "margin": 2137.6666666666665,
+      "damage": 3216.4166666666665,
+      "magic": 657.1666666666666,
+      "dot": 366.2916666666667,
+      "healing": 701.0833333333334,
+      "taken": 2008.0416666666667,
+      "alive": 143.83333333333334,
+      "allyHp": 1512.5,
+      "ticks": 168.375
+    }
+  },
+  {
+    "id": "person-604",
+    "name": "李严",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.75,
+      "margin": 1871.7916666666667,
+      "damage": 4292.833333333333,
+      "magic": 1877.625,
+      "dot": 1100.9583333333333,
+      "healing": 0,
+      "taken": 2107.4166666666665,
+      "alive": 134.29166666666666,
+      "allyHp": 1232.7083333333333,
+      "ticks": 150.54166666666666
+    },
+    "adaptResult": {
+      "win": 0.7916666666666666,
+      "margin": 2503.4583333333335,
+      "damage": 3285.375,
+      "magic": 661.7916666666666,
+      "dot": 353.4166666666667,
+      "healing": 478.2083333333333,
+      "taken": 1879.0833333333333,
+      "alive": 143.04166666666666,
+      "allyHp": 1743.4583333333333,
+      "ticks": 162.58333333333334
+    }
+  },
+  {
+    "id": "person-601",
+    "name": "陆抗",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.875,
+      "margin": 2201.0416666666665,
+      "damage": 4586.416666666667,
+      "magic": 2164.625,
+      "dot": 1262.3333333333333,
+      "healing": 0,
+      "taken": 1776.8333333333333,
+      "alive": 129,
+      "allyHp": 1095.75,
+      "ticks": 145.16666666666666
+    },
+    "adaptResult": {
+      "win": 0.875,
+      "margin": 2885.2083333333335,
+      "damage": 3373.6666666666665,
+      "magic": 792,
+      "dot": 452.6666666666667,
+      "healing": 524.8333333333334,
+      "taken": 1790.0416666666667,
+      "alive": 148.04166666666666,
+      "allyHp": 1811.9583333333333,
+      "ticks": 162.83333333333334
+    }
+  },
+  {
+    "id": "person-447",
+    "name": "陈宫",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.75,
+      "margin": 1732.3333333333333,
+      "damage": 4368.666666666667,
+      "magic": 2150.875,
+      "dot": 1230.5833333333333,
+      "healing": 0,
+      "taken": 1927.75,
+      "alive": 128.33333333333334,
+      "allyHp": 1006.7083333333334,
+      "ticks": 147.54166666666666
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2304.125,
+      "damage": 3608.6666666666665,
+      "magic": 1401.2916666666667,
+      "dot": 793.2083333333334,
+      "healing": 529.6666666666666,
+      "taken": 1680.75,
+      "alive": 143.66666666666666,
+      "allyHp": 1287.8333333333333,
+      "ticks": 162.875
+    }
+  },
+  {
+    "id": "person-567",
+    "name": "满宠",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5,
+      "margin": 247.45833333333334,
+      "damage": 2166.3333333333335,
+      "magic": 96.54166666666667,
+      "dot": 0,
+      "healing": 1695.5833333333333,
+      "taken": 2794.125,
+      "alive": 170.66666666666666,
+      "allyHp": 873.375,
+      "ticks": 190.58333333333334
+    },
+    "adaptResult": {
+      "win": 0.7291666666666666,
+      "margin": 1967.125,
+      "damage": 3225.1666666666665,
+      "magic": 667.875,
+      "dot": 443.0833333333333,
+      "healing": 480.6666666666667,
+      "taken": 1829.5833333333333,
+      "alive": 158.29166666666666,
+      "allyHp": 1500.8333333333333,
+      "ticks": 169.45833333333334
+    }
+  },
+  {
+    "id": "person-255",
+    "name": "荀彧",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "backMedic",
+      "riders": "frontMedic",
+      "ranged": "frontMedic",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.3541666666666667,
+      "margin": -462.75,
+      "damage": 1700.4583333333333,
+      "magic": 106.83333333333333,
+      "dot": 0,
+      "healing": 1756.9166666666667,
+      "taken": 2803.375,
+      "alive": 166.33333333333334,
+      "allyHp": 774.0833333333334,
+      "ticks": 182
+    },
+    "adaptResult": {
+      "win": 0.4583333333333333,
+      "margin": 592.625,
+      "damage": 2452.8333333333335,
+      "magic": 695,
+      "dot": 429,
+      "healing": 916.6666666666666,
+      "taken": 2084.625,
+      "alive": 157.75,
+      "allyHp": 974.8333333333334,
+      "ticks": 172
+    }
+  },
+  {
+    "id": "person-462",
+    "name": "程昱",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "mage",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.75,
+      "margin": 1466.4166666666667,
+      "damage": 4222.791666666667,
+      "magic": 2125.875,
+      "dot": 1198.7916666666667,
+      "healing": 0,
+      "taken": 1990.4166666666667,
+      "alive": 126.16666666666667,
+      "allyHp": 943.2916666666666,
+      "ticks": 145.20833333333334
+    },
+    "adaptResult": {
+      "win": 0.75,
+      "margin": 2021,
+      "damage": 3809.0833333333335,
+      "magic": 1777,
+      "dot": 940,
+      "healing": 245.25,
+      "taken": 1771.2083333333333,
+      "alive": 130.125,
+      "allyHp": 1278.6666666666667,
+      "ticks": 149.16666666666666
+    }
+  },
+  {
+    "id": "person-642",
+    "name": "刘晔",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "mage",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.5208333333333334,
+      "margin": 327.9166666666667,
+      "damage": 3996.125,
+      "magic": 2131.6666666666665,
+      "dot": 1226.5416666666667,
+      "healing": 0,
+      "taken": 2316.0833333333335,
+      "alive": 129.45833333333334,
+      "allyHp": 615.1666666666666,
+      "ticks": 150.08333333333334
+    },
+    "adaptResult": {
+      "win": 0.5625,
+      "margin": 919.5416666666666,
+      "damage": 3658.5416666666665,
+      "magic": 1825.4583333333333,
+      "dot": 997.25,
+      "healing": 232,
+      "taken": 2129.875,
+      "alive": 139.5,
+      "allyHp": 933.0833333333334,
+      "ticks": 155.91666666666666
+    }
+  },
+  {
+    "id": "person-123",
+    "name": "简雍",
+    "fixed": "mage",
+    "choices": {
+      "doubleFront": "mage",
+      "fireline": "mage",
+      "breach": "mage",
+      "riders": "frontMedic",
+      "ranged": "mage",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.375,
+      "margin": -1182.4166666666667,
+      "damage": 3504.6666666666665,
+      "magic": 1849.375,
+      "dot": 1148.0833333333333,
+      "healing": 0,
+      "taken": 2903.25,
+      "alive": 133.83333333333334,
+      "allyHp": 364.125,
+      "ticks": 156.41666666666666
+    },
+    "adaptResult": {
+      "win": 0.4166666666666667,
+      "margin": -402.9583333333333,
+      "damage": 3142.3333333333335,
+      "magic": 1552,
+      "dot": 915.1666666666666,
+      "healing": 235.66666666666666,
+      "taken": 2595.2083333333335,
+      "alive": 143.08333333333334,
+      "allyHp": 723.7916666666666,
+      "ticks": 160.5
+    }
+  },
+  {
+    "id": "person-107",
+    "name": "韩浩",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "tank",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.4166666666666667,
+      "margin": -216.875,
+      "damage": 1960.7083333333333,
+      "magic": 89.875,
+      "dot": 0,
+      "healing": 1735,
+      "taken": 2811.0416666666665,
+      "alive": 172.83333333333334,
+      "allyHp": 721.5416666666666,
+      "ticks": 189.29166666666666
+    },
+    "adaptResult": {
+      "win": 0.5833333333333334,
+      "margin": 1318.375,
+      "damage": 2554.3333333333335,
+      "magic": 438.1666666666667,
+      "dot": 310.7916666666667,
+      "healing": 513.5833333333334,
+      "taken": 1991.9166666666667,
+      "alive": 145.45833333333334,
+      "allyHp": 1358.375,
+      "ticks": 165.66666666666666
+    }
+  },
+  {
+    "id": "person-646",
+    "name": "廖化",
+    "fixed": "backMedic",
+    "choices": {
+      "doubleFront": "backMedic",
+      "fireline": "mage",
+      "breach": "frontMedic",
+      "riders": "frontMedic",
+      "ranged": "assassin",
+      "rearCare": "mage"
+    },
+    "fixedResult": {
+      "win": 0.2916666666666667,
+      "margin": -453.4583333333333,
+      "damage": 1917.1666666666667,
+      "magic": 89.41666666666667,
+      "dot": 0,
+      "healing": 1554.7916666666667,
+      "taken": 3064.2083333333335,
+      "alive": 168.66666666666666,
+      "allyHp": 710.125,
+      "ticks": 190.25
+    },
+    "adaptResult": {
+      "win": 0.5833333333333334,
+      "margin": 1223.5833333333333,
+      "damage": 2557.8333333333335,
+      "magic": 465.0833333333333,
+      "dot": 318.75,
+      "healing": 588.5833333333334,
+      "taken": 2226.0416666666665,
+      "alive": 149.375,
+      "allyHp": 1290.25,
+      "ticks": 175.125
+    }
+  }
+]

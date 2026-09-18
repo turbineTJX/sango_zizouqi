@@ -1,0 +1,491 @@
+{
+  "count": 11748,
+  "ranges": [
+    {
+      "world": "range3",
+      "win": 0.7014973958333334,
+      "margin": 2192.6731770833335,
+      "rearHp": 2677.2688802083335,
+      "rearBasic": 0,
+      "followup": 0,
+      "dives": 0,
+      "taunts": 2.7903645833333335,
+      "teams": {
+        "fireline": {
+          "win": 0.7526041666666666,
+          "margin": 2470.2838541666665,
+          "rearHp": 2812.4322916666665,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.8138020833333335
+        },
+        "balanced": {
+          "win": 0.650390625,
+          "margin": 1915.0625,
+          "rearHp": 2542.10546875,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.7669270833333335
+        }
+      }
+    },
+    {
+      "world": "range4",
+      "win": 0.7008463541666666,
+      "margin": 2095.0045572916665,
+      "rearHp": 2599.697265625,
+      "rearBasic": 0,
+      "followup": 0,
+      "dives": 0,
+      "taunts": 2.6731770833333335,
+      "teams": {
+        "fireline": {
+          "win": 0.7291666666666666,
+          "margin": 2324.26953125,
+          "rearHp": 2710.22265625,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.7005208333333335
+        },
+        "balanced": {
+          "win": 0.6725260416666666,
+          "margin": 1865.7395833333333,
+          "rearHp": 2489.171875,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.6458333333333335
+        }
+      }
+    },
+    {
+      "world": "range5",
+      "win": 0.7008463541666666,
+      "margin": 2093.1751302083335,
+      "rearHp": 2597.7330729166665,
+      "rearBasic": 0,
+      "followup": 0,
+      "dives": 0,
+      "taunts": 2.673828125,
+      "teams": {
+        "fireline": {
+          "win": 0.7291666666666666,
+          "margin": 2321.6822916666665,
+          "rearHp": 2707.47265625,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.7018229166666665
+        },
+        "balanced": {
+          "win": 0.6725260416666666,
+          "margin": 1864.66796875,
+          "rearHp": 2487.9934895833335,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.6458333333333335
+        }
+      }
+    },
+    {
+      "world": "range6",
+      "win": 0.7008463541666666,
+      "margin": 2094.421875,
+      "rearHp": 2599.130859375,
+      "rearBasic": 0,
+      "followup": 0,
+      "dives": 0,
+      "taunts": 2.6725260416666665,
+      "teams": {
+        "fireline": {
+          "win": 0.7291666666666666,
+          "margin": 2324.1223958333335,
+          "rearHp": 2710.42578125,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.7005208333333335
+        },
+        "balanced": {
+          "win": 0.6725260416666666,
+          "margin": 1864.7213541666667,
+          "rearHp": 2487.8359375,
+          "rearBasic": 0,
+          "followup": 0,
+          "dives": 0,
+          "taunts": 2.64453125
+        }
+      }
+    }
+  ],
+  "taunt": [
+    {
+      "team": "fireline",
+      "after": {
+        "win": 0.7291666666666666,
+        "margin": 2321.6822916666665,
+        "rearHp": 2707.47265625,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 2.7018229166666665
+      },
+      "before": {
+        "win": 0.7018229166666666,
+        "margin": 2012.0794270833333,
+        "rearHp": 2431.2265625,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "win": {
+        "mean": 0.02734375,
+        "low": 0.020819960975323588,
+        "high": 0.03386753902467641
+      },
+      "rearHp": {
+        "mean": 276.24609375,
+        "low": 245.57707914726726,
+        "high": 306.9151083527327
+      }
+    },
+    {
+      "team": "balanced",
+      "after": {
+        "win": 0.6725260416666666,
+        "margin": 1864.66796875,
+        "rearHp": 2487.9934895833335,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 2.6458333333333335
+      },
+      "before": {
+        "win": 0.6796875,
+        "margin": 1808.0104166666667,
+        "rearHp": 2399.1979166666665,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "win": {
+        "mean": -0.007161458333333333,
+        "low": -0.014926320400439994,
+        "high": 0.0006034037337733274
+      },
+      "rearHp": {
+        "mean": 88.79557291666667,
+        "low": 63.43505432127513,
+        "high": 114.15609151205821
+      }
+    }
+  ],
+  "tournament": [
+    {
+      "team": "spears",
+      "before": {
+        "win": 0.17708333333333334,
+        "margin": -2811.1071428571427,
+        "rearHp": 883.4404761904761,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 0.23511904761904762,
+        "margin": -2381.9255952380954,
+        "rearHp": 961.0089285714286,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "after": {
+        "win": 0.23511904761904762,
+        "margin": -2381.9255952380954,
+        "rearHp": 961.0089285714286,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      }
+    },
+    {
+      "team": "riders",
+      "before": {
+        "win": 0.17261904761904762,
+        "margin": -4309.294642857143,
+        "rearHp": 1263.639880952381,
+        "rearBasic": 1665.8154761904761,
+        "followup": 1325.6458333333333,
+        "dives": 1.5803571428571428,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 0.17857142857142858,
+        "margin": -4245.735119047619,
+        "rearHp": 1263.639880952381,
+        "rearBasic": 1632.9107142857142,
+        "followup": 1289.6875,
+        "dives": 1.5714285714285714,
+        "taunts": 0
+      },
+      "after": {
+        "win": 0.17857142857142858,
+        "margin": -4264.633928571428,
+        "rearHp": 1243.6875,
+        "rearBasic": 1631.8839285714287,
+        "followup": 1299.1517857142858,
+        "dives": 1.5833333333333333,
+        "taunts": 0
+      }
+    },
+    {
+      "team": "ranged",
+      "before": {
+        "win": 0.36607142857142855,
+        "margin": -693.6220238095239,
+        "rearHp": 839.235119047619,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 0.46726190476190477,
+        "margin": 147.19940476190476,
+        "rearHp": 995.625,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "after": {
+        "win": 0.4732142857142857,
+        "margin": 180.74107142857142,
+        "rearHp": 995.0922619047619,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      }
+    },
+    {
+      "team": "fireline",
+      "before": {
+        "win": 0.8139880952380952,
+        "margin": 3109.2678571428573,
+        "rearHp": 1071.875,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 0.7380952380952381,
+        "margin": 2848.5,
+        "rearHp": 1192.345238095238,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.4523809523809523
+      },
+      "after": {
+        "win": 0.7380952380952381,
+        "margin": 2851.5119047619046,
+        "rearHp": 1195.3720238095239,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.4523809523809523
+      }
+    },
+    {
+      "team": "balanced",
+      "before": {
+        "win": 0.8050595238095238,
+        "margin": 2865.651785714286,
+        "rearHp": 1040.6309523809523,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 0.7559523809523809,
+        "margin": 2423.5089285714284,
+        "rearHp": 1139.0386904761904,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.443452380952381
+      },
+      "after": {
+        "win": 0.7559523809523809,
+        "margin": 2417.6339285714284,
+        "rearHp": 1131.2857142857142,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.4464285714285714
+      }
+    },
+    {
+      "team": "supports",
+      "before": {
+        "win": 0.4523809523809524,
+        "margin": -24.324404761904763,
+        "rearHp": 1479.2142857142858,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 0.3556547619047619,
+        "margin": -764.0684523809524,
+        "rearHp": 1497.5565476190477,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.6130952380952381
+      },
+      "after": {
+        "win": 0.3482142857142857,
+        "margin": -826.6458333333334,
+        "rearHp": 1455.25,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.5922619047619047
+      }
+    },
+    {
+      "team": "doubleFront",
+      "before": {
+        "win": 0.8630952380952381,
+        "margin": 3307.8511904761904,
+        "rearHp": 859.1011904761905,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 1,
+        "margin": 3656.845238095238,
+        "rearHp": 675.7529761904761,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.3898809523809523
+      },
+      "after": {
+        "win": 1,
+        "margin": 3656.845238095238,
+        "rearHp": 675.7529761904761,
+        "rearBasic": 0,
+        "followup": 0,
+        "dives": 0,
+        "taunts": 1.3898809523809523
+      }
+    },
+    {
+      "team": "breach",
+      "before": {
+        "win": 0.34970238095238093,
+        "margin": -1444.422619047619,
+        "rearHp": 2252.059523809524,
+        "rearBasic": 736.1845238095239,
+        "followup": 472.9583333333333,
+        "dives": 1.1964285714285714,
+        "taunts": 0
+      },
+      "noPursuit": {
+        "win": 0.2693452380952381,
+        "margin": -1684.3244047619048,
+        "rearHp": 2386.2351190476193,
+        "rearBasic": 568.639880952381,
+        "followup": 420.36011904761904,
+        "dives": 1.2202380952380953,
+        "taunts": 2.1011904761904763
+      },
+      "after": {
+        "win": 0.2708333333333333,
+        "margin": -1633.5267857142858,
+        "rearHp": 2358.622023809524,
+        "rearBasic": 582.6428571428571,
+        "followup": 434.36309523809524,
+        "dives": 1.244047619047619,
+        "taunts": 2.0833333333333335
+      }
+    }
+  ],
+  "pursuit": [
+    {
+      "team": "riders",
+      "win": {
+        "mean": 0,
+        "low": 0,
+        "high": 0
+      },
+      "followup": {
+        "mean": 9.464285714285714,
+        "low": 7.174352429276894,
+        "high": 11.754218999294533
+      }
+    },
+    {
+      "team": "breach",
+      "win": {
+        "mean": 0.001488095238095238,
+        "low": -0.013390685900853043,
+        "high": 0.016366876377043517
+      },
+      "followup": {
+        "mean": 14.00297619047619,
+        "low": 5.039393460176312,
+        "high": 22.966558920776066
+      }
+    }
+  ],
+  "trial": [
+    {
+      "world": "before",
+      "win": 0.16666666666666666,
+      "margin": -1598.3333333333333,
+      "rearHp": 97.91666666666667,
+      "rearBasic": 463.4166666666667,
+      "followup": 463.4166666666667,
+      "dives": 2.0833333333333335,
+      "taunts": 0
+    },
+    {
+      "world": "noPursuit",
+      "win": 0.08333333333333333,
+      "margin": -1666,
+      "rearHp": 145,
+      "rearBasic": 611.5833333333334,
+      "followup": 611.5833333333334,
+      "dives": 2.75,
+      "taunts": 2.8333333333333335
+    },
+    {
+      "world": "range5",
+      "win": 0.08333333333333333,
+      "margin": -1643.1666666666667,
+      "rearHp": 145,
+      "rearBasic": 633,
+      "followup": 633,
+      "dives": 2.75,
+      "taunts": 2.8333333333333335
+    }
+  ]
+}

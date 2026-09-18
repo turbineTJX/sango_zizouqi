@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { newGame, orderArmy, advanceTurn, startBattle, lockDeployment, stepBattle, issueCommand, validateSave, lowerIntent } from '../engine.mjs';
 import { TACTICS_BOOK, TROOP_TACTICS, unitTactics, hasStatus, tacticTarget } from '../tactics.mjs';
 import { hexNeighbors } from '../hex-grid.mjs';
+import {powerFactor} from '../tactic-power.mjs';
+import {unitAttributes} from '../unit-stats.mjs';
 
 function scene(type='spear',id='cao') {
   const state=newGame();orderArmy(state,'a1','guandu');advanceTurn(state);startBattle(state);lockDeployment(state.battle);
@@ -27,7 +29,7 @@ function complete(b,a) {
 }
 
 test('four troop types have fixed base slots and named officers have exclusive tactics',()=>{
-  const expected={archer:['燎原火矢','漫天箭雨','穿林阻射'],spear:['长枪贯阵','铁壁枪阵','横枪奋击'],cavalry:['风驰电掣','铁骑冲阵','骁骑奋战'],crossbow:['机括连珠','且退且射','重矢破甲']};
+  const expected={archer:['火矢','箭雨','阻射'],spear:['贯阵','枪阵','奋击'],cavalry:['疾驰','冲阵','奋战'],crossbow:['连珠','退射','破甲']};
   for(const [type,names] of Object.entries(expected))assert.deepEqual(unitTactics({id:'ordinary-test',type}).map(s=>s.name),names);
   const officers=newGame().armies.flatMap(a=>a.units);
   assert.equal(officers.filter(u=>unitTactics(u).some(s=>s.special)).length,15);
@@ -52,7 +54,7 @@ test('expired cooldown is insufficient below threshold; regaining intent re-enab
   const ready=a.skillReady.thrust;lowerIntent(a,100);a.cooldown=999;d.cooldown=999;
   while(b.tick<ready+1)stepBattle(b);
   assert.equal(a.cast,null);assert.equal(a.skillCasts,1);
-  a.intent=40;stepBattle(b);assert.equal(a.tacticCasts.thrust,2);assert.equal(a.cast,null);assert.equal(a.intent,52);
+  a.intent=40;stepBattle(b);assert.equal(a.tacticCasts.thrust,2);assert.equal(a.cast,null);assert.equal(a.intent,40);
 });
 test('fire burns without intent feedback and ranged skills have distinct real effects',()=>{
   const {b,a,d}=scene('archer');allowOnly(a,'fire');complete(b,a);
@@ -89,7 +91,7 @@ test('blocked displacement never overlaps units or crosses board limits',()=>{
 test('rare skills stun, protect and reduce intent without being universal damage attacks',()=>{
   const l=scene('cavalry','liao');allowOnly(l.a,'terror');complete(l.b,l.a);assert.ok(hasStatus(l.b,l.d,'stun'));
   const g=scene('crossbow','jia');g.d.intent=100;allowOnly(g.a,'undermine');const hp=g.d.hp;complete(g.b,g.a);
-  assert.equal(g.d.intent,55);assert.equal(g.d.hp,hp);
+  assert.equal(g.d.intent,100-Math.round(45*powerFactor(unitAttributes(g.a,g.b).strategyPower)));assert.equal(g.d.hp,hp);
   const c=scene('spear','chu');const ally={...structuredClone(c.a),id:'ally',x:5,intent:0,cooldown:999};c.d.x=6;c.b.sides[0].units.push(ally);
   allowOnly(c.a,'protect');complete(c.b,c.a);assert.ok(hasStatus(c.b,ally,'shield'));assert.equal(c.d.x,8);
 });

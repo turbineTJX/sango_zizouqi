@@ -1,0 +1,348 @@
+[
+  {
+    "level": 3,
+    "teams": [
+      {
+        "key": "famousA",
+        "names": [
+          "于禁",
+          "黄忠",
+          "诸葛亮",
+          "张飞",
+          "关羽",
+          "周瑜"
+        ],
+        "games": 160,
+        "win": 0.821875,
+        "matchups": {
+          "famousB": 0.203125,
+          "famousC": 0.90625,
+          "commonA": 1,
+          "commonB": 1,
+          "commonC": 1
+        }
+      },
+      {
+        "key": "famousB",
+        "names": [
+          "许褚",
+          "夏侯渊",
+          "荀攸",
+          "曹操",
+          "张辽",
+          "陆逊"
+        ],
+        "games": 224,
+        "win": 0.8995535714285714,
+        "matchups": {
+          "famousA": 0.796875,
+          "famousC": 0.859375,
+          "commonA": 1,
+          "commonB": 1,
+          "commonC": 1,
+          "mixedA": 0.9375,
+          "mixedB": 0.703125
+        }
+      },
+      {
+        "key": "famousC",
+        "names": [
+          "高览",
+          "太史慈",
+          "沮授",
+          "魏延",
+          "赵云",
+          "黄盖"
+        ],
+        "games": 224,
+        "win": 0.5022321428571429,
+        "matchups": {
+          "famousA": 0.09375,
+          "famousB": 0.140625,
+          "commonA": 0.578125,
+          "commonB": 0.9375,
+          "commonC": 1,
+          "mixedA": 0.546875,
+          "mixedB": 0.21875
+        }
+      },
+      {
+        "key": "commonA",
+        "names": [
+          "郝昭",
+          "王平",
+          "满宠",
+          "曹仁",
+          "庞德",
+          "李严"
+        ],
+        "games": 160,
+        "win": 0.409375,
+        "matchups": {
+          "famousA": 0,
+          "famousB": 0,
+          "famousC": 0.421875,
+          "commonB": 0.625,
+          "commonC": 1
+        }
+      },
+      {
+        "key": "commonB",
+        "names": [
+          "郭淮",
+          "严颜",
+          "程昱",
+          "丁奉",
+          "高顺",
+          "陆抗"
+        ],
+        "games": 224,
+        "win": 0.234375,
+        "matchups": {
+          "famousA": 0,
+          "famousB": 0,
+          "famousC": 0.0625,
+          "commonA": 0.375,
+          "commonC": 0.96875,
+          "mixedA": 0.171875,
+          "mixedB": 0.0625
+        }
+      },
+      {
+        "key": "commonC",
+        "names": [
+          "廖化",
+          "文聘",
+          "陈宫",
+          "乐进",
+          "马岱",
+          "荀彧"
+        ],
+        "games": 224,
+        "win": 0.004464285714285714,
+        "matchups": {
+          "famousA": 0,
+          "famousB": 0,
+          "famousC": 0,
+          "commonA": 0,
+          "commonB": 0.03125,
+          "mixedA": 0,
+          "mixedB": 0
+        }
+      },
+      {
+        "key": "mixedA",
+        "names": [
+          "郝昭",
+          "黄忠",
+          "满宠",
+          "张飞",
+          "庞德",
+          "周瑜"
+        ],
+        "games": 160,
+        "win": 0.528125,
+        "matchups": {
+          "famousB": 0.0625,
+          "famousC": 0.453125,
+          "commonB": 0.828125,
+          "commonC": 1,
+          "mixedB": 0.296875
+        }
+      },
+      {
+        "key": "mixedB",
+        "names": [
+          "于禁",
+          "王平",
+          "诸葛亮",
+          "曹仁",
+          "关羽",
+          "李严"
+        ],
+        "games": 160,
+        "win": 0.74375,
+        "matchups": {
+          "famousB": 0.296875,
+          "famousC": 0.78125,
+          "commonB": 0.9375,
+          "commonC": 1,
+          "mixedA": 0.703125
+        }
+      }
+    ]
+  },
+  {
+    "level": 10,
+    "teams": [
+      {
+        "key": "famousA",
+        "names": [
+          "于禁",
+          "黄忠",
+          "诸葛亮",
+          "张飞",
+          "关羽",
+          "周瑜"
+        ],
+        "games": 160,
+        "win": 0.490625,
+        "matchups": {
+          "famousB": 0.109375,
+          "famousC": 0.640625,
+          "commonA": 0.125,
+          "commonB": 0.578125,
+          "commonC": 1
+        }
+      },
+      {
+        "key": "famousB",
+        "names": [
+          "许褚",
+          "夏侯渊",
+          "荀攸",
+          "曹操",
+          "张辽",
+          "陆逊"
+        ],
+        "games": 224,
+        "win": 0.8549107142857143,
+        "matchups": {
+          "famousA": 0.890625,
+          "famousC": 0.90625,
+          "commonA": 0.703125,
+          "commonB": 0.953125,
+          "commonC": 1,
+          "mixedA": 0.96875,
+          "mixedB": 0.5625
+        }
+      },
+      {
+        "key": "famousC",
+        "names": [
+          "高览",
+          "太史慈",
+          "沮授",
+          "魏延",
+          "赵云",
+          "黄盖"
+        ],
+        "games": 224,
+        "win": 0.38392857142857145,
+        "matchups": {
+          "famousA": 0.359375,
+          "famousB": 0.09375,
+          "commonA": 0.03125,
+          "commonB": 0.546875,
+          "commonC": 1,
+          "mixedA": 0.625,
+          "mixedB": 0.03125
+        }
+      },
+      {
+        "key": "commonA",
+        "names": [
+          "郝昭",
+          "王平",
+          "满宠",
+          "曹仁",
+          "庞德",
+          "李严"
+        ],
+        "games": 160,
+        "win": 0.821875,
+        "matchups": {
+          "famousA": 0.875,
+          "famousB": 0.296875,
+          "famousC": 0.96875,
+          "commonB": 0.96875,
+          "commonC": 1
+        }
+      },
+      {
+        "key": "commonB",
+        "names": [
+          "郭淮",
+          "严颜",
+          "程昱",
+          "丁奉",
+          "高顺",
+          "陆抗"
+        ],
+        "games": 224,
+        "win": 0.33705357142857145,
+        "matchups": {
+          "famousA": 0.421875,
+          "famousB": 0.046875,
+          "famousC": 0.453125,
+          "commonA": 0.03125,
+          "commonC": 0.984375,
+          "mixedA": 0.359375,
+          "mixedB": 0.0625
+        }
+      },
+      {
+        "key": "commonC",
+        "names": [
+          "廖化",
+          "文聘",
+          "陈宫",
+          "乐进",
+          "马岱",
+          "荀彧"
+        ],
+        "games": 224,
+        "win": 0.002232142857142857,
+        "matchups": {
+          "famousA": 0,
+          "famousB": 0,
+          "famousC": 0,
+          "commonA": 0,
+          "commonB": 0.015625,
+          "mixedA": 0,
+          "mixedB": 0
+        }
+      },
+      {
+        "key": "mixedA",
+        "names": [
+          "郝昭",
+          "黄忠",
+          "满宠",
+          "张飞",
+          "庞德",
+          "周瑜"
+        ],
+        "games": 160,
+        "win": 0.415625,
+        "matchups": {
+          "famousB": 0.03125,
+          "famousC": 0.375,
+          "commonB": 0.640625,
+          "commonC": 1,
+          "mixedB": 0.03125
+        }
+      },
+      {
+        "key": "mixedB",
+        "names": [
+          "于禁",
+          "王平",
+          "诸葛亮",
+          "曹仁",
+          "关羽",
+          "李严"
+        ],
+        "games": 160,
+        "win": 0.8625,
+        "matchups": {
+          "famousB": 0.4375,
+          "famousC": 0.96875,
+          "commonB": 0.9375,
+          "commonC": 1,
+          "mixedA": 0.96875
+        }
+      }
+    ]
+  }
+]

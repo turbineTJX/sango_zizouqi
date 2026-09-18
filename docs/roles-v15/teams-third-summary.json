@@ -1,0 +1,355 @@
+{
+  "count": 1440,
+  "summary": [
+    {
+      "count": 3,
+      "teams": [
+        {
+          "key": "doubleFront",
+          "games": 144,
+          "win": 0.3819444444444444,
+          "timeout": 0.08333333333333333,
+          "matchups": {
+            "spellFront": 0,
+            "fireline": 0,
+            "breach": 0.75,
+            "riders": 1,
+            "ranged": 0.3125,
+            "frontCare": 0.75,
+            "rearCare": 0,
+            "doubleCare": 0.625,
+            "controlFire": 0
+          }
+        },
+        {
+          "key": "spellFront",
+          "games": 144,
+          "win": 0.5868055555555556,
+          "timeout": 0.013888888888888888,
+          "matchups": {
+            "doubleFront": 1,
+            "fireline": 0.125,
+            "breach": 1,
+            "riders": 1,
+            "ranged": 0.125,
+            "frontCare": 1,
+            "rearCare": 0.03125,
+            "doubleCare": 1,
+            "controlFire": 0
+          }
+        },
+        {
+          "key": "fireline",
+          "games": 144,
+          "win": 0.7743055555555556,
+          "timeout": 0.006944444444444444,
+          "matchups": {
+            "doubleFront": 1,
+            "spellFront": 0.875,
+            "breach": 0.9375,
+            "riders": 0.9375,
+            "ranged": 0.625,
+            "frontCare": 1,
+            "rearCare": 0.09375,
+            "doubleCare": 1,
+            "controlFire": 0.5
+          }
+        },
+        {
+          "key": "breach",
+          "games": 144,
+          "win": 0.40625,
+          "timeout": 0.006944444444444444,
+          "matchups": {
+            "doubleFront": 0.25,
+            "spellFront": 0,
+            "fireline": 0.0625,
+            "riders": 1,
+            "ranged": 0.8125,
+            "frontCare": 0.5,
+            "rearCare": 0.0625,
+            "doubleCare": 0.71875,
+            "controlFire": 0.25
+          }
+        },
+        {
+          "key": "riders",
+          "games": 144,
+          "win": 0.13194444444444445,
+          "timeout": 0,
+          "matchups": {
+            "doubleFront": 0,
+            "spellFront": 0,
+            "fireline": 0.0625,
+            "breach": 0,
+            "ranged": 1,
+            "frontCare": 0,
+            "rearCare": 0,
+            "doubleCare": 0,
+            "controlFire": 0.125
+          }
+        },
+        {
+          "key": "ranged",
+          "games": 144,
+          "win": 0.4895833333333333,
+          "timeout": 0.034722222222222224,
+          "matchups": {
+            "doubleFront": 0.6875,
+            "spellFront": 0.875,
+            "fireline": 0.375,
+            "breach": 0.1875,
+            "riders": 0,
+            "frontCare": 0.75,
+            "rearCare": 0.375,
+            "doubleCare": 0.78125,
+            "controlFire": 0.375
+          }
+        },
+        {
+          "key": "frontCare",
+          "games": 144,
+          "win": 0.2777777777777778,
+          "timeout": 0.1111111111111111,
+          "matchups": {
+            "doubleFront": 0.25,
+            "spellFront": 0,
+            "fireline": 0,
+            "breach": 0.5,
+            "riders": 1,
+            "ranged": 0.25,
+            "rearCare": 0,
+            "doubleCare": 0.4375,
+            "controlFire": 0.0625
+          }
+        },
+        {
+          "key": "rearCare",
+          "games": 144,
+          "win": 0.9097222222222222,
+          "timeout": 0.020833333333333332,
+          "matchups": {
+            "doubleFront": 1,
+            "spellFront": 0.96875,
+            "fireline": 0.90625,
+            "breach": 0.9375,
+            "riders": 1,
+            "ranged": 0.625,
+            "frontCare": 1,
+            "doubleCare": 1,
+            "controlFire": 0.75
+          }
+        },
+        {
+          "key": "doubleCare",
+          "games": 144,
+          "win": 0.2777777777777778,
+          "timeout": 0.24305555555555555,
+          "matchups": {
+            "doubleFront": 0.375,
+            "spellFront": 0,
+            "fireline": 0,
+            "breach": 0.28125,
+            "riders": 1,
+            "ranged": 0.21875,
+            "frontCare": 0.5625,
+            "rearCare": 0,
+            "controlFire": 0.0625
+          }
+        },
+        {
+          "key": "controlFire",
+          "games": 144,
+          "win": 0.7638888888888888,
+          "timeout": 0.006944444444444444,
+          "matchups": {
+            "doubleFront": 1,
+            "spellFront": 1,
+            "fireline": 0.5,
+            "breach": 0.75,
+            "riders": 0.875,
+            "ranged": 0.625,
+            "frontCare": 0.9375,
+            "rearCare": 0.25,
+            "doubleCare": 0.9375
+          }
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "teams": [
+        {
+          "key": "doubleFront",
+          "games": 144,
+          "win": 0.3333333333333333,
+          "timeout": 0.1111111111111111,
+          "matchups": {
+            "spellFront": 0,
+            "fireline": 0,
+            "breach": 0.8125,
+            "riders": 1,
+            "ranged": 0,
+            "frontCare": 0.6875,
+            "rearCare": 0,
+            "doubleCare": 0.5,
+            "controlFire": 0
+          }
+        },
+        {
+          "key": "spellFront",
+          "games": 144,
+          "win": 0.5381944444444444,
+          "timeout": 0.041666666666666664,
+          "matchups": {
+            "doubleFront": 1,
+            "fireline": 0,
+            "breach": 0.9375,
+            "riders": 1,
+            "ranged": 0,
+            "frontCare": 1,
+            "rearCare": 0,
+            "doubleCare": 0.90625,
+            "controlFire": 0
+          }
+        },
+        {
+          "key": "fireline",
+          "games": 144,
+          "win": 0.8645833333333334,
+          "timeout": 0.027777777777777776,
+          "matchups": {
+            "doubleFront": 1,
+            "spellFront": 1,
+            "breach": 1,
+            "riders": 0.90625,
+            "ranged": 0.8125,
+            "frontCare": 0.9375,
+            "rearCare": 0.625,
+            "doubleCare": 1,
+            "controlFire": 0.5
+          }
+        },
+        {
+          "key": "breach",
+          "games": 144,
+          "win": 0.2708333333333333,
+          "timeout": 0.027777777777777776,
+          "matchups": {
+            "doubleFront": 0.1875,
+            "spellFront": 0.0625,
+            "fireline": 0,
+            "riders": 1,
+            "ranged": 0.8125,
+            "frontCare": 0.3125,
+            "rearCare": 0,
+            "doubleCare": 0.0625,
+            "controlFire": 0
+          }
+        },
+        {
+          "key": "riders",
+          "games": 144,
+          "win": 0.1284722222222222,
+          "timeout": 0.006944444444444444,
+          "matchups": {
+            "doubleFront": 0,
+            "spellFront": 0,
+            "fireline": 0.09375,
+            "breach": 0,
+            "ranged": 1,
+            "frontCare": 0,
+            "rearCare": 0,
+            "doubleCare": 0,
+            "controlFire": 0.0625
+          }
+        },
+        {
+          "key": "ranged",
+          "games": 144,
+          "win": 0.5486111111111112,
+          "timeout": 0.0763888888888889,
+          "matchups": {
+            "doubleFront": 1,
+            "spellFront": 1,
+            "fireline": 0.1875,
+            "breach": 0.1875,
+            "riders": 0,
+            "frontCare": 0.4375,
+            "rearCare": 0.5,
+            "doubleCare": 0.75,
+            "controlFire": 0.875
+          }
+        },
+        {
+          "key": "frontCare",
+          "games": 144,
+          "win": 0.3611111111111111,
+          "timeout": 0.1388888888888889,
+          "matchups": {
+            "doubleFront": 0.3125,
+            "spellFront": 0,
+            "fireline": 0.0625,
+            "breach": 0.6875,
+            "riders": 1,
+            "ranged": 0.5625,
+            "rearCare": 0.1875,
+            "doubleCare": 0.375,
+            "controlFire": 0.0625
+          }
+        },
+        {
+          "key": "rearCare",
+          "games": 144,
+          "win": 0.7708333333333334,
+          "timeout": 0.09722222222222222,
+          "matchups": {
+            "doubleFront": 1,
+            "spellFront": 1,
+            "fireline": 0.375,
+            "breach": 1,
+            "riders": 1,
+            "ranged": 0.5,
+            "frontCare": 0.8125,
+            "doubleCare": 1,
+            "controlFire": 0.25
+          }
+        },
+        {
+          "key": "doubleCare",
+          "games": 144,
+          "win": 0.3784722222222222,
+          "timeout": 0.3472222222222222,
+          "matchups": {
+            "doubleFront": 0.5,
+            "spellFront": 0.09375,
+            "fireline": 0,
+            "breach": 0.9375,
+            "riders": 1,
+            "ranged": 0.25,
+            "frontCare": 0.625,
+            "rearCare": 0,
+            "controlFire": 0
+          }
+        },
+        {
+          "key": "controlFire",
+          "games": 144,
+          "win": 0.8055555555555556,
+          "timeout": 0,
+          "matchups": {
+            "doubleFront": 1,
+            "spellFront": 1,
+            "fireline": 0.5,
+            "breach": 1,
+            "riders": 0.9375,
+            "ranged": 0.125,
+            "frontCare": 0.9375,
+            "rearCare": 0.75,
+            "doubleCare": 1
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {createScenario} from '../scenarios.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {relationshipKey} from '../relationships.mjs';
 import test from 'node:test';
@@ -30,8 +31,8 @@ function extra(b,id,side,x,y,level=1){
   const u={...makeOfficer(id),level,side,status:'active',hp:3000,maxHp:3000,initial:3000,battleDamage:0,healed:0,x,y,intent:0,cooldown:999,cast:null,statuses:{phalanx:{until:999}},skillReady:{},tacticCasts:{},passiveState:initialPassiveState()};
   u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));b.sides[side].units.push(u);return u;
 }
-test('all 60 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10',()=>{
-  assert.equal(Object.keys(PASSIVES).length,60);assert.equal(Object.keys(SKILL_ROUTES).length,41);
+test('all 62 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10',()=>{
+  assert.equal(Object.keys(PASSIVES).length,62);assert.equal(Object.keys(SKILL_ROUTES).length,41);
   for(const [id,route] of Object.entries(SKILL_ROUTES)){
     assert.equal(new Set(route).size,5);
     for(let level=1;level<=10;level++){
@@ -70,12 +71,12 @@ test('desperate uses strict 40% boundary and defiant scales continuously, caps a
   const {b,a}=duel('dun',10);a.hp=a.maxHp*.5;let s=unitAttributes(a,b);
   const baseline=unitAttributes({...a,level:1},b);near(s.attack,baseline.attack*1.33);near(s.martialPower,baseline.martialPower*1.25);
   a.hp=a.maxHp*.4;const exact=unitAttributes(a,b);a.hp--;const below=unitAttributes(a,b);near(below.defense/exact.defense,1.15);near(below.discipline/exact.discipline,1.15);
-  a.hp=a.maxHp*.8;s=unitAttributes(a,b);near(s.attack,baseline.attack*1.18);near(s.martialPower,baseline.martialPower*1.1);
+  a.hp=a.maxHp*.8;s=unitAttributes(a,b);const healedBase=unitAttributes({...a,level:1},b);near(s.attack,healedBase.attack*1.18);near(s.martialPower,healedBase.martialPower*1.1);
 });
 test('bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes',()=>{
   const {b,a,d}=duel('yuanxia',10);a.type='archer';let s=unitAttributes(a,b);
-  near(s.attack/unitAttributes({...a,level:1},b).attack,1.23);near(s.move,1.3);near(s.attackInterval,2/1.2);
-  d.x=5;s=unitAttributes(a,b);near(s.attack/unitAttributes({...a,level:1},b).attack,1.08);near(s.move,1);near(s.attackInterval,2);
+  near(s.attack/unitAttributes({...a,level:1},b).attack,1.23);near(s.move,1.3);near(s.attackInterval,2.5/1.2);
+  d.x=5;s=unitAttributes(a,b);near(s.attack/unitAttributes({...a,level:1},b).attack,1.08);near(s.move,1);near(s.attackInterval,2.5);
   a.type='cavalry';assert.equal(passiveList(a,b).find(s=>s.id==='bow').state,'兵种不符');
   const rider={...makeOfficer('liao'),level:5};near(unitAttributes(rider).move,2.4);rider.type='spear';near(unitAttributes(rider).move,1);assert.equal(hasPassive(rider,'rider'),true);
 });
@@ -87,12 +88,12 @@ test('guard and shelter reduce only eligible damage; fortress and adapt also pro
   const he={...a,id:'he',level:10,passiveState:{...initialPassiveState(),entryUntil:15,reserveEntered:true}};near(passiveDamageTaken(b,he,'dot'),.85);b.tick=15;near(passiveDamageTaken(b,he,'dot'),1);
 });
 test('isolated and joint change actual basic damage and evaluate neighbors from the correct side',()=>{
-  function shot(level,ally=false,enemy=false){const x=duel('liao',level);if(ally)extra(x.b,'chu',x.a.side,6,3);if(enemy)extra(x.b,'yan',x.d.side,8,3);stepBattle(x.b);return x.b.effects.find(e=>e.from===x.a.id&&e.damage).damage;}
-  near(shot(10)/shot(9),1.25,.03);near(shot(10,true)/shot(9),1.4,.03);near(shot(10,false,true)/shot(9),1,.03);
+  function shot(level,ally=false,enemy=false,id='liao'){const x=duel(id,level);if(ally)extra(x.b,'chu',x.a.side,6,3);if(enemy)extra(x.b,'yan',x.d.side,8,3);stepBattle(x.b);return x.b.effects.find(e=>e.from===x.a.id&&e.damage).damage;}
+  near(shot(10)/shot(9),1.25,.03);near(shot(10,true)/shot(9),1.25,.03);near(shot(5,true,false,'he')/shot(4,true,false,'he'),1.15,.03);near(shot(10,false,true)/shot(9),1,.03);
   const x=duel('liao',10);assert.equal(passiveDamageMultiplier(x.b,x.a,x.d,'intellect',40),1);
 });
 test('foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold',()=>{
-  function hit(level,intent){const x=duel('jia',level);x.d.intent=intent;return cast(x,'seal');}
+  function hit(level,intent){const x=duel('jia',level);x.d.intent=intent;x.d.x=6;return cast(x,'ambush');}
   near(hit(10,0)/hit(9,0),1.3,.03);near(hit(10,59)/hit(9,59),1.3,.03);
   assert.equal(hit(10,60),hit(9,60));assert.equal(hit(10,100),hit(9,100));
   const x=duel('jia',10);assert.equal(passiveDamageMultiplier(x.b,x.a,x.d,'force',40),1);
@@ -108,11 +109,11 @@ test('crossbow streak counts basic attacks, resets on target or troop changes, a
 });
 test('fractional attack intervals produce more actual attacks instead of rounding away attack speed',()=>{
   function count(level){const x=duel('yuanxia',level);x.a.type='archer';configureTactics(x.a,['fire','scatter','suppress']);x.a.skillReady={fire:999,scatter:999,suppress:999};x.a.force=1;x.a.leadership=1;x.d.hp=x.d.maxHp=100000;let n=0;for(let i=0;i<40;i++){stepBattle(x.b);n+=x.b.effects.filter(e=>e.from===x.a.id&&!e.skill&&e.damage).length;}return n;}
-  assert.equal(count(9),20);assert.ok(count(10)>=24);
-  for(const type of ['archer','crossbow']){const u={...makeOfficer('cao'),id:'common',skillRouteType:type,type,level:10};near(unitAttributes(u).attackInterval,(type==='archer'?2:4)/1.2);}
+  assert.equal(count(9),16);assert.ok(count(10)>=19);
+  for(const type of ['archer','crossbow']){const u={...makeOfficer('cao'),id:'common',skillRouteType:type,type,level:10};near(unitAttributes(u).attackInterval,(type==='archer'?2.5:4)/1.2);}
 });
-test('attack and surviving-hit intent bonuses fire once for multi-hit attacks and respect caps',()=>{
-  const x=duel('liao',3);x.d.id='dun';x.d.level=3;cast(x,'repeat');assert.equal(x.a.intent,54);assert.equal(x.d.intent,24);
+test('multi-hit tactics do not charge the caster and grant surviving-hit intent once',()=>{
+  const x=duel('liao',3);x.d.id='dun';x.d.level=3;cast(x,'repeat');assert.equal(x.a.intent,40);assert.equal(x.d.intent,9);
   x.a.intent=99;x.a.cooldown=0;stepBattle(x.b);assert.equal(x.a.intent,100);
   const y=duel('liao',3);y.d.statuses.shield={until:99,amount:1000,layers:[{source:'test',label:'测试',amount:1000,until:99}]};stepBattle(y.b);assert.equal(y.d.intent,0);
 });
@@ -133,12 +134,12 @@ test('rescue increases actual shield, rally and relay effects, and leaves army s
   near(shield(10)/shield(9),1.55/1.2,.01);
   const x=duel('yu',10),patient=extra(x.b,'dun',x.a.side,4,4);patient.hp=1000;patient.battleDamage=2000;
   x.a.type='archer';configureTactics(x.a,['rally','fire','scatter']);x.a.skillReady={rally:999,fire:999,scatter:999};const power=unitAttributes(x.a,x.b).strategyPower;
-  cast(x,'rally',patient);assert.equal(patient.intent,Math.round((10+Math.round(power*.08))*1.35));
-  x.a.type='cavalry';configureTactics(x.a,['relay','rush','valor']);x.a.skillReady={relay:999,rush:999,valor:999};patient.skillReady={thrust:99};cast(x,'relay',patient);assert.equal(patient.skillReady.thrust,99-Math.round((2+Math.round(power*.014))*1.35));
+  cast(x,'rally',patient);assert.equal(patient.intent,Math.round((24+Math.round(power*.02))*1.35));
+  x.a.type='cavalry';configureTactics(x.a,['relay','rush','valor']);x.a.skillReady={relay:999,rush:999,valor:999};patient.skillReady={thrust:99};cast(x,'relay',patient);assert.equal(patient.skillReady.thrust,99-Math.round(2*1.35));
   x.b.commandProgress=COMMAND_RESOURCE.capacity;const before=patient.intent;assert.equal(issueCommand(x.b,'inspire'),null);assert.equal(patient.intent,before+35);
 });
 test('cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly',()=>{
-  const s=campaign(10),b=s.battle,u=b.sides[0].units.find(u=>u.id==='jia'),first=b.sides[0].units.find(u=>u.id==='cao'),d=b.sides[1].units[0];
+  const s=createScenario('officer-lab',321,0,['cao','person-290']),b=s.battle,u=b.sides[0].units.find(u=>u.id==='person-290'),first=b.sides[0].units.find(u=>u.id==='cao'),d=b.sides[1].units[0];
   s.relationshipTypes[relationshipKey(first.id,u.id)]='sworn';b.relationshipTypes=structuredClone(s.relationshipTypes);
   s.relationshipScores[relationshipKey(first.id,u.id)]=100;b.relationshipScores=structuredClone(s.relationshipScores);
   b.sides[0].units=[first,u];b.sides[1].units=[d];Object.assign(first,{x:3,y:3,type:'crossbow'});Object.assign(u,{x:4,y:3,type:'crossbow'});Object.assign(d,{x:6,y:3});
@@ -162,7 +163,7 @@ test('fortress reduces real burning and army firestorm damage before shields wit
 test('experience carries across thresholds, unlocks all crossed nodes and stops at level 10',()=>{
   const u=makeOfficer('liao');let r=gainExperience(u,100);assert.equal(u.level,2);assert.deepEqual(r.unlocked,['勇武']);
   r=gainExperience(u,350);assert.equal(u.level,3);assert.equal(u.experience,150);assert.deepEqual(r.unlocked,['振奋']);
-  r=gainExperience(u,10000);assert.equal(u.level,10);assert.equal(u.experience,0);assert.deepEqual(r.unlocked,['骑术','合击','摧锋']);assert.equal(gainExperience(u,100).gained,0);assert.equal(experienceNeeded(10),0);
+  r=gainExperience(u,10000);assert.equal(u.level,10);assert.equal(u.experience,0);assert.deepEqual(r.unlocked,['骑术','截气','摧锋']);assert.equal(gainExperience(u,100).gained,0);assert.equal(experienceNeeded(10),0);
 });
 test('settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats',()=>{
   const x=duel('cao',1);stepBattle(x.b);x.b.result={winner:0,reason:'击溃'};const report=settleBattle(x.state);

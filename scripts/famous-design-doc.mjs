@@ -12,20 +12,20 @@ const lines=[`# 三国名将技能与专属战法设计（规则 ${RULES_VERSION
 '本文件由 `node scripts/famous-design-doc.mjs` 从正式运行数据生成。技能名为游戏化设计，不作为史实叙述。',
 '执行 `npm run docs:famous` 会同时更新项目根目录《技能设计表》和 docs 目录完整设计，保持内容与运行数值一致。',
 '','## 范围与规则','',
-`首批 ${rows.length} 位名将：原有 15 人，以及蜀、吴、魏、群雄代表人物 26 人。共 ${Object.keys(PASSIVES).length} 个被动定义、${Object.keys(TACTICS_BOOK).length} 个战法（26 个通用、41 个专属）。剩余 794 人暂不配置成长路线和专属战法。`,
+`首批 ${rows.length} 位名将：原有 15 人，以及蜀、吴、魏、群雄代表人物 26 人。共 ${Object.keys(PASSIVES).length} 个被动定义、${Object.keys(TACTICS_BOOK).length} 个战法（${Object.values(TACTICS_BOOK).filter(s=>!s.special).length} 个通用、${Object.values(TACTICS_BOOK).filter(s=>s.special).length} 个专属）。其余 794 人具备五项通用成长，按步阵、骑战、弓术、弩术、谋攻或辅军修习区分，不额外配置专属战法。`,
 '',
-'- 2 / 3 / 5 / 8 / 10 级各解锁一个被动。原有 15 人成长路线保留；新增 26 人各有一个条件式十级个人技能。',
+'- 2 / 3 / 5 / 8 / 10 级各解锁一个被动。所有武将保留五项成长结构，部分八级节点替换为截气／断势；新增 26 人各有一个条件式十级个人技能。',
 '- 被动技能不占战法槽，不需要施放、战意或军略进度；按固定路线随等级解锁。换兵种保留成长路线，兵种限定效果按当前兵种判断。',
 '- 专属战法按武将编号绑定，1 级即可装备，占三槽之一；跨兵种保留使用权，其他武将不能装备。换兵种后需选择合法配装。',
-'- 新局与试炼默认推荐专属＋功能补充＋低门槛战法；玩家手动三槽顺序始终是施放优先级。每步至多施放一次，战意不扣除，冷却彼此独立。',
-'- 范围统一使用六边形距离。专属战法不作用于城门，不命中死亡、预备或撤退部队。多段、多目标攻击每次施放最多产生一次攻击战意。',
-'- 直接伤害遵守武技对防御、谋略对军纪及兵力平方根衰减；火攻灼烧以施放时兵力快照结算，不产生战意。同一灼烧状态不叠加，弱灼烧不覆盖或续期正在生效的强灼烧。',
+'- 新局与试炼提供初始配装；每兵种六个基础战法，配装页可按输出、护卫或控场定位自由改配，也可放弃专属。玩家手动三槽顺序始终是施放优先级。每步至多施放一次，战意不扣除，冷却彼此独立。',
+'- 范围统一使用六边形距离。专属战法不作用于城门，不命中死亡、预备或撤退部队。伤害战法不为施法者增加攻击战意；同次多段战法对同一目标只计一次受击战意。',
+'- 直接伤害遵守武技对防御、谋略对军纪及当前现役兵力对应的面板威力；火攻灼烧以施放时兵力快照结算，不产生战意。灼烧最多三层，每次施加增加一层并刷新持续时间，保留较强的单层快照；净化清空整组层数，停止续叠后会过期。',
 '- 援护优先救急，护盾按来源分层，同来源替换、总量不超过目标兵力上限；辅军、护持、解危等加成继续适用。冷却支援不缩短自身冷却。',
-'- 眩晕、混乱遵守军纪减免与免控窗口；封技遵守军纪减免。控制与负面状态可以净化。',
+'- 谋略控制遵守军纪减免，眩晕、混乱遵守免控窗口；封技遵守军纪减免。控制与负面状态可以净化。',
 '- 黄盖、董卓自损计入战损及伤兵，不产生战意，不被护盾代付，保留至少 1 人。',
-'- 延续项目当前存档政策：规则版本升级为 9，仅接受当前规则存档，不迁移旧版。更新后需新开局或重开试炼。',
+`- 延续项目当前存档政策：当前规则版本 ${RULES_VERSION}，仅接受当前规则存档，不迁移旧版。更新后需新开局或重开试炼。`,
 '','## 名将字段总表','',
-`本表合并名将能力、人物资料、默认编制和技能配置。全量 ${OFFICER_MASTER_RECORDS.length} 人、${OFFICER_MASTER_COLUMNS.length} 个字段见 [Excel《三国武将全字段总表》](../outputs/01a0afe4-3c50-7823-bc9c-3c5162ff18bf/三国武将全字段总表.xlsx)。原始来源编号与当前游戏编号分列，未设计技能明确标注，不以通用技能代填。`,
+`本表合并名将能力、人物资料、默认编制和技能配置。全量 ${OFFICER_MASTER_RECORDS.length} 人、${OFFICER_MASTER_COLUMNS.length} 个字段见 [Excel《三国武将全字段总表》](../outputs/01a0afe4-3c50-7823-bc9c-3c5162ff18bf/三国武将全字段总表.xlsx)。原始来源编号与当前游戏编号分列，名将专属与通用成长分别标注；旧版 Excel 不会自动更新，当前规则以本页和运行数据为准。`,
 '',
 `| ${overviewColumns.map(c=>c.label).join(' | ')} |`,
 `| ${overviewColumns.map(()=>'---').join(' | ')} |`,
@@ -39,7 +39,7 @@ const lines=[`# 三国名将技能与专属战法设计（规则 ${RULES_VERSION
 '',
 '| 武将 | 专属战法 | 战意 | 冷却（步） | 效果 | 默认三槽顺序 |',
 '| --- | --- | --- | --- | --- | --- |',
-...rows.map(([id,p])=>{const s=TACTICS_BOOK[SPECIAL_TACTICS[id]];return `| ${p.name} | ${s.name} | ${s.threshold} | ${s.cooldown} | ${s.description} | ${recommendedTacticIds(makeOfficer(id)).map(k=>TACTICS_BOOK[k].name).join(' → ')} |`;}),
+...rows.map(([id,p])=>{const s=TACTICS_BOOK[SPECIAL_TACTICS[id]];return `| ${p.name} | ${s.name} | ${s.threshold} | ${s.cooldown} | 基础效果：${s.description}；威力及概率详见 [统一规则](战法威力与概率规则.md) | ${recommendedTacticIds(makeOfficer(id)).map(k=>TACTICS_BOOK[k].name).join(' → ')} |`;}),
 '','## AI 决策与克制','',
 '1. 先检查槽位顺序、战意、冷却和合法目标。高优先级支援无收益时，继续检查下一槽，不空耗一次施法机会。',
 '2. 群攻在合法射程内比较实际可覆盖敌军人数；保证主目标先结算。多人相邻容易吃火攻与控制，分散可降低收益。',
@@ -64,5 +64,6 @@ writeFileSync(new URL('名将技能与专属战法设计.md',dir),content);
 writeFileSync(new URL('../技能设计表.md',import.meta.url),content
  .replace(`# 三国名将技能与专属战法设计（规则 ${RULES_VERSION}）`,`# 武将技能设计表（规则 ${RULES_VERSION}）`)
  .replace('(../outputs/','(outputs/')
+ .replaceAll('(战法威力与概率规则.md)','(docs/战法威力与概率规则.md)')
  .replace('(名将平衡验证-2026-09-17.md)','(docs/名将平衡验证-2026-09-17.md)'));
 console.log(`Updated both design documents for ${rows.length} officers.`);

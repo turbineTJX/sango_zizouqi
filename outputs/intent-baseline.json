@@ -1,0 +1,2642 @@
+[
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 3
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 1,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 7
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 2,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 3
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 3,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 7
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 3
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "field",
+    "seed": 4,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "breach",
+    "seed": 1,
+    "id": "person-433",
+    "type": "spear",
+    "first": 3,
+    "high": 6,
+    "cap": 7,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 1,
+    "id": "person-99",
+    "type": "cavalry",
+    "first": 1,
+    "high": 10,
+    "cap": 11,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 1,
+    "id": "person-186",
+    "type": "archer",
+    "first": 8,
+    "high": 12,
+    "cap": 19,
+    "cast30": 4
+  },
+  {
+    "scenario": "breach",
+    "seed": 1,
+    "id": "shao",
+    "type": "spear",
+    "first": 9,
+    "high": 7,
+    "cap": 8,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 1,
+    "id": "yan",
+    "type": "crossbow",
+    "first": 9,
+    "high": 11,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 1,
+    "id": "wen",
+    "type": "archer",
+    "first": 7,
+    "high": 9,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 2,
+    "id": "person-433",
+    "type": "spear",
+    "first": 3,
+    "high": 6,
+    "cap": 7,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 2,
+    "id": "person-99",
+    "type": "cavalry",
+    "first": 1,
+    "high": 10,
+    "cap": 11,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 2,
+    "id": "person-186",
+    "type": "archer",
+    "first": 8,
+    "high": 12,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "breach",
+    "seed": 2,
+    "id": "shao",
+    "type": "spear",
+    "first": 9,
+    "high": 7,
+    "cap": 8,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 2,
+    "id": "yan",
+    "type": "crossbow",
+    "first": 9,
+    "high": 11,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 2,
+    "id": "wen",
+    "type": "archer",
+    "first": 7,
+    "high": 9,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 3,
+    "id": "person-433",
+    "type": "spear",
+    "first": 3,
+    "high": 6,
+    "cap": 7,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 3,
+    "id": "person-99",
+    "type": "cavalry",
+    "first": 1,
+    "high": 10,
+    "cap": 11,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 3,
+    "id": "person-186",
+    "type": "archer",
+    "first": 8,
+    "high": 12,
+    "cap": 19,
+    "cast30": 4
+  },
+  {
+    "scenario": "breach",
+    "seed": 3,
+    "id": "shao",
+    "type": "spear",
+    "first": 9,
+    "high": 7,
+    "cap": 8,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 3,
+    "id": "yan",
+    "type": "crossbow",
+    "first": 9,
+    "high": 11,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 3,
+    "id": "wen",
+    "type": "archer",
+    "first": 7,
+    "high": 9,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 4,
+    "id": "person-433",
+    "type": "spear",
+    "first": 3,
+    "high": 6,
+    "cap": 7,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 4,
+    "id": "person-99",
+    "type": "cavalry",
+    "first": 1,
+    "high": 10,
+    "cap": 11,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 4,
+    "id": "person-186",
+    "type": "archer",
+    "first": 8,
+    "high": 12,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "breach",
+    "seed": 4,
+    "id": "shao",
+    "type": "spear",
+    "first": 9,
+    "high": 7,
+    "cap": 8,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 4,
+    "id": "yan",
+    "type": "crossbow",
+    "first": 9,
+    "high": 11,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "breach",
+    "seed": 4,
+    "id": "wen",
+    "type": "archer",
+    "first": 7,
+    "high": 9,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "cao",
+    "type": "spear",
+    "first": 6,
+    "high": 8,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "chu",
+    "type": "halberd",
+    "first": 11,
+    "high": 14,
+    "cap": 18,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "jia",
+    "type": "logistics",
+    "first": 10,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "dun",
+    "type": "siege",
+    "first": 11,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "yu",
+    "type": "archer",
+    "first": 10,
+    "high": 19,
+    "cap": 22,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "shao",
+    "type": "spear",
+    "first": 10,
+    "high": 15,
+    "cap": 18,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "wen",
+    "type": "halberd",
+    "first": 8,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "he",
+    "type": "logistics",
+    "first": 13,
+    "high": 13,
+    "cap": 16,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 21,
+    "cap": 30,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 1,
+    "id": "tian",
+    "type": "archer",
+    "first": 13,
+    "high": 13,
+    "cap": 15,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "cao",
+    "type": "spear",
+    "first": 6,
+    "high": 8,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "chu",
+    "type": "halberd",
+    "first": 11,
+    "high": 14,
+    "cap": 18,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "jia",
+    "type": "logistics",
+    "first": 10,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "dun",
+    "type": "siege",
+    "first": 11,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "yu",
+    "type": "archer",
+    "first": 10,
+    "high": 19,
+    "cap": 22,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "shao",
+    "type": "spear",
+    "first": 10,
+    "high": 15,
+    "cap": 18,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "wen",
+    "type": "halberd",
+    "first": 8,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "he",
+    "type": "logistics",
+    "first": 13,
+    "high": 13,
+    "cap": 16,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 21,
+    "cap": 30,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 2,
+    "id": "tian",
+    "type": "archer",
+    "first": 13,
+    "high": 13,
+    "cap": 15,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "cao",
+    "type": "spear",
+    "first": 6,
+    "high": 8,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "chu",
+    "type": "halberd",
+    "first": 11,
+    "high": 14,
+    "cap": 18,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "jia",
+    "type": "logistics",
+    "first": 10,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "dun",
+    "type": "siege",
+    "first": 11,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "yu",
+    "type": "archer",
+    "first": 10,
+    "high": 19,
+    "cap": 22,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "shao",
+    "type": "spear",
+    "first": 10,
+    "high": 15,
+    "cap": 18,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "wen",
+    "type": "halberd",
+    "first": 8,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "he",
+    "type": "logistics",
+    "first": 13,
+    "high": 13,
+    "cap": 16,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 21,
+    "cap": 30,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 3,
+    "id": "tian",
+    "type": "archer",
+    "first": 13,
+    "high": 13,
+    "cap": 15,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "cao",
+    "type": "spear",
+    "first": 6,
+    "high": 8,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "chu",
+    "type": "halberd",
+    "first": 11,
+    "high": 14,
+    "cap": 18,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "jia",
+    "type": "logistics",
+    "first": 10,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "dun",
+    "type": "siege",
+    "first": 11,
+    "high": 18,
+    "cap": 22,
+    "cast30": 5
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "yu",
+    "type": "archer",
+    "first": 10,
+    "high": 19,
+    "cap": 22,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "shao",
+    "type": "spear",
+    "first": 10,
+    "high": 15,
+    "cap": 18,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "wen",
+    "type": "halberd",
+    "first": 8,
+    "high": 11,
+    "cap": 14,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "he",
+    "type": "logistics",
+    "first": 13,
+    "high": 13,
+    "cap": 16,
+    "cast30": 6
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 21,
+    "cap": 30,
+    "cast30": 3
+  },
+  {
+    "scenario": "eight-arms",
+    "seed": 4,
+    "id": "tian",
+    "type": "archer",
+    "first": 13,
+    "high": 13,
+    "cap": 15,
+    "cast30": 5
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "cao",
+    "type": "ship",
+    "first": 11,
+    "high": 24,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "liao",
+    "type": "ship",
+    "first": 11,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "chu",
+    "type": "halberd",
+    "first": 6,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "jia",
+    "type": "logistics",
+    "first": 5,
+    "high": 22,
+    "cap": 26,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "dun",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 29,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "yu",
+    "type": "spear",
+    "first": 4,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "shao",
+    "type": "ship",
+    "first": 4,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "yan",
+    "type": "ship",
+    "first": 11,
+    "high": 17,
+    "cap": 24,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "wen",
+    "type": "halberd",
+    "first": 7,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "he",
+    "type": "logistics",
+    "first": 10,
+    "high": 11,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 35,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "id": "tian",
+    "type": "spear",
+    "first": 10,
+    "high": 11,
+    "cap": 11,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "cao",
+    "type": "ship",
+    "first": 11,
+    "high": 24,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "liao",
+    "type": "ship",
+    "first": 11,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "chu",
+    "type": "halberd",
+    "first": 6,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "jia",
+    "type": "logistics",
+    "first": 5,
+    "high": 22,
+    "cap": 26,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "dun",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 29,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "yu",
+    "type": "spear",
+    "first": 4,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "shao",
+    "type": "ship",
+    "first": 4,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "yan",
+    "type": "ship",
+    "first": 11,
+    "high": 11,
+    "cap": 17,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "wen",
+    "type": "halberd",
+    "first": 7,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "he",
+    "type": "logistics",
+    "first": 10,
+    "high": 11,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 35,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 2,
+    "id": "tian",
+    "type": "spear",
+    "first": 9,
+    "high": 10,
+    "cap": 12,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "cao",
+    "type": "ship",
+    "first": 11,
+    "high": 24,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "liao",
+    "type": "ship",
+    "first": 11,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "chu",
+    "type": "halberd",
+    "first": 6,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "jia",
+    "type": "logistics",
+    "first": 5,
+    "high": 22,
+    "cap": 26,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "dun",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 29,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "yu",
+    "type": "spear",
+    "first": 4,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "shao",
+    "type": "ship",
+    "first": 4,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "yan",
+    "type": "ship",
+    "first": 11,
+    "high": 17,
+    "cap": 24,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "wen",
+    "type": "halberd",
+    "first": 7,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "he",
+    "type": "logistics",
+    "first": 10,
+    "high": 11,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 35,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 3,
+    "id": "tian",
+    "type": "spear",
+    "first": 10,
+    "high": 11,
+    "cap": 11,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "cao",
+    "type": "ship",
+    "first": 11,
+    "high": 24,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "liao",
+    "type": "ship",
+    "first": 11,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "chu",
+    "type": "halberd",
+    "first": 6,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "jia",
+    "type": "logistics",
+    "first": 5,
+    "high": 22,
+    "cap": 26,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "dun",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 29,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "yu",
+    "type": "spear",
+    "first": 4,
+    "high": 7,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "shao",
+    "type": "ship",
+    "first": 4,
+    "high": 14,
+    "cap": 17,
+    "cast30": 4
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "yan",
+    "type": "ship",
+    "first": 11,
+    "high": 11,
+    "cap": 17,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "wen",
+    "type": "halberd",
+    "first": 7,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "he",
+    "type": "logistics",
+    "first": 10,
+    "high": 11,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "ju",
+    "type": "siege",
+    "first": 18,
+    "high": 26,
+    "cap": 35,
+    "cast30": 2
+  },
+  {
+    "scenario": "river",
+    "seed": 4,
+    "id": "tian",
+    "type": "spear",
+    "first": 9,
+    "high": 10,
+    "cap": 12,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 8,
+    "cap": 9,
+    "cast30": 7
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "chu",
+    "type": "spear",
+    "first": 8,
+    "high": 12,
+    "cap": 13,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "dun",
+    "type": "spear",
+    "first": 6,
+    "high": 12,
+    "cap": 14,
+    "cast30": 7
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 9,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 12,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 12,
+    "cast30": 3
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "he",
+    "type": "spear",
+    "first": 9,
+    "high": 9,
+    "cap": 14,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 7,
+    "high": 23,
+    "cap": 34,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 1,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 14,
+    "cap": 15,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "dun",
+    "type": "spear",
+    "first": 8,
+    "high": 12,
+    "cap": 13,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 9,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 11,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 12,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "he",
+    "type": "spear",
+    "first": 9,
+    "high": 9,
+    "cap": 14,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 7,
+    "high": 23,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 2,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 8,
+    "cap": 9,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "chu",
+    "type": "spear",
+    "first": 8,
+    "high": 12,
+    "cap": 13,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "dun",
+    "type": "spear",
+    "first": 6,
+    "high": 12,
+    "cap": 14,
+    "cast30": 7
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 9,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 12,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 12,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "he",
+    "type": "spear",
+    "first": 9,
+    "high": 9,
+    "cap": 14,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 7,
+    "high": 23,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 3,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 8,
+    "cap": 9,
+    "cast30": 7
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "chu",
+    "type": "spear",
+    "first": 8,
+    "high": 12,
+    "cap": 13,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "dun",
+    "type": "spear",
+    "first": 6,
+    "high": 12,
+    "cap": 14,
+    "cast30": 7
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 9,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 12,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 11,
+    "cap": 12,
+    "cast30": 3
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "he",
+    "type": "spear",
+    "first": 9,
+    "high": 9,
+    "cap": 14,
+    "cast30": 5
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 7,
+    "high": 23,
+    "cap": 34,
+    "cast30": 4
+  },
+  {
+    "scenario": "terrain",
+    "seed": 4,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 7
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 30,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 3
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 3
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 40,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 1,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 7
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 3
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 2
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 2,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 7
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 14,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 3
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 3,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "cao",
+    "type": "spear",
+    "first": 4,
+    "high": 6,
+    "cap": 7,
+    "cast30": 7
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "liao",
+    "type": "cavalry",
+    "first": 13,
+    "high": 12,
+    "cap": 15,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "chu",
+    "type": "spear",
+    "first": 6,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "jia",
+    "type": "crossbow",
+    "first": 12,
+    "high": 16,
+    "cap": 23,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "dun",
+    "type": "spear",
+    "first": 11,
+    "high": 16,
+    "cap": 17,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "yu",
+    "type": "crossbow",
+    "first": 16,
+    "high": 19,
+    "cap": 27,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "shao",
+    "type": "spear",
+    "first": 7,
+    "high": 10,
+    "cap": 12,
+    "cast30": 6
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "yan",
+    "type": "cavalry",
+    "first": 1,
+    "high": 9,
+    "cap": 11,
+    "cast30": 2
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "wen",
+    "type": "cavalry",
+    "first": 1,
+    "high": 8,
+    "cap": 8,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "he",
+    "type": "spear",
+    "first": 7,
+    "high": 7,
+    "cap": 12,
+    "cast30": 5
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "ju",
+    "type": "crossbow",
+    "first": 12,
+    "high": 28,
+    "cap": 35,
+    "cast30": 4
+  },
+  {
+    "scenario": "rotation",
+    "seed": 4,
+    "id": "tian",
+    "type": "archer",
+    "first": 14,
+    "high": 14,
+    "cap": 17,
+    "cast30": 5
+  }
+]

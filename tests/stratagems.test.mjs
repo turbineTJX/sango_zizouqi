@@ -43,7 +43,11 @@ test('first aid consumes only recoverable casualties and cannot heal dead or res
 });
 test('recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool',()=>{
  const s=scene('jin','yu'),b=s.battle;still(b);const u=b.sides[0].units[0];wound(u,2000);
- b.commandProgress=full;assert.equal(issueCommand(b,'regenerate'),null);for(let i=0;i<12;i++)stepBattle(b);
+ b.commandProgress=full;assert.equal(issueCommand(b,'regenerate'),null);for(let i=0;i<12;i++){
+   stepBattle(b);
+   const recovery=b.effects.find(e=>e.from===u.id&&e.label==='救治伤兵');
+   assert.equal(recovery.healing,30);assert.equal(recovery.ongoing,true,'recovery must not replay a cast for every unit on every step');
+ }
  assert.equal(u.hp,1360);assert.equal(u.healed,360);stepBattle(b);assert.equal(u.hp,1360);
  const copy=validateSave(structuredClone(s));assert.equal(copy.battle.sides[0].units[0].healed,360);
 });
@@ -57,9 +61,9 @@ test('range changes real attacks and weapon tactic legality; intelligence ranges
 });
 test('firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse',()=>{
  const s=scene(),b=s.battle;still(b);b.commandProgress=full;assert.equal(issueCommand(b,'firestorm'),null);
- const u=b.sides[1].units[0],reserve=b.sides[1].units.find(u=>u.status==='reserve');assert.ok(!reserve.statuses.scorch);
+ const u=b.sides[1].units[0],expectedLoss=u.statuses.scorch.amount*12-30,reserve=b.sides[1].units.find(u=>u.status==='reserve');assert.ok(!reserve.statuses.scorch);
  u.statuses.shield={until:999,amount:30,layers:[{until:999,amount:30,source:"test",label:"护盾"}]};for(let i=0;i<12;i++)stepBattle(b);
- assert.equal(u.hp,u.initial-150);assert.equal(u.battleDamage,150);assert.equal(u.intent,0);const hp=u.hp;stepBattle(b);assert.equal(u.hp,hp);
+ assert.equal(u.hp,u.initial-expectedLoss);assert.equal(u.battleDamage,expectedLoss);assert.equal(u.intent,0);const hp=u.hp;stepBattle(b);assert.equal(u.hp,hp);
  const c=scene('cao','yu'),cb=c.battle,own=cb.sides[0].units[0];own.statuses.scorch={until:99,amount:18,sourceId:cb.sides[1].units[0].id};cb.commandProgress=full;
  assert.equal(issueCommand(cb,'cleanse'),null);assert.equal(own.statuses.scorch,undefined);
 });

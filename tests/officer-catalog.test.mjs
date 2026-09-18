@@ -24,15 +24,16 @@ test('all 832 library and 3 custom records survive normalization without merging
  assert.notEqual(OFFICER_BY_ID['custom-1'].id,OFFICER_BY_ID['person-1'].id);
  assert.equal(OFFICER_BY_ID.he.sourceId,412);assert.equal(searchOfficers({query:'张郃'})[0].id,'he');
 });
-test('every officer can become a valid battle unit; new personal skill routes and stratagems are empty at all levels',()=>{
+test('every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems',()=>{
+ const historicalCommanders={'person-610':['fortify','heal'],'person-167':['fortify','cleanse'],'person-447':['disrupt','cleanse','cycle']};
  for(const entry of OFFICER_CATALOG){
   const u=makeOfficer(entry.id);assert.equal(u.leadership,entry.source.command);assert.equal(u.force,entry.source.strength);
   assert.equal(u.intellect,entry.source.intelligence);assert.equal(u.politics,entry.source.politics);
   const stats=unitAttributes(u);for(const key of ['attack','defense','martialPower','strategyPower','discipline'])assert.ok(Number.isFinite(stats[key]));
   assert.equal(unitTactics(u).length,3);
   if(!SKILL_ROUTES[u.id]){
-   assert.equal(u.skill,'');assert.deepEqual(officerStratagems(u.id),[]);
-   const growth=gainExperience(u,10000);assert.equal(u.level,10);assert.deepEqual(growth.unlocked,[]);assert.deepEqual(passiveList(u),[]);
+   assert.equal(u.skill,'');assert.deepEqual(officerStratagems(u.id),historicalCommanders[u.id]||[]);
+   const growth=gainExperience(u,10000);assert.equal(u.level,10);assert.equal(growth.unlocked.length,5);assert.equal(passiveList(u).length,5);assert.ok(passiveList(u).every(s=>s.tier!=='专属'));
   }else assert.equal(passiveList({...u,level:10}).length,5);
  }
  for(const id of ['missing','toString','__proto__'])assert.throws(()=>makeOfficer(id),/未知武将/);

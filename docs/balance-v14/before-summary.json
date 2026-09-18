@@ -1,0 +1,5316 @@
+{
+  "tag": "before",
+  "count": 10176,
+  "hashes": {
+    "battle-effects.mjs": "b831a7170a32de01f887730b524e84da14e7ecc5f3d35fe069940872bc3c57a9",
+    "battlefield.mjs": "42052663d5eb1d76837fbcae205d4b00eb0ea85e8a26ae18a7605690099488aa",
+    "combat-rules.mjs": "42b9e116195741d934c520301d42b453c0c9303b888a003869dc2f7c3618edbd",
+    "command-cue.mjs": "7a787b6013448333b2ae7c03a02be81b4a9f6986436f09860f3ba47bde098a8a",
+    "engagement.mjs": "ece02934b25c463a372c58225b19ee9d44d32e11c302e13a6b658748957f717a",
+    "engine.mjs": "dbb78b858bb107f44be3e81a97c1c3adf876deffa23f7a7ffb8b5961a51facae",
+    "famous-officers.mjs": "784d1fdab643bcd2ad4b5218ffa9dfc61f053952b4113f675be118a4638d076a",
+    "hex-grid.mjs": "e94698dcc435df8d4d6a12c23ed2d91922069df753f11adf56ec4eb552d3d485",
+    "officer-catalog.mjs": "1bb36f5c39a8bf21be6df2152aaef5dd44e682b073bf322c7090b944024431aa",
+    "officer-roster.mjs": "c089bfafee66589641118b8cb9abae1758abb532c73552a73dc319a35b78b816",
+    "passives.mjs": "724550b150032961e9a4ba5c6672a3d82082f9d3f4116b1d2dc84f1f825b72a7",
+    "progression.mjs": "69325d12c2f61bfd29130072a88e3fc92763ba93e13f8e35d5ee52518d665fdd",
+    "relationships.mjs": "57c48e733ec8f72458a08bbaf448f92ebde44351682f56a662a027927b4661c3",
+    "scenario-catalog.mjs": "ade01856f4f18bf2010b44895313fdd18a002baaf8d86239b6ec6655274048e0",
+    "scenarios.mjs": "6c539e45d13aba3e40e6fe2acd31d96a0782464bed9b7f83d10be11ab99ff750",
+    "server.mjs": "00dd499a329c812ec31c363a89a2be4e5529c29fac4159055e11143f74bca6fb",
+    "tactics.mjs": "46f7ba4559397a162e5fd06d6d0b91be095f07452ca6a3076f54fa7d96ab9fe6",
+    "unit-stats.mjs": "c41b0a564e654832a54f9683d7c4d0b6ad04e372b3e1abf1998118f706be3ca0"
+  },
+  "summary": [
+    {
+      "id": "cao",
+      "name": "曹操",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.625,
+          "margin": 2001.0625,
+          "damage": 767.375,
+          "remaining": 96.75,
+          "rearHp": 2405.9375,
+          "alive": 60.71875,
+          "ticks": 118.8125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-cao",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.53125,
+          "margin": 1116.96875,
+          "damage": 988.75,
+          "remaining": 202.4375,
+          "rearHp": 1991.4375,
+          "alive": 59.4375,
+          "ticks": 110.90625
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-cao",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.5,
+          "margin": 1103.84375,
+          "damage": 751.1875,
+          "remaining": 188.40625,
+          "rearHp": 2121.65625,
+          "alive": 55.40625,
+          "ticks": 108.65625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-cao",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.5,
+          "margin": 566.6875,
+          "damage": 875.46875,
+          "remaining": 114.0625,
+          "rearHp": 2145.71875,
+          "alive": 51.40625,
+          "ticks": 97.6875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.40625,
+          "margin": 53.71875,
+          "damage": 1015.84375,
+          "remaining": 73.21875,
+          "rearHp": 1618.5625,
+          "alive": 51.3125,
+          "ticks": 103.59375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.40625,
+          "margin": -329.0625,
+          "damage": 758.03125,
+          "remaining": 58.25,
+          "rearHp": 1527.71875,
+          "alive": 47.75,
+          "ticks": 103.625
+        }
+      ]
+    },
+    {
+      "id": "dun",
+      "name": "夏侯惇",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.46875,
+          "margin": 931.65625,
+          "damage": 740.84375,
+          "remaining": 27.375,
+          "rearHp": 1939.21875,
+          "alive": 51.40625,
+          "ticks": 114.03125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-dun",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.5,
+          "margin": 150.96875,
+          "damage": 863.78125,
+          "remaining": 34.5625,
+          "rearHp": 1930.21875,
+          "alive": 46.375,
+          "ticks": 99.0625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-dun",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.4375,
+          "margin": -300.90625,
+          "damage": 1002.71875,
+          "remaining": 20.53125,
+          "rearHp": 1617.375,
+          "alive": 44.9375,
+          "ticks": 101
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-dun",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -510.6875,
+          "damage": 1071.96875,
+          "remaining": 41.4375,
+          "rearHp": 1482.5625,
+          "alive": 49.6875,
+          "ticks": 100.125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.4375,
+          "margin": -675.25,
+          "damage": 793.875,
+          "remaining": 16.03125,
+          "rearHp": 1338.90625,
+          "alive": 42.71875,
+          "ticks": 104.125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -735.96875,
+          "damage": 1178.875,
+          "remaining": 64.90625,
+          "rearHp": 1315.4375,
+          "alive": 48.71875,
+          "ticks": 99.46875
+        }
+      ]
+    },
+    {
+      "id": "liao",
+      "name": "张辽",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "terror",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.4375,
+          "margin": -1027.6875,
+          "damage": 825.375,
+          "remaining": 33.21875,
+          "rearHp": 677.875,
+          "alive": 45.3125,
+          "ticks": 114.71875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "terror",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.3125,
+          "margin": -1316.96875,
+          "damage": 579.59375,
+          "remaining": 0.78125,
+          "rearHp": 533.875,
+          "alive": 40.53125,
+          "ticks": 117.4375
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.1875,
+          "margin": -2015.1875,
+          "damage": 497.625,
+          "remaining": 0,
+          "rearHp": 237.84375,
+          "alive": 42.15625,
+          "ticks": 115.53125
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "terror",
+            "harass",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2330.03125,
+          "damage": 542.3125,
+          "remaining": 9.875,
+          "rearHp": 177.03125,
+          "alive": 38.375,
+          "ticks": 106.9375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.125,
+          "margin": -2521.5625,
+          "damage": 512.8125,
+          "remaining": 0,
+          "rearHp": 179.4375,
+          "alive": 39.90625,
+          "ticks": 109.6875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -2986.5625,
+          "damage": 428.40625,
+          "remaining": 0,
+          "rearHp": 141.40625,
+          "alive": 38.25,
+          "ticks": 100.78125
+        }
+      ]
+    },
+    {
+      "id": "chu",
+      "name": "许褚",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.78125,
+          "margin": 2516.65625,
+          "damage": 686.5,
+          "remaining": 132.5,
+          "rearHp": 2665.0625,
+          "alive": 69.09375,
+          "ticks": 120.46875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.46875,
+          "margin": 547.28125,
+          "damage": 1073,
+          "remaining": 126.125,
+          "rearHp": 1783.65625,
+          "alive": 58,
+          "ticks": 106.3125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "protect",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.46875,
+          "margin": 380.71875,
+          "damage": 595.8125,
+          "remaining": 94.9375,
+          "rearHp": 1914.71875,
+          "alive": 58.21875,
+          "ticks": 107.90625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.4375,
+          "margin": 195.28125,
+          "damage": 799.96875,
+          "remaining": 88.28125,
+          "rearHp": 1768.90625,
+          "alive": 58.46875,
+          "ticks": 105.8125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "protect",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.46875,
+          "margin": 78.90625,
+          "damage": 738.96875,
+          "remaining": 88.15625,
+          "rearHp": 1588.1875,
+          "alive": 54.875,
+          "ticks": 109.90625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "protect",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.4375,
+          "margin": 53.75,
+          "damage": 747.25,
+          "remaining": 56.28125,
+          "rearHp": 1798.8125,
+          "alive": 52.46875,
+          "ticks": 104.28125
+        }
+      ]
+    },
+    {
+      "id": "jia",
+      "name": "郭嘉",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 357.28125,
+          "damage": 1458,
+          "remaining": 939.5,
+          "rearHp": 1173.40625,
+          "alive": 121,
+          "ticks": 131.375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "undermine",
+            "screen",
+            "seal"
+          ],
+          "win": 0.5,
+          "margin": -22.90625,
+          "damage": 1329.03125,
+          "remaining": 815.65625,
+          "rearHp": 1128.34375,
+          "alive": 120.46875,
+          "ticks": 129.125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.4375,
+          "margin": -640.34375,
+          "damage": 1328.03125,
+          "remaining": 691.1875,
+          "rearHp": 854.21875,
+          "alive": 103.5625,
+          "ticks": 119.3125
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "undermine",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.375,
+          "margin": -712.1875,
+          "damage": 1391.53125,
+          "remaining": 652.125,
+          "rearHp": 811.34375,
+          "alive": 106.5625,
+          "ticks": 122.625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.34375,
+          "margin": -825.6875,
+          "damage": 1585.0625,
+          "remaining": 711.0625,
+          "rearHp": 749,
+          "alive": 112.71875,
+          "ticks": 121.84375
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "undermine",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.375,
+          "margin": -1007.53125,
+          "damage": 1304.84375,
+          "remaining": 640.375,
+          "rearHp": 740.75,
+          "alive": 104.375,
+          "ticks": 119.625
+        }
+      ]
+    },
+    {
+      "id": "yu",
+      "name": "荀攸",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-yu",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.78125,
+          "margin": 2224.3125,
+          "damage": 2071.375,
+          "remaining": 1182.09375,
+          "rearHp": 1536.0625,
+          "alive": 122.8125,
+          "ticks": 131.90625
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-yu",
+            "screen",
+            "seal"
+          ],
+          "win": 0.65625,
+          "margin": 2011.4375,
+          "damage": 1832.46875,
+          "remaining": 1501.71875,
+          "rearHp": 1500.28125,
+          "alive": 132.1875,
+          "ticks": 138.6875
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.59375,
+          "margin": 1169.28125,
+          "damage": 1893.03125,
+          "remaining": 1329.875,
+          "rearHp": 1227.71875,
+          "alive": 127,
+          "ticks": 133
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-yu",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 904.8125,
+          "damage": 1760.8125,
+          "remaining": 942.3125,
+          "rearHp": 1188.625,
+          "alive": 117.6875,
+          "ticks": 130.71875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.5,
+          "margin": 268.90625,
+          "damage": 1774.5625,
+          "remaining": 787.625,
+          "rearHp": 980.875,
+          "alive": 111.9375,
+          "ticks": 125.53125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.40625,
+          "margin": 204.90625,
+          "damage": 2003.09375,
+          "remaining": 869.125,
+          "rearHp": 839.53125,
+          "alive": 117.3125,
+          "ticks": 128.28125
+        }
+      ]
+    },
+    {
+      "id": "yuanxia",
+      "name": "夏侯渊",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 4687.53125,
+          "damage": 3870.15625,
+          "remaining": 2339.875,
+          "rearHp": 2347.65625,
+          "alive": 85.28125,
+          "ticks": 85.28125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-yuanxia",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 4674.15625,
+          "damage": 3912.90625,
+          "remaining": 2326.46875,
+          "rearHp": 2347.6875,
+          "alive": 86.15625,
+          "ticks": 86.15625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 4463.84375,
+          "damage": 3588.5625,
+          "remaining": 2102.8125,
+          "rearHp": 2361.03125,
+          "alive": 89.28125,
+          "ticks": 90.625
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-yuanxia",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 4298.0625,
+          "damage": 3876.28125,
+          "remaining": 2077.65625,
+          "rearHp": 2220.40625,
+          "alive": 92.40625,
+          "ticks": 93.9375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-yuanxia",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 4298.0625,
+          "damage": 3876.28125,
+          "remaining": 2077.65625,
+          "rearHp": 2220.40625,
+          "alive": 92.40625,
+          "ticks": 93.9375
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 3896.90625,
+          "damage": 3810.25,
+          "remaining": 2016.34375,
+          "rearHp": 1880.5625,
+          "alive": 101.40625,
+          "ticks": 101.90625
+        }
+      ]
+    },
+    {
+      "id": "jin",
+      "name": "于禁",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.8125,
+          "margin": 2736.625,
+          "damage": 778.625,
+          "remaining": 132.46875,
+          "rearHp": 2843.90625,
+          "alive": 67.09375,
+          "ticks": 117.375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-jin",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.53125,
+          "margin": 1346.34375,
+          "damage": 741.78125,
+          "remaining": 219.6875,
+          "rearHp": 2075.75,
+          "alive": 58.9375,
+          "ticks": 114.03125
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-jin",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.53125,
+          "margin": 1113.6875,
+          "damage": 902.25,
+          "remaining": 169.5,
+          "rearHp": 2330.9375,
+          "alive": 54.875,
+          "ticks": 101.1875
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-jin",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.4375,
+          "margin": 764.75,
+          "damage": 1021.25,
+          "remaining": 195.375,
+          "rearHp": 1795.21875,
+          "alive": 64.8125,
+          "ticks": 114.90625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.5,
+          "margin": 604.65625,
+          "damage": 1109.6875,
+          "remaining": 128.90625,
+          "rearHp": 1813.65625,
+          "alive": 56.9375,
+          "ticks": 104.96875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.40625,
+          "margin": 194.25,
+          "damage": 795.65625,
+          "remaining": 93.84375,
+          "rearHp": 1686.25,
+          "alive": 51.9375,
+          "ticks": 106.71875
+        }
+      ]
+    },
+    {
+      "id": "shao",
+      "name": "袁绍",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.46875,
+          "margin": 1059.375,
+          "damage": 762.125,
+          "remaining": 36.8125,
+          "rearHp": 2029.53125,
+          "alive": 55.375,
+          "ticks": 114.78125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-shao",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.4375,
+          "margin": -202.03125,
+          "damage": 705.09375,
+          "remaining": 11.125,
+          "rearHp": 1743,
+          "alive": 48.1875,
+          "ticks": 100.9375
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-shao",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.46875,
+          "margin": -215.40625,
+          "damage": 967.40625,
+          "remaining": 63.78125,
+          "rearHp": 1290.96875,
+          "alive": 54.21875,
+          "ticks": 107.84375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.40625,
+          "margin": -619.5,
+          "damage": 979.4375,
+          "remaining": 45.4375,
+          "rearHp": 1341.15625,
+          "alive": 45.96875,
+          "ticks": 102.1875
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-shao",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.34375,
+          "margin": -921.84375,
+          "damage": 755.375,
+          "remaining": 4.9375,
+          "rearHp": 1277.5,
+          "alive": 42.34375,
+          "ticks": 102.21875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1071.09375,
+          "damage": 732.84375,
+          "remaining": 23.59375,
+          "rearHp": 1205.40625,
+          "alive": 43.0625,
+          "ticks": 102.9375
+        }
+      ]
+    },
+    {
+      "id": "yan",
+      "name": "颜良",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-yan",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.15625,
+          "margin": -2079.34375,
+          "damage": 678.8125,
+          "remaining": 33.25,
+          "rearHp": 317.78125,
+          "alive": 43.625,
+          "ticks": 111.09375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-yan",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2336.375,
+          "damage": 507.21875,
+          "remaining": 0,
+          "rearHp": 142.25,
+          "alive": 38.96875,
+          "ticks": 115.25
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2607.875,
+          "damage": 355.125,
+          "remaining": 0,
+          "rearHp": 133.3125,
+          "alive": 39.1875,
+          "ticks": 109.25
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-yan",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -2944.53125,
+          "damage": 456.34375,
+          "remaining": 0,
+          "rearHp": 151.6875,
+          "alive": 35.71875,
+          "ticks": 99.34375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.03125,
+          "margin": -3246.03125,
+          "damage": 369.53125,
+          "remaining": 0,
+          "rearHp": 8.78125,
+          "alive": 36.84375,
+          "ticks": 104.65625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -3322.21875,
+          "damage": 324.75,
+          "remaining": 0,
+          "rearHp": 151.78125,
+          "alive": 35.28125,
+          "ticks": 94.5
+        }
+      ]
+    },
+    {
+      "id": "wen",
+      "name": "文丑",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-wen",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.375,
+          "margin": -1225.25,
+          "damage": 732.0625,
+          "remaining": 36.5625,
+          "rearHp": 717.15625,
+          "alive": 46.875,
+          "ticks": 110.4375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-wen",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.34375,
+          "margin": -1407.84375,
+          "damage": 590.1875,
+          "remaining": 0,
+          "rearHp": 605.3125,
+          "alive": 43.3125,
+          "ticks": 112.8125
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.28125,
+          "margin": -1632.6875,
+          "damage": 507.5625,
+          "remaining": 0.84375,
+          "rearHp": 421.90625,
+          "alive": 45.15625,
+          "ticks": 116.5625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-wen",
+            "harass",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2159.25,
+          "damage": 554.875,
+          "remaining": 0,
+          "rearHp": 294.90625,
+          "alive": 40.40625,
+          "ticks": 108.25
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.21875,
+          "margin": -2238.71875,
+          "damage": 496.75,
+          "remaining": 0,
+          "rearHp": 201.34375,
+          "alive": 41.90625,
+          "ticks": 116.40625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2610.65625,
+          "damage": 440.625,
+          "remaining": 0,
+          "rearHp": 301.15625,
+          "alive": 39.8125,
+          "ticks": 102.3125
+        }
+      ]
+    },
+    {
+      "id": "he",
+      "name": "张合",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.4375,
+          "margin": 439.6875,
+          "damage": 659.03125,
+          "remaining": 28.9375,
+          "rearHp": 1592.6875,
+          "alive": 50.53125,
+          "ticks": 115.9375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-he",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.34375,
+          "margin": -803.84375,
+          "damage": 720.25,
+          "remaining": 9.75,
+          "rearHp": 1421.5625,
+          "alive": 44.96875,
+          "ticks": 103.21875
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-he",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.3125,
+          "margin": -1137.46875,
+          "damage": 882.15625,
+          "remaining": 31.46875,
+          "rearHp": 1093.625,
+          "alive": 44.78125,
+          "ticks": 100.4375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-he",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.34375,
+          "margin": -1195.5625,
+          "damage": 798.40625,
+          "remaining": 0,
+          "rearHp": 1181.75,
+          "alive": 38.5625,
+          "ticks": 99.375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1263.71875,
+          "damage": 927.96875,
+          "remaining": 30.96875,
+          "rearHp": 1077.90625,
+          "alive": 41.75,
+          "ticks": 97.96875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1395.46875,
+          "damage": 726.28125,
+          "remaining": 13.625,
+          "rearHp": 1049.125,
+          "alive": 42.40625,
+          "ticks": 101.34375
+        }
+      ]
+    },
+    {
+      "id": "ju",
+      "name": "沮授",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-ju",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.875,
+          "margin": 3041.71875,
+          "damage": 2145.25,
+          "remaining": 1403.9375,
+          "rearHp": 1904.28125,
+          "alive": 119.53125,
+          "ticks": 124.1875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-ju",
+            "screen",
+            "seal"
+          ],
+          "win": 0.71875,
+          "margin": 2531.53125,
+          "damage": 1920.4375,
+          "remaining": 1676.21875,
+          "rearHp": 1546.09375,
+          "alive": 132.1875,
+          "ticks": 139.90625
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-ju",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.6875,
+          "margin": 1755.4375,
+          "damage": 1867.96875,
+          "remaining": 1107.65625,
+          "rearHp": 1505.15625,
+          "alive": 116.28125,
+          "ticks": 128.25
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.59375,
+          "margin": 1363.03125,
+          "damage": 1946.40625,
+          "remaining": 1371.21875,
+          "rearHp": 1247.75,
+          "alive": 127.46875,
+          "ticks": 134.03125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.53125,
+          "margin": 598.84375,
+          "damage": 2109.6875,
+          "remaining": 907.90625,
+          "rearHp": 944.90625,
+          "alive": 116.9375,
+          "ticks": 128.40625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.5,
+          "margin": 596.15625,
+          "damage": 1882,
+          "remaining": 844.5625,
+          "rearHp": 1017.59375,
+          "alive": 110.4375,
+          "ticks": 126.625
+        }
+      ]
+    },
+    {
+      "id": "tian",
+      "name": "田丰",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.875,
+          "margin": 2861.375,
+          "damage": 2925.59375,
+          "remaining": 1259.90625,
+          "rearHp": 1811,
+          "alive": 105.9375,
+          "ticks": 111.46875
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-tian",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.78125,
+          "margin": 2337.96875,
+          "damage": 2641.09375,
+          "remaining": 1264.875,
+          "rearHp": 1369.4375,
+          "alive": 102.75,
+          "ticks": 119.84375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.59375,
+          "margin": 1550.0625,
+          "damage": 2288.46875,
+          "remaining": 1002.15625,
+          "rearHp": 1230.5625,
+          "alive": 107.25,
+          "ticks": 122.21875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-tian",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.59375,
+          "margin": 1383.53125,
+          "damage": 2675.65625,
+          "remaining": 937.53125,
+          "rearHp": 1239.40625,
+          "alive": 109.5625,
+          "ticks": 121.625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-tian",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.59375,
+          "margin": 1383.53125,
+          "damage": 2675.65625,
+          "remaining": 937.53125,
+          "rearHp": 1239.40625,
+          "alive": 109.5625,
+          "ticks": 121.625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.59375,
+          "margin": 801.5625,
+          "damage": 2436.375,
+          "remaining": 825.78125,
+          "rearHp": 891.21875,
+          "alive": 119.34375,
+          "ticks": 134.84375
+        }
+      ]
+    },
+    {
+      "id": "gao",
+      "name": "高览",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.625,
+          "margin": 1942.46875,
+          "damage": 658.71875,
+          "remaining": 57.46875,
+          "rearHp": 2374.46875,
+          "alive": 62.6875,
+          "ticks": 121
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-gao",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.46875,
+          "margin": 686.46875,
+          "damage": 724.5,
+          "remaining": 94.1875,
+          "rearHp": 1998.8125,
+          "alive": 54.0625,
+          "ticks": 108.34375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-gao",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.46875,
+          "margin": 383.5,
+          "damage": 873.28125,
+          "remaining": 31.1875,
+          "rearHp": 1999.3125,
+          "alive": 53.5,
+          "ticks": 102.03125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-gao",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.375,
+          "margin": 53.34375,
+          "damage": 970.25,
+          "remaining": 90.46875,
+          "rearHp": 1585.25,
+          "alive": 59.15625,
+          "ticks": 108.09375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.375,
+          "margin": -165.4375,
+          "damage": 1055.15625,
+          "remaining": 87.90625,
+          "rearHp": 1440.8125,
+          "alive": 58.5,
+          "ticks": 108.59375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.4375,
+          "margin": -218.75,
+          "damage": 737.5,
+          "remaining": 45.65625,
+          "rearHp": 1555.9375,
+          "alive": 52.96875,
+          "ticks": 106.96875
+        }
+      ]
+    },
+    {
+      "id": "person-636",
+      "name": "刘备",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 329.625,
+          "damage": 539.5,
+          "remaining": 27.28125,
+          "rearHp": 1607.8125,
+          "alive": 50.4375,
+          "ticks": 114.90625
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-636",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.5,
+          "margin": 323.53125,
+          "damage": 581.1875,
+          "remaining": 57.96875,
+          "rearHp": 2036.65625,
+          "alive": 52.84375,
+          "ticks": 104.28125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-636",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.40625,
+          "margin": 90.1875,
+          "damage": 795.0625,
+          "remaining": 82.3125,
+          "rearHp": 1545.5,
+          "alive": 58.1875,
+          "ticks": 110.9375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-636",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.46875,
+          "margin": -228.90625,
+          "damage": 667.6875,
+          "remaining": 20.59375,
+          "rearHp": 1758.03125,
+          "alive": 46.46875,
+          "ticks": 102.34375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1182.84375,
+          "damage": 786.21875,
+          "remaining": 12.75,
+          "rearHp": 1072.90625,
+          "alive": 43.71875,
+          "ticks": 101.15625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1562.59375,
+          "damage": 554.78125,
+          "remaining": 7.875,
+          "rearHp": 945.3125,
+          "alive": 40.1875,
+          "ticks": 102.125
+        }
+      ]
+    },
+    {
+      "id": "person-99",
+      "name": "关羽",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-99",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.28125,
+          "margin": -1730.96875,
+          "damage": 691.84375,
+          "remaining": 46.65625,
+          "rearHp": 384.90625,
+          "alive": 44.3125,
+          "ticks": 112.53125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-99",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.28125,
+          "margin": -1872.5625,
+          "damage": 551.4375,
+          "remaining": 0,
+          "rearHp": 334.46875,
+          "alive": 41.21875,
+          "ticks": 114.65625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.1875,
+          "margin": -2193.9375,
+          "damage": 428.375,
+          "remaining": 0,
+          "rearHp": 194.8125,
+          "alive": 41.53125,
+          "ticks": 115.71875
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-99",
+            "harass",
+            "relay"
+          ],
+          "win": 0.09375,
+          "margin": -2573.25,
+          "damage": 497.65625,
+          "remaining": 0,
+          "rearHp": 182.25,
+          "alive": 38.125,
+          "ticks": 103.8125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.125,
+          "margin": -2643.6875,
+          "damage": 460.28125,
+          "remaining": 0,
+          "rearHp": 136.90625,
+          "alive": 40.09375,
+          "ticks": 110.5625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -3039.125,
+          "damage": 388.25,
+          "remaining": 0,
+          "rearHp": 139.125,
+          "alive": 38.03125,
+          "ticks": 100.21875
+        }
+      ]
+    },
+    {
+      "id": "person-433",
+      "name": "张飞",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.5,
+          "margin": 614.625,
+          "damage": 601.90625,
+          "remaining": 11.3125,
+          "rearHp": 1785.34375,
+          "alive": 49.90625,
+          "ticks": 112.125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-433",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 17.34375,
+          "damage": 788.28125,
+          "remaining": 20.71875,
+          "rearHp": 1624.21875,
+          "alive": 47.75,
+          "ticks": 106.78125
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-433",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.375,
+          "margin": -671.75,
+          "damage": 852.6875,
+          "remaining": 0,
+          "rearHp": 1362.625,
+          "alive": 40.375,
+          "ticks": 101.53125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-433",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.375,
+          "margin": -885.84375,
+          "damage": 988.1875,
+          "remaining": 29.6875,
+          "rearHp": 1255.46875,
+          "alive": 50.375,
+          "ticks": 101.75
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -952.28125,
+          "damage": 1040.4375,
+          "remaining": 20.15625,
+          "rearHp": 1216.5625,
+          "alive": 46.71875,
+          "ticks": 100.71875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.34375,
+          "margin": -1127.9375,
+          "damage": 717.25,
+          "remaining": 12.78125,
+          "rearHp": 1084.46875,
+          "alive": 43.59375,
+          "ticks": 104.71875
+        }
+      ]
+    },
+    {
+      "id": "person-396",
+      "name": "赵云",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-396",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.28125,
+          "margin": -1671.1875,
+          "damage": 634.3125,
+          "remaining": 13.46875,
+          "rearHp": 544.90625,
+          "alive": 45.09375,
+          "ticks": 112.9375
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.21875,
+          "margin": -1936.8125,
+          "damage": 429.25,
+          "remaining": 0,
+          "rearHp": 322.65625,
+          "alive": 42.25,
+          "ticks": 115.1875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-396",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.21875,
+          "margin": -2026.8125,
+          "damage": 526.59375,
+          "remaining": 0,
+          "rearHp": 382.75,
+          "alive": 42.34375,
+          "ticks": 111.84375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-396",
+            "harass",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2151.1875,
+          "damage": 509.96875,
+          "remaining": 0,
+          "rearHp": 302.09375,
+          "alive": 39.84375,
+          "ticks": 108.84375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.09375,
+          "margin": -2776.1875,
+          "damage": 421.65625,
+          "remaining": 0,
+          "rearHp": 40.5,
+          "alive": 39.78125,
+          "ticks": 111.78125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2855,
+          "damage": 378.09375,
+          "remaining": 0,
+          "rearHp": 147.3125,
+          "alive": 37.9375,
+          "ticks": 103.46875
+        }
+      ]
+    },
+    {
+      "id": "person-516",
+      "name": "马超",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-516",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.3125,
+          "margin": -1746.53125,
+          "damage": 713.4375,
+          "remaining": 40.65625,
+          "rearHp": 399.71875,
+          "alive": 44.4375,
+          "ticks": 113.15625
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-516",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.25,
+          "margin": -1978.5625,
+          "damage": 569.15625,
+          "remaining": 0,
+          "rearHp": 353.34375,
+          "alive": 41.65625,
+          "ticks": 111.84375
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2331.625,
+          "damage": 436.6875,
+          "remaining": 0,
+          "rearHp": 180.59375,
+          "alive": 41.1875,
+          "ticks": 112.40625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-516",
+            "harass",
+            "relay"
+          ],
+          "win": 0.03125,
+          "margin": -2868.03125,
+          "damage": 483.40625,
+          "remaining": 0,
+          "rearHp": 36.5625,
+          "alive": 36.65625,
+          "ticks": 104.09375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.09375,
+          "margin": -2887.1875,
+          "damage": 435.71875,
+          "remaining": 0,
+          "rearHp": 74.8125,
+          "alive": 38.15625,
+          "ticks": 108.03125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -3166.125,
+          "damage": 388.25,
+          "remaining": 0,
+          "rearHp": 168.4375,
+          "alive": 36.8125,
+          "ticks": 96.375
+        }
+      ]
+    },
+    {
+      "id": "person-186",
+      "name": "黄忠",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 4639.375,
+          "damage": 3802.5625,
+          "remaining": 2281.125,
+          "rearHp": 2358.25,
+          "alive": 86.65625,
+          "ticks": 86.65625
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-186",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 4629.40625,
+          "damage": 3959.96875,
+          "remaining": 2291.34375,
+          "rearHp": 2338.0625,
+          "alive": 86.21875,
+          "ticks": 86.21875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 4171.59375,
+          "damage": 3488.96875,
+          "remaining": 2022.03125,
+          "rearHp": 2149.5625,
+          "alive": 92.03125,
+          "ticks": 94.9375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-186",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 4147.125,
+          "damage": 3866.75,
+          "remaining": 2060.71875,
+          "rearHp": 2086.40625,
+          "alive": 94.15625,
+          "ticks": 95.34375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-186",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 4147.125,
+          "damage": 3866.75,
+          "remaining": 2060.71875,
+          "rearHp": 2086.40625,
+          "alive": 94.15625,
+          "ticks": 95.34375
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 3687.125,
+          "damage": 3684.6875,
+          "remaining": 1809.5625,
+          "rearHp": 1877.5625,
+          "alive": 104.9375,
+          "ticks": 106.28125
+        }
+      ]
+    },
+    {
+      "id": "person-290",
+      "name": "诸葛亮",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-290",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.6875,
+          "margin": 1930.71875,
+          "damage": 2354.78125,
+          "remaining": 1187.15625,
+          "rearHp": 1357.3125,
+          "alive": 107.125,
+          "ticks": 121.75
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-290",
+            "screen",
+            "seal"
+          ],
+          "win": 0.59375,
+          "margin": 1662.65625,
+          "damage": 2293.1875,
+          "remaining": 1328.53125,
+          "rearHp": 1218.75,
+          "alive": 125.96875,
+          "ticks": 135.0625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 1323.875,
+          "damage": 2018.71875,
+          "remaining": 1225.40625,
+          "rearHp": 1287.875,
+          "alive": 122.375,
+          "ticks": 131.75
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.59375,
+          "margin": 1071.28125,
+          "damage": 2344.75,
+          "remaining": 962.75,
+          "rearHp": 1060.375,
+          "alive": 118.3125,
+          "ticks": 130.125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 1029.21875,
+          "damage": 2074.46875,
+          "remaining": 923.71875,
+          "rearHp": 1117.15625,
+          "alive": 111.8125,
+          "ticks": 125.90625
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-290",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.59375,
+          "margin": 950.4375,
+          "damage": 2308.625,
+          "remaining": 887.78125,
+          "rearHp": 1061.71875,
+          "alive": 113.9375,
+          "ticks": 128.71875
+        }
+      ]
+    },
+    {
+      "id": "person-558",
+      "name": "庞统",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.84375,
+          "margin": 2994,
+          "damage": 3007.15625,
+          "remaining": 1331.03125,
+          "rearHp": 1852.03125,
+          "alive": 105.09375,
+          "ticks": 109.625
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-558",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.875,
+          "margin": 2834.21875,
+          "damage": 2855.28125,
+          "remaining": 1283.1875,
+          "rearHp": 1698.53125,
+          "alive": 104.5625,
+          "ticks": 115.46875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.75,
+          "margin": 2113.21875,
+          "damage": 2487.40625,
+          "remaining": 1149.5,
+          "rearHp": 1441.15625,
+          "alive": 109.375,
+          "ticks": 118.96875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-558",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.65625,
+          "margin": 1730.8125,
+          "damage": 2926.71875,
+          "remaining": 961.875,
+          "rearHp": 1375.28125,
+          "alive": 113.5625,
+          "ticks": 122.6875
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-558",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.65625,
+          "margin": 1730.8125,
+          "damage": 2926.71875,
+          "remaining": 961.875,
+          "rearHp": 1375.28125,
+          "alive": 113.5625,
+          "ticks": 122.6875
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.625,
+          "margin": 1153.03125,
+          "damage": 2552.21875,
+          "remaining": 855.71875,
+          "rearHp": 1066.9375,
+          "alive": 119.21875,
+          "ticks": 130.1875
+        }
+      ]
+    },
+    {
+      "id": "person-137",
+      "name": "姜维",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 293.8125,
+          "damage": 586.875,
+          "remaining": 26.0625,
+          "rearHp": 1580.53125,
+          "alive": 48.8125,
+          "ticks": 113.3125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1010.71875,
+          "damage": 938.875,
+          "remaining": 42.65625,
+          "rearHp": 1160.3125,
+          "alive": 43.125,
+          "ticks": 98.5
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-137",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.3125,
+          "margin": -1125.4375,
+          "damage": 655.4375,
+          "remaining": 0,
+          "rearHp": 1251.28125,
+          "alive": 41.75,
+          "ticks": 102.25
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-137",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1169,
+          "damage": 882.65625,
+          "remaining": 30.46875,
+          "rearHp": 1043.3125,
+          "alive": 44.59375,
+          "ticks": 101.5
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-137",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1278.25,
+          "damage": 765.375,
+          "remaining": 7.5,
+          "rearHp": 1089.625,
+          "alive": 38.1875,
+          "ticks": 100.21875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1534.03125,
+          "damage": 636.5625,
+          "remaining": 11.09375,
+          "rearHp": 1007.40625,
+          "alive": 39.65625,
+          "ticks": 99.40625
+        }
+      ]
+    },
+    {
+      "id": "person-125",
+      "name": "魏延",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.4375,
+          "margin": 326.03125,
+          "damage": 621.59375,
+          "remaining": 11.5,
+          "rearHp": 1541.25,
+          "alive": 51.625,
+          "ticks": 116
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-125",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.3125,
+          "margin": -761.34375,
+          "damage": 716.46875,
+          "remaining": 9.21875,
+          "rearHp": 1410.78125,
+          "alive": 43.15625,
+          "ticks": 104.375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-125",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.375,
+          "margin": -1034.34375,
+          "damage": 828.84375,
+          "remaining": 0,
+          "rearHp": 1224.03125,
+          "alive": 38.15625,
+          "ticks": 99.5625
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-125",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1153.78125,
+          "damage": 901.5625,
+          "remaining": 30.4375,
+          "rearHp": 1059.625,
+          "alive": 42.84375,
+          "ticks": 100.8125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1173.59375,
+          "damage": 958.90625,
+          "remaining": 30.09375,
+          "rearHp": 1089.78125,
+          "alive": 41.75,
+          "ticks": 99.125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1368.03125,
+          "damage": 718.65625,
+          "remaining": 13.15625,
+          "rearHp": 1061.59375,
+          "alive": 42.65625,
+          "ticks": 101.6875
+        }
+      ]
+    },
+    {
+      "id": "person-368",
+      "name": "孙权",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 376.53125,
+          "damage": 548.96875,
+          "remaining": 27.9375,
+          "rearHp": 1588.25,
+          "alive": 50.9375,
+          "ticks": 116.34375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-368",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.46875,
+          "margin": -2.09375,
+          "damage": 581.0625,
+          "remaining": 71.25,
+          "rearHp": 1846.59375,
+          "alive": 51.09375,
+          "ticks": 103.3125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-368",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.4375,
+          "margin": -131.5,
+          "damage": 847.0625,
+          "remaining": 98.78125,
+          "rearHp": 1574.625,
+          "alive": 59.375,
+          "ticks": 107.8125
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-368",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.4375,
+          "margin": -369.71875,
+          "damage": 652.125,
+          "remaining": 21.4375,
+          "rearHp": 1722.875,
+          "alive": 46.4375,
+          "ticks": 100.1875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1235.21875,
+          "damage": 772.21875,
+          "remaining": 13,
+          "rearHp": 1053.625,
+          "alive": 43.59375,
+          "ticks": 101.4375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1592.15625,
+          "damage": 555.53125,
+          "remaining": 7.6875,
+          "rearHp": 952.28125,
+          "alive": 40.5,
+          "ticks": 102.09375
+        }
+      ]
+    },
+    {
+      "id": "person-371",
+      "name": "孙策",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-371",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.375,
+          "margin": -1598.1875,
+          "damage": 690.59375,
+          "remaining": 38.03125,
+          "rearHp": 509.96875,
+          "alive": 44.53125,
+          "ticks": 112.84375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-371",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.34375,
+          "margin": -1679.0625,
+          "damage": 568.3125,
+          "remaining": 0,
+          "rearHp": 542.96875,
+          "alive": 41.65625,
+          "ticks": 111.125
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2172.21875,
+          "damage": 459.125,
+          "remaining": 0,
+          "rearHp": 204.40625,
+          "alive": 41.65625,
+          "ticks": 114.34375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-371",
+            "harass",
+            "relay"
+          ],
+          "win": 0.09375,
+          "margin": -2624.4375,
+          "damage": 522.96875,
+          "remaining": 0,
+          "rearHp": 167.5,
+          "alive": 39.0625,
+          "ticks": 104.46875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.09375,
+          "margin": -2816.125,
+          "damage": 470.4375,
+          "remaining": 0,
+          "rearHp": 75.78125,
+          "alive": 39.53125,
+          "ticks": 108.53125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -3043.375,
+          "damage": 407.5625,
+          "remaining": 0,
+          "rearHp": 130.59375,
+          "alive": 37.84375,
+          "ticks": 100.21875
+        }
+      ]
+    },
+    {
+      "id": "person-246",
+      "name": "周瑜",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 3848.03125,
+          "damage": 3450.625,
+          "remaining": 1737.84375,
+          "rearHp": 2110.1875,
+          "alive": 98.4375,
+          "ticks": 100.5625
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-246",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 3799.28125,
+          "damage": 3426.09375,
+          "remaining": 1715.15625,
+          "rearHp": 2084.125,
+          "alive": 99.875,
+          "ticks": 102
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-246",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.84375,
+          "margin": 3057.40625,
+          "damage": 3405.75,
+          "remaining": 1453.21875,
+          "rearHp": 1695.3125,
+          "alive": 112.625,
+          "ticks": 115.375
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-246",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.84375,
+          "margin": 3057.40625,
+          "damage": 3405.75,
+          "remaining": 1453.21875,
+          "rearHp": 1695.3125,
+          "alive": 112.625,
+          "ticks": 115.375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.78125,
+          "margin": 2926.71875,
+          "damage": 2993.65625,
+          "remaining": 1426.28125,
+          "rearHp": 1633.65625,
+          "alive": 106.96875,
+          "ticks": 114.90625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.75,
+          "margin": 2117.5625,
+          "damage": 3142.5625,
+          "remaining": 1033.8125,
+          "rearHp": 1450.53125,
+          "alive": 122.90625,
+          "ticks": 125.375
+        }
+      ]
+    },
+    {
+      "id": "person-668",
+      "name": "鲁肃",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-668",
+            "screen",
+            "seal"
+          ],
+          "win": 0.75,
+          "margin": 2559.90625,
+          "damage": 1868.75,
+          "remaining": 1612.59375,
+          "rearHp": 1785.03125,
+          "alive": 130.15625,
+          "ticks": 131.5625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-668",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.8125,
+          "margin": 2545.6875,
+          "damage": 2430.78125,
+          "remaining": 1323.3125,
+          "rearHp": 1691.65625,
+          "alive": 123.875,
+          "ticks": 125.84375
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-668",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.75,
+          "margin": 1975.40625,
+          "damage": 2077.5625,
+          "remaining": 1215.21875,
+          "rearHp": 1488.625,
+          "alive": 120.5,
+          "ticks": 128
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.59375,
+          "margin": 1313.875,
+          "damage": 1979.03125,
+          "remaining": 1322.625,
+          "rearHp": 1243.34375,
+          "alive": 128.4375,
+          "ticks": 135.0625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.5625,
+          "margin": 1001.21875,
+          "damage": 2301.6875,
+          "remaining": 968.09375,
+          "rearHp": 1020.5,
+          "alive": 115.4375,
+          "ticks": 128.21875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 913.28125,
+          "damage": 2045,
+          "remaining": 890.53125,
+          "rearHp": 1078.15625,
+          "alive": 110.6875,
+          "ticks": 125.53125
+        }
+      ]
+    },
+    {
+      "id": "person-662",
+      "name": "吕蒙",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-662",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.75,
+          "margin": 2680.71875,
+          "damage": 3045.75,
+          "remaining": 1330.28125,
+          "rearHp": 1637.25,
+          "alive": 107.59375,
+          "ticks": 115.3125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-662",
+            "screen",
+            "seal"
+          ],
+          "win": 0.75,
+          "margin": 2571.84375,
+          "damage": 2704.0625,
+          "remaining": 1466.25,
+          "rearHp": 1585.875,
+          "alive": 120.5,
+          "ticks": 127.4375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.71875,
+          "margin": 2205.1875,
+          "damage": 2929.4375,
+          "remaining": 1319.21875,
+          "rearHp": 1384.21875,
+          "alive": 112,
+          "ticks": 118.28125
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.6875,
+          "margin": 2064.28125,
+          "damage": 2450.375,
+          "remaining": 1415.21875,
+          "rearHp": 1396.21875,
+          "alive": 120.96875,
+          "ticks": 130.28125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.65625,
+          "margin": 2057.1875,
+          "damage": 2699.125,
+          "remaining": 1213.34375,
+          "rearHp": 1362.53125,
+          "alive": 108.75,
+          "ticks": 120.40625
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-662",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.6875,
+          "margin": 1968.65625,
+          "damage": 2854.53125,
+          "remaining": 1279.84375,
+          "rearHp": 1247.40625,
+          "alive": 108.78125,
+          "ticks": 119.75
+        }
+      ]
+    },
+    {
+      "id": "person-603",
+      "name": "陆逊",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 4044.75,
+          "damage": 3327.5625,
+          "remaining": 1893.46875,
+          "rearHp": 2151.28125,
+          "alive": 95.9375,
+          "ticks": 98.59375
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-603",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 3955.84375,
+          "damage": 3355.46875,
+          "remaining": 1866.0625,
+          "rearHp": 2089.78125,
+          "alive": 98.75,
+          "ticks": 100.34375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.875,
+          "margin": 2863.875,
+          "damage": 2932.0625,
+          "remaining": 1322.53125,
+          "rearHp": 1634.28125,
+          "alive": 106.5625,
+          "ticks": 116.03125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-603",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.78125,
+          "margin": 2779.15625,
+          "damage": 3213.03125,
+          "remaining": 1298.3125,
+          "rearHp": 1671.78125,
+          "alive": 110.1875,
+          "ticks": 114.90625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-603",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.78125,
+          "margin": 2779.15625,
+          "damage": 3213.03125,
+          "remaining": 1298.3125,
+          "rearHp": 1671.78125,
+          "alive": 110.1875,
+          "ticks": 114.90625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.75,
+          "margin": 1982.90625,
+          "damage": 2794.53125,
+          "remaining": 1000.28125,
+          "rearHp": 1455,
+          "alive": 114.75,
+          "ticks": 122.78125
+        }
+      ]
+    },
+    {
+      "id": "person-119",
+      "name": "甘宁",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-119",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.21875,
+          "margin": -2057.28125,
+          "damage": 651.84375,
+          "remaining": 31.15625,
+          "rearHp": 318.65625,
+          "alive": 43.1875,
+          "ticks": 113.78125
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2368.4375,
+          "damage": 422.09375,
+          "remaining": 0,
+          "rearHp": 172.09375,
+          "alive": 40.28125,
+          "ticks": 112.125
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-119",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2417.5,
+          "damage": 508.8125,
+          "remaining": 0,
+          "rearHp": 157,
+          "alive": 39.75,
+          "ticks": 114.40625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.09375,
+          "margin": -2918.84375,
+          "damage": 430.125,
+          "remaining": 0,
+          "rearHp": 72.1875,
+          "alive": 38,
+          "ticks": 107.53125
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-119",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -2967.125,
+          "damage": 514.90625,
+          "remaining": 0,
+          "rearHp": 149.65625,
+          "alive": 39.1875,
+          "ticks": 100.40625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.09375,
+          "margin": -3049.1875,
+          "damage": 381.8125,
+          "remaining": 0,
+          "rearHp": 201.875,
+          "alive": 36.625,
+          "ticks": 96.8125
+        }
+      ]
+    },
+    {
+      "id": "person-390",
+      "name": "太史慈",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-390",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 4337.75,
+          "damage": 3719.15625,
+          "remaining": 2055.28125,
+          "rearHp": 2282.46875,
+          "alive": 88.625,
+          "ticks": 90.84375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 4269.8125,
+          "damage": 3645.78125,
+          "remaining": 2027.5,
+          "rearHp": 2242.3125,
+          "alive": 92.625,
+          "ticks": 92.625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 3728.0625,
+          "damage": 3277.78125,
+          "remaining": 1779.34375,
+          "rearHp": 1948.71875,
+          "alive": 97.71875,
+          "ticks": 102.71875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-390",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 3644.9375,
+          "damage": 3630.0625,
+          "remaining": 1682.3125,
+          "rearHp": 1962.625,
+          "alive": 101.4375,
+          "ticks": 104.625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-390",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 3644.9375,
+          "damage": 3630.0625,
+          "remaining": 1682.3125,
+          "rearHp": 1962.625,
+          "alive": 101.4375,
+          "ticks": 104.625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.90625,
+          "margin": 2851.6875,
+          "damage": 3486.28125,
+          "remaining": 1341.9375,
+          "rearHp": 1583.84375,
+          "alive": 120.15625,
+          "ticks": 122.09375
+        }
+      ]
+    },
+    {
+      "id": "person-164",
+      "name": "黄盖",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 3887.21875,
+          "damage": 3383.9375,
+          "remaining": 1743.40625,
+          "rearHp": 2143.8125,
+          "alive": 97.65625,
+          "ticks": 98.96875
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-164",
+            "scatter",
+            "fire"
+          ],
+          "win": 1,
+          "margin": 3793.75,
+          "damage": 3131.75,
+          "remaining": 1599.125,
+          "rearHp": 2194.625,
+          "alive": 92.28125,
+          "ticks": 98.5625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 1,
+          "margin": 3274.90625,
+          "damage": 3043.65625,
+          "remaining": 1450.71875,
+          "rearHp": 1824.1875,
+          "alive": 101.5,
+          "ticks": 111.15625
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-164",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.875,
+          "margin": 2718,
+          "damage": 3092.9375,
+          "remaining": 1190.9375,
+          "rearHp": 1632.25,
+          "alive": 103.875,
+          "ticks": 116.40625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-164",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.875,
+          "margin": 2718,
+          "damage": 3092.9375,
+          "remaining": 1190.9375,
+          "rearHp": 1632.25,
+          "alive": 103.875,
+          "ticks": 116.40625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.75,
+          "margin": 1897.28125,
+          "damage": 2950.9375,
+          "remaining": 1047.09375,
+          "rearHp": 1365.21875,
+          "alive": 112.875,
+          "ticks": 120.65625
+        }
+      ]
+    },
+    {
+      "id": "person-226",
+      "name": "司马懿",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-226",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.65625,
+          "margin": 2201.15625,
+          "damage": 2665.125,
+          "remaining": 1280.59375,
+          "rearHp": 1453.40625,
+          "alive": 107.90625,
+          "ticks": 119.09375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-226",
+            "screen",
+            "seal"
+          ],
+          "win": 0.71875,
+          "margin": 2021.75,
+          "damage": 2445.875,
+          "remaining": 1420.59375,
+          "rearHp": 1313.625,
+          "alive": 124.53125,
+          "ticks": 133.65625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.71875,
+          "margin": 1810.15625,
+          "damage": 2553.28125,
+          "remaining": 1188.84375,
+          "rearHp": 1223.71875,
+          "alive": 116.25,
+          "ticks": 127.0625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.65625,
+          "margin": 1702.0625,
+          "damage": 2284.59375,
+          "remaining": 1072.53125,
+          "rearHp": 1261.78125,
+          "alive": 111.3125,
+          "ticks": 125.9375
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-226",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.625,
+          "margin": 1476.5625,
+          "damage": 2500.125,
+          "remaining": 1122.21875,
+          "rearHp": 1126.53125,
+          "alive": 111.09375,
+          "ticks": 124.4375
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 1374.09375,
+          "damage": 2097,
+          "remaining": 1234.4375,
+          "rearHp": 1281.21875,
+          "alive": 123.9375,
+          "ticks": 133.6875
+        }
+      ]
+    },
+    {
+      "id": "person-291",
+      "name": "徐晃",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.4375,
+          "margin": 472.3125,
+          "damage": 632.375,
+          "remaining": 31.6875,
+          "rearHp": 1733.1875,
+          "alive": 53,
+          "ticks": 113.15625
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-291",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.34375,
+          "margin": -695.9375,
+          "damage": 717.1875,
+          "remaining": 19.46875,
+          "rearHp": 1452,
+          "alive": 46.28125,
+          "ticks": 103.53125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.375,
+          "margin": -822.625,
+          "damage": 990.21875,
+          "remaining": 56.09375,
+          "rearHp": 1255.84375,
+          "alive": 44.90625,
+          "ticks": 100.0625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-291",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.34375,
+          "margin": -894.3125,
+          "damage": 807.59375,
+          "remaining": 22.34375,
+          "rearHp": 1292.625,
+          "alive": 39.625,
+          "ticks": 99.75
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-291",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -914.78125,
+          "damage": 916.71875,
+          "remaining": 52.34375,
+          "rearHp": 1167.59375,
+          "alive": 45.9375,
+          "ticks": 101.75
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1244.8125,
+          "damage": 670.15625,
+          "remaining": 15.84375,
+          "rearHp": 1134.8125,
+          "alive": 42.09375,
+          "ticks": 100.59375
+        }
+      ]
+    },
+    {
+      "id": "person-472",
+      "name": "典韦",
+      "type": "spear",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.46875,
+          "margin": -336.6875,
+          "damage": 418.0625,
+          "remaining": 0,
+          "rearHp": 1317.65625,
+          "alive": 47.21875,
+          "ticks": 112.9375
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-472",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.375,
+          "margin": -848.1875,
+          "damage": 528.0625,
+          "remaining": 0,
+          "rearHp": 1341.25,
+          "alive": 43.46875,
+          "ticks": 105.96875
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-472",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.375,
+          "margin": -1223.96875,
+          "damage": 663.5625,
+          "remaining": 0,
+          "rearHp": 1091.15625,
+          "alive": 39.75,
+          "ticks": 102.8125
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-472",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1316.09375,
+          "damage": 801.78125,
+          "remaining": 25.28125,
+          "rearHp": 1063.5625,
+          "alive": 48.875,
+          "ticks": 101.375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1676.875,
+          "damage": 831.65625,
+          "remaining": 34.875,
+          "rearHp": 890.53125,
+          "alive": 45.8125,
+          "ticks": 98.90625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.28125,
+          "margin": -1806.0625,
+          "damage": 526.0625,
+          "remaining": 2.09375,
+          "rearHp": 780.71875,
+          "alive": 40.75,
+          "ticks": 103.4375
+        }
+      ]
+    },
+    {
+      "id": "person-661",
+      "name": "吕布",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-661",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.25,
+          "margin": -2013.09375,
+          "damage": 666.625,
+          "remaining": 27.4375,
+          "rearHp": 353.84375,
+          "alive": 42.5,
+          "ticks": 112.875
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2369.53125,
+          "damage": 430.90625,
+          "remaining": 0,
+          "rearHp": 180.46875,
+          "alive": 40.96875,
+          "ticks": 111.46875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-661",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.15625,
+          "margin": -2430.71875,
+          "damage": 534.71875,
+          "remaining": 0,
+          "rearHp": 192.4375,
+          "alive": 40.375,
+          "ticks": 112.40625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.09375,
+          "margin": -2945.625,
+          "damage": 431.03125,
+          "remaining": 0,
+          "rearHp": 74.59375,
+          "alive": 38,
+          "ticks": 106.625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-661",
+            "harass",
+            "relay"
+          ],
+          "win": 0.03125,
+          "margin": -2962.84375,
+          "damage": 463.75,
+          "remaining": 0,
+          "rearHp": 18.5625,
+          "alive": 35.15625,
+          "ticks": 104.4375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -3175.125,
+          "damage": 382.78125,
+          "remaining": 0,
+          "rearHp": 166.125,
+          "alive": 36.46875,
+          "ticks": 96.1875
+        }
+      ]
+    },
+    {
+      "id": "person-425",
+      "name": "貂蝉",
+      "type": "crossbow",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-425",
+            "screen",
+            "seal"
+          ],
+          "win": 0.53125,
+          "margin": -177.71875,
+          "damage": 1185.0625,
+          "remaining": 758.71875,
+          "rearHp": 925.03125,
+          "alive": 118.8125,
+          "ticks": 133.125
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-425",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.375,
+          "margin": -531.78125,
+          "damage": 1402.3125,
+          "remaining": 685.625,
+          "rearHp": 717.53125,
+          "alive": 104.03125,
+          "ticks": 122.625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.375,
+          "margin": -771.1875,
+          "damage": 962.03125,
+          "remaining": 656.125,
+          "rearHp": 921.1875,
+          "alive": 115,
+          "ticks": 129.1875
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-425",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.28125,
+          "margin": -1469.03125,
+          "damage": 1244.15625,
+          "remaining": 420.71875,
+          "rearHp": 604.375,
+          "alive": 104.9375,
+          "ticks": 121.03125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.3125,
+          "margin": -1561.6875,
+          "damage": 1142.8125,
+          "remaining": 514.25,
+          "rearHp": 694.59375,
+          "alive": 106.8125,
+          "ticks": 117.46875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.28125,
+          "margin": -1591.125,
+          "damage": 1015.75,
+          "remaining": 550.25,
+          "rearHp": 610.9375,
+          "alive": 102.65625,
+          "ticks": 117.5625
+        }
+      ]
+    },
+    {
+      "id": "person-404",
+      "name": "张角",
+      "type": "archer",
+      "famous": true,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.875,
+          "margin": 3109.53125,
+          "damage": 3087.1875,
+          "remaining": 1320.5625,
+          "rearHp": 1926.46875,
+          "alive": 105.53125,
+          "ticks": 109.34375
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-404",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.84375,
+          "margin": 2866.15625,
+          "damage": 2991.53125,
+          "remaining": 1309.1875,
+          "rearHp": 1739.03125,
+          "alive": 106.5,
+          "ticks": 114.6875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.71875,
+          "margin": 2334.5625,
+          "damage": 2615.375,
+          "remaining": 1312.65625,
+          "rearHp": 1437.625,
+          "alive": 108.1875,
+          "ticks": 117.21875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-404",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.6875,
+          "margin": 1931.46875,
+          "damage": 3046.40625,
+          "remaining": 1062.0625,
+          "rearHp": 1377.5625,
+          "alive": 114.1875,
+          "ticks": 121.90625
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-404",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.6875,
+          "margin": 1931.46875,
+          "damage": 3046.40625,
+          "remaining": 1062.0625,
+          "rearHp": 1377.5625,
+          "alive": 114.1875,
+          "ticks": 121.90625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.71875,
+          "margin": 1495.25,
+          "damage": 2697,
+          "remaining": 952.15625,
+          "rearHp": 1128.65625,
+          "alive": 119.28125,
+          "ticks": 128.90625
+        }
+      ]
+    },
+    {
+      "id": "person-494",
+      "name": "董卓",
+      "type": "cavalry",
+      "famous": true,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2584.40625,
+          "damage": 374.84375,
+          "remaining": 0,
+          "rearHp": 145.71875,
+          "alive": 40.375,
+          "ticks": 109.46875
+        },
+        {
+          "key": "assaultSpecial",
+          "ids": [
+            "unique-person-494",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.09375,
+          "margin": -2657.28125,
+          "damage": 609.6875,
+          "remaining": 10.46875,
+          "rearHp": 157.40625,
+          "alive": 43.53125,
+          "ticks": 110.6875
+        },
+        {
+          "key": "guardSpecial",
+          "ids": [
+            "unique-person-494",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -2987.78125,
+          "damage": 448.3125,
+          "remaining": 0,
+          "rearHp": 36.84375,
+          "alive": 38.28125,
+          "ticks": 108.75
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.09375,
+          "margin": -3142.84375,
+          "damage": 338.0625,
+          "remaining": 0,
+          "rearHp": 168.125,
+          "alive": 36.09375,
+          "ticks": 97
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.03125,
+          "margin": -3159.03125,
+          "damage": 380.53125,
+          "remaining": 0,
+          "rearHp": 3.625,
+          "alive": 37.59375,
+          "ticks": 106.5
+        },
+        {
+          "key": "controlSpecial",
+          "ids": [
+            "unique-person-494",
+            "harass",
+            "relay"
+          ],
+          "win": 0.03125,
+          "margin": -3343.03125,
+          "damage": 417.34375,
+          "remaining": 0,
+          "rearHp": 83.5625,
+          "alive": 35.5625,
+          "ticks": 96.75
+        }
+      ]
+    },
+    {
+      "id": "person-482",
+      "name": "邓艾",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 359.875,
+          "damage": 612.09375,
+          "remaining": 24.59375,
+          "rearHp": 1630.71875,
+          "alive": 49.625,
+          "ticks": 113.65625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1015.5,
+          "damage": 909.03125,
+          "remaining": 31.875,
+          "rearHp": 1154,
+          "alive": 43.5625,
+          "ticks": 99.5
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1446.1875,
+          "damage": 639.09375,
+          "remaining": 11.34375,
+          "rearHp": 1052.25,
+          "alive": 40.28125,
+          "ticks": 98.875
+        }
+      ]
+    },
+    {
+      "id": "person-366",
+      "name": "孙坚",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 334.53125,
+          "damage": 602.34375,
+          "remaining": 23.625,
+          "rearHp": 1620.46875,
+          "alive": 49.1875,
+          "ticks": 113.28125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1024.125,
+          "damage": 911.125,
+          "remaining": 31.15625,
+          "rearHp": 1153.90625,
+          "alive": 43.53125,
+          "ticks": 99.4375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1487.1875,
+          "damage": 636.8125,
+          "remaining": 11.09375,
+          "rearHp": 1047.65625,
+          "alive": 39.9375,
+          "ticks": 98.75
+        }
+      ]
+    },
+    {
+      "id": "person-69",
+      "name": "郝昭",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 191.21875,
+          "damage": 585.53125,
+          "remaining": 9.34375,
+          "rearHp": 1423.03125,
+          "alive": 49.875,
+          "ticks": 118.25
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1481.34375,
+          "damage": 795.3125,
+          "remaining": 11.53125,
+          "rearHp": 987.34375,
+          "alive": 41.78125,
+          "ticks": 98.46875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1579.6875,
+          "damage": 636.59375,
+          "remaining": 7.71875,
+          "rearHp": 953.75,
+          "alive": 41.65625,
+          "ticks": 101.46875
+        }
+      ]
+    },
+    {
+      "id": "person-77",
+      "name": "郭淮",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 60.25,
+          "damage": 565.78125,
+          "remaining": 24.25,
+          "rearHp": 1456.375,
+          "alive": 47.90625,
+          "ticks": 113.5625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1253.59375,
+          "damage": 823.09375,
+          "remaining": 9.5,
+          "rearHp": 1082.125,
+          "alive": 42.84375,
+          "ticks": 98.875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1647.84375,
+          "damage": 587.6875,
+          "remaining": 7,
+          "rearHp": 975.875,
+          "alive": 39.3125,
+          "ticks": 98.78125
+        }
+      ]
+    },
+    {
+      "id": "person-70",
+      "name": "乐进",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": -444.9375,
+          "damage": 525.6875,
+          "remaining": 3.5625,
+          "rearHp": 1276.5625,
+          "alive": 47.65625,
+          "ticks": 111.8125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1660.9375,
+          "damage": 753.71875,
+          "remaining": 8.6875,
+          "rearHp": 881.59375,
+          "alive": 40.28125,
+          "ticks": 98.5625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.28125,
+          "margin": -1795.75,
+          "damage": 580.78125,
+          "remaining": 4.78125,
+          "rearHp": 846.53125,
+          "alive": 39.1875,
+          "ticks": 100.09375
+        }
+      ]
+    },
+    {
+      "id": "person-342",
+      "name": "曹仁",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": 10.25,
+          "damage": 582.5625,
+          "remaining": 8.25,
+          "rearHp": 1422.09375,
+          "alive": 49.75,
+          "ticks": 115.4375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1430.21875,
+          "damage": 815.71875,
+          "remaining": 11.75,
+          "rearHp": 992.78125,
+          "alive": 41.875,
+          "ticks": 98.8125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1594.78125,
+          "damage": 630.25,
+          "remaining": 9.21875,
+          "rearHp": 940.0625,
+          "alive": 40.375,
+          "ticks": 101.1875
+        }
+      ]
+    },
+    {
+      "id": "person-559",
+      "name": "庞德",
+      "type": "cavalry",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2571.65625,
+          "damage": 359.6875,
+          "remaining": 0,
+          "rearHp": 150.90625,
+          "alive": 39.65625,
+          "ticks": 108.90625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.03125,
+          "margin": -3313.15625,
+          "damage": 370.25,
+          "remaining": 0,
+          "rearHp": 2.9375,
+          "alive": 37.71875,
+          "ticks": 103.875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.03125,
+          "margin": -3393.6875,
+          "damage": 321.09375,
+          "remaining": 0,
+          "rearHp": 71.34375,
+          "alive": 35.4375,
+          "ticks": 96.53125
+        }
+      ]
+    },
+    {
+      "id": "person-170",
+      "name": "高顺",
+      "type": "cavalry",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2551.96875,
+          "damage": 380.46875,
+          "remaining": 0,
+          "rearHp": 154.21875,
+          "alive": 40.71875,
+          "ticks": 109.4375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.09375,
+          "margin": -3087.46875,
+          "damage": 391.5625,
+          "remaining": 0,
+          "rearHp": 25.875,
+          "alive": 38.375,
+          "ticks": 107.15625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.0625,
+          "margin": -3229.03125,
+          "damage": 341.3125,
+          "remaining": 0,
+          "rearHp": 102.28125,
+          "alive": 36.25,
+          "ticks": 98.09375
+        }
+      ]
+    },
+    {
+      "id": "person-513",
+      "name": "马岱",
+      "type": "cavalry",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.125,
+          "margin": -2583.15625,
+          "damage": 361.875,
+          "remaining": 0,
+          "rearHp": 150.5625,
+          "alive": 39.84375,
+          "ticks": 108.96875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.03125,
+          "margin": -3287.625,
+          "damage": 374.65625,
+          "remaining": 0,
+          "rearHp": 2.25,
+          "alive": 37.875,
+          "ticks": 104.625
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.03125,
+          "margin": -3350.8125,
+          "damage": 324.84375,
+          "remaining": 0,
+          "rearHp": 73.40625,
+          "alive": 35.625,
+          "ticks": 97.28125
+        }
+      ]
+    },
+    {
+      "id": "person-478",
+      "name": "田予",
+      "type": "cavalry",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "harass",
+            "gallop",
+            "relay"
+          ],
+          "win": 0.09375,
+          "margin": -2685.03125,
+          "damage": 358.6875,
+          "remaining": 0,
+          "rearHp": 67.375,
+          "alive": 38.9375,
+          "ticks": 111.59375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "valor",
+            "rush",
+            "gallop"
+          ],
+          "win": 0.03125,
+          "margin": -3297.90625,
+          "damage": 355.59375,
+          "remaining": 0,
+          "rearHp": 2.625,
+          "alive": 36.71875,
+          "ticks": 102.84375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "lure",
+            "harass",
+            "relay"
+          ],
+          "win": 0.03125,
+          "margin": -3472.125,
+          "damage": 317.5625,
+          "remaining": 0,
+          "rearHp": 30.03125,
+          "alive": 34.78125,
+          "ticks": 97.1875
+        }
+      ]
+    },
+    {
+      "id": "person-547",
+      "name": "文聘",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.40625,
+          "margin": -41.34375,
+          "damage": 558.84375,
+          "remaining": 23.1875,
+          "rearHp": 1439.15625,
+          "alive": 47.5625,
+          "ticks": 112.3125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.34375,
+          "margin": -1245.5625,
+          "damage": 828.96875,
+          "remaining": 9.21875,
+          "rearHp": 1086.5625,
+          "alive": 42.625,
+          "ticks": 98.8125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1658.8125,
+          "damage": 587.40625,
+          "remaining": 6.71875,
+          "rearHp": 965.09375,
+          "alive": 39.09375,
+          "ticks": 98.8125
+        }
+      ]
+    },
+    {
+      "id": "person-470",
+      "name": "丁奉",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.375,
+          "margin": -436.09375,
+          "damage": 534.34375,
+          "remaining": 4.84375,
+          "rearHp": 1285.6875,
+          "alive": 48.0625,
+          "ticks": 112
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1642.9375,
+          "damage": 750.625,
+          "remaining": 8.875,
+          "rearHp": 901.03125,
+          "alive": 40.4375,
+          "ticks": 98.8125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.3125,
+          "margin": -1677.8125,
+          "damage": 592.03125,
+          "remaining": 5.03125,
+          "rearHp": 872.375,
+          "alive": 40.1875,
+          "ticks": 101.40625
+        }
+      ]
+    },
+    {
+      "id": "person-46",
+      "name": "王平",
+      "type": "archer",
+      "famous": false,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.90625,
+          "margin": 3408,
+          "damage": 3152.34375,
+          "remaining": 1428.71875,
+          "rearHp": 2009.4375,
+          "alive": 106.75,
+          "ticks": 108.6875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.65625,
+          "margin": 2391.84375,
+          "damage": 2672.1875,
+          "remaining": 1201.25,
+          "rearHp": 1443.875,
+          "alive": 105.40625,
+          "ticks": 120.28125
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.6875,
+          "margin": 1490.5,
+          "damage": 2461.40625,
+          "remaining": 907.34375,
+          "rearHp": 1258.125,
+          "alive": 110.78125,
+          "ticks": 124.9375
+        }
+      ]
+    },
+    {
+      "id": "person-155",
+      "name": "严颜",
+      "type": "archer",
+      "famous": false,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.90625,
+          "margin": 3254.625,
+          "damage": 3067.53125,
+          "remaining": 1374.40625,
+          "rearHp": 1945.03125,
+          "alive": 106.875,
+          "ticks": 109.53125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.6875,
+          "margin": 2353.40625,
+          "damage": 2605.875,
+          "remaining": 1212.8125,
+          "rearHp": 1425.9375,
+          "alive": 105.25,
+          "ticks": 120.03125
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.625,
+          "margin": 1293.25,
+          "damage": 2390.78125,
+          "remaining": 836.1875,
+          "rearHp": 1207.46875,
+          "alive": 109.84375,
+          "ticks": 127.0625
+        }
+      ]
+    },
+    {
+      "id": "person-604",
+      "name": "李严",
+      "type": "archer",
+      "famous": false,
+      "builds": [
+        {
+          "key": "assault",
+          "ids": [
+            "wildfire",
+            "scatter",
+            "fire"
+          ],
+          "win": 0.90625,
+          "margin": 3451.84375,
+          "damage": 3182.6875,
+          "remaining": 1457.9375,
+          "rearHp": 2010.28125,
+          "alive": 106.96875,
+          "ticks": 108.78125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "fire",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.78125,
+          "margin": 2482.875,
+          "damage": 2702.25,
+          "remaining": 1207.03125,
+          "rearHp": 1460.8125,
+          "alive": 106.40625,
+          "ticks": 121.625
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "smoke",
+            "suppress",
+            "rally"
+          ],
+          "win": 0.6875,
+          "margin": 1520.28125,
+          "damage": 2478.1875,
+          "remaining": 927.34375,
+          "rearHp": 1253.40625,
+          "alive": 110.875,
+          "ticks": 124.71875
+        }
+      ]
+    },
+    {
+      "id": "person-601",
+      "name": "陆抗",
+      "type": "crossbow",
+      "famous": false,
+      "builds": [
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.65625,
+          "margin": 1507.875,
+          "damage": 2480.21875,
+          "remaining": 1106.875,
+          "rearHp": 1156.8125,
+          "alive": 115.9375,
+          "ticks": 126.46875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.625,
+          "margin": 1451.5625,
+          "damage": 2198.90625,
+          "remaining": 996.875,
+          "rearHp": 1208.21875,
+          "alive": 110.71875,
+          "ticks": 126.03125
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.53125,
+          "margin": 1253.6875,
+          "damage": 1953.4375,
+          "remaining": 1207.0625,
+          "rearHp": 1276.15625,
+          "alive": 120.9375,
+          "ticks": 130.40625
+        }
+      ]
+    },
+    {
+      "id": "person-447",
+      "name": "陈宫",
+      "type": "crossbow",
+      "famous": false,
+      "builds": [
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.5625,
+          "margin": 884.78125,
+          "damage": 2272.1875,
+          "remaining": 963.71875,
+          "rearHp": 1016.90625,
+          "alive": 115.65625,
+          "ticks": 126.65625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 850.65625,
+          "damage": 2004.21875,
+          "remaining": 897.03125,
+          "rearHp": 1072.78125,
+          "alive": 109.625,
+          "ticks": 124.71875
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.53125,
+          "margin": 835.59375,
+          "damage": 1816.03125,
+          "remaining": 1155.5,
+          "rearHp": 1209.1875,
+          "alive": 122.28125,
+          "ticks": 127.875
+        }
+      ]
+    },
+    {
+      "id": "person-567",
+      "name": "满宠",
+      "type": "crossbow",
+      "famous": false,
+      "builds": [
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.625,
+          "margin": 1213.34375,
+          "damage": 2406.34375,
+          "remaining": 1047.25,
+          "rearHp": 1077.09375,
+          "alive": 115.4375,
+          "ticks": 126.65625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.59375,
+          "margin": 1125.3125,
+          "damage": 2145.65625,
+          "remaining": 937.65625,
+          "rearHp": 1132.625,
+          "alive": 111.1875,
+          "ticks": 125.75
+        },
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.53125,
+          "margin": 1007.4375,
+          "damage": 1872,
+          "remaining": 1187.53125,
+          "rearHp": 1237.71875,
+          "alive": 122,
+          "ticks": 128.875
+        }
+      ]
+    },
+    {
+      "id": "person-255",
+      "name": "荀彧",
+      "type": "crossbow",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.5625,
+          "margin": 341.34375,
+          "damage": 1490.21875,
+          "remaining": 993.46875,
+          "rearHp": 1147.09375,
+          "alive": 122.40625,
+          "ticks": 130.09375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.375,
+          "margin": -586.65625,
+          "damage": 1602.1875,
+          "remaining": 641.96875,
+          "rearHp": 800.3125,
+          "alive": 113.8125,
+          "ticks": 124.71875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.375,
+          "margin": -609.9375,
+          "damage": 1436.1875,
+          "remaining": 663.34375,
+          "rearHp": 774.625,
+          "alive": 109.375,
+          "ticks": 123.25
+        }
+      ]
+    },
+    {
+      "id": "person-462",
+      "name": "程昱",
+      "type": "crossbow",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.53125,
+          "margin": 627.65625,
+          "damage": 1709.125,
+          "remaining": 1121.34375,
+          "rearHp": 1195.25,
+          "alive": 121.03125,
+          "ticks": 126.375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.53125,
+          "margin": 563.34375,
+          "damage": 2128.3125,
+          "remaining": 890.125,
+          "rearHp": 950.5625,
+          "alive": 116.4375,
+          "ticks": 127.6875
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.46875,
+          "margin": 479.28125,
+          "damage": 1875.25,
+          "remaining": 839,
+          "rearHp": 993.625,
+          "alive": 109.75,
+          "ticks": 124.6875
+        }
+      ]
+    },
+    {
+      "id": "person-642",
+      "name": "刘晔",
+      "type": "crossbow",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.5,
+          "margin": 41.5625,
+          "damage": 1252.875,
+          "remaining": 834.3125,
+          "rearHp": 1059.78125,
+          "alive": 119.09375,
+          "ticks": 133.84375
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.375,
+          "margin": -781.78125,
+          "damage": 1361.5,
+          "remaining": 630.625,
+          "rearHp": 738.0625,
+          "alive": 107.53125,
+          "ticks": 123.03125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.34375,
+          "margin": -792.875,
+          "damage": 1533.15625,
+          "remaining": 628.5625,
+          "rearHp": 783.21875,
+          "alive": 110.875,
+          "ticks": 121.875
+        }
+      ]
+    },
+    {
+      "id": "person-123",
+      "name": "简雍",
+      "type": "crossbow",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "ambush",
+            "screen",
+            "seal"
+          ],
+          "win": 0.375,
+          "margin": -616.96875,
+          "damage": 1044.3125,
+          "remaining": 678.625,
+          "rearHp": 923.59375,
+          "alive": 116.40625,
+          "ticks": 131.125
+        },
+        {
+          "key": "control",
+          "ids": [
+            "retreatShot",
+            "pierce",
+            "repeat"
+          ],
+          "win": 0.3125,
+          "margin": -1288.0625,
+          "damage": 1332.25,
+          "remaining": 540.8125,
+          "rearHp": 720.875,
+          "alive": 109.84375,
+          "ticks": 119.90625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "pierce",
+            "repeat",
+            "seal"
+          ],
+          "win": 0.28125,
+          "margin": -1358.09375,
+          "damage": 1141.78125,
+          "remaining": 592.8125,
+          "rearHp": 620.125,
+          "alive": 102.96875,
+          "ticks": 119.6875
+        }
+      ]
+    },
+    {
+      "id": "person-107",
+      "name": "韩浩",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.375,
+          "margin": -825.125,
+          "damage": 462.90625,
+          "remaining": 8.5,
+          "rearHp": 1194.6875,
+          "alive": 44.8125,
+          "ticks": 107.625
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.3125,
+          "margin": -1821.71875,
+          "damage": 698.90625,
+          "remaining": 4.59375,
+          "rearHp": 795.46875,
+          "alive": 39.90625,
+          "ticks": 100.21875
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.28125,
+          "margin": -2200.875,
+          "damage": 482.65625,
+          "remaining": 0,
+          "rearHp": 653.9375,
+          "alive": 36.09375,
+          "ticks": 101.0625
+        }
+      ]
+    },
+    {
+      "id": "person-646",
+      "name": "廖化",
+      "type": "spear",
+      "famous": false,
+      "builds": [
+        {
+          "key": "guard",
+          "ids": [
+            "cleanse",
+            "phalanx",
+            "ward"
+          ],
+          "win": 0.375,
+          "margin": -656.40625,
+          "damage": 498.53125,
+          "remaining": 9.15625,
+          "rearHp": 1159.21875,
+          "alive": 48,
+          "ticks": 112.3125
+        },
+        {
+          "key": "assault",
+          "ids": [
+            "strike",
+            "thrust",
+            "doubt"
+          ],
+          "win": 0.28125,
+          "margin": -1951.59375,
+          "damage": 692.6875,
+          "remaining": 5.75,
+          "rearHp": 785.1875,
+          "alive": 39.03125,
+          "ticks": 97.375
+        },
+        {
+          "key": "control",
+          "ids": [
+            "doubt",
+            "ward",
+            "thrust"
+          ],
+          "win": 0.28125,
+          "margin": -1992.375,
+          "damage": 534.21875,
+          "remaining": 0.28125,
+          "rearHp": 747.28125,
+          "alive": 38.5625,
+          "ticks": 101.0625
+        }
+      ]
+    }
+  ]
+}

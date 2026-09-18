@@ -1,0 +1,585 @@
+{
+  "defaultSynergies": [
+    {
+      "id": "cao",
+      "name": "曹操",
+      "type": "spear",
+      "tactics": [
+        "魏武挥鞭",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "dun",
+      "name": "夏侯惇",
+      "type": "spear",
+      "tactics": [
+        "拔矢啖睛",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "liao",
+      "name": "张辽",
+      "type": "cavalry",
+      "tactics": [
+        "八百破阵",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "chu",
+      "name": "许褚",
+      "type": "spear",
+      "tactics": [
+        "虎卫折冲",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "jia",
+      "name": "郭嘉",
+      "type": "crossbow",
+      "tactics": [
+        "十胜奇谋",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "yu",
+      "name": "荀攸",
+      "type": "crossbow",
+      "tactics": [
+        "奇策解围",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [
+        "护持",
+        "解危"
+      ],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "yuanxia",
+      "name": "夏侯渊",
+      "type": "archer",
+      "tactics": [
+        "千里奔袭",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "jin",
+      "name": "于禁",
+      "type": "spear",
+      "tactics": [
+        "持军毅重",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "shao",
+      "name": "袁绍",
+      "type": "spear",
+      "tactics": [
+        "四世三公",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "yan",
+      "name": "颜良",
+      "type": "cavalry",
+      "tactics": [
+        "河北先登",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "wen",
+      "name": "文丑",
+      "type": "cavalry",
+      "tactics": [
+        "骁骑追斩",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "he",
+      "name": "张合",
+      "type": "spear",
+      "tactics": [
+        "巧变袭阵",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "ju",
+      "name": "沮授",
+      "type": "crossbow",
+      "tactics": [
+        "监军持重",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [
+        "护持",
+        "辅军"
+      ],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "tian",
+      "name": "田丰",
+      "type": "archer",
+      "tactics": [
+        "刚谏破谋",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "gao",
+      "name": "高览",
+      "type": "spear",
+      "tactics": [
+        "奋武坚阵",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-636",
+      "name": "刘备",
+      "type": "spear",
+      "tactics": [
+        "仁德济众",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [
+        "护持"
+      ],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-99",
+      "name": "关羽",
+      "type": "cavalry",
+      "tactics": [
+        "青龙偃月",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-433",
+      "name": "张飞",
+      "type": "spear",
+      "tactics": [
+        "长坂怒喝",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-396",
+      "name": "赵云",
+      "type": "cavalry",
+      "tactics": [
+        "七进七出",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-516",
+      "name": "马超",
+      "type": "cavalry",
+      "tactics": [
+        "西凉铁骑",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-186",
+      "name": "黄忠",
+      "type": "archer",
+      "tactics": [
+        "百步穿杨",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-290",
+      "name": "诸葛亮",
+      "type": "crossbow",
+      "tactics": [
+        "八阵奇门",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-558",
+      "name": "庞统",
+      "type": "archer",
+      "tactics": [
+        "连环计",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-137",
+      "name": "姜维",
+      "type": "spear",
+      "tactics": [
+        "麒麟破阵",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-125",
+      "name": "魏延",
+      "type": "spear",
+      "tactics": [
+        "子午奇袭",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-368",
+      "name": "孙权",
+      "type": "spear",
+      "tactics": [
+        "江东制衡",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [
+        "护持"
+      ],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-371",
+      "name": "孙策",
+      "type": "cavalry",
+      "tactics": [
+        "小霸王",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-246",
+      "name": "周瑜",
+      "type": "archer",
+      "tactics": [
+        "赤壁业火",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-668",
+      "name": "鲁肃",
+      "type": "crossbow",
+      "tactics": [
+        "榻上定策",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [
+        "护持"
+      ],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-662",
+      "name": "吕蒙",
+      "type": "crossbow",
+      "tactics": [
+        "白衣渡江",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-603",
+      "name": "陆逊",
+      "type": "archer",
+      "tactics": [
+        "火烧连营",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-119",
+      "name": "甘宁",
+      "type": "cavalry",
+      "tactics": [
+        "百骑劫营",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-390",
+      "name": "太史慈",
+      "type": "archer",
+      "tactics": [
+        "弦无虚发",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-164",
+      "name": "黄盖",
+      "type": "archer",
+      "tactics": [
+        "苦肉火船",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-226",
+      "name": "司马懿",
+      "type": "crossbow",
+      "tactics": [
+        "鹰视狼顾",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": true
+    },
+    {
+      "id": "person-291",
+      "name": "徐晃",
+      "type": "spear",
+      "tactics": [
+        "长驱直入",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-472",
+      "name": "典韦",
+      "type": "spear",
+      "tactics": [
+        "古之恶来",
+        "长枪贯阵",
+        "疑阵扰敌"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-661",
+      "name": "吕布",
+      "type": "cavalry",
+      "tactics": [
+        "无双乱舞",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-425",
+      "name": "貂蝉",
+      "type": "crossbow",
+      "tactics": [
+        "闭月离间",
+        "机括连珠",
+        "机括封喉"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-404",
+      "name": "张角",
+      "type": "archer",
+      "tactics": [
+        "苍天雷殛",
+        "漫天箭雨",
+        "燎原火矢"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    },
+    {
+      "id": "person-494",
+      "name": "董卓",
+      "type": "cavalry",
+      "tactics": [
+        "暴戾横征",
+        "铁骑冲阵",
+        "风驰电掣"
+      ],
+      "mismatches": [],
+      "supportPassivesWithoutSupport": [],
+      "intentSuppressionWithoutTactic": false
+    }
+  ],
+  "foresight": {
+    "target": "颜良（推荐战法）",
+    "threshold": 0,
+    "removed": 54,
+    "remaining": 46,
+    "multiplier": 1.3,
+    "explanation": "满战意受到十胜奇谋 + 挫锐后降至46，可触发料敌；普通攻击回升至58时仍可触发，60及以上失效。"
+  },
+  "gallop": {
+    "firstIntent": {
+      "tick": 3,
+      "intent": 10,
+      "action": "接近袁绍"
+    },
+    "casts": 1,
+    "explanation": "门槛0可在接敌前首步发动，冷却和施放占用一步的规则保留。"
+  },
+  "adapt": {
+    "entryTick": 1,
+    "expiresAt": 16,
+    "intent": 25,
+    "attackWithUltimate": 314.24512000000004,
+    "attackWithoutUltimate": 265.14432000000005
+  },
+  "fire": [
+    {
+      "hp": 3000,
+      "direct": 118,
+      "burnPerTick": 24
+    },
+    {
+      "hp": 30,
+      "direct": 12,
+      "burnPerTick": 2
+    }
+  ]
+}

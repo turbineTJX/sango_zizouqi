@@ -1,0 +1,114 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (17.3761ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (2.6858ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (4.5067ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (3.5123ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (1.014ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (74.2672ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (1.4075ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (1.1248ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (138.5142ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (276.1261ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (4.918ms)
+✔ reserve order only rotates a wounded frontline, costs points and preserves survivors (1.4573ms)
+✔ focus selects only a living enemy and does not spend points on invalid targets (2.0969ms)
+✔ retreat terminates and sends the attacker back without taking the city (9.2004ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (1.2479ms)
+✖ friendly recruitment and wounded recovery cannot duplicate soldiers (1.0723ms)
+✔ enemy launches an attack and city garrison participates in defense (85.322ms)
+✔ garrison alone can defend a city when player army is elsewhere (20.3782ms)
+✔ multiple same-side armies share the same six battlefield slots (66.0824ms)
+✔ invalid saves are rejected before replacing game state (0.9116ms)
+✔ different seeds finish without deadlocks or overlapping units (394.5875ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (71.8515ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (2.0794ms)
+✔ left and right formations deploy on opposite flanks (1.7544ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (7.1466ms)
+✔ capturing the final city completes the scenario (14.3259ms)
+✔ losing the final friendly city ends the scenario (12.0534ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (169.6289ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (1.1255ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (35.5188ms)
+✔ pending casts from the removed windup format are rejected (1.2983ms)
+✔ a defeated unit cannot use a ready skill (6.6698ms)
+✔ retreat stops subsequent friendly skills immediately (24.8557ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (48.3114ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (0.8845ms)
+✔ a ready tactic casts without spending intent, regardless of morale or attack cooldown (0.7801ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (2.2696ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (0.7872ms)
+✔ deployment can move, swap, reset and persist without advancing time (2.6174ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (1.5135ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (3.8302ms)
+✔ missing deployment and command state is rejected instead of reconstructed (12.072ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (31.2505ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (5.1062ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (7.2384ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (0.9732ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (3.0685ms)
+✔ two dedicated suppressors can deny casting for the whole fight through real repeated attacks and harass (186.7256ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (218.4018ms)
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (7.3688ms)
+✖ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (25.8004ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (3.2676ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (229.3566ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (613.6139ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (3.2737ms)
+✔ old officer data versions are rejected without changing saved progress (4.8141ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 54
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1572.0193
+
+✖ failing tests:
+
+test at tests\engine.test.mjs:94:1
+✖ friendly recruitment and wounded recovery cannot duplicate soldiers (1.0723ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  5000 !== 2200
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/cast-readability-baseline/tests/engine.test.mjs:97:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 5000,
+    expected: 2200,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\officer-catalog.test.mjs:27:1
+✖ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (25.8004ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'disrupt',
+  +   'cleanse',
+  +   'cycle'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/cast-readability-baseline/tests/officer-catalog.test.mjs:35:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'disrupt', 'cleanse', 'cycle' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

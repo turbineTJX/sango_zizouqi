@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "errors": [],
+  "checks": [
+    "fresh lobby",
+    "four playable battles",
+    "deployment/loadout",
+    "pause and refresh",
+    "lobby keyboard safety",
+    "report/close/retry",
+    "three independent save slots",
+    "export/import",
+    "strategy recovery",
+    "mobile overflow",
+    "offline reload and resume",
+    "incompatible save warning and restart"
+  ]
+}

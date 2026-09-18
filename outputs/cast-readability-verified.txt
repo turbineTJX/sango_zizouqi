@@ -1,0 +1,42 @@
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (2.5645ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.5214ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.4543ms)
+✔ legacy windup events never display a preparation animation or log row (0.8637ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.7131ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (2.1797ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.3348ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (7.2908ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.4451ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.3369ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (1.5736ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.4254ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.1133ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.3008ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.2244ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.4819ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (2.7072ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (2.944ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.2978ms)
+✔ reduced motion uses static focus and finishes without impact particles (0.8964ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (2.887ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.2569ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (36.793ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (3.4142ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (69.3583ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (1.7246ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (9.3812ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (2.7783ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (6.964ms)
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (16.4018ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (2.8873ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (2.9742ms)
+✔ healing results use wounded budget and show actual shield separately (1.5219ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (155.5871ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 331.8101

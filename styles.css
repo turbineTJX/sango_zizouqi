@@ -125,7 +125,7 @@
 .battle-events{padding:10px 14px;border-top:1px solid #adc3b322;border-bottom:1px solid #adc3b322;background:#132226}
 .battle-events-heading{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:10px;color:#abd6c6;margin-bottom:7px}.battle-events-heading span+span{color:#e7af9f}
 .battle-events .skill-feed{position:static;transform:none;width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:repeat(2,38px);grid-auto-flow:column;align-items:stretch;gap:4px 12px;min-height:80px}
-.battle-events .skill-feed:empty:before{content:'战法发动后在此记录施法者与目标';grid-column:1/-1;color:#859a91;font-size:11px;padding-top:10px}
+.battle-events .skill-feed:empty:before{content:'战法发动后在此记录实际伤害、治疗与状态变化';grid-column:1/-1;color:#859a91;font-size:11px;padding-top:10px}
 .battle-events .skill-announcement,.battle-events .skill-announcement.combo-announcement{display:grid!important;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;gap:1px 6px;min-width:0;max-width:100%;margin:0;padding:3px 7px;border:0;border-left:2px solid #92cdb8;border-radius:2px;background:#8dc5ae09;box-shadow:none;animation:none}
 .battle-events .skill-announcement.side-0{grid-column:1}.battle-events .skill-announcement.side-1{grid-column:2;border-left-color:#dd9d8d;background:#cf917809}
 .battle-events .skill-seal{grid-column:1;grid-row:1/3;align-self:center;writing-mode:horizontal-tb;font:10px var(--sans);letter-spacing:0;border:0;padding:0;color:#a9d9c7}
@@ -198,3 +198,29 @@
 .profile-disclosure{margin:18px 0;border:1px solid var(--border);border-radius:5px;padding:14px}.profile-disclosure>summary{cursor:pointer;color:var(--gold);font-size:13px}.profile-relation-link{display:inline-flex;align-items:baseline;gap:5px;color:var(--gold);border:1px solid var(--border);border-radius:4px;padding:6px 9px;margin:2px 3px 2px 0;background:transparent;font-size:13px}.profile-relation-link:hover{background:#bba67616}.profile-relation-link small{font-size:10px;color:var(--muted)}.officer-profile .catalog-relations{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}.officer-profile .catalog-relations>div{min-width:0}.officer-profile>.muted{font-size:12px;line-height:1.8}@media(max-width:600px){.officer-profile .catalog-relations{grid-template-columns:1fr}.officer-profile .catalog-facts{grid-template-columns:1fr 1fr}}
 
 .relationship-editor{margin-top:20px;padding:18px;border:1px solid var(--border);border-radius:12px}.relationship-editor label{display:grid;gap:6px}.relationship-editor select{width:100%;max-width:100%;padding:10px}.relationship-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.relationship-controls input{width:140px;padding:10px}.relationship-editor p{line-height:1.7;margin:12px 0}
+
+.loadout-role-card{display:flex;flex-direction:column;gap:8px}.loadout-role-card p{min-height:0;margin:0}.loadout-role-card small{line-height:1.7;color:#adbcab}.loadout-role-card .button{margin-top:auto;align-self:flex-start}.loadout-card p.muted{min-height:0}
+
+.hex-grid polygon.hex-water{fill:#294b54;stroke:#496c77}.hex-grid polygon.hex-bridge{fill:#5b5845;stroke:#817b5c}
+.hex-grid polygon.hex-forest{fill:#264c39;stroke:#578065}.hex-grid polygon.hex-hill{fill:#62563b;stroke:#97825a}.hex-grid polygon.hex-marsh{fill:#364d4b;stroke:#648780}
+.terrain-cell-label{fill:#e4e4c6;opacity:.7;font-size:12px;text-anchor:middle;pointer-events:none}
+.terrain-legend{display:flex;gap:8px;flex-wrap:wrap}.terrain-key{white-space:nowrap}.terrain-key:before{content:'';display:inline-block;width:8px;height:8px;border:1px solid #839786;margin-right:4px;background:#354238}.terrain-forest:before{background:#39704c}.terrain-hill:before{background:#97825a}.terrain-marsh:before{background:#648780}.terrain-water:before{background:#3d8196}.terrain-bridge:before{background:#807253}
+.terrain-note{color:#c1ceb2;font-size:12px;line-height:1.7;display:block}.loadout-card p.terrain-note{min-height:0}
+.deployment-actions label{display:flex;align-items:center;gap:5px;white-space:nowrap}.deployment-actions select{background:#182a2b;color:var(--text);border:1px solid var(--border);border-radius:4px;padding:5px}.deployment-actions{flex-wrap:wrap}.arena-context{height:auto;min-height:28px;flex-wrap:wrap}
+
+.battle-unit.has-illusion{box-shadow:-5px -3px 0 0 #8fbcc133,5px 3px 0 0 #8fbcc133,inset 0 0 12px #8fbcc122}
+.status-icon{width:20px;height:20px;flex-shrink:0;vertical-align:middle}.status-badge.tone-control,.status-detail.tone-control{color:#e1b7ff}.status-badge.tone-damage,.status-detail.tone-damage{color:#ffb088}.status-badge.tone-debuff,.status-detail.tone-debuff{color:#ebcf87}.status-badge.tone-buff,.status-detail.tone-buff{color:#a8d4bd}.status-badge.tone-neutral,.status-detail.tone-neutral{color:#b6c3c2}
+.unit-status-icons{position:absolute;left:50%;transform:translateX(-50%);bottom:-13px;display:flex;align-items:center;gap:2px;z-index:4;white-space:nowrap;pointer-events:none}.status-badge{display:inline-flex;align-items:center;gap:1px;padding:2px;border:1px solid currentColor;border-radius:4px;background:#132325f2;line-height:1}.status-badge .status-icon{width:12px;height:12px}.status-badge small{font:9px/1 sans-serif}.status-more{font:10px sans-serif;color:#fff;background:#132325;border-radius:3px;padding:2px}
+.status-cards{display:grid;gap:10px}.status-detail{display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:12px;border:1px solid #8d9e8438;border-radius:6px;background:#142426}.status-detail b{font-size:13px}.status-detail small{font-size:12px;white-space:nowrap}.status-detail p,.status-detail em{grid-column:2/-1;margin:0;font-size:12px;font-style:normal;line-height:1.7;color:var(--muted)}
+.enemy-command-state{padding:10px 0;color:#d9aaa0;font-size:12px;line-height:1.7}.enemy-command-state b{color:#efc6ba}.enemy-command-state p{margin:5px 0}
+@media(max-width:600px){.status-badge .status-icon{width:10px;height:10px}.status-badge small{font-size:8px}.unit-status-icons{gap:1px;bottom:-12px}.status-detail{gap:6px;padding:9px}.status-detail small{font-size:10px}}
+/* Persistent results stay outside the battlefield and open a paused history. */
+.tactic-result{display:block;flex:none;width:100%;min-height:58px;max-height:78px;overflow:hidden;text-align:left;white-space:pre-line;border:1px solid #8cc6af44;border-left:3px solid #a9d9c7;border-radius:4px;padding:8px 12px;background:#172c2b;color:#e4ddc5;font:12px/1.6 var(--sans);cursor:pointer}
+.tactic-result:disabled{color:#91a79c;cursor:default}.tactic-result:focus-visible{outline:2px solid #eed192;outline-offset:2px}
+.battle-events .skill-feed{display:flex;flex-direction:column;gap:8px;max-height:55dvh;overflow:auto;min-height:60px}
+.battle-events .skill-announcement{flex:none;order:1;padding:8px;grid-template-rows:auto auto auto}
+.battle-events .skill-announcement:first-child{border-top:1px solid #d9bc6f77}
+.battle-events .skill-announcement strong{white-space:normal;overflow:visible}
+.skill-result{grid-column:1/-1;font:12px/1.6 var(--sans);color:#c4d7cc;overflow-wrap:anywhere}.skill-result p{margin:5px 0 0}
+@media(max-width:600px){.tactic-result{font-size:11px;min-height:54px;max-height:72px;padding:6px 9px}.skill-result{font-size:11px}.battle-events .skill-feed{max-height:48dvh}}
+.power-preview{display:block;color:#e3c889;font-size:12px;line-height:1.7}.power-rules{padding:8px 0;font-size:12px;line-height:1.8;color:#bfd1c7}.power-rules summary{cursor:pointer;color:#cabc93}.tactic-chip small{display:block;max-width:30em;white-space:normal;font:11px/1.6 var(--sans);color:#cdbc94}

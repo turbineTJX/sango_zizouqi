@@ -1,0 +1,111 @@
+{
+  "mode": "probes",
+  "count": 192,
+  "summary": [
+    {
+      "key": "passage",
+      "variants": [
+        {
+          "variant": "on",
+          "win": 0.25,
+          "margin": -2583.6875,
+          "ticks": 175,
+          "timeout": 0.09375,
+          "damage": 16392.25,
+          "rearDamage": 8756.5625,
+          "healing": 2776.875,
+          "absorbed": 68.09375,
+          "curseTicks": 0,
+          "blightTicks": 0,
+          "phaseRearDamage": 180.5625,
+          "remaining": 1289.5
+        },
+        {
+          "variant": "off",
+          "win": 0.390625,
+          "margin": -234.0625,
+          "ticks": 183.375,
+          "timeout": 0.125,
+          "damage": 17548.1875,
+          "rearDamage": 9764.96875,
+          "healing": 3915.5,
+          "absorbed": 48.625,
+          "curseTicks": 0,
+          "blightTicks": 0,
+          "phaseRearDamage": 0,
+          "remaining": 2541.9375
+        }
+      ]
+    },
+    {
+      "key": "blight",
+      "variants": [
+        {
+          "variant": "on",
+          "win": 0.578125,
+          "margin": 1365.96875,
+          "ticks": 214.5625,
+          "timeout": 0.3125,
+          "damage": 17278.21875,
+          "rearDamage": 9474.75,
+          "healing": 6044.3125,
+          "absorbed": 77.09375,
+          "curseTicks": 62.9375,
+          "blightTicks": 24.84375,
+          "phaseRearDamage": 0,
+          "remaining": 4274.40625
+        },
+        {
+          "variant": "off",
+          "win": 0.625,
+          "margin": 2531.15625,
+          "ticks": 209.875,
+          "timeout": 0.21875,
+          "damage": 17921.9375,
+          "rearDamage": 10061.71875,
+          "healing": 6111.90625,
+          "absorbed": 62.53125,
+          "curseTicks": 62.75,
+          "blightTicks": 0,
+          "phaseRearDamage": 0,
+          "remaining": 4911.6875
+        }
+      ]
+    },
+    {
+      "key": "mirage",
+      "variants": [
+        {
+          "variant": "on",
+          "win": 0.796875,
+          "margin": 5285.125,
+          "ticks": 185.78125,
+          "timeout": 0.09375,
+          "damage": 19138,
+          "rearDamage": 11393.15625,
+          "healing": 4328.375,
+          "absorbed": 310.1875,
+          "curseTicks": 0,
+          "blightTicks": 0,
+          "phaseRearDamage": 0,
+          "remaining": 6198.59375
+        },
+        {
+          "variant": "off",
+          "win": 0.78125,
+          "margin": 4818.34375,
+          "ticks": 187.5,
+          "timeout": 0.0625,
+          "damage": 19143.0625,
+          "rearDamage": 11439.6875,
+          "healing": 4247.84375,
+          "absorbed": 53.78125,
+          "curseTicks": 0,
+          "blightTicks": 0,
+          "phaseRearDamage": 0,
+          "remaining": 5706.0625
+        }
+      ]
+    }
+  ]
+}

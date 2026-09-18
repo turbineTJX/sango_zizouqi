@@ -1,0 +1,3292 @@
+[
+  {
+    "id": "cao",
+    "name": "曹操",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.7604166666666666,
+            "margin": 1237.1041666666667,
+            "damage": 737.2916666666666,
+            "remaining": 15.208333333333334,
+            "rearHp": 1532.7916666666667,
+            "alive": 81.08333333333333,
+            "ticks": 167.625
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.4270833333333333,
+            "margin": -211.08333333333334,
+            "damage": 705.6875,
+            "remaining": 0,
+            "rearHp": 736.0625,
+            "alive": 60.916666666666664,
+            "ticks": 156.16666666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.16666666666666666,
+            "margin": -1283.4375,
+            "damage": 404.9375,
+            "remaining": 0,
+            "rearHp": 205.64583333333334,
+            "alive": 50.416666666666664,
+            "ticks": 140.47916666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.14583333333333334,
+            "margin": -1978.1458333333333,
+            "damage": 452.7916666666667,
+            "remaining": 0,
+            "rearHp": 211.22916666666666,
+            "alive": 41.895833333333336,
+            "ticks": 119.45833333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dun",
+    "name": "夏侯惇",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.3229166666666667,
+            "margin": -610.2083333333334,
+            "damage": 567.875,
+            "remaining": 0,
+            "rearHp": 384.4166666666667,
+            "alive": 61.979166666666664,
+            "ticks": 174.33333333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.0625,
+            "margin": -2162.0625,
+            "damage": 560.375,
+            "remaining": 0,
+            "rearHp": 61.625,
+            "alive": 43.104166666666664,
+            "ticks": 141.35416666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2567.9375,
+            "damage": 365.9583333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 38.708333333333336,
+            "ticks": 116.66666666666667
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2966.7083333333335,
+            "damage": 450.5833333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 33.604166666666664,
+            "ticks": 105.47916666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "liao",
+    "name": "张辽",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.17708333333333334,
+            "margin": -1662.0208333333333,
+            "damage": 572.5625,
+            "remaining": 0,
+            "rearHp": 189.29166666666666,
+            "alive": 58.9375,
+            "ticks": 154.60416666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.4166666666666667,
+            "margin": -339.8958333333333,
+            "damage": 1088.4375,
+            "remaining": 9.3125,
+            "rearHp": 712.9583333333334,
+            "alive": 67.33333333333333,
+            "ticks": 155.39583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3042.9375,
+            "damage": 407.125,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 43.083333333333336,
+            "ticks": 108.91666666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.10416666666666667,
+            "margin": -1954.3958333333333,
+            "damage": 934.7916666666666,
+            "remaining": 0.3125,
+            "rearHp": 182.77083333333334,
+            "alive": 51.145833333333336,
+            "ticks": 115.4375
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "chu",
+    "name": "许褚",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.4375,
+            "margin": -138.77083333333334,
+            "damage": 517.3125,
+            "remaining": 0,
+            "rearHp": 771.8958333333334,
+            "alive": 73.04166666666667,
+            "ticks": 171.41666666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2517.1875,
+            "damage": 346.9583333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 44.25,
+            "ticks": 137.125
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.4375,
+            "margin": -299.8958333333333,
+            "damage": 357.3125,
+            "remaining": 0,
+            "rearHp": 841.1666666666666,
+            "alive": 56.583333333333336,
+            "ticks": 135.35416666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2798.3958333333335,
+            "damage": 285.6666666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 42.5,
+            "ticks": 114.45833333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jia",
+    "name": "郭嘉",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.041666666666666664,
+            "margin": -2598.4791666666665,
+            "damage": 1870.4166666666667,
+            "remaining": 71.60416666666667,
+            "rearHp": 30.520833333333332,
+            "alive": 172.4375,
+            "ticks": 176.1875
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2776.5833333333335,
+            "damage": 1784.4375,
+            "remaining": 80.47916666666667,
+            "rearHp": 0,
+            "alive": 167.29166666666666,
+            "ticks": 171.39583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3796.2291666666665,
+            "damage": 1385.625,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 129.3125,
+            "ticks": 130.45833333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3741.75,
+            "damage": 1307.6041666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 128.58333333333334,
+            "ticks": 130.4375
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "yu",
+    "name": "荀攸",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.20833333333333334,
+            "margin": -1402.2708333333333,
+            "damage": 2287.0208333333335,
+            "remaining": 342.0625,
+            "rearHp": 126.45833333333333,
+            "alive": 183.1875,
+            "ticks": 186.66666666666666
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.4791666666666667,
+            "margin": -124.58333333333333,
+            "damage": 2510.1041666666665,
+            "remaining": 152.39583333333334,
+            "rearHp": 726.5625,
+            "alive": 162.83333333333334,
+            "ticks": 174.02083333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.09375,
+            "margin": -2741.6666666666665,
+            "damage": 1728.3125,
+            "remaining": 13.666666666666666,
+            "rearHp": 121.97916666666667,
+            "alive": 145.72916666666666,
+            "ticks": 147.47916666666666
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.375,
+            "margin": -1066.5625,
+            "damage": 1931.6875,
+            "remaining": 61.291666666666664,
+            "rearHp": 688.5208333333334,
+            "alive": 134.08333333333334,
+            "ticks": 141.0625
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "yuanxia",
+    "name": "夏侯渊",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9791666666666666,
+            "margin": 3120.4375,
+            "damage": 3883.9791666666665,
+            "remaining": 1633.4166666666667,
+            "rearHp": 1527.8541666666667,
+            "alive": 118.58333333333333,
+            "ticks": 120.72916666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.9791666666666666,
+            "margin": 3189.0833333333335,
+            "damage": 4179.9375,
+            "remaining": 1922.7291666666667,
+            "rearHp": 1307.0208333333333,
+            "alive": 117.27083333333333,
+            "ticks": 117.91666666666667
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9583333333333334,
+            "margin": 3399.8333333333335,
+            "damage": 4090.2916666666665,
+            "remaining": 2038.9791666666667,
+            "rearHp": 1445.4791666666667,
+            "alive": 95.875,
+            "ticks": 99.54166666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.9583333333333334,
+            "margin": 3397.7291666666665,
+            "damage": 4202.916666666667,
+            "remaining": 2064.1875,
+            "rearHp": 1415.0208333333333,
+            "alive": 96.5625,
+            "ticks": 99.20833333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jin",
+    "name": "于禁",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.625,
+            "margin": 489.1875,
+            "damage": 606.375,
+            "remaining": 0.9583333333333334,
+            "rearHp": 1097.1041666666667,
+            "alive": 72.5625,
+            "ticks": 166.91666666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.020833333333333332,
+            "margin": -1830.6875,
+            "damage": 459.6666666666667,
+            "remaining": 0,
+            "rearHp": 7,
+            "alive": 48.770833333333336,
+            "ticks": 152.83333333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5416666666666666,
+            "margin": 326.9375,
+            "damage": 429.9166666666667,
+            "remaining": 0,
+            "rearHp": 1013.5416666666666,
+            "alive": 59.458333333333336,
+            "ticks": 141.77083333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2096.6875,
+            "damage": 363.2083333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 45.875,
+            "ticks": 127.10416666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "shao",
+    "name": "袁绍",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.19791666666666666,
+            "margin": -827.5625,
+            "damage": 559.8333333333334,
+            "remaining": 0,
+            "rearHp": 345.8541666666667,
+            "alive": 62.895833333333336,
+            "ticks": 172.3125
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2658.7916666666665,
+            "damage": 429.1666666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 40.770833333333336,
+            "ticks": 131.8125
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2295.0833333333335,
+            "damage": 394.7916666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 43.25,
+            "ticks": 123.52083333333333
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3135.4791666666665,
+            "damage": 343.0833333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 33.1875,
+            "ticks": 102.375
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "yan",
+    "name": "颜良",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.10416666666666667,
+            "margin": -2127.1458333333335,
+            "damage": 458.0416666666667,
+            "remaining": 0,
+            "rearHp": 110.875,
+            "alive": 54.104166666666664,
+            "ticks": 144.5625
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.25,
+            "margin": -1401.2291666666667,
+            "damage": 857.9166666666666,
+            "remaining": 0,
+            "rearHp": 386.5,
+            "alive": 57.0625,
+            "ticks": 145.27083333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3425.1666666666665,
+            "damage": 276.9791666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 39.75,
+            "ticks": 102.75
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.041666666666666664,
+            "margin": -2910.6041666666665,
+            "damage": 548.7916666666666,
+            "remaining": 0,
+            "rearHp": 25.291666666666668,
+            "alive": 39.291666666666664,
+            "ticks": 107.85416666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "wen",
+    "name": "文丑",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.13541666666666666,
+            "margin": -1997.6458333333333,
+            "damage": 502.8333333333333,
+            "remaining": 0,
+            "rearHp": 137.1875,
+            "alive": 54.666666666666664,
+            "ticks": 146.4375
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.25,
+            "margin": -1658.0416666666667,
+            "damage": 830.4583333333334,
+            "remaining": 0,
+            "rearHp": 330.4166666666667,
+            "alive": 55.458333333333336,
+            "ticks": 141.97916666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2974.2083333333335,
+            "damage": 395.2708333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 45.9375,
+            "ticks": 111.47916666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.08333333333333333,
+            "margin": -2800.1041666666665,
+            "damage": 620.5,
+            "remaining": 0,
+            "rearHp": 63.083333333333336,
+            "alive": 44.979166666666664,
+            "ticks": 112.85416666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "he",
+    "name": "张合",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.4270833333333333,
+            "margin": -211.39583333333334,
+            "damage": 651.1458333333334,
+            "remaining": 0,
+            "rearHp": 677.9166666666666,
+            "alive": 69.6875,
+            "ticks": 170.1875
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2319.7916666666665,
+            "damage": 534.6458333333334,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 42.958333333333336,
+            "ticks": 138.97916666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2970.9166666666665,
+            "damage": 347.875,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 39.666666666666664,
+            "ticks": 110.0625
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3338.4791666666665,
+            "damage": 359.4375,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 32.9375,
+            "ticks": 100.91666666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ju",
+    "name": "沮授",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.25,
+            "margin": -1218.625,
+            "damage": 2380.6041666666665,
+            "remaining": 378.6666666666667,
+            "rearHp": 125.66666666666667,
+            "alive": 183.9375,
+            "ticks": 188.04166666666666
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.5833333333333334,
+            "margin": 319.0208333333333,
+            "damage": 2824.6666666666665,
+            "remaining": 452.1041666666667,
+            "rearHp": 746.0416666666666,
+            "alive": 164.125,
+            "ticks": 169.14583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.10416666666666667,
+            "margin": -2490.875,
+            "damage": 1808.0833333333333,
+            "remaining": 80.75,
+            "rearHp": 130.22916666666666,
+            "alive": 147.66666666666666,
+            "ticks": 151.3125
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.34375,
+            "margin": -514.4375,
+            "damage": 2083.7083333333335,
+            "remaining": 199.1875,
+            "rearHp": 701.9583333333334,
+            "alive": 138.52083333333334,
+            "ticks": 151
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tian",
+    "name": "田丰",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.7708333333333334,
+            "margin": 1625.7291666666667,
+            "damage": 3505.2916666666665,
+            "remaining": 843.9583333333334,
+            "rearHp": 977.4583333333334,
+            "alive": 143.60416666666666,
+            "ticks": 150.35416666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.7708333333333334,
+            "margin": 1416.6875,
+            "damage": 3451.9583333333335,
+            "remaining": 657.7708333333334,
+            "rearHp": 1033.6666666666667,
+            "alive": 145.95833333333334,
+            "ticks": 151.5625
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.4375,
+            "margin": -365.0625,
+            "damage": 2798.0833333333335,
+            "remaining": 118.75,
+            "rearHp": 477.8958333333333,
+            "alive": 128.375,
+            "ticks": 144.1875
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.4375,
+            "margin": -541.4375,
+            "damage": 2634.75,
+            "remaining": 64.0625,
+            "rearHp": 524.1875,
+            "alive": 122.33333333333333,
+            "ticks": 140.08333333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gao",
+    "name": "高览",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.4895833333333333,
+            "margin": -78.02083333333333,
+            "damage": 489.2083333333333,
+            "remaining": 0,
+            "rearHp": 706.625,
+            "alive": 64.58333333333333,
+            "ticks": 172.60416666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2073.8541666666665,
+            "damage": 445.1458333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 44.020833333333336,
+            "ticks": 144.41666666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.1875,
+            "margin": -1340.0208333333333,
+            "damage": 317.5,
+            "remaining": 0,
+            "rearHp": 178.45833333333334,
+            "alive": 47.583333333333336,
+            "ticks": 140.08333333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2631.7291666666665,
+            "damage": 344.3125,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 40.4375,
+            "ticks": 114.75
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-636",
+    "name": "刘备",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5104166666666666,
+            "margin": 19.854166666666668,
+            "damage": 528.6458333333334,
+            "remaining": 0,
+            "rearHp": 768.8541666666666,
+            "alive": 67.08333333333333,
+            "ticks": 173.35416666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.10416666666666667,
+            "margin": -1521.6041666666667,
+            "damage": 441.3125,
+            "remaining": 0,
+            "rearHp": 54.5625,
+            "alive": 50.6875,
+            "ticks": 160.27083333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.020833333333333332,
+            "margin": -2381.4791666666665,
+            "damage": 297.6458333333333,
+            "remaining": 0,
+            "rearHp": 8.916666666666666,
+            "alive": 41.791666666666664,
+            "ticks": 119.625
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2677.875,
+            "damage": 308.9791666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 39,
+            "ticks": 112.1875
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-99",
+    "name": "关羽",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.19791666666666666,
+            "margin": -1527.6041666666667,
+            "damage": 587.875,
+            "remaining": 0,
+            "rearHp": 234.29166666666666,
+            "alive": 59.958333333333336,
+            "ticks": 155.27083333333334
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.22916666666666666,
+            "margin": -1153.25,
+            "damage": 971.75,
+            "remaining": 2.6458333333333335,
+            "rearHp": 447.4791666666667,
+            "alive": 60.729166666666664,
+            "ticks": 148.91666666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3192.1875,
+            "damage": 324.5416666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 42.916666666666664,
+            "ticks": 107.41666666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.041666666666666664,
+            "margin": -2866.6875,
+            "damage": 614.1875,
+            "remaining": 0,
+            "rearHp": 20.104166666666668,
+            "alive": 43.395833333333336,
+            "ticks": 109.79166666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-433",
+    "name": "张飞",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.17708333333333334,
+            "margin": -1060.8541666666667,
+            "damage": 514.1458333333334,
+            "remaining": 0,
+            "rearHp": 164.45833333333334,
+            "alive": 57.6875,
+            "ticks": 173.41666666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.020833333333333332,
+            "margin": -2044.7291666666667,
+            "damage": 486.9166666666667,
+            "remaining": 0,
+            "rearHp": 19.520833333333332,
+            "alive": 41.9375,
+            "ticks": 146.6875
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2995.4375,
+            "damage": 294.8333333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 37.083333333333336,
+            "ticks": 109.16666666666667
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3138.7916666666665,
+            "damage": 344.7916666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 32.479166666666664,
+            "ticks": 103.77083333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-396",
+    "name": "赵云",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.25,
+            "margin": -1469.7291666666667,
+            "damage": 574.4791666666666,
+            "remaining": 0,
+            "rearHp": 329.7708333333333,
+            "alive": 58.5,
+            "ticks": 150.85416666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.3125,
+            "margin": -818.9375,
+            "damage": 917.3125,
+            "remaining": 0,
+            "rearHp": 631.4583333333334,
+            "alive": 62.791666666666664,
+            "ticks": 148.64583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.020833333333333332,
+            "margin": -3114.2916666666665,
+            "damage": 330.5,
+            "remaining": 0,
+            "rearHp": 3.0208333333333335,
+            "alive": 42.4375,
+            "ticks": 109.72916666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.0625,
+            "margin": -2770.9166666666665,
+            "damage": 536.9375,
+            "remaining": 0,
+            "rearHp": 83.5,
+            "alive": 45.333333333333336,
+            "ticks": 111.9375
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-516",
+    "name": "马超",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.25,
+            "margin": -1596.7916666666667,
+            "damage": 574.4166666666666,
+            "remaining": 0,
+            "rearHp": 228.77083333333334,
+            "alive": 57.291666666666664,
+            "ticks": 152.20833333333334
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.2708333333333333,
+            "margin": -1258.75,
+            "damage": 906.2083333333334,
+            "remaining": 0.5416666666666666,
+            "rearHp": 413.8333333333333,
+            "alive": 57.458333333333336,
+            "ticks": 147.58333333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3317.1875,
+            "damage": 322.5625,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 41.291666666666664,
+            "ticks": 105.29166666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.020833333333333332,
+            "margin": -2968.3125,
+            "damage": 594.7291666666666,
+            "remaining": 0,
+            "rearHp": 22.8125,
+            "alive": 41.145833333333336,
+            "ticks": 108.29166666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-186",
+    "name": "黄忠",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9791666666666666,
+            "margin": 3124.7708333333335,
+            "damage": 3878.7708333333335,
+            "remaining": 1643.5208333333333,
+            "rearHp": 1522.75,
+            "alive": 118.27083333333333,
+            "ticks": 120.47916666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.9791666666666666,
+            "margin": 3198.5833333333335,
+            "damage": 4228.5,
+            "remaining": 1922.0625,
+            "rearHp": 1317.8958333333333,
+            "alive": 116.83333333333333,
+            "ticks": 118
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9583333333333334,
+            "margin": 3328.2291666666665,
+            "damage": 4048.0833333333335,
+            "remaining": 1997.5833333333333,
+            "rearHp": 1414.3333333333333,
+            "alive": 98.52083333333333,
+            "ticks": 100.77083333333333
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.9791666666666666,
+            "margin": 3390.1666666666665,
+            "damage": 4266.729166666667,
+            "remaining": 2040.3333333333333,
+            "rearHp": 1410.6875,
+            "alive": 97.16666666666667,
+            "ticks": 99.89583333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-290",
+    "name": "诸葛亮",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5625,
+            "margin": 19.520833333333332,
+            "damage": 2776.4375,
+            "remaining": 710.5,
+            "rearHp": 300,
+            "alive": 184.6875,
+            "ticks": 190.70833333333334
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.5208333333333334,
+            "margin": 222.58333333333334,
+            "damage": 3067.9166666666665,
+            "remaining": 142.8125,
+            "rearHp": 893.6666666666666,
+            "alive": 157.72916666666666,
+            "ticks": 163.83333333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.0625,
+            "margin": -2559.7708333333335,
+            "damage": 1910.1666666666667,
+            "remaining": 72.1875,
+            "rearHp": 47.083333333333336,
+            "alive": 141.72916666666666,
+            "ticks": 148.6875
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.3541666666666667,
+            "margin": -1544.0416666666667,
+            "damage": 2234.8958333333335,
+            "remaining": 0.20833333333333334,
+            "rearHp": 240,
+            "alive": 121.02083333333333,
+            "ticks": 144.02083333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-558",
+    "name": "庞统",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9166666666666666,
+            "margin": 2182.6666666666665,
+            "damage": 3602.8333333333335,
+            "remaining": 1140.7291666666667,
+            "rearHp": 1114.8541666666667,
+            "alive": 136.27083333333334,
+            "ticks": 141.8125
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.8125,
+            "margin": 1661.9375,
+            "damage": 3551.0833333333335,
+            "remaining": 808.5625,
+            "rearHp": 1071.1458333333333,
+            "alive": 140.58333333333334,
+            "ticks": 147.33333333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.5729166666666666,
+            "margin": 147.5,
+            "damage": 2966.7708333333335,
+            "remaining": 208.91666666666666,
+            "rearHp": 637.375,
+            "alive": 131.5625,
+            "ticks": 145.10416666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.4791666666666667,
+            "margin": -292.5208333333333,
+            "damage": 2704.7916666666665,
+            "remaining": 92.04166666666667,
+            "rearHp": 674,
+            "alive": 121.47916666666667,
+            "ticks": 137.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-137",
+    "name": "姜维",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5625,
+            "margin": 188.125,
+            "damage": 597.7916666666666,
+            "remaining": 0,
+            "rearHp": 892.3958333333334,
+            "alive": 68.97916666666667,
+            "ticks": 168.47916666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2472.875,
+            "damage": 527.7083333333334,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 43.208333333333336,
+            "ticks": 135.72916666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2713.5625,
+            "damage": 320.9791666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 39.875,
+            "ticks": 113.625
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3350.375,
+            "damage": 369.8333333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 32.479166666666664,
+            "ticks": 100.04166666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-125",
+    "name": "魏延",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.23958333333333334,
+            "margin": -844.7083333333334,
+            "damage": 572.8125,
+            "remaining": 0,
+            "rearHp": 354.6875,
+            "alive": 64.47916666666667,
+            "ticks": 170.41666666666666
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2395.625,
+            "damage": 525.2916666666666,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 40.75,
+            "ticks": 136.25
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2799.2291666666665,
+            "damage": 325.8958333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 40.166666666666664,
+            "ticks": 112.4375
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3199.0416666666665,
+            "damage": 393.5208333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 32.541666666666664,
+            "ticks": 102.25
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-368",
+    "name": "孙权",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5625,
+            "margin": 132.91666666666666,
+            "damage": 542.875,
+            "remaining": 0,
+            "rearHp": 793.7291666666666,
+            "alive": 68.33333333333333,
+            "ticks": 175.9375
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.0625,
+            "margin": -1564.1666666666667,
+            "damage": 450.0416666666667,
+            "remaining": 0,
+            "rearHp": 41.854166666666664,
+            "alive": 50.791666666666664,
+            "ticks": 159.5
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.020833333333333332,
+            "margin": -2351.2916666666665,
+            "damage": 302.625,
+            "remaining": 0,
+            "rearHp": 9.125,
+            "alive": 42.0625,
+            "ticks": 120.27083333333333
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2888.5416666666665,
+            "damage": 289.1041666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 35.770833333333336,
+            "ticks": 108.20833333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-371",
+    "name": "孙策",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.25,
+            "margin": -1418.5416666666667,
+            "damage": 620.2291666666666,
+            "remaining": 0,
+            "rearHp": 321.4583333333333,
+            "alive": 59.479166666666664,
+            "ticks": 153.3125
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.3125,
+            "margin": -1019.125,
+            "damage": 965,
+            "remaining": 0.9583333333333334,
+            "rearHp": 512.9583333333334,
+            "alive": 59.645833333333336,
+            "ticks": 149.3125
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3153.75,
+            "damage": 342.25,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 42.3125,
+            "ticks": 108.14583333333333
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.041666666666666664,
+            "margin": -2905.5833333333335,
+            "damage": 613.5208333333334,
+            "remaining": 0,
+            "rearHp": 39.666666666666664,
+            "alive": 43.291666666666664,
+            "ticks": 109.75
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-246",
+    "name": "周瑜",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 1,
+            "margin": 3387.9166666666665,
+            "damage": 3911.3125,
+            "remaining": 1740.2083333333333,
+            "rearHp": 1647.7083333333333,
+            "alive": 117.20833333333333,
+            "ticks": 117.5625
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 1,
+            "margin": 3335.7708333333335,
+            "damage": 3919.5625,
+            "remaining": 1716.3333333333333,
+            "rearHp": 1619.4375,
+            "alive": 117.79166666666667,
+            "ticks": 118.02083333333333
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.7916666666666666,
+            "margin": 1943.0833333333333,
+            "damage": 3391.4166666666665,
+            "remaining": 1000.875,
+            "rearHp": 1212.3333333333333,
+            "alive": 113.9375,
+            "ticks": 119.39583333333333
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.7916666666666666,
+            "margin": 1907.75,
+            "damage": 3404.0833333333335,
+            "remaining": 1098.8958333333333,
+            "rearHp": 1074,
+            "alive": 114.29166666666667,
+            "ticks": 120.91666666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-668",
+    "name": "鲁肃",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.2604166666666667,
+            "margin": -1084.875,
+            "damage": 2444.3125,
+            "remaining": 428.9583333333333,
+            "rearHp": 137.9375,
+            "alive": 184.83333333333334,
+            "ticks": 188.6875
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.7395833333333334,
+            "margin": 811.625,
+            "damage": 2516.9583333333335,
+            "remaining": 888.2916666666666,
+            "rearHp": 655.6875,
+            "alive": 191.77083333333334,
+            "ticks": 194.75
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.10416666666666667,
+            "margin": -2533.8125,
+            "damage": 1839.7291666666667,
+            "remaining": 103.08333333333333,
+            "rearHp": 94.52083333333333,
+            "alive": 147.04166666666666,
+            "ticks": 149.64583333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.4479166666666667,
+            "margin": -596.4583333333334,
+            "damage": 2055.5416666666665,
+            "remaining": 550.4791666666666,
+            "rearHp": 395.625,
+            "alive": 174.70833333333334,
+            "ticks": 177.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-662",
+    "name": "吕蒙",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "control",
+            "win": 0.75,
+            "margin": 811.5208333333334,
+            "damage": 3719.3125,
+            "remaining": 547,
+            "rearHp": 668.1458333333334,
+            "alive": 164.33333333333334,
+            "ticks": 165.5625
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.7395833333333334,
+            "margin": 1111.9375,
+            "damage": 3889.1458333333335,
+            "remaining": 722.4375,
+            "rearHp": 767.875,
+            "alive": 158.41666666666666,
+            "ticks": 159.47916666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "control",
+            "win": 0.4583333333333333,
+            "margin": -399,
+            "damage": 2793.6041666666665,
+            "remaining": 65.22916666666667,
+            "rearHp": 599.8958333333334,
+            "alive": 128.35416666666666,
+            "ticks": 141.6875
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.5208333333333334,
+            "margin": 173.375,
+            "damage": 3296.375,
+            "remaining": 210.8125,
+            "rearHp": 791.6458333333334,
+            "alive": 135.47916666666666,
+            "ticks": 139.77083333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-603",
+    "name": "陆逊",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 1,
+            "margin": 3499.5625,
+            "damage": 3925.625,
+            "remaining": 1803.6041666666667,
+            "rearHp": 1695.9583333333333,
+            "alive": 115.27083333333333,
+            "ticks": 115.85416666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 1,
+            "margin": 3384.3958333333335,
+            "damage": 3925.3125,
+            "remaining": 1795.2916666666667,
+            "rearHp": 1589.1041666666667,
+            "alive": 117.20833333333333,
+            "ticks": 117.20833333333333
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.875,
+            "margin": 2267.1666666666665,
+            "damage": 3439.4166666666665,
+            "remaining": 1120.9375,
+            "rearHp": 1358.25,
+            "alive": 113.6875,
+            "ticks": 116.70833333333333
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.7916666666666666,
+            "margin": 1972.1458333333333,
+            "damage": 3401.5416666666665,
+            "remaining": 1101.2708333333333,
+            "rearHp": 1199.7916666666667,
+            "alive": 114.375,
+            "ticks": 118.20833333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-119",
+    "name": "甘宁",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.17708333333333334,
+            "margin": -1780.25,
+            "damage": 555.3125,
+            "remaining": 0,
+            "rearHp": 174.95833333333334,
+            "alive": 56.5625,
+            "ticks": 151.375
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.25,
+            "margin": -1560.9791666666667,
+            "damage": 861.3333333333334,
+            "remaining": 0,
+            "rearHp": 291.2083333333333,
+            "alive": 57.791666666666664,
+            "ticks": 145.625
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3373.0208333333335,
+            "damage": 316.0208333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 40.9375,
+            "ticks": 103.5625
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.041666666666666664,
+            "margin": -3085.8125,
+            "damage": 576.9791666666666,
+            "remaining": 0,
+            "rearHp": 19.458333333333332,
+            "alive": 42.041666666666664,
+            "ticks": 106.64583333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-390",
+    "name": "太史慈",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9166666666666666,
+            "margin": 2796.5833333333335,
+            "damage": 3755.5208333333335,
+            "remaining": 1428.7916666666667,
+            "rearHp": 1436.2291666666667,
+            "alive": 123.60416666666667,
+            "ticks": 126.45833333333333
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 1,
+            "margin": 3200.0625,
+            "damage": 4078.8333333333335,
+            "remaining": 1783.0208333333333,
+            "rearHp": 1417.0416666666667,
+            "alive": 117.5,
+            "ticks": 119.72916666666667
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.8333333333333334,
+            "margin": 2491.2083333333335,
+            "damage": 3682.625,
+            "remaining": 1241.0208333333333,
+            "rearHp": 1436.5416666666667,
+            "alive": 108.10416666666667,
+            "ticks": 112.25
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.9375,
+            "margin": 3012.4375,
+            "damage": 3976.6458333333335,
+            "remaining": 1812.0833333333333,
+            "rearHp": 1303.8541666666667,
+            "alive": 99.77083333333333,
+            "ticks": 105.20833333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-164",
+    "name": "黄盖",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9583333333333334,
+            "margin": 2981.9791666666665,
+            "damage": 3786.2291666666665,
+            "remaining": 1533,
+            "rearHp": 1474.7708333333333,
+            "alive": 121.35416666666667,
+            "ticks": 124.89583333333333
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.9791666666666666,
+            "margin": 3115.3125,
+            "damage": 3876.9583333333335,
+            "remaining": 1860.5833333333333,
+            "rearHp": 1266.4791666666667,
+            "alive": 116.75,
+            "ticks": 120
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.75,
+            "margin": 2025.2083333333333,
+            "damage": 3356.7916666666665,
+            "remaining": 1046.4791666666667,
+            "rearHp": 1350.5625,
+            "alive": 107.625,
+            "ticks": 115.47916666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.8125,
+            "margin": 2141.0208333333335,
+            "damage": 3579.5416666666665,
+            "remaining": 1427.375,
+            "rearHp": 1023.5416666666666,
+            "alive": 107.33333333333333,
+            "ticks": 112.77083333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-226",
+    "name": "司马懿",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "control",
+            "win": 0.6145833333333334,
+            "margin": 420.7291666666667,
+            "damage": 3358.3125,
+            "remaining": 308.0416666666667,
+            "rearHp": 736.5625,
+            "alive": 166.29166666666666,
+            "ticks": 169.14583333333334
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.8125,
+            "margin": 1335.6458333333333,
+            "damage": 3797.6875,
+            "remaining": 794.625,
+            "rearHp": 802.9166666666666,
+            "alive": 160.625,
+            "ticks": 162.5
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "control",
+            "win": 0.3333333333333333,
+            "margin": -1298.9583333333333,
+            "damage": 2300.0416666666665,
+            "remaining": 1.0625,
+            "rearHp": 322.1666666666667,
+            "alive": 123.25,
+            "ticks": 143.89583333333334
+          },
+          {
+            "build": "controlSpecial",
+            "win": 0.4166666666666667,
+            "margin": -482.8125,
+            "damage": 2694.4791666666665,
+            "remaining": 95.95833333333333,
+            "rearHp": 616.5625,
+            "alive": 128.125,
+            "ticks": 138.1875
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-291",
+    "name": "徐晃",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.34375,
+            "margin": -433.8541666666667,
+            "damage": 581.4375,
+            "remaining": 0,
+            "rearHp": 566.6875,
+            "alive": 67.02083333333333,
+            "ticks": 170.64583333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -2341.1875,
+            "damage": 517.875,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 41.833333333333336,
+            "ticks": 138.02083333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2529.125,
+            "damage": 331.8125,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 41.520833333333336,
+            "ticks": 117.5
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3182.0208333333335,
+            "damage": 373.4583333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 33.5625,
+            "ticks": 102.60416666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-472",
+    "name": "典韦",
+    "type": "spear",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.03125,
+            "margin": -1678.1875,
+            "damage": 344.8125,
+            "remaining": 0,
+            "rearHp": 11.75,
+            "alive": 51.458333333333336,
+            "ticks": 160.70833333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.020833333333333332,
+            "margin": -2540.5833333333335,
+            "damage": 391.5625,
+            "remaining": 0,
+            "rearHp": 11.0625,
+            "alive": 40.541666666666664,
+            "ticks": 135.27083333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3380.25,
+            "damage": 205.8125,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 35.625,
+            "ticks": 104.27083333333333
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0,
+            "margin": -3334.2708333333335,
+            "damage": 266.2291666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 31.3125,
+            "ticks": 101.58333333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-661",
+    "name": "吕布",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.20833333333333334,
+            "margin": -1691.75,
+            "damage": 560.9791666666666,
+            "remaining": 0,
+            "rearHp": 189.39583333333334,
+            "alive": 56.645833333333336,
+            "ticks": 153.14583333333334
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.1875,
+            "margin": -1758.7916666666667,
+            "damage": 834.75,
+            "remaining": 0,
+            "rearHp": 207.25,
+            "alive": 56.375,
+            "ticks": 144.9375
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3347.9583333333335,
+            "damage": 319.4166666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 41.166666666666664,
+            "ticks": 104.29166666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.020833333333333332,
+            "margin": -3204.2708333333335,
+            "damage": 555.2708333333334,
+            "remaining": 0,
+            "rearHp": 0.625,
+            "alive": 40.375,
+            "ticks": 106.02083333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-425",
+    "name": "貂蝉",
+    "type": "crossbow",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3685.4166666666665,
+            "damage": 1119.3125,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 146.16666666666666,
+            "ticks": 148.70833333333334
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.010416666666666666,
+            "margin": -3207.8541666666665,
+            "damage": 1318.2291666666667,
+            "remaining": 0,
+            "rearHp": 15.666666666666666,
+            "alive": 138.91666666666666,
+            "ticks": 152.9375
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -4318.0625,
+            "damage": 833.3958333333334,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 111.52083333333333,
+            "ticks": 116.75
+          },
+          {
+            "build": "guardSpecial",
+            "win": 0.041666666666666664,
+            "margin": -3454.8541666666665,
+            "damage": 1047,
+            "remaining": 0,
+            "rearHp": 56.770833333333336,
+            "alive": 112.41666666666667,
+            "ticks": 127.66666666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-404",
+    "name": "张角",
+    "type": "archer",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.8958333333333334,
+            "margin": 2270.0833333333335,
+            "damage": 3548.125,
+            "remaining": 1191.125,
+            "rearHp": 1213.0416666666667,
+            "alive": 131.5625,
+            "ticks": 135.97916666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.8333333333333334,
+            "margin": 1973.3541666666667,
+            "damage": 3529.3958333333335,
+            "remaining": 1069.9375,
+            "rearHp": 1087.0625,
+            "alive": 134.125,
+            "ticks": 142
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.7083333333333334,
+            "margin": 698.9583333333334,
+            "damage": 3014.0833333333335,
+            "remaining": 524.3125,
+            "rearHp": 720.5208333333334,
+            "alive": 122.25,
+            "ticks": 138.10416666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.4583333333333333,
+            "margin": -89.52083333333333,
+            "damage": 2881.0416666666665,
+            "remaining": 174.97916666666666,
+            "rearHp": 622.6666666666666,
+            "alive": 124.72916666666667,
+            "ticks": 141.4375
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-494",
+    "name": "董卓",
+    "type": "cavalry",
+    "famous": true,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.125,
+            "margin": -2175.3125,
+            "damage": 466.5208333333333,
+            "remaining": 0,
+            "rearHp": 105.91666666666667,
+            "alive": 53.0625,
+            "ticks": 143.47916666666666
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0.14583333333333334,
+            "margin": -2295.1041666666665,
+            "damage": 686.2916666666666,
+            "remaining": 0,
+            "rearHp": 166.70833333333334,
+            "alive": 50.395833333333336,
+            "ticks": 135.45833333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3466.1666666666665,
+            "damage": 287.875,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 40.208333333333336,
+            "ticks": 102.60416666666667
+          },
+          {
+            "build": "assaultSpecial",
+            "win": 0,
+            "margin": -3305.6875,
+            "damage": 471.5833333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 39.791666666666664,
+            "ticks": 103.75
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-482",
+    "name": "邓艾",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.75,
+            "margin": 1115.3958333333333,
+            "damage": 707.375,
+            "remaining": 11.3125,
+            "rearHp": 1455.875,
+            "alive": 78.54166666666667,
+            "ticks": 165.10416666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.7916666666666666,
+            "margin": 1415.75,
+            "damage": 533.8541666666666,
+            "remaining": 15.541666666666666,
+            "rearHp": 1827.3125,
+            "alive": 70.20833333333333,
+            "ticks": 130.5625
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-366",
+    "name": "孙坚",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.6875,
+            "margin": 896.4166666666666,
+            "damage": 690.625,
+            "remaining": 7.416666666666667,
+            "rearHp": 1329.0416666666667,
+            "alive": 77.41666666666667,
+            "ticks": 166.0625
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.7916666666666666,
+            "margin": 1276.0833333333333,
+            "damage": 507.7708333333333,
+            "remaining": 10.604166666666666,
+            "rearHp": 1690.4791666666667,
+            "alive": 66.91666666666667,
+            "ticks": 133.33333333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-69",
+    "name": "郝昭",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.71875,
+            "margin": 877.8125,
+            "damage": 645.7083333333334,
+            "remaining": 5.666666666666667,
+            "rearHp": 1339.1666666666667,
+            "alive": 74.41666666666667,
+            "ticks": 164.47916666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.75,
+            "margin": 990.6875,
+            "damage": 481.625,
+            "remaining": 2.625,
+            "rearHp": 1465.1041666666667,
+            "alive": 65.66666666666667,
+            "ticks": 137.625
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-77",
+    "name": "郭淮",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.6875,
+            "margin": 794.4791666666666,
+            "damage": 635,
+            "remaining": 3.4375,
+            "rearHp": 1286.9166666666667,
+            "alive": 74.4375,
+            "ticks": 164.89583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.7291666666666666,
+            "margin": 893.4583333333334,
+            "damage": 470.2708333333333,
+            "remaining": 1.875,
+            "rearHp": 1406.625,
+            "alive": 64.89583333333333,
+            "ticks": 137.83333333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-70",
+    "name": "乐进",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5104166666666666,
+            "margin": 81.77083333333333,
+            "damage": 551.9791666666666,
+            "remaining": 0,
+            "rearHp": 816.75,
+            "alive": 67.14583333333333,
+            "ticks": 170.27083333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.4791666666666667,
+            "margin": -90.39583333333333,
+            "damage": 397.3333333333333,
+            "remaining": 0,
+            "rearHp": 786.4583333333334,
+            "alive": 55.916666666666664,
+            "ticks": 141.20833333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-342",
+    "name": "曹仁",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.6145833333333334,
+            "margin": 457.1458333333333,
+            "damage": 652.2291666666666,
+            "remaining": 2.1875,
+            "rearHp": 1085,
+            "alive": 75.41666666666667,
+            "ticks": 165.77083333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5208333333333334,
+            "margin": 202.20833333333334,
+            "damage": 472.25,
+            "remaining": 1.2916666666666667,
+            "rearHp": 1122.9166666666667,
+            "alive": 64.45833333333333,
+            "ticks": 136.9375
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-559",
+    "name": "庞德",
+    "type": "cavalry",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.13541666666666666,
+            "margin": -1890.375,
+            "damage": 523.5625,
+            "remaining": 0,
+            "rearHp": 180.66666666666666,
+            "alive": 55.541666666666664,
+            "ticks": 147.14583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2934.2708333333335,
+            "damage": 395.1458333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 44.875,
+            "ticks": 112.625
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-170",
+    "name": "高顺",
+    "type": "cavalry",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.1875,
+            "margin": -1784.875,
+            "damage": 560.9791666666666,
+            "remaining": 0,
+            "rearHp": 162.5625,
+            "alive": 56.958333333333336,
+            "ticks": 151
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.020833333333333332,
+            "margin": -2818.5,
+            "damage": 413.9166666666667,
+            "remaining": 0,
+            "rearHp": 5.583333333333333,
+            "alive": 45.625,
+            "ticks": 113.79166666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-513",
+    "name": "马岱",
+    "type": "cavalry",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.16666666666666666,
+            "margin": -1827.8125,
+            "damage": 532.8125,
+            "remaining": 0,
+            "rearHp": 206.22916666666666,
+            "alive": 56.145833333333336,
+            "ticks": 147.14583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.020833333333333332,
+            "margin": -2894.7083333333335,
+            "damage": 392.2708333333333,
+            "remaining": 0,
+            "rearHp": 5.208333333333333,
+            "alive": 44.854166666666664,
+            "ticks": 113.10416666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-478",
+    "name": "田予",
+    "type": "cavalry",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.23958333333333334,
+            "margin": -1725.4791666666667,
+            "damage": 543.7291666666666,
+            "remaining": 0,
+            "rearHp": 235.375,
+            "alive": 56.0625,
+            "ticks": 147.83333333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.041666666666666664,
+            "margin": -2810.6041666666665,
+            "damage": 389.5833333333333,
+            "remaining": 0,
+            "rearHp": 20.479166666666668,
+            "alive": 43.416666666666664,
+            "ticks": 114.14583333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-547",
+    "name": "文聘",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.6875,
+            "margin": 699.3958333333334,
+            "damage": 615.2291666666666,
+            "remaining": 1.3125,
+            "rearHp": 1236.9583333333333,
+            "alive": 72.77083333333333,
+            "ticks": 164.16666666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5625,
+            "margin": 545.7291666666666,
+            "damage": 449.9166666666667,
+            "remaining": 0,
+            "rearHp": 1169.2291666666667,
+            "alive": 61.729166666666664,
+            "ticks": 141.52083333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-470",
+    "name": "丁奉",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.6041666666666666,
+            "margin": 212.6875,
+            "damage": 569.5833333333334,
+            "remaining": 0.3958333333333333,
+            "rearHp": 876.0416666666666,
+            "alive": 68.45833333333333,
+            "ticks": 172.70833333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.5,
+            "margin": 122.0625,
+            "damage": 411.8333333333333,
+            "remaining": 0,
+            "rearHp": 928.6875,
+            "alive": 58.25,
+            "ticks": 139.625
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-46",
+    "name": "王平",
+    "type": "archer",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9791666666666666,
+            "margin": 2992.75,
+            "damage": 3814.7083333333335,
+            "remaining": 1535.4791666666667,
+            "rearHp": 1500.375,
+            "alive": 120.70833333333333,
+            "ticks": 123.3125
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9375,
+            "margin": 3183.5,
+            "damage": 4031.625,
+            "remaining": 1878.5833333333333,
+            "rearHp": 1406.5833333333333,
+            "alive": 99.27083333333333,
+            "ticks": 102.75
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-155",
+    "name": "严颜",
+    "type": "archer",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9166666666666666,
+            "margin": 2769.8541666666665,
+            "damage": 3789.1041666666665,
+            "remaining": 1495.7083333333333,
+            "rearHp": 1344.5,
+            "alive": 123.54166666666667,
+            "ticks": 126.1875
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9375,
+            "margin": 3005.0208333333335,
+            "damage": 3952.6041666666665,
+            "remaining": 1832.7083333333333,
+            "rearHp": 1285.5833333333333,
+            "alive": 100.22916666666667,
+            "ticks": 104.6875
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-604",
+    "name": "李严",
+    "type": "archer",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9791666666666666,
+            "margin": 3041.1458333333335,
+            "damage": 3830.9375,
+            "remaining": 1566.5625,
+            "rearHp": 1516.3541666666667,
+            "alive": 120.27083333333333,
+            "ticks": 122.83333333333333
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "assault",
+            "win": 0.9375,
+            "margin": 3223.4166666666665,
+            "damage": 4067.375,
+            "remaining": 1931.0625,
+            "rearHp": 1382.4166666666667,
+            "alive": 98.91666666666667,
+            "ticks": 102.3125
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-601",
+    "name": "陆抗",
+    "type": "crossbow",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "control",
+            "win": 0.4791666666666667,
+            "margin": -56.208333333333336,
+            "damage": 3151.4791666666665,
+            "remaining": 119.08333333333333,
+            "rearHp": 663.7916666666666,
+            "alive": 162.72916666666666,
+            "ticks": 169
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "control",
+            "win": 0.22916666666666666,
+            "margin": -1573.8541666666667,
+            "damage": 2206.4166666666665,
+            "remaining": 1.4375,
+            "rearHp": 223.97916666666666,
+            "alive": 120.10416666666667,
+            "ticks": 143.3125
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-447",
+    "name": "陈宫",
+    "type": "crossbow",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.25,
+            "margin": -1251.8958333333333,
+            "damage": 2369.6458333333335,
+            "remaining": 376.0208333333333,
+            "rearHp": 130.5,
+            "alive": 183.1875,
+            "ticks": 187.29166666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.09375,
+            "margin": -2768.7916666666665,
+            "damage": 1752.8958333333333,
+            "remaining": 25.375,
+            "rearHp": 74.9375,
+            "alive": 140.79166666666666,
+            "ticks": 145.14583333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-567",
+    "name": "满宠",
+    "type": "crossbow",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.375,
+            "margin": -815.125,
+            "damage": 2567.3958333333335,
+            "remaining": 496.5,
+            "rearHp": 180.95833333333334,
+            "alive": 189.52083333333334,
+            "ticks": 192.64583333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.16666666666666666,
+            "margin": -2215,
+            "damage": 1956.9166666666667,
+            "remaining": 215.91666666666666,
+            "rearHp": 125.95833333333333,
+            "alive": 152,
+            "ticks": 154.58333333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-255",
+    "name": "荀彧",
+    "type": "crossbow",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.020833333333333332,
+            "margin": -2640.8958333333335,
+            "damage": 1869,
+            "remaining": 9.1875,
+            "rearHp": 20.4375,
+            "alive": 173,
+            "ticks": 177.70833333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.0625,
+            "margin": -3201.4375,
+            "damage": 1461.1666666666667,
+            "remaining": 24.229166666666668,
+            "rearHp": 44.166666666666664,
+            "alive": 138.16666666666666,
+            "ticks": 140.39583333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-462",
+    "name": "程昱",
+    "type": "crossbow",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.14583333333333334,
+            "margin": -1634.6041666666667,
+            "damage": 2232.875,
+            "remaining": 293.0208333333333,
+            "rearHp": 75.22916666666667,
+            "alive": 184.25,
+            "ticks": 187.625
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.0625,
+            "margin": -3009.6875,
+            "damage": 1636.0833333333333,
+            "remaining": 1.8125,
+            "rearHp": 42.895833333333336,
+            "alive": 137.16666666666666,
+            "ticks": 142.27083333333334
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-642",
+    "name": "刘晔",
+    "type": "crossbow",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3164.875,
+            "damage": 1591.7708333333333,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 160.91666666666666,
+            "ticks": 163.5625
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3867.3958333333335,
+            "damage": 1145.9166666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 122.14583333333333,
+            "ticks": 127.02083333333333
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-123",
+    "name": "简雍",
+    "type": "crossbow",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -3512,
+            "damage": 1245.2916666666667,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 148,
+            "ticks": 152.45833333333334
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -4163.666666666667,
+            "damage": 940.7083333333334,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 117.02083333333333,
+            "ticks": 121.54166666666667
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-107",
+    "name": "韩浩",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.2916666666666667,
+            "margin": -488.1041666666667,
+            "damage": 475.7916666666667,
+            "remaining": 0,
+            "rearHp": 529.5625,
+            "alive": 62.416666666666664,
+            "ticks": 169.97916666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0,
+            "margin": -2642.8333333333335,
+            "damage": 276.25,
+            "remaining": 0,
+            "rearHp": 0,
+            "alive": 40.166666666666664,
+            "ticks": 114.9375
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "person-646",
+    "name": "廖化",
+    "type": "spear",
+    "famous": false,
+    "results": [
+      {
+        "level": 3,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.3958333333333333,
+            "margin": -417.2916666666667,
+            "damage": 513.0208333333334,
+            "remaining": 0,
+            "rearHp": 552.875,
+            "alive": 65.95833333333333,
+            "ticks": 172.97916666666666
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "builds": [
+          {
+            "build": "guard",
+            "win": 0.4583333333333333,
+            "margin": -487.5416666666667,
+            "damage": 363.1666666666667,
+            "remaining": 0,
+            "rearHp": 636.8541666666666,
+            "alive": 52.541666666666664,
+            "ticks": 139.33333333333334
+          }
+        ]
+      }
+    ]
+  }
+]

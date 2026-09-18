@@ -1,0 +1,27 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (6.4545ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (8.8677ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (2.0822ms)
+✔ ZOC display uses live interceptors and respects boundaries and both sides (1.0175ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (50.6891ms)
+✔ breach: complete battle, reserves, save recovery and settlement (91.6964ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (93.2843ms)
+✔ field: complete battle, reserves, save recovery and settlement (174.1729ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (192.7967ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (259.0901ms)
+✔ siege: complete battle, reserves, save recovery and settlement (223.4801ms)
+✔ defense: complete battle, reserves, save recovery and settlement (456.1885ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (212.4165ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (4.4278ms)
+✔ sieges add an independent gate and shields only to defending starters (8.4744ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (2.3455ms)
+✔ gate remains a target after all defenders fall, focus can select it, deployment cannot overlap it (9.8171ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (13.4234ms)
+✔ fixture and seed validation rejects malformed test state (3.046ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1877.7062

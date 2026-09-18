@@ -1,0 +1,1190 @@
+[
+  {
+    "id": "person-99",
+    "name": "关羽",
+    "type": "cavalry",
+    "mode": "named",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "gallop",
+          "harass",
+          "unique-person-99"
+        ],
+        "selected": [
+          "unique-person-99",
+          "gallop",
+          "relay"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -5071.75,
+          "damage": 275.625,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 33.25,
+          "ticks": 106.41666666666667
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -5151.166666666667,
+          "damage": 272.9166666666667,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 33.083333333333336,
+          "ticks": 105.25
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "gallop",
+          "harass",
+          "unique-person-99"
+        ],
+        "selected": [
+          "gallop",
+          "unique-person-99",
+          "valor"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -3330.5416666666665,
+          "damage": 296.875,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 34.458333333333336,
+          "ticks": 110.08333333333333
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -3288.5833333333335,
+          "damage": 345.4583333333333,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 34.291666666666664,
+          "ticks": 107.95833333333333
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "gallop",
+          "harass",
+          "unique-person-99"
+        ],
+        "selected": [
+          "gallop",
+          "harass",
+          "rush"
+        ],
+        "fixedResult": {
+          "win": 0.3958333333333333,
+          "margin": -490.125,
+          "damage": 753.3333333333334,
+          "remaining": 0,
+          "rearHp": 754.125,
+          "alive": 62.125,
+          "ticks": 161.95833333333334
+        },
+        "selectedResult": {
+          "win": 0.2708333333333333,
+          "margin": -1155.6666666666667,
+          "damage": 696.7916666666666,
+          "remaining": 0,
+          "rearHp": 466.4166666666667,
+          "alive": 63.083333333333336,
+          "ticks": 156.625
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "gallop",
+          "harass",
+          "unique-person-99"
+        ],
+        "selected": [
+          "gallop",
+          "relay",
+          "unique-person-99"
+        ],
+        "fixedResult": {
+          "win": 0.25,
+          "margin": -715.9166666666666,
+          "damage": 1019.2083333333334,
+          "remaining": 0,
+          "rearHp": 932.7916666666666,
+          "alive": 48.333333333333336,
+          "ticks": 136.5
+        },
+        "selectedResult": {
+          "win": 0.25,
+          "margin": -902.5,
+          "damage": 1006.2916666666666,
+          "remaining": 0,
+          "rearHp": 1050,
+          "alive": 49.416666666666664,
+          "ticks": 128.41666666666666
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-99",
+    "name": "关羽",
+    "type": "spear",
+    "mode": "named",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "thrust",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "cleanse",
+          "phalanx",
+          "unique-person-99"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -4617.75,
+          "damage": 462.9583333333333,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 34.791666666666664,
+          "ticks": 111.20833333333333
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -4699.833333333333,
+          "damage": 342.5416666666667,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 38.666666666666664,
+          "ticks": 112.16666666666667
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "thrust",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "thrust",
+          "cleanse",
+          "phalanx"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -4130.375,
+          "damage": 453.625,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 29.208333333333332,
+          "ticks": 96.79166666666667
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -3441.5416666666665,
+          "damage": 429.625,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 35.458333333333336,
+          "ticks": 107.375
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "thrust",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "fixedResult": {
+          "win": 0.4583333333333333,
+          "margin": -611.5833333333334,
+          "damage": 1058.4583333333333,
+          "remaining": 0,
+          "rearHp": 928.6666666666666,
+          "alive": 55.541666666666664,
+          "ticks": 143.41666666666666
+        },
+        "selectedResult": {
+          "win": 0.4583333333333333,
+          "margin": -142.25,
+          "damage": 680.5416666666666,
+          "remaining": 0,
+          "rearHp": 885.2916666666666,
+          "alive": 61.5,
+          "ticks": 171.29166666666666
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "thrust",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "phalanx",
+          "strike",
+          "unique-person-99"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 5417.25,
+          "damage": 2504.4166666666665,
+          "remaining": 363.1666666666667,
+          "rearHp": 5054.083333333333,
+          "alive": 74.54166666666667,
+          "ticks": 98.16666666666667
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 5330.125,
+          "damage": 2492.2916666666665,
+          "remaining": 380.7916666666667,
+          "rearHp": 4949.333333333333,
+          "alive": 73.20833333333333,
+          "ticks": 99.04166666666667
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-661",
+    "name": "吕布",
+    "type": "cavalry",
+    "mode": "front",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "gallop",
+          "rush",
+          "unique-person-661"
+        ],
+        "selected": [
+          "harass",
+          "lure",
+          "valor"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -6467.75,
+          "damage": 351.2916666666667,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 36.125,
+          "ticks": 92.20833333333333
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -6446.208333333333,
+          "damage": 283.9166666666667,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 31.75,
+          "ticks": 89.91666666666667
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "gallop",
+          "rush",
+          "unique-person-661"
+        ],
+        "selected": [
+          "gallop",
+          "lure",
+          "rush"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -5507.5,
+          "damage": 1086.125,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 53.416666666666664,
+          "ticks": 86.75
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -5728.208333333333,
+          "damage": 852.25,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 54.375,
+          "ticks": 85.875
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "gallop",
+          "rush",
+          "unique-person-661"
+        ],
+        "selected": [
+          "gallop",
+          "rush",
+          "unique-person-661"
+        ],
+        "fixedResult": {
+          "win": 0.08333333333333333,
+          "margin": -1963.4583333333333,
+          "damage": 1302.125,
+          "remaining": 2.4166666666666665,
+          "rearHp": 156.16666666666666,
+          "alive": 68.75,
+          "ticks": 145.08333333333334
+        },
+        "selectedResult": {
+          "win": 0.08333333333333333,
+          "margin": -1963.4583333333333,
+          "damage": 1302.125,
+          "remaining": 2.4166666666666665,
+          "rearHp": 156.16666666666666,
+          "alive": 68.75,
+          "ticks": 145.08333333333334
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "gallop",
+          "rush",
+          "unique-person-661"
+        ],
+        "selected": [
+          "unique-person-661",
+          "gallop",
+          "relay"
+        ],
+        "fixedResult": {
+          "win": 0.4166666666666667,
+          "margin": 262.5416666666667,
+          "damage": 1198.9166666666667,
+          "remaining": 36.708333333333336,
+          "rearHp": 1059.875,
+          "alive": 57.166666666666664,
+          "ticks": 169.16666666666666
+        },
+        "selectedResult": {
+          "win": 0.4583333333333333,
+          "margin": 687.2916666666666,
+          "damage": 1200.2916666666667,
+          "remaining": 15.125,
+          "rearHp": 1097.3333333333333,
+          "alive": 58.166666666666664,
+          "ticks": 181.66666666666666
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-661",
+    "name": "吕布",
+    "type": "spear",
+    "mode": "rear",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -3322.8333333333335,
+          "damage": 379.25,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 38.125,
+          "ticks": 107.54166666666667
+        },
+        "selectedResult": {
+          "win": 0.041666666666666664,
+          "margin": -2832.2083333333335,
+          "damage": 301.75,
+          "remaining": 0,
+          "rearHp": 16.875,
+          "alive": 38.916666666666664,
+          "ticks": 115.83333333333333
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "ward",
+          "cleanse",
+          "phalanx"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -2961.5833333333335,
+          "damage": 412.75,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 35.916666666666664,
+          "ticks": 98.5
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -2941.9583333333335,
+          "damage": 306.875,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 33.708333333333336,
+          "ticks": 100.25
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "cleanse",
+          "phalanx",
+          "strike"
+        ],
+        "fixedResult": {
+          "win": 0.7916666666666666,
+          "margin": 1638.6666666666667,
+          "damage": 1204.7916666666667,
+          "remaining": 103.75,
+          "rearHp": 1945.6666666666667,
+          "alive": 62.541666666666664,
+          "ticks": 115.45833333333333
+        },
+        "selectedResult": {
+          "win": 0.7916666666666666,
+          "margin": 1638.6666666666667,
+          "damage": 1204.7916666666667,
+          "remaining": 103.75,
+          "rearHp": 1945.6666666666667,
+          "alive": 62.541666666666664,
+          "ticks": 115.45833333333333
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "strike"
+        ],
+        "selected": [
+          "phalanx",
+          "strike",
+          "unique-person-661"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 4715.5,
+          "damage": 1769.9166666666667,
+          "remaining": 2.7083333333333335,
+          "rearHp": 4712.791666666667,
+          "alive": 66.625,
+          "ticks": 93.16666666666667
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 5383.625,
+          "damage": 2332.9166666666665,
+          "remaining": 98.25,
+          "rearHp": 5285.375,
+          "alive": 69.875,
+          "ticks": 83
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-433",
+    "name": "张飞",
+    "type": "spear",
+    "mode": "rear",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "unique-person-433"
+        ],
+        "selected": [
+          "cleanse",
+          "phalanx",
+          "unique-person-433"
+        ],
+        "fixedResult": {
+          "win": 0.08333333333333333,
+          "margin": -1975.9583333333333,
+          "damage": 440.3333333333333,
+          "remaining": 0,
+          "rearHp": 119.75,
+          "alive": 41.458333333333336,
+          "ticks": 123.91666666666667
+        },
+        "selectedResult": {
+          "win": 0.08333333333333333,
+          "margin": -1975.9583333333333,
+          "damage": 440.3333333333333,
+          "remaining": 0,
+          "rearHp": 119.75,
+          "alive": 41.458333333333336,
+          "ticks": 123.91666666666667
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "unique-person-433"
+        ],
+        "selected": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -1677,
+          "damage": 353.25,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 37.75,
+          "ticks": 117.54166666666667
+        },
+        "selectedResult": {
+          "win": 0.041666666666666664,
+          "margin": -2396.875,
+          "damage": 292.5416666666667,
+          "remaining": 0,
+          "rearHp": 3.875,
+          "alive": 39.958333333333336,
+          "ticks": 108.83333333333333
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "unique-person-433"
+        ],
+        "selected": [
+          "cleanse",
+          "phalanx",
+          "unique-person-433"
+        ],
+        "fixedResult": {
+          "win": 0.9166666666666666,
+          "margin": 2544.7916666666665,
+          "damage": 979.375,
+          "remaining": 41.208333333333336,
+          "rearHp": 2618.2916666666665,
+          "alive": 69.20833333333333,
+          "ticks": 113.66666666666667
+        },
+        "selectedResult": {
+          "win": 0.9166666666666666,
+          "margin": 2544.7916666666665,
+          "damage": 979.375,
+          "remaining": 41.208333333333336,
+          "rearHp": 2618.2916666666665,
+          "alive": 69.20833333333333,
+          "ticks": 113.66666666666667
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "cleanse",
+          "phalanx",
+          "unique-person-433"
+        ],
+        "selected": [
+          "phalanx",
+          "unique-person-433",
+          "strike"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 5208.875,
+          "damage": 1659.9583333333333,
+          "remaining": 104.83333333333333,
+          "rearHp": 5104.041666666667,
+          "alive": 72.95833333333333,
+          "ticks": 90.5
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 5847.041666666667,
+          "damage": 2364.0833333333335,
+          "remaining": 226.25,
+          "rearHp": 5620.791666666667,
+          "alive": 76.16666666666667,
+          "ticks": 80.875
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-69",
+    "name": "郝昭",
+    "type": "spear",
+    "mode": "rear",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "selected": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "fixedResult": {
+          "win": 0.5,
+          "margin": 307.4166666666667,
+          "damage": 395.9166666666667,
+          "remaining": 0,
+          "rearHp": 1700.8333333333333,
+          "alive": 54,
+          "ticks": 114.33333333333333
+        },
+        "selectedResult": {
+          "win": 0.5,
+          "margin": 307.4166666666667,
+          "damage": 395.9166666666667,
+          "remaining": 0,
+          "rearHp": 1700.8333333333333,
+          "alive": 54,
+          "ticks": 114.33333333333333
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "selected": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "fixedResult": {
+          "win": 0.9166666666666666,
+          "margin": 2239.375,
+          "damage": 535.5,
+          "remaining": 28,
+          "rearHp": 2355.6666666666665,
+          "alive": 74.70833333333333,
+          "ticks": 113.25
+        },
+        "selectedResult": {
+          "win": 0.9166666666666666,
+          "margin": 2239.375,
+          "damage": 535.5,
+          "remaining": 28,
+          "rearHp": 2355.6666666666665,
+          "alive": 74.70833333333333,
+          "ticks": 113.25
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "selected": [
+          "thrust",
+          "cleanse",
+          "doubt"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 4179.083333333333,
+          "damage": 1038.7916666666667,
+          "remaining": 272.125,
+          "rearHp": 3906.9583333333335,
+          "alive": 91.20833333333333,
+          "ticks": 102.125
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 3951.8333333333335,
+          "damage": 1313.875,
+          "remaining": 239.95833333333334,
+          "rearHp": 3711.875,
+          "alive": 85.83333333333333,
+          "ticks": 100.79166666666667
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "cleanse",
+          "doubt",
+          "phalanx"
+        ],
+        "selected": [
+          "thrust",
+          "phalanx",
+          "strike"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 5324.5,
+          "damage": 1719.375,
+          "remaining": 594.625,
+          "rearHp": 4729.875,
+          "alive": 95.41666666666667,
+          "ticks": 95.41666666666667
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 6350.208333333333,
+          "damage": 2490.875,
+          "remaining": 628.4166666666666,
+          "rearHp": 5721.791666666667,
+          "alive": 78.95833333333333,
+          "ticks": 78.95833333333333
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-46",
+    "name": "王平",
+    "type": "archer",
+    "mode": "rear",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "suppress",
+          "fire",
+          "wildfire"
+        ],
+        "selected": [
+          "suppress",
+          "fire",
+          "wildfire"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 4315.166666666667,
+          "damage": 4066.5833333333335,
+          "remaining": 1776.9166666666667,
+          "rearHp": 2538.25,
+          "alive": 93.125,
+          "ticks": 93.125
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 4315.166666666667,
+          "damage": 4066.5833333333335,
+          "remaining": 1776.9166666666667,
+          "rearHp": 2538.25,
+          "alive": 93.125,
+          "ticks": 93.125
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "suppress",
+          "fire",
+          "wildfire"
+        ],
+        "selected": [
+          "suppress",
+          "fire",
+          "wildfire"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 3647.7916666666665,
+          "damage": 4145.916666666667,
+          "remaining": 2301.6666666666665,
+          "rearHp": 1346.125,
+          "alive": 89.08333333333333,
+          "ticks": 89.08333333333333
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 3647.7916666666665,
+          "damage": 4145.916666666667,
+          "remaining": 2301.6666666666665,
+          "rearHp": 1346.125,
+          "alive": 89.08333333333333,
+          "ticks": 89.08333333333333
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "suppress",
+          "fire",
+          "wildfire"
+        ],
+        "selected": [
+          "rally",
+          "fire",
+          "wildfire"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 4881.25,
+          "damage": 3707.9583333333335,
+          "remaining": 2368.875,
+          "rearHp": 2512.375,
+          "alive": 83.375,
+          "ticks": 83.375
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 4884.708333333333,
+          "damage": 3606.0833333333335,
+          "remaining": 2133,
+          "rearHp": 2751.7083333333335,
+          "alive": 81,
+          "ticks": 84.875
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "suppress",
+          "fire",
+          "wildfire"
+        ],
+        "selected": [
+          "fire",
+          "scatter",
+          "wildfire"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 6562.958333333333,
+          "damage": 3291.2083333333335,
+          "remaining": 2908.2916666666665,
+          "rearHp": 3654.6666666666665,
+          "alive": 73.5,
+          "ticks": 73.5
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 6609.458333333333,
+          "damage": 3338.2916666666665,
+          "remaining": 2907.375,
+          "rearHp": 3702.0833333333335,
+          "alive": 72.08333333333333,
+          "ticks": 72.08333333333333
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-567",
+    "name": "满宠",
+    "type": "crossbow",
+    "mode": "rear",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "pierce",
+          "screen",
+          "repeat"
+        ],
+        "selected": [
+          "pierce",
+          "screen",
+          "repeat"
+        ],
+        "fixedResult": {
+          "win": 0.75,
+          "margin": 2013.1666666666667,
+          "damage": 2409.4583333333335,
+          "remaining": 736.0416666666666,
+          "rearHp": 1609.6666666666667,
+          "alive": 133.95833333333334,
+          "ticks": 144.70833333333334
+        },
+        "selectedResult": {
+          "win": 0.75,
+          "margin": 2013.1666666666667,
+          "damage": 2409.4583333333335,
+          "remaining": 736.0416666666666,
+          "rearHp": 1609.6666666666667,
+          "alive": 133.95833333333334,
+          "ticks": 144.70833333333334
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "pierce",
+          "screen",
+          "repeat"
+        ],
+        "selected": [
+          "pierce",
+          "screen",
+          "repeat"
+        ],
+        "fixedResult": {
+          "win": 0.4583333333333333,
+          "margin": 113.45833333333333,
+          "damage": 2754.1666666666665,
+          "remaining": 890.0833333333334,
+          "rearHp": 613.625,
+          "alive": 131.33333333333334,
+          "ticks": 131.33333333333334
+        },
+        "selectedResult": {
+          "win": 0.4583333333333333,
+          "margin": 113.45833333333333,
+          "damage": 2754.1666666666665,
+          "remaining": 890.0833333333334,
+          "rearHp": 613.625,
+          "alive": 131.33333333333334,
+          "ticks": 131.33333333333334
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "pierce",
+          "screen",
+          "repeat"
+        ],
+        "selected": [
+          "ambush",
+          "pierce",
+          "screen"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 4509.375,
+          "damage": 2692.1666666666665,
+          "remaining": 2177.625,
+          "rearHp": 2331.75,
+          "alive": 112.70833333333333,
+          "ticks": 112.70833333333333
+        },
+        "selectedResult": {
+          "win": 0.9583333333333334,
+          "margin": 4278,
+          "damage": 2328.1666666666665,
+          "remaining": 1990.5416666666667,
+          "rearHp": 2326.2083333333335,
+          "alive": 121.875,
+          "ticks": 121.875
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "pierce",
+          "screen",
+          "repeat"
+        ],
+        "selected": [
+          "screen",
+          "repeat",
+          "seal"
+        ],
+        "fixedResult": {
+          "win": 1,
+          "margin": 6026.166666666667,
+          "damage": 2115.875,
+          "remaining": 2867.5416666666665,
+          "rearHp": 3158.625,
+          "alive": 98.875,
+          "ticks": 98.875
+        },
+        "selectedResult": {
+          "win": 1,
+          "margin": 5876.541666666667,
+          "damage": 1974.7916666666667,
+          "remaining": 2784.6666666666665,
+          "rearHp": 3091.875,
+          "alive": 103.33333333333333,
+          "ticks": 103.33333333333333
+        }
+      }
+    ]
+  },
+  {
+    "id": "person-559",
+    "name": "庞德",
+    "type": "cavalry",
+    "mode": "front",
+    "contexts": [
+      {
+        "enemy": "doubleFront",
+        "fixed": [
+          "gallop",
+          "rush",
+          "valor"
+        ],
+        "selected": [
+          "relay",
+          "rush",
+          "valor"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -6508,
+          "damage": 321.875,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 37.166666666666664,
+          "ticks": 92.5
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -6469.208333333333,
+          "damage": 288.5833333333333,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 35.458333333333336,
+          "ticks": 92.58333333333333
+        }
+      },
+      {
+        "enemy": "fireline",
+        "fixed": [
+          "gallop",
+          "rush",
+          "valor"
+        ],
+        "selected": [
+          "gallop",
+          "lure",
+          "rush"
+        ],
+        "fixedResult": {
+          "win": 0,
+          "margin": -5435.875,
+          "damage": 1204.2083333333333,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 57.041666666666664,
+          "ticks": 88.16666666666667
+        },
+        "selectedResult": {
+          "win": 0,
+          "margin": -5243.708333333333,
+          "damage": 1085.375,
+          "remaining": 0,
+          "rearHp": 0,
+          "alive": 61.541666666666664,
+          "ticks": 90.91666666666667
+        }
+      },
+      {
+        "enemy": "breach",
+        "fixed": [
+          "gallop",
+          "rush",
+          "valor"
+        ],
+        "selected": [
+          "gallop",
+          "rush",
+          "valor"
+        ],
+        "fixedResult": {
+          "win": 0.125,
+          "margin": -2062.6666666666665,
+          "damage": 1244.625,
+          "remaining": 0,
+          "rearHp": 75.91666666666667,
+          "alive": 70.16666666666667,
+          "ticks": 150.54166666666666
+        },
+        "selectedResult": {
+          "win": 0.125,
+          "margin": -2062.6666666666665,
+          "damage": 1244.625,
+          "remaining": 0,
+          "rearHp": 75.91666666666667,
+          "alive": 70.16666666666667,
+          "ticks": 150.54166666666666
+        }
+      },
+      {
+        "enemy": "riders",
+        "fixed": [
+          "gallop",
+          "rush",
+          "valor"
+        ],
+        "selected": [
+          "gallop",
+          "lure",
+          "relay"
+        ],
+        "fixedResult": {
+          "win": 0.4375,
+          "margin": 481.2083333333333,
+          "damage": 1179.2916666666667,
+          "remaining": 113.75,
+          "rearHp": 988.375,
+          "alive": 57.291666666666664,
+          "ticks": 179.33333333333334
+        },
+        "selectedResult": {
+          "win": 0.4583333333333333,
+          "margin": 542.5,
+          "damage": 1031.0833333333333,
+          "remaining": 23.416666666666668,
+          "rearHp": 1187.1666666666667,
+          "alive": 57.416666666666664,
+          "ticks": 175.5
+        }
+      }
+    ]
+  }
+]

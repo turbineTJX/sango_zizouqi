@@ -1,0 +1,42 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (15.648ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (2.2077ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (4.1892ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (2.1279ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (1.1204ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (79.7374ms)
+✔ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (4.6232ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (69.5786ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (1.3133ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (1.745ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (4.1136ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (4.1615ms)
+✔ personal passives unlock at ten and their conditional bonuses expire or fail correctly (4.1048ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (0.987ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (4.4801ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 41 officers (535.7019ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (15.3945ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (4.4794ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (1.6015ms)
+✔ damage tactics against a gate do not charge the caster, basic siege attacks do (2.0054ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (165.5795ms)
+✔ four troop types have fixed base slots and named officers have exclusive tactics (1.9718ms)
+✔ instant skills keep shared intent and only one tactic enters cooldown per step (15.5676ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (5.3153ms)
+✔ expired cooldown is insufficient below threshold; regaining intent re-enables the tactic (4.5039ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (5.2613ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (4.3369ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (6.5685ms)
+✔ blocked displacement never overlaps units or crosses board limits (1.9033ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (4.3451ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (9.448ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (7.8082ms)
+✔ prepaid casts and previous save formats are rejected (3.4896ms)
+✔ new saves distinguish bows and crossbows and require current rules (2.8293ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 761.2568

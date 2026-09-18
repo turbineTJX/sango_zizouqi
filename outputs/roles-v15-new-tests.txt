@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal
+ok 1 - medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal
+  ---
+  duration_ms: 10.0074
+  type: 'test'
+  ...
+# Subtest: front support heals at most two other allies, never itself, and has a real range limit
+ok 2 - front support heals at most two other allies, never itself, and has a real range limit
+  ---
+  duration_ms: 10.8265
+  type: 'test'
+  ...
+# Subtest: healing does not revive defeated troops or restore already recovered wounds
+ok 3 - healing does not revive defeated troops or restore already recovered wounds
+  ---
+  duration_ms: 0.9815
+  type: 'test'
+  ...
+# Subtest: doubt deals strategy damage through control protection without bypassing that protection
+ok 4 - doubt deals strategy damage through control protection without bypassing that protection
+  ---
+  duration_ms: 1.0501
+  type: 'test'
+  ...
+# Subtest: medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit
+ok 5 - medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit
+  ---
+  duration_ms: 0.722
+  type: 'test'
+  ...
+# Subtest: real zero-intent battles trigger both medical roles and resume deterministically
+ok 6 - real zero-intent battles trigger both medical roles and resume deterministically
+  ---
+  duration_ms: 144.431
+  type: 'test'
+  ...
+# Subtest: fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement
+ok 7 - fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement
+  ---
+  duration_ms: 3.9341
+  type: 'test'
+  ...
+# Subtest: strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance
+ok 8 - strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance
+  ---
+  duration_ms: 1.3199
+  type: 'test'
+  ...
+# Subtest: medical casting spends the next basic attack interval rather than adding free healing between shots
+ok 9 - medical casting spends the next basic attack interval rather than adding free healing between shots
+  ---
+  duration_ms: 1.8007
+  type: 'test'
+  ...
+# Subtest: only equipped chargers select legal short flanks, and live interception cancels that preference
+ok 10 - only equipped chargers select legal short flanks, and live interception cancels that preference
+  ---
+  duration_ms: 0.9086
+  type: 'test'
+  ...
+# Subtest: a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically
+ok 11 - a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically
+  ---
+  duration_ms: 59.7361
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 358.2939

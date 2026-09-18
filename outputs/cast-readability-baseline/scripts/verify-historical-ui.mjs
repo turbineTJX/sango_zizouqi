@@ -1,0 +1,102 @@
+// Run with PLAYWRIGHT_MODULE pointing to an installed Playwright package if needed.
+import {createRequire} from 'node:module';
+import {mkdir,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const require=createRequire(import.meta.url);
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
+const context=await browser.newContext({viewport:{width:1440,height:1050},acceptDownloads:true});
+const page=await context.newPage(),errors=[];
+page.on('pageerror',error=>errors.push(error.message));
+const base=process.env.GAME_URL||'http://127.0.0.1:4173';
+const output='outputs/historical-ui';await mkdir(output,{recursive:true});
+const action=name=>page.locator(`[data-action="${name}"]`);
+const snapshot=()=>page.evaluate(()=>Object.fromEntries(Object.entries(localStorage).filter(([key])=>key.startsWith('sango-'))));
+try{
+  await page.goto(base);await page.locator('.campaign-lobby').waitFor();
+  assert.equal(await page.locator('.historical-card').count(),4);
+  assert.equal(await page.locator('.campaign').count(),0);
+  await page.screenshot({path:`${output}/desktop.png`,fullPage:true});
+  await action('strategy').click();await page.locator('.campaign').waitFor();
+  await action('next-turn').click();await action('lobby').first().click();
+  const strategic=(await snapshot())['sango-sovereign-v2'];
+  assert.equal(JSON.parse(strategic).turn,2);
+  await action('launch-history').click();await page.locator('#battle-board').waitFor();
+  assert.ok(page.url().endsWith('#historical-battle'));
+  assert.equal(await page.locator('#battle-terrain').isDisabled(),true);
+  await action('loadout').click();await page.locator('#loadout-unit').waitFor();await action('close').first().click();
+  // Start via the real deployment button, pause, then use the existing debug stepping UI.
+  await action('pause').click();await action('pause').click();
+  await page.locator('[data-panel="tools"]').click();
+  await page.locator('[data-action="step-scenario"][data-steps="10"]').click();
+  const before=JSON.parse((await snapshot())['sango-historical-battle-v1']);
+  assert.equal(before.battle.tick,10);
+  await page.reload();await page.locator('#battle-board').waitFor();
+  assert.match(await action('pause').innerText(),/继续战斗/);
+  assert.equal(JSON.parse((await snapshot())['sango-historical-battle-v1']).battle.tick,10);
+  await action('lobby').first().click();await page.locator('.lobby-resume').waitFor();
+  await page.keyboard.press('Space');await page.keyboard.press('Escape');
+  assert.equal(await page.locator('#battle-board').count(),0);
+  await action('settings').click();await action('close').first().click();
+  await action('continue-history').click();await page.locator('#battle-board').waitFor();
+  await page.locator('[data-panel="tools"]').click();
+  for(let i=0;i<40&&await page.locator('[data-action="step-scenario"][data-steps="10"]').count();i++){
+    await page.locator('[data-action="step-scenario"][data-steps="10"]').click();
+  }
+  await page.locator('.report-table').waitFor();
+  assert.ok(!(await page.locator('.modal-body').innerText()).includes('府库 +300'));
+  await page.screenshot({path:`${output}/report.png`,fullPage:true});
+  await page.locator('.modal-footer [data-action="lobby"]').click();
+  assert.equal(await page.locator('.modal').count(),0);
+  await action('continue-history').click();await page.locator('.report-table').waitFor();
+  await action('retry-scenario').click();await page.locator('#deployment-guide').waitFor();
+  assert.equal(JSON.parse((await snapshot())['sango-historical-battle-v1']).battle.tick,0);
+  await action('lobby').first().click();
+  for(const id of ['history-chibi','history-hefei','history-yiling']){
+    await page.locator(`[data-action="select-history"][data-scenario="${id}"]`).click();
+    await action('launch-history').click();await page.locator('#battle-board').waitFor();
+    const saved=JSON.parse((await snapshot())['sango-historical-battle-v1']);
+    assert.equal(saved.testScenario.id,id);
+    if(id==='history-hefei')assert.equal(saved.battle.siege.gate.side,0);
+    await page.screenshot({path:`${output}/${id}.png`,fullPage:true});
+    await action('lobby').first().click();
+  }
+  const historical=(await snapshot())['sango-historical-battle-v1'];
+  await action('scenarios').click();
+  assert.equal(await page.locator('.scenario-card [data-scenario^="history-"]').count(),0);
+  await page.locator('[data-action="launch-scenario"][data-scenario="field"]').click();
+  assert.ok(page.url().endsWith('#battle-lab'));
+  await action('lobby').first().click();
+  assert.equal((await snapshot())['sango-historical-battle-v1'],historical);
+  assert.equal((await snapshot())['sango-sovereign-v2'],strategic);
+  await action('continue-history').click();await page.locator('#battle-board').waitFor();
+  await page.locator('[data-panel="tools"]').click();await action('settings').click();
+  const downloadPromise=page.waitForEvent('download');await action('export').click();
+  const download=await downloadPromise;const exported=`${output}/export.json`;await download.saveAs(exported);
+  await page.locator('#import-file').setInputFiles(exported);await page.locator('#battle-board').waitFor();
+  assert.equal(JSON.parse((await snapshot())['sango-historical-battle-v1']).testScenario.id,'history-yiling');
+  await action('lobby').first().click();await action('strategy').click();
+  assert.equal((await snapshot())['sango-sovereign-v2'],strategic);
+  await action('lobby').first().click();
+  await page.locator('#toast.show').waitFor({state:'hidden'});
+  await page.setViewportSize({width:390,height:844});await page.screenshot({path:`${output}/mobile.png`,fullPage:true});
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+  await page.locator('[data-action="select-history"][data-scenario="history-chibi"]').click();await action('launch-history').click();
+  await page.locator('#battle-board').waitFor();await page.screenshot({path:`${output}/mobile-battle.png`,fullPage:true});
+  await action('lobby').first().click();
+  await page.evaluate(async()=>{await navigator.serviceWorker.ready;});
+  await context.setOffline(true);await page.reload();await page.locator('.campaign-lobby').waitFor();
+  await action('continue-history').click();await page.locator('#battle-board').waitFor();
+  await context.setOffline(false);
+  await action('lobby').first().click();
+  // Keep the active state in another save slot so pagehide cannot re-save over this fixture.
+  await action('strategy').click();await action('lobby').first().click();
+  await page.evaluate(()=>localStorage.setItem('sango-historical-battle-v1',JSON.stringify({rulesVersion:-1})));
+  await page.reload();await page.locator('.lobby-resume').waitFor();
+  assert.match(await page.locator('.lobby-resume').innerText(),/重新开始/);
+  assert.equal(await action('continue-history').isDisabled(),true);
+  await action('launch-history').click();await page.locator('#battle-board').waitFor();
+  assert.deepEqual(errors,[]);
+  await writeFile(`${output}/result.json`,JSON.stringify({passed:true,errors,checks:['fresh lobby','four playable battles','deployment/loadout','pause and refresh','lobby keyboard safety','report/close/retry','three independent save slots','export/import','strategy recovery','mobile overflow','offline reload and resume','incompatible save warning and restart']},null,2));
+  console.log('Historical UI verification passed. Screenshots: '+output);
+} finally {await browser.close();}

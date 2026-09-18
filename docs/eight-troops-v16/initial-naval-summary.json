@@ -1,0 +1,50 @@
+{
+  "mode": "naval",
+  "count": 48,
+  "summary": [
+    {
+      "key": "strike",
+      "name": "strike",
+      "games": 24,
+      "win": 0.6875,
+      "matchups": {
+        "escort": 1,
+        "control": 0.8125,
+        "shore": 0.25
+      }
+    },
+    {
+      "key": "escort",
+      "name": "escort",
+      "games": 24,
+      "win": 0.020833333333333332,
+      "matchups": {
+        "strike": 0,
+        "control": 0.0625,
+        "shore": 0
+      }
+    },
+    {
+      "key": "control",
+      "name": "control",
+      "games": 24,
+      "win": 0.4583333333333333,
+      "matchups": {
+        "strike": 0.1875,
+        "escort": 0.9375,
+        "shore": 0.25
+      }
+    },
+    {
+      "key": "shore",
+      "name": "shore",
+      "games": 24,
+      "win": 0.8333333333333334,
+      "matchups": {
+        "strike": 0.75,
+        "escort": 1,
+        "control": 0.75
+      }
+    }
+  ]
+}

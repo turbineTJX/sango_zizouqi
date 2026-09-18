@@ -6,7 +6,7 @@ import { BattleEffects } from '../battle-effects.mjs';
 function scene(t, reduced = false) {
   const original = new Map();
   const set = (key, value) => { original.set(key, Object.getOwnPropertyDescriptor(globalThis, key)); Object.defineProperty(globalThis, key, { configurable: true, writable: true, value }); };
-  const element = () => ({ children: [], append(...nodes) { for (const n of nodes) { n.parent = this; this.children.push(n); } }, remove() { if (this.parent) this.parent.children = this.parent.children.filter(n => n !== this); } });
+  const element = () => ({ children: [], prepend(n) { n.parent=this; this.children.unshift(n); }, append(...nodes) { for (const n of nodes) { n.parent = this; this.children.push(n); } }, remove() { if (this.parent) this.parent.children = this.parent.children.filter(n => n !== this); } });
   const feed = element();
   const context = new Proxy({ measureText: text => ({ width: text.length * 10 }), createRadialGradient: () => ({ addColorStop() {} }) }, { get: (target, key) => target[key] || (() => {}) });
   const canvas = { width: 0, height: 0, getContext: () => context, getBoundingClientRect: () => ({ width: 700, height: 400 }) };
@@ -23,6 +23,31 @@ function event(phase = 'impact') {
   return { from:'liao', to:'shao', damage:phase === 'cast' ? 0 : 315, skill:true, phase, visual:'charge', troop:'cavalry', side:0, name:'张辽', label:'威震逍遥', fromX:4, fromY:3, x:5, y:3 };
 }
 function battle(e = event()) { return { id:'test', tick:1, sides:[{units:[]},{units:[]}], effects:[e] }; }
+
+test('ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick',t=>{
+ const {fx,feed}=scene(t),b=battle({...event(),label:'回春',damage:0,healing:60,ongoing:true});
+ b.effects.push({...event(),label:'幻卫',damage:0,absorbed:40,ongoing:true},{...event(),label:'反击',ongoing:true});
+ fx.update(b,{paused:false,speed:1});
+ assert.equal(fx.items.length,3);assert.equal(feed.children.length,0);assert.equal(fx.isCinematicPlaying(),false);
+ b.effects.push({...event(),label:'回春',damage:0});fx.update(b,{paused:false,speed:1});
+ assert.equal(feed.children.length,1);assert.equal(fx.isCinematicPlaying(),true);
+});
+
+test('ZOC breakthrough is explained on the existing skill row without duplicate announcements',t=>{
+  const {fx,feed}=scene(t),b=battle({...event(),label:'冲阵'});
+  b.effects.push({...event(),label:'冲阵',damage:0,text:'突入后阵'});
+  fx.update(b,{paused:true,speed:1});
+  assert.equal(feed.children.length,1);
+  assert.equal(feed.children[0].children[2].textContent,'冲阵 · 突入后阵');
+});
+
+test('multi-target terrain modifiers share one readable cast announcement',t=>{
+  const {fx,feed}=scene(t),b=battle({...event(),label:'火计',terrain:'林地：伤害 +30%'});
+  b.effects.push({...event(),label:'火计',to:'other',terrain:'水面：伤害 −40%'});
+  fx.update(b,{paused:true,speed:1});
+  assert.equal(feed.children.length,1);
+  assert.match(feed.children[0].children[2].textContent,/林地：伤害 \+30%.*水面：伤害 −40%/);
+});
 
 test('legacy windup events never display a preparation animation or log row',t=>{
   const {fx,feed}=scene(t),b=battle(event('cast'));
@@ -44,7 +69,7 @@ test('pause freezes effect time and speed/focus redraws never duplicate effects'
 test('fatal-hit animation stays busy until finished even when no units remain on the board', t => {
   const {fx} = scene(t);
   fx.update(battle(),{paused:false,speed:4}); assert.equal(fx.isBusy(),true);
-  for(let time=50;time<=1300;time+=50) fx.draw(time);
+  for(let time=50;time<=1700;time+=50) fx.draw(time);
   assert.equal(fx.isBusy(),false); assert.equal(fx.items.length,0);
 });
 test('effect rendering does not mutate combat events and cleans up hidden-tab animation', t => {
@@ -89,6 +114,21 @@ test('clear mode merges same-step damage per target without changing battle even
  assert.equal(fx.damageSummaries().find(e=>e.to==='shao').damage,40);
 });
 
+test('intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics',t=>{
+ const {fx}=scene(t),labels=[];fx.label=text=>labels.push(text);
+ for(const mode of ['clear','full']){
+  const b=battle({...event(),skill:false,intentDenied:7,intentBlock:'截气'});b.id=mode;
+  b.effects.unshift({...event(),skill:false,damage:20});fx.update(b,{paused:false,speed:1,mode});
+  const original=JSON.stringify(b);
+  for(let time=50;time<400;time+=50)fx.draw(time+fx.lastFrame);
+  assert.ok(labels.some(text=>text.includes('截气')),mode);assert.equal(JSON.stringify(b),original);labels.length=0;
+ }
+ const b=battle({...event(),intentDenied:7,intentBlock:'断势'});b.id='stifle';b.effects.push(event());
+ fx.update(b,{paused:false,speed:1,mode:'clear'});
+ for(let i=0;i<20;i++)fx.draw(fx.lastFrame+50);
+ assert.ok(labels.some(text=>text.includes('断势')));
+});
+
 test('clear paused inspection hides transient drawings but preserves event log and clock',t=>{
  const {fx,feed}=scene(t);let draws=0;fx.drawClear=()=>draws++;fx.label=()=>draws++;
  fx.update(battle(),{paused:true,speed:1});fx.draw(50);fx.draw(100);
@@ -96,13 +136,13 @@ test('clear paused inspection hides transient drawings but preserves event log a
  fx.update(battle(),{paused:false,speed:1});fx.draw(150);assert.ok(draws>0);
 });
 
-test('both factions keep two log rows and multi-hit effects do not flood announcements',t=>{
+test('both factions keep twenty log rows and multi-hit effects do not flood announcements',t=>{
  const {fx,feed}=scene(t),b=battle();
- for(let tick=1;tick<=8;tick++){
+ for(let tick=1;tick<=24;tick++){
    b.tick=tick;b.effects=[0,1].flatMap(side=>[event(),event(),event()].map(e=>({...e,side})));
    fx.update(b,{paused:true,speed:1});
  }
- assert.equal(feed.children.length,4);assert.equal(fx.notices.filter(n=>n.side===0).length,2);assert.equal(fx.notices.filter(n=>n.side===1).length,2);
+ assert.equal(feed.children.length,40);assert.equal(fx.notices.filter(n=>n.side===0).length,20);assert.equal(fx.notices.filter(n=>n.side===1).length,20);
  fx.destroy();assert.equal(feed.children.length,0);
 });
 
@@ -137,6 +177,7 @@ test('a multi-target cast holds the battlefield once and stays readable at 4x', 
   const before = JSON.stringify(b);
   fx.update(b,{paused:false,speed:4});
   assert.equal(fx.cinematics.length,1);
+  assert.ok(fx.cinematics[0].duration>=1400);
   assert.equal(fx.cinematics[0].events.length,3);
   assert.equal(fx.isCinematicPlaying(),true);
   fx.draw(50);
@@ -145,7 +186,7 @@ test('a multi-target cast holds the battlefield once and stays readable at 4x', 
   assert.equal(fx.isBusy(),true, 'fatal impact must not settle while the cut-in is visible');
   fx.update(b,{paused:false,speed:1,mode:'full'});
   assert.equal(fx.cinematics.length,1, 'speed/mode redraws must not replay a cast');
-  for(let time=650;time<=800;time+=50) fx.draw(time);
+  for(let time=650;time<=2200;time+=50) fx.draw(time);
   assert.equal(fx.isBusy(),false);
   assert.equal(JSON.stringify(b),before);
 });
@@ -161,10 +202,10 @@ test('simultaneous officers play in sequence and manual pause freezes the entire
   document.hidden=true;fx.update(b,{paused:false,speed:1});fx.draw(260);
   assert.equal(fx.clock,50);
   document.hidden=false;
-  for(let time=310;time<=1310;time+=50)fx.draw(time);
+  for(let time=310;time<=2260;time+=50)fx.draw(time);
   assert.equal(fx.cinematics.length,1);
   assert.equal(fx.cinematics[0].events[0].name,'曹操');
-  for(let time=1360;time<=2410;time+=50)fx.draw(time);
+  for(let time=2310;time<=4310;time+=50)fx.draw(time);
   assert.equal(fx.isCinematicPlaying(),false);
 });
 
@@ -182,6 +223,26 @@ test('reduced motion uses static focus and finishes without impact particles', t
   const {fx}=scene(t,true);let impacts=0,focus=0;
   fx.drawImpact=()=>impacts++;fx.ring=()=>focus++;
   fx.update(battle(),{paused:false,speed:1});
-  for(let time=50;time<=800;time+=50)fx.draw(time);
+  for(let time=50;time<=2200;time+=50)fx.draw(time);
   assert.equal(impacts,0);assert.ok(focus>0);assert.equal(fx.isBusy(),false);
+});
+
+test('result summary follows the active cast, survives expiry, and retains damage alongside control',t=>{
+  const {fx,feed}=scene(t);fx.result={};const b=battle({...event(),text:'混乱'});
+  b.effects.push({...event(),from:'cao',name:'曹操',label:'魏武挥鞭',damage:0,text:'护盾'});
+  fx.update(b,{paused:false,speed:4});fx.draw(50);
+  assert.match(fx.result.textContent,/张辽.*\n.*实际损兵 315.*混乱/);
+  assert.match(feed.children[1].children[3].children[0].textContent,/实际损兵 315.*混乱/);
+  for(let time=100;time<=1550;time+=50)fx.draw(time);
+  assert.match(fx.result.textContent,/曹操/);
+  for(let time=1600;time<=3200;time+=50)fx.draw(time);
+  assert.equal(fx.isBusy(),false);assert.match(fx.result.textContent,/曹操/);
+});
+
+test('combo bonus does not add a second cinematic or replace the actual paused result',t=>{
+  const {fx}=scene(t);fx.result={};const b=battle();
+  b.effects.push({...event(),label:'二连携',damage:0,combo:{level:2,bonus:25,targetName:'袁绍',actors:[{name:'曹操'},{name:'张辽'}]}});
+  fx.update(b,{paused:false,speed:1});assert.equal(fx.cinematics.length,1);
+  b.tick++;fx.update(b,{paused:true,speed:1});
+  assert.match(fx.result.textContent,/实际损兵 315/);
 });

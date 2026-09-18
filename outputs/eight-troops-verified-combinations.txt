@@ -1,0 +1,9 @@
+spear 640
+halberd 1280
+cavalry 1920
+archer 2560
+crossbow 3200
+logistics 3840
+siege 4480
+ship 5120
+complete combinations 5120

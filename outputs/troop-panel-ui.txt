@@ -1,0 +1,1 @@
+100-soldier panel matches combat attributes; no separate troop multiplier.

@@ -91,11 +91,14 @@ test('split and merge conserve officers, soldiers, wounded and supply', () => {
   assert.equal(mergeArmies(s, 'a1', created.id), null);
   assert.equal(armyTroops(s.armies[0]), initial); assert.equal(s.armies[0].units.length, 8); assert.equal(s.armies[0].supply, supply);
 });
-test('friendly recruitment and wounded recovery cannot duplicate soldiers', () => {
+test('friendly recruitment and wounded recovery cannot duplicate soldiers', async () => {
+  const {troopCapacity}=await import('../troop-capacity.mjs');
   const s = newGame(), u = s.armies[0].units[0]; u.troops = 1000; u.wounded = 800;
+  for(const officer of s.armies[0].units)officer.troops=troopCapacity(officer);
+  const capacity=troopCapacity(u);u.troops=capacity-2000;
   const gold = s.gold; assert.equal(recruit(s, 'a1'), null);
-  assert.equal(u.troops, 2200); assert.equal(u.wounded, 800); assert.equal(s.gold, gold - 300);
-  advanceTurn(s); assert.equal(u.troops, 2380); assert.equal(u.wounded, 620);
+  assert.equal(u.troops, capacity-800); assert.equal(u.wounded, 800); assert.equal(s.gold, gold - 300);
+  advanceTurn(s); assert.equal(u.troops, capacity-620); assert.equal(u.wounded, 620);
   assert.ok(recruit(s, 'a1'));
 });
 test('enemy launches an attack and city garrison participates in defense', () => {
@@ -236,16 +239,16 @@ function duel() {
 }
 test('intent grows from actual attacks and surviving hits, never elapsed time', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
-  stepBattle(b); assert.equal(a.intent,12); assert.equal(d.intent,10);
+  stepBattle(b); assert.equal(a.intent,6); assert.equal(d.intent,7);
   a.cooldown=99;d.cooldown=99;
   for(let i=0;i<10;i++)stepBattle(b);
-  assert.equal(a.intent,12); assert.equal(d.intent,10);
+  assert.equal(a.intent,6); assert.equal(d.intent,7);
 });
 test('a ready tactic casts without spending intent, regardless of morale or attack cooldown', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0];
   a.intent=skillThreshold(a)+17;a.morale=0;a.cooldown=99;a.skillCooldown=999;
   stepBattle(b);
-  assert.equal(a.cast,null);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,skillThreshold(a)+17+COMBAT.intentOnAttack);
+  assert.equal(a.cast,null);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,skillThreshold(a)+17);
 });
 test('no valid target preserves intent and leaving range cannot duplicate an instant hit', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
@@ -254,11 +257,11 @@ test('no valid target preserves intent and leaving range cannot duplicate an ins
   a.x=4;d.x=5;stepBattle(b);assert.equal(a.skillCasts,1);
   d.x=13;
   stepBattle(b);
-  assert.equal(a.cast,null);assert.equal(a.intent,skillThreshold(a)+COMBAT.intentOnAttack);assert.equal(a.skillCasts,1);
+  assert.equal(a.cast,null);assert.equal(a.intent,skillThreshold(a));assert.equal(a.skillCasts,1);
 });
 test('each skill has its own threshold, and intent below threshold cannot cast', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0];
-  assert.deepEqual(unitTactics(a).map(s=>s.threshold),[40,65,90]);
+  assert.deepEqual(unitTactics(a).map(s=>s.threshold),[25,65,75]);
   assert.equal(unitTactics({id:'jia',type:'crossbow'})[2].threshold,100);
   a.intent=skillThreshold(a)-1;a.cooldown=99;stepBattle(b);assert.equal(a.cast,null);
 });

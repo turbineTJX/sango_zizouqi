@@ -1,0 +1,5 @@
+mixed 3 compact 384
+mixed 3 spread 768
+mixed 10 compact 1152
+mixed 10 spread 1536
+complete 1536

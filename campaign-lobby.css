@@ -1,0 +1,45 @@
+.campaign-lobby{max-width:1240px;margin:auto;padding:0 48px 26px;color:#e8e6d9}
+.lobby-nav{height:88px;display:flex;align-items:center;gap:20px;border-bottom:1px solid #cdb17c22}
+.lobby-brand{display:flex;align-items:center;gap:12px;font:22px var(--serif);letter-spacing:3px}
+.lobby-brand>span{border:1px solid #cdb17c88;color:#dcc491;padding:6px 8px;font-size:23px}
+.lobby-edition{font-size:11px;color:#a09c89;border-left:1px solid #cdb17c44;padding-left:20px}
+.lobby-nav>.text-button{margin-left:auto;color:#a8b3ad}
+.lobby-hero{position:relative;display:flex;align-items:center;min-height:360px;overflow:hidden}
+.lobby-hero-copy{position:relative;z-index:2;padding:42px 0;width:62%}
+.lobby-hero .eyebrow{color:#b8a374;font-size:10px;letter-spacing:3px}
+.lobby-hero h1{font:48px/1.3 var(--serif);letter-spacing:5px;margin:20px 0 16px}
+.lobby-hero h1 em{font-style:normal;color:#d5b77e}
+.lobby-hero p{font-size:13px;line-height:1.9;color:#a7b3ab}
+.lobby-pills{display:flex;gap:18px;margin-top:23px;color:#b9beae;font-size:11px}
+.lobby-pills span:before{content:'·';margin-right:7px;color:#d5b77e}
+.lobby-art{position:absolute;right:0;top:0;width:58%;height:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 25%)}
+.lobby-moon{position:absolute;width:180px;height:180px;border:1px solid #cdb17c26;border-radius:50%;right:110px;top:30px;background:radial-gradient(circle,#c5a46112,transparent 70%);box-shadow:0 0 0 22px #cdb17c04,0 0 0 44px #cdb17c03}
+.lobby-mountain{position:absolute;width:100%;height:60%;bottom:15px;clip-path:polygon(0 100%,0 65%,14% 45%,21% 51%,41% 6%,58% 48%,70% 26%,100% 65%,100% 100%);background:#283b37}
+.mountain-back{opacity:.5;transform:translateY(-20px)}
+.mountain-front{background:#1b2d2b;transform:scaleX(-1);bottom:0}
+.war-banner{position:absolute;top:80px;border-left:2px solid #998262;padding:18px 18px 38px;background:linear-gradient(160deg,#574635,#302f27);clip-path:polygon(0 0,100% 7%,95% 88%,50% 75%,0 90%);font:37px var(--serif);color:#d5be8c;width:81px;height:172px;transform:rotate(-7deg);box-shadow:0 0 30px #0005}
+.banner-one{right:56%;top:130px;background:linear-gradient(160deg,#354b48,#202e2c);color:#b8c2ae}
+.banner-two{right:29%;top:76px;height:208px}
+.banner-three{right:5%;top:148px;background:linear-gradient(160deg,#553c35,#2f2926);color:#c9aa91}
+.art-caption{position:absolute;bottom:22px;right:30px;font:12px var(--serif);letter-spacing:5px;color:#a89b7a}
+.lobby-resume{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border:1px solid #789a7944;background:#23372e66;margin:4px 0 28px;gap:12px}
+.lobby-resume>div{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.lobby-resume>div>span:last-child{font-size:12px;color:#9cad9e}
+.lobby-section-title{display:flex;align-items:center;justify-content:space-between;margin:5px 0 20px}.lobby-section-title h2{font:24px var(--serif);letter-spacing:3px}.lobby-section-title>span{font-size:11px;color:#8e9d93}
+.lobby-battles{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;align-items:start}
+.historical-list{display:grid;gap:12px}
+.historical-card{display:flex;align-items:center;text-align:left;gap:22px;padding:24px 20px;border:1px solid #cdb17c20;background:linear-gradient(115deg,#22332f66,#1a272933);min-height:122px;position:relative}
+.historical-card.selected{border-color:#cdb17caa;background:linear-gradient(115deg,#6f603b2e,#22322e99);box-shadow:inset 3px 0 #cdb17c}
+.historical-card:hover{border-color:#cdb17c88}.chapter{font:29px var(--serif);color:#a58d60}.historical-card-copy{display:grid;gap:8px}.historical-card-copy>small{font-size:10px;color:#9daba1}.historical-card-copy>strong{font:25px var(--serif);letter-spacing:3px}.historical-card-copy>span{font-size:11px;color:#97a398}
+.history-difficulty{margin-left:auto;text-align:right;font-size:11px;color:#c6b487;white-space:nowrap}.history-difficulty>small{display:block;font-size:10px;color:#839487;margin-top:26px}
+.historical-detail{padding:25px 28px;border:1px solid #cdb17c33;background:linear-gradient(145deg,#26362f77,#1b272baa)}
+.historical-detail>.eyebrow{color:#c4aa78;font-size:10px}.historical-detail>h2{display:flex;align-items:center;justify-content:space-between;font:31px var(--serif);letter-spacing:3px;margin:15px 0}.historical-detail>h2>small{font:11px var(--sans);color:#a59b80;letter-spacing:0}
+.historical-intro{color:#aeb7aa;font-size:12px;line-height:1.9}.historical-armies{margin:20px 0}.historical-armies>section+section{margin-top:19px}.historical-armies h3{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:500;color:#b8cdb6}.historical-armies h3>small{font-size:10px;white-space:nowrap;color:#9cae9b}.historical-armies>section+section h3{color:#d3b5a3}
+.historical-roster{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:10px}.historical-roster>span{display:flex;flex-direction:column;gap:5px;text-align:center;padding:10px 0;background:#b0be9e09;border:1px solid #aeb99516}.historical-roster b{font-size:11px;font-weight:500}.historical-roster small{font-size:9px;color:#91a28e}
+.historical-roster strong{font-size:12px;font-weight:500;color:#d8c696}.campaign-tabs{display:flex;gap:10px;margin-bottom:18px}.campaign-tabs button{border:1px solid #cdb17c33;padding:11px 20px;color:#a9b7a7}.campaign-tabs .active{border-color:#cdb17c;background:#cdb17c18;color:#e1c99a}.campaign-tabs small{margin-left:8px;color:#9ead9d}.history-waves{font-size:11px;color:#b8aa8a;line-height:1.8;margin:12px 0}
+.historical-objective{padding:12px 14px;border-left:2px solid #b89e66;background:#d3b57b07}.historical-objective>b{color:#d0b880;font-size:11px;font-weight:500}.historical-objective>p{font-size:11px;line-height:1.8;color:#adb5a6;margin-top:6px}
+.historical-briefing{margin:16px 0;color:#a9b7a7;font-size:11px}.historical-briefing summary{cursor:pointer}.historical-briefing p{line-height:1.9;margin-top:10px}
+.history-launch{display:flex;justify-content:space-between!important;padding:16px 20px!important;font-size:14px!important;letter-spacing:2px}.history-save-note{display:block;text-align:center;font-size:10px;color:#8d9b8c;margin-top:11px;line-height:1.7}
+.lobby-howto{display:flex;justify-content:center;align-items:center;gap:27px;padding:30px 0;margin-top:22px;border-bottom:1px solid #cdb17c22;font-size:11px;color:#9aa89a}.lobby-howto b{font:15px var(--serif);color:#bea36f;margin-right:7px}.lobby-howto i{font-style:normal;color:#5e7569}
+.lobby-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:20px}.lobby-footer p{font-size:10px;color:#7f9086;line-height:1.8;max-width:650px}.lobby-footer>div{display:flex;gap:22px;white-space:nowrap}.lobby-footer .text-button{font-size:11px;color:#b4bdaa}.lobby-footer small{font-size:9px;color:#788b7d;margin-left:5px}
+@media(max-width:850px){.campaign-lobby{padding:0 24px 24px}.lobby-battles{grid-template-columns:1fr}.historical-list{grid-template-columns:1fr 1fr;gap:10px}.historical-card{padding:18px 12px;gap:12px;min-height:112px}.history-difficulty>small{display:none}.lobby-hero{min-height:330px}.lobby-hero h1{font-size:42px}.lobby-art{opacity:.7}.lobby-howto{gap:12px}.lobby-footer{align-items:flex-start;flex-direction:column}.lobby-footer>div{width:100%;justify-content:flex-end}}
+@media(max-width:520px){.campaign-lobby{padding:0 16px 22px}.lobby-nav{height:70px;gap:12px}.lobby-brand{font-size:17px;letter-spacing:2px;gap:8px}.lobby-brand>span{font-size:19px;padding:4px 6px}.lobby-edition{border:0;padding:0;font-size:9px}.lobby-nav>.text-button{font-size:10px}.lobby-hero{min-height:310px}.lobby-hero-copy{width:100%;padding:30px 0}.lobby-hero h1{font-size:38px}.lobby-hero .eyebrow{font-size:8px;letter-spacing:2px}.lobby-hero p{font-size:11px}.lobby-art{width:62%;opacity:.35;right:-32px;mask-image:linear-gradient(90deg,transparent,#000)}.war-banner{width:52px;padding:18px 8px;font-size:27px}.banner-one{right:60%}.banner-two{right:31%}.banner-three{right:0}.art-caption{display:none}.lobby-pills{font-size:9px;gap:10px}.lobby-section-title>span{font-size:10px}.lobby-section-title h2{font-size:21px}.historical-card{padding:15px 10px;gap:9px;min-height:118px;align-items:flex-start}.chapter{font-size:21px;margin-top:22px}.historical-card-copy{gap:9px}.historical-card-copy>strong{font-size:20px;letter-spacing:1px}.historical-card-copy>small{font-size:9px}.historical-card-copy>span{font-size:9px}.history-difficulty{position:absolute;right:8px;bottom:8px;font-size:8px}.historical-detail{padding:22px 16px}.historical-detail>h2{font-size:28px}.historical-armies h3{font-size:11px}.historical-armies h3>small{font-size:9px}.historical-roster{gap:3px}.historical-roster b{font-size:10px}.lobby-resume{padding:12px;gap:8px}.lobby-resume>div{gap:8px}.lobby-resume b{font-size:12px}.lobby-resume>div>span:last-child{font-size:10px}.lobby-resume .button{font-size:10px;white-space:nowrap}.lobby-howto{display:grid;grid-template-columns:1fr 1fr;gap:17px;padding:20px 10px}.lobby-howto i{display:none}.lobby-footer>div{justify-content:space-between}}

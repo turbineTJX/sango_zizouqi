@@ -1,0 +1,673 @@
+{
+  "count": 15360,
+  "three": [
+    {
+      "team": "spears",
+      "label": "三枪输出",
+      "open": {
+        "win": 0.2567,
+        "margin": -2183.07,
+        "rearHp": 957.55,
+        "rearDamage": 4686.27,
+        "frontDamage": 2671.21,
+        "frontAlive60": 55.4,
+        "tauntCasts": 0,
+        "ticks": 125.35
+      },
+      "zoc": {
+        "win": 0.2634,
+        "margin": -2082.48,
+        "rearHp": 1097.07,
+        "rearDamage": 4546.75,
+        "frontDamage": 2742.4,
+        "frontAlive60": 55.02,
+        "tauntCasts": 0,
+        "ticks": 126.46
+      },
+      "delta": {
+        "mean": 0.0067,
+        "low": -0.0078,
+        "high": 0.0212
+      }
+    },
+    {
+      "team": "riders",
+      "label": "三骑突击",
+      "open": {
+        "win": 0.343,
+        "margin": -1371.8,
+        "rearHp": 1536.95,
+        "rearDamage": 4271.44,
+        "frontDamage": 2645.98,
+        "frontAlive60": 52.33,
+        "tauntCasts": 0,
+        "ticks": 150.2
+      },
+      "zoc": {
+        "win": 0.1756,
+        "margin": -4254.08,
+        "rearHp": 1236.69,
+        "rearDamage": 4457.27,
+        "frontDamage": 2632.05,
+        "frontAlive60": 56.92,
+        "tauntCasts": 0,
+        "ticks": 112.05
+      },
+      "delta": {
+        "mean": -0.1674,
+        "low": -0.1811,
+        "high": -0.1537
+      }
+    },
+    {
+      "team": "ranged",
+      "label": "纯后排输出",
+      "open": {
+        "win": 0.4911,
+        "margin": 315.61,
+        "rearHp": 1035.09,
+        "rearDamage": 4588.91,
+        "frontDamage": 2447.11,
+        "frontAlive60": 48.55,
+        "tauntCasts": 0,
+        "ticks": 111.82
+      },
+      "zoc": {
+        "win": 0.4911,
+        "margin": 315.61,
+        "rearHp": 1035.09,
+        "rearDamage": 4588.91,
+        "frontDamage": 2447.11,
+        "frontAlive60": 48.55,
+        "tauntCasts": 0,
+        "ticks": 111.82
+      },
+      "delta": {
+        "mean": 0,
+        "low": 0,
+        "high": 0
+      }
+    },
+    {
+      "team": "fireline",
+      "label": "一坦两输出",
+      "open": {
+        "win": 0.8155,
+        "margin": 2092.67,
+        "rearHp": 1348.19,
+        "rearDamage": 4292.21,
+        "frontDamage": 2848.71,
+        "frontAlive60": 53.96,
+        "tauntCasts": 0,
+        "ticks": 145.19
+      },
+      "zoc": {
+        "win": 0.8891,
+        "margin": 3104.14,
+        "rearHp": 1228.2,
+        "rearDamage": 4379.88,
+        "frontDamage": 2839.99,
+        "frontAlive60": 55.43,
+        "tauntCasts": 0,
+        "ticks": 133.61
+      },
+      "delta": {
+        "mean": 0.0737,
+        "low": 0.0711,
+        "high": 0.0762
+      }
+    },
+    {
+      "team": "balanced",
+      "label": "坦克＋输出＋辅助",
+      "open": {
+        "win": 0.6972,
+        "margin": 1697.97,
+        "rearHp": 1233.52,
+        "rearDamage": 4382.31,
+        "frontDamage": 2816.7,
+        "frontAlive60": 53.89,
+        "tauntCasts": 0,
+        "ticks": 157.05
+      },
+      "zoc": {
+        "win": 0.753,
+        "margin": 2577.62,
+        "rearHp": 1189.5,
+        "rearDamage": 4390.36,
+        "frontDamage": 2800.85,
+        "frontAlive60": 55.51,
+        "tauntCasts": 0,
+        "ticks": 144.36
+      },
+      "delta": {
+        "mean": 0.0558,
+        "low": 0.0523,
+        "high": 0.0593
+      }
+    },
+    {
+      "team": "supports",
+      "label": "一坦两辅助",
+      "open": {
+        "win": 0.3259,
+        "margin": -1228.42,
+        "rearHp": 1790.1,
+        "rearDamage": 4130.65,
+        "frontDamage": 2769.14,
+        "frontAlive60": 56.65,
+        "tauntCasts": 0,
+        "ticks": 182.92
+      },
+      "zoc": {
+        "win": 0.3504,
+        "margin": -841.37,
+        "rearHp": 1759.06,
+        "rearDamage": 4161.69,
+        "frontDamage": 2756,
+        "frontAlive60": 57.59,
+        "tauntCasts": 0,
+        "ticks": 178.4
+      },
+      "delta": {
+        "mean": 0.0246,
+        "low": 0.0169,
+        "high": 0.0323
+      }
+    },
+    {
+      "team": "doubleFront",
+      "label": "双前排＋输出",
+      "open": {
+        "win": 0.7887,
+        "margin": 2442.15,
+        "rearHp": 741.51,
+        "rearDamage": 4816.85,
+        "frontDamage": 2760.99,
+        "frontAlive60": 50.65,
+        "tauntCasts": 0,
+        "ticks": 141.95
+      },
+      "zoc": {
+        "win": 0.7961,
+        "margin": 3022.73,
+        "rearHp": 882.46,
+        "rearDamage": 4629.74,
+        "frontDamage": 2708.76,
+        "frontAlive60": 51.33,
+        "tauntCasts": 0,
+        "ticks": 134.44
+      },
+      "delta": {
+        "mean": 0.0074,
+        "low": -0.0001,
+        "high": 0.015
+      }
+    },
+    {
+      "team": "breach",
+      "label": "控制突破",
+      "open": {
+        "win": 0.282,
+        "margin": -1765.12,
+        "rearHp": 2143.12,
+        "rearDamage": 3856.88,
+        "frontDamage": 2804.32,
+        "frontAlive60": 58.77,
+        "tauntCasts": 0,
+        "ticks": 150.34
+      },
+      "zoc": {
+        "win": 0.2813,
+        "margin": -1842.17,
+        "rearHp": 2482.41,
+        "rearDamage": 3517.59,
+        "frontDamage": 2809.68,
+        "frontAlive60": 58.32,
+        "tauntCasts": 0,
+        "ticks": 139.67
+      },
+      "delta": {
+        "mean": -0.0007,
+        "low": -0.0236,
+        "high": 0.0221
+      }
+    }
+  ],
+  "six": [
+    {
+      "team": "spears",
+      "label": "六枪输出",
+      "open": {
+        "win": 0.1667,
+        "margin": -6351.79,
+        "rearHp": 1642.69,
+        "rearDamage": 12676.25,
+        "frontDamage": 2613.76,
+        "frontAlive60": 56.88,
+        "tauntCasts": 0,
+        "ticks": 123.78
+      },
+      "zoc": {
+        "win": 0.2128,
+        "margin": -5821.16,
+        "rearHp": 1789.24,
+        "rearDamage": 12536.94,
+        "frontDamage": 2553.55,
+        "frontAlive60": 56.88,
+        "tauntCasts": 0,
+        "ticks": 127.43
+      },
+      "delta": {
+        "mean": 0.0461,
+        "low": 0.0248,
+        "high": 0.0675
+      }
+    },
+    {
+      "team": "riders",
+      "label": "六骑突击",
+      "open": {
+        "win": 0.5387,
+        "margin": -397.96,
+        "rearHp": 4134.67,
+        "rearDamage": 10426.55,
+        "frontDamage": 2308.22,
+        "frontAlive60": 59.1,
+        "tauntCasts": 0,
+        "ticks": 146.6
+      },
+      "zoc": {
+        "win": 0.1458,
+        "margin": -9087.54,
+        "rearHp": 2508.94,
+        "rearDamage": 11829.52,
+        "frontDamage": 2533.28,
+        "frontAlive60": 57.94,
+        "tauntCasts": 0,
+        "ticks": 101.07
+      },
+      "delta": {
+        "mean": -0.3929,
+        "low": -0.4122,
+        "high": -0.3735
+      }
+    },
+    {
+      "team": "ranged",
+      "label": "六队远程输出",
+      "open": {
+        "win": 0.3185,
+        "margin": -1679.76,
+        "rearHp": 1684.84,
+        "rearDamage": 12475.28,
+        "frontDamage": 2625.47,
+        "frontAlive60": 42.46,
+        "tauntCasts": 0,
+        "ticks": 103.1
+      },
+      "zoc": {
+        "win": 0.3185,
+        "margin": -1679.76,
+        "rearHp": 1684.84,
+        "rearDamage": 12475.28,
+        "frontDamage": 2625.47,
+        "frontAlive60": 42.46,
+        "tauntCasts": 0,
+        "ticks": 103.1
+      },
+      "delta": {
+        "mean": 0,
+        "low": 0,
+        "high": 0
+      }
+    },
+    {
+      "team": "fireline",
+      "label": "两坦＋四输出",
+      "open": {
+        "win": 0.753,
+        "margin": 4099.33,
+        "rearHp": 3081.57,
+        "rearDamage": 11207.03,
+        "frontDamage": 2733.23,
+        "frontAlive60": 54.39,
+        "tauntCasts": 0,
+        "ticks": 132.07
+      },
+      "zoc": {
+        "win": 0.875,
+        "margin": 6689.81,
+        "rearHp": 2598.17,
+        "rearDamage": 11623.02,
+        "frontDamage": 2822.46,
+        "frontAlive60": 53.62,
+        "tauntCasts": 0,
+        "ticks": 123.07
+      },
+      "delta": {
+        "mean": 0.122,
+        "low": 0.1069,
+        "high": 0.1372
+      }
+    },
+    {
+      "team": "balanced",
+      "label": "两坦＋两输出＋两辅助",
+      "open": {
+        "win": 0.8363,
+        "margin": 5643.96,
+        "rearHp": 3596.78,
+        "rearDamage": 10671.33,
+        "frontDamage": 2733.4,
+        "frontAlive60": 54.7,
+        "tauntCasts": 0,
+        "ticks": 140.13
+      },
+      "zoc": {
+        "win": 0.942,
+        "margin": 7935.73,
+        "rearHp": 3331.99,
+        "rearDamage": 10869.75,
+        "frontDamage": 2779.99,
+        "frontAlive60": 54.17,
+        "tauntCasts": 0,
+        "ticks": 127.34
+      },
+      "delta": {
+        "mean": 0.1057,
+        "low": 0.1024,
+        "high": 0.1089
+      }
+    },
+    {
+      "team": "supports",
+      "label": "两坦＋四辅助",
+      "open": {
+        "win": 0.3051,
+        "margin": -2225.85,
+        "rearHp": 3699.4,
+        "rearDamage": 11144.7,
+        "frontDamage": 2700.52,
+        "frontAlive60": 57.33,
+        "tauntCasts": 0,
+        "ticks": 171.15
+      },
+      "zoc": {
+        "win": 0.433,
+        "margin": -191.51,
+        "rearHp": 3303.23,
+        "rearDamage": 11540.86,
+        "frontDamage": 2856.71,
+        "frontAlive60": 57.2,
+        "tauntCasts": 0,
+        "ticks": 164.5
+      },
+      "delta": {
+        "mean": 0.128,
+        "low": 0.1059,
+        "high": 0.1501
+      }
+    },
+    {
+      "team": "doubleFront",
+      "label": "四前排＋两输出",
+      "open": {
+        "win": 0.7455,
+        "margin": 4151.05,
+        "rearHp": 2021.55,
+        "rearDamage": 12142.19,
+        "frontDamage": 2685.29,
+        "frontAlive60": 56.15,
+        "tauntCasts": 0,
+        "ticks": 136.68
+      },
+      "zoc": {
+        "win": 0.75,
+        "margin": 5495.22,
+        "rearHp": 2283.69,
+        "rearDamage": 11798.31,
+        "frontDamage": 2567.11,
+        "frontAlive60": 56.14,
+        "tauntCasts": 0,
+        "ticks": 125.76
+      },
+      "delta": {
+        "mean": 0.0045,
+        "low": -0.0026,
+        "high": 0.0115
+      }
+    },
+    {
+      "team": "breach",
+      "label": "两组控制突破",
+      "open": {
+        "win": 0.3363,
+        "margin": -3238.99,
+        "rearHp": 4136.17,
+        "rearDamage": 10863.83,
+        "frontDamage": 2743.07,
+        "frontAlive60": 56.51,
+        "tauntCasts": 0,
+        "ticks": 154.27
+      },
+      "zoc": {
+        "win": 0.3229,
+        "margin": -3340.8,
+        "rearHp": 4824.86,
+        "rearDamage": 10175.14,
+        "frontDamage": 2624.04,
+        "frontAlive60": 56.75,
+        "tauntCasts": 0,
+        "ticks": 138.45
+      },
+      "delta": {
+        "mean": -0.0134,
+        "low": -0.048,
+        "high": 0.0212
+      }
+    }
+  ],
+  "named": [
+    {
+      "team": "fireline",
+      "label": "一坦两输出",
+      "open": {
+        "win": 0.1302,
+        "margin": -3420.27,
+        "rearHp": 405.31,
+        "rearDamage": 5351.6,
+        "frontDamage": 2941.25,
+        "frontAlive60": 44,
+        "tauntCasts": 0,
+        "ticks": 114.05
+      },
+      "zoc": {
+        "win": 0.2552,
+        "margin": -2262,
+        "rearHp": 966.26,
+        "rearDamage": 4790.66,
+        "frontDamage": 2941.25,
+        "frontAlive60": 43.74,
+        "tauntCasts": 0,
+        "ticks": 113.98
+      }
+    },
+    {
+      "team": "balanced",
+      "label": "坦克＋输出＋辅助",
+      "open": {
+        "win": 0.1771,
+        "margin": -2710.46,
+        "rearHp": 616.25,
+        "rearDamage": 5134.59,
+        "frontDamage": 2942.05,
+        "frontAlive60": 44.06,
+        "tauntCasts": 0,
+        "ticks": 135.67
+      },
+      "zoc": {
+        "win": 0.3099,
+        "margin": -1485.43,
+        "rearHp": 1417.8,
+        "rearDamage": 4333.05,
+        "frontDamage": 2875.83,
+        "frontAlive60": 43.84,
+        "tauntCasts": 0,
+        "ticks": 125.47
+      }
+    },
+    {
+      "team": "supports",
+      "label": "一坦两辅助",
+      "open": {
+        "win": 0.1667,
+        "margin": -4108.01,
+        "rearHp": 184.93,
+        "rearDamage": 5611.46,
+        "frontDamage": 2747.43,
+        "frontAlive60": 46.06,
+        "tauntCasts": 0,
+        "ticks": 152.4
+      },
+      "zoc": {
+        "win": 0.1849,
+        "margin": -3727.97,
+        "rearHp": 724.16,
+        "rearDamage": 5072.23,
+        "frontDamage": 2939.39,
+        "frontAlive60": 45.86,
+        "tauntCasts": 0,
+        "ticks": 150.14
+      }
+    }
+  ],
+  "taunts": [
+    {
+      "world": "zoc",
+      "win": 0.7809,
+      "margin": 2485.77,
+      "rearHp": 2716.56,
+      "rearDamage": 3037.14,
+      "frontDamage": 2841.54,
+      "frontAlive60": 53.35,
+      "tauntCasts": 0,
+      "ticks": 143.71
+    },
+    {
+      "world": "noWard",
+      "win": 0.5667,
+      "margin": 1382.7,
+      "rearHp": 2150.32,
+      "rearDamage": 3584.99,
+      "frontDamage": 2889.25,
+      "frontAlive60": 49.86,
+      "tauntCasts": 0,
+      "ticks": 143.29
+    },
+    {
+      "world": "tauntMelee",
+      "win": 0.6576,
+      "margin": 1900.13,
+      "rearHp": 2308.47,
+      "rearDamage": 3419.35,
+      "frontDamage": 2884.2,
+      "frontAlive60": 50.24,
+      "tauntCasts": 2.26,
+      "ticks": 146.56
+    },
+    {
+      "world": "tauntAll",
+      "win": 0.6501,
+      "margin": 1760.36,
+      "rearHp": 2302.16,
+      "rearDamage": 3440.06,
+      "frontDamage": 2882.03,
+      "frontAlive60": 50.09,
+      "tauntCasts": 2.64,
+      "ticks": 146.14
+    }
+  ],
+  "deltas": [
+    {
+      "world": "tauntMelee",
+      "baseline": "noWard",
+      "right": null,
+      "win": {
+        "mean": 0.0908,
+        "low": 0.0756,
+        "high": 0.1061
+      },
+      "margin": {
+        "mean": 517.43,
+        "low": 486.11,
+        "high": 548.74
+      },
+      "rearHp": {
+        "mean": 158.14,
+        "low": 138.78,
+        "high": 177.5
+      }
+    },
+    {
+      "world": "tauntMelee",
+      "baseline": "zoc",
+      "right": null,
+      "win": {
+        "mean": -0.1234,
+        "low": -0.1314,
+        "high": -0.1154
+      },
+      "margin": {
+        "mean": -585.64,
+        "low": -607.46,
+        "high": -563.82
+      },
+      "rearHp": {
+        "mean": -408.09,
+        "low": -430.19,
+        "high": -385.99
+      }
+    },
+    {
+      "world": "tauntAll",
+      "baseline": "noWard",
+      "right": null,
+      "win": {
+        "mean": 0.0833,
+        "low": 0.0739,
+        "high": 0.0928
+      },
+      "margin": {
+        "mean": 377.66,
+        "low": 355.75,
+        "high": 399.56
+      },
+      "rearHp": {
+        "mean": 151.83,
+        "low": 137.45,
+        "high": 166.22
+      }
+    },
+    {
+      "world": "tauntAll",
+      "baseline": "zoc",
+      "right": null,
+      "win": {
+        "mean": -0.1309,
+        "low": -0.1428,
+        "high": -0.1189
+      },
+      "margin": {
+        "mean": -725.41,
+        "low": -759.73,
+        "high": -691.1
+      },
+      "rearHp": {
+        "mean": -414.4,
+        "low": -441.68,
+        "high": -387.12
+      }
+    }
+  ]
+}

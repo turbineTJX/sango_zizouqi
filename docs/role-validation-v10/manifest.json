@@ -1,0 +1,252 @@
+{
+  "rulesVersion": 10,
+  "runs": 36000,
+  "selectionSeeds": [
+    101,
+    211,
+    307,
+    419
+  ],
+  "validationSeeds": [
+    1009,
+    1103,
+    1201,
+    1301,
+    1409,
+    1511,
+    1601,
+    1709,
+    1801,
+    1907,
+    2003,
+    2111
+  ],
+  "sourceHashes": {
+    "engine.mjs": "320b5dd33d4778ef5570536d510891d2a666d74efe6ed63e95233db9a3893653",
+    "tactics.mjs": "cf7d8cfa25054b0a1901b8ccc2aebc8fc4b444b12b53dbbdea1940215a9be8d6",
+    "famous-officers.mjs": "784d1fdab643bcd2ad4b5218ffa9dfc61f053952b4113f675be118a4638d076a",
+    "passives.mjs": "724550b150032961e9a4ba5c6672a3d82082f9d3f4116b1d2dc84f1f825b72a7",
+    "unit-stats.mjs": "c41b0a564e654832a54f9683d7c4d0b6ad04e372b3e1abf1998118f706be3ca0",
+    "combat-rules.mjs": "00fe2598a0af059ed3463f8545f5215fe336574c24e63d6803e89d612c9e0593",
+    "relationships.mjs": "57c48e733ec8f72458a08bbaf448f92ebde44351682f56a662a027927b4661c3"
+  },
+  "contexts": {
+    "dense": {
+      "name": "密集枪阵",
+      "types": [
+        "spear",
+        "spear",
+        "spear"
+      ],
+      "ids": [
+        [
+          "strike",
+          "thrust",
+          "phalanx"
+        ],
+        [
+          "thrust",
+          "ward",
+          "phalanx"
+        ],
+        [
+          "doubt",
+          "ward",
+          "cleanse"
+        ]
+      ],
+      "positions": [
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          10,
+          4
+        ]
+      ]
+    },
+    "flank": {
+      "name": "双翼骑兵",
+      "types": [
+        "cavalry",
+        "cavalry",
+        "cavalry"
+      ],
+      "ids": [
+        [
+          "valor",
+          "rush",
+          "gallop"
+        ],
+        [
+          "rush",
+          "harass",
+          "gallop"
+        ],
+        [
+          "lure",
+          "rush",
+          "gallop"
+        ]
+      ],
+      "positions": [
+        [
+          9,
+          1
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          10,
+          3
+        ]
+      ]
+    },
+    "ranged": {
+      "name": "分散弩阵",
+      "types": [
+        "crossbow",
+        "crossbow",
+        "crossbow"
+      ],
+      "ids": [
+        [
+          "pierce",
+          "repeat",
+          "seal"
+        ],
+        [
+          "repeat",
+          "pierce",
+          "retreatShot"
+        ],
+        [
+          "screen",
+          "seal",
+          "repeat"
+        ]
+      ],
+      "positions": [
+        [
+          11,
+          0
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          11,
+          6
+        ]
+      ]
+    },
+    "control": {
+      "name": "混合控制阵",
+      "types": [
+        "spear",
+        "archer",
+        "crossbow"
+      ],
+      "ids": [
+        [
+          "doubt",
+          "ward",
+          "thrust"
+        ],
+        [
+          "smoke",
+          "wildfire",
+          "rally"
+        ],
+        [
+          "seal",
+          "screen",
+          "ambush"
+        ]
+      ],
+      "positions": [
+        [
+          9,
+          3
+        ],
+        [
+          11,
+          2
+        ],
+        [
+          11,
+          4
+        ]
+      ]
+    }
+  },
+  "formations": {
+    "compact": {
+      "name": "贴身掩护",
+      "positions": [
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    "separated": {
+      "name": "前后脱节",
+      "positions": [
+        [
+          4,
+          3
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    "flank": {
+      "name": "前锋侧置",
+      "positions": [
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    }
+  },
+  "definitions": {
+    "margin": "自身全队余兵减敌军全队余兵；双方各9000初始兵力",
+    "damage": "焦点武将直接伤害及归属他的普通灼烧",
+    "alive60": "前60步存活时间，提早获胜仍存活者记60",
+    "rear": "焦点以外两队；近战队友组不是字面后排",
+    "incomingHits": "敌军针对焦点的直接攻击或战法效果事件，含被盾吸收及控制，不代表独立施放次数",
+    "interval": "12种子各自合并双方先后手后，配对差值的近似95% t区间；探索性，多重比较未校正"
+  }
+}

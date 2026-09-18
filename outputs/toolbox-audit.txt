@@ -1,0 +1,319 @@
+{
+  "runs": 3912,
+  "guan": [
+    {
+      "context": "dense",
+      "role": "assault",
+      "margin": 2503,
+      "damage": 558,
+      "remaining": 0,
+      "backline": 2503
+    },
+    {
+      "context": "dense",
+      "role": "guard",
+      "margin": 2537,
+      "damage": 372,
+      "remaining": 0,
+      "backline": 2550
+    },
+    {
+      "context": "dense",
+      "role": "control",
+      "margin": 1615,
+      "damage": 284,
+      "remaining": 0,
+      "backline": 1861
+    },
+    {
+      "context": "charge",
+      "role": "assault",
+      "margin": -2122,
+      "damage": 3408,
+      "remaining": 0,
+      "backline": 0
+    },
+    {
+      "context": "charge",
+      "role": "guard",
+      "margin": -2295,
+      "damage": 2217,
+      "remaining": 38,
+      "backline": 0
+    },
+    {
+      "context": "charge",
+      "role": "control",
+      "margin": -2422,
+      "damage": 1551,
+      "remaining": 0,
+      "backline": 0
+    },
+    {
+      "context": "ranged",
+      "role": "assault",
+      "margin": 4898,
+      "damage": 2511,
+      "remaining": 382,
+      "backline": 4516
+    },
+    {
+      "context": "ranged",
+      "role": "guard",
+      "margin": 4647,
+      "damage": 1572,
+      "remaining": 91,
+      "backline": 4556
+    },
+    {
+      "context": "ranged",
+      "role": "control",
+      "margin": 4211,
+      "damage": 1439,
+      "remaining": 212,
+      "backline": 3999
+    }
+  ],
+  "winners": [
+    {
+      "type": "spear",
+      "profile": "force",
+      "context": "dense",
+      "ids": [
+        "strike",
+        "phalanx",
+        "thrust"
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "force",
+      "context": "charge",
+      "ids": [
+        "strike",
+        "doubt",
+        "thrust"
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "force",
+      "context": "ranged",
+      "ids": [
+        "phalanx",
+        "cleanse",
+        "ward"
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "intellect",
+      "context": "dense",
+      "ids": [
+        "doubt",
+        "cleanse",
+        "ward"
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "intellect",
+      "context": "charge",
+      "ids": [
+        "strike",
+        "doubt",
+        "thrust"
+      ]
+    },
+    {
+      "type": "spear",
+      "profile": "intellect",
+      "context": "ranged",
+      "ids": [
+        "phalanx",
+        "cleanse",
+        "ward"
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "force",
+      "context": "dense",
+      "ids": [
+        "rush",
+        "relay",
+        "gallop"
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "force",
+      "context": "charge",
+      "ids": [
+        "rush",
+        "harass",
+        "gallop"
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "force",
+      "context": "ranged",
+      "ids": [
+        "rush",
+        "harass",
+        "gallop"
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "intellect",
+      "context": "dense",
+      "ids": [
+        "rush",
+        "relay",
+        "gallop"
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "intellect",
+      "context": "charge",
+      "ids": [
+        "rush",
+        "harass",
+        "gallop"
+      ]
+    },
+    {
+      "type": "cavalry",
+      "profile": "intellect",
+      "context": "ranged",
+      "ids": [
+        "rush",
+        "harass",
+        "gallop"
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "force",
+      "context": "dense",
+      "ids": [
+        "scatter",
+        "smoke",
+        "fire"
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "force",
+      "context": "charge",
+      "ids": [
+        "wildfire",
+        "smoke",
+        "fire"
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "force",
+      "context": "ranged",
+      "ids": [
+        "wildfire",
+        "scatter",
+        "fire"
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "intellect",
+      "context": "dense",
+      "ids": [
+        "wildfire",
+        "scatter",
+        "rally"
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "intellect",
+      "context": "charge",
+      "ids": [
+        "wildfire",
+        "smoke",
+        "fire"
+      ]
+    },
+    {
+      "type": "archer",
+      "profile": "intellect",
+      "context": "ranged",
+      "ids": [
+        "wildfire",
+        "smoke",
+        "rally"
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "force",
+      "context": "dense",
+      "ids": [
+        "repeat",
+        "screen",
+        "pierce"
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "force",
+      "context": "charge",
+      "ids": [
+        "retreatShot",
+        "screen",
+        "pierce"
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "force",
+      "context": "ranged",
+      "ids": [
+        "repeat",
+        "screen",
+        "pierce"
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "intellect",
+      "context": "dense",
+      "ids": [
+        "screen",
+        "pierce",
+        "ambush"
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "intellect",
+      "context": "charge",
+      "ids": [
+        "retreatShot",
+        "screen",
+        "ambush"
+      ]
+    },
+    {
+      "type": "crossbow",
+      "profile": "intellect",
+      "context": "ranged",
+      "ids": [
+        "repeat",
+        "screen",
+        "pierce"
+      ]
+    }
+  ]
+}

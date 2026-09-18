@@ -1,4 +1,5 @@
 import {hexCenter, HEX_GRID} from './hex-grid.mjs';
+import {outcomeLines} from './tactic-outcomes.mjs';
 // Presentation-only effects. All hits and casualties come from engine events.
 
 const COLORS = {
@@ -8,12 +9,13 @@ const COLORS = {
 };
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const ease = t => 1 - (1 - t) ** 3;
+const damageLabel = e => `${e.critical?'暴击 ':''}−${e.damage}${e.intentBlock?' · '+e.intentBlock:''}`;
 
 export class BattleEffects {
-  constructor(canvas, feed) {
+  constructor(canvas, feed, result = null) {
     this.canvas = canvas; this.ctx = canvas.getContext('2d'); this.feed = feed;
     this.items = []; this.notices = []; this.clock = 0; this.lastFrame = 0;
-    this.cinematics = []; this.battleId = null;
+    this.cinematics = []; this.battleId = null; this.result = result; this.resultKey = null;
     this.batch = null; this.consumed = 0; this.paused = true; this.speed = 1; this.destroyed = false; this.mode = 'clear';
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.resize = new ResizeObserver(() => this.resizeCanvas()); this.resize.observe(canvas);
@@ -30,6 +32,8 @@ export class BattleEffects {
     if (this.battleId !== battle.id) {
       this.items = []; this.cinematics = []; this.batch = null;
       this.notices.forEach(n => n.element.remove()); this.notices = [];
+      this.resultKey = null;
+      if(this.result){this.result.textContent='战法效果将在此显示 · 点击暂停查看记录';this.result.disabled=true;}
       this.battleId = battle.id;
     }
     if (speed !== this.speed) for (const e of this.items) {
@@ -46,6 +50,12 @@ export class BattleEffects {
     }
     // Commands may append new effects while paused at the same simulation tick.
     const added = battle.effects.slice(this.consumed);this.consumed = battle.effects.length;
+    const tacticalNotes=new Map(added.filter(e=>['拦截中断','突入后阵'].includes(e.text)).map(e=>[`${e.from}:${e.label}`,e.text]));
+    const terrainNotes=new Map();
+    for(const e of added.filter(e=>e.terrain&&!e.ongoing)){
+      const key=`${e.from}:${e.label}`,notes=terrainNotes.get(key)||new Set();
+      notes.add(e.terrain);terrainNotes.set(key,notes);
+    }
     const casts = new Map();
     for (const event of added) {
       if(event.phase==='cast') continue; // Ignore obsolete windup events restored from older saves.
@@ -53,9 +63,10 @@ export class BattleEffects {
       const target = battle.sides.flatMap(s => s.units).find(u => u.id === event.to) || (battle.siege?.gate.id === event.to ? battle.siege.gate : null);
       const e = { ...event, tick:battle.tick, targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
       e.duration = (e.combo ? 1000 : e.skill ? 650 : 350) / speed;
+      e.tacticalNote=tacticalNotes.get(`${e.from}:${e.label}`);
+      e.terrainNote=[...(terrainNotes.get(`${e.from}:${e.label}`)||[])].join('；');
       this.items.push(e);
-      if (e.skill || e.combo) this.notice(e);
-      if (!paused && (e.skill || e.combo)) {
+      if (!e.ongoing && (e.skill || e.combo)) {
         const key = `${e.side}:${e.from}:${e.label}:${!!e.combo}`;
         if (!casts.has(key)) casts.set(key, []);
         casts.get(key).push(e);
@@ -64,7 +75,12 @@ export class BattleEffects {
     // One short cut-in per cast, including all its targets and hits. This clock
     // is presentation-only: the app holds subsequent simulation steps for it.
     for (const events of casts.values()) {
-      const duration = this.reduced ? 500 : clamp(960 / Math.sqrt(speed), 640, 1100);
+      this.notice(events);
+      if(paused){if(!events[0].combo)this.showResult(events);continue;}
+      // A combo is already included in the cast's numerical result; avoid a
+      // second full-screen interruption just to repeat the bonus percentage.
+      if(events[0].combo)continue;
+      const duration = clamp(1900 / Math.sqrt(speed), 1400, 2300);
       const previous = this.cinematics.at(-1);
       this.cinematics.push({ events, duration, start: previous ? previous.start + previous.duration : this.clock });
     }
@@ -75,18 +91,29 @@ export class BattleEffects {
   syncCinematicState() {
     this.canvas.parentElement?.classList.toggle('tactic-cinematic', this.isCinematicPlaying());
   }
-  notice(e) {
+  showResult(events) {
+    if(!this.result)return;
+    const e=events[0],key=`${e.tick}:${e.side}:${e.from}:${e.label}`;
+    if(key===this.resultKey)return;
+    this.resultKey=key;this.result.disabled=false;
+    this.result.textContent=`${e.side?'敌军':'我军'} · ${e.name}「${e.label}」 · 点击暂停查看\n${outcomeLines(events,true).join(' / ')}`;
+    this.result.title=outcomeLines(events).join('\n');
+  }
+  notice(events) {
+    const e=events[0];
     // A multi-hit/multi-target skill gets one log row; its actual effects stay intact.
     const key = `${e.tick}:${e.side}:${e.from}:${e.label}:${e.phase}:${!!e.combo}`;
     if (this.notices.some(n => n.key === key)) return;
     const item = document.createElement('div'); item.className = `skill-announcement side-${e.side} fx-${e.visual}${e.combo?' combo-announcement':''}`;
     const badge = document.createElement('span'); badge.className = 'skill-seal'; badge.textContent = e.combo ? e.label : '施放';
     const name = document.createElement('span'); name.className = 'skill-officer'; name.textContent = `${e.side ? '敌' : '我'} · ${e.tick}步 · ${e.combo ? e.combo.actors.map(a=>a.name).join(' + ')+' → '+e.combo.targetName : e.name + (e.targetName && e.to !== e.from ? ' → '+e.targetName : '')}`;
-    const title = document.createElement('strong'); title.textContent = e.combo ? '效果 +'+e.combo.bonus+'%' : e.label;
+    const title = document.createElement('strong'); title.textContent = e.combo ? '效果 +'+e.combo.bonus+'%' : e.label+(e.tacticalNote?' · '+e.tacticalNote:'')+(e.terrainNote?' · '+e.terrainNote:'');
     item.title = `${name.textContent} · ${badge.textContent} · ${title.textContent}`;
-    item.append(badge, name, title); this.feed.append(item);
+    const detail=document.createElement('div');detail.className='skill-result';
+    for(const line of outcomeLines(events)){const row=document.createElement('p');row.textContent=line;detail.append(row);}
+    item.append(badge, name, title, detail); this.feed.prepend(item);
     this.notices.push({ element: item, key, side:e.side });
-    while (this.notices.filter(n=>n.side===e.side).length > 2) {
+    while (this.notices.filter(n=>n.side===e.side).length > 20) {
       const index = this.notices.findIndex(n=>n.side===e.side);
       this.notices.splice(index,1)[0].element.remove();
     }
@@ -106,7 +133,7 @@ export class BattleEffects {
     for (const e of this.items) {
       if (!e.damage) continue;
       const old = totals.get(e.to);
-      if (old?.tick === e.tick) { old.damage += e.damage; old.duration = Math.max(old.duration,e.duration); }
+      if (old?.tick === e.tick) { old.damage += e.damage; old.duration = Math.max(old.duration,e.duration); old.intentBlock=[...new Set([...(old.intentBlock?.split('／')||[]),e.intentBlock].filter(Boolean))].join('／'); }
       else totals.set(e.to,{...e});
     }
     return [...totals.values()];
@@ -226,10 +253,11 @@ export class BattleEffects {
     const x = from.x + (to.x - from.x) * t, y = from.y + (to.y - from.y) * t;
     if (['archer','crossbow'].includes(e.troop) && p < .5) this.line(x, y, x - (to.x - from.x) * .1, y - (to.y - from.y) * .1, color, 1.8, .9);
     else if (p < .55) this.line(to.x - cell * .22, to.y + cell * .2, to.x + cell * .22, to.y - cell * .2, color, 2, (1 - p * 1.7) * .75);
-    if (p > .25) this.label(`−${e.damage}`, to.x, to.y - cell * (.35 + p * .5), color, 1 - p, clamp(cell * .25, 10, 15));
+    if (p > .25) this.label(damageLabel(e), to.x, to.y - cell * (.35 + p * .5), color, 1 - p, clamp(cell * .25, 10, 15));
   }
   drawCinematic(cast, cell) {
     const c = this.ctx, e = cast.events[0];
+    this.showResult(cast.events);
     const p = clamp((this.clock - cast.start) / cast.duration, 0, 1);
     const fade = Math.min(1, p * 10 + .3, (1 - p) * 7);
     const [color, accent] = COLORS[e.visual] || COLORS.slash;
@@ -251,12 +279,14 @@ export class BattleEffects {
         const key = hit.to || `${hit.x}:${hit.y}`;
         const total = totals.get(key) || { ...hit, damage: 0, texts: new Set() };
         total.damage += hit.damage || 0;
+        total.critical ||= hit.critical;
+        total.intentBlock ||= hit.intentBlock;
         if (hit.text) total.texts.add(hit.text);
         totals.set(key, total);
       }
       if (impact > .18) for (const hit of totals.values()) {
         const to = this.point(hit.x, hit.y);
-        const text = [...hit.texts].join(' · ') || (hit.damage ? `−${hit.damage}` : '');
+        const text = [hit.damage ? damageLabel(hit) : '', ...hit.texts].filter(Boolean).join(' · ');
         if (text) this.label(text, to.x, to.y - cell * .72, '#fff1b4', fade, clamp(cell * .44, 16, 28));
       }
     }
@@ -264,7 +294,7 @@ export class BattleEffects {
     c.globalAlpha = fade * .94; c.fillStyle = '#102323'; c.fillRect(0, 0, this.width, band);
     this.line(0, band, this.width, band, accent, 2, fade * .8);
     const size = clamp(this.width * .043, 24, 42);
-    this.label(e.label, this.width / 2 + slide, band * .64, color, fade, size);
+    this.label(e.label+(e.comboLevel?' · '+(e.comboLevel===3?'三连携':'二连携'):''), this.width / 2 + slide, band * .64, color, fade, size);
     const officer = e.combo ? e.combo.actors.map(a => a.name).join(' · ') : e.name;
     this.label(`${e.side ? '敌军' : '我军'} · ${officer} · ${e.combo ? '连携发动' : '战法发动'}`, this.width / 2, band * .23, '#e1deca', fade, clamp(this.width * .017, 12, 16));
     this.label('战法演出 · 战场暂歇', this.width / 2, this.height - 18, '#d4d9c7', fade * .8, 12);
@@ -285,19 +315,22 @@ export class BattleEffects {
       c.save();
       const p = clamp((this.clock - e.start) / e.duration, 0, 1), from = this.point(e.fromX, e.fromY), to = this.point(e.x, e.y);
       const [color, accent] = COLORS[e.visual] || COLORS.slash;
-      if (clear) this.drawClear(e,p,from,to,cell);
+      if (clear) {
+        this.drawClear(e,p,from,to,cell);
+        if(e.ongoing&&e.healing)this.label('+'+e.healing,to.x,to.y-cell*.5,'#b9ebd9',1-p,clamp(cell*.25,10,15));
+      }
       else if(e.combo)this.drawCombo(e,p,to,cell);
       else if (!e.skill) this.drawNormal(e, p, from, to, cell);
       else {
         this.drawImpact(e, p, from, to, color, accent, cell);
         if(e.comboLevel)this.ring(to.x,to.y,cell*(.7+p*1.3),'#ffe28c',3,(1-p)*.8);
-        if (p > .2 && (e.damage || e.text)) this.label(e.text || `−${e.damage}`, to.x, to.y - cell * (.2 + p * .4), e.comboLevel?'#ffe38a':'#fff1b4', Math.min(1, (1 - p) * 2), clamp(cell * (e.comboLevel?.52:.43), 14, e.comboLevel?30:26));
+        if (p > .2 && (e.damage || e.text)) this.label([e.damage?damageLabel(e):'',e.text].filter(Boolean).join(' · '), to.x, to.y - cell * (.2 + p * .4), e.comboLevel?'#ffe38a':'#fff1b4', Math.min(1, (1 - p) * 2), clamp(cell * (e.comboLevel?.52:.43), 14, e.comboLevel?30:26));
       }
       c.restore();
     }
     if (clear && !this.paused && !this.isCinematicPlaying()) for (const e of this.damageSummaries()) {
       const to=this.point(e.x,e.y),p=clamp((this.clock-e.start)/e.duration,0,1);
-      this.label(`−${e.damage}`,to.x,to.y-cell*.38,e.side?'#f5b5a5':'#b9ebd9',1-p,clamp(cell*.21,10,14));
+      this.label(damageLabel(e),to.x,to.y-cell*.38,e.side?'#f5b5a5':'#b9ebd9',1-p,clamp(cell*.21,10,14));
     }
     if (this.cinematics[0]) this.drawCinematic(this.cinematics[0], cell);
     this.frame = requestAnimationFrame(t => this.draw(t));

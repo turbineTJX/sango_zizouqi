@@ -1,0 +1,167 @@
+{
+  "runs": 36000,
+  "diversity": [
+    {
+      "general": "张飞",
+      "distinctSelections": 4,
+      "materialGains": 4,
+      "topFiveAppearances": {
+        "ward": 7,
+        "unique-person-433": 11,
+        "strike": 10,
+        "phalanx": 10,
+        "thrust": 7,
+        "doubt": 3,
+        "cleanse": 12
+      }
+    },
+    {
+      "general": "关羽",
+      "distinctSelections": 3,
+      "materialGains": 1,
+      "topFiveAppearances": {
+        "gallop": 11,
+        "lure": 9,
+        "relay": 6,
+        "harass": 9,
+        "unique-person-99": 11,
+        "rush": 12,
+        "valor": 2
+      }
+    },
+    {
+      "general": "黄忠",
+      "distinctSelections": 4,
+      "materialGains": 0,
+      "topFiveAppearances": {
+        "fire": 20,
+        "scatter": 6,
+        "wildfire": 10,
+        "unique-person-186": 10,
+        "suppress": 4,
+        "smoke": 9,
+        "rally": 1
+      }
+    },
+    {
+      "general": "诸葛亮",
+      "distinctSelections": 3,
+      "materialGains": 1,
+      "topFiveAppearances": {
+        "pierce": 10,
+        "repeat": 10,
+        "screen": 20,
+        "unique-person-290": 7,
+        "ambush": 10,
+        "seal": 1,
+        "retreatShot": 2
+      }
+    }
+  ],
+  "troopChanges": [
+    {
+      "level": 10,
+      "team": "ranged",
+      "context": "dense",
+      "formation": "compact",
+      "spearVsGuard": {
+        "mean": 2383.04,
+        "low": 1456.17,
+        "high": 3309.91
+      },
+      "spearVsAttack": {
+        "mean": 3832.5,
+        "low": 3232.68,
+        "high": 4432.32
+      },
+      "rearVsAttack": {
+        "mean": 2241.08,
+        "low": 1867.85,
+        "high": 2614.31
+      },
+      "survivalVsAttack": {
+        "mean": 22.33,
+        "low": 21.69,
+        "high": 22.97
+      }
+    },
+    {
+      "level": 10,
+      "team": "ranged",
+      "context": "flank",
+      "formation": "compact",
+      "spearVsGuard": {
+        "mean": 2186,
+        "low": 1791.44,
+        "high": 2580.56
+      },
+      "spearVsAttack": {
+        "mean": 1759.75,
+        "low": 1352.06,
+        "high": 2167.44
+      },
+      "rearVsAttack": {
+        "mean": 0,
+        "low": 0,
+        "high": 0
+      },
+      "survivalVsAttack": {
+        "mean": 0,
+        "low": 0,
+        "high": 0
+      }
+    },
+    {
+      "level": 10,
+      "team": "ranged",
+      "context": "ranged",
+      "formation": "compact",
+      "spearVsGuard": {
+        "mean": 758.79,
+        "low": 551.3,
+        "high": 966.28
+      },
+      "spearVsAttack": {
+        "mean": -1343.21,
+        "low": -1511.66,
+        "high": -1174.75
+      },
+      "rearVsAttack": {
+        "mean": -1343.21,
+        "low": -1511.66,
+        "high": -1174.75
+      },
+      "survivalVsAttack": {
+        "mean": -9.79,
+        "low": -10.11,
+        "high": -9.48
+      }
+    },
+    {
+      "level": 10,
+      "team": "ranged",
+      "context": "control",
+      "formation": "compact",
+      "spearVsGuard": {
+        "mean": 1245.54,
+        "low": 285.07,
+        "high": 2206.02
+      },
+      "spearVsAttack": {
+        "mean": 607.04,
+        "low": -361.52,
+        "high": 1575.61
+      },
+      "rearVsAttack": {
+        "mean": 145.5,
+        "low": -58.14,
+        "high": 349.14
+      },
+      "survivalVsAttack": {
+        "mean": 2.29,
+        "low": -1.19,
+        "high": 5.77
+      }
+    }
+  ]
+}
