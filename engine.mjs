@@ -68,7 +68,7 @@ export const armyStratagems = army => [...new Set(armyCommanders(army).flatMap(c
 export const battleStratagems = (b,side=0) => [...new Set((b.sides[side].commanders||[]).flatMap(c=>officerStratagems(c.id)))];
 export const commandIntellect = (b,side=0) => b.sides[side].retreat ? 0 : activeUnits(b,side).reduce((n,u)=>n+u.intellect,0);
 export function attackRange(b,u) {return unitAttributes(u,b).range;}
-export function battleWounded(u) {return Math.max(0,Math.floor((u.battleDamage??u.initial-u.hp)*.35)-(u.healed||0));}
+export function battleWounded(u) {return Math.max(0,Math.floor(((u.battleDamage??u.initial-u.hp)-(u.battleDeserted||0))*.35)-(u.healed||0));}
 function takeCasualties(u,damage) {
   u.battleDamage ??= u.initial-u.hp;u.healed ??=0;
   damage=Math.min(u.hp,damage);u.hp-=damage;u.battleDamage+=damage;return damage;
@@ -271,7 +271,7 @@ function garrisonUnits(city) {
   const types = ['spear', 'archer', 'spear', 'cavalry', 'archer', 'spear'];
   return Array.from({ length: count }, (_, i) => ({ id: `g-${city.id}-${i}`, name: `${city.name}${['守将', '校尉', '都尉', '偏将', '参军', '牙将'][i]}`, courtesy: '守军', leadership: 72, force: 70, intellect: 65, politics:65, skill: '据险固守', trait: '守土有责', type: types[i], formation: types[i] === 'archer' ? 'back' : 'front', troops: Math.floor(city.garrison / count) + (i === 0 ? city.garrison % count : 0), wounded: 0, first: true }));
 }
-function combatUnit(u, armyId, side, morale) {
+export function combatUnit(u, armyId, side, morale) {
   return { ...u, ...officerProfile(u.id), level:u.level??1,experience:u.experience??0,skillRouteType:u.skillRouteType||u.type,passiveState:initialPassiveState(),participated:false,attackCarry:0,armyId, side, hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, cast: null, skillReady:{}, tacticCasts:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
 }
 export function configureUnitTactics(state,unitId,ids) {
@@ -368,7 +368,7 @@ function spawn(b, unit) {
   }
   return true;
 }
-function fillSlots(b, side) {
+export function fillSlots(b, side) {
   if (b.sides[side].retreat) return;
   if((b.sides[side].blockadeUntil||0)>b.tick)return;
   for (const unit of b.sides[side].units.filter(u => u.status === 'reserve' && u.hp > 0)) {
@@ -931,7 +931,7 @@ function checkCampaign(state) {
   if (state.cities.every(c => c.owner === 'cao')) state.finished = 'victory';
   else if (!state.cities.some(c => c.owner === 'cao')) state.finished = 'defeat';
 }
-export function validateSave(value) {
+export function validateSave(value, { strategic = false } = {}) {
   const require = (condition, message = '存档数据损坏') => { if (!condition) throw new Error(message); };
   const number = (v, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(v) && v >= 0 && v <= max;
   const text = (v, max = 250) => typeof v === 'string' && v.length <= max && !/[<>"'&]/.test(v);
@@ -1013,6 +1013,9 @@ export function validateSave(value) {
       const siege = b.siege, gate = siege?.gate, attackerSide = scenario.defending || scenario.id === 'defense' ? 1 : 0;
       require(siege && siege.attackerSide === attackerSide && gate && gate.id === 'siege-gate' && gate.name === '城门' && gate.type === 'gate' && gate.side === 1-attackerSide && gate.x === (attackerSide===1?1:12) && gate.y === 4 && gate.maxHp === scenario.gateHp && number(gate.hp,gate.maxHp), '城防数据无效');
       require(gate.hp > 0 || b.result?.winner === attackerSide && b.result?.reason === '城门失守', '城门战果无效');
+    } else if (strategic && b.siege) {
+      const g=b.siege.gate;
+      require(g && g.id==='siege-gate' && g.type==='gate' && [0,1].includes(g.side) && b.siege.attackerSide===1-g.side && g.x===(g.side===0?1:12) && g.y===4 && number(g.maxHp) && g.maxHp>0 && number(g.hp,g.maxHp),'城防数据无效');
     } else require(b.siege === undefined, '城防数据无效');
     require(b.enemyCommand&&typeof b.enemyCommand==='object'&&!Array.isArray(b.enemyCommand),'敌军军略数据无效');
     for(const resource of [b,b.enemyCommand]){
@@ -1030,21 +1033,21 @@ export function validateSave(value) {
     b.sides.forEach((side, index) => {
       side.commanders=[...new Set([...b.context.attackingIds,...b.context.defenderIds])].map(id=>armyById(value,id)).filter(a=>a.faction===side.faction).flatMap(armyCommanders);
       for (const key of ['rangeUntil','recoveryUntil','assaultUntil','fortifyUntil','disruptUntil','hasteUntil','blockadeUntil','reliefUntil']) require(number(side[key]));
-      require(side && faction(side.faction) && tactic(side.tactic) && typeof side.retreat === 'boolean' && number(side.focusUntil) && number(side.inspireUntil) && (side.focus === null || text(side.focus)) && Array.isArray(side.units) && side.units.length <= 30);
+      require(side && faction(side.faction) && tactic(side.tactic) && typeof side.retreat === 'boolean' && number(side.focusUntil) && number(side.inspireUntil) && (side.focus === null || text(side.focus)) && Array.isArray(side.units) && side.units.length <= (strategic ? 156 : 30));
       require(side.units.filter(u => u.status === 'active').length <= 6, '战场超出容量');
       require(b.terrain==='river'||!side.units.some(u=>u.type==='ship'),'舰船需要河流战场');
       for (const u of side.units) {
         validateUnit(u, true);
-        require(u.arrivalTick === undefined && u.wave === undefined || (scenario && number(u.wave,scenario.waves.length) && u.wave > 0 && u.arrivalTick === scenario.waves[u.wave-1].tick && (u.status === 'reserve' || u.arrivalTick <= b.tick)), '援军到达时间无效');
+        require(u.arrivalTick === undefined && u.wave === undefined || (strategic && number(u.wave,15) && u.wave>0 && number(u.arrivalTick,b.tick)) || (scenario && number(u.wave,scenario.waves.length) && u.wave > 0 && u.arrivalTick === scenario.waves[u.wave-1].tick && (u.status === 'reserve' || u.arrivalTick <= b.tick)), '援军到达时间无效');
         require(!unitIds.has(u.id) && u.side === index && typeof u.armyId === 'string' && (armyIds.has(u.armyId) || u.armyId === `city:${b.cityId}`)); unitIds.add(u.id);
         require(number(u.intent,COMBAT.intentCap),'战意数据无效');
         require(Number.isFinite(u.moveProgress)&&u.moveProgress>=0&&u.moveProgress<1,'移动进度无效');
         const ps=u.passiveState;
         require(ps&&typeof ps==='object'&&!Array.isArray(ps)&&number(ps.lastMoveTick,b.tick)&&number(ps.shots,100000)&&typeof ps.reserveEntered==='boolean'&&number(ps.entryUntil,b.tick+15)&&(ps.entryUntil===0||ps.reserveEntered)&&
           (ps.targetId===null||text(ps.targetId,40))&&(ps.shotType===null||Object.hasOwn(TROOPS,ps.shotType))&&Number.isFinite(u.attackCarry)&&u.attackCarry>=0&&u.attackCarry<1&&typeof u.participated==='boolean','被动技能状态无效');
-        const strategic=armyById(value,u.armyId)?.units.find(v=>v.id===u.id);
-        if(strategic)require(u.level===strategic.level&&u.experience===strategic.experience,'战场等级与武将数据不一致');
-        require(number(u.battleDamage)&&number(u.healed)&&u.battleDamage-u.healed===u.initial-u.hp&&u.healed<=Math.floor(u.battleDamage*.35),'伤兵治疗数据无效');
+        const sourceOfficer=armyById(value,u.armyId)?.units.find(v=>v.id===u.id);
+        if(sourceOfficer)require(u.level===sourceOfficer.level&&u.experience===sourceOfficer.experience,'战场等级与武将数据不一致');
+        require(number(u.battleDamage)&&number(u.healed)&&number(u.battleDeserted||0,u.battleDamage)&&(strategic||!u.battleDeserted)&&u.battleDamage-u.healed===u.initial-u.hp&&u.healed<=Math.floor((u.battleDamage-(u.battleDeserted||0))*.35),'伤兵治疗数据无效');
         const skills=unitTactics(u).map(s=>s.id);
         for(const map of [u.skillReady,u.tacticCasts]) {
           require(map && typeof map==='object' && !Array.isArray(map),'战法冷却数据无效');

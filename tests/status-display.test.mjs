@@ -22,5 +22,5 @@ test('hard control and DOT take precedence over buffs; icons, stacks and hit cou
   assert.equal(list.find(s=>s.key==='illusion').state.hits,2);
   for(const s of list){assert.ok(s.description);assert.match(statusIcon(s.key),/<svg.*<path/);}
   assert.notEqual(statusIcon('stun'),statusIcon('burn'));assert.notEqual(statusIcon('burn'),statusIcon('plague'));
-  assert.equal(Object.keys(STATUS_DISPLAY).length,33);
+  assert.equal(Object.keys(STATUS_DISPLAY).length,34);
 });

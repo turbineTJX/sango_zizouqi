@@ -47,7 +47,7 @@ export function chooseEnemyCommand(b,available,definitions){
   const own=b.sides[1],foe=b.sides[0],active=s=>s.units.filter(u=>u.status==='active'&&u.hp>0);
   const allies=active(own),enemies=active(foe);
   if(own.retreat||!allies.length||!enemies.length)return null;
-  const wounded=u=>Math.max(0,Math.floor(u.battleDamage*.35)-u.healed);
+  const wounded=u=>Math.max(0,Math.floor((u.battleDamage-(u.battleDeserted||0))*.35)-u.healed);
   const engaged=allies.filter(u=>enemies.some(e=>hexDistance(u,e)<=unitAttributes(u,b).range+1));
   const injured=allies.filter(u=>wounded(u)>0);
   const negatives=allies.reduce((n,u)=>n+NEGATIVE_STATUSES.filter(k=>hasStatus(b,u,k)).reduce((v,k)=>v+(['stun','confuse','burn','scorch','plague'].includes(k)?3:1),0),0);

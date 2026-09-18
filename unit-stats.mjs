@@ -30,6 +30,7 @@ export function unitAttributes(u,b=null) {
  }
  const leadership=u.leadership||0,politics=u.politics??65;
  const atk=[],def=[],martial=[],strategy=[],move=[],range=[],discipline=[];
+ if(u.supplyPenalty){const m={label:'缺粮',factor:1-u.supplyPenalty};atk.push(m);martial.push(m);strategy.push(m);}
  if(b?.terrain&&u.status==='active'){
    const factor=terrainMoveFactor(b,u);
    if(factor!==1)move.push({label:TERRAIN_NAMES[unitTerrain(b,u)]+'行军',factor});

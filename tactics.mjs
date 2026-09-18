@@ -194,7 +194,7 @@ export function retreatCell(b,u) {
 const idOrder=(a,c)=>a.id.localeCompare(c.id);
 export const exposedTarget=(b,u)=>['stun','confuse','slow','armorBreak'].some(k=>hasStatus(b,u,k));
 const threatened=(b,u)=>living(b,1-u.side).some(e=>distance(u,e)<=2);
-export const recoverableWounded=u=>Math.max(0,Math.min(u.maxHp-u.hp,Math.floor((u.battleDamage??u.initial-u.hp)*.35)-(u.healed||0)));
+export const recoverableWounded=u=>Math.max(0,Math.min(u.maxHp-u.hp,Math.floor(((u.battleDamage??u.initial-u.hp)-(u.battleDeserted||0))*.35)-(u.healed||0)));
 export function supportAnchor(b,u) {
   const skills=unitTactics(u),medical=skills.filter(s=>['screen','relay','bandage','regrowth','purify','passage','supply','camp','boarding','mist','nexus'].includes(s.effect));
   if(!medical.length||u.intent<Math.min(...medical.map(s=>s.threshold))||skills.filter(s=>s.category==='force'&&!['gallop','phalanx','valor','protect','bandage','supply','camp','bulwark','riposte','anchor','emplace'].includes(s.effect)).length>1)return null;

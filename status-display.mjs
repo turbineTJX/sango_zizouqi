@@ -17,6 +17,7 @@ export function statusDescription(key,state={}){
   return dynamic[key]||STATUS_DISPLAY[key]?.description||'';
 }
 export const STATUS_DISPLAY={
+  hunger:entry('缺粮','plague','debuff',6,'军团口粮不足，削弱攻击与战法威力；恢复补给后逐日解除，无法用战场净化消除'),
   stun:entry('眩晕','stun','control',0,'不能移动、攻击或施放战法，暂时失去拦截能力'),
   confuse:entry('混乱','confuse','control',1,'随机转移阵位，无法攻击或施法，暂时失去拦截能力'),
   burn:entry('灼烧','fire','damage',2,'持续损失兵力；最多三层，随当前地形修正，可净化'),
@@ -74,5 +75,7 @@ export function statusTimeLabel(until,tick){
   return steps?`${steps} 步 · ${(steps*COMBAT.stepMs/1000).toFixed(1)} 秒`:'本步结束';
 }
 export function visibleStatuses(b,u){
-  return Object.entries(u.statuses||{}).filter(([,s])=>s.until>b.tick).map(([key,s])=>({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:s,remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)})).sort((a,c)=>a.priority-c.priority);
+  const statuses=Object.entries(u.statuses||{}).filter(([,s])=>s.until>b.tick).map(([key,s])=>({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:s,remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)}));
+  if(u.supplyPenalty)statuses.push({key:'hunger',...STATUS_DISPLAY.hunger,description:`攻击、武技威力与谋略威力降低 ${Math.round(u.supplyPenalty*100)}%，需恢复粮道与供粮，无法净化`,state:{},remaining:'粮',time:'随军团每日补给更新'});
+  return statuses.sort((a,c)=>a.priority-c.priority);
 }

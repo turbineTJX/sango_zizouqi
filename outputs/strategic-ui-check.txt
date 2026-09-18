@@ -1,0 +1,1 @@
+Strategic UI: planning, domestic actions, encounter, delegate, takeover, reload, turn boundary, return, snapshot, mobile, historical mode passed.

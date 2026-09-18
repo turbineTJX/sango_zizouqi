@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check tactic-power.mjs && node --check tactic-outcomes.mjs && node --check app.js && node --check historical-campaigns.mjs && node --check campaign-lobby.mjs && node --check scripts/verify-historical-ui.mjs && node --check engine.mjs && node --check engagement.mjs && node --check combat-rules.mjs && node --check battle-effects.mjs && node --check server.mjs && node --check tactics.mjs && node --check unit-stats.mjs && node --check passives.mjs && node --check progression.mjs && node --check scenarios.mjs && node --check scenario-catalog.mjs && node --check battlefield.mjs && node --check hex-grid.mjs && node --check command-cue.mjs && node --check officer-catalog.mjs && node --check officer-roster.mjs && node --check relationships.mjs && node --check scripts/import-officers.mjs && node --check famous-officers.mjs && node --check scripts/famous-design-doc.mjs && node --check scripts/famous-team-audit.mjs && node --check scripts/famous-balance-report.mjs && node --check expanded-tactics.mjs && node --check scripts/eight-troops-audit.mjs && node --check scripts/report-eight-troops.mjs && node --check terrain-rules.mjs && node --check battle-ai.mjs && node --check status-display.mjs && node --check scripts/intent-tempo-audit.mjs && node --check troop-capacity.mjs && node --check tactical-campaigns.mjs && node --check scripts/tactical-balance-lib.mjs && node --check scripts/audit-tactical-campaigns.mjs && node --check scripts/verify-tactical-ui.mjs",
+    "check": "node --check tactic-power.mjs && node --check tactic-outcomes.mjs && node --check app.js && node --check historical-campaigns.mjs && node --check campaign-lobby.mjs && node --check scripts/verify-historical-ui.mjs && node --check engine.mjs && node --check engagement.mjs && node --check combat-rules.mjs && node --check battle-effects.mjs && node --check server.mjs && node --check tactics.mjs && node --check unit-stats.mjs && node --check passives.mjs && node --check progression.mjs && node --check scenarios.mjs && node --check scenario-catalog.mjs && node --check battlefield.mjs && node --check hex-grid.mjs && node --check command-cue.mjs && node --check officer-catalog.mjs && node --check officer-roster.mjs && node --check relationships.mjs && node --check scripts/import-officers.mjs && node --check famous-officers.mjs && node --check scripts/famous-design-doc.mjs && node --check scripts/famous-team-audit.mjs && node --check scripts/famous-balance-report.mjs && node --check expanded-tactics.mjs && node --check scripts/eight-troops-audit.mjs && node --check scripts/report-eight-troops.mjs && node --check terrain-rules.mjs && node --check battle-ai.mjs && node --check status-display.mjs && node --check scripts/intent-tempo-audit.mjs && node --check troop-capacity.mjs && node --check tactical-campaigns.mjs && node --check scripts/tactical-balance-lib.mjs && node --check scripts/audit-tactical-campaigns.mjs && node --check scripts/verify-tactical-ui.mjs && node --check strategic-campaign.mjs && node --check strategic-view.mjs && node --check scripts/verify-strategic-ui.mjs",
     "audit:balance": "node scripts/balance-audit.mjs",
     "import:officers": "node scripts/import-officers.mjs",
     "docs:famous": "node scripts/famous-design-doc.mjs",
@@ -16,7 +16,9 @@
     "report:famous": "node scripts/famous-balance-report.mjs",
     "audit:eight-troops": "node scripts/eight-troops-audit.mjs",
     "report:eight-troops": "node scripts/report-eight-troops.mjs",
-    "audit:tactical": "node scripts/audit-tactical-campaigns.mjs"
+    "audit:tactical": "node scripts/audit-tactical-campaigns.mjs",
+    "test:strategy": "node --test tests/strategic-campaign.test.mjs",
+    "verify:strategy-ui": "node scripts/verify-strategic-ui.mjs"
   },
   "engines": {
     "node": ">=20"

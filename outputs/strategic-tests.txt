@@ -1,0 +1,33 @@
+
+> sango-sovereign@0.3.0 test:strategy
+> node --test tests/strategic-campaign.test.mjs
+
+✔ campaign begins in day-one planning with cities, homes and at most ten units (7.6031ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (129.7851ms)
+✔ armies move visibly along road interiors before arriving (2.2987ms)
+✔ head-on marching armies meet on the road without passing through each other (6.214ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (57.3901ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (69.8396ms)
+✔ multiple battles and their snapshots share the same global day (90.8404ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (30.738ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (157.4778ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (55.73ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (75.4157ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (1.87ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (66.3355ms)
+✔ split and merge conserve supply and capacity, and enforce ten-unit maximum (0.6201ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (1.9893ms)
+✔ supply connection is cut by hostile road occupation (0.7192ms)
+✔ five days without food disband armies and preserve officers for their return (3.3784ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (35.2313ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (82.3153ms)
+✔ city capture settles once and can be saved immediately within a day (90.5446ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (26.4804ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1120.7838
