@@ -1,0 +1,16 @@
+docs/skill-audit-v7/baseline-tests.txt:181: trailing whitespace.
++  
+docs/skill-audit-v7/baseline-tests.txt:183: trailing whitespace.
++  
+docs/skill-audit-v7/baseline-tests.txt:215: trailing whitespace.
++  
+docs/skill-audit-v7/baseline-tests.txt:217: trailing whitespace.
++  
+docs/skill-audit-v7/baseline-tests.txt:235: trailing whitespace.
++  
+docs/skill-audit-v7/baseline-tests.txt:238: trailing whitespace.
++  
+docs/skill-audit-v7/baseline-tests.txt:257: trailing whitespace.
++  
+docs/skill-audit-v7/baseline-tests.txt:259: trailing whitespace.
++  
