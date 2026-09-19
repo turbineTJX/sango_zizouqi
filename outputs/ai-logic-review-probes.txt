@@ -1,0 +1,84 @@
+{
+  "supportStall": {
+    "seed": 33104730,
+    "configuration": "classic/fleet/swapped",
+    "firstWait": 120,
+    "lastWait": 134,
+    "waitSteps": 15,
+    "snapshotTick": 131,
+    "actor": {
+      "id": "person-246",
+      "hp": 2546,
+      "intent": 100,
+      "position": [
+        7,
+        4
+      ]
+    },
+    "anchor": "person-164",
+    "readyAtOriginal": null,
+    "route": [
+      {
+        "x": 6,
+        "y": 4
+      }
+    ],
+    "readyAfterOneMove": "unique-person-246",
+    "nextOriginalAction": "策应队友"
+  },
+  "deadSlots": [
+    {
+      "case": "solo-archer",
+      "unit": "person-512",
+      "tactics": [
+        "smoke",
+        "wildfire",
+        "rally"
+      ],
+      "dead": "rally",
+      "reason": "Requires another ally; army contains one unit."
+    },
+    {
+      "case": "ranged-plus-logistics",
+      "units": [
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "tactics": [
+            "unique-yuanxia",
+            "fire",
+            "scatter"
+          ]
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "tactics": [
+            "unique-he",
+            "pierce",
+            "repeat"
+          ]
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "tactics": [
+            "passage",
+            "bandage",
+            "purify"
+          ]
+        }
+      ],
+      "dead": "passage",
+      "reason": "Aura excludes its source and all remaining allies are ranged."
+    }
+  ],
+  "commandBoundary": {
+    "method": "Controlled command-selection probe on validated opening states; gauge is not full and no command is issued.",
+    "singleSelected": null,
+    "twoSelected": "inspire",
+    "singleMaximumScore": 11.666666666666666,
+    "requiredScore": 20,
+    "implication": "Inspire can never be selected with only one active ally, irrespective of its intent deficit or future gauge."
+  }
+}

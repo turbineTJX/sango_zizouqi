@@ -1,0 +1,4274 @@
+{
+  "mode": "current",
+  "seeds": "841100–841115",
+  "summary": [
+    {
+      "case": "weak-first",
+      "games": 16,
+      "enemyWins": 2,
+      "draws": 0,
+      "averageEnemyRemaining": 0.03764018691588785
+    },
+    {
+      "case": "rear-first",
+      "games": 16,
+      "enemyWins": 1,
+      "draws": 0,
+      "averageEnemyRemaining": 0.012104166666666666
+    },
+    {
+      "case": "balanced",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0.0018229166666666667
+    },
+    {
+      "case": "against-cavalry",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0
+    },
+    {
+      "case": "siege",
+      "games": 16,
+      "enemyWins": 9,
+      "draws": 2,
+      "averageEnemyRemaining": 0.2465659722222222
+    },
+    {
+      "case": "river",
+      "games": 16,
+      "enemyWins": 1,
+      "draws": 0,
+      "averageEnemyRemaining": 0.01935763888888889
+    }
+  ],
+  "rows": [
+    {
+      "case": "weak-first",
+      "seed": 841100,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 151,
+      "ratios": [
+        0.5866111111111111,
+        0
+      ],
+      "enemyCasts": 87,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841101,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 1,
+      "ticks": 170,
+      "ratios": [
+        0,
+        0.3542056074766355
+      ],
+      "enemyCasts": 110,
+      "commands": 5
+    },
+    {
+      "case": "weak-first",
+      "seed": 841102,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 187,
+      "ratios": [
+        0.37677777777777777,
+        0
+      ],
+      "enemyCasts": 87,
+      "commands": 4
+    },
+    {
+      "case": "weak-first",
+      "seed": 841103,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 1,
+      "ticks": 185,
+      "ratios": [
+        0,
+        0.2480373831775701
+      ],
+      "enemyCasts": 108,
+      "commands": 4
+    },
+    {
+      "case": "weak-first",
+      "seed": 841104,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 146,
+      "ratios": [
+        0.4717777777777778,
+        0
+      ],
+      "enemyCasts": 79,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841105,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 121,
+      "ratios": [
+        0.5403333333333333,
+        0
+      ],
+      "enemyCasts": 68,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841106,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 170,
+      "ratios": [
+        0.425,
+        0
+      ],
+      "enemyCasts": 93,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841107,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 138,
+      "ratios": [
+        0.5443888888888889,
+        0
+      ],
+      "enemyCasts": 65,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841108,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 136,
+      "ratios": [
+        0.7282777777777778,
+        0
+      ],
+      "enemyCasts": 69,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841109,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 138,
+      "ratios": [
+        0.4631111111111111,
+        0
+      ],
+      "enemyCasts": 74,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841110,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 224,
+      "ratios": [
+        0.34905555555555556,
+        0
+      ],
+      "enemyCasts": 135,
+      "commands": 5
+    },
+    {
+      "case": "weak-first",
+      "seed": 841111,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 107,
+      "ratios": [
+        0.6598333333333334,
+        0
+      ],
+      "enemyCasts": 66,
+      "commands": 2
+    },
+    {
+      "case": "weak-first",
+      "seed": 841112,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 150,
+      "ratios": [
+        0.4076111111111111,
+        0
+      ],
+      "enemyCasts": 79,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841113,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 183,
+      "ratios": [
+        0.4910555555555556,
+        0
+      ],
+      "enemyCasts": 91,
+      "commands": 4
+    },
+    {
+      "case": "weak-first",
+      "seed": 841114,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 146,
+      "ratios": [
+        0.5533888888888889,
+        0
+      ],
+      "enemyCasts": 78,
+      "commands": 3
+    },
+    {
+      "case": "weak-first",
+      "seed": 841115,
+      "starters": [
+        {
+          "id": "he",
+          "type": "spear",
+          "troops": 2600
+        },
+        {
+          "id": "ju",
+          "type": "crossbow",
+          "troops": 2600
+        },
+        {
+          "id": "tian",
+          "type": "cavalry",
+          "troops": 2600
+        },
+        {
+          "id": "gao",
+          "type": "halberd",
+          "troops": 2600
+        },
+        {
+          "id": "jin",
+          "type": "logistics",
+          "troops": 2600
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2600
+        }
+      ],
+      "winner": 0,
+      "ticks": 153,
+      "ratios": [
+        0.5225555555555556,
+        0
+      ],
+      "enemyCasts": 71,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841100,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 222,
+      "ratios": [
+        0.31244444444444447,
+        0
+      ],
+      "enemyCasts": 107,
+      "commands": 4
+    },
+    {
+      "case": "rear-first",
+      "seed": 841101,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 167,
+      "ratios": [
+        0.3546666666666667,
+        0
+      ],
+      "enemyCasts": 78,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841102,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 240,
+      "ratios": [
+        0.1996111111111111,
+        0.042055555555555554
+      ],
+      "enemyCasts": 80,
+      "commands": 4
+    },
+    {
+      "case": "rear-first",
+      "seed": 841103,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 215,
+      "ratios": [
+        0,
+        0.1516111111111111
+      ],
+      "enemyCasts": 101,
+      "commands": 4
+    },
+    {
+      "case": "rear-first",
+      "seed": 841104,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 135,
+      "ratios": [
+        0.5466111111111112,
+        0
+      ],
+      "enemyCasts": 89,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841105,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 141,
+      "ratios": [
+        0.5354444444444444,
+        0
+      ],
+      "enemyCasts": 78,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841106,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 149,
+      "ratios": [
+        0.46111111111111114,
+        0
+      ],
+      "enemyCasts": 77,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841107,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 213,
+      "ratios": [
+        0.3,
+        0
+      ],
+      "enemyCasts": 117,
+      "commands": 4
+    },
+    {
+      "case": "rear-first",
+      "seed": 841108,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 157,
+      "ratios": [
+        0.5615,
+        0
+      ],
+      "enemyCasts": 82,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841109,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 198,
+      "ratios": [
+        0.3098888888888889,
+        0
+      ],
+      "enemyCasts": 101,
+      "commands": 4
+    },
+    {
+      "case": "rear-first",
+      "seed": 841110,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 161,
+      "ratios": [
+        0.5143888888888889,
+        0
+      ],
+      "enemyCasts": 73,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841111,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 147,
+      "ratios": [
+        0.5555555555555556,
+        0
+      ],
+      "enemyCasts": 88,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841112,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 181,
+      "ratios": [
+        0.33716666666666667,
+        0
+      ],
+      "enemyCasts": 94,
+      "commands": 3
+    },
+    {
+      "case": "rear-first",
+      "seed": 841113,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 233,
+      "ratios": [
+        0.27066666666666667,
+        0
+      ],
+      "enemyCasts": 122,
+      "commands": 4
+    },
+    {
+      "case": "rear-first",
+      "seed": 841114,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 170,
+      "ratios": [
+        0.5184444444444445,
+        0
+      ],
+      "enemyCasts": 99,
+      "commands": 4
+    },
+    {
+      "case": "rear-first",
+      "seed": 841115,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 155,
+      "ratios": [
+        0.5585,
+        0
+      ],
+      "enemyCasts": 98,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841100,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 191,
+      "ratios": [
+        0.4152777777777778,
+        0
+      ],
+      "enemyCasts": 124,
+      "commands": 4
+    },
+    {
+      "case": "balanced",
+      "seed": 841101,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 189,
+      "ratios": [
+        0.2582777777777778,
+        0
+      ],
+      "enemyCasts": 103,
+      "commands": 4
+    },
+    {
+      "case": "balanced",
+      "seed": 841102,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 240,
+      "ratios": [
+        0.3342777777777778,
+        0.029166666666666667
+      ],
+      "enemyCasts": 137,
+      "commands": 5
+    },
+    {
+      "case": "balanced",
+      "seed": 841103,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 148,
+      "ratios": [
+        0.5712222222222222,
+        0
+      ],
+      "enemyCasts": 86,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841104,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 117,
+      "ratios": [
+        0.6183888888888889,
+        0
+      ],
+      "enemyCasts": 71,
+      "commands": 2
+    },
+    {
+      "case": "balanced",
+      "seed": 841105,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 160,
+      "ratios": [
+        0.4865,
+        0
+      ],
+      "enemyCasts": 101,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841106,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 185,
+      "ratios": [
+        0.40905555555555556,
+        0
+      ],
+      "enemyCasts": 93,
+      "commands": 4
+    },
+    {
+      "case": "balanced",
+      "seed": 841107,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 190,
+      "ratios": [
+        0.4240555555555556,
+        0
+      ],
+      "enemyCasts": 119,
+      "commands": 4
+    },
+    {
+      "case": "balanced",
+      "seed": 841108,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 164,
+      "ratios": [
+        0.6051111111111112,
+        0
+      ],
+      "enemyCasts": 126,
+      "commands": 4
+    },
+    {
+      "case": "balanced",
+      "seed": 841109,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 153,
+      "ratios": [
+        0.5797222222222222,
+        0
+      ],
+      "enemyCasts": 95,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841110,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 148,
+      "ratios": [
+        0.5506666666666666,
+        0
+      ],
+      "enemyCasts": 93,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841111,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 150,
+      "ratios": [
+        0.5416111111111112,
+        0
+      ],
+      "enemyCasts": 87,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841112,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 174,
+      "ratios": [
+        0.4722777777777778,
+        0
+      ],
+      "enemyCasts": 109,
+      "commands": 4
+    },
+    {
+      "case": "balanced",
+      "seed": 841113,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 149,
+      "ratios": [
+        0.5573333333333333,
+        0
+      ],
+      "enemyCasts": 96,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841114,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 142,
+      "ratios": [
+        0.6221666666666666,
+        0
+      ],
+      "enemyCasts": 97,
+      "commands": 3
+    },
+    {
+      "case": "balanced",
+      "seed": 841115,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 150,
+      "ratios": [
+        0.6385555555555555,
+        0
+      ],
+      "enemyCasts": 106,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841100,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 158,
+      "ratios": [
+        0.49333333333333335,
+        0
+      ],
+      "enemyCasts": 99,
+      "commands": 4
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841101,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 118,
+      "ratios": [
+        0.6788333333333333,
+        0
+      ],
+      "enemyCasts": 72,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841102,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 102,
+      "ratios": [
+        0.7446111111111111,
+        0
+      ],
+      "enemyCasts": 61,
+      "commands": 2
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841103,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 170,
+      "ratios": [
+        0.5033333333333333,
+        0
+      ],
+      "enemyCasts": 124,
+      "commands": 4
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841104,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 146,
+      "ratios": [
+        0.6195,
+        0
+      ],
+      "enemyCasts": 112,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841105,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 131,
+      "ratios": [
+        0.6942777777777778,
+        0
+      ],
+      "enemyCasts": 92,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841106,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 164,
+      "ratios": [
+        0.5148888888888888,
+        0
+      ],
+      "enemyCasts": 108,
+      "commands": 4
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841107,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 117,
+      "ratios": [
+        0.7093333333333334,
+        0
+      ],
+      "enemyCasts": 87,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841108,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 158,
+      "ratios": [
+        0.5642222222222222,
+        0
+      ],
+      "enemyCasts": 105,
+      "commands": 4
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841109,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 137,
+      "ratios": [
+        0.5888333333333333,
+        0
+      ],
+      "enemyCasts": 87,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841110,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 131,
+      "ratios": [
+        0.624,
+        0
+      ],
+      "enemyCasts": 77,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841111,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 127,
+      "ratios": [
+        0.6514444444444445,
+        0
+      ],
+      "enemyCasts": 95,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841112,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 181,
+      "ratios": [
+        0.4885,
+        0
+      ],
+      "enemyCasts": 126,
+      "commands": 4
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841113,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "cavalry",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 120,
+      "ratios": [
+        0.6993333333333334,
+        0
+      ],
+      "enemyCasts": 86,
+      "commands": 3
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841114,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 145,
+      "ratios": [
+        0.5906666666666667,
+        0
+      ],
+      "enemyCasts": 95,
+      "commands": 4
+    },
+    {
+      "case": "against-cavalry",
+      "seed": 841115,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "yan",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 121,
+      "ratios": [
+        0.7187222222222223,
+        0
+      ],
+      "enemyCasts": 74,
+      "commands": 3
+    },
+    {
+      "case": "siege",
+      "seed": 841100,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.445
+      ],
+      "enemyCasts": 120,
+      "commands": 7
+    },
+    {
+      "case": "siege",
+      "seed": 841101,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.3576666666666667
+      ],
+      "enemyCasts": 92,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841102,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.3516111111111111
+      ],
+      "enemyCasts": 104,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841103,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 240,
+      "ratios": [
+        0.237,
+        0.0435
+      ],
+      "enemyCasts": 80,
+      "commands": 4
+    },
+    {
+      "case": "siege",
+      "seed": 841104,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": null,
+      "ticks": 240,
+      "ratios": [
+        0.1575,
+        0.13983333333333334
+      ],
+      "enemyCasts": 117,
+      "commands": 5
+    },
+    {
+      "case": "siege",
+      "seed": 841105,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.3658888888888889
+      ],
+      "enemyCasts": 105,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841106,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 219,
+      "ratios": [
+        0.45905555555555555,
+        0
+      ],
+      "enemyCasts": 80,
+      "commands": 4
+    },
+    {
+      "case": "siege",
+      "seed": 841107,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.2838888888888889
+      ],
+      "enemyCasts": 119,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841108,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.4622222222222222
+      ],
+      "enemyCasts": 130,
+      "commands": 7
+    },
+    {
+      "case": "siege",
+      "seed": 841109,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 225,
+      "ratios": [
+        0.41633333333333333,
+        0
+      ],
+      "enemyCasts": 88,
+      "commands": 4
+    },
+    {
+      "case": "siege",
+      "seed": 841110,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0.013111111111111112,
+        0.3262777777777778
+      ],
+      "enemyCasts": 116,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841111,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 240,
+      "ratios": [
+        0.3843888888888889,
+        0.05638888888888889
+      ],
+      "enemyCasts": 89,
+      "commands": 5
+    },
+    {
+      "case": "siege",
+      "seed": 841112,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.2825
+      ],
+      "enemyCasts": 130,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841113,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": null,
+      "ticks": 240,
+      "ratios": [
+        0.20944444444444443,
+        0.2461111111111111
+      ],
+      "enemyCasts": 117,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841114,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 240,
+      "ratios": [
+        0.2356111111111111,
+        0.12588888888888888
+      ],
+      "enemyCasts": 126,
+      "commands": 6
+    },
+    {
+      "case": "siege",
+      "seed": 841115,
+      "starters": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "gao",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "siege",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 240,
+      "ratios": [
+        0,
+        0.4582777777777778
+      ],
+      "enemyCasts": 126,
+      "commands": 7
+    },
+    {
+      "case": "river",
+      "seed": 841100,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 207,
+      "ratios": [
+        0.37972222222222224,
+        0
+      ],
+      "enemyCasts": 95,
+      "commands": 4
+    },
+    {
+      "case": "river",
+      "seed": 841101,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 172,
+      "ratios": [
+        0.3831111111111111,
+        0
+      ],
+      "enemyCasts": 73,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841102,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 191,
+      "ratios": [
+        0.449,
+        0
+      ],
+      "enemyCasts": 91,
+      "commands": 4
+    },
+    {
+      "case": "river",
+      "seed": 841103,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 1,
+      "ticks": 186,
+      "ratios": [
+        0,
+        0.30972222222222223
+      ],
+      "enemyCasts": 100,
+      "commands": 4
+    },
+    {
+      "case": "river",
+      "seed": 841104,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 150,
+      "ratios": [
+        0.5516111111111112,
+        0
+      ],
+      "enemyCasts": 84,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841105,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 158,
+      "ratios": [
+        0.4698888888888889,
+        0
+      ],
+      "enemyCasts": 76,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841106,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 208,
+      "ratios": [
+        0.32516666666666666,
+        0
+      ],
+      "enemyCasts": 105,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841107,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 175,
+      "ratios": [
+        0.43116666666666664,
+        0
+      ],
+      "enemyCasts": 73,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841108,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 149,
+      "ratios": [
+        0.6394444444444445,
+        0
+      ],
+      "enemyCasts": 79,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841109,
+      "starters": [
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 157,
+      "ratios": [
+        0.573,
+        0
+      ],
+      "enemyCasts": 68,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841110,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 221,
+      "ratios": [
+        0.3446111111111111,
+        0
+      ],
+      "enemyCasts": 96,
+      "commands": 4
+    },
+    {
+      "case": "river",
+      "seed": 841111,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 185,
+      "ratios": [
+        0.5098333333333334,
+        0
+      ],
+      "enemyCasts": 87,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841112,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 137,
+      "ratios": [
+        0.6560555555555555,
+        0
+      ],
+      "enemyCasts": 81,
+      "commands": 2
+    },
+    {
+      "case": "river",
+      "seed": 841113,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "he",
+          "type": "logistics",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 154,
+      "ratios": [
+        0.5543888888888889,
+        0
+      ],
+      "enemyCasts": 82,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841114,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 150,
+      "ratios": [
+        0.6027222222222223,
+        0
+      ],
+      "enemyCasts": 80,
+      "commands": 3
+    },
+    {
+      "case": "river",
+      "seed": 841115,
+      "starters": [
+        {
+          "id": "yan",
+          "type": "ship",
+          "troops": 2000
+        },
+        {
+          "id": "wen",
+          "type": "archer",
+          "troops": 2000
+        },
+        {
+          "id": "ju",
+          "type": "halberd",
+          "troops": 2000
+        },
+        {
+          "id": "tian",
+          "type": "crossbow",
+          "troops": 2000
+        },
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 2000
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 2000
+        }
+      ],
+      "winner": 0,
+      "ticks": 163,
+      "ratios": [
+        0.5750555555555555,
+        0
+      ],
+      "enemyCasts": 92,
+      "commands": 3
+    }
+  ]
+}

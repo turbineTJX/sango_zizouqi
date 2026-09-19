@@ -1,0 +1,20 @@
+{"id":"guandu-200","day":1,"battles":0,"archived":0,"active":0,"cities":{"neutral":19,"yuan":10,"cao":25,"force-7":19,"sunce":14},"orders":{},"marching":0,"saveChars":172466}
+{"id":"guandu-200","day":11,"battles":14,"archived":0,"active":10,"cities":{"yuan":13,"cao":22,"neutral":18,"force-7":19,"sunce":15},"orders":{"hold":29,"attack":16,"reinforce":5},"marching":6,"saveChars":630230}
+{"id":"guandu-200","day":21,"battles":19,"archived":0,"active":3,"cities":{"yuan":17,"cao":18,"force-7":22,"neutral":13,"sunce":17},"orders":{"hold":40,"retreat":3,"reinforce":15,"attack":19},"marching":10,"saveChars":1010493}
+{"id":"guandu-200","day":31,"battles":21,"archived":1,"active":1,"cities":{"yuan":18,"cao":17,"force-7":24,"neutral":11,"sunce":17},"orders":{"hold":41,"retreat":5,"attack":19,"reinforce":15},"marching":9,"saveChars":1287821}
+{"id":"guandu-200","day":41,"battles":21,"archived":3,"active":1,"cities":{"yuan":18,"cao":17,"force-7":26,"neutral":9,"sunce":17},"orders":{"hold":42,"attack":18,"retreat":5,"reinforce":15},"marching":9,"saveChars":1417145}
+{"id":"guandu-200","day":51,"battles":23,"archived":5,"active":3,"cities":{"yuan":18,"cao":17,"force-7":27,"neutral":8,"sunce":17},"orders":{"hold":43,"reinforce":14,"retreat":7,"attack":16},"marching":14,"saveChars":1444259}
+{"id":"heroes-251","day":1,"battles":0,"archived":0,"active":0,"cities":{"yuan":15,"sunce":27,"cao":22,"force-2":23},"orders":{},"marching":0,"saveChars":476712}
+{"id":"heroes-251","day":11,"battles":10,"archived":0,"active":6,"cities":{"yuan":17,"sunce":28,"cao":20,"force-2":22},"orders":{"hold":73,"attack":5,"reinforce":1,"retreat":1},"marching":4,"saveChars":1155081}
+{"id":"heroes-251","day":21,"battles":20,"archived":0,"active":2,"cities":{"yuan":19,"sunce":27,"cao":15,"force-2":26},"orders":{"retreat":5,"hold":60,"reinforce":12,"attack":3},"marching":25,"saveChars":1936625}
+{"id":"heroes-251","day":31,"battles":22,"archived":5,"active":2,"cities":{"yuan":19,"sunce":24,"cao":15,"force-2":29},"orders":{"retreat":6,"reinforce":9,"hold":61,"attack":3,"stage":1},"marching":27,"saveChars":2361692}
+file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/strategic-campaign.mjs:462
+  const fail=(ok,message='战略存档数据无效')=>{if(!ok)throw new Error(message);};
+                                                    ^
+
+Error: 军团编制或粮草无效
+    at fail (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/strategic-campaign.mjs:462:53)
+    at validateCampaign (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/strategic-campaign.mjs:477:32)
+    at file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/scripts/audit-strategic-ai.mjs:8:37
+
+Node.js v24.15.0

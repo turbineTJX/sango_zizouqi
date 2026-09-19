@@ -1,0 +1,92 @@
+✖ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (36.6541ms)
+✖ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (15.5712ms)
+✖ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (1.6395ms)
+✖ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (3.4231ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 165.0697
+
+✖ failing tests:
+
+test at tests\ai-target-command.test.mjs:11:33
+✖ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (36.6541ms)
+  AssertionError [ERR_ASSERTION]: 不盯着不可达近目标原地停留
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-target-command.test.mjs:27:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 4, 7 ],
+    expected: [ 4, 7 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-target-command.test.mjs:11:33
+✖ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (15.5712ms)
+  AssertionError [ERR_ASSERTION]: 不盯着不可达近目标原地停留
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-target-command.test.mjs:27:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 9, 0 ],
+    expected: [ 9, 0 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-target-command.test.mjs:32:1
+✖ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (1.6395ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'haste'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-target-command.test.mjs:34:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'haste',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-target-command.test.mjs:42:1
+✖ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (3.4231ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'regenerate'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-target-command.test.mjs:47:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'regenerate',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

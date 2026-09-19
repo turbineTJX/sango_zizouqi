@@ -1,0 +1,17 @@
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (2.273ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (2.5534ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (0.6734ms)
+✔ fame adds city manpower rather than free troops (0.9079ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (252.6535ms)
+✔ governor interface shows actual discounts, skill categories and diplomacy reserve labels (9.6738ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.2303ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (122.5549ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (1.6195ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 513.632

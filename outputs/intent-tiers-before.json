@@ -1,0 +1,6448 @@
+{
+  "rulesVersion": 26,
+  "tactics": {
+    "cleave": {
+      "name": "横扫",
+      "threshold": 30,
+      "cooldown": 20
+    },
+    "bulwark": {
+      "name": "铁壁",
+      "threshold": 40,
+      "cooldown": 26
+    },
+    "riposte": {
+      "name": "反击",
+      "threshold": 55,
+      "cooldown": 26
+    },
+    "curse": {
+      "name": "衰咒",
+      "threshold": 35,
+      "cooldown": 24
+    },
+    "blight": {
+      "name": "枯竭",
+      "threshold": 45,
+      "cooldown": 26
+    },
+    "mirage": {
+      "name": "幻卫",
+      "threshold": 40,
+      "cooldown": 28
+    },
+    "bandage": {
+      "name": "包扎",
+      "threshold": 25,
+      "cooldown": 22
+    },
+    "supply": {
+      "name": "输粮",
+      "threshold": 20,
+      "cooldown": 24
+    },
+    "camp": {
+      "name": "营垒",
+      "threshold": 40,
+      "cooldown": 28
+    },
+    "regrowth": {
+      "name": "回春",
+      "threshold": 45,
+      "cooldown": 30
+    },
+    "purify": {
+      "name": "祛厄",
+      "threshold": 40,
+      "cooldown": 24
+    },
+    "passage": {
+      "name": "奇门",
+      "threshold": 40,
+      "cooldown": 28
+    },
+    "bombard": {
+      "name": "投石",
+      "threshold": 30,
+      "cooldown": 24
+    },
+    "ram": {
+      "name": "撞城",
+      "threshold": 40,
+      "cooldown": 28
+    },
+    "emplace": {
+      "name": "架设",
+      "threshold": 35,
+      "cooldown": 28
+    },
+    "plague": {
+      "name": "疫矢",
+      "threshold": 40,
+      "cooldown": 26
+    },
+    "tremor": {
+      "name": "震军",
+      "threshold": 55,
+      "cooldown": 28
+    },
+    "nexus": {
+      "name": "阵枢",
+      "threshold": 45,
+      "cooldown": 30
+    },
+    "navalRam": {
+      "name": "艨冲",
+      "threshold": 30,
+      "cooldown": 24
+    },
+    "broadside": {
+      "name": "舷射",
+      "threshold": 30,
+      "cooldown": 22
+    },
+    "anchor": {
+      "name": "抛锚",
+      "threshold": 35,
+      "cooldown": 24
+    },
+    "undertow": {
+      "name": "涡流",
+      "threshold": 45,
+      "cooldown": 26
+    },
+    "mist": {
+      "name": "雾隐",
+      "threshold": 40,
+      "cooldown": 28
+    },
+    "boarding": {
+      "name": "接舷",
+      "threshold": 45,
+      "cooldown": 28
+    },
+    "smoke": {
+      "name": "惑阵",
+      "threshold": 65,
+      "cooldown": 28
+    },
+    "wildfire": {
+      "name": "火计",
+      "threshold": 80,
+      "cooldown": 30
+    },
+    "rally": {
+      "name": "振旅",
+      "threshold": 25,
+      "cooldown": 22
+    },
+    "doubt": {
+      "name": "疑阵",
+      "threshold": 55,
+      "cooldown": 26
+    },
+    "ward": {
+      "name": "挑衅",
+      "threshold": 35,
+      "cooldown": 24
+    },
+    "cleanse": {
+      "name": "解围",
+      "threshold": 45,
+      "cooldown": 22
+    },
+    "lure": {
+      "name": "诱敌",
+      "threshold": 55,
+      "cooldown": 24
+    },
+    "harass": {
+      "name": "挫锐",
+      "threshold": 30,
+      "cooldown": 22
+    },
+    "relay": {
+      "name": "策应",
+      "threshold": 35,
+      "cooldown": 26
+    },
+    "ambush": {
+      "name": "伏弩",
+      "threshold": 25,
+      "cooldown": 18
+    },
+    "seal": {
+      "name": "封喉",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "screen": {
+      "name": "救护",
+      "threshold": 35,
+      "cooldown": 24
+    },
+    "fire": {
+      "name": "火矢",
+      "threshold": 30,
+      "cooldown": 22
+    },
+    "scatter": {
+      "name": "箭雨",
+      "threshold": 60,
+      "cooldown": 26
+    },
+    "suppress": {
+      "name": "阻射",
+      "threshold": 25,
+      "cooldown": 18
+    },
+    "thrust": {
+      "name": "贯阵",
+      "threshold": 25,
+      "cooldown": 18
+    },
+    "phalanx": {
+      "name": "枪阵",
+      "threshold": 50,
+      "cooldown": 26
+    },
+    "strike": {
+      "name": "奋击",
+      "threshold": 75,
+      "cooldown": 22
+    },
+    "gallop": {
+      "name": "疾驰",
+      "threshold": 0,
+      "cooldown": 22
+    },
+    "rush": {
+      "name": "冲阵",
+      "threshold": 50,
+      "cooldown": 24
+    },
+    "valor": {
+      "name": "奋战",
+      "threshold": 70,
+      "cooldown": 26
+    },
+    "repeat": {
+      "name": "连珠",
+      "threshold": 30,
+      "cooldown": 22
+    },
+    "retreatShot": {
+      "name": "退射",
+      "threshold": 60,
+      "cooldown": 20
+    },
+    "pierce": {
+      "name": "破甲",
+      "threshold": 25,
+      "cooldown": 22
+    },
+    "terror": {
+      "name": "八百破阵",
+      "threshold": 100,
+      "cooldown": 34
+    },
+    "protect": {
+      "name": "虎卫折冲",
+      "threshold": 100,
+      "cooldown": 32
+    },
+    "undermine": {
+      "name": "十胜奇谋",
+      "threshold": 100,
+      "cooldown": 30
+    },
+    "unique-cao": {
+      "name": "魏武挥鞭",
+      "threshold": 70,
+      "cooldown": 32
+    },
+    "unique-dun": {
+      "name": "拔矢啖睛",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-yu": {
+      "name": "奇策解围",
+      "threshold": 65,
+      "cooldown": 34
+    },
+    "unique-yuanxia": {
+      "name": "千里奔袭",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-jin": {
+      "name": "持军毅重",
+      "threshold": 65,
+      "cooldown": 32
+    },
+    "unique-shao": {
+      "name": "四世三公",
+      "threshold": 60,
+      "cooldown": 30
+    },
+    "unique-yan": {
+      "name": "河北先登",
+      "threshold": 70,
+      "cooldown": 26
+    },
+    "unique-wen": {
+      "name": "骁骑追斩",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-he": {
+      "name": "巧变袭阵",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-ju": {
+      "name": "监军持重",
+      "threshold": 65,
+      "cooldown": 34
+    },
+    "unique-tian": {
+      "name": "刚谏破谋",
+      "threshold": 70,
+      "cooldown": 28
+    },
+    "unique-gao": {
+      "name": "奋武坚阵",
+      "threshold": 60,
+      "cooldown": 26
+    },
+    "unique-person-636": {
+      "name": "仁德济众",
+      "threshold": 55,
+      "cooldown": 30
+    },
+    "unique-person-99": {
+      "name": "青龙偃月",
+      "threshold": 75,
+      "cooldown": 28
+    },
+    "unique-person-433": {
+      "name": "长坂怒喝",
+      "threshold": 65,
+      "cooldown": 30
+    },
+    "unique-person-396": {
+      "name": "七进七出",
+      "threshold": 60,
+      "cooldown": 26
+    },
+    "unique-person-516": {
+      "name": "西凉铁骑",
+      "threshold": 70,
+      "cooldown": 28
+    },
+    "unique-person-186": {
+      "name": "百步穿杨",
+      "threshold": 70,
+      "cooldown": 28
+    },
+    "unique-person-290": {
+      "name": "八阵奇门",
+      "threshold": 70,
+      "cooldown": 30
+    },
+    "unique-person-558": {
+      "name": "连环奇计",
+      "threshold": 70,
+      "cooldown": 30
+    },
+    "unique-person-137": {
+      "name": "麒麟破阵",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-person-125": {
+      "name": "子午奇袭",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-person-368": {
+      "name": "江东制衡",
+      "threshold": 60,
+      "cooldown": 32
+    },
+    "unique-person-371": {
+      "name": "霸王讨逆",
+      "threshold": 70,
+      "cooldown": 28
+    },
+    "unique-person-246": {
+      "name": "赤壁业火",
+      "threshold": 75,
+      "cooldown": 30
+    },
+    "unique-person-668": {
+      "name": "榻上定策",
+      "threshold": 55,
+      "cooldown": 30
+    },
+    "unique-person-662": {
+      "name": "白衣渡江",
+      "threshold": 65,
+      "cooldown": 28
+    },
+    "unique-person-603": {
+      "name": "火烧连营",
+      "threshold": 75,
+      "cooldown": 32
+    },
+    "unique-person-119": {
+      "name": "百骑劫营",
+      "threshold": 65,
+      "cooldown": 28
+    },
+    "unique-person-390": {
+      "name": "弦无虚发",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-person-164": {
+      "name": "苦肉火船",
+      "threshold": 60,
+      "cooldown": 28
+    },
+    "unique-person-226": {
+      "name": "鹰视狼顾",
+      "threshold": 70,
+      "cooldown": 30
+    },
+    "unique-person-291": {
+      "name": "长驱直入",
+      "threshold": 65,
+      "cooldown": 26
+    },
+    "unique-person-472": {
+      "name": "古之恶来",
+      "threshold": 65,
+      "cooldown": 28
+    },
+    "unique-person-661": {
+      "name": "无双乱舞",
+      "threshold": 80,
+      "cooldown": 32
+    },
+    "unique-person-425": {
+      "name": "闭月离间",
+      "threshold": 65,
+      "cooldown": 30
+    },
+    "unique-person-404": {
+      "name": "苍天雷殛",
+      "threshold": 75,
+      "cooldown": 32
+    },
+    "unique-person-494": {
+      "name": "暴戾横征",
+      "threshold": 70,
+      "cooldown": 30
+    }
+  },
+  "rows": [
+    {
+      "id": "field",
+      "seed": 1,
+      "ticks": 128,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4209,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 4,
+          "intent": 28
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 9,
+          "intent": 82
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 9,
+          "intent": 36
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 10,
+          "intent": 89
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 53
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 13,
+          "intent": 66
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 13,
+          "intent": 71
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 58
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 15,
+          "intent": 87
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 16,
+          "intent": 82
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 16,
+          "intent": 79
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 17,
+          "intent": 30
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 19,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 20,
+          "intent": 75
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 20,
+          "intent": 60
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 22,
+          "intent": 100
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 24,
+          "intent": 60
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 25,
+          "intent": 72
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 26,
+          "intent": 66
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 28,
+          "intent": 100
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 31,
+          "intent": 100
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 36,
+          "intent": 100
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 54,
+          "intent": 100
+        }
+      ]
+    },
+    {
+      "id": "field",
+      "seed": 17,
+      "ticks": 129,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4207,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 4,
+          "intent": 28
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 9,
+          "intent": 82
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 9,
+          "intent": 36
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 10,
+          "intent": 89
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 53
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 13,
+          "intent": 66
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 13,
+          "intent": 71
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 58
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 15,
+          "intent": 87
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 16,
+          "intent": 82
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 16,
+          "intent": 79
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 17,
+          "intent": 30
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 19,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 20,
+          "intent": 75
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 20,
+          "intent": 60
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 22,
+          "intent": 100
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 24,
+          "intent": 60
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 25,
+          "intent": 72
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 26,
+          "intent": 66
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 28,
+          "intent": 100
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 28,
+          "intent": 75
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 28,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 36,
+          "intent": 100
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 54,
+          "intent": 100
+        }
+      ]
+    },
+    {
+      "id": "field",
+      "seed": 521200,
+      "ticks": 124,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4136,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 4,
+          "intent": 28
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 9,
+          "intent": 82
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 9,
+          "intent": 36
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 10,
+          "intent": 89
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 53
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 13,
+          "intent": 66
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 13,
+          "intent": 71
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 58
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 15,
+          "intent": 87
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 16,
+          "intent": 82
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 16,
+          "intent": 79
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 17,
+          "intent": 30
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 19,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 20,
+          "intent": 75
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 20,
+          "intent": 60
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 22,
+          "intent": 100
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 24,
+          "intent": 60
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 25,
+          "intent": 72
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 26,
+          "intent": 75
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 27,
+          "intent": 93
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 29,
+          "intent": 100
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 30,
+          "intent": 100
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 36,
+          "intent": 100
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 44,
+          "intent": 100
+        }
+      ]
+    },
+    {
+      "id": "eight-arms",
+      "seed": 1,
+      "ticks": 122,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4047,
+      "first": [
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 8,
+          "intent": 47
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 54
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "supply",
+          "name": "输粮",
+          "tick": 10,
+          "intent": 24
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 11,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 12,
+          "intent": 75
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 13,
+          "intent": 81
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 13,
+          "intent": 75
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "riposte",
+          "name": "反击",
+          "tick": 13,
+          "intent": 63
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "bandage",
+          "name": "包扎",
+          "tick": 13,
+          "intent": 30
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "rally",
+          "name": "振旅",
+          "tick": 15,
+          "intent": 30
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 15,
+          "intent": 68
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 16,
+          "intent": 63
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 16,
+          "intent": 63
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "curse",
+          "name": "衰咒",
+          "tick": 17,
+          "intent": 63
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "nexus",
+          "name": "阵枢",
+          "tick": 17,
+          "intent": 63
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "blight",
+          "name": "枯竭",
+          "tick": 18,
+          "intent": 63
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "passage",
+          "name": "奇门",
+          "tick": 18,
+          "intent": 48
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "camp",
+          "name": "营垒",
+          "tick": 18,
+          "intent": 40
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 19,
+          "intent": 100
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 19,
+          "intent": 57
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 20,
+          "intent": 57
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "purify",
+          "name": "祛厄",
+          "tick": 22,
+          "intent": 60
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 22,
+          "intent": 74
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 22,
+          "intent": 63
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 22,
+          "intent": 80
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 22,
+          "intent": 86
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 23,
+          "intent": 86
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 24,
+          "intent": 86
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 27,
+          "intent": 66
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 28,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 30,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 34,
+          "intent": 90
+        }
+      ]
+    },
+    {
+      "id": "eight-arms",
+      "seed": 17,
+      "ticks": 110,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4035,
+      "first": [
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 8,
+          "intent": 47
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 54
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "supply",
+          "name": "输粮",
+          "tick": 10,
+          "intent": 24
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 11,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 12,
+          "intent": 75
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 13,
+          "intent": 81
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 13,
+          "intent": 75
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "riposte",
+          "name": "反击",
+          "tick": 13,
+          "intent": 63
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "bandage",
+          "name": "包扎",
+          "tick": 13,
+          "intent": 30
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "rally",
+          "name": "振旅",
+          "tick": 15,
+          "intent": 30
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 15,
+          "intent": 68
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 16,
+          "intent": 63
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 16,
+          "intent": 63
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "curse",
+          "name": "衰咒",
+          "tick": 17,
+          "intent": 63
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "nexus",
+          "name": "阵枢",
+          "tick": 17,
+          "intent": 63
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "blight",
+          "name": "枯竭",
+          "tick": 18,
+          "intent": 63
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "passage",
+          "name": "奇门",
+          "tick": 18,
+          "intent": 48
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "camp",
+          "name": "营垒",
+          "tick": 18,
+          "intent": 40
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 19,
+          "intent": 100
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 19,
+          "intent": 57
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 20,
+          "intent": 57
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "purify",
+          "name": "祛厄",
+          "tick": 22,
+          "intent": 60
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 22,
+          "intent": 74
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 22,
+          "intent": 63
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 22,
+          "intent": 80
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 22,
+          "intent": 86
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 23,
+          "intent": 86
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 24,
+          "intent": 86
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 27,
+          "intent": 66
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 28,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 30,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 34,
+          "intent": 90
+        }
+      ]
+    },
+    {
+      "id": "eight-arms",
+      "seed": 521200,
+      "ticks": 115,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4130,
+      "first": [
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 8,
+          "intent": 47
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 54
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "supply",
+          "name": "输粮",
+          "tick": 10,
+          "intent": 24
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 11,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 12,
+          "intent": 75
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 13,
+          "intent": 81
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 13,
+          "intent": 75
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "riposte",
+          "name": "反击",
+          "tick": 13,
+          "intent": 63
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "bandage",
+          "name": "包扎",
+          "tick": 13,
+          "intent": 30
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "rally",
+          "name": "振旅",
+          "tick": 15,
+          "intent": 30
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 15,
+          "intent": 68
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 16,
+          "intent": 63
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 16,
+          "intent": 63
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "curse",
+          "name": "衰咒",
+          "tick": 17,
+          "intent": 63
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "nexus",
+          "name": "阵枢",
+          "tick": 17,
+          "intent": 63
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "blight",
+          "name": "枯竭",
+          "tick": 18,
+          "intent": 63
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "passage",
+          "name": "奇门",
+          "tick": 18,
+          "intent": 48
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "camp",
+          "name": "营垒",
+          "tick": 18,
+          "intent": 40
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 19,
+          "intent": 100
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 19,
+          "intent": 57
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 20,
+          "intent": 57
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "purify",
+          "name": "祛厄",
+          "tick": 22,
+          "intent": 60
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 22,
+          "intent": 74
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 22,
+          "intent": 63
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 22,
+          "intent": 80
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 22,
+          "intent": 86
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 23,
+          "intent": 86
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 24,
+          "intent": 86
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 27,
+          "intent": 66
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 28,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 30,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 34,
+          "intent": 90
+        }
+      ]
+    },
+    {
+      "id": "river",
+      "seed": 1,
+      "ticks": 139,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4120,
+      "first": [
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 6,
+          "intent": 41
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 8,
+          "intent": 68
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "supply",
+          "name": "输粮",
+          "tick": 9,
+          "intent": 24
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "doubt",
+          "name": "疑阵",
+          "tick": 9,
+          "intent": 68
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 9,
+          "intent": 61
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "mirage",
+          "name": "幻卫",
+          "tick": 10,
+          "intent": 77
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "anchor",
+          "name": "抛锚",
+          "tick": 11,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 39
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 30
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 11,
+          "intent": 85
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "mist",
+          "name": "雾隐",
+          "tick": 12,
+          "intent": 47
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 12,
+          "intent": 63
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "boarding",
+          "name": "接舷",
+          "tick": 13,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "anchor",
+          "name": "抛锚",
+          "tick": 13,
+          "intent": 50
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "curse",
+          "name": "衰咒",
+          "tick": 13,
+          "intent": 63
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "passage",
+          "name": "奇门",
+          "tick": 13,
+          "intent": 40
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "bandage",
+          "name": "包扎",
+          "tick": 13,
+          "intent": 28
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 15,
+          "intent": 51
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "doubt",
+          "name": "疑阵",
+          "tick": 17,
+          "intent": 66
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "camp",
+          "name": "营垒",
+          "tick": 18,
+          "intent": 42
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "blight",
+          "name": "枯竭",
+          "tick": 20,
+          "intent": 92
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 20,
+          "intent": 81
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 21,
+          "intent": 60
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "purify",
+          "name": "祛厄",
+          "tick": 22,
+          "intent": 64
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "nexus",
+          "name": "阵枢",
+          "tick": 22,
+          "intent": 55
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 22,
+          "intent": 73
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 24,
+          "intent": 55
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 27,
+          "intent": 66
+        }
+      ]
+    },
+    {
+      "id": "river",
+      "seed": 17,
+      "ticks": 141,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4224,
+      "first": [
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 6,
+          "intent": 41
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 8,
+          "intent": 68
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "supply",
+          "name": "输粮",
+          "tick": 9,
+          "intent": 24
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "doubt",
+          "name": "疑阵",
+          "tick": 9,
+          "intent": 68
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 9,
+          "intent": 61
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "mirage",
+          "name": "幻卫",
+          "tick": 10,
+          "intent": 77
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "anchor",
+          "name": "抛锚",
+          "tick": 11,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 39
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 30
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 11,
+          "intent": 85
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "mist",
+          "name": "雾隐",
+          "tick": 12,
+          "intent": 47
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 12,
+          "intent": 63
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "boarding",
+          "name": "接舷",
+          "tick": 13,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "anchor",
+          "name": "抛锚",
+          "tick": 13,
+          "intent": 50
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "curse",
+          "name": "衰咒",
+          "tick": 13,
+          "intent": 63
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "passage",
+          "name": "奇门",
+          "tick": 13,
+          "intent": 40
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "bandage",
+          "name": "包扎",
+          "tick": 13,
+          "intent": 28
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 15,
+          "intent": 51
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "doubt",
+          "name": "疑阵",
+          "tick": 17,
+          "intent": 66
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "camp",
+          "name": "营垒",
+          "tick": 18,
+          "intent": 42
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "purify",
+          "name": "祛厄",
+          "tick": 19,
+          "intent": 52
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "blight",
+          "name": "枯竭",
+          "tick": 20,
+          "intent": 92
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 20,
+          "intent": 81
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 21,
+          "intent": 60
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "nexus",
+          "name": "阵枢",
+          "tick": 22,
+          "intent": 55
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 22,
+          "intent": 73
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 24,
+          "intent": 55
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 28,
+          "intent": 66
+        }
+      ]
+    },
+    {
+      "id": "river",
+      "seed": 521200,
+      "ticks": 134,
+      "reason": "击溃",
+      "winner": 1,
+      "openingLoss": 4638,
+      "first": [
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 6,
+          "intent": 41
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 8,
+          "intent": 68
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "supply",
+          "name": "输粮",
+          "tick": 9,
+          "intent": 24
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "doubt",
+          "name": "疑阵",
+          "tick": 9,
+          "intent": 75
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 9,
+          "intent": 61
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "mirage",
+          "name": "幻卫",
+          "tick": 10,
+          "intent": 77
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 59
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "anchor",
+          "name": "抛锚",
+          "tick": 11,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 39
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "broadside",
+          "name": "舷射",
+          "tick": 11,
+          "intent": 30
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 11,
+          "intent": 85
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "doubt",
+          "name": "疑阵",
+          "tick": 11,
+          "intent": 59
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "mist",
+          "name": "雾隐",
+          "tick": 12,
+          "intent": 47
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "bulwark",
+          "name": "铁壁",
+          "tick": 12,
+          "intent": 63
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "boarding",
+          "name": "接舷",
+          "tick": 13,
+          "intent": 47
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "anchor",
+          "name": "抛锚",
+          "tick": 13,
+          "intent": 50
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "curse",
+          "name": "衰咒",
+          "tick": 13,
+          "intent": 63
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "passage",
+          "name": "奇门",
+          "tick": 13,
+          "intent": 40
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "bandage",
+          "name": "包扎",
+          "tick": 13,
+          "intent": 28
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 13,
+          "intent": 74
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "camp",
+          "name": "营垒",
+          "tick": 18,
+          "intent": 42
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "plague",
+          "name": "疫矢",
+          "tick": 18,
+          "intent": 44
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "blight",
+          "name": "枯竭",
+          "tick": 20,
+          "intent": 92
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 21,
+          "intent": 60
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "purify",
+          "name": "祛厄",
+          "tick": 22,
+          "intent": 64
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "nexus",
+          "name": "阵枢",
+          "tick": 22,
+          "intent": 55
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 22,
+          "intent": 73
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 27,
+          "intent": 66
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "tremor",
+          "name": "震军",
+          "tick": 52,
+          "intent": 100
+        }
+      ]
+    },
+    {
+      "id": "siege",
+      "seed": 1,
+      "ticks": 105,
+      "reason": "城门失守",
+      "winner": 0,
+      "openingLoss": 1982,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 5,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 5,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 8,
+          "intent": 48
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 12,
+          "intent": 82
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 13,
+          "intent": 96
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 13,
+          "intent": 30
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 14,
+          "intent": 77
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 14,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 14,
+          "intent": 30
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 15,
+          "intent": 52
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 16,
+          "intent": 51
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 17,
+          "intent": 65
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 17,
+          "intent": 87
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 17,
+          "intent": 69
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 19,
+          "intent": 30
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 20,
+          "intent": 100
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 21,
+          "intent": 100
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 21,
+          "intent": 75
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 22,
+          "intent": 92
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 22,
+          "intent": 67
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 24,
+          "intent": 75
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 26,
+          "intent": 69
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 26,
+          "intent": 81
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 83
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 28,
+          "intent": 87
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 34,
+          "intent": 79
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 35,
+          "intent": 3
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 38,
+          "intent": 100
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 42,
+          "intent": 100
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 44,
+          "intent": 36
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 44,
+          "intent": 32
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 45,
+          "intent": 36
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 47,
+          "intent": 70
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 47,
+          "intent": 59
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 50,
+          "intent": 86
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 52,
+          "intent": 100
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 57,
+          "intent": 72
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 70,
+          "intent": 3
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 76,
+          "intent": 27
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "fire",
+          "name": "火矢",
+          "tick": 77,
+          "intent": 30
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 79,
+          "intent": 32
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 79,
+          "intent": 36
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 80,
+          "intent": 36
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 82,
+          "intent": 82
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 84,
+          "intent": 63
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 87,
+          "intent": 60
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 89,
+          "intent": 64
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "unique-yuanxia",
+          "name": "千里奔袭",
+          "tick": 91,
+          "intent": 72
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 100,
+          "intent": 33
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "unique-jin",
+          "name": "持军毅重",
+          "tick": 104,
+          "intent": 67
+        }
+      ]
+    },
+    {
+      "id": "siege",
+      "seed": 17,
+      "ticks": 127,
+      "reason": "城门失守",
+      "winner": 0,
+      "openingLoss": 1906,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 5,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 5,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 8,
+          "intent": 48
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 12,
+          "intent": 82
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 13,
+          "intent": 96
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 13,
+          "intent": 30
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 14,
+          "intent": 77
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 14,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 14,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 15,
+          "intent": 52
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 17,
+          "intent": 72
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 17,
+          "intent": 87
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 17,
+          "intent": 55
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 19,
+          "intent": 30
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 20,
+          "intent": 100
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 20,
+          "intent": 85
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 21,
+          "intent": 100
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 21,
+          "intent": 61
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 22,
+          "intent": 67
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 23,
+          "intent": 67
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 24,
+          "intent": 75
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 26,
+          "intent": 87
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 26,
+          "intent": 78
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 27,
+          "intent": 87
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 83
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 33,
+          "intent": 70
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 35,
+          "intent": 0
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 37,
+          "intent": 78
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 38,
+          "intent": 100
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 44,
+          "intent": 36
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 45,
+          "intent": 39
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 46,
+          "intent": 39
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 49,
+          "intent": 100
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 49,
+          "intent": 61
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 49,
+          "intent": 52
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 51,
+          "intent": 71
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 51,
+          "intent": 80
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 52,
+          "intent": 63
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 70,
+          "intent": 0
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 75,
+          "intent": 33
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 76,
+          "intent": 33
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "fire",
+          "name": "火矢",
+          "tick": 79,
+          "intent": 32
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 80,
+          "intent": 32
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 81,
+          "intent": 76
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 90,
+          "intent": 32
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 90,
+          "intent": 64
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 100,
+          "intent": 64
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "unique-yuanxia",
+          "name": "千里奔袭",
+          "tick": 103,
+          "intent": 72
+        }
+      ]
+    },
+    {
+      "id": "siege",
+      "seed": 521200,
+      "ticks": 117,
+      "reason": "城门失守",
+      "winner": 0,
+      "openingLoss": 1963,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 5,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 5,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 8,
+          "intent": 48
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 12,
+          "intent": 82
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 13,
+          "intent": 96
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 13,
+          "intent": 30
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 14,
+          "intent": 77
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 14,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 14,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 15,
+          "intent": 52
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 17,
+          "intent": 72
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 17,
+          "intent": 87
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 17,
+          "intent": 55
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 19,
+          "intent": 30
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 20,
+          "intent": 100
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 20,
+          "intent": 85
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 22,
+          "intent": 67
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 25,
+          "intent": 72
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 26,
+          "intent": 100
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 26,
+          "intent": 69
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 26,
+          "intent": 81
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 28,
+          "intent": 93
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 35,
+          "intent": 0
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 37,
+          "intent": 78
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 39,
+          "intent": 100
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 43,
+          "intent": 33
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 44,
+          "intent": 36
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 45,
+          "intent": 36
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 47,
+          "intent": 53
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 50,
+          "intent": 79
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 51,
+          "intent": 100
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 52,
+          "intent": 86
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 53,
+          "intent": 60
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 70,
+          "intent": 0
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 76,
+          "intent": 27
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "fire",
+          "name": "火矢",
+          "tick": 79,
+          "intent": 35
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 79,
+          "intent": 36
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 80,
+          "intent": 36
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 85,
+          "intent": 77
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 86,
+          "intent": 65
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 87,
+          "intent": 60
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 96,
+          "intent": 32
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 106,
+          "intent": 64
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "unique-yuanxia",
+          "name": "千里奔袭",
+          "tick": 108,
+          "intent": 72
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 114,
+          "intent": 31
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "seed": 1,
+      "ticks": 124,
+      "reason": "击溃",
+      "winner": 0,
+      "openingLoss": 3614,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 4,
+          "intent": 28
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 9,
+          "intent": 82
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 9,
+          "intent": 37
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 10,
+          "intent": 89
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 53
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 13,
+          "intent": 66
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 13,
+          "intent": 69
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 56
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 15,
+          "intent": 87
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 16,
+          "intent": 80
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 16,
+          "intent": 79
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 17,
+          "intent": 30
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 19,
+          "intent": 68
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 22,
+          "intent": 100
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 23,
+          "intent": 100
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 23,
+          "intent": 81
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 23,
+          "intent": 67
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 23,
+          "intent": 0
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 24,
+          "intent": 75
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 24,
+          "intent": 60
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 25,
+          "intent": 78
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 81
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 28,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 28,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 32,
+          "intent": 100
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 34,
+          "intent": 78
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 36,
+          "intent": 36
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 37,
+          "intent": 36
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 37,
+          "intent": 26
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 38,
+          "intent": 100
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 43,
+          "intent": 54
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 43,
+          "intent": 52
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 46,
+          "intent": 70
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 49,
+          "intent": 78
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 57,
+          "intent": 0
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "fire",
+          "name": "火矢",
+          "tick": 59,
+          "intent": 32
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 60,
+          "intent": 32
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 64,
+          "intent": 32
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 70,
+          "intent": 64
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 72,
+          "intent": 74
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 74,
+          "intent": 64
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 74,
+          "intent": 25
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "unique-yuanxia",
+          "name": "千里奔袭",
+          "tick": 76,
+          "intent": 72
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 81,
+          "intent": 36
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 82,
+          "intent": 100
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 82,
+          "intent": 36
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 89,
+          "intent": 60
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "unique-jin",
+          "name": "持军毅重",
+          "tick": 90,
+          "intent": 69
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 94,
+          "intent": 75
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "seed": 17,
+      "ticks": 158,
+      "reason": "击溃",
+      "winner": 0,
+      "openingLoss": 3611,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 4,
+          "intent": 28
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 9,
+          "intent": 82
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 9,
+          "intent": 37
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 10,
+          "intent": 89
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 53
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 13,
+          "intent": 66
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 13,
+          "intent": 69
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 56
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 15,
+          "intent": 87
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 16,
+          "intent": 80
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 16,
+          "intent": 79
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 17,
+          "intent": 30
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 19,
+          "intent": 68
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 22,
+          "intent": 100
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 23,
+          "intent": 100
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 23,
+          "intent": 81
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 23,
+          "intent": 67
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 23,
+          "intent": 0
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 24,
+          "intent": 75
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 24,
+          "intent": 60
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 25,
+          "intent": 78
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 28,
+          "intent": 66
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 28,
+          "intent": 70
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 28,
+          "intent": 86
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 32,
+          "intent": 100
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 32,
+          "intent": 100
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 35,
+          "intent": 78
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 39,
+          "intent": 36
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 40,
+          "intent": 36
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 43,
+          "intent": 54
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 46,
+          "intent": 70
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 50,
+          "intent": 30
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 57,
+          "intent": 63
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 57,
+          "intent": 0
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 59,
+          "intent": 83
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 66,
+          "intent": 32
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "fire",
+          "name": "火矢",
+          "tick": 67,
+          "intent": 32
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 68,
+          "intent": 32
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 70,
+          "intent": 53
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 73,
+          "intent": 75
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "unique-yuanxia",
+          "name": "千里奔袭",
+          "tick": 76,
+          "intent": 67
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 77,
+          "intent": 67
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 78,
+          "intent": 64
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 80,
+          "intent": 47
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "unique-jin",
+          "name": "持军毅重",
+          "tick": 82,
+          "intent": 74
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 84,
+          "intent": 88
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 87,
+          "intent": 36
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 88,
+          "intent": 36
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 93,
+          "intent": 100
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 95,
+          "intent": 60
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "seed": 521200,
+      "ticks": 139,
+      "reason": "击溃",
+      "winner": 0,
+      "openingLoss": 3579,
+      "first": [
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 4,
+          "intent": 28
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "unique-cao",
+          "name": "魏武挥鞭",
+          "tick": 9,
+          "intent": 82
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 9,
+          "intent": 37
+        },
+        {
+          "unit": "cao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 10,
+          "intent": 89
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 10,
+          "intent": 53
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 36
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 30
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 13,
+          "intent": 66
+        },
+        {
+          "unit": "wen",
+          "side": 1,
+          "tactic": "unique-wen",
+          "name": "骁骑追斩",
+          "tick": 13,
+          "intent": 69
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 56
+        },
+        {
+          "unit": "yan",
+          "side": 1,
+          "tactic": "unique-yan",
+          "name": "河北先登",
+          "tick": 15,
+          "intent": 87
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 16,
+          "intent": 80
+        },
+        {
+          "unit": "shao",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 16,
+          "intent": 79
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 16,
+          "intent": 40
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 17,
+          "intent": 30
+        },
+        {
+          "unit": "he",
+          "side": 1,
+          "tactic": "unique-he",
+          "name": "巧变袭阵",
+          "tick": 19,
+          "intent": 68
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 20,
+          "intent": 60
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "terror",
+          "name": "八百破阵",
+          "tick": 22,
+          "intent": 100
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 23,
+          "intent": 0
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "unique-tian",
+          "name": "刚谏破谋",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 25,
+          "intent": 72
+        },
+        {
+          "unit": "tian",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "unique-dun",
+          "name": "拔矢啖睛",
+          "tick": 28,
+          "intent": 93
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 28,
+          "intent": 70
+        },
+        {
+          "unit": "liao",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 29,
+          "intent": 100
+        },
+        {
+          "unit": "dun",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 29,
+          "intent": 93
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "unique-ju",
+          "name": "监军持重",
+          "tick": 29,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 30,
+          "intent": 80
+        },
+        {
+          "unit": "ju",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 30,
+          "intent": 70
+        },
+        {
+          "unit": "chu",
+          "side": 0,
+          "tactic": "protect",
+          "name": "虎卫折冲",
+          "tick": 32,
+          "intent": 100
+        },
+        {
+          "unit": "jia",
+          "side": 0,
+          "tactic": "undermine",
+          "name": "十胜奇谋",
+          "tick": 32,
+          "intent": 100
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 35,
+          "intent": 33
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 37,
+          "intent": 36
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 38,
+          "intent": 36
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 41,
+          "intent": 54
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 41,
+          "intent": 59
+        },
+        {
+          "unit": "test-6",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 44,
+          "intent": 76
+        },
+        {
+          "unit": "test-8",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 45,
+          "intent": 79
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 48,
+          "intent": 32
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 56,
+          "intent": 0
+        },
+        {
+          "unit": "test-7",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 57,
+          "intent": 96
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 61,
+          "intent": 64
+        },
+        {
+          "unit": "yuanxia",
+          "side": 0,
+          "tactic": "unique-yuanxia",
+          "name": "千里奔袭",
+          "tick": 63,
+          "intent": 72
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "fire",
+          "name": "火矢",
+          "tick": 63,
+          "intent": 32
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 64,
+          "intent": 32
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 69,
+          "intent": 26
+        },
+        {
+          "unit": "test-10",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 72,
+          "intent": 75
+        },
+        {
+          "unit": "test-9",
+          "side": 1,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 74,
+          "intent": 64
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "pierce",
+          "name": "破甲",
+          "tick": 74,
+          "intent": 36
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 75,
+          "intent": 36
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "unique-jin",
+          "name": "持军毅重",
+          "tick": 82,
+          "intent": 65
+        },
+        {
+          "unit": "test-11",
+          "side": 1,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 83,
+          "intent": 60
+        },
+        {
+          "unit": "jin",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 86,
+          "intent": 85
+        }
+      ]
+    },
+    {
+      "id": "officer-lab",
+      "seed": 1,
+      "ticks": 97,
+      "reason": "击溃",
+      "winner": 0,
+      "openingLoss": 5210,
+      "first": [
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 7,
+          "intent": 26
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 7,
+          "intent": 47
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 8,
+          "intent": 33
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 9,
+          "intent": 61
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 10,
+          "intent": 33
+        },
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 11,
+          "intent": 51
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 12,
+          "intent": 35
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 39
+        },
+        {
+          "unit": "test-4",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 12,
+          "intent": 65
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "rally",
+          "name": "振旅",
+          "tick": 12,
+          "intent": 32
+        },
+        {
+          "unit": "person-661",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 13,
+          "intent": 76
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 67
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 13,
+          "intent": 51
+        },
+        {
+          "unit": "test-4",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 13,
+          "intent": 65
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 14,
+          "intent": 36
+        },
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 14,
+          "intent": 73
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 15,
+          "intent": 100
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 16,
+          "intent": 66
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "unique-person-246",
+          "name": "赤壁业火",
+          "tick": 17,
+          "intent": 78
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 17,
+          "intent": 70
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 17,
+          "intent": 87
+        },
+        {
+          "unit": "person-661",
+          "side": 0,
+          "tactic": "unique-person-661",
+          "name": "无双乱舞",
+          "tick": 18,
+          "intent": 100
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 18,
+          "intent": 78
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 18,
+          "intent": 79
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 18,
+          "intent": 80
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "unique-person-404",
+          "name": "苍天雷殛",
+          "tick": 19,
+          "intent": 78
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 22,
+          "intent": 60
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 24,
+          "intent": 69
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 25,
+          "intent": 69
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "unique-person-603",
+          "name": "火烧连营",
+          "tick": 27,
+          "intent": 75
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        },
+        {
+          "unit": "person-661",
+          "side": 0,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 28,
+          "intent": 100
+        },
+        {
+          "unit": "test-4",
+          "side": 1,
+          "tactic": "ambush",
+          "name": "伏弩",
+          "tick": 55,
+          "intent": 100
+        }
+      ]
+    },
+    {
+      "id": "officer-lab",
+      "seed": 17,
+      "ticks": 101,
+      "reason": "击溃",
+      "winner": 0,
+      "openingLoss": 5123,
+      "first": [
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 7,
+          "intent": 26
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 7,
+          "intent": 47
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 8,
+          "intent": 33
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 9,
+          "intent": 61
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 10,
+          "intent": 33
+        },
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 11,
+          "intent": 51
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 12,
+          "intent": 35
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 39
+        },
+        {
+          "unit": "test-4",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 12,
+          "intent": 65
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "rally",
+          "name": "振旅",
+          "tick": 12,
+          "intent": 32
+        },
+        {
+          "unit": "person-661",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 13,
+          "intent": 76
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 67
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 13,
+          "intent": 51
+        },
+        {
+          "unit": "test-4",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 13,
+          "intent": 65
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 14,
+          "intent": 36
+        },
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 14,
+          "intent": 73
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 15,
+          "intent": 100
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 16,
+          "intent": 66
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "unique-person-246",
+          "name": "赤壁业火",
+          "tick": 17,
+          "intent": 78
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 17,
+          "intent": 70
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 17,
+          "intent": 87
+        },
+        {
+          "unit": "person-661",
+          "side": 0,
+          "tactic": "unique-person-661",
+          "name": "无双乱舞",
+          "tick": 18,
+          "intent": 100
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 18,
+          "intent": 78
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 18,
+          "intent": 79
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 18,
+          "intent": 80
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "unique-person-404",
+          "name": "苍天雷殛",
+          "tick": 19,
+          "intent": 78
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 22,
+          "intent": 60
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 24,
+          "intent": 69
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 25,
+          "intent": 69
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "unique-person-603",
+          "name": "火烧连营",
+          "tick": 27,
+          "intent": 75
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        }
+      ]
+    },
+    {
+      "id": "officer-lab",
+      "seed": 521200,
+      "ticks": 100,
+      "reason": "击溃",
+      "winner": 0,
+      "openingLoss": 5448,
+      "first": [
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "gallop",
+          "name": "疾驰",
+          "tick": 1,
+          "intent": 0
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 7,
+          "intent": 26
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "ward",
+          "name": "挑衅",
+          "tick": 7,
+          "intent": 47
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "thrust",
+          "name": "贯阵",
+          "tick": 8,
+          "intent": 33
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 9,
+          "intent": 61
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 10,
+          "intent": 33
+        },
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 11,
+          "intent": 51
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 12,
+          "intent": 35
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "repeat",
+          "name": "连珠",
+          "tick": 12,
+          "intent": 39
+        },
+        {
+          "unit": "test-4",
+          "side": 1,
+          "tactic": "screen",
+          "name": "救护",
+          "tick": 12,
+          "intent": 65
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "rally",
+          "name": "振旅",
+          "tick": 12,
+          "intent": 32
+        },
+        {
+          "unit": "person-661",
+          "side": 0,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 13,
+          "intent": 76
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "phalanx",
+          "name": "枪阵",
+          "tick": 13,
+          "intent": 67
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "rush",
+          "name": "冲阵",
+          "tick": 13,
+          "intent": 51
+        },
+        {
+          "unit": "test-4",
+          "side": 1,
+          "tactic": "seal",
+          "name": "封喉",
+          "tick": 13,
+          "intent": 65
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "suppress",
+          "name": "阻射",
+          "tick": 14,
+          "intent": 36
+        },
+        {
+          "unit": "test-1",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 14,
+          "intent": 73
+        },
+        {
+          "unit": "test-3",
+          "side": 1,
+          "tactic": "cleanse",
+          "name": "解围",
+          "tick": 15,
+          "intent": 100
+        },
+        {
+          "unit": "person-661",
+          "side": 0,
+          "tactic": "unique-person-661",
+          "name": "无双乱舞",
+          "tick": 16,
+          "intent": 95
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "unique-shao",
+          "name": "四世三公",
+          "tick": 16,
+          "intent": 66
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "unique-person-246",
+          "name": "赤壁业火",
+          "tick": 17,
+          "intent": 78
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 17,
+          "intent": 70
+        },
+        {
+          "unit": "test-0",
+          "side": 1,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 17,
+          "intent": 94
+        },
+        {
+          "unit": "person-246",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 18,
+          "intent": 78
+        },
+        {
+          "unit": "shao",
+          "side": 0,
+          "tactic": "strike",
+          "name": "奋击",
+          "tick": 18,
+          "intent": 79
+        },
+        {
+          "unit": "test-2",
+          "side": 1,
+          "tactic": "valor",
+          "name": "奋战",
+          "tick": 18,
+          "intent": 80
+        },
+        {
+          "unit": "person-404",
+          "side": 0,
+          "tactic": "unique-person-404",
+          "name": "苍天雷殛",
+          "tick": 19,
+          "intent": 78
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "scatter",
+          "name": "箭雨",
+          "tick": 22,
+          "intent": 60
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "unique-yu",
+          "name": "奇策解围",
+          "tick": 24,
+          "intent": 69
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "smoke",
+          "name": "惑阵",
+          "tick": 24,
+          "intent": 72
+        },
+        {
+          "unit": "yu",
+          "side": 0,
+          "tactic": "retreatShot",
+          "name": "退射",
+          "tick": 25,
+          "intent": 69
+        },
+        {
+          "unit": "person-603",
+          "side": 0,
+          "tactic": "unique-person-603",
+          "name": "火烧连营",
+          "tick": 27,
+          "intent": 78
+        },
+        {
+          "unit": "test-5",
+          "side": 1,
+          "tactic": "wildfire",
+          "name": "火计",
+          "tick": 27,
+          "intent": 80
+        }
+      ]
+    }
+  ]
+}

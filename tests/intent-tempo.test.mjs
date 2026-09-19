@@ -1,16 +1,18 @@
+import {initializeTacticLearning} from '../tactic-learning.mjs';
+import {unitTactics} from '../tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
-import {configureTactics,setStatus} from '../tactics.mjs';
+import {configureTactics,setStatus,TACTICS_BOOK} from '../tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function duel(){
   const b=createScenario('field',751).battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
   b.sides[0].units=[a];b.sides[1].units=[d];
-  for(const [u,id,x] of [[a,'actor',4],[d,'target',6]]){
+  for(const [u,id,x] of [[a,'cao',4],[d,'target',6]]){
     Object.assign(u,{id,level:1,type:'crossbow',x,y:2,hp:3000,maxHp:3000,initial:3000,battleDamage:0,healed:0,intent:0,statuses:{},cooldown:999});
-    configureTactics(u,['repeat','seal','screen']);
+    initializeTacticLearning(u,751);u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
   }
   lockDeployment(b);return {b,a,d};
 }
@@ -18,8 +20,8 @@ function duel(){
 test('repeating shots grant one surviving-hit award and no caster recharge',()=>{
   const {b,a,d}=duel();primeTactic(a,'repeat');stepBattle(b);
   assert.equal(b.effects.filter(e=>e.from===a.id&&e.damage>0).length,2);
-  assert.equal(a.intent,40);assert.equal(d.intent,3);
-  a.cooldown=0;stepBattle(b);assert.equal(a.intent,50);assert.equal(d.intent,6);
+  assert.equal(a.intent,TACTICS_BOOK.repeat.threshold);assert.equal(d.intent,3);
+  a.cooldown=0;stepBattle(b);assert.equal(a.intent,TACTICS_BOOK.repeat.threshold+10);assert.equal(d.intent,6);
 });
 
 test('a fully blocked first segment does not consume the surviving-hit award',()=>{
@@ -39,9 +41,9 @@ test('separate attackers still provide separate pressure rewards to a surviving 
 test('damage tactics against a gate do not charge the caster, basic siege attacks do',()=>{
   const b=createScenario('siege',9).battle,a=b.sides[0].units[0];
   lockDeployment(b);b.sides[0].units=[a];b.sides[1].units=[];
-  Object.assign(a,{id:'actor',level:1,type:'siege',x:b.siege.gate.x-2,y:b.siege.gate.y,cooldown:0,intent:0});
-  primeTactic(a,'ram');stepBattle(b);assert.equal(a.tacticCasts.ram,1);assert.equal(a.intent,50);
-  a.cooldown=0;stepBattle(b);assert.equal(a.intent,61);
+  Object.assign(a,{id:'shao',level:1,type:'siege',x:b.siege.gate.x-2,y:b.siege.gate.y,cooldown:0,intent:0});
+  primeTactic(a,'ram');stepBattle(b);assert.equal(a.tacticCasts.ram,1);assert.equal(a.intent,TACTICS_BOOK.ram.threshold);
+  a.cooldown=0;stepBattle(b);assert.equal(a.intent,TACTICS_BOOK.ram.threshold+11);
 });
 
 test('zero-intent support and frontlines remain active, and save continuation is deterministic',()=>{

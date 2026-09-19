@@ -1,0 +1,48 @@
+{
+  "mode": "current",
+  "games": 96,
+  "summary": [
+    {
+      "case": "weak-first",
+      "games": 16,
+      "enemyWins": 2,
+      "draws": 0,
+      "averageEnemyRemaining": 0.03764018691588785
+    },
+    {
+      "case": "rear-first",
+      "games": 16,
+      "enemyWins": 1,
+      "draws": 0,
+      "averageEnemyRemaining": 0.012104166666666666
+    },
+    {
+      "case": "balanced",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0.0018229166666666667
+    },
+    {
+      "case": "against-cavalry",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0
+    },
+    {
+      "case": "siege",
+      "games": 16,
+      "enemyWins": 9,
+      "draws": 2,
+      "averageEnemyRemaining": 0.2465659722222222
+    },
+    {
+      "case": "river",
+      "games": 16,
+      "enemyWins": 1,
+      "draws": 0,
+      "averageEnemyRemaining": 0.01935763888888889
+    }
+  ]
+}

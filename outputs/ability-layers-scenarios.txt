@@ -1,0 +1,41 @@
+官渡之战 无军略 {"wins":4,"ticks":78,"reasons":{"击溃":4}}
+官渡之战 军略 {"wins":4,"ticks":75.5,"reasons":{"击溃":4}}
+赤壁之战 无军略 {"wins":4,"ticks":167.3,"reasons":{"击溃":4}}
+赤壁之战 军略 {"wins":4,"ticks":177.5,"reasons":{"击溃":4}}
+合肥之战 无军略 {"wins":4,"ticks":121,"reasons":{"击溃":4}}
+合肥之战 军略 {"wins":4,"ticks":123.8,"reasons":{"击溃":4}}
+夷陵之战 无军略 {"wins":4,"ticks":130.8,"reasons":{"击溃":4}}
+夷陵之战 军略 {"wins":4,"ticks":111,"reasons":{"击溃":4}}
+谋定飞将 无军略 {"wins":0,"ticks":66.8,"reasons":{"击溃":4}}
+谋定飞将 军略 {"wins":0,"ticks":66.8,"reasons":{"击溃":4}}
+智困燕人 无军略 {"wins":1,"ticks":99,"reasons":{"击溃":4}}
+智困燕人 军略 {"wins":1,"ticks":104.3,"reasons":{"击溃":4}}
+三英战吕布 无军略 {"wins":0,"ticks":138.5,"reasons":{"击溃":4}}
+三英战吕布 军略 {"wins":0,"ticks":141.5,"reasons":{"击溃":4}}
+蜀军拒曹 无军略 {"wins":1,"ticks":237.5,"reasons":{"击溃":3,"坚守成功":1}}
+蜀军拒曹 军略 {"wins":3,"ticks":239,"reasons":{"坚守成功":3,"击溃":1}}
+兖州争锋 无军略 {"wins":3,"ticks":180.3,"reasons":{"击溃":4}}
+兖州争锋 军略 {"wins":3,"ticks":154.8,"reasons":{"击溃":4}}
+演武 · 因地制宜 无军略 {"wins":0,"ticks":115,"reasons":{"击溃":4}}
+演武 · 因地制宜 军略 {"wins":0,"ticks":118.3,"reasons":{"击溃":4}}
+演武 · 诸兵协同 无军略 {"wins":0,"ticks":113.3,"reasons":{"击溃":4}}
+演武 · 诸兵协同 军略 {"wins":0,"ticks":120.5,"reasons":{"击溃":4}}
+演武 · 水陆交锋 无军略 {"wins":0,"ticks":149.8,"reasons":{"击溃":4}}
+演武 · 水陆交锋 军略 {"wins":0,"ticks":151.3,"reasons":{"击溃":4}}
+演武 · 控阵突击 无军略 {"wins":4,"ticks":94.5,"reasons":{"击溃":4}}
+演武 · 控阵突击 军略 {"wins":4,"ticks":94.5,"reasons":{"击溃":4}}
+群英 · 武将试炼 无军略 {"wins":4,"ticks":58.3,"reasons":{"击溃":4}}
+群英 · 武将试炼 军略 {"wins":4,"ticks":56,"reasons":{"击溃":4}}
+官渡 · 正面交锋 无军略 {"wins":0,"ticks":108.8,"reasons":{"击溃":4}}
+官渡 · 正面交锋 军略 {"wins":0,"ticks":119.5,"reasons":{"击溃":4}}
+白马 · 精兵破围 无军略 {"wins":4,"ticks":88,"reasons":{"击溃":4}}
+白马 · 精兵破围 军略 {"wins":4,"ticks":87.8,"reasons":{"击溃":4}}
+界桥 · 三路来援 无军略 {"wins":4,"ticks":142.3,"reasons":{"击溃":4}}
+界桥 · 三路来援 军略 {"wins":4,"ticks":123.3,"reasons":{"击溃":4}}
+邺城 · 破门攻坚 无军略 {"wins":4,"ticks":113.8,"reasons":{"城门失守":4}}
+邺城 · 破门攻坚 军略 {"wins":4,"ticks":108.8,"reasons":{"城门失守":4}}
+许昌 · 孤城拒敌 无军略 {"wins":4,"ticks":226.5,"reasons":{"击溃":3,"久战收兵":1}}
+许昌 · 孤城拒敌 军略 {"wins":4,"ticks":203,"reasons":{"击溃":4}}
+陈留 · 轮番鏖战 无军略 {"wins":3,"ticks":169.8,"reasons":{"击溃":4}}
+陈留 · 轮番鏖战 军略 {"wins":4,"ticks":150.3,"reasons":{"击溃":4}}
+COMPLETE docs/scenario-review-v29

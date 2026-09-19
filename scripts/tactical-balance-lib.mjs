@@ -8,7 +8,7 @@ export function fight(id,seed,{orders=false}={}){
  let controls=0,ordersUsed=0,casts=0;
  while(!b.result){
   if(orders&&b.commandProgress>=12000){
-   const key=chooseEnemyCommand({...b,sides:[b.sides[1],b.sides[0]],enemyCommand:{commandReady:b.commandReady}},battleStratagems(b),STRATAGEMS);
+   const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
    if(key&&!issueCommand(b,key))ordersUsed++;
   }
   stepBattle(b);

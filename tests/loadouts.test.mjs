@@ -1,3 +1,4 @@
+import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { newGame, orderArmy, advanceTurn, startBattle, lockDeployment, stepBattle, issueCommand, validateSave, configureUnitTactics, STRATAGEMS } from '../engine.mjs';
@@ -7,7 +8,7 @@ function scenario(type,id) {
   const state=encounter(),b=state.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
   b.sides[0].units=[a];b.sides[1].units=[d];a.type=type;d.type='crossbow';
   Object.assign(a,{x:4,y:3,cooldown:999,intent:100});Object.assign(d,{x:6,y:3,cooldown:999,intent:80});
-  const ids=[id,...availableTactics(a).map(s=>s.id).filter(key=>key!==id).slice(0,2)];configureTactics(a,ids);
+  const ids=[id,...availableTactics(a).map(s=>s.id).filter(key=>key!==id).slice(0,2)];learnFixtureTactics(a,ids);
   for(const s of unitTactics(a))a.skillReady[s.id]=s.id===id?0:999;
   for(const s of unitTactics(d))d.skillReady[s.id]=999;
   lockDeployment(b);return {state,b,a,d};
@@ -23,22 +24,19 @@ test('each troop has exactly six tools and exclusive tactics remain optional',()
   }
   assert.equal(availableTactics({id:'jia',type:'crossbow'}).filter(s=>s.special).length,1);
 });
-test('mixed defaults persist, slot priority works and invalid loadouts fail without mutation',()=>{
-  const state=newGame(),u=state.armies[0].units[0];const ids=['doubt','thrust','ward'];
-  assert.equal(configureUnitTactics(state,u.id,ids),null);assert.deepEqual(u.tactics,ids);
-  for(const bad of [['thrust','thrust','ward'],['fire','thrust','ward'],['terror','thrust','ward'],['thrust']])assert.ok(configureUnitTactics(state,u.id,bad));
-  assert.deepEqual(u.tactics,ids);
+test('learned loadouts persist, ordering works and unlearned additions fail without mutation',()=>{
+  const state=newGame(),u=state.armies[0].units[0],ids=unitTactics(u).map(s=>s.id),reversed=[...ids].reverse();
+  assert.equal(configureUnitTactics(state,u.id,reversed),null);assert.deepEqual(u.tactics,reversed);
+  for(const bad of [[...ids,...ids],['fire'],['terror'],['not-a-tactic']])assert.ok(configureUnitTactics(state,u.id,bad));
   const resumed=validateSave(structuredClone(state));orderArmy(resumed,'a1','guandu');advanceTurn(resumed);startBattle(resumed);
-  const a=resumed.battle.sides[0].units[0];assert.deepEqual(a.tactics,ids);
-  assert.equal(configureUnitTactics(resumed,a.id,['thrust','doubt','ward']),null);
-  assert.deepEqual(resumed.armies[0].units[0].tactics,['thrust','doubt','ward']);
+  const a=resumed.battle.sides[0].units[0];assert.deepEqual(a.tactics,reversed);
   lockDeployment(resumed.battle);assert.ok(configureUnitTactics(resumed,a.id,ids));
   const broken=structuredClone(resumed);broken.armies[0].units[0].tactics=['fire','doubt','ward'];assert.throws(()=>validateSave(broken));
-  const x=scenario('spear','ward');x.a.tactics=['ward','thrust','doubt'];x.a.skillReady={};x.d.x=5;
-  assert.equal(readyTactic(x.b,x.a,1).skill.id,'ward');
+  const x=scenario('spear','ward');x.a.skillReady={};x.d.x=5;assert.equal(readyTactic(x.b,x.a,1).skill.id,'ward');
 });
+
 test('force and intellect damage scale with their own attribute, not troop weapon type',()=>{
-  function damage(id,force,intellect){const x=scenario('archer',id);x.a.force=force;x.a.intellect=intellect;const hp=x.d.hp;complete(x);return hp-x.d.hp;}
+  function damage(id,force,intellect){const x=scenario('archer',id);x.a.force=force;x.a.intellect=intellect;const hp=x.d.hp;complete(x);if(TACTICS_BOOK[id].attackOrb){x.a.cooldown=0;stepBattle(x.b);}return hp-x.d.hp;}
   assert.ok(damage('fire',95,20)>damage('fire',25,95));
   assert.ok(damage('wildfire',20,95)>damage('wildfire',95,25));
 });
@@ -68,11 +66,11 @@ test('new army strategies cleanse controls, shorten cooldowns and persist across
   const skillId=unitTactics(u)[0].id;
   u.statuses.confuse={until:99};u.statuses.burn={until:99,sourceId:b.sides[1].units[0].id,amount:20,baseAmount:20,stacks:1};u.skillReady[skillId]=20;
   b.commandProgress=12000;assert.equal(issueCommand(b,'cleanse'),null);assert.equal(u.statuses.confuse,undefined);assert.equal(u.statuses.burn,undefined);assert.ok(hasStatus(b,u,'resolve'));
-  b.commandProgress=12000;assert.equal(issueCommand(b,'cycle'),null);assert.equal(u.skillReady[skillId],14);assert.equal(b.commandProgress,0);
+  b.commandProgress=12000;assert.equal(issueCommand(b,'cycle'),null);assert.equal(u.skillReady[skillId],16);assert.equal(u.intent,15);assert.equal(b.commandProgress,0);
   b.commandProgress=12000;assert.equal(issueCommand(b,'haste'),null);assert.equal(b.commandProgress,0);assert.ok(b.sides[0].hasteUntil>0);
-  const copy=validateSave(structuredClone(state));assert.deepEqual(copy.battle,b);
+  const copy=validateSave(structuredClone(syncFixtureLearning(state)));assert.deepEqual(copy.battle,b);
 });
-test('blockade delays replacement but expires; relief admits a healthier reserve rotation with shield',()=>{
+test('blockade delays replacement but expires; relief shields automatic reinforcements',()=>{
   const state=encounter(),b=state.battle;lockDeployment(b);
   b.commandProgress=12000;assert.equal(issueCommand(b,'blockade'),null);
   const dead=b.sides[1].units.find(u=>u.status==='active');dead.hp=0;dead.status='defeated';stepBattle(b);
@@ -80,16 +78,16 @@ test('blockade delays replacement but expires; relief admits a healthier reserve
   while(b.tick<=STRATAGEMS.blockade.duration)stepBattle(b);
   assert.equal(b.sides[1].units.filter(u=>u.status==='active').length,6);
   const other=encounter('jin','jia'),ob=other.battle;lockDeployment(ob);ob.sides[0].units[0].hp=2400;
-  ob.commandProgress=12000;assert.ok(issueCommand(ob,'reserve'));assert.equal(issueCommand(ob,'relief'),null);ob.commandProgress=12000;assert.equal(issueCommand(ob,'reserve'),null);
+  ob.commandProgress=12000;assert.ok(issueCommand(ob,'reserve'));assert.equal(issueCommand(ob,'relief'),null);ob.sides[0].units[0].hp=0;ob.sides[0].units[0].status='defeated';stepBattle(ob);
   assert.ok(ob.sides[0].units.some(u=>u.status==='active'&&u.statuses.shield));
 });
 test('mixed-loadout simulation saves and resumes deterministically with all new status shapes',()=>{
   const state=encounter();
-  for(const side of state.battle.sides)for(const u of side.units)configureTactics(u,defaultTacticIds(u,'intellect'));
+  for(const side of state.battle.sides)for(const u of side.units)learnFixtureTactics(u,defaultTacticIds(u,'intellect'));
   for(let i=0;i<35;i++)stepBattle(state.battle);
-  const copy=validateSave(structuredClone(state));
+  const copy=validateSave(structuredClone(syncFixtureLearning(state)));
   for(let i=0;i<25;i++){stepBattle(state.battle);stepBattle(copy.battle);}
   assert.deepEqual(state.battle,copy.battle);
-  while(!state.battle.result){stepBattle(state.battle);validateSave(structuredClone(state));}
+  while(!state.battle.result){stepBattle(state.battle);validateSave(structuredClone(syncFixtureLearning(state)));}
   assert.ok(state.battle.tick<=240);
 });

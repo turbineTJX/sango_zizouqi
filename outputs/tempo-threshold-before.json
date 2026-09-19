@@ -1,0 +1,337 @@
+[
+  {
+    "scenario": "field",
+    "seed": 1,
+    "ticks": 124,
+    "first": [
+      {
+        "id": "phalanx",
+        "tick": 14
+      },
+      {
+        "id": "repeat",
+        "tick": 16
+      },
+      {
+        "id": "repeat",
+        "tick": 16
+      },
+      {
+        "id": "valor",
+        "tick": 18
+      },
+      {
+        "id": "phalanx",
+        "tick": 20
+      },
+      {
+        "id": "rush",
+        "tick": 23
+      },
+      {
+        "id": "rush",
+        "tick": 24
+      }
+    ]
+  },
+  {
+    "scenario": "field",
+    "seed": 17,
+    "ticks": 123,
+    "first": [
+      {
+        "id": "phalanx",
+        "tick": 14
+      },
+      {
+        "id": "repeat",
+        "tick": 16
+      },
+      {
+        "id": "repeat",
+        "tick": 16
+      },
+      {
+        "id": "valor",
+        "tick": 18
+      },
+      {
+        "id": "phalanx",
+        "tick": 20
+      },
+      {
+        "id": "rush",
+        "tick": 53
+      },
+      {
+        "id": "rush",
+        "tick": 57
+      }
+    ]
+  },
+  {
+    "scenario": "field",
+    "seed": 521200,
+    "ticks": 113,
+    "first": [
+      {
+        "id": "phalanx",
+        "tick": 14
+      },
+      {
+        "id": "repeat",
+        "tick": 16
+      },
+      {
+        "id": "repeat",
+        "tick": 16
+      },
+      {
+        "id": "valor",
+        "tick": 18
+      },
+      {
+        "id": "phalanx",
+        "tick": 20
+      },
+      {
+        "id": "rush",
+        "tick": 29
+      },
+      {
+        "id": "rush",
+        "tick": 69
+      }
+    ]
+  },
+  {
+    "scenario": "siege",
+    "seed": 1,
+    "ticks": 112,
+    "first": [
+      {
+        "id": "valor",
+        "tick": 17
+      },
+      {
+        "id": "repeat",
+        "tick": 18
+      },
+      {
+        "id": "repeat",
+        "tick": 18
+      },
+      {
+        "id": "phalanx",
+        "tick": 20
+      },
+      {
+        "id": "phalanx",
+        "tick": 20
+      },
+      {
+        "id": "rush",
+        "tick": 21
+      },
+      {
+        "id": "repeat",
+        "tick": 48
+      },
+      {
+        "id": "valor",
+        "tick": 51
+      },
+      {
+        "id": "phalanx",
+        "tick": 53
+      },
+      {
+        "id": "fire",
+        "tick": 81
+      },
+      {
+        "id": "repeat",
+        "tick": 83
+      },
+      {
+        "id": "valor",
+        "tick": 88
+      },
+      {
+        "id": "scatter",
+        "tick": 89
+      }
+    ]
+  },
+  {
+    "scenario": "siege",
+    "seed": 17,
+    "ticks": 112,
+    "first": [
+      {
+        "id": "valor",
+        "tick": 17
+      },
+      {
+        "id": "repeat",
+        "tick": 18
+      },
+      {
+        "id": "repeat",
+        "tick": 18
+      },
+      {
+        "id": "phalanx",
+        "tick": 18
+      },
+      {
+        "id": "phalanx",
+        "tick": 22
+      },
+      {
+        "id": "rush",
+        "tick": 26
+      },
+      {
+        "id": "phalanx",
+        "tick": 45
+      },
+      {
+        "id": "repeat",
+        "tick": 48
+      },
+      {
+        "id": "valor",
+        "tick": 59
+      },
+      {
+        "id": "scatter",
+        "tick": 71
+      },
+      {
+        "id": "fire",
+        "tick": 81
+      },
+      {
+        "id": "repeat",
+        "tick": 83
+      },
+      {
+        "id": "scatter",
+        "tick": 91
+      }
+    ]
+  },
+  {
+    "scenario": "siege",
+    "seed": 521200,
+    "ticks": 111,
+    "first": [
+      {
+        "id": "valor",
+        "tick": 17
+      },
+      {
+        "id": "repeat",
+        "tick": 18
+      },
+      {
+        "id": "repeat",
+        "tick": 18
+      },
+      {
+        "id": "phalanx",
+        "tick": 18
+      },
+      {
+        "id": "rush",
+        "tick": 21
+      },
+      {
+        "id": "phalanx",
+        "tick": 23
+      },
+      {
+        "id": "repeat",
+        "tick": 48
+      },
+      {
+        "id": "rush",
+        "tick": 51
+      },
+      {
+        "id": "valor",
+        "tick": 53
+      },
+      {
+        "id": "phalanx",
+        "tick": 53
+      },
+      {
+        "id": "fire",
+        "tick": 81
+      },
+      {
+        "id": "repeat",
+        "tick": 83
+      },
+      {
+        "id": "scatter",
+        "tick": 91
+      },
+      {
+        "id": "scatter",
+        "tick": 107
+      }
+    ]
+  },
+  {
+    "scenario": "river",
+    "seed": 1,
+    "ticks": 135,
+    "first": [
+      {
+        "id": "phalanx",
+        "tick": 8
+      },
+      {
+        "id": "phalanx",
+        "tick": 17
+      },
+      {
+        "id": "navalRam",
+        "tick": 45
+      }
+    ]
+  },
+  {
+    "scenario": "river",
+    "seed": 17,
+    "ticks": 141,
+    "first": [
+      {
+        "id": "phalanx",
+        "tick": 8
+      },
+      {
+        "id": "phalanx",
+        "tick": 17
+      }
+    ]
+  },
+  {
+    "scenario": "river",
+    "seed": 521200,
+    "ticks": 131,
+    "first": [
+      {
+        "id": "phalanx",
+        "tick": 8
+      },
+      {
+        "id": "phalanx",
+        "tick": 14
+      }
+    ]
+  }
+]

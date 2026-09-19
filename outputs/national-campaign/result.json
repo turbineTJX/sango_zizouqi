@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "cities": 42,
+  "gates": 10,
+  "ports": 35,
+  "scenarios": 2,
+  "errors": []
+}

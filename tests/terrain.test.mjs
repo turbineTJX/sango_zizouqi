@@ -1,9 +1,11 @@
+import {initializeTacticLearning} from '../tactic-learning.mjs';
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,configureBattleTerrain,lockDeployment,validateSave,unitAttributes} from '../engine.mjs';
 import {BATTLE_TERRAINS,terrainAt,canOccupy,unitTerrain} from '../battlefield.mjs';
-import {TACTICS_BOOK,configureTactics,roleTacticIds,unitTactics} from '../tactics.mjs';
+import {TACTICS_BOOK,roleTacticIds,unitTactics} from '../tactics.mjs';
 import {tacticTerrainEffect} from '../terrain-rules.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
@@ -13,8 +15,8 @@ function scene(terrain='land',type='archer',positions=[[4,2],[6,2]]){
   const u=b.sides[0].units[0],t=b.sides[1].units[0];
   b.sides[0].units=[u];b.sides[1].units=[t];
   for(const [i,v] of [u,t].entries()){
-    Object.assign(v,{id:i?'target':'actor',type:i?'archer':type,level:1,hp:3000,maxHp:3000,initial:3000,troops:3000,battleDamage:0,healed:0,statuses:{},intent:0,cooldown:999,commandBonus:0,deputyBonus:0,advisorBonus:0,x:positions[i][0],y:positions[i][1]});
-    configureTactics(v,roleTacticIds(v,'assault'));
+    Object.assign(v,{id:i?'target':type==='ship'?'person-246':type==='siege'?'shao':'cao',type:i?'archer':type,level:1,hp:3000,maxHp:3000,initial:3000,troops:3000,battleDamage:0,healed:0,statuses:{},intent:0,cooldown:999,commandBonus:0,deputyBonus:0,advisorBonus:0,x:positions[i][0],y:positions[i][1]});
+    initializeTacticLearning(v,1729);
     v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));
   }
   lockDeployment(b);return {state,b,u,t};
@@ -22,6 +24,7 @@ function scene(terrain='land',type='archer',positions=[[4,2],[6,2]]){
 function cast(terrain,id,type='archer',positions){
   const result=scene(terrain,type,positions);primeTactic(result.u,id);stepBattle(result.b);
   assert.equal(result.u.tacticCasts[id],1);
+  if(TACTICS_BOOK[id].attackOrb){result.u.cooldown=0;stepBattle(result.b);}
   result.hits=result.b.effects.filter(e=>e.from===result.u.id&&e.damage>0);
   return result;
 }
@@ -54,11 +57,11 @@ test('terrain changes only during deployment, resets both sides legally and pres
 
 test('fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs',()=>{
   const plain=cast('land','fire'),forest=cast('forest','fire'),marsh=cast('marsh','fire');
-  assert.ok(Math.abs(forest.hits[0].damage-plain.hits[0].damage*1.3)<=1);
-  assert.ok(Math.abs(marsh.hits[0].damage-plain.hits[0].damage*.8)<=1);
+  assert.ok(Math.abs(forest.hits[0].damage-plain.hits[0].damage*(unitAttributes(plain.u,plain.b).attack+unitAttributes(plain.u,plain.b).martialPower*.35*1.3)/(unitAttributes(plain.u,plain.b).attack+unitAttributes(plain.u,plain.b).martialPower*.35))<=1);
+  assert.ok(Math.abs(marsh.hits[0].damage-plain.hits[0].damage*(unitAttributes(plain.u,plain.b).attack+unitAttributes(plain.u,plain.b).martialPower*.35*.8)/(unitAttributes(plain.u,plain.b).attack+unitAttributes(plain.u,plain.b).martialPower*.35))<=1);
   assert.equal(forest.u.intent,plain.u.intent);assert.equal(forest.u.skillReady.fire,plain.u.skillReady.fire);
   assert.equal(forest.t.statuses.burn.baseAmount,plain.t.statuses.burn.baseAmount);
-  assert.ok(forest.b.logs.some(l=>l.text.includes('林地：伤害 +30%')));
+  assert.match(forest.hits[0].terrain,/林地：伤害 \+30%（仅附加威力）/);
 });
 
 test('area fire resolves each target terrain separately',()=>{
@@ -113,12 +116,12 @@ test('ambush and fortifications change duration, while terrain slow is visible i
 
 test('water tactics and fire distinguish a ship under the bridge from troops on it',()=>{
   const fire=scene('river','archer',[[4,2],[6,3]]);
-  fire.t.type='ship';configureTactics(fire.t,roleTacticIds(fire.t,'guard'));fire.t.skillReady=Object.fromEntries(unitTactics(fire.t).map(s=>[s.id,999]));
-  primeTactic(fire.u,'fire');stepBattle(fire.b);
+  fire.t.type='ship';learnFixtureTactics(fire.t,roleTacticIds(fire.t,'guard'));fire.t.skillReady=Object.fromEntries(unitTactics(fire.t).map(s=>[s.id,999]));
+  primeTactic(fire.u,'fire');stepBattle(fire.b);fire.u.cooldown=0;stepBattle(fire.b);
   assert.equal(fire.b.effects.find(e=>e.from===fire.u.id&&e.damage>0).terrainFactor,.6);
   const run=type=>{
     const x=scene('river','ship',[[4,3],[6,3]]);x.t.type=type;
-    configureTactics(x.t,roleTacticIds(x.t,'guard'));x.t.skillReady=Object.fromEntries(unitTactics(x.t).map(s=>[s.id,999]));
+    initializeTacticLearning(x.t,1729);x.t.skillReady=Object.fromEntries(unitTactics(x.t).map(s=>[s.id,999]));
     primeTactic(x.u,'undertow');stepBattle(x.b);return x;
   };
   const ship=run('ship'),land=run('archer');

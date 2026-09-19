@@ -1,0 +1,30 @@
+✔ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (177.3945ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (5.5332ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (117.1418ms)
+✔ armies move visibly along road interiors before arriving (2.0698ms)
+✔ head-on marching armies meet on the road without passing through each other (5.7763ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (75.0987ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (135.845ms)
+✔ multiple battles and their snapshots share the same global day (43.9489ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (53.3459ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (405.3692ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (53.6851ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (55.8757ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (1.4177ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (1.1841ms)
+✔ split and merge conserve supply and capacity, and enforce ten-unit maximum (0.4971ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (1.3936ms)
+✔ supply connection is cut by hostile road occupation (0.3012ms)
+✔ five days without food disband armies and preserve officers for their return (1.9791ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (39.557ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (114.3739ms)
+✔ city capture settles once and can be saved immediately within a day (57.0511ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (34.1959ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1321.9602

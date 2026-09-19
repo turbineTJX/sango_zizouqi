@@ -1,0 +1,619 @@
+
+> sango-sovereign@0.3.0 test
+> node --test tests/*.test.mjs
+
+✔ national map keeps simulation/save untouched and uses one projection for cities, roads, army and encounter (33.7431ms)
+✔ redrawn terrain works without external artwork and all seasons are distinct (10.6715ms)
+✔ asset manifest accepts only local opaque asset URLs and valid sprite grids (1.2143ms)
+✔ Unity root movement preserves its Hermite curve and endpoints (0.2171ms)
+✔ local file route only exposes manifest-listed assets and sends no-store (9.4188ms)
+✔ simulation modules do not depend on presentation or local art files (10.7973ms)
+✔ fire: three real basics consume exactly three charges, with normal intent and no links (28.3378ms)
+✔ suppress: three real basics consume exactly three charges, with normal intent and no links (3.7391ms)
+✔ pierce: three real basics consume exactly three charges, with normal intent and no links (3.4345ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (4.0526ms)
+✔ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (5.2112ms)
+✔ tactics and retaliation do not consume charges or double-apply timed burning attacks (4.8959ms)
+✔ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (4.8455ms)
+✔ gate attacks do not spend troop enchantments (4.4083ms)
+✔ remaining charges/source survive save and resume; forged or obsolete state is rejected (19.4734ms)
+✔ four officer stats affect separate derived attributes, with no charm dimension (2.6031ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (59.9277ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (2.0571ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (8.5038ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (5.5424ms)
+✔ politics reduces actual confusion duration but physical stun remains independent (11.8016ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (2.3845ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (25.5084ms)
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (26.7068ms)
+✔ only the current rule version loads, and intent is validated without normalization (34.444ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (10.4278ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (10.8818ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (22.3081ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (58.2321ms)
+✔ siege defenders hold their rear line before enemies approach (96.1993ms)
+✔ command scoring reads the requested side attributes and cooldowns without swapping units (29.859ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (154.6221ms)
+✔ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (56.8085ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (56.4564ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (4.6711ms)
+✔ enemy re-plans with terrain, keeps ships afloat and equips forest fire for archers (20.3262ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (67.7585ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (3.3782ms)
+✔ AI prioritizes cleanse for control and DOT, holds useless commands, and does not refresh active buffs (6.2715ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (221.1174ms)
+✔ melee anticipates then strikes and recovers; ranged troops stay in formation (1.4134ms)
+✔ presentation consumes appended real events once, resets per battle and preserves snapshots (2.4793ms)
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (4.4253ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (1.0999ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.4629ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.6126ms)
+✔ legacy windup events never display a preparation animation or log row (0.4511ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.9947ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (13.0238ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.7565ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (13.8247ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.674ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.6464ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (3.2239ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.416ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.1726ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.3781ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.3002ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (1.0077ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (3.4547ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (7.3437ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.45ms)
+✔ reduced motion uses static focus and finishes without impact particles (3.3632ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (11.3877ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.668ms)
+✔ minor tactics including criticals stay local in both effect modes (0.5772ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (7.7523ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (365.195ms)
+✔ battle intent is selected before combat and stays locked at tick zero and after save recovery (74.4911ms)
+✔ defenders cannot choose siege and invalid intent does not alter deployment (3.4176ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (19.9999ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (2.3875ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (3.8545ms)
+✔ signals render finite coordinates without changing battle data through real combat (135.6444ms)
+✔ a real control cast opens ZOC and the next allied charge exploits it (44.2775ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (2.8844ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (6.4224ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (7.8036ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (1.171ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (146.8034ms)
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (6.3956ms)
+✖ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (36.4615ms)
+✖ administration charges the shown cost once; relief respects caps and once-per-turn restriction (1.8518ms)
+✔ fame adds city manpower rather than free troops (1.1195ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (627.344ms)
+✖ governor interface shows actual discounts, skill categories and diplomacy reserve labels (19.7544ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.3504ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (243.5018ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (2.4695ms)
+✔ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (500.0337ms)
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (84.6403ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (27.6591ms)
+✔ a stunned unit and pure self buffs do not prime a combo (4.1573ms)
+✔ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (17.6276ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (17.1958ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (804.8499ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (4.8399ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (16.311ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (3.4679ms)
+✔ full gauge announces once, stays quiet while held, and re-arms after spending (1.9298ms)
+✔ restored ready battle and a new battle each get their own announcement (0.4484ms)
+✔ two, three and six adjacent enemies share one normal attack budget (38.2068ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (4.9151ms)
+✔ minimum damage is shared rather than multiplied once per enemy (5.0041ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (11.4414ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (4.0389ms)
+✔ an enchanted contact attack consumes one charge and divides extra fire damage (6.3861ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (4.7372ms)
+✔ current combat saves resume with exactly the same shared attacks (216.9854ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (37.2524ms)
+✔ nearby front takes priority before contact; fast movement stops on contact (3.4676ms)
+✔ rush cannot escape an engagement or charge through a blocking line (16.3933ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (6.2697ms)
+✔ an unreachable rear focus advances into the blocking line instead of stalling (12.559ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (11.6329ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (9.1643ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (1.3241ms)
+✔ a real retreat can leave contact (2.2685ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (275.4789ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (2.3655ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (2.5481ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (349.8587ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (658.4525ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (6.6607ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (3.7572ms)
+✔ retreat terminates and sends the attacker back without taking the city (37.7219ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (0.6522ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (0.7745ms)
+✔ enemy launches an attack and city garrison participates in defense (210.818ms)
+✔ garrison alone can defend a city when player army is elsewhere (60.9535ms)
+✔ multiple same-side armies share the same six battlefield slots (177.357ms)
+✔ invalid saves are rejected before replacing game state (1.2312ms)
+✔ different seeds finish without deadlocks or overlapping units (1020.1792ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (168.2004ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (48.6324ms)
+✔ left and right formations deploy on opposite flanks (17.3523ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (13.5059ms)
+✔ capturing the final city completes the scenario (35.201ms)
+✔ losing the final friendly city ends the scenario (48.5434ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (591.958ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (3.4147ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (180.3321ms)
+✔ pending casts from the removed windup format are rejected (2.5881ms)
+✔ a defeated unit cannot use a ready skill (24.9367ms)
+✔ retreat stops subsequent friendly skills immediately (66.5089ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (174.3716ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (2.6774ms)
+✔ a ready tactic casts without spending intent, regardless of morale or attack cooldown (1.4522ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (17.3818ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (1.7939ms)
+✔ deployment can move, swap, reset and persist without advancing time (2.5762ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (2.7684ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (8.9668ms)
+✔ missing deployment and command state is rejected instead of reconstructed (32.1737ms)
+✔ cleave charges each victim once without charging the caster (41.0609ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (81.1804ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (8.8245ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (23.052ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (5.6234ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (3.2967ms)
+✔ passage opens a real ZOC route and rear targeting; bodies, terrain, taunt and shared lock still apply (5.5475ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (373.6016ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (9.6709ms)
+✔ two real ram casts can link against the gate and increase the second hit (25.1115ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (465.1281ms)
+✔ short passage prioritizes available rear attacks over self-buffs (5.0395ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (115.0238ms)
+✔ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (27.0456ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (155.7314ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (2.3569ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (4.0489ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (4.1413ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (3.9263ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (8.3984ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (51.4892ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (22.3827ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (1.6059ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (1.2329ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (10.183ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 41 officers (1500.2782ms)
+✔ each offset-row neighbor is reciprocal, one step away, and equally spaced on screen (20.5902ms)
+✔ hex paths use six neighbors and cannot cross a gate or an occupied ring (4.4577ms)
+✔ diagonal spear thrust hits the next hex on the same axial line (57.988ms)
+✔ diagonal protection knockback follows the hex line and stops before an occupied cell (27.5773ms)
+✔ missing grid type is rejected instead of upgrading a pre-hex battle (22.716ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (320.8312ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (398.4509ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (526.6527ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (249.9098ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (125.9711ms)
+✔ real battles retain skill provenance through stacking, refresh, shields and deterministic saves (9772.2605ms)
+✔ stacked attribute losses, army effects and non-stacking haste show marginal actual values (1.255ms)
+✔ current DOT details apply terrain and passive mitigation, before shields (2.0599ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (90.4356ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (4.5874ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (12.146ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (1.0302ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (5.5906ms)
+✔ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (672.9888ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (490.1196ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (58.2409ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (5.2031ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (3.5618ms)
+✔ damage tactics against a gate do not charge the caster, basic siege attacks do (3.5942ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (403.5962ms)
+✔ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (441.2878ms)
+✔ each troop has exactly six tools and exclusive tactics remain optional (1.0357ms)
+✔ mixed defaults persist, slot priority works and invalid loadouts fail without mutation (37.5853ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (19.3539ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (8.812ms)
+✔ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (13.3381ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (3.9502ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (7.8894ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (78.6738ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (532.5466ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (59.7847ms)
+✔ front support heals at most two other allies, never itself, and has a real range limit (16.639ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (3.0384ms)
+✔ doubt deals strategy damage through control protection without bypassing that protection (2.8996ms)
+✔ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (1.5921ms)
+✔ real zero-intent battles trigger both medical roles and resume deterministically (442.8535ms)
+✔ fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement (19.566ms)
+✔ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (18.7893ms)
+✔ medical casting spends the next basic attack interval rather than adding free healing between shots (3.9352ms)
+✔ only equipped chargers select legal short flanks, and live interception cancels that preference (2.028ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (297.1968ms)
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (40.6151ms)
+✔ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (109.4524ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (5.4136ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (541.4264ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (1707.104ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (13.6148ms)
+✔ old officer data versions are rejected without changing saved progress (13.7439ms)
+✔ effective scenario character traits are formal catalogue and runtime fields, preserving numeric zero (38.5848ms)
+✔ sworn-sibling groups resolve all peers, exclude self, and keep directional likes unchanged (1.7724ms)
+✔ profile copies cannot mutate the shared catalogue or another officer instance (0.2912ms)
+✔ incomplete profile state is rejected without backfilling fields (44.1536ms)
+✔ current saves reject invalid, missing and malformed profiles rather than silently changing them (13.1452ms)
+✔ reserved profile fields do not affect combat decisions, numbers or historical death (207.5651ms)
+✔ scenario profiles correct the public-library traits in runtime and exported rows (1.7465ms)
+✔ scenario relation IDs replace truncated library IDs without inventing genealogy officers (7.7139ms)
+✔ profile import uses array base values and never adopts live scenario state or colliding custom IDs (0.902ms)
+✔ all ordinary officers unlock five generic skills at the same levels as famous officers (112.7088ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (6.6516ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (362.2029ms)
+✔ all 77 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10 (48.7504ms)
+✔ base and advanced skills modify only their intended attributes, adding passive percentages (1.1841ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (1.4668ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (22.7276ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (4.2108ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (3.8571ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (2.1004ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.7858ms)
+✔ isolated and joint change actual basic damage and evaluate neighbors from the correct side (32.6505ms)
+✔ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (22.1808ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (3.6633ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (36.3269ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (4.0296ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.294ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.6648ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (16.4421ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (13.5138ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (9.2643ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (4.3694ms)
+✔ experience carries across thresholds, unlocks all crossed nodes and stops at level 10 (0.3465ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (6.9881ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (976.2015ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (55.3947ms)
+✔ source relationships have symmetric baselines, positive floors, negative ceilings and neutral defaults (2.1617ms)
+✔ scores accept explicit improvements or reduced hostility and reject out-of-range or invalid pairs (3.6599ms)
+✔ relationship scores persist independently in deployments and lock during combat, including after reload (146.7538ms)
+✔ missing, corrupt and inconsistent relationship maps are rejected (4.5495ms)
+✔ character pages expose saved scores, probability, bounds, and combat locking (4.156ms)
+✔ score events cross social tiers without granting marriage or sworn bonds automatically (6.0131ms)
+✔ special relationships have different caps and deterioration preserves source kinship (0.3731ms)
+✔ changed relationships persist symmetrically, affect the battle snapshot and lock once combat starts (80.2742ms)
+✔ invalid relationship types and out-of-tier scores are rejected without migration (7.4615ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (471.7437ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (706.2985ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (585.6334ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (381.6976ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (172.2424ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (138.7868ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (125.8883ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1065.9543ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (465.8721ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (190.802ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (208.6841ms)
+✔ river: complete battle, reserves, save recovery and settlement (238.0514ms)
+✔ breach: complete battle, reserves, save recovery and settlement (96.8127ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (131.727ms)
+✔ field: complete battle, reserves, save recovery and settlement (192.0914ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (209.3209ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (488.8202ms)
+✔ siege: complete battle, reserves, save recovery and settlement (239.6106ms)
+✔ defense: complete battle, reserves, save recovery and settlement (1062.9152ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (367.6038ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (11.9545ms)
+✔ sieges add an independent gate and shields only to defending starters (17.3114ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (2.8102ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (21.9932ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (27.0078ms)
+✔ fixture and seed validation rejects malformed test state (6.0038ms)
+✔ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (54.0028ms)
+✔ screen has a useful baseline and scales with support passives (7.519ms)
+✔ foresight no longer depends on enemy loadout and respects its strict boundary and damage kind (0.4611ms)
+✔ gallop provides travel speed before contact and mitigation while adjacent (9.1058ms)
+✔ new officer defaults activate the intended bow and support routes without removing troop choice (6.5151ms)
+✔ current campaigns and ongoing battles preserve player loadouts and DOT snapshots (239.1102ms)
+✔ status timer matches exclusive expiration and distinguishes the final active step from expired state (2.4152ms)
+✔ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (0.7993ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (78.1515ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (6.8788ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (250.657ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (11.3302ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (19.2564ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (4.6214ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (34.8216ms)
+✖ campaign begins in day-one planning with cities, homes and at most ten units (6.6155ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (361.7888ms)
+✔ armies move visibly along road interiors before arriving (6.8333ms)
+✔ head-on marching armies meet on the road without passing through each other (13.8428ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (202.9852ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (456.0349ms)
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (486.1362ms)
+✔ multiple battles and their snapshots share the same global day (229.9044ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (70.5994ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (754.5392ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (97.4391ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (107.3806ms)
+✖ governors must stay at home; relief is limited and assigned officials cannot join armies (1.6339ms)
+✖ officer transfers take real time and new armies require local idle officers and recruitment (1.6258ms)
+✖ split and merge conserve supply and capacity, and enforce ten-unit maximum (1.3414ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (3.1281ms)
+✔ supply connection is cut by hostile road occupation (0.7324ms)
+✔ five days without food disband armies and preserve officers for their return (4.4415ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (76.6561ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (254.8905ms)
+✔ city capture settles once and can be saved immediately within a day (92.8161ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (59.4471ms)
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (31.5864ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (8.556ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (25.0013ms)
+✔ healing results use wounded budget and show actual shield separately (4.4734ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (363.7055ms)
+✔ every tactic declares its actual power, chance effects and critical policy (1.1877ms)
+✔ defensive status magnitude snapshots martial power and ignores intellect (100.4292ms)
+✔ control succeeds and fails through real casts, pays cooldown, and reports actual chance (96.5561ms)
+✔ resolve blocks control and outcome never claims an applied status (4.3005ms)
+✔ multi-hit burst shares one power-dependent critical roll per target (83.822ms)
+✔ control duration grows with power and potency remains bounded (3.0793ms)
+✔ current saves resume identical probability rolls and reject malformed event probabilities (288.8848ms)
+✔ four troop types have fixed base slots and named officers have exclusive tactics (3.4462ms)
+✔ instant skills keep shared intent and only one tactic enters cooldown per step (48.7759ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (10.8678ms)
+✔ expired cooldown is insufficient below threshold; regaining intent re-enables the tactic (19.3413ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (9.6378ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (5.5484ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (31.5688ms)
+✔ blocked displacement never overlaps units or crosses board limits (3.1864ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (7.0506ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (13.993ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (6.0487ms)
+✔ prepaid casts and previous save formats are rejected (2.5129ms)
+✔ new saves distinguish bows and crossbows and require current rules (2.5537ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (38.9493ms)
+✔ taunt cannot reach six hexes or override control protection (5.2172ms)
+✔ taunted ranged offensive skills wait for range, then attack the taunter (3.7111ms)
+✔ cleanse removes a real taunt; its source dying or retreating immediately releases the target (22.6952ms)
+✔ taunt never drags melee out through another active ZOC (2.5577ms)
+✔ a real charge follows a real retreat shot instead of switching back to a disabled front (3.5399ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (2.6939ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (32.5169ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (154.5425ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (187.4102ms)
+✔ all presets have symmetric cells; ships never occupy forests, hills or marshes (1.3919ms)
+✔ terrain changes only during deployment, resets both sides legally and preserves intent and seed (46.0932ms)
+✔ fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs (20.5909ms)
+✔ area fire resolves each target terrain separately (4.58ms)
+✔ burn recalculates terrain after moving, without compounding its stored stack strength (3.3756ms)
+✔ high ground boosts shooting, woodland shields ranged targets and neutral skills remain neutral (6.5449ms)
+✔ charge damage remembers the starting high ground and the worst traversed wetland (12.2462ms)
+✔ ambush and fortifications change duration, while terrain slow is visible in derived movement (10.2362ms)
+✔ water tactics and fire distinguish a ship under the bridge from troops on it (6.279ms)
+✔ famous fire tactics share terrain effects and all tactics explain their terrain rules (2.853ms)
+✔ all terrain saves resume deterministically to real battle completion and old rules are rejected (1145.8994ms)
+✔ all 160 core combinations are legal; every officer has all three role options (57.1623ms)
+✔ positioning targets real columns and clustered enemies and always includes the anchor (16.8371ms)
+✔ allied slow enables a real spear finisher, with no intent or target bypass (12.5719ms)
+✔ fire preparation increases wildfire direct hits without replacing a stronger burn (22.3959ms)
+✔ low-intellect guards retain mitigation and suppression; their support casts deal no damage (2.5852ms)
+✔ cavalry offensive stance increases basic attack at the cost of real defense (1.9865ms)
+✔ screen protects threatened healthy allies, respects its own layer and caps at one recipient (4.5774ms)
+✔ seal exchanges all damage for silence; ambush waits for close range (8.9561ms)
+✔ each role completes a battle and preserves deterministic continuation under current rules (2930.4773ms)
+✔ command and experience define individual capacity; fielded troops are independent (14.3044ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (220.8938ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (96.0759ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (95.7784ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (998.0032ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (290.4777ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (343.1501ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (3.0768ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (34.9007ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (98.9532ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (68.8103ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (38.6276ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (67.3151ms)
+✔ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (41.2861ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (26.1099ms)
+✔ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (41.5193ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (36.3865ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (28.1812ms)
+✔ firestorm is bounded by friendly power, not enemy army size (214.2197ms)
+ℹ tests 414
+ℹ suites 0
+ℹ pass 406
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11064.5456
+
+✖ failing tests:
+
+test at tests\civil-skills.test.mjs:28:1
+✖ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (36.4615ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  466 !== 419
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/civil-skills.test.mjs:32:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 466,
+    expected: 419,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\civil-skills.test.mjs:39:1
+✖ administration charges the shown cost once; relief respects caps and once-per-turn restriction (1.8518ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '城市民心已停用，请通过人才委任安抚本城武将'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/civil-skills.test.mjs:44:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '城市民心已停用，请通过人才委任安抚本城武将',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\civil-skills.test.mjs:58:1
+✖ governor interface shows actual discounts, skill categories and diplomacy reserve labels (19.7544ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /民心 \+20/. Input:
+  
+  '<main class="campaign strategy-page"><header class="strategy-heading"><div><span class="eyebrow">军国大事 · 旬回合筹划 / 逐日执行</span><h1>天下大势</h1><p>一旬十天，战役一回合一天。所有战场共享同一日历。</p></div><div><button class="button secondary" data-action="lobby"  >模式首页</button><button class="button secondary" data-action="settings"  >存档与设置</button><button class="button secondary" data-action="journal"  >天下纪事</button></div></header>\n' +
+    '  <section class="strategy-clock"><div><strong>第 1 旬</strong><span>世界第 1 天 · 本旬第 1 天</span></div><div class="day-track"><i class="current">1</i><i class="">2</i><i class="">3</i><i class="">4</i><i class="">5</i><i class="">6</i><i class="">7</i><i class="">8</i><i class="">9</i><i class="">10</i></div><div><b>战略筹划 · 全局暂停</b><small>0 处交战 · 府库 3,200 金 · 城内粮草 16,000</small></div><div class="strategy-clock-actions"><button class="button primary" data-action="campaign-begin" >进行 · 执行本旬</button><button class="button secondary" data-action="campaign-day" disabled >推进一天</button></div></section>\n' +
+    '  <div class="strategy-notice" role="status">请先处理内政、整军和出征命令，再点击进行。</div>\n' +
+    '  \n' +
+    '  <div class="strategy-layout"><section class="strategy-map-panel"><div class="strategy-map-caption"><b>中原战区</b><span><i class="legend-own"></i>曹军　<i class="legend-enemy"></i>敌军　<span class="supply-key">虚线：所选军团粮道</span></span></div><div class="national-map-tools"><div><b>山河舆图 · 中原</b><small>二维绘制 · 九城可交互 · 拖动平移 / 滚轮缩放</small></div><div><button type="button" data-map-view="national">全国</button><button type="button" data-map-view="theater">中原</button><button type="button" data-map-view="in" aria-label="放大地图">＋</button><button type="button" data-map-view="out" aria-label="缩小地图">−</button><label>景色 <select id="map-season" aria-label="地图季节外观"><option value="spring" >春</option><option value="summer" selected>夏</option><option value="autumn" >秋</option><option value="winter" >冬</option></select></label></div></div>\n' +
+    ' <svg class="strategy-world strategy-world-art strategy-world-drawn" data-art-ready="true" viewBox="190 95 570 690" tabindex="0" role="group" aria-label="全国地图，中原九城可交互；方向键平移，加减键缩放"><title>山河舆图 · 中原战区</title>\n' +
+    ' <g class="national-map-terrain"><defs>\n' +
+    ' <pattern id="atlas-paper" width="31" height="29" patternUnits="userSpaceOnUse"><path d="M3 6h2m14 13h3M9 25h1" stroke="#7d795d" stroke-width=".6" opacity=".17"/></pattern>\n' +
+    ' <pattern id="atlas-water" width="34" height="25" patternUnits="userSpaceOnUse"><path d="M4 13q7-4 14 0t13 0" fill="none" stroke="#ebedcd" stroke-width=".7" opacity=".35"/></pattern>\n' +
+    ' <pattern id="atlas-fields" width="19" height="15" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><path d="M1 1h16v11H1Z" fill="#c9c58e" stroke="#e6ddb0" stroke-width="1"/><path d="M4 2v9m4-9v9m4-9v9" stroke="#a9ae7e" stroke-width=".5"/></pattern>\n' +
+    ' <g id="atlas-mountain" stroke="#5a725d" stroke-linejoin="round"><path d="M-23 12Q-12-2-4-23L2-29 9-11 26 13Q7 21-23 12" fill="#8e9e7d" stroke-width=".65"/><path d="M2-29L-3-4 8 6 3 15 26 13 9-11Z" fill="#5a725d" opacity=".4" stroke="none"/><path d="M-13 2L-4-19 2-29 5-16M-18 8L-9-5M8-6L17 7" fill="none" stroke="#eee3bf" stroke-width="1" opacity=".65"/></g>\n' +
+    ' <g id="atlas-tree"><ellipse cy="5" rx="5" ry="2" fill="#607857" opacity=".17"/><path d="M0 0V6" stroke="#747b58"/><path d="M-5 2L0-11 5 2Z" fill="#5a725d"/><path d="M-4-2L0-14 4-2Z" fill="#8e9e7d"/></g>\n' +
+    ' </defs><g class="drawn-terrain" data-season="summer" style="pointer-events:none">\n' +
+    ' <rect width="1024" height="1024" fill="#b6c3af"/><rect width="1024" height="1024" fill="url(#atlas-water)"/>\n' +
+    ' <path d="M0 0H1024V125L931 170 906 220 852 249 821 223 793 253 808 291 850 314 877 348 846 377 813 382 801 427 826 463 813 500 841 538 822 571 847 610 828 651 845 688 818 724 814 774 782 803 760 844 698 875 662 916 610 934 568 960 509 943 458 978 393 952 339 985 282 955 242 985H0Z" fill="#ded6b5" stroke="#7f9580" stroke-width="3"/>\n' +
+    ' <path d="M0 80Q160 20 250 94T432 97L442 215 355 282 276 244 140 317 0 261Z" fill="#bdc49f" opacity=".65"/>\n' +
+    ' <path d="M30 373Q194 320 274 440T305 711L205 824 41 795Z M360 866Q500 730 600 865L660 939 485 960Z" fill="#bdc49f" opacity=".65"/>\n' +
+    ' <path d="M478 223Q533 185 612 222T740 297L705 330 555 319Z M344 491L404 467 449 510 408 564 351 555Z M525 604L591 589 620 651 556 672Z M661 539L715 530 756 625 692 656Z" fill="url(#atlas-fields)" opacity=".72"/>\n' +
+    ' <g fill="none" stroke="#8e9e7d" opacity=".2"><path d="M60 352Q178 281 224 350T292 395M64 363Q170 298 224 365T287 409M75 375Q162 322 224 382T279 421M332 844Q447 708 531 831T720 860M342 854Q450 733 524 846T714 875"/></g>\n' +
+    ' <g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#eee0b6" stroke-width="14"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#94ac96" stroke-width="8"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#dce4cb" stroke-width="1.5" opacity=".8"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#eee0b6" stroke-width="17"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#8ca58f" stroke-width="11"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#d1dfc8" stroke-width="2"/>\n' +
+    ' <path d="M402 195Q425 260 400 287T412 349M190 405Q255 390 310 430T439 359M255 663Q345 687 395 748T460 789M549 538Q591 573 656 570T817 624" stroke="#94ac96" stroke-width="3"/></g>\n' +
+    ' <g><use href="#atlas-mountain" transform="translate(178 140) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(208 154) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(222 168) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(252 182) scale(1.3224999999999998)"/><use href="#atlas-mountain" transform="translate(266 196) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(296 210) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(310 224) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(451 192) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(455 212) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(443 232) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(447 252) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(435 272) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(439 292) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(427 312) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(431 332) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(419 352) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(475 213) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(480 234) scale(0.623)"/><use href="#atlas-mountain" transform="translate(469 255) scale(0.714)"/><use href="#atlas-mountain" transform="translate(474 276) scale(0.8049999999999999)"/><use href="#atlas-mountain" transform="translate(463 297) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(468 318) scale(0.623)"/><use href="#atlas-mountain" transform="translate(457 339) scale(0.714)"/><use href="#atlas-mountain" transform="translate(176 418) scale(0.646)"/><use href="#atlas-mountain" transform="translate(202 426) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(212 434) scale(0.867)"/><use href="#atlas-mountain" transform="translate(238 442) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(248 450) scale(0.646)"/><use href="#atlas-mountain" transform="translate(274 458) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(284 466) scale(0.867)"/><use href="#atlas-mountain" transform="translate(310 474) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(143 479) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(165 498) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(171 517) scale(1.122)"/><use href="#atlas-mountain" transform="translate(193 536) scale(1.265)"/><use href="#atlas-mountain" transform="translate(199 555) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(221 574) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(227 593) scale(1.122)"/><use href="#atlas-mountain" transform="translate(220 539) scale(0.684)"/><use href="#atlas-mountain" transform="translate(218 563) scale(0.801)"/><use href="#atlas-mountain" transform="translate(200 587) scale(0.918)"/><use href="#atlas-mountain" transform="translate(198 611) scale(1.035)"/><use href="#atlas-mountain" transform="translate(180 635) scale(0.684)"/><use href="#atlas-mountain" transform="translate(72 591) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(97 612) scale(1.157)"/><use href="#atlas-mountain" transform="translate(106 633) scale(1.326)"/><use href="#atlas-mountain" transform="translate(131 654) scale(1.4949999999999999)"/><use href="#atlas-mountain" transform="translate(140 675) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(165 696) scale(1.157)"/><use href="#atlas-mountain" transform="translate(174 717) scale(1.326)"/><use href="#atlas-mountain" transform="translate(327 682) scale(0.5928)"/><use href="#atlas-mountain" transform="translate(356 689) scale(0.6942)"/><use href="#atlas-mountain" transform="translate(369 696) scale(0.7956000000000001)"/><use hre'... 31739 more characters
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/civil-skills.test.mjs:60:90)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '<main class="campaign strategy-page"><header class="strategy-heading"><div><span class="eyebrow">军国大事 · 旬回合筹划 / 逐日执行</span><h1>天下大势</h1><p>一旬十天，战役一回合一天。所有战场共享同一日历。</p></div><div><button class="button secondary" data-action="lobby"  >模式首页</button><button class="button secondary" data-action="settings"  >存档与设置</button><button class="button secondary" data-action="journal"  >天下纪事</button></div></header>\n  <section class="strategy-clock"><div><strong>第 1 旬</strong><span>世界第 1 天 · 本旬第 1 天</span></div><div class="day-track"><i class="current">1</i><i class="">2</i><i class="">3</i><i class="">4</i><i class="">5</i><i class="">6</i><i class="">7</i><i class="">8</i><i class="">9</i><i class="">10</i></div><div><b>战略筹划 · 全局暂停</b><small>0 处交战 · 府库 3,200 金 · 城内粮草 16,000</small></div><div class="strategy-clock-actions"><button class="button primary" data-action="campaign-begin" >进行 · 执行本旬</button><button class="button secondary" data-action="campaign-day" disabled >推进一天</button></div></section>\n  <div class="strategy-notice" role="status">请先处理内政、整军和出征命令，再点击进行。</div>\n  \n  <div class="strategy-layout"><section class="strategy-map-panel"><div class="strategy-map-caption"><b>中原战区</b><span><i class="legend-own"></i>曹军　<i class="legend-enemy"></i>敌军　<span class="supply-key">虚线：所选军团粮道</span></span></div><div class="national-map-tools"><div><b>山河舆图 · 中原</b><small>二维绘制 · 九城可交互 · 拖动平移 / 滚轮缩放</small></div><div><button type="button" data-map-view="national">全国</button><button type="button" data-map-view="theater">中原</button><button type="button" data-map-view="in" aria-label="放大地图">＋</button><button type="button" data-map-view="out" aria-label="缩小地图">−</button><label>景色 <select id="map-season" aria-label="地图季节外观"><option value="spring" >春</option><option value="summer" selected>夏</option><option value="autumn" >秋</option><option value="winter" >冬</option></select></label></div></div>\n <svg class="strategy-world strategy-world-art strategy-world-drawn" data-art-ready="true" viewBox="190 95 570 690" tabindex="0" role="group" aria-label="全国地图，中原九城可交互；方向键平移，加减键缩放"><title>山河舆图 · 中原战区</title>\n <g class="national-map-terrain"><defs>\n <pattern id="atlas-paper" width="31" height="29" patternUnits="userSpaceOnUse"><path d="M3 6h2m14 13h3M9 25h1" stroke="#7d795d" stroke-width=".6" opacity=".17"/></pattern>\n <pattern id="atlas-water" width="34" height="25" patternUnits="userSpaceOnUse"><path d="M4 13q7-4 14 0t13 0" fill="none" stroke="#ebedcd" stroke-width=".7" opacity=".35"/></pattern>\n <pattern id="atlas-fields" width="19" height="15" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><path d="M1 1h16v11H1Z" fill="#c9c58e" stroke="#e6ddb0" stroke-width="1"/><path d="M4 2v9m4-9v9m4-9v9" stroke="#a9ae7e" stroke-width=".5"/></pattern>\n <g id="atlas-mountain" stroke="#5a725d" stroke-linejoin="round"><path d="M-23 12Q-12-2-4-23L2-29 9-11 26 13Q7 21-23 12" fill="#8e9e7d" stroke-width=".65"/><path d="M2-29L-3-4 8 6 3 15 26 13 9-11Z" fill="#5a725d" opacity=".4" stroke="none"/><path d="M-13 2L-4-19 2-29 5-16M-18 8L-9-5M8-6L17 7" fill="none" stroke="#eee3bf" stroke-width="1" opacity=".65"/></g>\n <g id="atlas-tree"><ellipse cy="5" rx="5" ry="2" fill="#607857" opacity=".17"/><path d="M0 0V6" stroke="#747b58"/><path d="M-5 2L0-11 5 2Z" fill="#5a725d"/><path d="M-4-2L0-14 4-2Z" fill="#8e9e7d"/></g>\n </defs><g class="drawn-terrain" data-season="summer" style="pointer-events:none">\n <rect width="1024" height="1024" fill="#b6c3af"/><rect width="1024" height="1024" fill="url(#atlas-water)"/>\n <path d="M0 0H1024V125L931 170 906 220 852 249 821 223 793 253 808 291 850 314 877 348 846 377 813 382 801 427 826 463 813 500 841 538 822 571 847 610 828 651 845 688 818 724 814 774 782 803 760 844 698 875 662 916 610 934 568 960 509 943 458 978 393 952 339 985 282 955 242 985H0Z" fill="#ded6b5" stroke="#7f9580" stroke-width="3"/>\n <path d="M0 80Q160 20 250 94T432 97L442 215 355 282 276 244 140 317 0 261Z" fill="#bdc49f" opacity=".65"/>\n <path d="M30 373Q194 320 274 440T305 711L205 824 41 795Z M360 866Q500 730 600 865L660 939 485 960Z" fill="#bdc49f" opacity=".65"/>\n <path d="M478 223Q533 185 612 222T740 297L705 330 555 319Z M344 491L404 467 449 510 408 564 351 555Z M525 604L591 589 620 651 556 672Z M661 539L715 530 756 625 692 656Z" fill="url(#atlas-fields)" opacity=".72"/>\n <g fill="none" stroke="#8e9e7d" opacity=".2"><path d="M60 352Q178 281 224 350T292 395M64 363Q170 298 224 365T287 409M75 375Q162 322 224 382T279 421M332 844Q447 708 531 831T720 860M342 854Q450 733 524 846T714 875"/></g>\n <g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#eee0b6" stroke-width="14"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#94ac96" stroke-width="8"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#dce4cb" stroke-width="1.5" opacity=".8"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#eee0b6" stroke-width="17"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#8ca58f" stroke-width="11"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#d1dfc8" stroke-width="2"/>\n <path d="M402 195Q425 260 400 287T412 349M190 405Q255 390 310 430T439 359M255 663Q345 687 395 748T460 789M549 538Q591 573 656 570T817 624" stroke="#94ac96" stroke-width="3"/></g>\n <g><use href="#atlas-mountain" transform="translate(178 140) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(208 154) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(222 168) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(252 182) scale(1.3224999999999998)"/><use href="#atlas-mountain" transform="translate(266 196) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(296 210) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(310 224) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(451 192) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(455 212) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(443 232) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(447 252) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(435 272) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(439 292) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(427 312) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(431 332) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(419 352) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(475 213) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(480 234) scale(0.623)"/><use href="#atlas-mountain" transform="translate(469 255) scale(0.714)"/><use href="#atlas-mountain" transform="translate(474 276) scale(0.8049999999999999)"/><use href="#atlas-mountain" transform="translate(463 297) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(468 318) scale(0.623)"/><use href="#atlas-mountain" transform="translate(457 339) scale(0.714)"/><use href="#atlas-mountain" transform="translate(176 418) scale(0.646)"/><use href="#atlas-mountain" transform="translate(202 426) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(212 434) scale(0.867)"/><use href="#atlas-mountain" transform="translate(238 442) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(248 450) scale(0.646)"/><use href="#atlas-mountain" transform="translate(274 458) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(284 466) scale(0.867)"/><use href="#atlas-mountain" transform="translate(310 474) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(143 479) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(165 498) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(171 517) scale(1.122)"/><use href="#atlas-mountain" transform="translate(193 536) scale(1.265)"/><use href="#atlas-mountain" transform="translate(199 555) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(221 574) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(227 593) scale(1.122)"/><use href="#atlas-mountain" transform="translate(220 539) scale(0.684)"/><use href="#atlas-mountain" transform="translate(218 563) scale(0.801)"/><use href="#atlas-mountain" transform="translate(200 587) scale(0.918)"/><use href="#atlas-mountain" transform="translate(198 611) scale(1.035)"/><use href="#atlas-mountain" transform="translate(180 635) scale(0.684)"/><use href="#atlas-mountain" transform="translate(72 591) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(97 612) scale(1.157)"/><use href="#atlas-mountain" transform="translate(106 633) scale(1.326)"/><use href="#atlas-mountain" transform="translate(131 654) scale(1.4949999999999999)"/><use href="#atlas-mountain" transform="translate(140 675) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(165 696) scale(1.157)"/><use href="#atlas-mountain" transform="translate(174 717) scale(1.326)"/><use href="#atlas-mountain" transform="translate(327 682) scale(0.5928)"/><use href="#atlas-mountain" transform="translate(356 689) scale(0.6942)"/><use href="#atlas-mountain" transform="translate(369 696) scale(0.7956000000000001)"/><use hre'... 31739 more characters,
+    expected: /民心 \+20/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:24:1
+✖ campaign begins in day-one planning with cities, homes and at most ten units (6.6155ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  10 !== 4
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:25:131)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:51:1
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (486.1362ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:55:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:90:1
+✖ governors must stay at home; relief is limited and assigned officials cannot join armies (1.6339ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '城市民心已停用，请通过人才委任安抚本城武将'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:92:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '城市民心已停用，请通过人才委任安抚本城武将',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:94:1
+✖ officer transfers take real time and new armies require local idle officers and recruitment (1.6258ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3000 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:97:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3000,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:100:1
+✖ split and merge conserve supply and capacity, and enforce ten-unit maximum (1.3414ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /10/. Input:
+  
+  '不能合并重复武将'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:103:104)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '不能合并重复武将',
+    expected: /10/,
+    operator: 'match',
+    diff: 'simple'
+  }

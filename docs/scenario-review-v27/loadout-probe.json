@@ -1,0 +1,530 @@
+[
+  {
+    "id": "eight-arms",
+    "variant": "Only restore the enemy toolbox presets authored by createScenario; leave positions, stats and commands unchanged",
+    "wins": 0,
+    "n": 32,
+    "runs": [
+      {
+        "seed": 2700000,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 119
+      },
+      {
+        "seed": 2707919,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 121
+      },
+      {
+        "seed": 2715838,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 134
+      },
+      {
+        "seed": 2723757,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 136
+      },
+      {
+        "seed": 2731676,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 136
+      },
+      {
+        "seed": 2739595,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 175
+      },
+      {
+        "seed": 2747514,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 135
+      },
+      {
+        "seed": 2755433,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 139
+      },
+      {
+        "seed": 2763352,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 175
+      },
+      {
+        "seed": 2771271,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 152
+      },
+      {
+        "seed": 2779190,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 128
+      },
+      {
+        "seed": 2787109,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 151
+      },
+      {
+        "seed": 2795028,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 147
+      },
+      {
+        "seed": 2802947,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 143
+      },
+      {
+        "seed": 2810866,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 136
+      },
+      {
+        "seed": 2818785,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 131
+      },
+      {
+        "seed": 2826704,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 131
+      },
+      {
+        "seed": 2834623,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 133
+      },
+      {
+        "seed": 2842542,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 181
+      },
+      {
+        "seed": 2850461,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 154
+      },
+      {
+        "seed": 2858380,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 127
+      },
+      {
+        "seed": 2866299,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 131
+      },
+      {
+        "seed": 2874218,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 147
+      },
+      {
+        "seed": 2882137,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 155
+      },
+      {
+        "seed": 2890056,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 138
+      },
+      {
+        "seed": 2897975,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 143
+      },
+      {
+        "seed": 2905894,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 129
+      },
+      {
+        "seed": 2913813,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 149
+      },
+      {
+        "seed": 2921732,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 146
+      },
+      {
+        "seed": 2929651,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 139
+      },
+      {
+        "seed": 2937570,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 142
+      },
+      {
+        "seed": 2945489,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 163
+      }
+    ]
+  },
+  {
+    "id": "river",
+    "variant": "Only restore the enemy toolbox presets authored by createScenario; leave positions, stats and commands unchanged",
+    "wins": 0,
+    "n": 32,
+    "runs": [
+      {
+        "seed": 2700000,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2707919,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 199
+      },
+      {
+        "seed": 2715838,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2723757,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2731676,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 237
+      },
+      {
+        "seed": 2739595,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 176
+      },
+      {
+        "seed": 2747514,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 146
+      },
+      {
+        "seed": 2755433,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 203
+      },
+      {
+        "seed": 2763352,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 210
+      },
+      {
+        "seed": 2771271,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 191
+      },
+      {
+        "seed": 2779190,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 166
+      },
+      {
+        "seed": 2787109,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 207
+      },
+      {
+        "seed": 2795028,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2802947,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 237
+      },
+      {
+        "seed": 2810866,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 201
+      },
+      {
+        "seed": 2818785,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2826704,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2834623,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 176
+      },
+      {
+        "seed": 2842542,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2850461,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 225
+      },
+      {
+        "seed": 2858380,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2866299,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 162
+      },
+      {
+        "seed": 2874218,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 180
+      },
+      {
+        "seed": 2882137,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2890056,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 222
+      },
+      {
+        "seed": 2897975,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 200
+      },
+      {
+        "seed": 2905894,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 201
+      },
+      {
+        "seed": 2913813,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 173
+      },
+      {
+        "seed": 2921732,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 233
+      },
+      {
+        "seed": 2929651,
+        "result": {
+          "winner": 1,
+          "reason": "久战收兵"
+        },
+        "ticks": 240
+      },
+      {
+        "seed": 2937570,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 167
+      },
+      {
+        "seed": 2945489,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        },
+        "ticks": 218
+      }
+    ]
+  }
+]

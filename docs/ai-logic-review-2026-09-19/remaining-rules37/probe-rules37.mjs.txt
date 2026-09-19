@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import {mkdirSync,writeFileSync,readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {createScenario,SCENARIOS} from '../scenarios.mjs';
+import {lockDeployment,stepBattle,validateSave,STRATAGEMS,battleWounded} from '../engine.mjs';
+import {chooseEnemyCommand} from '../battle-ai.mjs';
+import {routeTo} from '../tactics.mjs';
+
+const unit=(id,type)=>({id,type,troops:3000,level:5});
+const baseline=JSON.parse(readFileSync(new URL('../docs/ai-logic-review-2026-09-19/rules37/runs.json',import.meta.url)));
+const hashes=()=>Object.fromEntries(Object.keys(baseline.hashes).map(f=>[f,createHash('sha256').update(readFileSync(new URL('../'+f,import.meta.url))).digest('hex')]));
+assert.deepEqual(hashes(),baseline.hashes,'The probe targets audited rules 37.');
+const fixture={...SCENARIOS.find(s=>s.id==='siege'),id:'logic-defender-probe',ownName:'目标选择测试攻军',enemyName:'目标选择测试守军',ownAdvisor:'person-512',enemyAdvisor:'person-46',ownTeam:[unit('person-512','archer'),unit('person-439','siege')],enemyTeam:[unit('person-46','spear')],gateHp:60000,limit:480,waves:[]};
+SCENARIOS.push(fixture);
+const state=createScenario(fixture.id,123),b=state.battle,[near,far]=b.sides[0].units,defender=b.sides[1].units[0];
+// Authored tactical geometry, not a normal player deployment. No intent,
+// cooldown, health or command resource injection; all following steps are real.
+Object.assign(near,{x:7,y:0});Object.assign(far,{x:10,y:7});Object.assign(defender,{x:9,y:0});
+validateSave(structuredClone(state));lockDeployment(b);
+assert.equal(routeTo(b,defender,near,112,{charging:false}),null);
+assert.ok(routeTo(b,defender,far,112,{charging:false})?.length);
+const copy=validateSave(structuredClone(state)),trace=[];
+for(let i=0;i<10;i++){
+ stepBattle(b);stepBattle(copy.battle);
+ assert.equal(defender.action,'守护城门');assert.deepEqual([defender.x,defender.y],[9,0]);
+ assert.ok(routeTo(b,defender,far,112,{charging:false})?.length);
+ trace.push({tick:b.tick,defenderAction:defender.action,gateHp:b.siege.gate.hp,effects:b.effects.filter(e=>e.damage>0).map(e=>({from:e.from,to:e.to,damage:e.damage})),reachableTarget:far.id});
+}
+assert.ok(b.siege.gate.hp<60000,'The reachable enemy is actually damaging the defended gate.');
+assert.deepEqual(copy.battle,b);validateSave(structuredClone(state));
+SCENARIOS.splice(SCENARIOS.indexOf(fixture),1);
+
+const custom=enemyTeam=>createScenario('custom-battle',123,20,null,{seed:123,terrain:'land',ownTeam:[unit('cao','spear')],enemyTeam});
+const single=custom([unit('dun','cavalry')]);lockDeployment(single.battle);validateSave(structuredClone(single));
+assert.equal(chooseEnemyCommand(single.battle,['haste'],STRATAGEMS),null);
+const pair=custom([unit('dun','cavalry'),unit('yan','cavalry')]);lockDeployment(pair.battle);
+assert.equal(chooseEnemyCommand(pair.battle,['haste'],STRATAGEMS),'haste');
+const patient=custom([unit('jin','spear')]);lockDeployment(patient.battle);
+while(!patient.battle.result&&!battleWounded(patient.battle.sides[1].units[0]))stepBattle(patient.battle);
+const wounded=battleWounded(patient.battle.sides[1].units[0]);assert.ok(wounded>0);
+assert.equal(chooseEnemyCommand(patient.battle,['regenerate'],STRATAGEMS),null);validateSave(structuredClone(patient));
+
+// Verify examples for composition-dependent loadouts using the same officer/type.
+const soloArcher=custom([unit('person-512','archer')]),teamArcher=custom([unit('person-512','archer'),unit('person-46','spear')]);
+const composition={solo:soloArcher.battle.sides[1].units[0].tactics,withAlly:teamArcher.battle.sides[1].units[0].tactics};
+assert.ok(!composition.solo.includes('rally'));assert.ok(composition.withAlly.includes('rally'));
+assert.deepEqual(hashes(),baseline.hashes,'Runtime changed during the probe.');
+const result={rulesVersion:37,defender:{method:'Validated authored tactical positions; ten actual engine steps and identical save/resume.',fixture,initialPositions:{near:[7,0],far:[10,7],defender:[9,0]},trace},commands:{method:'Candidate-selection boundaries, not naturally full-gauge command events. Regenerate uses naturally incurred wounds.',singleHaste:null,twoHaste:'haste',woundedSingleRegenerate:{tick:patient.battle.tick,wounded,selected:null}},composition};
+const out=new URL('../docs/ai-logic-review-2026-09-19/remaining-rules37/',import.meta.url);mkdirSync(out,{recursive:true});writeFileSync(new URL('probes.json',out),JSON.stringify(result,null,2));
+console.log(JSON.stringify(result,null,2));

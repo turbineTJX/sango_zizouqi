@@ -20,7 +20,7 @@ export function rosterMarkup({query='',sort='source',kind='all',page=0,selected=
  <button class="button primary" data-action="catalog-launch" ${selected.length?'':'disabled'}>以此阵容开始试炼</button>
  <button class="button secondary" data-action="catalog-clear" ${selected.length?'':'disabled'}>清空阵容</button></section>
  <p class="muted" role="status">共 ${matches.length} 人 · 第 ${page+1} / ${pages} 页</p>
- <div class="officer-grid">${rows.map(u=>`<article class="officer-card catalog-card"><div class="catalog-name"><h3>${esc(u.name)}<small>${u.courtesy?'字 '+esc(u.courtesy):'字未载'}</small></h3><span class="trait">${origin(u)} #${u.sourceId}</span></div>
+ <div class="officer-grid">${rows.map(u=>`<article class="officer-card catalog-card"><div class="catalog-name"><span class="portrait catalog-art-portrait" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></span><h3>${esc(u.name)}<small>${u.courtesy?'字 '+esc(u.courtesy):'字未载'}</small></h3><span class="trait">${origin(u)} #${u.sourceId}</span></div>
  ${statMarkup(u)}<p class="muted">${SKILL_ROUTES[u.id]?esc(FAMOUS_OFFICERS[u.id]?.role)+' · '+esc(TACTICS_BOOK[SPECIAL_TACTICS[u.id]]?.name):esc(commonRouteName(u))+' · 五项通用成长'}</p>
  <div class="catalog-card-actions"><button class="button secondary" data-action="catalog-detail" data-id="${u.id}">查看资料</button><button class="button ${selected.includes(u.id)?'primary':'secondary'}" data-action="catalog-toggle" data-id="${u.id}" ${!selected.includes(u.id)&&selected.length>=6?'disabled':''}>${selected.includes(u.id)?'移出试炼':'加入试炼'}</button></div></article>`).join('')||'<p class="catalog-empty">没有匹配的武将，请更换搜索词。</p>'}</div>
  <nav class="catalog-pages" aria-label="武将名录分页"><button class="button secondary" data-action="catalog-page" data-page="${page-1}" ${page===0?'disabled':''}>上一页</button><span>${page+1} / ${pages}</span><button class="button secondary" data-action="catalog-page" data-page="${page+1}" ${page+1>=pages?'disabled':''}>下一页</button></nav>`;
@@ -45,19 +45,19 @@ export function officerProfileMarkup(u,scores={},types={}){
  <h3 class="stats-section-title">初始关系记录</h3><dl class="catalog-relations">${Object.entries(relationLabels).map(([key,label])=>{
   const value=u.relations?.[key],ids=Array.isArray(value)?value:value?[value]:[];
   return `<div><dt>${label}</dt><dd>${ids.length?ids.map(relationName).join(' '):'<span class="muted">未记载</span>'}</dd></div>`;
- }).join('')}</dl><p class="muted">关系值决定符合条件时的连携成功率；其他人物资料暂不产生效果。义理名称沿用来源设定。</p></section>`;
+ }).join('')}</dl><p class="muted">关系值决定符合条件时的战法连携成功率；相性与关系共同影响同城同方向的内政协作机会。人物资料采用来源剧本设定，义理不代表当前忠诚。</p></section>`;
 }
 export function officerDetailMarkup(id,scores={},types={}){
  const u=Object.hasOwn(OFFICER_BY_ID,id)?OFFICER_BY_ID[id]:null;if(!u)return '<p>未找到武将。</p>';
- const s=u.source;
+ const s=u.profileSource;
  const aptitude=[['spearLv','枪兵'],['halberdLv','戟兵'],['crossbowLv','弩兵'],['rideLv','骑兵'],['machineLv','兵器'],['waterLv','水军']];
- return `<div class="catalog-detail-heading"><h3>${esc(u.name)} ${u.courtesy?'<small>字 '+esc(u.courtesy)+'</small>':''}</h3><span>${origin(u)} #${u.sourceId}</span></div>${statMarkup(u)}
+ return `<div class="catalog-detail-heading"><span class="portrait catalog-art-portrait" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></span><h3>${esc(u.name)} ${u.courtesy?'<small>字 '+esc(u.courtesy)+'</small>':''}</h3><span>${origin(u)} #${u.sourceId}</span></div>${statMarkup(u)}
  ${officerProfileMarkup(u,scores,types)}
- ${SPECIAL_TACTICS[id]?`<h3 class="stats-section-title">专属战法 · ${esc(TACTICS_BOOK[SPECIAL_TACTICS[id]].name)}</h3><p>${esc(TACTICS_BOOK[SPECIAL_TACTICS[id]].description)}</p><p class="muted">战意 ${TACTICS_BOOK[SPECIAL_TACTICS[id]].threshold} · 冷却 ${TACTICS_BOOK[SPECIAL_TACTICS[id]].cooldown} 步 · 占用一个战法槽，1 级可配置。</p>`:''}
+ ${SPECIAL_TACTICS[id]?`<h3 class="stats-section-title">专属战法 · ${esc(TACTICS_BOOK[SPECIAL_TACTICS[id]].name)}</h3><p>${esc(TACTICS_BOOK[SPECIAL_TACTICS[id]].description)}</p><p class="muted">战意 ${TACTICS_BOOK[SPECIAL_TACTICS[id]].threshold} · 冷却 ${TACTICS_BOOK[SPECIAL_TACTICS[id]].cooldown} 步 · 局部主动效果，战意达标后自动施放；1—4级每级25%概率学习，5级必得；额外携带，不占三个普通名额。</p>`:''}
  <dl class="catalog-facts">${[['登场年',s.yearAvailable??'未载'],['原始忠诚',s.loyalty??'未载']].map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
  <h3 class="stats-section-title">兵种适性</h3><div class="catalog-aptitudes">${aptitude.map(([key,label])=>`<span>${label}<b>${['C','B','A','S'][s[key]]??'未载'}</b></span>`).join('')}</div>
  <h3 class="stats-section-title">人物生平</h3><p class="catalog-biography">${esc(u.biography||'源项目未提供人物生平。')}</p>
- <details class="catalog-source"><summary>原始数据</summary><p class="muted">保留来源字段；原项目特性编号未转换为本游戏技能。</p><pre>${esc(JSON.stringify(s,null,2))}</pre></details>`;
+ <details class="catalog-source"><summary>原始数据</summary><p class="muted">公共库原文保留；人物资料以来源剧本为准。原项目特性编号未转换为本游戏技能。</p><pre>${esc(JSON.stringify(u.source,null,2))}</pre></details>`;
 }
 
 export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,types={}){

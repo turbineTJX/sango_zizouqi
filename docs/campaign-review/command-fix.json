@@ -1,0 +1,3370 @@
+{
+  "rulesVersion": 24,
+  "seedMethod": "2700000 + i * 7919",
+  "results": [
+    {
+      "name": "谋定飞将",
+      "oldWins": 17,
+      "oldMeanOrders": 0,
+      "id": "tactical-control-lv",
+      "count": 128,
+      "start": 2700000,
+      "wins": 32,
+      "losses": 96,
+      "draws": 0,
+      "meanTicks": 131,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 74,
+          "remaining": [
+            0,
+            6012
+          ],
+          "controls": 34,
+          "casts": 19,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2707919,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            0,
+            4632
+          ],
+          "controls": 65,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2715838,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 98,
+          "remaining": [
+            0,
+            5744
+          ],
+          "controls": 43,
+          "casts": 24,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2723757,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 198,
+          "remaining": [
+            0,
+            1889
+          ],
+          "controls": 94,
+          "casts": 54,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2731676,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 81,
+          "remaining": [
+            0,
+            6039
+          ],
+          "controls": 31,
+          "casts": 19,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 187,
+          "remaining": [
+            2888,
+            0
+          ],
+          "controls": 102,
+          "casts": 55,
+          "ordersUsed": 4
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 160,
+          "remaining": [
+            3468,
+            0
+          ],
+          "controls": 73,
+          "casts": 46,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2755433,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 102,
+          "remaining": [
+            0,
+            5749
+          ],
+          "controls": 55,
+          "casts": 26,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2763352,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 146,
+          "remaining": [
+            0,
+            3821
+          ],
+          "controls": 68,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2771271,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 79,
+          "remaining": [
+            0,
+            6389
+          ],
+          "controls": 36,
+          "casts": 17,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2779190,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            0,
+            3841
+          ],
+          "controls": 69,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            4143,
+            0
+          ],
+          "controls": 67,
+          "casts": 39,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 125,
+          "remaining": [
+            3671,
+            0
+          ],
+          "controls": 71,
+          "casts": 41,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2802947,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 183,
+          "remaining": [
+            0,
+            1321
+          ],
+          "controls": 80,
+          "casts": 44,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            3860,
+            0
+          ],
+          "controls": 81,
+          "casts": 45,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2818785,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 123,
+          "remaining": [
+            0,
+            5048
+          ],
+          "controls": 62,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2826704,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 93,
+          "remaining": [
+            0,
+            6069
+          ],
+          "controls": 49,
+          "casts": 23,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2834623,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 110,
+          "remaining": [
+            0,
+            5316
+          ],
+          "controls": 59,
+          "casts": 27,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2842542,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 74,
+          "remaining": [
+            0,
+            6070
+          ],
+          "controls": 16,
+          "casts": 15,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 132,
+          "remaining": [
+            4295,
+            0
+          ],
+          "controls": 51,
+          "casts": 38,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2858380,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 102,
+          "remaining": [
+            0,
+            5226
+          ],
+          "controls": 51,
+          "casts": 26,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2866299,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 97,
+          "remaining": [
+            0,
+            6038
+          ],
+          "controls": 49,
+          "casts": 24,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2874218,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 158,
+          "remaining": [
+            0,
+            2826
+          ],
+          "controls": 79,
+          "casts": 47,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2882137,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 248,
+          "remaining": [
+            0,
+            1290
+          ],
+          "controls": 133,
+          "casts": 58,
+          "ordersUsed": 4
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 135,
+          "remaining": [
+            4255,
+            0
+          ],
+          "controls": 56,
+          "casts": 39,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2897975,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 89,
+          "remaining": [
+            0,
+            4912
+          ],
+          "controls": 31,
+          "casts": 23,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2905894,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 124,
+          "remaining": [
+            0,
+            4799
+          ],
+          "controls": 62,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2913813,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 88,
+          "remaining": [
+            0,
+            5422
+          ],
+          "controls": 30,
+          "casts": 20,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2921732,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 196,
+          "remaining": [
+            0,
+            2082
+          ],
+          "controls": 98,
+          "casts": 46,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2929651,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 106,
+          "remaining": [
+            0,
+            4221
+          ],
+          "controls": 43,
+          "casts": 26,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2937570,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 122,
+          "remaining": [
+            0,
+            3167
+          ],
+          "controls": 43,
+          "casts": 29,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2945489,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 150,
+          "remaining": [
+            0,
+            3309
+          ],
+          "controls": 71,
+          "casts": 36,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2953408,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 153,
+          "remaining": [
+            0,
+            3117
+          ],
+          "controls": 61,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2961327,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 83,
+          "remaining": [
+            0,
+            6202
+          ],
+          "controls": 23,
+          "casts": 16,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2969246,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 139,
+          "remaining": [
+            4341,
+            0
+          ],
+          "controls": 54,
+          "casts": 39,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2977165,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 94,
+          "remaining": [
+            0,
+            4792
+          ],
+          "controls": 46,
+          "casts": 25,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2985084,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 81,
+          "remaining": [
+            0,
+            5792
+          ],
+          "controls": 13,
+          "casts": 15,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 2993003,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 171,
+          "remaining": [
+            3020,
+            0
+          ],
+          "controls": 79,
+          "casts": 44,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3000922,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 250,
+          "remaining": [
+            1904,
+            0
+          ],
+          "controls": 106,
+          "casts": 60,
+          "ordersUsed": 4
+        },
+        {
+          "seed": 3008841,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 151,
+          "remaining": [
+            0,
+            3624
+          ],
+          "controls": 79,
+          "casts": 36,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3016760,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 126,
+          "remaining": [
+            4834,
+            0
+          ],
+          "controls": 61,
+          "casts": 37,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3024679,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 129,
+          "remaining": [
+            4669,
+            0
+          ],
+          "controls": 55,
+          "casts": 37,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3032598,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 91,
+          "remaining": [
+            0,
+            5919
+          ],
+          "controls": 39,
+          "casts": 20,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3040517,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 154,
+          "remaining": [
+            0,
+            3918
+          ],
+          "controls": 78,
+          "casts": 36,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3048436,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            0,
+            4616
+          ],
+          "controls": 65,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3056355,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 84,
+          "remaining": [
+            0,
+            6304
+          ],
+          "controls": 32,
+          "casts": 17,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3064274,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 218,
+          "remaining": [
+            0,
+            787
+          ],
+          "controls": 78,
+          "casts": 53,
+          "ordersUsed": 4
+        },
+        {
+          "seed": 3072193,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 165,
+          "remaining": [
+            2791,
+            0
+          ],
+          "controls": 83,
+          "casts": 51,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3080112,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 126,
+          "remaining": [
+            4647,
+            0
+          ],
+          "controls": 66,
+          "casts": 39,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3088031,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 164,
+          "remaining": [
+            3209,
+            0
+          ],
+          "controls": 66,
+          "casts": 41,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3095950,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 122,
+          "remaining": [
+            0,
+            4999
+          ],
+          "controls": 62,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3103869,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 149,
+          "remaining": [
+            0,
+            2936
+          ],
+          "controls": 53,
+          "casts": 38,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3111788,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 146,
+          "remaining": [
+            0,
+            4301
+          ],
+          "controls": 76,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3119707,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 129,
+          "remaining": [
+            0,
+            4806
+          ],
+          "controls": 67,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3127626,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 189,
+          "remaining": [
+            1830,
+            0
+          ],
+          "controls": 82,
+          "casts": 48,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3135545,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            4474,
+            0
+          ],
+          "controls": 40,
+          "casts": 35,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3143464,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 128,
+          "remaining": [
+            0,
+            4935
+          ],
+          "controls": 69,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3151383,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 197,
+          "remaining": [
+            1569,
+            0
+          ],
+          "controls": 99,
+          "casts": 52,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3159302,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 128,
+          "remaining": [
+            0,
+            4748
+          ],
+          "controls": 71,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3167221,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            4492,
+            0
+          ],
+          "controls": 50,
+          "casts": 36,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3175140,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 92,
+          "remaining": [
+            0,
+            4750
+          ],
+          "controls": 34,
+          "casts": 24,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3183059,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 88,
+          "remaining": [
+            0,
+            6137
+          ],
+          "controls": 46,
+          "casts": 22,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3190978,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            0,
+            4622
+          ],
+          "controls": 69,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3198897,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 132,
+          "remaining": [
+            0,
+            4947
+          ],
+          "controls": 67,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3206816,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 89,
+          "remaining": [
+            0,
+            5952
+          ],
+          "controls": 47,
+          "casts": 23,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3214735,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 130,
+          "remaining": [
+            0,
+            4702
+          ],
+          "controls": 63,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3222654,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 190,
+          "remaining": [
+            0,
+            2170
+          ],
+          "controls": 99,
+          "casts": 47,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3230573,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 78,
+          "remaining": [
+            0,
+            5229
+          ],
+          "controls": 16,
+          "casts": 17,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3238492,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            0,
+            4372
+          ],
+          "controls": 67,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3246411,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 114,
+          "remaining": [
+            0,
+            5234
+          ],
+          "controls": 56,
+          "casts": 28,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3254330,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            0,
+            3393
+          ],
+          "controls": 55,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3262249,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 97,
+          "remaining": [
+            0,
+            5740
+          ],
+          "controls": 49,
+          "casts": 24,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3270168,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 144,
+          "remaining": [
+            0,
+            3922
+          ],
+          "controls": 69,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3278087,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 124,
+          "remaining": [
+            0,
+            3838
+          ],
+          "controls": 56,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3286006,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 155,
+          "remaining": [
+            3605,
+            0
+          ],
+          "controls": 79,
+          "casts": 43,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3293925,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 100,
+          "remaining": [
+            0,
+            4919
+          ],
+          "controls": 38,
+          "casts": 25,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3301844,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 120,
+          "remaining": [
+            0,
+            5218
+          ],
+          "controls": 58,
+          "casts": 28,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3309763,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 102,
+          "remaining": [
+            0,
+            5271
+          ],
+          "controls": 52,
+          "casts": 25,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3317682,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 150,
+          "remaining": [
+            3246,
+            0
+          ],
+          "controls": 85,
+          "casts": 48,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3325601,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 140,
+          "remaining": [
+            0,
+            3702
+          ],
+          "controls": 69,
+          "casts": 39,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3333520,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 90,
+          "remaining": [
+            0,
+            6075
+          ],
+          "controls": 47,
+          "casts": 23,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3341439,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 151,
+          "remaining": [
+            0,
+            2682
+          ],
+          "controls": 59,
+          "casts": 40,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3349358,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 93,
+          "remaining": [
+            0,
+            5978
+          ],
+          "controls": 43,
+          "casts": 23,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3357277,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            0,
+            4888
+          ],
+          "controls": 69,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3365196,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 98,
+          "remaining": [
+            0,
+            5599
+          ],
+          "controls": 52,
+          "casts": 25,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3373115,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 130,
+          "remaining": [
+            0,
+            4973
+          ],
+          "controls": 63,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3381034,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 124,
+          "remaining": [
+            0,
+            5066
+          ],
+          "controls": 63,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3388953,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 153,
+          "remaining": [
+            0,
+            3425
+          ],
+          "controls": 63,
+          "casts": 38,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3396872,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 87,
+          "remaining": [
+            0,
+            5319
+          ],
+          "controls": 32,
+          "casts": 20,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3404791,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 166,
+          "remaining": [
+            3368,
+            0
+          ],
+          "controls": 81,
+          "casts": 48,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3412710,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 165,
+          "remaining": [
+            0,
+            3420
+          ],
+          "controls": 71,
+          "casts": 39,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3420629,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 121,
+          "remaining": [
+            0,
+            2881
+          ],
+          "controls": 43,
+          "casts": 29,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3428548,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 161,
+          "remaining": [
+            3397,
+            0
+          ],
+          "controls": 63,
+          "casts": 40,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3436467,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            0,
+            4309
+          ],
+          "controls": 71,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3444386,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 109,
+          "remaining": [
+            0,
+            3805
+          ],
+          "controls": 53,
+          "casts": 28,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3452305,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 147,
+          "remaining": [
+            0,
+            3328
+          ],
+          "controls": 69,
+          "casts": 40,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3460224,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 177,
+          "remaining": [
+            2318,
+            0
+          ],
+          "controls": 78,
+          "casts": 46,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3468143,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 102,
+          "remaining": [
+            0,
+            4474
+          ],
+          "controls": 58,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3476062,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 196,
+          "remaining": [
+            0,
+            2064
+          ],
+          "controls": 79,
+          "casts": 41,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3483981,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 89,
+          "remaining": [
+            0,
+            6117
+          ],
+          "controls": 47,
+          "casts": 23,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3491900,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 108,
+          "remaining": [
+            0,
+            4402
+          ],
+          "controls": 55,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3499819,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 121,
+          "remaining": [
+            0,
+            5149
+          ],
+          "controls": 65,
+          "casts": 29,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3507738,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            4387,
+            0
+          ],
+          "controls": 70,
+          "casts": 42,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3515657,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 143,
+          "remaining": [
+            0,
+            2430
+          ],
+          "controls": 38,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3523576,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 132,
+          "remaining": [
+            4067,
+            0
+          ],
+          "controls": 71,
+          "casts": 40,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3531495,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 325,
+          "remaining": [
+            0,
+            826
+          ],
+          "controls": 157,
+          "casts": 62,
+          "ordersUsed": 4
+        },
+        {
+          "seed": 3539414,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 106,
+          "remaining": [
+            0,
+            4406
+          ],
+          "controls": 30,
+          "casts": 27,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3547333,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 137,
+          "remaining": [
+            3508,
+            0
+          ],
+          "controls": 65,
+          "casts": 41,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3555252,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 123,
+          "remaining": [
+            0,
+            5070
+          ],
+          "controls": 60,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3563171,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 114,
+          "remaining": [
+            0,
+            5414
+          ],
+          "controls": 61,
+          "casts": 28,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3571090,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 98,
+          "remaining": [
+            0,
+            4733
+          ],
+          "controls": 32,
+          "casts": 24,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3579009,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 134,
+          "remaining": [
+            0,
+            4716
+          ],
+          "controls": 72,
+          "casts": 30,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3586928,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 87,
+          "remaining": [
+            0,
+            6283
+          ],
+          "controls": 38,
+          "casts": 20,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3594847,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 106,
+          "remaining": [
+            0,
+            4546
+          ],
+          "controls": 39,
+          "casts": 24,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3602766,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 179,
+          "remaining": [
+            0,
+            2514
+          ],
+          "controls": 98,
+          "casts": 46,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3610685,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 98,
+          "remaining": [
+            0,
+            5932
+          ],
+          "controls": 51,
+          "casts": 24,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3618604,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 139,
+          "remaining": [
+            3853,
+            0
+          ],
+          "controls": 46,
+          "casts": 36,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3626523,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 126,
+          "remaining": [
+            0,
+            3633
+          ],
+          "controls": 52,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3634442,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 122,
+          "remaining": [
+            4780,
+            0
+          ],
+          "controls": 69,
+          "casts": 38,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3642361,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 168,
+          "remaining": [
+            2997,
+            0
+          ],
+          "controls": 73,
+          "casts": 47,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3650280,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 87,
+          "remaining": [
+            0,
+            5733
+          ],
+          "controls": 29,
+          "casts": 20,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3658199,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 150,
+          "remaining": [
+            0,
+            3471
+          ],
+          "controls": 82,
+          "casts": 38,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3666118,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 190,
+          "remaining": [
+            0,
+            2243
+          ],
+          "controls": 90,
+          "casts": 45,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3674037,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 89,
+          "remaining": [
+            0,
+            4909
+          ],
+          "controls": 26,
+          "casts": 22,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3681956,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 81,
+          "remaining": [
+            0,
+            5736
+          ],
+          "controls": 31,
+          "casts": 19,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3689875,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 79,
+          "remaining": [
+            0,
+            6413
+          ],
+          "controls": 36,
+          "casts": 17,
+          "ordersUsed": 1
+        },
+        {
+          "seed": 3697794,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 135,
+          "remaining": [
+            4483,
+            0
+          ],
+          "controls": 57,
+          "casts": 39,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3705713,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 139,
+          "remaining": [
+            3112,
+            0
+          ],
+          "controls": 70,
+          "casts": 43,
+          "ordersUsed": 3
+        }
+      ],
+      "meanOrders": 1.9453125,
+      "minOrders": 1,
+      "maxOrders": 4,
+      "zeroOrders": 0
+    },
+    {
+      "name": "智困燕人",
+      "oldWins": 104,
+      "oldMeanOrders": 0,
+      "id": "tactical-control-zhang",
+      "count": 128,
+      "start": 2700000,
+      "wins": 120,
+      "losses": 8,
+      "draws": 0,
+      "meanTicks": 157,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3254,
+            0
+          ],
+          "controls": 59,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 164,
+          "remaining": [
+            3105,
+            0
+          ],
+          "controls": 80,
+          "casts": 36,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 165,
+          "remaining": [
+            3156,
+            0
+          ],
+          "controls": 70,
+          "casts": 37,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2723757,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 299,
+          "remaining": [
+            0,
+            1415
+          ],
+          "controls": 132,
+          "casts": 49,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 140,
+          "remaining": [
+            3298,
+            0
+          ],
+          "controls": 59,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 162,
+          "remaining": [
+            2547,
+            0
+          ],
+          "controls": 70,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 157,
+          "remaining": [
+            3275,
+            0
+          ],
+          "controls": 64,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 155,
+          "remaining": [
+            2622,
+            0
+          ],
+          "controls": 73,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2763352,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 230,
+          "remaining": [
+            0,
+            1937
+          ],
+          "controls": 102,
+          "casts": 42,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 164,
+          "remaining": [
+            3160,
+            0
+          ],
+          "controls": 71,
+          "casts": 37,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 154,
+          "remaining": [
+            3400,
+            0
+          ],
+          "controls": 77,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 145,
+          "remaining": [
+            2738,
+            0
+          ],
+          "controls": 64,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2795028,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 154,
+          "remaining": [
+            0,
+            2703
+          ],
+          "controls": 50,
+          "casts": 25,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 161,
+          "remaining": [
+            2796,
+            0
+          ],
+          "controls": 78,
+          "casts": 37,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 155,
+          "remaining": [
+            3020,
+            0
+          ],
+          "controls": 74,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 179,
+          "remaining": [
+            2566,
+            0
+          ],
+          "controls": 80,
+          "casts": 38,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 144,
+          "remaining": [
+            2767,
+            0
+          ],
+          "controls": 56,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            3156,
+            0
+          ],
+          "controls": 58,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 170,
+          "remaining": [
+            2411,
+            0
+          ],
+          "controls": 69,
+          "casts": 38,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 157,
+          "remaining": [
+            3346,
+            0
+          ],
+          "controls": 64,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 143,
+          "remaining": [
+            2838,
+            0
+          ],
+          "controls": 70,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            3487,
+            0
+          ],
+          "controls": 56,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2874218,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 203,
+          "remaining": [
+            2511,
+            0
+          ],
+          "controls": 104,
+          "casts": 45,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 137,
+          "remaining": [
+            3405,
+            0
+          ],
+          "controls": 66,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 147,
+          "remaining": [
+            2831,
+            0
+          ],
+          "controls": 70,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 190,
+          "remaining": [
+            2476,
+            0
+          ],
+          "controls": 90,
+          "casts": 40,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 139,
+          "remaining": [
+            3025,
+            0
+          ],
+          "controls": 60,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 171,
+          "remaining": [
+            3053,
+            0
+          ],
+          "controls": 79,
+          "casts": 38,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 134,
+          "remaining": [
+            3226,
+            0
+          ],
+          "controls": 56,
+          "casts": 29,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 147,
+          "remaining": [
+            2468,
+            0
+          ],
+          "controls": 58,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 147,
+          "remaining": [
+            2816,
+            0
+          ],
+          "controls": 58,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3468,
+            0
+          ],
+          "controls": 63,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2953408,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            3012,
+            0
+          ],
+          "controls": 62,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2961327,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 166,
+          "remaining": [
+            2493,
+            0
+          ],
+          "controls": 72,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2969246,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            3216,
+            0
+          ],
+          "controls": 62,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2977165,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 137,
+          "remaining": [
+            3069,
+            0
+          ],
+          "controls": 61,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 2985084,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 203,
+          "remaining": [
+            2487,
+            0
+          ],
+          "controls": 92,
+          "casts": 45,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 2993003,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 187,
+          "remaining": [
+            1398,
+            0
+          ],
+          "controls": 60,
+          "casts": 27,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3000922,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 174,
+          "remaining": [
+            2708,
+            0
+          ],
+          "controls": 80,
+          "casts": 38,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3008841,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 154,
+          "remaining": [
+            3386,
+            0
+          ],
+          "controls": 73,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3016760,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 196,
+          "remaining": [
+            2130,
+            0
+          ],
+          "controls": 87,
+          "casts": 42,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3024679,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 154,
+          "remaining": [
+            2118,
+            0
+          ],
+          "controls": 60,
+          "casts": 27,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3032598,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            2624,
+            0
+          ],
+          "controls": 63,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3040517,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 158,
+          "remaining": [
+            1974,
+            0
+          ],
+          "controls": 58,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3048436,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 135,
+          "remaining": [
+            3158,
+            0
+          ],
+          "controls": 63,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3056355,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3011,
+            0
+          ],
+          "controls": 53,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3064274,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3320,
+            0
+          ],
+          "controls": 62,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3072193,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            2895,
+            0
+          ],
+          "controls": 61,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3080112,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            3211,
+            0
+          ],
+          "controls": 54,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3088031,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            3045,
+            0
+          ],
+          "controls": 60,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3095950,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 178,
+          "remaining": [
+            2546,
+            0
+          ],
+          "controls": 80,
+          "casts": 41,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3103869,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 157,
+          "remaining": [
+            3337,
+            0
+          ],
+          "controls": 66,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3111788,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            3513,
+            0
+          ],
+          "controls": 56,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3119707,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            2851,
+            0
+          ],
+          "controls": 56,
+          "casts": 28,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3127626,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 152,
+          "remaining": [
+            2495,
+            0
+          ],
+          "controls": 72,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3135545,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 167,
+          "remaining": [
+            3011,
+            0
+          ],
+          "controls": 80,
+          "casts": 36,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3143464,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 140,
+          "remaining": [
+            3257,
+            0
+          ],
+          "controls": 64,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3151383,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 139,
+          "remaining": [
+            2961,
+            0
+          ],
+          "controls": 53,
+          "casts": 29,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3159302,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 144,
+          "remaining": [
+            2807,
+            0
+          ],
+          "controls": 73,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3167221,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 157,
+          "remaining": [
+            2519,
+            0
+          ],
+          "controls": 72,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3175140,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 143,
+          "remaining": [
+            2968,
+            0
+          ],
+          "controls": 65,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3183059,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 157,
+          "remaining": [
+            2525,
+            0
+          ],
+          "controls": 60,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3190978,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            3073,
+            0
+          ],
+          "controls": 55,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3198897,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 143,
+          "remaining": [
+            2744,
+            0
+          ],
+          "controls": 62,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3206816,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 132,
+          "remaining": [
+            3367,
+            0
+          ],
+          "controls": 68,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3214735,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 135,
+          "remaining": [
+            3403,
+            0
+          ],
+          "controls": 65,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3222654,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 167,
+          "remaining": [
+            3096,
+            0
+          ],
+          "controls": 72,
+          "casts": 37,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3230573,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            2796,
+            0
+          ],
+          "controls": 69,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3238492,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 140,
+          "remaining": [
+            2963,
+            0
+          ],
+          "controls": 59,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3246411,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3387,
+            0
+          ],
+          "controls": 59,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3254330,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 192,
+          "remaining": [
+            2525,
+            0
+          ],
+          "controls": 86,
+          "casts": 44,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3262249,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 161,
+          "remaining": [
+            0,
+            2396
+          ],
+          "controls": 59,
+          "casts": 27,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3270168,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3370,
+            0
+          ],
+          "controls": 67,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3278087,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 137,
+          "remaining": [
+            3231,
+            0
+          ],
+          "controls": 57,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3286006,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 155,
+          "remaining": [
+            2799,
+            0
+          ],
+          "controls": 69,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3293925,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 167,
+          "remaining": [
+            0,
+            3151
+          ],
+          "controls": 70,
+          "casts": 29,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3301844,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 228,
+          "remaining": [
+            2056,
+            0
+          ],
+          "controls": 106,
+          "casts": 49,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3309763,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            2825,
+            0
+          ],
+          "controls": 63,
+          "casts": 33,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3317682,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 119,
+          "remaining": [
+            4236,
+            0
+          ],
+          "controls": 68,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3325601,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 221,
+          "remaining": [
+            1934,
+            0
+          ],
+          "controls": 104,
+          "casts": 45,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3333520,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 210,
+          "remaining": [
+            2216,
+            0
+          ],
+          "controls": 96,
+          "casts": 45,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3341439,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            3349,
+            0
+          ],
+          "controls": 61,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3349358,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3134,
+            0
+          ],
+          "controls": 55,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3357277,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 135,
+          "remaining": [
+            3392,
+            0
+          ],
+          "controls": 66,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3365196,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 128,
+          "remaining": [
+            3700,
+            0
+          ],
+          "controls": 69,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3373115,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3431,
+            0
+          ],
+          "controls": 60,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3381034,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3380,
+            0
+          ],
+          "controls": 67,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3388953,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            3220,
+            0
+          ],
+          "controls": 64,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3396872,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 143,
+          "remaining": [
+            0,
+            2872
+          ],
+          "controls": 41,
+          "casts": 21,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3404791,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            2802,
+            0
+          ],
+          "controls": 62,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3412710,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            3344,
+            0
+          ],
+          "controls": 52,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3420629,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 141,
+          "remaining": [
+            3088,
+            0
+          ],
+          "controls": 57,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3428548,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            3092,
+            0
+          ],
+          "controls": 63,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3436467,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 175,
+          "remaining": [
+            2607,
+            0
+          ],
+          "controls": 78,
+          "casts": 39,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3444386,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 214,
+          "remaining": [
+            2339,
+            0
+          ],
+          "controls": 102,
+          "casts": 47,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3452305,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 159,
+          "remaining": [
+            2541,
+            0
+          ],
+          "controls": 72,
+          "casts": 34,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3460224,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            2583,
+            0
+          ],
+          "controls": 64,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3468143,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 230,
+          "remaining": [
+            1880,
+            0
+          ],
+          "controls": 107,
+          "casts": 49,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3476062,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 128,
+          "remaining": [
+            3437,
+            0
+          ],
+          "controls": 67,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3483981,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            3571,
+            0
+          ],
+          "controls": 66,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3491900,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 200,
+          "remaining": [
+            2318,
+            0
+          ],
+          "controls": 89,
+          "casts": 44,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3499819,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 143,
+          "remaining": [
+            2462,
+            0
+          ],
+          "controls": 68,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3507738,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 138,
+          "remaining": [
+            2900,
+            0
+          ],
+          "controls": 55,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3515657,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3358,
+            0
+          ],
+          "controls": 57,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3523576,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 166,
+          "remaining": [
+            3057,
+            0
+          ],
+          "controls": 68,
+          "casts": 37,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3531495,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 210,
+          "remaining": [
+            2224,
+            0
+          ],
+          "controls": 98,
+          "casts": 47,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3539414,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 159,
+          "remaining": [
+            3268,
+            0
+          ],
+          "controls": 80,
+          "casts": 36,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3547333,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 162,
+          "remaining": [
+            1939,
+            0
+          ],
+          "controls": 54,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3555252,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 144,
+          "remaining": [
+            3185,
+            0
+          ],
+          "controls": 66,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3563171,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 162,
+          "remaining": [
+            2508,
+            0
+          ],
+          "controls": 73,
+          "casts": 35,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3571090,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 140,
+          "remaining": [
+            3156,
+            0
+          ],
+          "controls": 61,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3579009,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 170,
+          "remaining": [
+            3026,
+            0
+          ],
+          "controls": 74,
+          "casts": 38,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3586928,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 135,
+          "remaining": [
+            3253,
+            0
+          ],
+          "controls": 67,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3594847,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 137,
+          "remaining": [
+            3152,
+            0
+          ],
+          "controls": 63,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3602766,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 229,
+          "remaining": [
+            0,
+            2112
+          ],
+          "controls": 98,
+          "casts": 41,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3610685,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 162,
+          "remaining": [
+            3255,
+            0
+          ],
+          "controls": 81,
+          "casts": 38,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3618604,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 136,
+          "remaining": [
+            3206,
+            0
+          ],
+          "controls": 68,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3626523,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            3485,
+            0
+          ],
+          "controls": 54,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3634442,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 152,
+          "remaining": [
+            2534,
+            0
+          ],
+          "controls": 67,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3642361,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 145,
+          "remaining": [
+            3181,
+            0
+          ],
+          "controls": 65,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3650280,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 133,
+          "remaining": [
+            3546,
+            0
+          ],
+          "controls": 58,
+          "casts": 30,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3658199,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 131,
+          "remaining": [
+            3634,
+            0
+          ],
+          "controls": 60,
+          "casts": 29,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3666118,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 145,
+          "remaining": [
+            2601,
+            0
+          ],
+          "controls": 66,
+          "casts": 31,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3674037,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 140,
+          "remaining": [
+            3179,
+            0
+          ],
+          "controls": 68,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3681956,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 198,
+          "remaining": [
+            2409,
+            0
+          ],
+          "controls": 88,
+          "casts": 44,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3689875,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            3241,
+            0
+          ],
+          "controls": 53,
+          "casts": 32,
+          "ordersUsed": 2
+        },
+        {
+          "seed": 3697794,
+          "winner": 1,
+          "reason": "击溃",
+          "ticks": 324,
+          "remaining": [
+            0,
+            1209
+          ],
+          "controls": 140,
+          "casts": 56,
+          "ordersUsed": 3
+        },
+        {
+          "seed": 3705713,
+          "winner": 0,
+          "reason": "击溃",
+          "ticks": 142,
+          "remaining": [
+            2882,
+            0
+          ],
+          "controls": 66,
+          "casts": 32,
+          "ordersUsed": 2
+        }
+      ],
+      "meanOrders": 2.1796875,
+      "minOrders": 2,
+      "maxOrders": 3,
+      "zeroOrders": 0
+    }
+  ]
+}

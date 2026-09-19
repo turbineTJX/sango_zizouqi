@@ -1,0 +1,1693 @@
+{
+  "rulesVersion": 34,
+  "total": 96,
+  "sourceHash": "7730922f0614a8f9fede4686425dc5ea9e924e4792b7d8881bcc4f7e36952549",
+  "rows": [
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7865138888888888,
+      "enemyRemaining": 0,
+      "orders": 1
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7879305555555556,
+      "enemyRemaining": 0,
+      "orders": 1
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7736944444444445,
+      "enemyRemaining": 0,
+      "orders": 0
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.8030555555555556,
+      "enemyRemaining": 0,
+      "orders": 1
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.8022083333333332,
+      "enemyRemaining": 0,
+      "orders": 1
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7745694444444444,
+      "enemyRemaining": 0,
+      "orders": 0
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7588472222222222,
+      "enemyRemaining": 0,
+      "orders": 1
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7278194444444444,
+      "enemyRemaining": 0,
+      "orders": 1.125
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7076388888888889,
+      "enemyRemaining": 0,
+      "orders": 0
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7665972222222222,
+      "enemyRemaining": 0,
+      "orders": 1
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7332361111111111,
+      "enemyRemaining": 0,
+      "orders": 1
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "n": 8,
+      "wins": 8,
+      "remaining": 0.7219722222222223,
+      "enemyRemaining": 0,
+      "orders": 0
+    }
+  ],
+  "runs": [
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 96,
+      "remaining": 0.7315555555555555,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 85,
+      "remaining": 0.8268888888888889,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 78,
+      "remaining": 0.7846666666666666,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 3,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 81,
+      "remaining": 0.8363333333333334,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 85,
+      "remaining": 0.819,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 78,
+      "remaining": 0.7924444444444444,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 3,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 87,
+      "remaining": 0.7631111111111111,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "full",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 90,
+      "remaining": 0.7381111111111112,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 97,
+      "remaining": 0.7144444444444444,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 88,
+      "remaining": 0.8213333333333334,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 90,
+      "remaining": 0.8213333333333334,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 88,
+      "remaining": 0.8108888888888889,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 96,
+      "remaining": 0.7342222222222222,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 82,
+      "remaining": 0.7744444444444445,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 3,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 84,
+      "remaining": 0.815,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 91,
+      "remaining": 0.8117777777777778,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 111,
+      "remaining": 0.7535555555555555,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 5,
+        "seal": 4
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 100,
+      "remaining": 0.7348888888888889,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 88,
+      "remaining": 0.8208888888888889,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 103,
+      "remaining": 0.7237777777777777,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 100,
+      "remaining": 0.7197777777777777,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 92,
+      "remaining": 0.8204444444444444,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 92,
+      "remaining": 0.808,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 92,
+      "remaining": 0.8082222222222222,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 89,
+      "remaining": 0.7373333333333333,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 81,
+      "remaining": 0.8352222222222222,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 78,
+      "remaining": 0.7813333333333333,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 3,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 81,
+      "remaining": 0.8364444444444444,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 83,
+      "remaining": 0.819,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 79,
+      "remaining": 0.7897777777777778,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 3,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 81,
+      "remaining": 0.819,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 2
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "full",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 93,
+      "remaining": 0.8063333333333333,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3,
+        "unique-person-290": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 88,
+      "remaining": 0.8046666666666666,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 89,
+      "remaining": 0.8184444444444444,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 78,
+      "remaining": 0.7736666666666666,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 3,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 93,
+      "remaining": 0.8128888888888889,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 93,
+      "remaining": 0.7436666666666667,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 84,
+      "remaining": 0.8192222222222222,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 90,
+      "remaining": 0.8246666666666667,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 81,
+      "remaining": 0.8204444444444444,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 111,
+      "remaining": 0.7566666666666667,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 5,
+        "seal": 4
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 100,
+      "remaining": 0.7353333333333333,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 88,
+      "remaining": 0.8213333333333334,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 103,
+      "remaining": 0.7242222222222222,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 100,
+      "remaining": 0.7206666666666667,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 92,
+      "remaining": 0.8212222222222222,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 92,
+      "remaining": 0.8084444444444444,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-290",
+      "type": "crossbow",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 92,
+      "remaining": 0.8086666666666666,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "screen": 4,
+        "seal": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.756,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.7554444444444445,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.7534444444444445,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 90,
+      "remaining": 0.77,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 89,
+      "remaining": 0.7662222222222222,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 96,
+      "remaining": 0.7483333333333333,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.7635555555555555,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "full",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.7577777777777778,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 100,
+      "remaining": 0.7567777777777778,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 4,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 107,
+      "remaining": 0.7214444444444444,
+      "enemyRemaining": 0,
+      "commands": 2,
+      "casts": {
+        "smoke": 4,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 96,
+      "remaining": 0.7401111111111112,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 85,
+      "remaining": 0.7528888888888889,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 99,
+      "remaining": 0.6678888888888889,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 4,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 98,
+      "remaining": 0.7584444444444445,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 4,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 99,
+      "remaining": 0.7538888888888889,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "basic",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 96,
+      "remaining": 0.6711111111111111,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 105,
+      "remaining": 0.7078888888888889,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 108,
+      "remaining": 0.6913333333333334,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 99,
+      "remaining": 0.7272222222222222,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 103,
+      "remaining": 0.7446666666666667,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 104,
+      "remaining": 0.711,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 107,
+      "remaining": 0.6937777777777778,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 107,
+      "remaining": 0.6981111111111111,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 5,
+      "mode": "ordinary",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 108,
+      "remaining": 0.6871111111111111,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 91,
+      "remaining": 0.7481111111111111,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 92,
+      "remaining": 0.7551111111111111,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 86,
+      "remaining": 0.7924444444444444,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 82,
+      "remaining": 0.7907777777777778,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 77,
+      "remaining": 0.7958888888888889,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 2,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.756,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.7356666666666667,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "full",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 90,
+      "remaining": 0.7587777777777778,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "wildfire": 3,
+        "unique-person-246": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.7425555555555555,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 94,
+      "remaining": 0.7583333333333333,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 89,
+      "remaining": 0.7585555555555555,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 91,
+      "remaining": 0.7572222222222222,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 98,
+      "remaining": 0.6864444444444444,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 4,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 97,
+      "remaining": 0.7304444444444445,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 97,
+      "remaining": 0.7046666666666667,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "basic",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 97,
+      "remaining": 0.7276666666666667,
+      "enemyRemaining": 0,
+      "commands": 1,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 95,
+      "remaining": 0.7396666666666667,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 106,
+      "remaining": 0.7002222222222222,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 98,
+      "remaining": 0.7322222222222222,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 95,
+      "remaining": 0.7538888888888889,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 2
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 101,
+      "remaining": 0.718,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 102,
+      "remaining": 0.7078888888888889,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 101,
+      "remaining": 0.7221111111111111,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    },
+    {
+      "id": "person-246",
+      "type": "archer",
+      "level": 10,
+      "mode": "ordinary",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 104,
+      "remaining": 0.7017777777777777,
+      "enemyRemaining": 0,
+      "commands": 0,
+      "casts": {
+        "smoke": 3,
+        "wildfire": 3
+      }
+    }
+  ]
+}

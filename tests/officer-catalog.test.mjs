@@ -16,7 +16,7 @@ test('all 832 library and 3 custom records survive normalization without merging
  assert.equal(new Set(OFFICER_CATALOG.map(u=>u.id)).size,835);
  for(const entry of OFFICER_SOURCE){
   const u=OFFICER_CATALOG.find(u=>u.sourceKind===entry.kind&&u.sourceId===entry.source.Id);
-  assert.deepEqual(u.source,entry.source);assert.equal(u.name,entry.source.Name);
+  assert.deepEqual(u.source,entry.source);assert.equal(u.name,u.profileSource.Name);
   assert.equal(u.charm,entry.source.glamour);
  }
  assert.equal(searchOfficers({query:'张南'}).filter(u=>u.name==='张南').length,2);
@@ -25,15 +25,15 @@ test('all 832 library and 3 custom records survive normalization without merging
  assert.equal(OFFICER_BY_ID.he.sourceId,412);assert.equal(searchOfficers({query:'张郃'})[0].id,'he');
 });
 test('every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems',()=>{
- const historicalCommanders={'person-610':['fortify','heal'],'person-167':['fortify','cleanse'],'person-447':['disrupt','cleanse','cycle']};
+ const historicalCommanders={'person-443':['regenerate','heal','inspire'],'person-610':['fortify','heal'],'person-167':['fortify','cleanse'],'person-447':['disrupt','cleanse','cycle']};
  for(const entry of OFFICER_CATALOG){
   const u=makeOfficer(entry.id);assert.equal(u.leadership,entry.source.command);assert.equal(u.force,entry.source.strength);
   assert.equal(u.intellect,entry.source.intelligence);assert.equal(u.politics,entry.source.politics);
   const stats=unitAttributes(u);for(const key of ['attack','defense','martialPower','strategyPower','discipline'])assert.ok(Number.isFinite(stats[key]));
-  assert.equal(unitTactics(u).length,3);
+  assert.ok(unitTactics(u).length<=3);
   if(!SKILL_ROUTES[u.id]){
    assert.equal(u.skill,'');assert.deepEqual(officerStratagems(u.id),historicalCommanders[u.id]||[]);
-   const growth=gainExperience(u,10000);assert.equal(u.level,10);assert.equal(growth.unlocked.length,5);assert.equal(passiveList(u).length,5);assert.ok(passiveList(u).every(s=>s.tier!=='专属'));
+   const growth=gainExperience(u,10000);assert.equal(u.level,10);assert.equal(growth.unlocked.length-growth.learned.length,5);assert.equal(passiveList(u).length,5);assert.ok(passiveList(u).every(s=>s.tier!=='专属'));
   }else assert.equal(passiveList({...u,level:10}).length,5);
  }
  for(const id of ['missing','toString','__proto__'])assert.throws(()=>makeOfficer(id),/未知武将/);
@@ -81,7 +81,7 @@ test('invalid custom roster, unknown source ID, edited attributes and duplicate 
  }
 });
 test('old officer data versions are rejected without changing saved progress',()=>{
- for(const version of [undefined,1,3])for(const s of [newGame(25),createScenario('field',25)]){
+ for(const version of [undefined,1,2,4])for(const s of [newGame(25),createScenario('field',25)]){
   s.officerDataVersion=version;const before=structuredClone(s);
   assert.throws(()=>validateSave(s),/武将数据版本/);assert.deepEqual(s,before);
  }

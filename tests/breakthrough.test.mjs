@@ -1,16 +1,17 @@
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
-import {configureTactics,routeTo,unitTactics,TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
+import {routeTo,unitTactics,TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
 import {zocCells,interceptorsAt} from '../engagement.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function line(){
-  const state=createScenario('breach'),b=state.battle;
+  const state=createScenario('breach',1),b=state.battle;
   const [support,charger]=b.sides[0].units,[front,rear]=b.sides[1].units;
   b.sides[0].units=[support,charger];b.sides[1].units=[front,rear];
-  Object.assign(support,{type:'archer',x:3,y:3});Object.assign(charger,{x:4,y:3});
+  Object.assign(support,{id:'cao',type:'archer',x:3,y:3});Object.assign(charger,{x:4,y:3});
   Object.assign(front,{x:5,y:3});Object.assign(rear,{x:7,y:3,intent:100});
   for(const u of [support,charger,front,rear]){
     u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
@@ -73,7 +74,7 @@ test('ZOC coverage uses live interceptors and respects boundaries and both sides
 
 test('zero-intent playable trial shows control then rear penetration while the front lives',()=>{
   {
-    const state=createScenario('breach'),b=state.battle;
+    const state=createScenario('breach',1),b=state.battle;
     assert.ok(b.sides.flatMap(s=>s.units).every(u=>u.intent===0));
     lockDeployment(b);let openingTick=null,breakTick=null,resumed=null;
     while(!b.result){

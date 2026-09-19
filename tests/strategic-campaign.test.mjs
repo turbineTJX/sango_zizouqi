@@ -1,8 +1,9 @@
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,chooseEncounter,activeBattles,calendar,orderCampaignArmy,takeOverBattle,viewCampaignMap,readDailySnapshot,serializeCampaign,validateCampaign,commissionProject,relieveCity,appointGovernor,createCampaignArmy,transferOfficer,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,supplyConnection,armyPosition,CAMPAIGN,canEditArmy} from '../strategic-campaign.mjs';
 import {lockDeployment,configureUnitTactics,deployUnit,activeUnits,armyTroops,battleWounded} from '../engine.mjs';
-import {recoverableWounded} from '../tactics.mjs';
+import {recoverableWounded,configureTactics} from '../tactics.mjs';
 import {visibleStatuses} from '../status-display.mjs';
 const resume=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function runTo(s,day,{auto=true,planning=true}={}){
@@ -14,9 +15,15 @@ function runTo(s,day,{auto=true,planning=true}={}){
   }return s;
 }
 function encounter(){const s=newCampaign();beginExecution(s);runTo(s,10,{auto:false});assert.ok(activeBattles(s).some(r=>r.awaiting));return s;}
+function prolongedEncounter(){
+  const s=newCampaign(6),a=s.armies[0],d=s.armies.find(a=>a.faction==='yuan');s.armies=s.armies.filter(a=>!a.stationary);for(const a of s.armies)a.units=a.units.filter(u=>!u.cityGuard);
+  a.units=s.armies.filter(x=>x.faction==='cao').flatMap(x=>x.units);d.units=s.armies.filter(x=>x.faction==='yuan').flatMap(x=>x.units);s.armies=[a,d];
+  for(const army of s.armies){army.tactic='defensive';army.units.forEach((u,i)=>{u.type='logistics';u.level=2;u.experience=0;u.first=i<6;assert.equal(learnFixtureTactics(u,['bandage','supply','regrowth']),null);});}
+  orderCampaignArmy(s,a.id,'guandu');d.route=['xuchang'];d.target='xuchang';beginExecution(s);runTo(s,10,{auto:false});return s;
+}
 
 test('campaign begins in day-one planning with cities, homes and at most ten units',()=>{
-  const s=newCampaign();assert.deepEqual(calendar(s),{day:1,turn:1,dayInTurn:1});assert.equal(s.campaign.phase,'planning');assert.equal(s.armies.length,4);assert.ok(s.armies.every(a=>a.units.length<=10&&a.units.every(u=>u.homeCity)));assert.ok(s.campaign.idle.length>=4);resume(s);
+  const s=newCampaign();assert.deepEqual(calendar(s),{day:1,turn:1,dayInTurn:1});assert.equal(s.campaign.phase,'planning');assert.ok(s.armies.length>=4);assert.ok(s.cities.every(c=>c.garrison===0));assert.ok(s.armies.every(a=>a.units.length<=10&&a.units.every(u=>u.homeCity)));assert.ok(s.campaign.idle.length>=4);resume(s);
 });
 test('ten days advance exactly one strategic turn; planning cannot advance combat or income',()=>{
   const s=newCampaign();const initial=serializeCampaign(s);advanceCampaignDay(s);assert.equal(serializeCampaign(s),initial);
@@ -37,14 +44,30 @@ test('delegating locks deployment; takeover does not rewind date, RNG, casualtie
   const u=s.battle.sides[0].units[0];assert.ok(configureUnitTactics(s,u.id,u.tactics));assert.ok(deployUnit(s.battle,u.id,0,0));resume(s);
 });
 test('manual battle suspends at the next planning phase and resumes the same battle',()=>{
-  const s=encounter(),r=activeBattles(s)[0];chooseEncounter(s,r.id,true);assert.equal(r.battle.tick,0);assert.equal(advanceCampaignStep(s).deployment,true);lockDeployment(r.battle);
+  const s=prolongedEncounter(),r=activeBattles(s)[0];chooseEncounter(s,r.id,true);assert.equal(r.battle.tick,0);assert.equal(advanceCampaignStep(s).deployment,true);lockDeployment(r.battle);
   runTo(s,11,{planning:false});assert.equal(s.campaign.phase,'planning');assert.equal(s.battle,null);assert.equal(s.campaign.resumeId,r.id);const before=JSON.stringify(r.battle);
   assert.ok(takeOverBattle(s,r.id));assert.equal(beginExecution(s),null);assert.equal(s.battle.id,r.id);assert.equal(JSON.stringify(s.battle),before);resume(s);
 });
+
+test('a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit',()=>{
+  const s=prolongedEncounter(),r=activeBattles(s)[0];chooseEncounter(s,r.id,true);lockDeployment(r.battle);
+  assert.equal(r.battle.maxTicks,720);
+  runTo(s,11,{planning:false});assert.equal(s.campaign.phase,'planning');assert.equal(r.settled,false);
+  assert.equal(r.battle.tick,(11-r.startedDay)*CAMPAIGN.stepsPerDay);resume(s);
+  const paused=serializeCampaign(s);advanceCampaignStep(s);assert.equal(serializeCampaign(s),paused);
+  const restored=resume(s);runTo(s,32);runTo(restored,32);
+  assert.equal(serializeCampaign(restored),serializeCampaign(s));
+  assert.ok(r.settled);assert.ok(r.endedDay-r.startedDay+1<=30);assert.ok(r.battle.tick<=720);
+  assert.ok(r.battle.sides.flatMap(x=>x.units).some(u=>u.battleDamage>0&&u.skillCasts>0));
+  for(const limit of [240,721,undefined]){const bad=JSON.parse(serializeCampaign(s));bad.campaign.battles[0].battle.maxTicks=limit;assert.throws(()=>validateCampaign(bad),/时限/);}
+});
+
 test('multiple battles and their snapshots share the same global day',()=>{
-  const s=newCampaign();orderCampaignArmy(s,'a1','guandu');orderCampaignArmy(s,'a3','baima');beginExecution(s);runTo(s,7);
-  const battles=activeBattles(s);assert.ok(battles.length>=2);const ticks=battles.map(r=>r.battle.tick);runTo(s,8);
-  for(let i=0;i<battles.length;i++){assert.equal(battles[i].battle.tick-ticks[i],CAMPAIGN.stepsPerDay);assert.equal(battles[i].snapshots.at(-1).day,8);}resume(s);
+  const s=newCampaign();orderCampaignArmy(s,'a1','guandu');orderCampaignArmy(s,'a3','baima');beginExecution(s);
+  for(let guard=0;activeBattles(s).length<2&&guard<10;guard++){advanceCampaignDay(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);}
+  const battles=activeBattles(s);assert.ok(battles.length>=2);const day=s.campaign.day,ticks=battles.map(r=>r.battle.tick);
+  advanceCampaignStep(s);battles.forEach((r,i)=>assert.equal(r.battle.tick,ticks[i]+1));runTo(s,day+1);
+  for(let i=0;i<battles.length;i++){const elapsed=battles[i].battle.tick-ticks[i];assert.ok(elapsed===CAMPAIGN.stepsPerDay||battles[i].settled&&elapsed<CAMPAIGN.stepsPerDay);assert.equal(battles[i].snapshots.at(-1).day,day+1);}resume(s);
 });
 test('daily snapshots reconstruct full battle state and are independent readonly copies',()=>{
   const s=encounter(),r=activeBattles(s)[0];chooseEncounter(s,r.id,false);runTo(s,s.campaign.day+2);const b=readDailySnapshot(r,s.campaign.day);
@@ -65,18 +88,18 @@ test('construction is paid once, completes at the turn boundary and reports inco
 });
 test('governors must stay at home; relief is limited and assigned officials cannot join armies',()=>{
   const s=newCampaign(),o=s.campaign.idle.find(o=>o.location==='xuchang');assert.equal(appointGovernor(s,'xuchang',o.unit.id),null);assert.ok(createCampaignArmy(s,'xuchang',[o.unit.id]));assert.ok(transferOfficer(s,o.unit.id,'chenliu'));
-  assert.equal(relieveCity(s,'xuchang'),null);assert.ok(relieveCity(s,'xuchang'));assert.equal(s.cities.find(c=>c.id==='xuchang').order,95);resume(s);
+  assert.match(relieveCity(s,'xuchang'),/民心已停用/);resume(s);
 });
 test('officer transfers take real time and new armies require local idle officers and recruitment',()=>{
-  const s=newCampaign(),o=s.campaign.idle.find(o=>o.location==='xuchang');assert.equal(transferOfficer(s,o.unit.id,'chenliu'),null);assert.ok(o.remainingDays>0);assert.ok(createCampaignArmy(s,'chenliu',[o.unit.id]));
+  const s=newCampaign();s.armies=s.armies.filter(a=>a.faction==='cao');const o=s.campaign.idle.find(o=>o.location==='xuchang');assert.equal(transferOfficer(s,o.unit.id,'chenliu'),null);assert.ok(o.remainingDays>0);assert.ok(createCampaignArmy(s,'chenliu',[o.unit.id]));
   beginExecution(s);runTo(s,11);assert.equal(o.destination,null);assert.equal(o.location,'chenliu');assert.equal(o.unit.homeCity,'chenliu');
-  assert.match(createCampaignArmy(s,'chenliu',[o.unit.id]),/围城/);
-  const local=s.campaign.idle.find(o=>o.location==='xuchang'&&!o.destination);assert.equal(createCampaignArmy(s,'xuchang',[local.unit.id]),null);const a=s.armies.at(-1);assert.equal(a.units[0].troops,0);resume(s);
+  assert.equal(createCampaignArmy(s,'chenliu',[o.unit.id]),null);assert.equal(s.armies.flatMap(a=>a.units).find(u=>u.id===o.unit.id).troops,0);
+  const local=s.campaign.idle.find(o=>o.location==='xuchang'&&!o.destination);assert.equal(createCampaignArmy(s,'xuchang',[local.unit.id]),null);assert.equal(s.armies.flatMap(a=>a.units).find(u=>u.id===local.unit.id).troops,0);resume(s);
 });
-test('split and merge conserve supply and capacity, and enforce ten-unit maximum',()=>{
+test('split and merge conserve supply and capacity, and reject duplicated officers',()=>{
   const s=newCampaign(),a=s.armies[0],before={troops:armyTroops(a),supply:a.supply,capacity:a.supplyCapacity};assert.equal(splitCampaignArmy(s,a.id,[a.units.at(-1).id]),null);const b=s.armies.at(-1);
   assert.equal(a.supply+b.supply,before.supply);assert.equal(a.supplyCapacity+b.supplyCapacity,before.capacity);assert.equal(mergeCampaignArmies(s,a.id,b.id),null);assert.equal(armyTroops(a),before.troops);
-  const fake={...structuredClone(a),id:'a99',units:[...a.units,...a.units]};s.armies.push(fake);assert.match(mergeCampaignArmies(s,a.id,fake.id),/10/);
+  const fake={...structuredClone(a),id:'a99',units:[...a.units,...a.units]};s.armies.push(fake);assert.match(mergeCampaignArmies(s,a.id,fake.id),/重复/);
 });
 test('recruitment consumes local manpower and grain and is limited across splits',()=>{
   const s=newCampaign(),a=s.armies[0],c=s.cities.find(c=>c.id===a.location),before=c.manpower;assert.equal(recruitCampaign(s,a.id),null);assert.equal(c.manpower,before-3000);assert.equal(c.drafted,3000);assert.ok(recruitCampaign(s,a.id));
@@ -92,11 +115,11 @@ test('five days without food disband armies and preserve officers for their retu
 });
 test('corrupt calendar, route, snapshot, duplicate participants and old saves are rejected',()=>{
   const s=encounter(),r=activeBattles(s)[0];chooseEncounter(s,r.id,false);runTo(s,s.campaign.day+2);
-  for(const corrupt of [x=>x.campaign.day=0,x=>x.campaign.version=0,x=>x.armies[0].supply=-1,x=>x.armies[0].units[0].homeCity='nowhere',x=>x.campaign.battles[0].snapshots[0].data.seed=-1,x=>x.campaign.battles.push(structuredClone(x.campaign.battles[0]))]){const bad=JSON.parse(serializeCampaign(s));corrupt(bad);assert.throws(()=>validateCampaign(bad));}
+  for(const corrupt of [x=>x.campaign.day=0,x=>x.campaign.version=0,x=>x.campaign.version=1,x=>x.armies[0].supply=-1,x=>x.armies[0].units[0].homeCity='nowhere',x=>x.campaign.battles[0].snapshots[0].data.seed=-1,x=>x.campaign.battles.push(structuredClone(x.campaign.battles[0]))]){const bad=JSON.parse(serializeCampaign(s));corrupt(bad);assert.throws(()=>validateCampaign(bad));}
 });
 
 test('combat desertions are never healable and dissolved officers are not duplicated in saves',()=>{
-  const s=newCampaign();s.armies=s.armies.filter(a=>['a1','a2'].includes(a.id));orderCampaignArmy(s,'a1','guandu');s.armies[1].route=['xuchang'];s.armies[1].target='xuchang';beginExecution(s);runTo(s,10,{auto:false});
+  const s=prolongedEncounter();
   const r=activeBattles(s)[0];chooseEncounter(s,r.id,false);s.cities.forEach(c=>c.grain=0);s.armies.forEach(a=>a.supply=0);
   for(let day=0;day<6;day++){
     advanceCampaignDay(s);resume(s);

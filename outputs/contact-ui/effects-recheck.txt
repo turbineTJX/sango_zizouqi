@@ -1,0 +1,78 @@
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (2.3232ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.3779ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.2596ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.3334ms)
+✔ legacy windup events never display a preparation animation or log row (0.2874ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.4522ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (2.3426ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.3591ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (6.466ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.558ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.38ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (1.4503ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.2217ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (0.6565ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.3896ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.1997ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.5293ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (2.0165ms)
+✖ simultaneous officers play in sequence and manual pause freezes the entire sequence (0.8ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.226ms)
+✔ reduced motion uses static focus and finishes without impact particles (0.8517ms)
+✖ result summary follows the active cast, survives expiry, and retains damage alongside control (1.2856ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.1967ms)
+✔ minor tactics including criticals stay local in both effect modes (0.3537ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (3.4289ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (120.6621ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 24
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 258.7204
+
+✖ failing tests:
+
+test at tests\battle-effects.test.mjs:208:1
+✖ simultaneous officers play in sequence and manual pause freezes the entire sequence (0.8ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/battle-effects.test.mjs:212:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\battle-effects.test.mjs:244:1
+✖ result summary follows the active cast, survives expiry, and retains damage alongside control (1.2856ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /曹操/. Input:
+  
+  '我军 · 张辽「八百破阵」 · 点击暂停查看\n张辽：实际损兵 315；混乱'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/battle-effects.test.mjs:251:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '我军 · 张辽「八百破阵」 · 点击暂停查看\n张辽：实际损兵 315；混乱',
+    expected: /曹操/,
+    operator: 'match',
+    diff: 'simple'
+  }

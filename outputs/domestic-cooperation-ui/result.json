@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "day": 11,
+  "events": 8,
+  "cooperation": {
+    "xuchang:commerce": {
+      "turn": 1,
+      "day": 10,
+      "cityId": "xuchang",
+      "direction": "commerce",
+      "actionId": 8,
+      "actionKey": "fair",
+      "officerId": "person-462",
+      "helperId": "person-255",
+      "chance": 0.44,
+      "gain": 0.247,
+      "chanceGain": 0.079,
+      "relation": 70,
+      "affinity": "很合拍",
+      "success": true,
+      "mode": "quantity",
+      "before": 254,
+      "after": 317,
+      "actual": 63,
+      "relationGain": 3,
+      "applied": true
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,17 @@
+✔ aura follows live melee adjacency, breaks under control, and never stacks or buffs its source (14.1036ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (1.9282ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (429.8237ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (1.8912ms)
+✔ repair uses actual earned intent and reports durability separately from wounded healing (364.5891ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (15.9256ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (2.0846ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (1.8077ms)
+✔ signals render finite coordinates without changing battle data through real combat (85.7687ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 926.141

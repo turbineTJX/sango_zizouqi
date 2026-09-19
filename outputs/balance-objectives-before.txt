@@ -1,0 +1,46 @@
+✖ 自由对战的所有名将专属均进入玩家初始配装，不依赖战法 ID 前缀 (4.0637ms)
+✖ 名将骑兵推荐保留零战意疾驰接敌、真实冲阵与专属，存读档不分歧 (15.8712ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 127.0522
+
+✖ failing tests:
+
+test at tests\balance-objectives.test.mjs:8:1
+✖ 自由对战的所有名将专属均进入玩家初始配装，不依赖战法 ID 前缀 (4.0637ms)
+  AssertionError [ERR_ASSERTION]: liao
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/balance-objectives.test.mjs:12:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\balance-objectives.test.mjs:18:1
+✖ 名将骑兵推荐保留零战意疾驰接敌、真实冲阵与专属，存读档不分歧 (15.8712ms)
+  AssertionError [ERR_ASSERTION]: person-661 has a zero-intent approach
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/balance-objectives.test.mjs:23:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

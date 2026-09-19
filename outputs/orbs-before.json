@@ -1,0 +1,888 @@
+{
+  "scenarioRows": [
+    {
+      "id": "history-guandu",
+      "seed": 1,
+      "ticks": 74,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 77,
+      "independent": 77,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-guandu",
+      "seed": 17,
+      "ticks": 77,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 82,
+      "independent": 82,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-guandu",
+      "seed": 521200,
+      "ticks": 74,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 76,
+      "independent": 76,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-chibi",
+      "seed": 1,
+      "ticks": 169,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 101,
+      "independent": 101,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "history-chibi",
+      "seed": 17,
+      "ticks": 151,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 92,
+      "independent": 92,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-chibi",
+      "seed": 521200,
+      "ticks": 139,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 86,
+      "independent": 86,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-hefei",
+      "seed": 1,
+      "ticks": 135,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 82,
+      "independent": 82,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-hefei",
+      "seed": 17,
+      "ticks": 135,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 81,
+      "independent": 81,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-hefei",
+      "seed": 521200,
+      "ticks": 124,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 81,
+      "independent": 81,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "history-yiling",
+      "seed": 1,
+      "ticks": 122,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 105,
+      "independent": 105,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "history-yiling",
+      "seed": 17,
+      "ticks": 118,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 103,
+      "independent": 103,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "history-yiling",
+      "seed": 521200,
+      "ticks": 119,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 105,
+      "independent": 105,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "tactical-control-lv",
+      "seed": 1,
+      "ticks": 98,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 32,
+      "independent": 32,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 2
+    },
+    {
+      "id": "tactical-control-lv",
+      "seed": 17,
+      "ticks": 76,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 27,
+      "independent": 27,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 2
+    },
+    {
+      "id": "tactical-control-lv",
+      "seed": 521200,
+      "ticks": 63,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 19,
+      "independent": 19,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 2
+    },
+    {
+      "id": "tactical-control-zhang",
+      "seed": 1,
+      "ticks": 132,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 35,
+      "independent": 35,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "tactical-control-zhang",
+      "seed": 17,
+      "ticks": 89,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 26,
+      "independent": 26,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "tactical-control-zhang",
+      "seed": 521200,
+      "ticks": 125,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 33,
+      "independent": 33,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "tactical-three-heroes",
+      "seed": 1,
+      "ticks": 167,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 50,
+      "independent": 50,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 2
+    },
+    {
+      "id": "tactical-three-heroes",
+      "seed": 17,
+      "ticks": 200,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 62,
+      "independent": 62,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 2
+    },
+    {
+      "id": "tactical-three-heroes",
+      "seed": 521200,
+      "ticks": 132,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 42,
+      "independent": 42,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 2
+    },
+    {
+      "id": "tactical-shu-defense",
+      "seed": 1,
+      "ticks": 240,
+      "winner": 0,
+      "reason": "坚守成功",
+      "casts": 257,
+      "independent": 257,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 5
+    },
+    {
+      "id": "tactical-shu-defense",
+      "seed": 17,
+      "ticks": 240,
+      "winner": 0,
+      "reason": "坚守成功",
+      "casts": 255,
+      "independent": 255,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "tactical-shu-defense",
+      "seed": 521200,
+      "ticks": 225,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 225,
+      "independent": 225,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "tactical-lv-cao",
+      "seed": 1,
+      "ticks": 196,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 144,
+      "independent": 144,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 6
+    },
+    {
+      "id": "tactical-lv-cao",
+      "seed": 17,
+      "ticks": 162,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 136,
+      "independent": 136,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "tactical-lv-cao",
+      "seed": 521200,
+      "ticks": 159,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 124,
+      "independent": 124,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "terrain",
+      "seed": 1,
+      "ticks": 159,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 105,
+      "independent": 105,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "terrain",
+      "seed": 17,
+      "ticks": 138,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 91,
+      "independent": 91,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "terrain",
+      "seed": 521200,
+      "ticks": 172,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 109,
+      "independent": 109,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "eight-arms",
+      "seed": 1,
+      "ticks": 117,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 93,
+      "independent": 93,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "eight-arms",
+      "seed": 17,
+      "ticks": 117,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 95,
+      "independent": 95,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "eight-arms",
+      "seed": 521200,
+      "ticks": 115,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 97,
+      "independent": 97,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "river",
+      "seed": 1,
+      "ticks": 128,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 86,
+      "independent": 86,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 5
+    },
+    {
+      "id": "river",
+      "seed": 17,
+      "ticks": 134,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 82,
+      "independent": 82,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 5
+    },
+    {
+      "id": "river",
+      "seed": 521200,
+      "ticks": 130,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 87,
+      "independent": 87,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "breach",
+      "seed": 1,
+      "ticks": 129,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 47,
+      "independent": 47,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 2
+    },
+    {
+      "id": "breach",
+      "seed": 17,
+      "ticks": 93,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 41,
+      "independent": 41,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "breach",
+      "seed": 521200,
+      "ticks": 99,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 45,
+      "independent": 45,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "officer-lab",
+      "seed": 1,
+      "ticks": 73,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 80,
+      "independent": 80,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 7
+    },
+    {
+      "id": "officer-lab",
+      "seed": 17,
+      "ticks": 75,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 82,
+      "independent": 82,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 7
+    },
+    {
+      "id": "officer-lab",
+      "seed": 521200,
+      "ticks": 66,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 77,
+      "independent": 77,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 7
+    },
+    {
+      "id": "field",
+      "seed": 1,
+      "ticks": 123,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 97,
+      "independent": 97,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "field",
+      "seed": 17,
+      "ticks": 121,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 99,
+      "independent": 99,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "field",
+      "seed": 521200,
+      "ticks": 110,
+      "winner": 1,
+      "reason": "击溃",
+      "casts": 103,
+      "independent": 103,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "outnumbered",
+      "seed": 1,
+      "ticks": 89,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 81,
+      "independent": 81,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "outnumbered",
+      "seed": 17,
+      "ticks": 93,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 83,
+      "independent": 83,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "outnumbered",
+      "seed": 521200,
+      "ticks": 98,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 89,
+      "independent": 89,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 3
+    },
+    {
+      "id": "reinforcements",
+      "seed": 1,
+      "ticks": 124,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 148,
+      "independent": 148,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "reinforcements",
+      "seed": 17,
+      "ticks": 129,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 146,
+      "independent": 146,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "reinforcements",
+      "seed": 521200,
+      "ticks": 102,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 116,
+      "independent": 116,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 6
+    },
+    {
+      "id": "siege",
+      "seed": 1,
+      "ticks": 112,
+      "winner": 0,
+      "reason": "城门失守",
+      "casts": 110,
+      "independent": 110,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "siege",
+      "seed": 17,
+      "ticks": 109,
+      "winner": 0,
+      "reason": "城门失守",
+      "casts": 102,
+      "independent": 102,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "siege",
+      "seed": 521200,
+      "ticks": 97,
+      "winner": 0,
+      "reason": "城门失守",
+      "casts": 98,
+      "independent": 98,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "defense",
+      "seed": 1,
+      "ticks": 218,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 179,
+      "independent": 179,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 5
+    },
+    {
+      "id": "defense",
+      "seed": 17,
+      "ticks": 187,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 138,
+      "independent": 138,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "defense",
+      "seed": 521200,
+      "ticks": 160,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 145,
+      "independent": 145,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "rotation",
+      "seed": 1,
+      "ticks": 179,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 176,
+      "independent": 176,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "rotation",
+      "seed": 17,
+      "ticks": 177,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 176,
+      "independent": 176,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    },
+    {
+      "id": "rotation",
+      "seed": 521200,
+      "ticks": 142,
+      "winner": 0,
+      "reason": "击溃",
+      "casts": 156,
+      "independent": 156,
+      "enchants": 0,
+      "procs": 0,
+      "peak": 4
+    }
+  ],
+  "campaigns": [
+    {
+      "seed": 1,
+      "plan": "驻守",
+      "battles": [
+        {
+          "name": "陈留攻守战",
+          "days": 5,
+          "ticks": 116,
+          "winner": 1
+        },
+        {
+          "name": "许昌攻守战",
+          "days": 5,
+          "ticks": 99,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "plan": "双路出征",
+      "battles": [
+        {
+          "name": "陈留道遭遇战",
+          "days": 3,
+          "ticks": 68,
+          "winner": 1
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 2,
+          "ticks": 47,
+          "winner": 0
+        },
+        {
+          "name": "陈留攻守战",
+          "days": 5,
+          "ticks": 103,
+          "winner": 1
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 2,
+          "ticks": 39,
+          "winner": 0
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 4,
+          "ticks": 95,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "plan": "驻守",
+      "battles": [
+        {
+          "name": "陈留攻守战",
+          "days": 5,
+          "ticks": 106,
+          "winner": 1
+        },
+        {
+          "name": "许昌攻守战",
+          "days": 7,
+          "ticks": 168,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "plan": "双路出征",
+      "battles": [
+        {
+          "name": "陈留道遭遇战",
+          "days": 3,
+          "ticks": 68,
+          "winner": 1
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 2,
+          "ticks": 48,
+          "winner": 0
+        },
+        {
+          "name": "陈留攻守战",
+          "days": 5,
+          "ticks": 103,
+          "winner": 1
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 2,
+          "ticks": 40,
+          "winner": 0
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 4,
+          "ticks": 93,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 521200,
+      "plan": "驻守",
+      "battles": [
+        {
+          "name": "陈留攻守战",
+          "days": 5,
+          "ticks": 107,
+          "winner": 1
+        },
+        {
+          "name": "许昌攻守战",
+          "days": 5,
+          "ticks": 106,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 521200,
+      "plan": "双路出征",
+      "battles": [
+        {
+          "name": "陈留道遭遇战",
+          "days": 3,
+          "ticks": 68,
+          "winner": 1
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 2,
+          "ticks": 47,
+          "winner": 0
+        },
+        {
+          "name": "陈留攻守战",
+          "days": 5,
+          "ticks": 101,
+          "winner": 1
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 2,
+          "ticks": 40,
+          "winner": 0
+        },
+        {
+          "name": "官渡攻守战",
+          "days": 4,
+          "ticks": 93,
+          "winner": 0
+        }
+      ]
+    }
+  ]
+}

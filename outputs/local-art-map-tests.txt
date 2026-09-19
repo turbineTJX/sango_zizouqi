@@ -1,0 +1,35 @@
+✔ national map keeps simulation/save untouched and uses one projection for cities, roads, army and encounter (14.9465ms)
+✔ incomplete or invalid national-map assets fall back rather than displacing units (0.5534ms)
+✔ asset manifest accepts only local opaque asset URLs and valid sprite grids (0.7715ms)
+✔ Unity root movement preserves its Hermite curve and endpoints (0.1465ms)
+✔ local file route only exposes manifest-listed assets and sends no-store (4.4598ms)
+✔ simulation modules do not depend on presentation or local art files (2.5611ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (5.9204ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (105.39ms)
+✔ armies move visibly along road interiors before arriving (1.7298ms)
+✔ head-on marching armies meet on the road without passing through each other (6.964ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (48.3293ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (60.1055ms)
+✔ multiple battles and their snapshots share the same global day (67.6571ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (26.8487ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (115.3678ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (51.9694ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (60.2711ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (1.3841ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (55.0319ms)
+✔ split and merge conserve supply and capacity, and enforce ten-unit maximum (0.5054ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (1.2132ms)
+✔ supply connection is cut by hostile road occupation (0.2965ms)
+✔ five days without food disband armies and preserve officers for their return (2.0354ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (30.0965ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (66.5724ms)
+✔ city capture settles once and can be saved immediately within a day (60.1843ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (23.4916ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 918.5089

@@ -1,0 +1,79 @@
+✔ four officer stats affect separate derived attributes, with no charm dimension (2.6958ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (36.5514ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (0.9594ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (5.4238ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (4.3761ms)
+✔ politics reduces actual confusion duration but physical stun remains independent (8.0153ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (1.705ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (13.3501ms)
+✔ cleave charges each victim once without charging the caster (20.561ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (37.9049ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (5.7642ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (9.9195ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (4.6346ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (1.9597ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (124.5378ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (3.8546ms)
+✔ two real ram casts can link against the gate and increase the second hit (4.3261ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (194.8016ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (47.0096ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (11.3486ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (175.7492ms)
+✔ armies move visibly along road interiors before arriving (3.1575ms)
+✔ head-on marching armies meet on the road without passing through each other (8.1484ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (100.4517ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (166.7304ms)
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (218.1435ms)
+✔ multiple battles and their snapshots share the same global day (70.4733ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (42.7559ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (508.9297ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (66.5774ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (74.3636ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (1.9392ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (1.6783ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (0.655ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (3.099ms)
+✔ supply connection is cut by hostile road occupation (0.4803ms)
+✔ five days without food disband armies and preserve officers for their return (3.5166ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (49.9006ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (132.9973ms)
+✔ city capture settles once and can be saved immediately within a day (62.898ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (37.1425ms)
+✔ every tactic declares its actual power, chance effects and critical policy (1.1706ms)
+✔ defensive status magnitude snapshots martial power and ignores intellect (22.8936ms)
+✔ control succeeds and fails through real casts, pays cooldown, and reports actual chance (53.0001ms)
+✔ resolve blocks control and outcome never claims an applied status (2.2564ms)
+✔ multi-hit burst shares one power-dependent critical roll per target (36.5447ms)
+✔ control duration grows with power and potency remains bounded (1.4161ms)
+✔ current saves resume identical probability rolls and reject malformed event probabilities (156.3297ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 47
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1885.8004
+
+✖ failing tests:
+
+test at tests\strategic-campaign.test.mjs:51:1
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (218.1435ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:55:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

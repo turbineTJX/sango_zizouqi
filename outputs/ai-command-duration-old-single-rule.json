@@ -1,0 +1,404 @@
+{
+  "result": {
+    "winner": 0,
+    "reason": "击溃"
+  },
+  "ticks": 459,
+  "commands": [
+    {
+      "key": "fortify",
+      "tick": 63,
+      "serial": 1
+    },
+    {
+      "key": "fortify",
+      "tick": 144,
+      "serial": 2
+    },
+    {
+      "key": "fortify",
+      "tick": 247,
+      "serial": 3
+    },
+    {
+      "key": "fortify",
+      "tick": 399,
+      "serial": 4
+    }
+  ],
+  "trace": [
+    {
+      "tick": 440,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 618,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 68,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 441,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 618,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 68,
+          "action": "扰策"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 442,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "action": "攻击李典"
+        },
+        {
+          "id": "person-610",
+          "hp": 36,
+          "action": "攻击吕布"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 2
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 32
+        }
+      ]
+    },
+    {
+      "tick": 443,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 36,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 444,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "救护"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 445,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "action": "疾驰"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 446,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "action": "攻击李典"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 447,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 448,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "攻击吕布"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 3
+        }
+      ]
+    },
+    {
+      "tick": 449,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "action": "攻击李典"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 450,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 451,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 452,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 610,
+          "action": "攻击李典"
+        },
+        {
+          "id": "person-610",
+          "hp": 80,
+          "action": "伏弩"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 3
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 26
+        }
+      ]
+    },
+    {
+      "tick": 453,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 80,
+          "action": "攻击吕布"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 3
+        }
+      ]
+    },
+    {
+      "tick": 454,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 80,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 455,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "action": "人中吕布"
+        },
+        {
+          "id": "person-610",
+          "hp": 43,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 37
+        }
+      ]
+    },
+    {
+      "tick": 456,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "action": "攻击李典"
+        },
+        {
+          "id": "person-610",
+          "hp": 15,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 28
+        }
+      ]
+    },
+    {
+      "tick": 457,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 606,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 15,
+          "action": "攻击吕布"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 1
+        }
+      ]
+    },
+    {
+      "tick": 458,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 606,
+          "action": "重整攻势"
+        },
+        {
+          "id": "person-610",
+          "hp": 15,
+          "action": "重整攻势"
+        }
+      ],
+      "damage": []
+    },
+    {
+      "tick": 459,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 606,
+          "action": "攻击李典"
+        }
+      ],
+      "damage": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 15
+        }
+      ]
+    }
+  ]
+}

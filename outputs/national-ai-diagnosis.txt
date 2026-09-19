@@ -1,0 +1,26 @@
+{"id":"heroes-251","day":1,"battles":0,"archived":0,"active":0,"cities":{"yuan":15,"sunce":27,"cao":22,"force-2":23},"orders":{},"marching":0,"saveChars":476712}
+{"id":"heroes-251","day":11,"battles":10,"archived":0,"active":6,"cities":{"yuan":17,"sunce":28,"cao":20,"force-2":22},"orders":{"hold":73,"attack":5,"reinforce":1,"retreat":1},"marching":4,"saveChars":1155081}
+{"id":"heroes-251","day":21,"battles":20,"archived":0,"active":2,"cities":{"yuan":19,"sunce":27,"cao":15,"force-2":26},"orders":{"retreat":5,"hold":60,"reinforce":12,"attack":3},"marching":25,"saveChars":1936625}
+{"id":"heroes-251","day":31,"battles":22,"archived":5,"active":2,"cities":{"yuan":19,"sunce":24,"cao":15,"force-2":29},"orders":{"retreat":6,"reinforce":9,"hold":61,"attack":3,"stage":1},"marching":27,"saveChars":2361692}
+INVALID 41 [
+  {
+    id: 'a186',
+    units: 29,
+    first: 6,
+    task: '增援守城',
+    supply: 11326,
+    capacity: 26100,
+    route: [ 'town-26', 'town-11', 'town-9' ],
+    location: 'town-28'
+  }
+]
+file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/strategic-campaign.mjs:462
+  const fail=(ok,message='战略存档数据无效')=>{if(!ok)throw new Error(message);};
+                                                    ^
+
+Error: 军团编制或粮草无效
+    at fail (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/strategic-campaign.mjs:462:53)
+    at validateCampaign (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/strategic-campaign.mjs:477:32)
+    at file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/scripts/audit-strategic-ai.mjs:8:41
+
+Node.js v24.15.0

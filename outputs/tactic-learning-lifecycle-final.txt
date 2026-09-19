@@ -1,0 +1,45 @@
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (5.4899ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (7.0227ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (2.0684ms)
+✔ fame adds city manpower rather than free troops (1.317ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (285.4144ms)
+✔ governor interface shows actual discounts, skill categories and diplomacy reserve labels (15.1436ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.3774ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (136.843ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (3.4975ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (236.4616ms)
+✔ 自然击溃守军后，城门仍存时友军救护和名将支援继续使用真实伤兵与战意 (108.6876ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (73.3434ms)
+✔ scenario profiles correct the public-library traits in runtime and exported rows (1.1545ms)
+✔ scenario relation IDs replace truncated library IDs without inventing genealogy officers (2.0203ms)
+✔ profile import uses array base values and never adopts live scenario state or colliding custom IDs (0.7195ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (20.1899ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (212.2935ms)
+✔ armies move visibly along road interiors before arriving (13.0046ms)
+✔ head-on marching armies meet on the road without passing through each other (20.7177ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (115.4558ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (338.6492ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (535.1921ms)
+✔ multiple battles and their snapshots share the same global day (81.6945ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (48.1311ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (592.0833ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (74.5813ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (79.2328ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (7.0556ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (4.8379ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (1.4426ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (6.1801ms)
+✔ supply connection is cut by hostile road occupation (1.4106ms)
+✔ five days without food disband armies and preserve officers for their return (12.1595ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (70.8258ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (356.3668ms)
+✔ city capture settles once and can be saved immediately within a day (87.6744ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (50.4305ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2901.4145

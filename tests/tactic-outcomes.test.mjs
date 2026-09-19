@@ -1,8 +1,10 @@
+import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
-import {configureTactics,setStatus,shieldAmount} from '../tactics.mjs';
+import {setStatus,shieldAmount} from '../tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {outcomeLines} from '../tactic-outcomes.mjs';
 
@@ -55,7 +57,7 @@ test('current save preserves result records and deterministic continuation; malf
   const state=createScenario('field',19),b=state.battle;lockDeployment(b);
   while(!b.effects.some(e=>e.outcome)&&!b.result)stepBattle(b);
   assert.ok(b.effects.some(e=>e.outcome));
-  const resumed=validateSave(structuredClone(state));
+  const resumed=validateSave(structuredClone(syncFixtureLearning(state)));
   const bad=structuredClone(state);bad.battle.effects.find(e=>e.outcome).outcome[0].damage=-1;
   assert.throws(()=>validateSave(bad),/战法结算/);
   while(!b.result){stepBattle(b);stepBattle(resumed.battle);}

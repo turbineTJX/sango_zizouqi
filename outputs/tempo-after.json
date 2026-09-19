@@ -1,0 +1,829 @@
+{
+  "rulesVersion": 26,
+  "combat": {
+    "stepMs": 700,
+    "damageScale": 1.05,
+    "intentCap": 100
+  },
+  "thresholds": {
+    "fire": 30,
+    "repeat": 30,
+    "phalanx": 50,
+    "rush": 50,
+    "scatter": 60,
+    "valor": 70,
+    "ram": 40,
+    "navalRam": 30
+  },
+  "rows": [
+    {
+      "id": "field",
+      "seed": 1,
+      "ticks": 128,
+      "reason": "击溃",
+      "damage12": 4209,
+      "meanHit": 67,
+      "casts": 104,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 10
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "phalanx",
+          "tick": 13
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 54
+        }
+      ]
+    },
+    {
+      "id": "field",
+      "seed": 17,
+      "ticks": 129,
+      "reason": "击溃",
+      "damage12": 4207,
+      "meanHit": 72,
+      "casts": 93,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 10
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "phalanx",
+          "tick": 13
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 54
+        }
+      ]
+    },
+    {
+      "id": "field",
+      "seed": 521200,
+      "ticks": 124,
+      "reason": "击溃",
+      "damage12": 4136,
+      "meanHit": 73,
+      "casts": 97,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 10
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "phalanx",
+          "tick": 13
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 29
+        },
+        {
+          "id": "rush",
+          "tick": 44
+        }
+      ]
+    },
+    {
+      "id": "outnumbered",
+      "seed": 1,
+      "ticks": 98,
+      "reason": "击溃",
+      "damage12": 2623,
+      "meanHit": 56,
+      "casts": 91,
+      "first": [
+        {
+          "id": "repeat",
+          "tick": 8
+        },
+        {
+          "id": "phalanx",
+          "tick": 11
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "rush",
+          "tick": 13
+        },
+        {
+          "id": "phalanx",
+          "tick": 13
+        },
+        {
+          "id": "rush",
+          "tick": 16
+        },
+        {
+          "id": "valor",
+          "tick": 17
+        },
+        {
+          "id": "rush",
+          "tick": 18
+        },
+        {
+          "id": "repeat",
+          "tick": 33
+        },
+        {
+          "id": "valor",
+          "tick": 35
+        },
+        {
+          "id": "fire",
+          "tick": 43
+        },
+        {
+          "id": "phalanx",
+          "tick": 55
+        },
+        {
+          "id": "scatter",
+          "tick": 56
+        },
+        {
+          "id": "repeat",
+          "tick": 62
+        },
+        {
+          "id": "valor",
+          "tick": 67
+        }
+      ]
+    },
+    {
+      "id": "outnumbered",
+      "seed": 17,
+      "ticks": 99,
+      "reason": "击溃",
+      "damage12": 2692,
+      "meanHit": 52,
+      "casts": 91,
+      "first": [
+        {
+          "id": "repeat",
+          "tick": 8
+        },
+        {
+          "id": "phalanx",
+          "tick": 11
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "rush",
+          "tick": 13
+        },
+        {
+          "id": "rush",
+          "tick": 15
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 18
+        },
+        {
+          "id": "phalanx",
+          "tick": 19
+        },
+        {
+          "id": "valor",
+          "tick": 33
+        },
+        {
+          "id": "repeat",
+          "tick": 33
+        },
+        {
+          "id": "fire",
+          "tick": 43
+        },
+        {
+          "id": "rush",
+          "tick": 49
+        },
+        {
+          "id": "valor",
+          "tick": 53
+        },
+        {
+          "id": "repeat",
+          "tick": 53
+        },
+        {
+          "id": "scatter",
+          "tick": 56
+        },
+        {
+          "id": "phalanx",
+          "tick": 61
+        }
+      ]
+    },
+    {
+      "id": "outnumbered",
+      "seed": 521200,
+      "ticks": 96,
+      "reason": "击溃",
+      "damage12": 2640,
+      "meanHit": 55,
+      "casts": 91,
+      "first": [
+        {
+          "id": "repeat",
+          "tick": 8
+        },
+        {
+          "id": "phalanx",
+          "tick": 11
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "rush",
+          "tick": 13
+        },
+        {
+          "id": "rush",
+          "tick": 15
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 18
+        },
+        {
+          "id": "phalanx",
+          "tick": 19
+        },
+        {
+          "id": "valor",
+          "tick": 33
+        },
+        {
+          "id": "repeat",
+          "tick": 33
+        },
+        {
+          "id": "fire",
+          "tick": 43
+        },
+        {
+          "id": "rush",
+          "tick": 51
+        },
+        {
+          "id": "repeat",
+          "tick": 54
+        },
+        {
+          "id": "valor",
+          "tick": 55
+        },
+        {
+          "id": "scatter",
+          "tick": 56
+        },
+        {
+          "id": "phalanx",
+          "tick": 57
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "seed": 1,
+      "ticks": 124,
+      "reason": "击溃",
+      "damage12": 3614,
+      "meanHit": 60,
+      "casts": 138,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 10
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "phalanx",
+          "tick": 13
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 23
+        },
+        {
+          "id": "repeat",
+          "tick": 37
+        },
+        {
+          "id": "rush",
+          "tick": 43
+        },
+        {
+          "id": "phalanx",
+          "tick": 43
+        },
+        {
+          "id": "valor",
+          "tick": 46
+        },
+        {
+          "id": "fire",
+          "tick": 59
+        },
+        {
+          "id": "scatter",
+          "tick": 70
+        },
+        {
+          "id": "valor",
+          "tick": 72
+        },
+        {
+          "id": "scatter",
+          "tick": 74
+        },
+        {
+          "id": "repeat",
+          "tick": 82
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "seed": 17,
+      "ticks": 158,
+      "reason": "击溃",
+      "damage12": 3611,
+      "meanHit": 58,
+      "casts": 155,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 10
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "phalanx",
+          "tick": 13
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 23
+        },
+        {
+          "id": "repeat",
+          "tick": 40
+        },
+        {
+          "id": "rush",
+          "tick": 43
+        },
+        {
+          "id": "valor",
+          "tick": 46
+        },
+        {
+          "id": "phalanx",
+          "tick": 57
+        },
+        {
+          "id": "fire",
+          "tick": 67
+        },
+        {
+          "id": "rush",
+          "tick": 70
+        },
+        {
+          "id": "valor",
+          "tick": 73
+        },
+        {
+          "id": "scatter",
+          "tick": 77
+        },
+        {
+          "id": "scatter",
+          "tick": 78
+        },
+        {
+          "id": "repeat",
+          "tick": 88
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "seed": 521200,
+      "ticks": 139,
+      "reason": "击溃",
+      "damage12": 3579,
+      "meanHit": 63,
+      "casts": 137,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 10
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "repeat",
+          "tick": 12
+        },
+        {
+          "id": "phalanx",
+          "tick": 13
+        },
+        {
+          "id": "valor",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 29
+        },
+        {
+          "id": "repeat",
+          "tick": 38
+        },
+        {
+          "id": "rush",
+          "tick": 41
+        },
+        {
+          "id": "phalanx",
+          "tick": 41
+        },
+        {
+          "id": "valor",
+          "tick": 44
+        },
+        {
+          "id": "scatter",
+          "tick": 61
+        },
+        {
+          "id": "fire",
+          "tick": 63
+        },
+        {
+          "id": "valor",
+          "tick": 72
+        },
+        {
+          "id": "scatter",
+          "tick": 74
+        },
+        {
+          "id": "repeat",
+          "tick": 75
+        }
+      ]
+    },
+    {
+      "id": "siege",
+      "seed": 1,
+      "ticks": 105,
+      "reason": "城门失守",
+      "damage12": 1982,
+      "meanHit": 63,
+      "casts": 102,
+      "first": [
+        {
+          "id": "valor",
+          "tick": 14
+        },
+        {
+          "id": "repeat",
+          "tick": 14
+        },
+        {
+          "id": "repeat",
+          "tick": 14
+        },
+        {
+          "id": "phalanx",
+          "tick": 15
+        },
+        {
+          "id": "phalanx",
+          "tick": 16
+        },
+        {
+          "id": "rush",
+          "tick": 21
+        },
+        {
+          "id": "repeat",
+          "tick": 45
+        },
+        {
+          "id": "valor",
+          "tick": 47
+        },
+        {
+          "id": "phalanx",
+          "tick": 47
+        },
+        {
+          "id": "fire",
+          "tick": 77
+        },
+        {
+          "id": "repeat",
+          "tick": 80
+        },
+        {
+          "id": "valor",
+          "tick": 82
+        },
+        {
+          "id": "scatter",
+          "tick": 84
+        },
+        {
+          "id": "scatter",
+          "tick": 89
+        }
+      ]
+    },
+    {
+      "id": "siege",
+      "seed": 17,
+      "ticks": 127,
+      "reason": "城门失守",
+      "damage12": 1906,
+      "meanHit": 61,
+      "casts": 129,
+      "first": [
+        {
+          "id": "valor",
+          "tick": 14
+        },
+        {
+          "id": "repeat",
+          "tick": 14
+        },
+        {
+          "id": "repeat",
+          "tick": 14
+        },
+        {
+          "id": "phalanx",
+          "tick": 15
+        },
+        {
+          "id": "phalanx",
+          "tick": 17
+        },
+        {
+          "id": "rush",
+          "tick": 21
+        },
+        {
+          "id": "repeat",
+          "tick": 45
+        },
+        {
+          "id": "rush",
+          "tick": 49
+        },
+        {
+          "id": "phalanx",
+          "tick": 49
+        },
+        {
+          "id": "valor",
+          "tick": 51
+        },
+        {
+          "id": "repeat",
+          "tick": 76
+        },
+        {
+          "id": "fire",
+          "tick": 79
+        },
+        {
+          "id": "valor",
+          "tick": 81
+        },
+        {
+          "id": "scatter",
+          "tick": 90
+        },
+        {
+          "id": "scatter",
+          "tick": 100
+        }
+      ]
+    },
+    {
+      "id": "siege",
+      "seed": 521200,
+      "ticks": 117,
+      "reason": "城门失守",
+      "damage12": 1963,
+      "meanHit": 65,
+      "casts": 115,
+      "first": [
+        {
+          "id": "valor",
+          "tick": 14
+        },
+        {
+          "id": "repeat",
+          "tick": 14
+        },
+        {
+          "id": "repeat",
+          "tick": 14
+        },
+        {
+          "id": "phalanx",
+          "tick": 15
+        },
+        {
+          "id": "phalanx",
+          "tick": 17
+        },
+        {
+          "id": "rush",
+          "tick": 26
+        },
+        {
+          "id": "repeat",
+          "tick": 45
+        },
+        {
+          "id": "phalanx",
+          "tick": 47
+        },
+        {
+          "id": "valor",
+          "tick": 50
+        },
+        {
+          "id": "fire",
+          "tick": 79
+        },
+        {
+          "id": "repeat",
+          "tick": 80
+        },
+        {
+          "id": "valor",
+          "tick": 85
+        },
+        {
+          "id": "scatter",
+          "tick": 86
+        },
+        {
+          "id": "scatter",
+          "tick": 106
+        }
+      ]
+    },
+    {
+      "id": "river",
+      "seed": 1,
+      "ticks": 139,
+      "reason": "击溃",
+      "damage12": 4120,
+      "meanHit": 79,
+      "casts": 92,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 8
+        },
+        {
+          "id": "phalanx",
+          "tick": 15
+        }
+      ]
+    },
+    {
+      "id": "river",
+      "seed": 17,
+      "ticks": 141,
+      "reason": "击溃",
+      "damage12": 4224,
+      "meanHit": 81,
+      "casts": 94,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 8
+        },
+        {
+          "id": "phalanx",
+          "tick": 15
+        }
+      ]
+    },
+    {
+      "id": "river",
+      "seed": 521200,
+      "ticks": 134,
+      "reason": "击溃",
+      "damage12": 4638,
+      "meanHit": 77,
+      "casts": 81,
+      "first": [
+        {
+          "id": "phalanx",
+          "tick": 8
+        },
+        {
+          "id": "phalanx",
+          "tick": 10
+        }
+      ]
+    }
+  ]
+}

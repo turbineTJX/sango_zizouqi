@@ -1,0 +1,43 @@
+✔ fire: three real basics consume exactly three charges, with normal intent and no links (19.1087ms)
+✔ suppress: three real basics consume exactly three charges, with normal intent and no links (2.6079ms)
+✔ pierce: three real basics consume exactly three charges, with normal intent and no links (2.7106ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (1.96ms)
+✔ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (2.3839ms)
+✔ tactics and retaliation do not consume charges or double-apply timed burning attacks (3.3948ms)
+✔ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (5.388ms)
+✔ gate attacks do not spend troop enchantments (2.2111ms)
+✔ remaining charges/source survive save and resume; forged or obsolete state is rejected (9.8565ms)
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (2.4706ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.3844ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.2688ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.3582ms)
+✔ legacy windup events never display a preparation animation or log row (0.2702ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.5796ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (2.789ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.4041ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (7.5127ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.4759ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.3518ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (2.1295ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.2432ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (0.6807ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.2398ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.2054ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.4975ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (1.6767ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (6.7623ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.4189ms)
+✔ reduced motion uses static focus and finishes without impact particles (1.1217ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (1.9508ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.1961ms)
+✔ minor tactics including criticals stay local in both effect modes (0.3654ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (3.1551ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (127.7903ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 284.147

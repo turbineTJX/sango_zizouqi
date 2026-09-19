@@ -1,0 +1,45 @@
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (13.5103ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (2.5004ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (488.2278ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (2.0718ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (407.8095ms)
+✔ tower: repair uses earned intent, reports durability and resumes exactly (441.7217ms)
+✔ supply-depot: repair uses earned intent, reports durability and resumes exactly (410.643ms)
+✔ future-building: repair uses earned intent, reports durability and resumes exactly (382.2373ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (194.5881ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (7.9643ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (96.812ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (165.712ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (239.7943ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (175.1071ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (215.6602ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (106.3203ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (154.2327ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (34.8451ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (770.9827ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (150.8221ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (138.1631ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (144.9337ms)
+✔ river: complete battle, reserves, save recovery and settlement (146.333ms)
+✔ breach: complete battle, reserves, save recovery and settlement (78.9576ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (93.6966ms)
+✔ field: complete battle, reserves, save recovery and settlement (126.6337ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (154.6321ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (395.0511ms)
+✔ siege: complete battle, reserves, save recovery and settlement (204.2844ms)
+✔ defense: complete battle, reserves, save recovery and settlement (835.3853ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (308.9051ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (12.0573ms)
+✔ sieges add an independent gate and shields only to defending starters (16.3768ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (3.0635ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (21.8078ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (22.1762ms)
+✔ fixture and seed validation rejects malformed test state (4.7033ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4948.0246

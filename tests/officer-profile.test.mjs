@@ -5,12 +5,12 @@ import {makeOfficer,validateSave,stepBattle} from '../engine.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {officerProfileMarkup} from '../officer-roster.mjs';
 
-test('all source character traits are formal catalogue and runtime fields, preserving numeric zero',()=>{
+test('effective scenario character traits are formal catalogue and runtime fields, preserving numeric zero',()=>{
  const mapping={personality:'personality',righteousness:'argumentation',compatibility:'compatibility',sex:'sex',birthYear:'yearBorn',deathYear:'yearDead'};
  for(const u of OFFICER_CATALOG){
   const runtime=makeOfficer(u.id);
   for(const [field,source] of Object.entries(mapping)){
-   assert.equal(u[field],u.source[source]??null);assert.equal(runtime[field],u[field]);
+   assert.equal(u[field],field==='sex'&&u.profileSource[source]===-1?null:u.profileSource[source]??null);assert.equal(runtime[field],u[field]);
   }
   assert.deepEqual(runtime.relations,u.relations);
  }
@@ -44,7 +44,7 @@ test('incomplete profile state is rejected without backfilling fields',()=>{
   assert.throws(()=>validateSave(state));assert.deepEqual(state,before);
  }
 });
-test('v2 saves reject invalid, missing and malformed profiles rather than silently changing them',()=>{
+test('current saves reject invalid, missing and malformed profiles rather than silently changing them',()=>{
  for(const change of [
   u=>delete u.personality,u=>u.righteousness=-1,u=>u.compatibility='75',u=>u.sex=9,
   u=>u.birthYear=null,u=>u.deathYear=0,u=>u.relations=null,

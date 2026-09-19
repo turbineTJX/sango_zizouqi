@@ -1,0 +1,14 @@
+{"id":"guandu-200","day":1,"battles":0,"archived":0,"active":0,"cities":{"neutral":19,"yuan":10,"cao":25,"force-7":19,"sunce":14},"orders":{},"marching":0,"saveChars":172466}
+{"id":"guandu-200","day":11,"battles":14,"archived":0,"active":10,"cities":{"yuan":13,"cao":22,"neutral":18,"force-7":19,"sunce":15},"orders":{"hold":29,"attack":16,"reinforce":5},"marching":6,"saveChars":630230}
+{"id":"guandu-200","day":21,"battles":19,"archived":0,"active":3,"cities":{"yuan":17,"cao":18,"force-7":22,"neutral":13,"sunce":17},"orders":{"hold":40,"retreat":3,"reinforce":15,"attack":19,"recover":1},"marching":10,"saveChars":1008772}
+{"id":"guandu-200","day":31,"battles":21,"archived":2,"active":1,"cities":{"yuan":18,"cao":17,"force-7":24,"neutral":11,"sunce":17},"orders":{"hold":39,"retreat":6,"reinforce":16,"attack":18,"recover":1},"marching":10,"saveChars":1279722}
+{"id":"guandu-200","day":41,"battles":21,"archived":4,"active":1,"cities":{"yuan":18,"cao":17,"force-7":26,"neutral":9,"sunce":17},"orders":{"hold":39,"recover":2,"reinforce":18,"attack":15,"retreat":6},"marching":8,"saveChars":1416197}
+{"id":"guandu-200","day":51,"battles":24,"archived":7,"active":4,"cities":{"yuan":18,"cao":17,"force-7":27,"neutral":8,"sunce":17},"orders":{"recover":3,"hold":39,"retreat":9,"reinforce":16,"attack":13},"marching":12,"saveChars":1416913}
+{"id":"guandu-200","completedDay":61,"saveChars":1373418,"archived":13,"passed":true}
+{"id":"heroes-251","day":1,"battles":0,"archived":0,"active":0,"cities":{"yuan":15,"sunce":27,"cao":22,"force-2":23},"orders":{},"marching":0,"saveChars":476712}
+{"id":"heroes-251","day":11,"battles":10,"archived":0,"active":6,"cities":{"yuan":17,"sunce":28,"cao":20,"force-2":22},"orders":{"hold":73,"attack":5,"reinforce":1,"retreat":1},"marching":4,"saveChars":1155081}
+{"id":"heroes-251","day":21,"battles":19,"archived":0,"active":1,"cities":{"yuan":19,"sunce":28,"cao":15,"force-2":25},"orders":{"retreat":4,"hold":64,"attack":3,"recover":4,"reinforce":5},"marching":17,"saveChars":1809503}
+{"id":"heroes-251","day":31,"battles":21,"archived":3,"active":1,"cities":{"yuan":20,"sunce":24,"cao":15,"force-2":28},"orders":{"recover":7,"retreat":3,"hold":68,"attack":1,"reinforce":1},"marching":22,"saveChars":2132433}
+{"id":"heroes-251","day":41,"battles":22,"archived":8,"active":2,"cities":{"yuan":20,"sunce":25,"cao":15,"force-2":27},"orders":{"hold":69,"reinforce":6,"retreat":1,"recover":3,"attack":1},"marching":27,"saveChars":2132981}
+{"id":"heroes-251","day":51,"battles":21,"archived":9,"active":1,"cities":{"yuan":20,"sunce":25,"cao":15,"force-2":27},"orders":{"hold":72,"retreat":3,"reinforce":4,"recover":1},"marching":25,"saveChars":2210519}
+{"id":"heroes-251","completedDay":61,"saveChars":2347959,"archived":9,"passed":true}

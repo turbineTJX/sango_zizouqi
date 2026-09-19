@@ -1,13 +1,20 @@
-import {officerProfile} from './officer-catalog.mjs';
-import { newGame, makeOfficer, startBattle, configureBattleTerrain } from './engine.mjs';
-import { recommendedTacticIds, roleTacticIds, setStatus, configureTactics, validLoadout } from './tactics.mjs';
+import {initializeTacticLearning} from './tactic-learning.mjs';
+import {officerProfile,OFFICER_BY_ID} from './officer-catalog.mjs';
+import {defaultCustomBattle,validateCustomBattle} from './custom-battle.mjs';
+import { newGame, makeOfficer, startBattle, configureBattleTerrain, chooseArmyAdvisor, fillSlots } from './engine.mjs';
+import { setStatus } from './tactics.mjs';
+import {planEnemyArmy} from './battle-ai.mjs';
 
 import { SCENARIOS } from './scenario-catalog.mjs';
 export { SCENARIOS } from './scenario-catalog.mjs';
 
-export function createScenario(id, seed, shieldPercent = 20, officerIds = null) {
-  const config = SCENARIOS.find(s => s.id === id);
+export function createScenario(id, seed, shieldPercent = 20, officerIds = null, customDraft = null) {
+  let config = SCENARIOS.find(s => s.id === id);
   if (!config) throw new Error('未知测试战役');
+  const custom=id==='custom-battle'?validateCustomBattle(customDraft??defaultCustomBattle()):null;
+  if(custom){
+    config={...config,...custom,own:custom.ownTeam.length,enemy:custom.enemyTeam.length,ownName:'自选我军',enemyName:'自选敌军'};
+  }
   const defending = config.defending || id === 'defense';
   seed ??= config.seed;
   if (!Number.isSafeInteger(seed) || seed < 0 || seed > 0xffffffff) throw new Error('种子须为 0～4294967295 的整数');
@@ -15,6 +22,7 @@ export function createScenario(id, seed, shieldPercent = 20, officerIds = null) 
   if(officerIds!==null&&(id!=='officer-lab'||!Array.isArray(officerIds)||officerIds.length<1||officerIds.length>6||new Set(officerIds).size!==officerIds.length))throw new Error('试炼阵容须为 1～6 名不同武将');
   const state = newGame(seed);
   state.testScenario = { id, seed, shieldPercent };
+  if(custom)state.testScenario.customBattle={...custom,seed};
   const own = state.armies[0], enemy = state.armies[1];
   const ids = officerIds || config.officers || (config.id==='outnumbered'?['cao','liao','jia','yu']:['cao', 'liao', 'chu', 'jia', 'dun', 'yu', 'yuanxia', 'jin']);
   own.units = config.ownTeam ? config.ownTeam.map((entry,i)=>makeOfficer(entry.id,entry.troops??config.ownTroops,i,entry.level??config.level)) : ids.slice(0, config.own).map((id, i) => makeOfficer(id, config.ownTroops, i, config.level));
@@ -25,7 +33,6 @@ export function createScenario(id, seed, shieldPercent = 20, officerIds = null) 
     own.deputy=[...own.units].filter(u=>u.id!==own.leader).sort((a,b)=>b.force-a.force)[0]?.id||null;
     if(id==='officer-lab')state.testScenario.officerIds=own.units.map(u=>u.id);
   }
-  for(const u of own.units)u.tactics=recommendedTacticIds(u);
   enemy.units = config.enemyTeam ? config.enemyTeam.map((entry,i)=>makeOfficer(entry.id,entry.troops??config.enemyTroops,i,entry.level??config.enemyLevel)) : Array.from({ length: config.enemy }, (_, i) => {
     const u = i < 6 ? makeOfficer(['shao', 'yan', 'wen', 'he', 'ju', 'tian'][i], config.enemyTroops, i) : {
       ...makeOfficer('gao', config.enemyTroops, i), id: `test-${i}`, name: `援军${i - 5}队`, courtesy: '援军', skill: '协同作战', trait: '列阵赴援',
@@ -36,7 +43,6 @@ export function createScenario(id, seed, shieldPercent = 20, officerIds = null) 
     Object.assign(u,officerProfile(u.id));
     u.level = config.enemyLevel;
     u.formation = ['archer', 'crossbow'].includes(u.type) ? 'back' : 'front';
-    u.tactics = recommendedTacticIds(u);
     return u;
   });
   enemy.leader = enemy.units[0].id; enemy.advisor = enemy.units[4]?.id||enemy.units[0].id; enemy.deputy = enemy.units[1]?.id||null;
@@ -45,52 +51,48 @@ export function createScenario(id, seed, shieldPercent = 20, officerIds = null) 
       const entries=side?config.enemyTeam:config.ownTeam;
       army.name=side?config.enemyName:config.ownName;
       army.leader=entries[0].id; army.deputy=entries[1]?.id||null;
-      army.advisor=side?config.enemyAdvisor:config.ownAdvisor;
+      army.advisor=custom?chooseArmyAdvisor(army):side?config.enemyAdvisor:config.ownAdvisor;
+      // Free battles have no strategic faction posture to inherit.
+      if(custom)army.tactic='balanced';
       army.units.forEach((u,i)=>{
         u.type=entries[i].type;
         u.formation=entries[i].formation||(['spear','halberd'].includes(u.type)?'front':u.type==='cavalry'?'left':'back');
-        const role=u.type==='logistics'||i===entries.findIndex(v=>v.type==='spear'||v.type==='halberd')?'guard':u.intellect>u.force+10?'control':'assault';
-        const special=recommendedTacticIds(u).find(id=>id.startsWith('unique-'));
-        let tactics=roleTacticIds(u,role);
-        if(config.terrain==='forest'&&u.type==='archer')tactics=u.intellect>u.force?['wildfire','smoke','rally']:['fire','scatter','suppress'];
-        u.tactics=entries[i].tactics||(special?[special,...tactics].slice(0,3):tactics);
-        if(!validLoadout(u,u.tactics))throw new Error(`${u.name}的预设战法无效`);
+
       });
     });
   }
   if(id==='breach'){
-    const loadouts=[['unique-person-433','doubt','ward'],['rush','gallop','valor'],['smoke','rally','fire']];
-    own.units.forEach((u,i)=>{u.tactics=loadouts[i];u.type=['spear','cavalry','archer'][i];});
+    own.units.forEach((u,i)=>{u.type=['spear','cavalry','archer'][i];});
     enemy.units.forEach((u,i)=>{
       u.type=['spear','crossbow','archer'][i];u.formation=i?'back':'front';
-      u.tactics=[['phalanx','ward','thrust'],['repeat','pierce','screen'],['fire','suppress','rally']][i];
     });
   }
   if(['eight-arms','river'].includes(id)){
     const types=id==='river'?['ship','ship','halberd','logistics','siege','spear']:['spear','cavalry','halberd','logistics','siege','archer'];
-    for(const army of [own,enemy])army.units.forEach((u,i)=>{u.type=types[i];u.formation=['spear','halberd','cavalry'].includes(u.type)?'front':'back';u.tactics=roleTacticIds(u,['guard','assault','control','assault','control','control'][i]);});
+    for(const army of [own,enemy])army.units.forEach((u,i)=>{u.type=types[i];u.formation=['spear','halberd','cavalry'].includes(u.type)?'front':'back';});
   }
+  for(const u of [own,enemy].flatMap(a=>a.units))initializeTacticLearning(u,seed);
   own.morale = enemy.morale = 80;
   const cityId = id === 'siege' ? 'ye' : id === 'defense' ? 'xuchang' : id === 'outnumbered' ? 'baima' : id === 'rotation' ? 'chenliu' : 'guandu';
   const city = state.cities.find(c => c.id === cityId);
   city.garrison = 0; city.owner = defending ? 'cao' : 'yuan';
   own.location = enemy.location = cityId;
   state.pending = { cityId, attackerId: defending ? enemy.id : own.id, defenderIds: [defending ? own.id : enemy.id], origin: defending ? 'guandu' : 'xuchang', defenderFaction: city.owner };
-  startBattle(state);
+  // Arrival waves and gates must exist before AI chooses its first six.
+  startBattle(state,{deferEnemyDeployment:true});
   const b = state.battle;
   if(config.terrain)configureBattleTerrain(b,config.terrain);
-  // Authored encounter loadouts are public presets; generic enemies still use the planner.
+  // Authored positions remain; learned tactics are shared by all game modes.
   if(config.ownTeam)for(const [side,entries] of [[0,config.ownTeam],[1,config.enemyTeam]])for(const entry of entries){
     const u=b.sides[side].units.find(u=>u.id===entry.id);
-    if(entry.tactics)configureTactics(u,entry.tactics);
-    if(entry.position)[u.x,u.y]=entry.position;
+    if(entry.position&&u.status==='active')[u.x,u.y]=entry.position;
   }
   b.maxTicks = config.limit;
   if(config.holdUntil)b.holdUntil=config.holdUntil;
   if(config.campaign)b.logs=[{tick:0,text:`${config.name}，${config.ownName}迎战${config.enemyName}。请布阵后开战。`}];
   if(id==='breach'){
     const positions=[[[4,3],[4,4],[3,2]],[[8,3],[10,2],[10,4]]];
-    b.sides.forEach((s,side)=>s.units.forEach((u,i)=>{[u.x,u.y]=positions[side][i];}));
+    b.sides.forEach((s,side)=>s.units.forEach((u,i)=>{if(u.status==='active')[u.x,u.y]=positions[side][i];}));
   }
   let index = 6;
   config.waves.forEach((wave, i) => {
@@ -108,8 +110,24 @@ export function createScenario(id, seed, shieldPercent = 20, officerIds = null) 
       const freeY = Array.from({length:8},(_,i)=>i).find(y=>y!==4&&!b.sides[defenderSide].units.some(u=>u.status==='active'&&u.x===occupant.x&&u.y===y));
       occupant.y = freeY;
     }
-    for (const u of b.sides[defenderSide].units.filter(u=>u.status==='active')) {
-      setStatus(b,u,'shield',config.limit,{amount:Math.round(u.initial*shieldPercent/100),source:'siege:opening',label:'守城首发护盾'});
+  }
+  fillSlots(b,1);
+  planEnemyArmy(b);
+  // Authored encounter positions apply only to the selected starters.
+  if(id==='breach'){
+    const positions=[[8,3],[10,2],[10,4]];
+    b.sides[1].units.forEach((u,i)=>{if(u.status==='active')[u.x,u.y]=positions[i];});
+  }
+  if(config.gateHp)for(const u of b.sides[b.siege.gate.side].units.filter(u=>u.status==='active')){
+    setStatus(b,u,'shield',config.limit,{amount:Math.round(u.initial*shieldPercent/100),source:'siege:opening',label:'守城首发护盾'});
+  }
+  if(config.ownTeam){
+    // Plan against the actual authored deployment, waves and buildings, after
+    // setup is complete. Only explicit positions are restored.
+    for(const entry of config.enemyTeam){
+      const u=b.sides[1].units.find(u=>u.id===entry.id);
+
+      if(entry.position&&u.status==='active')[u.x,u.y]=entry.position;
     }
   }
   return state;

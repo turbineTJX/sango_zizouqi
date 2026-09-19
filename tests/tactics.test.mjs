@@ -1,3 +1,6 @@
+import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
+import {primeTactic} from './helpers/prime-tactic.mjs';
+import {learnedTacticIds} from '../tactic-learning.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { newGame, orderArmy, advanceTurn, startBattle, lockDeployment, stepBattle, issueCommand, validateSave, lowerIntent } from '../engine.mjs';
@@ -11,37 +14,31 @@ function scene(type='spear',id='cao') {
   const b=state.battle,a=b.sides[0].units.find(u=>u.id===id),d=b.sides[1].units[0];
   b.sides[0].units=[a];b.sides[1].units=[d];
   Object.assign(a,{type,x:4,y:3,status:'active',intent:0,cooldown:999});
-  a.tactics=[...TROOP_TACTICS[type]];
-  if(['liao','chu','jia'].includes(id))a.tactics[2]=({liao:'terror',chu:'protect',jia:'undermine'})[id];
+  if(id==='cao')learnFixtureTactics(a,TROOP_TACTICS[type]);else a.tactics=learnedTacticIds(a);
+
   Object.assign(d,{type:'crossbow',x:5,y:3,intent:0,cooldown:999});
-  d.tactics=[...TROOP_TACTICS.crossbow];
+  d.tactics=learnedTacticIds(d);
   for(const s of unitTactics(d))d.skillReady[s.id]=999;
   return {state,b,a,d};
 }
-function allowOnly(a,id) {
-  for(const s of unitTactics(a))a.skillReady[s.id]=s.id===id ? 0 : 999;
-  a.intent=TACTICS_BOOK[id].threshold;
-}
+function allowOnly(a,id) {primeTactic(a,id);}
 function complete(b,a) {
   const before=a.skillCasts;
   for(let i=0;i<10 && a.skillCasts===before;i++)stepBattle(b);
   assert.equal(a.skillCasts,before+1);
 }
 
-test('four troop types have fixed base slots and named officers have exclusive tactics',()=>{
-  const expected={archer:['火矢','箭雨','阻射'],spear:['贯阵','枪阵','奋击'],cavalry:['疾驰','冲阵','奋战'],crossbow:['连珠','退射','破甲']};
-  for(const [type,names] of Object.entries(expected))assert.deepEqual(unitTactics({id:'ordinary-test',type}).map(s=>s.name),names);
-  const officers=newGame().armies.flatMap(a=>a.units);
-  assert.equal(officers.filter(u=>unitTactics(u).some(s=>s.special)).length,15);
-  const liao={id:'liao',type:'cavalry'};assert.equal(unitTactics(liao)[2].id,'terror');
-  liao.type='archer';assert.deepEqual(unitTactics(liao).map(s=>s.id),['fire','scatter','terror']);
+test('unlearned units have no tactics and each learned slot belongs to the current troop or owner',()=>{
+ for(const type of Object.keys(TROOP_TACTICS))assert.deepEqual(unitTactics({id:'ordinary-test',type}),[]);
+ for(const u of newGame().armies.flatMap(a=>a.units))assert.deepEqual(unitTactics(u).map(s=>s.id),learnedTacticIds(u));
 });
-test('instant skills keep shared intent and only one tactic enters cooldown per step',()=>{
-  const {b,a}=scene();a.intent=100;
-  stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,100);assert.equal(a.skillReady.phalanx,undefined);
-  stepBattle(b);assert.equal(a.tacticCasts.phalanx,1);assert.equal(a.skillReady.strike,undefined);
-  stepBattle(b);assert.equal(a.tacticCasts.strike,1);assert.equal(a.cast,null);
+
+test('instant skills keep shared intent and only one learned tactic enters cooldown per step',()=>{
+ const {b,a}=scene();learnFixtureTactics(a,['thrust','phalanx']);a.intent=100;
+ stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,100);assert.equal(a.skillCasts,1);
+ stepBattle(b);assert.equal(a.tacticCasts.phalanx,1);assert.equal(a.skillCasts,2);assert.equal(a.cast,null);
 });
+
 test('demoralize clamps active and reserve intent and prevents subsequent skills below threshold',()=>{
   const {b,a,d}=scene();allowOnly(a,'thrust');a.intent=100;d.intent=30;
   const reserve={...structuredClone(d),id:'reserve-test',status:'reserve',x:-1,y:-1,intent:80};b.sides[1].units.push(reserve);
@@ -54,16 +51,16 @@ test('expired cooldown is insufficient below threshold; regaining intent re-enab
   const ready=a.skillReady.thrust;lowerIntent(a,100);a.cooldown=999;d.cooldown=999;
   while(b.tick<ready+1)stepBattle(b);
   assert.equal(a.cast,null);assert.equal(a.skillCasts,1);
-  a.intent=40;stepBattle(b);assert.equal(a.tacticCasts.thrust,2);assert.equal(a.cast,null);assert.equal(a.intent,40);
+  a.intent=TACTICS_BOOK.thrust.threshold;stepBattle(b);assert.equal(a.tacticCasts.thrust,2);assert.equal(a.cast,null);assert.equal(a.intent,TACTICS_BOOK.thrust.threshold);
 });
 test('fire burns without intent feedback and ranged skills have distinct real effects',()=>{
-  const {b,a,d}=scene('archer');allowOnly(a,'fire');complete(b,a);
+  const {b,a,d}=scene('archer');allowOnly(a,'fire');complete(b,a);assert.equal(d.statuses.burn,undefined);a.cooldown=0;stepBattle(b);
   assert.ok(hasStatus(b,d,'burn'));const hp=d.hp,ai=a.intent,di=d.intent;a.cooldown=999;
   stepBattle(b);assert.ok(d.hp<hp);assert.equal(a.intent,ai);assert.equal(d.intent,di);
   const x=scene('crossbow');allowOnly(x.a,'repeat');complete(x.b,x.a);
   assert.equal(x.b.effects.filter(e=>e.from===x.a.id&&e.damage>0).length,2);
   assert.equal(x.a.tacticCasts.repeat,1,'two projectiles count as one completed tactic');
-  const p=scene('crossbow');allowOnly(p.a,'pierce');complete(p.b,p.a);assert.ok(hasStatus(p.b,p.d,'armorBreak'));
+  const p=scene('crossbow');allowOnly(p.a,'pierce');complete(p.b,p.a);p.a.cooldown=0;stepBattle(p.b);assert.ok(hasStatus(p.b,p.d,'armorBreak'));
 });
 test('thrust hits the unit directly behind; scatter hits several nearby targets',()=>{
   for(const [type,id] of [['spear','thrust'],['archer','scatter']]) {
@@ -97,7 +94,7 @@ test('rare skills stun, protect and reduce intent without being universal damage
 });
 test('independent cooldowns, statuses and active casts survive save and resume identically',()=>{
   const {state,b,a}=scene('archer');allowOnly(a,'fire');complete(b,a);
-  const resumed=validateSave(JSON.parse(JSON.stringify(state)));
+  const resumed=validateSave(JSON.parse(JSON.stringify(syncFixtureLearning(state))));
   for(let i=0;i<12;i++){stepBattle(b);stepBattle(resumed.battle);}
   assert.deepEqual(b,resumed.battle);
   const broken=JSON.parse(JSON.stringify(state));broken.battle.sides[0].units[0].skillReady.unknown=3;
@@ -117,6 +114,6 @@ test('prepaid casts and previous save formats are rejected',()=>{
 });
 test('new saves distinguish bows and crossbows and require current rules',()=>{
  const {state}=scene('archer');state.armies[0].units[0].type='archer';state.armies[0].units[0].tactics=['fire','scatter','suppress'];
- const copy=validateSave(structuredClone(state));assert.equal(copy.armies[0].units[0].type,'archer');
+ const copy=validateSave(structuredClone(syncFixtureLearning(state)));assert.equal(copy.armies[0].units[0].type,'archer');
  delete state.rulesVersion;assert.throws(()=>validateSave(state));
 });

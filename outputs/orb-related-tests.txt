@@ -1,0 +1,94 @@
+tests\attributes.test.mjs:10: a.type=type;configureTactics(a,type==='crossbow'?['repeat','seal','ambush']:type==='archer'?['fire','scatter','suppress']:['thrust','phalanx','strike']);
+tests\battle-ai.test.mjs:17:  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),'firestorm');
+tests\battle-ai.test.mjs:18:  b.commandReady.firestorm=8;
+tests\battle-ai.test.mjs:19:  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),null);
+tests\battle-ai.test.mjs:20:  b.commandReady.firestorm=0;b.enemyCommand.commandReady.firestorm=8;
+tests\battle-ai.test.mjs:21:  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),'firestorm','enemy cooldown must not block player orders');
+tests\battle-ai.test.mjs:23:  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),null,'enemy range bonus must not leak to player');
+tests\battle-ai.test.mjs:34:  assert.equal(chooseEnemyCommand(b,['firestorm','demoralize','disrupt','fortify'],STRATAGEMS,0),null);
+tests\battle-ai.test.mjs:47:  assert.equal(chooseEnemyCommand(b,['firestorm','demoralize','blockade'],STRATAGEMS,0),null,'no engagement or intent means no useful order');
+tests\battle-ai.test.mjs:50:  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),'firestorm');
+tests\battle-ai.test.mjs:60:  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),null);
+tests\battle-ai.test.mjs:87:test('enemy re-plans with terrain, keeps ships afloat and equips forest fire for archers',()=>{
+tests\battle-ai.test.mjs:93:    if(terrain==='forest')assert.ok(unitTactics(units.find(u=>u.type==='archer')).some(s=>s.effect==='wildfire'||s.effect==='fire'));
+tests\battle-ai.test.mjs:118:  assert.match(issueCommand(b,'firestorm',null,1),/未掌握/);
+tests\battle-ai.test.mjs:121:  assert.equal(issueCommand(b,'firestorm',null,1),null);
+tests\battle-effects.test.mjs:84:  b.effects = ['charge','fire','shockwave','banner','volley','slash'].map(visual=>({...event(),visual}));
+tests\combos.test.mjs:11: const coords=[[3,2],[3,3],[3,4],[4,5]];b.sides[0].units.forEach((u,i)=>{u.type='crossbow';u.tactics=['repeat','pierce','retreatShot'];[u.x,u.y]=coords[i];});
+tests\combos.test.mjs:18:function cast(x,u,id,target=x.target){if(!availableTactics(u).some(s=>s.id===id))u.type=['harass','valor'].includes(id)?'cavalry':['fire','smoke'].includes(id)?'archer':'spear';configureTactics(u,[id,...availableTactics(u).map(s=>s.id).filter(s=>s!==id).slice(0,2)]);u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));primeTactic(u,id);stepBattle(x.b);return x.b.effects.filter(e=>e.combo);}
+tests\combos.test.mjs:41: const x=scene();cast(x,x.own[0],'repeat');cast(x,x.own[1],'fire');assert.equal(x.target.statuses.burn.amount,Math.round((unitAttributes(x.own[1],x.b).martialPower*(6/280+.03))*100/(100+unitAttributes(x.target,x.b).discipline)*1.25));assert.equal(x.target.statuses.burn.until,x.b.tick+8);
+tests\engine.test.mjs:222:      assert.ok(['charge', 'fire', 'shockwave', 'banner', 'volley', 'slash'].includes(e.visual));
+tests\engagement.test.mjs:89:test('ranged fire and intellect target selection remain independent of melee engagement',()=>{
+tests\famous-officers.test.mjs:78: q.u.type='crossbow';q.u.tactics=[q.s.id,'seal','pierce'];q.u.skillReady={};
+tests\expanded-troops.test.mjs:35:  if(['cleave','bulwark','riposte','curse','blight','navalRam'].includes(id)){x.a.x=3;x.d.x=id==='navalRam'?7:5;}
+tests\expanded-troops.test.mjs:43:test('curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it',()=>{
+tests\expanded-troops.test.mjs:45: primeTactic(x.u,'curse');stepBattle(x.b);assert.equal(x.d.statuses.curse.stacks,1);
+tests\expanded-troops.test.mjs:46: x.u.skillReady.curse=999;
+tests\expanded-troops.test.mjs:48: assert.equal(x.d.statuses.curse.stacks,3);
+tests\expanded-troops.test.mjs:49: const next=unitAttributes(x.d,x.b),unaffected=structuredClone(x.d);delete unaffected.statuses.curse;const currentBase=unitAttributes(unaffected,x.b);for(const key of ['attack','strategyPower','discipline'])assert.ok(Math.abs(next[key]-currentBase[key]*(1-.18*x.d.statuses.curse.potency))<1e-8,key);
+tests\expanded-troops.test.mjs:50: x.d.type='logistics';primeTactic(x.d,'purify');stepBattle(x.b);assert.ok(!hasStatus(x.b,x.d,'curse'));
+tests\expanded-troops.test.mjs:51: x.u.cooldown=999;for(let i=0;i<12;i++)stepBattle(x.b);assert.ok(!hasStatus(x.b,x.u,'cursingAttack'));
+tests\expanded-troops.test.mjs:55: function run(id,blight){const x=scene('logistics');wound(x.a);if(blight)setStatus(x.b,x.a,'blight',20);if(id==='purify')setStatus(x.b,x.a,'curse',20);primeTactic(x.u,id);stepBattle(x.b);if(id==='regrowth')stepBattle(x.b);return x.a.healed;}
+tests\expanded-troops.test.mjs:135:test('expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected',()=>{
+tests\expanded-troops.test.mjs:137: setStatus(b,u,'illusion',8,{hits:3});setStatus(b,u,'curse',10);setStatus(b,u,'curse',10);
+tests\expanded-troops.test.mjs:141: for(const [key,data]of [['curse',{until:b.tick+9,stacks:4}],['illusion',{until:b.tick+9,hits:4}]]){const bad=structuredClone(state);bad.battle.sides[0].units[0].statuses[key]=data;assert.throws(()=>validateSave(bad),/层数|次数/);}
+tests\intent-roles.test.mjs:38:test('stifle suppresses every victim once per damage tactic and does not suppress normal attacks',()=>{
+tests\intent-roles.test.mjs:49:test('ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node',()=>{
+tests\intent-roles.test.mjs:66:test('repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock',async()=>{
+tests\intent-roles.test.mjs:76:  assert.ok(b.sides[0].units.every(u=>u.tacticCasts.harass>=3),'repeated real suppressing tactics, not an injected lock');
+tests\intent-roles.test.mjs:78: // Three real harass casts above establish sustained suppression even when faster damage ends combat earlier.
+tests\intent-roles.test.mjs:83:test('current suppression routes and troop incomes survive deterministic battle continuation',()=>{
+tests\inspection.test.mjs:34:  for(const key of ['armorBreak','weaken','burn','curse','shield','stun','resolve'].filter(k=>k!=='shield'))assert.ok(seen.has(key),key);
+tests\medical-roles.test.mjs:56: x.u.type='crossbow';configureTactics(x.u,['screen','repeat','pierce']);assert.equal(supportAnchor(x.b,x.u),null);
+tests\medical-roles.test.mjs:68:test('fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement',()=>{
+tests\medical-roles.test.mjs:69: const x=scene('archer');configureTactics(x.u,['fire','scatter','suppress']);
+tests\medical-roles.test.mjs:70: primeTactic(x.u,'fire');stepBattle(x.b);assert.equal(x.d.statuses.burn.stacks,1);
+tests\medical-roles.test.mjs:75: x.u.cooldown=999;delete x.u.statuses.burningAttack;primeTactic(x.d,'cleanse');stepBattle(x.b);
+tests\medical-roles.test.mjs:77: primeTactic(x.u,'fire');stepBattle(x.b);assert.equal(x.d.statuses.burn.stacks,1);
+tests\medical-roles.test.mjs:78: x.u.cooldown=999;delete x.u.statuses.burningAttack;
+tests\medical-roles.test.mjs:114: for(const u of b.sides[0].units){u.type='archer';configureTactics(u,['fire','wildfire','suppress']);u.skillReady={};}
+tests\ordinary-growth.test.mjs:31: const configs=[['spear',['phalanx','ward','cleanse']],['archer',['fire','wildfire','scatter']],['crossbow',['screen','seal','ambush']],['archer',['smoke','wildfire','rally']],['cavalry',['rush','gallop','valor']],['spear',['strike','thrust','doubt']]];
+tests\passives.test.mjs:111:  function count(level){const x=duel('yuanxia',level);x.a.type='archer';configureTactics(x.a,['fire','scatter','suppress']);x.a.skillReady={fire:999,scatter:999,suppress:999};x.a.force=1;x.a.leadership=1;x.d.hp=x.d.maxHp=100000;let n=0;for(let i=0;i<40;i++){stepBattle(x.b);n+=x.b.effects.filter(e=>e.from===x.a.id&&!e.skill&&e.damage).length;}return n;}
+tests\passives.test.mjs:120:test('suppress and calm modify intent loss without changing cooldowns',()=>{
+tests\passives.test.mjs:136:  x.a.type='archer';configureTactics(x.a,['rally','fire','scatter']);x.a.skillReady={rally:999,fire:999,scatter:999};const power=unitAttributes(x.a,x.b).strategyPower;
+tests\passives.test.mjs:159:test('fortress reduces real burning and army firestorm damage before shields without creating intent',()=>{
+tests\skill-adjustment.test.mjs:15:  const rest=type==='archer'?['scatter','suppress']:type==='crossbow'?['seal','pierce']:['rush','harass'];
+tests\skill-adjustment.test.mjs:21:test('fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks',()=>{
+tests\skill-adjustment.test.mjs:22:  for(const skill of ['fire','wildfire']){
+tests\skill-adjustment.test.mjs:26:      const full=Math.round((skill==='fire'?unitAttributes(u,b).martialPower*(6/280+.03):strategy*(6/280+.04))*100/(100+unitAttributes(d,b).discipline));
+tests\skill-adjustment.test.mjs:80:  assert.ok(SKILL_ROUTES.tian.includes('discipline'));assert.ok(!SKILL_ROUTES.tian.includes('suppress'));
+tests\skill-adjustment.test.mjs:91:    const ju=units.find(u=>u.id==='ju');ju.type='archer';ju.tactics=['wildfire','smoke','suppress'];
+tests\tactics.test.mjs:37:  liao.type='archer';assert.deepEqual(unitTactics(liao).map(s=>s.id),['fire','scatter','terror']);
+tests\tactics.test.mjs:59:test('fire burns without intent feedback and ranged skills have distinct real effects',()=>{
+tests\tactics.test.mjs:60:  const {b,a,d}=scene('archer');allowOnly(a,'fire');complete(b,a);
+tests\tactics.test.mjs:66:  const p=scene('crossbow');allowOnly(p.a,'pierce');complete(p.b,p.a);assert.ok(hasStatus(p.b,p.d,'armorBreak'));
+tests\tactics.test.mjs:99:  const {state,b,a}=scene('archer');allowOnly(a,'fire');complete(b,a);
+tests\tactics.test.mjs:119: const {state}=scene('archer');state.armies[0].units[0].type='archer';state.armies[0].units[0].tactics=['fire','scatter','suppress'];
+tests\troop-output.test.mjs:47: ['jia','archer','wildfire'],['jia','archer','fire'],['jia','siege','plague'],
+tests\troop-output.test.mjs:63:test('firestorm is bounded by friendly power, not enemy army size',()=>{
+tests\troop-output.test.mjs:69:  assert.equal(issueCommand(b,'firestorm'),null);
+tests\toolbox.test.mjs:36:  const target=tacticTarget(x.b,x.a,TACTICS_BOOK.wildfire,4);assert.equal(target.id,'cluster');
+tests\toolbox.test.mjs:37:  primeTactic(x.a,'wildfire');stepBattle(x.b);
+tests\toolbox.test.mjs:47:test('fire preparation increases wildfire direct hits without replacing a stronger burn',()=>{
+tests\toolbox.test.mjs:48:  function run(burning){const x=scene('archer');if(burning)x.d.statuses.burn={until:10,amount:30,baseAmount:30,stacks:1,sourceId:x.a.id};primeTactic(x.a,'wildfire');stepBattle(x.b);return {damage:x.b.effects.find(e=>e.from===x.a.id&&e.skill&&e.damage>0).damage,burn:x.d.statuses.burn};}
+tests\toolbox.test.mjs:52:test('low-intellect guards retain mitigation and suppression; their support casts deal no damage',()=>{
+tests\terrain.test.mjs:55:test('fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs',()=>{
+tests\terrain.test.mjs:56:  const plain=cast('land','fire'),forest=cast('forest','fire'),marsh=cast('marsh','fire');
+tests\terrain.test.mjs:59:  assert.equal(forest.u.intent,plain.u.intent);assert.equal(forest.u.skillReady.fire,plain.u.skillReady.fire);
+tests\terrain.test.mjs:64:test('area fire resolves each target terrain separately',()=>{
+tests\terrain.test.mjs:66:  primeTactic(u,'wildfire');stepBattle(b);
+tests\terrain.test.mjs:75:  const {b,u,t}=cast('forest','fire');
+tests\terrain.test.mjs:114:test('water tactics and fire distinguish a ship under the bridge from troops on it',()=>{
+tests\terrain.test.mjs:115:  const fire=scene('river','archer',[[4,2],[6,3]]);
+tests\terrain.test.mjs:116:  fire.t.type='ship';configureTactics(fire.t,roleTacticIds(fire.t,'guard'));fire.t.skillReady=Object.fromEntries(unitTactics(fire.t).map(s=>[s.id,999]));
+tests\terrain.test.mjs:117:  primeTactic(fire.u,'fire');stepBattle(fire.b);
+tests\terrain.test.mjs:118:  assert.equal(fire.b.effects.find(e=>e.from===fire.u.id&&e.damage>0).terrainFactor,.6);
+tests\terrain.test.mjs:131:test('famous fire tactics share terrain effects and all tactics explain their terrain rules',()=>{
+tests\stratagems.test.mjs:27: const s=scene();for(let i=0;i<34;i++)stepBattle(s.battle);s.battle.commandProgress=full;assert.equal(issueCommand(s.battle,'firestorm'),null);
+tests\stratagems.test.mjs:62:test('firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse',()=>{
+tests\stratagems.test.mjs:63: const s=scene(),b=s.battle;still(b);b.commandProgress=full;assert.equal(issueCommand(b,'firestorm'),null);
+tests\loadouts.test.mjs:29:  for(const bad of [['thrust','thrust','ward'],['fire','thrust','ward'],['terror','thrust','ward'],['thrust']])assert.ok(configureUnitTactics(state,u.id,bad));
+tests\loadouts.test.mjs:36:  const broken=structuredClone(resumed);broken.armies[0].units[0].tactics=['fire','doubt','ward'];assert.throws(()=>validateSave(broken));
+tests\loadouts.test.mjs:42:  assert.ok(damage('fire',95,20)>damage('fire',25,95));
+tests\loadouts.test.mjs:43:  assert.ok(damage('wildfire',20,95)>damage('wildfire',95,25));
+tests\loadouts.test.mjs:61:test('cavalry schemes induce real movement and suppress intent immediately',()=>{

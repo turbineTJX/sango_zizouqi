@@ -1,0 +1,1 @@
+PASS: right-click and keyboard inspection, status sources/numeric details, separate officer panel, skill details/back, compact loadout editing, mobile layout; zero browser errors.

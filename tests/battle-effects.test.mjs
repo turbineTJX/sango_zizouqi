@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { BattleEffects } from '../battle-effects.mjs';
+import { TACTICS_BOOK } from '../tactics.mjs';
 
 // Exercise animation timing without tying game damage to the render frame rate.
 function scene(t, reduced = false) {
@@ -8,7 +9,7 @@ function scene(t, reduced = false) {
   const set = (key, value) => { original.set(key, Object.getOwnPropertyDescriptor(globalThis, key)); Object.defineProperty(globalThis, key, { configurable: true, writable: true, value }); };
   const element = () => ({ children: [], prepend(n) { n.parent=this; this.children.unshift(n); }, append(...nodes) { for (const n of nodes) { n.parent = this; this.children.push(n); } }, remove() { if (this.parent) this.parent.children = this.parent.children.filter(n => n !== this); } });
   const feed = element();
-  const context = new Proxy({ measureText: text => ({ width: text.length * 10 }), createRadialGradient: () => ({ addColorStop() {} }) }, { get: (target, key) => target[key] || (() => {}) });
+  const context = new Proxy({ measureText: text => ({ width: text.length * 10 }), createRadialGradient: () => ({ addColorStop() {} }), createLinearGradient: () => ({ addColorStop() {} }) }, { get: (target, key) => target[key] || ((...args) => { for(const value of args) if(typeof value==='number') assert.ok(Number.isFinite(value),`nonfinite canvas ${String(key)}`); }) });
   const canvas = { width: 0, height: 0, getContext: () => context, getBoundingClientRect: () => ({ width: 700, height: 400 }) };
   let disconnected = false;
   set('document', { hidden: false, createElement: element });
@@ -20,9 +21,23 @@ function scene(t, reduced = false) {
   return { fx, feed, canvas, disconnected: () => disconnected };
 }
 function event(phase = 'impact') {
-  return { from:'liao', to:'shao', damage:phase === 'cast' ? 0 : 315, skill:true, phase, visual:'charge', troop:'cavalry', side:0, name:'张辽', label:'威震逍遥', fromX:4, fromY:3, x:5, y:3 };
+  return { from:'liao', to:'shao', damage:phase === 'cast' ? 0 : 315, skill:true, phase, visual:'charge', troop:'cavalry', side:0, name:'张辽', label:'八百破阵', fromX:4, fromY:3, x:5, y:3 };
 }
 function battle(e = event()) { return { id:'test', tick:1, sides:[{units:[]},{units:[]}], effects:[e] }; }
+
+test('orb preparation stays a small cue and enchanted basics never replay spell announcements',t=>{
+  const {fx,feed}=scene(t),b=battle({...event(),label:'火矢',visual:'fire',to:'liao',damage:0,enchantment:true});
+  fx.result={textContent:'保留上一条重要战法',disabled:false};
+  fx.update(b,{paused:false,speed:1});const result=fx.result.textContent;
+  assert.equal(feed.children[0].children[0].textContent,'装填');assert.equal(fx.isCinematicPlaying(),false);
+  fx.draw(100);fx.draw(300);
+  b.tick++;b.effects=[{...event(),label:'火矢',visual:'fire',skill:false,attackOrb:'fire',orbRemaining:2}];
+  fx.update(b,{paused:false,speed:1});fx.draw(400);fx.draw(500);
+  assert.equal(feed.children.length,1);assert.equal(fx.result.textContent,result);assert.equal(fx.isCinematicPlaying(),false);
+  const labels=[];fx.label=text=>labels.push(text);fx.mode='full';
+  fx.drawOrb(fx.items.at(-1),.65,{x:100,y:100},{x:200,y:100},50);
+  assert.ok(labels.some(s=>s.includes('−315')),'full mode keeps damage readable alongside the small orb cue');
+});
 
 test('ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick',t=>{
  const {fx,feed}=scene(t),b=battle({...event(),label:'回春',damage:0,healing:60,ongoing:true});
@@ -30,7 +45,7 @@ test('ongoing recovery, phantom absorption and retaliation do not replay a cast 
  fx.update(b,{paused:false,speed:1});
  assert.equal(fx.items.length,3);assert.equal(feed.children.length,0);assert.equal(fx.isCinematicPlaying(),false);
  b.effects.push({...event(),label:'回春',damage:0});fx.update(b,{paused:false,speed:1});
- assert.equal(feed.children.length,1);assert.equal(fx.isCinematicPlaying(),true);
+ assert.equal(feed.children.length,1);assert.equal(fx.isCinematicPlaying(),false);
 });
 
 test('ZOC breakthrough is explained on the existing skill row without duplicate announcements',t=>{
@@ -125,7 +140,7 @@ test('intent denial stays visible in clear and full effects, including merged hi
  }
  const b=battle({...event(),intentDenied:7,intentBlock:'断势'});b.id='stifle';b.effects.push(event());
  fx.update(b,{paused:false,speed:1,mode:'clear'});
- for(let i=0;i<20;i++)fx.draw(fx.lastFrame+50);
+ for(let i=0;i<28;i++)fx.draw(fx.lastFrame+50);
  assert.ok(labels.some(text=>text.includes('断势')));
 });
 
@@ -193,7 +208,7 @@ test('a multi-target cast holds the battlefield once and stays readable at 4x', 
 
 test('simultaneous officers play in sequence and manual pause freezes the entire sequence', t => {
   const {fx} = scene(t), b = battle();
-  b.effects.push({...event(),from:'cao',name:'曹操',label:'魏武挥鞭'});
+  b.effects.push({...event(),from:'cao',name:'曹操',label:TACTICS_BOOK['unique-person-661'].name});
   fx.update(b,{paused:false,speed:1});fx.draw(50);fx.draw(100);
   assert.equal(fx.cinematics.length,2);
   assert.equal(fx.cinematics[1].start,fx.cinematics[0].duration);
@@ -229,7 +244,7 @@ test('reduced motion uses static focus and finishes without impact particles', t
 
 test('result summary follows the active cast, survives expiry, and retains damage alongside control',t=>{
   const {fx,feed}=scene(t);fx.result={};const b=battle({...event(),text:'混乱'});
-  b.effects.push({...event(),from:'cao',name:'曹操',label:'魏武挥鞭',damage:0,text:'护盾'});
+  b.effects.push({...event(),from:'cao',name:'曹操',label:TACTICS_BOOK['unique-person-661'].name,damage:0,text:'护盾'});
   fx.update(b,{paused:false,speed:4});fx.draw(50);
   assert.match(fx.result.textContent,/张辽.*\n.*实际损兵 315.*混乱/);
   assert.match(feed.children[1].children[3].children[0].textContent,/实际损兵 315.*混乱/);
@@ -241,8 +256,49 @@ test('result summary follows the active cast, survives expiry, and retains damag
 
 test('combo bonus does not add a second cinematic or replace the actual paused result',t=>{
   const {fx}=scene(t);fx.result={};const b=battle();
-  b.effects.push({...event(),label:'二连携',damage:0,combo:{level:2,bonus:25,targetName:'袁绍',actors:[{name:'曹操'},{name:'张辽'}]}});
+  b.effects.push({...event(),label:'二连携',damage:0,combo:{level:2,bonus:25,targetName:'袁绍',actors:[{name:'曹操',x:3,y:3},{name:'张辽',x:4,y:3}]}});
   fx.update(b,{paused:false,speed:1});assert.equal(fx.cinematics.length,1);
   b.tick++;fx.update(b,{paused:true,speed:1});
   assert.match(fx.result.textContent,/实际损兵 315/);
+});
+
+test('minor tactics including criticals stay local in both effect modes',t=>{
+ const {fx}=scene(t);fx.result={};let lights=0,cutins=0;fx.drawLocalSkill=()=>lights++;fx.drawCutIn=()=>cutins++;
+ for(const mode of ['clear','full']){
+  const b=battle({...event(),label:'奋击',critical:true});b.id=mode;
+  const before=JSON.stringify(b);fx.update(b,{paused:false,speed:1,mode});
+  assert.equal(fx.cinematics.length,0);assert.match(fx.result.textContent,/奋击/);
+  for(let i=0;i<8;i++)fx.draw(fx.lastFrame+50);
+  assert.equal(JSON.stringify(b),before);
+ }
+ assert.ok(lights>0);assert.equal(cutins,0);
+});
+
+test('a linked minor tactic and its multi-hit result get exactly one cut-in',t=>{
+ const {fx}=scene(t);fx.result={};const hit={...event(),label:'连弩',comboLevel:2};
+ const b=battle(hit);b.effects.push({...hit,damage:100},{...hit,label:'二连携',damage:0,combo:{level:2,bonus:25,targetName:'袁绍',actors:[{name:'曹操',x:3,y:3},{name:'张辽',x:4,y:3}]}});
+ const before=JSON.stringify(b);fx.update(b,{paused:false,speed:1});
+ assert.equal(fx.cinematics.length,1);assert.equal(fx.cinematics[0].events.length,3);
+ fx.draw(50);assert.match(fx.result.textContent,/连弩/);assert.match(fx.result.textContent,/415/);
+ for(let time=100;time<2200;time+=50)fx.draw(time);
+ assert.equal(fx.isBusy(),false);assert.equal(JSON.stringify(b),before);
+});
+
+test('real zero-intent combat only queues 100-intent tactics or genuine links',async t=>{
+ const {createScenario}=await import('../scenarios.mjs');
+ const {lockDeployment,stepBattle}=await import('../engine.mjs');
+ const {isMajorCast}=await import('../battle-effects.mjs');
+ const {fx}=scene(t),state=createScenario('officer-lab',17,20,['person-661','person-246','person-603','person-404','yu','shao']),b=state.battle;
+ lockDeployment(b);let small=0,big=0,links=0;
+ while(!b.result){
+  stepBattle(b);const before=JSON.stringify(b);fx.update(b,{paused:false,speed:1});
+  const queued=fx.cinematics.flatMap(c=>c.events);
+  for(const e of fx.items)if(e.skill&&!e.ongoing&&!e.cinematic)small++;
+  for(const cast of fx.cinematics){assert.ok(isMajorCast(cast.events));if(cast.events.some(e=>e.combo))links++;else big++;}
+  assert.equal(new Set(queued).size,queued.length,'no linked hit is queued twice');
+  // Finish presentation time before the next engine step, as the app does.
+  fx.clock+=fx.cinematics.reduce((n,c)=>n+c.duration,0)+800;fx.draw(fx.lastFrame+1);
+  assert.equal(JSON.stringify(b),before);
+ }
+ assert.ok(small>0);assert.ok(big>0);assert.ok(links>0);
 });

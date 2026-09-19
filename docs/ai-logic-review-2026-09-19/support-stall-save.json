@@ -1,0 +1,1451 @@
+{
+  "version": 2,
+  "rulesVersion": 36,
+  "officerDataVersion": 3,
+  "relationshipScores": {},
+  "relationshipTypes": {},
+  "seed": 33104730,
+  "turn": 1,
+  "gold": 3200,
+  "grain": 12800,
+  "fame": 120,
+  "cities": [
+    {
+      "id": "ye",
+      "name": "邺城",
+      "x": 660,
+      "y": 118,
+      "owner": "yuan",
+      "garrison": 6600,
+      "subtitle": "河北重镇",
+      "province": "冀州"
+    },
+    {
+      "id": "jinyang",
+      "name": "晋阳",
+      "x": 365,
+      "y": 98,
+      "owner": "yuan",
+      "garrison": 3800,
+      "subtitle": "北地雄关",
+      "province": "并州"
+    },
+    {
+      "id": "baima",
+      "name": "白马",
+      "x": 774,
+      "y": 259,
+      "owner": "yuan",
+      "garrison": 4000,
+      "subtitle": "黄河渡口",
+      "province": "兖州"
+    },
+    {
+      "id": "guandu",
+      "name": "官渡",
+      "x": 570,
+      "y": 340,
+      "owner": "yuan",
+      "garrison": 0,
+      "subtitle": "兵家必争",
+      "province": "兖州"
+    },
+    {
+      "id": "luoyang",
+      "name": "洛阳",
+      "x": 243,
+      "y": 330,
+      "owner": "neutral",
+      "garrison": 3600,
+      "subtitle": "故都遗址",
+      "province": "司隶"
+    },
+    {
+      "id": "chenliu",
+      "name": "陈留",
+      "x": 825,
+      "y": 456,
+      "owner": "cao",
+      "garrison": 4200,
+      "subtitle": "中原粮仓",
+      "province": "兖州"
+    },
+    {
+      "id": "xuchang",
+      "name": "许昌",
+      "x": 506,
+      "y": 545,
+      "owner": "cao",
+      "garrison": 6000,
+      "subtitle": "天子所在",
+      "province": "豫州"
+    },
+    {
+      "id": "runan",
+      "name": "汝南",
+      "x": 742,
+      "y": 693,
+      "owner": "neutral",
+      "garrison": 3300,
+      "subtitle": "汝水之南",
+      "province": "豫州"
+    },
+    {
+      "id": "wan",
+      "name": "宛城",
+      "x": 275,
+      "y": 687,
+      "owner": "neutral",
+      "garrison": 4200,
+      "subtitle": "南阳门户",
+      "province": "荆州"
+    }
+  ],
+  "roads": [
+    [
+      "ye",
+      "jinyang"
+    ],
+    [
+      "ye",
+      "baima"
+    ],
+    [
+      "ye",
+      "guandu"
+    ],
+    [
+      "jinyang",
+      "luoyang"
+    ],
+    [
+      "luoyang",
+      "guandu"
+    ],
+    [
+      "luoyang",
+      "xuchang"
+    ],
+    [
+      "guandu",
+      "baima"
+    ],
+    [
+      "guandu",
+      "xuchang"
+    ],
+    [
+      "baima",
+      "chenliu"
+    ],
+    [
+      "guandu",
+      "chenliu"
+    ],
+    [
+      "chenliu",
+      "xuchang"
+    ],
+    [
+      "chenliu",
+      "runan"
+    ],
+    [
+      "xuchang",
+      "runan"
+    ],
+    [
+      "xuchang",
+      "wan"
+    ],
+    [
+      "luoyang",
+      "wan"
+    ],
+    [
+      "wan",
+      "runan"
+    ]
+  ],
+  "armies": [
+    {
+      "id": "a1",
+      "name": "自选我军",
+      "faction": "cao",
+      "location": "guandu",
+      "route": [],
+      "target": null,
+      "supply": 900,
+      "morale": 80,
+      "tactic": "balanced",
+      "leader": "cao",
+      "advisor": "yu",
+      "deputy": "dun",
+      "units": [
+        {
+          "personality": 2,
+          "righteousness": 2,
+          "compatibility": 25,
+          "sex": 0,
+          "birthYear": 155,
+          "deathYear": 220,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [
+              "person-549"
+            ],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "jia",
+              "yuanxia",
+              "dun",
+              "person-255",
+              "person-472"
+            ],
+            "dislikedIds": [
+              "person-191",
+              "person-254",
+              "person-494",
+              "person-583",
+              "person-708"
+            ]
+          },
+          "id": "cao",
+          "name": "曹操",
+          "courtesy": "孟德",
+          "leadership": 96,
+          "force": 72,
+          "intellect": 91,
+          "politics": 94,
+          "skill": "魏武之强",
+          "type": "ship",
+          "formation": "back",
+          "trait": "雄才大略",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 5,
+          "experience": 0,
+          "tactics": [
+            "unique-cao",
+            "undertow",
+            "mist"
+          ]
+        },
+        {
+          "personality": 4,
+          "righteousness": 5,
+          "compatibility": 25,
+          "sex": 0,
+          "birthYear": 156,
+          "deathYear": 220,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "yuanxia",
+              "person-337",
+              "person-342",
+              "cao",
+              "person-475"
+            ],
+            "dislikedIds": []
+          },
+          "id": "dun",
+          "name": "夏侯惇",
+          "courtesy": "元让",
+          "leadership": 89,
+          "force": 90,
+          "intellect": 58,
+          "politics": 70,
+          "skill": "拔矢啖睛",
+          "type": "ship",
+          "formation": "back",
+          "trait": "刚烈奋勇",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 5,
+          "experience": 0,
+          "tactics": [
+            "unique-dun",
+            "navalRam",
+            "broadside"
+          ]
+        },
+        {
+          "personality": 2,
+          "righteousness": 4,
+          "compatibility": 22,
+          "sex": 0,
+          "birthYear": 157,
+          "deathYear": 214,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-277"
+            ],
+            "dislikedIds": []
+          },
+          "id": "yu",
+          "name": "荀攸",
+          "courtesy": "公达",
+          "leadership": 73,
+          "force": 26,
+          "intellect": 94,
+          "politics": 88,
+          "skill": "声东击西",
+          "type": "ship",
+          "formation": "back",
+          "trait": "谋定后动",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 5,
+          "experience": 0,
+          "tactics": [
+            "unique-yu",
+            "undertow",
+            "mist"
+          ]
+        }
+      ],
+      "task": "驻守"
+    },
+    {
+      "id": "a2",
+      "name": "自选敌军",
+      "faction": "yuan",
+      "location": "guandu",
+      "route": [],
+      "target": null,
+      "supply": 900,
+      "morale": 80,
+      "tactic": "balanced",
+      "leader": "person-246",
+      "advisor": "person-246",
+      "deputy": "person-164",
+      "units": [
+        {
+          "personality": 2,
+          "righteousness": 5,
+          "compatibility": 125,
+          "sex": 0,
+          "birthYear": 175,
+          "deathYear": 210,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [
+              "person-267"
+            ],
+            "swornSiblingIds": [
+              "person-371"
+            ],
+            "likedIds": [
+              "person-267",
+              "person-371",
+              "person-467",
+              "person-662",
+              "person-668"
+            ],
+            "dislikedIds": [
+              "person-290"
+            ]
+          },
+          "id": "person-246",
+          "name": "周瑜",
+          "courtesy": "公瑾",
+          "leadership": 97,
+          "force": 71,
+          "intellect": 96,
+          "politics": 86,
+          "skill": "神火计",
+          "type": "ship",
+          "formation": "back",
+          "trait": "火攻破阵",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 5,
+          "experience": 0,
+          "tactics": [
+            "unique-person-246",
+            "undertow",
+            "mist"
+          ]
+        },
+        {
+          "personality": 3,
+          "righteousness": 5,
+          "compatibility": 127,
+          "sex": 0,
+          "birthYear": 154,
+          "deathYear": 218,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-117",
+              "person-366",
+              "person-467"
+            ],
+            "dislikedIds": []
+          },
+          "id": "person-164",
+          "name": "黄盖",
+          "courtesy": "公覆",
+          "leadership": 79,
+          "force": 83,
+          "intellect": 65,
+          "politics": 65,
+          "skill": "苦肉火船",
+          "type": "ship",
+          "formation": "back",
+          "trait": "火攻承伤",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 5,
+          "experience": 0,
+          "tactics": [
+            "unique-person-164",
+            "navalRam",
+            "broadside"
+          ]
+        },
+        {
+          "personality": 2,
+          "righteousness": 5,
+          "compatibility": 126,
+          "sex": 0,
+          "birthYear": 151,
+          "deathYear": 216,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-117",
+              "person-164",
+              "person-246",
+              "person-366"
+            ],
+            "dislikedIds": []
+          },
+          "id": "person-467",
+          "name": "程普",
+          "courtesy": "德谋",
+          "leadership": 84,
+          "force": 79,
+          "intellect": 79,
+          "politics": 74,
+          "skill": "",
+          "type": "ship",
+          "formation": "back",
+          "trait": "步阵修习",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 5,
+          "experience": 0,
+          "tactics": [
+            "navalRam",
+            "broadside",
+            "anchor"
+          ]
+        }
+      ],
+      "task": "驻守"
+    }
+  ],
+  "logs": [
+    {
+      "turn": 1,
+      "text": "建安五年，袁曹相争。立足许昌，调兵北上，逐鹿中原。",
+      "type": "event"
+    }
+  ],
+  "battle": {
+    "id": "battle-1-3",
+    "cityId": "guandu",
+    "context": {
+      "cityId": "guandu",
+      "attackerId": "a1",
+      "defenderIds": [
+        "a2"
+      ],
+      "origin": "xuchang",
+      "defenderFaction": "yuan",
+      "attackingIds": [
+        "a1"
+      ]
+    },
+    "tick": 131,
+    "seed": 3419342546,
+    "sides": [
+      {
+        "faction": "cao",
+        "commanders": [
+          {
+            "id": "cao",
+            "name": "曹操",
+            "role": "leader",
+            "armyId": "a1"
+          },
+          {
+            "id": "yu",
+            "name": "荀攸",
+            "role": "advisor",
+            "armyId": "a1"
+          }
+        ],
+        "rangeUntil": 0,
+        "recoveryUntil": 0,
+        "tactic": "balanced",
+        "retreat": false,
+        "focus": null,
+        "focusUntil": 0,
+        "inspireUntil": 0,
+        "assaultUntil": 0,
+        "fortifyUntil": 0,
+        "disruptUntil": 0,
+        "hasteUntil": 0,
+        "blockadeUntil": 0,
+        "reliefUntil": 0,
+        "units": [
+          {
+            "personality": 2,
+            "righteousness": 2,
+            "compatibility": 25,
+            "sex": 0,
+            "birthYear": 155,
+            "deathYear": 220,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [
+                "person-549"
+              ],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "jia",
+                "yuanxia",
+                "dun",
+                "person-255",
+                "person-472"
+              ],
+              "dislikedIds": [
+                "person-191",
+                "person-254",
+                "person-494",
+                "person-583",
+                "person-708"
+              ]
+            },
+            "id": "cao",
+            "name": "曹操",
+            "courtesy": "孟德",
+            "leadership": 96,
+            "force": 72,
+            "intellect": 91,
+            "politics": 94,
+            "skill": "魏武之强",
+            "type": "ship",
+            "formation": "back",
+            "trait": "雄才大略",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 5,
+            "experience": 0,
+            "tactics": [
+              "unique-cao",
+              "undertow",
+              "mist"
+            ],
+            "skillRouteType": "ship",
+            "passiveState": {
+              "lastMoveTick": 1,
+              "targetId": "person-164",
+              "shots": 18,
+              "shotType": "ship",
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": true,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 2748,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 346,
+            "healed": 94,
+            "moveProgress": 0.5,
+            "status": "active",
+            "x": 2,
+            "y": 3,
+            "morale": 100,
+            "cooldown": 3,
+            "intent": 100,
+            "cast": null,
+            "skillReady": {
+              "undertow": 152,
+              "unique-cao": 133
+            },
+            "tacticCasts": {
+              "undertow": 5,
+              "unique-cao": 3
+            },
+            "statuses": {
+              "burn": {
+                "until": 132,
+                "sourceId": "person-164",
+                "sourceName": "黄盖",
+                "sourceSkillName": "苦肉火船",
+                "origins": [
+                  {
+                    "sourceName": "黄盖",
+                    "sourceSkillName": "苦肉火船"
+                  }
+                ],
+                "baseAmount": 2,
+                "stacks": 1,
+                "amount": 2
+              }
+            },
+            "skillCasts": 8,
+            "action": "攻击黄盖",
+            "effect": null,
+            "commandBonus": 0.096,
+            "deputyBonus": 0.045,
+            "advisorBonus": 0.094
+          },
+          {
+            "personality": 4,
+            "righteousness": 5,
+            "compatibility": 25,
+            "sex": 0,
+            "birthYear": 156,
+            "deathYear": 220,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "yuanxia",
+                "person-337",
+                "person-342",
+                "cao",
+                "person-475"
+              ],
+              "dislikedIds": []
+            },
+            "id": "dun",
+            "name": "夏侯惇",
+            "courtesy": "元让",
+            "leadership": 89,
+            "force": 90,
+            "intellect": 58,
+            "politics": 70,
+            "skill": "拔矢啖睛",
+            "type": "ship",
+            "formation": "back",
+            "trait": "刚烈奋勇",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 5,
+            "experience": 0,
+            "tactics": [
+              "unique-dun",
+              "navalRam",
+              "broadside"
+            ],
+            "skillRouteType": "ship",
+            "passiveState": {
+              "lastMoveTick": 2,
+              "targetId": "person-467",
+              "shots": 15,
+              "shotType": "ship",
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": true,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 0,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 3000,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "defeated",
+            "x": 3,
+            "y": 4,
+            "morale": 83,
+            "cooldown": 3.5,
+            "intent": 100,
+            "cast": null,
+            "skillReady": {
+              "broadside": 76
+            },
+            "tacticCasts": {
+              "broadside": 3
+            },
+            "statuses": {},
+            "skillCasts": 3,
+            "action": "溃败",
+            "effect": null,
+            "commandBonus": 0.096,
+            "deputyBonus": 0.045,
+            "advisorBonus": 0.094
+          },
+          {
+            "personality": 2,
+            "righteousness": 4,
+            "compatibility": 22,
+            "sex": 0,
+            "birthYear": 157,
+            "deathYear": 214,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-277"
+              ],
+              "dislikedIds": []
+            },
+            "id": "yu",
+            "name": "荀攸",
+            "courtesy": "公达",
+            "leadership": 73,
+            "force": 26,
+            "intellect": 94,
+            "politics": 88,
+            "skill": "声东击西",
+            "type": "ship",
+            "formation": "back",
+            "trait": "谋定后动",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 5,
+            "experience": 0,
+            "tactics": [
+              "unique-yu",
+              "undertow",
+              "mist"
+            ],
+            "skillRouteType": "ship",
+            "passiveState": {
+              "lastMoveTick": 57,
+              "targetId": "person-164",
+              "shots": 14,
+              "shotType": "ship",
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": true,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 0,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 3240,
+            "healed": 240,
+            "moveProgress": 0,
+            "status": "defeated",
+            "x": 3,
+            "y": 4,
+            "morale": 64,
+            "cooldown": 3,
+            "intent": 100,
+            "cast": null,
+            "skillReady": {
+              "undertow": 122,
+              "unique-yu": 140
+            },
+            "tacticCasts": {
+              "undertow": 2,
+              "unique-yu": 2
+            },
+            "statuses": {
+              "curse": {
+                "until": 132,
+                "sourceId": "person-246",
+                "sourceName": "周瑜",
+                "sourceSkillName": "涡流",
+                "origins": [
+                  {
+                    "sourceName": "周瑜",
+                    "sourceSkillName": "涡流"
+                  }
+                ],
+                "stacks": 1,
+                "potency": 0.9975678415238095
+              }
+            },
+            "skillCasts": 4,
+            "action": "溃败",
+            "effect": null,
+            "commandBonus": 0.096,
+            "deputyBonus": 0.045,
+            "advisorBonus": 0.094
+          }
+        ],
+        "battleIntent": "annihilate"
+      },
+      {
+        "faction": "yuan",
+        "commanders": [
+          {
+            "id": "person-246",
+            "name": "周瑜",
+            "role": "leader",
+            "armyId": "a2"
+          },
+          {
+            "id": "person-246",
+            "name": "周瑜",
+            "role": "advisor",
+            "armyId": "a2"
+          }
+        ],
+        "rangeUntil": 0,
+        "recoveryUntil": 0,
+        "tactic": "balanced",
+        "retreat": false,
+        "focus": null,
+        "focusUntil": 0,
+        "inspireUntil": 0,
+        "assaultUntil": 0,
+        "fortifyUntil": 0,
+        "disruptUntil": 0,
+        "hasteUntil": 0,
+        "blockadeUntil": 0,
+        "reliefUntil": 0,
+        "units": [
+          {
+            "personality": 2,
+            "righteousness": 5,
+            "compatibility": 125,
+            "sex": 0,
+            "birthYear": 175,
+            "deathYear": 210,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [
+                "person-267"
+              ],
+              "swornSiblingIds": [
+                "person-371"
+              ],
+              "likedIds": [
+                "person-267",
+                "person-371",
+                "person-467",
+                "person-662",
+                "person-668"
+              ],
+              "dislikedIds": [
+                "person-290"
+              ]
+            },
+            "id": "person-246",
+            "name": "周瑜",
+            "courtesy": "公瑾",
+            "leadership": 97,
+            "force": 71,
+            "intellect": 96,
+            "politics": 86,
+            "skill": "神火计",
+            "type": "ship",
+            "formation": "front",
+            "trait": "火攻破阵",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 5,
+            "experience": 0,
+            "tactics": [
+              "unique-person-246",
+              "undertow",
+              "mist"
+            ],
+            "skillRouteType": "ship",
+            "passiveState": {
+              "lastMoveTick": 2,
+              "targetId": "yu",
+              "shots": 17,
+              "shotType": "ship",
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": true,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 2546,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 454,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 7,
+            "y": 4,
+            "morale": 100,
+            "cooldown": 0,
+            "intent": 100,
+            "cast": null,
+            "skillReady": {
+              "undertow": 140,
+              "unique-person-246": 127
+            },
+            "tacticCasts": {
+              "undertow": 5,
+              "unique-person-246": 3
+            },
+            "statuses": {},
+            "skillCasts": 8,
+            "action": "策应队友",
+            "effect": null,
+            "commandBonus": 0.097,
+            "deputyBonus": 0.0415,
+            "advisorBonus": 0.096
+          },
+          {
+            "personality": 3,
+            "righteousness": 5,
+            "compatibility": 127,
+            "sex": 0,
+            "birthYear": 154,
+            "deathYear": 218,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-117",
+                "person-366",
+                "person-467"
+              ],
+              "dislikedIds": []
+            },
+            "id": "person-164",
+            "name": "黄盖",
+            "courtesy": "公覆",
+            "leadership": 79,
+            "force": 83,
+            "intellect": 65,
+            "politics": 65,
+            "skill": "苦肉火船",
+            "type": "ship",
+            "formation": "front",
+            "trait": "火攻承伤",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 5,
+            "experience": 0,
+            "tactics": [
+              "unique-person-164",
+              "navalRam",
+              "broadside"
+            ],
+            "skillRouteType": "ship",
+            "passiveState": {
+              "lastMoveTick": 64,
+              "targetId": "cao",
+              "shots": 4,
+              "shotType": "ship",
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": true,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 54,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 2946,
+            "healed": 0,
+            "moveProgress": 0.5,
+            "status": "active",
+            "x": 6,
+            "y": 3,
+            "morale": 99,
+            "cooldown": 2.5,
+            "intent": 100,
+            "cast": null,
+            "skillReady": {
+              "broadside": 133,
+              "unique-person-164": 153
+            },
+            "tacticCasts": {
+              "broadside": 3,
+              "unique-person-164": 3
+            },
+            "statuses": {
+              "slow": {
+                "until": 135,
+                "sourceId": "cao",
+                "sourceName": "曹操",
+                "sourceSkillName": "涡流",
+                "potency": 0.9771205542857143
+              },
+              "curse": {
+                "until": 140,
+                "sourceId": "cao",
+                "sourceName": "曹操",
+                "sourceSkillName": "涡流",
+                "origins": [
+                  {
+                    "sourceName": "曹操",
+                    "sourceSkillName": "涡流"
+                  }
+                ],
+                "stacks": 1,
+                "potency": 0.9771205542857143
+              }
+            },
+            "skillCasts": 6,
+            "action": "重整攻势",
+            "effect": null,
+            "commandBonus": 0.097,
+            "deputyBonus": 0.0415,
+            "advisorBonus": 0.096
+          },
+          {
+            "personality": 2,
+            "righteousness": 5,
+            "compatibility": 126,
+            "sex": 0,
+            "birthYear": 151,
+            "deathYear": 216,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-117",
+                "person-164",
+                "person-246",
+                "person-366"
+              ],
+              "dislikedIds": []
+            },
+            "id": "person-467",
+            "name": "程普",
+            "courtesy": "德谋",
+            "leadership": 84,
+            "force": 79,
+            "intellect": 79,
+            "politics": 74,
+            "skill": "",
+            "type": "ship",
+            "formation": "front",
+            "trait": "步阵修习",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 5,
+            "experience": 0,
+            "tactics": [
+              "navalRam",
+              "broadside",
+              "anchor"
+            ],
+            "skillRouteType": "ship",
+            "passiveState": {
+              "lastMoveTick": 2,
+              "targetId": "cao",
+              "shots": 2,
+              "shotType": "ship",
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": true,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 0,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 3000,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "defeated",
+            "x": 6,
+            "y": 3,
+            "morale": 86,
+            "cooldown": 1.5,
+            "intent": 100,
+            "cast": null,
+            "skillReady": {
+              "anchor": 76,
+              "broadside": 73
+            },
+            "tacticCasts": {
+              "anchor": 3,
+              "broadside": 3
+            },
+            "statuses": {},
+            "skillCasts": 6,
+            "action": "溃败",
+            "effect": null,
+            "commandBonus": 0.097,
+            "deputyBonus": 0.0415,
+            "advisorBonus": 0.096
+          }
+        ],
+        "battleIntent": "annihilate"
+      }
+    ],
+    "gridType": "hex",
+    "terrain": "river",
+    "relationshipScores": {},
+    "relationshipTypes": {},
+    "comboWindows": [],
+    "comboCounts": [
+      0,
+      0
+    ],
+    "commandProgress": 2202,
+    "commandCooldown": 0,
+    "commandReady": {
+      "cleanse": 58,
+      "heal": 121
+    },
+    "commandSerial": 2,
+    "lastCommand": {
+      "key": "heal",
+      "tick": 113,
+      "serial": 2
+    },
+    "enemyCommand": {
+      "commandProgress": 1932,
+      "commandReady": {
+        "cycle": 127
+      },
+      "commandSerial": 2,
+      "lastCommand": {
+        "key": "cycle",
+        "tick": 119,
+        "serial": 2
+      },
+      "commandCooldown": 0
+    },
+    "deploymentLocked": true,
+    "logs": [
+      {
+        "tick": 126,
+        "text": "曹操发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 125,
+        "text": "黄盖发动「苦肉火船」：4 格内敌军，最多 1 队；1.45 倍武技伤害；叠加一层灼烧（最多三层），单层每步基础 40，刷新 6 步，按兵力与目标军纪衰减；自身损失当前兵力 1%（保留至少 1 人，不产生战意）。【地形】水面：伤害 −40%"
+      },
+      {
+        "tick": 119,
+        "text": "敌军军略 · 连环之策：敌方部队全体战意 +15，正在冷却的战法缩短 4 步；包括预备队，仍须满足个人战意门槛（含预备队）。"
+      },
+      {
+        "tick": 119,
+        "text": "荀攸所部溃败，战线出现空位。"
+      },
+      {
+        "tick": 118,
+        "text": "周瑜发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 115,
+        "text": "黄盖发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 113,
+        "text": "我军军略 · 三军救疗：救治在场各队本场伤兵，每队最多恢复兵力上限 8%；不复活溃败部队（仅在场部队）。"
+      },
+      {
+        "tick": 106,
+        "text": "荀攸发动「奇策解围」：3 格内友军，最多 2 队；护盾为目标兵力上限 2.5% ×（0.5＋谋略/200），持续 8 步；净化目标，免控 3 步。"
+      },
+      {
+        "tick": 101,
+        "text": "黄盖发动「苦肉火船」：4 格内敌军，最多 1 队；1.45 倍武技伤害；叠加一层灼烧（最多三层），单层每步基础 40，刷新 6 步，按兵力与目标军纪衰减；自身损失当前兵力 1%（保留至少 1 人，不产生战意）。【地形】水面：伤害 −40%"
+      },
+      {
+        "tick": 100,
+        "text": "曹操发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 99,
+        "text": "曹操发动「魏武之强」：3 格内友军，最多 2 队；护盾为目标兵力上限 2.5% ×（0.5＋谋略/200），持续 8 步；攻击 +15%、防御 +15%，持续 6 步（幅度随战法威力成长）。"
+      },
+      {
+        "tick": 97,
+        "text": "周瑜发动「神火计」：4 格内敌军，最多 2 队；目标周围 1 格，优先覆盖更多敌军；0.8 倍谋略伤害；防御 −20% 5 步；叠加一层灼烧（最多三层），单层每步基础 24，刷新 5 步，按兵力与目标军纪衰减。【地形】水面：伤害 −40%"
+      },
+      {
+        "tick": 96,
+        "text": "荀攸发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 93,
+        "text": "黄盖发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 92,
+        "text": "周瑜发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 73,
+        "text": "黄盖发动「苦肉火船」：4 格内敌军，最多 1 队；1.45 倍武技伤害；叠加一层灼烧（最多三层），单层每步基础 40，刷新 6 步，按兵力与目标军纪衰减；自身损失当前兵力 1%（保留至少 1 人，不产生战意）。【地形】水面：伤害 −40%"
+      },
+      {
+        "tick": 73,
+        "text": "曹操发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 73,
+        "text": "荀攸 → 曹操：关系 50，50% 连携判定未成功，战法正常生效。"
+      },
+      {
+        "tick": 72,
+        "text": "荀攸发动「奇策解围」：3 格内友军，最多 2 队；护盾为目标兵力上限 2.5% ×（0.5＋谋略/200），持续 8 步；净化目标，免控 3 步。"
+      },
+      {
+        "tick": 71,
+        "text": "黄盖发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 70,
+        "text": "荀攸发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 66,
+        "text": "周瑜发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 65,
+        "text": "曹操发动「魏武之强」：3 格内友军，最多 2 队；护盾为目标兵力上限 2.5% ×（0.5＋谋略/200），持续 8 步；攻击 +15%、防御 +15%，持续 6 步（幅度随战法威力成长）。"
+      },
+      {
+        "tick": 63,
+        "text": "周瑜发动「神火计」：4 格内敌军，最多 2 队；目标周围 1 格，优先覆盖更多敌军；0.8 倍谋略伤害；防御 −20% 5 步；叠加一层灼烧（最多三层），单层每步基础 24，刷新 5 步，按兵力与目标军纪衰减。【地形】水面：伤害 −40%"
+      },
+      {
+        "tick": 62,
+        "text": "程普所部溃败，战线出现空位。"
+      },
+      {
+        "tick": 56,
+        "text": "夏侯惇所部溃败，战线出现空位。"
+      },
+      {
+        "tick": 54,
+        "text": "夏侯惇发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 52,
+        "text": "程普发动「抛锚」：接战后自身减伤 25% 持续 8 步，期间停止移动。"
+      },
+      {
+        "tick": 51,
+        "text": "程普发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 50,
+        "text": "我军军略 · 镇静全军：清除我军控制、灼烧与减益，并获得 3 步控制保护（含预备队）。"
+      },
+      {
+        "tick": 50,
+        "text": "敌军军略 · 连环之策：敌方部队全体战意 +15，正在冷却的战法缩短 4 步；包括预备队，仍须满足个人战意门槛（含预备队）。"
+      },
+      {
+        "tick": 47,
+        "text": "曹操发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 44,
+        "text": "周瑜发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 33,
+        "text": "程普发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 33,
+        "text": "周瑜发动「神火计」：4 格内敌军，最多 2 队；目标周围 1 格，优先覆盖更多敌军；0.8 倍谋略伤害；防御 −20% 5 步；叠加一层灼烧（最多三层），单层每步基础 24，刷新 5 步，按兵力与目标军纪衰减。【地形】水面：伤害 −40%"
+      },
+      {
+        "tick": 32,
+        "text": "夏侯惇发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 31,
+        "text": "程普发动「抛锚」：接战后自身减伤 25% 持续 8 步，期间停止移动。"
+      },
+      {
+        "tick": 31,
+        "text": "曹操发动「魏武之强」：3 格内友军，最多 2 队；护盾为目标兵力上限 2.5% ×（0.5＋谋略/200），持续 8 步；攻击 +15%、防御 +15%，持续 6 步（幅度随战法威力成长）。"
+      },
+      {
+        "tick": 21,
+        "text": "曹操发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 18,
+        "text": "周瑜发动「涡流」：冲击相邻最多两队（0.65 倍谋略），施加迟滞 6 步及一层衰咒 10 步。【地形】水面：伤害/状态时长 +25%"
+      },
+      {
+        "tick": 11,
+        "text": "程普发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 10,
+        "text": "夏侯惇发动「舷射」：齐射射程内相邻最多两队敌军，各造成 1.05 倍武技伤害。"
+      },
+      {
+        "tick": 7,
+        "text": "程普发动「抛锚」：接战后自身减伤 25% 持续 8 步，期间停止移动。"
+      },
+      {
+        "tick": 0,
+        "text": "军阵已定，两军交锋。攻击与受击开始积累战意。"
+      },
+      {
+        "tick": 0,
+        "text": "自由对战，自选我军迎战自选敌军。请布阵后开战。"
+      }
+    ],
+    "effects": [
+      {
+        "from": "person-164",
+        "to": "cao",
+        "damage": 1,
+        "skill": false,
+        "phase": "impact",
+        "visual": "fire",
+        "troop": "ship",
+        "side": 1,
+        "name": "黄盖",
+        "label": "火矢",
+        "fromX": 2,
+        "fromY": 3,
+        "x": 2,
+        "y": 3,
+        "text": "灼烧 1层",
+        "damageKind": "dot"
+      },
+      {
+        "from": "cao",
+        "to": "person-164",
+        "damage": 118,
+        "skill": false,
+        "phase": "impact",
+        "visual": "banner",
+        "troop": "ship",
+        "side": 0,
+        "name": "曹操",
+        "label": "魏武之强",
+        "fromX": 2,
+        "fromY": 3,
+        "x": 6,
+        "y": 3,
+        "shieldAbsorbed": 0,
+        "damageKind": "force"
+      }
+    ],
+    "buildings": [],
+    "result": null,
+    "settled": false,
+    "maxTicks": 480
+  },
+  "report": null,
+  "pending": null,
+  "nextId": 4,
+  "victories": 0,
+  "finished": null,
+  "testScenario": {
+    "id": "custom-battle",
+    "seed": 33104730,
+    "shieldPercent": 20,
+    "customBattle": {
+      "terrain": "river",
+      "seed": 33104730,
+      "ownTeam": [
+        {
+          "id": "cao",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "dun",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "yu",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "enemyTeam": [
+        {
+          "id": "person-246",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-164",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-467",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    }
+  }
+}

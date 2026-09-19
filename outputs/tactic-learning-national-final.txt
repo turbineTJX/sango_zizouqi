@@ -1,0 +1,32 @@
+✔ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (269.1959ms)
+✔ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (86.3169ms)
+✔ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (4.5065ms)
+✔ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (9.0001ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (80.8693ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (307.7747ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (6331.286ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (1169.1771ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (22076.1933ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (60.7344ms)
+✔ scenario identity, topology, and town coordinates are validated (138.827ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.3515ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (57743.0514ms)
+✔ national victory and defeat depend on ownership of the complete map (80.0861ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (81.7166ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (23.2623ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (22.8464ms)
+✔ a hostile column approaching home takes priority over expansion (20.6185ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (17.8583ms)
+✔ a hungry army reverses its actual road progress without teleporting home (23.1714ms)
+✔ a starving merged army splits its retreat into legal marching columns (24.0026ms)
+✔ a merged wounded roster sends only its live companies as reinforcements (23.6262ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (28.4216ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (9562.6691ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 88112.5562

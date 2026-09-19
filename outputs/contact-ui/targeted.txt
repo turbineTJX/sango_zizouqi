@@ -1,0 +1,39 @@
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (23.0923ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (9.5019ms)
+✔ a stunned unit and pure self buffs do not prime a combo (3.0955ms)
+✔ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (8.1674ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (3.0185ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (276.8064ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (3.3323ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (8.8258ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (3.2421ms)
+✔ two, three and six adjacent enemies share one normal attack budget (19.944ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (2.6332ms)
+✔ minimum damage is shared rather than multiplied once per enemy (2.5563ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (4.1823ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (3.7469ms)
+✔ an enchanted contact attack consumes one charge and divides extra fire damage (4.4581ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (2.9488ms)
+✔ current combat saves resume with exactly the same shared attacks (111.1417ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (31.9333ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (2.8627ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (6.0542ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (0.9526ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (3.5986ms)
+✔ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (199.5962ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (183.5342ms)
+✔ command and experience define individual capacity; fielded troops are independent (7.8936ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (113.6012ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (33.6583ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (74.6167ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (514.7906ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (94.4356ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (226.5244ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1204.5536

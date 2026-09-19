@@ -1,0 +1,54 @@
+✔ aura follows live melee adjacency, breaks under control, and never stacks or buffs its source (14.312ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (2.065ms)
+✖ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (139.2311ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (1.829ms)
+✔ repair uses actual earned intent and reports durability separately from wounded healing (31.8249ms)
+✔ real battles retain skill provenance through stacking, refresh, shields and deterministic saves (5656.7099ms)
+✔ stacked attribute losses, army effects and non-stacking haste show marginal actual values (0.9429ms)
+✔ current DOT details apply terrain and passive mitigation, before shields (1.5539ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (9.953ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (160.8534ms)
+✔ armies move visibly along road interiors before arriving (3.031ms)
+✔ head-on marching armies meet on the road without passing through each other (9.6867ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (74.9274ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (180.8681ms)
+✔ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (429.3539ms)
+✔ multiple battles and their snapshots share the same global day (76.9346ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (43.5107ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (494.3037ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (68.9538ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (75.3849ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (1.9036ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (1.6824ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (0.6642ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (2.5418ms)
+✔ supply connection is cut by hostile road occupation (0.4656ms)
+✔ five days without food disband armies and preserve officers for their return (2.8488ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (50.8354ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (136.5158ms)
+✔ city capture settles once and can be saved immediately within a day (64.3832ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (36.5713ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 29
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5801.1658
+
+✖ failing tests:
+
+test at tests\auxiliary.test.mjs:45:1
+✖ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (139.2311ms)
+  Error: 战场位置无效
+      at require (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/engine.mjs:991:78)
+      at file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/engine.mjs:1142:38
+      at Array.forEach (<anonymous>)
+      at validateSave (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/engine.mjs:1092:13)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/auxiliary.test.mjs:54:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)

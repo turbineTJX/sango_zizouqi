@@ -1,0 +1,25 @@
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (168.5356ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (6047.4869ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (309.6643ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (18530.6574ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (16.2255ms)
+✔ scenario identity, topology, and town coordinates are validated (34.1719ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.0232ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (55223.7523ms)
+✔ national victory and defeat depend on ownership of the complete map (52.5487ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (27.8012ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (7.6065ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (8.0047ms)
+✔ a hostile column approaching home takes priority over expansion (6.4501ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (7.8677ms)
+✔ a hungry army reverses its actual road progress without teleporting home (8.6214ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (9.6012ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (9387.3664ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 80541.7033

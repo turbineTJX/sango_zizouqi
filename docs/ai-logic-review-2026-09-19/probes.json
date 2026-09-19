@@ -1,0 +1,3302 @@
+{
+  "supportStall": {
+    "seed": 33104730,
+    "configuration": "classic/fleet/swapped",
+    "firstWait": 120,
+    "lastWait": 134,
+    "waitSteps": 15,
+    "snapshotTick": 131,
+    "actor": {
+      "id": "person-246",
+      "hp": 2546,
+      "intent": 100,
+      "position": [
+        7,
+        4
+      ]
+    },
+    "anchor": "person-164",
+    "readyAtOriginal": null,
+    "route": [
+      {
+        "x": 6,
+        "y": 4
+      }
+    ],
+    "readyAfterOneMove": "unique-person-246",
+    "nextOriginalAction": "策应队友",
+    "counterfactualEffects": [
+      {
+        "from": "person-246",
+        "to": "cao",
+        "damage": 64,
+        "skill": true,
+        "phase": "impact",
+        "visual": "fire",
+        "troop": "ship",
+        "side": 1,
+        "name": "周瑜",
+        "label": "神火计",
+        "fromX": 6,
+        "fromY": 4,
+        "x": 2,
+        "y": 3,
+        "shieldAbsorbed": 0,
+        "damageKind": "intellect",
+        "terrain": "水面：伤害 −40%",
+        "terrainFactor": 0.6,
+        "outcome": [
+          {
+            "id": "cao",
+            "name": "曹操",
+            "damage": 64,
+            "healing": 0,
+            "repaired": 0,
+            "absorbed": 0,
+            "changes": [
+              "破防（5步）：防御降低 20%",
+              "灼烧 1层（5步）：持续损失兵力；最多三层，随当前地形修正，可净化"
+            ],
+            "defeated": false
+          }
+        ],
+        "castPower": 278.2974890666667
+      }
+    ],
+    "trace": [
+      {
+        "tick": 115,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          },
+          {
+            "id": "yu",
+            "xy": [
+              3,
+              4
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 116,
+        "action": "攻击荀攸",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          },
+          {
+            "id": "yu",
+            "xy": [
+              3,
+              4
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 117,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          },
+          {
+            "id": "yu",
+            "xy": [
+              3,
+              4
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 118,
+        "action": "涡流",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          },
+          {
+            "id": "yu",
+            "xy": [
+              3,
+              4
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 119,
+        "action": "攻击荀攸",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 120,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 121,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 122,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 123,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 124,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 125,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 126,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 127,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 128,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 129,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 130,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 131,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 132,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 133,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": "person-164",
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 134,
+        "action": "策应队友",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              2,
+              3
+            ],
+            "distance": 5
+          }
+        ]
+      },
+      {
+        "tick": 135,
+        "action": "神火计",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 136,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 137,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2546,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 138,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2428,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 139,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2428,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 140,
+        "action": "涡流",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2428,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 141,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2311,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 142,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2311,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 143,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2311,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 144,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2311,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 145,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2222,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 146,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2222,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 147,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2222,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 148,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2145,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 149,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2145,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 150,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2145,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 151,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2145,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 152,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 2065,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 153,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1976,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 154,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1976,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 155,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1976,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 156,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1976,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 157,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1887,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 158,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1887,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 159,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1887,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 160,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1803,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 161,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1803,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 162,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1803,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 163,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1803,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 164,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1714,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 165,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1714,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 166,
+        "action": "涡流",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1714,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 167,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1636,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 168,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1636,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 169,
+        "action": "神火计",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1636,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 170,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1636,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 171,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1564,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 172,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1564,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 173,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1564,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 174,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1486,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 175,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1486,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 176,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1486,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 177,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1486,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 178,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1422,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 179,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1354,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 180,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1354,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 181,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1354,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 182,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1354,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 183,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1284,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 184,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1284,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 185,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1284,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 186,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1219,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 187,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1219,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 188,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1219,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 189,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1219,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 190,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1147,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 191,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1147,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 192,
+        "action": "涡流",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1147,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 193,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1089,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 194,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1089,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 195,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1089,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 196,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1089,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 197,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1030,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 198,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1030,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 199,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 1030,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 200,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 972,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 201,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 972,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 202,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 972,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 203,
+        "action": "神火计",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 972,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 204,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 972,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 205,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 915,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 206,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 849,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 207,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 849,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 208,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 849,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 209,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 849,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 210,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 783,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 211,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 783,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 212,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 783,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 213,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 722,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 214,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 722,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 215,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 722,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 216,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 722,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 217,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 659,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 218,
+        "action": "涡流",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 659,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 219,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 659,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 220,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 607,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 221,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 607,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 222,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 607,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 223,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 607,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 224,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 554,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 225,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 554,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 226,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 554,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 227,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 499,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 228,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 499,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 229,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 499,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 230,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 499,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 231,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 450,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 232,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 401,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 233,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 401,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 234,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 401,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 235,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 401,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 236,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 351,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 237,
+        "action": "神火计",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 351,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 238,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 351,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 239,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 291,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 240,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 291,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 241,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 291,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 242,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 291,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 243,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 234,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 244,
+        "action": "涡流",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 234,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 245,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 234,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 246,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 185,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 247,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 185,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 248,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 185,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 249,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 185,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 250,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 137,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 251,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 137,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 252,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 137,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 253,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 85,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 254,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 85,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 255,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 85,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 256,
+        "action": "攻击曹操",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 85,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      },
+      {
+        "tick": 257,
+        "action": "重整攻势",
+        "xy": [
+          7,
+          4
+        ],
+        "hp": 39,
+        "intent": 100,
+        "anchor": null,
+        "ready": null,
+        "enemies": [
+          {
+            "id": "cao",
+            "xy": [
+              3,
+              3
+            ],
+            "distance": 4
+          }
+        ]
+      }
+    ]
+  },
+  "deadSlots": [
+    {
+      "case": "solo-archer",
+      "unit": "person-512",
+      "tactics": [
+        "smoke",
+        "wildfire",
+        "rally"
+      ],
+      "dead": "rally",
+      "reason": "Requires another ally; army contains one unit."
+    },
+    {
+      "case": "ranged-plus-logistics",
+      "units": [
+        {
+          "id": "yuanxia",
+          "type": "archer",
+          "tactics": [
+            "unique-yuanxia",
+            "fire",
+            "scatter"
+          ]
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "tactics": [
+            "unique-he",
+            "pierce",
+            "repeat"
+          ]
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "tactics": [
+            "passage",
+            "bandage",
+            "purify"
+          ]
+        }
+      ],
+      "dead": "passage",
+      "reason": "Aura excludes its source and all remaining allies are ranged."
+    }
+  ],
+  "commandBoundary": {
+    "method": "Controlled command-selection probe on validated opening states; gauge is not full and no command is issued.",
+    "singleSelected": null,
+    "twoSelected": "inspire",
+    "singleMaximumScore": 11.666666666666666,
+    "requiredScore": 20,
+    "implication": "Inspire can never be selected with only one active ally, irrespective of its intent deficit or future gauge."
+  }
+}

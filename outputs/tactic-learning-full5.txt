@@ -1,0 +1,1884 @@
+✔ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (467.3938ms)
+✔ 单人和远程阵容仍携带已学战法，AI不会替换学习结果 (22.1707ms)
+✔ 预备队状态和开场满血不改变所学战法 (3.0122ms)
+✔ 单舰对陆军不会把无友舰的接舷替换成无敌舰的艨冲 (4.6596ms)
+✔ 支援路径允许在接敌格施法，但不允许穿越有效拦截线 (1.9686ms)
+✔ 单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束 (3.0188ms)
+✔ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (488.3955ms)
+✔ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (155.6805ms)
+✔ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (4.7022ms)
+✔ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (9.4773ms)
+✖ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (77.1495ms)
+✔ national map keeps simulation/save untouched and uses one projection for cities, roads, army and encounter (51.467ms)
+✔ redrawn terrain works without external artwork and all seasons are distinct (2.8742ms)
+✔ asset manifest accepts only local opaque asset URLs and valid sprite grids (1.1491ms)
+✔ Unity root movement preserves its Hermite curve and endpoints (0.3035ms)
+✔ local file route only exposes manifest-listed assets and sends no-store (8.2404ms)
+✔ simulation modules do not depend on presentation or local art files (10.464ms)
+✔ fire: three real basics consume exactly three charges, with normal intent and no links (63.6604ms)
+✔ suppress: three real basics consume exactly three charges, with normal intent and no links (7.0001ms)
+✔ pierce: three real basics consume exactly three charges, with normal intent and no links (9.3402ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (14.4128ms)
+✔ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (28.18ms)
+✔ tactics and retaliation do not consume charges or double-apply timed burning attacks (12.8053ms)
+✔ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (8.1113ms)
+✔ gate attacks do not spend troop enchantments (11.1221ms)
+✔ remaining charges/source survive save and resume; forged or obsolete state is rejected (42.5998ms)
+✔ four officer stats affect separate derived attributes, with no charm dimension (10.3171ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (115.9221ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (2.6801ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (15.0502ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (8.5443ms)
+✔ politics reduces actual confusion duration but physical stun remains independent (33.2701ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (2.5244ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (45.4247ms)
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (46.0414ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (7.7523ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (1952.7782ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (7.6303ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (2106.9023ms)
+✔ tower: repair uses earned intent, reports durability and resumes exactly (2120.7176ms)
+✔ supply-depot: repair uses earned intent, reports durability and resumes exactly (2072.7683ms)
+✔ future-building: repair uses earned intent, reports durability and resumes exactly (1575.7709ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (691.4855ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (40.8305ms)
+✔ 自由对战的所有名将专属均进入玩家初始配装，不依赖战法 ID 前缀 (101.1942ms)
+✔ 名将骑兵按所学战法作战，专属额外携带且存读档不分歧 (565.2957ms)
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (37.5065ms)
+✔ only the current rule version loads, and intent is validated without normalization (53.2926ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (12.2337ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (15.5113ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (30.7422ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (191.3402ms)
+✔ siege defenders hold their rear line before enemies approach (156.2196ms)
+✔ command scoring reads the requested side attributes and cooldowns without swapping units (28.976ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (219.4592ms)
+✔ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (210.9021ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (78.9429ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (5.9517ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (59.6984ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (73.3359ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (6.0503ms)
+✔ AI prioritizes cleanse for control and DOT, holds useless commands, and does not refresh active buffs (11.6871ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (377.346ms)
+✔ melee anticipates then strikes and recovers; ranged troops stay in formation (1.5269ms)
+✔ presentation consumes appended real events once, resets per battle and preserves snapshots (1.4254ms)
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (9.7832ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.6285ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.3902ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.5586ms)
+✔ legacy windup events never display a preparation animation or log row (0.4014ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.9817ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (5.344ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.6317ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (11.8941ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (1.8389ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.5234ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (11.03ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.4583ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.2027ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.4366ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (2.5577ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (1.0139ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (5.883ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (9.045ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.4737ms)
+✔ reduced motion uses static focus and finishes without impact particles (1.6449ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (4.1054ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.3633ms)
+✔ minor tactics including criticals stay local in both effect modes (0.5369ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (5.4378ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (358.7225ms)
+✔ battle intent is selected before combat and stays locked at tick zero and after save recovery (181.7894ms)
+✔ defenders cannot choose siege and invalid intent does not alter deployment (33.1864ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (47.1203ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (10.2809ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (7.8818ms)
+✔ signals render finite coordinates without changing battle data through real combat (161.2737ms)
+✖ a real control cast opens ZOC and the next allied charge exploits it (57.4043ms)
+✖ overlapping ZOC still stops a charge after only one front is controlled (15.5193ms)
+✖ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (3.2824ms)
+✖ control protection, silence and restored ZOC cannot be bypassed (10.7597ms)
+✖ ZOC coverage uses live interceptors and respects boundaries and both sides (2.7111ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (163.2818ms)
+✔ person-661: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (282.5947ms)
+✔ person-396: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (249.5844ms)
+✔ person-99: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (226.7194ms)
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (6.3849ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (25.6539ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (2.4161ms)
+✔ fame adds city manpower rather than free troops (8.0898ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (593.4817ms)
+✔ governor interface shows actual discounts, skill categories and diplomacy reserve labels (19.6539ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (3.2289ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (261.07ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (5.9311ms)
+✔ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (856.4152ms)
+✖ same target links distinct officers, doubles count once, triples cap at forty percent (39.1826ms)
+✖ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (17.994ms)
+✔ a stunned unit and pure self buffs do not prime a combo (4.4143ms)
+✖ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (15.9835ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (22.1776ms)
+✖ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (885.4852ms)
+✖ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (4.0112ms)
+✖ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (4.3823ms)
+✖ a changed relationship type supplies its current baseline to the real combo roll (4.9696ms)
+✔ full gauge announces once, stays quiet while held, and re-arms after spending (0.8752ms)
+✔ restored ready battle and a new battle each get their own announcement (0.1598ms)
+✔ two, three and six adjacent enemies share one normal attack budget (50.2362ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (5.3721ms)
+✔ minimum damage is shared rather than multiplied once per enemy (7.975ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (10.8029ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (26.8743ms)
+✔ an enchanted contact attack consumes one charge and divides extra fire damage (21.3222ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (28.5715ms)
+✔ current combat saves resume with exactly the same shared attacks (252.4506ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (553.4347ms)
+✔ 自由对战：无效配置被拒绝 (4.1321ms)
+✔ 审计配兵保持六队同级总兵力，遵守武将带兵上限 (5.3065ms)
+✔ AI对战镜像布阵不修改敌军、随机数或战意，并能确定性续战 (474.4651ms)
+✔ 建筑有无不改变已学战法，野战和攻城都不会由AI重新选装 (11.8945ms)
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (114.0896ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (2.6408ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (216.6136ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (79.6144ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (328.5258ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (100.2666ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (28.737ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (47.9407ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (140.2318ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (172.3142ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (39.0896ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (23.4038ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (30.2687ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (76.9303ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (314.1421ms)
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (13.0775ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (127.0626ms)
+✔ random results vary across seeds while identical seed is reproducible (140.2316ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (8.8544ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (26.0116ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (16.0629ms)
+✔ city army exceeds ten units and saves, but expeditions and detached selections remain capped at ten (29.7444ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (15.0453ms)
+✔ research unlocks a local troop only after a successful trial (21.8086ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (53.2237ms)
+✔ healing conserves personnel and does not require local troop technology (13.3585ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (117.9942ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (60.1543ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (35.6578ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (27.1464ms)
+✔ actual siege pauses construction without charging again or completing in the background (143.3059ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (105.7618ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (72.715ms)
+✔ nearby front takes priority before contact; fast movement stops on contact (22.5904ms)
+✔ rush cannot escape an engagement or charge through a blocking line (7.4619ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (9.2364ms)
+✔ an unreachable rear focus advances into the blocking line instead of stalling (20.764ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (28.4437ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (20.6936ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (5.4425ms)
+✔ a real retreat can leave contact (4.7799ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (413.8225ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (592.619ms)
+✔ 自然击溃守军后，城门仍存时友军救护和名将支援继续使用真实伤兵与战意 (182.4688ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (140.0424ms)
+✔ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (63.7026ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (6.6458ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (10.7817ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (4.3389ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (1046.4032ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (8.5571ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (2.0954ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (301.6974ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (565.4862ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (9.6446ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (7.3678ms)
+✔ retreat terminates and sends the attacker back without taking the city (26.2548ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (1.3972ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (3.7518ms)
+✔ enemy launches an attack and city garrison participates in defense (146.0227ms)
+✔ garrison alone can defend a city when player army is elsewhere (41.511ms)
+✔ multiple same-side armies share the same six battlefield slots (136.739ms)
+✔ invalid saves are rejected before replacing game state (4.2615ms)
+✔ different seeds finish without deadlocks or overlapping units (993.6734ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (150.527ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (12.0287ms)
+✔ left and right formations deploy on opposite flanks (10.2126ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (12.2432ms)
+✔ capturing the final city completes the scenario (43.9676ms)
+✔ losing the final friendly city ends the scenario (26.4368ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (435.5084ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (7.1855ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (159.2513ms)
+✔ pending casts from the removed windup format are rejected (14.263ms)
+✔ a defeated unit cannot use a ready skill (23.8047ms)
+✔ retreat stops subsequent friendly skills immediately (75.57ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (146.7303ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (10.2105ms)
+✔ a ready tactic casts without spending intent, regardless of morale or attack cooldown (4.1774ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (8.2538ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (7.1442ms)
+✔ deployment can move, swap, reset and persist without advancing time (7.3552ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (13.5206ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (39.4092ms)
+✔ missing deployment and command state is rejected instead of reconstructed (57.4023ms)
+✖ cleave charges each victim once without charging the caster (42.7634ms)
+✖ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (6.7688ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (41.3408ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (52.0621ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (6.9431ms)
+✖ riposte is one direct reaction per step, without a counter chain or extra intent (3.5021ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (397.9865ms)
+✖ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (7.8927ms)
+✖ two real ram casts can link against the gate and increase the second hit (10.0481ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (473.725ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (120.9134ms)
+✔ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (35.8148ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (264.2126ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (5.8147ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (6.3176ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (32.6719ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (8.4294ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (33.8333ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (63.7691ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (44.7335ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (2.2891ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (2.5671ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (12.1101ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 41 officers (1318.3297ms)
+✔ each offset-row neighbor is reciprocal, one step away, and equally spaced on screen (8.7244ms)
+✔ hex paths use six neighbors and cannot cross a gate or an occupied ring (1.4741ms)
+✔ diagonal spear thrust hits the next hex on the same axial line (45.5652ms)
+✔ diagonal protection knockback follows the hex line and stops before an occupied cell (10.9883ms)
+✔ missing grid type is rejected instead of upgrading a pre-hex battle (25.0933ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (461.8276ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (572.3555ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (713.9334ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (351.9806ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (115.0298ms)
+✔ real battles retain skill provenance through stacking, refresh, shields and deterministic saves (18380.7653ms)
+✔ stacked attribute losses, army effects and non-stacking haste show marginal actual values (3.1291ms)
+✔ current DOT details apply terrain and passive mitigation, before shields (3.1627ms)
+✖ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (86.4659ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (9.906ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (5.2662ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (1.8364ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (16.2436ms)
+✖ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (723.9889ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (633.6692ms)
+✖ repeating shots grant one surviving-hit award and no caster recharge (48.6747ms)
+✖ a fully blocked first segment does not consume the surviving-hit award (23.6245ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (7.5852ms)
+✖ damage tactics against a gate do not charge the caster, basic siege attacks do (9.9764ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (458.5567ms)
+✔ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (355.037ms)
+✔ each troop has exactly six tools and exclusive tactics remain optional (1.3799ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (52.9876ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (39.0706ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (26.6609ms)
+✔ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (33.4018ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (7.1222ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (10.6501ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (50.6195ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (733.1367ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (47.8683ms)
+✔ front support heals at most two other allies, never itself, and has a real range limit (8.6283ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (5.0788ms)
+✖ doubt deals strategy damage through control protection without bypassing that protection (7.1262ms)
+✖ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (19.9553ms)
+✔ real zero-intent battles trigger both medical roles and resume deterministically (496.2843ms)
+✖ fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement (3.4467ms)
+✖ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (6.3196ms)
+✔ medical casting spends the next basic attack interval rather than adding free healing between shots (7.0938ms)
+✖ only equipped chargers select legal short flanks, and live interception cancels that preference (5.1119ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (314.515ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (531.6526ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (9317.3259ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (1108.5811ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (19490.5736ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (52.8439ms)
+✔ scenario identity, topology, and town coordinates are validated (109.4131ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.0501ms)
+✖ a month of real multi-front warfare archives old snapshots and keeps the save compact (45026.2684ms)
+✔ national victory and defeat depend on ownership of the complete map (72.0122ms)
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (12.7742ms)
+✔ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (354.3409ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (4.7159ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (594.1955ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (2666.9929ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (21.771ms)
+✔ old officer data versions are rejected without changing saved progress (28.1523ms)
+✔ effective scenario character traits are formal catalogue and runtime fields, preserving numeric zero (84.0387ms)
+✔ sworn-sibling groups resolve all peers, exclude self, and keep directional likes unchanged (1.7069ms)
+✔ profile copies cannot mutate the shared catalogue or another officer instance (0.4192ms)
+✔ incomplete profile state is rejected without backfilling fields (120.8467ms)
+✔ current saves reject invalid, missing and malformed profiles rather than silently changing them (39.4267ms)
+✔ reserved profile fields do not affect combat decisions, numbers or historical death (141.5709ms)
+✔ scenario profiles correct the public-library traits in runtime and exported rows (2.4262ms)
+✔ scenario relation IDs replace truncated library IDs without inventing genealogy officers (11.1309ms)
+✔ profile import uses array base values and never adopts live scenario state or colliding custom IDs (0.8873ms)
+✔ all ordinary officers unlock five generic skills at the same levels as famous officers (153.8808ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (5.4465ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (378.6022ms)
+✔ all 77 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10 (33.04ms)
+✔ base and advanced skills modify only their intended attributes, adding passive percentages (1.6021ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (1.6556ms)
+✖ army command aura affects nearby other active allies, does not stack and vanishes on departure (18.8538ms)
+✖ spear formation, stationary defense and movement resets respect exact conditions (12.4188ms)
+✖ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (9.1385ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (8.7896ms)
+✖ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.185ms)
+✖ isolated and joint change actual basic damage and evaluate neighbors from the correct side (3.1453ms)
+✖ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (2.6468ms)
+✖ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (14.563ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (41.767ms)
+✖ multi-hit tactics do not charge the caster and grant surviving-hit intent once (4.6587ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.4022ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.2701ms)
+✖ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (2.8917ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (15.493ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (7.1542ms)
+✖ fortress reduces real burning and army firestorm damage before shields without creating intent (2.8853ms)
+✔ experience carries across thresholds, unlocks all crossed nodes and stops at level 10 (1.1855ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (11.058ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (1085.4732ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (51.8322ms)
+✔ source relationships have symmetric baselines, positive floors, negative ceilings and neutral defaults (2.1609ms)
+✔ scores accept explicit improvements or reduced hostility and reject out-of-range or invalid pairs (4.5031ms)
+✔ relationship scores persist independently in deployments and lock during combat, including after reload (231.9513ms)
+✔ missing, corrupt and inconsistent relationship maps are rejected (24.7721ms)
+✔ character pages expose saved scores, probability, bounds, and combat locking (2.6283ms)
+✔ score events cross social tiers without granting marriage or sworn bonds automatically (33.9931ms)
+✔ special relationships have different caps and deterioration preserves source kinship (1.0806ms)
+✔ changed relationships persist symmetrically, affect the battle snapshot and lock once combat starts (191.5905ms)
+✔ invalid relationship types and out-of-tier scores are rejected without migration (20.4635ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (587.501ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (604.4766ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (1620.827ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (1248.5878ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (841.8501ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (253.7834ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (214.7896ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (158.8532ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (2317.7464ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (248.4396ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (441.5719ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (476.3045ms)
+✔ river: complete battle, reserves, save recovery and settlement (514.2794ms)
+✔ breach: complete battle, reserves, save recovery and settlement (164.0685ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (191.1571ms)
+✔ field: complete battle, reserves, save recovery and settlement (424.9254ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (334.05ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (842.7383ms)
+✔ siege: complete battle, reserves, save recovery and settlement (463.5841ms)
+✔ defense: complete battle, reserves, save recovery and settlement (5645.7011ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (643.3229ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (10.4197ms)
+✔ sieges add an independent gate and shields only to defending starters (42.4705ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (5.4546ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (23.7026ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (46.3983ms)
+✔ fixture and seed validation rejects malformed test state (12.9036ms)
+✔ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (101.8368ms)
+✔ screen has a useful baseline and scales with support passives (16.4962ms)
+✔ foresight no longer depends on enemy loadout and respects its strict boundary and damage kind (0.6444ms)
+✔ gallop provides travel speed before contact and mitigation while adjacent (22.144ms)
+✔ new officer defaults activate the intended bow and support routes without removing troop choice (8.8317ms)
+✔ current campaigns and ongoing battles preserve player loadouts and DOT snapshots (208.6627ms)
+✔ status timer matches exclusive expiration and distinguishes the final active step from expired state (2.2036ms)
+✔ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (0.8563ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (72.548ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (7.5895ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (190.0361ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (4.0979ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (25.9764ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (6.1243ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (36.1295ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (132.6223ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (40.539ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (58.5358ms)
+✔ a hostile column approaching home takes priority over expansion (41.2298ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (35.5436ms)
+✔ a hungry army reverses its actual road progress without teleporting home (31.3054ms)
+✔ a starving merged army splits its retreat into legal marching columns (28.7038ms)
+✔ a merged wounded roster sends only its live companies as reinforcements (64.911ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (35.2894ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (11266.127ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (33.2372ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (402.8747ms)
+✔ armies move visibly along road interiors before arriving (58.8545ms)
+✔ head-on marching armies meet on the road without passing through each other (73.9182ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (238.0618ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (656.5479ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (1074.9451ms)
+✔ multiple battles and their snapshots share the same global day (239.6543ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (127.882ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (1726.6852ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (153.2911ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (154.462ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (14.9262ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (12.4237ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.7693ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (17.6651ms)
+✔ supply connection is cut by hostile road occupation (2.0257ms)
+✔ five days without food disband armies and preserve officers for their return (29.3995ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (130.3326ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (404.5544ms)
+✔ city capture settles once and can be saved immediately within a day (143.5384ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (70.5506ms)
+✔ 八兵种都有两个低级名额和一个高级名额，所有战法进入唯一池 (1.0878ms)
+✔ S在5级两低一高，A在8级两低一高，B在8级三低，C无保底 (1148.3761ms)
+✔ 1级专属有获得和未获得结果，5级全部必得，普通将没有专属 (234.7195ms)
+✔ 同种子身份等级结果相同，不同种子随机；换兵种不重抽，玩家只能重排 (45.2969ms)
+✔ AI不替换所学战法，专属不挤掉三普通，四槽能自动施放并确定性续战 (179.911ms)
+✔ 跨多级与逐级学习一致，升级存档与战略换兵种保持记录 (41.0947ms)
+✔ 所有预设战役生成合法学习记录，旧人工配装不绕过学习 (240.9389ms)
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (60.1276ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (5.4219ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (7.6784ms)
+✔ healing results use wounded budget and show actual shield separately (5.0686ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (511.4094ms)
+✔ every tactic declares its actual power, chance effects and critical policy (1.4733ms)
+✔ defensive status magnitude snapshots martial power and ignores intellect (84.3651ms)
+✔ control succeeds and fails through real casts, pays cooldown, and reports actual chance (246.0143ms)
+✔ resolve blocks control and outcome never claims an applied status (5.2778ms)
+✔ multi-hit burst shares one power-dependent critical roll per target (158.1754ms)
+✔ control duration grows with power and potency remains bounded (6.464ms)
+✔ current saves resume identical probability rolls and reject malformed event probabilities (392.174ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (104.0067ms)
+✖ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (7.3871ms)
+✖ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (2.4496ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (6.306ms)
+✔ instant skills keep shared intent and only one learned tactic enters cooldown per step (54.7848ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (7.1261ms)
+✔ expired cooldown is insufficient below threshold; regaining intent re-enables the tactic (9.992ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (25.1804ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (8.8523ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (18.3394ms)
+✔ blocked displacement never overlaps units or crosses board limits (5.1188ms)
+✖ rare skills stun, protect and reduce intent without being universal damage attacks (6.8306ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (20.5309ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (28.3685ms)
+✔ prepaid casts and previous save formats are rejected (8.8637ms)
+✔ new saves distinguish bows and crossbows and require current rules (7.2219ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (72.9543ms)
+✔ taunt cannot reach six hexes or override control protection (73.994ms)
+✔ taunted ranged offensive skills wait for range, then attack the taunter (7.7883ms)
+✔ cleanse removes a real taunt; its source dying or retreating immediately releases the target (28.0626ms)
+✔ taunt never drags melee out through another active ZOC (10.9779ms)
+✖ a real charge follows a real retreat shot instead of switching back to a disabled front (9.0156ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (4.43ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (41.9774ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (146.4121ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (87.559ms)
+✔ all presets have symmetric cells; ships never occupy forests, hills or marshes (1.8834ms)
+✔ terrain changes only during deployment, resets both sides legally and preserves intent and seed (80.3889ms)
+✔ fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs (29.38ms)
+✖ area fire resolves each target terrain separately (6.8474ms)
+✔ burn recalculates terrain after moving, without compounding its stored stack strength (5.9018ms)
+✖ high ground boosts shooting, woodland shields ranged targets and neutral skills remain neutral (3.6879ms)
+✖ charge damage remembers the starting high ground and the worst traversed wetland (4.0824ms)
+✔ ambush and fortifications change duration, while terrain slow is visible in derived movement (30.4804ms)
+✖ water tactics and fire distinguish a ship under the bridge from troops on it (12.7563ms)
+✔ famous fire tactics share terrain effects and all tactics explain their terrain rules (4.9135ms)
+✔ all terrain saves resume deterministically to real battle completion and old rules are rejected (1657.4762ms)
+✔ every troop retains six learning candidates, but arbitrary role templates cannot grant skills (67.1748ms)
+✔ positioning targets real columns and clustered enemies and always includes the anchor (25.6127ms)
+✔ allied slow enables a real spear finisher, with no intent or target bypass (17.6667ms)
+✔ fire preparation increases wildfire direct hits without replacing a stronger burn (9.8234ms)
+✔ low-intellect guards retain mitigation and suppression; their support casts deal no damage (6.1499ms)
+✔ cavalry offensive stance increases basic attack at the cost of real defense (21.5867ms)
+✔ screen protects threatened healthy allies, respects its own layer and caps at one recipient (12.1996ms)
+✔ seal exchanges all damage for silence; ambush waits for close range (27.9513ms)
+✖ each role completes a battle and preserves deterministic continuation under current rules (1871.0984ms)
+✔ command and experience define individual capacity; fielded troops are independent (30.7983ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (228.8661ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (117.0031ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (86.618ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (2090.2274ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (117.4603ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (759.6751ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (4.4918ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (74.3508ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (84.0925ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (41.4062ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (50.0314ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (45.7616ms)
+✖ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (3.7324ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (23.4435ms)
+✖ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (5.2433ms)
+✖ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (3.2413ms)
+✖ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (1.9687ms)
+✖ firestorm is bounded by friendly power, not enemy army size (2.5384ms)
+ℹ tests 513
+ℹ suites 0
+ℹ pass 459
+ℹ fail 54
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 79395.1455
+
+✖ failing tests:
+
+test at tests\ai-target-command.test.mjs:54:1
+✖ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (77.1495ms)
+  AssertionError [ERR_ASSERTION]: 无需注入军略槽
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-target-command.test.mjs:66:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:24:1
+✖ a real control cast opens ZOC and the next allied charge exploits it (57.4043ms)
+  AssertionError [ERR_ASSERTION]: person-433/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at line (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:25:40)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:34:1
+✖ overlapping ZOC still stops a charge after only one front is controlled (15.5193ms)
+  AssertionError [ERR_ASSERTION]: person-433/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at line (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:35:32)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:43:1
+✖ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (3.2824ms)
+  AssertionError [ERR_ASSERTION]: person-433/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at line (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:45:37)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:55:1
+✖ control protection, silence and restored ZOC cannot be bypassed (10.7597ms)
+  AssertionError [ERR_ASSERTION]: person-433/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at line (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:57:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:64:1
+✖ ZOC coverage uses live interceptors and respects boundaries and both sides (2.7111ms)
+  AssertionError [ERR_ASSERTION]: person-433/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at line (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/breakthrough.test.mjs:65:27)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:22:1
+✖ same target links distinct officers, doubles count once, triples cap at forty percent (39.1826ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:25:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:31:1
+✖ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (17.994ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:33:130)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:42:1
+✖ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (15.9835ms)
+  AssertionError [ERR_ASSERTION]: dun/archer: B aptitude cannot learn wildfire
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:43:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:54:1
+✖ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (885.4852ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:62:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:66:1
+✖ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (4.0112ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:69:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:82:1
+✖ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (4.3823ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:87:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:93:1
+✖ a changed relationship type supplies its current baseline to the real combo roll (4.9696ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:99:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:26:1
+✖ cleave charges each victim once without charging the caster (42.7634ms)
+  AssertionError [ERR_ASSERTION]: actor/halberd: B aptitude cannot learn cleave
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:29:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:34:1
+✖ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (6.7688ms)
+  AssertionError [ERR_ASSERTION]: actor/halberd: B aptitude cannot learn cleave
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:40:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:75:1
+✖ riposte is one direct reaction per step, without a counter chain or extra intent (3.5021ms)
+  AssertionError [ERR_ASSERTION]: actor/halberd: B aptitude cannot learn riposte
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:76:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:92:1
+✖ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (7.8927ms)
+  AssertionError [ERR_ASSERTION]: actor/siege: B aptitude cannot learn bombard
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:93:56)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:99:1
+✖ two real ram casts can link against the gate and increase the second hit (10.0481ms)
+  AssertionError [ERR_ASSERTION]: cao/siege: B aptitude cannot learn ram
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:102:83)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:106:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:22:1
+✖ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (86.4659ms)
+  AssertionError [ERR_ASSERTION]: tester/ship: B aptitude cannot learn navalRam
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-roles.test.mjs:16:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-roles.test.mjs:25:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:39:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (5.2662ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-roles.test.mjs:41:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:67:1
+✖ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (723.9889ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(runs[0].strikes>=3)
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-roles.test.mjs:80:9)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-tempo.test.mjs:18:1
+✖ repeating shots grant one surviving-hit award and no caster recharge (48.6747ms)
+  AssertionError [ERR_ASSERTION]: actor/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-tempo.test.mjs:19:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-tempo.test.mjs:25:1
+✖ a fully blocked first segment does not consume the surviving-hit award (23.6245ms)
+  AssertionError [ERR_ASSERTION]: actor/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-tempo.test.mjs:26:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-tempo.test.mjs:39:1
+✖ damage tactics against a gate do not charge the caster, basic siege attacks do (9.9764ms)
+  AssertionError [ERR_ASSERTION]: actor/siege: B aptitude cannot learn ram
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-tempo.test.mjs:43:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:50:1
+✖ doubt deals strategy damage through control protection without bypassing that protection (7.1262ms)
+  AssertionError [ERR_ASSERTION]: test-healer/spear: B aptitude cannot learn doubt
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:51:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:55:1
+✖ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (19.9553ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   action: '列阵',
+  +   advisorBonus: 0.098,
+  +   armyId: 'a1',
+  +   attackCarry: 0,
+  +   battleDamage: 0,
+  +   birthYear: 155,
+  +   cast: null,
+  +   commandBonus: 0.096,
+  +   compatibility: 25,
+  +   cooldown: 999,
+  +   courtesy: '孟德',
+  +   deathYear: 220,
+  +   deputyBonus: 0.046,
+  +   effect: null,
+  +   experience: 0,
+  +   first: true,
+  +   force: 72,
+  +   formation: 'front',
+  +   healed: 0,
+  +   hp: 3000,
+  +   id: 'patient',
+  +   initial: 3000,
+  +   intellect: 91,
+  +   intent: 0,
+  +   leadership: 96,
+  +   level: 1,
+  +   loyalty: 100,
+  +   maxHp: 3000,
+  +   morale: 80,
+  +   moveProgress: 0,
+  +   name: '曹操',
+  +   participated: false,
+  +   passiveState: {
+  +     entryUntil: 0,
+  +     lastMoveTick: 0,
+  +     reserveEntered: false,
+  +     shotType: null,
+  +     shots: 0,
+  +     targetId: null
+  +   },
+  +   personality: 2,
+  +   politics: 94,
+  +   relations: {
+  +     dislikedIds: [
+  +       'person-191',
+  +       'person-254',
+  +       'person-494',
+  +       'person-583',
+  +       'person-708'
+  +     ],
+  +     fatherId: null,
+  +     likedIds: [
+  +       'jia',
+  +       'yuanxia',
+  +       'dun',
+  +       'person-255',
+  +       'person-472'
+  +     ],
+  +     motherId: null,
+  +     spouseIds: [
+  +       'person-549'
+  +     ],
+  +     swornSiblingIds: []
+  +   },
+  +   righteousness: 2,
+  +   sex: 0,
+  +   side: 0,
+  +   skill: '魏武之强',
+  +   skillCasts: 0,
+  +   skillReady: {
+  +     phalanx: 99
+  +   },
+  +   skillRouteType: 'spear',
+  +   status: 'active',
+  +   statuses: {},
+  +   tacticCasts: {},
+  +   tacticLearning: {
+  +     byTroop: {
+  +       archer: {
+  +         high: [],
+  +         low: []
+  +       },
+  +       cavalry: {
+  +         high: [],
+  +         low: []
+  +       },
+  +       crossbow: {
+  +         high: [],
+  +         low: []
+  +       },
+  +       halberd: {
+  +         high: [],
+  +         low: []
+  +       },
+  +       logistics: {
+  +         high: [],
+  +         low: []
+  +       },
+  +       ship: {
+  +         high: [],
+  +         low: [
+  +           'anchor'
+  +         ]
+  +       },
+  +       siege: {
+  +         high: [],
+  +         low: []
+  +       },
+  +       spear: {
+  +         high: [],
+  +         low: [
+  +           'cleanse'
+  +         ]
+  +       }
+  +     },
+  +     level: 1,
+  +     seed: 7,
+  +     special: false
+  +   },
+  +   tactics: [
+  +     'cleanse'
+  +   ],
+  +   trait: '雄才大略',
+  +   troops: 2600,
+  +   type: 'spear',
+  +   wounded: 0,
+  +   x: 5,
+  +   y: 3
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:63:83)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { personality: 2, righteousness: 2, compatibility: 25, sex: 0, birthYear: 155, deathYear: 220, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'patient', name: '曹操', courtesy: '孟德', leadership: 96, force: 72, intellect: 91, politics: 94, skill: '魏武之强', type: 'spear', formation: 'front', trait: '雄才大略', troops: 2600, wounded: 0, first: true, loyalty: 100, level: 1, experience: 0, tacticLearning: { seed: 7, level: 1, byTroop: [Object], special: false }, tactics: [ 'cleanse' ], skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, attackCarry: 0, armyId: 'a1', side: 0, hp: 3000, maxHp: 3000, initial: 3000, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 5, y: 3, morale: 80, cooldown: 999, intent: 0, cast: null, skillReady: { phalanx: 99 }, tacticCasts: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.096, deputyBonus: 0.046, advisorBonus: 0.098 },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:75:1
+✖ fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement (3.4467ms)
+  AssertionError [ERR_ASSERTION]: test-healer/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at scene (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:17:2)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:76:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:88:1
+✖ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (6.3196ms)
+  AssertionError [ERR_ASSERTION]: test-healer/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at scene (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:17:2)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:91:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:110:1
+✖ only equipped chargers select legal short flanks, and live interception cancels that preference (5.1119ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   action: '列阵',
+  -   advisorBonus: 0.09,
+  -   armyId: 'a2',
+  -   attackCarry: 0,
+  -   battleDamage: 0,
+  -   birthYear: 154,
+  -   cast: null,
+  -   commandBonus: 0.081,
+  -   compatibility: 101,
+  -   cooldown: 999,
+  -   courtesy: '本初',
+  -   deathYear: 202,
+  -   deputyBonus: 0.0465,
+  -   effect: null,
+  -   experience: 0,
+  -   first: true,
+  -   force: 69,
+  -   formation: 'front',
+  -   healed: 0,
+  -   hp: 2500,
+  -   id: 'shao',
+  -   initial: 2500,
+  -   intellect: 70,
+  -   intent: 0,
+  -   leadership: 81,
+  -   level: 3,
+  -   loyalty: 100,
+  -   maxHp: 2500,
+  -   morale: 80,
+  -   moveProgress: 0,
+  -   name: '袁绍',
+  -   participated: false,
+  -   passiveState: {
+  -     entryUntil: 0,
+  -     lastMoveTick: 0,
+  -     reserveEntered: false,
+  -     shotType: null,
+  -     shots: 0,
+  -     targetId: null
+  -   },
+  -   personality: 3,
+  -   politics: 73,
+  -   relations: {
+  -     dislikedIds: [
+  -       'person-17',
+  -       'person-494'
+  -     ],
+  -     fatherId: null,
+  -     likedIds: [
+  -       'person-18'
+  -     ],
+  -     motherId: null,
+  -     spouseIds: [
+  -       'person-623'
+  -     ],
+  -     swornSiblingIds: []
+  -   },
+  -   righteousness: 2,
+  -   sex: 0,
+  -   side: 1,
+  -   skill: '名门号令',
+  -   skillCasts: 0,
+  -   skillReady: {
+  -     cleanse: 999,
+  -     ward: 999
+  -   },
+  -   skillRouteType: 'spear',
+  -   status: 'active',
+  -   statuses: {},
+  -   tacticCasts: {},
+  -   tacticLearning: {
+  -     byTroop: {
+  -       archer: {
+  -         high: [],
+  -         low: [
+  -           'fire',
+  -           'suppress'
+  -         ]
+  -       },
+  -       cavalry: {
+  -         high: [],
+  -         low: [
+  -           'gallop'
+  -         ]
+  -       },
+  -       crossbow: {
+  -         high: [
+  -           'retreatShot'
+  -         ],
+  -         low: [
+  -           'screen',
+  -           'ambush'
+  -         ]
+  -       },
+  -       halberd: {
+  -         high: [],
+  -         low: [
+  -           'curse'
+  -         ]
+  -       },
+  -       logistics: {
+  -         high: [],
+  -         low: [
+  -           'passage'
+  -         ]
+  -       },
+  -       ship: {
+  -         high: [],
+  -         low: [
+  -           'anchor'
+  -         ]
+  -       },
+  -       siege: {
+  -         high: [
+  -           'ram'
+  -         ],
+  -         low: [
+  -           'nexus',
+  -           'emplace'
+  -         ]
+  -       },
+  -       spear: {
+  -         high: [],
+  -         low: [
+  -           'cleanse',
+  -           'ward'
+  -         ]
+  -       }
+  -     },
+  -     level: 3,
+  -     seed: 117,
+  -     special: false
+  -   },
+  -   tactics: [
+  -     'cleanse',
+  -     'ward'
+  -   ],
+  -   trait: '名门雄主',
+  -   troops: 2500,
+  -   type: 'crossbow',
+  -   wounded: 0,
+  -   x: 8,
+  -   y: 3
+  - }
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:114:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { personality: 3, righteousness: 2, compatibility: 101, sex: 0, birthYear: 154, deathYear: 202, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'shao', name: '袁绍', courtesy: '本初', leadership: 81, force: 69, intellect: 70, politics: 73, skill: '名门号令', type: 'crossbow', formation: 'front', trait: '名门雄主', troops: 2500, wounded: 0, first: true, loyalty: 100, level: 3, experience: 0, tacticLearning: { seed: 117, level: 3, byTroop: [Object], special: false }, tactics: [ 'cleanse', 'ward' ], skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, attackCarry: 0, armyId: 'a2', side: 1, hp: 2500, maxHp: 2500, initial: 2500, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 8, y: 3, morale: 80, cooldown: 999, intent: 0, cast: null, skillReady: { cleanse: 999, ward: 999 }, tacticCasts: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.081, deputyBonus: 0.0465, advisorBonus: 0.09 },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\national-campaign.test.mjs:32:1
+✖ a month of real multi-front warfare archives old snapshots and keeps the save compact (45026.2684ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '{"version":2,"rulesVersion":40,"officerDataVersion":3,"relationshipScores":{},"relationshipTypes":{},"seed":417,"turn":4,"gold":22456,"grain":185620,"fame":120,"cities":[{"id":"town-1","sourceId":1,"name":"襄平","x":837,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":8025,"manpower":5576,"order":80,"farm":1,"commerce":3,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-664","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-2","sourceId":2,"name":"北平","x":727,"y":144,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":1899,"manpower":3199,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-478","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":532,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-3","sourceId":3,"name":"蓟","x":608,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2375,"manpower":2404,"order":80,"farm":2,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-296","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":831,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-4","sourceId":4,"name":"南皮","x":678,"y":215,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2415,"manpower":1697,"order":80,"farm":2,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"tian","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1825,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-5","sourceId":5,"name":"平原","x":639,"y":286,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2384,"manpower":2098,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-215","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1400,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"jinyang","sourceId":6,"name":"晋阳","x":472,"y":223,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6776,"manpower":4492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-49","project":{"key":"barracks","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"ye","sourceId":7,"name":"邺","x":551,"y":282,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6096.2,"manpower":6114,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"ju","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-8","sourceId":8,"name":"北海","x":775,"y":274,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":10809,"manpower":9516,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-195","project":null,"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-9","sourceId":9,"name":"下邳","x":758,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":true,"garrison":0,"grain":2461.04,"manpower":4791,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":11269,"governor":null,"project":null,"reliefTurn":0,"drafted":2000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-10","sourceId":10,"name":"小沛","x":670,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":2140,"manpower":2739,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-320","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":478,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-11","sourceId":11,"name":"寿春","x":687,"y":463,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":true,"garrison":0,"grain":2140,"manpower":3527,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-83","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":164,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"master","expires":50,"amount":0,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-12","sourceId":12,"name":"濮阳","x":599,"y":358,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14938,"manpower":12492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-493","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"chenliu","sourceId":13,"name":"陈留","x":546,"y":391,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14383,"manpower":12522,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-638","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"xuchang","sourceId":14,"name":"许昌","x":507,"y":446,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14005,"manpower":12588,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-255","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","crossbow"],"research":null,"effects":[],"opportunities":[{"kind":"disaster","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"runan","sourceId":15,"name":"汝南","x":568,"y":509,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":9187.365,"manpower":9500,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":3000,"governor":null,"project":{"key":"commerce","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"luoyang","sourceId":16,"name":"洛阳","x":419,"y":379,"kind":"city","province":"司隶","subtitle":"司隶 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13969,"manpower":12558,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-226","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"wan","sourceId":17,"name":"宛","x":410,"y":446,"kind":"city","province":"京兆","subtitle":"京兆 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13912,"manpower":12510,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-61","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{}'... 2302463 more characters
+  - '{"version":2,"rulesVersion":40,"officerDataVersion":3,"relationshipScores":{},"relationshipTypes":{},"seed":417,"turn":4,"gold":22456,"grain":185620,"fame":120,"cities":[{"id":"town-1","sourceId":1,"name":"襄平","x":837,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":8025,"manpower":5576,"order":80,"farm":1,"commerce":3,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-664","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-2","sourceId":2,"name":"北平","x":727,"y":144,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":1899,"manpower":3199,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-478","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":532,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-3","sourceId":3,"name":"蓟","x":608,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2375,"manpower":2404,"order":80,"farm":2,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-296","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":831,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-4","sourceId":4,"name":"南皮","x":678,"y":215,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2415,"manpower":1697,"order":80,"farm":2,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"tian","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1825,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-5","sourceId":5,"name":"平原","x":639,"y":286,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2384,"manpower":2098,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-215","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1400,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"jinyang","sourceId":6,"name":"晋阳","x":472,"y":223,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6776,"manpower":4492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-49","project":{"key":"barracks","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"ye","sourceId":7,"name":"邺","x":551,"y":282,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6096.2,"manpower":6114,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"ju","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-8","sourceId":8,"name":"北海","x":775,"y":274,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":10809,"manpower":9516,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-195","project":null,"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-9","sourceId":9,"name":"下邳","x":758,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":true,"garrison":0,"grain":2461.04,"manpower":4791,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":11269,"governor":null,"project":null,"reliefTurn":0,"drafted":2000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-10","sourceId":10,"name":"小沛","x":670,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":2140,"manpower":2739,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-320","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":478,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-11","sourceId":11,"name":"寿春","x":687,"y":463,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":true,"garrison":0,"grain":2140,"manpower":3527,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-83","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":164,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"master","expires":50,"amount":0,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-12","sourceId":12,"name":"濮阳","x":599,"y":358,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14938,"manpower":12492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-493","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"chenliu","sourceId":13,"name":"陈留","x":546,"y":391,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14383,"manpower":12522,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-638","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"xuchang","sourceId":14,"name":"许昌","x":507,"y":446,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14005,"manpower":12588,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-255","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","crossbow"],"research":null,"effects":[],"opportunities":[{"kind":"disaster","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"runan","sourceId":15,"name":"汝南","x":568,"y":509,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":9187.365,"manpower":9500,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":3000,"governor":null,"project":{"key":"commerce","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"luoyang","sourceId":16,"name":"洛阳","x":419,"y":379,"kind":"city","province":"司隶","subtitle":"司隶 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13969,"manpower":12558,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-226","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"wan","sourceId":17,"name":"宛","x":410,"y":446,"kind":"city","province":"京兆","subtitle":"京兆 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13912,"manpower":12510,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-61","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{}'... 2301999 more characters
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/national-campaign.test.mjs:34:59)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '{"version":2,"rulesVersion":40,"officerDataVersion":3,"relationshipScores":{},"relationshipTypes":{},"seed":417,"turn":4,"gold":22456,"grain":185620,"fame":120,"cities":[{"id":"town-1","sourceId":1,"name":"襄平","x":837,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":8025,"manpower":5576,"order":80,"farm":1,"commerce":3,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-664","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-2","sourceId":2,"name":"北平","x":727,"y":144,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":1899,"manpower":3199,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-478","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":532,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-3","sourceId":3,"name":"蓟","x":608,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2375,"manpower":2404,"order":80,"farm":2,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-296","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":831,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-4","sourceId":4,"name":"南皮","x":678,"y":215,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2415,"manpower":1697,"order":80,"farm":2,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"tian","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1825,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-5","sourceId":5,"name":"平原","x":639,"y":286,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2384,"manpower":2098,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-215","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1400,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"jinyang","sourceId":6,"name":"晋阳","x":472,"y":223,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6776,"manpower":4492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-49","project":{"key":"barracks","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"ye","sourceId":7,"name":"邺","x":551,"y":282,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6096.2,"manpower":6114,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"ju","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-8","sourceId":8,"name":"北海","x":775,"y":274,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":10809,"manpower":9516,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-195","project":null,"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-9","sourceId":9,"name":"下邳","x":758,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":true,"garrison":0,"grain":2461.04,"manpower":4791,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":11269,"governor":null,"project":null,"reliefTurn":0,"drafted":2000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-10","sourceId":10,"name":"小沛","x":670,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":2140,"manpower":2739,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-320","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":478,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-11","sourceId":11,"name":"寿春","x":687,"y":463,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":true,"garrison":0,"grain":2140,"manpower":3527,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-83","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":164,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"master","expires":50,"amount":0,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-12","sourceId":12,"name":"濮阳","x":599,"y":358,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14938,"manpower":12492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-493","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"chenliu","sourceId":13,"name":"陈留","x":546,"y":391,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14383,"manpower":12522,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-638","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"xuchang","sourceId":14,"name":"许昌","x":507,"y":446,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14005,"manpower":12588,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-255","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","crossbow"],"research":null,"effects":[],"opportunities":[{"kind":"disaster","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"runan","sourceId":15,"name":"汝南","x":568,"y":509,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":9187.365,"manpower":9500,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":3000,"governor":null,"project":{"key":"commerce","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"luoyang","sourceId":16,"name":"洛阳","x":419,"y":379,"kind":"city","province":"司隶","subtitle":"司隶 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13969,"manpower":12558,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-226","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"wan","sourceId":17,"name":"宛","x":410,"y":446,"kind":"city","province":"京兆","subtitle":"京兆 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13912,"manpower":12510,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-61","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{}'... 2302463 more characters,
+    expected: '{"version":2,"rulesVersion":40,"officerDataVersion":3,"relationshipScores":{},"relationshipTypes":{},"seed":417,"turn":4,"gold":22456,"grain":185620,"fame":120,"cities":[{"id":"town-1","sourceId":1,"name":"襄平","x":837,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":8025,"manpower":5576,"order":80,"farm":1,"commerce":3,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-664","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-2","sourceId":2,"name":"北平","x":727,"y":144,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":1899,"manpower":3199,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-478","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":532,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-3","sourceId":3,"name":"蓟","x":608,"y":127,"kind":"city","province":"幽州","subtitle":"幽州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2375,"manpower":2404,"order":80,"farm":2,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-296","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":831,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"mold","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-4","sourceId":4,"name":"南皮","x":678,"y":215,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2415,"manpower":1697,"order":80,"farm":2,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"tian","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1825,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-5","sourceId":5,"name":"平原","x":639,"y":286,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":2384,"manpower":2098,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-215","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":1400,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"jinyang","sourceId":6,"name":"晋阳","x":472,"y":223,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6776,"manpower":4492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-49","project":{"key":"barracks","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"ye","sourceId":7,"name":"邺","x":551,"y":282,"kind":"city","province":"冀州","subtitle":"冀州 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":6096.2,"manpower":6114,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"ju","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-8","sourceId":8,"name":"北海","x":775,"y":274,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":false,"garrison":0,"grain":10809,"manpower":9516,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-195","project":null,"reliefTurn":0,"drafted":3000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-9","sourceId":9,"name":"下邳","x":758,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"yuan","water":true,"garrison":0,"grain":2461.04,"manpower":4791,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":11269,"governor":null,"project":null,"reliefTurn":0,"drafted":2000,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"yuan","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-10","sourceId":10,"name":"小沛","x":670,"y":383,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":2140,"manpower":2739,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-320","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":478,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-11","sourceId":11,"name":"寿春","x":687,"y":463,"kind":"city","province":"青徐","subtitle":"青徐 · 州郡城池","owner":"sunce","water":true,"garrison":0,"grain":2140,"manpower":3527,"order":80,"farm":2,"commerce":2,"barracks":2,"walls":1,"granary":1,"gateHp":15000,"governor":"person-83","project":{"key":"farm","remaining":1},"reliefTurn":0,"drafted":164,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[{"kind":"master","expires":50,"amount":0,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"town-12","sourceId":12,"name":"濮阳","x":599,"y":358,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14938,"manpower":12492,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-493","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"chenliu","sourceId":13,"name":"陈留","x":546,"y":391,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14383,"manpower":12522,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-638","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"xuchang","sourceId":14,"name":"许昌","x":507,"y":446,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":14005,"manpower":12588,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-255","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","crossbow"],"research":null,"effects":[],"opportunities":[{"kind":"disaster","expires":40,"amount":600,"saved":0}],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"runan","sourceId":15,"name":"汝南","x":568,"y":509,"kind":"city","province":"兖予","subtitle":"兖予 · 州郡城池","owner":"sunce","water":false,"garrison":0,"grain":9187.365,"manpower":9500,"order":80,"farm":1,"commerce":1,"barracks":2,"walls":1,"granary":1,"gateHp":3000,"governor":null,"project":{"key":"commerce","remaining":1},"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"sunce","techs":["spear","archer"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"luoyang","sourceId":16,"name":"洛阳","x":419,"y":379,"kind":"city","province":"司隶","subtitle":"司隶 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13969,"manpower":12558,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-226","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{},"preparation":{"intent":null,"shield":null}}},{"id":"wan","sourceId":17,"name":"宛","x":410,"y":446,"kind":"city","province":"京兆","subtitle":"京兆 · 州郡城池","owner":"cao","water":false,"garrison":0,"grain":13912,"manpower":12510,"order":80,"farm":1,"commerce":1,"barracks":1,"walls":1,"granary":1,"gateHp":15000,"governor":"person-61","project":null,"reliefTurn":0,"drafted":0,"workshop":0,"clinic":0,"drill":0,"hall":0,"domestic":{"owner":"cao","techs":["spear","archer","cavalry"],"research":null,"effects":[],"opportunities":[],"reserved":0,"cooldowns":{}'... 2301999 more characters,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:68:1
+✖ army command aura affects nearby other active allies, does not stack and vanishes on departure (18.8538ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:69:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:76:1
+✖ spear formation, stationary defense and movement resets respect exact conditions (12.4188ms)
+  AssertionError [ERR_ASSERTION]: jin/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:77:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:83:1
+✖ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (9.1385ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:84:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:96:1
+✖ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.185ms)
+  AssertionError [ERR_ASSERTION]: dun/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:97:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:103:1
+✖ isolated and joint change actual basic damage and evaluate neighbors from the correct side (3.1453ms)
+  AssertionError [ERR_ASSERTION]: liao/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at shot (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:104:65)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:105:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:108:1
+✖ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (2.6468ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at hit (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:109:38)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:110:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:114:1
+✖ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (14.563ms)
+  AssertionError [ERR_ASSERTION]: custom/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:29:17)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:118:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:128:1
+✖ multi-hit tactics do not charge the caster and grant surviving-hit intent once (4.6587ms)
+  AssertionError [ERR_ASSERTION]: liao/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:129:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:145:1
+✖ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (2.8917ms)
+  AssertionError [ERR_ASSERTION]: yu/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at shield (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:146:34)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:147:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:172:1
+✖ fortress reduces real burning and army firestorm damage before shields without creating intent (2.8853ms)
+  AssertionError [ERR_ASSERTION]: jin/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at burn (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:173:32)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:174:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactical-campaigns.test.mjs:25:3
+✖ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (7.3871ms)
+  AssertionError [ERR_ASSERTION]: jia/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:37:27)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:46:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactical-campaigns.test.mjs:25:3
+✖ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (2.4496ms)
+  AssertionError [ERR_ASSERTION]: jia/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:37:27)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:46:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:88:1
+✖ rare skills stun, protect and reduce intent without being universal damage attacks (6.8306ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at scene (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactics.test.mjs:17:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactics.test.mjs:90:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\taunt-pursuit.test.mjs:60:1
+✖ a real charge follows a real retreat shot instead of switching back to a disabled front (9.0156ms)
+  AssertionError [ERR_ASSERTION]: yan/crossbow: B aptitude cannot learn retreatShot
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/taunt-pursuit.test.mjs:62:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:66:1
+✖ area fire resolves each target terrain separately (6.8474ms)
+  AssertionError [ERR_ASSERTION]: actor/archer: B aptitude cannot learn wildfire
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:68:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:86:1
+✖ high ground boosts shooting, woodland shields ranged targets and neutral skills remain neutral (3.6879ms)
+  AssertionError [ERR_ASSERTION]: actor/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:24:46)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:87:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:96:1
+✖ charge damage remembers the starting high ground and the worst traversed wetland (4.0824ms)
+  AssertionError [ERR_ASSERTION]: actor/cavalry: B aptitude cannot learn rush
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:24:46)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:97:39)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:116:1
+✖ water tactics and fire distinguish a ship under the bridge from troops on it (12.7563ms)
+  AssertionError [ERR_ASSERTION]: actor/ship: B aptitude cannot learn navalRam
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at scene (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:18:5)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:122:13)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:126:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:81:1
+✖ each role completes a battle and preserves deterministic continuation under current rules (1871.0984ms)
+  AssertionError [ERR_ASSERTION]: cao/siege: B aptitude cannot learn plague
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/toolbox.test.mjs:84:30)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:50:3
+✖ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (3.7324ms)
+  AssertionError [ERR_ASSERTION]: jia/archer: B aptitude cannot learn wildfire
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:51:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:50:3
+✖ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (5.2433ms)
+  AssertionError [ERR_ASSERTION]: jia/siege: B aptitude cannot learn plague
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:51:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:50:3
+✖ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (3.2413ms)
+  AssertionError [ERR_ASSERTION]: cao/siege: B aptitude cannot learn bombard
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:51:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:50:3
+✖ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (1.9687ms)
+  AssertionError [ERR_ASSERTION]: cao/ship: B aptitude cannot learn broadside
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:51:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:64:1
+✖ firestorm is bounded by friendly power, not enemy army size (2.5384ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn seal
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:66:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:74:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

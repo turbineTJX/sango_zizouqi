@@ -1,0 +1,2178 @@
+[
+  {
+    "seed": 1,
+    "plan": "驻守",
+    "day": 41,
+    "finished": null,
+    "battles": [
+      {
+        "name": "陈留攻守战",
+        "start": 4,
+        "end": 12,
+        "ticks": 104,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "许昌攻守战",
+        "start": 26,
+        "end": 36,
+        "ticks": 132,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "battles": []
+      },
+      {
+        "day": 2,
+        "battles": []
+      },
+      {
+        "day": 3,
+        "battles": []
+      },
+      {
+        "day": 4,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 12,
+            "loss": 1313,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 24,
+            "loss": 2800,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 36,
+            "loss": 4581,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 48,
+            "loss": 3098,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 60,
+            "loss": 4007,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 72,
+            "loss": 0,
+            "gate": 11251
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 84,
+            "loss": 0,
+            "gate": 7016
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 96,
+            "loss": 0,
+            "gate": 2885
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 104,
+            "loss": 0,
+            "gate": 0
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "battles": []
+      },
+      {
+        "day": 14,
+        "battles": []
+      },
+      {
+        "day": 15,
+        "battles": []
+      },
+      {
+        "day": 16,
+        "battles": []
+      },
+      {
+        "day": 17,
+        "battles": []
+      },
+      {
+        "day": 18,
+        "battles": []
+      },
+      {
+        "day": 19,
+        "battles": []
+      },
+      {
+        "day": 20,
+        "battles": []
+      },
+      {
+        "day": 21,
+        "battles": []
+      },
+      {
+        "day": 22,
+        "battles": []
+      },
+      {
+        "day": 23,
+        "battles": []
+      },
+      {
+        "day": 24,
+        "battles": []
+      },
+      {
+        "day": 25,
+        "battles": []
+      },
+      {
+        "day": 26,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 12,
+            "loss": 2822,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 27,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 24,
+            "loss": 4051,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 28,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 36,
+            "loss": 4633,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 29,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 48,
+            "loss": 2818,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 30,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 60,
+            "loss": 1800,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 31,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 72,
+            "loss": 1622,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 32,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 84,
+            "loss": 878,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 33,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 96,
+            "loss": 1212,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 34,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 108,
+            "loss": 778,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 35,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 120,
+            "loss": 925,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 36,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 132,
+            "loss": 465,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 37,
+        "battles": []
+      },
+      {
+        "day": 38,
+        "battles": []
+      },
+      {
+        "day": 39,
+        "battles": []
+      },
+      {
+        "day": 40,
+        "battles": []
+      }
+    ]
+  },
+  {
+    "seed": 1,
+    "plan": "双路出征",
+    "day": 41,
+    "finished": null,
+    "battles": [
+      {
+        "name": "陈留道遭遇战",
+        "start": 2,
+        "end": 7,
+        "ticks": 68,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 4,
+        "end": 7,
+        "ticks": 47,
+        "result": {
+          "winner": 0,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "陈留攻守战",
+        "start": 5,
+        "end": 13,
+        "ticks": 97,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 25,
+        "end": 34,
+        "ticks": 116,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "battles": []
+      },
+      {
+        "day": 2,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 12,
+            "loss": 1613
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 24,
+            "loss": 1738
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 36,
+            "loss": 1820
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 12,
+            "loss": 1243,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 48,
+            "loss": 1334
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 24,
+            "loss": 884,
+            "gate": 12540
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 12,
+            "loss": 996,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 60,
+            "loss": 1584
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 36,
+            "loss": 0,
+            "gate": 6087
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 24,
+            "loss": 2315,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 68,
+            "loss": 556
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 47,
+            "loss": 0,
+            "gate": 0
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 36,
+            "loss": 2250,
+            "gate": 14554
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 48,
+            "loss": 0,
+            "gate": 12090
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 60,
+            "loss": 0,
+            "gate": 9584
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 72,
+            "loss": 0,
+            "gate": 6503
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 84,
+            "loss": 0,
+            "gate": 3770
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 96,
+            "loss": 0,
+            "gate": 638
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 97,
+            "loss": 0,
+            "gate": 0
+          }
+        ]
+      },
+      {
+        "day": 14,
+        "battles": []
+      },
+      {
+        "day": 15,
+        "battles": []
+      },
+      {
+        "day": 16,
+        "battles": []
+      },
+      {
+        "day": 17,
+        "battles": []
+      },
+      {
+        "day": 18,
+        "battles": []
+      },
+      {
+        "day": 19,
+        "battles": []
+      },
+      {
+        "day": 20,
+        "battles": []
+      },
+      {
+        "day": 21,
+        "battles": []
+      },
+      {
+        "day": 22,
+        "battles": []
+      },
+      {
+        "day": 23,
+        "battles": []
+      },
+      {
+        "day": 24,
+        "battles": []
+      },
+      {
+        "day": 25,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 12,
+            "loss": 2774,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 26,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 24,
+            "loss": 4433,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 27,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 36,
+            "loss": 4517,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 28,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 48,
+            "loss": 3297,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 29,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 60,
+            "loss": 1899,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 30,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 72,
+            "loss": 1434,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 31,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 84,
+            "loss": 1378,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 32,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 96,
+            "loss": 1306,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 33,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 108,
+            "loss": 945,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 34,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 116,
+            "loss": 780,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 35,
+        "battles": []
+      },
+      {
+        "day": 36,
+        "battles": []
+      },
+      {
+        "day": 37,
+        "battles": []
+      },
+      {
+        "day": 38,
+        "battles": []
+      },
+      {
+        "day": 39,
+        "battles": []
+      },
+      {
+        "day": 40,
+        "battles": []
+      }
+    ]
+  },
+  {
+    "seed": 17,
+    "plan": "驻守",
+    "day": 41,
+    "finished": null,
+    "battles": [
+      {
+        "name": "陈留攻守战",
+        "start": 4,
+        "end": 12,
+        "ticks": 103,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "许昌攻守战",
+        "start": 26,
+        "end": 35,
+        "ticks": 112,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "battles": []
+      },
+      {
+        "day": 2,
+        "battles": []
+      },
+      {
+        "day": 3,
+        "battles": []
+      },
+      {
+        "day": 4,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 12,
+            "loss": 1344,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 24,
+            "loss": 2659,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 36,
+            "loss": 4413,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 48,
+            "loss": 3100,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 60,
+            "loss": 3500,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 72,
+            "loss": 158,
+            "gate": 11485
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 84,
+            "loss": 0,
+            "gate": 7102
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 96,
+            "loss": 0,
+            "gate": 2822
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 103,
+            "loss": 0,
+            "gate": 0
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "battles": []
+      },
+      {
+        "day": 14,
+        "battles": []
+      },
+      {
+        "day": 15,
+        "battles": []
+      },
+      {
+        "day": 16,
+        "battles": []
+      },
+      {
+        "day": 17,
+        "battles": []
+      },
+      {
+        "day": 18,
+        "battles": []
+      },
+      {
+        "day": 19,
+        "battles": []
+      },
+      {
+        "day": 20,
+        "battles": []
+      },
+      {
+        "day": 21,
+        "battles": []
+      },
+      {
+        "day": 22,
+        "battles": []
+      },
+      {
+        "day": 23,
+        "battles": []
+      },
+      {
+        "day": 24,
+        "battles": []
+      },
+      {
+        "day": 25,
+        "battles": []
+      },
+      {
+        "day": 26,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 12,
+            "loss": 2861,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 27,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 24,
+            "loss": 3993,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 28,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 36,
+            "loss": 3985,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 29,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 48,
+            "loss": 3451,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 30,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 60,
+            "loss": 1733,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 31,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 72,
+            "loss": 1931,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 32,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 84,
+            "loss": 1246,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 33,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 96,
+            "loss": 1561,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 34,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 108,
+            "loss": 817,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 35,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 112,
+            "loss": 222,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 36,
+        "battles": []
+      },
+      {
+        "day": 37,
+        "battles": []
+      },
+      {
+        "day": 38,
+        "battles": []
+      },
+      {
+        "day": 39,
+        "battles": []
+      },
+      {
+        "day": 40,
+        "battles": []
+      }
+    ]
+  },
+  {
+    "seed": 17,
+    "plan": "双路出征",
+    "day": 41,
+    "finished": null,
+    "battles": [
+      {
+        "name": "陈留道遭遇战",
+        "start": 2,
+        "end": 7,
+        "ticks": 68,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 4,
+        "end": 7,
+        "ticks": 48,
+        "result": {
+          "winner": 0,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "陈留攻守战",
+        "start": 5,
+        "end": 13,
+        "ticks": 97,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 25,
+        "end": 34,
+        "ticks": 113,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "battles": []
+      },
+      {
+        "day": 2,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 12,
+            "loss": 1672
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 24,
+            "loss": 1712
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 36,
+            "loss": 1959
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 12,
+            "loss": 1283,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 48,
+            "loss": 1318
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 24,
+            "loss": 870,
+            "gate": 12550
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 12,
+            "loss": 1017,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 60,
+            "loss": 1536
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 36,
+            "loss": 0,
+            "gate": 6294
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 24,
+            "loss": 2297,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 68,
+            "loss": 759
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 48,
+            "loss": 0,
+            "gate": 0
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 36,
+            "loss": 2241,
+            "gate": 14571
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 48,
+            "loss": 0,
+            "gate": 12172
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 60,
+            "loss": 0,
+            "gate": 9701
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 72,
+            "loss": 0,
+            "gate": 6682
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 84,
+            "loss": 0,
+            "gate": 3892
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 96,
+            "loss": 0,
+            "gate": 774
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 97,
+            "loss": 0,
+            "gate": 0
+          }
+        ]
+      },
+      {
+        "day": 14,
+        "battles": []
+      },
+      {
+        "day": 15,
+        "battles": []
+      },
+      {
+        "day": 16,
+        "battles": []
+      },
+      {
+        "day": 17,
+        "battles": []
+      },
+      {
+        "day": 18,
+        "battles": []
+      },
+      {
+        "day": 19,
+        "battles": []
+      },
+      {
+        "day": 20,
+        "battles": []
+      },
+      {
+        "day": 21,
+        "battles": []
+      },
+      {
+        "day": 22,
+        "battles": []
+      },
+      {
+        "day": 23,
+        "battles": []
+      },
+      {
+        "day": 24,
+        "battles": []
+      },
+      {
+        "day": 25,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 12,
+            "loss": 2780,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 26,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 24,
+            "loss": 4385,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 27,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 36,
+            "loss": 4733,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 28,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 48,
+            "loss": 3030,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 29,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 60,
+            "loss": 1663,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 30,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 72,
+            "loss": 1457,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 31,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 84,
+            "loss": 1186,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 32,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 96,
+            "loss": 1341,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 33,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 108,
+            "loss": 789,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 34,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 113,
+            "loss": 324,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 35,
+        "battles": []
+      },
+      {
+        "day": 36,
+        "battles": []
+      },
+      {
+        "day": 37,
+        "battles": []
+      },
+      {
+        "day": 38,
+        "battles": []
+      },
+      {
+        "day": 39,
+        "battles": []
+      },
+      {
+        "day": 40,
+        "battles": []
+      }
+    ]
+  },
+  {
+    "seed": 521200,
+    "plan": "驻守",
+    "day": 41,
+    "finished": null,
+    "battles": [
+      {
+        "name": "陈留攻守战",
+        "start": 4,
+        "end": 12,
+        "ticks": 102,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "许昌攻守战",
+        "start": 26,
+        "end": 35,
+        "ticks": 110,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "battles": []
+      },
+      {
+        "day": 2,
+        "battles": []
+      },
+      {
+        "day": 3,
+        "battles": []
+      },
+      {
+        "day": 4,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 12,
+            "loss": 1312,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 24,
+            "loss": 2792,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 36,
+            "loss": 4587,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 48,
+            "loss": 3540,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 60,
+            "loss": 3038,
+            "gate": 14461
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 72,
+            "loss": 0,
+            "gate": 10516
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 84,
+            "loss": 0,
+            "gate": 6083
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 96,
+            "loss": 0,
+            "gate": 1704
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 102,
+            "loss": 0,
+            "gate": 0
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "battles": []
+      },
+      {
+        "day": 14,
+        "battles": []
+      },
+      {
+        "day": 15,
+        "battles": []
+      },
+      {
+        "day": 16,
+        "battles": []
+      },
+      {
+        "day": 17,
+        "battles": []
+      },
+      {
+        "day": 18,
+        "battles": []
+      },
+      {
+        "day": 19,
+        "battles": []
+      },
+      {
+        "day": 20,
+        "battles": []
+      },
+      {
+        "day": 21,
+        "battles": []
+      },
+      {
+        "day": 22,
+        "battles": []
+      },
+      {
+        "day": 23,
+        "battles": []
+      },
+      {
+        "day": 24,
+        "battles": []
+      },
+      {
+        "day": 25,
+        "battles": []
+      },
+      {
+        "day": 26,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 12,
+            "loss": 2900,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 27,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 24,
+            "loss": 4078,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 28,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 36,
+            "loss": 3840,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 29,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 48,
+            "loss": 3090,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 30,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 60,
+            "loss": 1795,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 31,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 72,
+            "loss": 1795,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 32,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 84,
+            "loss": 1103,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 33,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 96,
+            "loss": 1512,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 34,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 108,
+            "loss": 766,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 35,
+        "battles": [
+          {
+            "name": "许昌攻守战",
+            "tick": 110,
+            "loss": 148,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 36,
+        "battles": []
+      },
+      {
+        "day": 37,
+        "battles": []
+      },
+      {
+        "day": 38,
+        "battles": []
+      },
+      {
+        "day": 39,
+        "battles": []
+      },
+      {
+        "day": 40,
+        "battles": []
+      }
+    ]
+  },
+  {
+    "seed": 521200,
+    "plan": "双路出征",
+    "day": 41,
+    "finished": null,
+    "battles": [
+      {
+        "name": "陈留道遭遇战",
+        "start": 2,
+        "end": 7,
+        "ticks": 68,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 4,
+        "end": 7,
+        "ticks": 47,
+        "result": {
+          "winner": 0,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "陈留攻守战",
+        "start": 5,
+        "end": 13,
+        "ticks": 97,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 25,
+        "end": 34,
+        "ticks": 113,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "battles": []
+      },
+      {
+        "day": 2,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 12,
+            "loss": 1611
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 24,
+            "loss": 1716
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 36,
+            "loss": 2010
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 12,
+            "loss": 1264,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 48,
+            "loss": 1642
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 24,
+            "loss": 873,
+            "gate": 12550
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 12,
+            "loss": 984,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 60,
+            "loss": 1111
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 36,
+            "loss": 0,
+            "gate": 6185
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 24,
+            "loss": 2338,
+            "gate": 15000
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "battles": [
+          {
+            "name": "陈留道遭遇战",
+            "tick": 68,
+            "loss": 823
+          },
+          {
+            "name": "官渡攻守战",
+            "tick": 47,
+            "loss": 0,
+            "gate": 0
+          },
+          {
+            "name": "陈留攻守战",
+            "tick": 36,
+            "loss": 2227,
+            "gate": 14392
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 48,
+            "loss": 0,
+            "gate": 11912
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 60,
+            "loss": 0,
+            "gate": 9276
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 72,
+            "loss": 0,
+            "gate": 6217
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 84,
+            "loss": 0,
+            "gate": 3402
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 96,
+            "loss": 0,
+            "gate": 278
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "battles": [
+          {
+            "name": "陈留攻守战",
+            "tick": 97,
+            "loss": 0,
+            "gate": 0
+          }
+        ]
+      },
+      {
+        "day": 14,
+        "battles": []
+      },
+      {
+        "day": 15,
+        "battles": []
+      },
+      {
+        "day": 16,
+        "battles": []
+      },
+      {
+        "day": 17,
+        "battles": []
+      },
+      {
+        "day": 18,
+        "battles": []
+      },
+      {
+        "day": 19,
+        "battles": []
+      },
+      {
+        "day": 20,
+        "battles": []
+      },
+      {
+        "day": 21,
+        "battles": []
+      },
+      {
+        "day": 22,
+        "battles": []
+      },
+      {
+        "day": 23,
+        "battles": []
+      },
+      {
+        "day": 24,
+        "battles": []
+      },
+      {
+        "day": 25,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 12,
+            "loss": 2795,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 26,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 24,
+            "loss": 4363,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 27,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 36,
+            "loss": 4603,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 28,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 48,
+            "loss": 3342,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 29,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 60,
+            "loss": 1738,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 30,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 72,
+            "loss": 1464,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 31,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 84,
+            "loss": 1262,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 32,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 96,
+            "loss": 1261,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 33,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 108,
+            "loss": 780,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 34,
+        "battles": [
+          {
+            "name": "官渡攻守战",
+            "tick": 113,
+            "loss": 456,
+            "gate": 3000
+          }
+        ]
+      },
+      {
+        "day": 35,
+        "battles": []
+      },
+      {
+        "day": 36,
+        "battles": []
+      },
+      {
+        "day": 37,
+        "battles": []
+      },
+      {
+        "day": 38,
+        "battles": []
+      },
+      {
+        "day": 39,
+        "battles": []
+      },
+      {
+        "day": 40,
+        "battles": []
+      }
+    ]
+  }
+]

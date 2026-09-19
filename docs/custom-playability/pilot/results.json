@@ -1,0 +1,1356 @@
+{
+  "createdAt": "2026-09-19T05:30:55.857Z",
+  "rulesVersion": 33,
+  "count": 4,
+  "seeds": [
+    7300000,
+    7307919,
+    7315838,
+    7323757
+  ],
+  "hashes": {
+    "art-assets.mjs": "d0e06cade52b298d48ffd8825ac172a7ffc9136d63c17a5bf149eff19fcd085e",
+    "art-battle.mjs": "19ef3dfc481ce512ef9798dff3f797bba9412d5b1e8636bbe4b0ee7f3a576f81",
+    "art-models.mjs": "643a5f073d075f69a26087dd02fb70946124feebab7257c13dc81be05f643653",
+    "art-strategic-map.mjs": "70504aea43662abcecacb43162cfc8dfb775cf57520d16f20e91c381973e6d92",
+    "attack-orbs.mjs": "4fa648377e08d6ff0d6fed390e06bc60d4f84a1ed4167708994e67796ee5b9f4",
+    "battle-ai.mjs": "8fbae09f387ca248a2c5aa5ea0e5ccef67ed329d1666e3348b533e04b5d7d715",
+    "battle-effects.mjs": "08a6bca2b3a2849225462ea57937793f8a11954ca2890b525a92dec1e77c2bda",
+    "battle-labels.mjs": "bb0fa4ab65d93b5fbe3f836a46b3b3aebc8f41a49bafe8bc8bb3c48e72b6dc83",
+    "battle-signals.mjs": "9227d3b71307d2d260bc37c1b4c7de45b0d492889933b2aa69291b65c00b6083",
+    "battlefield.mjs": "86ceb6b2cfeee1721c1994fb157f33851a65d6c0477a092fd5326064e78a9582",
+    "building-rules.mjs": "01f593d7a957cc5855d8240f79a80117a555b585e43677c7bddd020324835e49",
+    "campaign-lobby.mjs": "5e3b8e17e51e7b9cbd48e651a5b47149d30592c1684cd773952747bb060476fa",
+    "combat-rules.mjs": "99f532a8e8fabed9d81de851bc6a84242a982c398493f74077e1b2cb571d6491",
+    "command-cue.mjs": "aa364828b2d2e4bb562efed22de397e86417db28585c11b9f7220788db3808d9",
+    "custom-battle.mjs": "7f9ca89e766dbf5e5f6268317f0fed3c265834052ea54b4fcf2ee22f14ec1a50",
+    "domestic-cooperation.mjs": "b6f827806f4521a98ec28be7596433652af7744821d70d0413eb43d02be1b93e",
+    "domestic.mjs": "986c45e8f3774984f3fb273e1cd5228573fdd48c48114ac0eeff002b36722326",
+    "engagement.mjs": "fa9f06fde562e7d21d0c33a6cee25091c4919b07648d62653b612f0c021ac02c",
+    "engine.mjs": "f91247e0c41a26fe54f8dd2ac873deaf2af91a6a8911d9554d653473ceeeaa13",
+    "expanded-tactics.mjs": "e1b05d1848c032459895d31adb7c83e18a2b8161147c139158cf44c59a23bc62",
+    "famous-officers.mjs": "8897785ebed0c7d707bf5fbae2630a87b04f80bc68038c7aef30ade20b22628c",
+    "hex-grid.mjs": "51ec48fa7a3f9f2e5d7e6f8f5f667ddbc39c1329b245b3959ff8893b8e04156b",
+    "historical-campaigns.mjs": "437d622ccaa4b5e930322c51e99255ffcd7c6d733b71c755b2c23f2ce11976e9",
+    "local-art-server.mjs": "99cabb79ee6fc0b10bd8ad77318d1f1d71b1387f32f627d0eb1f4b1b1d7b7490",
+    "officer-catalog.mjs": "954146356d1128ef6e94879078c5c198fadb956a78b063a473854201a64b21ac",
+    "officer-roster.mjs": "4b31187c491501c9efe15ee727a65cba359c217945d4cf7498fb63e16e7c7069",
+    "passives.mjs": "0ee579f79a00500ff8cd47ddfddf87427d81c94e37c0dfa7cf7f32492fa0a531",
+    "progression.mjs": "e8a31bd78c8958b7d1bec8a523435d0814a7a658faaa9ae8c7903d53cd0d6002",
+    "relationships.mjs": "00959ad48c3e57ea2f41be421807ba518324da3ac6708c583c6f5ac51e75b02a",
+    "scenario-catalog.mjs": "0c5a09f13dc1a3b5eb05857ef3e5266c34a7c3669b18a874b13a3625f1cdba3e",
+    "scenarios.mjs": "19a0b4a7ef8e27454d09e75f4826a12bb9931e68c4e5648554dea76daa0ba2a2",
+    "server.mjs": "62ca6129ff405bcb423f77c8f651f1984d71230047157954cf6abe0282a1683e",
+    "status-display.mjs": "b988a4906ed737dea2c5dc226e2ddbe5c58548565b8c28b8d137e6cf45f5770b",
+    "strategic-campaign.mjs": "d6834a55f6a0cf54fb65cc0f084bc43b0f80aaf5bb78d5709308331c359243b1",
+    "strategic-map-art.mjs": "976130b6c11ed68974588e7f26b836183496f46e8b4b9b6d8669872839aeb118",
+    "strategic-view.mjs": "8526153a01d36a0df25ad6514aec3bad7ec7aa746bbe69673f3cfed7ee202e9b",
+    "support-rules.mjs": "feccebd8737f52b2d1ed6d34e174e8f608f6b645e88195e6f2def36e700a5a38",
+    "tactic-outcomes.mjs": "ae446084868d3ce4a1d998b6709dc605e9098135eec04d2a5eef1e3ee065397e",
+    "tactic-power.mjs": "ec2c131e251275266cdb36cb94bce710667f8e26f4d0d659a7306f5ace74231f",
+    "tactical-campaigns.mjs": "9889eb6fc88e4e99f9ae50dcb414db3dd2f6eb04e9adc2ea43ab67a4f54b4e5b",
+    "tactics.mjs": "762422647ecc2c2ad3d9c5978035a0a2860d8201bd5f6d62089d6d80b4383fc8",
+    "terrain-rules.mjs": "32712ea8e9f07a45c4f0db1bc1e6fa6cfb86e3652723a13d6f8d1afd52afa6d3",
+    "troop-capacity.mjs": "11818fe53d244cc3c5561153d0a1671beaaeedf73d25f72b367786a88b206f8a",
+    "unit-stats.mjs": "a9375af1b281edfebe5500dbe6b7370e4574705e68067449b1125f5507f039d0",
+    "data/officer-profile-overrides.mjs": "0ea15978330fbe4f8295591647f6d935f9a4034a8637bf06e74aac4880a05258",
+    "data/officer-traits.mjs": "9a38347aa1ff6b261e1f091ce0f719f1de75b9973968b4ce7424a1397e17b339",
+    "data/officers-source.json": "9596caad3a93310216a99b89c4835437d0e29ee6540e05a5849aac139e5eaa1d",
+    "data/officers.mjs": "3859dc656c23c00c5d9c86c86e04f329cb1ca5f7fa080c8e506c6b6c7c01dbdc",
+    "scripts/custom-playability-lib.mjs": "3bde1aeb90dfb2b41cf80d7663eebfe45db349f03680f435d7396d3f2d6a3f9d",
+    "scripts/audit-custom-playability.mjs": "ecc5d81361f5509585e41ebc50a70df8d0e0484d5c51b3be32f1fe2e789fdd59"
+  },
+  "total": 281,
+  "archetypes": [
+    {
+      "id": "cooperation",
+      "name": "多二流协同",
+      "note": "王平、张翼、张嶷、马忠（蜀）、陈到、李典；本报告的二流是阵容定位，不是官方品阶。",
+      "team": [
+        {
+          "id": "person-46",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-439",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-408",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-515",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-457",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-610",
+          "type": "crossbow",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "carry",
+      "name": "超一流主C＋三流辅助",
+      "note": "赵云主C；周仓、廖化牵制，简雍、孙乾、糜竺支援。三流指正面战斗能力，文官的智政并不低。",
+      "team": [
+        {
+          "id": "person-396",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-242",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "crossbow",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "name": "一三流混搭",
+      "note": "关羽、张辽双核；廖化、简雍、孙乾、糜竺分别承伤、补给、控制、破甲。",
+      "team": [
+        {
+          "id": "person-99",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "liao",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "crossbow",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    }
+  ],
+  "opponents": [
+    {
+      "id": "balanced",
+      "name": "河北混编",
+      "terrain": "land",
+      "team": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "yan",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "wen",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "ju",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "tian",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "cavalry",
+      "name": "骑兵突击",
+      "terrain": "land",
+      "team": [
+        {
+          "id": "person-342",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-70",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "jin",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "dun",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "yuanxia",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-641",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "ranged",
+      "name": "丘陵远射",
+      "terrain": "hill",
+      "team": [
+        {
+          "id": "person-467",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-117",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-164",
+          "type": "crossbow",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-459",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-470",
+          "type": "crossbow",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-119",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    }
+  ],
+  "classicCases": [
+    {
+      "id": "duel",
+      "name": "飞将对普通将",
+      "terrain": "land",
+      "a": [
+        {
+          "id": "person-661",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "z": [
+        {
+          "id": "person-646",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "expect": "吕布同兵同级应有明显优势",
+      "min": 0.7,
+      "max": 1
+    },
+    {
+      "id": "heroes",
+      "name": "三英战吕布",
+      "terrain": "land",
+      "a": [
+        {
+          "id": "person-636",
+          "type": "spear",
+          "troops": 2300,
+          "level": 8
+        },
+        {
+          "id": "person-99",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "person-433",
+          "type": "spear",
+          "troops": 3200,
+          "level": 8
+        }
+      ],
+      "z": [
+        {
+          "id": "person-661",
+          "type": "cavalry",
+          "troops": 8500,
+          "level": 8
+        }
+      ],
+      "expect": "等总兵力三英应有取胜空间，吕布不应必胜",
+      "min": 0.25,
+      "max": 1
+    },
+    {
+      "id": "ordinary",
+      "name": "普通将协同迎飞将",
+      "terrain": "land",
+      "a": [
+        {
+          "id": "person-46",
+          "type": "spear",
+          "troops": 2800,
+          "level": 8
+        },
+        {
+          "id": "person-439",
+          "type": "halberd",
+          "troops": 2800,
+          "level": 8
+        },
+        {
+          "id": "person-408",
+          "type": "crossbow",
+          "troops": 2900,
+          "level": 8
+        }
+      ],
+      "z": [
+        {
+          "id": "person-661",
+          "type": "cavalry",
+          "troops": 8500,
+          "level": 8
+        }
+      ],
+      "expect": "普通将分工应有挑战空间；不要求稳定战胜吕布",
+      "min": 0.1,
+      "max": 1
+    },
+    {
+      "id": "spear-cavalry",
+      "name": "枪戟拒骑",
+      "terrain": "land",
+      "a": [
+        {
+          "id": "jin",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-70",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-610",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "z": [
+        {
+          "id": "person-467",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-117",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-164",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "expect": "枪戟对骑兵应有优势（含武将差异）",
+      "min": 0.6,
+      "max": 1
+    },
+    {
+      "id": "cavalry-archer",
+      "name": "轻骑突弓",
+      "terrain": "land",
+      "a": [
+        {
+          "id": "jin",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-70",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-610",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "z": [
+        {
+          "id": "person-467",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-117",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-164",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "expect": "无前排弓兵应受骑兵威胁（含武将差异）",
+      "min": 0.6,
+      "max": 1
+    },
+    {
+      "id": "fire-forest",
+      "name": "林地火攻",
+      "terrain": "forest",
+      "a": [
+        {
+          "id": "person-246",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-164",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-467",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "z": [
+        {
+          "id": "cao",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "dun",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "yu",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "expect": "林地火攻阵容至少有取胜空间",
+      "min": 0.2,
+      "max": 1
+    },
+    {
+      "id": "fleet",
+      "name": "江上水战",
+      "terrain": "river",
+      "a": [
+        {
+          "id": "person-246",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-164",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-467",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "z": [
+        {
+          "id": "cao",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "dun",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "yu",
+          "type": "ship",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "expect": "水军能合法接敌并结束；久战比例不超过20%",
+      "maxTimeout": 0.2
+    }
+  ],
+  "classic": [
+    {
+      "id": "duel",
+      "name": "飞将对普通将",
+      "expect": "吕布同兵同级应有明显优势",
+      "passed": true,
+      "n": 8,
+      "wins": 8,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 110,
+      "remaining": 0.212,
+      "aLeftWins": 4,
+      "aRightWins": 4
+    },
+    {
+      "id": "heroes",
+      "name": "三英战吕布",
+      "expect": "等总兵力三英应有取胜空间，吕布不应必胜",
+      "passed": true,
+      "n": 8,
+      "wins": 8,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 68.6,
+      "remaining": 0.365,
+      "aLeftWins": 4,
+      "aRightWins": 4
+    },
+    {
+      "id": "ordinary",
+      "name": "普通将协同迎飞将",
+      "expect": "普通将分工应有挑战空间；不要求稳定战胜吕布",
+      "passed": true,
+      "n": 8,
+      "wins": 8,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 146.6,
+      "remaining": 0.286,
+      "aLeftWins": 4,
+      "aRightWins": 4
+    },
+    {
+      "id": "spear-cavalry",
+      "name": "枪戟拒骑",
+      "expect": "枪戟对骑兵应有优势（含武将差异）",
+      "passed": true,
+      "n": 8,
+      "wins": 8,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 88.5,
+      "remaining": 0.36,
+      "aLeftWins": 4,
+      "aRightWins": 4
+    },
+    {
+      "id": "cavalry-archer",
+      "name": "轻骑突弓",
+      "expect": "无前排弓兵应受骑兵威胁（含武将差异）",
+      "passed": true,
+      "n": 8,
+      "wins": 8,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 66.5,
+      "remaining": 0.33,
+      "aLeftWins": 4,
+      "aRightWins": 4
+    },
+    {
+      "id": "fire-forest",
+      "name": "林地火攻",
+      "expect": "林地火攻阵容至少有取胜空间",
+      "passed": true,
+      "n": 8,
+      "wins": 8,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 102,
+      "remaining": 0.307,
+      "aLeftWins": 4,
+      "aRightWins": 4
+    },
+    {
+      "id": "fleet",
+      "name": "江上水战",
+      "expect": "水军能合法接敌并结束；久战比例不超过20%",
+      "passed": true,
+      "n": 8,
+      "wins": 7,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 227,
+      "remaining": 0.072,
+      "aLeftWins": 3,
+      "aRightWins": 4
+    }
+  ],
+  "players": [
+    {
+      "archetype": "cooperation",
+      "name": "多二流协同",
+      "opponent": "balanced",
+      "enemy": "河北混编",
+      "terrain": "land",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 100,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 112,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 104,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.8,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 104.3,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 97.8,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 110.8,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "cooperation",
+      "name": "多二流协同",
+      "opponent": "cavalry",
+      "enemy": "骑兵突击",
+      "terrain": "land",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 154,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 150,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 143,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 116.8,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 176,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 118.3,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 150,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "cooperation",
+      "name": "多二流协同",
+      "opponent": "ranged",
+      "enemy": "丘陵远射",
+      "terrain": "hill",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 100.3,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 87.3,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94.3,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 97,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 92.8,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 87.8,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 85.8,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "carry",
+      "name": "超一流主C＋三流辅助",
+      "opponent": "balanced",
+      "enemy": "河北混编",
+      "terrain": "land",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 67.7,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 69.3,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 74.3,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.5,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.3,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.3,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 72,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "carry",
+      "name": "超一流主C＋三流辅助",
+      "opponent": "cavalry",
+      "enemy": "骑兵突击",
+      "terrain": "land",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 92,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 92.7,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 84,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 77,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 89,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 89,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 99.3,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "carry",
+      "name": "超一流主C＋三流辅助",
+      "opponent": "ranged",
+      "enemy": "丘陵远射",
+      "terrain": "hill",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 79.7,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 75,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 79.7,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 75.8,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 78.8,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 78.8,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 73.3,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "mixed",
+      "name": "一三流混搭",
+      "opponent": "balanced",
+      "enemy": "河北混编",
+      "terrain": "land",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 69,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 69.7,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 81.7,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.8,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.5,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.5,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "mixed",
+      "name": "一三流混搭",
+      "opponent": "cavalry",
+      "enemy": "骑兵突击",
+      "terrain": "land",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94.7,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 88,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 90,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 91.5,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 91.5,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94.8,
+          "remaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "mixed",
+      "name": "一三流混搭",
+      "opponent": "ranged",
+      "enemy": "丘陵远射",
+      "terrain": "hill",
+      "selected": "compact",
+      "training": [
+        {
+          "plan": "compact",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.3,
+          "remaining": 0
+        },
+        {
+          "plan": "control",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.7,
+          "remaining": 0
+        },
+        {
+          "plan": "flank",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 79,
+          "remaining": 0
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 75.8,
+          "remaining": 0
+        },
+        "designed": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.5,
+          "remaining": 0
+        },
+        "no-orders": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.5,
+          "remaining": 0
+        },
+        "scattered": {
+          "n": 4,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 70.8,
+          "remaining": 0
+        }
+      }
+    }
+  ]
+}

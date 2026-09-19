@@ -1,0 +1,18 @@
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (17.2483ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (6.2784ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (7.6353ms)
+✔ a hostile column approaching home takes priority over expansion (4.8486ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (5.595ms)
+✔ a hungry army reverses its actual road progress without teleporting home (5.594ms)
+✔ a starving merged army splits its retreat into legal marching columns (5.9014ms)
+✔ a merged wounded roster sends only its live companies as reinforcements (5.0461ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (7.3854ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (7045.4567ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7238.6515

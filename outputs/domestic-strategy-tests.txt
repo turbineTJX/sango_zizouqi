@@ -1,0 +1,137 @@
+✖ campaign begins in day-one planning with cities, homes and at most ten units (4.739ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (143.9438ms)
+✔ armies move visibly along road interiors before arriving (3.0657ms)
+✔ head-on marching armies meet on the road without passing through each other (7.0858ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (84.6047ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (182.0636ms)
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (201.1717ms)
+✔ multiple battles and their snapshots share the same global day (86.6412ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (40.5714ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (446.3099ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (62.8484ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (71.3252ms)
+✖ governors must stay at home; relief is limited and assigned officials cannot join armies (1.1565ms)
+✖ officer transfers take real time and new armies require local idle officers and recruitment (1.2194ms)
+✖ split and merge conserve supply and capacity, and enforce ten-unit maximum (0.8375ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (3.5145ms)
+✔ supply connection is cut by hostile road occupation (0.4691ms)
+✔ five days without food disband armies and preserve officers for their return (2.6063ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (45.5174ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (157.4511ms)
+✔ city capture settles once and can be saved immediately within a day (58.0852ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (35.2574ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 17
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1756.229
+
+✖ failing tests:
+
+test at tests\strategic-campaign.test.mjs:24:1
+✖ campaign begins in day-one planning with cities, homes and at most ten units (4.739ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  10 !== 4
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:25:131)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:51:1
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (201.1717ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:55:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:90:1
+✖ governors must stay at home; relief is limited and assigned officials cannot join armies (1.1565ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '城市民心已停用，请通过人才委任安抚本城武将'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:92:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '城市民心已停用，请通过人才委任安抚本城武将',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:94:1
+✖ officer transfers take real time and new armies require local idle officers and recruitment (1.2194ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3000 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:97:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3000,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:100:1
+✖ split and merge conserve supply and capacity, and enforce ten-unit maximum (0.8375ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /10/. Input:
+  
+  '不能合并重复武将'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:103:104)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '不能合并重复武将',
+    expected: /10/,
+    operator: 'match',
+    diff: 'simple'
+  }

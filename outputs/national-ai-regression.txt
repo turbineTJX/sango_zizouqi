@@ -1,0 +1,82 @@
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (135.0375ms)
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (452.5128ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (216.0569ms)
+✖ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (1411.2288ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (14.901ms)
+✔ scenario identity, topology, and town coordinates are validated (32.793ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (1.5545ms)
+✖ a month of real multi-front warfare archives old snapshots and keeps the save compact (31902.6452ms)
+✔ national victory and defeat depend on ownership of the complete map (37.1403ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 6
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34338.741
+
+✖ failing tests:
+
+test at tests\national-campaign.test.mjs:15:2
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (452.5128ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.campaign.battles.length>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/national-campaign.test.mjs:16:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\national-campaign.test.mjs:15:2
+✖ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (1411.2288ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.campaign.battles.length>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/national-campaign.test.mjs:16:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\national-campaign.test.mjs:32:1
+✖ a month of real multi-front warfare archives old snapshots and keeps the save compact (31902.6452ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.campaign.archive.length>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/national-campaign.test.mjs:33:91)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,64 @@
+{
+  "trainingSeeds": [
+    62000003,
+    62104732,
+    62209461,
+    62314190
+  ],
+  "validationSeeds": [
+    73000009,
+    73104738,
+    73209467,
+    73314196,
+    73418925,
+    73523654,
+    73628383,
+    73733112,
+    73837841,
+    73942570,
+    74047299,
+    74152028,
+    74256757,
+    74361486,
+    74466215,
+    74570944
+  ],
+  "selected": [
+    {
+      "route": "cooperation",
+      "enemy": "balanced",
+      "allocation": "core",
+      "plan": "compact"
+    },
+    {
+      "route": "cooperation",
+      "enemy": "cavalry",
+      "allocation": "thin",
+      "plan": "default"
+    },
+    {
+      "route": "carry",
+      "enemy": "balanced",
+      "allocation": "thin",
+      "plan": "default"
+    },
+    {
+      "route": "carry",
+      "enemy": "cavalry",
+      "allocation": "thin",
+      "plan": "control"
+    },
+    {
+      "route": "mixed",
+      "enemy": "balanced",
+      "allocation": "thin",
+      "plan": "compact"
+    },
+    {
+      "route": "mixed",
+      "enemy": "cavalry",
+      "allocation": "thin",
+      "plan": "scattered"
+    }
+  ]
+}

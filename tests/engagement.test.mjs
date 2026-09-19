@@ -1,8 +1,9 @@
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
-import {configureTactics,roleTacticIds,unitTactics,routeTo,tacticTarget,TACTICS_BOOK} from '../tactics.mjs';
+import {roleTacticIds,unitTactics,routeTo,tacticTarget,TACTICS_BOOK} from '../tactics.mjs';
 import {hexDistance} from '../hex-grid.mjs';
 import {holdsLine} from '../engagement.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
@@ -15,7 +16,7 @@ function scene(type='cavalry',mirror=false){
   Object.assign(front,{type:'spear',x:5,y:3,cooldown:999});
   Object.assign(rear,{type:'crossbow',x:5,y:4,cooldown:999,hp:300});
   for(const u of [a,front,rear]){
-    configureTactics(u,roleTacticIds(u,'assault'));u.intent=0;
+    learnFixtureTactics(u,roleTacticIds(u,'assault'));u.intent=0;
     u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
     u.statuses={};
   }
@@ -27,16 +28,17 @@ function scene(type='cavalry',mirror=false){
 }
 const attacks=(b,a)=>b.effects.filter(e=>e.from===a.id&&e.damage>0);
 
-test('engaged melee attacks the front even with a weak adjacent rear and explicit focus, on both sides',()=>{
+test('engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides',()=>{
   for(const type of ['spear','cavalry'])for(const mirror of [false,true]){
     const {b,a,front,rear}=scene(type,mirror),hp=rear.hp;
-    stepBattle(b);assert.equal(attacks(b,a)[0]?.to,front.id);assert.equal(rear.hp,hp);
+    stepBattle(b);assert.deepEqual(new Set(attacks(b,a).map(e=>e.to)),new Set([front.id,rear.id]));assert.ok(rear.hp<hp);
+    assert.ok(attacks(b,a).every(e=>e.damageShare===.5));
   }
 });
 
 test('nearby front takes priority before contact; fast movement stops on contact',()=>{
   const {b,a,front,rear}=scene();a.x=3;rear.x=7;
-  configureTactics(a,['gallop','harass','relay']); // Non-assassin cavalry must still engage the nearer front.
+  learnFixtureTactics(a,['gallop','harass','relay']); // Non-assassin cavalry must still engage the nearer front.
   a.skillReady={gallop:999,harass:999,relay:999};
   a.statuses.haste={until:99};
   stepBattle(b);assert.equal(hexDistance(a,front),1);assert.equal(a.x,4);
@@ -73,7 +75,7 @@ test('an unreachable rear focus advances into the blocking line instead of stall
   assert.ok(a.x<=4);assert.equal(rear.hp,300);
 });
 
-test('stun and line removal release melee, while silence does not',()=>{
+test('disabled troops still share contact damage; removed troops no longer share it',()=>{
   for(const release of ['stun','defeated','reserve','withdrawn','dead','retreat','seal']){
     const {b,a,front,rear}=scene();
     if(['stun','seal'].includes(release))front.statuses[release]={until:99};
@@ -82,13 +84,15 @@ test('stun and line removal release melee, while silence does not',()=>{
     else front.status=release;
     // Remove reserve from the roster rather than allowing real reserve entry.
     if(release==='reserve')b.sides[front.side].units=[rear];
-    stepBattle(b);assert.equal(attacks(b,a)[0]?.to,release==='seal'?front.id:rear.id,release);
+    stepBattle(b);
+    const targets=new Set(attacks(b,a).map(e=>e.to));assert.ok(targets.has(rear.id),release);
+    assert.equal(targets.has(front.id),['stun','seal','retreat'].includes(release),release);
   }
 });
 
-test('ranged fire and intellect target selection remain independent of melee engagement',()=>{
+test('ranged troops share damage in contact while intellect tactics retain their target selection',()=>{
   for(const type of ['archer','crossbow']){
-    const {b,a,rear}=scene(type);stepBattle(b);assert.equal(attacks(b,a)[0]?.to,rear.id);
+    const {b,a,front,rear}=scene(type);stepBattle(b);assert.deepEqual(new Set(attacks(b,a).map(e=>e.to)),new Set([front.id,rear.id]));
   }
   const {b,a,rear}=scene('spear');rear.intent=100;
   assert.equal(tacticTarget(b,a,TACTICS_BOOK.doubt,1),rear);

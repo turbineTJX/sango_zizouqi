@@ -1,3 +1,4 @@
+import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
@@ -10,23 +11,18 @@ function scene(type='spear') {
   const state=createScenario('field',19),b=state.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
   b.sides[0].units=[a];b.sides[1].units=[d];
   Object.assign(a,{type,x:4,y:3,intent:0,cooldown:999});Object.assign(d,{x:5,y:3,intent:0,cooldown:999});
-  configureTactics(a,roleTacticIds(a,'assault'));
+  learnFixtureTactics(a,roleTacticIds(a,'assault'));
   for(const u of [a,d])u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
   lockDeployment(b);return {state,b,a,d};
 }
 
-test('all 160 core combinations are legal; every officer has all three role options',()=>{
-  for(const type of Object.keys(TACTIC_ROLES)) {
-    const u={id:'ordinary',type},pool=availableTactics(u);assert.equal(pool.length,6);
-    let count=0;
-    for(let i=0;i<4;i++)for(let j=i+1;j<5;j++)for(let k=j+1;k<6;k++){
-      assert.equal(configureTactics(u,[pool[i].id,pool[j].id,pool[k].id]),null);count++;
-    }
-    assert.equal(count,20);assert.ok(pool.every(s=>s.role&&s.tradeoff));
-    for(const id of ['person-99','person-381','ordinary'])for(const r of TACTIC_ROLES[type])assert.equal(configureTactics({...u,id},r.ids),null);
-  }
-  const x=scene();assert.ok(configureTactics(x.a,['press','thrust','ward']));
-  const old=structuredClone(x.state);old.rulesVersion=9;assert.throws(()=>validateSave(old),/重新开始/);
+test('every troop retains six learning candidates, but arbitrary role templates cannot grant skills',()=>{
+ for(const type of Object.keys(TACTIC_ROLES)){
+  const u={id:'ordinary',type},pool=availableTactics(u);assert.equal(pool.length,6);assert.ok(pool.every(s=>s.role&&s.tradeoff));
+  for(const r of TACTIC_ROLES[type])assert.ok(configureTactics(u,r.ids));
+ }
+ const x=scene();assert.ok(configureTactics(x.a,['press','thrust','ward']));
+ const old=structuredClone(x.state);old.rulesVersion=9;assert.throws(()=>validateSave(old),/重新开始/);
 });
 
 test('positioning targets real columns and clustered enemies and always includes the anchor',()=>{
@@ -84,10 +80,10 @@ test('seal exchanges all damage for silence; ambush waits for close range',()=>{
 
 test('each role completes a battle and preserves deterministic continuation under current rules',()=>{
   for(const type of Object.keys(TACTIC_ROLES))for(const r of TACTIC_ROLES[type]){
-    const state=createScenario(type==='ship'?'river':'field',41),b=state.battle,u=b.sides[0].units[0];
-    u.type=type;assert.equal(configureTactics(u,r.ids),null);u.skillReady={};
+    const spec={terrain:type==='ship'?'river':'land',seed:41,ownTeam:[{id:type==='siege'?'shao':type==='ship'?'person-246':'cao',type,level:5,troops:3000}],enemyTeam:[{id:'jin',type:'spear',level:5,troops:3000}]};const state=createScenario('custom-battle',41,20,null,spec),b=state.battle,u=b.sides[0].units[0];
+    u.type=type;assert.equal(learnFixtureTactics(u,r.ids),null);u.skillReady={};
     for(let i=0;i<30;i++)stepBattle(b);
-    const copy=validateSave(structuredClone(state));
+    const copy=validateSave(structuredClone(syncFixtureLearning(state)));
     while(!b.result){stepBattle(b);stepBattle(copy.battle);}
     assert.deepEqual(copy.battle,b);assert.ok(b.tick<=b.maxTicks);
   }

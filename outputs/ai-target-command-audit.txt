@@ -1,0 +1,73 @@
+Completed 56 classic battles.
+Completed enemy allocation matrix: cooperation
+Completed enemy allocation matrix: carry
+Completed enemy allocation matrix: mixed
+{
+  "total": 218,
+  "timeouts": [],
+  "incidents": [
+    {
+      "id": "classic/fleet/false/33000001",
+      "tick": 12,
+      "kind": "idle-streak",
+      "unit": "cao",
+      "action": "调整阵线"
+    },
+    {
+      "id": "classic/fleet/false/33104730",
+      "tick": 12,
+      "kind": "idle-streak",
+      "unit": "cao",
+      "action": "调整阵线"
+    },
+    {
+      "id": "classic/fleet/false/33209459",
+      "tick": 12,
+      "kind": "idle-streak",
+      "unit": "cao",
+      "action": "调整阵线"
+    },
+    {
+      "id": "classic/fleet/false/33314188",
+      "tick": 12,
+      "kind": "idle-streak",
+      "unit": "cao",
+      "action": "调整阵线"
+    },
+    {
+      "id": "classic/fleet/true/33000001",
+      "tick": 14,
+      "kind": "idle-streak",
+      "unit": "person-164",
+      "action": "调整阵线"
+    },
+    {
+      "id": "classic/fleet/true/33104730",
+      "tick": 14,
+      "kind": "idle-streak",
+      "unit": "person-164",
+      "action": "调整阵线"
+    },
+    {
+      "id": "classic/fleet/true/33209459",
+      "tick": 14,
+      "kind": "idle-streak",
+      "unit": "person-164",
+      "action": "调整阵线"
+    },
+    {
+      "id": "classic/fleet/true/33314188",
+      "tick": 14,
+      "kind": "idle-streak",
+      "unit": "person-164",
+      "action": "调整阵线"
+    },
+    {
+      "id": "campaign/history-chibi/33000001",
+      "tick": 61,
+      "kind": "idle-streak",
+      "unit": "jin",
+      "action": "调整阵线"
+    }
+  ]
+}

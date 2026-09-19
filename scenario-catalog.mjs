@@ -2,11 +2,12 @@ import { HISTORICAL_CAMPAIGNS } from './historical-campaigns.mjs';
 import { TACTICAL_CAMPAIGNS } from './tactical-campaigns.mjs';
 // Historical battles and fictional fixtures share the current combat simulation.
 export const SCENARIOS = [
+ {id:'custom-battle',name:'自由对战',campaign:true,custom:true,kind:'野战',seed:521306,limit:480,waves:[],goal:'击溃敌军；日暮按剩余兵力比例判定胜负。'},
  ...HISTORICAL_CAMPAIGNS,
  ...TACTICAL_CAMPAIGNS,
  {id:'terrain',name:'演武 · 因地制宜',kind:'野战',difficulty:'地形战法',terrain:'forest',description:'两翼林地利于伏弩与火攻，中央平地适合冲阵；高地利射击、湿地阻机动。布阵时可切换地形并重配战法，对比同一种子的实战效果。',own:6,enemy:6,ownTroops:3000,enemyTroops:3000,level:5,enemyLevel:5,waves:[],seed:521218,limit:240,goal:'利用地形布阵；查看战法记录中的增强、减弱及部队属性中的行军修正。'},
- {id:'eight-arms',name:'演武 · 诸兵协同',kind:'野战',difficulty:'新兵种',description:'枪戟稳阵，骑兵突击，后勤用奇门开路，兵器疫伤减疗，弓兵持续输出。双方同兵力同等级，从零战意开战。',own:6,enemy:6,ownTroops:3000,enemyTroops:3000,level:5,enemyLevel:5,waves:[],seed:521216,limit:240,goal:'观察衰咒、减疗、幻卫与开路的配合；可在开战前重配六选三。'},
- {id:'river',name:'演武 · 水陆交锋',kind:'水战',difficulty:'水陆协同',description:'双水道与中央桥梁；舰船沿水道作战，陆军只能走陆地和桥面。岸上火力可以攻击舰船，水陆共用六个上场名额。',own:6,enemy:6,ownTroops:3000,enemyTroops:3000,level:5,enemyLevel:5,waves:[],seed:521217,limit:240,goal:'舰船占据水道，配合岸上枪戟、后勤和兵器，比较突击与护航配装。'},
+ {id:'eight-arms',name:'演武 · 诸兵协同',kind:'野战',difficulty:'新兵种',description:'枪戟稳阵，骑兵突击，辅兵近战协阵，兵器疫伤减疗，弓兵持续输出。双方同兵力同等级，从零战意开战。',own:6,enemy:6,ownTroops:3000,enemyTroops:3000,level:5,enemyLevel:5,waves:[],seed:521216,limit:240,goal:'观察衰咒、减疗、幻卫与开路的配合；战法随等级随机学习，开战前可查看并调整施放顺序。'},
+ {id:'river',name:'演武 · 水陆交锋',kind:'水战',difficulty:'水陆协同',description:'双水道与中央桥梁；舰船沿水道作战，陆军只能走陆地和桥面。岸上火力可以攻击舰船，水陆共用六个上场名额。',own:6,enemy:6,ownTroops:3000,enemyTroops:3000,level:5,enemyLevel:5,waves:[],seed:521217,limit:240,goal:'舰船占据水道，配合岸上枪戟、辅兵和兵器，比较突击与护航配装。'},
   {id:'breach',name:'演武 · 控阵突击',kind:'野战',difficulty:'ZOC 配合',description:'张飞控住前排，关羽以冲阵抓住缺口，黄忠远程策应。观察前排受控后骑兵抓住突破窗口；可换掉控制战法作对照。',own:3,enemy:3,ownTroops:3000,enemyTroops:3000,level:10,enemyLevel:10,waves:[],seed:521208,limit:240,officers:['person-433','person-99','person-186'],goal:'让骑兵在敌方前排仍存活时突入后阵；击溃全部敌军获胜。'},
   {id:'officer-lab',name:'群英 · 武将试炼',kind:'野战',difficulty:'自由选将',description:'在武将名录选 1～6 人参战；首位为主将，智力最高者为军师。所有武将都有成长技能，可自由配置兵种通用战法。',own:6,enemy:6,ownTroops:3000,enemyTroops:2500,level:10,enemyLevel:3,waves:[],seed:521207,limit:240,officers:['person-290','person-246','person-661','person-99','person-396','person-433'],goal:'击溃陪练敌军，查看实际属性与通用战法效果。'},
 

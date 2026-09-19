@@ -1,6 +1,17 @@
-import {newCampaign,validateCampaign,serializeCampaign,calendar,isPlanning,canEditArmy,armyBattle,activeBattles,battleRecord,beginExecution,advanceCampaignStep,advanceCampaignDay,chooseEncounter,takeOverBattle,viewCampaignMap,orderCampaignArmy,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,createCampaignArmy,transferOfficer,commissionProject,relieveCity,appointGovernor} from './strategic-campaign.mjs';
+import {LEARNING_RULES,LEARNING_TROOPS,troopAptitude,tacticLearningLimits} from './tactic-learning.mjs';
+import {nationalLobby} from './national-lobby.mjs';
+import {nationalScenario} from './national-scenarios.mjs';
+import {canTrain,dismissDomestic} from './domestic.mjs';
+import {BATTLE_INTENTS,battleIntent,configureBattleIntent} from './engine.mjs';
+import {art} from './art-assets.mjs';
+import {BattleArt} from './art-battle.mjs';
+import {BattleLabels} from './battle-labels.mjs';
+let battleLabels=null;
+import {attachStrategicMap} from './art-strategic-map.mjs';
+import {newCampaign,validateCampaign,serializeCampaign,calendar,isPlanning,canEditArmy,armyBattle,activeBattles,battleRecord,beginExecution,advanceCampaignStep,advanceCampaignDay,chooseEncounter,takeOverBattle,viewCampaignMap,orderCampaignArmy,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,createCampaignArmy,transferOfficer,commissionProject,relieveCity,appointGovernor,changeCampaignTroop,assignDomestic} from './strategic-campaign.mjs';
 import {strategicView,campaignBattleBar,snapshotMarkup} from './strategic-view.mjs';
-const newGame = () => newCampaign();
+const newGame = (scenarioId='guandu-200') => newCampaign(521200,scenarioId);
+function nationalResume(){try{const data=state?.campaign?state:JSON.parse(localStorage.getItem('sango-sovereign-v2'));return nationalScenario(data?.campaign?.scenarioId)?{scenarioId:data.campaign.scenarioId,day:data.campaign.day}:null;}catch{return null;}}
 const validateSave = value => {if(value?.testScenario){if(value.campaign)throw new Error('试炼与战略存档类型不一致');return validateBattleSave(value);}return validateCampaign(value);};
 import {troopCapacity} from './troop-capacity.mjs';
 import {relationshipInfo,setRelationshipScore,setRelationshipType} from './relationships.mjs';
@@ -11,16 +22,17 @@ import { unitAttributes, ATTRIBUTE_LABELS } from './unit-stats.mjs';
 import {intentIncome, officerLevel, passiveList, passiveDamageTaken} from './passives.mjs';
 import {experienceNeeded} from './progression.mjs';
 import { shieldLayers, shieldAmount } from './tactics.mjs';
-import { availableTactics, defaultTacticIds, roleTacticIds, TACTIC_ROLES, CATEGORY_NAMES } from './tactics.mjs';
+import { TACTICS_BOOK, availableTactics, defaultTacticIds, CATEGORY_NAMES } from './tactics.mjs';
 import { TROOPS, TACTICS, FACTIONS, GRID, COMBAT, armyTroops, armyById, cityById, findRoute, orderArmy, advanceTurn, startBattle, stepBattle, issueCommand, settleBattle, activeUnits, recruit, splitArmy, mergeArmies, validateSave as validateBattleSave } from './engine.mjs';
-import {visibleStatuses,statusIcon,statusTimeLabel} from './status-display.mjs';
+import {visibleStatuses,statusIcon,statusTimeLabel,statusSources,inspectionStatuses,statusAttributeChanges,statusAmounts} from './status-display.mjs';
 import { BattleEffects } from './battle-effects.mjs';
 import {tacticPowerPreview} from './tactic-power.mjs';
 import {statusPower} from './tactics.mjs';
 import { HEX_GRID, HEX_ASPECT, hexCenter, hexCellStyle } from './hex-grid.mjs';
 import { CommandCue } from './command-cue.mjs';
 import { SCENARIOS, createScenario } from './scenarios.mjs';
-import { campaignLobby } from './campaign-lobby.mjs';
+import { campaignLobby, modeLobby } from './campaign-lobby.mjs';
+import {defaultCustomBattle} from './custom-battle.mjs';
 import { waveSummary,terrainAt,unitTerrain,BATTLE_TERRAINS,TERRAIN_NAMES,TERRAIN_HELP } from './battlefield.mjs';
 import { armyCommanders, officerStratagems, armyStratagems, battleStratagems, commandIntellect, COMMAND_RESOURCE, battleWounded, attackRange, configureUnitTactics, unitTactics, hasStatus, STRATAGEMS, isDeploying, deployUnit, resetDeployment, configureBattleTerrain, lockDeployment } from './engine.mjs';
 
@@ -67,10 +79,12 @@ catch {
 const ui = { army: state.armies.find(a => a.faction === 'cao')?.id, city: 'xuchang', mode: 'map', order: false, modal: null, paused: true, speed: 1, effectMode: 'clear', focusMode: false, deploymentSelection: null, zoom: 1, showArmies: true, selectedSplit: new Set(), savedAt: null, lastTime: 0, catalogQuery:'',catalogKind:'all',catalogSort:'source',catalogPage:0,catalogSelected:[...(state.testScenario?.officerIds||[])] };
 ui.mode = location.hash==='#strategy'||(location.hash==='#historical-battle'&&currentScenario()?.campaign)||(location.hash==='#battle-lab'&&state.testScenario&&!currentScenario()?.campaign) ? 'map' : 'lobby';
 ui.historySelection = currentScenario()?.campaign ? state.testScenario.id : 'history-guandu';
+ui.customBattle = structuredClone(state.testScenario?.customBattle??defaultCustomBattle());
 if(ui.mode !== 'lobby')ui.modal=state.report?'report':state.pending?'encounter':null;
 try { ui.effectMode = localStorage.getItem('sango-effects-mode') === 'full' ? 'full' : 'clear'; } catch {}
 let toastTimer;
 let battleFx = null;
+let battleArt = null;
 const commandCue = new CommandCue();
 function toast(text) { $('#toast').textContent = text; $('#toast').classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3400); }
 function save(silent = true) {
@@ -88,7 +102,8 @@ function historicalResume() {
     return {name:scenario.name,finished:!!saved.report,stage:saved.report?'本役已结束':isDeploying(saved.battle)?'待布阵':`第 ${saved.battle.tick} 步 · 已暂停`};
   } catch { return {name:'战役试玩存档不可用',stage:'版本不兼容或数据损坏，请重新开始',invalid:true}; }
 }
-function showLobby() {
+function showLobby(page = 'modes') {
+  ui.lobbyPage=page;
   ui.paused=true;ui.modal=null;ui.mode='lobby';ui.battlePanel=null;ui.focusMode=false;
   save();history.replaceState(null,'',location.pathname+location.search);render();window.scrollTo(0,0);
 }
@@ -101,10 +116,10 @@ function continueHistory() {
     save();state=next;restoreUI();
   } catch(error){toast(`无法继续：${error.message}`);}
 }
-function launchScenario(id, seed, shieldPercent = 20, officerIds = null) {
+function launchScenario(id, seed, shieldPercent = 20, officerIds = null, customDraft = null) {
   try {
     if(seed===undefined&&SCENARIOS.find(s=>s.id===id)?.historical===false)seed=crypto.getRandomValues(new Uint32Array(1))[0];
-    const next = createScenario(id, seed, shieldPercent, officerIds);
+    const next = createScenario(id, seed, shieldPercent, officerIds, customDraft);
     if(!SCENARIOS.find(s=>s.id===id)?.campaign){
     next.relationshipScores=structuredClone(state.relationshipScores);
     next.battle.relationshipScores=structuredClone(next.relationshipScores);
@@ -131,7 +146,7 @@ function scenarioModal() {
 function scenarioControls(b) {
   const s = currentScenario();
   if (!s) return '';
-  return `<div class="scenario-toolbar"><div><b>${s.campaign?'战役试玩':s.kind+'试炼'} · 种子 ${state.testScenario.seed}</b><small>${s.goal}</small></div><div><button class="button secondary" data-action="step-scenario" data-steps="1" ${isDeploying(b)||b.result?'disabled':''}>单步</button><button class="button secondary" data-action="step-scenario" data-steps="10" ${isDeploying(b)||b.result?'disabled':''}>推进 10 步</button><button class="button secondary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="${s.campaign?'lobby':'scenarios'}">切换战役</button><button class="button secondary" data-action="lobby">战役首页</button></div></div>`;
+  return `<div class="scenario-toolbar"><div><b>${s.campaign?'战役试玩':s.kind+'试炼'} · 种子 ${state.testScenario.seed}</b><small>${s.goal}</small></div><div><button class="button secondary" data-action="step-scenario" data-steps="1" ${isDeploying(b)||b.result?'disabled':''}>单步</button><button class="button secondary" data-action="step-scenario" data-steps="10" ${isDeploying(b)||b.result?'disabled':''}>推进 10 步</button><button class="button secondary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="${s.campaign?'campaign-lobby':'scenarios'}">切换战役</button><button class="button secondary" data-action="lobby">模式首页</button></div></div>`;
 }
 function siegeTerrain(b) {
   const g=b.siege?.gate;
@@ -142,15 +157,15 @@ function reinforcementPanel(b) {
   return `<div class="reinforcement-panel"><h4>敌方兵力序列</h4><p>在场 ${activeUnits(b,1).length} / 6 · 预备 ${b.sides[1].units.filter(u=>u.status==='reserve').length} 队</p>${waveSummary(b,1).map(w=>`<div><b>第 ${w.wave} 批 · ${w.total} 队</b><small>${w.arrivalTick>b.tick?`距抵达 ${w.arrivalTick-b.tick} 步`:w.waiting?`已抵达 · ${w.waiting} 队等候补位`:'已全部投入'} · 在场 ${w.active}</small></div>`).join('')}${b.sides[1].blockadeUntil>b.tick?`<p>断援中 · 剩余 ${b.sides[1].blockadeUntil-b.tick} 步</p>`:''}${b.siege?`<h4>城门 ${fmt(b.siege.gate.hp)} / ${fmt(b.siege.gate.maxHp)}</h4><div class="meter"><i style="width:${b.siege.gate.hp/b.siege.gate.maxHp*100}%"></i></div><p>城门耐久归零，守方立即败北。首发护盾 ${state.testScenario?.shieldPercent??15}%，预备队无护盾。</p>`:''}</div>`;
 }
 function dateLabel() { const n = state.turn - 1, year = 5 + Math.floor(n / 36), month = Math.floor(n % 36 / 3) + 1; return `建安${['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'][year] || year}年 · ${month}月${['上', '中', '下'][n % 3]}旬`; }
-function avatar(unit, small = false) { return `<span class="portrait ${unit.type} ${small ? 'small' : ''}"><span>${esc(unit.name.slice(-1))}</span><i>${esc(TROOPS[unit.type].icon)}</i></span>`; }
+function avatar(unit, small = false) { return `<span data-art-portrait="${esc(unit.id)}" class="portrait ${unit.type} ${small ? 'small' : ''}"><span>${esc(unit.name.slice(-1))}</span><i>${esc(TROOPS[unit.type].icon)}</i></span>`; }
 function resource(name, value, symbol, extra) { return `<div class="resource">${icon(symbol)}<div><span>${name}</span><strong>${fmt(value)}</strong></div><small>${extra}</small></div>`; }
 function header() {
   const owned = state.cities.filter(c => c.owner === 'cao').length;
   const armyCount = state.armies.filter(a => a.faction === 'cao').reduce((n, a) => n + armyTroops(a), 0);
-  return `<header class="topbar"><a class="brand" href="#" data-action="lobby" aria-label="返回战役首页"><span class="brand-seal">君</span><div><b>三国<span> · </span>君临</b><small>SOVEREIGN OF THE THREE KINGDOMS</small></div></a><div class="resources">${resource('府库', state.gold, 'coin', `+${owned * 160}/旬`)}${resource('粮草', state.grain, 'grain', `+${owned * 600}/旬`)}${resource('总兵力', armyCount, 'flag', `${state.armies.filter(a => a.faction === 'cao').length} 军团`)}</div><button class="faction-badge" data-action="help"><span>曹</span><div><b>曹操势力</b><small>声望 ${state.fame} · ${owned} 座城池</small></div></button></header>`;
+  return `<header class="topbar"><a class="brand" href="#" data-action="lobby" aria-label="返回模式首页"><span class="brand-seal">君</span><div><b>三国<span> · </span>君临</b><small>汉 末 风 云 · 群 雄 逐 鹿</small></div></a><div class="resources">${resource('府库', state.gold, 'coin', `+${owned * 160}/旬`)}${resource('粮草', state.grain, 'grain', `+${owned * 600}/旬`)}${resource('总兵力', armyCount, 'flag', `${state.armies.filter(a => a.faction === 'cao').length} 军团`)}</div><button class="faction-badge" data-action="help"><span>曹</span><div><b>曹操势力</b><small>声望 ${state.fame} · ${owned} 座城池</small></div></button></header>`;
 }
 function rail() {
-  return `<nav class="rail" aria-label="主导航"><div class="rail-nav"><button class="nav-item ${!ui.modal ? 'active' : ''}" data-action="home">${icon('map')}<span>天下</span></button><button class="nav-item" data-action="army">${icon('flag')}<span>军团</span></button><button class="nav-item" data-action="officers">${icon('people')}<span>武将</span></button><button class="nav-item" data-action="scenarios">${icon('sword')}<span>试炼</span></button><button class="nav-item" data-action="journal">${icon('scroll')}<span>纪事</span></button></div><div class="rail-bottom"><button class="nav-item" data-action="lobby">${icon('sword')}<span>战役首页</span></button><button class="nav-item" data-action="help" aria-label="玩法说明">${icon('help')}<span>指引</span></button><button class="nav-item" data-action="settings">${icon('gear')}<span>设置</span></button><span class="version">V 0.3</span></div></nav>`;
+  return `<nav class="rail" aria-label="主导航"><div class="rail-nav"><button class="nav-item ${!ui.modal ? 'active' : ''}" data-action="home">${icon('map')}<span>天下</span></button><button class="nav-item" data-action="army">${icon('flag')}<span>军团</span></button><button class="nav-item" data-action="officers">${icon('people')}<span>武将</span></button><button class="nav-item" data-action="scenarios">${icon('sword')}<span>试炼</span></button><button class="nav-item" data-action="journal">${icon('scroll')}<span>纪事</span></button></div><div class="rail-bottom"><button class="nav-item" data-action="lobby">${icon('sword')}<span>模式首页</span></button><button class="nav-item" data-action="help" aria-label="玩法说明">${icon('help')}<span>指引</span></button><button class="nav-item" data-action="settings">${icon('gear')}<span>设置</span></button><span class="version">V 0.3</span></div></nav>`;
 }
 function mapDecoration() {
   let s = '';
@@ -198,26 +213,26 @@ function campaign() {
 }
 function battleHeader(b) {
   const stats = b.sides.map(s => ({ hp: s.units.reduce((n,u)=>n+u.hp,0),total:s.units.reduce((n,u)=>n+u.initial,0) }));
-  return `<div class="arena-header"><div class="arena-title"><h1>${currentScenario()?.name || (state.campaign?battleRecord(state,state.campaign.focusId)?.name:null) || cityById(state,b.cityId).name+'之战'}</h1><span>${BATTLE_TERRAINS[b.terrain]} · ${b.holdUntil?'坚守 '+b.tick+' / '+b.holdUntil+' 步':b.tick+' 步 / '+(b.maxTicks||240)}</span></div><div class="arena-strength" aria-label="双方剩余兵力">${stats.map((s,i)=>`<span class="side-${i}">${i?(currentScenario()?.enemyName||'敌军'):(currentScenario()?.ownName||'我军')} <b>${fmt(s.hp)}</b><i><em style="width:${s.hp/Math.max(1,s.total)*100}%"></em></i></span>`).join('')}</div><div class="battle-playback"><button class="button secondary" data-action="lobby" aria-label="保存并返回战役首页">战役首页</button><button class="button primary" data-action="pause">${icon(ui.paused?'play':'pause')}${isDeploying(b)?'确认布阵 · 开战':ui.paused?'继续战斗':'暂停'}</button><button class="button secondary" data-action="speed" aria-label="切换战斗速度">${ui.speed}×</button><button class="button secondary" data-action="battle-panel" data-panel="tools" aria-label="战斗工具" aria-expanded="${ui.battlePanel==='tools'}">${icon('gear')}</button></div></div>`;
+  return `<div class="arena-header"><div class="arena-title"><h1>${currentScenario()?.name || (state.campaign?battleRecord(state,state.campaign.focusId)?.name:null) || cityById(state,b.cityId).name+'之战'}</h1><span>意图：${BATTLE_INTENTS[battleIntent(b)]}${isDeploying(b)?' · 战前可调整':' · 已锁定'} · ${BATTLE_TERRAINS[b.terrain]} · ${b.holdUntil?'坚守 '+b.tick+' / '+b.holdUntil+' 步':b.tick+' 步 / '+(b.maxTicks||240)}</span></div><div class="arena-strength" aria-label="双方剩余兵力">${stats.map((s,i)=>`<span class="side-${i}">${i?(currentScenario()?.enemyName||'敌军'):(currentScenario()?.ownName||'我军')} <b>${fmt(s.hp)}</b><i><em style="width:${s.hp/Math.max(1,s.total)*100}%"></em></i></span>`).join('')}</div><div class="battle-playback"><button class="button secondary" data-action="lobby" aria-label="保存并返回模式首页">模式首页</button><button class="button primary" data-action="pause">${icon(ui.paused?'play':'pause')}${isDeploying(b)?'确认布阵 · 开战':ui.paused?'继续战斗':'暂停'}</button><button class="button secondary" data-action="speed" aria-label="切换战斗速度">${ui.speed}×</button><button class="button secondary" data-action="battle-panel" data-panel="tools" aria-label="战斗工具" aria-expanded="${ui.battlePanel==='tools'}">${icon('gear')}</button></div></div>`;
 }
 
 function tacticState(u,s,b) {
+  if(s.passive)return ['stun','confuse','seal'].some(k=>(u.statuses?.[k]?.until||0)>b.tick)?'光环中断':(u.status==='active'&&!b.sides[u.side].retreat?'持续光环 · 相邻近战':'光环未生效');
+  if(s.effect==='repair'&&(u.tacticCasts?.camp||0)>=3)return '修缮物资耗尽';
+  if(s.attackOrb&&hasStatus(b,u,'attackOrb')){const orb=u.statuses.attackOrb;return orb.skillId===s.id?'强化剩余 '+orb.charges+' 次':'等待当前强化用完';}
   const cd=Math.max(0,(u.skillReady?.[s.id]||0)-b.tick);
   if(cd)return '冷却 '+cd+'步'+(u.intent<s.threshold?' · 战意不足':'');
   return (u.intent||0)<s.threshold ? '战意 '+(u.intent||0)+'/'+s.threshold : '待条件满足';
 }
 function tacticChips(u,b) {
-  return '<div class="tactic-chips">'+unitTactics(u).map(s=>'<span class="tactic-chip '+(s.special?'special':'')+'" title="'+esc(CATEGORY_NAMES[s.category]+'类 · 基础效果：'+s.description+' · '+s.powerDescription+' · 地形：'+s.terrainDescription+' · 门槛 '+s.threshold+' · 冷却 '+s.cooldown+' 步')+'"><strong>'+CATEGORY_NAMES[s.category]+' · '+(s.special?'★ ':'')+s.name+'</strong><em>'+tacticState(u,s,b)+'</em><small>'+esc(tacticPowerPreview(s,statusPower(u,s,b)))+'</small></span>').join('')+'</div>';
+  return '<div class="tactic-chips">'+unitTactics(u).map((s,i)=>'<button class="tactic-chip '+(s.special?'special':'')+'" data-action="tactic-detail" data-inspect="'+u.id+'" data-skill="'+s.id+'"><strong>'+ (i+1)+' · '+(s.special?'★ ':'')+s.name+(s.attackOrb?' · 强化普攻':'')+'</strong><em>战意 '+s.threshold+' · '+(state.battle?tacticState(u,s,b):'冷却 '+s.cooldown+' 步')+'</em></button>').join('')+'</div>';
 }
-function unitStatusMarkup(u,b) {
-  const statuses=visibleStatuses(b,u),shield=shieldAmount(b,u);
-  return (statuses.length?'<span class="unit-status-icons">'+statuses.slice(0,4).map(s=>'<span class="status-badge tone-'+s.tone+'" title="'+esc(s.name+' · '+s.time)+'">'+statusIcon(s.key)+'<small>'+s.remaining+'</small></span>').join('')+(statuses.length>4?'<span class="status-more">+'+(statuses.length-4)+'</span>':'')+'</span>':'')+(shield?'<span class="unit-shield" title="护盾 '+shield+'"><i style="width:'+Math.min(100,shield/u.maxHp*100)+'%"></i></span>':'');
-}
-
 function battleUnitMarkup(u, b) {
   const targeted = b.sides[0].focus === u.id && b.sides[0].focusUntil > b.tick;
-  const charge = Math.min(100, (u.intent || 0) / COMBAT.intentCap * 100);
-  return `<span class="unit-type">${TROOPS[u.type].icon}</span><span class="unit-name">${esc(u.name)}</span><span class="unit-health"><i style="width:${u.hp / u.maxHp * 100}%"></i></span><span class="unit-number">${compact(u.hp)}</span><span class="unit-skill-meter ${charge >= 100 ? 'ready' : ''}" title="战意 ${u.intent || 0} / ${COMBAT.intentCap}"><i style="width:${charge}%"></i></span>${targeted ? '<span class="target-ring"></span>' : ''}${unitStatusMarkup(u,b)}`;
+  return `<span class="unit-type">${TROOPS[u.type].icon}</span><span class="unit-map-caption"><b>${esc(u.name)}</b><i><em style="width:${u.hp/u.maxHp*100}%"></em></i></span>${targeted ? '<span class="target-ring"></span>' : ''}`;
+}
+function battleLabelMarkup(u,b){
+  return `${avatar(u,true)}<span class="unit-label-copy"><b>${esc(u.name)}<small>${TROOPS[u.type].icon}</small></b><span>${compact(u.hp)}<small>战意 ${u.intent||0}</small></span><i class="label-health"><em style="width:${u.hp/u.maxHp*100}%"></em></i><i class="label-intent"><em style="width:${(u.intent||0)/COMBAT.intentCap*100}%"></em></i></span>`;
 }
 function enemyCommandMarkup(b){
   const c=b.enemyCommand,last=c.lastCommand;
@@ -237,7 +252,7 @@ function commands(b) {
   const tabs=Object.entries({offense:'进攻',support:'整军',control:'扰敌'}).map(([id,name])=>`<button data-action="command-category" data-category="${id}" class="${category===id?'active':''}" aria-pressed="${category===id}">${name}</button>`).join('');
   const strategies = Object.entries(STRATAGEMS).filter(([key,s])=>available.includes(key)&&s.group===category).map(([key,s])=>command(key,s.icon,s.name,`${sources(key)} · ${s.description}${s.duration ? ` · ${s.duration}步` : ' · 即时'}`,s.cost)).join('');
   const statuses = Object.entries(STRATAGEMS).filter(([,s])=>s.field && b.sides[s.side][s.field] > b.tick).map(([,s])=>`<span class="army-buff ${s.side ? 'debuff' : ''}">${s.description}<b>余 ${Math.max(0,b.sides[s.side][s.field]-b.tick-1)} 步</b></span>`).join('');
-  return `<div class="command-heading"><div><span class="eyebrow">君主军略</span><b>${Math.floor(progress*100)}<small>%</small></b></div><p>${isDeploying(b) ? '军略从空条开始，开战后由在场部队智力积累。' : ui.focusMode ? '请点击战场上的敌军，提升其目标权重。' : ui.paused ? '已暂停，满条可施放一次军略；进度与持续时间冻结。' : '可先暂停观察，再下达全军军略。'}</p></div><div class="command-resource"><span>在场总智力 <b>${intellect}</b> · 每步 +${(intellect/COMMAND_RESOURCE.capacity*100).toFixed(1)}%</span><div class="meter" role="progressbar" aria-label="军略积累" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.floor(progress*100)}"><i style="width:${progress*100}%"></i></div><small>${progress>=1?'军略就绪 · 使用一次后清空，未使用保持满条':'蓄势中 · 满条可下达一次军略，暂停不增长'}</small></div>${statuses ? `<div class="army-buffs">${statuses}</div>` : ''}<div class="command-tabs" aria-label="军略分类">${tabs}</div><div class="command-row">${strategies || '<p class="muted">主将与军师未掌握此类军略，可在下次交战前调整任命。</p>'}</div><p class="basic-order-label">基础军令 · 合围与接阵同样消耗满条进度，收兵免费</p><div class="command-row tactical-orders">${command('focus','sword','重兵合围','提高敌军目标权重',1)}${command('reserve','flag','后军接阵','轮换受损前线',1)}${command('retreat','wind','鸣金收兵','向己方边缘脱离',0)}</div>`;
+  return `<div class="command-heading"><div><span class="eyebrow">君主军略 · 全局效果</span><b>${Math.floor(progress*100)}<small>%</small></b></div><p>${isDeploying(b) ? '军略从空条开始，开战后由在场部队智力积累。' : ui.focusMode ? '请点击战场上的敌军，提升其目标权重。' : ui.paused ? '已暂停，满条可施放一次军略；进度与持续时间冻结。' : '可先暂停观察，再下达全军军略。'}</p></div><div class="command-resource"><span>在场总智力 <b>${intellect}</b> · 每步 +${(intellect/COMMAND_RESOURCE.capacity*100).toFixed(1)}%</span><div class="meter" role="progressbar" aria-label="军略积累" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.floor(progress*100)}"><i style="width:${progress*100}%"></i></div><small>${progress>=1?'军略就绪 · 使用一次后清空，未使用保持满条':'蓄势中 · 满条可下达一次军略，暂停不增长'}</small></div>${statuses ? `<div class="army-buffs">${statuses}</div>` : ''}<div class="command-tabs" aria-label="军略分类">${tabs}</div><div class="command-row">${strategies || '<p class="muted">主将与军师未掌握此类军略，可在下次交战前调整任命。</p>'}</div><p class="basic-order-label">基础军令 · 全军撤退免费</p><div class="command-row tactical-orders">${command('retreat','wind','全军撤退','向己方边缘脱离',0)}</div>`;
 }
 function deploymentBoard(b) {
   return Array.from({length:GRID.rows*5},(_,i)=>`<button class="deployment-cell" data-deploy-x="${i%5}" data-deploy-y="${Math.floor(i/5)}" style="${hexCellStyle(i%5,Math.floor(i/5))}" aria-label="布阵第${i%5+1}列第${Math.floor(i/5)+1}行 · ${TERRAIN_NAMES[terrainAt(b,i%5,Math.floor(i/5))]}"></button>`).join('');
@@ -253,7 +268,7 @@ function hexBoard(b) {
 }
 function battle() {
   const b=state.battle;
-  return `${state.campaign?campaignBattleBar(state):''}<main class="battle-page arena-page"><div id="battle-header">${battleHeader(b)}</div><div class="arena-stage"><div class="battle-board" id="battle-board" style="--hex-aspect:${HEX_ASPECT}">${hexBoard(b)}<div id="siege-terrain">${siegeTerrain(b)}</div><div id="deployment-grid"></div><div id="battle-units"></div><canvas id="battle-effects" aria-hidden="true"></canvas></div></div><button id="tactic-result" class="tactic-result" data-action="battle-panel" data-panel="events" disabled>战法效果将在此显示</button><div class="arena-context"><span class="terrain-legend">${[...new Set(Array.from({length:112},(_,i)=>terrainAt(b,i%14,Math.floor(i/14))))].map(t=>`<span class="terrain-key terrain-${t}">${TERRAIN_NAMES[t]}</span>`).join('')}</span><span id="pause-note" hidden>已暂停</span><span id="target-note" hidden>选择要合围的敌军 <button data-action="cancel-focus">取消</button></span><span class="arena-legend"><i></i>我军 <i></i>敌军</span><span id="enemy-command-note" class="enemy-command-state"></span><span id="gate-summary"></span></div><div id="deployment-guide" class="deployment-guide"></div><footer class="arena-dock"><button id="command-cue" class="command-cue" data-action="battle-panel" data-panel="commands"><span id="command-cue-label"></span><span class="cue-track" role="progressbar" aria-label="军略进度" aria-valuemin="0" aria-valuemax="100"><i></i></span></button><button class="button secondary" data-action="battle-panel" data-panel="intel">战况</button><button class="button secondary" data-action="battle-panel" data-panel="events">战法记录</button></footer><span id="command-announcement" class="sr-only" role="status" aria-live="polite"></span><section id="arena-panel" class="arena-panel" hidden><header><b id="arena-panel-title"></b><button class="button secondary" data-action="close-battle-panel">收起 ×</button></header><div id="battle-commands"></div><div id="battle-sidebar"></div><section class="battle-events" id="battle-events" aria-label="战斗动态"><div class="battle-events-heading"><span>最新战法在前 · 双方各保留 20 条</span><span>实际结算</span></div><div id="skill-feed" class="skill-feed" role="log" aria-label="战法发动记录" aria-live="off"></div><div id="stratagem-feedback" aria-live="polite"></div></section><div id="battle-tools"><div class="arena-tools"><button class="button secondary" data-action="effects-mode" id="effects-mode"></button><button class="button secondary" data-action="settings">存档与设置</button><button class="button secondary" data-action="help">玩法说明</button></div><div id="scenario-controls">${scenarioControls(b)}</div></div></section></main>`;
+  return `${state.campaign?campaignBattleBar(state):''}<main class="battle-page arena-page"><div id="battle-header">${battleHeader(b)}</div><div class="battle-layout"><div id="battle-unit-labels" aria-label="部队情报名册"><aside class="roster-side roster-side-0"><header>我军<small>部队情报</small></header><div class="roster-list"></div></aside><aside class="roster-side roster-side-1"><header>敌军<small>部队情报</small></header><div class="roster-list"></div></aside></div><div class="arena-stage"><div class="battle-board" id="battle-board" style="--hex-aspect:${HEX_ASPECT}">${hexBoard(b)}<div id="siege-terrain">${siegeTerrain(b)}</div><div id="deployment-grid"></div><div id="battle-units"></div><canvas id="battle-effects" aria-hidden="true"></canvas></div></div></div><button id="tactic-result" class="tactic-result" data-action="battle-panel" data-panel="events" disabled>战法效果将在此显示</button><div class="arena-context"><span class="terrain-legend">${[...new Set(Array.from({length:112},(_,i)=>terrainAt(b,i%14,Math.floor(i/14))))].map(t=>`<span class="terrain-key terrain-${t}">${TERRAIN_NAMES[t]}</span>`).join('')}</span><span id="pause-note" hidden>已暂停</span><span id="target-note" hidden>选择要合围的敌军 <button data-action="cancel-focus">取消</button></span><span class="unit-view-hint">点头像查看情报 · 点士兵查看所在部队</span><span class="arena-legend"><i></i>我军 <i></i>敌军</span><span id="enemy-command-note" class="enemy-command-state"></span><span id="gate-summary"></span></div><div id="deployment-guide" class="deployment-guide"></div><footer class="arena-dock"><button id="command-cue" class="command-cue" data-action="battle-panel" data-panel="commands"><span id="command-cue-label"></span><span class="cue-track" role="progressbar" aria-label="军略进度" aria-valuemin="0" aria-valuemax="100"><i></i></span></button><button class="button secondary" data-action="battle-panel" data-panel="intel">战况</button><button class="button secondary" data-action="battle-panel" data-panel="events">战法记录</button></footer><span id="command-announcement" class="sr-only" role="status" aria-live="polite"></span><section id="arena-panel" class="arena-panel" hidden><header><b id="arena-panel-title"></b><button class="button secondary" data-action="close-battle-panel">收起 ×</button></header><div id="battle-commands"></div><div id="battle-sidebar"></div><section class="battle-events" id="battle-events" aria-label="战斗动态"><div class="battle-events-heading"><span>最新战法在前 · 双方各保留 20 条</span><span>实际结算</span></div><div id="skill-feed" class="skill-feed" role="log" aria-label="战法发动记录" aria-live="off"></div><div id="stratagem-feedback" aria-live="polite"></div></section><div id="battle-tools"><div class="arena-tools"><button class="button secondary" data-action="effects-mode" id="effects-mode"></button><button class="button secondary" data-action="settings">存档与设置</button><button class="button secondary" data-action="help">玩法说明</button></div><div id="scenario-controls">${scenarioControls(b)}</div></div></section></main>`;
 }
 function updateArena(b) {
   const enemy=b.enemyCommand,last=enemy.lastCommand;
@@ -280,6 +295,7 @@ function updateArena(b) {
 function updateBattle() {
   if (!state.battle || !$('#battle-units')) return;
   const b = state.battle;
+  $('#battle-board').dataset.battleId=b.id;
   if(state.campaign&&$('#campaign-battle-bar'))$('#campaign-battle-bar').outerHTML=campaignBattleBar(state);
   $('#battle-header').innerHTML = battleHeader(b);
   $('#battle-board').classList.toggle('clear-effects',ui.effectMode==='clear');
@@ -299,26 +315,40 @@ function updateBattle() {
   if (deploying) {
     if (!$('#deployment-grid').children.length) $('#deployment-grid').innerHTML = deploymentBoard(b);
     const chosen = activeUnits(b,0).find(u=>u.id === ui.deploymentSelection);
-    $('#deployment-guide').innerHTML = `<b>${chosen ? `已选 ${chosen.name}` : '开战前布阵'}</b><span>${TERRAIN_HELP[b.terrain]} 点击我军，再点左侧格子布阵。</span><div class="deployment-actions"><label>地形 <select id="battle-terrain" aria-label="战场地形" ${currentScenario()?.campaign||state.campaign?'disabled':''}>${Object.entries(BATTLE_TERRAINS).map(([id,name])=>`<option value="${id}" ${b.terrain===id?'selected':''} ${id!=='river'&&b.sides.some(s=>s.units.some(u=>u.type==='ship'))?'disabled':''}>${name}</option>`).join('')}</select></label><button data-action="loadout">配置默认战法</button><button data-action="reset-deployment">重置阵型</button></div>`;
+    $('#deployment-guide').innerHTML = `<b>${chosen ? `已选 ${chosen.name}` : '开战前布阵'}</b><span>${TERRAIN_HELP[b.terrain]} 点士兵，再点左侧格子布阵；点头像名牌查看情报。</span><div class="deployment-actions"><label>战斗意图 <select id="battle-intent" aria-label="战斗意图">${Object.entries(BATTLE_INTENTS).map(([id,name])=>`<option value="${id}" ${battleIntent(b)===id?'selected':''} ${id==='siege'&&b.siege?.attackerSide!==0?'disabled':''}>${name}</option>`).join('')}</select><small>开战后不可更改</small></label><label>地形 <select id="battle-terrain" aria-label="战场地形" ${currentScenario()?.campaign||state.campaign?'disabled':''}>${Object.entries(BATTLE_TERRAINS).map(([id,name])=>`<option value="${id}" ${b.terrain===id?'selected':''} ${id!=='river'&&b.sides.some(s=>s.units.some(u=>u.type==='ship'))?'disabled':''}>${name}</option>`).join('')}</select></label><button data-action="loadout">查看战法成长</button><button data-action="reset-deployment">重置阵型</button></div>`;
   }
   $('#battle-board').classList.toggle('select-target', ui.focusMode);
   const live = b.sides.flatMap(s => s.units).filter(u => u.status === 'active');
+  for(const label of [...$('#battle-unit-labels').querySelectorAll('.unit-nameplate')])if(!live.some(u=>u.id===label.dataset.inspect))label.remove();
   for (const existing of [...$('#battle-units').children]) if (!live.some(u => u.id === existing.dataset.unit)) existing.remove();
   for (const u of live) {
     let el = [...$('#battle-units').children].find(e => e.dataset.unit === u.id);
     if (!el) { el = document.createElement('button'); el.dataset.unit = u.id; $('#battle-units').append(el); }
     el.className = `battle-unit side-${u.side} ${u.type}${hasStatus(b,u,'illusion')?' has-illusion':''}${deploying && ui.deploymentSelection === u.id ? ' deploy-selected' : ''}`;
     el.classList.toggle('buff-attack',b.sides[u.side].assaultUntil > b.tick);
+    el.classList.toggle('inspected',ui.inspectUnit===u.id&&!!ui.modal);
     el.classList.toggle('buff-defense',b.sides[u.side].fortifyUntil > b.tick);
     el.classList.toggle('debuffed',b.sides[u.side].disruptUntil > b.tick);
     for(const key of ['scorch','confuse','seal','ward','stun','phalanx','shield','burn','haste','valor'])el.classList.toggle(`status-${key}`,hasStatus(b,u,key));
     el.draggable = deploying && u.side === 0;
     el.style.cssText = hexCellStyle(u.x,u.y);
-    el.innerHTML = battleUnitMarkup(u, b); el.title = `${u.name} · ${TROOPS[u.type].name} · ${TERRAIN_NAMES[unitTerrain(b,u)]} · ${u.action} · 右键查看状态 · 战意 ${u.intent || 0}/${COMBAT.intentCap} · ${unitTactics(u).map(s=>`${s.name}：${tacticState(u,s,b)}`).join('；')}`;
-    el.setAttribute('aria-label', `${u.side ? '敌军' : '我军'}${u.name}，兵力${u.hp}${visibleStatuses(b,u).map(s=>'，'+s.name+' '+s.time).join('')}，右键查看状态`);
+    el.innerHTML = battleUnitMarkup(u, b); el.title = `${u.name} · ${TROOPS[u.type].name} · ${TERRAIN_NAMES[unitTerrain(b,u)]} · ${u.action} · 右键查看部队属性 · 战意 ${u.intent || 0}/${COMBAT.intentCap} · ${unitTactics(u).map(s=>`${s.name}：${tacticState(u,s,b)}`).join('；')}`;
+    el.setAttribute('aria-label', `${u.side ? '敌军' : '我军'}${u.name}，兵力${u.hp}${visibleStatuses(b,u).map(s=>'，'+s.name+' '+s.time).join('')}，右键查看部队属性`);
+    let label=[...$('#battle-unit-labels').querySelectorAll('.unit-nameplate')].find(e=>e.dataset.inspect===u.id);
+    if(!label){label=document.createElement('button');label.dataset.action='unit-stats';label.dataset.inspect=u.id;$('.roster-side-'+u.side+' .roster-list').append(label);}
+    label.className=`unit-nameplate side-${u.side}${ui.inspectUnit===u.id&&ui.modal?' inspected':''}${deploying&&ui.deploymentSelection===u.id?' deploy-selected':''}`;
+    label.innerHTML=battleLabelMarkup(u,b);
+    label.setAttribute('aria-label',`${u.side?'敌军':'我军'}${u.name}，${TROOPS[u.type].name}，兵力 ${u.hp}，战意 ${u.intent||0}，点击查看部队情报`);
+    label.title=`${u.name} · ${u.action} · 点击查看部队情报`;
   }
+  if(!battleLabels)battleLabels=new BattleLabels($('#battle-board'));
+  battleLabels.update(live);
   if (!battleFx) battleFx = new BattleEffects($('#battle-effects'), $('#skill-feed'), $('#tactic-result'));
   battleFx.update(b, { paused: ui.paused || !!ui.modal, speed: ui.speed, mode: ui.effectMode });
+  if(art.active&&!battleArt)battleArt=new BattleArt($('#battle-board'),battleFx);
+  battleArt?.update(b,{paused:ui.paused||!!ui.modal||deploying,speed:ui.speed});
+  battleFx.unitPosition=id=>{const u=battleArt?.units.get(id);return u?battleArt.position(u):null;};
+  art.decorate($('#app'));
   const feedback = $('#stratagem-feedback');
   const enemy=state.battle.enemyCommand.lastCommand;
   if(enemy&&STRATAGEMS[enemy.key]&&b.tick-enemy.tick<=2){
@@ -339,15 +369,28 @@ function updateBattle() {
   }
 }
 function render() {
+  const previousBoard=$('#battle-board'),previousStage=$('.arena-stage');
+  const scroll=previousStage&&previousBoard?.dataset.battleId===state.battle?.id?{x:previousStage.scrollLeft,y:previousStage.scrollTop}:null;
+  const rosterScroll=scroll?[...document.querySelectorAll('.roster-list')].map(el=>({x:el.scrollLeft,y:el.scrollTop})):[];
+  battleLabels?.destroy();battleLabels=null;
+  battleArt?.destroy();battleArt=null;
   battleFx?.destroy(); battleFx = null;
   const lobby=ui.mode==='lobby'||(!state.battle&&!!state.testScenario);
   document.body.classList.toggle('battle-view',!!state.battle&&!lobby);
-  $('#app').innerHTML = lobby ? campaignLobby(ui.historySelection,historicalResume()) : state.battle ? battle() : state.campaign ? strategicView(state,ui) : `${header()}<div class="app-body">${rail()}${campaign()}</div>`;
+  $('#app').innerHTML = lobby ? (ui.lobbyPage==='campaign' ? campaignLobby(ui.historySelection,historicalResume(),ui.customBattle) : ui.lobbyPage==='national' ? nationalLobby(nationalResume()) : modeLobby()) : state.battle ? battle() : state.campaign ? strategicView(state,ui) : `${header()}<div class="app-body">${rail()}${campaign()}</div>`;
   if (state.battle&&!lobby) updateBattle();
+  if(scroll&&$('.arena-stage')){$('.arena-stage').scrollLeft=scroll.x;$('.arena-stage').scrollTop=scroll.y;}
+  else if(state.battle&&!isDeploying(state.battle)&&$('.arena-stage')){const stage=$('.arena-stage');stage.scrollLeft=(stage.scrollWidth-stage.clientWidth)/2;stage.scrollTop=(stage.scrollHeight-stage.clientHeight)/2;}
+  document.querySelectorAll('.roster-list').forEach((el,i)=>{if(rosterScroll[i]){el.scrollLeft=rosterScroll[i].x;el.scrollTop=rosterScroll[i].y;}});
   renderModal();
+  art.decorate();
+  attachStrategicMap($('#app'),ui,render);
+  const tools=$('#battle-tools .arena-tools')||$('.strategy-heading>div:last-child')||$('.mode-selection');
+  if(tools&&!tools.querySelector('[data-action="art-mode"]')){const button=document.createElement('button');button.className='button secondary';button.dataset.action='art-mode';button.textContent=art.active?'美术：本地资源':'美术：默认图形';button.title=art.pack.id==='builtin'?'尚未配置本地资源包':'切换美术，不改变本局规则与存档';tools.append(button);}
 }
 function modalShell(title, subtitle, body, footer = '', wide = false) {
-  return `<div class="modal-backdrop"><section class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-header"><div><div class="eyebrow">${subtitle}</div><h2 id="modal-title">${title}</h2></div><button class="close-button" data-action="close" aria-label="关闭弹窗">×</button></header><div class="modal-body">${body}</div>${footer ? `<footer class="modal-footer">${footer}</footer>` : ''}</section></div>`;
+  const inspection=state.battle&&['unit-stats','unit-officer','tactic-detail'].includes(ui.modal);
+  return `<div class="modal-backdrop ${inspection?'battle-inspection':''}"><section class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-header"><div><div class="eyebrow">${subtitle}</div><h2 id="modal-title">${title}</h2></div><button class="close-button" data-action="close" aria-label="关闭弹窗">×</button></header><div class="modal-body">${body}</div>${footer ? `<footer class="modal-footer">${footer}</footer>` : ''}</section></div>`;
 }
 function loadoutUnits() {
   return state.battle ? state.battle.sides[0].units : state.armies.filter(a=>a.faction==='cao'&&(!state.campaign||canEditArmy(state,a))).flatMap(a=>a.units);
@@ -364,22 +407,30 @@ function growthLabel(u) {
   return `等级 ${officerLevel(u)} / 10 · ${officerLevel(u)===10?'已满级':`经验 ${u.experience||0} / ${experienceNeeded(officerLevel(u))}`}`;
 }
 function passiveMarkup(u,b=null) {
-  if(!passiveList(u,b).length)return '<section class="passive-panel"><h3>武将技能</h3><p class="muted">技能待设计，成长路线暂空。参战仍可配置兵种通用战法。</p></section>';
-  return `<section class="passive-panel"><div class="section-heading"><h3>武将成长 · 被动技能</h3><span>${growthLabel(u)}</span></div><p class="muted">2、3、5、8、10 级各习得一个；自动生效，不占战法槽。实际交战获得 100 经验，获胜额外 50，战后升级。</p><ol class="passive-route">${passiveList(u,b).map(s=>`<li class="${s.unlocked?'unlocked':'locked'} ${s.tier==='专属'?'exclusive':''}"><span class="passive-level">${s.level} 级 · ${s.tier}</span><b>${s.name}</b><p>${s.description}</p><small>${s.state}</small></li>`).join('')}</ol></section>`;
+  const list=passiveList(u,b);
+  return '<section class="passive-panel"><div class="section-heading"><h3>武将技能 · 战斗 / 内政 / 外交</h3><span>'+growthLabel(u)+'</span></div><p class="muted">五项技能随等级解锁。战斗技能按兵种和条件生效；内政技能任太守时生效；外交技能标为预留，尚未开放。</p><div class="passive-compact">'+list.map(s=>'<details class="passive-skill '+(s.unlocked?'unlocked':'locked')+'"><summary><b>'+esc(s.name)+'</b><span>'+s.level+' 级 · '+esc(s.state)+'</span></summary><p>'+esc(s.description)+'</p><small>'+esc(s.tier)+' · 不占战法槽</small></details>').join('')+(list.length?'':'<p class="muted">成长路线待设计</p>')+'</div></section>';
 }
 
-function statusDetail(s){
-  const v=s.state;
-  return (v.stacks!==undefined?' · '+v.stacks+' / 3 层':'')+(v.hits!==undefined?' · 余 '+v.hits+' 次':'')+(v.percent!==undefined?' · '+v.percent+'%':'')+(v.amount!==undefined?' · '+(s.key==='shield'?'余量 ':'基础每步 ')+fmt(v.amount):'');
+const precise=n=>Number(n.toFixed(2)).toLocaleString('zh-CN');
+function inspectionUnits(){return state.battle?state.battle.sides.flatMap(s=>s.units):state.armies.filter(a=>a.faction==='cao').flatMap(a=>a.units);}
+function statusCards(b,u){
+  return '<div class="inspection-statuses">'+inspectionStatuses(b,u).map(s=>{
+    const rows=statusAttributeChanges(b,u,s),amounts=statusAmounts(b,u,s);
+    return '<details class="effect-tile tone-'+s.tone+'" data-status="'+s.key+'"><summary>'+statusIcon(s.key)+'<span><b>'+esc(s.name)+'</b><small>来源：'+esc(s.sources.join(' / '))+'</small></span><em>'+s.remaining+(s.state.charges!==undefined?' 次':typeof s.remaining==='number'?' 步':'')+'</em></summary><div class="effect-details"><p>'+esc(s.description)+'</p><small>'+s.time+'</small>'+(rows.length?'<table class="effect-values"><thead><tr><th>属性</th><th>无此状态</th><th>当前</th><th>变化</th></tr></thead><tbody>'+rows.map(r=>'<tr><th>'+r.name+'</th><td>'+precise(r.before)+'</td><td>'+precise(r.after)+'</td><td>'+(r.delta>0?'+':'')+precise(r.delta)+' '+r.unit+'</td></tr>').join('')+'</tbody></table><p class="muted">按当前兵力与地形计算；只移除此状态，保留其他效果。多个状态的差值不能直接相加。</p>':'')+(amounts.length?'<dl>'+amounts.map(([name,value])=>'<div><dt>'+esc(name)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl>':'')+'</div></details>';
+  }).join('')+'</div>';
 }
-const ARMY_STATUS_NAMES={assaultUntil:'击鼓催锋 · 攻击 +25%',fortifyUntil:'坚壁列阵 · 防御 +30%',disruptUntil:'离间疲敌 · 攻防 −20%',hasteUntil:'疾行赴援 · 移速 +1',rangeUntil:'引弦远射 · 弓弩射程 +2',recoveryUntil:'休养生息',blockadeUntil:'烽火断援 · 暂缓增援',reliefUntil:'后军固阵 · 入场护盾'};
-function unitStatusModal(){
-  const b=state.battle;if(!b)return '';
-  const units=b.sides.flatMap(s=>s.units),u=units.find(u=>u.id===ui.inspectUnit)||units[0];
-  const statuses=visibleStatuses(b,u),layers=shieldLayers(b,u),side=b.sides[u.side];
-  const cards=statuses.filter(s=>s.key!=='shield').map(s=>`<article class="status-detail tone-${s.tone}">${statusIcon(s.key)}<b>${s.name}</b><small>${s.time}</small><p>${s.description}${statusDetail(s)}</p></article>`).join('');
-  const army=Object.entries(ARMY_STATUS_NAMES).filter(([key])=>side[key]>b.tick).map(([key,name])=>`<article class="status-detail tone-buff">${statusIcon('ward')}<b>${name}</b><small>${statusTimeLabel(side[key],b.tick)}</small></article>`).join('');
-  return modalShell(`${u.name} · 当前状态`,'UNIT STATUS · 战场已暂停',`<div class="loadout-toolbar"><label>查看部队<select id="inspect-unit">${units.map(a=>`<option value="${a.id}" ${a.id===u.id?'selected':''}>${a.side?'敌军':'我军'} · ${a.name}</option>`).join('')}</select></label><span>${TROOPS[u.type].name} · ${u.status==='active'?TERRAIN_NAMES[unitTerrain(b,u)]:'不在场'} · 兵力 ${fmt(u.hp)} / ${fmt(u.maxHp)}</span></div><p class="muted">剩余时间按战斗模拟计算：1 步 = 0.7 秒（1×）；暂停及战法演出不计时。“本步结束”表示下一步开始时到期。</p><div class="status-cards">${cards||'<p class="muted">暂无个人增益或减益</p>'}</div><h3>护盾分层</h3><div class="status-cards">${layers.map(l=>`<article class="status-detail tone-buff">${statusIcon('shield')}<b>${esc(l.label)} · ${fmt(l.amount)}</b><small>${statusTimeLabel(l.until,b.tick)}</small></article>`).join('')||'<p class="muted">暂无护盾</p>'}</div><h3>军团状态</h3><div class="status-cards">${army||'<p class="muted">暂无军团状态</p>'}</div><h3>已配战法</h3>${tacticChips(u,b)}`,`<button class="button secondary" data-action="unit-stats" data-inspect="${u.id}">完整部队属性</button><button class="button primary" data-action="close">返回战场</button>`);
+function officerUnitModal(){
+  const u=inspectionUnits().find(u=>u.id===ui.inspectUnit);if(!u)return modalShell('武将属性','暂无武将','');
+  const profile=OFFICER_BY_ID[u.id]||u;
+  return modalShell(u.name+' · 武将属性','OFFICER · 人物与成长',
+    '<div class="inspection-heading">'+avatar(u)+'<div><h3>'+esc(u.name)+(u.courtesy?' <small>字 '+esc(u.courtesy)+'</small>':'')+'</h3><p>'+growthLabel(u)+' · 忠诚 '+(state.campaign?.domestic.loyalty[u.id]??u.loyalty)+'</p></div></div><div class="officer-four">'+[['统率',u.leadership],['武力',u.force],['智力',u.intellect],['政治',u.politics]].map(([n,v])=>'<div><span>'+n+'</span><b>'+v+'</b></div>').join('')+'</div>'+passiveMarkup(u,state.battle)+officerProfileMarkup(u,state.battle?.relationshipScores||state.relationshipScores,state.battle?.relationshipTypes||state.relationshipTypes)+'<details class="profile-disclosure"><summary>人物生平</summary><p>'+esc(profile.biography||'暂无记录')+'</p></details>',
+    '<button class="button secondary" data-action="unit-stats" data-inspect="'+u.id+'">查看所率部队</button><button class="button primary" data-action="close">关闭</button>',true);
+}
+function tacticDetailModal(){
+  const skill=TACTICS_BOOK[ui.inspectSkill],u=inspectionUnits().find(u=>u.id===ui.inspectUnit);if(!skill||!u)return '';
+  const {unit,battle}=inspectContext(u);
+  return modalShell(skill.name,'TACTIC · '+u.name+' · '+CATEGORY_NAMES[skill.category]+'类',
+    '<div class="info-strip">'+(skill.passive?'持续光环 · 占用一个战法槽':'战意 ≥ '+skill.threshold+' · 冷却 '+skill.cooldown+' 步')+'</div><h3>效果</h3><p>'+esc(skill.description)+'</p><p class="power-preview">'+esc(tacticPowerPreview(skill,statusPower(unit,skill,battle)))+'</p><details class="profile-disclosure"><summary>威力、成功率与暴击</summary><p>'+esc(skill.powerDescription)+'</p></details><p>地形：'+esc(skill.terrainDescription)+'</p>'+(skill.tradeoff?'<p>取舍：'+esc(skill.tradeoff)+'</p>':''),'<button class="button secondary" data-action="inspection-back">返回</button>');
 }
 function unitStatsModal() {
   const units=state.battle?state.battle.sides.flatMap(s=>s.units):state.armies.filter(a=>a.faction==='cao').flatMap(a=>a.units);
@@ -389,19 +440,19 @@ function unitStatsModal() {
   const precise=n=>Number(n.toFixed(2)).toLocaleString('zh-CN');
   const mitigation=kind=>precise((1-(kind==='dot'?1:1-stats.damageReduction)*passiveDamageTaken(inBattle?b:null,u,kind))*100);
   const suffix=key=>({move:'格 / 步',range:'格',attackSpeed:'次 / 秒'}[key]||'');
-  const notes={attack:'当前士兵合计的普通攻击威力；减员时降低',defense:'抵御普攻与武力战法',move:'常规移动；不足 1 格时逐步累计',range:'普攻与兵器战法射程；计策另有施法范围',siege:'当前士兵合计的额外攻城威力',attackSpeed:'仅影响普攻，不缩短战法冷却',discipline:'抵御智力伤害，缩短混乱与封技',martialPower:'当前士兵合计的武力战法威力；减员时降低',strategyPower:'当前士兵合计的谋略威力；影响伤害与辅助效果'};
+  const notes={attack:'当前士兵合计的普通攻击威力；减员时降低',defense:'抵御普攻与武力战法',move:'常规移动；不足 1 格时逐步累计',range:'普攻与兵器战法射程；计策另有施法范围',siege:'当前士兵合计的额外攻城威力',attackSpeed:'仅影响普攻，不缩短战法冷却',discipline:'抵御智力伤害，缩短混乱与封技',martialPower:'当前士兵合计的武力战法威力；减员时降低',strategyPower:'当前士兵合计的谋略威力；影响伤害与辅助效果',supportPower:'政治为主、智力辅助；影响辅兵救护、休整与修缮，随现役兵力降低'};
   const cards=Object.entries(ATTRIBUTE_LABELS).map(([key,name])=>{
     const d=stats.breakdown[key],baseLabel=['attack','martialPower','strategyPower','siege'].includes(key)?'现役兵员基础贡献':'兵种基础';
     return `<details class="attribute-card"><summary><span>${name}</span><b>${precise(d.value)} <small>${suffix(key)}</small></b></summary><p>${notes[key]}</p><dl><div><dt>${baseLabel}</dt><dd>${precise(d.base)}</dd></div><div><dt>${d.source}</dt><dd>+${precise(d.officer)}</dd></div>${d.modifiers.map(m=>`<div><dt>${m.label}</dt><dd>${m.add!==undefined?'+'+precise(m.add):'×'+Number(m.factor.toFixed(4))}</dd></div>`).join('')}</dl></details>`;
   }).join('');
   const layers=inBattle?shieldLayers(b,u):[];
-  const states=[['士兵数',fmt(inBattle?u.hp:u.troops)],['带兵上限',fmt(troopCapacity(u))],...(inBattle?[['本场初始兵力',fmt(u.initial)]]:[]),['战意',`${u.intent||0} / ${COMBAT.intentCap}`],['普攻战意',`+${intentIncome(u).attack}`],['受击战意',`+${intentIncome(u).hit}`],['护盾',fmt(layers.reduce((n,l)=>n+l.amount,0))],['伤兵数',fmt(inBattle?battleWounded(u):u.wounded)]];
+  const states=[['士兵数',fmt(inBattle?u.hp:u.troops)],['带兵上限',fmt(troopCapacity(u))],...(inBattle?[['本场初始兵力',fmt(u.initial)]]:[]),['战意',`${u.intent||0} / ${COMBAT.intentCap}`],['普攻战意',`+${intentIncome(u).attack}`],['受击战意',`+${intentIncome(u).hit}`],...(u.type==='logistics'?[['修缮物资',`${Math.max(0,3-(u.tacticCasts?.camp||0))} / 3 组`]]:[]),['护盾',fmt(layers.reduce((n,l)=>n+l.amount,0))],['伤兵数',fmt(inBattle?battleWounded(u):u.wounded)]];
   if(inBattle&&u.status==='active')states.push(['所在格',TERRAIN_NAMES[unitTerrain(b,u)]]);
-  const remaining=until=>statusTimeLabel(until,b.tick);
-  const statuses=inBattle?visibleStatuses(b,u).filter(s=>s.key!=='shield').map(s=>'<span class="status-detail tone-'+s.tone+'">'+statusIcon(s.key)+'<b>'+s.name+'</b><small>'+s.time+'</small><em>'+s.description+statusDetail(s)+'</em></span>'):[];
-  const side=b.sides[u.side]||{};
-  for(const [key,name] of Object.entries(ARMY_STATUS_NAMES))if(side[key]>b.tick)statuses.push(`<span>${name}<small>${remaining(side[key])}</small></span>`);
-  return modalShell(`${u.name} · 部队属性`,'UNIT ATTRIBUTES · '+(inBattle?'战场实时数值 · 已暂停':'军团出战预览'),`<div class="loadout-toolbar"><label>选择部队<select id="inspect-unit">${units.map(a=>`<option value="${a.id}" ${a.id===u.id?'selected':''}>${inBattle?(a.side?'敌军 · ':'我军 · '):''}${a.name} · ${TROOPS[a.type].name}</option>`).join('')}</select></label><span>${TROOPS[u.type].name} · 点击属性展开来源</span></div><div class="officer-four">${[['统率',u.leadership],['武力',u.force],['智力',u.intellect],['政治',u.politics]].map(([name,value])=>`<div><span>${name}</span><b>${value}</b></div>`).join('')}</div><div class="unit-state-grid">${states.map(([name,value])=>`<div><span>${name}</span><b>${value}</b></div>`).join('')}</div><p class="muted">${inBattle?'带兵上限由统率与等级决定；治疗最多恢复本场初始兵力，且只救治已有伤兵。':'现役与伤兵共同占用带兵名额；征兵按各将带兵上限补充。'}战意达标自动施法，施放不扣战意。普攻／受击收益已含成长技能；敌方截气／断势可阻止对应受击收益。</p><details class="profile-disclosure"><summary>人物资料与关系</summary>${officerProfileMarkup(u,state.battle?.relationshipScores||state.relationshipScores,state.battle?.relationshipTypes||state.relationshipTypes)}</details>${passiveMarkup(u,inBattle?b:null)}<div class="attribute-grid">${cards}</div><div class="info-strip">攻击、武技威力、谋略威力和攻城已计入当前士兵数，伤害直接使用面板数值。<br>智力控制时长减免 ${precise(stats.controlResistance*100)}% · 额外减伤（含被动）：普攻 ${mitigation("basic")}% / 武技 ${mitigation("force")}% / 谋略 ${mitigation("intellect")}% / 持续 ${mitigation("dot")}%<br>普攻间隔 ${precise(stats.attackInterval)} 步（${precise(stats.attackInterval*.7)} 秒）；战法即时施放、独立冷却。</div><h3 class="stats-section-title">增益与减益</h3><div class="unit-status-list">${statuses.join('')||'<p class="muted">暂无临时状态</p>'}</div><h3 class="stats-section-title">护盾分层</h3><div class="unit-status-list">${layers.map(l=>`<span>${esc(l.label)} · ${fmt(l.amount)}<small>${remaining(l.until)}</small></span>`).join('')||'<p class="muted">暂无护盾</p>'}</div><p class="muted">不同来源护盾独立到期；同一来源刷新，先消耗最早到期的一层。护盾总量不超过兵力上限。</p>`,`<button class="button primary" data-action="close">返回${inBattle?'战场':'地图'}</button>`,true);
+  const statuses=inBattle?statusCards(b,u):'<p class="muted">尚未交战</p>';
+  return modalShell(u.name+' · 部队属性','UNIT · '+(inBattle?'战场实时数值 · 已暂停':'出战预览'),
+    '<div class="loadout-toolbar"><label>选择部队<select id="inspect-unit">'+units.map(a=>'<option value="'+a.id+'" '+(a.id===u.id?'selected':'')+'>'+(inBattle?(a.side?'敌军 · ':'我军 · '):'')+a.name+' · '+TROOPS[a.type].name+'</option>').join('')+'</select></label><button class="officer-entry" data-action="unit-officer" data-inspect="'+u.id+'">'+avatar(u,true)+'<span><small>所属武将</small><b>'+u.name+' →</b></span></button></div><div class="unit-state-grid">'+states.map(([name,value])=>'<div><span>'+name+'</span><b>'+value+'</b></div>').join('')+'</div><div class="attribute-grid">'+cards+'</div><div class="inspection-section-heading"><h3>状态</h3><small>点击查看来源与实际增减</small></div>'+(inBattle&&!inspectionStatuses(b,u).length?'<p class="muted">暂无临时状态</p>':statuses)+'<div class="inspection-section-heading"><h3>携带战法</h3><small>按顺序施放 · 点击查看详情</small></div>'+tacticChips(u,b)+'<details class="profile-disclosure"><summary>作战规则与减伤</summary><p>普攻间隔 '+precise(stats.attackInterval)+' 步；普攻 / 武技 / 谋略 / 持续减伤 '+mitigation('basic')+'% / '+mitigation('force')+'% / '+mitigation('intellect')+'% / '+mitigation('dot')+'%。控制时长减免 '+precise(stats.controlResistance*100)+'%。</p><p>同时邻接多支敌军时，一次普攻输出按敌军数量均分，再分别计算克制、减伤和护盾；强化普攻只消耗一次。远射与战法按各自目标规则结算。攻击、武技、谋略和攻城已计入现役兵力。治疗只能救治本场伤兵。战意达标自动施法，不扣战意，每项独立冷却。不同来源护盾独立到期，同源刷新，优先消耗最早到期层。</p></details>',
+    '<button class="button primary" data-action="close">返回'+(inBattle?'战场':'地图')+'</button>',true);
+
 }
 function loadoutModal() {
   const units=loadoutUnits();if(!units.length)return modalShell('战法配置','暂无可配置部队','');
@@ -409,27 +460,26 @@ function loadoutModal() {
   const locked=!!state.battle&&!isDeploying(state.battle),skills=unitTactics(u),pool=availableTactics(u);
   const options=units.map(a=>'<option value="'+a.id+'" '+(a.id===u.id?'selected':'')+'>'+a.name+' · '+TROOPS[a.type].name+(a.status==='reserve'||!a.first?' · 预备':'')+'</option>').join('');
 
-  const roles=TACTIC_ROLES[u.type];
-  const selected=new Set(skills.map(s=>s.id)),omitted=pool.filter(s=>!s.special&&!selected.has(s.id));
-  const presets=roles.map(r=>`<article class="loadout-card loadout-role-card"><b>${r.name}</b><p>${r.position}</p><small>${r.cost}</small><button class="button secondary" data-action="tactic-preset" data-preset="${r.id}" ${locked?'disabled':''}>采用此定位</button></article>`).join('');
-  const cards=skills.map((skill,i)=>`<article class="loadout-card"><header><b>优先级 ${i+1}</b><span class="type-badge ${skill.category}">${skill.special?'★ 专用':skill.role}</span>${i?'<button class="button secondary" data-action="tactic-up" data-slot="'+i+'" '+(locked?'disabled':'')+'>上移</button>':''}</header><label>战法 ${i+1}<select data-tactic-slot="${i}" aria-label="战法槽${i+1}" ${locked?'disabled':''}>${pool.map(s=>'<option value="'+s.id+'" '+(skill.id===s.id?'selected':'')+' '+(skills.some((other,j)=>j!==i&&other.id===s.id)?'disabled':'')+'>'+(s.special?'★ 专用':s.role)+' · '+s.name+'</option>').join('')}</select></label><p>基础效果：${skill.description}</p><p class="power-preview">${esc(tacticPowerPreview(skill,statusPower(u,skill,state.battle)))}</p><details class="power-rules"><summary>威力成长、成功率与暴击规则</summary><p>${esc(skill.powerDescription)}</p></details><p class="terrain-note">地形：${skill.terrainDescription}</p>${skill.tradeoff?'<p class="muted">取舍：'+skill.tradeoff+'</p>':''}<footer>战意 ≥ ${skill.threshold} · 冷却 ${skill.cooldown} 步 · ${CATEGORY_NAMES[skill.category]}类</footer></article>`).join('');
-  const lost=omitted.map(s=>`<li><b>${s.role} · ${s.name}</b>：基础效果 ${s.description}<small class="power-preview">${esc(tacticPowerPreview(s,statusPower(u,s,state.battle)))}</small><small class="terrain-note">地形：${s.terrainDescription}</small></li>`).join('');
-  return modalShell('部队战法与定位','TACTIC LOADOUT · 六选三 · 20 种基础组合',`
-    <div class="loadout-toolbar"><label>选择部队<select id="loadout-unit">${options}</select></label><span>武力 ${u.force} · 智力 ${u.intellect} · ${TROOPS[u.type].name}</span></div>
-    <div class="info-strip">${locked?'交战已经开始，配置锁定。暂停仍可查看效果。':'每队选择 3 个不同战法，修改即保存，下场沿用。按优先级 1 → 3 检查，条件不满足则检查下一项。'}</div>
-    <h3>按阵容选择定位</h3><div class="loadout-grid">${presets}</div>
-    <p class="muted">所有武将均可采用本兵种的三种起点，再逐槽自由调整。枪兵守线，戟兵反击与诅咒；骑兵突击；弓弩远攻；后勤救治、净化与开路；兵器压阵攻城；舰船水上突击与护航。换兵种保留武将成长，属性与被动决定擅长程度。定位方案使用基础战法；专用战法可手动替换，占用同样一个槽位。</p>
-    <h3>保留的能力</h3><div class="loadout-grid">${cards}</div>
-    <details class="profile-disclosure" open><summary>未携带的基础能力 · ${omitted.length} 项</summary><ul>${lost}</ul></details>
-    <p class="muted">六个基础战法任选三个，共 20 种组合；优先级可另行调整。武技威力或谋略威力决定效果强度，部分控制需要成功判定，部分直接攻击可以暴击。基础效果中的固定数值以威力 280 为参照，实际结果见战法记录。战意共享、施放不扣除，每项独立冷却，每步只施放一个战法。</p>
-  `,'<button class="button primary" data-action="close">完成配置</button>',true);
+  const aptitude=troopAptitude(u),grade=['C','B','A','S'][aptitude],learning=u.tacticLearning,limits=tacticLearningLimits(u);
+  const selected=new Set(skills.map(s=>s.id)),omitted=pool.filter(s=>!selected.has(s.id));
+  const cards=skills.map((skill,i)=>'<article class="loadout-card compact-loadout"><header><b>优先级 '+(i+1)+'</b><span class="type-badge '+skill.category+'">'+(skill.special?'★ 专属':skill.threshold<=LEARNING_RULES.lowMaxIntent?'低级战法':'高级战法')+'</span>'+(i?'<button class="button secondary" data-action="tactic-up" data-slot="'+i+'" '+(locked?'disabled':'')+'>上移</button>':'')+'</header><h3>'+esc(skill.name)+'</h3><footer>'+(skill.passive?'持续光环':'战意 ≥ '+skill.threshold+' · 冷却 '+skill.cooldown+' 步')+'</footer><button class="unit-inspect-link" data-action="tactic-detail" data-inspect="'+u.id+'" data-skill="'+skill.id+'">查看效果 →</button></article>').join('');
+  const lost=omitted.map(s=>'<li><button class="unit-inspect-link" data-action="tactic-detail" data-inspect="'+u.id+'" data-skill="'+s.id+'">'+esc(s.name)+' →</button><small>'+(s.special?'每级25%，5级必得':'战意 '+s.threshold+' · '+(s.threshold<=LEARNING_RULES.lowMaxIntent?'低级池':limits.high?'高级池':'高级池 · 当前适性不能学习'))+'</small></li>').join('');
+  const ledger=LEARNING_TROOPS.map(type=>{const p=learning.byTroop[type],apt=troopAptitude(u,type),cap=tacticLearningLimits(u,type);return '<li><b>'+TROOPS[type].name+' · '+['C','B','A','S'][apt]+'</b><p>低级 '+p.low.length+'/'+cap.low+'：'+(p.low.map(id=>TACTICS_BOOK[id].name).join('、')||'尚未学会')+(cap.high?'；高级 '+p.high.length+'/'+cap.high+'：'+(p.high.map(id=>TACTICS_BOOK[id].name).join('、')||'尚未学会'):'；不学习高级战法')+'</p></li>';}).join('');
+  return modalShell('部队战法与成长','随等级学习 · 适性决定名额与保底',`
+    <div class="loadout-toolbar"><label>选择部队<select id="loadout-unit">${options}</select></label><span>${growthLabel(u)} · ${TROOPS[u.type].name}适性 ${grade}</span></div>
+    <div class="info-strip">自动携带当前兵种全部已学战法；普通名额 ${limits.low}低${limits.high}高，专属额外携带，最多四种。${locked?'交战已经开始，顺序锁定。':'可上移调整施放优先级，不能更换学习结果。'}条件不满足时检查下一项。</div>
+    <p>每级各兵种分别抽取。当前适性低级 ${Math.round(LEARNING_RULES.lowChance[aptitude]*100)}%、高级 ${Math.round(LEARNING_RULES.highChance[aptitude]*100)}%。${limits.guarantee?`最迟 ${limits.guarantee} 级补齐 ${limits.low} 个低级${limits.high?'、1个高级':'，不学习高级战法'}。`:'C适性只学低级，没有保底。'}专属每级25%，5级必得。</p>
+    <h3>本场携带 · ${skills.length} / 4</h3><div class="loadout-grid">${cards||'<p class="muted">当前兵种尚未学会战法，仍可普攻；升级时有机会学习，其他兵种所学可在下方查看。</p>'}</div>
+    <details class="profile-disclosure"><summary>尚未学会 · ${omitted.length} 项</summary><ul>${lost}</ul></details>
+    <details class="profile-disclosure"><summary>全部兵种学习记录</summary><ul>${ledger}</ul><p>弓兵沿用弩兵适性；辅兵按政治分档：低于60为C，60–79为B，80–99为A，100为S。换兵种与读档均不重抽。</p></details>
+  `,'<button class="button primary" data-action="close">完成</button>',true);
 }
 function armyModal() {
   const army = selectedArmy(); if (!army) return '';
   const locked = !!state.battle || !!state.campaign&&!canEditArmy(state,army);
   const opts = Object.entries(TACTICS).map(([id, name]) => `<option value="${id}" ${army.tactic === id ? 'selected' : ''}>${name}</option>`).join('');
   const leaders = role => army.units.map(u => `<option value="${u.id}" ${army[role] === u.id ? 'selected' : ''}>${u.name}</option>`).join('');
-  return modalShell('整军经武', 'LEGION MANAGEMENT · 军团编制', `<div class="roster-overview"><div><b>${esc(army.name)}</b><span>${cityById(state, army.location).name} · ${fmt(armyTroops(army))} 人</span></div><div class="roster-controls"><label>主将<select data-role="leader" ${locked ? 'disabled' : ''}>${leaders('leader')}</select></label><label>副将<select data-role="deputy" ${locked ? 'disabled' : ''}>${leaders('deputy')}</select></label><label>军师<select data-role="advisor" ${locked ? 'disabled' : ''}>${leaders('advisor')}</select></label><label>全军策略<select id="tactic-select" ${locked ? 'disabled' : ''}>${opts}</select></label></div></div><div class="info-strip">${icon('help')}${locked ? '战斗期间编制锁定。' : '军团最多 10 支部队，首发最多 6 名；不足时由预备队补齐。枪戟克骑、骑克弓弩、弓弩克枪、兵器克戟。有舰船参战时使用双水道战场，舰船不能登陆。'}主将提升攻防，副将提升武技威力，军师提升谋略威力。战法后数字为战意门槛，★ 为专用战法。</div><section class="commander-repertoire"><h3>军团军略 · ${armyStratagems(army).length} 种</h3><p class="muted">仅主将和军师提供军略，重复只计一次。副将及普通武将不解锁军略。开战从空条开始，在场总智力每累计 12000 蓄满一条，使用后清空，不储存次数。</p>${armyCommanders(army).map(c=>`<div><b>${c.role==='leader'?'主将':'军师'} · ${c.name}</b><div class="repertoire-skills">${officerStratagems(c.id).map(key=>`<span title="${esc(STRATAGEMS[key].description)}">${STRATAGEMS[key].name}<small>满条施放 · ${STRATAGEMS[key].description}</small></span>`).join('') || '暂无军略'}</div></div>`).join('')}</section><div class="roster-table"><div class="roster-table-head"><span>首发 / 武将</span><span>统 · 武 · 智 · 政</span><span>所率兵种</span><span>战场位置</span><span>兵力 / 伤兵</span></div>${army.units.map(u => `<div class="roster-row"><div><input type="checkbox" data-first="${u.id}" aria-label="${u.name}首发" ${u.first ? 'checked' : ''} ${locked ? 'disabled' : ''}>${avatar(u, true)}<div><button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name} · ${officerLevel(u)} 级 ↗</button><small title="${esc(unitTactics(u).map(s=>`${s.name}：${s.description}；门槛 ${s.threshold}；冷却 ${s.cooldown} 步`).join(' / '))}">${unitTactics(u).map(s=>`${s.special ? '★' : ''}${s.name} ${s.threshold}`).join(' · ')}</small></div></div><div class="stat-trio"><span>${u.leadership}</span><span>${u.force}</span><span>${u.intellect}</span><span>${u.politics}</span></div><select data-type="${u.id}" aria-label="${u.name}兵种" ${locked ? 'disabled' : ''}>${Object.entries(TROOPS).map(([key, t]) => `<option value="${key}" ${u.type === key ? 'selected' : ''}>${t.name}</option>`).join('')}</select><select data-formation="${u.id}" aria-label="${u.name}位置" ${locked ? 'disabled' : ''}>${Object.entries({ front: '前排', middle: '中排', back: '后排', left: '左翼', right: '右翼' }).map(([key, name]) => `<option value="${key}" ${u.formation === key ? 'selected' : ''}>${name}</option>`).join('')}</select><div class="troop-count"><b>${fmt(u.troops)}<small> / ${fmt(troopCapacity(u))}</small></b><small>伤兵 ${fmt(u.wounded)}</small></div></div>`).join('')}</div><div class="tactic-notes"><p><b>激进</b>攻击 +18%，防御 −9%</p><p><b>稳健</b>攻守均衡，优先就近接敌</p><p><b>防守</b>防御 +15%，攻击 −8%</p></div>`, `<button class="button secondary" data-action="loadout">配置默认战法</button><button class="button secondary" data-action="split" ${locked || state.pending ? 'disabled' : ''}>拆分 / 新建军团</button><button class="button secondary" data-action="merge" ${locked || state.pending ? 'disabled' : ''}>合并同城军团</button><button class="button primary" data-action="close">完成编制</button>`, true);
+  return modalShell('整军经武', 'LEGION MANAGEMENT · 军团编制', `<div class="roster-overview"><div><b>${esc(army.name)}</b><span>${cityById(state, army.location).name} · ${fmt(armyTroops(army))} 人</span></div><div class="roster-controls"><label>主将<select data-role="leader" ${locked ? 'disabled' : ''}>${leaders('leader')}</select></label><label>副将<select data-role="deputy" ${locked ? 'disabled' : ''}>${leaders('deputy')}</select></label><label>军师<select data-role="advisor" ${locked ? 'disabled' : ''}>${leaders('advisor')}</select></label><label>全军策略<select id="tactic-select" ${locked ? 'disabled' : ''}>${opts}</select></label></div></div><div class="info-strip">${icon('help')}${locked ? '战斗期间编制锁定。' : '城内大军团不限队数；出征军团最多10队，首发最多6队，其余进入预备。枪戟克骑、骑克弓弩、弓弩克枪、兵器克戟。有舰船参战时使用双水道战场，舰船不能登陆。'}主将提升攻防，副将提升武技威力，军师提升谋略威力。战法后数字为战意门槛，★ 为专用战法。</div><section class="commander-repertoire"><h3>军团军略 · ${armyStratagems(army).length} 种</h3><p class="muted">仅主将和军师提供军略，重复只计一次。副将及普通武将不解锁军略。开战从空条开始，在场总智力每累计 12000 蓄满一条，使用后清空，不储存次数。</p>${armyCommanders(army).map(c=>`<div><b>${c.role==='leader'?'主将':'军师'} · ${c.name}</b><div class="repertoire-skills">${officerStratagems(c.id).map(key=>`<span title="${esc(STRATAGEMS[key].description)}">${STRATAGEMS[key].name}<small>满条施放 · ${STRATAGEMS[key].description}</small></span>`).join('') || '暂无军略'}</div></div>`).join('')}</section><div class="roster-table"><div class="roster-table-head"><span>首发 / 武将</span><span>统 · 武 · 智 · 政</span><span>所率兵种</span><span>战场位置</span><span>兵力 / 伤兵</span></div>${army.units.map(u => `<div class="roster-row"><div><input type="checkbox" data-first="${u.id}" aria-label="${u.name}首发" ${u.first ? 'checked' : ''} ${locked ? 'disabled' : ''}>${avatar(u, true)}<div><button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name} · ${officerLevel(u)} 级 ↗</button><small title="${esc(unitTactics(u).map(s=>`${s.name}：${s.description}；门槛 ${s.threshold}；冷却 ${s.cooldown} 步`).join(' / '))}">${unitTactics(u).map(s=>`${s.special ? '★' : ''}${s.name} ${s.threshold}`).join(' · ')}</small></div></div><div class="stat-trio"><span>${u.leadership}</span><span>${u.force}</span><span>${u.intellect}</span><span>${u.politics}</span></div><select data-type="${u.id}" aria-label="${u.name}兵种" ${locked ? 'disabled' : ''}>${Object.entries(TROOPS).map(([key, t]) => `<option value="${key}" ${u.type === key ? 'selected' : ''} ${state.campaign&&!canTrain(cityById(state,army.location),key)?'disabled':''}>${t.name}${state.campaign&&!canTrain(cityById(state,army.location),key)?'（本城未解锁）':''}</option>`).join('')}</select><select data-formation="${u.id}" aria-label="${u.name}位置" ${locked ? 'disabled' : ''}>${Object.entries({ front: '前排', middle: '中排', back: '后排', left: '左翼', right: '右翼' }).map(([key, name]) => `<option value="${key}" ${u.formation === key ? 'selected' : ''}>${name}</option>`).join('')}</select><div class="troop-count"><b>${fmt(u.troops)}<small> / ${fmt(troopCapacity(u))}</small></b><small>伤兵 ${fmt(u.wounded)}</small></div></div>`).join('')}</div><div class="tactic-notes"><p><b>激进</b>攻击 +18%，防御 −9%</p><p><b>稳健</b>攻守均衡，优先就近接敌</p><p><b>防守</b>防御 +15%，攻击 −8%</p></div>`, `<button class="button secondary" data-action="loadout">查看战法成长</button><button class="button secondary" data-action="split" ${locked || state.pending ? 'disabled' : ''}>拆分 / 新建军团</button><button class="button secondary" data-action="merge" ${locked || state.pending ? 'disabled' : ''}>合并同城军团</button><button class="button primary" data-action="close">完成编制</button>`, true);
 }
 function renderModal() {
   let html = '';
@@ -444,8 +494,9 @@ function renderModal() {
   if (ui.modal === 'army') html = armyModal();
   if (ui.modal === 'loadout') html = loadoutModal();
   if (ui.modal === 'unit-stats') html = unitStatsModal();
-  if (ui.modal === 'unit-status') html = unitStatusModal();
-  if (ui.modal === 'owned-officers') html = modalShell('麾下群英', 'OFFICERS · 武将名录', `<div class="officer-grid">${state.armies.filter(a => a.faction === 'cao').flatMap(a => a.units.map(u => `<article class="officer-card">${avatar(u)}<div><h3>${u.name}<small>字 ${u.courtesy}</small></h3><span class="trait">${u.trait}</span><small class="officer-growth">${growthLabel(u)}</small></div><p>${unitTactics(u).map(s=>s.name).join(' · ')}<span>${TROOPS[u.type].name}</span></p><div class="officer-stats">${[['统率', u.leadership], ['武力', u.force], ['智力', u.intellect], ['政治', u.politics]].map(([n, v]) => `<div><b>${v}</b><small>${n}</small></div>`).join('')}</div><button class="button secondary full" data-action="unit-stats" data-inspect="${u.id}">查看五技能成长路线</button><p class="officer-strategies">拥有军略：${officerStratagems(u.id).map(key=>STRATAGEMS[key].name).join(' · ') || '无'}<small>任主将或军师时解锁</small></p><footer>${esc(a.name)} · ${cityById(state, a.location).name}<span>忠诚 ${u.loyalty}</span></footer></article>`)).join('')}</div><p class="muted">实际交战后获得经验，战后自动升级至最高 10 级；专属技能或高级通用技能在 10 级解锁。人物关系决定连携概率；可在武将名录中查看与调整。招募留待后续版本。</p>`, '', true);
+  if (ui.modal === 'unit-officer') html = officerUnitModal();
+  if (ui.modal === 'tactic-detail') html = tacticDetailModal();
+  if (ui.modal === 'owned-officers') html = modalShell('麾下群英', 'OFFICERS · 武将名录', `<div class="officer-grid">${state.armies.filter(a => a.faction === 'cao').flatMap(a => a.units.map(u => `<article class="officer-card">${avatar(u)}<div><h3>${u.name}<small>字 ${u.courtesy}</small></h3><span class="trait">${u.trait}</span><small class="officer-growth">${growthLabel(u)}</small></div><p>${unitTactics(u).map(s=>s.name).join(' · ')}<span>${TROOPS[u.type].name}</span></p><div class="officer-stats">${[['统率', u.leadership], ['武力', u.force], ['智力', u.intellect], ['政治', u.politics]].map(([n, v]) => `<div><b>${v}</b><small>${n}</small></div>`).join('')}</div><button class="button secondary full" data-action="unit-officer" data-inspect="${u.id}">查看武将属性</button><p class="officer-strategies">拥有军略：${officerStratagems(u.id).map(key=>STRATAGEMS[key].name).join(' · ') || '无'}<small>任主将或军师时解锁</small></p><footer>${esc(a.name)} · ${cityById(state, a.location).name}<span>忠诚 ${state.campaign?.domestic.loyalty[u.id]??u.loyalty}</span></footer></article>`)).join('')}</div><p class="muted">实际交战后获得经验，战后自动升级至最高 10 级；专属技能或高级通用技能在 10 级解锁。人物关系决定连携概率；可在武将名录中查看与调整。普通模式可通过人才委任探索与登用武将。</p>`, '', true);
   if(ui.modal==='officers')html=modalShell('武将名录','OFFICERS · 835 人',rosterMarkup({query:ui.catalogQuery,sort:ui.catalogSort,kind:ui.catalogKind,page:ui.catalogPage,selected:ui.catalogSelected}),'<button class="button secondary" data-action="owned-officers">查看麾下武将</button>',true);
   if(ui.modal==='catalog-detail'){
     const u=OFFICER_BY_ID[ui.catalogInspect];
@@ -453,8 +504,8 @@ function renderModal() {
   }
   if (ui.modal === 'journal') html = modalShell('天下纪事', 'CHRONICLE · 军国大事', `<div class="journal">${state.logs.map(l => `<div class="${l.type}"><span>第 ${l.turn} 旬</span><p>${esc(l.text)}</p></div>`).join('')}</div>`);
   if (ui.modal === 'settings') html = modalShell('案牍与存档', `ARCHIVES · ${currentScenario()?.name||'战略原型'}`, `<p class="modal-intro">进度自动保存在当前浏览器。可导出文件留存，或在另一台电脑导入继续。</p><div class="settings-actions"><button data-action="save">${icon('save')}立即保存<span>保存当前进度</span></button><button data-action="load">${icon('scroll')}读取存档<span>恢复上一次保存</span></button><button data-action="export">${icon('flag')}导出存档<span>下载 JSON 文件</span></button><button data-action="import">${icon('home')}导入存档<span>选择 JSON 文件</span></button></div><div class="settings-divider"></div><div class="reset-row"><div><b>重新开始</b><p>${state.testScenario?'恢复本役预设布阵与兵力。':'回到建安五年，重新逐鹿中原。'}</p></div><button class="button danger" data-action="${state.testScenario?'retry-scenario':'reset-confirm'}">${state.testScenario?'重开本役':'新开一局'}</button></div><input type="file" id="import-file" accept=".json,application/json" hidden>`);
-  if (ui.modal === 'reset') html = modalShell('再起风云', 'NEW CAMPAIGN', '<p class="modal-intro">新开一局会替换当前浏览器中的进度。如需保留，请先在设置中导出存档。</p>', '<button class="button secondary" data-action="settings">返回存档</button><button class="button primary" data-action="reset">确认新开一局</button>');
-  if (ui.modal === 'help') html = modalShell('君主之道', 'FIELD GUIDE · 玩法指引', `<div class="guide-intro"><span class="brand-seal">令</span><p>你决定战争的方向。<br><b>诸将为你执行每一步。</b></p></div><ol class="guide-steps"><li><b>整军</b><p>在军团中调整首发、兵种、阵型与策略，并配置每队 3 个默认战法。每个兵种有武力、智力各 3 个通用战法，可自由混配；少数武将的专用战法也占一个槽。修改即保存，下场沿用，开战后锁定。</p></li><li><b>出征</b><p>点击地图城池，选择出征或移驻。结束回合后沿一段道路行军，并获得城池收益。</p></li><li><b>临阵</b><p>进入战场后，点击部队与绿色格子布阵，再确认开战。枪骑控制相邻六格（ZOC），近战进入后必须与拦截者接战。眩晕或混乱会暂时解除该队 ZOC，诱敌可以改变控制区位置；冲阵会优先沿真实缺口突击弓弩，骑兵突入后会追击后排 8 步。挑衅可吸引 5 格内一队敌军 4 步，迫使其攻击或合法接近施法者；坚定与净化可反制。重叠控制区必须逐一解除，不能穿越仍有效的 ZOC 或被占用的格子。弓弩、谋略和范围伤害仍可威胁后排。战意收益随兵种不同，完整部队属性显示含成长技能的普攻与受击收益；截气阻止自身普攻给敌军送战意，断势阻止自身伤害战法给敌军送战意；伤害战法不为施法者回充，同一次多段战法对同一目标只计一次受击战意；每队三个战法按槽位优先级检查，共享战意；达到门槛、有合法目标且自身冷却结束就自动施放，施放不扣战意。点击战场下方效果摘要或战法记录可暂停查看实际结算。同阵营不同部队在 3 步内对同一目标完成战法，按相邻施法武将的关系值百分比判定二连携 / 三连携，后续战法伤害、护盾、战意等数值增强 25% / 40%，控制与状态延长 1 步；同一部队多段攻击不重复计数，普攻、军略、自身增益不触发。部分战法和军略可以降低敌军战意，但不打断已开始施法。军略从空条积累：在场部队总智力每累计 12000 蓄满一条，施放后清空，不用就保持满条，暂停不增长；仅解锁主将与军师拥有的军略。治疗只恢复本场伤兵，不复活溃败部队或阵亡士兵。暂停可在进攻、整军、扰敌三组中选择军略：增攻、防御、战意、解除控制、缩短冷却、加速行军、延迟敌方援军或保护入场预备队、治疗伤兵、增加弓弩射程或持续火攻；也可重兵合围、后军接阵、鸣金收兵。空格可暂停，支持 1× / 2× / 4×。</p></li><li><b>休整</b><p>战果返回地图。35% 的战损转为伤兵，在己方城池每旬恢复每队最多 180 人；也可花费府库与粮草征兵。</p></li></ol><div class="info-strip">剧本目标：占领全部 9 座城池。失去全部城池则本局结束。袁绍军从第 5 旬开始伺机进攻。</div><p class="muted">V0.3 玩法原型 · 史实人物，架空推演。城池经营、外交、俘虏与历史事件尚未开放。</p>`);
+  if (ui.modal === 'reset') html = modalShell('再起风云', 'NEW CAMPAIGN', '<p class="modal-intro">新开一局会替换当前浏览器中的进度。如需保留，请先在设置中导出存档。</p>', '<button class="button secondary" data-action="settings">返回存档</button><button class="button primary" data-action="reset">选择新局剧本</button>');
+  if (ui.modal === 'help') html = modalShell('君主之道', 'FIELD GUIDE · 玩法指引', `<div class="guide-intro"><span class="brand-seal">令</span><p>你决定战争的方向。<br><b>诸将为你执行每一步。</b></p></div><ol class="guide-steps"><li><b>整军</b><p>技能强化本队被动与兵种面板；战法主动处理单体或附近战局；军略影响全军、敌军全体或援军调度。在军团中调整首发、兵种、阵型与策略，战法随等级随机学习：S适性5级保底两低一高，A适性8级保底两低一高，B适性8级保底三个低级且不学高级，C无保底、最多随机学三个低级。专属每级有25%概率学会，1级也抽取，5级必得；额外携带，不挤占普通战法。双方自动携带当前兵种已学战法；换兵种不重抽，玩家可调整施放顺序。</p></li><li><b>出征</b><p>点击地图城池，选择出征或移驻。结束回合后沿一段道路行军，并获得城池收益。</p></li><li><b>临阵</b><p>进入战场后，点击部队与绿色格子布阵，再确认开战。枪骑控制相邻六格（ZOC），近战进入后必须与拦截者接战。眩晕或混乱会暂时解除该队 ZOC，诱敌可以改变控制区位置；冲阵会优先沿真实缺口突击弓弩，骑兵突入后会追击后排 8 步。挑衅可吸引 5 格内一队敌军 4 步，迫使其攻击或合法接近施法者；坚定与净化可反制。重叠控制区必须逐一解除，不能穿越仍有效的 ZOC 或被占用的格子。弓弩、谋略和范围伤害仍可威胁后排。战意收益随兵种不同，完整部队属性显示含成长技能的普攻与受击收益；截气阻止自身普攻给敌军送战意，断势阻止自身伤害战法给敌军送战意；伤害战法不为施法者回充，同一次多段战法对同一目标只计一次受击战意；每队已学战法按槽位优先级检查，共享战意；达到门槛、有合法目标且自身冷却结束就自动施放，施放不扣战意。点击战场下方效果摘要或战法记录可暂停查看实际结算。同阵营不同部队在 3 步内对同一目标完成战法，按相邻施法武将的关系值百分比判定二连携 / 三连携，后续战法伤害、护盾、战意等数值增强 25% / 40%，控制与状态延长 1 步；同一部队多段攻击不重复计数，普攻、军略、自身增益不触发。部分战法和军略可以降低敌军战意，但不打断已开始施法。军略从空条积累：在场部队总智力每累计 12000 蓄满一条，施放后清空，不用就保持满条，暂停不增长；仅解锁主将与军师拥有的军略。治疗只恢复本场伤兵，不复活溃败部队或阵亡士兵。暂停可在进攻、整军、扰敌三组中选择军略：增攻、防御、战意、解除控制、缩短冷却、加速行军、延迟敌方援军或保护入场预备队、治疗伤兵、增加弓弩射程或持续火攻；基础军令仅保留全军撤退。歼灭、固守、攻城须在战前选定，开战后不可更改，军略仍可使用。空格可暂停，支持 1× / 2× / 4×。</p></li><li><b>休整</b><p>战果返回地图。35% 的战损转为伤兵，在己方城池每旬恢复每队最多 180 人；也可花费府库与粮草征兵。</p></li></ol><div class="info-strip">剧本目标：占领全部 9 座城池。失去全部城池则本局结束。袁绍军从第 5 旬开始伺机进攻。</div><p class="muted">V0.3 玩法原型 · 史实人物，架空推演。城池经营、外交、俘虏与历史事件尚未开放。</p>`);
   if (ui.modal === 'encounter' && state.pending) {
     const p = state.pending, city = cityById(state, p.cityId), attack = armyById(state, p.attackerId);
     const friendlyAttack = attack.faction === 'cao', defenders = p.defenderIds.map(id => armyById(state, id));
@@ -466,7 +517,7 @@ function renderModal() {
   }
   if (ui.modal === 'report' && state.report) {
     const r = state.report, won = r.winner === 0;
-    html = modalShell(won ? '此战告捷' : r.winner === null ? '罢兵收军' : r.reason === '撤退' ? '全军收撤' : '此战失利', `${currentScenario()?.name || r.city+'之战'} · 战果呈报`, `<div class="report-seal ${won ? '' : 'lost'}">${won ? '捷' : r.winner === null ? '和' : '退'}</div><p class="center">${state.testScenario ? esc(r.reason) : r.captured ? `${r.city}现归${FACTIONS[r.owner].name}势力所有` : `${r.city}归属未变`} · 交战 ${r.tick} 步</p>${r.gate?`<div class="info-strip">${esc(r.reason)} · 城门耐久 ${fmt(r.gate.remaining)} / ${fmt(r.gate.initial)}</div>`:''}<table class="report-table"><thead><tr><th>战果</th><th>我军</th><th>敌军</th></tr></thead><tbody>${[['参战兵力', 'initial'], ['存活兵力', 'remaining'], ['伤兵', 'wounded'], ['阵亡', 'killed']].map(([name, key]) => `<tr><td>${name}</td><td>${fmt(r.stats[0][key])}</td><td>${fmt(r.stats[1][key])}</td></tr>`).join('')}</tbody></table><div class="info-strip">${state.testScenario ? '本场独立结算，战略进度不受影响。可重试本役，或返回选择其他战役。' : (won ? '战功：声望 +30，府库 +300。' : '未获胜的进攻军退回最近的己方城池。')+'伤兵在己方城池逐旬恢复。'}</div>${(r.growth||[]).some(g=>g.side===0)?`<h3 class="stats-section-title">武将成长</h3><div class="growth-report">${r.growth.filter(g=>g.side===0).map(g=>`<div><b>${esc(g.name)}</b><span>经验 +${g.gained} · ${g.after>g.before?`${g.before} → ${g.after} 级`:`${g.after} 级`}</span><small>${g.unlocked.length?`习得：${g.unlocked.map(esc).join("、")}`:"继续积累经验"}</small></div>`).join("")}</div>`:""}${state.finished ? `<div class="campaign-complete"><b>${state.finished === 'victory' ? '中原已定，天下归心！' : '城池尽失，此番霸业未成。'}</b><p>可在设置中开启新的征程。</p></div>` : ''}`, currentScenario()?.campaign ? '<button class="button primary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="lobby">返回战役首页</button>' : state.testScenario ? '<button class="button primary" data-action="retry-scenario">同种子重开</button><button class="button secondary" data-action="scenarios">选择战役</button><button class="button secondary" data-action="exit-scenario">返回天下</button>' : '<button class="button primary full" data-action="close-report">返回天下</button>');
+    html = modalShell(won ? '此战告捷' : r.winner === null ? '罢兵收军' : r.reason === '撤退' ? '全军收撤' : '此战失利', `${currentScenario()?.name || r.city+'之战'} · 战果呈报`, `<div class="report-seal ${won ? '' : 'lost'}">${won ? '捷' : r.winner === null ? '和' : '退'}</div><p class="center">${state.testScenario ? esc(r.reason) : r.captured ? `${r.city}现归${FACTIONS[r.owner].name}势力所有` : `${r.city}归属未变`} · 交战 ${r.tick} 步</p>${r.gate?`<div class="info-strip">${esc(r.reason)} · 城门耐久 ${fmt(r.gate.remaining)} / ${fmt(r.gate.initial)}</div>`:''}<table class="report-table"><thead><tr><th>战果</th><th>我军</th><th>敌军</th></tr></thead><tbody>${[['参战兵力', 'initial'], ['存活兵力', 'remaining'], ['伤兵', 'wounded'], ['阵亡', 'killed']].map(([name, key]) => `<tr><td>${name}</td><td>${fmt(r.stats[0][key])}</td><td>${fmt(r.stats[1][key])}</td></tr>`).join('')}</tbody></table><div class="info-strip">${state.testScenario ? '本场独立结算，战略进度不受影响。可重试本役，或返回选择其他战役。' : (won ? '战功：声望 +30，府库 +300。' : '未获胜的进攻军退回最近的己方城池。')+'伤兵在己方城池逐旬恢复。'}</div>${(r.growth||[]).some(g=>g.side===0)?`<h3 class="stats-section-title">武将成长</h3><div class="growth-report">${r.growth.filter(g=>g.side===0).map(g=>`<div><b>${esc(g.name)}</b><span>经验 +${g.gained} · ${g.after>g.before?`${g.before} → ${g.after} 级`:`${g.after} 级`}</span><small>${g.unlocked.length?`习得：${g.unlocked.map(esc).join("、")}`:"继续积累经验"}</small></div>`).join("")}</div>`:""}${state.finished ? `<div class="campaign-complete"><b>${state.finished === 'victory' ? '中原已定，天下归心！' : '城池尽失，此番霸业未成。'}</b><p>可在设置中开启新的征程。</p></div>` : ''}`, currentScenario()?.campaign ? '<button class="button primary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="lobby">返回模式首页</button>' : state.testScenario ? '<button class="button primary" data-action="retry-scenario">同种子重开</button><button class="button secondary" data-action="scenarios">选择战役</button><button class="button secondary" data-action="exit-scenario">返回天下</button>' : '<button class="button primary full" data-action="close-report">返回天下</button>');
   }
   if (ui.modal === 'split') {
     const army = selectedArmy();
@@ -479,6 +530,7 @@ function renderModal() {
   if(ui.modal==='campaign-encounters'&&state.campaign)html=modalShell('其他战线发生遭遇','全局暂停 · 请选择指挥方式',activeBattles(state).filter(r=>r.awaiting).map(r=>`<article class="strategy-battle-card"><h3>${esc(r.name)}</h3><p>世界第 ${state.campaign.day} 天，所有战场已暂停。</p><button class="button primary" data-action="campaign-manual" data-battle="${r.id}">亲自指挥 · 战前布阵</button> <button class="button secondary" data-action="campaign-auto" data-battle="${r.id}">委托作战</button></article>`).join(''));
   if(ui.modal==='campaign-history'&&state.campaign){const r=battleRecord(state,ui.campaignHistory);if(r)html=modalShell(r.name,'每日快照 · 只读',snapshotMarkup(state,r,ui.campaignSnapshotDay),'',true);}
   $('#overlay-root').innerHTML = html;
+  art.decorate($('#overlay-root'));
   document.body.classList.toggle('modal-open', !!html);
   if (html) { $('#app').setAttribute('inert', ''); const first = $('#overlay-root button:not([disabled])'); first?.focus({ preventScroll: true }); }
   else $('#app').removeAttribute('inert');
@@ -487,13 +539,27 @@ function openModal(name) { ui.modal = name; if (state.battle) ui.paused = true; 
 function closeModal() { if(ui.mode==='lobby'){ui.modal=null;render();return;} if (state.report) return closeReport(); ui.modal = state.pending ? 'encounter' : null; save(); render(); }
 function closeReport() { if (currentScenario()?.campaign) return showLobby(); if (state.testScenario) { ui.modal = 'scenarios'; renderModal(); return; } state.report = null; ui.modal = null; ui.city = selectedArmy()?.location || 'xuchang'; save(); render(); }
 function act(action, el) {
+  if(action==='art-mode'){art.toggle();render();return;}
   if(state.campaign&&handleCampaignAction(action,el))return;
   if(state.campaign&&['relationship-save','relationship-reset'].includes(action)&&activeBattles(state).length)return toast('交战期间人物关系锁定');
 
   if(action==='campaign-category'){ui.historySelection=el.dataset.category==='tactical'?'tactical-control-lv':'history-guandu';render();return;}
-  if(action==='rematch-scenario')return launchScenario(state.testScenario.id,crypto.getRandomValues(new Uint32Array(1))[0],state.testScenario.shieldPercent,state.testScenario.officerIds||null);
+  if(action==='rematch-scenario')return launchScenario(state.testScenario.id,crypto.getRandomValues(new Uint32Array(1))[0],state.testScenario.shieldPercent,state.testScenario.officerIds||null,state.testScenario.customBattle);
+  if(action==='launch-custom')return launchScenario('custom-battle',ui.customBattle.seed,20,null,ui.customBattle);
+  if(action==='custom-setup'){document.querySelector('.custom-battle')?.scrollIntoView({behavior:'smooth',block:'start'});return;}
+  if(action==='custom-add'){
+    const team=ui.customBattle[el.dataset.team];if(team.length>=6)return;
+    const officer=Object.values(OFFICER_BY_ID).find(o=>![...ui.customBattle.ownTeam,...ui.customBattle.enemyTeam].some(u=>u.id===o.id));
+    team.push({id:officer.id,type:'spear',troops:3000,level:5});render();return;
+  }
+  if(action==='custom-remove'){
+    const team=ui.customBattle[el.dataset.team];if(team.length>1)team.splice(Number(el.dataset.index),1);render();return;
+  }
   if(action==='lobby')return showLobby();
-  if(action==='strategy') { if(state.testScenario)return exitScenario();restoreUI();return; }
+  if(action==='campaign-lobby')return showLobby('campaign');
+  if(action==='strategy')return showLobby('national');
+  if(action==='continue-national'){if(state.testScenario)return exitScenario();restoreUI();return;}
+  if(action==='launch-national'){if(!nationalScenario(el.dataset.scenario))return;state=newGame(el.dataset.scenario);ui.strategicMapView=null;ui.strategyTab='city';restoreUI();save();return;}
   if(action==='select-history'){ui.historySelection=el.dataset.scenario;render();document.querySelector(`[data-action="select-history"][data-scenario="${ui.historySelection}"]`)?.focus({preventScroll:true});return;}
   if(action==='launch-history')return launchScenario(el.dataset.scenario);
   if(action==='continue-history')return continueHistory();
@@ -524,7 +590,7 @@ function act(action, el) {
   if(action==='owned-officers')return openModal('owned-officers');
   if (action === 'scenarios') return openModal('scenarios');
   if (action === 'launch-scenario') { const raw = $('#scenario-seed').value.trim(); return launchScenario(el.dataset.scenario, raw === '' ? undefined : Number(raw), Number($('#scenario-shield').value)); }
-  if (action === 'retry-scenario') return launchScenario(state.testScenario.id, state.testScenario.seed, state.testScenario.shieldPercent, state.testScenario.officerIds||null);
+  if (action === 'retry-scenario') return launchScenario(state.testScenario.id, state.testScenario.seed, state.testScenario.shieldPercent, state.testScenario.officerIds||null,state.testScenario.customBattle);
   if (action === 'exit-scenario') return exitScenario();
   if (action === 'step-scenario') {
     if (!state.testScenario || !state.battle || isDeploying(state.battle)) return;
@@ -538,9 +604,12 @@ function act(action, el) {
   else if(action==='close-battle-panel') { ui.battlePanel=null; updateBattle(); }
   else if(action==='cancel-focus') { ui.focusMode=false; updateBattle(); }
   else if(action==='command-category') {ui.commandCategory=el.dataset.category;updateBattle();}
-  else if(action==='unit-stats'){ui.inspectUnit=el.dataset.inspect||ui.inspectUnit;openModal('unit-stats');}
+  else if(action==='unit-stats'){if(ui.focusMode&&state.battle&&el.classList.contains('unit-nameplate')){const error=issueCommand(state.battle,'focus',el.dataset.inspect);if(!error)ui.focusMode=false;toast(error||'已提高该敌军的目标权重');save();updateBattle();return;}ui.inspectUnit=el.dataset.inspect||ui.inspectUnit;openModal('unit-stats');}
+  else if(action==='unit-officer'){ui.inspectUnit=el.dataset.inspect||ui.inspectUnit;openModal('unit-officer');}
+  else if(action==='tactic-detail'){ui.inspectionReturn=ui.modal;ui.inspectUnit=el.dataset.inspect;ui.inspectSkill=el.dataset.skill;openModal('tactic-detail');}
+  else if(action==='inspection-back'){if(ui.inspectionReturn)openModal(ui.inspectionReturn);else closeModal();}
   else if(action==='loadout')openModal('loadout');
-  else if(action==='tactic-preset') {const u=loadoutUnits().find(u=>u.id===ui.loadoutUnit);if(!u)return;const ids=roleTacticIds(u,el.dataset.preset);const error=configureUnitTactics(state,u.id,ids);if(error)toast(error);else {save();renderModal();if(state.battle)updateBattle();}}
+
   else if(action==='tactic-up') {const u=loadoutUnits().find(u=>u.id===ui.loadoutUnit),i=Number(el.dataset.slot);if(!u||i<1)return;const ids=unitTactics(u).map(s=>s.id);[ids[i-1],ids[i]]=[ids[i],ids[i-1]];const error=configureUnitTactics(state,u.id,ids);if(error)toast(error);else{save();renderModal();if(state.battle)updateBattle();}}
   else if (['army', 'officers', 'journal', 'settings', 'help', 'merge'].includes(action)) openModal(action);
   else if (action === 'close') closeModal();
@@ -573,22 +642,22 @@ function act(action, el) {
   }
   else if (action === 'import') $('#import-file').click();
   else if (action === 'reset-confirm') openModal('reset');
-  else if (action === 'reset') { state = newGame(); restoreUI(); save(); toast('建安五年，霸业重启'); }
+  else if (action === 'reset') { closeModal();showLobby('national'); }
   else if (action === 'close-report') closeReport();
   else if (action === 'split') { ui.selectedSplit.clear(); openModal('split'); }
   else if (action === 'confirm-split') { const error = state.campaign?splitCampaignArmy(state,selectedArmy().id,[...ui.selectedSplit]):splitArmy(state, selectedArmy().id, [...ui.selectedSplit]); if (error) toast(error); else { save(); openModal('army'); toast('新军团已组建，可在军团选择框中切换'); } }
 }
 function march(target) { const error = orderArmy(state, selectedArmy()?.id, target); if (error) toast(error); else { ui.order = false; save(); render(); toast('军令已下达，结束回合后开始行军'); } }
-function restoreUI() { ui.mode='map';ui.battlePanel=null; history.replaceState(null, '', location.pathname + location.search + (currentScenario()?.campaign ? '#historical-battle' : state.testScenario ? '#battle-lab' : '#strategy')); ui.army = state.armies.find(a => a.faction === 'cao')?.id; ui.city = selectedArmy()?.location || 'xuchang'; ui.paused = true; ui.modal = state.report ? 'report' : state.pending ? 'encounter' : null; ui.order = false; ui.focusMode = false; ui.deploymentSelection = null; ui.zoom = 1; render(); window.scrollTo(0, 0); }
+function restoreUI() { ui.mode='map';ui.battlePanel=null; history.replaceState(null, '', location.pathname + location.search + (currentScenario()?.campaign ? '#historical-battle' : state.testScenario ? '#battle-lab' : '#strategy')); ui.army = (state.armies.find(a => a.faction === 'cao' && a.units.some(u=>u.id==='cao'))||state.armies.find(a => a.faction === 'cao'))?.id; ui.city = selectedArmy()?.location || 'xuchang'; ui.paused = true; ui.modal = state.report ? 'report' : state.pending ? 'encounter' : null; ui.order = false; ui.focusMode = false; ui.deploymentSelection = null; ui.zoom = 1; render(); window.scrollTo(0, 0); }
 document.addEventListener('contextmenu',event=>{
   const unit=event.target.closest('[data-unit]');
   if(!unit||!state.battle)return;
-  event.preventDefault();ui.inspectUnit=unit.dataset.unit;openModal('unit-status');
+  event.preventDefault();ui.inspectUnit=unit.dataset.unit;openModal('unit-stats');
 });
 document.addEventListener('keydown',event=>{
   if(event.key!=='ContextMenu'&&!(event.shiftKey&&event.key==='F10'))return;
   const unit=event.target.closest('[data-unit]');if(!unit||!state.battle)return;
-  event.preventDefault();ui.inspectUnit=unit.dataset.unit;openModal('unit-status');
+  event.preventDefault();ui.inspectUnit=unit.dataset.unit;openModal('unit-stats');
 });
 document.addEventListener('click', event => {
   const legion=event.target.closest('[data-campaign-army]');
@@ -645,6 +714,14 @@ document.addEventListener('input',event=>{
 document.addEventListener('compositionend',event=>{if(event.target.id==='catalog-query')event.target.dispatchEvent(new Event('input',{bubbles:true}));});
 document.addEventListener('change', async event => {
   const el = event.target, army = selectedArmy();
+  if(el.dataset.customOption){ui.customBattle[el.dataset.customOption]=el.dataset.customOption==='seed'?Number(el.value):el.value;return;}
+  if(el.dataset.customField){
+    const field=el.dataset.customField,u=ui.customBattle[el.dataset.team][Number(el.dataset.index)];
+    u[field]=['level','troops'].includes(field)?Number(el.value):el.value;
+    if(field==='id'||field==='level')render();return;
+  }
+  if(state.campaign&&el.dataset.domesticDirection){if(!el.value)return;const error=assignDomestic(state,el.dataset.town,el.dataset.domesticDirection,el.value);if(error)toast(error);save();render();return;}
+  if(state.campaign&&el.id==='domestic-reserve'){if(isPlanning(state)){const n=Number(el.value);if(Number.isSafeInteger(n)&&n>=0&&n<=1000000)state.campaign.domestic.reserveGold=n;}save();render();return;}
   if(state.campaign&&el.id==='campaign-governor'){const error=appointGovernor(state,el.dataset.town,el.value);if(error)toast(error);save();render();return;}
   if(state.campaign&&el.id==='campaign-snapshot-day'){ui.campaignSnapshotDay=Number(el.value);renderModal();return;}
   if(state.campaign&&el.id==='relationship-type'&&activeBattles(state).length){toast('交战期间人物关系锁定');renderModal();return;}
@@ -670,9 +747,10 @@ document.addEventListener('change', async event => {
     catch (error) { toast(`导入失败：${error.message}`); }
     return;
   }
-  if(el.id==='inspect-unit'){ui.inspectUnit=el.value;renderModal();return;}
+  if(el.id==='battle-intent'){const error=configureBattleIntent(state.battle,el.value);if(error)toast(error);else save();updateBattle();return;}
+  if(el.id==='inspect-unit'){ui.inspectUnit=el.value;renderModal();if(state.battle)updateBattle();return;}
   if(el.id==='loadout-unit'){ui.loadoutUnit=el.value;renderModal();return;}
-  if(el.dataset.tacticSlot!==undefined){const u=loadoutUnits().find(u=>u.id===ui.loadoutUnit);if(!u)return;const ids=unitTactics(u).map(s=>s.id);ids[Number(el.dataset.tacticSlot)]=el.value;const error=configureUnitTactics(state,u.id,ids);if(error)toast(error);else save();renderModal();if(state.battle)updateBattle();return;}
+
   if (el.dataset.split) { el.checked ? ui.selectedSplit.add(el.dataset.split) : ui.selectedSplit.delete(el.dataset.split); return; }
   if (!army || state.battle || state.campaign&&(!canEditArmy(state,army)||army.faction!=='cao')) return;
   if (el.id === 'tactic-select') army.tactic = el.value;
@@ -681,7 +759,7 @@ document.addEventListener('change', async event => {
     if (el.checked && army.units.filter(u => u.first).length >= 6) { el.checked = false; return toast('最多配置 6 名首发，请先取消另一名武将'); }
     army.units.find(u => u.id === el.dataset.first).first = el.checked;
   }
-  if (el.dataset.type) {const u=army.units.find(u=>u.id===el.dataset.type);u.type=el.value;u.tactics=defaultTacticIds(u);toast('兵种已更换，战法恢复为该兵种默认；可在战法配置中混配');}
+  if (el.dataset.type) {if(state.campaign){const error=changeCampaignTroop(state,army.id,el.dataset.type,el.value);if(error){toast(error);renderModal();return;}}const u=army.units.find(u=>u.id===el.dataset.type);u.type=el.value;u.tactics=defaultTacticIds(u);toast('兵种已更换，自动携带该兵种已学战法，学习结果不重抽');}
   if (el.dataset.formation) army.units.find(u => u.id === el.dataset.formation).formation = el.value;
   save();
   if(el.dataset.role)renderModal();
@@ -731,9 +809,10 @@ function handleCampaignAction(action,el){
   else if(action==='campaign-auto'){error=chooseEncounter(state,el.dataset.battle,false);ui.modal=null;ui.paused=activeBattles(state).some(r=>r.awaiting);}
   else if(action==='campaign-focus'){error=takeOverBattle(state,el.dataset.battle);ui.paused=true;ui.modal=null;ui.battlePanel=null;}
   else if(action==='campaign-project')error=commissionProject(state,el.dataset.town,el.dataset.project);
+  else if(action==='domestic-dismiss')error=dismissDomestic(state,el.dataset.officer);
   else if(action==='campaign-relief')error=relieveCity(state,el.dataset.town);
   else if(action==='campaign-order'){error=orderCampaignArmy(state,selectedArmy()?.id,$('#campaign-target').value);if(!error)toast('军令已下达，点击进行后开始行军');}
-  else if(action==='campaign-create-army'){error=createCampaignArmy(state,el.dataset.town,[...document.querySelectorAll('[data-draft-officer]:checked')].map(x=>x.dataset.draftOfficer));if(!error){ui.army=state.armies.at(-1).id;ui.strategyTab='army';}}
+  else if(action==='campaign-create-army'){error=createCampaignArmy(state,el.dataset.town,[...document.querySelectorAll('[data-draft-officer]:checked')].map(x=>x.dataset.draftOfficer));if(!error){ui.army=state.armies.find(a=>a.location===el.dataset.town&&a.faction==='cao'&&!a.travel&&!a.route.length)?.id;ui.strategyTab='army';}}
   else if(action==='campaign-transfer')error=transferOfficer(state,el.dataset.officer,document.querySelector('[data-transfer-target="'+el.dataset.officer+'"]').value);
   else return false;
   if(error)toast(error);save();render();return true;
@@ -755,5 +834,6 @@ function runCampaignClock(){
 document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
 window.addEventListener('pagehide', () => save());
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+await art.init();
 render();
 if (loadWarning) { save(); toast(loadWarning); }

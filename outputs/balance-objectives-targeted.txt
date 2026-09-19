@@ -1,0 +1,30 @@
+✔ 自由对战的所有名将专属均进入玩家初始配装，不依赖战法 ID 前缀 (21.2103ms)
+✔ 名将骑兵推荐保留零战意疾驰接敌、真实冲阵与专属，存读档不分歧 (452.1019ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (219.4018ms)
+✔ 自由对战：无效配置被拒绝 (1.8493ms)
+✔ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (20.3539ms)
+✔ 自动配装不把主要输出骑兵当医辅，承伤人选考虑实际兵力 (1.8053ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (5.0302ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (2.6486ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (485.5178ms)
+✔ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (4.6758ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (90.2171ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (2.0778ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (2.8645ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (3.6457ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (4.022ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (4.6055ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (28.781ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (17.0405ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (1.3977ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (0.7214ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (7.2856ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 41 officers (571.8809ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 894.1543

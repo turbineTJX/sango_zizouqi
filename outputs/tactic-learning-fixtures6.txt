@@ -1,0 +1,256 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (32.5342ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (3.9215ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (12.3366ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (6.7462ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (2.2084ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (130.832ms)
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (54.7089ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (50.291ms)
+✔ a stunned unit and pure self buffs do not prime a combo (9.4657ms)
+✔ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (28.9336ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (9.7735ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (603.5326ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (10.436ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (28.9865ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (5.954ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (71.9206ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (11.7986ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (30.2863ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (2.2992ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (10.3513ms)
+✔ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (439.6633ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (252.9205ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (32.0234ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (9.8544ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (4.0148ms)
+✔ damage tactics against a gate do not charge the caster, basic siege attacks do (10.7902ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (363.2177ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (54.6576ms)
+✔ front support heals at most two other allies, never itself, and has a real range limit (9.0104ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (4.5002ms)
+✔ doubt deals strategy damage through control protection without bypassing that protection (4.2834ms)
+✔ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (10.3763ms)
+✔ real zero-intent battles trigger both medical roles and resume deterministically (434.6244ms)
+✔ fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement (12.5188ms)
+✔ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (25.304ms)
+✔ medical casting spends the next basic attack interval rather than adding free healing between shots (7.8363ms)
+✖ only equipped chargers select legal short flanks, and live interception cancels that preference (5.771ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (149.9648ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (63.7244ms)
+✔ taunt cannot reach six hexes or override control protection (13.0517ms)
+✔ taunted ranged offensive skills wait for range, then attack the taunter (8.5651ms)
+✔ cleanse removes a real taunt; its source dying or retreating immediately releases the target (44.6805ms)
+✔ taunt never drags melee out through another active ZOC (17.2322ms)
+✔ a real charge follows a real retreat shot instead of switching back to a disabled front (11.1893ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (4.052ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (33.6083ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (173.1409ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (72.6525ms)
+✔ all presets have symmetric cells; ships never occupy forests, hills or marshes (1.3172ms)
+✔ terrain changes only during deployment, resets both sides legally and preserves intent and seed (99.7214ms)
+✔ fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs (35.7223ms)
+✔ area fire resolves each target terrain separately (8.3211ms)
+✔ burn recalculates terrain after moving, without compounding its stored stack strength (4.8215ms)
+✔ high ground boosts shooting, woodland shields ranged targets and neutral skills remain neutral (14.9758ms)
+✔ charge damage remembers the starting high ground and the worst traversed wetland (13.5242ms)
+✔ ambush and fortifications change duration, while terrain slow is visible in derived movement (20.974ms)
+✖ water tactics and fire distinguish a ship under the bridge from troops on it (15.5755ms)
+✔ famous fire tactics share terrain effects and all tactics explain their terrain rules (5.2667ms)
+✔ all terrain saves resume deterministically to real battle completion and old rules are rejected (952.56ms)
+ℹ tests 59
+ℹ suites 0
+ℹ pass 57
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1431.6865
+
+✖ failing tests:
+
+test at tests\medical-roles.test.mjs:110:1
+✖ only equipped chargers select legal short flanks, and live interception cancels that preference (5.771ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   action: '列阵',
+  +   advisorBonus: 0.09,
+  +   armyId: 'a2',
+  +   attackCarry: 0,
+  +   battleDamage: 0,
+  +   birthYear: 154,
+  +   cast: null,
+  +   commandBonus: 0.081,
+  +   compatibility: 101,
+  +   cooldown: 999,
+  +   courtesy: '本初',
+  +   deathYear: 202,
+  +   deputyBonus: 0.0465,
+  +   effect: null,
+  +   experience: 0,
+  +   first: true,
+  +   force: 69,
+  +   formation: 'front',
+  +   healed: 0,
+  +   hp: 2500,
+  +   id: 'shao',
+  +   initial: 2500,
+  +   intellect: 70,
+  +   intent: 0,
+  +   leadership: 81,
+  +   level: 3,
+  +   loyalty: 100,
+  +   maxHp: 2500,
+  +   morale: 80,
+  +   moveProgress: 0,
+  +   name: '袁绍',
+  +   participated: false,
+  +   passiveState: {
+  +     entryUntil: 0,
+  +     lastMoveTick: 0,
+  +     reserveEntered: false,
+  +     shotType: null,
+  +     shots: 0,
+  +     targetId: null
+  +   },
+  +   personality: 3,
+  +   politics: 73,
+  +   relations: {
+  +     dislikedIds: [
+  +       'person-17',
+  +       'person-494'
+  +     ],
+  +     fatherId: null,
+  +     likedIds: [
+  +       'person-18'
+  +     ],
+  +     motherId: null,
+  +     spouseIds: [
+  +       'person-623'
+  +     ],
+  +     swornSiblingIds: []
+  +   },
+  +   righteousness: 2,
+  +   sex: 0,
+  +   side: 1,
+  +   skill: '名门号令',
+  +   skillCasts: 0,
+  +   skillReady: {
+  +     cleanse: 999,
+  +     ward: 999
+  +   },
+  +   skillRouteType: 'spear',
+  +   status: 'active',
+  +   statuses: {},
+  +   tacticCasts: {},
+  +   tacticLearning: {
+  +     byTroop: {
+  +       archer: {
+  +         high: [],
+  +         low: [
+  +           'fire',
+  +           'suppress'
+  +         ]
+  +       },
+  +       cavalry: {
+  +         high: [],
+  +         low: [
+  +           'gallop'
+  +         ]
+  +       },
+  +       crossbow: {
+  +         high: [
+  +           'retreatShot'
+  +         ],
+  +         low: [
+  +           'screen',
+  +           'ambush'
+  +         ]
+  +       },
+  +       halberd: {
+  +         high: [],
+  +         low: [
+  +           'curse'
+  +         ]
+  +       },
+  +       logistics: {
+  +         high: [],
+  +         low: [
+  +           'passage'
+  +         ]
+  +       },
+  +       ship: {
+  +         high: [],
+  +         low: [
+  +           'anchor'
+  +         ]
+  +       },
+  +       siege: {
+  +         high: [
+  +           'ram'
+  +         ],
+  +         low: [
+  +           'nexus',
+  +           'emplace'
+  +         ]
+  +       },
+  +       spear: {
+  +         high: [],
+  +         low: [
+  +           'cleanse',
+  +           'ward'
+  +         ]
+  +       }
+  +     },
+  +     level: 3,
+  +     seed: 117,
+  +     special: false
+  +   },
+  +   tactics: [
+  +     'cleanse',
+  +     'ward'
+  +   ],
+  +   trait: '名门雄主',
+  +   troops: 2500,
+  +   type: 'crossbow',
+  +   wounded: 0,
+  +   x: 7,
+  +   y: 3
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:117:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { personality: 3, righteousness: 2, compatibility: 101, sex: 0, birthYear: 154, deathYear: 202, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'shao', name: '袁绍', courtesy: '本初', leadership: 81, force: 69, intellect: 70, politics: 73, skill: '名门号令', type: 'crossbow', formation: 'front', trait: '名门雄主', troops: 2500, wounded: 0, first: true, loyalty: 100, level: 3, experience: 0, tacticLearning: { seed: 117, level: 3, byTroop: [Object], special: false }, tactics: [ 'cleanse', 'ward' ], skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, attackCarry: 0, armyId: 'a2', side: 1, hp: 2500, maxHp: 2500, initial: 2500, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 7, y: 3, morale: 80, cooldown: 999, intent: 0, cast: null, skillReady: { cleanse: 999, ward: 999 }, tacticCasts: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.081, deputyBonus: 0.0465, advisorBonus: 0.09 },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:117:1
+✖ water tactics and fire distinguish a ship under the bridge from troops on it (15.5755ms)
+  AssertionError [ERR_ASSERTION]: target/archer: B/C aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:124:5)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/terrain.test.mjs:127:31)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

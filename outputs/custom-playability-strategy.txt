@@ -1,0 +1,33 @@
+✔ 审计配兵保持六队同级总兵力，遵守武将带兵上限 (1.4555ms)
+✔ AI对战镜像布阵不修改敌军、随机数或战意，并能确定性续战 (193.1605ms)
+✔ 野战辅兵不携带无法使用的修缮，己方有建筑时AI仍保留修缮 (4.3326ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (7.9033ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (157.3597ms)
+✔ armies move visibly along road interiors before arriving (4.0384ms)
+✔ head-on marching armies meet on the road without passing through each other (10.4373ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (78.2075ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (176.8691ms)
+✔ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (412.8202ms)
+✔ multiple battles and their snapshots share the same global day (71.4242ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (51.4291ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (478.568ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (65.9778ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (70.5691ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (1.8856ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (1.6477ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (0.6412ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (1.5628ms)
+✔ supply connection is cut by hostile road occupation (0.4003ms)
+✔ five days without food disband armies and preserve officers for their return (2.4189ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (44.2024ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (117.9215ms)
+✔ city capture settles once and can be saved immediately within a day (59.4876ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (35.4684ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1986.3132

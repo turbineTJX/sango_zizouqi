@@ -1,0 +1,15 @@
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (24.4504ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (7.3708ms)
+✔ a hostile column approaching home takes priority over expansion (6.213ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (5.9429ms)
+✔ a hungry army reverses its actual road progress without teleporting home (6.4919ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (5.8803ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (8641.468ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8839.9502

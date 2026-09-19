@@ -1,0 +1,75 @@
+✖ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (133.5396ms)
+✖ 自动配装替换单人振旅和纯远程队友的协阵，同时保留有效治疗 (3.5828ms)
+✔ 阵容审查保留后续预备队能受益的战法，不根据开场满血删除救护 (1.4923ms)
+✖ 单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束 (0.8282ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 1
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 249.7462
+
+✖ failing tests:
+
+test at tests\ai-logic.test.mjs:11:1
+✖ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (133.5396ms)
+  AssertionError [ERR_ASSERTION]: 没有支援可以施放时，不原地等候
+  
+  15 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-logic.test.mjs:23:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 15,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ai-logic.test.mjs:27:1
+✖ 自动配装替换单人振旅和纯远程队友的协阵，同时保留有效治疗 (3.5828ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!solo.battle.sides[1].units[0].tactics.includes('rally'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-logic.test.mjs:29:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\ai-logic.test.mjs:49:1
+✖ 单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束 (0.8282ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'inspire'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-logic.test.mjs:51:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'inspire',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

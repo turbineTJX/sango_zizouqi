@@ -1,0 +1,137 @@
+[
+  {
+    "id": "field",
+    "seed": 1,
+    "ticks": 128,
+    "reason": "击溃",
+    "damage12": 4209,
+    "meanHit": 67,
+    "casts": 104
+  },
+  {
+    "id": "field",
+    "seed": 17,
+    "ticks": 129,
+    "reason": "击溃",
+    "damage12": 4207,
+    "meanHit": 72,
+    "casts": 93
+  },
+  {
+    "id": "field",
+    "seed": 521200,
+    "ticks": 124,
+    "reason": "击溃",
+    "damage12": 4136,
+    "meanHit": 73,
+    "casts": 97
+  },
+  {
+    "id": "outnumbered",
+    "seed": 1,
+    "ticks": 98,
+    "reason": "击溃",
+    "damage12": 2623,
+    "meanHit": 56,
+    "casts": 91
+  },
+  {
+    "id": "outnumbered",
+    "seed": 17,
+    "ticks": 99,
+    "reason": "击溃",
+    "damage12": 2692,
+    "meanHit": 52,
+    "casts": 91
+  },
+  {
+    "id": "outnumbered",
+    "seed": 521200,
+    "ticks": 96,
+    "reason": "击溃",
+    "damage12": 2640,
+    "meanHit": 55,
+    "casts": 91
+  },
+  {
+    "id": "rotation",
+    "seed": 1,
+    "ticks": 124,
+    "reason": "击溃",
+    "damage12": 3614,
+    "meanHit": 60,
+    "casts": 138
+  },
+  {
+    "id": "rotation",
+    "seed": 17,
+    "ticks": 158,
+    "reason": "击溃",
+    "damage12": 3611,
+    "meanHit": 58,
+    "casts": 155
+  },
+  {
+    "id": "rotation",
+    "seed": 521200,
+    "ticks": 139,
+    "reason": "击溃",
+    "damage12": 3579,
+    "meanHit": 63,
+    "casts": 137
+  },
+  {
+    "id": "siege",
+    "seed": 1,
+    "ticks": 105,
+    "reason": "城门失守",
+    "damage12": 1982,
+    "meanHit": 63,
+    "casts": 102
+  },
+  {
+    "id": "siege",
+    "seed": 17,
+    "ticks": 127,
+    "reason": "城门失守",
+    "damage12": 1906,
+    "meanHit": 61,
+    "casts": 129
+  },
+  {
+    "id": "siege",
+    "seed": 521200,
+    "ticks": 117,
+    "reason": "城门失守",
+    "damage12": 1963,
+    "meanHit": 65,
+    "casts": 115
+  },
+  {
+    "id": "river",
+    "seed": 1,
+    "ticks": 139,
+    "reason": "击溃",
+    "damage12": 4120,
+    "meanHit": 79,
+    "casts": 92
+  },
+  {
+    "id": "river",
+    "seed": 17,
+    "ticks": 141,
+    "reason": "击溃",
+    "damage12": 4224,
+    "meanHit": 81,
+    "casts": 94
+  },
+  {
+    "id": "river",
+    "seed": 521200,
+    "ticks": 134,
+    "reason": "击溃",
+    "damage12": 4638,
+    "meanHit": 77,
+    "casts": 81
+  }
+]

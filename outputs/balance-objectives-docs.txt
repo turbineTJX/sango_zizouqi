@@ -1,0 +1,2 @@
+Exported game officer CSV: 835 officers, 136 fields, rules 39.
+Updated both design documents for 835 officers (41 with special tactics).

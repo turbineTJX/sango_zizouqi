@@ -1,0 +1,899 @@
+✔ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (456.4183ms)
+✔ 单人和远程阵容仍携带已学战法，AI不会替换学习结果 (14.0434ms)
+✔ 预备队状态和开场满血不改变所学战法 (3.5606ms)
+✔ 单舰对陆军不会把无友舰的接舷替换成无敌舰的艨冲 (6.3611ms)
+✔ 支援路径允许在接敌格施法，但不允许穿越有效拦截线 (37.1433ms)
+✔ 单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束 (7.236ms)
+✔ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (468.3282ms)
+✔ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (183.0888ms)
+✔ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (5.7728ms)
+✔ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (8.8585ms)
+✖ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (67.668ms)
+✔ national map keeps simulation/save untouched and uses one projection for cities, roads, army and encounter (42.8077ms)
+✔ redrawn terrain works without external artwork and all seasons are distinct (3.1554ms)
+✔ asset manifest accepts only local opaque asset URLs and valid sprite grids (1.0728ms)
+✔ Unity root movement preserves its Hermite curve and endpoints (0.2341ms)
+✔ local file route only exposes manifest-listed assets and sends no-store (10.3384ms)
+✔ simulation modules do not depend on presentation or local art files (5.0125ms)
+✔ fire: three real basics consume exactly three charges, with normal intent and no links (58.9351ms)
+✔ suppress: three real basics consume exactly three charges, with normal intent and no links (21.198ms)
+✔ pierce: three real basics consume exactly three charges, with normal intent and no links (9.8392ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (8.1261ms)
+✔ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (9.6638ms)
+✔ tactics and retaliation do not consume charges or double-apply timed burning attacks (36.7261ms)
+✔ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (10.7972ms)
+✔ gate attacks do not spend troop enchantments (21.8787ms)
+✔ remaining charges/source survive save and resume; forged or obsolete state is rejected (54.8951ms)
+✔ four officer stats affect separate derived attributes, with no charm dimension (13.6498ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (114.4722ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (3.2294ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (19.1335ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (12.2058ms)
+✔ politics reduces actual confusion duration but physical stun remains independent (18.0527ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (2.2659ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (37.4436ms)
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (45.2305ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (17.7826ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (2043.3775ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (17.6845ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (1965.2248ms)
+✔ tower: repair uses earned intent, reports durability and resumes exactly (1759.8852ms)
+✔ supply-depot: repair uses earned intent, reports durability and resumes exactly (1813.5047ms)
+✔ future-building: repair uses earned intent, reports durability and resumes exactly (1715.8508ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (746.9408ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (50.3187ms)
+✔ 自由对战的所有名将专属均进入玩家初始配装，不依赖战法 ID 前缀 (124.533ms)
+✔ 名将骑兵按所学战法作战，专属额外携带且存读档不分歧 (638.2573ms)
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (36.0153ms)
+✔ only the current rule version loads, and intent is validated without normalization (41.3648ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (16.4384ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (15.9417ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (66.5846ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (194.8974ms)
+✔ siege defenders hold their rear line before enemies approach (196.0175ms)
+✔ command scoring reads the requested side attributes and cooldowns without swapping units (31.695ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (250.3228ms)
+✔ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (177.5841ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (84.8079ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (8.2984ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (61.8531ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (72.8139ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (3.291ms)
+✔ AI prioritizes cleanse for control and DOT, holds useless commands, and does not refresh active buffs (13.1319ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (394.7775ms)
+✔ melee anticipates then strikes and recovers; ranged troops stay in formation (2.4003ms)
+✔ presentation consumes appended real events once, resets per battle and preserves snapshots (4.6622ms)
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (19.8155ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (11.1288ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (1.1116ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.8919ms)
+✔ legacy windup events never display a preparation animation or log row (1.3609ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (2.2102ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (5.5458ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.649ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (15.9402ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.6092ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.4268ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (10.0154ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.567ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.2164ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.3795ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.2626ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.7565ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (4.5444ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (10.5484ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.4677ms)
+✔ reduced motion uses static focus and finishes without impact particles (1.6482ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (3.7508ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.3674ms)
+✔ minor tactics including criticals stay local in both effect modes (0.5749ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (6.1013ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (277.5649ms)
+✔ battle intent is selected before combat and stays locked at tick zero and after save recovery (156.3644ms)
+✔ defenders cannot choose siege and invalid intent does not alter deployment (11.8123ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (56.2166ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (6.4756ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (5.682ms)
+✔ signals render finite coordinates without changing battle data through real combat (228.596ms)
+✔ a real control cast opens ZOC and the next allied charge exploits it (43.0501ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (5.0751ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (9.9174ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (8.349ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (4.0768ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (154.3745ms)
+✔ person-661: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (330.7462ms)
+✔ person-396: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (296.7739ms)
+✔ person-99: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (299.1309ms)
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (6.9683ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (8.4117ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (2.3734ms)
+✔ fame adds city manpower rather than free troops (5.6142ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (709.7668ms)
+✔ governor interface shows actual discounts, skill categories and diplomacy reserve labels (29.8329ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.445ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (276.4381ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (12.2696ms)
+✔ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (739.3914ms)
+✖ same target links distinct officers, doubles count once, triples cap at forty percent (152.9632ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (119.2922ms)
+✔ a stunned unit and pure self buffs do not prime a combo (4.4619ms)
+✔ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (38.1407ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (33.0956ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (967.3479ms)
+✖ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (33.4195ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (110.0405ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (20.3172ms)
+✔ full gauge announces once, stays quiet while held, and re-arms after spending (0.8057ms)
+✔ restored ready battle and a new battle each get their own announcement (0.1337ms)
+✔ two, three and six adjacent enemies share one normal attack budget (114.6662ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (4.565ms)
+✔ minimum damage is shared rather than multiplied once per enemy (8.1378ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (25.8936ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (6.321ms)
+✔ an enchanted contact attack consumes one charge and divides extra fire damage (11.0124ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (4.326ms)
+✔ current combat saves resume with exactly the same shared attacks (353.462ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (437.8489ms)
+✔ 自由对战：无效配置被拒绝 (22.1028ms)
+✔ 审计配兵保持六队同级总兵力，遵守武将带兵上限 (4.3812ms)
+✔ AI对战镜像布阵不修改敌军、随机数或战意，并能确定性续战 (483.2128ms)
+✔ 建筑有无不改变已学战法，野战和攻城都不会由AI重新选装 (5.2613ms)
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (124.7729ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (2.8246ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (278.4352ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (78.4969ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (309.7954ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (153.795ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (66.718ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (49.0189ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (153.5688ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (218.5993ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (21.7139ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (30.3442ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (49.24ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (80.358ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (398.4528ms)
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (60.0827ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (160.0563ms)
+✔ random results vary across seeds while identical seed is reproducible (133.4403ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.4458ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (51.0023ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (42.2667ms)
+✔ city army exceeds ten units and saves, but expeditions and detached selections remain capped at ten (41.0027ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (24.406ms)
+✔ research unlocks a local troop only after a successful trial (28.5657ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (55.6347ms)
+✔ healing conserves personnel and does not require local troop technology (15.6418ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (139.488ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (59.5501ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (47.537ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (30.8203ms)
+✔ actual siege pauses construction without charging again or completing in the background (216.19ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (101.5864ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (83.9844ms)
+✔ nearby front takes priority before contact; fast movement stops on contact (24.5477ms)
+✔ rush cannot escape an engagement or charge through a blocking line (18.5044ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (9.0026ms)
+✔ an unreachable rear focus advances into the blocking line instead of stalling (15.864ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (31.9025ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (17.2358ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (5.3683ms)
+✔ a real retreat can leave contact (4.1009ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (400.0797ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (573.0662ms)
+✔ 自然击溃守军后，城门仍存时友军救护和名将支援继续使用真实伤兵与战意 (233.463ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (144.2275ms)
+✔ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (66.9431ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (27.1903ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (11.4499ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (4.7416ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (1062.1394ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (14.7397ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (2.9707ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (351.0578ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (622.8156ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (8.6835ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (6.0361ms)
+✔ retreat terminates and sends the attacker back without taking the city (13.6733ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (2.9504ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (2.7908ms)
+✔ enemy launches an attack and city garrison participates in defense (132.8524ms)
+✔ garrison alone can defend a city when player army is elsewhere (45.3561ms)
+✔ multiple same-side armies share the same six battlefield slots (179.9891ms)
+✔ invalid saves are rejected before replacing game state (12.0414ms)
+✔ different seeds finish without deadlocks or overlapping units (902.9402ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (153.599ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (28.4ms)
+✔ left and right formations deploy on opposite flanks (20.5225ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (11.3712ms)
+✔ capturing the final city completes the scenario (40.336ms)
+✔ losing the final friendly city ends the scenario (29.4671ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (428.6169ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (24.4717ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (126.1057ms)
+✔ pending casts from the removed windup format are rejected (5.7553ms)
+✔ a defeated unit cannot use a ready skill (34.1725ms)
+✔ retreat stops subsequent friendly skills immediately (106.4295ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (142.7519ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (3.9221ms)
+✔ a ready tactic casts without spending intent, regardless of morale or attack cooldown (5.2288ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (6.0979ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (3.9759ms)
+✔ deployment can move, swap, reset and persist without advancing time (5.3647ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (4.8229ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (33.3623ms)
+✔ missing deployment and command state is rejected instead of reconstructed (55.5051ms)
+✔ cleave charges each victim once without charging the caster (68.6403ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (269.0111ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (12.2244ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (37.2278ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (8.6388ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (5.7219ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (411.5448ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (16.6744ms)
+✖ two real ram casts can link against the gate and increase the second hit (10.4922ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (660.6616ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (134.9518ms)
+✖ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (40.619ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (337.4241ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (4.6423ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (4.706ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (16.6871ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (6.9299ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (10.7743ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (120.5828ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (67.5134ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (2.4968ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (1.8149ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (17.4282ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 41 officers (1400.9299ms)
+✔ each offset-row neighbor is reciprocal, one step away, and equally spaced on screen (9.2235ms)
+✔ hex paths use six neighbors and cannot cross a gate or an occupied ring (1.3179ms)
+✔ diagonal spear thrust hits the next hex on the same axial line (72.119ms)
+✔ diagonal protection knockback follows the hex line and stops before an occupied cell (22.9289ms)
+✔ missing grid type is rejected instead of upgrading a pre-hex battle (37.8734ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (375.7596ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (473.1578ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (612.058ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (342.2957ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (156.5948ms)
+✔ real battles retain skill provenance through stacking, refresh, shields and deterministic saves (16378.9022ms)
+✔ stacked attribute losses, army effects and non-stacking haste show marginal actual values (2.1564ms)
+✔ current DOT details apply terrain and passive mitigation, before shields (2.0697ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (175.0088ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (23.4235ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (13.3003ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (1.6463ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (25.8981ms)
+✖ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (580.9161ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (507.0185ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (48.138ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (21.2698ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (4.7166ms)
+✔ damage tactics against a gate do not charge the caster, basic siege attacks do (10.5618ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (369.5797ms)
+✔ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (314.4812ms)
+✔ each troop has exactly six tools and exclusive tactics remain optional (0.9023ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (55.0293ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (39.1561ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (7.4532ms)
+✔ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (25.7653ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (8.1361ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (28.6103ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (64.3721ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (646.5365ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (60.6488ms)
+✔ front support heals at most two other allies, never itself, and has a real range limit (8.2981ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (8.9116ms)
+✔ doubt deals strategy damage through control protection without bypassing that protection (6.7149ms)
+✔ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (32.3575ms)
+✔ real zero-intent battles trigger both medical roles and resume deterministically (509.0084ms)
+✔ fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement (24.9062ms)
+✔ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (34.779ms)
+✔ medical casting spends the next basic attack interval rather than adding free healing between shots (23.602ms)
+✔ only equipped chargers select legal short flanks, and live interception cancels that preference (4.9494ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (325.169ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (503.2306ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (8700.8294ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (948.1709ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (15960.3663ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (48.3929ms)
+✔ scenario identity, topology, and town coordinates are validated (96.4956ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (1.6553ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (43854.9284ms)
+✔ national victory and defeat depend on ownership of the complete map (60.7578ms)
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (30.598ms)
+✔ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (419.9062ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (5.3825ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (641.0539ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (2488.4576ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (15.4667ms)
+✔ old officer data versions are rejected without changing saved progress (24.032ms)
+✔ effective scenario character traits are formal catalogue and runtime fields, preserving numeric zero (80.1752ms)
+✔ sworn-sibling groups resolve all peers, exclude self, and keep directional likes unchanged (0.8921ms)
+✔ profile copies cannot mutate the shared catalogue or another officer instance (0.3655ms)
+✔ incomplete profile state is rejected without backfilling fields (91.8326ms)
+✔ current saves reject invalid, missing and malformed profiles rather than silently changing them (38.7293ms)
+✔ reserved profile fields do not affect combat decisions, numbers or historical death (164.4629ms)
+✔ scenario profiles correct the public-library traits in runtime and exported rows (1.3378ms)
+✔ scenario relation IDs replace truncated library IDs without inventing genealogy officers (2.4937ms)
+✔ profile import uses array base values and never adopts live scenario state or colliding custom IDs (0.834ms)
+✔ all ordinary officers unlock five generic skills at the same levels as famous officers (145.6996ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (5.1746ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (382.8566ms)
+✔ all 77 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10 (39.0554ms)
+✔ base and advanced skills modify only their intended attributes, adding passive percentages (1.3535ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (7.5535ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (26.7598ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (8.745ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (18.3584ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (18.5577ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (13.1455ms)
+✖ isolated and joint change actual basic damage and evaluate neighbors from the correct side (9.2788ms)
+✖ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (5.5641ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (16.3396ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (44.9054ms)
+✖ multi-hit tactics do not charge the caster and grant surviving-hit intent once (4.243ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.3152ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.3673ms)
+✖ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (3.1841ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (27.4466ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (19.9534ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (10.2384ms)
+✔ experience carries across thresholds, unlocks all crossed nodes and stops at level 10 (1.0658ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (19.5484ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (1155.823ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (57.5252ms)
+✔ source relationships have symmetric baselines, positive floors, negative ceilings and neutral defaults (2.2458ms)
+✔ scores accept explicit improvements or reduced hostility and reject out-of-range or invalid pairs (4.1017ms)
+✔ relationship scores persist independently in deployments and lock during combat, including after reload (202.1866ms)
+✔ missing, corrupt and inconsistent relationship maps are rejected (19.8397ms)
+✔ character pages expose saved scores, probability, bounds, and combat locking (2.5535ms)
+✔ score events cross social tiers without granting marriage or sworn bonds automatically (16.6318ms)
+✔ special relationships have different caps and deterioration preserves source kinship (0.8622ms)
+✔ changed relationships persist symmetrically, affect the battle snapshot and lock once combat starts (166.1757ms)
+✔ invalid relationship types and out-of-tier scores are rejected without migration (15.7464ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (537.695ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (633.381ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (1291.0801ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (1162.9834ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (805.6432ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (280.3864ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (205.5549ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (158.6112ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (2297.4061ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (209.7239ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (364.7842ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (472.7253ms)
+✔ river: complete battle, reserves, save recovery and settlement (465.2959ms)
+✔ breach: complete battle, reserves, save recovery and settlement (108.0627ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (164.4032ms)
+✔ field: complete battle, reserves, save recovery and settlement (380.4224ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (289.4171ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (818.4585ms)
+✔ siege: complete battle, reserves, save recovery and settlement (364.7548ms)
+✔ defense: complete battle, reserves, save recovery and settlement (4339.4891ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (502.9595ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (10.1686ms)
+✔ sieges add an independent gate and shields only to defending starters (29.3369ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (4.9492ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (17.7239ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (28.8083ms)
+✔ fixture and seed validation rejects malformed test state (10.2149ms)
+✔ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (105.8431ms)
+✔ screen has a useful baseline and scales with support passives (15.5508ms)
+✔ foresight no longer depends on enemy loadout and respects its strict boundary and damage kind (0.7396ms)
+✔ gallop provides travel speed before contact and mitigation while adjacent (12.6508ms)
+✔ new officer defaults activate the intended bow and support routes without removing troop choice (6.1525ms)
+✔ current campaigns and ongoing battles preserve player loadouts and DOT snapshots (282.8197ms)
+✔ status timer matches exclusive expiration and distinguishes the final active step from expired state (1.9418ms)
+✔ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (1.1645ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (84.1079ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (30.4491ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (213.3723ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (3.4715ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (58.5566ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (7.4924ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (38.6701ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (145.3672ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (37.6101ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (29.7594ms)
+✔ a hostile column approaching home takes priority over expansion (33.0849ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (61.6175ms)
+✔ a hungry army reverses its actual road progress without teleporting home (45.4737ms)
+✔ a starving merged army splits its retreat into legal marching columns (34.6167ms)
+✔ a merged wounded roster sends only its live companies as reinforcements (39.2524ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (32.5664ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (10503.5939ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (55.5162ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (450.0391ms)
+✔ armies move visibly along road interiors before arriving (39.789ms)
+✔ head-on marching armies meet on the road without passing through each other (46.0451ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (267.4456ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (839.909ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (1303.5393ms)
+✔ multiple battles and their snapshots share the same global day (194.8016ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (99.8048ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (1710.169ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (129.5301ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (142.4911ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (10.6152ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (8.1657ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (3.0662ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (11.2561ms)
+✔ supply connection is cut by hostile road occupation (1.5907ms)
+✔ five days without food disband armies and preserve officers for their return (22.7785ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (108.9403ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (603.1363ms)
+✔ city capture settles once and can be saved immediately within a day (138.7684ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (68.2679ms)
+✔ 八兵种都有两个低级名额和一个高级名额，所有战法进入唯一池 (0.958ms)
+✔ S在5级两低一高，A在8级两低一高，B在8级三低，C无保底 (1135.6145ms)
+✔ 1级专属有获得和未获得结果，5级全部必得，普通将没有专属 (250.4853ms)
+✔ 同种子身份等级结果相同，不同种子随机；换兵种不重抽，玩家只能重排 (27.2419ms)
+✔ AI不替换所学战法，专属不挤掉三普通，四槽能自动施放并确定性续战 (178.385ms)
+✔ 跨多级与逐级学习一致，升级存档与战略换兵种保持记录 (20.1704ms)
+✔ 所有预设战役生成合法学习记录，旧人工配装不绕过学习 (239.6932ms)
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (41.6855ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (5.7003ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (8.8864ms)
+✔ healing results use wounded budget and show actual shield separately (6.6296ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (384.0976ms)
+✔ every tactic declares its actual power, chance effects and critical policy (4.3076ms)
+✔ defensive status magnitude snapshots martial power and ignores intellect (74.6783ms)
+✔ control succeeds and fails through real casts, pays cooldown, and reports actual chance (279.8923ms)
+✔ resolve blocks control and outcome never claims an applied status (4.5151ms)
+✔ multi-hit burst shares one power-dependent critical roll per target (153.214ms)
+✔ control duration grows with power and potency remains bounded (5.3289ms)
+✔ current saves resume identical probability rolls and reject malformed event probabilities (370.6147ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (154.1856ms)
+✖ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (6.9008ms)
+✖ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (7.6094ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (24.6477ms)
+✔ instant skills keep shared intent and only one learned tactic enters cooldown per step (46.1005ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (7.2979ms)
+✔ expired cooldown is insufficient below threshold; regaining intent re-enables the tactic (8.7682ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (45.2398ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (9.6663ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (38.5397ms)
+✔ blocked displacement never overlaps units or crosses board limits (5.7795ms)
+✖ rare skills stun, protect and reduce intent without being universal damage attacks (7.0847ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (28.1773ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (13.29ms)
+✔ prepaid casts and previous save formats are rejected (7.6898ms)
+✔ new saves distinguish bows and crossbows and require current rules (5.6095ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (85.8882ms)
+✔ taunt cannot reach six hexes or override control protection (13.9668ms)
+✔ taunted ranged offensive skills wait for range, then attack the taunter (9.2572ms)
+✔ cleanse removes a real taunt; its source dying or retreating immediately releases the target (32.2444ms)
+✔ taunt never drags melee out through another active ZOC (11.9731ms)
+✔ a real charge follows a real retreat shot instead of switching back to a disabled front (10.3336ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (4.1558ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (54.6795ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (119.9217ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (98.0018ms)
+✔ all presets have symmetric cells; ships never occupy forests, hills or marshes (2.0008ms)
+✔ terrain changes only during deployment, resets both sides legally and preserves intent and seed (119.8116ms)
+✔ fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs (70.8192ms)
+✔ area fire resolves each target terrain separately (8.678ms)
+✔ burn recalculates terrain after moving, without compounding its stored stack strength (6.3267ms)
+✔ high ground boosts shooting, woodland shields ranged targets and neutral skills remain neutral (76.443ms)
+✔ charge damage remembers the starting high ground and the worst traversed wetland (37.0659ms)
+✔ ambush and fortifications change duration, while terrain slow is visible in derived movement (54.1644ms)
+✔ water tactics and fire distinguish a ship under the bridge from troops on it (62.3154ms)
+✔ famous fire tactics share terrain effects and all tactics explain their terrain rules (5.4966ms)
+✔ all terrain saves resume deterministically to real battle completion and old rules are rejected (1594.0943ms)
+✔ every troop retains six learning candidates, but arbitrary role templates cannot grant skills (44.4055ms)
+✔ positioning targets real columns and clustered enemies and always includes the anchor (22.306ms)
+✔ allied slow enables a real spear finisher, with no intent or target bypass (11.4138ms)
+✔ fire preparation increases wildfire direct hits without replacing a stronger burn (10.8991ms)
+✔ low-intellect guards retain mitigation and suppression; their support casts deal no damage (5.7078ms)
+✔ cavalry offensive stance increases basic attack at the cost of real defense (5.6824ms)
+✔ screen protects threatened healthy allies, respects its own layer and caps at one recipient (10.0956ms)
+✔ seal exchanges all damage for silence; ambush waits for close range (11.8801ms)
+✖ each role completes a battle and preserves deterministic continuation under current rules (1823.3524ms)
+✔ command and experience define individual capacity; fielded troops are independent (75.6655ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (175.8409ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (93.0826ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (103.8801ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (2103.9673ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (133.8809ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (725.2458ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (13.5576ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (47.0747ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (83.8674ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (46.3592ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (62.7557ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (48.9198ms)
+✖ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (8.1119ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (30.0121ms)
+✖ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (7.0032ms)
+✖ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (6.9285ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (45.1635ms)
+✖ firestorm is bounded by friendly power, not enemy army size (2.7098ms)
+ℹ tests 513
+ℹ suites 0
+ℹ pass 494
+ℹ fail 19
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74198.1567
+
+✖ failing tests:
+
+test at tests\ai-target-command.test.mjs:54:1
+✖ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (67.668ms)
+  AssertionError [ERR_ASSERTION]: 无需注入军略槽
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-target-command.test.mjs:66:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:22:1
+✖ same target links distinct officers, doubles count once, triples cap at forty percent (152.9632ms)
+  AssertionError [ERR_ASSERTION]: liao/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:28:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:66:1
+✖ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (33.4195ms)
+  AssertionError [ERR_ASSERTION]: liao/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at cast (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:20:189)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/combos.test.mjs:75:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:99:1
+✖ two real ram casts can link against the gate and increase the second hit (10.4922ms)
+  AssertionError [ERR_ASSERTION]: cao/siege: B aptitude cannot learn ram
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:102:83)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/expanded-troops.test.mjs:106:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:24:1
+✖ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (40.619ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 4
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/famous-officers.test.mjs:30:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:39:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (13.3003ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-roles.test.mjs:41:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:67:1
+✖ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (580.9161ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(runs[0].strikes>=3)
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/intent-roles.test.mjs:80:9)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:103:1
+✖ isolated and joint change actual basic damage and evaluate neighbors from the correct side (9.2788ms)
+  AssertionError [ERR_ASSERTION]: liao/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at shot (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:104:65)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:105:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:108:1
+✖ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (5.5641ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at hit (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:109:38)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:110:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:128:1
+✖ multi-hit tactics do not charge the caster and grant surviving-hit intent once (4.243ms)
+  AssertionError [ERR_ASSERTION]: liao/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:129:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:145:1
+✖ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (3.1841ms)
+  AssertionError [ERR_ASSERTION]: yu/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at duel (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:22:66)
+      at shield (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:146:34)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/passives.test.mjs:147:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactical-campaigns.test.mjs:25:3
+✖ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (6.9008ms)
+  AssertionError [ERR_ASSERTION]: jia/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:37:27)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:46:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactical-campaigns.test.mjs:25:3
+✖ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (7.6094ms)
+  AssertionError [ERR_ASSERTION]: jia/archer: B aptitude cannot learn smoke
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:37:27)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactical-campaigns.test.mjs:46:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:88:1
+✖ rare skills stun, protect and reduce intent without being universal damage attacks (7.0847ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at scene (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactics.test.mjs:17:3)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactics.test.mjs:90:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:81:1
+✖ each role completes a battle and preserves deterministic continuation under current rules (1823.3524ms)
+  AssertionError [ERR_ASSERTION]: cao/siege: B aptitude cannot learn plague
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/toolbox.test.mjs:84:30)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:50:3
+✖ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (8.1119ms)
+  AssertionError [ERR_ASSERTION]: jia/archer: B aptitude cannot learn wildfire
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:51:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:50:3
+✖ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (7.0032ms)
+  AssertionError [ERR_ASSERTION]: jia/siege: B aptitude cannot learn plague
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:51:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:50:3
+✖ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (6.9285ms)
+  AssertionError [ERR_ASSERTION]: cao/siege: B aptitude cannot learn bombard
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:51:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\troop-output.test.mjs:64:1
+✖ firestorm is bounded by friendly power, not enemy army size (2.7098ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B aptitude cannot learn seal
+      at learnFixtureTactics (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/helpers/learn-tactics.mjs:12:9)
+      at remnant (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:24:15)
+      at run (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:66:15)
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/troop-output.test.mjs:74:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

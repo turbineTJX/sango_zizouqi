@@ -1,0 +1,269 @@
+[
+  {
+    "seed": 1,
+    "plan": "驻守",
+    "battles": [
+      {
+        "name": "陈留攻守战",
+        "start": 4,
+        "end": 8,
+        "days": 5,
+        "ticks": 116,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "许昌攻守战",
+        "start": 16,
+        "end": 20,
+        "days": 5,
+        "ticks": 99,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ]
+  },
+  {
+    "seed": 1,
+    "plan": "双路出征",
+    "battles": [
+      {
+        "name": "陈留道遭遇战",
+        "start": 2,
+        "end": 4,
+        "days": 3,
+        "ticks": 68,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 4,
+        "end": 5,
+        "days": 2,
+        "ticks": 47,
+        "result": {
+          "winner": 0,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "陈留攻守战",
+        "start": 5,
+        "end": 9,
+        "days": 5,
+        "ticks": 103,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 15,
+        "end": 16,
+        "days": 2,
+        "ticks": 39,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 17,
+        "end": 20,
+        "days": 4,
+        "ticks": 95,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ]
+  },
+  {
+    "seed": 17,
+    "plan": "驻守",
+    "battles": [
+      {
+        "name": "陈留攻守战",
+        "start": 4,
+        "end": 8,
+        "days": 5,
+        "ticks": 106,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "许昌攻守战",
+        "start": 16,
+        "end": 22,
+        "days": 7,
+        "ticks": 168,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ]
+  },
+  {
+    "seed": 17,
+    "plan": "双路出征",
+    "battles": [
+      {
+        "name": "陈留道遭遇战",
+        "start": 2,
+        "end": 4,
+        "days": 3,
+        "ticks": 68,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 4,
+        "end": 5,
+        "days": 2,
+        "ticks": 48,
+        "result": {
+          "winner": 0,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "陈留攻守战",
+        "start": 5,
+        "end": 9,
+        "days": 5,
+        "ticks": 103,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 15,
+        "end": 16,
+        "days": 2,
+        "ticks": 40,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 17,
+        "end": 20,
+        "days": 4,
+        "ticks": 93,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ]
+  },
+  {
+    "seed": 521200,
+    "plan": "驻守",
+    "battles": [
+      {
+        "name": "陈留攻守战",
+        "start": 4,
+        "end": 8,
+        "days": 5,
+        "ticks": 107,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "许昌攻守战",
+        "start": 16,
+        "end": 20,
+        "days": 5,
+        "ticks": 106,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ]
+  },
+  {
+    "seed": 521200,
+    "plan": "双路出征",
+    "battles": [
+      {
+        "name": "陈留道遭遇战",
+        "start": 2,
+        "end": 4,
+        "days": 3,
+        "ticks": 68,
+        "result": {
+          "winner": 1,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 4,
+        "end": 5,
+        "days": 2,
+        "ticks": 47,
+        "result": {
+          "winner": 0,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "陈留攻守战",
+        "start": 5,
+        "end": 9,
+        "days": 5,
+        "ticks": 101,
+        "result": {
+          "winner": 1,
+          "reason": "城门失守"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 15,
+        "end": 16,
+        "days": 2,
+        "ticks": 40,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      },
+      {
+        "name": "官渡攻守战",
+        "start": 17,
+        "end": 20,
+        "days": 4,
+        "ticks": 93,
+        "result": {
+          "winner": 0,
+          "reason": "击溃"
+        }
+      }
+    ]
+  }
+]

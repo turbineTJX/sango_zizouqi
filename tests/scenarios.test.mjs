@@ -8,8 +8,8 @@ import { blockedTerrain } from '../battlefield.mjs';
 for (const config of SCENARIOS) {
   test(`${config.id}: complete battle, reserves, save recovery and settlement`, () => {
     const state = createScenario(config.id);
-    assert.equal(state.battle.sides[0].units.length, config.own);
-    assert.equal(state.battle.sides[1].units.length, config.enemy);
+    assert.equal(state.battle.sides[0].units.length, config.own??state.testScenario.customBattle.ownTeam.length);
+    assert.equal(state.battle.sides[1].units.length, config.enemy??state.testScenario.customBattle.enemyTeam.length);
     validateSave(structuredClone(state));
     for (let i=0;i<20;i++) stepBattle(state.battle);
     const resumed = validateSave(structuredClone(state));
@@ -54,15 +54,16 @@ test('sieges add an independent gate and shields only to defending starters', ()
     assert.equal(openCell(b,gate.x,gate.y),false);
     for (const side of [0,1]) for (const u of b.sides[side].units)
       assert.equal(shieldAmount(b,u),side===gate.side&&u.status==='active'?Math.round(u.initial*.3):0);
-    const reserve=b.sides[gate.side].units.find(u=>u.status==='reserve');
+    const reserves=b.sides[gate.side].units.filter(u=>u.status==='reserve');
     const starter=activeUnits(b,gate.side)[0];
     absorbShield(b,starter,starter.initial*.3);
     assert.equal(shieldAmount(b,starter),0);
     starter.hp=0;starter.battleDamage=starter.initial;starter.status='defeated';
     lockDeployment(b);
-    if (reserve.arrivalTick) b.tick=reserve.arrivalTick;
+    b.tick=Math.max(b.tick,Math.min(...reserves.map(u=>u.arrivalTick||0)));
     stepBattle(b);
-    assert.equal(reserve.status,'active');assert.equal(shieldAmount(b,reserve),0);
+    const entered=reserves.filter(u=>u.status==='active');
+    assert.ok(entered.length>0);for(const reserve of entered)assert.equal(shieldAmount(b,reserve),0);
     validateSave(structuredClone(state));
   }
 });
@@ -82,11 +83,11 @@ test('gate takes ordinary attacks and its destruction ends battle immediately wi
   validateSave(structuredClone(state));
 });
 
-test('gate remains a target after all defenders fall, focus can select it, deployment cannot overlap it', () => {
+test('gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it', () => {
   const state=createScenario('siege'),b=state.battle;
   for (const u of b.sides[1].units) {u.hp=0;u.battleDamage=u.initial;u.status='defeated';}
   stepBattle(b);assert.equal(b.result,null);
-  b.commandProgress=12000;assert.equal(issueCommand(b,'focus','siege-gate'),null);
+  b.commandProgress=12000;assert.match(issueCommand(b,'focus','siege-gate'),/仅保留全军撤退/);
   while(!b.result)stepBattle(b);
   assert.equal(b.result.reason,'城门失守');
   const defense=createScenario('defense').battle,g=defense.siege.gate;

@@ -1,10 +1,12 @@
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {FAMOUS_OFFICERS,famousPassiveId} from '../famous-officers.mjs';
-import {makeOfficer,stepBattle,lockDeployment,validateSave,settleBattle} from '../engine.mjs';
+import {makeOfficer,stepBattle,lockDeployment,validateSave,settleBattle,issueCommand,COMMAND_RESOURCE} from '../engine.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {TACTICS_BOOK,SPECIAL_TACTICS,availableTactics,unitTactics,tacticTarget,famousTargets,readyTactic,hasStatus,shieldAmount,setStatus} from '../tactics.mjs';
-import {hasPassive,passiveDamageMultiplier,passiveAttributes,supportMultiplier} from '../passives.mjs';
+import {hasPassive,passiveDamageMultiplier,passiveAttributes,passiveList,moved} from '../passives.mjs';
+import {unitAttributes} from '../unit-stats.mjs';
 import {officerDetailMarkup} from '../officer-roster.mjs';
 
 function fixture(id){
@@ -12,7 +14,7 @@ function fixture(id){
  b.sides[0].units=[u];b.sides[1].units=[d];
  Object.assign(u,{x:4,y:3,level:10,hp:2400,intent:100,cooldown:999,statuses:{},skillReady:{}});
  Object.assign(d,{x:5,y:3,hp:3000,maxHp:3000,intent:100,cooldown:999,statuses:{}});
- const ally={...structuredClone(u),id:'support-fixture',x:3,y:3,hp:900,intent:0};
+ const ally={...structuredClone(u),id:'support-fixture',x:3,y:3,hp:900,intent:0,battleDamage:2100,healed:0};
  b.sides[0].units.push(ally);
  for(const a of [u,d,ally])a.skillReady=Object.fromEntries(unitTactics(a).map(s=>[s.id,999]));
  const s=TACTICS_BOOK[SPECIAL_TACTICS[id]];u.skillReady[s.id]=0;
@@ -23,9 +25,9 @@ test('41 owners have five growth nodes, their exclusive loadout and visible desc
  assert.equal(Object.keys(FAMOUS_OFFICERS).length,41);
  assert.equal(Object.keys(SPECIAL_TACTICS).length,41);
  for(const id of Object.keys(FAMOUS_OFFICERS)){
-  const u=makeOfficer(id),special=SPECIAL_TACTICS[id];
+  const u=makeOfficer(id,3000,0,10),special=SPECIAL_TACTICS[id];
   assert.equal(unitTactics(u)[0].id,special);
-  assert.equal(unitTactics(u).length,3);
+  assert.ok(unitTactics(u).length>=1&&unitTactics(u).length<=4);
   assert.ok(availableTactics({...u,type:'archer'}).some(s=>s.id===special));
   assert.ok(!availableTactics({id:'ordinary',type:u.type}).some(s=>s.id===special));
   assert.ok(officerDetailMarkup(id).includes(TACTICS_BOOK[special].name));
@@ -75,7 +77,7 @@ test('support AI avoids idle shields, prioritizes cleansing, and skips a useless
  assert.equal(tacticTarget(b,u,s,3),ally);
  stepBattle(b);assert.ok(!hasStatus(b,ally,'seal'));assert.ok(hasStatus(b,ally,'resolve'));
  const q=fixture('person-636');q.u.hp=q.ally.hp=3000;q.ally.intent=100;q.d.x=8;
- q.u.type='crossbow';q.u.tactics=[q.s.id,'seal','pierce'];q.u.skillReady={};
+ q.u.type='crossbow';learnFixtureTactics(q.u,[q.s.id,'seal','pierce']);q.u.skillReady={};
  assert.equal(readyTactic(q.b,q.u,4).skill.id,'seal');
 });
 
@@ -88,17 +90,75 @@ test('exclusive control respects resolve and discipline; deaths do not acquire n
  assert.equal(z.d.hp,0);assert.ok(!z.d.statuses.armorBreak);
 });
 
-test('personal passives unlock at ten and their conditional bonuses expire or fail correctly',()=>{
+test('personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions',()=>{
  const x=fixture('person-99');x.u.hp=3000;
  x.u.level=9;assert.ok(!hasPassive(x.u,famousPassiveId(x.u.id)));
- const without=passiveDamageMultiplier(x.b,x.u,x.d,'force');
- x.u.level=10;assert.ok(passiveDamageMultiplier(x.b,x.u,x.d,'force')>without);
- x.u.hp=1000;assert.equal(passiveDamageMultiplier(x.b,x.u,x.d,'force'),without);
- const z=fixture('person-246');const plain=passiveDamageMultiplier(z.b,z.u,z.d,'intellect');
- setStatus(z.b,z.d,'burn',3,{amount:10,sourceId:z.u.id});assert.ok(passiveDamageMultiplier(z.b,z.u,z.d,'intellect')>plain);
- z.b.tick=z.d.statuses.burn.until;assert.equal(passiveDamageMultiplier(z.b,z.u,z.d,'intellect'),plain);
- const a=fixture('person-396');a.u.hp=3000;assert.ok(passiveAttributes(a.b,a.u).defense);a.u.hp=1000;assert.equal(passiveAttributes(a.b,a.u).defense,undefined);
- const c=fixture('person-636');assert.ok(supportMultiplier(c.u,c.ally,'shield')>supportMultiplier(c.u,c.u,'shield'));
+ const before=unitAttributes(x.u,x.b),without=passiveDamageMultiplier(x.b,x.u,x.d,'force');
+ x.u.level=10;const after=unitAttributes(x.u,x.b);
+ assert.ok(after.attack>before.attack);assert.ok(after.attackInterval<before.attackInterval);
+ assert.equal(after.martialPower,before.martialPower);assert.equal(passiveDamageMultiplier(x.b,x.u,x.d,'force'),without);
+ x.u.tactics=['gallop','rush','valor'];assert.equal(unitAttributes(x.u,x.b).attack,after.attack);
+ x.u.type='spear';assert.equal(passiveList(x.u,x.b).at(-1).state,'兵种不符');
+ const h=fixture('person-186');h.b.tick=3;assert.match(passiveAttributes(h.b,h.u).attack[0].label,/老当益壮/);
+ const from={x:h.u.x,y:h.u.y};h.u.x--;moved(h.b,h.u,from);assert.doesNotMatch(passiveAttributes(h.b,h.u).attack[0].label,/老当益壮/);
+ const a=fixture('person-396');assert.match(passiveAttributes(a.b,a.u).defense[0].label,/龙胆/);
+ a.u.hp=1000;assert.match(passiveAttributes(a.b,a.u).defense[0].label,/龙胆/);
+ const c=fixture('person-636');c.u.hp=c.u.maxHp*.5;assert.doesNotMatch(passiveAttributes(c.b,c.u).defense?.[0]?.label||'',/昭烈/);
+ c.u.hp--;assert.match(passiveAttributes(c.b,c.u).defense[0].label,/昭烈/);
+});
+
+test('all personal troop skills have distinct panel identities and no hidden tactic damage multiplier',()=>{
+ const identities=new Set();
+ for(const [id,design] of Object.entries(FAMOUS_OFFICERS).filter(([,p])=>p.ultimate)){
+  const p=design.ultimate,x=fixture(id);
+  x.u.hp=p.trigger==='wounded'?x.u.maxHp*.49:x.u.maxHp;
+  if(p.trigger==='steady')x.b.tick=3;
+  if(p.trigger==='late')x.b.tick=40;
+  if(p.trigger==='alone')x.ally.x=0;
+  const identity=JSON.stringify([p.troops,p.stats,p.trigger]);
+  assert.ok(!identities.has(identity),id+' duplicates another personal skill');identities.add(identity);
+  const low=unitAttributes({...x.u,level:9},x.b),high=unitAttributes(x.u,x.b);
+  assert.equal(passiveList(x.u,x.b).at(-1).state,'已生效',id);
+  for(const key of Object.keys(p.stats))assert.ok(high[key]>low[key],id+' '+key);
+  for(const kind of ['force','intellect'])assert.equal(passiveDamageMultiplier(x.b,x.u,x.d,kind),passiveDamageMultiplier(x.b,{...x.u,level:9},x.d,kind),id);
+  if(p.troops){
+   x.u.type='siege';const wrong=unitAttributes(x.u,x.b),wrongLow=unitAttributes({...x.u,level:9},x.b);
+   assert.deepEqual(wrong,wrongLow,id+' troop restriction');
+  }
+ }
+ assert.equal(identities.size,26);
+});
+
+test('exclusive support stays local and capped while army healing reaches distant active units',()=>{
+ for(const id of ['cao','yu','jin','shao','ju','person-636','person-368','person-668']){
+  const {b,u,ally,d,s}=fixture(id);
+  // Every support has a real need; no artificial pending-cast state.
+  setStatus(b,ally,'seal',5);ally.intent=0;
+  const far={...structuredClone(ally),id:'far-ally',x:0,y:0},reserve={...structuredClone(ally),id:'reserve-ally',status:'reserve',arrivalTick:999};
+  b.sides[0].units.push(far,reserve);
+  const targets=famousTargets(b,u,s);
+  assert.ok(targets.length>0&&targets.length<=s.targets,id);
+  assert.ok(!targets.includes(far)&&!targets.includes(reserve),id);
+  const previous=structuredClone(far);stepBattle(b);assert.equal(u.tacticCasts[s.id],1,id);
+  assert.equal(far.hp,previous.hp);assert.equal(far.intent,previous.intent);assert.equal(shieldAmount(b,far),0);
+  if(s.heal){assert.ok(ally.hp>900);assert.ok(ally.healed<=735);assert.equal(shieldAmount(b,ally),0);}
+  assert.ok(!b.effects.some(e=>e.from===u.id&&e.target===d.id&&e.healing),id);
+  b.sides[0].commanders=[{id:'yu',role:'advisor'}];b.commandProgress=COMMAND_RESOURCE.capacity;
+  const nearHp=ally.hp,farHp=far.hp,reserveHp=reserve.hp;
+  assert.equal(issueCommand(b,'heal'),null);
+  assert.ok(ally.hp>nearHp&&far.hp>farHp,id+' army heal ignores distance');assert.equal(reserve.hp,reserveHp);
+ }
+});
+
+test('Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded',()=>{
+ const {b,u,ally,s}=fixture('person-636');
+ u.battleDamage=0;ally.battleDamage=0;
+ assert.equal(tacticTarget(b,u,s,3),null,'low HP alone does not create recoverable wounded');
+ ally.battleDamage=100;const before=ally.hp;stepBattle(b);
+ assert.equal(ally.hp,before+35);assert.equal(ally.healed,35);
+ assert.equal(tacticTarget(b,u,s,3),null,'exhausted wounded pool');
+ ally.battleDamage=2100;ally.hp=0;ally.status='defeated';
+ assert.equal(tacticTarget(b,u,s,3),null);
 });
 
 test('burn stacks retain the strongest snapshot, refresh duration, and cap at three',()=>{

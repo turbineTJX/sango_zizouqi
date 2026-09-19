@@ -1,0 +1,442 @@
+{
+  "plans": [
+    {
+      "opponentType": "cavalry",
+      "plan": [
+        {
+          "id": "person-396",
+          "name": "赵云",
+          "troops": 6000,
+          "type": "cavalry",
+          "x": 10,
+          "y": 1,
+          "tactics": [
+            "unique-person-396",
+            "gallop",
+            "rush"
+          ]
+        },
+        {
+          "id": "person-641",
+          "name": "刘封",
+          "troops": 500,
+          "type": "spear",
+          "x": 9,
+          "y": 4,
+          "tactics": [
+            "phalanx",
+            "strike",
+            "thrust"
+          ]
+        },
+        {
+          "id": "person-123",
+          "name": "简雍",
+          "troops": 500,
+          "type": "logistics",
+          "x": 9,
+          "y": 3,
+          "tactics": [
+            "passage",
+            "bandage",
+            "purify"
+          ]
+        }
+      ]
+    },
+    {
+      "opponentType": "archer",
+      "plan": [
+        {
+          "id": "person-396",
+          "name": "赵云",
+          "troops": 6000,
+          "type": "cavalry",
+          "x": 10,
+          "y": 1,
+          "tactics": [
+            "unique-person-396",
+            "gallop",
+            "rush"
+          ]
+        },
+        {
+          "id": "person-641",
+          "name": "刘封",
+          "troops": 500,
+          "type": "spear",
+          "x": 9,
+          "y": 4,
+          "tactics": [
+            "phalanx",
+            "strike",
+            "thrust"
+          ]
+        },
+        {
+          "id": "person-123",
+          "name": "简雍",
+          "troops": 500,
+          "type": "logistics",
+          "x": 9,
+          "y": 3,
+          "tactics": [
+            "passage",
+            "bandage",
+            "purify"
+          ]
+        }
+      ]
+    },
+    {
+      "opponentType": "spear",
+      "plan": [
+        {
+          "id": "person-396",
+          "name": "赵云",
+          "troops": 6000,
+          "type": "cavalry",
+          "x": 10,
+          "y": 1,
+          "tactics": [
+            "unique-person-396",
+            "gallop",
+            "rush"
+          ]
+        },
+        {
+          "id": "person-641",
+          "name": "刘封",
+          "troops": 500,
+          "type": "spear",
+          "x": 9,
+          "y": 4,
+          "tactics": [
+            "phalanx",
+            "strike",
+            "thrust"
+          ]
+        },
+        {
+          "id": "person-123",
+          "name": "简雍",
+          "troops": 500,
+          "type": "logistics",
+          "x": 9,
+          "y": 3,
+          "tactics": [
+            "passage",
+            "bandage",
+            "purify"
+          ]
+        }
+      ]
+    }
+  ],
+  "supportCoreDistance": 2,
+  "advisorProbe": {
+    "roster": [
+      {
+        "id": "person-99",
+        "name": "关羽",
+        "intellect": 75,
+        "known": []
+      },
+      {
+        "id": "person-512",
+        "name": "马谡",
+        "intellect": 87,
+        "known": []
+      },
+      {
+        "id": "liao",
+        "name": "张辽",
+        "intellect": 78,
+        "known": [
+          "haste",
+          "cycle",
+          "range"
+        ]
+      }
+    ],
+    "leader": "person-99",
+    "advisor": "person-512",
+    "armyCommands": []
+  },
+  "levelProbes": [
+    {
+      "level": 5,
+      "type": "cavalry",
+      "modifiers": {
+        "supportPower": [],
+        "attack": [
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "defense": [
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "move": [
+          {
+            "label": "骑术 +20%",
+            "factor": 1.2
+          }
+        ],
+        "range": [],
+        "siege": [],
+        "attackSpeed": [],
+        "discipline": [
+          {
+            "label": "严整 +12%",
+            "factor": 1.12
+          }
+        ],
+        "martialPower": [
+          {
+            "label": "勇武 +10%",
+            "factor": 1.1
+          }
+        ],
+        "strategyPower": [
+          {
+            "label": "军师智力",
+            "factor": 1.076
+          }
+        ]
+      }
+    },
+    {
+      "level": 5,
+      "type": "spear",
+      "modifiers": {
+        "supportPower": [],
+        "attack": [
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "defense": [
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "move": [],
+        "range": [],
+        "siege": [],
+        "attackSpeed": [],
+        "discipline": [
+          {
+            "label": "严整 +12%",
+            "factor": 1.12
+          }
+        ],
+        "martialPower": [
+          {
+            "label": "勇武 +10%",
+            "factor": 1.1
+          }
+        ],
+        "strategyPower": [
+          {
+            "label": "军师智力",
+            "factor": 1.076
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "type": "cavalry",
+      "modifiers": {
+        "supportPower": [],
+        "attack": [
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "defense": [
+          {
+            "label": "龙胆 +20%",
+            "factor": 1.2
+          },
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "move": [
+          {
+            "label": "骑术 +20%",
+            "factor": 1.2
+          }
+        ],
+        "range": [],
+        "siege": [],
+        "attackSpeed": [],
+        "discipline": [
+          {
+            "label": "严整 +12%、龙胆 +25%",
+            "factor": 1.37
+          }
+        ],
+        "martialPower": [
+          {
+            "label": "勇武 +10%",
+            "factor": 1.1
+          }
+        ],
+        "strategyPower": [
+          {
+            "label": "军师智力",
+            "factor": 1.076
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "type": "spear",
+      "modifiers": {
+        "supportPower": [],
+        "attack": [
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "defense": [
+          {
+            "label": "主将统率",
+            "factor": 1.091
+          }
+        ],
+        "move": [],
+        "range": [],
+        "siege": [],
+        "attackSpeed": [],
+        "discipline": [
+          {
+            "label": "严整 +12%",
+            "factor": 1.12
+          }
+        ],
+        "martialPower": [
+          {
+            "label": "勇武 +10%",
+            "factor": 1.1
+          }
+        ],
+        "strategyPower": [
+          {
+            "label": "军师智力",
+            "factor": 1.076
+          }
+        ]
+      }
+    }
+  ],
+  "supportFloor": [
+    {
+      "troops": 1,
+      "power": 0.0746,
+      "factor": 0.7
+    },
+    {
+      "troops": 100,
+      "power": 7.46,
+      "factor": 0.7
+    },
+    {
+      "troops": 500,
+      "power": 37.3,
+      "factor": 0.7
+    },
+    {
+      "troops": 3000,
+      "power": 223.8,
+      "factor": 0.9197142857142857
+    }
+  ],
+  "dps": [
+    {
+      "type": "spear",
+      "name": "枪兵",
+      "leadership": 80,
+      "attack": 208,
+      "interval": 3,
+      "nominalDps": 69.33333333333333,
+      "defense": 142
+    },
+    {
+      "type": "halberd",
+      "name": "戟兵",
+      "leadership": 80,
+      "attack": 213,
+      "interval": 3.5,
+      "nominalDps": 60.857142857142854,
+      "defense": 152
+    },
+    {
+      "type": "cavalry",
+      "name": "骑兵",
+      "leadership": 80,
+      "attack": 228,
+      "interval": 3,
+      "nominalDps": 76,
+      "defense": 112
+    },
+    {
+      "type": "archer",
+      "name": "弓兵",
+      "leadership": 80,
+      "attack": 193,
+      "interval": 2.5,
+      "nominalDps": 77.2,
+      "defense": 97
+    },
+    {
+      "type": "crossbow",
+      "name": "弩兵",
+      "leadership": 80,
+      "attack": 248,
+      "interval": 4,
+      "nominalDps": 62,
+      "defense": 107
+    },
+    {
+      "type": "logistics",
+      "name": "辅兵",
+      "leadership": 80,
+      "attack": 158,
+      "interval": 4,
+      "nominalDps": 39.5,
+      "defense": 107
+    },
+    {
+      "type": "siege",
+      "name": "兵器",
+      "leadership": 80,
+      "attack": 263,
+      "interval": 4.5,
+      "nominalDps": 58.44444444444444,
+      "defense": 97
+    },
+    {
+      "type": "ship",
+      "name": "舰船",
+      "leadership": 80,
+      "attack": 233,
+      "interval": 3.5,
+      "nominalDps": 66.57142857142857,
+      "defense": 132
+    }
+  ]
+}

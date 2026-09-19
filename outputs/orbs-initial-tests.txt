@@ -1,0 +1,49 @@
+✔ real battles retain skill provenance through stacking, refresh, shields and deterministic saves (4926.3414ms)
+✔ stacked attribute losses, army effects and non-stacking haste show marginal actual values (1.506ms)
+✔ current DOT details apply terrain and passive mitigation, before shields (2.0565ms)
+✔ status timer matches exclusive expiration and distinguishes the final active step from expired state (1.1102ms)
+✔ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (0.7277ms)
+✔ four troop types have fixed base slots and named officers have exclusive tactics (1.8145ms)
+✔ instant skills keep shared intent and only one tactic enters cooldown per step (13.0395ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (4.1043ms)
+✔ expired cooldown is insufficient below threshold; regaining intent re-enables the tactic (3.4258ms)
+✖ fire burns without intent feedback and ranged skills have distinct real effects (4.5433ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (2.6829ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (6.0458ms)
+✔ blocked displacement never overlaps units or crosses board limits (1.4768ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (2.9549ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (5.0698ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (4.952ms)
+✔ prepaid casts and previous save formats are rejected (1.7604ms)
+✔ new saves distinguish bows and crossbows and require current rules (1.7338ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5049.921
+
+✖ failing tests:
+
+test at tests\tactics.test.mjs:59:1
+✖ fire burns without intent feedback and ranged skills have distinct real effects (4.5433ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(hasStatus(b,d,'burn'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/tactics.test.mjs:61:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

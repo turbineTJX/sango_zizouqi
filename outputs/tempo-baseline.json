@@ -1,0 +1,110 @@
+[
+  {
+    "id": "field",
+    "seed": 1,
+    "ticks": 160,
+    "reason": "击溃",
+    "damage12": 2729,
+    "meanHit": 49,
+    "casts": 131
+  },
+  {
+    "id": "field",
+    "seed": 17,
+    "ticks": 172,
+    "reason": "击溃",
+    "damage12": 2702,
+    "meanHit": 47,
+    "casts": 138
+  },
+  {
+    "id": "field",
+    "seed": 521200,
+    "ticks": 184,
+    "reason": "击溃",
+    "damage12": 2675,
+    "meanHit": 47,
+    "casts": 138
+  },
+  {
+    "id": "outnumbered",
+    "seed": 1,
+    "ticks": 129,
+    "reason": "击溃",
+    "damage12": 1686,
+    "meanHit": 42,
+    "casts": 123
+  },
+  {
+    "id": "outnumbered",
+    "seed": 17,
+    "ticks": 129,
+    "reason": "击溃",
+    "damage12": 1676,
+    "meanHit": 41,
+    "casts": 123
+  },
+  {
+    "id": "outnumbered",
+    "seed": 521200,
+    "ticks": 161,
+    "reason": "击溃",
+    "damage12": 1745,
+    "meanHit": 36,
+    "casts": 163
+  },
+  {
+    "id": "rotation",
+    "seed": 1,
+    "ticks": 256,
+    "reason": "击溃",
+    "damage12": 2360,
+    "meanHit": 41,
+    "casts": 248
+  },
+  {
+    "id": "rotation",
+    "seed": 17,
+    "ticks": 218,
+    "reason": "击溃",
+    "damage12": 2334,
+    "meanHit": 43,
+    "casts": 233
+  },
+  {
+    "id": "rotation",
+    "seed": 521200,
+    "ticks": 198,
+    "reason": "击溃",
+    "damage12": 2325,
+    "meanHit": 40,
+    "casts": 217
+  },
+  {
+    "id": "siege",
+    "seed": 1,
+    "ticks": 165,
+    "reason": "城门失守",
+    "damage12": 1072,
+    "meanHit": 43,
+    "casts": 183
+  },
+  {
+    "id": "siege",
+    "seed": 17,
+    "ticks": 178,
+    "reason": "城门失守",
+    "damage12": 1066,
+    "meanHit": 43,
+    "casts": 186
+  },
+  {
+    "id": "siege",
+    "seed": 521200,
+    "ticks": 169,
+    "reason": "城门失守",
+    "damage12": 1097,
+    "meanHit": 44,
+    "casts": 174
+  }
+]

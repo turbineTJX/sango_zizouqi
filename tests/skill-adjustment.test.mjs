@@ -1,10 +1,13 @@
+import {primeTactic} from './helpers/prime-tactic.mjs';
+import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makeOfficer,newGame,stepBattle,lockDeployment,validateSave,unitAttributes,lowerIntent} from '../engine.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
 import {powerFactor} from '../tactic-power.mjs';
-import {configureTactics,unitTactics,hasStatus,recommendedTacticIds} from '../tactics.mjs';
+import {unitTactics,hasStatus,recommendedTacticIds} from '../tactics.mjs';
 import {passiveList,passiveDamageMultiplier,SKILL_ROUTES} from '../passives.mjs';
 
 function fixture(type,skill){
@@ -13,7 +16,7 @@ function fixture(type,skill){
   Object.assign(u,{type,level:1,hp:3000,maxHp:3000,initial:3000,x:4,y:3,cooldown:999,intent:100});
   Object.assign(d,{level:1,hp:3000,maxHp:3000,initial:3000,x:7,y:3,cooldown:999,intent:0});
   const rest=type==='archer'?['scatter','suppress']:type==='crossbow'?['seal','pierce']:['rush','harass'];
-  assert.equal(configureTactics(u,[skill,...rest]),null);
+  assert.equal(learnFixtureTactics(u,[skill,...rest]),null);
   for(const a of [u,d])a.skillReady=Object.fromEntries(unitTactics(a).map(s=>[s.id,999]));
   u.skillReady[skill]=0;lockDeployment(b);return {b,u,d};
 }
@@ -24,7 +27,7 @@ test('fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and
       const {b,u,d}=fixture('archer',skill);u.hp=hp;
       const strategy=unitAttributes(u,b).strategyPower;
       const full=Math.round((skill==='fire'?unitAttributes(u,b).martialPower*(6/280+.03):strategy*(6/280+.04))*100/(100+unitAttributes(d,b).discipline));
-      stepBattle(b);const burn={...d.statuses.burn};assert.ok(burn.amount>=0);
+      stepBattle(b);if(skill==='fire'){u.cooldown=0;stepBattle(b);u.cooldown=999;}const burn={...d.statuses.burn};assert.ok(burn.amount>=0);
       if(hp===3000)assert.equal(burn.amount,full);
       const enemyIntent=d.intent,ownIntent=u.intent,before=d.hp;
       u.hp=3000;stepBattle(b);
@@ -39,7 +42,7 @@ test('fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and
 
 test('screen has a useful baseline and scales with support passives',()=>{
   function shield(id,level){
-    const {b,u,d}=fixture('crossbow','screen');u.id=id;u.level=level;
+    const {b,u,d}=fixture('crossbow','screen');u.id=id;u.level=level;primeTactic(u,'screen');
     const ally={...structuredClone(d),id:'dun',side:0,x:3,y:3,hp:1200,battleDamage:1800};b.sides[0].units.push(ally);
     const base=ally.maxHp*.04*powerFactor(unitAttributes(u,b).strategyPower);
     stepBattle(b);const amount=ally.statuses.shield.amount;
@@ -72,7 +75,7 @@ test('gallop provides travel speed before contact and mitigation while adjacent'
 });
 
 test('new officer defaults activate the intended bow and support routes without removing troop choice',()=>{
-  const x=makeOfficer('yuanxia'),ju=makeOfficer('ju');
+  const x=makeOfficer('yuanxia'),ju=makeOfficer('ju',3000,0,5);
   assert.equal(x.type,'archer');assert.equal(x.formation,'back');
   assert.ok(!passiveList({...x,level:10}).some(p=>p.state==='兵种不符'));
   assert.equal(ju.type,'crossbow');assert.equal(ju.formation,'back');assert.ok(unitTactics(ju).some(s=>s.id==='unique-ju'));
@@ -85,15 +88,15 @@ test('new officer defaults activate the intended bow and support routes without 
 test('current campaigns and ongoing battles preserve player loadouts and DOT snapshots',()=>{
   const state=createScenario('rotation',93),b=state.battle;
   for(const units of [state.armies[0].units,b.sides[0].units]){
-    const x=units.find(u=>u.id==='yuanxia');x.type='cavalry';x.formation='front';x.tactics=['gallop','rush','valor'];
+    const x=units.find(u=>u.id==='yuanxia');x.type='cavalry';x.formation='front';learnFixtureTactics(x,['gallop','rush','valor']);
   }
   for(const units of [state.armies[1].units,b.sides[1].units]){
-    const ju=units.find(u=>u.id==='ju');ju.type='archer';ju.tactics=['wildfire','smoke','suppress'];
+    const ju=units.find(u=>u.id==='ju');ju.type='archer';learnFixtureTactics(ju,['wildfire','suppress']);
   }
   lockDeployment(b);for(let i=0;i<10;i++)stepBattle(b);
   b.sides[1].units[0].statuses.burn={until:b.tick+5,amount:24,baseAmount:24,stacks:1,sourceId:b.sides[0].units[0].id};
-  const expected=structuredClone(state);
-  const loaded=validateSave(structuredClone(state));assert.deepEqual(loaded,expected);
+  syncFixtureLearning(state);const expected=structuredClone(state);
+  const loaded=validateSave(structuredClone(syncFixtureLearning(state)));assert.deepEqual(loaded,expected);
   const copy=validateSave(structuredClone(loaded));for(let i=0;i<20;i++){stepBattle(loaded.battle);stepBattle(copy.battle);}
   assert.deepEqual(loaded,copy);
   const bad=structuredClone(state);bad.rulesVersion=RULES_VERSION+1;assert.throws(()=>validateSave(bad));

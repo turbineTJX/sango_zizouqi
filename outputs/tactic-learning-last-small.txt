@@ -1,0 +1,84 @@
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (4.2943ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (1.7649ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (147.7695ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (219.3474ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (7.1319ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (4.1722ms)
+✔ retreat terminates and sends the attacker back without taking the city (8.2296ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (0.8184ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (1.0402ms)
+✔ enemy launches an attack and city garrison participates in defense (70.424ms)
+✔ garrison alone can defend a city when player army is elsewhere (27.9915ms)
+✔ multiple same-side armies share the same six battlefield slots (79.4628ms)
+✔ invalid saves are rejected before replacing game state (2.7818ms)
+✔ different seeds finish without deadlocks or overlapping units (480.7232ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (71.8427ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (5.799ms)
+✔ left and right formations deploy on opposite flanks (3.1826ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (8.2121ms)
+✔ capturing the final city completes the scenario (16.4974ms)
+✔ losing the final friendly city ends the scenario (15.617ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (184.8151ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (3.5131ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (50.0679ms)
+✔ pending casts from the removed windup format are rejected (12.3931ms)
+✔ a defeated unit cannot use a ready skill (10.9289ms)
+✔ retreat stops subsequent friendly skills immediately (27.5629ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (59.6337ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (2.1807ms)
+✔ a ready tactic casts without spending intent, regardless of morale or attack cooldown (1.8191ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (3.4859ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (2.0242ms)
+✔ deployment can move, swap, reset and persist without advancing time (3.879ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (3.471ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (11.5968ms)
+✔ missing deployment and command state is rejected instead of reconstructed (18.0242ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (97.2858ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (16.0971ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (19.0657ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (0.9346ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (8.4846ms)
+✔ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (230.0889ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (220.0339ms)
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (8.5706ms)
+✔ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (186.0034ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (4.6313ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (292.348ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (1151.4117ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (7.6938ms)
+✔ old officer data versions are rejected without changing saved progress (10.1793ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: cao missing fields
+    at file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/scripts/game-officer-table.mjs:101:9
+    at Array.map (<anonymous>)
+    at file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/scripts/game-officer-table.mjs:82:50
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+✖ tests\officer-source.test.mjs (204.4104ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 49
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1803.4997
+
+✖ failing tests:
+
+test at tests\officer-source.test.mjs:1:1
+✖ tests\officer-source.test.mjs (204.4104ms)
+  'test failed'

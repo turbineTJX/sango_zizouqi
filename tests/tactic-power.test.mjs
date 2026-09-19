@@ -1,3 +1,4 @@
+import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
@@ -19,8 +20,8 @@ const cast=x=>{stepBattle(x.b);return x.b.effects.filter(e=>e.from===x.u.id&&!e.
 
 test('every tactic declares its actual power, chance effects and critical policy',()=>{
  for(const s of Object.values(TACTICS_BOOK)){
-  assert.equal(s.power.attribute,s.category==='intellect'?'strategyPower':'martialPower',s.id);
-  assert.equal(typeof s.power.critical,'boolean');assert.ok(s.powerDescription.includes(s.power.name));
+  assert.equal(s.power.attribute,s.category==='politics'?'supportPower':s.category==='intellect'?'strategyPower':'martialPower',s.id);
+  assert.equal(typeof s.power.critical,'boolean');assert.ok(s.passive||s.powerDescription.includes(s.power.name));
  }
  assert.equal(powerFactor(280),1);assert.equal(powerFactor(0),.7);assert.equal(powerFactor(10000),1.6);
  assert.equal(effectChance(10000,0),.95);assert.equal(effectChance(0,10000),.25);
@@ -76,7 +77,7 @@ test('current saves resume identical probability rolls and reject malformed even
  const state=createScenario('field',19),b=state.battle;lockDeployment(b);
  for(let i=0;i<250&&!b.result&&!b.effects.some(e=>e.resolution||e.critChance);i++)stepBattle(b);
  const event=b.effects.find(e=>e.resolution||e.critChance);assert.ok(event);
- const resumed=validateSave(structuredClone(state));
+ const resumed=validateSave(structuredClone(syncFixtureLearning(state)));
  const invalid=structuredClone(state),e=invalid.battle.effects.find(e=>e.resolution||e.critChance);
  if(e.resolution)e.resolution.chance=2;else e.critChance=2;
  assert.throws(()=>validateSave(invalid));

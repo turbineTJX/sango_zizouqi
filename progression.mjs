@@ -1,4 +1,6 @@
 import {officerLevel, passiveList} from './passives.mjs';
+import {advanceTacticLearning} from './tactic-learning.mjs';
+import {TACTICS_BOOK} from './tactics.mjs';
 
 // Prototype pacing: real frontline participation only; both sides use the same rules.
 export const PROGRESSION = {maxLevel:10,participation:100,victory:50,perLevel:100};
@@ -12,5 +14,6 @@ export function gainExperience(u,amount) {
     u.experience-=experienceNeeded(u.level);u.level++;
   }
   if(u.level===10)u.experience=0;
-  return {before,after:u.level,gained:amount,unlocked:passiveList(u).filter(s=>s.level>before&&s.level<=u.level).map(s=>s.name)};
+  const learned=u.level>before?advanceTacticLearning(u):[];
+  return {before,after:u.level,gained:amount,learned,unlocked:[...passiveList(u).filter(s=>s.level>before&&s.level<=u.level).map(s=>s.name),...learned.map(id=>TACTICS_BOOK[id].name)]};
 }

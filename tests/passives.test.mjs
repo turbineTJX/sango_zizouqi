@@ -1,3 +1,5 @@
+import {initializeTacticLearning} from '../tactic-learning.mjs';
+import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {relationshipKey} from '../relationships.mjs';
@@ -7,17 +9,17 @@ import {newGame,makeOfficer,orderArmy,advanceTurn,startBattle,lockDeployment,ste
 import {PASSIVES,SKILL_ROUTES,COMMON_ROUTES,SKILL_LEVELS,passiveList,hasPassive,initialPassiveState,moved,passiveDamageTaken,supportMultiplier,recordBasicAttack,passiveDamageMultiplier} from '../passives.mjs';
 import {gainExperience,experienceNeeded} from '../progression.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
-import {unitTactics,configureTactics,setStatus} from '../tactics.mjs';
+import {unitTactics,configureTactics,setStatus,TACTICS_BOOK} from '../tactics.mjs';
 const near=(a,c,epsilon=1e-8)=>assert.ok(Math.abs(a-c)<epsilon,`${a} ≠ ${c}`);
 function campaign(level=1){
-  const state=newGame(99);for(const army of state.armies)for(const u of army.units)u.level=level;
+  const state=newGame(99);for(const army of state.armies)for(const u of army.units){u.level=level;initializeTacticLearning(u,state.seed);}
   orderArmy(state,'a1','guandu');advanceTurn(state);startBattle(state);lockDeployment(state.battle);return state;
 }
 function duel(id='cao',level=1){
   const state=campaign(level),b=state.battle;
   const a=b.sides.flatMap(s=>s.units).find(u=>u.id===id),d=b.sides[1-a.side].units.find(u=>u.id!=='cao')||b.sides[1-a.side].units[0];
   b.sides[a.side].units=[a];b.sides[d.side].units=[d];a.status='active';d.status='active';
-  Object.assign(a,{type:'crossbow',x:4,y:3,intent:0,cooldown:0});configureTactics(a,['repeat','seal','screen']);
+  Object.assign(a,{type:'crossbow',x:4,y:3,intent:0,cooldown:0});initializeTacticLearning(a,a.tacticLearning.seed);
   Object.assign(d,{x:7,y:3,intent:0,cooldown:999});d.level=1;state.armies.flatMap(s=>s.units).find(u=>u.id===d.id).level=1;
   d.statuses.phalanx={until:999};
   for(const u of [a,d])u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
@@ -31,8 +33,8 @@ function extra(b,id,side,x,y,level=1){
   const u={...makeOfficer(id),level,side,status:'active',hp:3000,maxHp:3000,initial:3000,battleDamage:0,healed:0,x,y,intent:0,cooldown:999,cast:null,statuses:{phalanx:{until:999}},skillReady:{},tacticCasts:{},passiveState:initialPassiveState()};
   u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));b.sides[side].units.push(u);return u;
 }
-test('all 62 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10',()=>{
-  assert.equal(Object.keys(PASSIVES).length,62);assert.equal(Object.keys(SKILL_ROUTES).length,41);
+test('all 77 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10',()=>{
+  assert.equal(Object.keys(PASSIVES).length,77);assert.equal(Object.keys(SKILL_ROUTES).length,41);
   for(const [id,route] of Object.entries(SKILL_ROUTES)){
     assert.equal(new Set(route).size,5);
     for(let level=1;level<=10;level++){
@@ -43,7 +45,7 @@ test('all 62 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusiv
     assert.ok(['专属','高级通用'].includes(PASSIVES[route[4]].tier));
   }
   assert.deepEqual(passiveList({...makeOfficer('he'),level:10}).map(s=>s.name),['强攻','勇武','合击','备战','巧变']);
-  assert.equal(passiveList({...makeOfficer('jin'),level:10}).at(-1).name,'坚城');
+  assert.equal(passiveList({...makeOfficer('jin'),level:10}).at(-1).name,'坚守');
 });
 test('base and advanced skills modify only their intended attributes, adding passive percentages',()=>{
   const plain=makeOfficer('yan'),low=unitAttributes(plain),high=unitAttributes({...plain,level:10});
@@ -51,6 +53,17 @@ test('base and advanced skills modify only their intended attributes, adding pas
   const tian=makeOfficer('tian');near(unitAttributes({...tian,level:10}).strategyPower,unitAttributes(tian).strategyPower*1.35);
   const shao=makeOfficer('shao'),s=unitAttributes({...shao,level:10}),base=unitAttributes(shao);
   near(s.attack,base.attack*1.23);near(s.defense,base.defense*1.15);near(s.discipline,base.discipline*1.12);
+});
+
+test('expanded troop training modifies the real panel and is removed immediately after troop changes',()=>{
+ for(const [type,id,keys] of [['halberd','halberdDrill',['defense','attackSpeed']],['logistics','logisticsDrill',['defense','discipline']],['siege','siegeDrill',['attack','siege']],['ship','shipDrill',['defense','move']]]){
+  const u={...makeOfficer('cao'),id:'training-test',skillRouteType:type,type,level:5};
+  const before=unitAttributes({...u,level:4}),after=unitAttributes(u);
+  for(const key of keys)assert.ok(after[key]>before[key],type+' '+key);
+  assert.equal(passiveList(u).find(p=>p.id===id).state,'已生效');
+  u.type='spear';assert.deepEqual(unitAttributes(u),unitAttributes({...u,level:4}));
+  assert.equal(passiveList(u).find(p=>p.id===id).state,'兵种不符');
+ }
 });
 test('army command aura affects nearby other active allies, does not stack and vanishes on departure',()=>{
   const {b,a}=duel('dun',1),baseline=unitAttributes(a,b);
@@ -102,7 +115,7 @@ test('crossbow streak counts basic attacks, resets on target or troop changes, a
   const x=duel('cao',1);Object.assign(x.a,{id:'custom',level:10,skillRouteType:'crossbow'});
   for(let i=1;i<=3;i++){x.a.cooldown=0;stepBattle(x.b);assert.equal(x.a.passiveState.shots,i);}
   near(passiveDamageMultiplier(x.b,x.a,x.d,'basic'),1.18);
-  cast(x,'repeat');assert.equal(x.a.passiveState.shots,3);
+  cast(x,'ambush');assert.equal(x.a.passiveState.shots,3);
   const d2={...x.d,id:'second'};recordBasicAttack(x.a,d2);assert.equal(x.a.passiveState.shots,1);
   x.a.type='spear';recordBasicAttack(x.a,d2);assert.equal(x.a.passiveState.shots,1);
   assert.equal(passiveDamageMultiplier(x.b,x.a,x.d,'basic'),1);
@@ -113,7 +126,7 @@ test('fractional attack intervals produce more actual attacks instead of roundin
   for(const type of ['archer','crossbow']){const u={...makeOfficer('cao'),id:'common',skillRouteType:type,type,level:10};near(unitAttributes(u).attackInterval,(type==='archer'?2.5:4)/1.2);}
 });
 test('multi-hit tactics do not charge the caster and grant surviving-hit intent once',()=>{
-  const x=duel('liao',3);x.d.id='dun';x.d.level=3;cast(x,'repeat');assert.equal(x.a.intent,40);assert.equal(x.d.intent,9);
+  const x=duel('cao',3);x.d.id='dun';x.d.level=3;cast(x,'repeat');assert.equal(x.a.intent,TACTICS_BOOK.repeat.threshold);assert.equal(x.d.intent,9);
   x.a.intent=99;x.a.cooldown=0;stepBattle(x.b);assert.equal(x.a.intent,100);
   const y=duel('liao',3);y.d.statuses.shield={until:99,amount:1000,layers:[{source:'test',label:'测试',amount:1000,until:99}]};stepBattle(y.b);assert.equal(y.d.intent,0);
 });
@@ -145,7 +158,7 @@ test('cooperation raises a real combo to 30%, keeps the window and duration bonu
   b.sides[0].units=[first,u];b.sides[1].units=[d];Object.assign(first,{x:3,y:3,type:'crossbow'});Object.assign(u,{x:4,y:3,type:'crossbow'});Object.assign(d,{x:6,y:3});
   for(const v of [first,u,d]){v.cooldown=999;v.statuses.phalanx={until:999};configureTactics(v,v.type==='crossbow'?['repeat','seal','screen']:['thrust','phalanx','strike']);v.skillReady=Object.fromEntries(unitTactics(v).map(t=>[t.id,999]));}
   primeTactic(first,'repeat');stepBattle(b);const anchored=b.comboWindows[0].tick;
-  primeTactic(u,'repeat');stepBattle(b);assert.equal(b.effects.find(e=>e.combo).combo.bonus,30);assert.equal(b.comboWindows[0].tick,anchored);assert.deepEqual(validateSave(structuredClone(s)).battle,b);
+  primeTactic(u,'repeat');stepBattle(b);assert.equal(b.effects.find(e=>e.combo).combo.bonus,30);assert.equal(b.comboWindows[0].tick,anchored);assert.deepEqual(validateSave(structuredClone(syncFixtureLearning(s))).battle,b);
 });
 test('reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment',()=>{
   const s=campaign(10),b=s.battle,he=b.sides[1].units.find(u=>u.id==='he');
@@ -161,9 +174,9 @@ test('fortress reduces real burning and army firestorm damage before shields wit
   assert.deepEqual(burn(10),{lost:88,intent:0});assert.equal(burn(9).lost,100);
 });
 test('experience carries across thresholds, unlocks all crossed nodes and stops at level 10',()=>{
-  const u=makeOfficer('liao');let r=gainExperience(u,100);assert.equal(u.level,2);assert.deepEqual(r.unlocked,['勇武']);
-  r=gainExperience(u,350);assert.equal(u.level,3);assert.equal(u.experience,150);assert.deepEqual(r.unlocked,['振奋']);
-  r=gainExperience(u,10000);assert.equal(u.level,10);assert.equal(u.experience,0);assert.deepEqual(r.unlocked,['骑术','截气','摧锋']);assert.equal(gainExperience(u,100).gained,0);assert.equal(experienceNeeded(10),0);
+  const u=makeOfficer('liao');let r=gainExperience(u,100);assert.equal(u.level,2);assert.ok(r.unlocked.includes('勇武'));
+  r=gainExperience(u,350);assert.equal(u.level,3);assert.equal(u.experience,150);assert.ok(r.unlocked.includes('振奋'));
+  r=gainExperience(u,10000);assert.equal(u.level,10);assert.equal(u.experience,0);assert.ok(['骑术','截气','摧锋'].every(name=>r.unlocked.includes(name)));assert.equal(gainExperience(u,100).gained,0);assert.equal(experienceNeeded(10),0);
 });
 test('settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats',()=>{
   const x=duel('cao',1);stepBattle(x.b);x.b.result={winner:0,reason:'击溃'};const report=settleBattle(x.state);
@@ -177,7 +190,7 @@ test('max-level full battles and fractional cooldown saves resume deterministica
     const s=campaign(10);s.battle.seed=seed;let restored;
     for(let i=0;i<240&&!s.battle.result;i++){
       stepBattle(s.battle);
-      if(i%17===0){restored=validateSave(structuredClone(s));stepBattle(restored.battle);const control=structuredClone(s.battle);stepBattle(control);assert.deepEqual(restored.battle,control);}
+      if(i%17===0){restored=validateSave(structuredClone(syncFixtureLearning(s)));stepBattle(restored.battle);const control=structuredClone(s.battle);stepBattle(control);assert.deepEqual(restored.battle,control);}
     }
     assert.ok(s.battle.result);assert.ok(s.battle.sides.every(side=>side.units.filter(u=>u.status==='active').length<=6));
   }

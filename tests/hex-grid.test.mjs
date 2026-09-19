@@ -1,3 +1,4 @@
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {HEX_ASPECT,hexNeighbors,hexDistance,hexBeyond,hexCenter,insideHexGrid} from '../hex-grid.mjs';
@@ -42,7 +43,7 @@ function duel(skill,id='chu') {
   const a=b.sides[0].units.find(u=>u.id===id),d=b.sides[1].units[0];
   b.sides[0].units=[a];b.sides[1].units=[d];
   Object.assign(a,{x:4,y:3,type:'spear',cooldown:999,intent:100});
-  a.tactics=['thrust','phalanx','protect'];
+  learnFixtureTactics(a,[skill]);
   Object.assign(d,{x:5,y:4,type:'spear',cooldown:999,intent:0});
   for(const u of [a,d])for(const t of unitTactics(u))u.skillReady[t.id]=u===a&&t.id===skill?0:999;
   return {s,b,a,d};

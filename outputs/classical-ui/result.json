@@ -1,0 +1,12 @@
+{
+  "errors": [],
+  "mobileOverflow": false,
+  "offlineArtwork": true,
+  "screens": [
+    "home",
+    "settings",
+    "strategy",
+    "campaign",
+    "battle"
+  ]
+}

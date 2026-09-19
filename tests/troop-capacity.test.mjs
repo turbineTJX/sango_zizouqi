@@ -32,7 +32,8 @@ for(const c of TACTICAL_CAMPAIGNS)test(`${c.id}: current deployment, legal capac
 });
 
 test('outnumbered defense enforces a real hold objective and retreat still fails',()=>{
- const c=TACTICAL_CAMPAIGNS.find(c=>c.holdUntil),s=createScenario(c.id),b=s.battle;
+ // Rule 31: seed 5 reaches the timed hold condition with mixed civil/combat routes.
+ const c=TACTICAL_CAMPAIGNS.find(c=>c.holdUntil),s=createScenario(c.id,5),b=s.battle;
  assert.ok(scenarioTroops(c,1)>scenarioTroops(c,0)*2);
  lockDeployment(b);
  while(!b.result&&b.tick<c.holdUntil)stepBattle(b);

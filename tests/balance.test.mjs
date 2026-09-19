@@ -1,3 +1,4 @@
+import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -18,7 +19,7 @@ function duel() {
 test('intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize',()=>{
   assert.equal(COMBAT.intentCap,100);
   assert.ok(Object.values(TACTICS_BOOK).every(s=>s.threshold<=COMBAT.intentCap));
-  const {b,a,d}=duel();configureTactics(d,['strike','phalanx','thrust']);d.skillReady={};
+  const {b,a,d}=duel();learnFixtureTactics(d,['strike','phalanx','thrust']);d.skillReady={};
   a.intent=d.intent=COMBAT.intentCap;b.commandProgress=12000;
   assert.equal(readyTactic(b,d,1).skill.id,'strike');
   assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,55);
@@ -27,14 +28,14 @@ test('intent cap permits every tactic but a capped enemy loses high-threshold ac
 });
 
 test('only the current rule version loads, and intent is validated without normalization',()=>{
-  const state=createScenario('field');assert.deepEqual(validateSave(structuredClone(state)),state);
+  const state=createScenario('field');assert.deepEqual(validateSave(structuredClone(syncFixtureLearning(state))),state);
   for(const version of [undefined,3,4,5,6,7,RULES_VERSION+1]){const s=structuredClone(state);s.rulesVersion=version;assert.throws(()=>validateSave(s),/规则版本/);}
   for(const intent of [-1,1.5,101,160]){const s=structuredClone(state);s.battle.sides[0].units[0].intent=intent;assert.throws(()=>validateSave(s),/战意/);}
 });
 
 test('spearmen close the gap instead of immobilizing outside attack range',()=>{
   const {b,a,d}=duel();d.type='archer';d.x=7;
-  configureTactics(a,['phalanx','thrust','strike']);a.skillReady={};a.intent=65;
+  learnFixtureTactics(a,['phalanx','thrust']);a.skillReady=Object.fromEntries(unitTactics(a).filter(t=>!['phalanx','thrust'].includes(t.id)).map(t=>[t.id,999]));a.intent=65;
   stepBattle(b);assert.equal(hasStatus(b,a,'phalanx'),false);assert.equal(hexDistance(a,d),1);
   stepBattle(b);assert.ok(hasStatus(b,a,'phalanx'));
 });
@@ -53,7 +54,7 @@ test('full troop size affects actual damage and one surviving soldier no longer 
 
 test('trial loadouts use legal tools and the advertised support commands are unlocked',()=>{
   for(const c of SCENARIOS)for(const u of createScenario(c.id).battle.sides.flatMap(s=>s.units)) {
-    const skills=unitTactics(u);assert.equal(skills.length,3);assert.ok(skills.every(s=>s.threshold<=100));
+    const skills=unitTactics(u);assert.ok(skills.length<=4);assert.ok(skills.every(s=>s.threshold<=100));
   }
   assert.ok(battleStratagems(createScenario('outnumbered').battle).includes('heal'));
   for(const id of ['rotation','defense'])for(const command of ['heal','regenerate','relief'])assert.ok(battleStratagems(createScenario(id).battle).includes(command));

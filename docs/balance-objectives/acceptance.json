@@ -1,0 +1,84 @@
+{
+  "total": 4896,
+  "checks": [
+    {
+      "id": "recommendation/person-661/5",
+      "passed": true
+    },
+    {
+      "id": "recommendation/person-661/10",
+      "passed": true
+    },
+    {
+      "id": "recommendation/person-396/5",
+      "passed": true
+    },
+    {
+      "id": "recommendation/person-396/10",
+      "passed": true
+    },
+    {
+      "id": "recommendation/person-99/5",
+      "passed": true
+    },
+    {
+      "id": "recommendation/person-99/10",
+      "passed": true
+    },
+    {
+      "id": "frontline/zhangfei/5/full",
+      "passed": true
+    },
+    {
+      "id": "frontline/zhangfei/10/full",
+      "passed": true
+    },
+    {
+      "id": "player/cooperation/balanced/decision",
+      "passed": true
+    },
+    {
+      "id": "player/cooperation/cavalry/decision",
+      "passed": true
+    },
+    {
+      "id": "player/carry/balanced/decision",
+      "passed": true
+    },
+    {
+      "id": "player/carry/cavalry/decision",
+      "passed": true
+    },
+    {
+      "id": "player/mixed/balanced/decision",
+      "passed": true
+    },
+    {
+      "id": "player/mixed/cavalry/decision",
+      "passed": true
+    },
+    {
+      "id": "weak-role-value",
+      "passed": true
+    },
+    {
+      "id": "exclusive/liao",
+      "passed": true
+    },
+    {
+      "id": "exclusive/chu",
+      "passed": true
+    },
+    {
+      "id": "exclusive/jia",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "changedRuntime": [
+    "combat-rules.mjs",
+    "famous-officers.mjs",
+    "scenarios.mjs",
+    "tactics.mjs"
+  ]
+}

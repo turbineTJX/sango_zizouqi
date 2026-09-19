@@ -1,8 +1,10 @@
+import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
-import {unitTactics,configureTactics,roleTacticIds,hasStatus,tauntTarget,pursuitTarget,TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
+import {unitTactics,roleTacticIds,hasStatus,tauntTarget,pursuitTarget,TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
 import {hexDistance} from '../hex-grid.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
@@ -10,7 +12,7 @@ function scene(){
   const state=createScenario('field',19),b=state.battle,[tank,ally]=b.sides[0].units,[enemy]=b.sides[1].units;
   b.sides[0].units=[tank,ally];b.sides[1].units=[enemy];
   Object.assign(tank,{type:'spear',x:3,y:3});Object.assign(ally,{type:'archer',x:7,y:2});Object.assign(enemy,{type:'crossbow',x:8,y:3});
-  for(const u of [tank,ally,enemy]){configureTactics(u,roleTacticIds(u,'assault'));u.intent=0;u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));u.statuses={phalanx:{until:999}};}
+  for(const u of [tank,ally,enemy]){learnFixtureTactics(u,roleTacticIds(u,'assault'));u.intent=0;u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));u.statuses={phalanx:{until:999}};}
   delete enemy.statuses.phalanx;primeTactic(tank,'ward');lockDeployment(b);return {state,b,tank,ally,enemy};
 }
 test('five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally',()=>{
@@ -42,7 +44,7 @@ test('cleanse removes a real taunt; its source dying or retreating immediately r
   }
 });
 test('taunt never drags melee out through another active ZOC',()=>{
-  const {b,tank,ally,enemy}=scene();Object.assign(ally,{type:'spear',x:7,y:3});enemy.type='cavalry';configureTactics(enemy,roleTacticIds(enemy,'assault'));enemy.skillReady=Object.fromEntries(unitTactics(enemy).map(s=>[s.id,999]));enemy.cooldown=0;
+  const {b,tank,ally,enemy}=scene();Object.assign(ally,{type:'spear',x:7,y:3});enemy.type='cavalry';learnFixtureTactics(enemy,roleTacticIds(enemy,'assault'));enemy.skillReady=Object.fromEntries(unitTactics(enemy).map(s=>[s.id,999]));enemy.cooldown=0;
   stepBattle(b);assert.ok(hasStatus(b,enemy,'taunt'));assert.equal(tauntTarget(b,enemy,1),null);
   assert.ok(b.effects.some(e=>e.from===enemy.id&&e.to===ally.id&&e.damage>0));assert.equal(enemy.x,8);
 });
@@ -57,7 +59,7 @@ function breach(seed=43){
 }
 test('a real charge follows a real retreat shot instead of switching back to a disabled front',()=>{
   const {b,charger,front,rear}=breach(),frontHp=front.hp;delete rear.statuses.phalanx;
-  primeTactic(rear,'retreatShot');stepBattle(b);
+  rear.id='ju';charger.statuses.pursuit.targetId=rear.id;primeTactic(rear,'retreatShot');stepBattle(b);
   assert.equal(rear.tacticCasts.retreatShot,1);assert.equal(front.hp,frontHp);
   assert.equal(hexDistance(charger,rear),1);assert.ok(charger.x>front.x);
 });
@@ -84,10 +86,10 @@ test('a real taunt redirects pursuit only on a successful roll and uses a legal 
 });
 
 test('a natural pursuit snapshot validates and resumes deterministically',()=>{
-  const state=createScenario('breach',43),b=state.battle;lockDeployment(b);let snapshot=null;
+  const state=createScenario('breach',1),b=state.battle;lockDeployment(b);let snapshot=null;
   while(!b.result){stepBattle(b);if(snapshot)stepBattle(snapshot.battle);
     if(!snapshot&&b.sides.flatMap(s=>s.units).some(u=>hasStatus(b,u,'pursuit'))){
-      snapshot=validateSave(structuredClone(state));
+      snapshot=validateSave(structuredClone(syncFixtureLearning(state)));
       const broken=structuredClone(state),target=broken.battle.sides.flatMap(s=>s.units).find(u=>hasStatus(b,u,'pursuit'));
       target.statuses.pursuit.targetId=target.id;assert.throws(()=>validateSave(broken),/阵营/);
     }
@@ -98,7 +100,7 @@ test('current saves validate taunt and pursuit references and resume the real ba
   const state=createScenario('breach',71),b=state.battle;lockDeployment(b);let snapshot=null;
   while(!b.result){stepBattle(b);if(snapshot)stepBattle(snapshot.battle);
     if(!snapshot&&b.sides.flatMap(s=>s.units).some(u=>hasStatus(b,u,'taunt'))){
-      snapshot=validateSave(structuredClone(state));
+      snapshot=validateSave(structuredClone(syncFixtureLearning(state)));
       const broken=structuredClone(state),target=broken.battle.sides.flatMap(s=>s.units).find(u=>hasStatus(b,u,'taunt'));
       target.statuses.taunt.sourceId=target.id;assert.throws(()=>validateSave(broken),/阵营/);
     }

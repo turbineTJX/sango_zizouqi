@@ -1,0 +1,25 @@
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (3.5246ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (40.7323ms)
+✔ random results vary across seeds while identical seed is reproducible (45.124ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (0.8036ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (4.5042ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (3.8827ms)
+✔ city army exceeds ten units and saves, but expeditions and detached selections remain capped at ten (5.1896ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (2.8524ms)
+✔ research unlocks a local troop only after a successful trial (6.4416ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (10.1473ms)
+✔ healing conserves personnel and does not require local troop technology (4.296ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (22.2112ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (6.8952ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (13.2207ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (3.6388ms)
+✔ actual siege pauses construction without charging again or completing in the background (56.4203ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (23.3992ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 373.3224

@@ -1,0 +1,99 @@
+✔ command scoring reads the requested side attributes and cooldowns without swapping units (33.0505ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (190.5471ms)
+✔ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (94.9383ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (67.056ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (6.7927ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (46.2354ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (56.5697ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (3.649ms)
+✔ AI prioritizes cleanse for control and DOT, holds useless commands, and does not refresh active buffs (10.284ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (230.8977ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (379.4009ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (401.6118ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (935.1483ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (615.7703ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (474.3308ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (195.6121ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (177.4104ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (118.0628ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1914.4999ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (242.2464ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (420.3102ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (461.0744ms)
+✔ river: complete battle, reserves, save recovery and settlement (485.485ms)
+✔ breach: complete battle, reserves, save recovery and settlement (153.7388ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (177.6172ms)
+✔ field: complete battle, reserves, save recovery and settlement (389.8737ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (360.6783ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (894.2804ms)
+✔ siege: complete battle, reserves, save recovery and settlement (554.1375ms)
+✔ defense: complete battle, reserves, save recovery and settlement (4287.557ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (684.7802ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (12.7416ms)
+✖ sieges add an independent gate and shields only to defending starters (19.019ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (7.9919ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (23.5799ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (43.3076ms)
+✔ fixture and seed validation rejects malformed test state (15.6231ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (25.0981ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (310.5375ms)
+✔ armies move visibly along road interiors before arriving (14.9518ms)
+✔ head-on marching armies meet on the road without passing through each other (28.5649ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (149.5782ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (436.6706ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (771.2464ms)
+✔ multiple battles and their snapshots share the same global day (120.8625ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (75.3611ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (1147.6895ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (130.2001ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (136.9506ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (9.7998ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (7.5983ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (3.4913ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (11.4467ms)
+✔ supply connection is cut by hostile road occupation (1.7495ms)
+✔ five days without food disband armies and preserve officers for their return (20.0335ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (110.1683ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (370.1393ms)
+✔ city capture settles once and can be saved immediately within a day (132.8264ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (76.4201ms)
+✔ 八兵种都有至少三个低级候选和一个高级候选，所有战法进入唯一池 (0.9994ms)
+✔ S在5级两低一高，A在8级两低一高，B在8级三低，C无保底 (812.9297ms)
+✔ 1级专属有获得和未获得结果，5级全部必得，普通将没有专属 (162.5694ms)
+✔ 同种子身份等级结果相同，不同种子随机；换兵种不重抽，玩家只能重排 (10.5481ms)
+✔ AI不替换所学战法，专属不挤掉三普通，四槽能自动施放并确定性续战 (109.4513ms)
+✔ 跨多级与逐级学习一致，升级存档与战略换兵种保持记录 (16.6896ms)
+✔ 所有预设战役生成合法学习记录，旧人工配装不绕过学习 (137.4295ms)
+ℹ tests 66
+ℹ suites 0
+ℹ pass 65
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14673.2325
+
+✖ failing tests:
+
+test at tests\scenarios.test.mjs:49:1
+✖ sieges add an independent gate and shields only to defending starters (19.019ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'reserve'
+  - 'active'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/scenarios.test.mjs:65:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'reserve',
+    expected: 'active',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

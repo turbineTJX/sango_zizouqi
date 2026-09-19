@@ -1,0 +1,48 @@
+{
+  "mode": "fifo",
+  "games": 96,
+  "summary": [
+    {
+      "case": "weak-first",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0.0006152647975077881
+    },
+    {
+      "case": "rear-first",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0
+    },
+    {
+      "case": "balanced",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0
+    },
+    {
+      "case": "against-cavalry",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0
+    },
+    {
+      "case": "siege",
+      "games": 16,
+      "enemyWins": 7,
+      "draws": 1,
+      "averageEnemyRemaining": 0.1684548611111111
+    },
+    {
+      "case": "river",
+      "games": 16,
+      "enemyWins": 0,
+      "draws": 0,
+      "averageEnemyRemaining": 0.006170138888888889
+    }
+  ]
+}

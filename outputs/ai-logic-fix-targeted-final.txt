@@ -1,0 +1,44 @@
+✔ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (119.4804ms)
+✔ 自动配装替换单人振旅和纯远程队友的协阵，同时保留有效治疗 (3.5655ms)
+✔ 阵容审查保留后续预备队能受益的战法，不根据开场满血删除救护 (1.0753ms)
+✔ 单舰对陆军不会把无友舰的接舷替换成无敌舰的艨冲 (0.7857ms)
+✖ 支援路径允许在接敌格施法，但不允许穿越有效拦截线 (1.6004ms)
+✔ 单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束 (0.6826ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 237.4939
+
+✖ failing tests:
+
+test at tests\ai-logic.test.mjs:56:1
+✖ 支援路径允许在接敌格施法，但不允许穿越有效拦截线 (1.6004ms)
+  AssertionError [ERR_ASSERTION]: 可走到接敌格，并在这里施放两格支援
+  + actual - expected
+  
+  + null
+  - [
+  -   {
+  -     x: 6,
+  -     y: 3
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/ai-logic.test.mjs:62:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: [ { x: 6, y: 3 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

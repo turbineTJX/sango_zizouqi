@@ -1,13 +1,15 @@
+import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
+import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {unitAttributes,disciplineDuration,TROOPS} from '../unit-stats.mjs';
-import {unitTactics,configureTactics,setStatus,shieldLayers,shieldAmount,absorbShield,refreshShield} from '../tactics.mjs';
+import {unitTactics,setStatus,shieldLayers,shieldAmount,absorbShield,refreshShield} from '../tactics.mjs';
 function scene(type='crossbow') {
  const state=newGame(9);orderArmy(state,'a1','guandu');advanceTurn(state);startBattle(state);lockDeployment(state.battle);
  const b=state.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];b.sides[0].units=[a];b.sides[1].units=[d];
- a.type=type;configureTactics(a,type==='crossbow'?['repeat','seal','ambush']:type==='archer'?['fire','scatter','suppress']:['thrust','phalanx','strike']);
+ a.type=type;learnFixtureTactics(a,type==='crossbow'?['repeat','seal','ambush']:type==='archer'?['fire','scatter','suppress']:['thrust','phalanx','strike']);
  Object.assign(a,{x:4,y:3,cooldown:0,intent:0});Object.assign(d,{x:5,y:3,cooldown:999,intent:0});
  for(const u of [a,d])u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
  return {state,b,a,d};
@@ -15,7 +17,7 @@ function scene(type='crossbow') {
 function damage(change=()=>{},skill=null) {const x=scene();change(x);if(skill)primeTactic(x.a,skill);const hp=x.d.hp;stepBattle(x.b);return hp-x.d.hp;}
 test('four officer stats affect separate derived attributes, with no charm dimension',()=>{
  const u=newGame().armies[0].units[0],base=unitAttributes(u);assert.equal(u.charm,undefined);
- for(const [key,changed] of [['leadership',['attack','defense']],['force',['martialPower']],['intellect',['strategyPower']],['politics',['discipline']]]){
+ for(const [key,changed] of [['leadership',['attack','defense']],['force',['martialPower']],['intellect',['strategyPower','supportPower']],['politics',['discipline','supportPower']]]){
   const next=unitAttributes({...u,[key]:u[key]+10});for(const attr of Object.keys(base.breakdown))assert.equal(next[attr]>base[attr],changed.includes(attr),key+' → '+attr);
  }
  for(const [type,t] of Object.entries(TROOPS)){const x=unitAttributes({...u,type});assert.equal(x.range,t.range);assert.equal(x.move,t.move);assert.equal(x.attackInterval,t.interval);assert.equal(x.siege,t.siege);}
@@ -47,7 +49,7 @@ test('slow movement accumulates half-steps and active haste cannot stack twice',
 test('politics reduces actual confusion duration but physical stun remains independent',()=>{
  function confuse(politics){const {a,d,b}=scene();d.politics=politics;a.type='archer';primeTactic(a,'smoke');stepBattle(b);return d.statuses.confuse.until-b.tick-1;}
  assert.ok(confuse(100)<confuse(0));
- function physical(politics){const {a,d,b}=scene();a.id='liao';a.type='cavalry';configureTactics(a,['terror','rush','valor']);primeTactic(a,'terror');d.politics=politics;stepBattle(b);return d.statuses.stun.until-b.tick-1;}assert.equal(physical(0),physical(100));const {d,b}=scene();assert.ok(disciplineDuration(b,d,4)>=1);assert.equal(disciplineDuration(b,{...d,politics:10000},1),1);
+ function physical(politics){const {a,d,b}=scene();a.id='liao';a.type='cavalry';learnFixtureTactics(a,['terror','rush','valor']);primeTactic(a,'terror');d.politics=politics;stepBattle(b);return d.statuses.stun.until-b.tick-1;}assert.equal(physical(0),physical(100));const {d,b}=scene();assert.ok(disciplineDuration(b,d,4)>=1);assert.equal(disciplineDuration(b,{...d,politics:10000},1),1);
 });
 test('shield sources refresh separately, expire separately, cap at capacity and absorb earliest first',()=>{
  const {a,b}=scene();setStatus(b,a,'shield',2,{amount:100,source:'early',label:'早盾'});setStatus(b,a,'shield',8,{amount:300,source:'late',label:'迟盾'});
@@ -58,6 +60,6 @@ test('shield sources refresh separately, expire separately, cap at capacity and 
 });
 test('new saves preserve shield layers and fractional movement; reject invalid sources and totals',()=>{
  const {state,a,b}=scene();a.moveProgress=.5;setStatus(b,a,'shield',5,{amount:100,source:'a',label:'护盾甲'});setStatus(b,a,'shield',8,{amount:200,source:'b',label:'护盾乙'});
- const copy=validateSave(structuredClone(state));assert.deepEqual(copy.battle,b);for(let i=0;i<10;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
+ const copy=validateSave(structuredClone(syncFixtureLearning(state)));assert.deepEqual(copy.battle,b);for(let i=0;i<10;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
  for(const mutate of [u=>u.statuses.shield.amount++,u=>u.statuses.shield.layers[0].amount=-1,u=>u.moveProgress=1,u=>u.politics=-1]){const x=scene();setStatus(x.b,x.a,'shield',5,{amount:100,source:'a'});mutate(x.a);assert.throws(()=>validateSave(x.state));}
 });

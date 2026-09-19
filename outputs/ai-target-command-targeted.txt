@@ -1,0 +1,32 @@
+✔ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (181.6587ms)
+✔ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (71.4836ms)
+✔ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (3.7833ms)
+✔ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (3.5414ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (24.3214ms)
+✔ nearby front takes priority before contact; fast movement stops on contact (3.3974ms)
+✔ rush cannot escape an engagement or charge through a blocking line (4.2183ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (4.8124ms)
+✔ an unreachable rear focus advances into the blocking line instead of stalling (7.4592ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (11.5113ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (3.1005ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (0.8879ms)
+✔ a real retreat can leave contact (1.0636ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (143.0976ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (22.5275ms)
+✔ taunt cannot reach six hexes or override control protection (4.8476ms)
+✔ taunted ranged offensive skills wait for range, then attack the taunter (3.2151ms)
+✔ cleanse removes a real taunt; its source dying or retreating immediately releases the target (9.4775ms)
+✔ taunt never drags melee out through another active ZOC (2.4131ms)
+✔ a real charge follows a real retreat shot instead of switching back to a disabled front (4.3674ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (2.104ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (11.6394ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (84.8127ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (65.9133ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 375.7339

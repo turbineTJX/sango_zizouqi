@@ -1,0 +1,2869 @@
+{
+  "rulesVersion": 25,
+  "count": 32,
+  "hashes": {
+    "engine.mjs": "891589dc4993b67413aad931f0e62079277945c417eebe15598294766476d990",
+    "battle-ai.mjs": "0da854919599e2282f9578b0711ee32a0707544fd08990ee3e18456425f0ae0d",
+    "tactics.mjs": "7ad9bc9a7dec5bd7eefc4ef9007e717737edad4290dc70baf754146288c0c328",
+    "combat-rules.mjs": "b5878bb5e2d975079843111dabaf68a4fd7ac68c29f0208b26fb8b52b540f8cf",
+    "unit-stats.mjs": "e1fc1e237a42cc82d2d9f42ca081f6e280fffc37f6a5251e9a7c1a2a6246fd29",
+    "strategic-campaign.mjs": "5a0b753ea5fa76119615a0e40665d21ea0436f54fb9acaf8fcb047785faa3e5f",
+    "scenarios.mjs": "e34929f7530916aee9a5e077d4dffc249ac96e7c6372e61d099204854a23b935"
+  },
+  "results": [
+    {
+      "id": "history-guandu",
+      "name": "官渡之战",
+      "count": 32,
+      "wins": 32,
+      "losses": 0,
+      "draws": 0,
+      "meanTicks": 125,
+      "commands": 155,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "ticks": 119,
+          "commands": {
+            "cleanse": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "ticks": 128,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "ticks": 133,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2723757,
+          "winner": 0,
+          "ticks": 130,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "ticks": 128,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 120,
+          "commands": {
+            "cleanse": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "ticks": 126,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2763352,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 124,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 121,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 124,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 131,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "ticks": 124,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "ticks": 121,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "ticks": 126,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 124,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "ticks": 126,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 3,
+            "heal": 1
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2874218,
+          "winner": 0,
+          "ticks": 122,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 118,
+          "commands": {
+            "cleanse": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 121,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 126,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "ticks": 133,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 117,
+          "commands": {
+            "cleanse": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 126,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 130,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "cleanse": 5
+          },
+          "enemyOrders": 3
+        }
+      ]
+    },
+    {
+      "id": "history-chibi",
+      "name": "赤壁之战",
+      "count": 32,
+      "wins": 32,
+      "losses": 0,
+      "draws": 0,
+      "meanTicks": 168,
+      "commands": 145,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "ticks": 191,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "ticks": 148,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2723757,
+          "winner": 0,
+          "ticks": 187,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "ticks": 191,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "ticks": 168,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2763352,
+          "winner": 0,
+          "ticks": 146,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 190,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 147,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "ticks": 148,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 192,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "ticks": 187,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "ticks": 169,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 193,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "ticks": 184,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "ticks": 144,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "ticks": 146,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "ticks": 191,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2874218,
+          "winner": 0,
+          "ticks": 146,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 210,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 190,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 147,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "ticks": 187,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 210,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 168,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 184,
+          "commands": {
+            "cycle": 5
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "cycle": 4
+          },
+          "enemyOrders": 3
+        }
+      ]
+    },
+    {
+      "id": "history-hefei",
+      "name": "合肥之战",
+      "count": 32,
+      "wins": 32,
+      "losses": 0,
+      "draws": 0,
+      "meanTicks": 185,
+      "commands": 67,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "ticks": 191,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "ticks": 188,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "ticks": 170,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2723757,
+          "winner": 0,
+          "ticks": 190,
+          "commands": {
+            "cycle": 1,
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "ticks": 168,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 184,
+          "commands": {
+            "cycle": 1,
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "ticks": 184,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "ticks": 204,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2763352,
+          "winner": 0,
+          "ticks": 170,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 168,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 183,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 168,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 168,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "ticks": 184,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 182,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "ticks": 208,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "ticks": 203,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 210,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "ticks": 169,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "ticks": 192,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "ticks": 178,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "ticks": 169,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2874218,
+          "winner": 0,
+          "ticks": 176,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 192,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 190,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 190,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 184,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "ticks": 186,
+          "commands": {
+            "cycle": 1,
+            "heal": 1
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 212,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 184,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 192,
+          "commands": {
+            "cycle": 1,
+            "heal": 2
+          },
+          "enemyOrders": 3
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "ticks": 180,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 3
+        }
+      ]
+    },
+    {
+      "id": "history-yiling",
+      "name": "夷陵之战",
+      "count": 32,
+      "wins": 32,
+      "losses": 0,
+      "draws": 0,
+      "meanTicks": 154,
+      "commands": 130,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "ticks": 147,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "ticks": 154,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "ticks": 151,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2723757,
+          "winner": 0,
+          "ticks": 149,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "ticks": 156,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 159,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "ticks": 160,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "ticks": 151,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2763352,
+          "winner": 0,
+          "ticks": 160,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 150,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 159,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2,
+            "fortify": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 153,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 163,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "ticks": 149,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 146,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "ticks": 160,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "ticks": 142,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 155,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "ticks": 149,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "ticks": 143,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "ticks": 164,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "ticks": 155,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2874218,
+          "winner": 0,
+          "ticks": 165,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 149,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 152,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 163,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 148,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "ticks": 164,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 161,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2,
+            "fortify": 1
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 153,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 151,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "ticks": 149,
+          "commands": {
+            "firestorm": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 2
+        }
+      ]
+    },
+    {
+      "id": "tactical-control-lv",
+      "name": "谋定飞将",
+      "count": 32,
+      "wins": 7,
+      "losses": 25,
+      "draws": 0,
+      "meanTicks": 129,
+      "commands": 63,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 1,
+          "ticks": 74,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2707919,
+          "winner": 1,
+          "ticks": 131,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2715838,
+          "winner": 1,
+          "ticks": 98,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2723757,
+          "winner": 1,
+          "ticks": 198,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2731676,
+          "winner": 1,
+          "ticks": 81,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 187,
+          "commands": {
+            "firestorm": 4
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "ticks": 160,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2755433,
+          "winner": 1,
+          "ticks": 102,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2763352,
+          "winner": 1,
+          "ticks": 146,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2771271,
+          "winner": 1,
+          "ticks": 79,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2779190,
+          "winner": 1,
+          "ticks": 142,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 133,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 125,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2802947,
+          "winner": 1,
+          "ticks": 183,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 142,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2818785,
+          "winner": 1,
+          "ticks": 123,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2826704,
+          "winner": 1,
+          "ticks": 93,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2834623,
+          "winner": 1,
+          "ticks": 110,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2842542,
+          "winner": 1,
+          "ticks": 74,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "ticks": 132,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2858380,
+          "winner": 1,
+          "ticks": 102,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2866299,
+          "winner": 1,
+          "ticks": 97,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2874218,
+          "winner": 1,
+          "ticks": 158,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2882137,
+          "winner": 1,
+          "ticks": 248,
+          "commands": {
+            "firestorm": 4
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 135,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2897975,
+          "winner": 1,
+          "ticks": 89,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2905894,
+          "winner": 1,
+          "ticks": 124,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2913813,
+          "winner": 1,
+          "ticks": 88,
+          "commands": {
+            "firestorm": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2921732,
+          "winner": 1,
+          "ticks": 196,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2929651,
+          "winner": 1,
+          "ticks": 106,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2937570,
+          "winner": 1,
+          "ticks": 122,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2945489,
+          "winner": 1,
+          "ticks": 150,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        }
+      ]
+    },
+    {
+      "id": "tactical-control-zhang",
+      "name": "智困燕人",
+      "count": 32,
+      "wins": 29,
+      "losses": 3,
+      "draws": 0,
+      "meanTicks": 161,
+      "commands": 70,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "ticks": 136,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "ticks": 164,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "ticks": 165,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2723757,
+          "winner": 1,
+          "ticks": 299,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "ticks": 140,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 162,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "ticks": 157,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "ticks": 155,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2763352,
+          "winner": 1,
+          "ticks": 230,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 164,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 154,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 145,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2795028,
+          "winner": 1,
+          "ticks": 154,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "ticks": 161,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 155,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "ticks": 179,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "ticks": 144,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 138,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "ticks": 170,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "ticks": 157,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "ticks": 143,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "ticks": 133,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2874218,
+          "winner": 0,
+          "ticks": 203,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 137,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 147,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 190,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 139,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "ticks": 171,
+          "commands": {
+            "firestorm": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 134,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 147,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 147,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "ticks": 136,
+          "commands": {
+            "firestorm": 2
+          },
+          "enemyOrders": 0
+        }
+      ]
+    },
+    {
+      "id": "tactical-three-heroes",
+      "name": "三英战吕布",
+      "count": 32,
+      "wins": 21,
+      "losses": 11,
+      "draws": 0,
+      "meanTicks": 321,
+      "commands": 83,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "ticks": 310,
+          "commands": {
+            "heal": 2,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "ticks": 308,
+          "commands": {
+            "heal": 2,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2715838,
+          "winner": 1,
+          "ticks": 240,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2723757,
+          "winner": 1,
+          "ticks": 359,
+          "commands": {
+            "heal": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2731676,
+          "winner": 1,
+          "ticks": 380,
+          "commands": {
+            "heal": 2,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 480,
+          "commands": {
+            "heal": 4
+          },
+          "enemyOrders": 1
+        },
+        {
+          "seed": 2747514,
+          "winner": 1,
+          "ticks": 480,
+          "commands": {
+            "heal": 4
+          },
+          "enemyOrders": 1
+        },
+        {
+          "seed": 2755433,
+          "winner": 1,
+          "ticks": 369,
+          "commands": {
+            "heal": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2763352,
+          "winner": 0,
+          "ticks": 287,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 257,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 399,
+          "commands": {
+            "heal": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2787109,
+          "winner": 1,
+          "ticks": 265,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 250,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "ticks": 354,
+          "commands": {
+            "heal": 2,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 286,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2818785,
+          "winner": 1,
+          "ticks": 462,
+          "commands": {
+            "heal": 4
+          },
+          "enemyOrders": 1
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "ticks": 244,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 347,
+          "commands": {
+            "heal": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "ticks": 301,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2850461,
+          "winner": 1,
+          "ticks": 282,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "ticks": 377,
+          "commands": {
+            "heal": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "ticks": 332,
+          "commands": {
+            "heal": 3
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2874218,
+          "winner": 1,
+          "ticks": 282,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 317,
+          "commands": {
+            "heal": 2,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 243,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 301,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 289,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2913813,
+          "winner": 1,
+          "ticks": 234,
+          "commands": {
+            "heal": 2
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 257,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 265,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 256,
+          "commands": {
+            "heal": 1,
+            "fortify": 1
+          },
+          "enemyOrders": 0
+        },
+        {
+          "seed": 2945489,
+          "winner": 1,
+          "ticks": 457,
+          "commands": {
+            "heal": 4
+          },
+          "enemyOrders": 0
+        }
+      ]
+    },
+    {
+      "id": "tactical-shu-defense",
+      "name": "蜀军拒曹",
+      "count": 32,
+      "wins": 32,
+      "losses": 0,
+      "draws": 0,
+      "meanTicks": 240,
+      "commands": 256,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2707919,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2723757,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2739595,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2747514,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 5,
+            "heal": 1
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2763352,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 3,
+            "cycle": 5
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 5,
+            "cycle": 3
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2802947,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2810866,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 5,
+            "cycle": 3
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2826704,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2842542,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2850461,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 3,
+            "cycle": 5
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2858380,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2866299,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2874218,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 3,
+            "cycle": 5
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 6,
+            "cycle": 2
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 4,
+            "cycle": 4
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 5,
+            "heal": 1
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "ticks": 240,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 6
+          },
+          "enemyOrders": 8
+        }
+      ]
+    },
+    {
+      "id": "tactical-lv-cao",
+      "name": "兖州争锋",
+      "count": 32,
+      "wins": 18,
+      "losses": 14,
+      "draws": 0,
+      "meanTicks": 311,
+      "commands": 167,
+      "runs": [
+        {
+          "seed": 2700000,
+          "winner": 1,
+          "ticks": 146,
+          "commands": {
+            "cleanse": 2
+          },
+          "enemyOrders": 4
+        },
+        {
+          "seed": 2707919,
+          "winner": 1,
+          "ticks": 480,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "disrupt": 5
+          },
+          "enemyOrders": 10
+        },
+        {
+          "seed": 2715838,
+          "winner": 0,
+          "ticks": 223,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 2
+          },
+          "enemyOrders": 4
+        },
+        {
+          "seed": 2723757,
+          "winner": 1,
+          "ticks": 248,
+          "commands": {
+            "cleanse": 4
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2731676,
+          "winner": 0,
+          "ticks": 301,
+          "commands": {
+            "cleanse": 2,
+            "assault": 2,
+            "cycle": 1
+          },
+          "enemyOrders": 5
+        },
+        {
+          "seed": 2739595,
+          "winner": 1,
+          "ticks": 144,
+          "commands": {
+            "cleanse": 2
+          },
+          "enemyOrders": 4
+        },
+        {
+          "seed": 2747514,
+          "winner": 1,
+          "ticks": 250,
+          "commands": {
+            "cleanse": 2,
+            "disrupt": 2
+          },
+          "enemyOrders": 6
+        },
+        {
+          "seed": 2755433,
+          "winner": 0,
+          "ticks": 279,
+          "commands": {
+            "cleanse": 2,
+            "assault": 2,
+            "cycle": 1
+          },
+          "enemyOrders": 5
+        },
+        {
+          "seed": 2763352,
+          "winner": 1,
+          "ticks": 405,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 3,
+            "disrupt": 2
+          },
+          "enemyOrders": 9
+        },
+        {
+          "seed": 2771271,
+          "winner": 0,
+          "ticks": 314,
+          "commands": {
+            "cleanse": 2,
+            "assault": 3
+          },
+          "enemyOrders": 5
+        },
+        {
+          "seed": 2779190,
+          "winner": 0,
+          "ticks": 325,
+          "commands": {
+            "cleanse": 2,
+            "assault": 3
+          },
+          "enemyOrders": 5
+        },
+        {
+          "seed": 2787109,
+          "winner": 0,
+          "ticks": 289,
+          "commands": {
+            "cleanse": 1,
+            "cycle": 5
+          },
+          "enemyOrders": 5
+        },
+        {
+          "seed": 2795028,
+          "winner": 0,
+          "ticks": 231,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 3
+          },
+          "enemyOrders": 4
+        },
+        {
+          "seed": 2802947,
+          "winner": 1,
+          "ticks": 280,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1
+          },
+          "enemyOrders": 6
+        },
+        {
+          "seed": 2810866,
+          "winner": 1,
+          "ticks": 350,
+          "commands": {
+            "cleanse": 2,
+            "assault": 1,
+            "disrupt": 2
+          },
+          "enemyOrders": 6
+        },
+        {
+          "seed": 2818785,
+          "winner": 0,
+          "ticks": 284,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "disrupt": 2
+          },
+          "enemyOrders": 6
+        },
+        {
+          "seed": 2826704,
+          "winner": 1,
+          "ticks": 379,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "disrupt": 3
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2834623,
+          "winner": 0,
+          "ticks": 231,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "assault": 1
+          },
+          "enemyOrders": 4
+        },
+        {
+          "seed": 2842542,
+          "winner": 1,
+          "ticks": 338,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "disrupt": 3
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2850461,
+          "winner": 1,
+          "ticks": 148,
+          "commands": {
+            "cleanse": 2
+          },
+          "enemyOrders": 4
+        },
+        {
+          "seed": 2858380,
+          "winner": 1,
+          "ticks": 248,
+          "commands": {
+            "cleanse": 4
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2866299,
+          "winner": 1,
+          "ticks": 444,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "disrupt": 4
+          },
+          "enemyOrders": 10
+        },
+        {
+          "seed": 2874218,
+          "winner": 1,
+          "ticks": 415,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "disrupt": 4
+          },
+          "enemyOrders": 9
+        },
+        {
+          "seed": 2882137,
+          "winner": 0,
+          "ticks": 480,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 5,
+            "disrupt": 1,
+            "assault": 1
+          },
+          "enemyOrders": 10
+        },
+        {
+          "seed": 2890056,
+          "winner": 0,
+          "ticks": 263,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "assault": 2
+          },
+          "enemyOrders": 5
+        },
+        {
+          "seed": 2897975,
+          "winner": 0,
+          "ticks": 376,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 1,
+            "disrupt": 2,
+            "assault": 1
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2905894,
+          "winner": 0,
+          "ticks": 370,
+          "commands": {
+            "cleanse": 1,
+            "cycle": 2,
+            "disrupt": 3
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2913813,
+          "winner": 0,
+          "ticks": 439,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 2,
+            "disrupt": 2,
+            "assault": 1
+          },
+          "enemyOrders": 8
+        },
+        {
+          "seed": 2921732,
+          "winner": 0,
+          "ticks": 347,
+          "commands": {
+            "cleanse": 1,
+            "cycle": 2,
+            "disrupt": 2,
+            "assault": 1
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2929651,
+          "winner": 0,
+          "ticks": 307,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 3,
+            "assault": 1
+          },
+          "enemyOrders": 6
+        },
+        {
+          "seed": 2937570,
+          "winner": 0,
+          "ticks": 308,
+          "commands": {
+            "cleanse": 2,
+            "cycle": 3,
+            "disrupt": 1
+          },
+          "enemyOrders": 7
+        },
+        {
+          "seed": 2945489,
+          "winner": 0,
+          "ticks": 308,
+          "commands": {
+            "cleanse": 2,
+            "assault": 3
+          },
+          "enemyOrders": 5
+        }
+      ]
+    }
+  ]
+}

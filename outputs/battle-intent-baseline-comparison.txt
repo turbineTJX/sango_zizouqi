@@ -1,0 +1,232 @@
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (2.3394ms)
+✖ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (2.7905ms)
+✖ administration charges the shown cost once; relief respects caps and once-per-turn restriction (1ms)
+✔ fame adds city manpower rather than free troops (0.5755ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (201.7994ms)
+✖ governor interface shows actual discounts, skill categories and diplomacy reserve labels (8.6574ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.2658ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (95.6028ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (1.4177ms)
+✖ campaign begins in day-one planning with cities, homes and at most ten units (3.2816ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (139.4129ms)
+✔ armies move visibly along road interiors before arriving (2.4711ms)
+✔ head-on marching armies meet on the road without passing through each other (9.9228ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (72.723ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (170.0845ms)
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (183.422ms)
+✔ multiple battles and their snapshots share the same global day (85.4778ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (37.3062ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (438.4585ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (53.7874ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (58.3803ms)
+✖ governors must stay at home; relief is limited and assigned officials cannot join armies (0.9306ms)
+✖ officer transfers take real time and new armies require local idle officers and recruitment (0.8957ms)
+✖ split and merge conserve supply and capacity, and enforce ten-unit maximum (0.8451ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (1.6434ms)
+✔ supply connection is cut by hostile road occupation (0.4141ms)
+✔ five days without food disband armies and preserve officers for their return (3.342ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (43.3802ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (154.9702ms)
+✔ city capture settles once and can be saved immediately within a day (55.9964ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (31.6136ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 23
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1670.3803
+
+✖ failing tests:
+
+test at tests\civil-skills.test.mjs:28:1
+✖ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (2.7905ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  466 !== 419
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/civil-skills.test.mjs:32:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 466,
+    expected: 419,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\civil-skills.test.mjs:39:1
+✖ administration charges the shown cost once; relief respects caps and once-per-turn restriction (1ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '城市民心已停用，请通过人才委任安抚本城武将'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/civil-skills.test.mjs:44:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '城市民心已停用，请通过人才委任安抚本城武将',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\civil-skills.test.mjs:58:1
+✖ governor interface shows actual discounts, skill categories and diplomacy reserve labels (8.6574ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /民心 \+20/. Input:
+  
+  '<main class="campaign strategy-page"><header class="strategy-heading"><div><span class="eyebrow">军国大事 · 旬回合筹划 / 逐日执行</span><h1>天下大势</h1><p>一旬十天，战役一回合一天。所有战场共享同一日历。</p></div><div><button class="button secondary" data-action="lobby"  >模式首页</button><button class="button secondary" data-action="settings"  >存档与设置</button><button class="button secondary" data-action="journal"  >天下纪事</button></div></header>\n' +
+    '  <section class="strategy-clock"><div><strong>第 1 旬</strong><span>世界第 1 天 · 本旬第 1 天</span></div><div class="day-track"><i class="current">1</i><i class="">2</i><i class="">3</i><i class="">4</i><i class="">5</i><i class="">6</i><i class="">7</i><i class="">8</i><i class="">9</i><i class="">10</i></div><div><b>战略筹划 · 全局暂停</b><small>0 处交战 · 府库 3,200 金 · 城内粮草 16,000</small></div><div class="strategy-clock-actions"><button class="button primary" data-action="campaign-begin" >进行 · 执行本旬</button><button class="button secondary" data-action="campaign-day" disabled >推进一天</button></div></section>\n' +
+    '  <div class="strategy-notice" role="status">请先处理内政、整军和出征命令，再点击进行。</div>\n' +
+    '  \n' +
+    '  <div class="strategy-layout"><section class="strategy-map-panel"><div class="strategy-map-caption"><b>中原战区</b><span><i class="legend-own"></i>曹军　<i class="legend-enemy"></i>敌军　<span class="supply-key">虚线：所选军团粮道</span></span></div><div class="national-map-tools"><div><b>山河舆图 · 中原</b><small>二维绘制 · 九城可交互 · 拖动平移 / 滚轮缩放</small></div><div><button type="button" data-map-view="national">全国</button><button type="button" data-map-view="theater">中原</button><button type="button" data-map-view="in" aria-label="放大地图">＋</button><button type="button" data-map-view="out" aria-label="缩小地图">−</button><label>景色 <select id="map-season" aria-label="地图季节外观"><option value="spring" >春</option><option value="summer" selected>夏</option><option value="autumn" >秋</option><option value="winter" >冬</option></select></label></div></div>\n' +
+    ' <svg class="strategy-world strategy-world-art strategy-world-drawn" data-art-ready="true" viewBox="190 95 570 690" tabindex="0" role="group" aria-label="全国地图，中原九城可交互；方向键平移，加减键缩放"><title>山河舆图 · 中原战区</title>\n' +
+    ' <g class="national-map-terrain"><defs>\n' +
+    ' <pattern id="atlas-paper" width="31" height="29" patternUnits="userSpaceOnUse"><path d="M3 6h2m14 13h3M9 25h1" stroke="#7d795d" stroke-width=".6" opacity=".17"/></pattern>\n' +
+    ' <pattern id="atlas-water" width="34" height="25" patternUnits="userSpaceOnUse"><path d="M4 13q7-4 14 0t13 0" fill="none" stroke="#ebedcd" stroke-width=".7" opacity=".35"/></pattern>\n' +
+    ' <pattern id="atlas-fields" width="19" height="15" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><path d="M1 1h16v11H1Z" fill="#c9c58e" stroke="#e6ddb0" stroke-width="1"/><path d="M4 2v9m4-9v9m4-9v9" stroke="#a9ae7e" stroke-width=".5"/></pattern>\n' +
+    ' <g id="atlas-mountain" stroke="#5a725d" stroke-linejoin="round"><path d="M-23 12Q-12-2-4-23L2-29 9-11 26 13Q7 21-23 12" fill="#8e9e7d" stroke-width=".65"/><path d="M2-29L-3-4 8 6 3 15 26 13 9-11Z" fill="#5a725d" opacity=".4" stroke="none"/><path d="M-13 2L-4-19 2-29 5-16M-18 8L-9-5M8-6L17 7" fill="none" stroke="#eee3bf" stroke-width="1" opacity=".65"/></g>\n' +
+    ' <g id="atlas-tree"><ellipse cy="5" rx="5" ry="2" fill="#607857" opacity=".17"/><path d="M0 0V6" stroke="#747b58"/><path d="M-5 2L0-11 5 2Z" fill="#5a725d"/><path d="M-4-2L0-14 4-2Z" fill="#8e9e7d"/></g>\n' +
+    ' </defs><g class="drawn-terrain" data-season="summer" style="pointer-events:none">\n' +
+    ' <rect width="1024" height="1024" fill="#b6c3af"/><rect width="1024" height="1024" fill="url(#atlas-water)"/>\n' +
+    ' <path d="M0 0H1024V125L931 170 906 220 852 249 821 223 793 253 808 291 850 314 877 348 846 377 813 382 801 427 826 463 813 500 841 538 822 571 847 610 828 651 845 688 818 724 814 774 782 803 760 844 698 875 662 916 610 934 568 960 509 943 458 978 393 952 339 985 282 955 242 985H0Z" fill="#ded6b5" stroke="#7f9580" stroke-width="3"/>\n' +
+    ' <path d="M0 80Q160 20 250 94T432 97L442 215 355 282 276 244 140 317 0 261Z" fill="#bdc49f" opacity=".65"/>\n' +
+    ' <path d="M30 373Q194 320 274 440T305 711L205 824 41 795Z M360 866Q500 730 600 865L660 939 485 960Z" fill="#bdc49f" opacity=".65"/>\n' +
+    ' <path d="M478 223Q533 185 612 222T740 297L705 330 555 319Z M344 491L404 467 449 510 408 564 351 555Z M525 604L591 589 620 651 556 672Z M661 539L715 530 756 625 692 656Z" fill="url(#atlas-fields)" opacity=".72"/>\n' +
+    ' <g fill="none" stroke="#8e9e7d" opacity=".2"><path d="M60 352Q178 281 224 350T292 395M64 363Q170 298 224 365T287 409M75 375Q162 322 224 382T279 421M332 844Q447 708 531 831T720 860M342 854Q450 733 524 846T714 875"/></g>\n' +
+    ' <g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#eee0b6" stroke-width="14"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#94ac96" stroke-width="8"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#dce4cb" stroke-width="1.5" opacity=".8"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#eee0b6" stroke-width="17"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#8ca58f" stroke-width="11"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#d1dfc8" stroke-width="2"/>\n' +
+    ' <path d="M402 195Q425 260 400 287T412 349M190 405Q255 390 310 430T439 359M255 663Q345 687 395 748T460 789M549 538Q591 573 656 570T817 624" stroke="#94ac96" stroke-width="3"/></g>\n' +
+    ' <g><use href="#atlas-mountain" transform="translate(178 140) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(208 154) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(222 168) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(252 182) scale(1.3224999999999998)"/><use href="#atlas-mountain" transform="translate(266 196) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(296 210) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(310 224) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(451 192) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(455 212) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(443 232) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(447 252) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(435 272) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(439 292) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(427 312) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(431 332) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(419 352) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(475 213) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(480 234) scale(0.623)"/><use href="#atlas-mountain" transform="translate(469 255) scale(0.714)"/><use href="#atlas-mountain" transform="translate(474 276) scale(0.8049999999999999)"/><use href="#atlas-mountain" transform="translate(463 297) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(468 318) scale(0.623)"/><use href="#atlas-mountain" transform="translate(457 339) scale(0.714)"/><use href="#atlas-mountain" transform="translate(176 418) scale(0.646)"/><use href="#atlas-mountain" transform="translate(202 426) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(212 434) scale(0.867)"/><use href="#atlas-mountain" transform="translate(238 442) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(248 450) scale(0.646)"/><use href="#atlas-mountain" transform="translate(274 458) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(284 466) scale(0.867)"/><use href="#atlas-mountain" transform="translate(310 474) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(143 479) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(165 498) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(171 517) scale(1.122)"/><use href="#atlas-mountain" transform="translate(193 536) scale(1.265)"/><use href="#atlas-mountain" transform="translate(199 555) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(221 574) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(227 593) scale(1.122)"/><use href="#atlas-mountain" transform="translate(220 539) scale(0.684)"/><use href="#atlas-mountain" transform="translate(218 563) scale(0.801)"/><use href="#atlas-mountain" transform="translate(200 587) scale(0.918)"/><use href="#atlas-mountain" transform="translate(198 611) scale(1.035)"/><use href="#atlas-mountain" transform="translate(180 635) scale(0.684)"/><use href="#atlas-mountain" transform="translate(72 591) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(97 612) scale(1.157)"/><use href="#atlas-mountain" transform="translate(106 633) scale(1.326)"/><use href="#atlas-mountain" transform="translate(131 654) scale(1.4949999999999999)"/><use href="#atlas-mountain" transform="translate(140 675) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(165 696) scale(1.157)"/><use href="#atlas-mountain" transform="translate(174 717) scale(1.326)"/><use href="#atlas-mountain" transform="translate(327 682) scale(0.5928)"/><use href="#atlas-mountain" transform="translate(356 689) scale(0.6942)"/><use href="#atlas-mountain" transform="translate(369 696) scale(0.7956000000000001)"/><use hre'... 31739 more characters
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/civil-skills.test.mjs:60:90)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '<main class="campaign strategy-page"><header class="strategy-heading"><div><span class="eyebrow">军国大事 · 旬回合筹划 / 逐日执行</span><h1>天下大势</h1><p>一旬十天，战役一回合一天。所有战场共享同一日历。</p></div><div><button class="button secondary" data-action="lobby"  >模式首页</button><button class="button secondary" data-action="settings"  >存档与设置</button><button class="button secondary" data-action="journal"  >天下纪事</button></div></header>\n  <section class="strategy-clock"><div><strong>第 1 旬</strong><span>世界第 1 天 · 本旬第 1 天</span></div><div class="day-track"><i class="current">1</i><i class="">2</i><i class="">3</i><i class="">4</i><i class="">5</i><i class="">6</i><i class="">7</i><i class="">8</i><i class="">9</i><i class="">10</i></div><div><b>战略筹划 · 全局暂停</b><small>0 处交战 · 府库 3,200 金 · 城内粮草 16,000</small></div><div class="strategy-clock-actions"><button class="button primary" data-action="campaign-begin" >进行 · 执行本旬</button><button class="button secondary" data-action="campaign-day" disabled >推进一天</button></div></section>\n  <div class="strategy-notice" role="status">请先处理内政、整军和出征命令，再点击进行。</div>\n  \n  <div class="strategy-layout"><section class="strategy-map-panel"><div class="strategy-map-caption"><b>中原战区</b><span><i class="legend-own"></i>曹军　<i class="legend-enemy"></i>敌军　<span class="supply-key">虚线：所选军团粮道</span></span></div><div class="national-map-tools"><div><b>山河舆图 · 中原</b><small>二维绘制 · 九城可交互 · 拖动平移 / 滚轮缩放</small></div><div><button type="button" data-map-view="national">全国</button><button type="button" data-map-view="theater">中原</button><button type="button" data-map-view="in" aria-label="放大地图">＋</button><button type="button" data-map-view="out" aria-label="缩小地图">−</button><label>景色 <select id="map-season" aria-label="地图季节外观"><option value="spring" >春</option><option value="summer" selected>夏</option><option value="autumn" >秋</option><option value="winter" >冬</option></select></label></div></div>\n <svg class="strategy-world strategy-world-art strategy-world-drawn" data-art-ready="true" viewBox="190 95 570 690" tabindex="0" role="group" aria-label="全国地图，中原九城可交互；方向键平移，加减键缩放"><title>山河舆图 · 中原战区</title>\n <g class="national-map-terrain"><defs>\n <pattern id="atlas-paper" width="31" height="29" patternUnits="userSpaceOnUse"><path d="M3 6h2m14 13h3M9 25h1" stroke="#7d795d" stroke-width=".6" opacity=".17"/></pattern>\n <pattern id="atlas-water" width="34" height="25" patternUnits="userSpaceOnUse"><path d="M4 13q7-4 14 0t13 0" fill="none" stroke="#ebedcd" stroke-width=".7" opacity=".35"/></pattern>\n <pattern id="atlas-fields" width="19" height="15" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><path d="M1 1h16v11H1Z" fill="#c9c58e" stroke="#e6ddb0" stroke-width="1"/><path d="M4 2v9m4-9v9m4-9v9" stroke="#a9ae7e" stroke-width=".5"/></pattern>\n <g id="atlas-mountain" stroke="#5a725d" stroke-linejoin="round"><path d="M-23 12Q-12-2-4-23L2-29 9-11 26 13Q7 21-23 12" fill="#8e9e7d" stroke-width=".65"/><path d="M2-29L-3-4 8 6 3 15 26 13 9-11Z" fill="#5a725d" opacity=".4" stroke="none"/><path d="M-13 2L-4-19 2-29 5-16M-18 8L-9-5M8-6L17 7" fill="none" stroke="#eee3bf" stroke-width="1" opacity=".65"/></g>\n <g id="atlas-tree"><ellipse cy="5" rx="5" ry="2" fill="#607857" opacity=".17"/><path d="M0 0V6" stroke="#747b58"/><path d="M-5 2L0-11 5 2Z" fill="#5a725d"/><path d="M-4-2L0-14 4-2Z" fill="#8e9e7d"/></g>\n </defs><g class="drawn-terrain" data-season="summer" style="pointer-events:none">\n <rect width="1024" height="1024" fill="#b6c3af"/><rect width="1024" height="1024" fill="url(#atlas-water)"/>\n <path d="M0 0H1024V125L931 170 906 220 852 249 821 223 793 253 808 291 850 314 877 348 846 377 813 382 801 427 826 463 813 500 841 538 822 571 847 610 828 651 845 688 818 724 814 774 782 803 760 844 698 875 662 916 610 934 568 960 509 943 458 978 393 952 339 985 282 955 242 985H0Z" fill="#ded6b5" stroke="#7f9580" stroke-width="3"/>\n <path d="M0 80Q160 20 250 94T432 97L442 215 355 282 276 244 140 317 0 261Z" fill="#bdc49f" opacity=".65"/>\n <path d="M30 373Q194 320 274 440T305 711L205 824 41 795Z M360 866Q500 730 600 865L660 939 485 960Z" fill="#bdc49f" opacity=".65"/>\n <path d="M478 223Q533 185 612 222T740 297L705 330 555 319Z M344 491L404 467 449 510 408 564 351 555Z M525 604L591 589 620 651 556 672Z M661 539L715 530 756 625 692 656Z" fill="url(#atlas-fields)" opacity=".72"/>\n <g fill="none" stroke="#8e9e7d" opacity=".2"><path d="M60 352Q178 281 224 350T292 395M64 363Q170 298 224 365T287 409M75 375Q162 322 224 382T279 421M332 844Q447 708 531 831T720 860M342 854Q450 733 524 846T714 875"/></g>\n <g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#eee0b6" stroke-width="14"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#94ac96" stroke-width="8"/><path d="M95 290C160 330 220 300 246 254S227 138 290 103 362 136 340 238 365 340 435 354 499 350 535 371 571 391 615 370 680 340 739 368 775 426 812 405" stroke="#dce4cb" stroke-width="1.5" opacity=".8"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#eee0b6" stroke-width="17"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#8ca58f" stroke-width="11"/><path d="M90 750C176 683 196 765 243 803S323 820 369 773 423 776 470 792 552 773 597 816 667 823 708 774 775 764 827 730" stroke="#d1dfc8" stroke-width="2"/>\n <path d="M402 195Q425 260 400 287T412 349M190 405Q255 390 310 430T439 359M255 663Q345 687 395 748T460 789M549 538Q591 573 656 570T817 624" stroke="#94ac96" stroke-width="3"/></g>\n <g><use href="#atlas-mountain" transform="translate(178 140) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(208 154) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(222 168) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(252 182) scale(1.3224999999999998)"/><use href="#atlas-mountain" transform="translate(266 196) scale(0.8739999999999999)"/><use href="#atlas-mountain" transform="translate(296 210) scale(1.0234999999999999)"/><use href="#atlas-mountain" transform="translate(310 224) scale(1.1729999999999998)"/><use href="#atlas-mountain" transform="translate(451 192) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(455 212) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(443 232) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(447 252) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(435 272) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(439 292) scale(0.7654)"/><use href="#atlas-mountain" transform="translate(427 312) scale(0.8772)"/><use href="#atlas-mountain" transform="translate(431 332) scale(0.9889999999999999)"/><use href="#atlas-mountain" transform="translate(419 352) scale(0.6536)"/><use href="#atlas-mountain" transform="translate(475 213) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(480 234) scale(0.623)"/><use href="#atlas-mountain" transform="translate(469 255) scale(0.714)"/><use href="#atlas-mountain" transform="translate(474 276) scale(0.8049999999999999)"/><use href="#atlas-mountain" transform="translate(463 297) scale(0.5319999999999999)"/><use href="#atlas-mountain" transform="translate(468 318) scale(0.623)"/><use href="#atlas-mountain" transform="translate(457 339) scale(0.714)"/><use href="#atlas-mountain" transform="translate(176 418) scale(0.646)"/><use href="#atlas-mountain" transform="translate(202 426) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(212 434) scale(0.867)"/><use href="#atlas-mountain" transform="translate(238 442) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(248 450) scale(0.646)"/><use href="#atlas-mountain" transform="translate(274 458) scale(0.7565)"/><use href="#atlas-mountain" transform="translate(284 466) scale(0.867)"/><use href="#atlas-mountain" transform="translate(310 474) scale(0.9774999999999999)"/><use href="#atlas-mountain" transform="translate(143 479) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(165 498) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(171 517) scale(1.122)"/><use href="#atlas-mountain" transform="translate(193 536) scale(1.265)"/><use href="#atlas-mountain" transform="translate(199 555) scale(0.8360000000000001)"/><use href="#atlas-mountain" transform="translate(221 574) scale(0.9790000000000001)"/><use href="#atlas-mountain" transform="translate(227 593) scale(1.122)"/><use href="#atlas-mountain" transform="translate(220 539) scale(0.684)"/><use href="#atlas-mountain" transform="translate(218 563) scale(0.801)"/><use href="#atlas-mountain" transform="translate(200 587) scale(0.918)"/><use href="#atlas-mountain" transform="translate(198 611) scale(1.035)"/><use href="#atlas-mountain" transform="translate(180 635) scale(0.684)"/><use href="#atlas-mountain" transform="translate(72 591) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(97 612) scale(1.157)"/><use href="#atlas-mountain" transform="translate(106 633) scale(1.326)"/><use href="#atlas-mountain" transform="translate(131 654) scale(1.4949999999999999)"/><use href="#atlas-mountain" transform="translate(140 675) scale(0.9880000000000001)"/><use href="#atlas-mountain" transform="translate(165 696) scale(1.157)"/><use href="#atlas-mountain" transform="translate(174 717) scale(1.326)"/><use href="#atlas-mountain" transform="translate(327 682) scale(0.5928)"/><use href="#atlas-mountain" transform="translate(356 689) scale(0.6942)"/><use href="#atlas-mountain" transform="translate(369 696) scale(0.7956000000000001)"/><use hre'... 31739 more characters,
+    expected: /民心 \+20/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:24:1
+✖ campaign begins in day-one planning with cities, homes and at most ten units (3.2816ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  10 !== 4
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:25:131)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:51:1
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (183.422ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:55:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:90:1
+✖ governors must stay at home; relief is limited and assigned officials cannot join armies (0.9306ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '城市民心已停用，请通过人才委任安抚本城武将'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:92:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '城市民心已停用，请通过人才委任安抚本城武将',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:94:1
+✖ officer transfers take real time and new armies require local idle officers and recruitment (0.8957ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3000 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:97:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3000,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:100:1
+✖ split and merge conserve supply and capacity, and enforce ten-unit maximum (0.8451ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /10/. Input:
+  
+  '不能合并重复武将'
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:103:104)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '不能合并重复武将',
+    expected: /10/,
+    operator: 'match',
+    diff: 'simple'
+  }

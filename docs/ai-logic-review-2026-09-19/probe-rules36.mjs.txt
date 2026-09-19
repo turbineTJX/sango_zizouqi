@@ -1,0 +1,62 @@
+// Diagnostic assertions deliberately describe existing defects, not desired regression contracts.
+import assert from 'node:assert/strict';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {createScenario} from '../scenarios.mjs';
+import {lockDeployment,stepBattle,validateSave,battleStratagems,STRATAGEMS,COMMAND_RESOURCE,issueCommand,unitAttributes} from '../engine.mjs';
+import {chooseEnemyCommand} from '../battle-ai.mjs';
+import {routeTo,readyTactic,supportAnchor,unitTactics,basicSupportTargets} from '../tactics.mjs';
+import {formationAura} from '../support-rules.mjs';
+import {hexDistance} from '../hex-grid.mjs';
+import {classicCases,unit} from './custom-playability-lib.mjs';
+
+const out=new URL('../docs/ai-logic-review-2026-09-19/',import.meta.url);
+mkdirSync(out,{recursive:true});
+const fleet=classicCases.find(c=>c.id==='fleet'),seed=33104730;
+const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'river',ownTeam:fleet.z,enemyTeam:fleet.a});
+const b=state.battle,trace=[];let at131=null,saved=null;
+lockDeployment(b);
+while(!b.result){
+ if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key){assert.equal(issueCommand(b,key),null);if(saved)assert.equal(issueCommand(saved.battle,key),null);}}
+ stepBattle(b);if(saved)stepBattle(saved.battle);
+ if(b.tick===20)saved=validateSave(structuredClone(state));
+ const actor=b.sides[1].units.find(u=>u.id==='person-246'),foes=b.sides[0].units.filter(u=>u.status==='active');
+ if(b.tick>=115&&actor.status==='active')trace.push({tick:b.tick,action:actor.action,xy:[actor.x,actor.y],hp:actor.hp,intent:actor.intent,anchor:supportAnchor(b,actor)?.id??null,ready:readyTactic(b,actor,unitAttributes(actor,b).range)?.skill.id??null,enemies:foes.map(e=>({id:e.id,xy:[e.x,e.y],distance:hexDistance(actor,e)}))});
+ if(b.tick===131)at131=validateSave(structuredClone(state));
+}
+assert.deepEqual(saved.battle,b);
+const snapshot=at131.battle,actor=snapshot.sides[1].units.find(u=>u.id==='person-246'),foe=snapshot.sides[0].units.find(u=>u.status==='active');
+assert.equal(actor.action,'策应队友');assert.equal(readyTactic(snapshot,actor,unitAttributes(actor,snapshot).range),null);
+const route=routeTo(snapshot,actor,foe,40,{range:unitAttributes(actor,snapshot).range,charging:false});
+assert.equal(route.length,1);assert.ok(unitAttributes(actor,snapshot).move>=1);
+const original=structuredClone(snapshot);stepBattle(original);
+assert.equal(original.sides[1].units.find(u=>u.id===actor.id).action,'策应队友');
+// Counterfactual positioning is explicitly isolated from the real replay. It
+// demonstrates the legal attack opportunity; it is not counted as a real run.
+const advanced=structuredClone(snapshot),advancedActor=advanced.sides[1].units.find(u=>u.id===actor.id);
+Object.assign(advancedActor,route[0]);
+const legalTactic=readyTactic(advanced,advancedActor,unitAttributes(advancedActor,advanced).range);
+assert.ok(legalTactic);stepBattle(advanced);
+assert.ok(advanced.effects.some(e=>e.from===actor.id&&e.to===foe.id&&e.damage>0));
+writeFileSync(new URL('support-stall-save.json',out),JSON.stringify(at131,null,2));
+
+const make=enemyTeam=>createScenario('custom-battle',123,20,null,{seed:123,terrain:'land',ownTeam:[unit('person-646','spear')],enemyTeam});
+const solo=make([unit('person-512','archer')]);validateSave(structuredClone(solo));
+const soloArcher=solo.battle.sides[1].units[0];assert.ok(soloArcher.tactics.includes('rally'));
+assert.equal(basicSupportTargets(solo.battle,soloArcher,unitTactics(soloArcher).find(s=>s.id==='rally')).length,0);
+const ranged=make([unit('yuanxia','archer'),unit('he','crossbow'),unit('person-123','logistics')]);validateSave(structuredClone(ranged));
+const aux=ranged.battle.sides[1].units.find(u=>u.type==='logistics');assert.ok(aux.tactics.includes('passage'));
+assert.ok(ranged.battle.sides[1].units.every(u=>formationAura(ranged.battle,u)===null));
+const deadSlots=[{case:'solo-archer',unit:soloArcher.id,tactics:soloArcher.tactics,dead:'rally',reason:'Requires another ally; army contains one unit.'},{case:'ranged-plus-logistics',units:ranged.battle.sides[1].units.map(u=>({id:u.id,type:u.type,tactics:u.tactics})),dead:'passage',reason:'Aura excludes its source and all remaining allies are ranged.'}];
+
+// The selection API intentionally has no gauge check. Isolate its scoring on
+// a valid opening state; do NOT describe this as a naturally full-gauge event.
+const single=make([unit('cao','spear')]).battle;lockDeployment(single);
+assert.equal(single.sides[1].units[0].intent,0);
+assert.equal(chooseEnemyCommand(single,['inspire'],STRATAGEMS),null);
+const two=make([unit('cao','spear'),unit('person-46','spear')]).battle;lockDeployment(two);
+assert.equal(chooseEnemyCommand(two,['inspire'],STRATAGEMS),'inspire');
+const commandBoundary={method:'Controlled command-selection probe on validated opening states; gauge is not full and no command is issued.',singleSelected:null,twoSelected:'inspire',singleMaximumScore:35/3,requiredScore:20,implication:'Inspire can never be selected with only one active ally, irrespective of its intent deficit or future gauge.'};
+const stall=trace.filter(t=>t.action==='策应队友');
+const report={supportStall:{seed,configuration:'classic/fleet/swapped',firstWait:stall[0]?.tick,lastWait:stall.at(-1)?.tick,waitSteps:stall.length,snapshotTick:131,actor:{id:actor.id,hp:actor.hp,intent:actor.intent,position:[actor.x,actor.y]},anchor:actor&&supportAnchor(snapshot,actor)?.id,readyAtOriginal:null,route,readyAfterOneMove:legalTactic.skill.id,nextOriginalAction:original.sides[1].units.find(u=>u.id===actor.id).action,counterfactualEffects:advanced.effects.filter(e=>e.from===actor.id&&e.damage>0),trace},deadSlots,commandBoundary};
+writeFileSync(new URL('probes.json',out),JSON.stringify(report,null,2));
+console.log(JSON.stringify({...report,supportStall:{...report.supportStall,trace:undefined,counterfactualEffects:undefined}},null,2));

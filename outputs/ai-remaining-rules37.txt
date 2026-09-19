@@ -1,0 +1,176 @@
+{
+  "rulesVersion": 37,
+  "defender": {
+    "method": "Validated authored tactical positions; ten actual engine steps and identical save/resume.",
+    "fixture": {
+      "id": "logic-defender-probe",
+      "name": "邺城 · 破门攻坚",
+      "kind": "攻城",
+      "difficulty": "城门攻坚",
+      "description": "守方半场有独立城门，首发守军自带护盾，另有两批无护盾援军。测试进攻路线与集火破门。",
+      "own": 8,
+      "enemy": 12,
+      "ownTroops": 3000,
+      "enemyTroops": 1800,
+      "level": 8,
+      "enemyLevel": 3,
+      "waves": [],
+      "seed": 521204,
+      "limit": 480,
+      "gateHp": 60000,
+      "goal": "城门耐久归零，守方立即败北；日暮沿用剩余兵力比例判定。",
+      "ownName": "目标选择测试攻军",
+      "enemyName": "目标选择测试守军",
+      "ownAdvisor": "person-512",
+      "enemyAdvisor": "person-46",
+      "ownTeam": [
+        {
+          "id": "person-512",
+          "type": "archer",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-439",
+          "type": "siege",
+          "troops": 3000,
+          "level": 5
+        }
+      ],
+      "enemyTeam": [
+        {
+          "id": "person-46",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        }
+      ]
+    },
+    "initialPositions": {
+      "near": [
+        7,
+        0
+      ],
+      "far": [
+        10,
+        7
+      ],
+      "defender": [
+        9,
+        0
+      ]
+    },
+    "trace": [
+      {
+        "tick": 1,
+        "defenderAction": "守护城门",
+        "gateHp": 59556,
+        "effects": [
+          {
+            "from": "person-439",
+            "to": "siege-gate",
+            "damage": 444
+          }
+        ],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 2,
+        "defenderAction": "守护城门",
+        "gateHp": 59556,
+        "effects": [],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 3,
+        "defenderAction": "守护城门",
+        "gateHp": 59556,
+        "effects": [],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 4,
+        "defenderAction": "守护城门",
+        "gateHp": 59556,
+        "effects": [],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 5,
+        "defenderAction": "守护城门",
+        "gateHp": 59556,
+        "effects": [],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 6,
+        "defenderAction": "守护城门",
+        "gateHp": 59156,
+        "effects": [
+          {
+            "from": "person-439",
+            "to": "siege-gate",
+            "damage": 400
+          }
+        ],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 7,
+        "defenderAction": "守护城门",
+        "gateHp": 59156,
+        "effects": [],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 8,
+        "defenderAction": "守护城门",
+        "gateHp": 59156,
+        "effects": [],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 9,
+        "defenderAction": "守护城门",
+        "gateHp": 59156,
+        "effects": [],
+        "reachableTarget": "person-439"
+      },
+      {
+        "tick": 10,
+        "defenderAction": "守护城门",
+        "gateHp": 58689,
+        "effects": [
+          {
+            "from": "person-439",
+            "to": "siege-gate",
+            "damage": 467
+          }
+        ],
+        "reachableTarget": "person-439"
+      }
+    ]
+  },
+  "commands": {
+    "method": "Candidate-selection boundaries, not naturally full-gauge command events. Regenerate uses naturally incurred wounds.",
+    "singleHaste": null,
+    "twoHaste": "haste",
+    "woundedSingleRegenerate": {
+      "tick": 4,
+      "wounded": 33,
+      "selected": null
+    }
+  },
+  "composition": {
+    "solo": [
+      "smoke",
+      "wildfire",
+      "fire"
+    ],
+    "withAlly": [
+      "smoke",
+      "wildfire",
+      "rally"
+    ]
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "rulesVersion": 39,
+  "seeds": [
+    85000019,
+    85104748,
+    85209477,
+    85314206,
+    85418935,
+    85523664,
+    85628393,
+    85733122,
+    85837851,
+    85942580,
+    86047309,
+    86152038,
+    86256767,
+    86361496,
+    86466225,
+    86570954
+  ],
+  "total": 384,
+  "hashes": {
+    "engine.mjs": "f2ab2eb26334bb5d65d2b301294c0b1555867e1881e793d63456949ba3659453",
+    "scenarios.mjs": "aed5f553462bb58680671e3e0206f6c78fdfb488cca2e987e56abc35cb81eb87",
+    "tactics.mjs": "14ae6f4971e4ca26019878d39f533c4c35e3d55e9ea2a1ca60b08ee2ef5b2c2d",
+    "battle-ai.mjs": "d85cd59a69ac0a7e1e7effaf81fc6fd28a813c73afffa8a7d30a35a8b386da12",
+    "combat-rules.mjs": "40c81f2703961b69a2ada5e0283613fc096b0857155c00bbad1c5966d09fb0d2",
+    "famous-officers.mjs": "4c63c3f51b83f1116e0f29758868389b635ab87f34fd0043fea82bcfcc9c7c67",
+    "unit-stats.mjs": "a9375af1b281edfebe5500dbe6b7370e4574705e68067449b1125f5507f039d0",
+    "passives.mjs": "0ee579f79a00500ff8cd47ddfddf87427d81c94e37c0dfa7cf7f32492fa0a531",
+    "tactic-power.mjs": "ec2c131e251275266cdb36cb94bce710667f8e26f4d0d659a7306f5ace74231f",
+    "engagement.mjs": "fa9f06fde562e7d21d0c33a6cee25091c4919b07648d62653b612f0c021ac02c",
+    "support-rules.mjs": "feccebd8737f52b2d1ed6d34e174e8f608f6b645e88195e6f2def36e700a5a38",
+    "scripts/balance-objectives-lib.mjs": "4b8210ddc1cf76d015016953b93f2cfcee25ae5412804c406aa1881b5b941827",
+    "scripts/custom-playability-lib.mjs": "25a81fe7543e05450f5557ebe84ceac2ec825868537d7bab3362e547933de478",
+    "scripts/audit-balance-sides.mjs": "845d98c7837e86d1d8f4e4eaba78439f16caf36543a5babef2d7541e66e2fbae",
+    "docs/balance-objectives/selection.json": "98e34faef7165e2a022eeb24bd1d4bc998f4703b5a4866775f3fbe054d8ac587"
+  },
+  "rows": [
+    {
+      "id": "cooperation/balanced/default/left",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.3287430555555556
+    },
+    {
+      "id": "cooperation/balanced/default/right",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.2762430555555555
+    },
+    {
+      "id": "cooperation/balanced/selected/left",
+      "n": 16,
+      "wins": 11,
+      "timeouts": 0,
+      "remaining": 0.13395833333333332,
+      "enemyRemaining": 0.03915277777777778
+    },
+    {
+      "id": "cooperation/balanced/selected/right",
+      "n": 16,
+      "wins": 6,
+      "timeouts": 0,
+      "remaining": 0.051604166666666666,
+      "enemyRemaining": 0.1126736111111111
+    },
+    {
+      "id": "cooperation/cavalry/default/left",
+      "n": 16,
+      "wins": 6,
+      "timeouts": 0,
+      "remaining": 0.06281944444444444,
+      "enemyRemaining": 0.1211875
+    },
+    {
+      "id": "cooperation/cavalry/default/right",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.2662847222222222
+    },
+    {
+      "id": "cooperation/cavalry/selected/left",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.6863402777777778,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "cooperation/cavalry/selected/right",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.7684236111111111,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "carry/balanced/default/left",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.5911319444444445
+    },
+    {
+      "id": "carry/balanced/default/right",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.5845069444444444
+    },
+    {
+      "id": "carry/balanced/selected/left",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.5618472222222222,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "carry/balanced/selected/right",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.5755972222222222,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "carry/cavalry/default/left",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.6063263888888889
+    },
+    {
+      "id": "carry/cavalry/default/right",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.6600555555555555
+    },
+    {
+      "id": "carry/cavalry/selected/left",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.6219930555555556,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "carry/cavalry/selected/right",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.33419444444444446,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "mixed/balanced/default/left",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.6825208333333334
+    },
+    {
+      "id": "mixed/balanced/default/right",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.6321666666666668
+    },
+    {
+      "id": "mixed/balanced/selected/left",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.6425000000000001,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "mixed/balanced/selected/right",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.5210486111111111,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "mixed/cavalry/default/left",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.6407777777777778
+    },
+    {
+      "id": "mixed/cavalry/default/right",
+      "n": 16,
+      "wins": 0,
+      "timeouts": 0,
+      "remaining": 0,
+      "enemyRemaining": 0.6627291666666665
+    },
+    {
+      "id": "mixed/cavalry/selected/left",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.6101875000000001,
+      "enemyRemaining": 0
+    },
+    {
+      "id": "mixed/cavalry/selected/right",
+      "n": 16,
+      "wins": 16,
+      "timeouts": 0,
+      "remaining": 0.43035416666666676,
+      "enemyRemaining": 0
+    }
+  ],
+  "controller": "Both sides use fixed rule commands; these are configuration side controls, not player timing replays."
+}

@@ -1,0 +1,141 @@
+✔ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (155.6904ms)
+✔ 自动配装替换单人振旅和纯远程队友的协阵，同时保留有效治疗 (5.1183ms)
+✔ 阵容审查保留后续预备队能受益的战法，不根据开场满血删除救护 (1.7164ms)
+✔ 单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束 (1.6575ms)
+✔ person-661: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (259.0005ms)
+✔ person-396: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (89.2542ms)
+✔ person-99: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (100.9365ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (23.5968ms)
+✔ front support heals at most two other allies, never itself, and has a real range limit (5.1607ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (2.0729ms)
+✔ doubt deals strategy damage through control protection without bypassing that protection (2.1344ms)
+✖ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (2.6573ms)
+✔ real zero-intent battles trigger both medical roles and resume deterministically (239.8939ms)
+✔ fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement (4.7351ms)
+✔ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (13.3901ms)
+✔ medical casting spends the next basic attack interval rather than adding free healing between shots (2.8892ms)
+✔ only equipped chargers select legal short flanks, and live interception cancels that preference (1.5891ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (161.1045ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 617.9501
+
+✖ failing tests:
+
+test at tests\medical-roles.test.mjs:53:1
+✖ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (2.6573ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   action: '列阵',
+  -   advisorBonus: 0.098,
+  -   armyId: 'a1',
+  -   attackCarry: 0,
+  -   battleDamage: 0,
+  -   birthYear: 155,
+  -   cast: null,
+  -   commandBonus: 0.096,
+  -   compatibility: 25,
+  -   cooldown: 999,
+  -   courtesy: '孟德',
+  -   deathYear: 220,
+  -   deputyBonus: 0.046,
+  -   effect: null,
+  -   experience: 0,
+  -   first: true,
+  -   force: 72,
+  -   formation: 'front',
+  -   healed: 0,
+  -   hp: 3000,
+  -   id: 'patient',
+  -   initial: 3000,
+  -   intellect: 91,
+  -   intent: 0,
+  -   leadership: 96,
+  -   level: 1,
+  -   loyalty: 100,
+  -   maxHp: 3000,
+  -   morale: 80,
+  -   moveProgress: 0,
+  -   name: '曹操',
+  -   participated: false,
+  -   passiveState: {
+  -     entryUntil: 0,
+  -     lastMoveTick: 0,
+  -     reserveEntered: false,
+  -     shotType: null,
+  -     shots: 0,
+  -     targetId: null
+  -   },
+  -   personality: 2,
+  -   politics: 94,
+  -   relations: {
+  -     dislikedIds: [
+  -       'person-191',
+  -       'person-254',
+  -       'person-494',
+  -       'person-583',
+  -       'person-708'
+  -     ],
+  -     fatherId: null,
+  -     likedIds: [
+  -       'jia',
+  -       'yuanxia',
+  -       'dun',
+  -       'person-255',
+  -       'person-472'
+  -     ],
+  -     motherId: null,
+  -     spouseIds: [
+  -       'person-549'
+  -     ],
+  -     swornSiblingIds: []
+  -   },
+  -   righteousness: 2,
+  -   sex: 0,
+  -   side: 0,
+  -   skill: '魏武之强',
+  -   skillCasts: 0,
+  -   skillReady: {
+  -     cleanse: 999,
+  -     phalanx: 999,
+  -     ward: 999
+  -   },
+  -   skillRouteType: 'spear',
+  -   status: 'active',
+  -   statuses: {},
+  -   tacticCasts: {},
+  -   tactics: [
+  -     'cleanse',
+  -     'phalanx',
+  -     'ward'
+  -   ],
+  -   trait: '雄才大略',
+  -   troops: 2600,
+  -   type: 'spear',
+  -   wounded: 0,
+  -   x: 5,
+  -   y: 3
+  - }
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/medical-roles.test.mjs:55:23)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { personality: 2, righteousness: 2, compatibility: 25, sex: 0, birthYear: 155, deathYear: 220, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'patient', name: '曹操', courtesy: '孟德', leadership: 96, force: 72, intellect: 91, politics: 94, skill: '魏武之强', type: 'spear', formation: 'front', trait: '雄才大略', troops: 2600, wounded: 0, first: true, loyalty: 100, level: 1, experience: 0, tactics: [ 'cleanse', 'phalanx', 'ward' ], skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, attackCarry: 0, armyId: 'a1', side: 0, hp: 3000, maxHp: 3000, initial: 3000, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 5, y: 3, morale: 80, cooldown: 999, intent: 0, cast: null, skillReady: { cleanse: 999, phalanx: 999, ward: 999 }, tacticCasts: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.096, deputyBonus: 0.046, advisorBonus: 0.098 },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

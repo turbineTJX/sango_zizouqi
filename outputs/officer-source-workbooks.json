@@ -1,0 +1,177 @@
+{
+  "tables": [
+    {
+      "path": "C:\\Users\\tao50\\Documents\\New project\\sango_infinity-main\\Data\\Export\\Common\\PersonLibrary_武将库.xlsx",
+      "sha256": "ccf5949873744b00401d00a854c2067ad0a59e6562708b067aa9630a80022391",
+      "sourceJsonPath": "C:\\Users\\tao50\\Documents\\New project\\sango_infinity-main\\Build\\Content\\Data\\Common\\PersonLibrary.json",
+      "sourceJsonSha256": "e34903d7d02f8676782a733be706e8c32ef6559a5e8b8da1d54f9bd8a56aae2a",
+      "sheet": "PersonLibrary",
+      "fields": [
+        "Id",
+        "Name",
+        "BelongForce",
+        "BelongCorps",
+        "BelongCity",
+        "familyName",
+        "giveName",
+        "nickName",
+        "description",
+        "headIconID",
+        "imageID",
+        "image",
+        "image_old",
+        "sex",
+        "yearAvailable",
+        "yearBorn",
+        "yearDead",
+        "compatibility",
+        "state",
+        "Official",
+        "loyalty",
+        "command",
+        "strength",
+        "intelligence",
+        "politics",
+        "glamour",
+        "argumentation",
+        "personality",
+        "Father",
+        "Mother",
+        "SpouseList",
+        "Brother",
+        "LikePersonList",
+        "HatePersonList",
+        "spearLv",
+        "halberdLv",
+        "crossbowLv",
+        "rideLv",
+        "machineLv",
+        "waterLv",
+        "FeatureList",
+        "Level"
+      ],
+      "rowCount": 832,
+      "cellsCompared": 34944,
+      "differences": [],
+      "samples": [
+        {
+          "id": "99",
+          "name": "关羽",
+          "row": 103,
+          "argumentation": "1",
+          "argumentationText": "容易背叛",
+          "personality": "4",
+          "personalityText": "猪突"
+        },
+        {
+          "id": "246",
+          "name": "周瑜",
+          "row": 250,
+          "argumentation": "5",
+          "argumentationText": "不会背叛",
+          "personality": "1",
+          "personalityText": "小心"
+        },
+        {
+          "id": "290",
+          "name": "诸葛亮",
+          "row": 294,
+          "argumentation": "4",
+          "argumentationText": "情理坚定",
+          "personality": "1",
+          "personalityText": "小心"
+        },
+        {
+          "id": "344",
+          "name": "曹操",
+          "row": 348,
+          "argumentation": "2",
+          "argumentationText": "无情义",
+          "personality": "2",
+          "personalityText": "冷静"
+        },
+        {
+          "id": "396",
+          "name": "赵云",
+          "row": 400,
+          "argumentation": "4",
+          "argumentationText": "情理坚定",
+          "personality": "3",
+          "personalityText": "刚胆"
+        },
+        {
+          "id": "433",
+          "name": "张飞",
+          "row": 437,
+          "argumentation": "5",
+          "argumentationText": "不会背叛",
+          "personality": "2",
+          "personalityText": "冷静"
+        },
+        {
+          "id": "636",
+          "name": "刘备",
+          "row": 640,
+          "argumentation": "4",
+          "argumentationText": "情理坚定",
+          "personality": "4",
+          "personalityText": "猪突"
+        },
+        {
+          "id": "661",
+          "name": "吕布",
+          "row": 665,
+          "argumentation": "4",
+          "argumentationText": "情理坚定",
+          "personality": "2",
+          "personalityText": "冷静"
+        }
+      ],
+      "missingWorkbookIds": []
+    },
+    {
+      "path": "C:\\Users\\tao50\\Documents\\New project\\sango_infinity-main\\Data\\Export\\Common\\Personality_性格.xlsx",
+      "sha256": "02454632970bf5738b93510caa846978be7252c3eae6ebeda855ac730c7804cf",
+      "sourceJsonPath": "C:\\Users\\tao50\\Documents\\New project\\sango_infinity-main\\Build\\Content\\Data\\Common\\Personalities.json",
+      "sourceJsonSha256": "2887dbd370d9a666bfc397bbdb9940cbb4e63d642144abda2337bf92ba17745b",
+      "sheet": "Personalities",
+      "fields": [
+        "Id",
+        "Name",
+        "kind",
+        "falseReportSuccessAdd",
+        "disturbSuccessAdd",
+        "calmdownSuccessAdd",
+        "ambushSuccessAdd",
+        "infightingSuccessAdd",
+        "sorcerySuccessAdd",
+        "falseReportCriticalAdd",
+        "disturbCriticalAdd"
+      ],
+      "rowCount": 4,
+      "cellsCompared": 44,
+      "differences": [],
+      "samples": [],
+      "missingWorkbookIds": []
+    },
+    {
+      "path": "C:\\Users\\tao50\\Documents\\New project\\sango_infinity-main\\Data\\Export\\Common\\Argumentation_义理.xlsx",
+      "sha256": "8c4644c2ed5b9b116e3ed55d18a86d23293d59e0b50f66d2b70ddb20483e68af",
+      "sourceJsonPath": "C:\\Users\\tao50\\Documents\\New project\\sango_infinity-main\\Build\\Content\\Data\\Common\\Argumentations.json",
+      "sourceJsonSha256": "3974107229c2c703106a134ad06714833bb73966e3cdafa7883759a4f8a70881",
+      "sheet": "Argumentations",
+      "fields": [
+        "Id",
+        "Name",
+        "kind",
+        "infightingCriticalAdd",
+        "loyaltyAdd"
+      ],
+      "rowCount": 5,
+      "cellsCompared": 25,
+      "differences": [],
+      "samples": [],
+      "missingWorkbookIds": []
+    }
+  ]
+}

@@ -23,8 +23,7 @@ for(const config of HISTORICAL_CAMPAIGNS)test(`${config.name}: historical roster
   while(!b.result){
     if(b.commandProgress>=12000){
       // Choose legal player orders from visible combat data; never inject intent or resources.
-      const view={...b,sides:[b.sides[1],b.sides[0]],enemyCommand:{commandReady:b.commandReady}};
-      const key=chooseEnemyCommand(view,battleStratagems(b),STRATAGEMS);
+      const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
       if(key){assert.equal(issueCommand(b,key),null);assert.equal(issueCommand(resumed.battle,key),null);orders++;}
     }
     stepBattle(b);stepBattle(resumed.battle);

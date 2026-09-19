@@ -1,0 +1,1866 @@
+{
+  "classic": [
+    {
+      "id": "duel",
+      "name": "飞将对普通将",
+      "expect": "吕布同兵同级应有明显优势",
+      "passed": true,
+      "n": 32,
+      "wins": 32,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 108.8,
+      "remaining": 0.458,
+      "enemyRemaining": 0,
+      "aLeftWins": 16,
+      "aRightWins": 16
+    },
+    {
+      "id": "heroes",
+      "name": "三英战吕布",
+      "expect": "等总兵力三英应有取胜空间，吕布不应必胜",
+      "passed": true,
+      "n": 32,
+      "wins": 32,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 68.8,
+      "remaining": 0.728,
+      "enemyRemaining": 0,
+      "aLeftWins": 16,
+      "aRightWins": 16
+    },
+    {
+      "id": "ordinary",
+      "name": "普通将协同迎飞将",
+      "expect": "普通将分工应有挑战空间；不要求稳定战胜吕布",
+      "passed": true,
+      "n": 32,
+      "wins": 32,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 147.7,
+      "remaining": 0.59,
+      "enemyRemaining": 0,
+      "aLeftWins": 16,
+      "aRightWins": 16
+    },
+    {
+      "id": "spear-cavalry",
+      "name": "枪戟拒骑",
+      "expect": "枪戟对骑兵应有优势（含武将差异）",
+      "passed": true,
+      "n": 32,
+      "wins": 32,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 88.4,
+      "remaining": 0.741,
+      "enemyRemaining": 0,
+      "aLeftWins": 16,
+      "aRightWins": 16
+    },
+    {
+      "id": "cavalry-archer",
+      "name": "轻骑突弓",
+      "expect": "无前排弓兵应受骑兵威胁（含武将差异）",
+      "passed": true,
+      "n": 32,
+      "wins": 32,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 67,
+      "remaining": 0.636,
+      "enemyRemaining": 0,
+      "aLeftWins": 16,
+      "aRightWins": 16
+    },
+    {
+      "id": "fire-forest",
+      "name": "林地火攻",
+      "expect": "林地火攻阵容至少有取胜空间",
+      "passed": true,
+      "n": 32,
+      "wins": 32,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 104,
+      "remaining": 0.637,
+      "enemyRemaining": 0,
+      "aLeftWins": 16,
+      "aRightWins": 16
+    },
+    {
+      "id": "fleet",
+      "name": "江上水战",
+      "expect": "水军能合法接敌并结束；久战比例不超过20%",
+      "passed": true,
+      "n": 32,
+      "wins": 31,
+      "draws": 0,
+      "timeout": 0,
+      "ticks": 225.5,
+      "remaining": 0.183,
+      "enemyRemaining": 0.004,
+      "aLeftWins": 16,
+      "aRightWins": 15
+    }
+  ],
+  "players": [
+    {
+      "archetype": "cooperation",
+      "name": "多二流协同",
+      "opponent": "balanced",
+      "enemy": "河北混编",
+      "terrain": "land",
+      "selected": "compact",
+      "allocation": "focused",
+      "selectedTeam": [
+        {
+          "id": "person-46",
+          "type": "spear",
+          "troops": 4200,
+          "level": 5
+        },
+        {
+          "id": "person-439",
+          "type": "halberd",
+          "troops": 3800,
+          "level": 5
+        },
+        {
+          "id": "person-408",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-515",
+          "type": "archer",
+          "troops": 2800,
+          "level": 5
+        },
+        {
+          "id": "person-457",
+          "type": "cavalry",
+          "troops": 2400,
+          "level": 5
+        },
+        {
+          "id": "person-610",
+          "type": "crossbow",
+          "troops": 3200,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 116,
+          "remaining": 0,
+          "enemyRemaining": 0.369
+        },
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 112.3,
+          "remaining": 0,
+          "enemyRemaining": 0.386
+        },
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 108.7,
+          "remaining": 0,
+          "enemyRemaining": 0.422
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 121.3,
+          "remaining": 0,
+          "enemyRemaining": 0.428
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 103.7,
+          "remaining": 0,
+          "enemyRemaining": 0.458
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 103.3,
+          "remaining": 0,
+          "enemyRemaining": 0.461
+        },
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 105,
+          "remaining": 0,
+          "enemyRemaining": 0.475
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 98,
+          "remaining": 0,
+          "enemyRemaining": 0.488
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 112,
+          "remaining": 0,
+          "enemyRemaining": 0.492
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 76.1,
+          "remaining": 0,
+          "enemyRemaining": 0.572
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.1,
+          "remaining": 0,
+          "enemyRemaining": 0.553
+        },
+        "designed": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 117.6,
+          "remaining": 0,
+          "enemyRemaining": 0.381
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 108.3,
+          "remaining": 0,
+          "enemyRemaining": 0.424
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 121.4,
+          "remaining": 0,
+          "enemyRemaining": 0.312
+        }
+      }
+    },
+    {
+      "archetype": "cooperation",
+      "name": "多二流协同",
+      "opponent": "cavalry",
+      "enemy": "骑兵突击",
+      "terrain": "land",
+      "selected": "compact",
+      "allocation": "counter",
+      "selectedTeam": [
+        {
+          "id": "person-46",
+          "type": "spear",
+          "troops": 4200,
+          "level": 5
+        },
+        {
+          "id": "person-439",
+          "type": "halberd",
+          "troops": 3800,
+          "level": 5
+        },
+        {
+          "id": "person-408",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-515",
+          "type": "spear",
+          "troops": 2800,
+          "level": 5
+        },
+        {
+          "id": "person-457",
+          "type": "spear",
+          "troops": 2400,
+          "level": 5
+        },
+        {
+          "id": "person-610",
+          "type": "spear",
+          "troops": 3200,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 104.3,
+          "remaining": 0.579,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 113,
+          "remaining": 0.563,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 99.3,
+          "remaining": 0.563,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 2,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 199,
+          "remaining": 0.185,
+          "enemyRemaining": 0.097
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 2,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 245,
+          "remaining": 0.064,
+          "enemyRemaining": 0.09
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 1,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 222,
+          "remaining": 0.052,
+          "enemyRemaining": 0.221
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 154,
+          "remaining": 0,
+          "enemyRemaining": 0.389
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 143,
+          "remaining": 0,
+          "enemyRemaining": 0.442
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 150,
+          "remaining": 0,
+          "enemyRemaining": 0.474
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 113.1,
+          "remaining": 0,
+          "enemyRemaining": 0.454
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 93.3,
+          "remaining": 0.717,
+          "enemyRemaining": 0
+        },
+        "designed": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 104.9,
+          "remaining": 0.585,
+          "enemyRemaining": 0
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 116.4,
+          "remaining": 0.447,
+          "enemyRemaining": 0
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 100,
+          "remaining": 0.577,
+          "enemyRemaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "cooperation",
+      "name": "多二流协同",
+      "opponent": "ranged",
+      "enemy": "丘陵远射",
+      "terrain": "hill",
+      "selected": "flank",
+      "allocation": "counter",
+      "selectedTeam": [
+        {
+          "id": "person-46",
+          "type": "cavalry",
+          "troops": 4200,
+          "level": 5
+        },
+        {
+          "id": "person-439",
+          "type": "cavalry",
+          "troops": 3800,
+          "level": 5
+        },
+        {
+          "id": "person-408",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-515",
+          "type": "archer",
+          "troops": 2800,
+          "level": 5
+        },
+        {
+          "id": "person-457",
+          "type": "cavalry",
+          "troops": 2400,
+          "level": 5
+        },
+        {
+          "id": "person-610",
+          "type": "crossbow",
+          "troops": 3200,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 110,
+          "remaining": 0,
+          "enemyRemaining": 0.384
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 102.3,
+          "remaining": 0,
+          "enemyRemaining": 0.447
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 100.3,
+          "remaining": 0,
+          "enemyRemaining": 0.479
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 99,
+          "remaining": 0,
+          "enemyRemaining": 0.495
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94.3,
+          "remaining": 0,
+          "enemyRemaining": 0.528
+        },
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 91.3,
+          "remaining": 0,
+          "enemyRemaining": 0.539
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 89,
+          "remaining": 0,
+          "enemyRemaining": 0.575
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 87.3,
+          "remaining": 0,
+          "enemyRemaining": 0.584
+        },
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 89,
+          "remaining": 0,
+          "enemyRemaining": 0.621
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 104.2,
+          "remaining": 0,
+          "enemyRemaining": 0.458
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 7,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 229.4,
+          "remaining": 0.047,
+          "enemyRemaining": 0.111
+        },
+        "designed": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 111.4,
+          "remaining": 0,
+          "enemyRemaining": 0.4
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 100.8,
+          "remaining": 0,
+          "enemyRemaining": 0.443
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 168.3,
+          "remaining": 0.251,
+          "enemyRemaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "carry",
+      "name": "超一流主C＋三流辅助",
+      "opponent": "balanced",
+      "enemy": "河北混编",
+      "terrain": "land",
+      "selected": "flank",
+      "allocation": "counter",
+      "selectedTeam": [
+        {
+          "id": "person-396",
+          "type": "halberd",
+          "troops": 7500,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-242",
+          "type": "halberd",
+          "troops": 2500,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "archer",
+          "troops": 1800,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "crossbow",
+          "troops": 1600,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 101,
+          "remaining": 0,
+          "enemyRemaining": 0.418
+        },
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 87,
+          "remaining": 0,
+          "enemyRemaining": 0.546
+        },
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 90,
+          "remaining": 0,
+          "enemyRemaining": 0.571
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 87.3,
+          "remaining": 0,
+          "enemyRemaining": 0.601
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 74.7,
+          "remaining": 0,
+          "enemyRemaining": 0.643
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 81,
+          "remaining": 0,
+          "enemyRemaining": 0.648
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 74.3,
+          "remaining": 0,
+          "enemyRemaining": 0.677
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 67.3,
+          "remaining": 0,
+          "enemyRemaining": 0.705
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.3,
+          "remaining": 0,
+          "enemyRemaining": 0.724
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 67.1,
+          "remaining": 0,
+          "enemyRemaining": 0.724
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94.4,
+          "remaining": 0,
+          "enemyRemaining": 0.545
+        },
+        "designed": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 98.6,
+          "remaining": 0,
+          "enemyRemaining": 0.439
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 98.6,
+          "remaining": 0,
+          "enemyRemaining": 0.439
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 106.4,
+          "remaining": 0,
+          "enemyRemaining": 0.437
+        }
+      }
+    },
+    {
+      "archetype": "carry",
+      "name": "超一流主C＋三流辅助",
+      "opponent": "cavalry",
+      "enemy": "骑兵突击",
+      "terrain": "land",
+      "selected": "control",
+      "allocation": "counter",
+      "selectedTeam": [
+        {
+          "id": "person-396",
+          "type": "spear",
+          "troops": 7500,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "spear",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-242",
+          "type": "halberd",
+          "troops": 2500,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "spear",
+          "troops": 1800,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "spear",
+          "troops": 1600,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 109.7,
+          "remaining": 0.505,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 128,
+          "remaining": 0.393,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 130.7,
+          "remaining": 0.387,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 1,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 181.3,
+          "remaining": 0.035,
+          "enemyRemaining": 0.134
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 1,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 169,
+          "remaining": 0.094,
+          "enemyRemaining": 0.239
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 150,
+          "remaining": 0,
+          "enemyRemaining": 0.324
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 92,
+          "remaining": 0,
+          "enemyRemaining": 0.655
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 92.7,
+          "remaining": 0,
+          "enemyRemaining": 0.684
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 84,
+          "remaining": 0,
+          "enemyRemaining": 0.686
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 78.3,
+          "remaining": 0,
+          "enemyRemaining": 0.702
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 105.4,
+          "remaining": 0.445,
+          "enemyRemaining": 0
+        },
+        "designed": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 112,
+          "remaining": 0.478,
+          "enemyRemaining": 0
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 112,
+          "remaining": 0.478,
+          "enemyRemaining": 0
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 104.1,
+          "remaining": 0.505,
+          "enemyRemaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "carry",
+      "name": "超一流主C＋三流辅助",
+      "opponent": "ranged",
+      "enemy": "丘陵远射",
+      "terrain": "hill",
+      "selected": "control",
+      "allocation": "counter",
+      "selectedTeam": [
+        {
+          "id": "person-396",
+          "type": "cavalry",
+          "troops": 7500,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 5
+        },
+        {
+          "id": "person-242",
+          "type": "cavalry",
+          "troops": 2500,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "archer",
+          "troops": 1800,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "crossbow",
+          "troops": 1600,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 151.7,
+          "remaining": 0.274,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 109,
+          "remaining": 0,
+          "enemyRemaining": 0.398
+        },
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 96,
+          "remaining": 0,
+          "enemyRemaining": 0.496
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 93.7,
+          "remaining": 0,
+          "enemyRemaining": 0.58
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 88,
+          "remaining": 0,
+          "enemyRemaining": 0.584
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 89,
+          "remaining": 0,
+          "enemyRemaining": 0.591
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 79.7,
+          "remaining": 0,
+          "enemyRemaining": 0.606
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 79.7,
+          "remaining": 0,
+          "enemyRemaining": 0.634
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 75,
+          "remaining": 0,
+          "enemyRemaining": 0.671
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 75.8,
+          "remaining": 0,
+          "enemyRemaining": 0.667
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 5,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 197.5,
+          "remaining": 0.049,
+          "enemyRemaining": 0.142
+        },
+        "designed": {
+          "n": 16,
+          "wins": 10,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 169.9,
+          "remaining": 0.177,
+          "enemyRemaining": 0.066
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 10,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 169.9,
+          "remaining": 0.177,
+          "enemyRemaining": 0.066
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 97.9,
+          "remaining": 0,
+          "enemyRemaining": 0.479
+        }
+      }
+    },
+    {
+      "archetype": "mixed",
+      "name": "一三流混搭",
+      "opponent": "balanced",
+      "enemy": "河北混编",
+      "terrain": "land",
+      "selected": "flank",
+      "allocation": "focused",
+      "selectedTeam": [
+        {
+          "id": "person-99",
+          "type": "halberd",
+          "troops": 5600,
+          "level": 5
+        },
+        {
+          "id": "liao",
+          "type": "cavalry",
+          "troops": 5400,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "spear",
+          "troops": 2400,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "archer",
+          "troops": 1500,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "crossbow",
+          "troops": 1500,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 108,
+          "remaining": 0,
+          "enemyRemaining": 0.381
+        },
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 104.7,
+          "remaining": 0,
+          "enemyRemaining": 0.382
+        },
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 89,
+          "remaining": 0,
+          "enemyRemaining": 0.561
+        },
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 84.7,
+          "remaining": 0,
+          "enemyRemaining": 0.576
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 81.3,
+          "remaining": 0,
+          "enemyRemaining": 0.583
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 79,
+          "remaining": 0,
+          "enemyRemaining": 0.593
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 74.7,
+          "remaining": 0,
+          "enemyRemaining": 0.594
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 69,
+          "remaining": 0,
+          "enemyRemaining": 0.659
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 69.7,
+          "remaining": 0,
+          "enemyRemaining": 0.702
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 68.7,
+          "remaining": 0,
+          "enemyRemaining": 0.708
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 84.4,
+          "remaining": 0,
+          "enemyRemaining": 0.593
+        },
+        "designed": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 106.1,
+          "remaining": 0,
+          "enemyRemaining": 0.382
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 105.8,
+          "remaining": 0,
+          "enemyRemaining": 0.383
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 110.6,
+          "remaining": 0,
+          "enemyRemaining": 0.433
+        }
+      }
+    },
+    {
+      "archetype": "mixed",
+      "name": "一三流混搭",
+      "opponent": "cavalry",
+      "enemy": "骑兵突击",
+      "terrain": "land",
+      "selected": "control",
+      "allocation": "counter",
+      "selectedTeam": [
+        {
+          "id": "person-99",
+          "type": "halberd",
+          "troops": 5600,
+          "level": 5
+        },
+        {
+          "id": "liao",
+          "type": "spear",
+          "troops": 5400,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "spear",
+          "troops": 2400,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "spear",
+          "troops": 1500,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "spear",
+          "troops": 1500,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 105.7,
+          "remaining": 0.505,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 103.7,
+          "remaining": 0.443,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 123,
+          "remaining": 0.403,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 3,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 110.7,
+          "remaining": 0.376,
+          "enemyRemaining": 0
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 2,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 179.7,
+          "remaining": 0.129,
+          "enemyRemaining": 0.103
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 1,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 275,
+          "remaining": 0.007,
+          "enemyRemaining": 0.079
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 88,
+          "remaining": 0,
+          "enemyRemaining": 0.621
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94.7,
+          "remaining": 0,
+          "enemyRemaining": 0.663
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 94,
+          "remaining": 0,
+          "enemyRemaining": 0.701
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 88.3,
+          "remaining": 0,
+          "enemyRemaining": 0.671
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 88.9,
+          "remaining": 0.509,
+          "enemyRemaining": 0
+        },
+        "designed": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 101.4,
+          "remaining": 0.52,
+          "enemyRemaining": 0
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 101.4,
+          "remaining": 0.52,
+          "enemyRemaining": 0
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 16,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 103.4,
+          "remaining": 0.472,
+          "enemyRemaining": 0
+        }
+      }
+    },
+    {
+      "archetype": "mixed",
+      "name": "一三流混搭",
+      "opponent": "ranged",
+      "enemy": "丘陵远射",
+      "terrain": "hill",
+      "selected": "compact",
+      "allocation": "counter",
+      "selectedTeam": [
+        {
+          "id": "person-99",
+          "type": "cavalry",
+          "troops": 5600,
+          "level": 5
+        },
+        {
+          "id": "liao",
+          "type": "cavalry",
+          "troops": 5400,
+          "level": 5
+        },
+        {
+          "id": "person-646",
+          "type": "cavalry",
+          "troops": 2400,
+          "level": 5
+        },
+        {
+          "id": "person-123",
+          "type": "logistics",
+          "troops": 1600,
+          "level": 5
+        },
+        {
+          "id": "person-367",
+          "type": "archer",
+          "troops": 1500,
+          "level": 5
+        },
+        {
+          "id": "person-533",
+          "type": "crossbow",
+          "troops": 1500,
+          "level": 5
+        }
+      ],
+      "training": [
+        {
+          "plan": "compact",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 2,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 156.3,
+          "remaining": 0.161,
+          "enemyRemaining": 0.081
+        },
+        {
+          "plan": "control",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 178,
+          "remaining": 0,
+          "enemyRemaining": 0.212
+        },
+        {
+          "plan": "flank",
+          "allocation": "counter",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 100.3,
+          "remaining": 0,
+          "enemyRemaining": 0.43
+        },
+        {
+          "plan": "flank",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 103.3,
+          "remaining": 0,
+          "enemyRemaining": 0.434
+        },
+        {
+          "plan": "compact",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 111.3,
+          "remaining": 0,
+          "enemyRemaining": 0.444
+        },
+        {
+          "plan": "control",
+          "allocation": "focused",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 111,
+          "remaining": 0,
+          "enemyRemaining": 0.445
+        },
+        {
+          "plan": "flank",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 79,
+          "remaining": 0,
+          "enemyRemaining": 0.607
+        },
+        {
+          "plan": "compact",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.3,
+          "remaining": 0,
+          "enemyRemaining": 0.616
+        },
+        {
+          "plan": "control",
+          "allocation": "equal",
+          "n": 3,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 80.7,
+          "remaining": 0,
+          "enemyRemaining": 0.621
+        }
+      ],
+      "modes": {
+        "default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 74.5,
+          "remaining": 0,
+          "enemyRemaining": 0.658
+        },
+        "same-team-default": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 129.2,
+          "remaining": 0,
+          "enemyRemaining": 0.308
+        },
+        "designed": {
+          "n": 16,
+          "wins": 5,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 176.8,
+          "remaining": 0.055,
+          "enemyRemaining": 0.157
+        },
+        "no-orders": {
+          "n": 16,
+          "wins": 5,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 167.4,
+          "remaining": 0.061,
+          "enemyRemaining": 0.157
+        },
+        "scattered": {
+          "n": 16,
+          "wins": 0,
+          "draws": 0,
+          "timeout": 0,
+          "ticks": 87,
+          "remaining": 0,
+          "enemyRemaining": 0.581
+        }
+      }
+    }
+  ]
+}

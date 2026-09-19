@@ -1,0 +1,1833 @@
+{
+  "variant": "actual",
+  "result": {
+    "winner": null,
+    "reason": "久战收兵"
+  },
+  "commands": [
+    {
+      "key": "regenerate",
+      "tick": 63,
+      "serial": 1
+    },
+    {
+      "key": "regenerate",
+      "tick": 144,
+      "serial": 2
+    },
+    {
+      "key": "regenerate",
+      "tick": 250,
+      "serial": 3
+    },
+    {
+      "key": "fortify",
+      "tick": 402,
+      "serial": 4
+    }
+  ],
+  "trace": [
+    {
+      "tick": 440,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 371,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 290,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1399
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 441,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 371,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 290,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "扰策",
+          "heal": 1399
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 442,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 361,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 270,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1399
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 10
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 20
+        }
+      ]
+    },
+    {
+      "tick": 443,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 361,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 270,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1399
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 444,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 361,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "救护",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-610",
+          "damage": 0,
+          "healing": 46
+        }
+      ]
+    },
+    {
+      "tick": 445,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 361,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "疾驰",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 446,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 361,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 447,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 361,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 448,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 352,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 9
+        }
+      ]
+    },
+    {
+      "tick": 449,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 352,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 450,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 352,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 451,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 352,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 316,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 452,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 342,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 300,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "伏弩",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 10
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 16
+        }
+      ]
+    },
+    {
+      "tick": 453,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 333,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 300,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 9
+        }
+      ]
+    },
+    {
+      "tick": 454,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 333,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 300,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 455,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 333,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "人中吕布",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 277,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 23
+        }
+      ]
+    },
+    {
+      "tick": 456,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 333,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 262,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 15
+        }
+      ]
+    },
+    {
+      "tick": 457,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 324,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 262,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 9
+        }
+      ]
+    },
+    {
+      "tick": 458,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 324,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 262,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 459,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 324,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 244,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 18
+        }
+      ]
+    },
+    {
+      "tick": 460,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 324,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 244,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 461,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 324,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 244,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 462,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 316,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 227,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 8
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 17
+        }
+      ]
+    },
+    {
+      "tick": 463,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 316,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 227,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 464,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 316,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 227,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 465,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 316,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 208,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 19
+        }
+      ]
+    },
+    {
+      "tick": 466,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 309,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 208,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1445
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 7
+        }
+      ]
+    },
+    {
+      "tick": 467,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 309,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "疾驰",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 208,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "扰策",
+          "heal": 1445
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 468,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 309,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "救护",
+          "heal": 1482
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-610",
+          "damage": 0,
+          "healing": 37
+        }
+      ]
+    },
+    {
+      "tick": 469,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 309,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 470,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 303,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "伏弩",
+          "heal": 1482
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 6
+        }
+      ]
+    },
+    {
+      "tick": 471,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 303,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 472,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 296,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1482
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 7
+        }
+      ]
+    },
+    {
+      "tick": 473,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 296,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 474,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 296,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 475,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 296,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 476,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 287,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 245,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1482
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 9
+        }
+      ]
+    },
+    {
+      "tick": 477,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 287,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 229,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 16
+        }
+      ]
+    },
+    {
+      "tick": 478,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 287,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 229,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 479,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 287,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 229,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1482
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 480,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 280,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2272
+        },
+        {
+          "id": "person-610",
+          "hp": 212,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1482
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 7
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 17
+        }
+      ]
+    }
+  ]
+}
+{
+  "variant": "no-single-regenerate",
+  "result": {
+    "winner": 0,
+    "reason": "击溃"
+  },
+  "commands": [
+    {
+      "key": "fortify",
+      "tick": 63,
+      "serial": 1
+    },
+    {
+      "key": "fortify",
+      "tick": 144,
+      "serial": 2
+    },
+    {
+      "key": "fortify",
+      "tick": 247,
+      "serial": 3
+    },
+    {
+      "key": "fortify",
+      "tick": 399,
+      "serial": 4
+    }
+  ],
+  "trace": [
+    {
+      "tick": 440,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 618,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 68,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1487
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 441,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 618,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 68,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "扰策",
+          "heal": 1487
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 442,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 36,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1487
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 2
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 32
+        }
+      ]
+    },
+    {
+      "tick": 443,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 36,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1487
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 444,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "救护",
+          "heal": 1557
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-610",
+          "damage": 0,
+          "healing": 70
+        }
+      ]
+    },
+    {
+      "tick": 445,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "疾驰",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 446,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 447,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 616,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 448,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1557
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 3
+        }
+      ]
+    },
+    {
+      "tick": 449,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 450,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 451,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 613,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 106,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 452,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 610,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 80,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "伏弩",
+          "heal": 1557
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 3
+        },
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 26
+        }
+      ]
+    },
+    {
+      "tick": 453,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 80,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1557
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 3
+        }
+      ]
+    },
+    {
+      "tick": 454,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 80,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 455,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "人中吕布",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 43,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 37
+        }
+      ]
+    },
+    {
+      "tick": 456,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 607,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 15,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 28
+        }
+      ]
+    },
+    {
+      "tick": 457,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 606,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 15,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "攻击吕布",
+          "heal": 1557
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-610",
+          "to": "person-661",
+          "damage": 1
+        }
+      ]
+    },
+    {
+      "tick": 458,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 606,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "重整攻势",
+          "heal": 2419
+        },
+        {
+          "id": "person-610",
+          "hp": 15,
+          "xy": [
+            9,
+            3
+          ],
+          "action": "重整攻势",
+          "heal": 1557
+        }
+      ],
+      "effects": []
+    },
+    {
+      "tick": 459,
+      "units": [
+        {
+          "id": "person-661",
+          "hp": 606,
+          "xy": [
+            9,
+            4
+          ],
+          "action": "攻击李典",
+          "heal": 2419
+        }
+      ],
+      "effects": [
+        {
+          "from": "person-661",
+          "to": "person-610",
+          "damage": 15
+        }
+      ]
+    }
+  ]
+}

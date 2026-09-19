@@ -1,0 +1,12 @@
+✔ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (150.741ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (38.8923ms)
+✔ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (548.4961ms)
+✔ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (345.4068ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1046.0948

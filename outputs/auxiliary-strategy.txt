@@ -1,0 +1,53 @@
+✔ campaign begins in day-one planning with cities, homes and at most ten units (8.2416ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (139.2129ms)
+✔ armies move visibly along road interiors before arriving (2.8107ms)
+✔ head-on marching armies meet on the road without passing through each other (7.3031ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (79.2165ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (158.0815ms)
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (146.274ms)
+✔ multiple battles and their snapshots share the same global day (70.3046ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (41.0351ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (494.9817ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (66.6028ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (72.0784ms)
+✔ governors must stay at home; relief is limited and assigned officials cannot join armies (2.3874ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (1.7331ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (0.6561ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (1.6329ms)
+✔ supply connection is cut by hostile road occupation (0.4027ms)
+✔ five days without food disband armies and preserve officers for their return (3.0066ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (45.7304ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (142.8662ms)
+✔ city capture settles once and can be saved immediately within a day (63.3907ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (37.5568ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 21
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1705.0677
+
+✖ failing tests:
+
+test at tests\strategic-campaign.test.mjs:51:1
+✖ a real prolonged battle crosses three planning boundaries and ends on its thirtieth day (146.274ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/strategic-campaign.test.mjs:55:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

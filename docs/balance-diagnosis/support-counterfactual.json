@@ -1,0 +1,366 @@
+{
+  "experimental": true,
+  "description": "仅本进程禁用骑兵supportAnchor停步策应；不是正式游戏配置",
+  "sourceHash": "762422647ecc2c2ad3d9c5978035a0a2860d8201bd5f6d62089d6d80b4383fc8",
+  "summary": [
+    {
+      "id": "person-661",
+      "n": 8,
+      "wins": 8,
+      "meanSupportTicks": 0,
+      "meanRemaining": 0.3534305555555555
+    },
+    {
+      "id": "person-396",
+      "n": 8,
+      "wins": 8,
+      "meanSupportTicks": 0,
+      "meanRemaining": 0.5870000000000001
+    },
+    {
+      "id": "person-99",
+      "n": 8,
+      "wins": 8,
+      "meanSupportTicks": 0,
+      "meanRemaining": 0.5348472222222223
+    }
+  ],
+  "runs": [
+    {
+      "id": "person-661",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 237,
+      "active": 237,
+      "supporting": 0,
+      "casts": {
+        "gallop": 11,
+        "relay": 9,
+        "unique-person-661": 6
+      },
+      "remaining": 0.3287777777777778
+    },
+    {
+      "id": "person-661",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 209,
+      "active": 209,
+      "supporting": 0,
+      "casts": {
+        "gallop": 10,
+        "relay": 8,
+        "unique-person-661": 6
+      },
+      "remaining": 0.39411111111111113
+    },
+    {
+      "id": "person-661",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 234,
+      "active": 234,
+      "supporting": 0,
+      "casts": {
+        "gallop": 11,
+        "relay": 9,
+        "unique-person-661": 6
+      },
+      "remaining": 0.3492222222222222
+    },
+    {
+      "id": "person-661",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 209,
+      "active": 209,
+      "supporting": 0,
+      "casts": {
+        "gallop": 10,
+        "relay": 8,
+        "unique-person-661": 6
+      },
+      "remaining": 0.3958888888888889
+    },
+    {
+      "id": "person-661",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 234,
+      "active": 234,
+      "supporting": 0,
+      "casts": {
+        "gallop": 11,
+        "relay": 9,
+        "unique-person-661": 6
+      },
+      "remaining": 0.3367777777777778
+    },
+    {
+      "id": "person-661",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 215,
+      "active": 215,
+      "supporting": 0,
+      "casts": {
+        "gallop": 10,
+        "relay": 8,
+        "unique-person-661": 6
+      },
+      "remaining": 0.383
+    },
+    {
+      "id": "person-661",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 237,
+      "active": 237,
+      "supporting": 0,
+      "casts": {
+        "gallop": 11,
+        "relay": 9,
+        "unique-person-661": 6
+      },
+      "remaining": 0.3234444444444444
+    },
+    {
+      "id": "person-661",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 237,
+      "active": 237,
+      "supporting": 0,
+      "casts": {
+        "gallop": 11,
+        "relay": 9,
+        "unique-person-661": 6
+      },
+      "remaining": 0.31622222222222224
+    },
+    {
+      "id": "person-396",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 145,
+      "active": 145,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 6
+      },
+      "remaining": 0.5782222222222222
+    },
+    {
+      "id": "person-396",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 144,
+      "active": 144,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 5
+      },
+      "remaining": 0.5852222222222222
+    },
+    {
+      "id": "person-396",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 145,
+      "active": 145,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 6
+      },
+      "remaining": 0.5794444444444444
+    },
+    {
+      "id": "person-396",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 144,
+      "active": 144,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 5
+      },
+      "remaining": 0.5892222222222222
+    },
+    {
+      "id": "person-396",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 145,
+      "active": 145,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 6
+      },
+      "remaining": 0.5738888888888889
+    },
+    {
+      "id": "person-396",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 145,
+      "active": 145,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 6
+      },
+      "remaining": 0.5787777777777777
+    },
+    {
+      "id": "person-396",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 142,
+      "active": 142,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 5
+      },
+      "remaining": 0.6028888888888889
+    },
+    {
+      "id": "person-396",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 141,
+      "active": 141,
+      "supporting": 0,
+      "casts": {
+        "gallop": 6,
+        "relay": 6,
+        "unique-person-396": 5
+      },
+      "remaining": 0.6083333333333333
+    },
+    {
+      "id": "person-99",
+      "seed": 12100000,
+      "winner": 0,
+      "ticks": 160,
+      "active": 160,
+      "supporting": 0,
+      "casts": {
+        "gallop": 8,
+        "relay": 6,
+        "unique-person-99": 6
+      },
+      "remaining": 0.5447777777777778
+    },
+    {
+      "id": "person-99",
+      "seed": 12204729,
+      "winner": 0,
+      "ticks": 167,
+      "active": 167,
+      "supporting": 0,
+      "casts": {
+        "gallop": 8,
+        "relay": 7,
+        "unique-person-99": 6
+      },
+      "remaining": 0.5228888888888888
+    },
+    {
+      "id": "person-99",
+      "seed": 12309458,
+      "winner": 0,
+      "ticks": 167,
+      "active": 167,
+      "supporting": 0,
+      "casts": {
+        "gallop": 8,
+        "relay": 7,
+        "unique-person-99": 6
+      },
+      "remaining": 0.5245555555555556
+    },
+    {
+      "id": "person-99",
+      "seed": 12414187,
+      "winner": 0,
+      "ticks": 173,
+      "active": 173,
+      "supporting": 0,
+      "casts": {
+        "gallop": 8,
+        "relay": 7,
+        "unique-person-99": 6
+      },
+      "remaining": 0.5093333333333333
+    },
+    {
+      "id": "person-99",
+      "seed": 12518916,
+      "winner": 0,
+      "ticks": 166,
+      "active": 166,
+      "supporting": 0,
+      "casts": {
+        "gallop": 8,
+        "relay": 7,
+        "unique-person-99": 6
+      },
+      "remaining": 0.5198888888888888
+    },
+    {
+      "id": "person-99",
+      "seed": 12623645,
+      "winner": 0,
+      "ticks": 144,
+      "active": 144,
+      "supporting": 0,
+      "casts": {
+        "gallop": 7,
+        "relay": 6,
+        "unique-person-99": 5
+      },
+      "remaining": 0.5723333333333334
+    },
+    {
+      "id": "person-99",
+      "seed": 12728374,
+      "winner": 0,
+      "ticks": 148,
+      "active": 148,
+      "supporting": 0,
+      "casts": {
+        "gallop": 7,
+        "relay": 6,
+        "unique-person-99": 5
+      },
+      "remaining": 0.5557777777777778
+    },
+    {
+      "id": "person-99",
+      "seed": 12833103,
+      "winner": 0,
+      "ticks": 160,
+      "active": 160,
+      "supporting": 0,
+      "casts": {
+        "gallop": 8,
+        "relay": 6,
+        "unique-person-99": 6
+      },
+      "remaining": 0.5292222222222223
+    }
+  ]
+}

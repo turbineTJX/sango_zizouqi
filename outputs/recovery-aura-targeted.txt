@@ -1,0 +1,38 @@
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (15.156ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (3.2964ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (446.0988ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (2.1951ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (395.458ms)
+✔ tower: repair uses earned intent, reports durability and resumes exactly (390.6853ms)
+✔ supply-depot: repair uses earned intent, reports durability and resumes exactly (364.4615ms)
+✔ future-building: repair uses earned intent, reports durability and resumes exactly (353.7106ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (196.1842ms)
+✖ generic building records reject corrupt kinds, ownership, durability and duplicate positions (6.1375ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2295.9436
+
+✖ failing tests:
+
+test at tests\auxiliary.test.mjs:112:1
+✖ generic building records reject corrupt kinds, ownership, durability and duplicate positions (6.1375ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi/tests/auxiliary.test.mjs:117:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

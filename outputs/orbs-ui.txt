@@ -1,0 +1,1 @@
+PASS: source skill and 3→2 charge display, mobile details, real enchanted attack playback without cut-ins, zero browser errors.
