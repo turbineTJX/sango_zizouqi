@@ -30,7 +30,7 @@ for(const id of ['person-661','person-396','person-99'])for(const mode of ['supp
  sample(`auxiliary/${id}/${mode}`,c);
 }
 for(const [id,type] of [['liao','cavalry'],['chu','spear'],['jia','crossbow']]){
- sample(`exclusive/${id}`,{draft:{terrain:'land',ownTeam:[unit(id,type),unit('person-46','spear'),unit('person-123','logistics')],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]},options:{controller:'player',hero:id}});
+ sample(`exclusive/${id}`,{draft:{terrain:'land',ownTeam:[unit(id,type),unit('person-46','spear'),unit('person-123','halberd')],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]},options:{controller:'player',hero:id}});
 }
 assert.deepEqual(hash(),hashes);
 const out=new URL(`../docs/balance-objectives/roles-${stage}/`,import.meta.url);mkdirSync(out,{recursive:true});

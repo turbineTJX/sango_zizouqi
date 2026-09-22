@@ -1,3 +1,4 @@
+import {fieldFromCity} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NATIONAL_SCENARIOS,nationalWorld,nationalRoster} from '../national-scenarios.mjs';
@@ -8,19 +9,20 @@ for(const spec of NATIONAL_SCENARIOS){
  test(`${spec.name}: connected national map, valid unique officers and reproducible saves`,()=>{
   const s=newCampaign(203,spec.id);assert.equal(s.cities.length,87);assert.deepEqual(['city','gate','port'].map(k=>s.cities.filter(c=>c.kind===k).length),[42,10,35]);
   for(const c of s.cities)assert.ok(findCampaignRoute(s,'xuchang',c.id),c.name);
-  assert.ok(s.armies.length>15);const first=serializeCampaign(s);assert.equal(serializeCampaign(restored(s)),first);
-  const ids=[...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)];assert.equal(ids.length,new Set(ids).size);
-  const a=s.armies.find(a=>a.location==='xuchang'&&a.faction==='cao');assert.ok(a.units.some(u=>u.id==='cao'));assert.equal(splitCampaignArmy(s,a.id,[a.units[1].id]),null,'national army count must not block splitting');restored(s);
+  assert.equal(s.armies.length,0);assert.ok(s.cities.filter(c=>c.units.length).length>15);const first=serializeCampaign(s);assert.equal(serializeCampaign(restored(s)),first);
+  const ids=[...s.cities.flatMap(c=>c.units.map(u=>u.id)),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)];assert.equal(ids.length,new Set(ids).size);
+  const a=fieldFromCity(s,'xuchang');assert.ok(a.units.some(u=>u.id==='cao'));assert.equal(splitCampaignArmy(s,a.id,[a.units[1].id]),null,'national army count must not block splitting');restored(s);
  });
  test(`${spec.name}: real multi-front combat survives daily serialization and deterministic continuation`,()=>{
   const s=newCampaign(217,spec.id);toDay(s,6);restored(s);
-  const copy=restored(s);toDay(s,11);toDay(copy,11);assert.ok(s.campaign.battles.length>0);assert.equal(serializeCampaign(copy),serializeCampaign(s));restored(s);
+  // Field junctions change travel and assembly times; observe five turns of real warfare.
+  const copy=restored(s);toDay(s,51);toDay(copy,51);assert.ok(s.campaign.battles.length>0);assert.equal(serializeCampaign(copy),serializeCampaign(s));restored(s);
   assert.ok(s.campaign.battles.some(b=>b.battle.sides.every(side=>side.faction!=='cao')),'AI forces fight each other');
   for(const b of s.campaign.battles){const live=b.battle.sides.map(side=>side.faction);assert.notEqual(...live);for(const side of b.battle.sides)for(const u of side.units)assert.equal(b.armies.find(a=>a.id===u.armyId)?.faction,side.faction);}
  });
 }
 test('map includes mandatory passes and long routes beyond the former nine-node limit',()=>{
- const s=newCampaign(1,'guandu-200');const path=findCampaignRoute(s,'town-1','town-42');assert.ok(path.length>9);const a=s.armies.find(a=>a.faction==='cao');a.location='town-1';assert.equal(orderCampaignArmy(s,a.id,'town-42'),null);restored(s);
+ const s=newCampaign(1,'guandu-200');const path=findCampaignRoute(s,'town-1','town-42');assert.ok(path.length>9);const a=fieldFromCity(s,'xuchang');a.location='town-1';assert.equal(orderCampaignArmy(s,a.id,'town-42'),null);restored(s);
  assert.ok(!s.roads.some(([a,b])=>[a,b].includes('town-18')&&[a,b].includes('luoyang')),'Tong gate cannot be bypassed by the removed direct road');
 });
 test('scenario identity, topology, and town coordinates are validated',()=>{

@@ -13,7 +13,7 @@ for(const config of HISTORICAL_CAMPAIGNS)test(`${config.name}: historical roster
     assert.deepEqual(new Set(b.sides[side].units.map(u=>u.id)),new Set(entries.map(u=>u.id)));
     for(const u of b.sides[side].units){assert.equal(u.type,entries.find(e=>e.id===u.id).type);assert.ok(canOccupy(b,u,u.x,u.y));}
   }
-  assert.ok(battleStratagems(b).length>=3,'every playable commander offers decisions');
+  assert.ok(battleStratagems(b).length>=1&&battleStratagems(b).length<=5,'limited repertoire follows appointed commanders');
   assert.equal(b.commandProgress,0);
   assert.ok(issueCommand(b,battleStratagems(b)[0]),'commands must not bypass deployment or resource costs');
   lockDeployment(b);

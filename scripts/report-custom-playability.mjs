@@ -24,7 +24,7 @@ for(const p of final.players){
  if(o.id==='balanced')continue;
  // Legal opportunity-cost comparisons: same soldiers, level and six slots.
  // Replacing a troop/general changes its stats and repertoire by design.
- const variants=[{id:'auxiliary-to-spear',name:'辅兵改枪兵',team:p.selectedTeam.map(u=>({...u,type:u.type==='logistics'?'spear':u.type}))}];
+ const variants=[{id:'auxiliary-to-spear',name:'辅兵改枪兵',team:p.selectedTeam.map(u=>({...u,type:u.type==='halberd'?'spear':u.type}))}];
  if(p.archetype!=='cooperation')variants.push({id:'ordinary-core',name:p.archetype==='carry'?'赵云换陈到':'关羽张辽换陈到周仓',team:p.selectedTeam.map((u,i)=>({...u,id:i===0?'person-457':p.archetype==='mixed'&&i===1?'person-242':u.id}))});
  for(const v of variants){
   const samples=final.seeds.map((seed,i)=>fight({...draft,seed,ownTeam:v.team},{plan:p.selected,resume:i===0}));

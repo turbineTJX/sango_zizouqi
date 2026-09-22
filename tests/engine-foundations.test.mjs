@@ -19,26 +19,26 @@ test('自定义战役双方使用相同战略姿态，自动军师补充已有�
  for(const [state,i] of [[s,0],[reverse,1]]){
   const army=state.armies[i];
   assert.ok(state.armies.every(a=>a.tactic==='balanced'));assert.ok(state.battle.sides.every(a=>a.tactic==='balanced'));
-  assert.equal(army.advisor,'liao');assert.deepEqual(battleStratagems(state.battle,i),['haste','cycle','range']);
+  assert.equal(army.advisor,'person-512');assert.deepEqual(battleStratagems(state.battle,i),['assault','inspire','disrupt','cleanse']);
  }
  const a=unitAttributes(b.sides[0].units[0],b),z=unitAttributes(reverse.battle.sides[1].units[0],reverse.battle);
  assert.equal(a.attack,z.attack);assert.equal(a.defense,z.defense);
- const snapshot=structuredClone(s.armies[0]);assert.equal(chooseArmyAdvisor(s.armies[0]),'liao');assert.deepEqual(s.armies[0],snapshot);
+ const snapshot=structuredClone(s.armies[0]);assert.equal(chooseArmyAdvisor(s.armies[0]),'person-512');assert.deepEqual(s.armies[0],snapshot);
  const noCommands=make([unit('person-99','cavalry'),unit('person-512','crossbow')],ordinary);
- assert.equal(noCommands.armies[0].advisor,'person-512');assert.deepEqual(battleStratagems(noCommands.battle),[]);
- assert.equal(createScenario('field',123).battle.sides[1].tactic,'aggressive','历史/战略场景的姿态保持原设定');
+ assert.equal(noCommands.armies[0].advisor,'person-512');assert.deepEqual(battleStratagems(noCommands.battle),['assault','inspire','disrupt','cleanse']);
+ assert.equal(createScenario('field',123).battle.sides[1].tactic,'balanced','预设也使用生成器中明确指定的战略姿态');
 });
 
 test('非均分兵力改变主辅判断，但不重抽或更换已学战法',()=>{
- for(const team of [[unit('person-396','cavalry',6000),unit('person-646','spear',500),unit('person-242','halberd',500)],[unit('jin','spear',100),unit('person-646','spear',3000),unit('yuanxia','archer',1500)]]){
+ for(const team of [[unit('person-396','cavalry',6000),unit('person-646','spear',1000),unit('person-242','halberd',1000)],[unit('jin','spear',1000),unit('person-646','spear',3000),unit('yuanxia','archer',1500)]]){
   const b=make(ordinary,team).battle;for(const u of b.sides[1].units)assert.deepEqual(u.tactics,learnedTacticIds(u));
  }
 });
 
-test('辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数',()=>{
- const s=make(ordinary,[unit('person-396','cavalry',6000),unit('person-641','spear',500),unit('person-123','logistics',500)]),b=s.battle;
+test('持协阵特性的武将围绕实际主力布阵并覆盖光环，不凭空改变战意或随机数',()=>{
+ const s=make(ordinary,[unit('person-396','cavalry',6000),unit('person-641','spear',1000),unit('person-123','halberd',1000)]),b=s.battle;
  const own=structuredClone(b.sides[0]),seed=b.seed,core=b.sides[1].units[0],aux=b.sides[1].units[2];
- assert.ok(hexDistance(core,aux)<=1);if(aux.tactics.includes('passage'))assert.equal(formationAura(b,core)?.source.id,aux.id);else assert.equal(formationAura(b,core),null);
+ assert.ok(hexDistance(core,aux)<=1);assert.equal(formationAura(b,core)?.source.id,aux.id);
  assert.ok(aux.x>=core.x,'辅助不挡在主力前面');
  const snapshot=structuredClone(b);planEnemyArmy(b);assert.deepEqual(b,snapshot);
  assert.deepEqual(b.sides[0],own);assert.equal(b.seed,seed);assert.ok(b.sides[1].units.every(u=>u.intent===0));
@@ -46,7 +46,7 @@ test('辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或�
 });
 
 test('骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排',()=>{
- const enemy=[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','logistics',1500)];
+ const enemy=[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','halberd',1500)];
  const s=make([unit('jin','spear',3000)],enemy),b=s.battle,foe=b.sides[0].units[0];
  foe.x=4;foe.y=0;planEnemyArmy(b);assert.ok(b.sides[1].units[0].y>=6,'避开上翼枪阵');
  foe.y=7;planEnemyArmy(b);assert.ok(b.sides[1].units[0].y<=1,'避开下翼枪阵');
@@ -56,7 +56,7 @@ test('骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排',()=
 
 test('非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战',()=>{
  for(const terrain of ['land','forest','hill','marsh','river']){
-  const enemy=[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','logistics',1500)];
+  const enemy=[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','halberd',1500)];
   const s=make(ordinary,enemy,terrain),b=s.battle;lockDeployment(b);let resumed;
   while(!b.result){
    stepBattle(b);if(resumed)stepBattle(resumed.battle);

@@ -1,4 +1,8 @@
-import {NATIONAL_MAP} from './data/national-map.mjs';
+import {buildRoadNetwork} from './road-network.mjs';
+import {NATIONAL_MAP as MAP_SOURCE} from './data/national-map.mjs';
+import {CITY_DESIGNS} from './data/design/cities.mjs';
+import {NATIONAL_ROAD_DESIGNS} from './data/design/roads.mjs';
+const NATIONAL_MAP={...MAP_SOURCE,cities:CITY_DESIGNS,roads:NATIONAL_ROAD_DESIGNS};
 import {OFFICER_CATALOG} from './officer-catalog.mjs';
 
 export const NATIONAL_FACTIONS={...NATIONAL_MAP.forces,sunce:{name:'孙策',short:'孙',color:'#ac7a35',leaderSourceId:OFFICER_CATALOG.find(u=>u.name==='孙策').sourceId},liuzhang:{name:'刘璋',short:'刘',color:'#667743'}};
@@ -7,6 +11,15 @@ export const NATIONAL_SCENARIOS=Object.freeze([
  {id:'heroes-251',name:'英雄集结',year:251,era:'群英并起',difficulty:'群雄混战',capital:'xuchang',description:'曹操居中原，袁绍据河北，刘备领巴蜀荆襄，孙策控江东。四方群英同世，争夺关津与天下。',hint:'四方均有腹地与前线，先守住关隘和粮道，再集中军团突破。',factions:['cao','yuan','force-2','sunce'],note:'四势力架空试玩；参考项目人物按区域归并，不限制生卒年。'},
 ]);
 export const nationalScenario=id=>NATIONAL_SCENARIOS.find(s=>s.id===id);
+// Talent uses catalogue dates only in historical campaigns. No fabricated dates
+// or locations are assigned to the timeless heroes scenario.
+export function talentScenarioEntry(id,u,cities){
+ const spec=nationalScenario(id),historical=spec&&id!=='heroes-251';
+ const year=historical?Math.max(spec.year,(u.birthYear||spec.year-16)+16,u.profileSource?.yearAvailable||spec.year):null;
+ const earliestTurn=year===null?null:Math.max(0,(year-spec.year)*36);
+ const source=u.profileSource?.BelongCity,city=cities.find(c=>c.sourceId===source&&c.kind==='city');
+ return {autoEligible:u.sourceKind==='common'&&u.profileSource.description>0,activityCityIds:city?[city.id]:[],earliestTurn,latestTurn:earliestTurn};
+}
 const key=n=>NATIONAL_MAP.cities.find(c=>c.sourceId===n).id;
 const guanduOwners={};
 for(const [owner,ids] of Object.entries({cao:[8,9,10,11,12,13,14,16,17,18],yuan:[2,3,4,5,6,7],'force-13':[1],'force-2':[15],'force-4':[20,21,22],sunce:[23,24,25,26,27],'force-7':[19,28,29,30,31,32,33,34,35],liuzhang:[36,38,39,40,41,42],'force-10':[37]}))for(const id of ids)guanduOwners[key(id)]=owner;
@@ -18,14 +31,22 @@ export function nationalWorld(id){
  const cities=NATIONAL_MAP.cities.map(c=>({...c,water:c.kind==='port'||[9,11,23,24,25,26,27,28,30,31,32,33,34,35,36,39].includes(c.sourceId),garrison:0}));
  const owners=id==='guandu-200'?guanduOwners:heroOwners,allowed=nationalScenario(id).factions;
  for(const c of cities){const parent=NATIONAL_MAP.portParents[c.id]||(gateParents[c.sourceId]?key(gateParents[c.sourceId]):null),owner=owners[c.id]||owners[parent];c.owner=allowed.includes(owner)?owner:'neutral';}
- return {cities,roads:structuredClone(NATIONAL_MAP.roads)};
+ return {cities,...buildRoadNetwork(cities,NATIONAL_MAP.roads)};
 }
 // Explicit opening rosters take precedence over the timeless reference roster.
 const opening={cao:['曹操','夏侯惇','夏侯渊','许褚','张辽','于禁','乐进','徐晃','李典','曹仁','曹洪','郭嘉','荀彧','荀攸','程昱','满宠','陈群'],yuan:['袁绍','颜良','文丑','张郃','高览','沮授','田丰','审配','逢纪','许攸','袁谭','袁尚','袁熙'],'force-2':['刘备','关羽','张飞','赵云','孙乾','简雍','糜竺'],'force-4':['马腾','马超','马岱','庞德','韩遂'],sunce:['孙策','孙权','周瑜','鲁肃','程普','黄盖','韩当','周泰','蒋钦','太史慈','张昭','张纮'],'force-7':['刘表','黄忠','魏延','文聘','黄祖','蔡瑁','蒯良','蒯越','韩玄','刘琦','刘琮'],liuzhang:['刘璋','张任','严颜','法正','黄权','刘巴','吴懿','李严'],'force-10':['张鲁','张卫','阎圃','杨松'],'force-13':['公孙度','公孙康']};
+// Additional adult officers available to these forces in the 200-era playable roster.
+// Named placements avoid moving future recruits or unrelated catalogue characters en masse.
+const openingExpansion={
+ cao:['贾诩','张绣','董昭','毛玠','刘晔','杜畿','国渊','朱灵','吕虔','李通','陈矫','袁涣','王忠','温恢','贾逵','吴质','徐邈','张既','杨修','刘馥','梁习','娄圭'],
+ yuan:['崔琰','牵招','郭援','焦触','张南','李孚'],
+ sunce:['顾雍','日骘','吕范','吕岱','陈武','董袭','贺齐','宋谦','朱桓','张承','严畯','程秉','潘璋'],
+ 'force-7':['伊籍','王粲','王威','韩嵩','桓阶','傅巽','苏飞','向朗','霍峻','潘濬']
+};
 export function nationalRoster(id,cities){
  const common=OFFICER_CATALOG.filter(u=>u.sourceKind==='common'),bySource=new Map(common.map(u=>[u.sourceId,u]));
  const placed=new Map(),capital={cao:'xuchang',yuan:'ye','force-2':key(15),'force-4':key(22),sunce:key(23),'force-7':key(30),liuzhang:key(40),'force-10':key(37),'force-13':key(1)};
- if(id==='guandu-200')for(const [faction,names]of Object.entries(opening).filter(([f])=>nationalScenario(id).factions.includes(f)))for(const name of names){const u=common.find(u=>u.name===name||u.aliases.includes(name));if(u)placed.set(u.id,{id:u.id,faction,cityId:capital[faction]});}
+ if(id==='guandu-200')for(const [faction,names]of Object.entries(opening).filter(([f])=>nationalScenario(id).factions.includes(f)))for(const name of [...names,...(openingExpansion[faction]||[])]){const u=common.find(u=>u.name===name||u.aliases.includes(name));if(u)placed.set(u.id,{id:u.id,faction,cityId:capital[faction]});}
  const sourceFaction={...Object.fromEntries(['force-9','force-11','force-16','force-17','force-18','force-19','force-20','force-29','force-30','force-41'].map(f=>[f,'cao'])),'force-3':'sunce','force-23':'sunce','force-24':'sunce','force-25':'sunce','force-5':'liuzhang','force-28':'liuzhang','force-39':'liuzhang','force-40':'liuzhang','force-32':'force-7','force-33':'force-7','force-34':'force-7','force-35':'force-7','force-12':'yuan','force-14':'yuan','force-15':'yuan','force-21':'yuan','force-42':'force-4'};
  for(const p of NATIONAL_MAP.people){const u=bySource.get(p.sourceId);if(!u||placed.has(u.id))continue;
   if(id==='guandu-200'&&((u.birthYear&&u.birthYear>184)||(u.deathYear&&u.deathYear<200)))continue;

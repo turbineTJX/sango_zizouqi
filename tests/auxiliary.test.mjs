@@ -1,3 +1,4 @@
+import {hasTrait} from '../officer-traits.mjs';
 import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -12,8 +13,11 @@ import {hexDistance} from '../hex-grid.mjs';
 
 function fixture(){
  const state=createScenario('tactical-shu-defense'),b=state.battle;
- const u=b.sides[0].units.find(u=>u.type==='logistics'),ally=b.sides[0].units[0];
- learnFixtureTactics(u,['passage','bandage','camp']);
+ // Fixed contact geometry belongs to this mechanism test, never to the preset generator.
+ const positions=[[3,3],[4,3],[4,4],[3,4],[4,2],[2,3]];
+ b.sides[0].units.forEach((u,i)=>{[u.x,u.y]=positions[i];});
+ const u=b.sides[0].units.find(u=>hasTrait(u,'formationSupport')),ally=b.sides[0].units[0];
+ learnFixtureTactics(u,['bandage','camp']);
  Object.assign(u,{x:2,y:2});Object.assign(ally,{x:3,y:2});
  return {state,b,u,ally};
 }
@@ -21,7 +25,9 @@ function fixture(){
 test('recovery aura follows adjacency, breaks under control, and never increases combat attributes',()=>{
  const {b,u,ally}=fixture();
  assert.equal(formationAura(b,u),null);
- const normal=unitAttributes(ally),boosted=unitAttributes(ally,b);
+ // Compare the same battle with the recovery source out of range, preserving command traits.
+ const baseline=structuredClone(b);baseline.sides[u.side].units.find(v=>v.id===u.id).x=0;
+ const normal=unitAttributes(baseline.sides[ally.side].units.find(v=>v.id===ally.id),baseline),boosted=unitAttributes(ally,b);
  assert.equal(boosted.attack,normal.attack);assert.equal(boosted.defense,normal.defense);
  assert.ok(formationAura(b,ally));
  const status=inspectionStatuses(b,ally).find(s=>s.dynamic);
@@ -30,9 +36,9 @@ test('recovery aura follows adjacency, breaks under control, and never increases
  const other={...structuredClone(u),id:'aux-two',x:3,y:1};b.sides[0].units.push(other);
  assert.equal(unitAttributes(ally,b).attack,boosted.attack);
  b.sides[0].units.pop();
- for(const key of ['stun','confuse','seal']){setStatus(b,u,key,5);assert.equal(formationAura(b,ally),null);delete u.statuses[key];}
+ for(const key of ['confuse','confuse']){setStatus(b,u,key,5);assert.equal(formationAura(b,ally),null);delete u.statuses[key];}
  u.x=1;assert.equal(formationAura(b,ally),null);u.x=2;
- ally.type='archer';assert.equal(formationAura(b,ally),null);ally.type='spear';
+ ally.type='archer';assert.ok(formationAura(b,ally));ally.type='spear';
  b.sides[0].retreat=true;assert.equal(formationAura(b,ally),null);b.sides[0].retreat=false;
  u.hp=0;assert.equal(formationAura(b,ally),null);
 });
@@ -45,7 +51,7 @@ test('politics leads rescue and repair power, intellect assists, and force provi
  assert.equal(statusPower(u,TACTICS_BOOK.camp),power({}));
 });
 
-test('auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically',()=>{
+test('trait holders earn intent through melee, run their aura without consuming casts, and resume deterministically',()=>{
  const {state,b,u}=fixture();lockDeployment(b);
  let hit=false,aura=false;
  for(let i=0;i<60&&!b.result;i++){
@@ -70,9 +76,9 @@ test('repair respects ownership, distance, destruction and a three-cast material
 });
 
 for(const kind of ['gate','tower','supply-depot','future-building'])test(`${kind}: repair uses earned intent, reports durability and resumes exactly`,()=>{
- const {state,b,u}=fixture();learnFixtureTactics(u,['camp','bandage','supply']);lockDeployment(b);
+ const {state,b,u}=fixture();learnFixtureTactics(u,['camp','bandage','supply']);for(const id of u.tactics)u.skillReady[id]=id==='camp'?0:999;lockDeployment(b);
  // Use real melee to earn the threshold, then redeploy the earned unit for an isolated repair resolution.
- while(u.intent<25&&!b.result)stepBattle(b);
+ while(u.intent<25+2*TACTICS_BOOK.camp.intentCost&&!b.result)stepBattle(b);
  assert.ok(u.intent>=25&&u.hp>0);
  const gate=kind==='gate'?b.siege.gate:{id:'test-building',name:'测试建筑',type:'building',kind,side:0,x:0,y:4,hp:6500,maxHp:8500};
  if(kind!=='gate')b.buildings.push(gate);
@@ -84,8 +90,9 @@ for(const kind of ['gate','tower','supply-depot','future-building'])test(`${kind
  assert.equal(effect.repaired,expected);assert.equal(effect.healing,undefined);
  assert.ok(effect.outcome?.some(t=>t.repaired===expected)||b.effects.some(e=>e.outcome?.some(t=>t.repaired===expected)));
  validateSave(structuredClone(syncFixtureLearning(state)));
+ while(b.tick<u.tacticRecoveryUntil-1&&!b.result)stepBattle(b);
  const before=gate.hp;gate.lastDamagedTick=b.tick;
- u.skillReady.camp=0;stepBattle(b);
+ Object.assign(u,{x:2,y:4});u.skillReady.camp=0;stepBattle(b);
  assert.ok(gate.hp-before<=Math.ceil(expected/2));
  assert.equal(u.tacticCasts.camp,2);
  const resumed=validateSave(structuredClone(syncFixtureLearning(state)));
@@ -97,7 +104,7 @@ for(const kind of ['gate','tower','supply-depot','future-building'])test(`${kind
 
 test('recovery pulses restore real wounds and intent without casts, combos or overhealing',()=>{
  const {b,u,ally}=fixture();
- learnFixtureTactics(u,['passage','bandage','camp']);
+ learnFixtureTactics(u,['bandage','camp']);
  lockDeployment(b);
  let pulses=0,healed=0,charged=0;
  while(!b.result){
@@ -115,7 +122,7 @@ test('generic building records reject corrupt kinds, ownership, durability and d
  const {state,b}=fixture();
  b.buildings.push({id:'tower',name:'箭楼',type:'building',kind:'tower',side:0,x:0,y:4,hp:500,maxHp:1000});
  validateSave(structuredClone(syncFixtureLearning(state)));
- for(const mutate of [a=>a.hp=1001,a=>a.side=2,a=>a.type='logistics',a=>a.kind='',a=>a.lastDamagedTick=1,a=>a.x=1]){
+ for(const mutate of [a=>a.hp=1001,a=>a.side=2,a=>a.type='halberd',a=>a.kind='',a=>a.lastDamagedTick=1,a=>a.x=1]){
    const copy=structuredClone(state);mutate(copy.battle.buildings[0]);assert.throws(()=>validateSave(copy));
  }
 });

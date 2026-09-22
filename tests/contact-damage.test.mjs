@@ -10,7 +10,7 @@ function scene(count=3,type='spear'){
   const state=createScenario('field',83),b=state.battle;lockDeployment(b);
   const u=b.sides[0].units[0],template=b.sides[1].units[0];
   Object.assign(u,{type,level:1,x:6,y:3,cooldown:0,intent:0,statuses:{},morale:50});
-  const targets=hexNeighbors(u).slice(0,count).map(([x,y],i)=>({...structuredClone(template),id:template.id+'-'+i,name:'敌军'+i,type:'spear',level:1,x,y,cooldown:999,intent:0,statuses:{phalanx:{until:999}},morale:50}));
+  const targets=hexNeighbors(u).slice(0,count).map(([x,y],i)=>({...structuredClone(template),id:template.id+'-'+i,name:'敌军'+i,type:'spear',skillRouteType:'domestic',level:1,x,y,cooldown:999,intent:0,statuses:{phalanx:{until:999}},morale:50}));
   b.sides[0].units=[u];b.sides[1].units=targets;
   for(const v of [u,...targets]){configureTactics(v,roleTacticIds(v,'assault'));v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));}
   return {state,b,u,targets};

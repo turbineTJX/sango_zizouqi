@@ -23,19 +23,19 @@ test('enemy harmful order marks our affected units and failed commands never cre
  assert.equal(v.orders[0].targetSide,0);assert.ok(v.units.filter(u=>u.side===0).every(u=>u.statuses.some(s=>s.key==='disruptUntil')));
 });
 test('head markers follow current state, expire and cleanse immediately; army range only applies to bow troops',()=>{
- const b=combat(),u=b.sides[0].units[0];setStatus(b,u,'stun',2);setStatus(b,u,'burn',4,{amount:5});setStatus(b,u,'shield',5,{amount:100});
+ const b=combat(),u=b.sides[0].units[0];setStatus(b,u,'confuse',2);setStatus(b,u,'burn',4,{amount:5});setStatus(b,u,'shield',5,{amount:100});
  b.sides[0].rangeUntil=10;b.sides[0].assaultUntil=10;
- assert.equal(battlefieldStatuses(b,u)[0].key,'stun');assert.ok(!battlefieldStatuses(b,u).some(s=>s.key==='rangeUntil'));
+ assert.equal(battlefieldStatuses(b,u)[0].key,'confuse');assert.ok(!battlefieldStatuses(b,u).some(s=>s.key==='rangeUntil'));
  assert.ok(battlefieldStatuses(b,{...u,type:'archer'}).some(s=>s.key==='rangeUntil'));
- b.tick=u.statuses.stun.until;assert.ok(!battlefieldStatuses(b,u).some(s=>s.key==='stun'));
+ b.tick=u.statuses.confuse.until;assert.ok(!battlefieldStatuses(b,u).some(s=>s.key==='confuse'));
  b.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(b,'cleanse'),null);
- assert.ok(!battlefieldStatuses(b,u).some(s=>['burn','stun'].includes(s.key)));assert.ok(battlefieldStatuses(b,u).some(s=>s.key==='resolve'));
+ assert.ok(!battlefieldStatuses(b,u).some(s=>s.key==='confuse'));assert.ok(battlefieldStatuses(b,u).some(s=>s.key==='burn'));assert.ok(battlefieldStatuses(b,u).some(s=>s.key==='resolve'));
  u.status='defeated';const v=new BattleSignals();v.update(b,0);assert.ok(!v.units.some(t=>t.id===u.id));
 });
 test('signals render finite coordinates without changing battle data through real combat',()=>{
  const b=combat(),v=new BattleSignals(),numbers=[];
  const context=new Proxy({}, {get:(_,key)=>(...args)=>{for(const n of args)if(typeof n==='number')assert.ok(Number.isFinite(n),String(key));numbers.push(key);}});
- const fx={ctx:context,width:900,height:470,canvas:{},clock:0,reduced:false,point:(x,y)=>({x:x*60+30,y:y*50+30}),line:()=>{},glow:()=>{}};
+ const fx={ctx:context,width:900,height:470,canvas:{},clock:0,reduced:false,point:(x,y)=>({x:x*60+30,y:y*50+30}),line:()=>{},glow:()=>{},label:()=>{}};
  v.update(b,0);b.commandProgress=COMMAND_RESOURCE.capacity;issueCommand(b,'assault');
  for(let i=0;i<30;i++){stepBattle(b);fx.clock+=100;const before=JSON.stringify(b);v.update(b,fx.clock);v.draw(fx,60);v.drawOrders(fx,60);assert.equal(JSON.stringify(b),before);}
  fx.reduced=true;v.draw(fx,30);v.drawOrders(fx,30);assert.ok(numbers.includes('fillText'));

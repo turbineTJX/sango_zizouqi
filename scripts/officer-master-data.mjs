@@ -1,6 +1,6 @@
 import {OFFICER_CATALOG,OFFICER_BY_ID,PERSONALITY_NAMES,RIGHTEOUSNESS_NAMES} from '../officer-catalog.mjs';
 import {FAMOUS_OFFICERS} from '../famous-officers.mjs';
-import {skillRoute,commonRouteName,PASSIVES,SKILL_LEVELS,CIVIC_ROUTES} from '../passives.mjs';
+import {skillRoute,commonRouteName,PASSIVES,CIVIC_ROUTES} from '../passives.mjs';
 import {TACTICS_BOOK,SPECIAL_TACTICS,recommendedTacticIds,unitTactics} from '../tactics.mjs';
 import {makeOfficer,unitAttributes,TROOPS,officerStratagems,STRATAGEMS,newGame} from '../engine.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
@@ -9,19 +9,20 @@ const formation={front:'前排',middle:'中排',back:'后排',left:'左翼',righ
 const names=ids=>ids?.length?ids.map(id=>`${OFFICER_BY_ID[id]?.name||'未收录'}（${id}）`).join('、'):'未记载';
 const trait=(dict,value)=>value==null?'未载':value===0?'未设置':dict[value]||`未知编号 ${value}`;
 const originalCampaign=newGame().armies;
+export const OFFICER_TRAIT_SLOTS=Math.max(0,...OFFICER_CATALOG.map(u=>skillRoute(u).length));
 const columns=[];
 const add=(key,label,width,group,get,format=null)=>columns.push({key,label,width,group,get,format});
 add('name','姓名',12,'身份',x=>x.u.name);
 add('id','武将编号',19,'身份',x=>x.u.id);
 add('courtesy','字',12,'身份',x=>x.u.courtesy||'未载');
-add('status','技能设计状态',19,'身份',x=>x.design?'专属成长':CIVIC_ROUTES[x.u.id]?'内政交涉成长':'通用成长');
+add('status','技能设计状态',19,'身份',x=>x.design?'特色特性':CIVIC_ROUTES[x.u.id]?'治政人才特性':'共享特性');
 add('role','战术定位',18,'身份',x=>x.design?.role||commonRouteName(x.u));
 add('type','默认兵种',12,'身份',x=>TROOPS[x.u.type].name);
 add('formation','默认阵位',12,'身份',x=>formation[x.u.formation]);
 for(const [key,label] of [['leadership','统率'],['force','武力'],['intellect','智力'],['politics','政治'],['charm','魅力']])add(key,label,9,'能力',x=>x.c[key],'0');
-for(let i=0;i<5;i++){
- add(`passive${i}`,`${SKILL_LEVELS[i]}级技能`,17,'成长',x=>x.route[i]?PASSIVES[x.route[i]].name:'待设计');
- add(`passiveEffect${i}`,`${SKILL_LEVELS[i]}级技能效果`,46,'成长',x=>x.route[i]?PASSIVES[x.route[i]].description:'未配置成长路线');
+for(let i=0;i<OFFICER_TRAIT_SLOTS;i++){
+ add(`passive${i}`,`特性${i+1}`,17,'成长',x=>x.route[i]?PASSIVES[x.route[i]].name:'无');
+ add(`passiveEffect${i}`,`特性${i+1}效果`,46,'成长',x=>x.route[i]?PASSIVES[x.route[i]].description:'无');
 }
 add('special','专属战法',18,'战法',x=>x.special?.name||'无专属（使用兵种通用战法）');
 add('category','专属类别',12,'战法',x=>x.special?(x.special.category==='force'?'武力':'智力'):'不适用');
@@ -33,7 +34,7 @@ for(let i=0;i<4;i++)add(`equipped${i}`,`1级已学槽${i+1}`,18,'战法',x=>unit
 for(let i=0;i<4;i++)add(`recommended${i}`,`已学默认顺序${i+1}`,18,'战法',x=>TACTICS_BOOK[recommendedTacticIds(x.u)[i]]?.name||'未学会');
 add('stratagem','主将/军师解锁军略',45,'战法',x=>officerStratagems(x.u.id).map(id=>STRATAGEMS[id].name).join('、')||'未配置');
 for(const [key,label] of [['attack','攻击'],['defense','防御'],['martialPower','武技威力'],['strategyPower','谋略威力'],['discipline','军纪'],['move','移速'],['range','射程'],['attackSpeed','每秒普攻次数'],['siege','攻城属性']])add('base-'+key,`1级${label}`,16,'部队',x=>x.stats[key],'0.00');
-for(const [key,label] of [['level','等级'],['experience','经验'],['loyalty','忠诚'],['troops','兵力'],['wounded','伤兵']])add('initial-'+key,`新建${label}`,13,'部队',x=>x.u[key],'0');
+for(const [key,label] of [['level','等级'],['merit','功绩'],['loyalty','忠诚'],['troops','兵力'],['wounded','伤兵']])add('initial-'+key,`新建${label}`,13,'部队',x=>x.u[key],'0');
 add('trait','角色说明',24,'部队',x=>x.u.trait);
 add('campaign','初始剧本势力',18,'人物',x=>({cao:'曹操军',yuan:'袁绍军'})[originalCampaign.find(a=>a.units.some(u=>u.id===x.u.id))?.faction]||'未编入初始军团');
 add('personality','性格',13,'人物',x=>trait(PERSONALITY_NAMES,x.c.personality));

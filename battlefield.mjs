@@ -22,7 +22,7 @@ export function unitTerrain(b,u){
 }
 export function terrainMoveFactor(b,u){
   const ground=unitTerrain(b,u);
-  if(ground==='forest')return u.type==='cavalry'?.65:u.type==='siege'?.75:.9;
+  if(ground==='forest')return u.type==='cavalry'?.65:['siege','ram','tower'].includes(u.type)?.75:.9;
   if(ground==='hill')return .85;
   if(ground==='marsh')return .6;
   if(ground==='bridge'&&u.type==='cavalry')return .8;

@@ -23,7 +23,7 @@ function encounter(entries,seed=710321){
 function deploy(s){fillSlots(s.battle,1);planEnemyArmy(s.battle);return s.battle;}
 
 test('first six favor real troop strength over roster order without changing learned skills, player or RNG',()=>{
-  const s=encounter([['spear',100],['archer',100],['cavalry',100],['spear'],['crossbow'],['cavalry'],['halberd'],['logistics'],['archer']]);
+  const s=encounter([['spear',100],['archer',100],['cavalry',100],['spear'],['crossbow'],['cavalry'],['halberd'],['halberd'],['archer']]);
   const b=s.battle,own=structuredClone(b.sides[0]),seed=b.seed;
   const input=b.sides[1].units.map(u=>({id:u.id,tactics:[...u.tactics],learning:structuredClone(u.tacticLearning)}));
   deploy(s);
@@ -36,7 +36,7 @@ test('first six favor real troop strength over roster order without changing lea
 });
 
 test('same candidates prioritize a missing front line over another rear and react to visible cavalry',()=>{
-  const s=encounter([['archer'],['crossbow'],['archer'],['crossbow'],['logistics'],['spear'],['crossbow']]),b=s.battle;
+  const s=encounter([['archer'],['crossbow'],['archer'],['crossbow'],['halberd'],['spear'],['crossbow']]),b=s.battle;
   const units=b.sides[1].units;
   // A reachable five-survivor composition with one replacement slot.
   for(const [i,u] of units.slice(0,5).entries())Object.assign(u,{status:'active',x:11,y:i});
@@ -49,8 +49,8 @@ test('same candidates prioritize a missing front line over another rear and reac
 });
 
 test('learned support is useful beside a core but a tiny helper does not displace full-strength troops',()=>{
-  const s=encounter([['spear'],['spear'],['crossbow'],['archer'],['cavalry'],['logistics'],['logistics',50]]),b=s.battle;
-  const healer=b.sides[1].units[5];assert.equal(learnFixtureTactics(healer,['passage','supply']),null);
+  const s=encounter([['spear'],['spear'],['crossbow'],['archer'],['cavalry'],['halberd'],['halberd',50]]),b=s.battle;
+  const healer=b.sides[1].units[5];assert.equal(learnFixtureTactics(healer,['supply']),null);
   for(const [i,u] of b.sides[1].units.slice(0,5).entries())Object.assign(u,{status:'active',x:11,y:i});
   const before=[...healer.tactics];fillSlots(b,1);
   assert.equal(healer.status,'active');assert.equal(b.sides[1].units[6].status,'reserve');
@@ -89,7 +89,7 @@ test('unplaceable ships do not block land reserves; river deployment is legal an
 });
 
 test('replacement choices and combat remain deterministic after save/resume, without changing initiative order',()=>{
-  const s=encounter([['spear',500],['archer',600],['cavalry',700],['spear'],['crossbow'],['cavalry'],['halberd'],['logistics'],['archer']]),b=deploy(s);
+  const s=encounter([['spear',500],['archer',600],['cavalry',700],['spear'],['crossbow'],['cavalry'],['halberd'],['halberd'],['archer']]),b=deploy(s);
   const order=b.sides.map(side=>side.units.map(u=>u.id));lockDeployment(b);
   for(let i=0;i<8&&!b.result;i++)stepBattle(b);
   const copy=validateSave(JSON.parse(JSON.stringify(s)));

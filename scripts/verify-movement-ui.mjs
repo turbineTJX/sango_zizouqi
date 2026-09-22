@@ -1,0 +1,37 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import {mkdir,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4198',SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
+let browser;
+const out='outputs/movement-ui';
+try{
+  await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',c=>no(new Error('server '+c)));});
+  browser=await chromium.launch({channel:'msedge',headless:true});
+  const page=await browser.newPage({viewport:{width:1440,height:1060}}),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));await mkdir(out,{recursive:true});
+  await page.goto('http://127.0.0.1:4198/');
+  await page.locator('[data-action="strategy"]').click();
+  await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await page.locator('[data-action="select-national-faction"][data-faction="cao"]').click();await page.locator('[data-action="launch-national"]').click();
+  await page.locator('.national-world').waitFor();
+  const state=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+  assert.equal(await page.locator('.national-world .strategy-road').count(),state.roads.length*2);
+  const a=state.armies.find(a=>a.faction==='cao'&&a.location==='xuchang');
+  await page.locator(`[data-campaign-army="${a.id}"]`).click();
+  await page.locator('[data-action="campaign-order"]').click();await page.locator('#command-policy').selectOption('side');
+  const target=state.roads.find(e=>e.includes(a.location)).find(id=>id!==a.location);
+  await page.locator('#command-destination').selectOption(target);
+  await page.locator('[data-action="campaign-command-next"]').click();await page.locator('[data-action="campaign-pick-confirm"]').click();
+  assert.match(await page.locator('.march-road-summary').innerText(),/支路|沿岸/);
+  assert.match(await page.locator('.strategy-stats').innerText(),/每日行动力/);
+  assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).armies.find(a=>a.id===id).roadPolicy,a.id),'side');
+  await page.screenshot({path:out+'/desktop.png',fullPage:true});
+  await page.reload();await page.locator('[data-action="campaign-tab"][data-tab="army"]').click();await page.locator('#army-select').selectOption(a.id);
+  assert.equal(await page.evaluate(id=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).armies.find(a=>a.id===id).roadPolicy,a.id),'side');
+  await page.setViewportSize({width:390,height:844});
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+  await page.screenshot({path:out+'/mobile.png',fullPage:true});
+  assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,roads:state.roads.length*2,errors},null,2));
+  console.log('Movement UI passed');
+}finally{await browser?.close();server.kill();}

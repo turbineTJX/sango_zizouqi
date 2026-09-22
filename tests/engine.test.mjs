@@ -1,3 +1,5 @@
+import {appointBattleTestCommander} from './helpers/commanders.mjs';
+import {appointTestCommanders} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {TACTICS_BOOK} from '../tactics.mjs';
 import test from 'node:test';
@@ -5,8 +7,8 @@ import assert from 'node:assert/strict';
 import { unitTactics } from '../tactics.mjs';
 import { newGame, findRoute, orderArmy, advanceTurn, startBattle, stepBattle, activeUnits, issueCommand, settleBattle, armyTroops, recruit, splitArmy, mergeArmies, validateSave, COMBAT, skillVisual, skillThreshold, deployUnit, resetDeployment, lockDeployment, isDeploying, STRATAGEMS } from '../engine.mjs';
 
-function encounter(seed = 521200) {
-  const s = newGame(seed);
+function encounter(seed = 521200,leader=null) {
+  const s = newGame(seed);if(leader)appointTestCommanders(s,leader,'jia');
   assert.equal(orderArmy(s, 'a1', 'guandu'), null);
   assert.equal(advanceTurn(s), null);
   assert.ok(s.pending);
@@ -239,12 +241,12 @@ test('intent grows from actual attacks and surviving hits, never elapsed time', 
   for(let i=0;i<10;i++)stepBattle(b);
   assert.equal(a.intent,6); assert.equal(d.intent,7);
 });
-test('a ready tactic casts without spending intent, regardless of morale or attack cooldown', () => {
+test('a ready tactic casts with fixed intent expenditure, regardless of morale or attack cooldown', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0];
   const intent=unitTactics(a).find(s=>s.id==='thrust').threshold+17;
   a.intent=intent;a.morale=0;a.cooldown=99;a.skillCooldown=999;
   stepBattle(b);
-  assert.equal(a.cast,null);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,intent);
+  assert.equal(a.cast,null);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,intent-TACTICS_BOOK.thrust.intentCost);
 });
 test('no valid target preserves intent and leaving range cannot duplicate an instant hit', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
@@ -253,12 +255,12 @@ test('no valid target preserves intent and leaving range cannot duplicate an ins
   a.x=4;d.x=5;stepBattle(b);assert.equal(a.skillCasts,1);
   d.x=13;
   stepBattle(b);
-  assert.equal(a.cast,null);assert.equal(a.intent,skillThreshold(a));assert.equal(a.skillCasts,1);
+  assert.equal(a.cast,null);assert.equal(a.intent,skillThreshold(a)-TACTICS_BOOK.phalanx.intentCost);assert.equal(a.skillCasts,1);
 });
 test('each skill has its own threshold, and intent below threshold cannot cast', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0];
   assert.equal(unitTactics(a).find(s=>s.id==='thrust').threshold,45);
-  assert.equal(TACTICS_BOOK.undermine.threshold,100);
+  assert.equal(TACTICS_BOOK.undermine.threshold,45);
   a.intent=skillThreshold(a)-1;a.cooldown=99;stepBattle(b);assert.equal(a.cast,null);assert.equal(a.skillCasts,0);
 });
 test('deployment can move, swap, reset and persist without advancing time', () => {
@@ -273,10 +275,10 @@ test('deployment can move, swap, reset and persist without advancing time', () =
   assert.equal(lockDeployment(b),null);assert.ok(deployUnit(b,a.id,0,0));
 });
 test('paused stratagem consumes a full gauge, preserves time and includes reserves', () => {
-  const s=encounter(),b=s.battle;b.commandProgress=12000;
+  const s=encounter(521200,'person-246'),b=s.battle;b.commandProgress=12000;
   assert.equal(issueCommand(b,'inspire'),null);
   assert.equal(b.tick,0);assert.equal(b.commandProgress,0);
-  assert.ok(b.sides[0].units.every(u=>u.intent===35));
+  assert.ok(b.sides[0].units.every(u=>u.intent===Math.round(b.lastCommand.source.strength)));
   assert.ok(issueCommand(b,'inspire'));assert.ok(issueCommand(b,'fortify'));
   validateSave(JSON.parse(JSON.stringify(s)));
 });
@@ -284,7 +286,7 @@ test('attack and defense stratagems change actual damage and stop at expiration'
   function hit(command, expired=false){
     const s=duel(),b=s.battle;
     b.sides[1].units[0].cooldown=0;
-    if(command){b.commandProgress=12000;if(command==='disrupt')b.sides[0].commanders.push({id:'tian',name:'田丰',role:'advisor',armyId:'a2'});assert.equal(issueCommand(b,command),null);}
+    if(command){b.commandProgress=12000;if(command==='disrupt'||command==='fortify')appointBattleTestCommander(b,command==='disrupt'?'tian':'jin');assert.equal(issueCommand(b,command),null);}
     if(expired)b.tick=STRATAGEMS[command].duration;
     stepBattle(b);return b.effects;
   }

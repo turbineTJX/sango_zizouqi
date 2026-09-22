@@ -11,14 +11,14 @@ assert.ok(Number.isInteger(count)&&count>0);
 const unit=(id,type)=>({id,type,troops:3000,level:5});
 const army=(ids,types)=>ids.map((id,i)=>unit(id,types[i]));
 const a=['cao','liao','chu','jia','dun','yu'],z=['shao','yan','wen','he','ju','tian'];
-const mixed=['spear','cavalry','halberd','crossbow','archer','logistics'];
+const mixed=['spear','cavalry','halberd','crossbow','archer','halberd'];
 const cases=[
   {name:'枪兵单挑',terrain:'land',ownTeam:[unit('cao','spear')],enemyTeam:[unit('shao','spear')]},
   {name:'骑兵对远程',terrain:'land',ownTeam:army(a.slice(0,3),['cavalry','cavalry','cavalry']),enemyTeam:army(z.slice(0,3),['archer','crossbow','siege'])},
   {name:'枪戟对骑兵',terrain:'land',ownTeam:army(a.slice(0,3),['spear','halberd','spear']),enemyTeam:army(z.slice(0,3),['cavalry','cavalry','cavalry'])},
   ...['land','forest','hill','marsh'].map(terrain=>({name:'六兵种协同 · '+terrain,terrain,ownTeam:army(a,mixed),enemyTeam:army(z,mixed)})),
-  {name:'兵器与辅兵',terrain:'hill',ownTeam:army(a,['spear','siege','siege','crossbow','halberd','logistics']),enemyTeam:army(z,mixed)},
-  {name:'水陆混编',terrain:'river',ownTeam:army(a,['ship','ship','spear','crossbow','cavalry','logistics']),enemyTeam:army(z,['ship','ship','halberd','archer','siege','logistics'])},
+  {name:'兵器与辅兵',terrain:'hill',ownTeam:army(a,['spear','siege','siege','crossbow','halberd','halberd']),enemyTeam:army(z,mixed)},
+  {name:'水陆混编',terrain:'river',ownTeam:army(a,['ship','ship','spear','crossbow','cavalry','halberd']),enemyTeam:army(z,['ship','ship','halberd','archer','siege','halberd'])},
   {name:'六舰对决',terrain:'river',ownTeam:army(a,Array(6).fill('ship')),enemyTeam:army(z,Array(6).fill('ship'))},
 ];
 const files=['engine.mjs','battle-ai.mjs','tactics.mjs','unit-stats.mjs','combat-rules.mjs','scenarios.mjs','custom-battle.mjs','engagement.mjs','support-rules.mjs'];

@@ -2,10 +2,10 @@
   "sourceProject": "sango_infinity-main",
   "counts": {
     "common": 832,
-    "custom": 3,
-    "total": 835
+    "custom": 0,
+    "total": 832
   },
-  "profileSource": "common records use Scenario.personSet character fields; custom records remain independent",
+  "profileSource": "common records use Scenario.personSet character fields; custom edit records are excluded",
   "profileOverrideCounts": {
     "personality": 604,
     "argumentation": 620,
@@ -24,10 +24,6 @@
     "common": {
       "path": "Build/Content/Data/Common/PersonLibrary.json",
       "sha256": "e34903d7d02f8676782a733be706e8c32ef6559a5e8b8da1d54f9bd8a56aae2a"
-    },
-    "custom": {
-      "path": "Build/CustomEdit/CustomPerson.json",
-      "sha256": "39888a155f04e8a9fb24c5c5fc0f779ef73eaa22298bdf7ed50a94291d2f77a6"
     },
     "biographies": {
       "path": "Build/Content/Language/PersonDescription.json",

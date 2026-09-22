@@ -1,0 +1,30 @@
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
+page.on('pageerror',e=>errors.push(e.message));const action=n=>page.locator(`[data-action="${n}"]`),out='outputs/national-selection-ui';await mkdir(out,{recursive:true});
+try{
+ await page.goto('http://127.0.0.1:4173');await action('strategy').click();
+ assert.equal(await action('launch-national').count(),0);assert.equal(await action('continue-national').count(),0);
+ await page.screenshot({path:`${out}/scenario.png`,fullPage:true});
+ await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();
+ assert.equal(await action('select-national-faction').count(),4);assert.equal(await action('launch-national').isDisabled(),true);
+ await page.locator('[data-faction="yuan"]').click();await action('national-back').click();
+ await page.locator('[data-scenario="guandu-200"]').click();assert.equal(await page.locator('[data-faction="yuan"]').getAttribute('aria-pressed'),'true');
+ assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),null);
+ await page.screenshot({path:`${out}/faction.png`,fullPage:true});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:`${out}/mobile.png`,fullPage:true});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.setViewportSize({width:1440,height:1000});
+ await action('launch-national').click();await page.locator('.strategy-page').waitFor();
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));assert.equal(saved.campaign.playerFaction,'yuan');
+ assert.match(await page.locator('.strategy-heading').innerText(),/袁绍势力/);
+ await page.screenshot({path:`${out}/yuan.png`,fullPage:true});
+ await page.reload();await page.locator('.strategy-page').waitFor();assert.match(await page.locator('.strategy-heading').innerText(),/袁绍势力/);
+ await action('lobby').first().click();await action('strategy').click();if(await action('national-back').count())await action('national-back').click();assert.match(await page.locator('.national-resume').innerText(),/袁绍势力/);
+ const before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
+ await page.locator('[data-scenario="heroes-251"]').click();assert.equal(await action('launch-national').isDisabled(),true);assert.equal(await page.locator('[data-faction="force-2"]').count(),1);assert.equal(await page.locator('[data-faction="force-7"]').count(),0);
+ await page.locator('[data-faction="force-2"]').click();await action('national-back').click();await action('continue-national').click();await page.locator('.strategy-page').waitFor();assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),before);
+ assert.deepEqual(errors,[]);console.log('PASS: scenario → faction → start; back, cancel, resume, reload, desktop and mobile');
+}finally{await browser.close();}

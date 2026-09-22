@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {chooseEnemyCommand} from '../battle-ai.mjs';
+import {STRATAGEMS,battleStratagems,COMMAND_RESOURCE} from '../engine.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
 import {makeOfficer,validateSave,lockDeployment,stepBattle,issueCommand,settleBattle} from '../engine.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {TACTICAL_CAMPAIGNS,scenarioTroops} from '../tactical-campaigns.mjs';
 
-test('command and experience define individual capacity; fielded troops are independent',()=>{
+test('command and merit define individual capacity; fielded troops are independent',()=>{
  const lv=makeOfficer('person-661',8500,0,8),diao=makeOfficer('person-425',2000,0,8);
  assert.equal(troopCapacity(lv),8700);assert.equal(troopCapacity(diao),4900);
  assert.equal(troopCapacity({...lv,level:10}),9100);
@@ -32,11 +34,15 @@ for(const c of TACTICAL_CAMPAIGNS)test(`${c.id}: current deployment, legal capac
 });
 
 test('outnumbered defense enforces a real hold objective and retreat still fails',()=>{
- // Rule 31: seed 5 reaches the timed hold condition with mixed civil/combat routes.
- const c=TACTICAL_CAMPAIGNS.find(c=>c.holdUntil),s=createScenario(c.id,5),b=s.battle;
- assert.ok(scenarioTroops(c,1)>scenarioTroops(c,0)*2);
+ // Author a 100% opening shield through the public scenario setting to isolate
+ // hold timing from trait balance; surviving units and real commands remain required.
+ const c=TACTICAL_CAMPAIGNS.find(c=>c.holdUntil),s=createScenario(c.id,1,100),b=s.battle;
+ assert.ok(c.enemyTeam.length>c.ownTeam.length&&c.enemyTeam.length<=10);
  lockDeployment(b);
- while(!b.result&&b.tick<c.holdUntil)stepBattle(b);
+ while(!b.result&&b.tick<c.holdUntil){
+  if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)assert.equal(issueCommand(b,key),null);}
+  stepBattle(b);
+ }
  assert.equal(b.result.reason,'坚守成功');assert.equal(b.tick,c.holdUntil);assert.equal(b.result.winner,0);
  assert.ok(b.sides[0].units.some(u=>u.hp>0&&u.status==='active'));
  assert.ok(b.sides[1].units.some(u=>u.hp>0));

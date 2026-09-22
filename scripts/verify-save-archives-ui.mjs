@@ -1,0 +1,30 @@
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1050}}),errors=[];
+page.on('pageerror',e=>errors.push(e.message));const action=n=>page.locator(`[data-action="${n}"]`),out='outputs/save-archives-ui';await mkdir(out,{recursive:true});
+const snapshot=()=>page.evaluate(()=>Object.fromEntries(Object.entries(localStorage).filter(([k])=>k.startsWith('sango-'))));
+const start=async(scenario,faction)=>{await action('strategy').click();await page.locator(`[data-action="select-national-scenario"][data-scenario="${scenario}"]`).click();await page.locator(`[data-action="select-national-faction"][data-faction="${faction}"]`).click();await action('launch-national').click();await page.locator('.strategy-page').waitFor();};
+const archives=async()=>{await action('settings').first().click();await action('save').click();};
+const create=async name=>{await page.locator('#archive-name').fill(name);await action('archive-create').click();};
+const row=name=>page.locator('.archive-card').filter({has:page.locator('h3',{hasText:name})});
+try{
+ await page.goto(process.env.GAME_URL||'http://127.0.0.1:4173');await action('load').click();assert.equal(await page.locator('.archive-empty').count(),2);await action('close').click();
+ await start('guandu-200','yuan');await archives();await create('袁绍 · 北方开局');assert.equal(await row('袁绍 · 北方开局').count(),1);
+ const first=await snapshot(),key=Object.keys(first).find(k=>k.startsWith('sango-manual-save-v1:'));
+ await action('close').click();await action('lobby').first().click();await start('heroes-251','sunce');await archives();await create('孙策 · 江东开局');assert.equal(await page.locator('.archive-card').count(),3);
+ assert.equal((await snapshot())[key],first[key]);await page.screenshot({path:`${out}/desktop.png`,fullPage:true});
+ await row('袁绍 · 北方开局').locator('[data-action="archive-overwrite"]').click();await action('archive-cancel').click();assert.equal((await snapshot())[key],first[key]);
+ await row('袁绍 · 北方开局').locator('[data-action="archive-load"]').click();assert.match(await page.locator('.strategy-heading').innerText(),/袁绍势力/);
+ await page.reload();await page.locator('.strategy-page').waitFor();assert.match(await page.locator('.strategy-heading').innerText(),/袁绍势力/);
+ await action('lobby').first().click();await action('load').click();assert.equal(await action('archive-create').count(),0);await row('孙策 · 江东开局').locator('[data-action="archive-load"]').click();assert.match(await page.locator('.strategy-heading').innerText(),/孙策势力/);
+ await archives();await row('袁绍 · 北方开局').locator('[data-action="archive-overwrite"]').click();await action('archive-confirm').click();assert.equal(JSON.parse(JSON.parse((await snapshot())[key]).data).campaign.playerFaction,'sunce');
+ await row('袁绍 · 北方开局').locator('[data-action="archive-delete"]').click();await action('archive-cancel').click();assert.ok((await snapshot())[key]);
+ await row('袁绍 · 北方开局').locator('[data-action="archive-delete"]').click();await action('archive-confirm').click();assert.equal((await snapshot())[key],undefined);
+ await page.evaluate(()=>localStorage.setItem('sango-manual-save-v1:broken','{'));await action('close').click();await archives();assert.equal(await row('无法识别').locator('[data-action="archive-load"]').isDisabled(),true);
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:`${out}/mobile.png`,fullPage:true});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await action('close').click();await action('settings').first().click();const downloadPromise=page.waitForEvent('download');await action('export').click();const download=await downloadPromise;await download.saveAs(`${out}/export.json`);await page.locator('#import-file').setInputFiles(`${out}/export.json`);await page.locator('.strategy-page').waitFor();assert.match(await page.locator('.strategy-heading').innerText(),/孙策势力/);
+ assert.deepEqual(errors,[]);console.log('PASS: named saves, multiple factions, reload, home load, overwrite/delete confirmation, corrupt save, mobile, export/import');
+}finally{await browser.close();}

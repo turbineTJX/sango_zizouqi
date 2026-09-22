@@ -11,7 +11,7 @@ import {OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
 import {canOccupy} from '../battlefield.mjs';
 import {FAMOUS_OFFICERS} from '../famous-officers.mjs';
-import {skillRoute,SKILL_LEVELS} from '../passives.mjs';
+import {skillRoute} from '../passives.mjs';
 
 const count=Number(process.argv[2]||8),label=process.argv[3]||'baseline';
 assert.ok(Number.isInteger(count)&&count>0&&count<=64);assert.match(label,/^[a-z0-9-]+$/);
@@ -72,7 +72,7 @@ const rosterA=['person-46','person-439','person-408'],rosterZ=['person-467','per
 const homogeneous=(ids,type,level=1)=>ids.map(id=>unit(id,type,3000,level));
 
 // Roster/type crossover and side swap isolate unit roles from famous identities.
-const types=['spear','halberd','cavalry','archer','crossbow','logistics','siege'];
+const types=['spear','halberd','cavalry','archer','crossbow','halberd','siege'];
 for(let i=0;i<types.length;i++)for(let j=i+1;j<types.length;j++){
  const runs=[];
  for(const exchanged of [false,true])for(const swapped of [false,true])for(const seed of seeds.slice(0,4)){
@@ -113,7 +113,7 @@ flush('allocation');
 const heroes=['person-661','person-396','person-99','person-433','person-290','person-246'];
 for(const id of heroes)for(const level of [1,5,10])for(const mode of ['full','basic','ordinary','adapted']){
  const hero=FAMOUS_OFFICERS[id],ordinary=['person-290','person-246'].includes(id)?'person-512':'person-457';
- const draft={terrain:'land',ownTeam:[unit(mode==='ordinary'?ordinary:id,hero.type,6000,level),unit('person-646','spear',1500,5),unit('person-123','logistics',1500,5)],enemyTeam:[unit('jin','spear',3000,5),unit('yuanxia','archer',3000,5),unit('person-610','crossbow',3000,5)]};
+ const draft={terrain:'land',ownTeam:[unit(mode==='ordinary'?ordinary:id,hero.type,6000,level),unit('person-646','spear',1500,5),unit('person-123','halberd',1500,5)],enemyTeam:[unit('jin','spear',3000,5),unit('yuanxia','archer',3000,5),unit('person-610','crossbow',3000,5)]};
  sample('heroes',`${id}/${level}/${mode}`,draft,{plan:'rule',loadout:s=>{
   const u=s.battle.sides[0].units[0],ids=roleTacticIds(u,'assault');
   let kit=mode==='full'?[SPECIAL_TACTICS[id],...ids].slice(0,3):ids;
@@ -133,7 +133,7 @@ flush('outnumbered');
 // Every basic six-choose-three kit; train on three independent seeds, then
 // validate the best and AI-selected kits against a second seed set.
 for(const type of [...types,'ship']){
- const terrain=type==='ship'?'river':'land',ownTeam=homogeneous(rosterA,type,5),enemyTeam=homogeneous(rosterZ,type==='logistics'?'spear':type,5);
+ const terrain=type==='ship'?'river':'land',ownTeam=homogeneous(rosterA,type,5),enemyTeam=homogeneous(rosterZ,type==='halberd'?'spear':type,5);
  const draft={terrain,ownTeam,enemyTeam},pool=[...TROOP_TACTICS[type],...INTELLECT_TACTICS[type]],candidates=[];
  for(let i=0;i<pool.length;i++)for(let j=i+1;j<pool.length;j++)for(let k=j+1;k<pool.length;k++){
   const ids=[pool[i],pool[j],pool[k]];
@@ -157,7 +157,7 @@ for(const troops of [1,100,500,3000]){
  const state=createScenario('custom-battle',123,20,null,{terrain:'land',seed:123,ownTeam:[unit('cao','spear',6000),unit('jia','crossbow',troops)],enemyTeam:[unit('shao','spear',6000),unit('tian','crossbow',troops)]}),b=state.battle;
  probes.push({troops,commandIntellect:commandIntellect(b),firstNominalCommand:Math.ceil(12000/commandIntellect(b))});
 }
-const unlocks=heroes.map(id=>({id,name:OFFICER_BY_ID[id].name,sourceType:FAMOUS_OFFICERS[id].type,route:skillRoute({id}).map((id,i)=>({id,level:SKILL_LEVELS[i]})),special:SPECIAL_TACTICS[id],threshold:TACTICS_BOOK[SPECIAL_TACTICS[id]].threshold}));
+const unlocks=heroes.map(id=>({id,name:OFFICER_BY_ID[id].name,sourceType:FAMOUS_OFFICERS[id].type,route:skillRoute({id}).map((id,i)=>({id,level:1})),special:SPECIAL_TACTICS[id],threshold:TACTICS_BOOK[SPECIAL_TACTICS[id]].threshold}));
 assert.deepEqual(hashes(),initialHashes,'Runtime changed during audit');
 writeFileSync(new URL('runs.json.gz',out),gzipSync(JSON.stringify(raw)));
 writeFileSync(new URL('results.json',out),JSON.stringify({count,seeds,total:raw.length,hashes:initialHashes,rows,probes,unlocks},null,2));

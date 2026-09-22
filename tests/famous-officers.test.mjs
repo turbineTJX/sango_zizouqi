@@ -1,3 +1,4 @@
+import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -18,12 +19,19 @@ function fixture(id){
  b.sides[0].units.push(ally);
  for(const a of [u,d,ally])a.skillReady=Object.fromEntries(unitTactics(a).map(s=>[s.id,999]));
  const s=TACTICS_BOOK[SPECIAL_TACTICS[id]];u.skillReady[s.id]=0;
- lockDeployment(b);return {state,b,u,d,ally,s};
+ for(const a of [u,d,ally])a.entryStatusesApplied=true;
+ lockDeployment(b);
+ if(s.useEffect){
+   // Earn an actual ordinary cast before the recovery support becomes eligible.
+   ally.type='spear';ally.x=4;u.x=3;learnFixtureTactics(ally,['phalanx']);ally.intent=100;ally.skillReady.phalanx=0;u.skillReady[s.id]=999;
+   stepBattle(b);assert.equal(ally.tacticCasts.phalanx,1);u.skillReady[s.id]=0;u.x=4;ally.x=3;
+ }
+ return {state,b,u,d,ally,s};
 }
 
-test('41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them',()=>{
- assert.equal(Object.keys(FAMOUS_OFFICERS).length,41);
- assert.equal(Object.keys(SPECIAL_TACTICS).length,41);
+test('42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them',()=>{
+ assert.equal(Object.keys(FAMOUS_OFFICERS).length,42);
+ assert.equal(Object.keys(SPECIAL_TACTICS).length,42);
  for(const id of Object.keys(FAMOUS_OFFICERS)){
   const u=makeOfficer(id,3000,0,10),special=SPECIAL_TACTICS[id];
   assert.equal(unitTactics(u)[0].id,special);
@@ -65,7 +73,7 @@ test('multi-hit and multi-target exclusive attacks do not charge the caster',()=
  for(const id of ['person-390','person-603']){
   const {b,u,d,s}=fixture(id);u.level=1;u.intent=s.threshold;
   b.sides[1].units.push({...structuredClone(d),id:'second-target',x:5,y:4});
-  stepBattle(b);assert.equal(u.intent,Math.min(100,s.threshold));
+  stepBattle(b);assert.equal(u.intent,s.threshold-s.intentCost);
  }
 });
 
@@ -73,9 +81,9 @@ test('support AI avoids idle shields, prioritizes cleansing, and skips a useless
  const {b,u,d,ally,s}=fixture('yu');
  u.hp=ally.hp=3000;d.x=12;
  assert.equal(tacticTarget(b,u,s,3),null);
- setStatus(b,ally,'seal',4);
+ setStatus(b,ally,'despair',4);
  assert.equal(tacticTarget(b,u,s,3),ally);
- stepBattle(b);assert.ok(!hasStatus(b,ally,'seal'));assert.ok(hasStatus(b,ally,'resolve'));
+ stepBattle(b);assert.ok(!hasStatus(b,ally,'despair'));assert.ok(hasStatus(b,ally,'resolve'));
  const q=fixture('person-636');q.u.hp=q.ally.hp=3000;q.ally.intent=100;q.d.x=8;
  q.u.type='crossbow';learnFixtureTactics(q.u,[q.s.id,'seal','pierce']);q.u.skillReady={};
  assert.equal(readyTactic(q.b,q.u,4).skill.id,'seal');
@@ -83,24 +91,24 @@ test('support AI avoids idle shields, prioritizes cleansing, and skips a useless
 
 test('exclusive control respects resolve and discipline; deaths do not acquire new statuses',()=>{
  const x=fixture('person-433');setStatus(x.b,x.d,'resolve',5);
- stepBattle(x.b);assert.ok(!hasStatus(x.b,x.d,'stun'));assert.ok(x.d.hp<3000);
+ stepBattle(x.b);assert.ok(!hasStatus(x.b,x.d,'confuse'));assert.ok(x.d.hp<3000);
  const y=fixture('person-425');y.d.politics=100;stepBattle(y.b);
  assert.ok(hasStatus(y.b,y.d,'confuse'));assert.ok(y.d.statuses.confuse.until-y.b.tick<=4);
  const z=fixture('person-99');z.d.hp=1;stepBattle(z.b);
  assert.equal(z.d.hp,0);assert.ok(!z.d.statuses.armorBreak);
 });
 
-test('personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions',()=>{
+test('personal traits affect troop panels from level one, remain independent of tactics, and respect conditions',()=>{
  const x=fixture('person-99');x.u.hp=3000;
- x.u.level=9;assert.ok(!hasPassive(x.u,famousPassiveId(x.u.id)));
+ x.u.level=1;assert.ok(hasPassive(x.u,famousPassiveId(x.u.id)));
  const before=unitAttributes(x.u,x.b),without=passiveDamageMultiplier(x.b,x.u,x.d,'force');
  x.u.level=10;const after=unitAttributes(x.u,x.b);
- assert.ok(after.attack>before.attack);assert.ok(after.attackInterval<before.attackInterval);
+ assert.equal(after.attack,before.attack);assert.equal(after.attackInterval,before.attackInterval);
  assert.equal(after.martialPower,before.martialPower);assert.equal(passiveDamageMultiplier(x.b,x.u,x.d,'force'),without);
  x.u.tactics=['gallop','rush','valor'];assert.equal(unitAttributes(x.u,x.b).attack,after.attack);
- x.u.type='spear';assert.equal(passiveList(x.u,x.b).at(-1).state,'兵种不符');
- const h=fixture('person-186');h.b.tick=3;assert.match(passiveAttributes(h.b,h.u).attack[0].label,/老当益壮/);
- const from={x:h.u.x,y:h.u.y};h.u.x--;moved(h.b,h.u,from);assert.doesNotMatch(passiveAttributes(h.b,h.u).attack[0].label,/老当益壮/);
+ x.u.type='spear';assert.equal(passiveList(x.u,x.b).find(t=>t.id===famousPassiveId(x.u.id)).state,'兵种不符');
+ const h=fixture('person-186');h.b.tick=3;assert.match((passiveAttributes(h.b,h.u).attack?.[0]?.label||''),/老健/);
+ const from={x:h.u.x,y:h.u.y};h.u.x--;moved(h.b,h.u,from);assert.doesNotMatch((passiveAttributes(h.b,h.u).attack?.[0]?.label||''),/老健/);
  const a=fixture('person-396');assert.match(passiveAttributes(a.b,a.u).defense[0].label,/龙胆/);
  a.u.hp=1000;assert.match(passiveAttributes(a.b,a.u).defense[0].label,/龙胆/);
  const c=fixture('person-636');c.u.hp=c.u.maxHp*.5;assert.doesNotMatch(passiveAttributes(c.b,c.u).defense?.[0]?.label||'',/昭烈/);
@@ -118,8 +126,8 @@ test('all personal troop skills have distinct panel identities and no hidden tac
   const identity=JSON.stringify([p.troops,p.stats,p.trigger]);
   assert.ok(!identities.has(identity),id+' duplicates another personal skill');identities.add(identity);
   const low=unitAttributes({...x.u,level:9},x.b),high=unitAttributes(x.u,x.b);
-  assert.equal(passiveList(x.u,x.b).at(-1).state,'已生效',id);
-  for(const key of Object.keys(p.stats))assert.ok(high[key]>low[key],id+' '+key);
+  assert.equal(passiveList(x.u,x.b).find(t=>t.id===famousPassiveId(x.u.id)).state,'已生效',id);
+  for(const key of Object.keys(p.stats)){assert.equal(high[key],low[key],id+' '+key);assert.ok(Object.keys(passiveAttributes(x.b,x.u)).includes(key),id+' '+key);}
   for(const kind of ['force','intellect'])assert.equal(passiveDamageMultiplier(x.b,x.u,x.d,kind),passiveDamageMultiplier(x.b,{...x.u,level:9},x.d,kind),id);
   if(p.troops){
    x.u.type='siege';const wrong=unitAttributes(x.u,x.b),wrongLow=unitAttributes({...x.u,level:9},x.b);
@@ -143,7 +151,7 @@ test('exclusive support stays local and capped while army healing reaches distan
   assert.equal(far.hp,previous.hp);assert.equal(far.intent,previous.intent);assert.equal(shieldAmount(b,far),0);
   if(s.heal){assert.ok(ally.hp>900);assert.ok(ally.healed<=735);assert.equal(shieldAmount(b,ally),0);}
   assert.ok(!b.effects.some(e=>e.from===u.id&&e.target===d.id&&e.healing),id);
-  b.sides[0].commanders=[{id:'yu',role:'advisor'}];b.commandProgress=COMMAND_RESOURCE.capacity;
+  b.sides[0].commanders=[];appointBattleTestCommander(b,'yu');b.commandProgress=COMMAND_RESOURCE.capacity;
   const nearHp=ally.hp,farHp=far.hp,reserveHp=reserve.hp;
   assert.equal(issueCommand(b,'heal'),null);
   assert.ok(ally.hp>nearHp&&far.hp>farHp,id+' army heal ignores distance');assert.equal(reserve.hp,reserveHp);
@@ -176,13 +184,13 @@ test('self-cost bypasses shields, preserves one survivor and updates the casualt
   setStatus(b,u,'shield',9,{amount:500,source:'self-test'});
   const before=u.hp;stepBattle(b);
   assert.equal(before-u.hp,Math.floor(before*s.selfCost));assert.equal(u.battleDamage,before-u.hp);
-  assert.equal(shieldAmount(b,u),500);assert.equal(u.intent,s.threshold);
+  assert.equal(shieldAmount(b,u),500);assert.equal(u.intent,s.threshold-s.intentCost);
   const low=fixture(id);low.u.hp=1;low.u.initial=1;low.u.battleDamage=0;low.u.healed=0;
   stepBattle(low.b);assert.equal(low.u.hp,1);assert.equal(low.u.battleDamage,0);
  }
 });
 
-test('new exclusive effects resume deterministically and settle with conserved troops for all 41 officers',()=>{
+test('new exclusive effects resume deterministically and settle with conserved troops for all 42 officers',()=>{
  const ids=Object.keys(FAMOUS_OFFICERS);
  for(let i=0;i<ids.length;i+=6){
   const state=createScenario('officer-lab',81+i,20,ids.slice(i,i+6));

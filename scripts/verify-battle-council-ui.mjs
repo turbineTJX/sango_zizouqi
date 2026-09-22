@@ -1,0 +1,30 @@
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
+import {defaultCustomBattle} from '../custom-battle.mjs';
+import {OFFICER_BY_ID} from '../officer-catalog.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const d=defaultCustomBattle();d.ownTeam=Object.keys(OFFICER_BY_ID).filter(id=>id!=='shao').slice(0,10).map(id=>({id,type:'spear',level:5,troops:3000}));
+const browser=await chromium.launch({channel:'msedge',headless:true}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await mkdir('outputs/battle-council',{recursive:true});
+try{
+ await page.addInitScript(d=>localStorage.setItem('sango-custom-draft-v46',JSON.stringify(d)),d);
+ await page.goto('http://127.0.0.1:4173/');await page.locator('[data-action="campaign-lobby"]').click();await page.locator('[data-action="custom-setup"]').click();
+ assert.match(await page.locator('.custom-team').first().innerText(),/10 \/ 10/);
+ await page.locator('[data-custom-option="battleKind"]').selectOption('defense');await page.locator('[data-custom-option="gateHp"]').fill('18000');await page.locator('[data-custom-option="gateHp"]').press('Tab');
+ await page.locator('[data-action="launch-custom"]').click();
+ assert.equal(await page.locator('.combat-preview th').filter({hasText:/^出阵$/}).count(),0);
+ assert.equal(await page.locator('.combat-preview td').filter({hasText:/^(首发|后备|候补)$/}).count(),0);
+ assert.match(await page.locator('[data-action="scenario-launch-confirm"]').innerText(),/前往战前会议/);
+ await page.locator('[data-action="scenario-launch-confirm"]').click();
+ await page.locator('#council-tactic').selectOption('defensive');assert.ok(await page.locator('.battle-council details').evaluate(el=>el.open));await page.locator('[data-action="show-council"]').click();assert.equal(await page.locator('.council-unit').count(),4);
+ const moved=await page.locator('.council-unit').nth(3).getAttribute('data-council-unit');await page.locator('.council-unit').nth(3).dragTo(page.locator('.council-unit').nth(2));assert.equal(await page.locator('.council-unit').nth(2).getAttribute('data-council-unit'),moved);assert.ok(await page.locator('.battle-council details').evaluate(el=>el.open));assert.equal(await page.locator('#council-tactic').inputValue(),'defensive');
+ const onField=page.locator('.battle-unit.side-0').first();const swapped=await onField.getAttribute('data-unit');
+ await page.locator('.council-unit').nth(2).dragTo(onField);assert.equal(await page.locator('.battle-unit.side-0').count(),6);assert.ok(await page.locator('[data-council-unit="'+swapped+'"]').count());
+ await page.locator('.battle-unit.side-0').first().dragTo(page.locator('[data-reserve-bench]'));assert.equal(await page.locator('.battle-unit.side-0').count(),5);
+ await page.locator('.council-unit').first().dragTo(page.locator('[data-deploy-x="0"][data-deploy-y="0"]'));
+ await page.locator('.council-unit').first().dragTo(page.locator('[data-deploy-x="0"][data-deploy-y="1"]'));assert.equal(await page.locator('.battle-unit.side-0').count(),7);
+ await page.locator('[data-action="pause"]').first().click();assert.ok(await page.locator('#deployment-guide').isVisible());assert.match(await page.locator('body').innerText(),/当前上阵 7 队/);
+ await page.locator('.battle-unit.side-0').first().dragTo(page.locator('[data-reserve-bench]'));assert.equal(await page.locator('.battle-unit.side-0').count(),6);
+ await page.screenshot({path:'outputs/battle-council/desktop.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:'outputs/battle-council/mobile.png'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.locator('[data-action="pause"]').first().click();assert.ok(await page.locator('#deployment-guide').isHidden());assert.deepEqual(errors,[]);console.log('Council UI passed: ten units, defending scene, strategy, order, desktop/mobile, battle lock.');
+}catch(e){await page.screenshot({path:'outputs/battle-council/failure.png'});throw e;}finally{await browser.close();}

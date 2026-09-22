@@ -1,7 +1,9 @@
+import {peacefulCities,fieldCampaign as newCampaign} from './helpers/field-campaign.mjs';
+import {initializeTalent} from '../talent-lifecycle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,chooseEncounter,activeBattles,calendar,orderCampaignArmy,takeOverBattle,viewCampaignMap,readDailySnapshot,serializeCampaign,validateCampaign,commissionProject,relieveCity,appointGovernor,createCampaignArmy,transferOfficer,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,supplyConnection,armyPosition,CAMPAIGN,canEditArmy} from '../strategic-campaign.mjs';
+import {beginExecution,advanceCampaignDay,advanceCampaignStep,chooseEncounter,activeBattles,calendar,orderCampaignArmy,takeOverBattle,viewCampaignMap,readDailySnapshot,serializeCampaign,validateCampaign,commissionProject,relieveCity,appointGovernor,createCampaignArmy,transferOfficer,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,supplyConnection,armyPosition,CAMPAIGN,canEditArmy} from '../strategic-campaign.mjs';
 import {lockDeployment,configureUnitTactics,deployUnit,activeUnits,armyTroops,battleWounded} from '../engine.mjs';
 import {recoverableWounded,configureTactics} from '../tactics.mjs';
 import {visibleStatuses} from '../status-display.mjs';
@@ -17,8 +19,8 @@ function runTo(s,day,{auto=true,planning=true}={}){
 function encounter(){const s=newCampaign();beginExecution(s);runTo(s,10,{auto:false});assert.ok(activeBattles(s).some(r=>r.awaiting));return s;}
 function prolongedEncounter(){
   const s=newCampaign(6),a=s.armies[0],d=s.armies.find(a=>a.faction==='yuan');s.armies=s.armies.filter(a=>!a.stationary);for(const a of s.armies)a.units=a.units.filter(u=>!u.cityGuard);
-  a.units=s.armies.filter(x=>x.faction==='cao').flatMap(x=>x.units);d.units=s.armies.filter(x=>x.faction==='yuan').flatMap(x=>x.units);s.armies=[a,d];
-  for(const army of s.armies){army.tactic='defensive';army.units.forEach((u,i)=>{u.type='logistics';u.level=2;u.experience=0;u.first=i<6;assert.equal(learnFixtureTactics(u,['bandage','supply','regrowth']),null);});}
+  a.units=s.armies.filter(x=>x.faction==='cao').flatMap(x=>x.units);d.units=s.armies.filter(x=>x.faction==='yuan').flatMap(x=>x.units);s.armies=[a,d];for(const c of s.cities)for(const u of c.units)u.troops=0;initializeTalent(s);
+  for(const army of s.armies){army.tactic='defensive';army.units.forEach((u,i)=>{u.type='halberd';u.level=2;u.merit=0;u.first=i<6;assert.equal(learnFixtureTactics(u,['bandage','supply','regrowth']),null);});}
   orderCampaignArmy(s,a.id,'guandu');d.route=['xuchang'];d.target='xuchang';beginExecution(s);runTo(s,10,{auto:false});return s;
 }
 
@@ -34,8 +36,18 @@ test('armies move visibly along road interiors before arriving',()=>{
   const s=newCampaign(),a=s.armies[0];assert.equal(orderCampaignArmy(s,a.id,'guandu'),null);const initial=armyPosition(s,a);beginExecution(s);advanceCampaignDay(s);
   assert.ok(a.travel&&a.travel.progress>0);assert.notDeepEqual(armyPosition(s,a),initial);assert.equal(a.location,'xuchang');resume(s);
 });
+
+for(const owner of ['neutral','yuan'])test(`a ${owner} city with intact walls and no defenders is occupied on arrival without combat`,()=>{
+  const s=newCampaign(),a=s.armies[0],target=s.cities.find(c=>c.id==='guandu');
+  s.armies=[a];target.units=[];target.garrison=0;target.owner=owner;target.domestic.owner=owner;target.governor=null;target.gateHp=15000;
+  initializeTalent(s);assert.equal(orderCampaignArmy(s,a.id,target.id),null);beginExecution(s);
+  for(let i=0;i<10&&target.owner!==a.faction;i++)advanceCampaignDay(s);
+  assert.equal(target.owner,a.faction);assert.equal(target.gateHp,15000);
+  assert.equal(s.campaign.battles.filter(r=>r.cityId===target.id).length,0);
+  assert.equal(a.travel,null);assert.equal(a.location,target.id);resume(s);
+});
 test('head-on marching armies meet on the road without passing through each other',()=>{
-  const s=newCampaign();s.armies=s.armies.filter(a=>['a1','a2'].includes(a.id));const foe=s.armies[1];foe.location='guandu';foe.route=['xuchang'];foe.target='xuchang';orderCampaignArmy(s,'a1','guandu');beginExecution(s);runTo(s,10,{auto:false});
+  const s=newCampaign();s.armies=s.armies.filter(a=>['a1','a2'].includes(a.id));initializeTalent(s);const foe=s.armies[1];foe.location='guandu';foe.route=['xuchang'];foe.target='xuchang';orderCampaignArmy(s,'a1','guandu');beginExecution(s);runTo(s,10,{auto:false});
   const r=activeBattles(s)[0];assert.equal(r.kind,'field');assert.equal(r.armyIds.length,2);const [a,b]=s.armies;assert.ok(Math.abs(armyPosition(s,a).x-armyPosition(s,b).x)<.01);assert.ok(Math.abs(armyPosition(s,a).y-armyPosition(s,b).y)<.01);resume(s);
 });
 test('delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns',()=>{
@@ -63,7 +75,7 @@ test('a real learned-loadout battle crosses planning boundaries and respects the
 });
 
 test('multiple battles and their snapshots share the same global day',()=>{
-  const s=newCampaign();orderCampaignArmy(s,'a1','guandu');orderCampaignArmy(s,'a3','baima');beginExecution(s);
+  const s=newCampaign();for(const id of ['guandu','baima'])s.cities.find(c=>c.id===id).kind='gate';orderCampaignArmy(s,'a1','guandu');orderCampaignArmy(s,'a3','baima');beginExecution(s);
   for(let guard=0;activeBattles(s).length<2&&guard<10;guard++){advanceCampaignDay(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);}
   const battles=activeBattles(s);assert.ok(battles.length>=2);const day=s.campaign.day,ticks=battles.map(r=>r.battle.tick);
   advanceCampaignStep(s);battles.forEach((r,i)=>assert.equal(r.battle.tick,ticks[i]+1));runTo(s,day+1);
@@ -86,15 +98,15 @@ test('construction is paid once, completes at the turn boundary and reports inco
   const s=newCampaign(),c=s.cities.find(c=>c.id==='xuchang'),gold=s.gold;assert.equal(commissionProject(s,c.id,'farm'),null);assert.equal(s.gold,gold-500);assert.ok(commissionProject(s,c.id,'commerce'));
   beginExecution(s);runTo(s,10);assert.equal(c.farm,1);runTo(s,11,{planning:false});assert.equal(c.farm,2);assert.equal(c.project,null);assert.ok(s.campaign.turnReports[0].items.some(x=>x.includes('完成开垦农田')));resume(s);
 });
-test('governors must stay at home; relief is limited and assigned officials cannot join armies',()=>{
-  const s=newCampaign(),o=s.campaign.idle.find(o=>o.location==='xuchang');assert.equal(appointGovernor(s,'xuchang',o.unit.id),null);assert.ok(createCampaignArmy(s,'xuchang',[o.unit.id]));assert.ok(transferOfficer(s,o.unit.id,'chenliu'));
+test('governors may prepare city units while retaining their post; relief remains unavailable',()=>{
+  const s=newCampaign(),o=s.campaign.idle.find(o=>o.location==='xuchang');assert.equal(appointGovernor(s,'xuchang',o.unit.id),null);assert.equal(createCampaignArmy(s,'xuchang',[o.unit.id]),null);assert.equal(s.cities.find(c=>c.id==='xuchang').governor,o.unit.id);assert.ok(transferOfficer(s,o.unit.id,'chenliu'));
   assert.match(relieveCity(s,'xuchang'),/民心已停用/);resume(s);
 });
 test('officer transfers take real time and new armies require local idle officers and recruitment',()=>{
-  const s=newCampaign();s.armies=s.armies.filter(a=>a.faction==='cao');const o=s.campaign.idle.find(o=>o.location==='xuchang');assert.equal(transferOfficer(s,o.unit.id,'chenliu'),null);assert.ok(o.remainingDays>0);assert.ok(createCampaignArmy(s,'chenliu',[o.unit.id]));
+  const s=newCampaign();s.armies=s.armies.filter(a=>a.faction==='cao');peacefulCities(s);initializeTalent(s);const o=s.campaign.idle.find(o=>o.location==='xuchang');assert.equal(transferOfficer(s,o.unit.id,'chenliu'),null);assert.ok(o.remainingDays>0);assert.ok(createCampaignArmy(s,'chenliu',[o.unit.id]));
   beginExecution(s);runTo(s,11);assert.equal(o.destination,null);assert.equal(o.location,'chenliu');assert.equal(o.unit.homeCity,'chenliu');
-  assert.equal(createCampaignArmy(s,'chenliu',[o.unit.id]),null);assert.equal(s.armies.flatMap(a=>a.units).find(u=>u.id===o.unit.id).troops,0);
-  const local=s.campaign.idle.find(o=>o.location==='xuchang'&&!o.destination);assert.equal(createCampaignArmy(s,'xuchang',[local.unit.id]),null);assert.equal(s.armies.flatMap(a=>a.units).find(u=>u.id===local.unit.id).troops,0);resume(s);
+  assert.equal(createCampaignArmy(s,'chenliu',[o.unit.id]),null);assert.equal(s.cities.flatMap(c=>c.units).find(u=>u.id===o.unit.id).troops,0);
+  const local=s.campaign.idle.find(o=>o.location==='xuchang'&&!o.destination);assert.equal(createCampaignArmy(s,'xuchang',[local.unit.id]),null);assert.equal(s.cities.flatMap(c=>c.units).find(u=>u.id===local.unit.id).troops,0);resume(s);
 });
 test('split and merge conserve supply and capacity, and reject duplicated officers',()=>{
   const s=newCampaign(),a=s.armies[0],before={troops:armyTroops(a),supply:a.supply,capacity:a.supplyCapacity};assert.equal(splitCampaignArmy(s,a.id,[a.units.at(-1).id]),null);const b=s.armies.at(-1);
@@ -105,13 +117,13 @@ test('recruitment consumes local manpower and grain and is limited across splits
   const s=newCampaign(),a=s.armies[0],c=s.cities.find(c=>c.id===a.location),before=c.manpower;assert.equal(recruitCampaign(s,a.id),null);assert.equal(c.manpower,before-3000);assert.equal(c.drafted,3000);assert.ok(recruitCampaign(s,a.id));
   splitCampaignArmy(s,a.id,[a.units.at(-1).id]);assert.ok(recruitCampaign(s,s.armies.at(-1).id));resume(s);
 });
-test('supply connection is cut by hostile road occupation',()=>{
-  const s=newCampaign(),a=s.armies[0];s.cities.filter(c=>c.id!=='chenliu').forEach(c=>c.grain=0);const enemy=s.armies.find(a=>a.faction==='yuan');
-  assert.ok(supplyConnection(s,a));enemy.location='chenliu';enemy.travel={from:'chenliu',to:'xuchang',progress:20};assert.equal(supplyConnection(s,a),null);
+test('supply reroutes around an occupied road and is cut when both roads are occupied',()=>{
+  const s=newCampaign(),a=s.armies[0];s.cities.find(c=>c.id==='guandu').owner='cao';s.cities.filter(c=>c.id!=='guandu').forEach(c=>c.grain=0);const enemy=s.armies.find(a=>a.faction==='yuan');
+  assert.ok(supplyConnection(s,a));enemy.location='guandu';enemy.travel={from:'guandu',to:'xuchang',progress:20,road:'main'};assert.equal(supplyConnection(s,a),null);
 });
 test('five days without food disband armies and preserve officers for their return',()=>{
-  const s=newCampaign();s.armies=s.armies.filter(a=>a.faction==='cao');s.cities.forEach(c=>c.grain=0);s.armies.forEach(a=>a.supply=0);const ids=s.armies.flatMap(a=>a.units.map(u=>u.id));beginExecution(s);runTo(s,6);
-  assert.equal(s.armies.length,0);assert.ok(ids.every(id=>s.campaign.idle.some(o=>o.unit.id===id)));assert.ok(s.campaign.idle.filter(o=>ids.includes(o.unit.id)).every(o=>o.unit.troops===0&&o.unit.wounded===0&&o.destination));resume(s);
+  const s=newCampaign();s.armies=s.armies.filter(a=>a.faction==='cao');initializeTalent(s);s.cities.forEach(c=>c.grain=0);s.armies.forEach(a=>a.supply=0);const ids=s.armies.flatMap(a=>a.units.map(u=>u.id));beginExecution(s);runTo(s,6);
+  assert.equal(s.armies.length,0);assert.ok(ids.every(id=>s.campaign.idle.some(o=>o.unit.id===id)));assert.ok(s.campaign.idle.filter(o=>ids.includes(o.unit.id)).every(o=>o.unit.troops===0&&o.unit.wounded===0&&(o.destination||s.cities.some(c=>c.id===o.location&&c.owner===o.faction))));resume(s);
 });
 test('corrupt calendar, route, snapshot, duplicate participants and old saves are rejected',()=>{
   const s=encounter(),r=activeBattles(s)[0];chooseEncounter(s,r.id,false);runTo(s,s.campaign.day+2);
@@ -129,12 +141,12 @@ test('combat desertions are never healable and dissolved officers are not duplic
       if(u.supplyPenalty)assert.ok(visibleStatuses(r.battle,u).some(x=>x.key==='hunger'));
     }
   }
-  assert.equal(s.armies.length,0);assert.ok(r.settled);assert.ok(r.report.stats.some(x=>x.escaped>0));
+  assert.equal(s.armies.filter(a=>r.armyIds.includes(a.id)).length,0);assert.ok(r.settled);assert.ok(r.report.stats.some(x=>x.escaped>0));
   assert.equal(new Set(s.campaign.idle.map(o=>o.unit.id)).size,s.campaign.idle.length);
 });
 
 test('city capture settles once and can be saved immediately within a day',()=>{
-  const s=newCampaign();orderCampaignArmy(s,'a1','guandu');beginExecution(s);runTo(s,6);
+  const s=newCampaign();for(const c of s.cities.filter(c=>c.owner==='yuan'))c.kind='gate';for(const a of s.armies.filter(a=>a.faction==='yuan'))a.stationary=true;orderCampaignArmy(s,'a1','guandu');beginExecution(s);runTo(s,7);
   const r=s.campaign.battles.find(r=>r.cityId==='guandu');assert.ok(r);
   for(let guard=0;guard<240&&!r.settled;guard++){
     if(s.campaign.phase==='planning')beginExecution(s);

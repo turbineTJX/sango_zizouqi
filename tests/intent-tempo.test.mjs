@@ -20,8 +20,8 @@ function duel(){
 test('repeating shots grant one surviving-hit award and no caster recharge',()=>{
   const {b,a,d}=duel();primeTactic(a,'repeat');stepBattle(b);
   assert.equal(b.effects.filter(e=>e.from===a.id&&e.damage>0).length,2);
-  assert.equal(a.intent,TACTICS_BOOK.repeat.threshold);assert.equal(d.intent,3);
-  a.cooldown=0;stepBattle(b);assert.equal(a.intent,TACTICS_BOOK.repeat.threshold+10);assert.equal(d.intent,6);
+  assert.equal(a.intent,TACTICS_BOOK.repeat.threshold-TACTICS_BOOK.repeat.intentCost);assert.equal(d.intent,3);
+  a.cooldown=0;stepBattle(b);assert.equal(a.intent,TACTICS_BOOK.repeat.threshold-TACTICS_BOOK.repeat.intentCost+10);assert.equal(d.intent,6);
 });
 
 test('a fully blocked first segment does not consume the surviving-hit award',()=>{
@@ -42,14 +42,14 @@ test('damage tactics against a gate do not charge the caster, basic siege attack
   const b=createScenario('siege',9).battle,a=b.sides[0].units[0];
   lockDeployment(b);b.sides[0].units=[a];b.sides[1].units=[];
   Object.assign(a,{id:'shao',level:1,type:'siege',x:b.siege.gate.x-2,y:b.siege.gate.y,cooldown:0,intent:0});
-  primeTactic(a,'ram');stepBattle(b);assert.equal(a.tacticCasts.ram,1);assert.equal(a.intent,TACTICS_BOOK.ram.threshold);
-  a.cooldown=0;stepBattle(b);assert.equal(a.intent,TACTICS_BOOK.ram.threshold+11);
+  primeTactic(a,'ram');stepBattle(b);assert.equal(a.tacticCasts.ram,1);assert.equal(a.intent,TACTICS_BOOK.ram.threshold-TACTICS_BOOK.ram.intentCost);
+  a.cooldown=0;stepBattle(b);assert.equal(a.intent,TACTICS_BOOK.ram.threshold-TACTICS_BOOK.ram.intentCost+11);
 });
 
 test('zero-intent support and frontlines remain active, and save continuation is deterministic',()=>{
   const state=createScenario('eight-arms',713),b=state.battle;lockDeployment(b);
   for(let i=0;i<25;i++)stepBattle(b);
-  assert.ok(b.sides.flatMap(s=>s.units).filter(u=>u.type==='logistics').every(u=>u.skillCasts>0));
+  assert.ok(b.sides.flatMap(s=>s.units).filter(u=>u.type==='halberd').every(u=>u.skillCasts>0));
   assert.ok(b.sides.flatMap(s=>s.units).filter(u=>['spear','halberd'].includes(u.type)).every(u=>u.skillCasts>0));
   const resumed=validateSave(structuredClone(state));
   while(!b.result){stepBattle(b);stepBattle(resumed.battle);}

@@ -19,7 +19,7 @@ const {setupRulePlayer,unit}=await import('./custom-playability-lib.mjs');
 const {SPECIAL_TACTICS}=await import('../tactics.mjs');
 const runs=[];
 for(const id of ['person-661','person-396','person-99'])for(let i=0;i<8;i++){
- const seed=12100000+i*104729,draft={seed,terrain:'land',ownTeam:[unit(id,'cavalry',6000,5),unit('person-646','spear',1500,5),unit('person-123','logistics',1500,5)],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]};
+ const seed=12100000+i*104729,draft={seed,terrain:'land',ownTeam:[unit(id,'cavalry',6000,5),unit('person-646','spear',1500,5),unit('person-123','halberd',1500,5)],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]};
  const state=createScenario('custom-battle',seed,20,null,draft),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');setupRulePlayer(state);
  assert.equal(configureUnitTactics(state,id,[SPECIAL_TACTICS[id],'gallop','relay']),null);lockDeployment(b);
  const main=b.sides[0].units[0];let supporting=0,active=0;

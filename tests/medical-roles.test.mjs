@@ -32,13 +32,13 @@ test('medical tactics heal actual wounded, respect the shared recovery budget, a
  const y=scene();y.a.hp=2000;primeTactic(y.u,'screen');stepBattle(y.b);
  assert.equal(y.a.hp,2000,'missing HP without battle wounds is not a recovery resource');
 });
-test('front support heals at most two other allies, never itself, and has a real range limit',()=>{
+test('front support heals one other ally, never itself, and has a real range limit',()=>{
  const x=scene('cavalry');Object.assign(x.u,{hp:1000,battleDamage:2000});Object.assign(x.a,{hp:1000,battleDamage:2000});
  const near={...structuredClone(x.a),id:'near',x:4,y:4},far={...structuredClone(x.a),id:'far',x:0,y:7};
  x.b.sides[0].units.push(near,far);primeTactic(x.u,'relay');stepBattle(x.b);
- assert.equal(x.u.hp,1000);assert.ok(x.a.hp>1000);assert.ok(near.hp>1000);assert.equal(far.hp,1000);
- assert.equal(x.b.effects.filter(e=>e.healing).length,2);
- assert.ok(hasStatus(x.b,x.a,'haste'));assert.ok(Object.values(x.a.skillReady).every(t=>t===999-Math.round(2*powerFactor(unitAttributes(x.u,x.b).strategyPower))));
+ assert.equal(x.u.hp,1000);assert.equal([x.a,near].filter(u=>u.hp>1000).length,1);assert.equal(far.hp,1000);
+ assert.equal(x.b.effects.filter(e=>e.healing).length,1);
+ const healed=[x.a,near].find(u=>u.hp>1000);assert.ok(hasStatus(x.b,healed,'haste'));assert.ok(Object.values(healed.skillReady).every(t=>t===999-Math.round(2*powerFactor(unitAttributes(x.u,x.b).strategyPower))));
 });
 test('healing does not revive defeated troops or restore already recovered wounds',()=>{
  const x=scene();Object.assign(x.a,{hp:0,battleDamage:3000,status:'defeated'});
@@ -72,14 +72,14 @@ test('real zero-intent battles trigger both medical roles and resume determinist
   while(!b.result){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
  }
 });
-test('fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement',()=>{
+test('fire builds three layers through actual follow-up attacks, loses stacks to firefighting, and expires after disengagement',()=>{
  const x=scene('archer');learnFixtureTactics(x.u,['fire','scatter','suppress']);
  primeTactic(x.u,'fire');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.equal(x.d.statuses.burn.stacks,1);
  x.u.cooldown=0;x.d.statuses.phalanx={until:99};
  const snapshots=[];let dots=0;
  for(let i=0;i<9;i++){stepBattle(x.b);snapshots.push(x.d.statuses.burn?.stacks||0);dots+=x.b.effects.filter(e=>e.from===x.u.id&&e.damageKind==='dot').reduce((n,e)=>n+e.damage,0);}
  assert.ok(snapshots.includes(2));assert.ok(snapshots.includes(3));assert.ok(snapshots.every(n=>n<=3));assert.ok(dots>0);
- x.u.cooldown=999;delete x.u.statuses.attackOrb;primeTactic(x.d,'cleanse');stepBattle(x.b);
+ x.u.cooldown=999;delete x.u.statuses.attackOrb;x.d.type='archer';primeTactic(x.d,'quench');stepBattle(x.b);
  assert.equal(x.d.statuses.burn,undefined);
  primeTactic(x.u,'fire');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.equal(x.d.statuses.burn.stacks,1);
  x.u.cooldown=999;delete x.u.statuses.attackOrb;
@@ -89,7 +89,7 @@ test('strategy attacks remain basic attacks for shelter and cooperation, while u
  const x=scene('spear');x.u.id='chu';x.u.level=10;
  assert.equal(passiveDamageTaken(x.b,x.u,'intellect',true),passiveDamageTaken(x.b,x.u,'intellect',false)*.92);
  const y=scene('archer');y.u.id='person-99';y.u.level=10;y.a.x=5;y.a.y=3;
- assert.ok(passiveDamageMultiplier(y.b,y.u,y.d,'intellect',true)>passiveDamageMultiplier(y.b,y.u,y.d,'intellect',false));
+ assert.ok(passiveDamageMultiplier(y.b,{...y.u,id:'he'},y.d,'intellect',true)>passiveDamageMultiplier(y.b,y.u,y.d,'intellect',false));
  function shot(strategy,leadership,politics){
   const z=scene('spear');z.b.sides[0].units=[z.u];z.u.cooldown=0;
   Object.assign(z.d,{x:5,leadership,politics});if(strategy)z.u.statuses.strategyAttack={until:99};
@@ -113,7 +113,7 @@ test('only equipped chargers select legal short flanks, and live interception ca
  const guard={...structuredClone(x.a),side:1,id:'guard',x:6,y:1};x.b.sides[1].units.push(guard);
  assert.equal(flankingTarget(x.b,x.u,x.b.sides[1].units),x.d);
  guard.x=5;guard.y=3;assert.equal(flankingTarget(x.b,x.u,x.b.sides[1].units),null);
- guard.statuses.stun={until:99};x.d.x=7;assert.equal(flankingTarget(x.b,x.u,x.b.sides[1].units),x.d);
+ guard.statuses.confuse={until:99};x.d.x=7;assert.equal(flankingTarget(x.b,x.u,x.b.sides[1].units),x.d);
  learnFixtureTactics(x.u,['gallop','lure','relay']);assert.equal(flankingTarget(x.b,x.u,x.b.sides[1].units),null);
 });
 test('a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically',()=>{

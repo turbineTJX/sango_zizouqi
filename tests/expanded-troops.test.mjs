@@ -1,3 +1,4 @@
+import {remedy,decoyTargets} from '../battle-status-rules.mjs';
 import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -27,7 +28,7 @@ test('cleave charges each victim once without charging the caster',()=>{
  const x=scene();x.a.x=2;x.d.x=5;
  const more=[[4,1],[3,2]].map(([xPos,y],i)=>({...structuredClone(x.d),id:'enemy-'+i,x:xPos,y}));x.b.sides[1].units.push(...more);
  primeTactic(x.u,'cleave');stepBattle(x.b);
- assert.equal(x.b.effects.filter(e=>e.from===x.u.id&&e.damage>0).length,3);assert.equal(x.u.intent,TACTICS_BOOK.cleave.threshold);
+ assert.equal(x.b.effects.filter(e=>e.from===x.u.id&&e.damage>0).length,3);assert.equal(x.u.intent,TACTICS_BOOK.cleave.threshold-TACTICS_BOOK.cleave.intentCost);
  assert.ok(x.b.sides[1].units.every(u=>u.intent===7));
 });
 
@@ -43,33 +44,21 @@ test('all 24 additions resolve through equipped slots, real thresholds, targetin
  }
 });
 
-test('curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it',()=>{
- const x=scene();x.a.x=3;x.d.x=5;const base=unitAttributes(x.d,x.b);
- primeTactic(x.u,'curse');stepBattle(x.b);assert.equal(x.u.statuses.attackOrb.charges,3);x.u.cooldown=0;stepBattle(x.b);assert.equal(x.d.statuses.curse.stacks,1);
- x.u.skillReady.curse=999;
- for(let i=0;i<5;i++){x.u.cooldown=0;stepBattle(x.b);}
- assert.equal(x.d.statuses.curse.stacks,3);
- const next=unitAttributes(x.d,x.b),unaffected=structuredClone(x.d);delete unaffected.statuses.curse;const currentBase=unitAttributes(unaffected,x.b);for(const key of ['attack','strategyPower','discipline'])assert.ok(Math.abs(next[key]-currentBase[key]*(1-.18*x.d.statuses.curse.potency))<1e-8,key);
- x.d.type='logistics';primeTactic(x.d,'purify');stepBattle(x.b);assert.ok(!hasStatus(x.b,x.d,'curse'));
- x.u.cooldown=999;for(let i=0;i<12;i++)stepBattle(x.b);assert.ok(!hasStatus(x.b,x.u,'attackOrb'));
+test('挫志普攻施加丧志，不叠层，镇静解除',()=>{
+ const x=scene();x.a.x=3;x.d.x=5;primeTactic(x.u,'curse');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.ok(hasStatus(x.b,x.d,'despair'));
+ x.u.cooldown=999;x.d.intent=30;stepBattle(x.b);assert.equal(x.d.intent,25);assert.equal(x.d.statuses.despair.stacks,undefined);
+ remedy(x.b,x.d,'calm');assert.equal(hasStatus(x.b,x.d,'despair'),false);
 });
 
-test('blight reduces immediate and periodic healing, while purify removes it before healing',()=>{
- function run(id,blight){const x=scene('logistics');wound(x.a);if(blight)setStatus(x.b,x.a,'blight',20);if(id==='purify')setStatus(x.b,x.a,'curse',20);primeTactic(x.u,id);stepBattle(x.b);if(id==='regrowth')stepBattle(x.b);return x.a.healed;}
- assert.equal(run('bandage',true),Math.round(run('bandage',false)*.5));
- assert.equal(run('regrowth',true),Math.round(run('regrowth',false)*.5));
- assert.equal(run('purify',true),run('purify',false));
- const state=createScenario('rotation'),b=state.battle,u=b.sides[0].units[0];lockDeployment(b);wound(u);setStatus(b,u,'blight',8);b.commandProgress=12000;
- assert.equal(issueCommand(b,'heal'),null);assert.equal(u.healed,Math.floor(u.maxHp*.08*.5));
+test('疫伤降低持续救治，救护先解除疫伤再救治',()=>{
+ function run(id,plague){const x=scene('halberd');wound(x.a);if(plague)setStatus(x.b,x.a,'plague',20,{sourceId:x.d.id,amount:0});primeTactic(x.u,id);stepBattle(x.b);if(id==='regrowth')stepBattle(x.b);return x.a.healed;}
+ assert.equal(run('bandage',true),run('bandage',false));assert.equal(run('regrowth',true),Math.round(run('regrowth',false)*.5));
 });
 
-test('phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC',()=>{
- const x=scene();wound(x.a);primeTactic(x.u,'mirage');stepBattle(x.b);assert.equal(x.a.statuses.illusion.hits,3);
- const before=x.a.hp;setStatus(x.b,x.a,'plague',8,{amount:20,sourceId:x.d.id});stepBattle(x.b);
- assert.equal(before-x.a.hp,20);assert.equal(x.a.statuses.illusion.hits,3);
- x.d.cooldown=0;stepBattle(x.b);assert.equal(x.a.statuses.illusion.hits,2);
- const event=x.b.effects.find(e=>e.absorbed>0);assert.ok(event);assert.ok(event.absorbed<=x.a.maxHp*.08);assert.equal(x.b.sides[0].units.length,2);
- for(let i=0;i<2;i++){x.d.cooldown=0;stepBattle(x.b);}assert.ok(!hasStatus(x.b,x.a,'illusion'));
+test('疑兵有独立耐久且不抵挡本体持续伤害、不增加部队',()=>{
+ const x=scene();wound(x.a);primeTactic(x.u,'mirage');stepBattle(x.b);assert.ok(x.a.statuses.decoy.hp>0);
+ const before=x.a.hp,phantom=x.a.statuses.decoy.hp;setStatus(x.b,x.a,'plague',8,{amount:20,sourceId:x.d.id});stepBattle(x.b);
+ assert.equal(before-x.a.hp,20);assert.equal(x.a.statuses.decoy.hp,phantom);assert.equal(x.b.sides[0].units.length,2);assert.equal(decoyTargets(x.b,0).length,1);
 });
 
 test('riposte is one direct reaction per step, without a counter chain or extra intent',()=>{
@@ -98,7 +87,8 @@ test('siege blind spot prevents normal shots and bombard; gate charge damages th
 
 test('two real ram casts can link against the gate and increase the second hit',()=>{
  function run(score){
-  const state=createScenario('siege',97),b=state.battle,[a,c]=b.sides[0].units;b.sides[0].units=[a,c];b.sides[1].units=[];
+  const state=createScenario('siege',97),b=state.battle; b.siege.gate.hp=b.siege.gate.maxHp=50000; // Avoid lethal damage clipping the combo comparison.
+  const [a,c]=b.sides[0].units;b.sides[0].units=[a,c];b.sides[1].units=[];
   for(const [i,u]of [a,c].entries()){u.id=i?'ju':'shao';u.type='siege';u.x=10;u.y=3+i;u.cooldown=999;primeTactic(u,'ram');}
   const key=relationshipKey(a.id,c.id);b.relationshipScores[key]=score;b.relationshipTypes[key]=score===100?'sworn':'disliked';
   lockDeployment(b);stepBattle(b);return {damage:b.effects.find(e=>e.from===c.id&&e.to==='siege-gate'&&e.damage>0).damage,combos:b.comboCounts[0]};
@@ -116,9 +106,9 @@ test('fresh mixed and river battles earn casts and preserve all new status data 
 
 test('expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected',()=>{
  const state=createScenario('eight-arms'),b=state.battle,u=b.sides[0].units[0],enemy=b.sides[1].units[0];lockDeployment(b);
- setStatus(b,u,'illusion',8,{hits:3});setStatus(b,u,'curse',10);setStatus(b,u,'curse',10);
+ setStatus(b,u,'decoy',8);setStatus(b,u,'despair',10);
  setStatus(b,u,'regrowth',6,{amount:60,sourceId:b.sides[0].units[3].id});setStatus(b,u,'plague',10,{amount:20,sourceId:enemy.id});
- setStatus(b,u,'phase',6);setStatus(b,u,'phaseLock',18);setStatus(b,u,'blight',10);setStatus(b,u,'riposte',8,{lastTick:0});
+ setStatus(b,u,'phase',6);setStatus(b,u,'phaseLock',18);setStatus(b,u,'riposte',8,{lastTick:0});
  const copy=validateSave(structuredClone(syncFixtureLearning(state)));for(let i=0;i<20;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
- for(const [key,data]of [['curse',{until:b.tick+9,stacks:4}],['illusion',{until:b.tick+9,hits:4}]]){const bad=structuredClone(state);bad.battle.sides[0].units[0].statuses[key]=data;assert.throws(()=>validateSave(bad),/层数|次数/);}
+ for(const [key,data]of [['stun',{until:b.tick+9}],['decoy',{until:b.tick+9,hp:-1,x:1,y:1}]]){const bad=structuredClone(state);bad.battle.sides[0].units[0].statuses[key]=data;assert.throws(()=>validateSave(bad),/状态|疑兵/);}
 });

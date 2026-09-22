@@ -1,3 +1,4 @@
+import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
@@ -12,9 +13,10 @@ const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-soverei
 async function pauseMap(){if(await action('campaign-run').count()&&await action('campaign-run').innerText()==='暂停世界')await action('campaign-run').click();}
 async function day(){await action('campaign-day').click();}
 try{
+ await context.addInitScript(raw=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},serializeCampaign(newCampaign(521200)));
   await page.goto(base+'/#strategy');await page.locator('.strategy-clock').waitFor();
   assert.match(await page.locator('.strategy-clock').innerText(),/第 1 旬/);
-  await page.locator('#campaign-governor').selectOption({index:1});
+  await page.locator('[data-city-disclosure="xuchang:offices"]>summary').click();await page.locator('[data-action="campaign-pick"][data-task="governor"]').click();await page.locator('[data-personnel-choice]:not(:disabled)').first().check();await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
   await page.locator('.domestic-facilities summary').click();
   await page.locator('[data-action="campaign-project"][data-project="farm"]').click();
   assert.equal((await saved()).cities.find(c=>c.id==='xuchang').project.key,'farm');

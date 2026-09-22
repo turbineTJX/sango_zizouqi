@@ -54,7 +54,7 @@ function breach(seed=43){
   b.sides[0].units=[charger];b.sides[1].units=[front,rear];
   Object.assign(charger,{x:4,y:3,cooldown:0});Object.assign(front,{x:5,y:3,cooldown:999});Object.assign(rear,{x:7,y:3,cooldown:999});
   for(const u of [charger,front,rear]){u.intent=0;u.statuses={};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
-  front.statuses.stun={until:20};rear.statuses.phalanx={until:99};primeTactic(charger,'rush');lockDeployment(b);stepBattle(b);
+  front.statuses.confuse={until:20};rear.statuses.phalanx={until:99};primeTactic(charger,'rush');lockDeployment(b);stepBattle(b);
   assert.equal(charger.tacticCasts.rush,1);assert.ok(hasStatus(b,charger,'pursuit'));return {b,charger,front,rear};
 }
 test('a real charge follows a real retreat shot instead of switching back to a disabled front',()=>{
@@ -66,15 +66,15 @@ test('a real charge follows a real retreat shot instead of switching back to a d
 test('pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry',()=>{
   const {b,charger,front,rear}=breach();const second={...structuredClone(rear),id:'second-rear',x:8,y:3};b.sides[1].units.push(second);
   rear.hp=0;rear.status='defeated';assert.equal(pursuitTarget(b,charger,[front,second]),second);
-  delete front.statuses.stun;Object.assign(front,{x:charger.x-1,y:charger.y});assert.equal(pursuitTarget(b,charger,[front,second]),null);
-  front.statuses.stun={until:99};charger.statuses.pursuit.until=b.tick;assert.equal(pursuitTarget(b,charger,[front,second]),null);
+  delete front.statuses.confuse;Object.assign(front,{x:charger.x-1,y:charger.y});assert.equal(pursuitTarget(b,charger,[front,second]),null);
+  front.statuses.confuse={until:99};charger.statuses.pursuit.until=b.tick;assert.equal(pursuitTarget(b,charger,[front,second]),null);
 });
 
 test('a real taunt redirects pursuit only on a successful roll and uses a legal route',()=>{
   let successes=0,failures=0;
   for(const seed of [43,44,45,46,47,48]){
     const {b,charger,front,rear}=breach(seed);
-    delete front.statuses.stun;Object.assign(front,{x:3,y:3});primeTactic(front,'ward');
+    delete front.statuses.confuse;Object.assign(front,{x:3,y:3});primeTactic(front,'ward');
     stepBattle(b);const check=b.effects.find(e=>e.from===front.id&&e.resolution?.effect==='taunt').resolution;
     assert.equal(hasStatus(b,charger,'taunt'),check.success);assert.ok(hasStatus(b,charger,'pursuit'));
     if(!check.success){failures++;assert.equal(tauntTarget(b,charger,1),null);continue;}
@@ -97,7 +97,7 @@ test('a natural pursuit snapshot validates and resumes deterministically',()=>{
   assert.ok(snapshot);assert.deepEqual(snapshot.battle,b);
 });
 test('current saves validate taunt and pursuit references and resume the real battle deterministically',()=>{
-  const state=createScenario('breach',71),b=state.battle;lockDeployment(b);let snapshot=null;
+  const {state,b}=scene();let snapshot=null;
   while(!b.result){stepBattle(b);if(snapshot)stepBattle(snapshot.battle);
     if(!snapshot&&b.sides.flatMap(s=>s.units).some(u=>hasStatus(b,u,'taunt'))){
       snapshot=validateSave(structuredClone(syncFixtureLearning(state)));

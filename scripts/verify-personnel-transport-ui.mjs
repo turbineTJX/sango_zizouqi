@@ -1,0 +1,16 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4196',SANGO_ART:'off'},stdio:'pipe',windowsHide:true});let browser;
+try{
+ await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);});browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:4196/#strategy');const fixture=await page.evaluate(async()=>{const {newCampaign}=await import('/strategic-campaign.mjs');return newCampaign(203,'guandu-200');});
+ await page.addInitScript(s=>{if(!sessionStorage.getItem('seeded')){localStorage.setItem('sango-sovereign-v2',JSON.stringify(s));sessionStorage.setItem('seeded','1');}},fixture);await page.reload();
+ const c=fixture.cities.find(c=>c.id==='xuchang'),id=c.units.find(u=>u.id!==c.governor).id;
+ await page.locator('svg [data-city="xuchang"]').click();await page.locator('[data-action="campaign-pick"][data-task="transfer"]').click();await page.locator(`[data-personnel-choice="${id}"]`).check();await page.locator('[data-action="campaign-command-next"]').click();await page.locator('#command-destination').selectOption('chenliu');await page.locator('[data-transfer-cargo="grain"]').fill('500');await page.locator('[data-transfer-cargo="grain"]').blur();await page.locator('[data-transfer-cargo="manpower"]').fill('200');await page.locator('[data-transfer-cargo="manpower"]').blur();await page.locator('[data-action="campaign-command-next"]').click();assert.match(await page.locator('.transport-cargo').innerText(),/500.*200/);await page.locator('[data-action="campaign-pick-confirm"]').click();
+ const marker=page.locator(`[data-transport-officer="${id}"]`);await marker.waitFor();assert.equal(await page.locator('[data-campaign-army]').count(),0);await marker.click();assert.match(await page.locator('#overlay-root [data-info-section="status"]').innerText(),/运输途中/);assert.match(await page.locator('#overlay-root [data-info-section="status"]').innerText(),/粮草 500 · 预备兵 200/);await page.keyboard.press('Escape');
+ await page.reload();await marker.waitFor();await marker.focus();await page.keyboard.press('Enter');assert.match(await page.locator('#overlay-root [data-info-section="status"]').innerText(),/运输途中/);await page.keyboard.press('Escape');await mkdir('outputs/personnel-transport-ui',{recursive:true});await page.screenshot({path:'outputs/personnel-transport-ui/desktop.png',fullPage:true,animations:'disabled'});await page.setViewportSize({width:390,height:844});await marker.click();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:'outputs/personnel-transport-ui/mobile.png',animations:'disabled'});assert.deepEqual(errors,[]);console.log('PASS: real transfer command, cargo, transport marker, details, keyboard, reload and mobile');
+}finally{await browser?.close();server.kill();}
+

@@ -31,7 +31,7 @@ test('real battles retain skill provenance through stacking, refresh, shields an
     for(let i=0;i<3;i++){stepBattle(b);stepBattle(restored.battle);}
     assert.equal(JSON.stringify(restored.battle),JSON.stringify(b));
   }
-  for(const key of ['armorBreak','weaken','burn','curse','shield','stun','resolve'].filter(k=>k!=='shield'))assert.ok(seen.has(key),key);
+  for(const key of ['armorBreak','weaken','burn','despair','shield','confuse','resolve'].filter(k=>k!=='shield'))assert.ok(seen.has(key),key);
   assert.ok(comparisons>100);
 });
 

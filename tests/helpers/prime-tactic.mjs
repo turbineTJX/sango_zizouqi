@@ -4,6 +4,7 @@ import {learnFixtureTactics} from './learn-tactics.mjs';
 
 // Exercise the real immediate-cast path, including intent, targeting and cooldowns.
 export function primeTactic(u,id){
+  if(id!=='concealment'){u.entryStatusesApplied=true;if(u.statuses)delete u.statuses.stealth;}
   const available=availableTactics(u).map(s=>s.id);
   assert.ok(available.includes(id),`${u.id} cannot equip ${id}`);
   assert.equal(learnFixtureTactics(u,[id]),null);

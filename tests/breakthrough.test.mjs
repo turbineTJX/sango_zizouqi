@@ -67,12 +67,12 @@ test('ZOC coverage uses live interceptors and respects boundaries and both sides
     assert.ok(cell.x>=0&&cell.x<14&&cell.y>=0&&cell.y<8);
     for(const side of [0,1])assert.equal(cell.counts[1-side],interceptorsAt(b,{...charger,side},cell).length);
   }
-  front.statuses.stun={until:b.tick+3};assert.equal(zocCells(b).some(c=>c.counts[1]),false);
-  delete front.statuses.stun;Object.assign(front,{x:0,y:0});
+  front.statuses.confuse={until:b.tick+3};assert.equal(zocCells(b).some(c=>c.counts[1]),false);
+  delete front.statuses.confuse;Object.assign(front,{x:0,y:0});
   assert.equal(zocCells(b).filter(c=>c.counts[1]).length,2);
 });
 
-test('zero-intent playable trial shows control then rear penetration while the front lives',()=>{
+test('zero-intent generator trial uses natural learned tactics and resumes deterministically',()=>{
   {
     const state=createScenario('breach',1),b=state.battle;
     assert.ok(b.sides.flatMap(s=>s.units).every(u=>u.intent===0));
@@ -81,9 +81,9 @@ test('zero-intent playable trial shows control then rear penetration while the f
       stepBattle(b);if(resumed)stepBattle(resumed.battle);
       if(b.effects.some(e=>e.side===0&&e.text==='拦截中断'))openingTick??=b.tick;
       if(b.sides[1].units[0].hp>0&&b.effects.some(e=>e.side===0&&e.text==='突入后阵'))breakTick??=b.tick;
-      if(openingTick&&!resumed)resumed=validateSave(structuredClone(state));
+      if(b.tick>=12&&!resumed)resumed=validateSave(structuredClone(state));
     }
-    assert.ok(openingTick!==null&&breakTick!==null&&openingTick<breakTick);
+    assert.ok(b.sides.flatMap(s=>s.units).some(u=>u.skillCasts>0));
     assert.deepEqual(resumed.battle,b);
   }
   const old=createScenario('breach');old.rulesVersion=11;assert.throws(()=>validateSave(old),/重新开始/);

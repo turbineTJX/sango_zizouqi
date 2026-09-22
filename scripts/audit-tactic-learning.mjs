@@ -18,11 +18,11 @@ for(const [index,type] of LEARNING_TROOPS.entries())for(const level of [1,3,5,8,
  const terrain=type==='ship'?'river':['land','forest','hill'][(seed+index)%3];
  const entry=(id,troops)=>({id,type,troops,level});
  const ids=type==='ship'?['person-246','cao','person-99','person-24','jia','person-93']:['cao','dun','ju','shao','yan','gao'];
- const s=createScenario('custom-battle',seed,20,null,{seed,terrain,ownTeam:ids.slice(0,3).map((id,i)=>entry(id,[3000,1000,500][i])),enemyTeam:ids.slice(3).map((id,i)=>entry(id,[3000,500,1000][i]))}),b=s.battle;
+ const s=createScenario('custom-battle',seed,20,null,{seed,terrain,ownTeam:ids.slice(0,3).map((id,i)=>entry(id,[3000,1500,1000][i])),enemyTeam:ids.slice(3).map((id,i)=>entry(id,[3000,1000,1500][i]))}),b=s.battle;
  validateSave(s);const learning=structuredClone(snapshot(b));planEnemyArmy(b);const planned=structuredClone(b);planEnemyArmy(b);assert.deepEqual(b,planned);assert.deepEqual(snapshot(b),learning);
  for(const u of b.sides.flatMap(s=>s.units)){
   assert.ok(validTacticLearning(u)&&validLoadout(u,u.tactics));assert.ok(u.tactics.length<=4);
-  for(const troop of LEARNING_TROOPS){const limits=tacticLearningLimits(u,troop),p=u.tacticLearning.byTroop[troop];for(const kind of ['low','high']){assert.ok(p[kind].length<=limits[kind]);if(limits.guarantee&&level>=limits.guarantee)assert.equal(p[kind].length,limits[kind]);}}
+  for(const troop of LEARNING_TROOPS){const limits=tacticLearningLimits(u,troop),p=u.tacticLearning.byTroop[troop];for(const kind of ['low','high']){assert.equal(p[kind].length,limits[kind]);}}
  }
  lockDeployment(b);let restored=null;
  while(!b.result){
@@ -36,7 +36,7 @@ for(const [index,type] of LEARNING_TROOPS.entries())for(const level of [1,3,5,8,
  runs.push({type,terrain,level,seed,ticks:b.tick,winner:b.result.winner,casts:b.sides.map(s=>s.units.reduce((n,u)=>n+u.skillCasts,0)),slots:b.sides.map(s=>s.units.map(u=>u.tactics.length))});
 }
 assert.deepEqual(hashes(),source,'Audit source changed while running');
-const result={rulesVersion:RULES_VERSION,passed:true,battles:runs.length,checks:['八兵种、多等级、独立学习种子','非均分兵力、双方固定军略规则','B/C禁学高级、分适性名额与保底','AI重布阵幂等、不更换已学战法','合法占位、只施放所学、学习记录不变','第20步JSON存档续战与最终结果一致'],source,runs};
+const result={rulesVersion:RULES_VERSION,passed:true,battles:runs.length,checks:['九兵种、多等级、独立战斗种子','非均分兵力、双方固定军略规则','S三项、A两项、B/C一项，全部等级可用','AI重布阵幂等、不更换固定战法','合法占位、只施放固定战法、配置记录不变','第20步JSON存档续战与最终结果一致'],source,runs};
 const output=`docs/tactic-learning-rules${RULES_VERSION}`;
 mkdirSync(output,{recursive:true});writeFileSync(`${output}/audit.json`,JSON.stringify(result,null,2));
 console.log(JSON.stringify({passed:true,battles:runs.length,checks:result.checks}));

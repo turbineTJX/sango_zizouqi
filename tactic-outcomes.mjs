@@ -14,6 +14,7 @@ export function tacticOutcome(b, caster, before, events) {
   const units=[...b.sides.flatMap(s=>s.units),...battleBuildings(b)];
   return units.flatMap(u=>{
     const old=before.get(u.id),own=hits.filter(e=>e.to===u.id),changes=[];
+    changes.push(...own.filter(e=>e.tacticUseChange).map(e=>e.text));
     if(old){
       for(const [key,s] of Object.entries(u.statuses)){
         if(s.until<=b.tick || JSON.stringify(s)===JSON.stringify(old.statuses[key]))continue;
@@ -25,18 +26,18 @@ export function tacticOutcome(b, caster, before, events) {
             const previous=old.statuses.shield?.layers.find(l=>l.source===layer.source);
             // Taking a hit only reduces an existing layer; that is not a shield grant.
             if(!previous||layer.until>previous.until||layer.amount>previous.amount)
-              changes.push(`护盾 ${layer.amount}（${statusRemaining(layer.until,b.tick)}步）`);
+              changes.push(`护盾 ${layer.amount}（${statusRemaining(layer.until,b.tick)}日）`);
           }
         }else{
           const info=STATUS_DISPLAY[key];
-          changes.push(`${info?.name||key}${s.stacks?' '+s.stacks+'层':''}（${statusRemaining(s.until,b.tick)}步）：${statusDescription(key,s)}`);
+          changes.push(`${info?.name||key}${s.stacks?' '+s.stacks+'层':''}（${statusRemaining(s.until,b.tick)}日）：${statusDescription(key,s)}`);
         }
       }
       for(const key of Object.keys(old.statuses))if(old.statuses[key].until>b.tick&&!u.statuses[key])changes.push(['shield','illusion'].includes(key)?`${STATUS_DISPLAY[key].name}耗尽`:`解除${STATUS_DISPLAY[key]?.name||key}`);
       const intent=u.intent-old.intent;
       if(intent)changes.push(`战意 ${intent>0?'+':'−'}${Math.abs(intent)}`);
       const reductions=Object.keys(old.ready).map(id=>old.ready[id]-(u.skillReady[id]??old.ready[id])).filter(n=>n>0);
-      if(reductions.length)changes.push(`冷却缩短最多 ${Math.max(...reductions)}步`);
+      if(reductions.length)changes.push(`冷却缩短最多 ${Math.max(...reductions)}日`);
       if(old.x!==u.x||old.y!==u.y)changes.push(`位移至 ${u.x+1},${u.y+1}`);
     }
     const sum=key=>own.reduce((n,e)=>n+(e[key]||0),0);

@@ -36,7 +36,7 @@ test('self repeats, other targets, expired windows, enemy casts and departed par
  x=scene();cast(x,x.own[0],'repeat');x.own[0].status='withdrawn';assert.equal(cast(x,x.own[1],'repeat').length,0);
 });
 test('a stunned unit and pure self buffs do not prime a combo',()=>{
- const x=scene();primeTactic(x.own[0],'repeat');x.own[0].statuses.stun={until:99};stepBattle(x.b);assert.equal(x.b.comboWindows.length,0);x.own[0].cast=null;
+ const x=scene();primeTactic(x.own[0],'repeat');x.own[0].statuses.confuse={until:99};stepBattle(x.b);assert.equal(x.b.comboWindows.length,0);x.own[0].cast=null;
  x.own[1].x=5;x.own[1].y=3;assert.equal(cast(x,x.own[1],'valor',x.own[1]).length,0);assert.equal(x.b.comboWindows.length,0);
 });
 test('combo enhances damage-over-time, intent reduction and control duration while respecting immunity',()=>{
@@ -52,7 +52,7 @@ test('support combos really strengthen shields and do not include unrelated prim
  const e=cast(x,protector,'protect',patient)[0];assert.equal(e.combo.level,2);assert.equal(e.combo.targetName,patient.name);assert.equal(patient.statuses.shield.amount,firstShield+expectedShield);assert.equal(patient.statuses.shield.layers.length,2);assert.equal(patient.statuses.shield.until,x.b.tick+10);
 });
 test('ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed',()=>{
- const s=campaign(3);while(!s.battle.result&&!s.battle.effects.some(e=>e.combo))stepBattle(s.battle);
+ let s;for(let seed=1;seed<=32;seed++){s=campaign(seed);while(!s.battle.result&&!s.battle.effects.some(e=>e.combo))stepBattle(s.battle);if(s.battle.effects.some(e=>e.combo))break;}
  assert.ok(s.battle.effects.some(e=>e.combo),'save during a real active combo');
  const copy=validateSave(structuredClone(syncFixtureLearning(s)));assert.deepEqual(copy.battle,s.battle);
  for(let i=0;i<20;i++){stepBattle(s.battle);stepBattle(copy.battle);}assert.deepEqual(copy.battle,s.battle);

@@ -17,10 +17,10 @@ function scene(type='crossbow') {
 function damage(change=()=>{},skill=null) {const x=scene();change(x);if(skill)primeTactic(x.a,skill);const hp=x.d.hp;stepBattle(x.b);return hp-x.d.hp;}
 test('four officer stats affect separate derived attributes, with no charm dimension',()=>{
  const u=newGame().armies[0].units[0],base=unitAttributes(u);assert.equal(u.charm,undefined);
- for(const [key,changed] of [['leadership',['attack','defense']],['force',['martialPower']],['intellect',['strategyPower','supportPower']],['politics',['discipline','supportPower']]]){
+ for(const [key,changed] of [['leadership',['attack','defense','siege']],['force',['martialPower']],['intellect',['strategyPower','supportPower']],['politics',['discipline','supportPower']]]){
   const next=unitAttributes({...u,[key]:u[key]+10});for(const attr of Object.keys(base.breakdown))assert.equal(next[attr]>base[attr],changed.includes(attr),key+' → '+attr);
  }
- for(const [type,t] of Object.entries(TROOPS)){const x=unitAttributes({...u,type});assert.equal(x.range,t.range);assert.equal(x.move,t.move);assert.equal(x.attackInterval,t.interval);assert.equal(x.siege,t.siege);}
+ for(const [type,t] of Object.entries(TROOPS)){const x=unitAttributes({...u,type});assert.equal(x.range,t.range);assert.equal(x.move,t.move);assert.equal(x.attackInterval,t.interval);assert.equal(x.siege,x.attack*t.siegeFactor);}
 });
 test('basic, martial and intellect damage use distinct offense and resistance paths',()=>{
  const basic=damage(),martial=damage(()=>{},'repeat'),intellect=damage(()=>{},'ambush');
@@ -35,7 +35,7 @@ test('attribute breakdown reproduces effective values, statuses expire and offen
  const {a,b}=scene();b.sides[0].assaultUntil=2;b.sides[0].rangeUntil=2;setStatus(b,a,'slow',3);setStatus(b,a,'weaken',3);
  const s=unitAttributes(a,b);for(const [key,d] of Object.entries(s.breakdown)){let value=d.base+d.officer;for(const m of d.modifiers)value=m.add===undefined?value*m.factor:value+m.add;assert.equal(value,s[key]);}
  assert.equal(s.range,6);assert.equal(s.move,.5);b.tick=2;assert.equal(unitAttributes(a,b).range,4);assert.ok(unitAttributes(a,b).attack<s.attack);
- for(const key of ['attack','martialPower','strategyPower','siege']){assert.equal(unitAttributes({...a,hp:a.maxHp/4},b)[key],unitAttributes(a,b)[key]/4);assert.equal(unitAttributes({...a,hp:0},b)[key],0);}
+ a.id='person-533';for(const key of ['attack','martialPower','strategyPower','siege']){assert.equal(unitAttributes({...a,hp:a.maxHp/4},b)[key],unitAttributes(a,b)[key]/4);assert.equal(unitAttributes({...a,hp:0},b)[key],0);}
 });
 test('troop attack speed changes actual basic attack cadence but not tactic cooldown',()=>{
  for(const type of ['archer','crossbow']){const {a,b}=scene(type);stepBattle(b);assert.equal(a.cooldown,TROOPS[type].interval);for(let i=0;i<TROOPS[type].interval-1;i++){stepBattle(b);assert.equal(b.effects.filter(e=>e.from===a.id&&e.damage).length,0);}stepBattle(b);assert.ok(b.effects.some(e=>e.from===a.id&&e.damage));}
@@ -46,10 +46,10 @@ test('slow movement accumulates half-steps and active haste cannot stack twice',
  stepBattle(b);assert.equal(a.x,0);assert.equal(a.moveProgress,.5);stepBattle(b);assert.equal(a.x,1);assert.equal(a.moveProgress,0);
  setStatus(b,a,'haste',9);b.sides[0].hasteUntil=99;assert.equal(unitAttributes(a,b).move,1);
 });
-test('politics reduces actual confusion duration but physical stun remains independent',()=>{
+test('politics reduces actual confusion duration but physical confuse remains independent',()=>{
  function confuse(politics){const {a,d,b}=scene();d.politics=politics;a.type='archer';primeTactic(a,'smoke');stepBattle(b);return d.statuses.confuse.until-b.tick-1;}
  assert.ok(confuse(100)<confuse(0));
- function physical(politics){const {a,d,b}=scene();a.id='liao';a.type='cavalry';learnFixtureTactics(a,['terror','rush','valor']);primeTactic(a,'terror');d.politics=politics;stepBattle(b);return d.statuses.stun.until-b.tick-1;}assert.equal(physical(0),physical(100));const {d,b}=scene();assert.ok(disciplineDuration(b,d,4)>=1);assert.equal(disciplineDuration(b,{...d,politics:10000},1),1);
+ function physical(politics){const {a,d,b}=scene();a.id='liao';a.type='cavalry';learnFixtureTactics(a,['terror','rush','valor']);primeTactic(a,'terror');d.politics=politics;stepBattle(b);return d.statuses.confuse.until-b.tick-1;}assert.equal(physical(0),physical(100));const {d,b}=scene();assert.ok(disciplineDuration(b,d,4)>=1);assert.equal(disciplineDuration(b,{...d,politics:10000},1),1);
 });
 test('shield sources refresh separately, expire separately, cap at capacity and absorb earliest first',()=>{
  const {a,b}=scene();setStatus(b,a,'shield',2,{amount:100,source:'early',label:'早盾'});setStatus(b,a,'shield',8,{amount:300,source:'late',label:'迟盾'});

@@ -15,7 +15,7 @@ test('effective scenario character traits are formal catalogue and runtime field
   assert.deepEqual(runtime.relations,u.relations);
  }
  assert.equal(PERSONALITY_NAMES[3],'刚胆');assert.equal(RIGHTEOUSNESS_NAMES[5],'不会背叛');
- const custom=makeOfficer('custom-1');assert.equal(custom.righteousness,0);assert.equal(custom.compatibility,0);assert.equal(custom.sex,1);
+ const custom={...makeOfficer('person-1'),righteousness:0,compatibility:0,sex:1};assert.equal(custom.righteousness,0);assert.equal(custom.compatibility,0);assert.equal(custom.sex,1);
  const html=officerProfileMarkup(custom);assert.match(html,/未设置/);assert.match(html,/相性<\/dt><dd>0/);assert.match(html,/性别<\/dt><dd>女/);
 });
 test('sworn-sibling groups resolve all peers, exclude self, and keep directional likes unchanged',()=>{
@@ -39,7 +39,7 @@ test('profile copies cannot mutate the shared catalogue or another officer insta
 });
 test('incomplete profile state is rejected without backfilling fields',()=>{
  for(const field of [...PROFILE_FIELDS,'relations']){
-  const state=createScenario('officer-lab',33,20,['person-636','person-99','custom-1']);
+  const state=createScenario('officer-lab',33,20,['person-636','person-99','person-1']);
   delete state.battle.sides[0].units[0][field];const before=structuredClone(state);
   assert.throws(()=>validateSave(state));assert.deepEqual(state,before);
  }

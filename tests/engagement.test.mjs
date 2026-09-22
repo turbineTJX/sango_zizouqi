@@ -76,9 +76,9 @@ test('an unreachable rear focus advances into the blocking line instead of stall
 });
 
 test('disabled troops still share contact damage; removed troops no longer share it',()=>{
-  for(const release of ['stun','defeated','reserve','withdrawn','dead','retreat','seal']){
+  for(const release of ['confuse','defeated','reserve','withdrawn','dead','retreat','seal']){
     const {b,a,front,rear}=scene();
-    if(['stun','seal'].includes(release))front.statuses[release]={until:99};
+    if(['confuse','seal'].includes(release))front.statuses[release]={until:99};
     else if(release==='dead')front.hp=0;
     else if(release==='retreat')b.sides[front.side].retreat=true;
     else front.status=release;
@@ -86,7 +86,7 @@ test('disabled troops still share contact damage; removed troops no longer share
     if(release==='reserve')b.sides[front.side].units=[rear];
     stepBattle(b);
     const targets=new Set(attacks(b,a).map(e=>e.to));assert.ok(targets.has(rear.id),release);
-    assert.equal(targets.has(front.id),['stun','seal','retreat'].includes(release),release);
+    assert.equal(targets.has(front.id),['confuse','seal','retreat'].includes(release),release);
   }
 });
 

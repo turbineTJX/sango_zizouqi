@@ -1,9 +1,10 @@
+import {hidden} from './battle-status-rules.mjs';
 import {art} from './art-assets.mjs';
 import {hexCenter} from './hex-grid.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const smooth=t=>t*t*(3-2*t);
-const ranged=type=>['archer','crossbow','siege','ship'].includes(type);
+const ranged=type=>['archer','crossbow','siege','tower','ship'].includes(type);
 // All animation state lives here; positions, hits and casualties remain engine-owned.
 export function attackPose(progress,type){
  const p=clamp(progress),strike=Math.sin(clamp((p-.2)/.36)*Math.PI);
@@ -31,7 +32,7 @@ export class BattleArt {
   const events=!first&&!paused?(b.effects||[]).slice(this.consumed):[];
   this.batch=batch;this.consumed=(b.effects||[]).length;
   const localEvents=events.filter(e=>!e.enchantment&&(!e.skill||!this.fx?.cinematics.some(c=>c.events.some(hit=>hit.from===e.from&&hit.label===e.label))));
-  const live=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');
+  const live=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active'&&(!b.deploymentLocked||u.side===0||!hidden(b,u)));
   for(const [id,u]of this.units)if(!live.some(v=>v.id===id)&&u.deadAt===undefined){if(paused)this.units.delete(id);else u.deadAt=this.clock;}
   for(const u of live){
    const old=this.units.get(u.id),pos=hexCenter(u.x,u.y),moved=old&&(old.x!==u.x||old.y!==u.y);
@@ -70,7 +71,7 @@ export class BattleArt {
    const moving=!cinematic&&u.moveAt!==undefined&&this.clock-u.moveAt<.48;
    let ap=cinematic?(actor?clamp((castP-.32)/.5):1):clamp((this.clock-(u.attackAt??-10))/.65);
    const attacking=ap<1&&(!cinematic||castP>=.32),target=actor?hexCenter(actor.x,actor.y):u.target;
-   const clips=art.pack.troops[u.type==='logistics'?'spear':u.type],key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
+   const clips=art.pack.troops[['ram','tower'].includes(u.type)?'siege':u.type],key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
    const img=art.image(clip?.url),el=elements.get(u.id),model=this.models?.hasUnit(u.id);
    el?.classList.toggle('has-unit-art',!!img||!!model);
    if(!img||model)continue;
@@ -95,7 +96,7 @@ export class BattleArt {
     c.drawImage(img,frame*sw,row*sh,sw,sh,-size/2,-size*.88,size,size);c.restore();
    }
    c.imageSmoothingEnabled=true;c.strokeStyle='#d9c39a';c.lineWidth=1.3;c.beginPath();c.moveTo(x-cell*.35,y-cell*.12);c.lineTo(x-cell*.35,y-cell*.62);c.stroke();
-   c.fillStyle=u.side?'#ad493c':'#287763';c.beginPath();c.moveTo(x-cell*.35,y-cell*.62);c.lineTo(x-cell*.08,y-cell*.57);c.lineTo(x-cell*.35,y-cell*.43);c.fill();if(u.type==='logistics'){c.fillStyle='#fff0cd';c.font='bold '+Math.max(9,cell*.18)+'px serif';c.fillText('辅',x-cell*.33,y-cell*.47);}c.imageSmoothingEnabled=false;
+   c.fillStyle=u.side?'#ad493c':'#287763';c.beginPath();c.moveTo(x-cell*.35,y-cell*.62);c.lineTo(x-cell*.08,y-cell*.57);c.lineTo(x-cell*.35,y-cell*.43);c.fill();c.imageSmoothingEnabled=false;
    if(recoil>.4){c.globalAlpha=(1-death)*.6;c.strokeStyle='#fff1c0';c.lineWidth=2;c.beginPath();c.arc(x,y-cell*.25,cell*.24,-.8,1.2);c.stroke();}
    c.restore();
   }

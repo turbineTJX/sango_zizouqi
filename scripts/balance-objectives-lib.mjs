@@ -18,7 +18,7 @@ const kits={cavalry:['gallop','rush'],spear:['phalanx','strike'],crossbow:['scre
 
 export function heroCase(id,type,basic,level,mode){
  const support=['crossbow','archer'].includes(type),who=mode==='ordinary'?(support?'person-512':'person-457'):id;
- const ownTeam=support?[unit('person-396','cavalry',6000,level),unit('person-646','spear',1500,level),unit(who,type,1500,level)]:[unit(who,type,6000,level),unit('person-646','spear',1500,level),unit('person-123','logistics',1500,level)];
+ const ownTeam=support?[unit('person-396','cavalry',6000,level),unit('person-646','spear',1500,level),unit(who,type,1500,level)]:[unit(who,type,6000,level),unit('person-646','spear',1500,level),unit('person-123','halberd',1500,level)];
  return {draft:{terrain:'land',ownTeam,enemyTeam:[unit('jin','spear',3000,level),unit('yuanxia','archer',3000,level),unit('person-610','crossbow',3000,level)]},options:{controller:'rule',hero:who,setup(state){
   const b=state.battle;
   if(mode!=='recommended')assert.equal(configureUnitTactics(state,who,[mode==='full'?SPECIAL_TACTICS[id]:basic,...kits[type]]),null);
@@ -33,7 +33,7 @@ export function playerCase(route,enemy,allocation='equal',plan='default',ablatio
  if(ablation==='allocation')ownTeam.forEach(u=>u.troops=1500);
  // Same officer, slot, soldiers and level; give the auxiliary a frontline job.
  // This measures the support assignment, not the value of an absent/free unit.
- if(ablation==='support-role')ownTeam.find(u=>u.type==='logistics').type='spear';
+ if(ablation==='support-role')ownTeam.find(u=>u.type==='halberd').type='spear';
  return {draft:{terrain:'land',ownTeam,enemyTeam:enemy.team.map(u=>({...u,troops:1500}))},options:{controller:ablation==='commands'?'off':'player',hero:ownTeam[0].id,setup(state){
   const before=structuredClone(state.battle.sides[0].units),intent=battleIntent(state.battle);
   setupPlayer(state,plan);

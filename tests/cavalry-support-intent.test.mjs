@@ -7,7 +7,7 @@ import {supportAnchor,SPECIAL_TACTICS,roleTacticIds} from '../tactics.mjs';
 import {setupRulePlayer,unit} from '../scripts/custom-playability-lib.mjs';
 
 for(const id of ['person-661','person-396','person-99'])test(`${id}: 攻击骑兵携带策应仍接敌，零战意实战与续战一致`,()=>{
- const seed=12100000,draft={seed,terrain:'land',ownTeam:[unit(id,'cavalry',6000,5),unit('person-646','spear',1500,5),unit('person-123','logistics',1500,5)],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]};
+ const seed=12100000,draft={seed,terrain:'land',ownTeam:[unit(id,'cavalry',6000,5),unit('person-646','spear',1500,5),unit('person-123','halberd',1500,5)],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]};
  const state=createScenario('custom-battle',seed,20,null,draft),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');setupRulePlayer(state);
  const rider=b.sides[0].units[0];learnFixtureTactics(rider,[SPECIAL_TACTICS[id],'gallop','relay']);syncFixtureLearning(state);lockDeployment(b);
  const main=b.sides[0].units[0],recentDamage=[];let resumed=null,earned=false;

@@ -1,0 +1,30 @@
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {assignDomestic,beginDomesticTurn,assignmentFor} from '../domestic.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),u=c.units[0];
+assignDomestic(s,c.id,'commerce',u.id);beginDomesticTurn(s);assert.ok(assignmentFor(s,u.id).action);
+const browser=await chromium.launch({channel:'msedge',headless:true}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
+page.on('pageerror',e=>errors.push(e.message));
+const action=x=>page.locator(`[data-action="${x}"]`),out='outputs/departure-priority-ui';
+await mkdir(out,{recursive:true});
+try{
+ await page.addInitScript(save=>localStorage.setItem('sango-sovereign-v2',save),serializeCampaign(s));
+ await page.goto((process.env.GAME_URL||'http://127.0.0.1:4173')+'/#strategy');
+ const before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
+ await page.locator('.city-directory-item[data-city="xuchang"]').click();
+ await page.locator('.city-command-hub [data-task="expedition"]').click();
+ await action('campaign-unit-choose').click();await page.locator(`[data-personnel-choice="${u.id}"]`).click();
+ await action('campaign-command-next').click();await action('campaign-command-next').click();
+ const ids=await page.locator('[data-command-army-unit]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('data-command-army-unit')));
+ assert.ok(ids.includes(u.id));assert.notEqual(ids[0],u.id);
+ assert.match(await page.locator('.modal').innerText(),/事务尚余/);assert.match(await page.locator('.modal').innerText(),/当前空闲，优先出征/);
+ await page.screenshot({path:out+'/desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/mobile.png'});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await action('campaign-command-cancel').click();assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),before);
+ assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({idleFirst:true,workStatus:true,cancelUnchanged:true,mobile:true,errors},null,2));
+ console.log('Departure priority UI passed: idle first, work status, desktop/mobile, cancellation unchanged.');
+}finally{await browser.close();}

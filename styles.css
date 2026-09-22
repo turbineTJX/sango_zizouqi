@@ -227,3 +227,38 @@
 
 .inspection-heading,.officer-entry{display:flex;align-items:center;gap:12px}.inspection-heading h3{margin:0}.inspection-heading p{color:var(--muted);font-size:12px}.officer-entry{border:1px solid var(--border);background:#203438;color:var(--gold);padding:10px 16px;border-radius:5px;cursor:pointer}.officer-entry span{display:grid;gap:5px;text-align:left}.officer-entry small{color:var(--muted);font-size:11px}.inspection-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px}.inspection-section-heading h3{font-size:14px;margin:0 0 10px}.inspection-section-heading small{font-size:11px;color:var(--muted)}.inspection-statuses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:start}.effect-tile{border:1px solid #84b7a344;border-left:3px solid #91baaa;border-radius:4px;background:#182a2d;min-width:0}.effect-tile.tone-debuff,.effect-tile.tone-control{border-left-color:#c89bcb}.effect-tile.tone-damage{border-left-color:#df986a}.effect-tile summary{display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;list-style:none}.effect-tile summary::-webkit-details-marker{display:none}.effect-tile summary>span{display:grid;gap:5px;min-width:0;flex:1}.effect-tile summary b{font-size:13px;color:#e1d6b7}.effect-tile summary small{font-size:11px;line-height:1.5;color:#b0c3b6;overflow-wrap:anywhere}.effect-tile summary em{font:11px var(--sans);color:#d6c69d;white-space:nowrap}.effect-tile summary::after{content:'+';color:var(--gold)}.effect-tile[open]{grid-column:1/-1}.effect-tile[open] summary::after{content:'−'}.effect-details{padding:0 12px 12px;font-size:12px;line-height:1.8;color:#d0d8c7}.effect-details p{margin:8px 0}.effect-details>small{color:var(--muted)}.effect-values{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin-top:12px}.effect-values th,.effect-values td{padding:6px;text-align:right;border-bottom:1px solid var(--border)}.effect-values th:first-child{text-align:left}.effect-values thead th{font-size:11px;color:var(--muted);font-weight:400}.effect-values td:last-child{color:#e1c995}.effect-details dl>div{display:flex;justify-content:space-between;gap:12px}.effect-details dd{margin:0;text-align:right}.modal .tactic-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tactic-chips button.tactic-chip{cursor:pointer;text-align:left;font-family:var(--sans)}.modal button.tactic-chip{padding:10px;display:grid;gap:6px}.modal .tactic-chip strong{font-size:12px}.modal .tactic-chip em{font-size:10px;white-space:normal}.compact-loadout footer{margin:12px 0}.effect-tile summary:focus-visible,.officer-entry:focus-visible,.tactic-chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}.inspection-statuses .status-icon{flex-shrink:0;width:25px;height:25px}@media(max-width:600px){.inspection-statuses{grid-template-columns:1fr}.modal .tactic-chips{grid-template-columns:1fr}.inspection-section-heading{align-items:start}.inspection-section-heading small{max-width:60%;text-align:right}.effect-values th,.effect-values td{padding:5px 2px;font-size:11px}.effect-details{padding:0 8px 10px}.officer-entry{padding:8px}.loadout-toolbar{gap:10px}.effect-details dl>div{flex-wrap:wrap}.effect-details dd{text-align:left}}
 .passive-compact{display:grid;gap:8px}.passive-skill{border:1px solid var(--border);padding:12px;border-radius:4px}.passive-skill summary{display:flex;justify-content:space-between;gap:10px;cursor:pointer;font-size:13px}.passive-skill summary span,.passive-skill small{color:var(--muted);font-size:11px}.passive-skill p{font-size:12px;line-height:1.8}.passive-skill.locked{opacity:.65}
+
+.battle-info-current{padding:16px;margin-bottom:18px;border:1px solid #bda26966;border-left:3px solid #c6ad70;background:#c4a7610d;border-radius:4px}
+.battle-info-current h3{margin:0 0 14px;color:var(--gold,#d5b675)}
+.battle-info-current h3 small{font-size:12px;font-weight:400;color:var(--muted);margin-left:8px}
+.battle-info-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:0}
+.battle-info-fields dt{font-size:12px;color:var(--muted);margin-bottom:5px}
+.battle-info-fields dd{margin:0;line-height:1.7;overflow-wrap:anywhere}
+@media(max-width:600px){.battle-info-fields{grid-template-columns:1fr}.battle-info-current h3 small{display:block;margin:6px 0 0}}
+.battle-info-current .battle-info-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+.battle-info-current[data-battle-info="tactic"] .battle-info-fields>div:nth-child(-n+2){grid-column:1/-1}
+@media(max-width:360px){.battle-info-current .battle-info-fields{grid-template-columns:1fr}}
+
+/* Shared field-name sorting controls. */
+.field-sort { border:0; background:transparent; color:inherit; font:inherit; font-weight:600; padding:7px 5px; cursor:pointer; white-space:nowrap; }
+.field-sort:hover,.field-sort.active { color:#926c2e; background:rgba(162,127,67,.1); }
+.field-sort:focus-visible { outline:2px solid #926c2e; outline-offset:2px; }
+.field-sort span { font-size:.85em; }
+.field-sort-bar { display:flex; flex-wrap:wrap; align-items:center; gap:4px; }
+table.info-directory { display:table; width:100%; }
+/* The complete stratagem list is shown in one paused selection dialog. */
+.stratagem-picker .command-heading{padding:0 0 16px;gap:20px}
+.stratagem-picker .command-heading p{font-size:13px;max-width:none;line-height:1.7}
+.stratagem-picker .command-row{padding:0;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stratagem-picker .command-button{padding:16px;align-items:flex-start;text-align:left}
+.stratagem-picker .command-button b{font-size:16px}
+.stratagem-picker .command-button small{font-size:13px;line-height:1.8;white-space:normal;overflow-wrap:anywhere}
+.stratagem-picker .command-button em{font-size:12px;flex-shrink:0}
+.stratagem-picker .command-resource{padding:0 0 16px}
+.stratagem-picker .basic-order-label{margin-top:24px}
+@media(max-width:700px){.stratagem-picker .command-row{grid-template-columns:1fr}.stratagem-picker .command-heading{display:block}.stratagem-picker .command-button b{font-size:15px}.stratagem-picker .command-button small{font-size:13px}}
+
+.reserve-bench{display:flex;flex-wrap:wrap;gap:10px;min-height:90px;padding:14px;border:2px dashed #99845c;border-radius:8px}.reserve-bench .council-unit{cursor:grab;padding:12px;background:#383627;border:1px solid #8d7952;border-radius:6px}.reserve-bench .council-unit:active{cursor:grabbing}
+
+/* Shared rule 62 states. Decoys never intercept pointer or movement input. */
+.decoy-marker{position:absolute;transform:translate(-50%,-50%);padding:5px 9px;border:1px dashed #b9c9e8;border-radius:50%;background:#59719077;color:#e9f0ff;opacity:.7;pointer-events:none;z-index:5;font-size:12px}.battle-unit.status-stealth{opacity:.48}

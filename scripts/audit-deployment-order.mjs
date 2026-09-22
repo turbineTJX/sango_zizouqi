@@ -17,18 +17,18 @@ const {initializeTacticLearning}=await import('../tactic-learning.mjs');
 const {planEnemyArmy,chooseEnemyCommand}=await import('../battle-ai.mjs');
 const ids=['shao','yan','wen','he','ju','tian','gao','jin','yuanxia'];
 const cases=[
-  {id:'weak-first',types:['spear','archer','cavalry','spear','crossbow','cavalry','halberd','logistics','archer'],troops:[150,150,150,2600,2600,2600,2600,2600,2600]},
-  {id:'rear-first',types:['archer','crossbow','archer','crossbow','archer','crossbow','spear','halberd','logistics']},
-  {id:'balanced',types:['spear','cavalry','archer','logistics','halberd','crossbow','spear','archer','cavalry']},
-  {id:'against-cavalry',types:['archer','crossbow','logistics','cavalry','archer','crossbow','spear','halberd','spear'],foe:['cavalry','cavalry','cavalry','cavalry','archer','logistics']},
-  {id:'siege',types:['spear','cavalry','archer','logistics','halberd','crossbow','siege','siege','archer'],gate:true},
-  {id:'river',types:['ship','ship','archer','logistics','halberd','crossbow','ship','spear','cavalry']},
+  {id:'weak-first',types:['spear','archer','cavalry','spear','crossbow','cavalry','halberd','halberd','archer'],troops:[150,150,150,2600,2600,2600,2600,2600,2600]},
+  {id:'rear-first',types:['archer','crossbow','archer','crossbow','archer','crossbow','spear','halberd','halberd']},
+  {id:'balanced',types:['spear','cavalry','archer','halberd','halberd','crossbow','spear','archer','cavalry']},
+  {id:'against-cavalry',types:['archer','crossbow','halberd','cavalry','archer','crossbow','spear','halberd','spear'],foe:['cavalry','cavalry','cavalry','cavalry','archer','halberd']},
+  {id:'siege',types:['spear','cavalry','archer','halberd','halberd','crossbow','siege','siege','archer'],gate:true},
+  {id:'river',types:['ship','ship','archer','halberd','halberd','crossbow','ship','spear','cavalry']},
 ];
 const rows=[];
 for(const fixture of cases)for(let index=0;index<16;index++){
   const seed=841100+index,s=newGame(seed),own=s.armies[0],enemy=s.armies[1];s.armies=[own,enemy];
   const make=(id,type,troops,i)=>{const u=makeOfficer(id,troops,i,5,seed);u.type=type;initializeTacticLearning(u,seed);return u;};
-  own.units=['cao','dun','liao','chu','jia','yu'].map((id,i)=>make(id,(fixture.foe||['spear','halberd','cavalry','crossbow','archer','logistics'])[i],3000,i));
+  own.units=['cao','dun','liao','chu','jia','yu'].map((id,i)=>make(id,(fixture.foe||['spear','halberd','cavalry','crossbow','archer','halberd'])[i],3000,i));
   enemy.units=ids.map((id,i)=>make(id,fixture.types[i],fixture.troops?.[i]??2000,i));
   for(const a of [own,enemy]){a.location='guandu';a.tactic='balanced';a.morale=80;}
   s.cities.find(c=>c.id==='guandu').garrison=0;

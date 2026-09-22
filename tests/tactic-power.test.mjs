@@ -9,7 +9,7 @@ import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function scene(skill,seed=71,force=100,intellect=100){
  const state=createScenario('field',seed),b=state.battle,u=b.sides[0].units[0],d=b.sides[1].units[0];
- const type={repeat:'crossbow',seal:'crossbow',smoke:'archer',doubt:'spear',phalanx:'spear',bulwark:'halberd',supply:'logistics',lure:'spear'}[skill];
+ const type={repeat:'crossbow',seal:'crossbow',smoke:'archer',doubt:'spear',phalanx:'spear',bulwark:'halberd',supply:'halberd',lure:'spear'}[skill];
  Object.assign(u,{type,level:1,force,intellect,hp:3000,maxHp:3000,initial:3000,x:4,y:3,cooldown:999,statuses:{},commandBonus:0,deputyBonus:0,advisorBonus:0});
  Object.assign(d,{level:1,hp:3000,maxHp:3000,initial:3000,x:5,y:3,cooldown:999,intent:0,statuses:{}});
  b.sides[0].units=[u];b.sides[1].units=[d];
@@ -41,7 +41,7 @@ test('control succeeds and fails through real casts, pays cooldown, and reports 
   const intent=x.u.intent,events=cast(x),roll=events.find(e=>e.resolution)?.resolution;
   assert.ok(roll);assert.equal(roll.chance,effectChance(p,r));
   assert.equal(hasStatus(x.b,x.d,'confuse'),roll.success);assert.equal(x.u.tacticCasts.smoke,1);
-  assert.equal(x.u.skillReady.smoke,x.b.tick+TACTICS_BOOK.smoke.cooldown);assert.equal(x.u.intent,intent);
+  assert.equal(x.u.skillReady.smoke,x.b.tick+TACTICS_BOOK.smoke.cooldown);assert.equal(x.u.intent,intent-TACTICS_BOOK.smoke.intentCost);
   const row=events.find(e=>e.outcome).outcome.find(t=>t.id===x.d.id);
   assert.ok(row.changes.some(s=>s.includes(roll.success?'判定成功':'未成功')));
   if(roll.success)success++;else{failure++;assert.ok(!events.some(e=>e.combo));}

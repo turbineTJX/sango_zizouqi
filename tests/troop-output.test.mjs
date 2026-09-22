@@ -63,12 +63,12 @@ for(const [id,type,skill] of [
 
 test('firestorm is bounded by friendly power, not enemy army size',()=>{
  function run(enemyHp){
-  const {b,u}=remnant('jia','crossbow','ambush');
+  const {b,u}=remnant('person-246','crossbow','ambush');
   u.cooldown=9999;u.skillReady=Object.fromEntries(u.tactics.map(s=>[s,9999]));
   for(const d of b.sides[1].units)d.hp=d.initial=d.maxHp=enemyHp;
   while(b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
-  assert.equal(issueCommand(b,'firestorm'),null);
-  const loss=b.sides[1].units.reduce((n,d)=>n+d.statuses.scorch.amount*12,0);
+  assert.equal(issueCommand(b,'zhou-redcliffs'),null);
+  const loss=b.sides[1].units.reduce((n,d)=>n+d.statuses.burn.amount*12,0);
   assert.ok(loss<100);return loss;
  }
  assert.equal(run(3000),run(30000));

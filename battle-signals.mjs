@@ -1,10 +1,11 @@
+import {hidden} from './battle-status-rules.mjs';
 import {hexCenter} from './hex-grid.mjs';
 import {inspectionStatuses} from './status-display.mjs';
 import {STRATAGEMS} from './engine.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const THEMES={offense:['#ffdc80','#dc9a3f'],support:['#9cebcf','#45baaa'],control:['#e9b4ff','#ae69d3']};
-const GLYPHS={formationAura:'协',stun:'晕',confuse:'乱',burn:'焚',scorch:'火',plague:'疫',seal:'禁',taunt:'嘲',slow:'缓',armorBreak:'破',blight:'衰',weaken:'弱',curse:'咒',shaken:'震',shield:'盾',resolve:'定',phalanx:'阵',ward:'御',illusion:'幻',regrowth:'愈',phase:'遁',pursuit:'追',bulwark:'壁',riposte:'反',camp:'垒',nexus:'枢',anchored:'锚',emplaced:'架',burningAttack:'焰',attackOrb:'刃',strategyAttack:'谋',haste:'速',valor:'攻',hunger:'粮',assaultUntil:'攻',fortifyUntil:'防',disruptUntil:'弱',hasteUntil:'速',rangeUntil:'射',recoveryUntil:'愈'};
+const GLYPHS={formationAura:'协',confuse:'乱',burn:'焚',plague:'疫',seal:'禁',taunt:'嘲',slow:'缓',armorBreak:'破',weaken:'弱',attackSlow:'缓',attackHaste:'速',despair:'志',intentSuppression:'抑',stealth:'伏',decoy:'疑',insight:'察',root:'缚',disarm:'卸',disrupted:'散',shortRange:'短',longRange:'射',guard:'护',link:'连',shield:'盾',resolve:'定',phalanx:'阵',ward:'御',illusion:'幻',regrowth:'愈',phase:'遁',pursuit:'追',bulwark:'壁',riposte:'反',camp:'垒',nexus:'枢',anchored:'锚',emplaced:'架',burningAttack:'焰',attackOrb:'刃',strategyAttack:'谋',haste:'速',valor:'攻',hunger:'粮',assaultUntil:'攻',fortifyUntil:'防',disruptUntil:'弱',hasteUntil:'速',rangeUntil:'射',recoveryUntil:'愈'};
 const TONES={control:'#e5b2ff',damage:'#ffb078',debuff:'#ffa5ab',buff:'#a2ecd2'};
 const rank=s=>s.priority??(s.tone==='debuff'?10:22);
 export function battlefieldStatuses(b,u){
@@ -12,11 +13,14 @@ export function battlefieldStatuses(b,u){
 }
 // A separate presentation channel: military orders never enter the tactic queue.
 export class BattleSignals {
- constructor(){this.id=null;this.units=[];this.orders=[];this.serials=[0,0];}
+ constructor(){this.id=null;this.units=[];this.orders=[];this.serials=[0,0];this.intentSignals=[];this.effectBatch=null;this.effectCount=0;}
  update(b,clock){
   const fresh=this.id!==b.id;
-  if(fresh){this.id=b.id;this.orders=[];this.serials=[b.commandSerial||0,b.enemyCommand?.commandSerial||0];}
-  this.units=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active').map(u=>({id:u.id,x:u.x,y:u.y,side:u.side,type:u.type,statuses:battlefieldStatuses(b,u)}));
+  if(fresh){this.id=b.id;this.orders=[];this.intentSignals=[];this.effectBatch=null;this.effectCount=0;this.serials=[b.commandSerial||0,b.enemyCommand?.commandSerial||0];}
+  const batch=b.id+':'+b.tick;if(batch!==this.effectBatch){this.effectBatch=batch;this.effectCount=0;}
+  for(const e of (b.effects||[]).slice(this.effectCount)){if(e.intentDrained>0||e.intentDenied>0){const u=b.sides.flatMap(s=>s.units).find(u=>u.id===e.to);if(!u||u.status==='active')this.intentSignals.push({id:e.to,x:e.x,y:e.y,denied:!!e.intentDenied,start:clock});}}
+  this.effectCount=(b.effects||[]).length;this.intentSignals=this.intentSignals.slice(-24);
+  this.units=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active'&&(u.side===0||!hidden(b,u))).map(u=>({id:u.id,x:u.x,y:u.y,side:u.side,type:u.type,statuses:battlefieldStatuses(b,u)}));
   for(const side of [0,1]){
    const resource=side?b.enemyCommand:b,last=resource?.lastCommand,serial=resource?.commandSerial||0;
    if(!fresh&&last&&serial!==this.serials[side]&&STRATAGEMS[last.key]){
@@ -36,6 +40,10 @@ export class BattleSignals {
    const visual=fx.unitPosition?.(u.id),point=visual?{x:visual.x*fx.width,y:visual.y*fx.height}:fx.point(u.x,u.y);
    this.drawUnit(fx,u,point,cell,t);
   }
+  this.intentSignals=this.intentSignals.filter(e=>fx.clock-e.start<1100);
+  if(!fx.paused)for(const e of this.intentSignals){const p=fx.point(e.x,e.y),age=(fx.clock-e.start)/1100,y=p.y+cell*.42+age*cell*.12;c.save();c.strokeStyle='#62b5ff';c.lineWidth=2;c.globalAlpha=1-age;
+   for(const offset of [-5,2]){c.beginPath();c.moveTo(p.x-5,y+offset);c.lineTo(p.x,y+offset+4);c.lineTo(p.x+5,y+offset);c.stroke();}
+   fx.label(e.denied?'战意获取受阻':'战意削减',p.x,y+17,'#80c4ff',1-age,Math.max(10,Math.min(13,cell*.2)));c.restore();}
   c.globalAlpha=1;
  }
  drawOrders(fx,cell){for(const order of this.orders)this.drawOrder(fx,order,cell);}
@@ -43,7 +51,7 @@ export class BattleSignals {
   const c=fx.ctx,keys=new Set(u.statuses.map(s=>s.key)),has=(...ids)=>ids.some(id=>keys.has(id));
   const x=p.x,y=p.y,top=Math.max(22,y-cell*.65),r=cell*.4;
   if(fx.mode==='clear'||fx.reduced){
-   const urgent=u.statuses.find(s=>['stun','confuse','seal','burn','scorch'].includes(s.key));
+   const urgent=u.statuses.find(s=>['confuse','confuse','seal','burn','burn'].includes(s.key));
    if(urgent){
     c.save();c.font='bold 11px "Microsoft YaHei",sans-serif';c.textAlign='center';c.textBaseline='middle';
     c.fillStyle='#172321';c.fillRect(x-10,top-9,20,18);c.fillStyle=TONES[urgent.tone]||'#efd29e';c.fillText(GLYPHS[urgent.key],x,top);c.restore();
@@ -57,14 +65,14 @@ export class BattleSignals {
    c.beginPath();c.ellipse(x,y-cell*.22,cell*.43,cell*.5,0,0,Math.PI*2);c.fill();c.stroke();
    for(const dir of [-1,1]){c.beginPath();c.moveTo(x+dir*r*.85,y-cell*.45);c.lineTo(x+dir*r*.85,y-cell*.05);c.stroke();}
   }
-  if(has('burn','scorch')){
+  if(has('burn','burn')){
    c.globalAlpha=.85;
    for(let i=0;i<5;i++){
     const ox=(i-2)*cell*.16,h=cell*(.22+(Math.sin(t*7+i*2)+1)*.08);
     c.fillStyle=i%2?'#ffd47a':'#ff793f';c.beginPath();c.moveTo(x+ox-cell*.06,y+cell*.08);c.quadraticCurveTo(x+ox-cell*.1,y-h*.5,x+ox+Math.sin(t*5+i)*cell*.04,y-h);c.quadraticCurveTo(x+ox+cell*.13,y-h*.3,x+ox+cell*.06,y+cell*.08);c.fill();
    }
   }
-  if(has('plague','blight','curse','weaken','disruptUntil','armorBreak','slow','shaken','hunger')){
+  if(has('plague','blight','curse','weaken','disruptUntil','armorBreak','slow','attackSlow','hunger')){
    c.globalAlpha=.75;c.strokeStyle=has('plague','blight')?'#c2d16b':'#d991ce';
    c.setLineDash([4,4]);c.beginPath();c.ellipse(x,y+cell*.1,cell*.47,cell*.19,0,0,Math.PI*2);c.stroke();c.setLineDash([]);
    for(let i=0;i<3;i++){const ox=(i-1)*cell*.26,yy=y+cell*.14+((t*.5+i*.3)%1)*cell*.16;c.beginPath();c.moveTo(x+ox-cell*.045,yy-cell*.08);c.lineTo(x+ox,yy);c.lineTo(x+ox+cell*.045,yy-cell*.08);c.stroke();}
@@ -78,10 +86,7 @@ export class BattleSignals {
    c.beginPath();c.ellipse(x,y+cell*.06,cell*.42,cell*.15,0,0,Math.PI*2);c.stroke();
    for(let i=0;i<2;i++){const xx=x+(i?1:-1)*cell*.43,yy=y-cell*.08-((t*.6+i*.5)%1)*cell*.26;c.beginPath();c.moveTo(xx-3,yy+4);c.lineTo(xx,yy);c.lineTo(xx+3,yy+4);c.stroke();}
   }
-  if(has('stun')){
-   c.strokeStyle='#ffe6a2';c.globalAlpha=.6;c.beginPath();c.ellipse(x,top,cell*.3,cell*.09,0,0,Math.PI*2);c.stroke();
-   for(let i=0;i<3;i++){const a=t*3+i*Math.PI*2/3;star(c,x+Math.cos(a)*cell*.3,top+Math.sin(a)*cell*.09,clamp(cell*.07,4,8),'#ffe488');}
-  }else if(has('confuse')){
+  if(has('confuse')){
    c.strokeStyle='#dfa7ff';c.globalAlpha=.95;c.lineWidth=2.5;c.beginPath();
    for(let i=0;i<=42;i++){const a=i*.25+t*2,rr=cell*.24*i/42,xx=x+Math.cos(a)*rr,yy=top+Math.sin(a)*rr*.45;i?c.lineTo(xx,yy):c.moveTo(xx,yy);}c.stroke();
   }

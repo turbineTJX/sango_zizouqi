@@ -50,7 +50,7 @@ for(const [tag,source] of [['before',baseline],['after',process.argv[4]||'.']]){
       officerRows.push({...row,name:g.name,famous:g.famous,build:build.key,enemy,mirror,win:b.result.winner===side?1:b.result.winner===null?.5:0});battles++;
     }
   }
-  const groups=Object.fromEntries(['all','spear','halberd','cavalry','archer','crossbow','logistics','siege','ship'].map(type=>[type,summary(scenarioRows.filter(r=>type==='all'||r.type===type))]));
+  const groups=Object.fromEntries(['all','spear','halberd','cavalry','archer','crossbow','halberd','siege','ship'].map(type=>[type,summary(scenarioRows.filter(r=>type==='all'||r.type===type))]));
   const officerGroups=Object.fromEntries([true,false].map(famous=>{const rs=officerRows.filter(r=>r.famous===famous);return[famous?'famous':'ordinary',{...summary(rs),win:mean(rs.map(r=>r.win))}];}));
   const rulesVersion=Number(readFileSync(`${w.dir}/combat-rules.mjs`,'utf8').match(/RULES_VERSION = (\d+)/)[1]);
   results.push({tag,battles,rulesVersion,hashes:w.hashes,scenarioRows,officerRows,groups,officerGroups});
@@ -60,7 +60,7 @@ writeFileSync(`${out}/results.json.gz`,gzipSync(JSON.stringify({seeds,scenarios,
 const [before,after]=results;
 const names={all:'全部',spear:'枪',halberd:'戟',cavalry:'骑',archer:'弓',crossbow:'弩',logistics:'后勤',siege:'兵器',ship:'舰船'};
 const lines=['# 战意节奏调整验证','',
-'本报告统计两个指定运行快照的战意蓄积与武将表现；具体调整内容应结合运行规则与同目录设计说明阅读。战法按门槛与冷却施放，不消耗战意。','',
+'本报告统计两个指定运行快照的战意蓄积与武将表现；具体调整内容应结合运行规则与同目录设计说明阅读。战法按门槛与冷却施放，战意消耗规则以各运行快照为准。','',
 `正式对照 ${before.battles+after.battles} 场：两个版本各 48 场演武、780 场武将配装战斗。双方从零战意及实际配装开始，使用真实目标、ZOC、地形、冷却和伤兵规则，不注入待施放状态。演武保留正常敌方军略；武将对照去除军团加成与军略。`, '',
 `运行快照规则号：${before.rulesVersion} → ${after.rulesVersion}。具体代码范围以原始结果中的模块哈希为准；快照之后其他任务的 AI 改动不纳入此次对照。`, '',
 '下表为 6 个演武、8 个种子的首发部队样本中位数。单位是模拟秒（每步 0.7 秒），不含技能演出暂停，不能直接当成玩家观看时长。骑兵零门槛驰行不计入“首个有门槛战法”。','',

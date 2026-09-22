@@ -1,3 +1,4 @@
+import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {initializeTacticLearning} from '../tactic-learning.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -20,66 +21,51 @@ function duel(type='crossbow',id='tester',level=1){
  lockDeployment(b);return {b,a,d};
 }
 
-test('all eight troops use their actual basic and surviving-hit income, with no timed regeneration',()=>{
- const expected={spear:[6,7],halberd:[5,8],cavalry:[10,3],archer:[6,3],crossbow:[10,3],logistics:[10,4],siege:[11,2],ship:[8,5]};
+test('all current troops use their actual basic and surviving-hit income, with no timed regeneration',()=>{
+ const expected={spear:[6,7],halberd:[5,8],cavalry:[10,3],archer:[6,3],crossbow:[10,3],siege:[11,2],ram:[11,2],tower:[11,2],ship:[8,5]};
  for(const [type,[attack,hit]]of Object.entries(expected)){
   const {b,a,d}=duel(type);a.cooldown=0;stepBattle(b);assert.equal(a.intent,attack,type);assert.equal(d.intent,hit,type);
   a.cooldown=999;for(let i=0;i<4;i++)stepBattle(b);assert.equal(a.intent,attack);assert.equal(d.intent,hit);
  }
 });
 
-test('interdict unlocks at eight and prevents the entire normal hit award, including endurance',()=>{
- for(const level of [7,8]){
+test('interdict is fixed from level one and prevents the entire normal hit award, including endurance',()=>{
+ for(const level of [1,10]){
   const {b,a,d}=duel('crossbow','liao',level);d.id='dun';d.level=3;d.type='spear';learnFixtureTactics(d,['thrust','phalanx','strike']);d.skillReady={thrust:999,phalanx:999,strike:999};
-  a.cooldown=0;stepBattle(b);assert.equal(a.intent,12);assert.equal(d.intent,level===8?0:9);
-  assert.equal(b.effects.find(e=>e.from===a.id).intentDenied,level===8?9:undefined);
-  a.cooldown=999;d.cooldown=0;stepBattle(b);assert.equal(d.intent,level===8?6:15,'the target can generate intent through its own attack');
+  a.cooldown=0;stepBattle(b);assert.equal(a.intent,10);assert.equal(d.intent,0);
+  assert.equal(b.effects.find(e=>e.from===a.id).intentDenied,7);
+  a.cooldown=999;d.cooldown=0;stepBattle(b);assert.equal(d.intent,6,'the target can generate intent through its own attack');
  }
 });
 
 test('stifle suppresses every victim once per damage tactic and does not suppress normal attacks',()=>{
  for(const level of [7,8]){
-  const {b,a,d}=duel('crossbow','person-226',level);primeTactic(a,'repeat');stepBattle(b);
-  assert.equal(a.intent,TACTICS_BOOK.repeat.threshold);assert.equal(d.intent,level===8?0:3);
-  assert.equal(b.effects.filter(e=>e.intentDenied).length,level===8?1:0);
-  a.cooldown=0;stepBattle(b);assert.equal(d.intent,level===8?3:6);
+  const {b,a,d}=duel('crossbow','jia',level);primeTactic(a,'ambush');stepBattle(b);
+  assert.equal(a.intent,TACTICS_BOOK.ambush.threshold-TACTICS_BOOK.ambush.intentCost);assert.equal(d.intent,0);
+  assert.equal(b.effects.filter(e=>e.intentDenied).length,1);
+  a.cooldown=0;stepBattle(b);assert.equal(d.intent,3);
  }
- const {b,a,d}=duel('archer','person-226',8),other={...structuredClone(d),id:'second',y:4};b.sides[1].units.push(other);
- primeTactic(a,'scatter');stepBattle(b);assert.equal(d.intent,0);assert.equal(other.intent,0);assert.equal(b.effects.filter(e=>e.intentDenied).length,2);
+ const {b,a,d}=duel('archer','jia',8),other={...structuredClone(d),id:'second',y:4};b.sides[1].units.push(other);
+ d.x=7;other.x=7;primeTactic(a,'fire');stepBattle(b);assert.equal(d.intent,0);assert.equal(other.intent,0);assert.equal(a.statuses.attackOrb?.skillId,'fire');assert.equal(b.effects.filter(e=>e.intentDenied).length,0,'持续火伤不产生直接受击战意');
 });
 
-test('ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node',()=>{
- const archer={...makeOfficer('person-46'),level:8},scholar={...makeOfficer('person-447'),level:8};
- assert.ok(hasPassive(archer,'interdict'));assert.ok(hasPassive(scholar,'stifle'));
- assert.deepEqual(skillRoute({...archer,type:'cavalry'}),skillRoute(archer));
- for(const id of ['liao','person-119'])assert.ok(hasPassive({...makeOfficer(id),level:8},'interdict'));
- for(const id of ['jia','person-226'])assert.ok(hasPassive({...makeOfficer(id),level:8},'stifle'));
- assert.deepEqual(intentIncome({...archer,type:'cavalry'}),{attack:12,hit:3});
-});
+test('suppression traits remain with their fixed holders after troop changes',()=>{for(const [id,trait]of [['liao','interdict'],['jia','stifle']]){const u=makeOfficer(id);assert.ok(hasPassive(u,trait));assert.deepEqual(skillRoute({...u,type:'ship',level:10}),skillRoute(u));}assert.ok(!hasPassive(makeOfficer('person-46'),'interdict'));});
 
 test('denial neither drains stored intent nor blocks explicit support or fully shielded attacks',()=>{
  const {b,a,d}=duel('crossbow','liao',8);d.intent=19;a.cooldown=0;stepBattle(b);assert.equal(d.intent,19);
  a.cooldown=0;setStatus(b,d,'shield',10,{amount:1000,source:'test'});stepBattle(b);assert.equal(d.intent,19);assert.ok(!b.effects.some(e=>e.intentDenied));
  const s=createScenario('field'),battle=s.battle;lockDeployment(battle);battle.commandProgress=12000;
- const before=battle.sides[0].units.map(u=>u.intent);assert.equal(issueCommand(battle,'inspire'),null);
- battle.sides[0].units.forEach((u,i)=>assert.equal(u.intent,Math.min(100,before[i]+35)));
+ appointBattleTestCommander(battle,'shao','leader');const before=battle.sides[0].units.map(u=>u.intent);assert.equal(issueCommand(battle,'inspire'),null);
+ battle.sides[0].units.forEach((u,i)=>assert.equal(u.intent,Math.min(100,before[i]+Math.round(battle.lastCommand.source.strength))));
 });
 
-test('repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock',async()=>{
- const w=await world(),runs=[];
- for(const level of [7,8]){
-  const attackers=['liao','person-119'].map(id=>({...w.makeOfficer(id),type:'cavalry',tactics:['harass','gallop','lure']}));
-  const defender={...w.makeOfficer('chu'),type:'spear',tactics:['phalanx','ward','strike']};
-  const b=fixture({...w,configureTactics:learnFixtureTactics},attackers,[defender],'compact',8,211),target=b.sides[1].units[0];
-  // Only the two attackers cross the level-eight interdict node; defender and stats stay fixed.
-  b.sides[0].units.forEach(u=>u.level=level);w.lockDeployment(b);let maxIntent=0,denied=0;
-  while(!b.result){w.stepBattle(b);maxIntent=Math.max(maxIntent,target.intent);denied+=b.effects.filter(e=>e.intentDenied).length;}
-  runs.push({casts:target.skillCasts,strikes:target.tacticCasts.strike||0,buffs:target.tacticCasts.phalanx||0,maxIntent,denied,ticks:b.tick});
-  assert.ok(b.sides[0].units.every(u=>u.tacticCasts.harass>=3),'repeated real suppressing tactics, not an injected lock');
- }
- // Three real harass casts above establish sustained suppression even when faster damage ends combat earlier.
- assert.ok(runs[0].strikes>=3);assert.equal(runs[1].strikes,0);assert.ok(runs[1].buffs>0);assert.ok(runs[1].casts<runs[0].casts);
- assert.ok(runs[1].maxIntent<TACTICS_BOOK.strike.threshold);assert.ok(runs[1].denied>=20);
+test('legal learned suppression repeatedly denies income and drains intent without disabling cheap defense',()=>{
+ const seed=211,state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[{id:'liao',type:'cavalry',troops:2500,level:8},{id:'person-119',type:'cavalry',troops:2500,level:8}],enemyTeam:[{id:'chu',type:'spear',troops:5000,level:8}]}),b=state.battle;
+ const target=b.sides[1].units[0];learnFixtureTactics(target,['phalanx']);lockDeployment(b);let denied=0;
+ while(!b.result){stepBattle(b);denied+=b.effects.filter(e=>e.intentDenied).length;}
+ assert.ok(denied>=20);
+ assert.ok(b.sides[0].units.find(u=>u.id==='person-119').tacticCasts['unique-person-119']>=2);
+ assert.ok(target.tacticCasts.phalanx>0);
 });
 
 test('current suppression routes and troop incomes survive deterministic battle continuation',()=>{

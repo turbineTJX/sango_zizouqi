@@ -9,12 +9,12 @@ import {hexDistance} from '../hex-grid.mjs';
 export const unit=(id,type,troops=3000,level=5)=>({id,type,troops,level});
 const team=(ids,types)=>ids.map((id,i)=>unit(id,types[i]));
 export const archetypes=[
- {id:'cooperation',name:'多二流协同',note:'王平、张翼、张嶷、马忠（蜀）、陈到、李典；本报告的二流是阵容定位，不是官方品阶。',team:team(['person-46','person-439','person-408','person-515','person-457','person-610'],['spear','halberd','logistics','archer','cavalry','crossbow'])},
- {id:'carry',name:'超一流主C＋三流辅助',note:'赵云主C；周仓、廖化牵制，简雍、孙乾、糜竺支援。三流指正面战斗能力，文官的智政并不低。',team:team(['person-396','person-646','person-242','person-123','person-367','person-533'],['cavalry','spear','halberd','logistics','archer','crossbow'])},
- {id:'mixed',name:'一三流混搭',note:'关羽、张辽双核；廖化、简雍、孙乾、糜竺分别承伤、补给、控制、破甲。',team:team(['person-99','liao','person-646','person-123','person-367','person-533'],['halberd','cavalry','spear','logistics','archer','crossbow'])},
+ {id:'cooperation',name:'多二流协同',note:'王平、张翼、张嶷、马忠（蜀）、陈到、李典；本报告的二流是阵容定位，不是官方品阶。',team:team(['person-46','person-439','person-408','person-515','person-457','person-610'],['spear','halberd','halberd','archer','cavalry','crossbow'])},
+ {id:'carry',name:'超一流主C＋三流辅助',note:'赵云主C；周仓、廖化牵制，简雍、孙乾、糜竺支援。三流指正面战斗能力，文官的智政并不低。',team:team(['person-396','person-646','person-242','person-123','person-367','person-533'],['cavalry','spear','halberd','halberd','archer','crossbow'])},
+ {id:'mixed',name:'一三流混搭',note:'关羽、张辽双核；廖化、简雍、孙乾、糜竺分别承伤、补给、控制、破甲。',team:team(['person-99','liao','person-646','person-123','person-367','person-533'],['halberd','cavalry','spear','halberd','archer','crossbow'])},
 ];
 export const opponents=[
- {id:'balanced',name:'河北混编',terrain:'land',team:team(['shao','yan','wen','he','ju','tian'],['spear','cavalry','halberd','crossbow','archer','logistics'])},
+ {id:'balanced',name:'河北混编',terrain:'land',team:team(['shao','yan','wen','he','ju','tian'],['spear','cavalry','halberd','crossbow','archer','halberd'])},
  {id:'cavalry',name:'骑兵突击',terrain:'land',team:team(['person-342','person-70','jin','dun','yuanxia','person-641'],Array(6).fill('cavalry'))},
  {id:'ranged',name:'丘陵远射',terrain:'hill',team:team(['person-467','person-117','person-164','person-459','person-470','person-119'],['spear','archer','crossbow','archer','crossbow','halberd'])},
 ];
@@ -24,7 +24,7 @@ export const classicCases=[
  {id:'ordinary',name:'普通将协同迎飞将',terrain:'land',a:[unit('person-46','spear',2800,8),unit('person-439','halberd',2800,8),unit('person-408','crossbow',2900,8)],z:[unit('person-661','cavalry',8500,8)],expect:'普通将分工应有挑战空间；不要求稳定战胜吕布',min:.1,max:1},
  {id:'spear-cavalry',name:'枪戟拒骑',terrain:'land',a:team(['jin','person-70','person-610'],['spear','halberd','spear']),z:team(['person-467','person-117','person-164'],Array(3).fill('cavalry')),expect:'枪戟对骑兵应有优势（含武将差异）',min:.6,max:1},
  {id:'cavalry-archer',name:'轻骑突弓',terrain:'land',a:team(['jin','person-70','person-610'],Array(3).fill('cavalry')),z:team(['person-467','person-117','person-164'],Array(3).fill('archer')),expect:'无前排弓兵应受骑兵威胁（含武将差异）',min:.6,max:1},
- {id:'fire-forest',name:'林地火攻',terrain:'forest',a:team(['person-246','person-164','person-467'],['archer','spear','logistics']),z:team(['cao','dun','yu'],['spear','halberd','logistics']),expect:'林地火攻阵容至少有取胜空间',min:.2,max:1},
+ {id:'fire-forest',name:'林地火攻',terrain:'forest',a:team(['person-246','person-164','person-467'],['archer','spear','halberd']),z:team(['cao','dun','yu'],['spear','halberd','halberd']),expect:'林地火攻阵容至少有取胜空间',min:.2,max:1},
  {id:'fleet',name:'江上水战',terrain:'river',a:team(['person-246','person-164','person-467'],Array(3).fill('ship')),z:team(['cao','dun','yu'],Array(3).fill('ship')),expect:'水军能合法接敌并结束；久战比例不超过20%',maxTimeout:.2},
 ];
 

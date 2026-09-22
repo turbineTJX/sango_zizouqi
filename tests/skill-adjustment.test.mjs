@@ -46,10 +46,10 @@ test('screen has a useful baseline and scales with support passives',()=>{
     const ally={...structuredClone(d),id:'dun',side:0,x:3,y:3,hp:1200,battleDamage:1800};b.sides[0].units.push(ally);
     const base=ally.maxHp*.04*powerFactor(unitAttributes(u,b).strategyPower);
     stepBattle(b);const amount=ally.statuses.shield.amount;
-    assert.equal(amount,Math.round(base*(id==='ju'&&level===10?1.45:1)));
+    assert.equal(amount,Math.round(base*(id==='ju'?1.45:1)));
     return amount;
   }
-  assert.ok(shield('ju',10)>shield('ju',1));
+  assert.ok(shield('ju',10)>shield('person-533',10));
 });
 
 test('foresight no longer depends on enemy loadout and respects its strict boundary and damage kind',()=>{
@@ -80,7 +80,7 @@ test('new officer defaults activate the intended bow and support routes without 
   assert.ok(!passiveList({...x,level:10}).some(p=>p.state==='兵种不符'));
   assert.equal(ju.type,'crossbow');assert.equal(ju.formation,'back');assert.ok(unitTactics(ju).some(s=>s.id==='unique-ju'));
   assert.deepEqual(ju.tactics,recommendedTacticIds(ju));
-  assert.ok(SKILL_ROUTES.tian.includes('discipline'));assert.ok(!SKILL_ROUTES.tian.includes('suppress'));
+  assert.ok(SKILL_ROUTES.tian.includes('combo'));assert.ok(!SKILL_ROUTES.tian.includes('suppress'));
   x.type='cavalry';assert.ok(passiveList({...x,level:10}).some(p=>p.id==='bow'&&p.state==='兵种不符'));
   validateSave(newGame());
 });

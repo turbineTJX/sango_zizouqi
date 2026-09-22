@@ -1,0 +1,4350 @@
+{
+  "rulesVersion": 64,
+  "passed": true,
+  "battles": 180,
+  "checks": [
+    "九兵种、多等级、独立战斗种子",
+    "非均分兵力、双方固定军略规则",
+    "S三项、A两项、B/C一项，全部等级可用",
+    "AI重布阵幂等、不更换固定战法",
+    "合法占位、只施放固定战法、配置记录不变",
+    "第20步JSON存档续战与最终结果一致"
+  ],
+  "source": {
+    "tactic-learning.mjs": "be44334674dc22ab99f9279f6882223020c24f68f71cdc9b8d22af8b76b9fb83",
+    "tactics.mjs": "ccde273149940b38b560fb6e111d16cb8e4248a5f2377a6c192860fb0778ac58",
+    "engine.mjs": "88dbfbdb9aef257805c0b01e012041e9f8c36dc4fd5b9a643d1fe25c5634f5e3",
+    "battle-ai.mjs": "c151f9da35da0eaa5df1cf4b93e19a3a8c186258f0d21d0cb52c64d1e8656b2c",
+    "scenarios.mjs": "14ec3f9fa3bdc3b16120642d3c46f1ed598bcc8c4474a977f8632cddd81523d8",
+    "progression.mjs": "fccd6c22b0e25daea89763b4d866f6f0eeb2fb9667a14145ac2c5823a2d4cb87",
+    "combat-rules.mjs": "81c7c0c90850d1aa952760105eee1fa7d77660299ea3603ceb9cff24fdbb10dc",
+    "expanded-tactics.mjs": "07c71c369bfcec3d43f4a93214e116f72d737b4dc2edd6ead44697d9d669d23b",
+    "unit-stats.mjs": "abf57dd4d7958fc56b37f65e14952b24e93ab6a760f3766732ebdd9e72832ab2",
+    "passives.mjs": "032b9b0f6024215e292ab28c88d93793313812c3ec3f483672d0398b2a1db741",
+    "famous-officers.mjs": "735868383ca316c4255a6c1e704761edcac4483c26d69b9476b5085e97e5d2cc",
+    "officer-catalog.mjs": "ba3886444c3c80dd4ecd759a8d4351a71bfc39c009504f7e51ff2ca0096a4cbb",
+    "data/officers-source.json": "e4199bceb5ab613372970b84fdd2e1fbf495242a95a44de6ae7c39dd9a5572b8"
+  },
+  "runs": [
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 101,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "land",
+      "level": 1,
+      "seed": 102,
+      "ticks": 152,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 103,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 104,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 101,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "land",
+      "level": 3,
+      "seed": 102,
+      "ticks": 152,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 103,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 104,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 101,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "land",
+      "level": 5,
+      "seed": 102,
+      "ticks": 152,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 103,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 104,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 101,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "land",
+      "level": 8,
+      "seed": 102,
+      "ticks": 152,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 103,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 104,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 101,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "land",
+      "level": 10,
+      "seed": 102,
+      "ticks": 152,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 103,
+      "ticks": 146,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "spear",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 104,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        11,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 1,
+      "seed": 101,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 102,
+      "ticks": 131,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 103,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 1,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 3,
+      "seed": 101,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 102,
+      "ticks": 131,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 103,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 3,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 5,
+      "seed": 101,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 102,
+      "ticks": 131,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 103,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 5,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 8,
+      "seed": 101,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 102,
+      "ticks": 131,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 103,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 8,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 10,
+      "seed": 101,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 102,
+      "ticks": 131,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 103,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "halberd",
+      "terrain": "land",
+      "level": 10,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        10,
+        7
+      ],
+      "slots": [
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 101,
+      "ticks": 128,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 102,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "land",
+      "level": 1,
+      "seed": 103,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 101,
+      "ticks": 128,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 102,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "land",
+      "level": 3,
+      "seed": 103,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 101,
+      "ticks": 128,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 102,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "land",
+      "level": 5,
+      "seed": 103,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 101,
+      "ticks": 128,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 102,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "land",
+      "level": 8,
+      "seed": 103,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 101,
+      "ticks": 128,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 102,
+      "ticks": 138,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "land",
+      "level": 10,
+      "seed": 103,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "cavalry",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 104,
+      "ticks": 137,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 101,
+      "ticks": 100,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "land",
+      "level": 1,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 103,
+      "ticks": 110,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 104,
+      "ticks": 95,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 101,
+      "ticks": 100,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "land",
+      "level": 3,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 103,
+      "ticks": 110,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 104,
+      "ticks": 95,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 101,
+      "ticks": 100,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "land",
+      "level": 5,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 103,
+      "ticks": 110,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 104,
+      "ticks": 95,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 101,
+      "ticks": 100,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "land",
+      "level": 8,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 103,
+      "ticks": 110,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 104,
+      "ticks": 95,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 101,
+      "ticks": 100,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "land",
+      "level": 10,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 103,
+      "ticks": 110,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "archer",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 104,
+      "ticks": 95,
+      "winner": 0,
+      "casts": [
+        8,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 1,
+      "seed": 101,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 102,
+      "ticks": 115,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 103,
+      "ticks": 113,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 1,
+      "seed": 104,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 3,
+      "seed": 101,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 102,
+      "ticks": 115,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 103,
+      "ticks": 113,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 3,
+      "seed": 104,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 5,
+      "seed": 101,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 102,
+      "ticks": 115,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 103,
+      "ticks": 113,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 5,
+      "seed": 104,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 8,
+      "seed": 101,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 102,
+      "ticks": 115,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 103,
+      "ticks": 113,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 8,
+      "seed": 104,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 10,
+      "seed": 101,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 102,
+      "ticks": 115,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 103,
+      "ticks": 113,
+      "winner": 0,
+      "casts": [
+        9,
+        6
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "crossbow",
+      "terrain": "land",
+      "level": 10,
+      "seed": 104,
+      "ticks": 118,
+      "winner": 0,
+      "casts": [
+        9,
+        7
+      ],
+      "slots": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 101,
+      "ticks": 187,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 102,
+      "ticks": 263,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "land",
+      "level": 1,
+      "seed": 103,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 104,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 101,
+      "ticks": 187,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 102,
+      "ticks": 263,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "land",
+      "level": 3,
+      "seed": 103,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 104,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 101,
+      "ticks": 187,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 102,
+      "ticks": 263,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "land",
+      "level": 5,
+      "seed": 103,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 104,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 101,
+      "ticks": 187,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 102,
+      "ticks": 263,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "land",
+      "level": 8,
+      "seed": 103,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 104,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 101,
+      "ticks": 187,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 102,
+      "ticks": 263,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "land",
+      "level": 10,
+      "seed": 103,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "siege",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 104,
+      "ticks": 174,
+      "winner": 0,
+      "casts": [
+        4,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 1,
+      "seed": 101,
+      "ticks": 99,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 1,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 1,
+      "seed": 103,
+      "ticks": 96,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 1,
+      "seed": 104,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 3,
+      "seed": 101,
+      "ticks": 99,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 3,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 3,
+      "seed": 103,
+      "ticks": 96,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 3,
+      "seed": 104,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 5,
+      "seed": 101,
+      "ticks": 99,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 5,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 5,
+      "seed": 103,
+      "ticks": 96,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 5,
+      "seed": 104,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 8,
+      "seed": 101,
+      "ticks": 99,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 8,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 8,
+      "seed": 103,
+      "ticks": 96,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 8,
+      "seed": 104,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 10,
+      "seed": 101,
+      "ticks": 99,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 10,
+      "seed": 102,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 10,
+      "seed": 103,
+      "ticks": 96,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ship",
+      "terrain": "river",
+      "level": 10,
+      "seed": 104,
+      "ticks": 97,
+      "winner": 0,
+      "casts": [
+        10,
+        8
+      ],
+      "slots": [
+        [
+          4,
+          2,
+          3
+        ],
+        [
+          2,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 1,
+      "seed": 101,
+      "ticks": 232,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 102,
+      "ticks": 247,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 103,
+      "ticks": 237,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 1,
+      "seed": 104,
+      "ticks": 235,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 3,
+      "seed": 101,
+      "ticks": 232,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 102,
+      "ticks": 247,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 103,
+      "ticks": 237,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 3,
+      "seed": 104,
+      "ticks": 235,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 5,
+      "seed": 101,
+      "ticks": 232,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 102,
+      "ticks": 247,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 103,
+      "ticks": 237,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 5,
+      "seed": 104,
+      "ticks": 235,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 8,
+      "seed": 101,
+      "ticks": 232,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 102,
+      "ticks": 247,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 103,
+      "ticks": 237,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 8,
+      "seed": 104,
+      "ticks": 235,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 10,
+      "seed": 101,
+      "ticks": 232,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 102,
+      "ticks": 247,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 103,
+      "ticks": 237,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "ram",
+      "terrain": "land",
+      "level": 10,
+      "seed": 104,
+      "ticks": 235,
+      "winner": 0,
+      "casts": [
+        8,
+        9
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 101,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "hill",
+      "level": 1,
+      "seed": 102,
+      "ticks": 164,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "land",
+      "level": 1,
+      "seed": 103,
+      "ticks": 178,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 1,
+      "seed": 104,
+      "ticks": 162,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 101,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "hill",
+      "level": 3,
+      "seed": 102,
+      "ticks": 164,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "land",
+      "level": 3,
+      "seed": 103,
+      "ticks": 178,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 3,
+      "seed": 104,
+      "ticks": 162,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 101,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "hill",
+      "level": 5,
+      "seed": 102,
+      "ticks": 164,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "land",
+      "level": 5,
+      "seed": 103,
+      "ticks": 178,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 5,
+      "seed": 104,
+      "ticks": 162,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 101,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "hill",
+      "level": 8,
+      "seed": 102,
+      "ticks": 164,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "land",
+      "level": 8,
+      "seed": 103,
+      "ticks": 178,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 8,
+      "seed": 104,
+      "ticks": 162,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 101,
+      "ticks": 167,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "hill",
+      "level": 10,
+      "seed": 102,
+      "ticks": 164,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "land",
+      "level": 10,
+      "seed": 103,
+      "ticks": 178,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "type": "tower",
+      "terrain": "forest",
+      "level": 10,
+      "seed": 104,
+      "ticks": 162,
+      "winner": 0,
+      "casts": [
+        8,
+        7
+      ],
+      "slots": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    }
+  ]
+}

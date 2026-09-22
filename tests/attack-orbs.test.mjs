@@ -32,7 +32,7 @@ for(const id of Object.keys(ATTACK_ORBS))test(`${id}: three real basics consume 
     const ui=x.u.intent,di=x.d.intent,fx=hit(x);
     assert.equal(fx.attackOrb,id);assert.equal(fx.skill,false);assert.equal(fx.orbRemaining,remaining);
     assert.equal(x.u.intent,ui+intentIncome(x.u).attack);
-    assert.equal(x.d.intent,di+intentIncome(x.d).hit);
+    assert.equal(x.d.intent,Math.max(0,di-(id==='curse'&&remaining<2?5:0))+intentIncome(x.d).hit);
     assert.equal(x.u.statuses.attackOrb?.charges||0,remaining);
     assert.ok(hasStatus(x.b,x.d,ATTACK_ORBS[id].status));
     assert.equal(x.b.effects.filter(e=>e.combo).length,0);
@@ -46,11 +46,12 @@ test('charges persist while idle and while sealed; cooldown cannot refill or rep
   assert.equal(x.u.statuses.attackOrb.charges,3);assert.equal(x.u.tacticCasts.fire,1);
   assert.equal(readyTactic(x.b,x.u,4),null);
   setStatus(x.b,x.u,'seal',10);assert.ok(hit(x));assert.equal(x.u.statuses.attackOrb.charges,2,'seal prevents arming, but not already enchanted basics');
-  setStatus(x.b,x.u,'stun',3);x.u.cooldown=0;stepBattle(x.b);assert.equal(x.u.statuses.attackOrb.charges,2);
+  setStatus(x.b,x.u,'confuse',3);x.u.cooldown=0;stepBattle(x.b);assert.equal(x.u.statuses.attackOrb.charges,2);
 });
 
 test('tactics and retaliation do not consume charges or double-apply timed burning attacks',()=>{
   const x=scene();arm(x);
+  while(x.b.tick<x.u.tacticRecoveryUntil-1)stepBattle(x.b);
   learnFixtureTactics(x.u,['fire','wildfire','scatter']);x.u.skillReady=Object.fromEntries(unitTactics(x.u).map(t=>[t.id,t.id==='wildfire'?0:999]));x.u.intent=100;
   stepBattle(x.b);assert.equal(x.u.statuses.attackOrb.charges,3);assert.equal(x.d.statuses.burn.stacks,1);
   assert.ok(hit(x));assert.equal(x.d.statuses.burn.stacks,2,'the timed fire buff must not add a second layer to the same enchanted hit');

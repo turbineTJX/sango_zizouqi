@@ -1,7 +1,8 @@
+import {appointTestCommanders} from './helpers/commanders.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SCENARIOS, createScenario } from '../scenarios.mjs';
-import { activeUnits, stepBattle, settleBattle, validateSave, issueCommand, deployUnit, resetDeployment, lockDeployment } from '../engine.mjs';
+import { startBattle, activeUnits, stepBattle, settleBattle, validateSave, issueCommand, deployUnit, resetDeployment, lockDeployment } from '../engine.mjs';
 import { shieldAmount, absorbShield, openCell, routeTo } from '../tactics.mjs';
 import { blockedTerrain } from '../battlefield.mjs';
 
@@ -32,18 +33,22 @@ for (const config of SCENARIOS) {
 }
 
 test('unarrived waves prevent early victory, arrive on schedule and obey blockade', () => {
-  const state = createScenario('reinforcements'), b = state.battle;
+  const state = createScenario('reinforcements'),original=state.battle;
+  appointTestCommanders(state,'person-226','jia');state.pending={...original.context};state.battle=null;startBattle(state);
+  const b=state.battle;b.maxTicks=original.maxTicks;
+  for(const u of b.sides[1].units){const prior=original.sides[1].units.find(x=>x.id===u.id);u.wave=prior.wave;u.arrivalTick=prior.arrivalTick;u.status=prior.status;u.x=prior.x;u.y=prior.y;}
+  lockDeployment(b);
   for (const u of activeUnits(b,1)) { u.hp=0; u.battleDamage=u.initial; u.status='defeated'; }
   for (let i=0;i<24;i++) stepBattle(b);
   assert.equal(b.result,null); assert.equal(activeUnits(b,1).length,0);
   b.commandProgress=12000;
-  assert.equal(issueCommand(b,'blockade'),null);
+  assert.equal(issueCommand(b,'sima-isolate'),null);
   stepBattle(b);
   assert.equal(activeUnits(b,1).length,0);
   while (b.tick < b.sides[1].blockadeUntil) stepBattle(b);
-  assert.equal(activeUnits(b,1).length,4);
+  assert.equal(b.sides[1].units.filter(u=>u.wave===1&&u.status!=='reserve').length,2);
   assert.ok(activeUnits(b,1).every(u=>u.wave===1));
-  assert.equal(b.sides[1].units.filter(u=>u.wave===2&&u.status==='reserve').length,4);
+  assert.equal(b.sides[1].units.filter(u=>u.wave===2&&u.status==='reserve').length,1);
 });
 
 test('sieges add an independent gate and shields only to defending starters', () => {
@@ -74,12 +79,12 @@ test('gate takes ordinary attacks and its destruction ends battle immediately wi
   stepBattle(b);
   assert.equal(gate.hp,0);
   assert.deepEqual(b.result,{winner:0,reason:'城门失守'});
-  assert.equal(b.sides[1].units.filter(u=>u.hp>0).length,12);
+  assert.equal(b.sides[1].units.filter(u=>u.hp>0).length,10);
   assert.ok(b.effects.some(e=>e.to===gate.id&&e.damage===1));
   validateSave(structuredClone(state));
   const before=JSON.stringify(b);stepBattle(b);assert.equal(JSON.stringify(b),before);
   const r=settleBattle(state);assert.equal(r.gate.remaining,0);
-  assert.equal(r.stats[1].initial,12*1800); // Buildings never inflate casualties.
+  assert.equal(r.stats[1].initial,10*1800); // Buildings never inflate casualties.
   validateSave(structuredClone(state));
 });
 

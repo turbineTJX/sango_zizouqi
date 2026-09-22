@@ -1,3 +1,4 @@
+import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {learnedTacticIds} from '../tactic-learning.mjs';
@@ -33,25 +34,26 @@ test('unlearned units have no tactics and each learned slot belongs to the curre
  for(const u of newGame().armies.flatMap(a=>a.units))assert.deepEqual(unitTactics(u).map(s=>s.id),learnedTacticIds(u));
 });
 
-test('instant skills keep shared intent and only one learned tactic enters cooldown per step',()=>{
+test('instant skills spend shared intent and recovery separates learned casts',()=>{
  const {b,a}=scene();learnFixtureTactics(a,['thrust','phalanx']);a.intent=100;
- stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,100);assert.equal(a.skillCasts,1);
+ stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,100-TACTICS_BOOK.thrust.intentCost);assert.equal(a.skillCasts,1);
+ while(b.tick<a.tacticRecoveryUntil-1){stepBattle(b);assert.equal(a.skillCasts,1);}
  stepBattle(b);assert.equal(a.tacticCasts.phalanx,1);assert.equal(a.skillCasts,2);assert.equal(a.cast,null);
 });
 
 test('demoralize clamps active and reserve intent and prevents subsequent skills below threshold',()=>{
-  const {b,a,d}=scene();allowOnly(a,'thrust');a.intent=100;d.intent=30;
+  const {b,a,d}=scene();appointBattleTestCommander(b,'jia');allowOnly(a,'thrust');a.intent=100;d.intent=30;
   const reserve={...structuredClone(d),id:'reserve-test',status:'reserve',x:-1,y:-1,intent:80};b.sides[1].units.push(reserve);
-  b.commandProgress=12000;assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,0);assert.equal(reserve.intent,35);
+  b.commandProgress=12000;assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,0);assert.equal(reserve.intent,80-Math.round(b.lastCommand.source.strength));
   stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.cast,null);
   lowerIntent(a,100);a.skillReady.thrust=0;stepBattle(b);assert.equal(a.tacticCasts.thrust,1);
 });
-test('expired cooldown is insufficient below threshold; regaining intent re-enables the tactic',()=>{
+test('expired cooldown and restored intent cannot replenish an exhausted advanced tactic',()=>{
   const {b,a,d}=scene();allowOnly(a,'thrust');complete(b,a);
   const ready=a.skillReady.thrust;lowerIntent(a,100);a.cooldown=999;d.cooldown=999;
   while(b.tick<ready+1)stepBattle(b);
   assert.equal(a.cast,null);assert.equal(a.skillCasts,1);
-  a.intent=TACTICS_BOOK.thrust.threshold;stepBattle(b);assert.equal(a.tacticCasts.thrust,2);assert.equal(a.cast,null);assert.equal(a.intent,TACTICS_BOOK.thrust.threshold);
+  a.intent=TACTICS_BOOK.thrust.threshold;stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.cast,null);assert.equal(a.intent,TACTICS_BOOK.thrust.threshold-TACTICS_BOOK.thrust.intentCost);
 });
 test('fire burns without intent feedback and ranged skills have distinct real effects',()=>{
   const {b,a,d}=scene('archer');allowOnly(a,'fire');complete(b,a);assert.equal(d.statuses.burn,undefined);a.cooldown=0;stepBattle(b);
@@ -85,10 +87,10 @@ test('blocked displacement never overlaps units or crosses board limits',()=>{
   hexNeighbors(r.a).forEach(([x,y],i)=>r.b.sides[1].units.push({...structuredClone(r.d),id:`wall-${i}`,x,y}));
   assert.equal(tacticTarget(r.b,r.a,TACTICS_BOOK.rush,1),null);
 });
-test('rare skills stun, protect and reduce intent without being universal damage attacks',()=>{
-  const l=scene('cavalry','liao');allowOnly(l.a,'terror');complete(l.b,l.a);assert.ok(hasStatus(l.b,l.d,'stun'));
+test('rare skills confuse, protect and reduce intent without being universal damage attacks',()=>{
+  const l=scene('cavalry','liao');allowOnly(l.a,'terror');complete(l.b,l.a);assert.ok(hasStatus(l.b,l.d,'confuse'));
   const g=scene('crossbow','jia');g.d.intent=100;allowOnly(g.a,'undermine');const hp=g.d.hp;complete(g.b,g.a);
-  assert.equal(g.d.intent,100-Math.round(45*powerFactor(unitAttributes(g.a,g.b).strategyPower)));assert.equal(g.d.hp,hp);
+  assert.equal(g.d.intent,100-Math.round(1.2*Math.round((TACTICS_BOOK.undermine.drain+TACTICS_BOOK.undermine.highIntent.drain)*powerFactor(unitAttributes(g.a,g.b).strategyPower))));assert.equal(g.d.hp,hp);
   const c=scene('spear','chu');const ally={...structuredClone(c.a),id:'ally',x:5,intent:0,cooldown:999};c.d.x=6;c.b.sides[0].units.push(ally);
   allowOnly(c.a,'protect');complete(c.b,c.a);assert.ok(hasStatus(c.b,ally,'shield'));assert.equal(c.d.x,8);
 });

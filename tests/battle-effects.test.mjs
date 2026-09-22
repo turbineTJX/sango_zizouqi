@@ -136,12 +136,12 @@ test('intent denial stays visible in clear and full effects, including merged hi
   b.effects.unshift({...event(),skill:false,damage:20});fx.update(b,{paused:false,speed:1,mode});
   const original=JSON.stringify(b);
   for(let time=50;time<400;time+=50)fx.draw(time+fx.lastFrame);
-  assert.ok(labels.some(text=>text.includes('截气')),mode);assert.equal(JSON.stringify(b),original);labels.length=0;
+  assert.ok(labels.some(text=>text.includes('战意获取受阻')),mode);assert.equal(JSON.stringify(b),original);labels.length=0;
  }
  const b=battle({...event(),intentDenied:7,intentBlock:'断势'});b.id='stifle';b.effects.push(event());
  fx.update(b,{paused:false,speed:1,mode:'clear'});
  for(let i=0;i<28;i++)fx.draw(fx.lastFrame+50);
- assert.ok(labels.some(text=>text.includes('断势')));
+ assert.ok(labels.some(text=>text.includes('战意获取受阻')));
 });
 
 test('clear paused inspection hides transient drawings but preserves event log and clock',t=>{
@@ -288,8 +288,9 @@ test('real zero-intent combat only queues 100-intent tactics or genuine links',a
  const {createScenario}=await import('../scenarios.mjs');
  const {lockDeployment,stepBattle}=await import('../engine.mjs');
  const {isMajorCast}=await import('../battle-effects.mjs');
- const {fx}=scene(t),state=createScenario('officer-lab',17,20,['person-661','person-246','person-603','person-404','yu','shao']),b=state.battle;
- lockDeployment(b);let small=0,big=0,links=0;
+ const {fx}=scene(t);let small=0,big=0,links=0;
+ for(const seed of [17,18,19,20,21,22,23,24]){
+ const state=createScenario('officer-lab',seed,20,['person-661','person-246','person-603','person-404','yu','shao']),b=state.battle;lockDeployment(b);
  while(!b.result){
   stepBattle(b);const before=JSON.stringify(b);fx.update(b,{paused:false,speed:1});
   const queued=fx.cinematics.flatMap(c=>c.events);
@@ -299,6 +300,7 @@ test('real zero-intent combat only queues 100-intent tactics or genuine links',a
   // Finish presentation time before the next engine step, as the app does.
   fx.clock+=fx.cinematics.reduce((n,c)=>n+c.duration,0)+800;fx.draw(fx.lastFrame+1);
   assert.equal(JSON.stringify(b),before);
+ }
  }
  assert.ok(small>0);assert.ok(big>0);assert.ok(links>0);
 });

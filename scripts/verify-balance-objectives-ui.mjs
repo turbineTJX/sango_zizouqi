@@ -10,7 +10,7 @@ let browser;
 try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('Server exited '+code)));});
  const unit=(id,type,troops)=>({id,type,troops,level:5});
- const state=createScenario('custom-battle',73000009,20,null,{seed:73000009,terrain:'land',ownTeam:[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','logistics',1500)],enemyTeam:[unit('jin','spear',3000),unit('yuanxia','archer',3000),unit('person-610','crossbow',3000)]});
+ const state=createScenario('custom-battle',73000009,20,null,{seed:73000009,terrain:'land',ownTeam:[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','halberd',1500)],enemyTeam:[unit('jin','spear',3000),unit('yuanxia','archer',3000),unit('person-610','crossbow',3000)]});
  browser=await chromium.launch({channel:'msedge',headless:true});
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));

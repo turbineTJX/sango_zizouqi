@@ -13,7 +13,7 @@ const COLORS = {
 };
 const clamp = (n, min = 0, max = 1) => Math.max(min, Math.min(max, n));
 const ease = t => 1 - (1 - t) ** 3;
-const damageLabel = e => `${e.critical?'暴击 ':''}−${e.damage}${e.intentBlock?' · '+e.intentBlock:''}`;
+const damageLabel = e => `${e.critical?'暴击 ':''}−${e.damage}`;
 
 const majorTactics = new Set(Object.values(TACTICS_BOOK).filter(s=>s.threshold>=100).map(s=>s.name));
 export const isMajorCast = events => events.some(e=>!e.ongoing&&e.skill&&(majorTactics.has(e.label)||e.comboLevel>=2||e.combo?.level>=2));
@@ -67,10 +67,10 @@ export class BattleEffects {
     }
     const casts = new Map();
     for (const event of added) {
-      if(event.phase==='cast') continue; // Ignore obsolete windup events restored from older saves.
+      if(event.phase==='cast'||event.intentOnly) continue; // Ignore obsolete windup events restored from older saves.
       const source = battle.sides.flatMap(s => s.units).find(u => u.id === event.from);
       const target = battle.sides.flatMap(s => s.units).find(u => u.id === event.to) || (battle.siege?.gate.id === event.to ? battle.siege.gate : null);
-      const e = { ...event, tick:battle.tick, targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
+      const e = { ...event, ...(event.intentDrained!==undefined?{text:''}:{}), tick:battle.tick, targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
       e.duration = (e.combo ? 1000 : 650) / speed;
       e.tacticalNote=tacticalNotes.get(`${e.from}:${e.label}`);
       e.terrainNote=[...(terrainNotes.get(`${e.from}:${e.label}`)||[])].join('；');
@@ -123,7 +123,7 @@ export class BattleEffects {
     if (this.notices.some(n => n.key === key)) return;
     const item = document.createElement('div'); item.className = `skill-announcement side-${e.side} fx-${e.visual}${e.combo?' combo-announcement':''}`;
     const badge = document.createElement('span'); badge.className = 'skill-seal'; badge.textContent = e.enchantment?'装填':e.combo ? e.label : '施放';
-    const name = document.createElement('span'); name.className = 'skill-officer'; name.textContent = `${e.side ? '敌' : '我'} · ${e.tick}步 · ${e.combo ? e.combo.actors.map(a=>a.name).join(' + ')+' → '+e.combo.targetName : e.name + (e.targetName && e.to !== e.from ? ' → '+e.targetName : '')}`;
+    const name = document.createElement('span'); name.className = 'skill-officer'; name.textContent = `${e.side ? '敌' : '我'} · ${e.tick}日 · ${e.combo ? e.combo.actors.map(a=>a.name).join(' + ')+' → '+e.combo.targetName : e.name + (e.targetName && e.to !== e.from ? ' → '+e.targetName : '')}`;
     const title = document.createElement('strong'); title.textContent = e.combo ? '效果 +'+e.combo.bonus+'%' : e.label+(e.tacticalNote?' · '+e.tacticalNote:'')+(e.terrainNote?' · '+e.terrainNote:'');
     item.title = `${name.textContent} · ${badge.textContent} · ${title.textContent}`;
     const detail=document.createElement('div');detail.className='skill-result';

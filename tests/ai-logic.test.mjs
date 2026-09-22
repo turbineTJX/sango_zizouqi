@@ -28,7 +28,7 @@ test('水战攻击舰船不会因无收益策应停手，实际行动与存读�
 test('单人和远程阵容仍携带已学战法，AI不会替换学习结果',()=>{
  const solo=make([unit('person-512','archer')]);
  assert.deepEqual(solo.battle.sides[1].units[0].tactics,learnedTacticIds(solo.battle.sides[1].units[0]));
- const ranged=make([unit('yuanxia','archer'),unit('he','crossbow'),unit('person-123','logistics')]);
+ const ranged=make([unit('yuanxia','archer'),unit('he','crossbow'),unit('person-123','halberd')]);
  const aux=ranged.battle.sides[1].units[2];
  assert.deepEqual(aux.tactics,learnedTacticIds(aux));
  for(const state of [solo,ranged]){
@@ -38,7 +38,7 @@ test('单人和远程阵容仍携带已学战法，AI不会替换学习结果',(
 });
 
 test('预备队状态和开场满血不改变所学战法',()=>{
- const s=make([unit('person-512','archer'),unit('person-123','logistics'),unit('person-46','spear')]),b=s.battle;
+ const s=make([unit('person-512','archer'),unit('person-123','halberd'),unit('person-46','spear')]),b=s.battle;
  // Planner boundary: an alive reserve is a future recipient, regardless of arrival time.
  const reserve=b.sides[1].units[2];Object.assign(reserve,{status:'reserve',x:-1,y:-1,arrivalTick:100});
  planEnemyArmy(b);
@@ -53,7 +53,7 @@ test('单舰对陆军不会把无友舰的接舷替换成无敌舰的艨冲',()=
 });
 
 test('支援路径允许在接敌格施法，但不允许穿越有效拦截线',()=>{
- const b=make([unit('person-46','spear'),unit('person-123','logistics')]).battle;
+ const b=make([unit('person-46','spear'),unit('person-123','halberd')]).battle;
  const [u,ally]=b.sides[1].units,e=b.sides[0].units[0];
  // Geometric boundary only: no combat resources or casts are injected.
  Object.assign(u,{x:5,y:3});Object.assign(ally,{x:8,y:3});Object.assign(e,{x:7,y:4});
@@ -64,12 +64,12 @@ test('支援路径允许在接敌格施法，但不允许穿越有效拦截线',
 });
 
 test('单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束',()=>{
- const b=make([unit('cao','spear')]).battle;lockDeployment(b);
+ const b=make([unit('person-246','spear')]).battle;lockDeployment(b);
  assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),'inspire');
  const u=b.sides[1].units[0];u.intent=100;assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),null);
- u.intent=95;assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),null,'不为极少战意浪费军略');
+ u.intent=95;assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),'inspire','有缺失战意即符合触发条件');
  u.intent=0;b.enemyCommand.commandReady.inspire=b.tick+8;assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),null);
- b.enemyCommand.commandReady.inspire=0;u.statuses.stun={until:b.tick+3};
- assert.equal(chooseEnemyCommand(b,['inspire','cleanse'],STRATAGEMS),'cleanse');
+ b.enemyCommand.commandReady.inspire=0;u.statuses.confuse={until:b.tick+3};
+ assert.equal(chooseEnemyCommand(b,['inspire','cleanse'],STRATAGEMS),'inspire');
  assert.match(issueCommand(b,'inspire',null,1),/尚未蓄满/,'评分改动不能绕过资源门槛');
 });

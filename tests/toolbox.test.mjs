@@ -16,9 +16,9 @@ function scene(type='spear') {
   lockDeployment(b);return {state,b,a,d};
 }
 
-test('every troop retains six learning candidates, but arbitrary role templates cannot grant skills',()=>{
+test('troop pools retain valid learning candidates, but arbitrary role templates cannot grant skills',()=>{
  for(const type of Object.keys(TACTIC_ROLES)){
-  const u={id:'ordinary',type},pool=availableTactics(u);assert.equal(pool.length,6);assert.ok(pool.every(s=>s.role&&s.tradeoff));
+  const u={id:'ordinary',type},pool=availableTactics(u);assert.equal(new Set(pool.map(s=>s.id)).size,pool.length);assert.ok(pool.every(s=>s.role&&s.tradeoff));
   for(const r of TACTIC_ROLES[type])assert.ok(configureTactics(u,r.ids));
  }
  const x=scene();assert.ok(configureTactics(x.a,['press','thrust','ward']));
@@ -49,6 +49,7 @@ test('low-intellect guards retain mitigation and suppression; their support cast
   const x=scene('cavalry');x.a.intellect=1;primeTactic(x.a,'gallop');stepBattle(x.b);
   assert.ok(Math.abs(unitAttributes(x.a,x.b).damageReduction-Math.round(25*powerFactor(unitAttributes(x.a,x.b).martialPower))/100)<1e-9);assert.ok(!hasStatus(x.b,x.a,'haste'));
   assert.equal(x.d.hp,x.d.maxHp);
+  while(x.b.tick<x.a.tacticRecoveryUntil-1)stepBattle(x.b);
   primeTactic(x.a,'harass');stepBattle(x.b);assert.ok(hasStatus(x.b,x.d,'weaken'));
   assert.equal(x.d.hp,x.d.maxHp);assert.equal(x.a.tacticCasts.harass,1);
 });

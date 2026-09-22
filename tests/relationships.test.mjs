@@ -22,7 +22,7 @@ test('source relationships have symmetric baselines, positive floors, negative c
   assert.deepEqual(a,b);assert.equal(a.score,base);assert.equal(a.chance,base);
   assert.equal(a.min,label==='厌恶'?0:base);assert.equal(a.max,max);
  }
- assert.equal(relationshipInfo('custom-1','custom-2').score,50);
+ assert.equal(relationshipInfo('person-1','person-2').score,50);
  assert.equal(relationshipInfo('test-0','test-1').score,50);
 });
 
@@ -32,9 +32,9 @@ test('scores accept explicit improvements or reduced hostility and reject out-of
  for(const n of [-1,79,101,80.5,'90',NaN])assert.ok(setRelationshipScore(s,...sworn,n));
  assert.equal(s.relationshipScores[key],95);
  const hate=sourcePair('dislikedIds','厌恶');assert.equal(setRelationshipScore(s,...hate,0),null);assert.ok(setRelationshipScore(s,...hate,21));
- assert.ok(setRelationshipScore(s,'custom-1','custom-2',100));
- assert.equal(setRelationshipScore(s,'custom-1','custom-2',59),null);
- assert.ok(setRelationshipScore(s,'custom-1','custom-1',50));assert.ok(setRelationshipScore(s,'missing','cao',50));
+ assert.ok(setRelationshipScore(s,'person-1','person-2',100));
+ assert.equal(setRelationshipScore(s,'person-1','person-2',59),null);
+ assert.ok(setRelationshipScore(s,'person-1','person-1',50));assert.ok(setRelationshipScore(s,'missing','cao',50));
  assert.equal(setRelationshipScore(s,...sworn,80),null);assert.equal(Object.hasOwn(s.relationshipScores,key),false);
  assert.ok(validRelationshipScores(s.relationshipScores));
 });
@@ -68,7 +68,7 @@ test('character pages expose saved scores, probability, bounds, and combat locki
 
 
 test('score events cross social tiers without granting marriage or sworn bonds automatically',()=>{
- const s=newGame(),pair=['custom-1','custom-2'];
+ const s=newGame(),pair=['person-1','person-2'];
  const read=()=>relationshipInfo(...pair,s.relationshipScores,s.relationshipTypes);
  for(const [delta,type,score] of [[10,'friendly',60],[10,'liked',70],[50,'liked',79],[-20,'ordinary',59],[-30,'distant',29],[-20,'disliked',9],[31,'ordinary',40]]){
   assert.equal(changeRelationshipScore(s,...pair,delta),null);assert.equal(read().type,type);assert.equal(read().score,score);
@@ -81,7 +81,7 @@ test('score events cross social tiers without granting marriage or sworn bonds a
 });
 
 test('special relationships have different caps and deterioration preserves source kinship',()=>{
- const s=newGame(),pair=['custom-1','custom-2'];
+ const s=newGame(),pair=['person-1','person-2'];
  assert.ok(setRelationshipType(s,...pair,'parent'));
  assert.equal(setRelationshipType(s,...pair,'spouse'),null);assert.equal(changeRelationshipScore(s,...pair,500),null);
  assert.equal(relationshipInfo(...pair,s.relationshipScores,s.relationshipTypes).score,95);
@@ -109,7 +109,7 @@ test('changed relationships persist symmetrically, affect the battle snapshot an
 });
 
 test('invalid relationship types and out-of-tier scores are rejected without migration',()=>{
- const ordinary=relationshipKey('custom-1','custom-2');
+ const ordinary=relationshipKey('person-1','person-2');
  const key=relationshipKey(...sworn);
  for(const types of [null,[],{[key]:'unknown'},{[ordinary]:'parent'},{'cao|cao':'sworn'},{'unknown|yu':'liked'}]){
   const broken=newGame();broken.relationshipTypes=types;assert.throws(()=>validateSave(broken),/人物关系类型/);

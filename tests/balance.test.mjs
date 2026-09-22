@@ -1,3 +1,4 @@
+import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
 import test from 'node:test';
@@ -20,11 +21,11 @@ test('intent cap permits every tactic but a capped enemy loses high-threshold ac
   assert.equal(COMBAT.intentCap,100);
   assert.ok(Object.values(TACTICS_BOOK).every(s=>s.threshold<=COMBAT.intentCap));
   const {b,a,d}=duel();learnFixtureTactics(d,['strike','phalanx','thrust']);d.skillReady={};
-  a.intent=d.intent=COMBAT.intentCap;b.commandProgress=12000;
+  appointBattleTestCommander(b,'jia');a.intent=d.intent=COMBAT.intentCap;b.commandProgress=12000;
   assert.equal(readyTactic(b,d,1).skill.id,'strike');
-  assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,55);
+  assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,100-Math.round(b.lastCommand.source.strength));
   assert.notEqual(readyTactic(b,d,1)?.skill.id,'strike');
-  for(let i=0;i<4;i++) {b.commandProgress=12000;b.commandReady.inspire=0;assert.equal(issueCommand(b,'inspire'),null);assert.equal(a.intent,100);}
+  appointBattleTestCommander(b,'shao','leader');for(let i=0;i<4;i++) {b.commandProgress=12000;b.commandReady.inspire=0;assert.equal(issueCommand(b,'inspire'),null);assert.equal(a.intent,100);}
 });
 
 test('only the current rule version loads, and intent is validated without normalization',()=>{
@@ -57,7 +58,7 @@ test('trial loadouts use legal tools and the advertised support commands are unl
     const skills=unitTactics(u);assert.ok(skills.length<=4);assert.ok(skills.every(s=>s.threshold<=100));
   }
   assert.ok(battleStratagems(createScenario('outnumbered').battle).includes('heal'));
-  for(const id of ['rotation','defense'])for(const command of ['heal','regenerate','relief'])assert.ok(battleStratagems(createScenario(id).battle).includes(command));
+  for(const id of ['rotation','defense'])for(const command of ['heal','regenerate','fortify'])assert.ok(battleStratagems(createScenario(id).battle).includes(command));
 });
 
 test('siege defenders hold their rear line before enemies approach',()=>{

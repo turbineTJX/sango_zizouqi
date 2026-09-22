@@ -59,3 +59,53 @@
 .mode-card:focus-visible{outline:2px solid #d5b77e;outline-offset:5px}
 .mode-card .eyebrow{color:#b8a374}.mode-card h2{font:32px var(--serif);letter-spacing:4px;margin:18px 0}.mode-card p{font-size:13px;line-height:1.9;color:#aeb7aa;min-height:50px}.mode-enter{display:block;font-size:16px;color:#e1c99a;margin:28px 0 12px}.mode-card>small{color:#93a397;font-size:11px}
 @media(max-width:600px){.mode-selection{grid-template-columns:1fr;gap:16px}.mode-card{padding:24px}.mode-card h2{font-size:28px}.mode-card p{min-height:0}.mode-lobby .lobby-hero{min-height:260px}}
+/* Custom battle workbench: keep both rosters readable without wide table rows. */
+.custom-workspace .custom-battle{margin-top:8px}
+.custom-team{background:#fffaf0;border:1px solid #c6b68e;border-radius:10px;padding:16px}
+.custom-team:last-child{background:#f7f2ec}
+.custom-team h3{margin:0 0 16px;gap:10px;align-items:center;flex-wrap:wrap}
+.custom-unit{display:block;background:#fffdf5;border:1px solid #d9cbaa;border-radius:8px;padding:14px;margin:14px 0}
+.custom-unit header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.custom-unit header .text-button{padding:6px 10px}
+.custom-unit-fields{display:grid;grid-template-columns:minmax(0,1fr) 65px minmax(85px,1fr);gap:12px}
+.custom-unit-fields .custom-officer{grid-column:1/-1}
+.custom-batch{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;padding:12px;background:#e9e2cc80;border-radius:6px}
+.custom-batch .button{font-size:12px;padding:10px}
+.custom-skills{margin-top:12px;border-top:1px solid #d9cbaa;padding-top:10px;font-size:12px;line-height:1.8}
+.custom-skills summary{cursor:pointer;color:#446152;overflow-wrap:anywhere}
+.custom-skills p{color:#625e4e;margin:10px 0}
+.custom-launch{border-top:1px solid #c6b68e;padding-top:12px}
+.custom-launch p{font-size:14px;font-weight:600}
+.custom-launch small{display:block;text-align:center;margin-top:10px;color:#6d6556}
+.custom-options small{max-width:330px;line-height:1.7}
+.custom-battle button:disabled{opacity:.4;cursor:not-allowed}
+@media(min-width:900px){.custom-teams{grid-template-columns:1fr 1fr;gap:18px}}
+@media(max-width:600px){.custom-team{padding:10px}.custom-unit{padding:10px}.custom-batch{grid-template-columns:1fr 1fr}.custom-batch .button{grid-column:1/-1}.custom-unit header .text-button{padding:6px}.custom-workspace .lobby-nav{gap:8px;flex-wrap:wrap}}
+/* Muster uses the same row-based workflow as expedition army organization. */
+.custom-muster .custom-teams{grid-template-columns:minmax(0,1fr);gap:24px}
+.custom-muster .custom-team{border-radius:4px;padding:18px}
+.custom-muster .custom-team h3{justify-content:flex-start;font-size:20px}
+.custom-muster .custom-team h3 small{margin-right:auto}
+.custom-muster .custom-command-row{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:start;margin-bottom:16px}
+.custom-muster .custom-command-row .custom-batch{grid-template-columns:1fr 1fr;margin:0}
+.custom-muster .custom-command-row .custom-skills{margin:0;border:0;padding:10px}
+.custom-table-wrap{overflow-x:auto}
+.custom-roster-table{width:100%;border-collapse:collapse;min-width:740px;text-align:left}
+.custom-roster-table th{background:#e9e2cc80;color:#6c644e;padding:12px 8px;font-size:12px;font-weight:500;white-space:nowrap}
+.custom-roster-table td{padding:13px 8px;border-bottom:1px solid #c6b68e66;vertical-align:middle}
+.custom-roster-table td:nth-child(1){width:72px}
+.custom-roster-table td:nth-child(2){min-width:120px}
+.custom-roster-table td:nth-child(4){width:115px}
+.custom-roster-table td:nth-child(5){width:80px}
+.custom-roster-table td:nth-child(6){width:130px}
+.custom-roster-table td:last-child{white-space:nowrap;width:105px}
+.custom-roster-table small{display:block;color:#77705a;margin-top:6px}
+.custom-roster-table .personnel-name{color:#355647;font-size:16px}
+.custom-five-stats{display:flex;gap:12px;font-variant-numeric:tabular-nums}
+.custom-order{display:inline-flex;margin-left:3px}
+.custom-order button{padding:4px}
+.custom-muster .custom-team>.custom-batch{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;align-items:end}
+.custom-muster .custom-team>.custom-batch label{width:110px}
+.custom-muster .custom-team>.custom-batch>span{align-self:center;color:#69624f}
+.custom-picked{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+@media(max-width:700px){.custom-muster .custom-command-row{grid-template-columns:minmax(0,1fr);gap:8px}.custom-muster .custom-team{padding:12px}.custom-muster .custom-team h3 .button{width:100%}.custom-muster .lobby-section-title{flex-wrap:wrap;gap:10px}.custom-muster .lobby-section-title h2{font-size:20px}.custom-muster .custom-team>.custom-batch{gap:10px}.custom-muster .custom-team>.custom-batch label{width:calc(50% - 5px)}.custom-muster .custom-team>.custom-batch>span{width:100%}}

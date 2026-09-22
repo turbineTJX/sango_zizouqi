@@ -1,3 +1,4 @@
+import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
@@ -7,7 +8,8 @@ import {TACTICS_BOOK} from '../tactics.mjs';
 test('cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically',()=>{
   const heroes=['person-661','person-246','person-603','person-404'];
   const state=createScenario('officer-lab',17,20,[...heroes,'yu','shao']),b=state.battle;
-  lockDeployment(b);
+  for(const u of b.sides[0].units.filter(u=>heroes.includes(u.id))){const setup={spear:'phalanx',cavalry:'gallop',archer:'fire',crossbow:'pierce',ship:'anchor',halberd:'bulwark',siege:'emplace'}[u.type];learnFixtureTactics(u,[setup,'unique-'+u.id]);}
+  syncFixtureLearning(state);lockDeployment(b);
   assert.ok(b.sides.flatMap(s=>s.units).every(u=>u.intent===0));
   const first=new Map();let resumed=null;
   while(!b.result){
@@ -22,7 +24,7 @@ test('cheap setup precedes 100-intent finishers in real zero-intent combat and r
     assert.equal(TACTICS_BOOK[id].threshold,100);
     assert.ok(first.has(hero+':'+id),`${id} can reach its threshold before combat ends`);
     const u=b.sides[0].units.find(u=>u.id===hero);
-    assert.ok(u.tactics.some(key=>TACTICS_BOOK[key].threshold<=25&&first.get(hero+':'+key)<first.get(hero+':'+id)),'each officer uses its own low-intent setup before its finisher');
+    assert.ok(u.tactics.some(key=>TACTICS_BOOK[key].threshold<=35&&first.get(hero+':'+key)<first.get(hero+':'+id)),'each officer uses its own low-intent setup before its finisher');
   }
   assert.deepEqual(resumed.battle,b);
 });

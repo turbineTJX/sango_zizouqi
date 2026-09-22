@@ -17,7 +17,7 @@ test('自由对战的所有名将专属均进入玩家初始配装，不依赖�
 
 test('名将骑兵按所学战法作战，专属额外携带且存读档不分歧',()=>{
  for(const id of ['person-661','person-396','person-99']){
-  const state=createScenario('custom-battle',62000003,20,null,{seed:62000003,terrain:'land',ownTeam:[unit(id,'cavalry',6000),unit('person-646','spear',1500),unit('person-123','logistics',1500)],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]}),b=state.battle,u=b.sides[0].units[0];
+  const state=createScenario('custom-battle',62000003,20,null,{seed:62000003,terrain:'land',ownTeam:[unit(id,'cavalry',6000),unit('person-646','spear',1500),unit('person-123','halberd',1500)],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]}),b=state.battle,u=b.sides[0].units[0];
   assert.equal(configureUnitTactics(state,id,recommendedTacticIds(u)),null);
   assert.equal(u.intent,0);lockDeployment(b);stepBattle(b);
   assert.ok(validLoadout(u,u.tactics));

@@ -4,7 +4,24 @@ import {buildProfileOverrides} from '../scripts/officer-source-lib.mjs';
 import {OFFICER_BY_ID,OFFICER_CATALOG,searchOfficers} from '../officer-catalog.mjs';
 import {relationshipInfo} from '../relationships.mjs';
 import {makeOfficer} from '../engine.mjs';
-import {GAME_RECORDS} from '../scripts/game-officer-table.mjs';
+import {GAME_RECORDS,GAME_COLUMNS} from '../scripts/game-officer-table.mjs';
+import {OFFICER_MASTER_RECORDS,OFFICER_MASTER_COLUMNS,OFFICER_TRAIT_SLOTS} from '../scripts/officer-master-data.mjs';
+import {skillRoute,PASSIVES} from '../passives.mjs';
+
+test('officer exports include every assigned trait and its domain without a five-trait limit',()=>{
+ const labels={battle:'战斗',command:'指挥',domestic:'内政',movement:'行旅',diplomacy:'外交'};
+ const max=Math.max(...OFFICER_CATALOG.map(u=>skillRoute(u).length));assert.equal(OFFICER_TRAIT_SLOTS,max);assert.ok(max>5);
+ const fields=new Set(GAME_COLUMNS.map(c=>c.key)),masterFields=new Set(OFFICER_MASTER_COLUMNS.map(c=>c.key));
+ for(const u of OFFICER_CATALOG){
+  const row=GAME_RECORDS.find(r=>r.id===u.id),master=OFFICER_MASTER_RECORDS.find(r=>r.id===u.id),traits=skillRoute(u);
+  for(let i=0;i<max;i++){
+   for(const key of ['passive'+i,'passiveEffect'+i,'passiveId'+i,'passiveDomain'+i,'passiveAvailability'+i])assert.ok(fields.has(key),key);
+   assert.ok(masterFields.has('passive'+i));assert.ok(masterFields.has('passiveEffect'+i));
+   if(i<traits.length){const id=traits[i],p=PASSIVES[id];assert.equal(row['passiveId'+i],id);assert.equal(row['passiveDomain'+i],labels[p.domain]);assert.equal(row['passive'+i],p.name);assert.equal(row['passiveEffect'+i],p.description);assert.equal(master['passive'+i],p.name);}
+   else {assert.equal(row['passiveId'+i],'');assert.equal(row['passive'+i],'无');assert.equal(row['passiveAvailability'+i],'无');}
+  }
+ }
+});
 
 test('scenario profiles correct the public-library traits in runtime and exported rows',()=>{
  for(const [id,personality,righteousness] of [[99,3,5],[433,4,5],[636,3,5],[661,4,1],[290,2,5],[246,2,5]]){
@@ -36,7 +53,7 @@ test('profile import uses array base values and never adopts live scenario state
  const {overrides}=buildProfileOverrides(library,{1:{Id:1,Name:'甲',personality:3,argumentation:5,command:[80,2],loyalty:12,BelongForce:9,Level:7},2:{Id:2,Name:'额外占位'}});
  assert.deepEqual(overrides,{'1':{personality:3,argumentation:5,command:80}});
  assert.deepEqual(library,before);
- const custom=OFFICER_BY_ID['custom-1'];assert.deepEqual(custom.profileSource,custom.source);assert.equal(custom.righteousness,0);
+ assert.equal(OFFICER_BY_ID['custom-1'],undefined);
  assert.throws(()=>buildProfileOverrides(library,{}),/同编号/);
  assert.throws(()=>buildProfileOverrides(library,{1:{Id:1,personality:5}}),/性格编号/);
 });

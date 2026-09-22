@@ -10,7 +10,7 @@ let browser;
 try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('Server exited '+code)));});
  const unit=(id,type,troops)=>({id,type,troops,level:10});
- const state=createScenario('custom-battle',73000009,20,null,{seed:73000009,terrain:'land',ownTeam:[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','logistics',1500)],enemyTeam:[unit('jin','spear',3000),unit('yuanxia','archer',3000),unit('person-610','crossbow',3000)]});
+ const state=createScenario('custom-battle',73000009,20,null,{seed:73000009,terrain:'land',ownTeam:[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','halberd',1500)],enemyTeam:[unit('jin','spear',3000),unit('yuanxia','archer',3000),unit('person-610','crossbow',3000)]});
  browser=await chromium.launch({channel:'msedge',headless:true});
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
@@ -21,8 +21,8 @@ try{
  assert.equal(await page.locator('[data-tactic-slot]').count(),0);
  assert.equal(await page.locator('[data-action="tactic-preset"]').count(),0);
  assert.equal(await page.locator('.compact-loadout').count(),4);
- await page.locator('[data-action="tactic-up"]').first().click();
- const expected=[...recommendedTacticIds(state.battle.sides[0].units[0])];[expected[0],expected[1]]=[expected[1],expected[0]];
+ assert.equal(await page.locator('[data-action="tactic-up"]').count(),0);
+ const expected=[...recommendedTacticIds(state.battle.sides[0].units[0])];
  const slots=()=>page.locator('.compact-loadout h3').allTextContents();
  await mkdir('outputs/tactic-learning-ui',{recursive:true});
  await page.screenshot({path:'outputs/tactic-learning-ui/desktop.png',fullPage:true});
@@ -35,6 +35,6 @@ try{
  await page.locator('#loadout-unit').selectOption('person-396');
  assert.deepEqual(await slots(),expected.map(id=>TACTICS_BOOK[id].name));
  assert.deepEqual(errors,[]);
- await writeFile('outputs/tactic-learning-ui/result.json',JSON.stringify({passed:true,checks:['自动四槽，无自由选装入口','只重排已学战法','刷新后学习与顺序保留','桌面与移动布局','无浏览器脚本错误'],tactics:await slots()},null,2));
- console.log('PASS: 随机学习四槽、排序、保存、刷新，桌面与手机布局');
+ await writeFile('outputs/tactic-learning-ui/result.json',JSON.stringify({passed:true,checks:['自动四槽，无自由选装入口','无调整顺序入口','刷新后固定配置保留','桌面与移动布局','无浏览器脚本错误'],tactics:await slots()},null,2));
+ console.log('PASS: 固定配置、全等级可用、保存、刷新，桌面与手机布局');
 }finally{await browser?.close();server.kill();}

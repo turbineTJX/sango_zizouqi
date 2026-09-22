@@ -1,7 +1,7 @@
 import {unitTerrain,TERRAIN_NAMES} from './battlefield.mjs';
 
 const PROFILES = {
-  fire:{description:'按目标格：林地伤害 +30%，湿地 −20%，水面 −40%；灼烧每步按目标当前地形修正。',target:{forest:1.3,marsh:.8,water:.6}},
+  fire:{description:'按目标格：林地伤害 +30%，湿地 −20%，水面 −40%；灼烧每日按目标当前地形修正。',target:{forest:1.3,marsh:.8,water:.6}},
   ranged:{description:'按施放格：高地伤害 +20%；按目标格：林地伤害 −20%；两项相乘。',source:{hill:1.2},target:{forest:.8}},
   charge:{description:'按起点、冲锋路径及目标格中最不利地形：林地伤害 −30%，高地 −15%，湿地 −40%，桥面 −20%。',path:{forest:.7,hill:.85,marsh:.6,bridge:.8}},
   ambush:{description:'按施放格：林地伤害及迟滞、疲弱时长 +30%，高地 +15%，湿地 −20%。',source:{forest:1.3,hill:1.15,marsh:.8},statuses:['slow','weaken']},
@@ -22,7 +22,7 @@ export function tacticTerrainProfile(s){
   return null;
 }
 export function terrainTacticDescription(s){
-  if(s.attackOrb&&['fire','suppress','pierce'].includes(s.id||s.effect))return '地形只修正附加的武技威力，原普攻不乘战法地形系数。'+(PROFILES[tacticTerrainProfile(s)]?.description||'');
+  if(s.attackOrb&&['fire','suppress','pierce'].includes(s.id||s.effect))return '附加伤害受地形影响。'+(PROFILES[tacticTerrainProfile(s)]?.description||'');
   return PROFILES[tacticTerrainProfile(s)]?.description||'无额外地形修正；仍遵守水陆通行、射程与目标限制。';
 }
 export const fireTerrainFactor=(b,target)=>PROFILES.fire.target[unitTerrain(b,target)]??1;

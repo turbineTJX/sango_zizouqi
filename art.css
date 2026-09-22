@@ -96,3 +96,16 @@
  .battle-inspection .modal-header{padding:12px 16px}.battle-inspection .modal-body{padding:14px 16px}
  .battle-inspection .modal-footer{padding:10px 16px}
 }
+
+/* Battle resources stay visible on both armies and the roster. */
+.unit-map-caption{top:48%;gap:2px;padding:2px 3px;max-width:76px}
+.unit-map-caption .map-troops,.unit-map-caption .map-intent{font:10px/1.1 var(--sans);white-space:nowrap;font-variant-numeric:tabular-nums;color:#fff0e0}
+.unit-map-caption .map-intent{color:#acd4ff;font-size:9px}
+.unit-map-caption .map-health em,.unit-nameplate .label-health em,.unit-nameplate.side-1 .label-health em{background:#df6963}
+.unit-map-caption .map-intent-bar em,.unit-label-copy .label-intent em{background:#529fee}
+.unit-label-copy>span{flex-wrap:wrap;gap:3px}
+.unit-label-copy>span>small{display:inline;color:#acd4ff;font-size:10px}
+.unit-label-copy .label-intent{height:3px}
+
+.arena-page .battle-unit:not(.has-unit-art)>.unit-type{display:none}.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{top:4%;width:94%;box-sizing:border-box}
+
