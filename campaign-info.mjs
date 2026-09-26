@@ -57,9 +57,25 @@ export function campaignInfoDetail(s,type,id){
 }
 // Consumers may choose section IDs without copying the detail renderer or campaign rules.
 export function campaignInfoSections(detail,{sections=null}={}){return detail.sections.filter(s=>!sections||sections.includes(s.id)).map(s=>`<section class="info-section" data-info-section="${s.id}"><h3>${esc(s.title)}</h3>${s.html}</section>`).join('');}
+const dossierPages={
+ city:[['基本',['status','overview','resources']],['驻军',['units','armies']],['武将与内政',['officers','work']]],
+ army:[['基本',['status','overview','supply']],['所属部队',['units','followers']],['指挥与军略',['command','strategy']]],
+ unit:[['基本',['status','overview','troops','custody']],['能力与战法',['combat','tactics']],['所属武将',['attributes','traits','stratagems','work']]],
+ officer:[['基本',['status','overview','work','custody']],['能力',['attributes','traits','troops','combat']],['战法与军略',['tactics','stratagems']]],
+ faction:[['基本',['status','overview']],['城池与军团',['cities','armies']],['部队与武将',['units','officers']]]
+};
+function dossierMarkup(s,type,view,ix,detail){
+ const entry=ix[type].find(r=>(r.unit?.id||r.id)===view.id);
+ if(!entry)return '<p class="muted">对象已不在当前名册，请返回名册查看。</p>';
+ const pages=dossierPages[type],page=pages.some(([key])=>key===view.page)?view.page:pages[0][0];
+ const faction=entry.faction||entry.owner,portrait=entry.unit||(type==='army'?entry.units.find(u=>u.id===entry.leader):type==='city'?ix.officer.find(r=>r.unit.id===entry.governor)?.unit:null);
+ const siblings=ix[type].filter(r=>type==='faction'||(r.faction||r.owner)===faction);
+ const jump=type==='unit'?infoLink('officer',entry.unit.id,'查看主将 · '+entry.unit.name):type==='officer'&&entry.prepared?infoLink('unit',entry.unit.id,'查看所领部队'):'';
+ return `<div class="info-dossier" data-info-kind="${type}"><aside class="info-object-list" aria-label="${INFO_TYPES[type]}名册"><h3>${INFO_TYPES[type]}名册 <small>${siblings.length}</small></h3>${siblings.map(r=>{const id=r.unit?.id||r.id;return `<button class="info-object ${id===view.id?'selected':''}" data-action="campaign-info-peer" data-kind="${type}" data-id="${esc(id)}" aria-current="${id===view.id?'true':'false'}">${esc(r.unit?.name||r.name)}${type==='unit'?'部队':''}</button>`;}).join('')}</aside><aside class="info-identity">${portrait?`<div class="info-portrait" data-art-portrait="${esc(portrait.id)}"><span>${esc(portrait.name)}</span></div>`:`<div class="info-emblem">${INFO_TYPES[type]}</div>`}<small>${INFO_TYPES[type]} · ${esc(FACTIONS[faction]?.name||entry.name)}</small><h3>${esc(detail.title)}</h3>${portrait&&type!=='officer'?`<p>${type==='city'?'太守':type==='army'?'军团长':'主将'} · ${esc(portrait.name)}</p>`:''}${jump}<p class="muted">第 ${s.campaign.day} 天 · 当前情报</p></aside><div class="info-dossier-content"><nav class="info-tabs" aria-label="详情分类">${pages.map(([key])=>`<button class="button ${page===key?'primary':'secondary'}" data-action="campaign-info-page" data-page="${key}" aria-pressed="${page===key}">${key}</button>`).join('')}</nav>${type==='unit'&&page==='所属武将'?`<div class="info-member-link">${jump}<p class="muted">查看武将身份、能力、特性及当前任职。</p></div>`:''}${campaignInfoSections(detail,{sections:pages.find(([key])=>key===page)[1]})}</div></div>`;
+}
 export function campaignInfoMarkup(s,view={}){
  const type=INFO_TYPES[view.type]?view.type:'city',ix=campaignInfoIndex(s);
- if(view.id){const detail=campaignInfoDetail(s,type,view.id);return {title:detail.title,body:campaignInfoSections(detail)};}
+ if(view.id){const detail=campaignInfoDetail(s,type,view.id);return {title:detail.title,body:dossierMarkup(s,type,view,ix,detail)};}
  const faction=r=>FACTIONS[r.faction||r.owner]?.name||'—',town=id=>s.cities.find(c=>c.id===id)?.name||'途中';
  const col=(key,label,value)=>({key,label,value});
  const name=col('name','名称',r=>r.name||r.unit?.name),owner=col('faction','势力',faction);

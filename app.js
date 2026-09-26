@@ -996,6 +996,8 @@ function handleCampaignAction(action,el){
    if(ui.modal==='campaign-info')ui.infoHistory.push({...ui.infoView});else ui.infoHistory=[];
    ui.infoView={type:el.dataset.kind||'city',id:el.dataset.id||null,query:''};openModal('campaign-info');return true;
   }
+  if(action==='campaign-info-page'){ui.infoView.page=el.dataset.page;renderModal();return true;}
+  if(action==='campaign-info-peer'){ui.infoView={...ui.infoView,type:el.dataset.kind,id:el.dataset.id};renderModal();return true;}
   if(action==='campaign-info-back'){ui.infoView=ui.infoHistory.pop()||{type:'city'};renderModal();return true;}
   if(action==='campaign-info-tab'||action==='campaign-info-home'){ui.infoView={type:el.dataset.kind||ui.infoView.type,query:''};ui.infoHistory=[];renderModal();return true;}
   if(action==='campaign-order-choice'){submitStrategicOrder(ui.interruption.command,el.dataset.choice);return true;}
