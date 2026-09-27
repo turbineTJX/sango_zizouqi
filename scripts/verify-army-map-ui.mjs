@@ -16,10 +16,10 @@ try{
  });
  await page.addInitScript(s=>localStorage.setItem('sango-sovereign-v2',JSON.stringify(s)),fixture);await page.reload();
  const marks=page.locator('.army-map-marker');await marks.first().waitFor();assert.equal(await marks.count(),2);
- await marks.first().click();assert.ok(await page.locator('#overlay-root [data-info-section="overview"]').count());
- await page.keyboard.press('Escape');await marks.last().focus();await page.keyboard.press('Enter');assert.ok(await page.locator('#overlay-root [data-info-section="status"]').count());await page.keyboard.press('Escape');
+ await marks.first().click();assert.equal(await page.locator('.map-object-menu').isVisible(),true);assert.equal(await page.locator('.map-command-screen').count(),0);
+ await page.locator('[data-action="map-object-close"]').click();await marks.last().focus();await page.keyboard.press('Enter');assert.equal(await page.locator('.map-object-menu').isVisible(),true);await page.locator('[data-action="map-object-close"]').click();
  await mkdir('outputs/army-map-ui',{recursive:true});await page.screenshot({path:'outputs/army-map-ui/desktop.png'});
- await page.setViewportSize({width:390,height:844});await marks.first().click();assert.ok(await page.locator('#overlay-root [data-info-section="overview"]').count());assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:'outputs/army-map-ui/mobile.png'});
+ await page.setViewportSize({width:390,height:844});await marks.first().click();assert.equal(await page.locator('.map-object-menu').isVisible(),true);assert.equal(await page.locator('.map-command-screen').count(),0);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:'outputs/army-map-ui/mobile.png'});
  assert.deepEqual(errors,[]);console.log('PASS: stationary armies, mouse details, keyboard details, mobile details; '+fixture.armies.map(a=>a.id).join(', '));
 }finally{await browser?.close();server.kill();}
 

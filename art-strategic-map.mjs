@@ -50,25 +50,28 @@ export function attachStrategicMap(root,ui,onFailure){
  const apply=(manual=true)=>{
   if(national)view=clampMapView(view);else {view.x=clamp(view.x,0,1024-view.width);view.y=clamp(view.y,0,1024-view.height);}
   if(manual)ui.mapCameraManual=true;
-  ui.strategicMapView={...view};svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',view.width<=600);
+  ui.strategicMapView={...view};svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',Math.min(view.width,view.height)<=420);svg.classList.toggle('map-overview',Math.min(view.width,view.height)>=720);
   const frame=radar?.querySelector('.radar-viewport');if(frame)for(const key of ['x','y','width','height'])frame.setAttribute(key,view[key]);
  };
+ const bounds=svg.getBoundingClientRect();
+ if(national&&view.width<1024&&bounds.width>bounds.height*1.1){const center={x:view.x+view.width/2,y:view.y+view.height/2};view=centeredMapView(center,Math.min(1024,view.height*bounds.width/bounds.height),view.height);}
  const zoom=(factor,anchor={x:view.x+view.width/2,y:view.y+view.height/2})=>{
-  const width=clamp(view.width*factor,150,national?600:1024),height=clamp(view.height*factor,150,national?600:1024);
+  const width=clamp(view.width*factor,150,1024),height=clamp(view.height*factor,150,1024);
   view={x:anchor.x-(anchor.x-view.x)*width/view.width,y:anchor.y-(anchor.y-view.y)*height/view.height,width,height};apply();
  };
  const focus=()=>{
-  if(national)view=centeredMapView({x:+svg.dataset.focusX,y:+svg.dataset.focusY},view.width,view.height);
+  if(national)view=centeredMapView({x:+svg.dataset.focusX,y:+svg.dataset.focusY},Math.min(1024,360*bounds.width/bounds.height),360);
   else view={...THEATER_VIEW};ui.mapCameraManual=false;apply(false);
  };
  for(const b of root.querySelectorAll('[data-map-view]'))b.addEventListener('click',()=>{
   const key=b.dataset.mapView;if(key==='in'||key==='out')zoom(key==='in'?.8:1.25);
-  else if(key==='selected')focus();else {view={...(key==='national'?NATIONAL_VIEW:THEATER_VIEW)};apply();}
+  else if(key==='territory'){svg.classList.toggle('hide-territory');ui.mapTerritoryHidden=svg.classList.contains('hide-territory');b.setAttribute('aria-pressed',String(!ui.mapTerritoryHidden));}else if(key==='selected')focus();else {view={...(key==='national'?NATIONAL_VIEW:THEATER_VIEW)};apply();}
  });
  root.querySelector('#map-season')?.addEventListener('change',e=>{e.stopPropagation();ui.mapSeason=e.target.value;svg.querySelector('.national-map-terrain').innerHTML=national?nationalTerrain(ui.mapSeason):terrainDrawing(ui.mapSeason);});
  root.querySelector('#national-city-search')?.addEventListener('change',e=>{const node=svg.querySelector(`[data-city="${e.target.value}"],[data-command-city="${e.target.value}"]`);if(!node)return;view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y});apply();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));});
  svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY<0?.88:1.14,point(svg,e));},{passive:false});
- svg.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action]'))return;const m=svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
+ svg.addEventListener('contextmenu',e=>e.preventDefault());
+ svg.addEventListener('pointerdown',e=>{if(![0,2].includes(e.button)||(e.button===0&&e.target.closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action]')))return;ui.mapObject=null;root.querySelector('.map-object-menu')?.remove();const m=svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
  svg.addEventListener('pointermove',e=>{if(!drag)return;view={...drag.view,x:drag.view.x-(e.clientX-drag.x)/drag.scaleX,y:drag.view.y-(e.clientY-drag.y)/drag.scaleY};apply();});
  for(const event of ['pointerup','pointercancel','lostpointercapture'])svg.addEventListener(event,()=>{drag=null;});
  const keyboard=e=>{

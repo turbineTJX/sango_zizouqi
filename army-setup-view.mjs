@@ -1,3 +1,5 @@
+import {traitChips} from './trait-display.mjs';
+import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {passiveList} from './passives.mjs';
 import {unitAttributes,ATTRIBUTE_LABELS} from './unit-stats.mjs';
 import {unitTactics} from './tactics.mjs';
@@ -20,20 +22,17 @@ export function commanderSetupMarkup(s,units,roles,{attribute='data-expedition-r
  return commanderComparison(s,units,roles,attribute,city);
 }
 
-export function unitTraitsMarkup(u){
- const traits=passiveList(u).filter(t=>t.domain==='battle'&&t.state!=='兵种不符');
- return `<section class="unit-relevant-traits"><h4>${TROOPS[u.type].name}适性 ${['C','B','A','S'][troopAptitude(u,u.type)]} · 适用武将特性</h4>${traits.map(t=>`<details><summary>${esc(t.name)} · ${esc(t.state)}</summary><p>${esc(t.description)}</p></details>`).join('')||'<p>暂无适用战斗特性</p>'}</section>`;
-}
+export function unitTraitsMarkup(u){return `<section class="unit-relevant-traits"><h4>特性</h4>${traitChips(u,null,true)}</section>`;}
 export function unitReviewMarkup(units,{terrain='land',detailAction='campaign-person-detail',detailAttribute='data-officer'}={}){
- return `<section class="compiled-units"><h3>编成的部队</h3>${units.map(u=>{const stats=unitAttributes(u,{terrain,tick:0,sides:[]});return `<article class="compiled-unit"><h4><button class="personnel-name" data-action="${detailAction}" ${detailAttribute}="${u.id}">${esc(u.name)}部队 ↗</button> · ${TROOPS[u.type].name} · 适性 ${['C','B','A','S'][troopAptitude(u,u.type)]}</h4><p>${u.troops} 人 / 上限 ${troopCapacity(u)} · 等级 ${u.level||1}</p><dl class="compiled-unit-stats">${Object.entries(ATTRIBUTE_LABELS).map(([key,name])=>`<div><dt>${name}</dt><dd>${Number(stats[key].toFixed(2))}</dd></div>`).join('')}</dl>${unitTraitsMarkup(u)}<h4>当前兵种固定战法</h4>${unitTactics(u).map(t=>`<details><summary>${esc(t.name)}</summary><p>${esc(t.description)}</p></details>`).join('')||'<p>无可用战法</p>'}</article>`;}).join('')}</section>`;
+ return `<section class="compiled-units"><h3>部队</h3>${units.map(u=>{const stats=unitAttributes(u,{terrain,tick:0,sides:[]});return `<article class="compiled-unit"><h4><button class="personnel-name" data-action="${detailAction}" ${detailAttribute}="${u.id}">${esc(u.name)}部队 ↗</button> · ${TROOPS[u.type].name} · 适性 ${['C','B','A','S'][troopAptitude(u,u.type)]}</h4><p>${u.troops} 人 / 上限 ${troopCapacity(u)} · 等级 ${u.level||1}</p><dl class="compiled-unit-stats">${Object.entries(ATTRIBUTE_LABELS).map(([key,name])=>`<div><dt>${name}</dt><dd>${Number(stats[key].toFixed(2))}</dd></div>`).join('')}</dl>${unitTraitsMarkup(u)}<h4>战法</h4>${unitTactics(u).map(t=>`<button class="unit-trait-name" data-action="ability-reference" data-kind="tactic" data-id="${esc(t.id)}">${esc(t.name)}</button>`).join('')||'<p>无</p>'}</article>`;}).join('')}</section>`;
 }
 
 export function compiledUnitPickerMarkup(units,selected,{attribute,locked=false}={}){
- return `<section class="compiled-unit-picker"><h3>从已编制部队中选择</h3>${units.map(u=>`<label class="compiled-unit"><input type="checkbox" ${attribute}="${u.id}" ${selected.includes(u.id)?'checked':''} ${locked?'disabled':''}> ${esc(u.name)}部队 · ${TROOPS[u.type].name} · 适性 ${['C','B','A','S'][troopAptitude(u,u.type)]} · ${u.troops} 人</label>`).join('')||'<p>暂无已编制部队，请返回编制。</p>'}</section>`;
+ return `<section class="compiled-unit-picker"><h3>选择部队</h3>${units.map(u=>`<label class="compiled-unit"><input type="checkbox" ${attribute}="${u.id}" ${selected.includes(u.id)?'checked':''} ${locked?'disabled':''}> ${esc(u.name)}部队 · ${TROOPS[u.type].name} · 适性 ${['C','B','A','S'][troopAptitude(u,u.type)]} · ${u.troops} 人</label>`).join('')||'<p>暂无已编制部队，请返回编制。</p>'}</section>`;
 }
 
 export function unitCommanderField(unit,action){
- return `<section class="unit-commander-field"><h3>编制一支部队</h3><p>主将</p><button class="button secondary" data-action="${action}">${unit?esc(unit.name)+' · 更换主将':'选择主将'}</button></section>`;
+ return `<section class="unit-commander-field"><h3>部队编制</h3><p>主将</p><button class="button secondary" data-action="${action}">${unit?esc(unit.name)+' · 更换主将':'选择主将'}</button></section>`;
 }
 
 export function troopSliderMarkup(u,attribute,max){
@@ -41,6 +40,9 @@ export function troopSliderMarkup(u,attribute,max){
  return `<div class="troop-slider"><label>兵力 <output>${disabled?'不足1000':value}</output> 人<input type="range" min="1000" max="${Math.max(1000,max)}" step="1" value="${value}" ${attribute}="${u.id}" aria-label="${esc(u.name)}兵力" ${disabled?'disabled':''}></label><button type="button" data-action="troop-min" ${disabled?'disabled':''}>最小 1000</button><button type="button" data-action="troop-max" ${disabled?'disabled':''}>最大 ${max}</button>${disabled?'<p role="alert">可用兵力不足1000，无法编制。</p>':''}</div>`;
 }
 
-export function unitManagementMarkup(units,{editAction,disbandAction,newAction,canAdd=true,detailAction='campaign-person-detail',terrain='land'}={}){
- return '<section class="compiled-unit-picker"><h3>部队管理</h3><p>选择部队进行修改，或新增一支部队。</p>'+units.map(u=>'<article class="compiled-unit"><b>'+esc(u.name)+'部队</b> · '+TROOPS[u.type].name+' · '+u.troops+' 人 <button class="button secondary" data-action="'+editAction+'" data-id="'+u.id+'">修改</button>'+ (disbandAction?'<button class="button secondary" data-action="'+disbandAction+'" data-id="'+u.id+'">解散</button>':'')+'<details><summary>查看部队详情</summary>'+unitReviewMarkup([u],{detailAction,terrain})+'</details></article>').join('')+(units.length?'':'<p>暂无已编制部队。</p>')+(newAction?'<button class="button secondary" data-action="'+newAction+'" '+(canAdd?'':'disabled')+'>新增部队</button>':'')+'</section>';
+export function unitManagementMarkup(units,{editAction,disbandAction,newAction,canAdd=true,detailAction='campaign-person-detail',terrain='land',workbench={},editorHtml=null,editorId=null}={}){
+ const selected=units.find(u=>u.id===(editorHtml!==null?editorId:workbench.id))||(!editorHtml?units[0]:null),tab=workbench.tab==='officer'?'officer':'unit';
+ const portrait=u=>`<span class="workbench-portrait" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></span>`;
+ const preview=selected?`<nav class="info-tabs" aria-label="部队信息分类">${[['unit','部队情报'],['officer','武将情报']].map(([id,label])=>`<button class="button secondary" data-action="unit-workbench-preview" data-id="${selected.id}" data-tab="${id}" aria-pressed="${tab===id}">${label}</button>`).join('')}</nav>${tab==='unit'?unitReviewMarkup([selected],{detailAction,terrain}):`<section class="workbench-officer">${portrait(selected)}<h3>${esc(selected.name)}</h3><dl class="info-fields">${[['leadership','统率'],['force','武力'],['intellect','智力'],['politics','政治'],['charm','魅力']].map(([key,label])=>`<div><dt>${label}</dt><dd>${selected[key]??OFFICER_BY_ID[selected.id]?.[key]??'—'}</dd></div>`).join('')}</dl><button class="button secondary" data-action="${detailAction}" data-officer="${selected.id}">武将详情</button></section>`}`:'<p class="muted">点击“＋ 新增部队”，选择主将并安排兵种和兵力。</p>';
+ return `<section class="unit-workbench"><aside class="unit-workbench-list" aria-label="编制部队列表"><h3>部队 · ${units.length} 队</h3>${units.map(u=>`<article class="unit-workbench-card ${selected?.id===u.id?'selected':''}"><button class="unit-card-select" data-action="${editorHtml!==null?editAction:'unit-workbench-preview'}" data-id="${u.id}" aria-pressed="${selected?.id===u.id}">${portrait(u)}<span><b>${esc(u.name)}部队</b><small>${TROOPS[u.type].name} · ${u.troops.toLocaleString()} 人</small><small>适性 ${['C','B','A','S'][troopAptitude(u,u.type)]}</small></span></button><div class="unit-card-actions"><button data-action="${editAction}" data-id="${u.id}">修改</button>${disbandAction?`<button data-action="${disbandAction}" data-id="${u.id}">解散</button>`:''}</div></article>`).join('')}${newAction?`<button class="unit-card-add" data-action="${newAction}" ${canAdd?'':'disabled'}>＋ 新增部队</button>`:''}</aside><div class="unit-workbench-detail">${editorHtml??preview}</div></section>`;
 }

@@ -67,7 +67,7 @@ test('disband drafts return soldiers without refund or lost appointments and rem
  p.selected=[u.id];p.formationPool=[u.id];p.armySelection=[u.id];p.leader=u.id;
  assert.equal(removeCommandUnit(s,p,u.id),'');assert.deepEqual(p.selected,[]);assert.equal(p.leader,null);
  assert.equal(serializeCampaign(s),before);assert.ok(commandCanAdvance(s,p));
- const html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;assert.match(html,new RegExp('据点现有预备兵：'+men));assert.match(html,/编制金不返还/);
+ const html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;assert.match(html,new RegExp('预备兵：'+men));assert.match(html,/编制金不返还/);
  const result=prepareCommandFormation(s,p);assert.equal(result.error,undefined);
  assert.equal(result.state.gold,gold);assert.equal(result.state.cities.find(x=>x.id===c.id).manpower,men+count);
  assert.ok(!result.state.cities.find(x=>x.id===c.id).units.some(x=>x.id===u.id));

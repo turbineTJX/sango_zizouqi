@@ -1,3 +1,5 @@
+import {abilityButton} from './ability-reference.mjs';
+import {traitChips} from './trait-display.mjs';
 import {sortButton} from './list-sort.mjs';
 import {officerStratagems,STRATAGEMS,stratagemPoolLabel,STRATAGEM_RULE_TEXT,stratagemProfile,stratagemEffectText} from './stratagems.mjs';
 import {OFFICER_BY_ID,searchOfficers,PERSONALITY_NAMES,RIGHTEOUSNESS_NAMES} from './officer-catalog.mjs';
@@ -57,7 +59,7 @@ export function officerDetailMarkup(id,scores={},types={},preview=null){
  ${officerCommandMarkup(id,u)}
  ${traitMarkup(u)}
  ${officerProfileMarkup(u,scores,types)}
- ${SPECIAL_TACTICS[id]?`<h3 class="stats-section-title">专属战法 · ${esc(TACTICS_BOOK[SPECIAL_TACTICS[id]].name)}</h3><p>${esc(TACTICS_BOOK[SPECIAL_TACTICS[id]].description)}</p><p class="muted">战意 ${TACTICS_BOOK[SPECIAL_TACTICS[id]].threshold} · 冷却 ${TACTICS_BOOK[SPECIAL_TACTICS[id]].cooldown} 日 · 局部主动效果，战意达标后自动施放；所有等级可用，不限兵种；额外携带，不占普通战法名额。</p>`:''}
+ ${SPECIAL_TACTICS[id]?abilityButton('tactic',SPECIAL_TACTICS[id],TACTICS_BOOK[SPECIAL_TACTICS[id]].name):''}
  <dl class="catalog-facts">${[['登场年',s.yearAvailable??'未载'],['原始忠诚',s.loyalty??'未载']].map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
  <h3 class="stats-section-title">兵种适性</h3><div class="catalog-aptitudes">${aptitude.map(([key,label])=>`<span>${label}<b>${['C','B','A','S'][s[key]]??'未载'}</b></span>`).join('')}</div>
  <h3 class="stats-section-title">人物生平</h3><p class="catalog-biography">${esc(u.biography||'源项目未提供人物生平。')}</p>
@@ -83,4 +85,4 @@ export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,typ
 
 export function officerCommandMarkup(id,holder=OFFICER_BY_ID[id]){return `<h3 class="stats-section-title">个人军略</h3><p class="muted">${STRATAGEM_RULE_TEXT}</p><div class="repertoire-skills">${officerStratagems(id).map(k=>`<span><b>${esc(STRATAGEMS[k].name)}</b> · ${stratagemPoolLabel(k)}<small>${esc(stratagemEffectText(stratagemProfile(k,holder)))}</small>${STRATAGEMS[k].history?`<small>事迹依据：${esc(STRATAGEMS[k].history)}</small>`:''}</span>`) .join('')||'<p class=muted>无军略：基础智力不足70。</p>'}</div>`;}
 
-export function traitMarkup(u){return '<section class="passive-panel" data-officer-traits><h3 class="stats-section-title">武将特性</h3><div class="passive-compact">'+passiveList(u).map(p=>'<details class="passive-skill unlocked"><summary><b>'+esc(p.name)+'</b><span>'+esc(p.state)+'</span></summary><p>'+esc(p.description)+'</p></details>').join('')+'</div></section>';}
+export function traitMarkup(u){return '<section class="passive-panel" data-officer-traits><h3>特性</h3>'+traitChips(u)+'</section>';}

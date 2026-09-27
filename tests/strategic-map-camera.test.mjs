@@ -5,11 +5,11 @@ import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {operationMapView,centeredMapView,clampMapView} from '../strategic-map-camera.mjs';
 import {nationalArtMap} from '../national-map-view.mjs';
 
-test('national map starts at the operation city and never zooms out to the whole country',()=>{
+test('national map starts locally and allows an explicit national overview',()=>{
  const s=newCampaign(1,'guandu-200'),before=JSON.stringify(s),ui={city:'xuchang'};
  const {view,focus}=operationMapView(s,ui);assert.equal(view.width,360);assert.equal(view.x+180,focus.x);assert.equal(view.y+180,focus.y);
- const html=nationalArtMap(s,ui);assert.match(html,/data-strategy-radar/);assert.doesNotMatch(html,/data-map-view="national"/);assert.equal(JSON.stringify(s),before);
- assert.deepEqual(clampMapView({x:-1,y:1000,width:1024,height:1024}),{x:0,y:424,width:600,height:600});
+ const html=nationalArtMap(s,ui);assert.match(html,/data-strategy-radar/);assert.match(html,/data-map-view="national"/);assert.equal(JSON.stringify(s),before);
+ assert.deepEqual(clampMapView({x:-1,y:1000,width:1024,height:1024}),{x:0,y:0,width:1024,height:1024});
 });
 test('manual radar navigation persists through rendering; changing operation city recenters',()=>{
  const s=newCampaign(1,'guandu-200'),ui={city:'xuchang'};operationMapView(s,ui);

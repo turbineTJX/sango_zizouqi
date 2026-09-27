@@ -16,7 +16,7 @@ test('commerce and agriculture match actor traits rather than governor-only inco
 });
 test('recommendation reads and roster rendering do not mutate saves or draw random numbers',()=>{
  const s=scene(),p={task:'domestic',city:'xuchang',direction:'agriculture',selected:[]},before=serializeCampaign(s),units=cityPersonnel(s,p.city).map(o=>o.unit),ranked=rankOfficerCandidates(s,units,p),html=campaignRosterMarkup(s,{personnel:{city:p.city}},p);
- assert.ok(html.includes('任务推荐'));assert.ok(html.includes('农政'));assert.equal(html.match(/data-personnel-choice="([^"]+)"/)[1],ranked[0].unit.id);assert.equal(serializeCampaign(s),before);assert.deepEqual(rankOfficerCandidates(s,units,p),ranked);
+ assert.ok(html.includes('任务推荐'));assert.ok(ranked.some(r=>r.recommendation.traits.some(t=>t.name==='农政')));assert.equal(html.match(/data-personnel-choice="([^"]+)"/)[1],ranked[0].unit.id);assert.equal(serializeCampaign(s),before);assert.deepEqual(rankOfficerCandidates(s,units,p),ranked);
 });
 test('AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once',()=>{
  const s=scene(),c=s.cities.find(c=>!['cao','neutral'].includes(c.owner)),units=cityPersonnel(s,c.id).map(o=>o.unit),pairs=['commerce','agriculture','technology','military','martial','talent'].flatMap(direction=>rankOfficerCandidates(s,units,{task:'domestic',city:c.id,direction}).filter(x=>x.recommendation.available).map(x=>({...x,direction}))).sort((a,b)=>b.recommendation.score-a.recommendation.score||a.unit.id.localeCompare(b.unit.id)||a.direction.localeCompare(b.direction));

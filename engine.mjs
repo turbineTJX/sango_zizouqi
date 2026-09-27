@@ -96,7 +96,7 @@ const STARTER_OFFICER_IDS=['cao','dun','liao','chu','jia','yu','yuanxia','jin','
 export function makeOfficer(id, troops = 3000, index = 0, level = 1, learningSeed = 521200) {
   const source=OFFICER_BY_ID[id];
   if(!Object.hasOwn(OFFICER_BY_ID,id))throw new Error('未知武将');
-  const unit={...officerProfile(id),id,name:source.name,courtesy:source.courtesy,leadership:source.leadership,force:source.force,intellect:source.intellect,politics:source.politics,
+  const unit={...officerProfile(id),id,name:source.name,courtesy:source.courtesy,leadership:source.leadership,force:source.force,intellect:source.intellect,politics:source.politics,charm:source.charm,
     skill:source.skill,type:source.type,formation:source.formation,trait:source.trait,
     troops,wounded:0,first:index<6,loyalty:100,level,merit:0};
   if(!Number.isInteger(level)||level<1||level>10)throw new Error('武将等级须为 1～10');
@@ -1136,7 +1136,7 @@ export function validateSave(value, { strategic = false } = {}) {
     require(u.skillRouteType===undefined||Object.hasOwn(TROOPS,u.skillRouteType),'通用技能路线无效');
     if (Object.hasOwn(OFFICER_BY_ID,u.id)) {
       const source=makeOfficer(u.id);
-      const keys=['name','courtesy','leadership','force','intellect','politics','skill','trait','loyalty'];
+      const keys=['name','courtesy','leadership','force','intellect','politics','charm','skill','trait','loyalty'];
       for(const key of keys)require(u[key]===source[key],'武将基础数据不匹配');
     } else {
       require((combat && /^g-[a-z]+-\d$/.test(u.id)) && text(u.name, 20) && text(u.skill) && number(u.leadership, 100) && number(u.force, 100) && number(u.intellect, 100) && number(u.politics,100), '守军数据无效');
