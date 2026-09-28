@@ -38,8 +38,6 @@ export function unitAttributes(u,b=null) {
  if(u.commandBonus){atk.push({label:'主将统率',factor:1+u.commandBonus});def.push({label:'主将统率',factor:1+u.commandBonus});}
  if(u.deputyBonus)martial.push({label:'副将武力',factor:1+u.deputyBonus});
  if(u.advisorBonus)strategy.push({label:'军师智力',factor:1+u.advisorBonus});
- if(side.tactic==='aggressive'){atk.push({label:'激进策略',factor:1.18});def.push({label:'激进策略',factor:.91});}
- if(side.tactic==='defensive'){atk.push({label:'防守策略',factor:.92});def.push({label:'防守策略',factor:1.15});}
  if(army('assaultUntil'))atk.push({label:armyLabel('assaultUntil','军略增攻'),factor:1+power('assaultUntil',.25)});
  if(army('fortifyUntil')){def.push({label:armyLabel('fortifyUntil','军略固守'),factor:1+power('fortifyUntil',.2)});discipline.push({label:armyLabel('fortifyUntil','军略固守'),factor:1+power('fortifyUntil',.2)});}
  if(army('disruptUntil')){atk.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});def.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});discipline.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});}

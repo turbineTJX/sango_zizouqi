@@ -16,8 +16,8 @@ try{
  assert.equal(await page.locator('.combat-preview td').filter({hasText:/^(首发|后备|候补)$/}).count(),0);
  assert.match(await page.locator('[data-action="scenario-launch-confirm"]').innerText(),/前往战前会议/);
  await page.locator('[data-action="scenario-launch-confirm"]').click();
- await page.locator('#council-tactic').selectOption('defensive');assert.ok(await page.locator('.battle-council details').evaluate(el=>el.open));await page.locator('[data-action="show-council"]').click();assert.equal(await page.locator('.council-unit').count(),4);
- const moved=await page.locator('.council-unit').nth(3).getAttribute('data-council-unit');await page.locator('.council-unit').nth(3).dragTo(page.locator('.council-unit').nth(2));assert.equal(await page.locator('.council-unit').nth(2).getAttribute('data-council-unit'),moved);assert.ok(await page.locator('.battle-council details').evaluate(el=>el.open));assert.equal(await page.locator('#council-tactic').inputValue(),'defensive');
+ assert.equal(await page.locator('#council-tactic').count(),0);assert.ok(await page.locator('.battle-council details').evaluate(el=>el.open));await page.locator('[data-action="show-council"]').click();assert.equal(await page.locator('.council-unit').count(),4);
+ const moved=await page.locator('.council-unit').nth(3).getAttribute('data-council-unit');await page.locator('.council-unit').nth(3).dragTo(page.locator('.council-unit').nth(2));assert.equal(await page.locator('.council-unit').nth(2).getAttribute('data-council-unit'),moved);assert.ok(await page.locator('.battle-council details').evaluate(el=>el.open));assert.equal(await page.locator('#council-tactic').count(),0);
  const onField=page.locator('.battle-unit.side-0').first();const swapped=await onField.getAttribute('data-unit');
  await page.locator('.council-unit').nth(2).dragTo(onField);assert.equal(await page.locator('.battle-unit.side-0').count(),6);assert.ok(await page.locator('[data-council-unit="'+swapped+'"]').count());
  await page.locator('.battle-unit.side-0').first().dragTo(page.locator('[data-reserve-bench]'));assert.equal(await page.locator('.battle-unit.side-0').count(),5);

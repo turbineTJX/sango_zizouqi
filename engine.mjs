@@ -320,7 +320,7 @@ export function configureBattleTerrain(b,terrain) {
 }
 export const BATTLE_INTENTS = { annihilate:'歼灭', hold:'固守', siege:'攻城' };
 export function battleIntent(b, side=0) {
-  return b.sides[side].battleIntent || (b.siege ? (b.siege.attackerSide===side?'siege':'hold') : b.sides[side].tactic==='defensive'?'hold':'annihilate');
+  return b.sides[side].battleIntent || (b.siege ? (b.siege.attackerSide===side?'siege':'hold') : 'annihilate');
 }
 export function configureBattleIntent(b, intent, side=0) {
   if(!isDeploying(b))return '战斗意图已锁定，开战后不可更改';

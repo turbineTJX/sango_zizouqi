@@ -16,9 +16,9 @@ test('custom armies allow ten with six active, reject eleven, and configure eith
  }
  d.ownTeam.push({...d.ownTeam[0]});assert.throws(()=>validateCustomBattle(d),/10/);
 });
-test('council changes strategy and starters, respects arrivals, locks after battle and resumes deterministically',()=>{
+test('council rejects posture changes, changes starters, respects arrivals and resumes deterministically',()=>{
  const s=createScenario('custom-battle',3,20,null,draft()),b=s.battle,learning=b.sides[0].units.map(u=>[u.id,JSON.stringify(u.tacticLearning)]);
- assert.equal(changeBattleCouncil(b,{tactic:'defensive'}),null);
+ assert.match(changeBattleCouncil(b,{tactic:'defensive'}),/不支持/);
  const reserve=b.sides[0].units[6].id;assert.equal(changeBattleCouncil(b,{id:reserve,offset:-1}),null);
  assert.equal(b.sides[0].units[5].id,reserve);assert.equal(b.sides[0].units.filter(u=>u.status==='active').length,6);
  for(const [id,record] of learning)assert.equal(JSON.stringify(b.sides[0].units.find(u=>u.id===id).tacticLearning),record);
@@ -37,3 +37,11 @@ test('reserve bench supports swaps, ordering, overflow validation and saved depl
  for(const u of [...units].filter(u=>u.status==='active'))assert.equal(reserveDeploymentUnit(b,u.id),null);
  assert.match(lockDeployment(b),/0/);assert.equal(deployUnit(b,reserve.id,1,1),null);assert.equal(lockDeployment(b),null);assert.match(reserveDeploymentUnit(b,reserve.id),/开战前/);
 });
+
+ test('removed postures do not change attributes or field intent',async()=>{
+ const {unitAttributes}=await import('../unit-stats.mjs');const {battleIntent}=await import('../engine.mjs');const {battleCouncilMarkup}=await import('../battle-council.mjs');
+ const state=createScenario('custom-battle',3,20,null,draft()),b=state.battle,u=b.sides[0].units[0];
+ delete b.sides[0].battleIntent;
+ const values=['balanced','aggressive','defensive'].map(tactic=>{b.sides[0].tactic=tactic;return {attributes:unitAttributes(u,b),intent:battleIntent(b,0)};});
+ assert.deepEqual(values[0],values[1]);assert.deepEqual(values[0],values[2]);assert.equal(values[0].intent,'annihilate');assert.doesNotMatch(battleCouncilMarkup(b),/council-tactic|全军策略/);
+ });

@@ -3,7 +3,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makeOfficer,unitAttributes,lockDeployment,stepBattle,issueCommand,COMMAND_RESOURCE} from '../engine.mjs';
 import {createScenario} from '../scenarios.mjs';
-import {availableTactics,unitTactics} from '../tactics.mjs';
+import {unitTactics} from '../tactics.mjs';
+import {learnedTacticIds} from '../tactic-learning.mjs';
 
 test('panel offense sums current soldiers, while defensive attributes do not shrink',()=>{
  const u=makeOfficer('person-661',3000,0,10),full=unitAttributes(u);
@@ -20,7 +21,9 @@ test('panel offense sums current soldiers, while defensive attributes do not shr
 function remnant(id,type,skill,hp=100){
  const b=createScenario('officer-lab',771,20,[id]).battle,u=b.sides[0].units[0];
  Object.assign(u,{type,hp,battleDamage:u.initial-hp,x:4,y:3,intent:0,cooldown:0});
- const loadout=[...new Set([skill,...availableTactics(u).map(s=>s.id)])].slice(0,3);
+ const fixed=learnedTacticIds(u);
+ if(skill)assert.ok(fixed.includes(skill),`${id}/${type} must own ${skill}`);
+ const loadout=[...new Set([...(skill?[skill]:[]),...fixed])];
  assert.equal(learnFixtureTactics(u,loadout),null);
  u.skillReady=Object.fromEntries(loadout.map(s=>[s,s===skill?0:9999]));
  // Stationary targets isolate the attack under test; intent still comes from real basic attacks.
@@ -33,7 +36,7 @@ function remnant(id,type,skill,hp=100){
 
 test('ordinary attacks use the displayed attack once, without a second troop multiplier',()=>{
  function shot(hp){
-  const {b,u}=remnant('cao','crossbow','seal',hp);u.level=1;
+  const {b,u}=remnant('cao','crossbow',null,hp);u.level=1;
   const attack=unitAttributes(u,b).attack;stepBattle(b);
   const hit=b.effects.find(e=>e.from===u.id&&e.damage>0);
   assert.ok(hit);return {attack,damage:hit.damage};
@@ -45,7 +48,7 @@ test('ordinary attacks use the displayed attack once, without a second troop mul
 for(const [id,type,skill] of [
  ['person-661','spear','unique-person-661'],['person-433','spear','unique-person-433'],
  ['person-99','cavalry','unique-person-99'],['person-246','archer','unique-person-246'],
- ['ju','archer','wildfire'],['jia','archer','fire'],['ju','siege','plague'],
+ ['ju','archer','scatter'],['person-246','archer','fire'],['ju','siege','tremor'],
  ['shao','siege','bombard'],['person-246','ship','broadside'],
 ])test(`100 survivors: ${skill} earns intent and cannot destroy a 48,000-soldier army`,()=>{
  const {b,u}=remnant(id,type,skill);let damage=0;
@@ -63,7 +66,7 @@ for(const [id,type,skill] of [
 
 test('firestorm is bounded by friendly power, not enemy army size',()=>{
  function run(enemyHp){
-  const {b,u}=remnant('person-246','crossbow','ambush');
+  const {b,u}=remnant('person-246','crossbow',null);
   u.cooldown=9999;u.skillReady=Object.fromEntries(u.tactics.map(s=>[s,9999]));
   for(const d of b.sides[1].units)d.hp=d.initial=d.maxHp=enemyHp;
   while(b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
