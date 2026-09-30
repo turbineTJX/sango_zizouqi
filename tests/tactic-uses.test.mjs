@@ -20,7 +20,7 @@ test('limited stock covers every learned tier and only one authored burst spends
  }
 });
 
-test('real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly',()=>{
+test('current fixed kits consume finite stock without retired refill abilities and resume exactly',()=>{
  const state=scene(),b=state.battle;lockDeployment(b);
  let copy,expanded=0,restored=0,exhausted=0,ordinary=0;
  while(!b.result){
@@ -42,34 +42,15 @@ test('real combat consumes finite stock, grants authored uses, preserves cooldow
    }
   }
   for(const e of b.effects)if(e.intentPayment?.cost===0){assert.equal(e.intentPayment.before,e.intentPayment.after);ordinary++;}
-  if(!copy&&expanded&&restored)copy=validateSave(structuredClone(state));
+  if(!copy&&b.tick>=10)copy=validateSave(structuredClone(state));
  }
- assert.ok(expanded>0&&restored>0&&exhausted>0&&ordinary>0);
+ assert.equal(expanded,0);assert.equal(restored,0);assert.ok(exhausted>0&&ordinary>0);
  assert.ok(copy);assert.deepEqual(copy.battle,b);
  const invalid=structuredClone(state);invalid.battle.sides[0].units[0].tacticUseBonus['unique-person-290']=1;
  assert.throws(()=>validateSave(invalid),/次数/);
  const fresh=scene();assert.ok(fresh.battle.sides.flatMap(s=>s.units).every(u=>Object.keys(u.tacticCasts).length===0&&Object.keys(u.tacticRestored).length===0));
 });
 
-test('army restoration is useful, once per battle, does not reset cooldown or restore specials',()=>{
- const state=scene(),b=state.battle;lockDeployment(b);
- assert.equal(chooseEnemyCommand(b,['zhuge-eight'],STRATAGEMS,0),null);
- while(!b.result&&b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
- assert.equal(b.result,null);
- const before=structuredClone(b.sides[0].units);
- assert.equal(issueCommand(b,'zhuge-eight'),null);
- for(const u of b.sides[0].units){
-  const old=before.find(v=>v.id===u.id);
-  assert.deepEqual(u.skillReady,old.skillReady);
-  assert.equal(u.tacticRecoveryUntil,old.tacticRecoveryUntil);
-  for(const s of unitTactics(u))assert.equal(tacticUsesLeft(u,s),tacticUsesLeft(old,s)+(u.status==='active'&&useRecoveryTargets(old,[s]).length?1:0));
- }
- const copy=validateSave(structuredClone(state));
- while(!b.result){stepBattle(b);stepBattle(copy.battle);}
- assert.deepEqual(b,copy.battle);
- assert.equal(b.sides[0].useRecoveryCommands['zhuge-eight'],1);
- assert.equal(chooseEnemyCommand(b,['zhuge-eight'],STRATAGEMS,0),null);
-});
 
 test('recovery supports do not cast on full stock, themselves, or each other to form a loop',()=>{
  const b=scene().battle;lockDeployment(b);

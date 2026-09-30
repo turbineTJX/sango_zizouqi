@@ -1,3 +1,4 @@
+import {TRAIT_DESIGNS} from './data/design/traits.mjs';
 // Stable catalogue IDs; no name matching at runtime. This is the shared design data.
 const attack=(name,category,threshold,cooldown,range,scale,extra={})=>({name,category,threshold,cooldown,range,scale,mode:'attack',...extra});
 const support=(name,threshold,cooldown,extra={})=>({name,category:'intellect',threshold,cooldown,range:3,mode:'support',targets:2,...extra});
@@ -5,36 +6,7 @@ const physical=(name,t,c,r,s,e)=>attack(name,'force',t,c,r,s,e);
 const mental=(name,t,c,r,s,e)=>attack(name,'intellect',t,c,r,s,e);
 const entry=(name,role,type,tactic,route=null,ultimate=null)=>({name,role,type,tactic,route,ultimate});
 // Personal skills strengthen the led unit, independently of the equipped tactic.
-const troopSkill=(name,troops,stats,trigger='always')=>({name,troops,stats,trigger});
-const PERSONAL_SKILLS={
- '昭烈':troopSkill('昭烈',null,{defense:.18,discipline:.22},'wounded'),
- '武圣':troopSkill('武圣',['cavalry'],{attack:.18,attackSpeed:.12}),
- '燕人':troopSkill('燕人',['spear','halberd'],{attack:.2,defense:.12},'engaged'),
- '龙胆':troopSkill('龙胆',['cavalry'],{defense:.2,discipline:.25}),
- '锦骑':troopSkill('锦骑',['cavalry'],{move:.25,attack:.15}),
- '老健':troopSkill('老健',['archer'],{attack:.22},'steady'),
- '卧龙':troopSkill('卧龙',null,{discipline:.3,attackSpeed:.12}),
- '凤雏':troopSkill('凤雏',null,{attackSpeed:.22,move:.1}),
- '幼麟':troopSkill('幼麟',['spear'],{attack:.15,discipline:.2}),
- '奇兵':troopSkill('奇兵',['spear','halberd'],{attack:.22,move:.18},'alone'),
- '碧眼':troopSkill('碧眼',null,{defense:.15,discipline:.15}),
- '霸业':troopSkill('霸业',['cavalry'],{attack:.25},'healthy'),
- '都督':troopSkill('都督',['archer','ship'],{attackSpeed:.18,discipline:.15}),
- '济军':troopSkill('济军',['crossbow','halberd'],{defense:.22,move:.15}),
- '克己':troopSkill('克己',['spear','ship'],{attack:.2,discipline:.18}),
- '儒将':troopSkill('儒将',['archer','ship'],{defense:.18,attack:.18},'steady'),
- '锦帆':troopSkill('锦帆',['cavalry','ship'],{attackSpeed:.2,move:.15}),
- '笃烈':troopSkill('笃烈',['cavalry','halberd'],{attackSpeed:.25}),
- '苦肉':troopSkill('苦肉',['archer','ship'],{defense:.3,discipline:.2},'wounded'),
- '隐忍':troopSkill('隐忍',null,{attack:.2,defense:.2},'late'),
- '严整':troopSkill('严整',['spear','halberd'],{defense:.2,discipline:.15},'formation'),
- '恶来':troopSkill('恶来',['halberd'],{defense:.25,attackSpeed:.15},'engaged'),
- '飞将':troopSkill('飞将',['cavalry'],{attack:.3,move:.15},'alone'),
- '倾城':troopSkill('倾城',null,{move:.2,discipline:.2}),
- '天公':troopSkill('天公',null,{attackSpeed:.2,discipline:.2},'wounded'),
- '暴虐':troopSkill('暴虐',null,{attack:.3},'wounded'),
-};
-const cap=name=>PERSONAL_SKILLS[name];
+const cap=name=>{const t=Object.values(TRAIT_DESIGNS).find(t=>t.mechanics&&t.name===name);return t?{troops:[...new Set(t.mechanics.flatMap(m=>m.troops||[]))],description:t.description}:null;};
 export const FAMOUS_OFFICERS={
  cao:entry('曹操','攻防号令','spear',support('魏武之强',65,32,{targets:2,excludeSelf:true,intent:12,buffs:{valor:.8,camp:.6},buffSteps:7,tempo:{cost:30,role:'交锋专属'}})),
  dun:entry('夏侯惇','反压前锋','spear',physical('豪气冲天',45,26,1,.8,{selfWard:20,selfWardSteps:8,debuff:'weaken',steps:6,allyIntent:10,allyRange:2,allyTargets:1,tempo:{cost:12,role:'持续专属'}})),
@@ -67,12 +39,12 @@ export const FAMOUS_OFFICERS={
  'person-246':entry('周瑜','火攻破阵','archer',mental('神火燎原',100,36,4,1.1,{targets:3,radius:1,burn:28,steps:6,debuff:'armorBreak',exploit:{statuses:['burn'],scale:.9},tempo:{cost:65,role:'决胜专属'}}),['scholar','spirit','combo','discipline'],cap('都督')),
  'person-668':entry('鲁肃','战意补给','crossbow',support('榻上定策',55,30,{targets:1,intent:32}),['wealth','discipline','shield','affinity'],cap('济军')),
  'person-662':entry('吕蒙','攻心封技','spear',mental('白衣渡江',65,28,4,1.05,{debuff:'seal',steps:3}),['assault','scholar','spear','combo'],cap('克己')),
- 'person-603':entry('陆逊','火攻削弱','archer',mental('火烧连营',100,32,4,1.35,{targets:3,radius:1,burn:30,steps:5}),['scholar','discipline','combo','calm'],cap('儒将')),
+ 'person-603':entry('陆逊','火攻削弱','archer',mental('火烧连营',100,32,4,1.35,{targets:3,radius:1,burn:30,steps:5}),['scholar','discipline','combo','calm'],cap('燎原')),
  'person-119':entry('甘宁','近战袭扰','cavalry',physical('百骑劫营',65,28,2,1.45,{drain:20}),['assault','spirit','rider','interdict'],cap('锦帆')),
  'person-390':entry('太史慈','连射压制','cavalry',physical('弦无虚发',65,26,4,.9,{hits:2}),['martial','spirit','cavalryGeneral','joint'],cap('笃烈')),
  'person-164':entry('黄盖','火攻承伤','archer',physical('苦肉火船',60,28,4,1.45,{burn:40,steps:6,selfCost:.01}),['assault','endurance','bow','desperate'],cap('苦肉')),
  'person-226':entry('司马懿','后发压制','crossbow',mental('鹰视狼顾',70,32,4,.8,{drain:24,debuff:'weaken',steps:5,highIntent:{threshold:60,scale:.65,drain:16},tempo:{cost:30,role:'交锋专属'}}),['scholar','discipline','suppress','stifle'],cap('隐忍')),
- 'person-291':entry('徐晃','破阵削弱','spear',physical('长驱直入',65,26,1,1.6,{debuff:'weaken',steps:5}),['martial','discipline','spear','joint'],cap('严整')),
+ 'person-291':entry('徐晃','破阵削弱','spear',physical('长驱直入',65,26,1,1.6,{debuff:'weaken',steps:5}),['martial','discipline','spear','joint'],cap('长驱')),
  'person-472':entry('典韦','承压反击','halberd',physical('古之恶来',45,28,1,.75,{selfWard:15,selfWardSteps:8,selfRiposte:8,tempo:{cost:15,role:'持续专属'}}),['iron','endurance','halberdDrill','desperate'],cap('恶来')),
  'person-661':entry('吕布','震军强攻','cavalry',physical('人中吕布',100,38,1,1.6,{targets:3,radius:1,debuff:'attackSlow',steps:4,exploit:{statuses:['armorBreak','slow'],scale:.7},tempo:{cost:70,role:'决胜专属'}}),['assault','martial','rider','joint'],cap('飞将')),
  'person-425':entry('貂蝉','单体扰乱','crossbow',mental('闭月离间',65,30,4,1.1,{control:'confuse',steps:3}),['scholar','discipline','combo','calm'],cap('倾城')),
@@ -81,10 +53,7 @@ export const FAMOUS_OFFICERS={
 };
 export const famousTacticId=id=>'unique-'+id;
 export const famousPassiveId=id=>'hero-'+id;
-const triggerText={always:'常驻',healthy:'自身兵力不低于 70% 时',wounded:'自身兵力低于 50% 时',engaged:'相邻有敌军时',alone:'相邻无其他友军时',formation:'相邻有其他友军时',steady:'连续 3 日未移动时',late:'第 40 日起'};
-const troopNames={spear:'枪兵',halberd:'戟兵',cavalry:'骑兵',archer:'弓兵',crossbow:'弩兵',ship:'舰船'};
-const statNames={attack:'攻击',defense:'防御',discipline:'军纪',move:'移速',attackSpeed:'攻速'};
-export const ultimateDescription=p=>`本队${p.troops?'为'+p.troops.map(t=>troopNames[t]).join('／')+'时，':''}${triggerText[p.trigger]}：${Object.entries(p.stats).map(([key,value])=>`${statNames[key]} +${Math.round(value*100)}%`).join('、')}`;
+export const ultimateDescription=p=>p.description;
 export function famousTacticDescription(s){
  const parts=[`${s.range} 格内${s.mode==='support'?'友军':'敌军'}，最多 ${s.targets||1} 队`];
  if(s.targets>1&&s.mode==='attack')parts.push(`目标周围 ${s.radius} 格，优先覆盖更多敌军`);

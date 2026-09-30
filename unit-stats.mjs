@@ -40,26 +40,28 @@ export function unitAttributes(u,b=null) {
  if(u.advisorBonus)strategy.push({label:'军师智力',factor:1+u.advisorBonus});
  if(army('assaultUntil'))atk.push({label:armyLabel('assaultUntil','军略增攻'),factor:1+power('assaultUntil',.25)});
  if(army('fortifyUntil')){def.push({label:armyLabel('fortifyUntil','军略固守'),factor:1+power('fortifyUntil',.2)});discipline.push({label:armyLabel('fortifyUntil','军略固守'),factor:1+power('fortifyUntil',.2)});}
- if(army('disruptUntil')){atk.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});def.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});discipline.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});}
+ if(army('disruptUntil')&&!on('magicImmune')){atk.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});def.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});discipline.push({label:armyLabel('disruptUntil','军略削弱'),factor:1-power('disruptUntil',.15)});}
  if(on('valor'))atk.push({label:'奋战',factor:1+statusFraction(u,'valor',.25)});
- if(on('weaken'))atk.push({label:'疲弱',factor:1-statusFraction(u,'weaken',.2)});
- if(on('armorBreak'))def.push({label:'破防',factor:1-statusFraction(u,'armorBreak',.2)});
- if(on('haste')||army('hasteUntil'))move.push({label:'疾行（同类不叠加）',add:1});
+ if(on('weaken'))atk.push({label:'疲弱',factor:1-(u.statuses.weaken.fraction??statusFraction(u,'weaken',.2))});
+ if(on('powerDown')){const m={label:'挫锐',factor:1-(u.statuses.powerDown.fraction??statusFraction(u,'powerDown',.2))};martial.push(m);strategy.push(m);}
+ if(on('armorBreak'))def.push({label:'破甲',factor:1-(u.statuses.armorBreak.fraction??statusFraction(u,'armorBreak',.2))});
+ if(on('rapidAdvance'))move.push({label:'兵贵神速',add:statusValue(u,'rapidAdvance','moveBonus')});
+ if(!on('rapidAdvance')&&(on('haste')||army('hasteUntil')))move.push({label:'疾行（同类不叠加）',add:1});
  if(on('slow'))move.push({label:'迟滞',factor:1-statusFraction(u,'slow',.5)});
  if(on('phalanx')||on('root'))move.push({label:on('root')?'定身':'方阵',factor:0});
  if(army('rangeUntil')&&['archer','crossbow'].includes(u.type))range.push({label:'引弦远射',add:2});
  stat('supportPower',80,politics*1.4+(u.intellect||0)*.6,'政治 × 1.4 ＋ 智力 × 0.6',u.supplyPenalty?[{label:'缺粮',factor:1-u.supplyPenalty}]:[]);
  stat('attack',t.attack,leadership*1.6,'统率 × 1.6',atk);
  stat('defense',t.defense,leadership*.65,'统率 × 0.65',def);
- if(t.range>1){const extra=Math.max(on('longRange')?statusValue(u,'longRange','amount'):0,army('rangeUntil')&&['archer','crossbow'].includes(u.type)?2:0,on('emplaced')?1:0)-(on('shortRange')?statusValue(u,'shortRange','amount'):0);range.length=0;if(extra)range.push({label:'射程状态（同类取最高）',add:Math.max((t.minRange||1)-t.range,extra)});}
+ if(t.range>1){const extra=Math.max(on('longRange')?statusValue(u,'longRange','amount'):0,army('rangeUntil')&&['archer','crossbow'].includes(u.type)?2:0,on('emplaced')?1:0,on('anchored')?statusValue(u,'anchored','amount'):0)-(on('shortRange')?statusValue(u,'shortRange','amount'):0);range.length=0;if(extra)range.push({label:'射程状态（同类取最高）',add:Math.max((t.minRange||1)-t.range,extra)});}
  stat('move',t.move,0,'兵种决定',move);stat('range',t.range,0,'兵种决定',range);stat('siege',out.attack*t.siegeFactor,0,`${t.name}攻城系数 × ${t.siegeFactor}（已计入基础）`);
- const intervalFactor=(on('attackSlow')?1+statusValue(u,'attackSlow','fraction'):1)*(on('attackHaste')?1-statusValue(u,'attackHaste','fraction'):1);
+ const intervalFactor=(on('attackSlow')?1+statusValue(u,'attackSlow','fraction'):1)*(1-Math.max(on('attackHaste')?statusValue(u,'attackHaste','fraction'):0,on('rapidAdvance')?statusValue(u,'rapidAdvance','attackFraction'):0));
  stat('attackSpeed',1000/(700*t.interval),0,'兵种攻击间隔 '+t.interval+' 日',[{label:'攻速状态',factor:1/intervalFactor}]);out.attackInterval=t.interval*intervalFactor/(passives.attackSpeed||[]).reduce((n,m)=>n*(m.factor??1),1);out.minRange=t.minRange||0;
  stat('discipline',t.discipline,politics*.8,'政治 × 0.8',discipline);
  stat('martialPower',80,(u.force||0)*2,'武力 × 2',martial);
  stat('strategyPower',80,(u.intellect||0)*2,'智力 × 2',strategy);
  out.controlResistance=Math.min(.6,out.discipline/(out.discipline+150));
- out.damageReduction=1-(on('phalanx')?1-statusFraction(u,'phalanx',.3):1)*(on('ward')?1-u.statuses.ward.percent/100:1)*(on('anchored')?1-statusFraction(u,'anchored',.25):1);
+ out.damageReduction=1-(on('phalanx')?1-statusFraction(u,'phalanx',.3):1)*(on('ward')?1-u.statuses.ward.percent/100:1);
  return out;
 }
 export function disciplineDuration(b,u,steps){return Math.max(1,Math.round(steps*(1-unitAttributes(u,b).controlResistance)));}

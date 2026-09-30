@@ -45,3 +45,9 @@ test('saved custom conditions are used for named-preset retries and save validat
  const switched=createScenario('defense',undefined,null,null,changed);
  assert.equal(switched.battle.siege.attackerSide,0);validateSave(switched);
 });
+
+test('曹操额外首发名额不挪用明确指定的延迟援军',()=>{
+ const state=createScenario('tactical-shu-defense'),b=state.battle;
+ assert.equal(b.sides[1].units.filter(u=>u.arrivalTick===90).length,2);assert.equal(b.sides[1].units.filter(u=>u.arrivalTick===180).length,2);
+ lockDeployment(b);for(let i=0;i<4;i++)stepBattle(b);assert.ok(b.sides[1].units.filter(u=>u.arrivalTick>0).every(u=>u.status==='reserve'));validateSave(state);
+});

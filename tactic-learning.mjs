@@ -1,3 +1,4 @@
+import {advanceBonds} from './bonds.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {TACTICS_BOOK,TROOP_TACTICS,INTELLECT_TACTICS,SPECIAL_TACTICS} from './tactics.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
@@ -36,7 +37,8 @@ export function learnedTacticIds(u){
  if(!pool)return [];
  return [...(record.special&&SPECIAL_TACTICS[u.id]?[SPECIAL_TACTICS[u.id]]:[]),...pool.low,...pool.high];
 }
-export function initializeTacticLearning(u){
+export function initializeTacticLearning(u,seed=0){
+ advanceBonds(u,seed);
  u.tacticLearning=createTacticLearning(u);u.tactics=learnedTacticIds(u);return u;
 }
 export function advanceTacticLearning(u){

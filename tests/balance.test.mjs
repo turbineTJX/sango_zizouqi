@@ -1,3 +1,6 @@
+import {currentBattle} from './helpers/current-battle.mjs';
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
 import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
@@ -20,11 +23,11 @@ function duel() {
 test('intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize',()=>{
   assert.equal(COMBAT.intentCap,100);
   assert.ok(Object.values(TACTICS_BOOK).every(s=>s.threshold<=COMBAT.intentCap));
-  const {b,a,d}=duel();learnFixtureTactics(d,['strike','phalanx','thrust']);d.skillReady={};
+  const {b,u:d,target:a}=currentBattle('terror','spear',{side:1});d.skillReady=Object.fromEntries(unitTactics(d).map(t=>[t.id,t.id==='terror'?0:999]));
   appointBattleTestCommander(b,'jia');a.intent=d.intent=COMBAT.intentCap;b.commandProgress=12000;
-  assert.equal(readyTactic(b,d,1).skill.id,'strike');
-  assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,100-Math.round(b.lastCommand.source.strength));
-  assert.notEqual(readyTactic(b,d,1)?.skill.id,'strike');
+  assert.equal(readyTactic(b,d,1).skill.id,'terror');
+  assert.equal(issueCommand(b,'demoralize',chooseStratagemPoint(b,AREA_DESIGNS['demoralize'],0)),null);assert.equal(d.intent,100-Math.round(b.lastCommand.source.strength));
+  assert.notEqual(readyTactic(b,d,1)?.skill.id,'terror');
   appointBattleTestCommander(b,'shao','leader');for(let i=0;i<4;i++) {b.commandProgress=12000;b.commandReady.inspire=0;assert.equal(issueCommand(b,'inspire'),null);assert.equal(a.intent,100);}
 });
 

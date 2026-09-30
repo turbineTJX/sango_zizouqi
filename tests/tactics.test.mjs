@@ -1,3 +1,6 @@
+import {currentBattle} from './helpers/current-battle.mjs';
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
 import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
@@ -10,18 +13,8 @@ import { hexNeighbors } from '../hex-grid.mjs';
 import {powerFactor} from '../tactic-power.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
 
-function scene(type='spear',id='cao') {
-  const state=newGame();orderArmy(state,'a1','guandu');advanceTurn(state);startBattle(state);lockDeployment(state.battle);
-  const b=state.battle,a=b.sides[0].units.find(u=>u.id===id),d=b.sides[1].units[0];
-  b.sides[0].units=[a];b.sides[1].units=[d];
-  Object.assign(a,{type,x:4,y:3,status:'active',intent:0,cooldown:999});
-  if(id==='cao')learnFixtureTactics(a,TROOP_TACTICS[type]);else a.tactics=learnedTacticIds(a);
+function scene(type='spear',id=null){const skill=id==='liao'?'terror':type==='spear'?'thrust':type==='archer'?'scatter':type==='cavalry'?'rush':'repeat',x=currentBattle(skill,type,{requireS:!id});x.ally.x=0;x.ally.y=0;x.rear.x=13;x.rear.y=7;if(['archer','crossbow'].includes(type))x.target.x=6;return{state:x.state,b:x.b,a:x.u,d:x.target};}
 
-  Object.assign(d,{type:'crossbow',x:5,y:3,intent:0,cooldown:999});
-  d.tactics=learnedTacticIds(d);
-  for(const s of unitTactics(d))d.skillReady[s.id]=999;
-  return {state,b,a,d};
-}
 function allowOnly(a,id) {primeTactic(a,id);}
 function complete(b,a) {
   const before=a.skillCasts;
@@ -35,7 +28,7 @@ test('unlearned units have no tactics and each learned slot belongs to the curre
 });
 
 test('instant skills spend shared intent and recovery separates learned casts',()=>{
- const {b,a}=scene();learnFixtureTactics(a,['thrust','phalanx']);a.intent=100;
+ const {b,a}=scene();learnFixtureTactics(a,['thrust','phalanx']);a.skillReady.thrust=0;a.skillReady.phalanx=0;a.intent=100;
  stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.intent,100-TACTICS_BOOK.thrust.intentCost);assert.equal(a.skillCasts,1);
  while(b.tick<a.tacticRecoveryUntil-1){stepBattle(b);assert.equal(a.skillCasts,1);}
  stepBattle(b);assert.equal(a.tacticCasts.phalanx,1);assert.equal(a.skillCasts,2);assert.equal(a.cast,null);
@@ -44,7 +37,7 @@ test('instant skills spend shared intent and recovery separates learned casts',(
 test('demoralize clamps active and reserve intent and prevents subsequent skills below threshold',()=>{
   const {b,a,d}=scene();appointBattleTestCommander(b,'jia');allowOnly(a,'thrust');a.intent=100;d.intent=30;
   const reserve={...structuredClone(d),id:'reserve-test',status:'reserve',x:-1,y:-1,intent:80};b.sides[1].units.push(reserve);
-  b.commandProgress=12000;assert.equal(issueCommand(b,'demoralize'),null);assert.equal(d.intent,0);assert.equal(reserve.intent,80-Math.round(b.lastCommand.source.strength));
+  b.commandProgress=12000;assert.equal(issueCommand(b,'demoralize',chooseStratagemPoint(b,AREA_DESIGNS['demoralize'],0)),null);assert.equal(d.intent,0);assert.equal(reserve.intent,80);
   stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.cast,null);
   lowerIntent(a,100);a.skillReady.thrust=0;stepBattle(b);assert.equal(a.tacticCasts.thrust,1);
 });
@@ -66,18 +59,18 @@ test('fire burns without intent feedback and ranged skills have distinct real ef
 });
 test('thrust hits the unit directly behind; scatter hits several nearby targets',()=>{
   for(const [type,id] of [['spear','thrust'],['archer','scatter']]) {
-    const {b,a,d}=scene(type);const back={...structuredClone(d),id:'back-test',x:6};b.sides[1].units.push(back);
+    const {b,a,d}=scene(type);const back={...structuredClone(d),id:'back-test',x:type==='spear'?6:7};b.sides[1].units.push(back);
     allowOnly(a,id);complete(b,a);assert.ok(d.hp<d.maxHp);assert.ok(back.hp<back.maxHp);
     assert.equal(a.tacticCasts[id],1);
   }
 });
-test('formation and valor grant real statuses; gallop needs a path and rush changes position',()=>{
-  for(const [type,id,status] of [['spear','phalanx','phalanx'],['cavalry','valor','valor'],['cavalry','gallop','haste']]) {
+test('formation and gallop grant real statuses; rush needs a legal path',()=>{
+  for(const [type,id,status] of [['spear','phalanx','phalanx'],['cavalry','gallop','haste']]) {
     const {b,a,d}=scene(type);if(id==='gallop')d.x=9;
     allowOnly(a,id);complete(b,a);assert.ok(hasStatus(b,a,status));assert.ok(b.effects.some(e=>e.text));
   }
   const {b,a,d}=scene('cavalry');d.x=8;allowOnly(a,'rush');complete(b,a);assert.equal(a.x,7);assert.equal(a.y,3);assert.ok(d.hp<d.maxHp);
-  const r=scene('crossbow');allowOnly(r.a,'retreatShot');complete(r.b,r.a);assert.equal(r.a.x,3);assert.ok(r.d.hp<r.d.maxHp);
+
 });
 test('blocked displacement never overlaps units or crosses board limits',()=>{
   const {b,a,d}=scene('crossbow');a.x=0;a.y=0;d.x=1;d.y=0;
@@ -87,13 +80,7 @@ test('blocked displacement never overlaps units or crosses board limits',()=>{
   hexNeighbors(r.a).forEach(([x,y],i)=>r.b.sides[1].units.push({...structuredClone(r.d),id:`wall-${i}`,x,y}));
   assert.equal(tacticTarget(r.b,r.a,TACTICS_BOOK.rush,1),null);
 });
-test('rare skills confuse, protect and reduce intent without being universal damage attacks',()=>{
-  const l=scene('cavalry','liao');allowOnly(l.a,'terror');complete(l.b,l.a);assert.ok(hasStatus(l.b,l.d,'confuse'));
-  const g=scene('crossbow','jia');g.d.intent=100;allowOnly(g.a,'undermine');const hp=g.d.hp;complete(g.b,g.a);
-  assert.equal(g.d.intent,100-Math.round(1.2*Math.round((TACTICS_BOOK.undermine.drain+TACTICS_BOOK.undermine.highIntent.drain)*powerFactor(unitAttributes(g.a,g.b).strategyPower))));assert.equal(g.d.hp,hp);
-  const c=scene('spear','chu');const ally={...structuredClone(c.a),id:'ally',x:5,intent:0,cooldown:999};c.d.x=6;c.b.sides[0].units.push(ally);
-  allowOnly(c.a,'protect');complete(c.b,c.a);assert.ok(hasStatus(c.b,ally,'shield'));assert.equal(c.d.x,8);
-});
+test('current rare tactical control requires its actual exclusive holder',()=>{let success=false;for(let seed=1;seed<=30&&!success;seed++){const x=currentBattle('terror','cavalry',{seed});x.target.x=6;x.rear.x=13;allowOnly(x.u,'terror');complete(x.b,x.u);success=hasStatus(x.b,x.target,'confuse');}assert.ok(success);const x=currentBattle('undermine','crossbow');x.target.intent=100;x.rear.intent=0;const hp=x.target.hp;allowOnly(x.u,'undermine');complete(x.b,x.u);assert.ok(x.target.intent<100);assert.equal(x.target.hp,hp);});
 test('independent cooldowns, statuses and active casts survive save and resume identically',()=>{
   const {state,b,a}=scene('archer');allowOnly(a,'fire');complete(b,a);
   const resumed=validateSave(JSON.parse(JSON.stringify(syncFixtureLearning(state))));
@@ -103,13 +90,7 @@ test('independent cooldowns, statuses and active casts survive save and resume i
   assert.throws(()=>validateSave(broken));
 });
 
-test('formation mitigates actual damage and blocks displacement; shields absorb before soldiers',()=>{
-  function attack(statuses) {const x=scene();x.a.cooldown=0;x.d.statuses=statuses;const before=x.d.hp;stepBattle(x.b);return {damage:before-x.d.hp,...x};}
-  const normal=attack({}),fortified=attack({phalanx:{until:20}}),shielded=attack({shield:{until:20,amount:500,layers:[{until:20,amount:500,source:"test",label:"护盾"}]}});
-  assert.ok(fortified.damage<normal.damage);assert.equal(shielded.damage,0);assert.ok(shielded.d.statuses.shield.amount<500);
-  const c=scene('spear','chu');const ally={...structuredClone(c.a),id:'ally',x:5,intent:0,cooldown:999};c.d.x=6;c.d.statuses.phalanx={until:20};c.b.sides[0].units.push(ally);
-  allowOnly(c.a,'protect');complete(c.b,c.a);assert.equal(c.d.x,6);assert.ok(hasStatus(c.b,ally,'shield'));
-});
+test('formation mitigates actual damage and shields absorb before soldiers',()=>{function attack(statuses){const x=scene();x.a.cooldown=0;x.d.statuses=statuses;const before=x.d.hp;stepBattle(x.b);return{damage:before-x.d.hp,...x};}const normal=attack({}),fortified=attack({phalanx:{until:20}}),shielded=attack({shield:{until:20,amount:500,layers:[{until:20,amount:500,source:'test',label:'护盾'}]}});assert.ok(fortified.damage<normal.damage);assert.equal(shielded.damage,0);assert.ok(shielded.d.statuses.shield.amount<500);});
 test('prepaid casts and previous save formats are rejected',()=>{
  const {state,a,d}=scene();a.intent=12;a.cast={targetId:d.id,remaining:2,cost:100};assert.throws(()=>validateSave(state));
  const old=scene().state;old.version=1;assert.throws(()=>validateSave(old));

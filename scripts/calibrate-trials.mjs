@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 // Candidate sweep mutates only in-memory fixtures, never the saved catalog.
 import {SCENARIOS,createScenario} from '../scenarios.mjs';
 import {stepBattle,issueCommand,lockDeployment,battleStratagems,battleWounded,activeUnits} from '../engine.mjs';
@@ -6,7 +8,7 @@ export function commandTrial(b) {
   const allowed=battleStratagems(b),own=activeUnits(b,0);
   const hurt=own.reduce((n,u)=>n+battleWounded(u),0)>own.reduce((n,u)=>n+u.initial,0)*.04;
   const options=[...(hurt?['regenerate','heal']:[]),'firestorm','assault','fortify','inspire'];
-  for(const id of options)if(allowed.includes(id)&&issueCommand(b,id)===null)break;
+  for(const id of options)if(allowed.includes(id)&&issueCommand(b,id,chooseStratagemPoint(b,AREA_DESIGNS[id],0))===null)break;
 }
 export function sample(c,n=20,command=false) {
   let wins=0,draws=0,ticks=0,thirdWave=0;

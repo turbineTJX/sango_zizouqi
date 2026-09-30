@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,transferOfficer,appointGovernor,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
-import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';
+import {campaignOfficers,pickerReason,cityRosterMarkup,campaignRosterMarkup} from '../strategic-roster.mjs';
 test('personnel census covers every owned officer once and tracks real transfer locations',()=>{
  const s=newCampaign(203,'guandu-200'),rows=campaignOfficers(s);
  const expected=[...s.cities.filter(c=>c.owner==='cao').flatMap(c=>c.units.map(u=>u.id)),...s.armies.filter(a=>a.faction==='cao').flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.filter(o=>o.faction==='cao').map(o=>o.unit.id)];
@@ -26,3 +26,24 @@ test('picker allows civil duties alongside prepared units and retains departure 
  s.campaign.phase='executing';assert.equal(pickerReason(s,idle,{...p,task:'domestic'}),'执行期间不可委任');
  }
 });
+
+
+test('city roster has a fixed local population and independent city context',()=>{
+ const s=newCampaign(203,'guandu-200'),all=campaignOfficers(s),local=all.filter(r=>r.location==='xuchang');
+ const html=cityRosterMarkup(s,{personnel:{city:'chenliu'}},'xuchang');
+ assert.ok(html.includes('许昌 · 武将 '+local.length+' 人'));
+ assert.ok(!html.includes('全部据点'));assert.ok(!html.includes('麾下武将'));
+ for(const r of all)assert.equal(html.includes('data-officer="'+r.unit.id+'"'),r.location==='xuchang');
+ const empty=cityRosterMarkup(s,{personnel:{}},'missing');assert.ok(empty.includes('显示 0 / 0 人'));
+ const global=campaignRosterMarkup(s,{personnel:{}});assert.ok(global.includes('麾下武将 '+all.length+' 人'));assert.ok(global.includes('全部据点'));
+});
+
+ test('siege preparation is optional and hidden when all residents are compiled',async()=>{
+ const {canPrepareSiegeDefense}=await import('../strategic-roster.mjs');
+ const s=newCampaign(203,'guandu-200'),r={id:'pending-defense',kind:'siege',cityId:'xuchang',awaiting:true,settled:false};
+ assert.equal(canPrepareSiegeDefense(s,r),true);
+ const before=serializeCampaign(s);canPrepareSiegeDefense(s,r);assert.equal(serializeCampaign(s),before);
+ s.campaign.idle=s.campaign.idle.filter(o=>o.location!=='xuchang');
+ assert.equal(canPrepareSiegeDefense(s,r),false);
+ r.awaiting=false;assert.equal(canPrepareSiegeDefense(s,r),false);
+ });

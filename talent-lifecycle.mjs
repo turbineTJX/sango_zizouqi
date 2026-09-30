@@ -48,7 +48,7 @@ export function discoverTalent(s,id,faction){
 }
 export function unknownTalent(s,cityId,faction){return s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&localContact(s,cityId,p.cityId)&&(!data(s).knowledge[faction]?.[p.id]?.locationConfirmed));}
 export function talentCandidates(s,c,mode){
- const context=talentContext(s),t=data(s),ids=mode==='hire'?s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&nearby(s,c.id,p.cityId)&&t.knowledge[c.owner]?.[p.id]?.locationConfirmed).map(p=>p.id):s.campaign.idle.filter(o=>o.faction!==c.owner&&o.faction!=='neutral'&&!o.destination&&nearby(s,c.id,o.location)&&(s.campaign.domestic.loyalty[o.unit.id]??85)<70).map(o=>o.unit.id),f=context.factions[c.owner]||{N:0,D:1};
+ const context=talentContext(s),t=data(s),ids=mode==='hire'?s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&nearby(s,c.id,p.cityId)&&t.knowledge[c.owner]?.[p.id]?.locationConfirmed).map(p=>p.id):s.campaign.idle.filter(o=>o.faction!==c.owner&&o.faction!=='neutral'&&!o.destination&&!o.retreating&&nearby(s,c.id,o.location)&&(s.campaign.domestic.loyalty[o.unit.id]??85)<70).map(o=>o.unit.id),f=context.factions[c.owner]||{N:0,D:1};
  const candidates=[];
  for(const id of ids){
   const check=talentEligibility(s,id,c.owner,c.id,mode,context);if(!check.ok)continue;
@@ -182,7 +182,7 @@ export function finishTalentDay(s,cancel){
     a.units=a.units.filter(u=>u.id!==o.unit.id);if(!a.units.length)s.armies=s.armies.filter(x=>x!==a);else{if(!a.units.some(u=>u.id===a.leader))a.leader=a.units[0].id;if(!a.units.some(u=>u.id===a.advisor))a.advisor=a.units[0].id;if(!a.units.some(u=>u.id===a.deputy))a.deputy=null;}
     delete o.army;
    }
-   if(!o.army&&!o.destination){if(o.cityUnit){const c=s.cities.find(c=>c.id===o.location);c.units=c.units.filter(u=>u.id!==o.unit.id);}cancel(s,o.unit.id,'辞官');for(const c of s.cities)if(c.governor===o.unit.id)c.governor=null;freeOfficer(s,o);}
+   if(!o.army&&!o.destination&&!o.retreating){if(o.cityUnit){const c=s.cities.find(c=>c.id===o.location);c.units=c.units.filter(u=>u.id!==o.unit.id);}cancel(s,o.unit.id,'辞官');for(const c of s.cities)if(c.governor===o.unit.id)c.governor=null;freeOfficer(s,o);}
   }
  }
  for(const p of s.campaign.domestic.people){

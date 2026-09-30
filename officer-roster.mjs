@@ -1,3 +1,4 @@
+import {personalBondsMarkup} from './bond-display.mjs';
 import {abilityButton} from './ability-reference.mjs';
 import {traitChips} from './trait-display.mjs';
 import {sortButton} from './list-sort.mjs';
@@ -25,7 +26,7 @@ export function rosterMarkup({query='',sort='source',direction,kind='all',page=0
  <button class="button secondary" data-action="catalog-clear" ${selected.length?'':'disabled'}>清空阵容</button></section>`}
  <p class="muted" role="status">共 ${matches.length} 人 · 第 ${page+1} / ${pages} 页</p>
  <div class="officer-grid">${rows.map(u=>`<article class="officer-card catalog-card"><div class="catalog-name"><span class="portrait catalog-art-portrait" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></span><h3>${esc(u.name)}<small>${u.courtesy?'字 '+esc(u.courtesy):'字未载'}</small></h3><span class="trait">${origin(u)} #${u.sourceId}</span></div>
- ${statMarkup(u)}<p class="muted">${SKILL_ROUTES[u.id]?esc(FAMOUS_OFFICERS[u.id]?.role)+' · '+esc(TACTICS_BOOK[SPECIAL_TACTICS[u.id]]?.name):esc(commonRouteName(u))+' · 固定武将特性'}</p>
+ ${statMarkup(u)}<p class="muted">${FAMOUS_OFFICERS[u.id]?esc(FAMOUS_OFFICERS[u.id]?.role)+' · '+esc(TACTICS_BOOK[SPECIAL_TACTICS[u.id]]?.name):esc(commonRouteName(u))+' · 羁绊成长'}</p>
  <div class="catalog-card-actions"><button class="button secondary" data-action="${picker?'custom-person-detail':'catalog-detail'}" data-id="${u.id}">查看资料</button>${picker?`<button class="button secondary" data-action="custom-person-select" data-id="${u.id}" ${picker.used.includes(u.id)&&picker.current!==u.id?'disabled':''}>${picker.current===u.id?'当前武将':picker.used.includes(u.id)?'已在阵容':'选用此将'}</button>`:`<button class="button ${selected.includes(u.id)?'primary':'secondary'}" data-action="catalog-toggle" data-id="${u.id}" ${!selected.includes(u.id)&&selected.length>=6?'disabled':''}>${selected.includes(u.id)?'移出试炼':'加入试炼'}</button>`}</div></article>`).join('')||'<p class="catalog-empty">没有匹配的武将，请更换搜索词。</p>'}</div>
  <nav class="catalog-pages" aria-label="武将名录分页"><button class="button secondary" data-action="catalog-page" data-page="${page-1}" ${page===0?'disabled':''}>上一页</button><span>${page+1} / ${pages}</span><button class="button secondary" data-action="catalog-page" data-page="${page+1}" ${page+1>=pages?'disabled':''}>下一页</button></nav>`;
 }
@@ -85,4 +86,4 @@ export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,typ
 
 export function officerCommandMarkup(id,holder=OFFICER_BY_ID[id]){return `<h3 class="stats-section-title">个人军略</h3><p class="muted">${STRATAGEM_RULE_TEXT}</p><div class="repertoire-skills">${officerStratagems(id).map(k=>`<span><b>${esc(STRATAGEMS[k].name)}</b> · ${stratagemPoolLabel(k)}<small>${esc(stratagemEffectText(stratagemProfile(k,holder)))}</small>${STRATAGEMS[k].history?`<small>事迹依据：${esc(STRATAGEMS[k].history)}</small>`:''}</span>`) .join('')||'<p class=muted>无军略：基础智力不足70。</p>'}</div>`;}
 
-export function traitMarkup(u){return '<section class="passive-panel" data-officer-traits><h3>特性</h3>'+traitChips(u)+'</section>';}
+export function traitMarkup(u){return personalBondsMarkup(u)+'<section class="passive-panel" data-officer-traits><h3>特性</h3>'+traitChips(u)+'</section>';}

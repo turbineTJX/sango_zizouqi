@@ -35,12 +35,11 @@ export default {
       "id": "strategic-policy",
       "name": "战略决策",
       "parameters": {
-        "attackRatio": null,
-        "foodDays": null,
+        "implementedSource": "data/design/economy-rules.mjs:ai.offensive",
         "targetWeights": null
       },
-      "source": "strategic-campaign.mjs",
-      "todo": "当前战略AI模块正在改动；参数暂留空，避免固化过期配置"
+      "source": "strategic-ai.mjs",
+      "todo": "君主倾向、研判与进攻价值评估已接入正式经济表的ai.offensive；其余目标筛选与运输评分尚待抽取"
     }
   ]
 };

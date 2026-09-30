@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 // Reproducible exploratory balance audit. Does not change game rules or saves.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -34,7 +36,7 @@ function run(config, seed, mode='baseline', shield=20) {
         if(b.commandSerial===serial)idleFull++;
       }
       const command=mode==='rotate'?'reserve':mode==='focus-gate'?'focus':['firestorm','assault','fortify','demoralize'].includes(mode)?mode:null;
-      if(command && issueCommand(b,command,command==='focus'?'siege-gate':null)===null) commands++;
+      if(command && issueCommand(b,command,chooseStratagemPoint(b,AREA_DESIGNS[command],0))===null) commands++;
       else if(mode!=='adaptive')idleFull++;
     }
     stepBattle(b);

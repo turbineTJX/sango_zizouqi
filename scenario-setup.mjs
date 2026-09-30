@@ -3,7 +3,7 @@ import {makeOfficer,TROOPS,TACTICS,armyCommanders,isDeploying,fillSlots} from '.
 import {defaultTacticIds} from './tactics.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
-import {validateCustomBattle,customRoles} from './custom-battle.mjs';
+import {validateCustomBattle,customRoles,customFrontlineCapacity} from './custom-battle.mjs';
 import {taskPickerMarkup} from './strategic-roster.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
 import {sortRows} from './list-sort.mjs';
@@ -14,7 +14,7 @@ const button=(action,label,extra='')=>`<button class="button secondary" data-act
 export const scenarioSetupSteps=p=>['formation','unit-review','unit-select','commanders','review'];
 export function newScenarioSetup(draft,team){
  const copy=structuredClone(draft),roles=customRoles(copy,team);
- return {draft:copy,team,editorId:copy[team][0]?.id,step:'unit-review',selected:copy[team].map(u=>u.id),entries:Object.fromEntries(copy[team].map(u=>[u.id,{...u,first:u.first??(copy[team].indexOf(u)<6),formation:u.formation||OFFICER_BY_ID[u.id].formation||'front'}])),roles:{...roles,deputy:null},tactic:copy[team+'Tactic']||'balanced',filter:{sort:'recommended',direction:'desc'}};
+ return {draft:copy,team,editorId:copy[team][0]?.id,step:'unit-review',selected:copy[team].map(u=>u.id),entries:Object.fromEntries(copy[team].map(u=>[u.id,{...u,first:u.first??(copy[team].indexOf(u)<customFrontlineCapacity(copy,team)),formation:u.formation||OFFICER_BY_ID[u.id].formation||'front'}])),roles:{...roles,deputy:null},tactic:copy[team+'Tactic']||'balanced',filter:{sort:'recommended',direction:'desc'}};
 }
 export function newBattleSetup(s,armyId){
  const army=s.armies.find(a=>a.id===armyId);
@@ -27,9 +27,9 @@ export function scenarioSetupOfficer(p,id){
  if(p.sourceArmy){const source=p.sourceArmy.units.find(x=>x.id===id);if(!source)throw new Error('剧本武将不可替换');const u={...structuredClone(source),type:entry.type,formation:entry.formation,first:entry.first};if(u.type!==source.type)u.tactics=defaultTacticIds(u);return u;}
  const level=Number.isInteger(entry.level)&&entry.level>=1&&entry.level<=10?entry.level:1;
  const troops=Number.isInteger(entry.troops)&&entry.troops>=0?Math.min(entry.troops,troopCapacity({...OFFICER_BY_ID[id],level})):0;
- const key=[id,p.draft.seed,level,troops,entry.type,entry.formation,entry.first].join(':');
+ const key=[id,p.draft.seed,level,troops,entry.type,entry.formation,entry.first,entry.retreatAt].join(':');
  if(!catalogCache.has(key)){
-  const u=makeOfficer(id,troops,0,level,p.draft.seed);Object.assign(u,{type:entry.type,formation:entry.formation,first:entry.first});u.tactics=defaultTacticIds(u);
+  const u=makeOfficer(id,troops,0,level,p.draft.seed);Object.assign(u,{type:entry.type,formation:entry.formation,first:entry.first,retreatAt:entry.retreatAt??null});u.tactics=defaultTacticIds(u);
   if(catalogCache.size>2500)catalogCache.clear();catalogCache.set(key,u);
  }
  return structuredClone(catalogCache.get(key));
@@ -103,7 +103,7 @@ export function applyBattleSetup(s,p){
  const side=next.battle.sides[0],leader=army.units.find(u=>u.id===army.leader),advisor=army.units.find(u=>u.id===army.advisor),deputy=army.units.find(u=>u.id===army.deputy);
  const old=new Map(side.units.map(u=>[u.id,u]));
  side.units=[...army.units].sort((a,b)=>Number(b.first)-Number(a.first)).map(u=>({...old.get(u.id),...u,commandBonus:(leader?.leadership||60)/1000,advisorBonus:(advisor?.intellect||0)/1000,deputyBonus:(deputy?.force||0)/2000,status:'reserve',x:-1,y:-1}));
- if(next.testScenario?.customBattle){const d=next.testScenario.customBattle;d.ownTeam=army.units.map(({id,type,troops,level,formation,first})=>({id,type,troops,level,formation,first}));d.ownTeamRoles={...p.roles};d.ownTeamTactic=p.tactic;}
+ if(next.testScenario?.customBattle){const d=next.testScenario.customBattle;d.ownTeam=army.units.map(({id,type,troops,level,formation,first,retreatAt})=>({id,type,troops,level,formation,first,retreatAt}));d.ownTeamRoles={...p.roles};d.ownTeamTactic=p.tactic;}
  side.commanders=armyCommanders(army);side.tactic=army.tactic;fillSlots(next.battle,0);
  return next;
 }

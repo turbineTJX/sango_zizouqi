@@ -1,3 +1,5 @@
+import {currentBattle} from './helpers/current-battle.mjs';
+import {frontlineCapacity,validFrontline} from '../army-trait-rules.mjs';
 import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
@@ -19,7 +21,7 @@ function encounter(seed = 521200,leader=null) {
 function finish(s) {
   while (!s.battle.result) {
     stepBattle(s.battle);
-    for (const side of [0, 1]) assert.ok(activeUnits(s.battle, side).length <= 6);
+    for (const side of [0, 1]) assert.ok(validFrontline(s.battle, side));
     const active = s.battle.sides.flatMap(side => side.units).filter(u => u.status === 'active');
     assert.equal(new Set(active.map(u => `${u.x},${u.y}`)).size, active.length, 'No two active units occupy the same cell');
   }
@@ -61,7 +63,7 @@ test('fresh reserves replace destroyed units without exceeding 6', () => {
   const s = encounter(), b = s.battle;
   const removed = activeUnits(b, 0)[0]; removed.hp = 0; removed.status = 'defeated';
   const waiting = b.sides[0].units.find(u => u.status === 'reserve');
-  stepBattle(b); assert.equal(waiting.status, 'active'); assert.equal(activeUnits(b, 0).length, 6);
+  stepBattle(b); assert.equal(waiting.status, 'active'); assert.equal(activeUnits(b, 0).length, frontlineCapacity(b,0));
 });
 test('removed basic orders cannot mutate combat or consume the stratagem gauge', () => {
   const b=encounter().battle;b.commandProgress=12000;
@@ -110,12 +112,12 @@ test('garrison alone can defend a city when player army is elsewhere', () => {
   assert.ok(s.pending); startBattle(s); finish(s); settleBattle(s);
   assert.ok(s.report); assert.ok(s.armies.find(a => a.id === 'a1'));
 });
-test('multiple same-side armies share the same six battlefield slots', () => {
+test('multiple armies share six normal slots and only Jianxiong grants its own seventh', () => {
   const s = newGame(); splitArmy(s, 'a1', ['yuanxia', 'jin']);
   const helper = s.armies.at(-1); helper.location = 'guandu';
   orderArmy(s, 'a1', 'guandu'); advanceTurn(s); startBattle(s);
   assert.ok(s.battle.sides[0].units.some(u => u.armyId === helper.id));
-  assert.equal(activeUnits(s.battle, 0).length, 6); finish(s);
+  assert.equal(activeUnits(s.battle, 0).length, frontlineCapacity(s.battle,0)); finish(s);
 });
 test('invalid saves are rejected before replacing game state', () => {
   assert.throws(() => validateSave({ version: 9 }));
@@ -196,8 +198,8 @@ test('saving after immediate skills resumes identically without duplicating a hi
   assert.deepEqual(resumed.battle,s.battle);
 });
 test('pending casts from the removed windup format are rejected',()=>{
-  const s=duel(),a=s.battle.sides[0].units[0],d=s.battle.sides[1].units[0];
-  syncFixtureLearning(s);a.cast={skillId:'thrust',targetId:d.id,remaining:2};
+  const {state:s,u:a,target:d}=currentBattle('thrust','spear');
+  validateSave(structuredClone(s));a.cast={skillId:'thrust',targetId:d.id,remaining:2};
   assert.throws(()=>validateSave(s),/待施放/);
 });
 test('a defeated unit cannot use a ready skill',()=>{
@@ -271,7 +273,7 @@ test('deployment can move, swap, reset and persist without advancing time', () =
   assert.equal(deployUnit(b,a.id,d.x,d.y),null);assert.equal(d.x,0);assert.equal(d.y,0);assert.equal(a.x,oldD.x);
   const saved=validateSave(JSON.parse(JSON.stringify(s)));assert.equal(isDeploying(saved.battle),true);assert.equal(saved.battle.tick,0);
   assert.ok(deployUnit(b,a.id,5,0));assert.ok(deployUnit(b,b.sides[1].units[0].id,0,0));
-  assert.equal(resetDeployment(b),null);assert.equal(activeUnits(b,0).length,6);
+  assert.equal(resetDeployment(b),null);assert.equal(activeUnits(b,0).length,frontlineCapacity(b,0));
   assert.equal(lockDeployment(b),null);assert.ok(deployUnit(b,a.id,0,0));
 });
 test('paused stratagem consumes a full gauge, preserves time and includes reserves', () => {

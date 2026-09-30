@@ -1,3 +1,4 @@
+import {transportProxy} from '../personnel-movement.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,armyPosition,orderCampaignArmy,recruitCityUnits} from '../strategic-campaign.mjs';
@@ -10,6 +11,8 @@ import {movementPoints} from '../strategic-movement.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function fixture(seed=1,{emptyFollower=false}={}){
  const s=newCampaign(seed),a=fieldFromCity(s,'xuchang',{target:'guandu'}),d=fieldFromCity(s,'guandu',{target:'xuchang'});
+ // These fate tests deliberately fight to destruction; auto withdrawal is tested separately.
+ for(const u of [...a.units,...d.units])u.retreatAt=null;
  a.units.find(u=>u.id==='cao').troops=emptyFollower?0:1000;
  if(emptyFollower)for(const u of a.units)if(u.id!=='cao')u.troops=1000;
  beginExecution(s);
@@ -59,11 +62,11 @@ test('Cao loses his unit in real combat but a victorious army keeps him, his com
  assert.ok(armyStratagems(reformed).includes('assault'));assert.ok(nextBattle(reformed,r.armies.find(x=>x.faction==='yuan')).sides[0].units.some(u=>u.id==='cao'));restore(s);
 });
 
-test('an escaped commander accompanies surviving retreating troops from the actual road position',()=>{
+test('an escaped commander returns from the actual road position after the last troops depart',()=>{
  const {s,a,r}=fixture();run(s,r,()=>r.battle.sides[0].units.find(u=>u.id==='cao').status==='defeated');
  assert.ok(fateRoll(s,r.id+':cao')>=.35);const point=armyPosition(s,a);assert.equal(issueCommand(r.battle,'retreat'),null);run(s,r);
- assert.equal(r.battle.result.winner,1);assert.ok(a.units.some(u=>u.troops>0));assert.equal(a.leader,'cao');assert.ok(a.units.some(u=>u.id==='cao'&&u.troops===0));
- assert.ok(!s.campaign.idle.some(o=>o.unit.id==='cao'));const after=armyPosition(s,a);assert.ok(Math.hypot(point.x-after.x,point.y-after.y)<1);assert.ok(a.route.length);restore(s);
+ assert.equal(r.battle.result.winner,1);assert.ok(!s.armies.some(x=>x.id===a.id));const escaped=s.campaign.idle.find(o=>o.unit.id==='cao');assert.ok(escaped?.destination);assert.equal(escaped.unit.troops,0);assert.ok(escaped.journey.route.length);
+ const after=armyPosition(s,transportProxy(s,escaped));assert.ok(Math.hypot(point.x-after.x,point.y-after.y)<1);assert.equal(s.campaign.personnelEvents.filter(e=>e.id===r.id+':cao').length,1);restore(s);
 });
 
 test('previous followers return physically when their remaining escort is annihilated, without another fate roll',()=>{

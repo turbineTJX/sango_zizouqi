@@ -18,4 +18,5 @@ import t16 from './ai-parameters.mjs';
 import t17 from './battle-scenarios.mjs';
 import t18 from './regression-cases.mjs';
 
+
 export const PENDING_DESIGN_TABLES = [t0,t1,t2,t4,t5,t6,t8,t9,t10,t11,t12,t13,t14,t16,t17,t18];

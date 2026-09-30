@@ -1,3 +1,5 @@
+import {advanceBonds} from './bonds.mjs';
+import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {officerLevel} from './passives.mjs';
 import {advanceTacticLearning} from './tactic-learning.mjs';
 import {TACTICS_BOOK} from './tactics.mjs';
@@ -30,6 +32,7 @@ export function gainMerit(u,amount) {
     u.merit-=meritNeeded(u.level);u.level++;
   }
   if(u.level===10)u.merit=0;
+  const bonds=advanceBonds(u);
   const learned=u.level>before?advanceTacticLearning(u):[];
-  return {before,after:u.level,gained:amount,learned,unlocked:[...learned.map(id=>TACTICS_BOOK[id].name)]};
+  return {before,after:u.level,gained:amount,learned,unlocked:[...bonds.map(id=>BOND_DESIGNS[id].name),...learned.map(id=>TACTICS_BOOK[id].name)]};
 }

@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -24,7 +26,7 @@ function fight(c,seed,orders,{resumeCheck=false}={}){
   const state=createScenario(c.id,seed),b=state.battle;lockDeployment(b);
   const tracks=b.sides.flatMap(s=>s.units).map(u=>({id:u.id,side:u.side,name:u.name,type:u.type,tactics:[...u.tactics],initial:u.initial,activeSteps:0,peakIntent:0,first:{}}));
   const units=b.sides.flatMap(s=>s.units);const dailyLoss=[];let lastDamage=0,ordersUsed=0,cinematics=0,breakthrough=false,resumed=null;
-  const command=b=>{if(orders&&b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key&&!issueCommand(b,key))return 1;}return 0;};
+  const command=b=>{if(orders&&b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key&&!issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)))return 1;}return 0;};
   while(!b.result){
     assert.ok(b.tick<c.limit,`${c.id}: failed to terminate`);
     const frontAlive=b.sides[1].units.some(u=>u.status==='active'&&u.hp>0&&isMelee(u));

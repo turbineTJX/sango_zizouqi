@@ -1,5 +1,15 @@
 // Authoritative shared status definitions. Runtime and exported tables read this file.
 export const STATUS_DEFINITIONS = {
+  "magicImmune": {"name":"魔免","icon":"shield","tone":"buff","priority":0,"description":"解除并免疫战斗异常，仅承受物理普攻伤害；不免除缺粮或主动代价"},
+  "rapidAdvance": {"name":"神速","icon":"wind","tone":"buff","priority":2,"moveBonus":1,"attackFraction":0.25,"description":"移动力 +1，攻击间隔缩短25%，无视ZOC；不能穿越部队或不可通行地形"},
+  "powerDown": {
+    "name": "挫锐",
+    "icon": "sword",
+    "tone": "debuff",
+    "priority": 10,
+    "fraction": 0.2,
+    "description": "武技威力与谋略威力降低20%；重复施加只刷新持续时间，可整军解除"
+  },
   "stasis": {
     "name": "避战",
     "icon": "shield",
@@ -107,7 +117,7 @@ export const STATUS_DEFINITIONS = {
     "description": "减伤 30%，停止移动并免疫击退"
   },
   "ward": {
-    "name": "战法减伤",
+    "name": "减伤",
     "icon": "shield",
     "tone": "buff",
     "priority": 16,
@@ -118,7 +128,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "heal",
     "tone": "buff",
     "priority": 18,
-    "description": "每日救治已有伤兵，受伤兵预算和减疗限制"
+    "description": "每回合救治已有伤兵，受伤兵预算和减疗限制"
   },
   "phase": {
     "name": "穿阵",
@@ -146,7 +156,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "sword",
     "tone": "buff",
     "priority": 22,
-    "description": "受到近邻直接攻击时反击，每日最多一次"
+    "description": "受到近邻直接攻击时反击，每回合最多一次"
   },
   "camp": {
     "name": "营垒",
@@ -167,7 +177,8 @@ export const STATUS_DEFINITIONS = {
     "icon": "shield",
     "tone": "buff",
     "priority": 25,
-    "description": "减伤 25%，停止移动"
+    "amount": 1,
+    "description": "停止移动，普攻最大射程增加1；不改变最小射程与战法范围"
   },
   "emplaced": {
     "name": "架设",
@@ -183,6 +194,9 @@ export const STATUS_DEFINITIONS = {
     "priority": 27,
     "description": "普通攻击续叠灼烧"
   },
+  "peachFury": {"name":"桃园奋战","icon":"sword","tone":"buff","priority":12,"description":"攻击、武技与谋略威力提高40%，攻速提高30%，持续12回合，不叠加倍率"},
+  "peachInvincible": {"name":"无敌","icon":"shield","tone":"buff","priority":0,"description":"桃园最后一人获得3回合伤害免疫，仍可行动；不解除控制，不免除主动代价"},
+  "heavyAttack": {"name":"重击","icon":"sword","tone":"buff","priority":15,"description":"限次物理主动普攻伤害提高50%，主目标尝试混乱1回合；遵守控制保护，范围普攻仅消耗一次，战法、反击、谋略普攻、城门和诱饵不触发"},
   "attackOrb": {
     "name": "强化普攻",
     "icon": "target",
@@ -210,13 +224,6 @@ export const STATUS_DEFINITIONS = {
     "tone": "buff",
     "priority": 31,
     "description": "攻击提高 25%"
-  },
-  "phaseLock": {
-    "name": "奇门间隔",
-    "icon": "slow",
-    "tone": "neutral",
-    "priority": 32,
-    "description": "间隔结束前不能再次获得奇门"
   },
   "root": {
     "name": "定身",
@@ -285,7 +292,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "shield",
     "tone": "buff",
     "priority": 5,
-    "description": "首次入场潜行，最多12日；接触敌方ZOC即攻击拦截部队并显形，首击并使目标混乱1日；受伤提前破隐",
+    "description": "首次入场潜行，最多12回合；接触敌方ZOC即攻击拦截部队并显形，首击并使目标混乱1回合；受伤提前破隐",
     "duration": 12,
     "confuseDays": 1
   },
@@ -335,6 +342,7 @@ export const REMEDIES = {
     "intentSuppression"
   ],
   "rally": [
+    "powerDown",
     "root",
     "disarm",
     "seal",
@@ -352,6 +360,7 @@ export const REMEDIES = {
     "burn"
   ],
   "breakFormation": [
+    "rapidAdvance",
     "shield",
     "guard",
     "resolve",

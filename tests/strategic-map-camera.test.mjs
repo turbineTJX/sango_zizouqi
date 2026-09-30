@@ -25,3 +25,11 @@ test('army focus uses its actual position and manual navigation suspends followi
  assert.deepEqual(operationMapView(s,ui,a).view,expected);
  ui.mapCameraManual=false;assert.notDeepEqual(operationMapView(s,ui,a).view,expected);
 });
+
+
+test('battle selection centers the actual battle point instead of the previous city',()=>{
+ const s=newCampaign(1,'guandu-200'),ui={city:'xuchang'};operationMapView(s,ui);
+ s.campaign.battles.push({id:'focus-test',point:{x:600,y:700},name:'野战',settled:false});
+ Object.assign(ui,{strategyTab:'battle',directoryBattle:'focus-test',mapFocusKey:null});
+ const {focus,view}=operationMapView(s,ui);assert.equal(focus.key,'battle:focus-test');assert.equal(view.x+view.width/2,600);assert.equal(view.y+view.height/2,700);
+});

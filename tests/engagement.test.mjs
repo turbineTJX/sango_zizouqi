@@ -1,3 +1,4 @@
+import {currentBattle} from './helpers/current-battle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -8,23 +9,12 @@ import {hexDistance} from '../hex-grid.mjs';
 import {holdsLine} from '../engagement.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
-function scene(type='cavalry',mirror=false){
-  const state=createScenario('field',71),b=state.battle;
-  const a=b.sides[0].units[0],front=b.sides[1].units[0],rear=b.sides[1].units[1];
-  b.sides[0].units=[a];b.sides[1].units=[front,rear];
-  Object.assign(a,{type,x:4,y:3,cooldown:0});
-  Object.assign(front,{type:'spear',x:5,y:3,cooldown:999});
-  Object.assign(rear,{type:'crossbow',x:5,y:4,cooldown:999,hp:300});
-  for(const u of [a,front,rear]){
-    learnFixtureTactics(u,roleTacticIds(u,'assault'));u.intent=0;
-    u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
-    u.statuses={};
-  }
-  // Stationary defenders still hold the line; the attacking unit uses real AI.
-  for(const u of [front,rear])u.statuses.phalanx={until:999};
-  if(mirror){b.sides.reverse();for(const side of [0,1])for(const u of b.sides[side].units){u.side=side;u.x=13-u.x;u.y=7-u.y;}}
-  b.sides[a.side].focus=rear.id;b.sides[a.side].focusUntil=99;
-  lockDeployment(b);return {state,b,a,front,rear};
+function scene(type='cavalry',mirror=false,nonCharger=false){
+ const skill={spear:'thrust',cavalry:'rush',archer:'scatter',crossbow:'repeat'}[type],x=currentBattle(nonCharger?'gallop':skill,type,{requireS:!nonCharger,side:mirror?1:0}),{state,b}=x,a=x.u,front=x.target,rear=x.rear;
+ b.sides[a.side].units=[a];a.cooldown=0;Object.assign(front,{x:5,y:3});Object.assign(rear,{x:5,y:4,hp:300});
+ for(const u of [front,rear])u.statuses.phalanx={until:999};
+ if(mirror)for(const u of [a,front,rear]){u.x=13-u.x;u.y=7-u.y;}
+ b.sides[a.side].focus=rear.id;b.sides[a.side].focusUntil=99;return {state,b,a,front,rear};
 }
 const attacks=(b,a)=>b.effects.filter(e=>e.from===a.id&&e.damage>0);
 
@@ -37,11 +27,10 @@ test('engaged melee shares its attack with every adjacent troop despite explicit
 });
 
 test('nearby front takes priority before contact; fast movement stops on contact',()=>{
-  const {b,a,front,rear}=scene();a.x=3;rear.x=7;
-  learnFixtureTactics(a,['gallop','harass','relay']); // Non-assassin cavalry must still engage the nearer front.
-  a.skillReady={gallop:999,harass:999,relay:999};
+  const {b,a,front,rear}=scene('cavalry',false,true);a.x=3;rear.x=7;b.sides[a.side].focus=null;assert.ok(!a.tactics.includes('rush'));
+
   a.statuses.haste={until:99};
-  stepBattle(b);assert.equal(hexDistance(a,front),1);assert.equal(a.x,4);
+  for(let i=0;i<4&&hexDistance(a,front)>1;i++)stepBattle(b);assert.equal(hexDistance(a,front),1);assert.equal(a.x,4);
   stepBattle(b);assert.equal(attacks(b,a)[0]?.to,front.id);
 });
 
@@ -49,11 +38,11 @@ test('rush cannot escape an engagement or charge through a blocking line',()=>{
   const {b,a,front,rear}=scene();rear.x=7;
   primeTactic(a,'rush');
   assert.equal(routeTo(b,a,rear,3),null);
-  stepBattle(b);assert.equal(a.tacticCasts.rush,undefined);assert.equal(attacks(b,a)[0]?.to,front.id);
+  stepBattle(b);assert.equal(a.tacticCasts.rush,undefined);assert.ok(a.disengage);assert.equal(attacks(b,a).length,0);
   a.x=3;
   assert.ok(routeTo(b,a,front,3)?.length);
   assert.equal(tacticTarget(b,a,TACTICS_BOOK.rush,1),front);
-  const wall=Array.from({length:8},(_,y)=>({...structuredClone(front),id:`wall-${y}`,x:5,y}));
+  const wall=[1,3,5,7].map(y=>({...structuredClone(front),id:`wall-${y}`,x:5,y}));
   b.sides[front.side].units=[...wall,rear];
   assert.equal(routeTo(b,a,rear,12),null);
 });
@@ -65,14 +54,13 @@ test('an open flank allows a real rush to the rear without crossing a melee zone
   stepBattle(b);assert.equal(a.tacticCasts.rush,1);assert.ok(attacks(b,a).some(e=>e.to===rear.id));
 });
 
-test('an unreachable rear focus advances into the blocking line instead of stalling',()=>{
-  const {b,a,front,rear}=scene();a.x=1;rear.x=7;
-  const wall=Array.from({length:8},(_,y)=>({...structuredClone(front),id:`wall-${y}`,x:5,y}));
-  b.sides[front.side].units=[...wall,rear];
-  stepBattle(b);assert.ok(a.x>1);
-  for(let n=0;n<5&&!attacks(b,a).length;n++)stepBattle(b);
-  assert.ok(attacks(b,a).some(e=>wall.some(w=>w.id===e.to)));
-  assert.ok(a.x<=4);assert.equal(rear.hp,300);
+test('an unreachable rear focus advances into a legal blocking line instead of stalling',()=>{
+ const {state,b,u:a,ally}=currentBattle('rush','cavalry',{requireS:true,enemyTypes:['spear','spear','spear','spear','archer']});
+ Object.assign(ally,{x:0,y:7});const wall=b.sides[1].units.slice(0,4),rear=b.sides[1].units[4];
+ wall.forEach((u,i)=>{Object.assign(u,{x:5,y:1+i*2});u.statuses.phalanx={until:999};});Object.assign(rear,{x:7,y:3,hp:300,battleDamage:2700});rear.statuses.phalanx={until:999};a.x=1;a.cooldown=0;b.sides[0].focus=rear.id;b.sides[0].focusUntil=99;
+ validateSave(structuredClone(state));assert.equal(routeTo(b,a,rear,12),null);stepBattle(b);assert.ok(a.x>1);
+ for(let n=0;n<12&&!attacks(b,a).length;n++)stepBattle(b);
+ assert.ok(attacks(b,a).some(e=>wall.some(w=>w.id===e.to)));assert.ok(a.x<=4);assert.equal(rear.hp,300);
 });
 
 test('disabled troops still share contact damage; removed troops no longer share it',()=>{
@@ -114,7 +102,7 @@ test('confusion and reserve status disable interception immediately; expiry rest
 
 test('a real retreat can leave contact',()=>{
   const {b,a}=scene();b.sides[a.side].retreat=true;
-  const start=a.x;stepBattle(b);assert.ok(a.x<start);
+  const start=a.x;stepBattle(b);assert.equal(a.x,start);assert.ok(a.disengage);for(let i=0;i<10&&a.x===start;i++)stepBattle(b);assert.ok(a.x<start);
 });
 
 test('current battle saves resume deterministically and rule 10 is rejected',()=>{

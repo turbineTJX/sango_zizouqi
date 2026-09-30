@@ -59,8 +59,6 @@ export const MOVEMENT_RULES = {
   },
   "personnel": {
     "light": 70,
-    "transport": 100,
-    "travelerMultiplier": 1.15,
-    "transporterMultiplier": 1.2
+    "transport": 100
   }
 };

@@ -11,25 +11,8 @@ export function activeCommandTraits(b,u){
  const side=b.sides?.[u.side];
  return [...new Set((side?.commanders||[]).filter(c=>c.armyId===u.armyId).flatMap(c=>roleTraits(c,c.role)))];
 }
-export const BATTLE_TRAITS={
- cao:['discipline','steady','command'],dun:['spear','desperate','defiant'],liao:['rider','interdict','isolated'],chu:['shelter','steady','guard'],
- jia:['suppress','stifle','foresight'],yu:['shield','calm','rescue'],yuanxia:['bow','joint','swift'],jin:['discipline','spear','steady','fortress'],
- shao:['discipline','joint','veteran'],yan:['rider','valor'],wen:['rider','desperate','veteran'],he:['joint','prepared','adapt'],ju:['shield','calm','aid'],tian:['combo','wisdom'],gao:['cavalryGeneral','desperate','fortress'],
-};
-export const COMMON_TRAITS={
- spear:['spear','spearGeneral'],cavalry:['rider','cavalryGeneral'],archer:['bow','rapid'],crossbow:['crossbow','rapid'],
- halberd:['halberdDrill','halberdGeneral'],siege:['siegeDrill','steady'],ship:['shipDrill','joint'],
- strategist:['combo','calm'],support:['shield','aid'],domestic:['administration','farming'],
-};
-export const CIVIC_TRAITS={
- 'person-443':['rice','physician','benevolence'], 'person-533':['wealth','merchant','transporter'],
- 'person-255':['administration','insight','mediator'], 'person-420':['administration','benevolence'],
- 'person-449':['fame','insight','administration'], 'person-567':['builder','benevolence','steady'],
- 'person-212':['administration','merchant'], 'person-634':['merchant','administration'],
- 'person-123':['persuader','mediator'], 'person-487':['persuader','traveler'], 'person-283':['persuader','mediator'],
- 'person-705':['physician','traveler'], 'person-107':['farming','recruiter'], 'person-501':['farming','benevolence'],
- 'person-263':['administration','transporter'], 'person-529':['mediator','administration'],
-};
+export const COMMON_TRAITS={};
+export const CIVIC_TRAITS={};
 export function aptitudeKey(u){
  const p=OFFICER_BY_ID[u.id];if(!p)return u.skillRouteType||u.type||'spear';
  if(p.politics>=80&&p.politics>=p.intellect&&p.politics>=p.force+15)return 'domestic';
@@ -37,7 +20,8 @@ export function aptitudeKey(u){
  return p.type;
 }
 export const OFFICER_TRAITS=Object.freeze(Object.fromEntries(Object.entries(OFFICER_ASSIGNMENTS).map(([id,a])=>[id,Object.freeze([...a.traits])])));
-export const officerTraits=u=>OFFICER_TRAITS[u.id]||COMMON_TRAITS[aptitudeKey(u)]||COMMON_TRAITS.spear;
+export const independentTrait=id=>!!TRAIT_DESIGNS[id]&&TRAIT_DESIGNS[id]?.domain!=='battle'||TRAIT_DESIGNS[id]?.mechanics?.some(m=>m.roles);
+export const officerTraits=u=>(OFFICER_TRAITS[u.id]||[]).filter(independentTrait);
 export const hasTrait=(u,id)=>!!u&&officerTraits(u).includes(id);
-export const taskTraits=(u,def)=>officerTraits(u).filter(id=>{const t=WORK_TRAITS[id];return t?.kinds?.includes(def.kind)&&(!t.direction||t.direction===def.direction)&&(!t.value||t.value===def.value);});
+export const taskTraits=(u,def)=>officerTraits(u).filter(id=>{const t=WORK_TRAITS[id];return (!t?.work||t.work.actions.includes(def.id))&&t?.kinds?.includes(def.kind)&&(!t.direction||t.direction===def.direction)&&(!t.value||t.value===def.value);});
 export const taskTraitBonus=(u,def,key)=>u?taskTraits(u,def).reduce((n,id)=>Math.max(n,WORK_TRAITS[id][key]||0),0):0;

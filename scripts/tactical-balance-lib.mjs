@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,lockDeployment,issueCommand,battleStratagems,STRATAGEMS} from '../engine.mjs';
 import {chooseEnemyCommand} from '../battle-ai.mjs';
@@ -9,7 +11,7 @@ export function fight(id,seed,{orders=false}={}){
  while(!b.result){
   if(orders&&b.commandProgress>=12000){
    const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
-   if(key&&!issueCommand(b,key))ordersUsed++;
+   if(key&&!issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)))ordersUsed++;
   }
   stepBattle(b);
   controls+=b.sides[1].units.filter(u=>u.status==='active'&&['stun','confuse','seal','slow'].some(k=>(u.statuses[k]?.until||0)>b.tick)).length;

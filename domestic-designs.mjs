@@ -5,7 +5,7 @@ import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
 export function resolveDomesticActions(actions=DOMESTIC_ACTION_DESIGNS,buildings=BUILDING_DESIGNS){
  return Object.fromEntries(Object.entries(actions).map(([id,a])=>{
   const b=a.kind==='build'?buildings[a.value]:null;
-  return [id,b?{...structuredClone(a),name:'建设'+b.name,direction:b.direction,cost:b.cost,days:b.days}:structuredClone(a)];
+  return [id,b?{id,...structuredClone(a),name:'建设'+b.name,direction:b.direction,cost:b.cost,days:b.days}:{id,...structuredClone(a)}];
  }));
 }
 export const DIRECTION_STATS=Object.freeze({...DOMESTIC_DIRECTION_STATS});

@@ -1,3 +1,4 @@
+import {traitIgnoresZoc} from './trait-mechanics.mjs';
 import {hexDistance,hexNeighbors,insideHexGrid} from './hex-grid.mjs';
 import {hidden,statusOn,detected} from './battle-status-rules.mjs';
 
@@ -6,10 +7,11 @@ export const isMelee = u => ['spear','halberd','cavalry','ram'].includes(u.type)
 // Physical presence controls adjacent hexes. Disabled or withdrawing troops
 // still occupy their hex, but cannot pin another unit in melee.
 export function holdsLine(b,u) {
-  return isTargetable(b,u)&&isMelee(u)&&u.status==='active'&&u.hp>0&&!b.sides[u.side]?.retreat
+  return isTargetable(b,u)&&isMelee(u)&&u.status==='active'&&u.hp>0&&!u.withdrawing&&!u.disengage&&!b.sides[u.side]?.retreat
     &&!u.isDecoy&&!['stealth','confuse','disrupted'].some(k=>(u.statuses?.[k]?.until||0)>b.tick);
 }
 export function interceptorsAt(b,u,cell=u,charging=false) {
+  if((traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance')))return [];
   if(statusOn(b,u,'phase')&&!statusOn(b,u,'stealth'))return [];
   if(!charging&&!isMelee(u)&&!statusOn(b,u,'stealth'))return [];
   return (b.sides[1-u.side]?.units||[]).filter(e=>holdsLine(b,e)&&hexDistance(cell,e)===1);
@@ -33,7 +35,7 @@ export function zocCells(b) {
 // Ordered eligibility tiers, before distance/counter/focus scoring. Adjacent
 // frontliners pin the attacker; an exposed adjacent target remains attackable.
 export function meleeTargetPool(b,u,enemies) {
-  if(!isMelee(u)||statusOn(b,u,'phase')||statusOn(b,u,'stealth'))return enemies;
+  if(!isMelee(u)||(traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance'))||statusOn(b,u,'phase')||statusOn(b,u,'stealth'))return enemies;
   const engaged=interceptorsAt(b,u);
   if(engaged.length)return enemies.filter(e=>engaged.some(g=>g.id===e.id));
   const adjacent=enemies.filter(e=>hexDistance(u,e)===1);

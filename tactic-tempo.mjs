@@ -4,7 +4,7 @@ export const TACTIC_RECOVERY_STEPS = 4;
 export function describeTacticTempo(skill){
  const s={...skill};
     s.tempoDescription = s.passive ? '首次入场触发，每场一次，不主动施放、不消耗战意'
-      : s.tempoRole+'；每场 '+s.maxUses+' 次；战意门槛 '+s.threshold+'，施放消耗 '+s.intentCost+'；施放后 '+TACTIC_RECOVERY_STEPS+' 日才能再次施放其他战法，期间可普攻';
+      : s.tempoRole+'；每场 '+s.maxUses+' 次；战意门槛 '+s.threshold+'，施放消耗 '+s.intentCost+'；施放后 '+TACTIC_RECOVERY_STEPS+' 回合才能再次施放其他战法，期间可普攻';
     if(s.useEffect)s.tempoDescription += s.useEffect==='expand'?'；为受援友军一项已消耗的普通战法增加上限及剩余次数各1，本场每项最多增加1；不清冷却':'；为受援友军一项已消耗的普通战法恢复1次，不超上限、不清冷却';
     return s.tempoDescription;
 }

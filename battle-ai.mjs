@@ -1,7 +1,9 @@
+import {formationCells,formationTier} from './bond-battlefield.mjs';
+import {isAreaStratagem,chooseStratagemPoint} from './stratagem-area.mjs';
 import {isTargetable} from './engagement.mjs';
 import {needsRemedy} from './battle-status-rules.mjs';
 import {hasTrait} from './officer-traits.mjs';
-import {tacticUsesLeft,useRecoveryTargets} from './tactic-tempo.mjs';
+import {tacticUsesLeft} from './tactic-tempo.mjs';
 import {learnedTacticIds} from './tactic-learning.mjs';
 import {canOccupy,unitTerrain} from './battlefield.mjs';
 import {hexDistance} from './hex-grid.mjs';
@@ -73,6 +75,7 @@ export function planEnemyArmy(b){
     if(!validLoadout(u,u.tactics))configureTactics(u,learnedTacticIds(u));
     u.formation=u.type==='cavalry'?'left':isRear(u)?'back':'front';
   }
+  const formation=formationTier(b,1)>0?formationCells(b,1):[];
   const active=units.filter(u=>u.status==='active'&&u.hp>0);
   const occupied=new Set(b.sides[0].units.filter(u=>u.status==='active').map(u=>`${u.x},${u.y}`));
   const frontRows=[3,4,2,5,1,6],wingRows=[1,6,0,7];
@@ -102,6 +105,7 @@ export function planEnemyArmy(b){
       if(['archer','crossbow','siege','tower'].includes(u.type)&&ground==='hill')score-=6;
       if(unitTactics(u).some(s=>s.id==='ambush')&&ground==='forest')score-=3;
       if(ground==='marsh')score+=3;
+      if(formation.some(p=>p.x===x&&p.y===y))score-=u.bondGrowth?.levels.bondGuard?18:9;
       candidates.push({x,y,score});
     }
     candidates.sort((a,c)=>a.score-c.score||a.x-c.x||a.y-c.y);
@@ -111,7 +115,7 @@ export function planEnemyArmy(b){
 
 // Fixed trigger order, independent of troop strength, expected benefit or RNG.
 // Exclusive commands use their existing effect and keep the supplied list order.
-export const COMMAND_TRIGGER_ORDER=Object.freeze(['assault','disrupt','firestorm','range','haste','fortify','inspire','cycle','demoralize','blockade','relief','heal','regenerate','cleanse']);
+export const COMMAND_TRIGGER_ORDER=Object.freeze(['magicImmunity','assault','disrupt','eightFormation','firestorm','range','rapidAdvance','haste','fortify','inspire','cycle','demoralize','blockade','relief','heal','regenerate','cleanse']);
 export function chooseEnemyCommand(b,available,definitions,side=1){
   const own=b.sides[side],foe=b.sides[1-side],resource=side===0?b:b.enemyCommand;
   const active=s=>s.units.filter(u=>u.status==='active'&&u.hp>0);
@@ -123,9 +127,12 @@ export function chooseEnemyCommand(b,available,definitions,side=1){
   const triggers={
     assault:()=>targets.length>0,
     disrupt:()=>enemies.length>0,
+    eightFormation:()=>enemies.length>0,
     firestorm:()=>enemies.some(u=>!hasStatus(b,u,'burn')),
     range:()=>allies.some(u=>['archer','crossbow'].includes(u.type)),
     haste:()=>true,
+    rapidAdvance:()=>allies.some(u=>!hasStatus(b,u,'rapidAdvance')),
+    magicImmunity:()=>allies.some(u=>!hasStatus(b,u,'magicImmune')),
     fortify:()=>enemies.length>0,
     inspire:()=>allies.some(u=>u.intent<100),
     cycle:()=>allies.some(u=>u.intent<100||unitTactics(u).some(s=>tacticUsesLeft(u,s)>0&&(u.skillReady[s.id]||0)>b.tick)),
@@ -142,7 +149,8 @@ export function chooseEnemyCommand(b,available,definitions,side=1){
       if(!s||(s.effect||key)!==effect||(resource.commandReady[key]||0)>b.tick)continue;
       const target=s.side===0?own:foe;
       if(s.field&&(target[s.field]||0)>b.tick)continue;
-      if(s.restoreUses&&(own.useRecoveryCommands?.[key]||!allies.some(u=>useRecoveryTargets(u,unitTactics(u)).length)))continue;
+      if(s.maxUses&&(own.stratagemUses?.[key]||0)>=s.maxUses)continue;
+      if(isAreaStratagem(s)&&!chooseStratagemPoint(b,s,side))continue;
       if(triggers[effect]())return key;
     }
   }

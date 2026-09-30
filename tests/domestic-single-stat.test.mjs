@@ -37,13 +37,7 @@ test('helper effectiveness and recommendation ignore secondary stats for all fiv
  }
 });
 
-test('picker explains the single primary stat instead of a mixed ability',()=>{
- const s=newCampaign(44);
- for(const [direction,label] of [['technology','技术统一使用智力'],['military','军务统一使用统率'],['martial','武备统一使用武力'],['commerce','商业统一使用政治'],['agriculture','农业统一使用政治'],['talent','人才统一使用魅力']]){
-  const html=campaignRosterMarkup(s,{personnel:{city:'xuchang'}},{task:'domestic',city:'xuchang',direction,selected:[]});
-  assert.ok(html.includes(label));assert.ok(html.includes('选定负责人后自动办理事务'));
- }
-});
+test('domestic picker displays only its relevant primary stat in the appointment table',()=>{const s=newCampaign(44),labels={leadership:'统率',force:'武力',intellect:'智力',politics:'政治',charm:'魅力'};for(const [direction,key]of Object.entries(DIRECTION_STATS)){const html=campaignRosterMarkup(s,{personnel:{city:'xuchang'}},{task:'domestic',city:'xuchang',direction,selected:[]});assert.ok(html.includes(labels[key]));assert.ok(html.includes('data-personnel-choice'));for(const other of Object.keys(labels).filter(k=>k!==key))assert.ok(!html.includes('data-sort-key="'+other+'"'));}});
 
 
 test('six independent appointment directions each have exactly one stat',()=>{

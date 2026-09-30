@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
-import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
+import {stepBattle,lockDeployment,validateSave,makeOfficer} from '../engine.mjs';
 import {hexNeighbors} from '../hex-grid.mjs';
 import {configureTactics,roleTacticIds,unitTactics,TACTICS_BOOK,setStatus} from '../tactics.mjs';
 import {intentIncome} from '../passives.mjs';
@@ -12,7 +12,7 @@ function scene(count=3,type='spear'){
   Object.assign(u,{type,level:1,x:6,y:3,cooldown:0,intent:0,statuses:{},morale:50});
   const targets=hexNeighbors(u).slice(0,count).map(([x,y],i)=>({...structuredClone(template),id:template.id+'-'+i,name:'敌军'+i,type:'spear',skillRouteType:'domestic',level:1,x,y,cooldown:999,intent:0,statuses:{phalanx:{until:999}},morale:50}));
   b.sides[0].units=[u];b.sides[1].units=targets;
-  for(const v of [u,...targets]){configureTactics(v,roleTacticIds(v,'assault'));v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));}
+  for(const v of [u,...targets]){v.bondGrowth={level:1,seed:0,levels:{}};configureTactics(v,roleTacticIds(v,'assault'));v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));}
   return {state,b,u,targets};
 }
 const hits=x=>x.b.effects.filter(e=>e.from===x.u.id&&!e.skill);
@@ -42,7 +42,7 @@ test('focus cannot concentrate contact damage; nonadjacent enemies are not inclu
 });
 
 test('minimum damage is shared rather than multiplied once per enemy',()=>{
-  const single=scene(1),many=scene(6);single.u.hp=1;many.u.hp=1;
+  const single=scene(1),many=scene(6);single.u.hp=1;many.u.hp=1;single.u.retreatAt=many.u.retreatAt=null;
   stepBattle(single.b);stepBattle(many.b);
   assert.equal(hits(many).reduce((sum,e)=>sum+e.damage,0),hits(single)[0].damage);
 });
@@ -67,7 +67,7 @@ test('shields and different defenses resolve independently without reallocating 
 
 test('an enchanted contact attack consumes one charge and divides extra fire damage',()=>{
   for(const n of [1,3]){
-    const x=scene(n,'archer');configureTactics(x.u,['fire','scatter','suppress']);
+    const x=scene(n,'archer');Object.assign(x.u,makeOfficer('yuanxia',3000,0,1,83),{type:'archer'});configureTactics(x.u,roleTacticIds(x.u,'assault'));
     x.u.intent=TACTICS_BOOK.fire.threshold;x.u.skillReady.fire=0;
     stepBattle(x.b);assert.equal(x.u.statuses.attackOrb.charges,3);
     const before=x.u.intent;x.u.cooldown=0;stepBattle(x.b);
@@ -79,7 +79,7 @@ test('an enchanted contact attack consumes one charge and divides extra fire dam
 });
 
 test('all contact shares land before a lethal retaliation; target ordering is deterministic',()=>{
-  const x=scene(3);x.u.hp=1;
+  const x=scene(3);x.u.hp=1;x.u.retreatAt=null;
   for(const t of x.targets)setStatus(x.b,t,'riposte',8,{lastTick:0});
   const reverse=structuredClone(x.state);reverse.battle.sides[1].units.reverse();
   stepBattle(x.b);stepBattle(reverse.battle);
@@ -94,3 +94,4 @@ test('current combat saves resume with exactly the same shared attacks',()=>{
   for(let i=0;i<30;i++){stepBattle(state.battle);stepBattle(restored.battle);}
   assert.deepEqual(restored.battle,state.battle);
 });
+

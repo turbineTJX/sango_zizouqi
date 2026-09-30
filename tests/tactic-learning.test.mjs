@@ -59,7 +59,7 @@ test('AI保持固定战法，真实非均分战斗和存档续战一致',()=>{
 });
 test('升级不授予或更换战法，战略改编和存读档维持固定记录',()=>{
  const u=makeOfficer('jia',1000,0,1,99),before=structuredClone(u.tacticLearning),ids=[...u.tactics];
- const growth=gainMerit(u,Array.from({length:9},(_,i)=>meritNeeded(i+1)).reduce((a,b)=>a+b,0));assert.equal(u.level,10);assert.deepEqual(growth.unlocked,[]);assert.deepEqual(u.tacticLearning,before);assert.deepEqual(u.tactics,ids);
+ const growth=gainMerit(u,Array.from({length:9},(_,i)=>meritNeeded(i+1)).reduce((a,b)=>a+b,0));assert.equal(u.level,10);assert.deepEqual(growth.learned,[]);assert.deepEqual(u.tacticLearning,before);assert.deepEqual(u.tactics,ids);
  const c=newCampaign(9),a=c.cities.find(c=>c.id==='xuchang'),o=a.units[0],record=structuredClone(o.tacticLearning);assert.equal(changeCityTroop(c,a.id,o.id,'spear'),null);assert.deepEqual(o.tacticLearning,record);validateCampaign(JSON.parse(serializeCampaign(c)));
 });
 test('所有预设共用固定配置生成器，没有场景专属授予或随机学习',()=>{

@@ -9,7 +9,8 @@
 
 | 一览表 | 正式设计源 | 当前范围 |
 | --- | --- | --- |
-| [特技一览表](特技一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 94项；含部队、军团、内政、人才、行旅特性 |
+| [特技一览表](特技一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 当前接入65项特性（50普通、15专属） |
+| [内政命令特性](内政命令特性一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 已接入40项，限定现有命令的效果与结算；持有者见正式分配 |
 | [战法一览表](战法一览表.md) | [tactics.mjs](../../data/design/tactics.mjs) | 75项效果定义；标明当前携带兵种／16名将专属／未配置效果库，以及门槛、冷却、次数和效果参数 |
 | [军略一览表](军略一览表.md) | [stratagems.mjs](../../data/design/stratagems.mjs) | 20项；效果、持续时间、普通／专属池、专属来源 |
 | [兵种一览表](兵种一览表.md) | [troops.mjs](../../data/design/troops.mjs) | 9种；基础属性、攻城系数、克制 |
@@ -38,7 +39,7 @@
 
 ## 数据与机制的边界
 
-- 兵种基础数值、武将属性与当前兵种适性、军团特技参数、本人事务特性参数、名将部队特性 `personal` 参数、战法已支持参数、军略已支持参数及能力分配由表提供。
+- 兵种基础数值、武将属性与当前兵种适性、军团特技参数、本人事务特性参数、人物特性 `mechanics` 事件与处理器参数、战法已支持参数、军略已支持参数及能力分配由表提供。
 - 战法表保存最终战斗参数；加载时只计算说明和派生描述，不再另跑隐藏的门槛、冷却、次数调整。`threshold` 与 `learningTier` 独立，不能以战意门槛重新推测学习等级。
 - 名称、描述是文案，不会执行。部分既有基础特技、战法的具体效果仍由引擎按ID或 `effect` 判定；只改文字不会改变伤害或控制机制。设计新机制时，先实现对应处理器，再登记 `schema.mjs`，最后写表并做行为回归。
 - 各表引用和已支持字段、效果由 [design-catalog.mjs](../../design-catalog.mjs) 校验；引擎启动时同样校验，未知字段和无效引用不会被静默忽略。
@@ -50,7 +51,7 @@
 
 | 表 | 主要字段及含义 |
 | --- | --- |
-| 特技 | `domain` 生效领域；`scope` 作用范围；`role` 指挥任职；`stats` 军团属性增幅；`kinds/direction/value` 适用事务；`quantity/chance/recruitDiscount` 事务加成；`effects` 太守等内政效果；`personal` 名将部队特性触发条件和属性增幅 |
+| 特技 | `domain` 生效领域；`scope` 作用范围；`role` 指挥任职；`stats` 军团属性增幅；`kinds/direction/value` 适用事务；`quantity/chance/recruitDiscount` 事务加成；`effects` 太守等内政效果；`mechanics` 人物特性的事件、处理器、兵种／任职、概率、间隔和限次 |
 | 战法 | `effect` 已实现处理器；`category` 威力来源；`threshold` 战意门槛；`intentCost` 消耗；`cooldown` 独立冷却；`maxUses` 单队单项每场次数，光环0；`learningTier` 学习类别；`range/scale/targets` 等依具体处理器读取 |
 | 军略 | `effect` 处理器；`duration` 持续步数；`baseStrength` 基础效果（未填沿用处理器基准）；`weights` 统率与智力权重；`pool/owner` 普通／专属及归属 |
 | 兵种 | `attack/defense/discipline` 基础数值；`move` 移速；`interval` 普攻间隔；`range/minRange` 射程；`siegeFactor` 攻城系数；`beats` 克制兵种ID |

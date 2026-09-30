@@ -30,7 +30,7 @@ export function campaignOfficers(s){
  const idle=[...s.campaign.idle,...s.armies.filter(a=>a.disbanded).flatMap(a=>a.returningOfficers||[])];
  for(const o of idle.filter(o=>o.faction===playerFaction(s))){
   const duty=assignmentFor(s,o.unit.id),governor=s.cities.find(c=>c.governor===o.unit.id),returning=!s.campaign.idle.includes(o);
-  rows.set(o.unit.id,{unit:o.unit,location:o.destination||returning?null:o.location,home:o.unit.homeCity,place:o.destination?`${town(o.location)} → ${town(o.destination)}（${o.remainingDays}天）`:town(o.location),status:returning?'待返城':o.destination?(isTransport(o)?'运输':'调任'):governor?'太守':duty?'内政':'待命',duty:[governor?'太守':'',duty?DIRECTIONS[duty.direction]+'负责人':''].filter(Boolean).join(' · ')||'—',appointments:appointments(o.unit.id),idle:o,returning});
+  rows.set(o.unit.id,{unit:o.unit,location:o.destination||o.retreating||returning?null:o.location,home:o.unit.homeCity,place:o.destination?`${town(o.location)} → ${town(o.destination)}（${o.remainingDays}天）`:town(o.location),status:returning?'待返城':o.retreating?(o.journey?.blocked||'撤离'):o.destination?(isTransport(o)?'运输':'调任'):governor?'太守':duty?'内政':'待命',duty:[governor?'太守':'',duty?DIRECTIONS[duty.direction]+'负责人':''].filter(Boolean).join(' · ')||'—',appointments:appointments(o.unit.id),idle:o,returning});
  }
  for(const r of rows.values())if(r.unit.mission){const m=r.unit.mission;r.location=m.route.length?null:m.location;r.place=town(m.location)+(m.route.length?' → '+town(m.route[0]):'');r.status=missionStatus(m);r.duty='外出人才任务';}
  return [...rows.values()];
@@ -39,6 +39,7 @@ export function pickerReason(s,row,pick){
  if((!isPlanning(s)&&pick.task!=='defense')||s.finished)return '执行期间不可委任';
  if(row.returning)return '待返城';
  if(row.unit.mission){if(!['transfer','domestic','expedition'].includes(pick.task))return '外出任务中，须先返城';return row.unit.mission.homeCity===pick.city?'':'不属于本城';}
+ if(row.idle?.retreating)return '撤离途中';
  if(row.idle?.destination)return '调任途中';
  if(row.location!==pick.city)return '不在本城';
  const c=s.cities.find(c=>c.id===pick.city);
@@ -72,8 +73,11 @@ export function taskPickerMarkup(s,ui,pick,rows,recs,sort,adapter={}){
 
  <div class="task-selected"><b>${multi?'已选':'人选'}</b><p>${chosen.map(r=>esc(r.unit.name)).join('、')||'尚未选定'}</p><small>${pick.task==='domestic'?`${DIRECTIONS[pick.direction]} · ${labels[DIRECTION_STATS[pick.direction]]}`:military?'确认后生效。':'确认后生效。'}</small></div></section>`;
 }
-export function campaignRosterMarkup(s,ui,pick=null){
- const all=campaignOfficers(s),filter=ui.personnel||{},selected=pick?.selected||[];
+export function cityRosterMarkup(s,ui,cityId){
+ return campaignRosterMarkup(s,ui,null,{cityId});
+}
+export function campaignRosterMarkup(s,ui,pick=null,scope=null){
+ const all=campaignOfficers(s).filter(r=>!scope||r.location===scope.cityId),filter=scope?{...ui.personnel,city:scope.cityId}:ui.personnel||{},selected=pick?.selected||[];
  let rows=all.filter(r=>(!filter.city||r.location===filter.city||pick&&r.unit.mission?.homeCity===filter.city)&&(!filter.status||r.status===filter.status||(filter.status==='太守'&&r.appointments.includes('太守'))||(filter.status==='内政'&&r.appointments.some(x=>x.endsWith('负责人'))))&&(!filter.query||[r.unit.name,r.unit.courtesy,...(OFFICER_BY_ID[r.unit.id]?.aliases||[])].some(n=>n?.includes(filter.query.trim()))));
  const sort=filter.sort==='recommended'&&!pick?'politics':filter.sort||(pick?'recommended':'politics');
  const recommendations=new Map(pick?rows.map(r=>[r.unit.id,officerRecommendation(s,r.unit,pick)]):[]);
@@ -83,8 +87,13 @@ export function campaignRosterMarkup(s,ui,pick=null){
  if(pick)rows.sort((a,b)=>Number(!!pickerReason(s,a,pick))-Number(!!pickerReason(s,b,pick)));
 
  if(pick)return taskPickerMarkup(s,ui,pick,rows,recommendations,sort);
- return `<div class="personnel-summary"><b>${pick?esc(adapter.title||s.cities?.find(c=>c.id===pick.city)?.name)+' · '+pickerTitle(pick):'麾下武将 '+all.length+' 人'}</b><span>${pick?'可选 '+all.filter(r=>!pickerReason(s,r,pick)).length+' 人 · 已选 '+selected.length+' 人':'待命 '+all.filter(r=>r.status==='待命').length+' · 内政 / 太守 '+all.filter(r=>r.appointments.length).length+' · 已编部队 '+all.filter(r=>r.army||r.cityUnit).length}</span></div>
- <div class="personnel-toolbar"><label>姓名<input type="search" data-personnel-filter="query" value="${esc(filter.query||'')}" placeholder="姓名 / 字"></label><label>所在据点<select data-personnel-filter="city"><option value="">全部据点（含途中）</option>${s.cities.filter(c=>c.owner===playerFaction(s)||all.some(r=>r.location===c.id)).map(c=>`<option value="${c.id}" ${filter.city===c.id?'selected':''}>${c.name} · ${all.filter(r=>r.location===c.id).length}人</option>`).join('')}</select></label><label>状态<select data-personnel-filter="status"><option value="">全部状态</option>${['待命','内政','太守','驻城部队','驻军','待出征','行军','交战','调任','运输','待返城','赴访途中','外地接洽','办事结束，返城途中','任务中止，返城途中'].map(x=>`<option ${filter.status===x?'selected':''}>${x}</option>`).join('')}</select></label></div>
+ return `<div class="personnel-summary"><b>${pick?esc(adapter.title||s.cities?.find(c=>c.id===pick.city)?.name)+' · '+pickerTitle(pick):(scope?esc(s.cities.find(c=>c.id===scope.cityId)?.name)+' · 武将 ':'麾下武将 ')+all.length+' 人'}</b><span>${pick?'可选 '+all.filter(r=>!pickerReason(s,r,pick)).length+' 人 · 已选 '+selected.length+' 人':'待命 '+all.filter(r=>r.status==='待命').length+' · 内政 / 太守 '+all.filter(r=>r.appointments.length).length+' · 已编部队 '+all.filter(r=>r.army||r.cityUnit).length}</span></div>
+ <div class="personnel-toolbar"><label>姓名<input type="search" data-personnel-filter="query" value="${esc(filter.query||'')}" placeholder="姓名 / 字"></label>${scope?'':`<label>所在据点<select data-personnel-filter="city"><option value="">全部据点（含途中）</option>${s.cities.filter(c=>c.owner===playerFaction(s)||all.some(r=>r.location===c.id)).map(c=>`<option value="${c.id}" ${filter.city===c.id?'selected':''}>${c.name} · ${all.filter(r=>r.location===c.id).length}人</option>`).join('')}</select></label>`}<label>状态<select data-personnel-filter="status"><option value="">全部状态</option>${['待命','内政','太守','驻城部队','驻军','待出征','行军','交战','调任','运输','待返城','赴访途中','外地接洽','办事结束，返城途中','任务中止，返城途中'].map(x=>`<option ${filter.status===x?'selected':''}>${x}</option>`).join('')}</select></label></div>
 
  <div class="personnel-table-wrap"><table class="personnel-table"><thead><tr>${pick?'<th>选择</th>':''}${sortHeader('personnel','name','武将',sort,ui.personnel?.direction||'desc')}${pick?'<th>任务适性与相关特性</th>':''}${['draft','expedition','defense'].includes(pick?.task)?'<th>编制参考</th>':''}${sortHeader('personnel','place','所在 / 归属',sort,direction)}${sortHeader('personnel','status','状态 / 职务',sort,direction)}${OFFICER_STATS.map(([k,n])=>sortHeader('personnel',k,n,sort,direction)).join('')}${sortHeader('personnel','level','等级',sort,direction)}${sortHeader('personnel','loyalty','忠诚',sort,direction)}</tr></thead><tbody>${rows.map(r=>{const u=r.unit,reason=pick?pickerReason(s,r,pick):'',work=currentDomesticWork(s,u.id),queued=s.campaign.domestic.orders.find(q=>q.officerIds.includes(u.id));return `<tr class="${reason?'unavailable':''}">${pick?`<td><input type="${['draft','domestic','expedition','defense'].includes(pick.task)?'checkbox':'radio'}" name="personnel-choice" data-personnel-choice="${u.id}" aria-label="选择${esc(u.name)}" ${selected.includes(u.id)?'checked':''} ${reason?'disabled':''}>${reason?`<small>${reason}</small>`:''}</td>`:''}<td><button class="personnel-name" data-action="campaign-person-detail" data-officer="${u.id}">${esc(u.name)} ↗</button></td>${pick?`<td class="personnel-recommendation"><b>推荐 ${recommendations.get(u.id).score}</b>${recommendations.get(u.id).reasons.map(x=>`<small>${esc(x)}</small>`).join('')}${recommendations.get(u.id).traits.map(t=>abilityButton('trait',t.id,t.name)).join('')||'<small>无此任务相关特性</small>'}</td>`:''}${['draft','expedition','defense'].includes(pick?.task)?`<td>${TROOPS[u.type].name} · ${['C','B','A','S'][troopAptitude(u,u.type)]}<small>现役 ${u.troops} / 上限 ${troopCapacity(u)}</small><small>${unitTactics(u).map(t=>esc(t.name)).join('、')||'暂无携带战法'}</small></td>`:''}<td>${esc(r.place)}<small>归属 ${esc(s.cities.find(c=>c.id===r.home)?.name||'—')}</small></td><td>${r.status}<small>${esc(r.duty)}</small>${work?`<small>${esc(work.title)} · 余 ${Number(work.remaining.toFixed(2))} 天${work.paused?' · 暂停':''}</small>`:''}${queued?`<small class="queued-duty">待：${esc(strategicOrderLabel(s,queued))}</small>`:''}</td>${OFFICER_STATS.map(([k])=>`<td>${u[k]??OFFICER_BY_ID[u.id]?.[k]??'—'}</td>`).join('')}<td>${u.level}</td><td>${s.campaign.domestic.loyalty[u.id]??u.loyalty??85}</td></tr>`;}).join('')||`<tr><td colspan="11">没有符合筛选条件的武将。</td></tr>`}</tbody></table></div><p class="personnel-count">显示 ${rows.length} / ${all.length} 人${pick?' · 灰色条目列明不可任用原因':''}</p>`;
+}
+
+export function canPrepareSiegeDefense(s,r){
+ if(!r?.awaiting||r.settled||r.kind!=='siege'||s.cities.find(c=>c.id===r.cityId)?.owner!==playerFaction(s))return false;
+ return campaignOfficers(s).some(row=>!row.cityUnit&&!pickerReason(s,row,{task:'defense',city:r.cityId}));
 }

@@ -1,13 +1,14 @@
 import {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES} from './data/design/battle-statuses.mjs';
 import {hexDistance,hexNeighbors} from './hex-grid.mjs';
 import {canOccupy} from './battlefield.mjs';
+import {appendBattleLog} from './battle-log.mjs';
 
 export {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES};
 export const statusOn=(b,u,key)=>(u.statuses?.[key]?.until||0)>b.tick;
 export const statusValue=(u,key,field)=>u.statuses?.[key]?.[field]??STATUS_DEFINITIONS[key]?.[field];
-export const statusNotice=(b,u,text)=>{b.logs ||= [];b.logs.unshift({tick:b.tick,text:u.name+' · '+text});b.logs=b.logs.slice(0,70);};
+export const statusNotice=(b,u,text)=>appendBattleLog(b,u.name+' · '+text);
 export function detected(b,u,side=1-u.side){
- return (b.sides[side]?.units||[]).some(v=>v.status==='active'&&v.hp>0&&statusOn(b,v,'insight')&&!['confuse','stasis','stealth'].some(k=>statusOn(b,v,k))&&hexDistance(u,v)<=statusValue(v,'insight','range'));
+ return (b.sides[side]?.units||[]).some(v=>v.status==='active'&&v.hp>0&&!v.withdrawing&&!b.sides[side]?.retreat&&statusOn(b,v,'insight')&&!['confuse','stasis','stealth'].some(k=>statusOn(b,v,k))&&hexDistance(u,v)<=statusValue(v,'insight','range'));
 }
 export const hidden=(b,u)=>statusOn(b,u,'stealth')&&!detected(b,u);
 export function breakStealth(b,u,reason){
@@ -17,6 +18,7 @@ export function breakStealth(b,u,reason){
 export function remedyKeys(kind){return REMEDIES[kind]||[];}
 export const needsRemedy=(b,u,kind)=>remedyKeys(kind).some(k=>statusOn(b,u,k));
 export function remedy(b,u,kind){
+ if(kind==='breakFormation'&&statusOn(b,u,'magicImmune'))return [];
  const keys=remedyKeys(kind).filter(k=>statusOn(b,u,k));
  for(const k of keys)delete u.statuses[k];
  if(keys.length)statusNotice(b,u,({calm:'镇静',rally:'整军',aid:'救护',quench:'扑火',breakFormation:'破阵'})[kind]+' · 解除'+keys.map(k=>STATUS_DEFINITIONS[k].name).join('、'));

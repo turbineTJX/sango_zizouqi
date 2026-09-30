@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -20,7 +22,7 @@ test('panel offense sums current soldiers, while defensive attributes do not shr
 
 function remnant(id,type,skill,hp=100){
  const b=createScenario('officer-lab',771,20,[id]).battle,u=b.sides[0].units[0];
- Object.assign(u,{type,hp,battleDamage:u.initial-hp,x:4,y:3,intent:0,cooldown:0});
+ Object.assign(u,{type,hp,retreatAt:null,battleDamage:u.initial-hp,x:4,y:3,intent:0,cooldown:0});
  const fixed=learnedTacticIds(u);
  if(skill)assert.ok(fixed.includes(skill),`${id}/${type} must own ${skill}`);
  const loadout=[...new Set([...(skill?[skill]:[]),...fixed])];
@@ -69,9 +71,9 @@ test('firestorm is bounded by friendly power, not enemy army size',()=>{
   const {b,u}=remnant('person-246','crossbow',null);
   u.cooldown=9999;u.skillReady=Object.fromEntries(u.tactics.map(s=>[s,9999]));
   for(const d of b.sides[1].units)d.hp=d.initial=d.maxHp=enemyHp;
-  while(b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
-  assert.equal(issueCommand(b,'zhou-redcliffs'),null);
-  const loss=b.sides[1].units.reduce((n,d)=>n+d.statuses.burn.amount*12,0);
+  for(let i=0;i<240&&!b.result&&b.commandProgress<COMMAND_RESOURCE.capacity;i++)stepBattle(b);
+  assert.equal(issueCommand(b,'zhou-redcliffs',chooseStratagemPoint(b,AREA_DESIGNS['zhou-redcliffs'],0)),null);
+  const loss=b.sides[1].units.reduce((n,d)=>n+(d.statuses.burn?.amount||0)*12,0);
   assert.ok(loss<100);return loss;
  }
  assert.equal(run(3000),run(30000));

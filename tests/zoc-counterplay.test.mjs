@@ -1,24 +1,23 @@
+import {tacticHolder} from './helpers/current-battle.mjs';
 import {learnedTacticIds} from '../tactic-learning.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
-import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
+import {stepBattle,lockDeployment,validateSave,issueCommand,COMMAND_RESOURCE} from '../engine.mjs';
 import {unitTactics,routeTo,hasStatus,NEGATIVE_STATUSES} from '../tactics.mjs';
 import {holdsLine,interceptorsAt,zocCells} from '../engagement.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 
-function scene(){
-  const state=createScenario('breach',1),b=state.battle;
-  const [support,charger]=b.sides[0].units,[front,rear]=b.sides[1].units;
-  b.sides[0].units=[support,charger];b.sides[1].units=[front,rear];
-  Object.assign(support,{x:3,y:3});Object.assign(charger,{type:'cavalry',x:4,y:3});
-  Object.assign(front,{type:'spear',x:5,y:3});Object.assign(rear,{x:7,y:3});
-  for(const u of [support,charger,front,rear]){
-    u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
-    u.statuses={phalanx:{until:999}};
-  }
-  lockDeployment(b);for(const u of b.sides.flatMap(s=>s.units))delete u.statuses.stealth;return {state,b,support,charger,front,rear};
+function scene(skill='harass'){
+ const type=skill==='mirage'?'crossbow':'cavalry',supportId=tacticHolder(skill,type),chargerId=tacticHolder('gallop','cavalry',[supportId]);
+ const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
+ const enemyId=tacticHolder('rally','archer',[supportId,chargerId]);
+ const state=createScenario('custom-battle',1,20,null,{seed:1,terrain:'land',ownTeam:[entry(supportId,type),entry(chargerId,'cavalry')],enemyTeam:[entry('cao','spear'),entry(enemyId,'archer')],enemyTeamRoles:{leader:'cao',advisor:enemyId}});
+ const b=state.battle;lockDeployment(b);const [support,charger]=b.sides[0].units,[front,rear]=b.sides[1].units;
+ Object.assign(support,{x:3,y:3});Object.assign(charger,{x:4,y:3});Object.assign(front,{x:5,y:3});Object.assign(rear,{x:7,y:3});
+ for(const u of [support,charger,front,rear]){u.cooldown=999;u.intent=0;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));u.statuses={phalanx:{until:999}};}
+ return {state,b,support,charger,front,rear};
 }
 
 test('real gallop bypasses live ZOC without removing enemy coverage and expires',()=>{
@@ -65,12 +64,9 @@ test('out-of-range rear does not displace an attackable front',()=>{
   stepBattle(b);assert.ok(b.effects.some(e=>e.from===support.id&&e.to===front.id&&!e.skill&&e.damage>0));
 });
 
-test('real cleanse restores interception without waiting for disruption expiry',()=>{
-  const {b,support,front}=scene();support.type='cavalry';primeTactic(support,'harass');
-  stepBattle(b);assert.ok(hasStatus(b,front,'disrupted'));assert.ok(!holdsLine(b,front));
-  front.type='halberd';primeTactic(front,'purify');stepBattle(b);
-  assert.equal(front.tacticCasts.purify,1);assert.ok(!hasStatus(b,front,'disrupted'));
-  assert.ok(holdsLine(b,front));
+test('real Wei Wu command restores interception without waiting for disruption expiry',()=>{
+ const {b,support,front,rear}=scene();primeTactic(support,'harass');stepBattle(b);assert.ok(hasStatus(b,front,'disrupted'));assert.ok(!holdsLine(b,front));
+ b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(b,'cao-wuchao',null,1),null);assert.equal(hasStatus(b,front,'disrupted'),false);assert.ok(holdsLine(b,front));
 });
 
 test('focus command overrides ranged priority and ordinary melee remains pinned',()=>{
@@ -91,8 +87,8 @@ test('nearby wounded front takes priority over a healthy ranged target',()=>{
  stepBattle(b);assert.ok(b.effects.some(e=>e.from===support.id&&e.to===front.id&&!e.skill&&e.damage>0));
 });
 
-test('疑兵战法为残血部队额外避战两日并保持确定性续战',()=>{
- const {state,b,support,charger,front}=scene();support.type='halberd';primeTactic(support,'mirage');charger.hp=Math.floor(charger.maxHp*.1);charger.battleDamage=charger.maxHp-charger.hp;
+test('疑兵战法为残血部队额外避战两回合并保持确定性续战',()=>{
+ const {state,b,support,charger,front}=scene('mirage');primeTactic(support,'mirage');charger.hp=Math.floor(charger.maxHp*.1);charger.battleDamage=charger.maxHp-charger.hp;
  stepBattle(b);assert.equal(support.tacticCasts.mirage,1);assert.ok(hasStatus(b,charger,'stasis'));assert.ok(!holdsLine(b,charger));
  charger.statuses.burn={until:20,amount:100,baseAmount:100,stacks:1,sourceId:front.id};const hp=charger.hp;
  for(const u of b.sides.flatMap(s=>s.units)){u.tactics=learnedTacticIds(u);u.skillReady=Object.fromEntries(u.tactics.map(id=>[id,u.skillReady[id]??999]));}
@@ -101,7 +97,7 @@ test('疑兵战法为残血部队额外避战两日并保持确定性续战',()=
 });
 
 test('疑兵战法不能绕过共用避战间隔',()=>{
- const {b,support,charger}=scene();support.type='halberd';primeTactic(support,'mirage');charger.hp=Math.floor(charger.maxHp*.1);charger.statuses.stasisLock={until:50};
+ const {b,support,charger}=scene('mirage');primeTactic(support,'mirage');charger.hp=Math.floor(charger.maxHp*.1);charger.statuses.stasisLock={until:50};
  stepBattle(b);assert.equal(support.tacticCasts.mirage,1);assert.ok(hasStatus(b,charger,'decoy'));assert.ok(!hasStatus(b,charger,'stasis'));
 });
 
@@ -112,3 +108,4 @@ test('enemy side uses the same finisher priority and excludes protected targets'
   stepBattle(b);assert.ok(b.effects.some(e=>e.from===rear.id&&e.to===(protectedTarget?support.id:charger.id)&&e.damage>0));
  }
 });
+

@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import {writeFileSync,mkdirSync} from 'node:fs';
 import {RULES_VERSION} from '../combat-rules.mjs';
 import {createScenario} from '../scenarios.mjs';
@@ -37,7 +39,7 @@ probes.strength=[1,1800,3000].map(hp=>{
   const b=createScenario('field',1).battle;lockDeployment(b);b.commandProgress=12000;
   for(const u of b.sides[1].units)u.intent=COMBAT.intentCap;
   const before=b.sides[1].units.map(u=>({name:u.name,intent:u.intent,thresholds:unitTactics(u).map(s=>s.threshold)}));
-  const error=issueCommand(b,'demoralize');
+  const error=issueCommand(b,'demoralize',chooseStratagemPoint(b,AREA_DESIGNS['demoralize'],0));
   probes.demoralize={error,before,after:b.sides[1].units.map(u=>({name:u.name,intent:u.intent,allThresholdsStillMet:unitTactics(u).every(s=>u.intent>=s.threshold)}))};
 }
 // Actual wave arrival versus earliest deployment in the preset battle.
@@ -49,7 +51,7 @@ probes.strength=[1,1800,3000].map(hp=>{
 // Default command access is material to the rotation and healing trial.
 {
   const b=createScenario('rotation').battle;lockDeployment(b);b.commandProgress=12000;
-  probes.rotationCommands=['heal','regenerate','relief'].map(id=>({id,error:issueCommand(b,id)}));
+  probes.rotationCommands=['heal','regenerate','relief'].map(id=>({id,error:issueCommand(b,id,chooseStratagemPoint(b,AREA_DESIGNS[id],0))}));
 }
 const out=new URL(`../docs/balance-audit-v${RULES_VERSION}/`,import.meta.url);
 mkdirSync(out,{recursive:true});

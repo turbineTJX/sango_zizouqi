@@ -27,7 +27,7 @@ function normalize(s,command){
   const a=s.armies.find(a=>a.id===command.armyId);
   return {kind:'march',armyId:command.armyId,cityId:a?.location,officerIds:a?.units.map(u=>u.id)||[],target:command.target,policy:command.policy||'auto',...(command.route?{route:[...command.route]}:{})};
  }
- return {kind:command.kind,cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],...(command.kind==='assign'?{direction:command.direction}:command.kind==='transfer'?{target:command.target,cargo:command.cargo||{grain:0,manpower:0},safeOnly:command.safeOnly===true}:{})};
+ return {kind:command.kind,cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],...(command.kind==='assign'?{direction:command.direction}:command.kind==='transfer'?{target:command.target,cargo:command.cargo||{grain:0,manpower:0},relay:command.relay||null,cycles:command.cycles||0,safeOnly:command.safeOnly===true}:{})};
 }
 function check(s,q){
  const faction=q.faction;
@@ -54,7 +54,7 @@ function check(s,q){
   const o=residentOfficer(s,id);if(!o||o.faction!==faction||o.location!==q.cityId)return '武将已离开原据点';
   if(q.kind==='dismiss'&&!assignmentFor(s,id))return '武将已解除委任';
   if(q.kind==='transfer'){
-   const error=transferOfficer(s,id,q.target,{scheduled:true,cargo:q.cargo,checkOnly:true,faction});if(error)return error;
+   const error=transferOfficer(s,id,q.target,{scheduled:true,cargo:q.cargo,relay:q.relay,cycles:q.cycles,checkOnly:true,faction});if(error)return error;
    if(s.cities.some(c=>c.governor===id))return '请先解除太守任命';
    const path=findCampaignRoute(s,o.location,q.target,faction);if(!path)return '调任道路不通';
    if(q.safeOnly&&threatenedTransportRoute(s,o.location,path,faction))return '运输道路出现敌军，取消本次安排';
@@ -71,7 +71,7 @@ function apply(s,q,scheduled=false){
  const faction=q.faction;
  if(q.kind==='expedition')return launchExpedition(s,q,{scheduled,faction});
  if(q.kind==='march')return orderCampaignArmy(s,q.armyId,q.target,q.policy,{scheduled,faction,path:q.route});
- if(q.kind==='transfer')return transferOfficer(s,q.officerIds[0],q.target,{scheduled,cargo:q.cargo,faction});
+ if(q.kind==='transfer')return transferOfficer(s,q.officerIds[0],q.target,{scheduled,cargo:q.cargo,relay:q.relay,cycles:q.cycles,faction});
  for(const id of q.officerIds){const error=q.kind==='assign'?assignDomestic(s,q.cityId,q.direction,id,{scheduled,faction}):dismissDomestic(s,id,{scheduled,faction});if(error)return error;}
  return null;
 }
@@ -138,6 +138,8 @@ export function validateStrategicOrders(s){
   if(q.kind==='expedition')fail(Number.isSafeInteger(q.minSupply)&&q.minSupply>=0&&q.minSupply<=q.officerIds.length*900&&q.officerIds.length<=10&&q.officerIds.includes(q.leader)&&q.officerIds.includes(q.advisor)&&(q.deputy===null||q.officerIds.includes(q.deputy))&&town(s,q.target)&&q.target!==q.cityId&&['auto','main'].includes(q.policy));
   if(q.kind==='assign')fail(!!DIRECTIONS[q.direction]);
   if(q.kind==='march'){const a=s.armies.find(a=>a.id===q.armyId);fail(a&&!a.travel&&!a.route.length&&a.units.filter(u=>u.troops>0).length<=10&&a.units.length===q.officerIds.length&&a.units.every(u=>q.officerIds.includes(u.id))&&town(s,q.target)&&q.target!==q.cityId&&['auto','main'].includes(q.policy));}
-  if(q.kind==='transfer'){fail(typeof q.safeOnly==='boolean'&&q.cargo&&['grain','manpower'].every(k=>Number.isSafeInteger(q.cargo[k])&&q.cargo[k]>=0));} if(q.kind==='transfer')fail(q.officerIds.length===1&&town(s,q.target)&&q.target!==q.cityId&&!(residentOfficer(s,q.officerIds[0])||missionOfficer(s,q.officerIds[0])).army);
+  if(q.kind==='transfer'){fail(typeof q.safeOnly==='boolean'&&q.cargo&&['grain','manpower'].every(k=>Number.isSafeInteger(q.cargo[k])&&q.cargo[k]>=0));} if(q.cycles!==undefined)fail(Number.isInteger(q.cycles)&&q.cycles>=0&&q.cycles<=5&&q.cycles!==1);
+  if(q.relay)fail(q.kind==='transfer'&&town(s,q.relay)&&q.relay!==q.target&&q.relay!==q.cityId);
+  if(q.kind==='transfer')fail(q.officerIds.length===1&&town(s,q.target)&&q.target!==q.cityId&&!(residentOfficer(s,q.officerIds[0])||missionOfficer(s,q.officerIds[0])).army);
  }
 }

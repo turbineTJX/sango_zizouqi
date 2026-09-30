@@ -4,8 +4,18 @@ export function validateStrategyDesigns(t){
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
  for(const [group,keys] of Object.entries({income:['gold','grain','manpower','governorPoliticsDivisor'],capacity:['grainBase','grainPerGranary','manpowerMax','recruitmentBase','recruitmentPerBarracks'],ai:['foodReserveDays','recruitReserveDays','economicWorkersPerDirection']})){
-  const row=economy?.[group];if(!fields(row,keys,'economy.'+group))continue;
+  const row=economy?.[group];if(!fields(row,group==='ai'?[...keys,'offensive']:keys,'economy.'+group))continue;
   for(const key of keys){const value=row[key];if(group==='income'&&key!=='governorPoliticsDivisor'){const subKeys={gold:['base','perCommerce'],grain:['base','perFarm'],manpower:['base','perBarracks']}[key];if(fields(value,subKeys,'economy.income.'+key))for(const sub of subKeys)check(num(value[sub],1),'economy.income.'+key+'.'+sub,'须为正数');}else check(Number.isSafeInteger(value)&&value>0,'economy.'+group+'.'+key,'须为正整数');}
+ }
+ const offensive=economy?.ai?.offensive,path='economy.ai.offensive';
+ if(fields(offensive,['maxWoundedShare','homeFoodDays','styles','lossFactor','lossPerPoint','grainPerPoint','goldPerPoint','dayCost','workPerPoint','maxEstimateError','judgmentLeadershipWeight','counterattackWeight','objectiveValues','securityPowerPerPoint','securityValueCap'],path)){
+  for(const key of ['homeFoodDays','lossPerPoint','grainPerPoint','goldPerPoint','dayCost','workPerPoint','securityPowerPerPoint','securityValueCap'])check(Number.isSafeInteger(offensive[key])&&offensive[key]>0,path+'.'+key,'须为正整数');
+  for(const key of ['lossFactor','maxEstimateError','judgmentLeadershipWeight','counterattackWeight'])check(num(offensive[key],0,1),path+'.'+key,'比例须为0至1');
+  if(fields(offensive.objectiveValues,['city','gate','port'],path+'.objectiveValues'))for(const key of ['city','gate','port'])check(num(offensive.objectiveValues[key],1),path+'.objectiveValues.'+key,'须为正数');
+  check(num(offensive.maxWoundedShare,0,1),path+'.maxWoundedShare','伤兵比例须为0至1');
+  if(fields(offensive.styles,['bold','balanced','cautious'],path+'.styles'))for(const name of ['bold','balanced','cautious']){
+   const row=offensive.styles[name];if(fields(row,['minimumValue','economicWeight','militaryWeight','ratio','reserve','patience'],path+'.styles.'+name)){check(num(row.minimumValue),path+'.styles.'+name+'.minimumValue','须为非负数');for(const key of ['economicWeight','militaryWeight'])check(num(row[key],.1,3),path+'.styles.'+name+'.'+key,'倾向权重须为0.1至3');check(num(row.ratio,1,3)&&num(row.reserve,0,1)&&Number.isSafeInteger(row.patience)&&row.patience>0,path+'.styles.'+name,'优势、守备或计划期限无效');}
+  }
  }
  const modes={build:'progress',research:'quantity',cash:'quantity',grain:'quantity',effect:'quantity',discount:'quantity',recruit:'quantity',heal:'quantity',repair:'quantity',prepare:'quantity',trade:'chance',rescue:'chance',trial:'chance',explore:'chance',hire:'chance',persuade:'chance',reassure:'chance'};
  for(const id of Object.keys(t.directions))check(['leadership','force','intellect','politics','charm'].includes(t.directionStats?.[id]),'directionStats.'+id,'方向须指定唯一主属性');
@@ -80,6 +90,6 @@ export function validateStrategyDesigns(t){
   check(Array.isArray(m.army.hunger),'movement.army.hunger','缺粮规则须为数组');let previous=Infinity;
   for(const r of m.army.hunger||[]){if(!fields(r,['minimum','inclusive','penalty'],'movement.army.hunger'))continue;check(num(r.minimum)&&r.minimum<previous,'movement.army.hunger','阈值须非负且严格降序');previous=r.minimum;check(typeof r.inclusive==='boolean'&&num(r.penalty,0,.99),'movement.army.hunger','无效边界或减速比例');}
  }
- if(fields(m.personnel,['light','transport','travelerMultiplier','transporterMultiplier'],'movement.personnel'))for(const key of ['light','transport','travelerMultiplier','transporterMultiplier'])check(num(m.personnel[key],Number.EPSILON),'movement.personnel.'+key,'速度或倍率须大于0');
+ if(fields(m.personnel,['light','transport'],'movement.personnel'))for(const key of ['light','transport'])check(num(m.personnel[key],Number.EPSILON),'movement.personnel.'+key,'速度或倍率须大于0');
  return errors;
 }

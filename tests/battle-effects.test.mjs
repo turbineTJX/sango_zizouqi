@@ -39,6 +39,28 @@ test('orb preparation stays a small cue and enchanted basics never replay spell 
   assert.ok(labels.some(s=>s.includes('−315')),'full mode keeps damage readable alongside the small orb cue');
 });
 
+test('trait outcomes get attributed cards and logs without pausing or replaying damage',t=>{
+ const {fx,feed}=scene(t),b=battle({...event(),ongoing:true,abilityKind:'trait',traitId:'hero-person-368',traitEffective:true,label:'碧眼',damage:0,outcome:[{name:'袁绍',damage:0,healing:0,absorbed:0,changes:['坚定（3回合）']}]});
+ const original=JSON.stringify(b);fx.update(b,{paused:false,speed:4});
+ assert.equal(feed.children[0].children[0].textContent,'特性');assert.equal(fx.cues.active[0].label,'碧眼');assert.equal(fx.isCinematicPlaying(),false);assert.equal(fx.cues.active[0].duration,3000);
+ fx.update(b,{paused:false,speed:1});assert.equal(feed.children.length,1);assert.equal(fx.cues.active[0].count,1);
+ b.tick++;fx.update(b,{paused:false,speed:4});assert.equal(fx.cues.active[0].count,2);assert.equal(feed.children.length,2);
+ assert.equal(JSON.stringify({...b,tick:1}),original);
+});
+test('ordinary abilities keep logs and damage but do not replace featured results or display named cues',t=>{
+ const {fx,feed}=scene(t),b=battle();fx.result={textContent:'',disabled:true};fx.update(b,{paused:false,speed:1});const prior=fx.result.textContent;
+ b.tick++;b.effects=[{...event(),label:TACTICS_BOOK.phalanx.name},{...event(),label:'武勇',abilityKind:'trait',traitId:'martial',traitEffective:true,ongoing:true}];
+ fx.update(b,{paused:false,speed:1});assert.equal(fx.result.textContent,prior);assert.equal(fx.cues.waiting[0].length,0);assert.equal(feed.children.length,3);
+ assert.equal(fx.items.at(-2).showCastLabel,false);assert.equal(fx.items.at(-2).damage,315);
+});
+
+test('failed trait rolls are logged honestly without a success card; hidden enemy traits are not revealed',t=>{
+ const {fx,feed}=scene(t),b=battle({...event(),ongoing:true,abilityKind:'trait',traitId:'hero-person-425',traitEffective:false,text:'飞将 · 未触发',label:'飞将',damage:0});
+ fx.update(b,{paused:false,speed:1});assert.equal(fx.cues.active[0],null);assert.equal(feed.children.length,1);
+ b.tick++;b.effects=[{...b.effects[0],side:1,traitEffective:true}];b.sides[1].units=[{id:'liao',side:1,status:'active',statuses:{stealth:{until:10}}}];
+ fx.update(b,{paused:false,speed:1});assert.equal(feed.children.length,1);assert.equal(fx.cues.active[1],null);
+});
+
 test('ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick',t=>{
  const {fx,feed}=scene(t),b=battle({...event(),label:'回春',damage:0,healing:60,ongoing:true});
  b.effects.push({...event(),label:'幻卫',damage:0,absorbed:40,ongoing:true},{...event(),label:'反击',ongoing:true});

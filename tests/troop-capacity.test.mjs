@@ -1,3 +1,4 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {chooseEnemyCommand} from '../battle-ai.mjs';
@@ -40,7 +41,7 @@ test('outnumbered defense enforces a real hold objective and retreat still fails
  assert.ok(c.enemyTeam.length>c.ownTeam.length&&c.enemyTeam.length<=10);
  lockDeployment(b);
  while(!b.result&&b.tick<c.holdUntil){
-  if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)assert.equal(issueCommand(b,key),null);}
+  if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)assert.equal(issueCommand(b,key,chooseStratagemPoint(b,STRATAGEMS[key],0)),null);}
   stepBattle(b);
  }
  assert.equal(b.result.reason,'坚守成功');assert.equal(b.tick,c.holdUntil);assert.equal(b.result.winner,0);

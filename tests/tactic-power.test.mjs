@@ -8,14 +8,15 @@ import {powerFactor,effectChance,criticalChance,powerDuration} from '../tactic-p
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function scene(skill,seed=71,force=100,intellect=100){
- const state=createScenario('field',seed),b=state.battle,u=b.sides[0].units[0],d=b.sides[1].units[0];
- const type={repeat:'crossbow',seal:'crossbow',smoke:'archer',doubt:'spear',phalanx:'spear',bulwark:'halberd',supply:'halberd',lure:'spear'}[skill];
- Object.assign(u,{type,level:1,force,intellect,hp:3000,maxHp:3000,initial:3000,x:4,y:3,cooldown:999,statuses:{},commandBonus:0,deputyBonus:0,advisorBonus:0});
- Object.assign(d,{level:1,hp:3000,maxHp:3000,initial:3000,x:5,y:3,cooldown:999,intent:0,statuses:{}});
- b.sides[0].units=[u];b.sides[1].units=[d];
- d.skillReady=Object.fromEntries(unitTactics(d).map(s=>[s.id,999]));
- lockDeployment(b);primeTactic(u,skill);return {state,b,u,d};
+ const type={'unique-person-433':'halberd',repeat:'crossbow',ward:'spear',phalanx:'spear',bulwark:'halberd'}[skill];
+ const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
+ const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(skill==='repeat'?'person-186':'person-433',type)],enemyTeam:[entry('shao','spear')]});
+ const b=state.battle;lockDeployment(b);const u=b.sides[0].units[0],d=b.sides[1].units[0];
+ for(const v of [u,d]){v.cooldown=999;v.intent=0;v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));setStatus(b,v,'root',999);}
+ Object.assign(u,{force,intellect,x:4,y:3,commandBonus:0,deputyBonus:0,advisorBonus:0});Object.assign(d,{x:skill==='repeat'?6:5,y:3});
+ primeTactic(u,skill);return {state,b,u,d};
 }
+
 const cast=x=>{stepBattle(x.b);return x.b.effects.filter(e=>e.from===x.u.id&&!e.ongoing);};
 
 test('every tactic declares its actual power, chance effects and critical policy',()=>{
@@ -37,11 +38,11 @@ test('defensive status magnitude snapshots martial power and ignores intellect',
 test('control succeeds and fails through real casts, pays cooldown, and reports actual chance',()=>{
  let success=0,failure=0;
  for(let i=1;i<=48;i++){
-  const x=scene('smoke',Math.imul(i,2654435761)>>>0),p=statusPower(x.u,TACTICS_BOOK.smoke,x.b),r=unitAttributes(x.d,x.b).discipline;
+  const x=scene('ward',Math.imul(i,2654435761)>>>0),p=statusPower(x.u,TACTICS_BOOK.ward,x.b),r=unitAttributes(x.d,x.b).discipline;
   const intent=x.u.intent,events=cast(x),roll=events.find(e=>e.resolution)?.resolution;
   assert.ok(roll);assert.equal(roll.chance,effectChance(p,r));
-  assert.equal(hasStatus(x.b,x.d,'confuse'),roll.success);assert.equal(x.u.tacticCasts.smoke,1);
-  assert.equal(x.u.skillReady.smoke,x.b.tick+TACTICS_BOOK.smoke.cooldown);assert.equal(x.u.intent,intent-TACTICS_BOOK.smoke.intentCost);
+  assert.equal(hasStatus(x.b,x.d,'taunt'),roll.success);assert.equal(x.u.tacticCasts.ward,1);
+  assert.equal(x.u.skillReady.ward,x.b.tick+TACTICS_BOOK.ward.cooldown);assert.equal(x.u.intent,intent-TACTICS_BOOK.ward.intentCost);
   const row=events.find(e=>e.outcome).outcome.find(t=>t.id===x.d.id);
   assert.ok(row.changes.some(s=>s.includes(roll.success?'判定成功':'未成功')));
   if(roll.success)success++;else{failure++;assert.ok(!events.some(e=>e.combo));}
@@ -50,8 +51,8 @@ test('control succeeds and fails through real casts, pays cooldown, and reports 
 });
 
 test('resolve blocks control and outcome never claims an applied status',()=>{
- const x=scene('doubt');setStatus(x.b,x.d,'resolve',20);const events=cast(x),roll=events.find(e=>e.resolution).resolution;
- assert.deepEqual(roll,{effect:'confuse',chance:0,success:false,immune:true});assert.ok(!hasStatus(x.b,x.d,'confuse'));
+ const x=scene('unique-person-433');setStatus(x.b,x.d,'resolve',20);const events=cast(x),roll=events.find(e=>e.resolution).resolution;
+ assert.deepEqual(roll,{effect:'confuse',chance:0,success:false,immune:true});assert.ok(!hasStatus(x.b,x.d,'taunt'));
  assert.ok(events.find(e=>e.outcome).outcome.find(t=>t.id===x.d.id).changes.some(s=>s.includes('免疫')));
 });
 

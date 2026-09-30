@@ -1,3 +1,4 @@
+import {tacticHolder} from './helpers/current-battle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -7,28 +8,16 @@ import {routeTo,unitTactics,TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
 import {zocCells,interceptorsAt} from '../engagement.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
-function line(){
-  const state=createScenario('breach',1),b=state.battle;
-  const [support,charger]=b.sides[0].units,[front,rear]=b.sides[1].units;
-  b.sides[0].units=[support,charger];b.sides[1].units=[front,rear];
-  Object.assign(support,{id:'cao',type:'archer',x:3,y:3});Object.assign(charger,{x:4,y:3});
-  Object.assign(front,{x:5,y:3});Object.assign(rear,{x:7,y:3,intent:100});
-  for(const u of [support,charger,front,rear]){
-    u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
-  }
-  front.statuses.phalanx={until:999};rear.statuses.phalanx={until:999};
-  primeTactic(support,'smoke');primeTactic(charger,'rush');
-  lockDeployment(b);return {state,b,support,charger,front,rear};
-}
+function line(){const supportId=tacticHolder('harass','cavalry'),chargerId=tacticHolder('rush','cavalry',[supportId]);const unit=(id,type)=>({id,type,level:1,troops:3000});const state=createScenario('custom-battle',1,20,null,{seed:1,terrain:'land',ownTeam:[unit(supportId,'cavalry'),unit(chargerId,'cavalry')],enemyTeam:[unit('person-342','spear'),unit('person-186','archer')]});const b=state.battle;lockDeployment(b);const[support,charger]=b.sides[0].units,[front,rear]=b.sides[1].units;Object.assign(support,{x:3,y:3});Object.assign(charger,{x:4,y:3});Object.assign(front,{x:5,y:3});Object.assign(rear,{x:7,y:3,intent:100});for(const u of [support,charger,front,rear]){u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}front.statuses.phalanx={until:999};rear.statuses.phalanx={until:999};primeTactic(support,'harass');primeTactic(charger,'rush');return{state,b,support,charger,front,rear};}
 
 test('a real control cast opens ZOC and the next allied charge exploits it',()=>{
   const {b,support,charger,front,rear}=line();
   assert.equal(routeTo(b,charger,rear,3),null);
-  assert.equal(tacticTarget(b,support,TACTICS_BOOK.smoke,4),front,'support targets the blocking front over a high-intent rear');
+  assert.equal(tacticTarget(b,support,TACTICS_BOOK.harass,4),front,'support targets the blocking front over a high-intent rear');
   stepBattle(b);
-  assert.equal(support.tacticCasts.smoke,1);assert.equal(charger.tacticCasts.rush,1);
+  assert.equal(support.tacticCasts.harass,1);assert.equal(charger.tacticCasts.rush,1);
   assert.ok(front.hp>0);assert.ok(b.effects.some(e=>e.from===charger.id&&e.to===rear.id&&e.damage>0));
-  assert.ok(b.effects.some(e=>e.text==='拦截中断'));assert.ok(b.effects.some(e=>e.text==='突入后阵'));
+  assert.ok(front.statuses.disrupted);assert.ok(b.effects.some(e=>e.text==='突入后阵'));
 });
 
 test('overlapping ZOC still stops a charge after only one front is controlled',()=>{
@@ -40,17 +29,7 @@ test('overlapping ZOC still stops a charge after only one front is controlled',(
   assert.equal(zocCells(b).find(c=>c.x===4&&c.y===3).counts[1],1);
 });
 
-test('a flanking lure relocates ZOC and enables rush; a braced front resists the lure',()=>{
-  for(const braced of [false,true]){
-    const {b,support,charger,front}=line();
-    Object.assign(support,{type:'cavalry',x:6,y:1});primeTactic(support,'lure');
-    if(!braced)delete front.statuses.phalanx;
-    stepBattle(b);
-    assert.equal(support.tacticCasts.lure,braced?undefined:1);
-    assert.equal(charger.tacticCasts.rush,braced?undefined:1);
-    assert.equal(b.effects.some(e=>e.text==='突入后阵'),!braced);
-  }
-});
+test('sealing the actual harasser prevents opening the blocking line',()=>{const {b,support,charger,front,rear}=line();support.statuses.seal={until:99};stepBattle(b);assert.equal(support.tacticCasts.harass||0,0);assert.equal(charger.tacticCasts.rush||0,0);assert.equal(routeTo(b,charger,rear,3),null);assert.ok(front.hp>0);});
 
 test('control protection, silence and restored ZOC cannot be bypassed',()=>{
   for(const state of ['resolve','seal','expired']){

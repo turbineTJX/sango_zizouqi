@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -44,8 +46,8 @@ function run(draft,{plan='rule',posture='neutral',basic=false,loadout=null,comma
   return chooseEnemyCommand(b,keys,STRATAGEMS,0);
  };
  while(!b.result){
-  const key=order(b);if(key){assert.equal(issueCommand(b,key),null);commands.push({tick:b.tick,key});}
-  if(saved){assert.equal(order(saved.battle),key);if(key)assert.equal(issueCommand(saved.battle,key),null);}
+  const key=order(b);if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);commands.push({tick:b.tick,key});}
+  if(saved){assert.equal(order(saved.battle),key);if(key)assert.equal(issueCommand(saved.battle,key,chooseStratagemPoint(saved.battle,AREA_DESIGNS[key],0)),null);}
   stepBattle(b);if(saved)stepBattle(saved.battle);
   const active=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');assert.ok(b.tick<=480);assert.equal(new Set(active.map(u=>`${u.x},${u.y}`)).size,active.length);
   for(const u of active){assert.ok(canOccupy(b,u,u.x,u.y));assert.ok(Number.isFinite(u.hp)&&u.hp>0);assert.ok(validLoadout(u,u.tactics));}

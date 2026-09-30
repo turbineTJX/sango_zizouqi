@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -24,7 +26,7 @@ for(const id of ['person-661','person-396','person-99'])for(let i=0;i<8;i++){
  assert.equal(configureUnitTactics(state,id,[SPECIAL_TACTICS[id],'gallop','relay']),null);lockDeployment(b);
  const main=b.sides[0].units[0];let supporting=0,active=0;
  while(!b.result){
-  if(b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)assert.equal(issueCommand(b,key),null);}
+  if(b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);}
   stepBattle(b);assert.ok(b.tick<=480);
   if(main.status==='active'){active++;if(main.action==='策应队友')supporting++;}
  }

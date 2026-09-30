@@ -1,3 +1,5 @@
+import {marchFactor} from './strategic-traits.mjs';
+
 import {mapNode,roadSegment,isJunction,junctionBlocked} from './road-network.mjs';
 import {MOVEMENT_RULES as RULES} from './data/design/movement-rules.mjs';
 // Road variants are deterministic map data, shared by both factions.
@@ -19,7 +21,7 @@ export function movementPoints(a){
   const command=RULES.army.command.base+Math.max(0,Math.min(100,leader.leadership||0))*RULES.army.command.perPoint;
   const morale=RULES.army.morale.base+Math.max(0,Math.min(100,a.morale))*RULES.army.morale.perPoint;
   const hunger=1-(RULES.army.hunger.find(r=>r.inclusive?a.hunger>=r.minimum:a.hunger>r.minimum)?.penalty||0);
-  return Math.round(base*command*morale*hunger*1000)/1000;
+  return Math.round(base*command*morale*hunger*marchFactor(a)*1000)/1000;
 }
 export function chosenRoad(s,a,b,policy='auto'){
   const roads=campaignRoads(s,a,b);

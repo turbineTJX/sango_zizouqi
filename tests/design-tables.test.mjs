@@ -9,9 +9,15 @@ test('design validation rejects invalid references, unsupported effects and miss
  for(const [edit,needle] of [
   [d=>d.assignments.cao.traits.push('missing-trait'),'assignments.cao.traits'],
   [d=>d.domesticActions.exercise.stat='politics','同方向全部事务必须使用该方向唯一主属性'],
-  [d=>d.traits.merchant.name='善经营','特性名称须为两个汉字'],
+  [d=>d.traits.fieldMedicine.name='善经营','特性名称须为两个汉字'],
+  [d=>d.traits['hero-cao'].mechanics[0].effect='not-implemented','未实现的机制事件或处理器'],
+  [d=>d.traits['hero-cao'].mechanics[0].chance=2,'机制比例须在0至1之间'],
+  [d=>d.traits['hero-cao'].mechanics[0].roles=['deputy'],'未知任职'],
   [d=>d.tactics.thrust.name='突刺术','战法名称须为两个或四个汉字'],
   [d=>d.stratagems.assault.name='进攻','军略名称须为四个汉字'],
+  [d=>d.tactics.cutRange.description='使敌军射程降低','须使用正式状态名称'],
+  [d=>d.tactics['unique-person-371'].selfStatusSteps=0,'自身状态或时长无效'],
+  [d=>d.tactics['unique-person-636'].regrowthFraction=2,'休整参数无效'],
   [d=>d.tactics.thrust.effect='unimplemented','tactics.thrust.effect'],
   [d=>d.troops.spear.atack=200,'未接入字段 atack'],
   [d=>d.traits.unimplemented={name:'未实现',description:'只写文字',domain:'battle'},'新特技须先接入效果处理器'],
@@ -36,11 +42,11 @@ test('editing design records drives real unit creation, learning, army attribute
  TROOP_DESIGNS.spear.attack=123;
  OFFICER_DESIGNS.cao.leadership=95;OFFICER_DESIGNS.cao.aptitudes.spear=3;
  OFFICER_DESIGNS.cao.formation='middle';
- TRAIT_DESIGNS.armyDiscipline.stats.discipline=.2;
+ TRAIT_DESIGNS.fieldMedicine.tier='普通';
  TACTIC_DESIGNS.thrust.cooldown=77;
  STRATAGEM_DESIGNS.assault.duration=33;
  CITY_DESIGNS[0].name='设计验证据点';DEMO_CITY_DESIGNS[0].name='设计验证入门';
- OFFICER_ASSIGNMENTS.cao.traits=['armyDiscipline'];
+ OFFICER_ASSIGNMENTS.cao.traits=['fieldMedicine'];
  const e=await import('./engine.mjs'),{passiveAttributes}=await import('./passives.mjs'),{troopAptitude}=await import('./tactic-learning.mjs'),{nationalWorld}=await import('./national-scenarios.mjs');
  const u=e.makeOfficer('cao');assert.equal(u.leadership,95);assert.equal(u.formation,'middle');assert.equal(troopAptitude(u,'spear'),3);
  assert.equal(e.unitAttributes(u).breakdown.attack.base,123);
@@ -48,7 +54,7 @@ test('editing design records drives real unit creation, learning, army attribute
  assert.equal(nationalWorld('heroes-251').cities[0].name,'设计验证据点');
  const s=e.newGame(99);assert.equal(s.cities[0].name,'设计验证入门');
  e.orderArmy(s,'a1','guandu');e.advanceTurn(s);assert.equal(e.startBattle(s),null);e.lockDeployment(s.battle);
- const ally=s.battle.sides[0].units.find(u=>u.id==='dun');assert.ok(passiveAttributes(s.battle,ally).discipline.some(m=>m.label.includes('治军 +20%')));
+ const {officerTraits,WORK_TRAITS}=await import('./officer-traits.mjs');assert.deepEqual(officerTraits(u),['fieldMedicine']);assert.equal(WORK_TRAITS.fieldMedicine.tier,'普通');
  const copy=e.validateSave(JSON.parse(JSON.stringify(s)));for(let i=0;i<10;i++){e.stepBattle(s.battle);e.stepBattle(copy.battle);}assert.deepEqual(copy.battle,s.battle);
  console.log('runtime table edits verified');
  `;

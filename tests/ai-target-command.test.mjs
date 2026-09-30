@@ -54,6 +54,8 @@ test('单队休养以实际伤兵触发，救疗按固定顺序优先',()=>{
 
 test('单队自然蓄满后自动下达休养，实际救治且保持确定性续战',()=>{
  const state=createScenario('custom-battle',48,20,null,{seed:48,terrain:'land',ownTeam:[{...unit('person-443','halberd'),troops:6000}],enemyTeam:[{...unit('person-255','halberd'),troops:6000}]}),b=state.battle;
+ // Hold isolates natural command accumulation from the separate withdrawal policy.
+ for(const u of b.sides.flatMap(s=>s.units))u.retreatAt=null;
  lockDeployment(b);let resumed,serial=0,cast=false,healing=0;
  while(!b.result){
   stepBattle(b);if(resumed)stepBattle(resumed.battle);

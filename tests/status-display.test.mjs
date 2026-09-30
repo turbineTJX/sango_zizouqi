@@ -6,8 +6,8 @@ import {setStatus} from '../tactics.mjs';
 test('status timer matches exclusive expiration and distinguishes the final active step from expired state',()=>{
   const b={tick:10},u={statuses:{}};setStatus(b,u,'confuse',3);
   assert.equal(statusRemaining(u.statuses.confuse.until,b.tick),3);
-  assert.equal(statusTimeLabel(u.statuses.confuse.until,b.tick),'3 日');
-  b.tick=13;assert.equal(visibleStatuses(b,u)[0].time,'本日结束');
+  assert.equal(statusTimeLabel(u.statuses.confuse.until,b.tick),'3 回合');
+  b.tick=13;assert.equal(visibleStatuses(b,u)[0].time,'本回合结束');
   b.tick=14;assert.deepEqual(visibleStatuses(b,u),[]);
 });
 

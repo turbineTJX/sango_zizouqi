@@ -76,6 +76,6 @@ export function updateCaptives(s){
 export function roadEdgeForArmy(s,a){return a.travel?{from:a.travel.from,to:a.travel.to,fraction:a.travel.progress/roadDistance(s,a.travel.from,a.travel.to)}:null;}
 export function displaceCityOfficers(s,cityId,oldFaction,eventId){
  const c=town(s,cityId);if(c.owner===oldFaction)return;
- const people=[...s.campaign.idle.filter(o=>o.faction===oldFaction&&o.location===cityId&&!o.destination&&!o.unit.mission).map(o=>o.unit),...c.units.filter(u=>!u.mission)];
+ const people=[...s.campaign.idle.filter(o=>o.faction===oldFaction&&o.location===cityId&&!o.destination&&!o.retreating&&!o.unit.mission).map(o=>o.unit),...c.units.filter(u=>!u.mission)];
  for(const unit of people)resolveOfficerLoss(s,{unit,faction:oldFaction,location:cityId,enemy:c.owner,eventId:eventId+':resident:'+unit.id,reason:'城池失守'});
 }

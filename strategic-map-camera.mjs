@@ -10,6 +10,8 @@ export function clampMapView(view){
 }
 export const centeredMapView=(point,width=LOCAL_MAP_SIZE,height=width)=>clampMapView({x:point.x-width/2,y:point.y-height/2,width,height});
 export function operationFocus(s,ui,army){
+ const battle=ui.strategyTab==='battle'?s.campaign?.battles.find(r=>r.id===ui.directoryBattle&&!r.settled):null;
+ if(battle?.point)return {...battle.point,key:'battle:'+battle.id,name:battle.name};
  const city=mapNode(s,ui.city),selected=s.armies.find(a=>a.id===ui.army)||army;
  if(selected&&(ui.strategyTab==='army'||!city))return {...armyPosition(s,selected),key:'army:'+selected.id,name:selected.name,army:true};
  const node=city||s.cities.find(c=>c.owner===playerFaction(s))||s.cities[0];

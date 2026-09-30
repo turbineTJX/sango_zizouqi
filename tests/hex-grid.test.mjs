@@ -23,8 +23,8 @@ test('each offset-row neighbor is reciprocal, one step away, and equally spaced 
 });
 
 test('hex paths use six neighbors and cannot cross a gate or an occupied ring',()=>{
-  const a={x:4,y:3,hp:100,status:'active'},target={x:9,y:5,hp:100,status:'active'};
-  const b={sides:[{units:[a]},{units:[target]}],siege:{gate:{x:6,y:4,hp:100}}};
+  const a={id:'a',type:'spear',side:0,x:4,y:3,hp:100,status:'active',statuses:{}},target={id:'target',type:'archer',side:1,x:9,y:5,hp:100,status:'active',statuses:{}};
+  const b={tick:0,sides:[{units:[a]},{units:[target]}],siege:{gate:{x:6,y:4,hp:100}}};
   const route=routeTo(b,a,target,20);
   assert.ok(route.length>0);
   let prev=a;
@@ -59,18 +59,7 @@ test('diagonal spear thrust hits the next hex on the same axial line',()=>{
   assert.ok(d.hp<d.maxHp);assert.ok(behind.hp<behind.maxHp);
 });
 
-test('diagonal protection knockback follows the hex line and stops before an occupied cell',()=>{
-  for(const blocked of [false,true]) {
-    const {b,a,d}=duel('protect');
-    const ally={...structuredClone(a),id:'ally',x:4,y:2,intent:0};
-    ally.skillReady.protect=999;b.sides[0].units.push(ally);
-    Object.assign(d,{x:4,y:1});
-    // From even row 2 through odd row 1, the next axial cell is (5,0).
-    if(blocked)b.sides[0].units.push({...structuredClone(ally),id:'blocker',x:5,y:0});
-    complete(b,a);
-    assert.deepEqual({x:d.x,y:d.y},blocked?{x:4,y:1}:{x:5,y:0});
-  }
-});
+test('removed protection tactic is not silently granted to the former holder',()=>{const state=createScenario('field'),u=state.battle.sides[0].units.find(u=>u.id==='chu');const before=structuredClone(u);assert.ok(learnFixtureTactics(u,['protect']));assert.deepEqual(u.tactics,before.tactics);});
 
 test('missing grid type is rejected instead of upgrading a pre-hex battle',()=>{
   const s=createScenario('siege');

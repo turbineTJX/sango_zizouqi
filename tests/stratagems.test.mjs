@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
 import {remedy} from '../battle-status-rules.mjs';
 import {selectStratagemSource} from '../stratagems.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
@@ -21,13 +23,13 @@ test('single gauge starts empty, scales with active intellect, caps without stor
 test('only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing',()=>{
  const s=scene(),a=s.armies[0],b=s.battle;
  assert.deepEqual(battleStratagems(b),armyStratagems(a));assert.ok(!battleStratagems(b).includes('heal'));
- b.commandProgress=full;assert.match(issueCommand(b,'heal'),/未掌握/);assert.equal(b.commandProgress,full);
+ b.commandProgress=full;assert.match(issueCommand(b,'heal',chooseStratagemPoint(b,AREA_DESIGNS['heal'],0)),/未掌握/);assert.equal(b.commandProgress,full);
  a.leader='yu';a.advisor='yu';assert.deepEqual(armyStratagems(a),['heal','cleanse']);
  assert.equal(armyCommanders(a).length,2);
  const changed=scene('jin','yu');assert.ok(battleStratagems(changed.battle).includes('regenerate'));assert.ok(battleStratagems(changed.battle).includes('heal'));assert.ok(!battleStratagems(changed.battle).includes('assault'));
 });
 test('gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected',()=>{
- const s=scene('person-246','jia');for(let i=0;i<34;i++)stepBattle(s.battle);s.battle.commandProgress=full;assert.equal(issueCommand(s.battle,'zhou-redcliffs'),null);
+ const s=scene('person-246','jia');for(let i=0;i<34;i++)stepBattle(s.battle);s.battle.commandProgress=full;assert.equal(issueCommand(s.battle,'zhou-redcliffs',chooseStratagemPoint(s.battle,AREA_DESIGNS['zhou-redcliffs'],0)),null);
  const copy=validateSave(structuredClone(s));for(let i=0;i<12;i++){stepBattle(s.battle);stepBattle(copy.battle);}assert.deepEqual(copy.battle,s.battle);
  const old=scene();old.version=1;old.battle.points=5;delete old.battle.commandProgress;delete old.battle.deploymentLocked;
  for(const u of old.battle.sides.flatMap(s=>s.units)){delete u.battleDamage;delete u.healed;}
@@ -36,11 +38,11 @@ test('gauge, commanders, injury ledger and effects resume deterministically; pre
 });
 test('first aid consumes only recoverable casualties and cannot heal dead or reserve units',()=>{
  const s=scene('cao','yu'),b=s.battle;b.commandProgress=full;
- assert.ok(issueCommand(b,'heal'));assert.equal(b.commandProgress,full);
+ assert.ok(issueCommand(b,'heal',chooseStratagemPoint(b,AREA_DESIGNS['heal'],0)));assert.equal(b.commandProgress,full);
  const u=b.sides[0].units[0];wound(u,1000);const reserve=b.sides[0].units.find(u=>u.status==='reserve');wound(reserve,500);
  const dead=b.sides[0].units[1];wound(dead,dead.hp);dead.status='defeated';assert.equal(battleWounded(u),350);
- const restored=Math.floor(u.maxHp*selectStratagemSource(b.sides[0].commanders,'heal').strength);assert.equal(issueCommand(b,'heal'),null);assert.equal(u.hp,2000+restored);assert.equal(battleWounded(u),350-restored);assert.equal(u.healed,restored);assert.equal(reserve.hp,2500);assert.equal(dead.hp,0);
- b.tick=8;b.commandProgress=full;assert.equal(issueCommand(b,'heal'),null);assert.equal(u.hp,2350);assert.equal(battleWounded(u),0);
+ const restored=Math.floor(u.maxHp*selectStratagemSource(b.sides[0].commanders,'heal').strength);assert.equal(issueCommand(b,'heal',chooseStratagemPoint(b,AREA_DESIGNS['heal'],0)),null);assert.equal(u.hp,2000+restored);assert.equal(battleWounded(u),350-restored);assert.equal(u.healed,restored);assert.equal(reserve.hp,2500);assert.equal(dead.hp,0);
+ b.tick=8;b.commandProgress=full;assert.equal(issueCommand(b,'heal',chooseStratagemPoint(b,AREA_DESIGNS['heal'],0)),null);assert.equal(u.hp,2350);assert.equal(battleWounded(u),0);
  b.result={winner:0,reason:'击溃'};const report=settleBattle(s);for(const side of report.stats)assert.equal(side.initial,side.remaining+side.wounded+side.killed);
  assert.equal(s.armies[0].units[0].troops,2350);assert.equal(s.armies[0].units[0].wounded,0);assert.equal(report.stats[0].killed,650+1950+325);
 });
@@ -55,16 +57,16 @@ test('recovery heals over time, stops at expiration and never replenishes an exh
  assert.equal(u.hp,1000+12*perStep);assert.equal(u.healed,12*perStep);assert.ok(b.sides[0].units.find(v=>v.id===selectStratagemSource(b.sides[0].commanders,'regenerate').id).contribution.healing>=12*perStep);stepBattle(b);assert.equal(u.hp,1000+12*perStep);
  const copy=validateSave(structuredClone(s));assert.equal(copy.battle.sides[0].units[0].healed,12*perStep);
 });
-test('range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed',()=>{
+test('army range extends basic attacks but explicit tactic ranges remain fixed',()=>{
  function setup(){const s=scene('person-46','cao'),b=s.battle;still(b);const a=b.sides[0].units.find(u=>u.id==='jia'),d=b.sides[1].units[0];b.sides[0].units=b.sides[0].units.filter(u=>u===a||b.sides[0].commanders.some(c=>c.id===u.id));for(const u of b.sides[0].units)if(u!==a){u.status="reserve";u.x=-1;u.y=-1;}b.sides[1].units=[d];a.x=1;a.y=3;d.x=7;d.y=3;a.cooldown=0;return {b,a,d};}
  const x=setup();assert.equal(attackRange(x.b,x.a),4);assert.equal(tacticTarget(x.b,x.a,TACTICS_BOOK.repeat,attackRange(x.b,x.a)),null);
  x.b.commandProgress=full;assert.equal(issueCommand(x.b,'range'),null);assert.equal(attackRange(x.b,x.a),6);
- assert.equal(tacticTarget(x.b,x.a,TACTICS_BOOK.repeat,attackRange(x.b,x.a)),x.d);assert.equal(tacticTarget(x.b,x.a,TACTICS_BOOK.seal,attackRange(x.b,x.a)),null);
+ assert.equal(tacticTarget(x.b,x.a,TACTICS_BOOK.repeat,attackRange(x.b,x.a)),null);assert.equal(tacticTarget(x.b,x.a,TACTICS_BOOK.seal,attackRange(x.b,x.a)),null);
  const hp=x.d.hp;stepBattle(x.b);assert.ok(x.d.hp<hp);x.b.tick=x.b.sides[0].rangeUntil;assert.equal(attackRange(x.b,x.a),4);
  const y=setup();stepBattle(y.b);assert.equal(y.d.hp,y.d.initial);
 });
 test('firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse',()=>{
- const s=scene('person-246','jia'),b=s.battle;still(b);b.commandProgress=full;assert.equal(issueCommand(b,'zhou-redcliffs'),null);
+ const s=scene('person-246','jia'),b=s.battle;still(b);b.commandProgress=full;assert.equal(issueCommand(b,'zhou-redcliffs',chooseStratagemPoint(b,AREA_DESIGNS['zhou-redcliffs'],0)),null);
  const u=b.sides[1].units[0],expectedLoss=u.statuses.burn.amount*12-30,reserve=b.sides[1].units.find(u=>u.status==='reserve');assert.ok(!reserve.statuses.burn);
  u.statuses.shield={until:999,amount:30,layers:[{until:999,amount:30,source:"test",label:"护盾"}]};for(let i=0;i<12;i++)stepBattle(b);
  assert.equal(u.hp,u.initial-expectedLoss);assert.equal(u.battleDamage,expectedLoss);assert.equal(u.intent,0);const hp=u.hp;stepBattle(b);assert.equal(u.hp,hp);

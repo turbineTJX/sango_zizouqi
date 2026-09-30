@@ -13,7 +13,7 @@ test('ordinary learning pools retain low/high slots and exclusive roles have dis
     for(const id of p.low){assert.equal(TACTICS_BOOK[id].learningTier,'low');assert.ok(TACTICS_BOOK[id].intentCost<=5);}
     for(const id of p.high){assert.equal(TACTICS_BOOK[id].learningTier,'high');assert.ok(TACTICS_BOOK[id].threshold>=45&&TACTICS_BOOK[id].threshold<=65);}
   }
-  assert.equal(TACTICS_BOOK.protect.tempoRole,'持续专属');
+  assert.equal(TACTICS_BOOK.protect,undefined);
   assert.equal(TACTICS_BOOK.undermine.tempoRole,'持续专属');
   assert.equal(TACTICS_BOOK['unique-person-661'].intentCost,70);
   assert.equal(TACTICS_BOOK.passage,undefined);
@@ -23,7 +23,7 @@ test('earned casts pay fixed intent, recover between spells, still attack and re
   const state=createScenario('officer-lab',17,20,['person-661','person-246','person-603','person-404','yu','shao']);
   const b=state.battle;lockDeployment(b);
   const last=new Map(),roles=new Set();let resumed,paid=0,attacksDuringRecovery=0;
-  assert.ok(b.sides.flatMap(s=>s.units).every(u=>u.intent===0));
+  assert.ok(b.sides.flatMap(s=>s.units).every(u=>u.intent===(u.bondEntry?.intent||0)));
   while(!b.result){
     const recovery=new Set(b.sides.flatMap(s=>s.units).filter(u=>u.tacticRecoveryUntil>b.tick+1).map(u=>u.id));
     const oldCounts=new Map(b.sides.flatMap(s=>s.units).map(u=>[u.id,u.skillCasts]));

@@ -1,3 +1,5 @@
+import {tacticHolder} from './helpers/current-battle.mjs';
+import {remedy} from '../battle-status-rules.mjs';
 import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -9,11 +11,13 @@ import {hexDistance} from '../hex-grid.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function scene(){
-  const state=createScenario('field',19),b=state.battle,[tank,ally]=b.sides[0].units,[enemy]=b.sides[1].units;
-  b.sides[0].units=[tank,ally];b.sides[1].units=[enemy];
-  Object.assign(tank,{type:'spear',x:3,y:3});Object.assign(ally,{type:'archer',x:7,y:2});Object.assign(enemy,{type:'crossbow',x:8,y:3});
-  for(const u of [tank,ally,enemy]){learnFixtureTactics(u,roleTacticIds(u,'assault'));u.intent=0;u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));u.statuses={phalanx:{until:999}};}
-  delete enemy.statuses.phalanx;primeTactic(tank,'ward');lockDeployment(b);return {state,b,tank,ally,enemy};
+ const ids=[tacticHolder('ward','spear',[],true)];ids.push(tacticHolder('repeat','crossbow',ids,true));ids.push(['person-1','person-2','person-3'].find(id=>!ids.includes(id)));
+ const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
+ const state=createScenario('custom-battle',19,20,null,{seed:19,terrain:'land',ownTeam:[entry(ids[0],'spear'),entry(ids[2],'archer')],enemyTeam:[entry(ids[1],'crossbow')]}),b=state.battle;lockDeployment(b);
+ const [tank,ally]=b.sides[0].units,[enemy]=b.sides[1].units;
+ Object.assign(tank,{x:3,y:3});Object.assign(ally,{x:7,y:2});Object.assign(enemy,{x:8,y:3});
+ for(const u of [tank,ally,enemy]){u.intent=0;u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));u.statuses={phalanx:{until:999}};}
+ delete enemy.statuses.phalanx;primeTactic(tank,'ward');return {state,b,tank,ally,enemy};
 }
 test('five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally',()=>{
   const {b,tank,ally,enemy}=scene();enemy.cooldown=0;const hp=ally.hp;
@@ -28,15 +32,12 @@ test('taunt cannot reach six hexes or override control protection',()=>{
     stepBattle(b);assert.equal(tank.tacticCasts.ward,undefined,variant);assert.ok(!hasStatus(b,enemy,'taunt'));
   }
 });
-test('taunted ranged offensive skills wait for range, then attack the taunter',()=>{
-  const {b,tank,ally,enemy}=scene();primeTactic(enemy,'repeat');const hp=ally.hp;
-  stepBattle(b);assert.equal(enemy.tacticCasts.repeat,undefined);assert.equal(ally.hp,hp);
-  stepBattle(b);assert.equal(enemy.tacticCasts.repeat,1);
-  assert.ok(b.effects.filter(e=>e.from===enemy.id&&e.damage>0).every(e=>e.to===tank.id));
+test('current five-range repeat attacks the taunter instead of a closer ally',()=>{
+ const {b,tank,ally,enemy}=scene();primeTactic(enemy,'repeat');const hp=ally.hp;stepBattle(b);assert.ok(hasStatus(b,enemy,'taunt'));assert.equal(enemy.tacticCasts.repeat,1);assert.equal(ally.hp,hp);assert.ok(b.effects.filter(e=>e.from===enemy.id&&e.damage>0).every(e=>e.to===tank.id));
 });
-test('cleanse removes a real taunt; its source dying or retreating immediately releases the target',()=>{
-  const x=scene();stepBattle(x.b);x.enemy.type='spear';primeTactic(x.enemy,'cleanse');stepBattle(x.b);
-  assert.ok(!hasStatus(x.b,x.enemy,'taunt'));assert.ok(hasStatus(x.b,x.enemy,'resolve'));
+test('calm removes a real taunt; its source dying or retreating immediately releases the target',()=>{
+  const x=scene();stepBattle(x.b);remedy(x.b,x.enemy,'calm');
+  assert.ok(!hasStatus(x.b,x.enemy,'taunt'));
   for(const kind of ['death','retreat','expiry']){
     const {b,tank,enemy}=scene();stepBattle(b);assert.equal(tauntTarget(b,enemy,4),tank);
     if(kind==='death'){tank.hp=0;tank.status='defeated';}else if(kind==='retreat')b.sides[tank.side].retreat=true;else enemy.statuses.taunt.until=b.tick;
@@ -50,18 +51,18 @@ test('taunt never drags melee out through another active ZOC',()=>{
 });
 
 function breach(seed=43){
-  const state=createScenario('breach',seed),b=state.battle,charger=b.sides[0].units[1],[front,rear]=b.sides[1].units;
-  b.sides[0].units=[charger];b.sides[1].units=[front,rear];
-  Object.assign(charger,{x:4,y:3,cooldown:0});Object.assign(front,{x:5,y:3,cooldown:999});Object.assign(rear,{x:7,y:3,cooldown:999});
-  for(const u of [charger,front,rear]){u.intent=0;u.statuses={};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
-  front.statuses.confuse={until:20};rear.statuses.phalanx={until:99};primeTactic(charger,'rush');lockDeployment(b);stepBattle(b);
-  assert.equal(charger.tacticCasts.rush,1);assert.ok(hasStatus(b,charger,'pursuit'));return {b,charger,front,rear};
+ const ids=[tacticHolder('rush','cavalry',[],true)];ids.push(tacticHolder('ward','spear',ids,true));ids.push(tacticHolder('repeat','crossbow',ids,true));
+ const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(ids[0],'cavalry')],enemyTeam:[entry(ids[1],'spear'),entry(ids[2],'crossbow')]}),b=state.battle;lockDeployment(b);
+ const [charger]=b.sides[0].units,[front,rear]=b.sides[1].units;
+ Object.assign(charger,{x:4,y:3,cooldown:0});Object.assign(front,{x:5,y:3,cooldown:999});Object.assign(rear,{x:7,y:3,cooldown:999});
+ for(const u of [charger,front,rear]){u.intent=0;u.statuses={};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
+ front.statuses.confuse={until:20};front.statuses.phalanx={until:99};rear.statuses.phalanx={until:99};primeTactic(charger,'rush');stepBattle(b);
+ assert.equal(charger.tacticCasts.rush,1);assert.ok(hasStatus(b,charger,'pursuit'));return {b,charger,front,rear};
 }
-test('a real charge follows a real retreat shot instead of switching back to a disabled front',()=>{
-  const {b,charger,front,rear}=breach(),frontHp=front.hp;delete rear.statuses.phalanx;
-  rear.id='ju';charger.statuses.pursuit.targetId=rear.id;primeTactic(rear,'retreatShot');stepBattle(b);
-  assert.equal(rear.tacticCasts.retreatShot,1);assert.equal(front.hp,frontHp);
-  assert.equal(hexDistance(charger,rear),1);assert.ok(charger.x>front.x);
+test('a real charge follows a withdrawing rear through the current disengagement cycle',()=>{
+ const {b,charger,front,rear}=breach(),frontHp=front.hp,start={x:rear.x,y:rear.y};delete rear.statuses.phalanx;b.sides[rear.side].retreat=true;
+ for(let i=0;i<8&&rear.x===start.x&&rear.y===start.y;i++)stepBattle(b);
+ assert.ok(rear.x!==start.x||rear.y!==start.y);assert.equal(front.hp,frontHp);assert.ok(charger.x>front.x);assert.ok(hexDistance(charger,rear)<=2);
 });
 test('pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry',()=>{
   const {b,charger,front,rear}=breach();const second={...structuredClone(rear),id:'second-rear',x:8,y:3};b.sides[1].units.push(second);

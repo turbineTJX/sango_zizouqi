@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -13,7 +15,7 @@ const files=['tactic-learning.mjs','tactics.mjs','engine.mjs','battle-ai.mjs','s
 const hashes=()=>Object.fromEntries(files.map(file=>[file,createHash('sha256').update(readFileSync(file)).digest('hex')]));
 const source=hashes(),runs=[];
 const snapshot=b=>b.sides.flatMap(s=>s.units).map(u=>({id:u.id,learning:u.tacticLearning,tactics:u.tactics}));
-function tick(b){stepBattle(b);if(!b.result){const command=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(command)issueCommand(b,command);}}
+function tick(b){stepBattle(b);if(!b.result){const command=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(command)issueCommand(b,command,chooseStratagemPoint(b,AREA_DESIGNS[command],0));}}
 for(const [index,type] of LEARNING_TROOPS.entries())for(const level of [1,3,5,8,10])for(const seed of [101,102,103,104]){
  const terrain=type==='ship'?'river':['land','forest','hill'][(seed+index)%3];
  const entry=(id,troops)=>({id,type,troops,level});

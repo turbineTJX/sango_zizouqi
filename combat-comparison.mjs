@@ -1,3 +1,4 @@
+import {bondsMarkup,personalBondsMarkup} from './bond-display.mjs';
 import {abilityButton} from './ability-reference.mjs';
 import {assignmentFor} from './domestic.mjs';
 import {armyCommanders,armyStratagems,TROOPS} from './engine.mjs';
@@ -31,10 +32,10 @@ export function relationshipMatrix(s,units,candidates=units,{attribute=null,lock
 }
 export function combatComparison(s,units,roles=null,{prefix='本军',appointments='',only=null,relationCandidates=units,relationPicker={}}={}){
  const traits=[...new Set(units.flatMap(u=>officerTraits(u).filter(id=>PASSIVES[id]?.domain==='battle')))];
- const overview=table(['武将','兵种','适性','兵力'],units.map(u=>`<tr><td>${esc(u.name)}</td><td>${TROOPS[u.type]?.name||u.type}</td><td>${['C','B','A','S'][troopAptitude(u,u.type)]}</td><td>${Math.round(u.hp??u.troops)}</td></tr>`));
+ const overview=table(['武将','兵种','适性','兵力','羁绊'],units.map(u=>`<tr><td>${esc(u.name)}</td><td>${TROOPS[u.type]?.name||u.type}</td><td>${['C','B','A','S'][troopAptitude(u,u.type)]}</td><td>${Math.round(u.hp??u.troops)}</td><td>${personalBondsMarkup(u)}</td></tr>`));
  const tactics=table(['武将','统率','武力','智力','固定战法'],units.map(u=>`<tr><td>${esc(u.name)}</td><td>${u.leadership}</td><td>${u.force}</td><td>${u.intellect}</td><td>${unitTactics(u).map(t=>abilityButton('tactic',t.id,t.name)).join('')||'—'}</td></tr>`));
  const traitPages=[];for(let i=0;i<traits.length;i+=4){const ids=traits.slice(i,i+4);traitPages.push(['traits-'+i,ids.map(id=>PASSIVES[id].name).join(' / '),table(['武将',...ids.map(id=>abilityButton('trait',id,PASSIVES[id].name))],units.map(u=>`<tr><td>${esc(u.name)}</td>${ids.map(id=>`<td>${officerTraits(u).includes(id)?abilityButton('trait',id,'●'):'—'}</td>`).join('')}</tr>`))]);}
  const relations=relationshipMatrix(s,units,relationCandidates,relationPicker);
  let strategy='<p>任命军团长、军师后显示军略。</p>';if(roles){const army={units,...roles},commanders=roles.commanders||armyCommanders(army);strategy=table(['军略','实际提供者','任职','实际效果'],[...new Set(commanders.flatMap(commanderStratagems))].map(id=>{const p=selectStratagemSource(commanders,id);return `<tr><td>${abilityButton('stratagem',id,STRATAGEMS[id].name,stratagemEffectText(p))}</td><td>${esc(p.name)}</td><td>${p.role==='leader'?'军团长':'军师'}</td><td>${abilityButton('stratagem',id,'查看详情',stratagemEffectText(p))}</td></tr>`;}))+'<p>同名军略合并取强，不叠加；效果随当前任职武将的统率、智力计算。</p>';}
- return '<section class="combat-preview">'+pages('combat-'+prefix,[...(appointments?[['appointments','任职',appointments]]:[]),['units','部队',overview],['tactics','战法',tactics],['traits','特性',traitPages.length?pages('traits-'+prefix,traitPages):'<p>暂无战斗特性。</p>'],['strategy','军略',strategy],['relations','连携',relations]].filter(item=>!only||only.includes(item[0])))+'</section>';
+ return '<section class="combat-preview">'+bondsMarkup(units)+pages('combat-'+prefix,[...(appointments?[['appointments','任职',appointments]]:[]),['units','部队',overview],['tactics','战法',tactics],['traits','特性',traitPages.length?pages('traits-'+prefix,traitPages):'<p>暂无战斗特性。</p>'],['strategy','军略',strategy],['relations','连携',relations]].filter(item=>!only||only.includes(item[0])))+'</section>';
 }

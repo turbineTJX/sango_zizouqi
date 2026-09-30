@@ -1,3 +1,4 @@
+import {frontlineCapacity,validFrontline} from '../army-trait-rules.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -16,7 +17,7 @@ for (const config of SCENARIOS) {
     const resumed = validateSave(structuredClone(state));
     while (!state.battle.result) {
       stepBattle(state.battle); stepBattle(resumed.battle);
-      for (const side of [0,1]) assert.ok(activeUnits(state.battle,side).length <= 6);
+      for (const side of [0,1]) assert.ok(validFrontline(state.battle,side));
       const live = state.battle.sides.flatMap(s=>s.units).filter(u=>u.status==='active');
       assert.equal(new Set(live.map(u=>`${u.x},${u.y}`)).size, live.length);
       for (const u of live) assert.ok((u.arrivalTick || 0) <= state.battle.tick);
@@ -54,7 +55,7 @@ test('unarrived waves prevent early victory, arrive on schedule and obey blockad
 test('sieges add an independent gate and shields only to defending starters', () => {
   for (const id of ['siege','defense']) {
     const state=createScenario(id,1,30), b=state.battle, gate=b.siege.gate;
-    assert.equal(activeUnits(b,gate.side).length,6);
+    assert.equal(activeUnits(b,gate.side).length,Math.min(frontlineCapacity(b,gate.side),b.sides[gate.side].units.length));
     assert.equal(gate.side===0 ? gate.x<7 : gate.x>=7,true);
     assert.equal(openCell(b,gate.x,gate.y),false);
     for (const side of [0,1]) for (const u of b.sides[side].units)
@@ -63,8 +64,8 @@ test('sieges add an independent gate and shields only to defending starters', ()
     const starter=activeUnits(b,gate.side)[0];
     absorbShield(b,starter,starter.initial*.3);
     assert.equal(shieldAmount(b,starter),0);
-    starter.hp=0;starter.battleDamage=starter.initial;starter.status='defeated';
     lockDeployment(b);
+    starter.hp=0;starter.battleDamage=starter.initial;starter.status='defeated';
     b.tick=Math.max(b.tick,Math.min(...reserves.map(u=>u.arrivalTick||0)));
     stepBattle(b);
     const entered=reserves.filter(u=>u.status==='active');

@@ -1,3 +1,4 @@
+import {frontlineCapacity} from '../army-trait-rules.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newGame,makeOfficer,startBattle,fillSlots,activeUnits,lockDeployment,stepBattle,validateSave} from '../engine.mjs';
@@ -7,7 +8,7 @@ import {createScenario} from '../scenarios.mjs';
 import {canOccupy} from '../battlefield.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 
-const enemyIds=['shao','yan','wen','he','ju','tian','gao','jin','yuanxia'];
+const enemyIds=['shao','yan','wen','he','ju','person-636','gao','jin','yuanxia'];
 function encounter(entries,seed=710321){
   const s=newGame(seed),own=s.armies[0],enemy=s.armies[1];
   s.armies=[own,enemy];own.units=own.units.slice(0,6);
@@ -50,7 +51,7 @@ test('same candidates prioritize a missing front line over another rear and reac
 
 test('learned support is useful beside a core but a tiny helper does not displace full-strength troops',()=>{
   const s=encounter([['spear'],['spear'],['crossbow'],['archer'],['cavalry'],['halberd'],['halberd',50]]),b=s.battle;
-  const healer=b.sides[1].units[5];assert.equal(learnFixtureTactics(healer,['supply']),null);
+  const healer=b.sides[1].units[5];assert.ok(healer.tactics.includes('unique-person-636'));
   for(const [i,u] of b.sides[1].units.slice(0,5).entries())Object.assign(u,{status:'active',x:11,y:i});
   const before=[...healer.tactics];fillSlots(b,1);
   assert.equal(healer.status,'active');assert.equal(b.sides[1].units[6].status,'reserve');
@@ -105,6 +106,6 @@ test('player replacement order is preserved',()=>{
   s.pending={cityId:'guandu',attackerId:own.id,defenderIds:[enemy.id],origin:'xuchang',defenderFaction:'yuan'};
   startBattle(s);const b=s.battle;
   assert.ok(own.units.length>6);
-  assert.deepEqual(activeUnits(b,0).map(u=>u.id),own.units.slice(0,6).map(u=>u.id));
-  assert.ok(b.sides[0].units.slice(6).every(u=>u.status==='reserve'));
+  assert.deepEqual(activeUnits(b,0).map(u=>u.id),own.units.slice(0,frontlineCapacity(b,0)).map(u=>u.id));
+  assert.ok(b.sides[0].units.slice(frontlineCapacity(b,0)).every(u=>u.status==='reserve'));
 });

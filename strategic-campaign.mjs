@@ -1,3 +1,8 @@
+import {hasStrategicTrait} from './strategic-traits.mjs';
+import {plannedGrain} from './strategic-intent.mjs';
+import {armyStrategicTrait,marchModes,validMarch} from './strategic-traits.mjs';
+import {armyFrontlineCapacity} from './army-trait-rules.mjs';
+import {initializeRetreatDestinations,dispatchWithdrawn} from './strategic-retreat.mjs';
 import {validMapRoute} from "./strategic-movement.mjs";
 import {mapNode,mapNodes,isJunction,junctionBlocked,roadSegment} from './road-network.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
@@ -7,7 +12,7 @@ import {playerFaction} from './player-faction.mjs';
 import {missionOfficer,validateOfficerMission} from './officer-missions.mjs';
 import {resolveOfficerLoss,removeOfficer,sendOfficerHome,roadEdgeForArmy,updateCaptives,displaceCityOfficers} from './officer-fates.mjs';
 import {startPersonnelJourney,advancePersonnel,validatePersonnelJourney} from './personnel-movement.mjs';
-import {cityForces,cityForce,preparedUnits} from './city-units.mjs';
+import {cityForces,cityForce,preparedUnits,canFormArmyAt} from './city-units.mjs';
 import {armyWaitingOrder,resolveStrategicOrders,validateStrategicOrders} from './strategic-orders.mjs';
 import {roadDistance,campaignRoads,chosenRoad,roadCost,movementPoints,roadPoint} from './strategic-movement.mjs';
 import {residentOfficer} from './city-personnel.mjs';
@@ -22,13 +27,13 @@ import {troopCapacity} from './troop-capacity.mjs';
 import {setStatus, defaultTacticIds} from './tactics.mjs';
 import {CAMPAIGN_TIME} from './combat-rules.mjs';
 import {domesticEffects,passiveList} from './passives.mjs';
-import {BUILDINGS,grainCapacity,recruitmentLimit,initializeDomestic,beginDomesticTurn,finishDomesticDay,generateDomesticOpportunities,reconcileDomestic,cancelDomestic,assignmentFor,canTrain,reservedMen,effect,siegeOpening,validateDomestic} from './domestic.mjs';
+import {BUILDINGS,grainCapacity,cityFoodReserve,recruitmentLimit,initializeDomestic,beginDomesticTurn,finishDomesticDay,generateDomesticOpportunities,reconcileDomestic,cancelDomestic,assignmentFor,canTrain,reservedMen,effect,siegeOpening,validateDomestic} from './domestic.mjs';
 export {assignDomestic,assignmentFor,cityMilitary} from './domestic.mjs';
 import {refreshTalentDemand,factionGold,addFactionGold} from './talent-core.mjs';
 import {noteTalentCityCapture,talentArrived} from './talent-lifecycle.mjs';
 
 // A day consists of a fixed number of real combat steps, never wall-clock time.
-export const CAMPAIGN = Object.freeze({version:18, daysPerTurn:10, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
+export const CAMPAIGN = Object.freeze({version:24, daysPerTurn:10, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
 import {PROJECTS} from './domestic-designs.mjs';
 export {PROJECTS};
 const copy=x=>structuredClone(x);
@@ -50,12 +55,12 @@ export function armyPosition(s,a){
 }
 export function liveSoldiers(s,a){
   const r=armyBattle(s,a.id);
-  return r?r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id).reduce((n,u)=>n+u.hp,0):armyTroops(a);
+  return r?r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id&&!u.retreatDispatched).reduce((n,u)=>n+u.hp,0):armyTroops(a);
 }
 export const hungerPenalty=a=>a.hunger>=3?.35:a.hunger>=1?.2:a.hunger>0?.1:0;
 export const armyActionPoints=movementPoints;
 export function dailyConsumption(s,a){
-  const r=armyBattle(s,a.id),units=r?r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id):null;
+  const r=armyBattle(s,a.id),units=r?r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id&&!u.retreatDispatched):null;
   const wounded=a.units.reduce((n,u)=>n+u.wounded,0)+(units?units.reduce((n,u)=>n+battleWounded(u),0):0);
   return round(liveSoldiers(s,a)/100+wounded/200);
 }
@@ -121,7 +126,7 @@ export function consolidateCityArmies(s){
 }
 export function prepareCityUnits(s,cityId,ids,{scheduled=false,faction=playerFaction(s)}={}){
  const c=city(s,cityId);if(!scheduled&&!isPlanning(s)||s.finished||c?.owner!==faction||activeBattles(s).some(r=>r.kind==='siege'&&r.cityId===cityId))return '只能在筹划阶段于未被围城的己方据点编制';
- const chosen=ids.map(id=>s.campaign.idle.find(o=>o.unit.id===id&&o.location===cityId&&!o.destination&&!o.unit.mission&&o.faction===c.owner));
+ const chosen=ids.map(id=>s.campaign.idle.find(o=>o.unit.id===id&&o.location===cityId&&!o.destination&&!o.retreating&&!o.unit.mission&&o.faction===c.owner));
  if(!chosen.length||new Set(ids).size!==ids.length||chosen.some(o=>!o||!canTrain(c,o.unit.type)))return '请选择本城未编制且兵种已解锁的武将';
  const cost=chosen.reduce((n,o)=>n+trainingCost(o.unit.type,o.unit.troops),0);if(factionGold(s,faction)<cost)return '编制费用不足';addFactionGold(s,faction,-cost);
  c.units.push(...chosen.map(o=>o.unit));s.campaign.idle=s.campaign.idle.filter(o=>!chosen.includes(o));return null;
@@ -161,7 +166,7 @@ function prepareDepartureUnitsInPlace(s,cityId,ids,types={},reinforce=false,troo
  if(disbandIds.length){const error=disbandCityUnits(s,cityId,disbandIds);if(error)return error;}
  if(!ids.length&&disbandIds.length)return null;
  const fresh=ids.filter(id=>!c.units.some(u=>u.id===id));
- for(const id of fresh){const o=s.campaign.idle.find(o=>o.unit.id===id&&o.location===cityId&&!o.destination&&o.faction===c.owner);if(o&&types[id]&&canTrain(c,types[id])){o.unit.type=types[id];o.unit.tactics=defaultTacticIds(o.unit);}}
+ for(const id of fresh){const o=s.campaign.idle.find(o=>o.unit.id===id&&o.location===cityId&&!o.destination&&!o.retreating&&o.faction===c.owner);if(o&&types[id]&&canTrain(c,types[id])){o.unit.type=types[id];o.unit.tactics=defaultTacticIds(o.unit);}}
  let error=fresh.length?prepareCityUnits(s,cityId,fresh):null;if(error)return error;
  for(const id of ids){if(types[id]){error=changeCityTroop(s,cityId,id,types[id]);if(error)return error;}}
  error=allocateUnitTroops(s,c,ids,troops);if(error)return error;
@@ -181,7 +186,7 @@ export function prepareSiegeUnits(s,battleId,ids,types={},reinforce=false,troops
 }
 export function expeditionError(s,q,{scheduled=false,faction=playerFaction(s)}={}){
  const c=city(s,q.cityId),ids=q.officerIds,units=ids?.map(id=>c?.units.find(u=>u.id===id));
- if((!scheduled&&!isPlanning(s))||s.finished||c?.owner!==faction||activeBattles(s).some(r=>r.kind==='siege'&&r.cityId===c.id))return '当前不能从此城出征';
+ if((!scheduled&&!isPlanning(s))||s.finished||!canFormArmyAt(s,c?.id,faction))return '当前不能从此城出征';
  if(!units?.length||units.length>10||new Set(ids).size!==ids.length||units.some(u=>!u||u.troops<=0||u.mission))return '请选择本城一至十支有兵力的部队';
  if(!ids.includes(q.leader)||!ids.includes(q.advisor)||(q.deputy!==null&&!ids.includes(q.deputy)))return '请从出征部队中任命军团长、副将和军师';
  if(s.armies.length>=CAMPAIGN.maxArmies)return '军团数量已达上限';
@@ -193,7 +198,7 @@ export function launchExpedition(s,q,{scheduled=false,faction=playerFaction(s)}=
  const error=expeditionError(s,q,{scheduled,faction});if(error)return error;
  const c=city(s,q.cityId),units=q.officerIds.map(id=>c.units.find(u=>u.id===id)),supply=Math.min(c.grain,units.length*900);
  const a={...cityForce(c),id:`a${s.nextId++}`,name:units.find(u=>u.id===q.leader).name+'军',units,leader:q.leader,advisor:q.advisor,deputy:q.deputy,supply,supplyCapacity:units.length*900,route:q.route?[...q.route]:findCampaignRoute(s,c.id,q.target,faction===playerFaction(s)?null:faction,q.policy),target:q.target,roadPolicy:q.policy,stationary:false,task:'出征'};delete a.cityForce;
- units.forEach((u,i)=>u.first=i<6);c.units=c.units.filter(u=>!q.officerIds.includes(u.id));c.grain=round(c.grain-supply);s.armies.push(a);reconcileDomestic(s);syncResources(s);return null;
+ units.forEach((u,i)=>u.first=i<armyFrontlineCapacity(a));c.units=c.units.filter(u=>!q.officerIds.includes(u.id));c.grain=round(c.grain-supply);s.armies.push(a);reconcileDomestic(s);syncResources(s);return null;
 }
 
 function syncResources(s){s.grain=Math.floor(s.cities.filter(c=>c.owner===playerFaction(s)).reduce((n,c)=>n+c.grain,0));s.turn=calendar(s).turn;}
@@ -221,6 +226,7 @@ export function orderCampaignArmy(s,id,target,policy='auto',{scheduled=false,fac
   a.route=a.travel?[a.travel.to,...route]:route;a.target=a.route.length?target:null;a.task=a.route.length?'行军':'驻守';if(a.route.length){a.detached=false;a.stationary=false;}reconcileDomestic(s);return null;
 }
 export function splitCampaignArmy(s,id,ids){
+ if((army(s,id)?.marchMode||'normal')!=='normal')return '请先恢复常行再拆分军团';
   const a=army(s,id);if(!canEditArmy(s,a)||a.faction!==playerFaction(s))return '须在筹划阶段于友城拆分驻守军团';
   if(s.armies.length>=CAMPAIGN.maxArmies)return '军团数量已达上限';
   const chosen=a.units.filter(u=>ids.includes(u.id));
@@ -230,15 +236,16 @@ export function splitCampaignArmy(s,id,ids){
   const b={...copy(a),id:`a${s.nextId++}`,name:`${chosen[0].name}军`,units:chosen,leader:chosen[0].id,advisor:[...chosen].sort((x,y)=>y.intellect-x.intellect)[0].id,deputy:chosen[1]?.id||null,supplyCapacity:capacity,supply,route:[],target:null,detached:true,stationary:false};
   a.units=a.units.filter(u=>!ids.includes(u.id));a.supplyCapacity-=capacity;a.supply=round(a.supply-supply);normalize(a);normalize(b);s.armies.push(b);return null;
 }
-function normalize(a){for(const key of ['leader','advisor','deputy'])if(!a.units.some(u=>u.id===a[key]))a[key]=key==='deputy'?null:a.units[0].id;let n=0;for(const u of a.units)if(u.first)u.first=++n<=6;if(!a.units.some(u=>u.first))a.units.slice(0,6).forEach(u=>u.first=true);}
+function normalize(a){for(const key of ['leader','advisor','deputy'])if(!a.units.some(u=>u.id===a[key]))a[key]=key==='deputy'?null:a.units[0].id;let n=0;for(const u of a.units)if(u.first)u.first=++n<=armyFrontlineCapacity(a);if(!a.units.some(u=>u.first))a.units.slice(0,armyFrontlineCapacity(a)).forEach(u=>u.first=true);}
 export function mergeCampaignArmies(s,into,from){
+ if([army(s,into),army(s,from)].some(a=>(a?.marchMode||'normal')!=='normal'))return '请先恢复常行再合并军团';
   const a=army(s,into),b=army(s,from);if(!canEditArmy(s,a)||!canEditArmy(s,b)||a===b||a.location!==b.location||a.faction!==playerFaction(s)||b.faction!==playerFaction(s))return '须选择同城驻守的己方军团';
   if(b.units.some(u=>a.units.some(x=>x.id===u.id)))return '不能合并重复武将';
   mergeLocal(s,a,b);a.detached=false;return null;
 }
 export const createCampaignArmy=prepareCityUnits;
 
-export function transferOfficer(s,id,destination,{scheduled=false,cargo={grain:0,manpower:0},checkOnly=false,faction=playerFaction(s)}={}){
+export function transferOfficer(s,id,destination,{scheduled=false,cargo={grain:0,manpower:0},relay=null,cycles=0,checkOnly=false,faction=playerFaction(s)}={}){
   const resident=residentOfficer(s,id),c=city(s,destination),from=resident&&city(s,resident.location);
   if(!scheduled&&!isPlanning(s)||s.finished||!resident||resident.army||resident.faction!==faction||c?.owner!==faction)return '只能调任在城武将到友城';
   if(s.cities.some(c=>c.governor===id))return '请先解除太守任命';
@@ -247,11 +254,12 @@ export function transferOfficer(s,id,destination,{scheduled=false,cargo={grain:0
   if(!cargo||!['grain','manpower'].every(k=>Number.isSafeInteger(cargo[k])&&cargo[k]>=0))return '携带物资须为非负整数';
   if(cargo.grain>from.grain||cargo.manpower>from.manpower-reservedMen(from))return '本城可用粮草或预备兵不足';
   const route=findCampaignRoute(s,from.id,destination,faction);if(!route)return '调任道路不通';
+  if(relay&&(!hasStrategicTrait(resident.unit,'relayCargo')||![from.id,destination].every(id=>id!==relay)||city(s,relay)?.owner!==faction||!(cargo.grain+cargo.manpower)||!findCampaignRoute(s,from.id,relay,faction)||!findCampaignRoute(s,relay,destination,faction)))return '接力据点、转漕资格或道路无效';
   if(checkOnly)return null;
   cancelDomestic(s,id,'调任其他城池');
   let o=s.campaign.idle.find(o=>o.unit.id===id);
   if(!o){from.units=from.units.filter(u=>u.id!==id);o={unit:resident.unit,faction:resident.faction,location:from.id};s.campaign.idle.push(o);}
-  from.grain-=cargo.grain;from.manpower-=cargo.manpower;o.cargo={...cargo};o.destination=destination;o.unit.homeCity=destination;
+  from.grain-=cargo.grain;from.manpower-=cargo.manpower;o.cargo={...cargo};o.destination=relay||destination;o.unit.homeCity=destination;if(relay)o.relayDestination=destination;if(cycles)o.convoyCycle={source:from.id,target:destination,batch:cargo.grain,remaining:cycles,leg:'out'};
   startPersonnelJourney(s,o);syncResources(s);return null;
 }
 export function recruitCampaign(s,id,ids=null){
@@ -324,7 +332,7 @@ function desert(u,amount){u.hp-=amount;u.battleDamage+=amount;u.battleDeserted=(
 function disband(s,a){
   const r=armyBattle(s,a.id);
   const returning=[];
-  if(r)for(const u of r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id))desert(u,u.hp);
+  if(r)for(const u of r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id&&!u.retreatDispatched))desert(u,u.hp);
   for(const unit of a.units){const home=s.cities.find(c=>c.id===unit.homeCity&&c.owner===a.faction)||s.cities.find(c=>c.owner===a.faction);returning.push({unit:{...copy(unit),troops:0,wounded:0,homeCity:home?.id||a.location},faction:a.faction,location:a.location,destination:home?.id||null,remainingDays:home?Math.max(1,Math.ceil(Math.hypot(city(s,a.location).x-home.x,city(s,a.location).y-home.y)/70)):0});}
   for(const o of returning)if(o.destination)startPersonnelJourney(s,o);
   if(r){a.disbanded=true;a.returningOfficers=returning;a.units.forEach(u=>{u.troops=0;u.wounded=0;});}else {s.campaign.idle.push(...returning);s.armies=s.armies.filter(x=>x!==a);}
@@ -345,7 +353,7 @@ function dailySupply(s){
     }
     const paid=Math.min(need,a.supply);a.supply=round(a.supply-paid);a.hunger=round(Math.max(0,Math.min(5,a.hunger+(need&&paid<need?1-paid/need:-1))));
     if(a.hunger>=5){disband(s,a);continue;}
-    const r=armyBattle(s,a.id);if(r){for(const u of r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id)){u.supplyPenalty=hungerPenalty(a);if(a.hunger>=3)desert(u,Math.ceil(u.hp*.1));}}
+    const r=armyBattle(s,a.id);if(r){for(const u of r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id&&!u.retreatDispatched)){u.supplyPenalty=hungerPenalty(a);if(a.hunger>=3)desert(u,Math.ceil(u.hp*.1));}}
     else if(a.hunger>=3){for(const u of a.units)u.troops=Math.floor(u.troops*.9);}
     if(!r&&!a.travel&&!a.route.length&&city(s,a.location).owner===a.faction&&a.hunger===0){if(s.campaign.scenarioId)a.morale=Math.min(80,a.morale+2);for(const u of a.units){const n=Math.min(u.wounded,18+city(s,a.location).barracks*6+city(s,a.location).clinic*6);u.wounded-=n;u.troops+=n;}}
   }
@@ -378,7 +386,7 @@ function makeEncounter(s,attacker,defenders,cityId,kind,point){
   const defendingFaction=kind==='siege'?city(s,cityId).owner:defenders[0]?.faction;
   defenders=defenders.filter(a=>a.faction===defendingFaction);
   const proxy=newGame(s.seed+s.nextId*997);if(s.campaign.scenarioId)Object.assign(proxy,nationalWorld(s.campaign.scenarioId));proxy.campaign={playerFaction:playerFaction(s)};proxy.relationshipScores=copy(s.relationshipScores);proxy.relationshipTypes=copy(s.relationshipTypes);
-  if(kind==='siege'&&city(s,cityId).units.some(u=>!u.mission)){const c=city(s,cityId),guard={...cityForce(c),id:`a${s.nextId++}`,name:c.name+'守城军',defense:true};delete guard.cityForce;guard.units.forEach((u,i)=>u.first=i<6);c.grain=round(c.grain-guard.supply);c.units=c.units.filter(u=>u.mission);s.armies.push(guard);defenders.push(guard);}
+  if(kind==='siege'&&city(s,cityId).units.some(u=>!u.mission)){const c=city(s,cityId),guard={...cityForce(c),id:`a${s.nextId++}`,name:c.name+'守城军',defense:true};delete guard.cityForce;guard.units.forEach((u,i)=>u.first=i<armyFrontlineCapacity(guard));c.grain=round(c.grain-guard.supply);c.units=c.units.filter(u=>u.mission);s.armies.push(guard);defenders.push(guard);}
   if(kind==='siege')for(const u of defenders.flatMap(a=>a.units).filter(u=>u.troops>0&&!u.mission)){
     const appointment=assignmentFor(s,u.id);cancelDomestic(s,u.id,'参加守城');
     if(appointment){appointment.action=null;appointment.waiting='守城结束后继续任职';s.campaign.domestic.assignments.push(appointment);}
@@ -405,13 +413,14 @@ function makeEncounter(s,attacker,defenders,cityId,kind,point){
   if(kind==='siege')b.domesticOpening={...siegeOpening(real,s.campaign.day),applied:false,side:1-attackSide};
   const r={id,name:kind==='siege'?`${real.name}攻守战`:`${city(s,attacker.travel?.from||attacker.location).name}道遭遇战`,cityId,kind,point:copy(point),attackSide,armyIds:members.map(a=>a.id),armies:copy(members),startedDay:s.campaign.day,endedDay:null,control:'auto',awaiting:members.some(a=>a.faction===playerFaction(s))||real.owner===playerFaction(s)&&kind==='siege',settled:false,battle:b,templates:{},snapshots:[],report:null};
   members.forEach(a=>{a.task='交战';a.route=[];a.target=null;});
-  s.campaign.battles.push(r);captureDay(s,r);if(!r.awaiting)lockDeployment(b,{validateCount:false});
+  s.campaign.battles.push(r);initializeRetreatDestinations(s,r);captureDay(s,r);if(!r.awaiting)lockDeployment(b,{validateCount:false});
   log(s,`第 ${s.campaign.day} 天：${r.name}爆发。`,'war');return r;
 }
 // Reuse the engine's legal terrain/slot placement without advancing time or intent.
 import {fillSlots} from './engine.mjs';
 function initializeBattleSlots(b){fillSlots(b,0);fillSlots(b,1);planEnemyArmy(b);}
 function joinBattle(s,r,a){
+  if(r.battle.sides.flatMap(x=>x.units).some(u=>u.status==='withdrawn'&&a.units.some(v=>v.id===u.id))){a.route=[];a.target=null;a.task='已撤离本场，外围待命';return;}
   if(r.armyIds.includes(a.id)||r.settled)return;
   const side=r.battle.sides.findIndex(x=>x.faction===a.faction);if(side<0)return;
   const leader=a.units.find(u=>u.id===a.leader&&u.troops>0),deputy=a.units.find(u=>u.id===a.deputy&&u.troops>0),advisor=a.units.find(u=>u.id===a.advisor&&u.troops>0);
@@ -425,6 +434,7 @@ function moveArmies(s){
   for(const a of s.armies){if(a.disbanded||armyBattle(s,a.id)||!a.route.length||a.cooldownDay>s.campaign.day||!armyTroops(a))continue;
     if(!a.travel)a.travel={from:a.location,to:a.route[0],progress:0,road:chosenRoad(s,a.location,a.route[0],a.roadPolicy).id};
     const t=a.travel,length=roadLength(s,t.from,t.to),before=t.progress;t.progress=Math.min(length,round(t.progress+armyActionPoints(a)*length/roadCost(s,t.from,t.to,t.road||'main')));movements.push({a,before,after:t.progress,length});
+    if(t.progress>before&&a.marchMode==='forced'){const rule=armyStrategicTrait(a,'forcedMarch')?.strategic;if(rule&&a.morale>=rule.minimum&&a.hunger===0)a.morale=Math.max(0,a.morale-rule.morale);if(!rule||a.morale<(rule?.minimum||40)||a.hunger>0){a.marchMode='normal';a.marchRestUntil=s.campaign.day+(rule?.recovery||2);}}
   }
   // Swept intervals catch head-on crossings even if neither ends at a city.
   for(let i=0;i<movements.length;i++)for(let j=i+1;j<movements.length;j++){
@@ -457,6 +467,7 @@ function moveArmies(s){
     // Walls cannot defend themselves: an unoccupied city changes hands on arrival.
     if(defenders.length||c.owner!==a.faction&&(c.garrison>0||c.units.some(u=>!u.mission&&u.troops>0))){makeEncounter(s,a,defenders,destination,c.owner!==a.faction?'siege':'field',armyPosition(s,a));continue;}
     if(c.owner!==a.faction){const previous=c.owner,eventId=`occupation:${a.id}:${c.id}:${s.campaign.day}`;c.owner=a.faction;noteTalentCityCapture(s,previous,c.owner,eventId);displaceCityOfficers(s,c.id,previous,eventId);c.project=null;c.governor=null;reconcileDomestic(s);}
+    if(armyStrategicTrait(a,'resupplyStop')){const amount=Math.max(0,Math.min(a.supplyCapacity-a.supply,c.grain-cityFoodReserve(s,c)-plannedGrain(s,c.id)));a.supply+=amount;c.grain-=amount;}
     if(!a.route.length){a.target=null;a.task='驻守';}
   }
 }
@@ -482,14 +493,19 @@ function splitRetreatingArmy(s,a){
   groups[0].push(...followers);
   const total=a.units.length,capacity=a.supplyCapacity,supply=a.supply;let usedCapacity=0,usedSupply=0;
   groups.forEach((units,i)=>{const last=i===groups.length-1,partCapacity=last?capacity-usedCapacity:Math.floor(capacity*units.length/total),partSupply=last?round(supply-usedSupply):round(supply*units.length/total),group=i?{...copy(a),id:`a${s.nextId++}`,name:`${units[0].name}撤退军`}:a;
-    group.units=units;group.supplyCapacity=partCapacity;group.supply=partSupply;usedCapacity+=partCapacity;usedSupply=round(usedSupply+partSupply);normalize(group);if(i)s.armies.push(group);
+    group.units=units;group.supplyCapacity=partCapacity;if(group.marchMode==='light')group.fullSupplyCapacity=partCapacity*2;group.supply=partSupply;usedCapacity+=partCapacity;usedSupply=round(usedSupply+partSupply);normalize(group);if(i)s.armies.push(group);
   });
 }
 function settleEncounter(s,r){
   if(r.settled||!r.battle.result)return;
+  dispatchWithdrawn(s,r);
   const b=r.battle,stats=b.sides.map(side=>({faction:side.faction,initial:0,remaining:0,wounded:0,killed:0,escaped:0})),growth=[];
   for(let side=0;side<2;side++)for(const u of b.sides[side].units){const st=stats[side],wounded=battleWounded(u),escaped=u.battleDeserted||0;st.initial+=u.initial;st.remaining+=u.hp;st.wounded+=wounded;st.escaped+=escaped;st.killed+=u.initial-u.hp-wounded-escaped;
-    const a=army(s,u.armyId),source=a?.units.find(x=>x.id===u.id);if(!source||a.disbanded)continue;
+    if(u.retreatDispatched){
+      const source=[...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units),...s.campaign.idle.map(o=>o.unit),...s.campaign.domestic.people.map(p=>p.unit)].find(v=>v?.id===u.id);
+      if(source&&(u.participated||battleMerit(u,false).score>0)){const merit=battleMerit(u,b.result.winner===side),g=gainMerit(source,merit.award);growth.push({id:u.id,side,name:u.name,...merit,...g});}continue;
+    }
+    const a=army(s,u.armyId),source=a?.units.find(x=>x.id===u.id);if(u.retreatDispatched||!source||a.disbanded)continue;
     source.troops=u.hp;source.wounded+=wounded;
     if(u.participated||battleMerit(u,false).score>0){const merit=battleMerit(u,b.result.winner===side),g=gainMerit(source,merit.award);growth.push({id:u.id,side,name:u.name,...merit,...g});}
   }
@@ -500,7 +516,7 @@ function settleEncounter(s,r){
   }
   for(const id of r.armyIds){const a=army(s,id);if(!a||a.disbanded)continue;const side=b.sides.findIndex(x=>x.faction===a.faction);const lost=b.result.winner!==side&&(b.result.winner!==null||side===r.attackSide);a.morale=Math.max(25,Math.min(100,a.morale+(lost?-18:8)));returnArmy(s,a,r,lost);}
   r.settled=true;r.awaiting=false;r.endedDay=s.campaign.day;r.report={winner:b.result.winner,reason:b.result.reason,stats,growth};
-  for(let side=0;side<2;side++)for(const u of b.sides[side].units){if(u.status!=='defeated'||u.hp>0)continue;const a=army(s,u.armyId),source=a?.units.find(x=>x.id===u.id);if(!source||a.disbanded)continue;resolveOfficerLoss(s,{unit:source,faction:a.faction,location:a.location,enemy:b.result.winner!==null&&b.result.winner!==side?b.sides[b.result.winner].faction:null,eventId:r.id+':'+u.id,edge:roadEdgeForArmy(s,a),reason:'部队全歼',survivingArmy:a});}
+  for(let side=0;side<2;side++)for(const u of b.sides[side].units){if(u.status!=='defeated'||u.hp>0)continue;const a=army(s,u.armyId),source=a?.units.find(x=>x.id===u.id);if(u.retreatDispatched||!source||a.disbanded)continue;resolveOfficerLoss(s,{unit:source,faction:a.faction,location:a.location,enemy:b.result.winner!==null&&b.result.winner!==side?b.sides[b.result.winner].faction:null,eventId:r.id+':'+u.id,edge:roadEdgeForArmy(s,a),reason:'部队全歼',survivingArmy:a});}
   // Previously escaped followers did not fight again, so do not roll their fate
   // a second time. If their escort is now gone, they leave from its actual position.
   for(const a of s.armies.filter(a=>r.armyIds.includes(a.id)&&!a.disbanded&&!armyTroops(a))){
@@ -554,7 +570,7 @@ function prepareDay(s){
   const before=s.armies.filter(a=>!a.disbanded&&liveSoldiers(s,a)>0).map(a=>({id:a.id,faction:a.faction,location:a.location,travel:a.travel?{...a.travel}:null,route:[...a.route],roadPolicy:a.roadPolicy,speed:armyActionPoints(a)}));
   moveArmies(s);
   const traffic=before.map(old=>{const a=army(s,old.id),t=old.travel||((a?.travel||a?.location!==old.location)&&old.route.length?{from:old.location,to:old.route[0],progress:0,road:chosenRoad(s,old.location,old.route[0],old.roadPolicy).id}:null);if(!t)return {faction:old.faction,location:old.location};const length=roadLength(s,t.from,t.to),p0=t.progress/length,p1=a?.travel?a.travel.progress/length:a?.location===t.to?1:p0;return {faction:old.faction,location:old.location,edge:{from:t.from,to:t.to,road:t.road||'main',p0,p1,until:p1>p0?Math.min(1,(p1-p0)*roadCost(s,t.from,t.to,t.road)/old.speed):1}};});
-  for(const o of [...c.idle])if(o.destination&&advancePersonnel(s,o,traffic))talentArrived(s,o.unit.id);
+  for(const o of [...c.idle])if(o.destination&&!o.retreating&&advancePersonnel(s,o,traffic))talentArrived(s,o.unit.id);
   consolidateCityArmies(s);reconcileDomestic(s);syncResources(s);c.dayPrepared=true;
   for(const r of activeBattles(s))captureDay(s,r);
 }
@@ -566,8 +582,9 @@ export function advanceCampaignStep(s){
   for(const r of activeBattles(s)){
     if(r.battle.domesticOpening?.applied&&!r.openingConsumed){const c=city(s,r.cityId);for(const key of ['intent','shield'])if(c.domestic.preparation[key]?.actionId===r.battle.domesticOpening[key+'Id'])c.domestic.preparation[key]=null;r.openingConsumed=true;}
     if(r.control==='auto')autoCommand(r.battle);
-    stepBattle(r.battle);if(r.battle.result)settleEncounter(s,r);
+    stepBattle(r.battle);dispatchWithdrawn(s,r);if(r.battle.result)settleEncounter(s,r);
   }
+  for(const o of [...c.idle])if(o.retreating&&advancePersonnel(s,o,[],1/CAMPAIGN.stepsPerDay))talentArrived(s,o.unit.id);
   c.stepInDay++;
   if(c.stepInDay<CAMPAIGN.stepsPerDay)return {stepped:true};
   c.stepInDay=0;c.dayPrepared=false;
@@ -597,18 +614,19 @@ export function validateCampaign(value){
   if(c.scenarioId)fail(Array.isArray(c.archive)&&c.archive.length<=100&&new Set(c.archive.map(r=>r.id)).size===c.archive.length&&c.archive.every(r=>typeof r.id==='string'&&typeof r.name==='string'&&r.name.length<100&&!/[<>]/.test(r.name)&&integer(r.startedDay,c.day)&&r.startedDay>0&&integer(r.endedDay,c.day)&&r.endedDay>=r.startedDay&&['撤退','击溃','久战收兵','城门失守'].includes(r.reason)&&(r.winner===null||Object.hasOwn(FACTIONS,r.winner))&&!c.battles.some(b=>b.id===r.id)),'归档战报无效');
   fail(Array.isArray(c.personnelEvents)&&c.personnelEvents.length<=100&&c.personnelEvents.every(e=>typeof e.id==='string'&&integer(e.day,c.day)&&OFFICER_BY_ID[e.officerId]&&typeof e.type==='string'&&typeof e.text==='string'),'人员动向记录无效');
   fail(typeof c.lastNotice==='string'&&c.lastNotice.length<1000&&c.turnReports.every(r=>integer(r.turn)&&Array.isArray(r.items)&&r.items.length<=value.cities.length*3&&r.items.every(x=>typeof x==='string'&&x.length<1000)));
+  fail(value.armies.every(a=>validMarch(a,c.day)),'行军方式存档无效');
   // Core officer, map and combat validation remains shared with the real engine.
   fail(value.cities.every(c=>Array.isArray(c.units)&&c.units.length<=Object.keys(OFFICER_BY_ID).length&&num(c.hunger,5)),'城内部队数据无效');
   const envelope={...value,battle:null,pending:null,report:null,armies:value.armies?.map(a=>({...a,supply:Math.ceil(a.supply)}))};validateSave(envelope,{strategic:true});
   const officerIds=new Set(),ids=new Set(value.armies.map(a=>a.id));
   const checkOfficer=u=>{validateOfficerMission(value,u);fail(city(value,u.homeCity),'武将归属地无效');fail(!officerIds.has(u.id),'武将重复');officerIds.add(u.id);};
-  for(const a of value.armies){fail(a.cityForce===undefined&&(a.defense===undefined||a.defense===true&&activeBattles(value).some(r=>r.kind==='siege'&&r.cityId===a.location&&r.armyIds.includes(a.id)))&&(a.defense||a.units.filter(u=>u.troops>0).length<=10),'军团须为实际出征或临时守城编组');fail(a.roadPolicy===undefined||['auto','main'].includes(a.roadPolicy),'道路选择无效');fail((!a.travel&&!a.route.length||a.units.filter(u=>u.troops>0).length<=10)&&a.units.filter(u=>u.first).length<=6&&num(a.supply)&&integer(a.supplyCapacity)&&a.supply<=a.supplyCapacity&&num(a.hunger,5)&&num(a.supplyIn)&&integer(a.cooldownDay)&&city(value,a.homeCity),'军团编制或粮草无效');a.units.forEach(checkOfficer);
+  for(const a of value.armies){fail(a.cityForce===undefined&&(a.defense===undefined||a.defense===true&&activeBattles(value).some(r=>r.kind==='siege'&&r.cityId===a.location&&r.armyIds.includes(a.id)))&&(a.defense||a.units.filter(u=>u.troops>0).length<=10),'军团须为实际出征或临时守城编组');fail(a.roadPolicy===undefined||['auto','main'].includes(a.roadPolicy),'道路选择无效');fail((!a.travel&&!a.route.length||a.units.filter(u=>u.troops>0).length<=10)&&a.units.filter(u=>u.first).length<=armyFrontlineCapacity(a)&&num(a.supply)&&integer(a.supplyCapacity)&&a.supply<=a.supplyCapacity&&num(a.hunger,5)&&num(a.supplyIn)&&integer(a.cooldownDay)&&city(value,a.homeCity),'军团编制或粮草无效');a.units.forEach(checkOfficer);
     if(a.travel){const t=a.travel;fail(campaignRoads(value,t.from,t.to).some(r=>r.id===(t.road||'main'))&&t.from===a.location&&num(t.progress,roadLength(value,t.from,t.to)),'行军位置无效');}
     if(a.route.length){let from=a.location;for(const to of a.route){fail(value.roads.some(([x,y])=>x===from&&y===to||x===to&&y===from),'军令路线无效');from=to;}fail(!a.travel||a.route[0]===a.travel.to,'行军路线与位置不一致');}
     if(a.supplyLine)fail(city(value,a.supplyLine.source)&&Array.isArray(a.supplyLine.path)&&a.supplyLine.path.every(id=>city(value,id))&&num(a.supplyLine.distance)&&num(a.supplyLine.rate),'粮道无效');
   }
   for(const u of preparedUnits(value)){checkOfficer(u);const proxy=newGame();proxy.armies=[{...proxy.armies[0],units:[u],leader:u.id,advisor:u.id,deputy:null}];validateSave(proxy);}
-  for(const o of c.idle){validatePersonnelJourney(value,o);checkOfficer(o.unit);fail(Object.hasOwn(FACTIONS,o.faction)&&city(value,o.location)&&integer(o.remainingDays)&&(!o.destination?o.remainingDays===0:city(value,o.destination)&&o.remainingDays>0),'武将调任状态无效');
+  for(const o of c.idle){validatePersonnelJourney(value,o);checkOfficer(o.unit);fail(Object.hasOwn(FACTIONS,o.faction)&&city(value,o.location)&&integer(o.remainingDays)&&(o.retreating?o.remainingDays>0&&(!o.destination||value.cities.some(c=>c.id===o.destination)):!o.destination?o.remainingDays===0:city(value,o.destination)&&o.remainingDays>0),'武将调任状态无效');
     const proxy=newGame();proxy.armies=[{...proxy.armies[0],units:[o.unit],leader:o.unit.id,advisor:o.unit.id,deputy:null}];validateSave(proxy);
   }
   for(const town of value.cities){for(const key of ['grain','manpower','order','gateHp'])fail(num(town[key]),'城池资源无效');fail(town.order<=100&&town.grain<=10000+town.granary*10000&&town.gateHp<=12000+town.walls*3000);
@@ -626,7 +644,7 @@ export function validateCampaign(value){
     fail(r.settled||r.battle.tick===(c.day-r.startedDay)*CAMPAIGN.stepsPerDay+c.stepInDay,'战场日期与世界日期不一致');
     fail(r.control!=='manual'||r.settled||c.focusId===r.id||c.phase==='planning'&&c.resumeId===r.id,'亲自指挥状态不一致');
     if(r.settled)fail(r.report&&r.report.winner===r.battle.result.winner&&r.report.reason===r.battle.result.reason&&Array.isArray(r.report.stats)&&r.report.stats.length===2&&r.report.stats.every(x=>Object.hasOwn(FACTIONS,x.faction)&&['initial','remaining','wounded','killed','escaped'].every(k=>integer(x[k]))&&x.initial===x.remaining+x.wounded+x.killed+x.escaped)&&Array.isArray(r.report.growth),'战果记录无效');
-    if(!r.settled)for(const id of r.armyIds){fail(ids.has(id)&&!engaged.has(id),'军团重复参战或丢失');engaged.add(id);}
+    if(!r.settled)for(const id of r.armyIds){fail((ids.has(id)||r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===id).every(u=>u.retreatDispatched))&&!engaged.has(id),'军团重复参战或丢失');engaged.add(id);}
     fail(r.battle.id===r.id&&r.battle.cityId===r.cityId&&Array.isArray(r.snapshots)&&r.snapshots.length<=c.day+1&&r.templates&&typeof r.templates==='object');checkBattle(r,r.battle);
     let day=0;for(const snap of r.snapshots){fail(integer(snap.day,c.day)&&snap.day>day&&snap.day>=r.startedDay&&snap.tick===snap.data?.tick,'每日快照日期无效');day=snap.day;checkBattle(r,readDailySnapshot(r,snap.day));}
     fail(!r.awaiting||r.battle.tick===0&&!r.battle.deploymentLocked,'已开战不能重新配置');
@@ -635,4 +653,19 @@ export function validateCampaign(value){
   fail(c.resumeId===null||battleIds.has(c.resumeId));
   fail(value.grain===Math.floor(value.cities.filter(c=>c.owner===playerFaction(value)).reduce((n,c)=>n+c.grain,0)),'粮仓汇总不一致');
   validateDomestic(value);validateStrategicOrders(value);if(c.scenarioId)validateStrategicAI(value);value.battle=c.focusId?battleRecord(value,c.focusId).battle:null;value.pending=null;value.report=null;return value;
+}
+
+export function setArmyMarchMode(s,id,mode,{faction=playerFaction(s)}={}){
+ const a=army(s,id);if(!isPlanning(s)||s.finished||!a||a.faction!==faction||armyBattle(s,id)||a.disbanded)return '须在筹划阶段选择未交战的己方军团';
+ if(!marchModes(a).some(m=>m.id===mode))return '军团长不具备这种行军能力';
+ const old=a.marchMode||'normal';if(old===mode)return null;
+ const c=city(s,a.location),home=!a.travel&&c&&c.kind!=='junction'&&c.owner===faction;
+ if((mode==='light'||old==='light')&&!home)return '轻装切换须在己方据点办理辎重交接';
+ const rule=armyStrategicTrait(a,'forcedMarch')?.strategic;
+ const light=armyStrategicTrait(a,'lightMarch')?.strategic.capacity||.5;
+ if(mode==='forced'&&(a.hunger>0||a.morale<(rule?.minimum||40)||(a.marchRestUntil||0)>s.campaign.day))return '急行须无缺粮、士气至少40且已完成休整';
+ if(mode==='light'&&a.supply>a.supplyCapacity*light&&c.grain+(a.supply-a.supplyCapacity*light)>grainCapacity(c))return '本城粮仓不足以接收卸下的辎重';
+ if(old==='light'){a.supplyCapacity=a.fullSupplyCapacity;delete a.fullSupplyCapacity;}
+ if(mode==='light'){a.fullSupplyCapacity=a.supplyCapacity;a.supplyCapacity*=light;const returned=Math.max(0,a.supply-a.supplyCapacity);a.supply-=returned;c.grain+=returned;}
+ a.marchMode=mode;a.marchRestUntil=old==='forced'?s.campaign.day+(rule?.recovery||2):(a.marchRestUntil||0);syncResources(s);return null;
 }

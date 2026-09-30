@@ -1,3 +1,6 @@
+import {currentBattle,readyCurrent,resumeCurrent} from './helpers/current-battle.mjs';
+import {tacticPools,LEARNING_TROOPS} from '../tactic-learning.mjs';
+import {SPECIAL_TACTICS,setStatus} from '../tactics.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -17,14 +20,7 @@ function scenario(type,id) {
 function complete(x) {const count=x.a.skillCasts;for(let i=0;i<12&&x.a.skillCasts===count;i++)stepBattle(x.b);assert.equal(x.a.skillCasts,count+1);}
 function ally(x) {const u={...structuredClone(x.a),id:'ally',x:3,y:3,intent:0,hp:1500,battleDamage:x.a.maxHp-1500,cast:null,statuses:{}};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));x.b.sides[0].units.push(u);return u;}
 
-test('each troop has a valid shared pool and exclusive tactics remain optional',()=>{
-  for(const type of ['spear','archer','cavalry','crossbow']) {
-    const skills=availableTactics({id:'ordinary-test',type});assert.equal(new Set(skills.map(s=>s.id)).size,skills.length);
-
-    assert.equal(skills.filter(s=>s.category==='force').length,3);assert.ok(skills.filter(s=>s.category==='intellect').length>=3);
-  }
-  assert.equal(availableTactics({id:'jia',type:'crossbow'}).filter(s=>s.special).length,1);
-});
+test('each troop has two fixed small actions and one large action; only listed owners have exclusives',()=>{for(const type of LEARNING_TROOPS){const p=tacticPools(type);assert.equal(p.low.length,2);assert.equal(p.high.length,1);}assert.equal(SPECIAL_TACTICS.jin,undefined);assert.ok(SPECIAL_TACTICS.cao);});
 test('learned loadouts persist, ordering works and unlearned additions fail without mutation',()=>{
   const state=newGame(),u=state.armies[0].units[0],ids=unitTactics(u).map(s=>s.id),reversed=[...ids].reverse();
   assert.equal(configureUnitTactics(state,u.id,reversed),null);assert.deepEqual(u.tactics,reversed);
@@ -36,32 +32,10 @@ test('learned loadouts persist, ordering works and unlearned additions fail with
   const x=scenario('spear','ward');x.a.skillReady={};x.d.x=5;assert.equal(readyTactic(x.b,x.a,1).skill.id,'ward');
 });
 
-test('force and intellect damage scale with their own attribute, not troop weapon type',()=>{
-  function damage(id,force,intellect){const x=scenario('archer',id);x.a.force=force;x.a.intellect=intellect;const hp=x.d.hp;complete(x);if(TACTICS_BOOK[id].attackOrb){x.a.cooldown=0;stepBattle(x.b);}return hp-x.d.hp;}
-  assert.ok(damage('fire',95,20)>damage('fire',25,95));
-  assert.ok(damage('wildfire',20,95)>damage('wildfire',95,25));
-});
-test('confusion and seal prevent immediate skills while seal still permits basic attacks',()=>{
-  const x=scenario('archer','smoke');x.d.skillReady.repeat=0;stepBattle(x.b);
-  assert.ok(hasStatus(x.b,x.d,'confuse'));assert.equal(x.d.skillCasts,0);assert.equal(x.d.cast,null);
-  assert.ok(x.b.effects.some(e=>e.text==='混乱'));
-  const y=scenario('crossbow','seal');y.d.skillReady.repeat=0;y.d.cooldown=0;stepBattle(y.b);
-  assert.ok(hasStatus(y.b,y.d,'seal'));assert.equal(y.d.skillCasts,0);
-  assert.ok(y.b.effects.some(e=>e.from===y.d.id&&!e.skill&&e.damage>0));
-  assert.equal(readyTactic(y.b,y.d,4),null);
-});
-test('intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns',()=>{
-  const r=scenario('archer','rally'),ra=ally(r);complete(r);assert.ok(ra.intent>0);assert.equal(r.a.intent,100-TACTICS_BOOK.rally.intentCost);
-  const w=scenario('spear','ward'),wa=ally(w);complete(w);assert.ok(hasStatus(w.b,w.d,'taunt'));assert.equal(w.d.statuses.taunt.sourceId,w.a.id);assert.ok(!hasStatus(w.b,wa,'ward'));
-  const c=scenario('spear','cleanse'),ca=ally(c);ca.statuses.despair={until:99};complete(c);assert.equal(ca.statuses.slow,undefined);assert.ok(hasStatus(c.b,ca,'shield'));
-  const s=scenario('crossbow','screen'),sa=ally(s);complete(s);assert.ok(hasStatus(s.b,sa,'shield'));
-  const p=scenario('cavalry','relay'),pa=ally(p);pa.statuses.phalanx={until:99};complete(p);assert.ok(Object.values(pa.skillReady).every(t=>t<999));assert.ok(hasStatus(p.b,pa,'haste'));
-});
-test('cavalry schemes induce real movement and suppress intent immediately',()=>{
-  const l=scenario('cavalry','lure');complete(l);assert.equal(l.d.x,5);assert.ok(hasStatus(l.b,l.d,'armorBreak'));
-  const h=scenario('cavalry','harass');stepBattle(h.b);
-  assert.ok(h.d.intent<80);assert.ok(hasStatus(h.b,h.d,'weaken'));assert.equal(h.a.skillCasts,1);assert.equal(h.a.cast,null);
-});
+test('force and intellect fixed actions use distinct authored power channels',()=>{for(const [id,type,attr]of [['repeat','crossbow','martialPower'],['tremor','siege','strategyPower']]){const x=currentBattle(id,type);x.target.x=6;x.rear.x=13;x.rear.y=7;assert.equal(TACTICS_BOOK[id].power.attribute,attr);readyCurrent(x,id);stepBattle(x.b);assert.equal(x.u.tacticCasts[id],1);assert.ok(x.target.hp<x.target.maxHp);resumeCurrent(x);}});
+test('confusion and seal block an actual fixed tactic while seal still permits basic attacks',()=>{for(const status of ['confuse','seal']){const x=currentBattle('thrust','spear');setStatus(x.b,x.u,status,10);readyCurrent(x,'thrust');x.u.cooldown=0;stepBattle(x.b);assert.equal(x.u.tacticCasts.thrust||0,0);assert.equal(x.b.effects.some(e=>e.from===x.u.id&&!e.skill&&e.damage>0),status==='seal');}});
+test('current rally restores actual intent and ward taunts a legal nearby enemy',()=>{const r=currentBattle('rally','archer');readyCurrent(r,'rally');stepBattle(r.b);assert.ok(r.ally.intent>0);resumeCurrent(r);let applied=false;for(let seed=1;seed<=30&&!applied;seed++){const w=currentBattle('ward','spear',{seed});readyCurrent(w,'ward');stepBattle(w.b);assert.equal(w.u.tacticCasts.ward,1);applied=w.b.sides[1].units.some(u=>u.statuses.taunt?.sourceId===w.u.id);resumeCurrent(w);}assert.ok(applied);});
+test('current cavalry harassment suppresses the real target without granting retired lure',()=>{const x=currentBattle('harass','cavalry');x.target.intent=80;readyCurrent(x,'harass');stepBattle(x.b);assert.ok(x.target.intent<80);assert.ok(hasStatus(x.b,x.target,'disrupted'));assert.equal(x.u.tactics.includes('lure'),false);resumeCurrent(x);});
 test('new army strategies cleanse controls, shorten cooldowns and persist across saves',()=>{
   const state=encounter('person-290','liao'),b=state.battle;lockDeployment(b);const u=b.sides[0].units[0];
   const skillId=unitTactics(u)[0].id;

@@ -1,3 +1,4 @@
+import {traitImmune} from './trait-mechanics.mjs';
 import {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES,needsRemedy,createDecoy,decoyTargets} from './battle-status-rules.mjs';
 import {battleBuildings} from './building-rules.mjs';
 import {defenseLine} from './defense-line.mjs';
@@ -80,8 +81,8 @@ export function absorbShield(b,u,damage) {
 }
 export const hasStatus = (b,u,key) => key==='shield'?shieldAmount(b,u)>0:(u.statuses?.[key]?.until||0)>b.tick;
 export function setStatus(b,u,key,duration,extra={}) {
-  if(!STATUS_DEFINITIONS[key]||u.isDecoy)return false;
-  if(NEGATIVE_STATUSES.includes(key)&&hasStatus(b,u,'stasis'))return false;
+  if(!STATUS_DEFINITIONS[key]||u.isDecoy||traitImmune(u,key))return false;
+  if(NEGATIVE_STATUSES.includes(key)&&(hasStatus(b,u,'stasis')||key!=='hunger'&&hasStatus(b,u,'magicImmune')))return false;
   if(CONTROL_STATUSES.includes(key)&&hasStatus(b,u,'resolve'))return false;
   if(key==='decoy')return createDecoy(b,u,extra,duration);
   u.statuses ||= {};
@@ -107,7 +108,7 @@ export function setStatus(b,u,key,duration,extra={}) {
   }
   if(key==='ward'&&hasStatus(b,u,'ward')&&u.statuses.ward.percent>extra.percent)return;
   const prior=hasStatus(b,u,key)?u.statuses[key]:null;
-  const magnitude=v=>v.percent??v.amount??v.fraction??v.potency??1;
+  const magnitude=v=>['powerDown','armorBreak','weaken'].includes(key)?(v.fraction??.2*(v.potency??1)):(v.percent??v.amount??v.fraction??v.potency??1);
   const next={until:b.tick+duration+1,...extra};
   if(prior&&magnitude(prior)>magnitude(next))return;
   u.statuses[key]={...next,until:Math.max(prior?.until||0,next.until)};
@@ -207,6 +208,7 @@ export function supportUtility(b,u,a,s){
   let score=0;
   if(s.useEffect&&a!==u)score+=useRecoveryTargets(a,unitTactics(a),s.useEffect).length*60;
   if(s.cleanse)score+=negatives*45;
+  if(s.regrowthFraction&&!hasStatus(b,a,'regrowth'))score+=Math.min(recoverableWounded(a),a.maxHp*s.regrowthFraction*s.regrowthSteps)/10;
   if(s.heal)score+=Math.min(recoverableWounded(a),a.maxHp*s.heal)/10;
   if(s.shield&&(missing>.1||threatened)&&!shieldLayers(b,a).some(l=>l.source===u.id+':'+s.id))score+=20+missing*40;
   if(s.intent&&a!==u&&a.intent<=COMBAT.intentCap-15)score+=Math.min(s.intent,COMBAT.intentCap-a.intent);
@@ -299,8 +301,9 @@ export function tacticTarget(b,u,s,range) {
   const physicalAttack=s.category==='force'&&!['gallop','phalanx','valor','protect','bandage','supply','camp','bulwark','riposte','anchor','emplace'].includes(s.effect)&&!(s.effect==='famous'&&s.mode==='support');
   const targets=physicalAttack?meleeTargetPool(b,u,enemies):enemies;
   range=(s.range ?? range)+(hasStatus(b,u,'emplaced')&&s.category==='force'&&['bombard'].includes(s.effect)?1:0);
-  const inRange=targets.filter(e=>distance(u,e)<=range&&distance(u,e)>=(s.minRange||0));
-  if(s.effect==='famous')return famousTarget(b,u,s,targets);
+  let inRange=targets.filter(e=>distance(u,e)<=range&&distance(u,e)>=(s.minRange||0));
+  if(s.targetRear&&inRange.some(isRear))inRange=inRange.filter(isRear);
+  if(s.effect==='famous')return famousTarget(b,u,s,inRange);
   switch(s.effect) {
     case 'confuse': {
       // Support a nearby equipped charger; control protection still rules out a target.
@@ -335,7 +338,7 @@ export function tacticTarget(b,u,s,range) {
     case 'emplace':return distance(u,nearest)>=2&&distance(u,nearest)<=range&&!hasStatus(b,u,'emplaced')?u:null;
     case 'anchor':return distance(u,nearest)<=range&&!hasStatus(b,u,'anchored')?u:null;
     case 'navalRam':return enemies.find(e=>e.type==='ship'&&distance(u,e)>1&&distance(u,e)<=3&&routeTo(b,u,e,2)?.length)||null;
-    case 'curse':return inRange.sort((a,c)=>(a.statuses.curse?.stacks||0)-(c.statuses.curse?.stacks||0)||idOrder(a,c))[0]||null;
+    case 'curse':return inRange.sort(idOrder)[0]||null;
     case 'blight':case 'plague':return inRange.sort((a,c)=>Number(hasStatus(b,a,'plague'))-Number(hasStatus(b,c,'plague'))||recoverableWounded(c)-recoverableWounded(a)||idOrder(a,c))[0]||null;
     case 'gallop': return !hasStatus(b,u,'ward') && (distance(u,nearest)<=2 || !hasStatus(b,u,'haste') && routeTo(b,u,nearest,14)?.length) ? u : null;
     case 'phalanx': return distance(u,nearest)<=range && !hasStatus(b,u,'phalanx') ? u : null;
@@ -358,6 +361,7 @@ export function lureCell(b,u,target) {
   return hexNeighbors(target).map(([x,y])=>({x,y})).filter(p=>openCell(b,p.x,p.y,target)&&distance(p,u)<distance(target,u)).sort((a,c)=>distance(a,u)-distance(c,u))[0];
 }
 export function readyTactic(b,u,range) {
+  if(u.withdrawing||u.disengage||b.sides[u.side].retreat)return null;
   if(hasStatus(b,u,'seal') || hasStatus(b,u,'stealth') || (u.tacticRecoveryUntil||0)>b.tick)return null;
   // Player slot order is the priority; blocked tactics never block a later legal one.
   for(const s of unitTactics(u)) {

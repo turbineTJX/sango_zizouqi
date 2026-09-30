@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -18,7 +20,7 @@ for(const [id,type] of [['person-290','crossbow'],['person-246','archer']])for(c
   const kit=mode==='full'?[SPECIAL_TACTICS[id],...basics.slice(type==='archer'?1:0,type==='archer'?3:2)]:basics;
   assert.equal(configureUnitTactics(state,mage,kit),null);lockDeployment(b);
   let saved=null;
-  const order=b=>{if(b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)assert.equal(issueCommand(b,key),null);}};
+  const order=b=>{if(b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);}};
   while(!b.result){order(b);stepBattle(b);if(saved){order(saved.battle);stepBattle(saved.battle);}if(i===0&&b.tick===20)saved=validateSave(structuredClone(state));assert.ok(b.tick<=480);}
   if(saved)assert.deepEqual(b,saved.battle);validateSave(structuredClone(state));
   const r={id,type,level,mode,seed,winner:b.result.winner,ticks:b.tick,remaining:b.sides[0].units.reduce((n,u)=>n+u.hp,0)/9000,enemyRemaining:b.sides[1].units.reduce((n,u)=>n+u.hp,0)/9000,commands:b.commandSerial,casts:b.sides[0].units.find(u=>u.id===mage).tacticCasts};samples.push(r);runs.push(r);

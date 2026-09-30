@@ -14,7 +14,7 @@ test('普通武将默认兵种采用真实最高适性，枪戟分别计算',()=
   assert.equal(troopAptitude(p),best,p.name);
  }
  assert.equal(OFFICER_BY_ID['person-1'].type,'halberd');
- assert.ok(officerTraits({id:'person-1'}).includes('halberdDrill'));
+ assert.equal(officerTraits({id:'person-1'}).includes('halberdDrill'),false);
 });
 
 test('兵种强化特性匹配至少A适性，普通弱将则匹配自身最高适性',()=>{

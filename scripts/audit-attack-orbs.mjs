@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import {createScenario,SCENARIOS} from '../scenarios.mjs';
 import {stepBattle,issueCommand,battleStratagems,STRATAGEMS,validateSave} from '../engine.mjs';
@@ -8,7 +10,7 @@ for(const config of SCENARIOS)for(const seed of [1,17,521200]){
   const state=createScenario(config.id,seed),b=state.battle;
   let casts=0,independent=0,enchants=0,procs=0,peak=0;
   while(!b.result){
-    if(b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b,0),STRATAGEMS,0);if(key)issueCommand(b,key);}
+    if(b.commandProgress>=12000){const key=chooseEnemyCommand(b,battleStratagems(b,0),STRATAGEMS,0);if(key)issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0));}
     stepBattle(b);
     const events=b.effects.filter(e=>e.skill&&!e.ongoing&&!e.combo);
     const all=new Set(events.map(e=>e.from+':'+e.label));

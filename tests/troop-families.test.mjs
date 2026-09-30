@@ -43,7 +43,7 @@ import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 test('all siege variants damage a real gate from zero intent and resume deterministically',()=>{
  for(const type of ['ram','siege','tower']){
   const draft={...defaultCustomBattle(),battleKind:'siege',gateHp:50000,limit:120,shieldPercent:0,ownTeam:[{id:'cao',type,troops:6000,level:5}],enemyTeam:[{id:'shao',type:'spear',troops:1000,level:5}]};
-  const s=createScenario('custom-battle',31,0,null,draft),b=s.battle;lockDeployment(b);
+  const s=createScenario('custom-battle',31,0,null,draft),b=s.battle;for(const u of b.sides.flatMap(s=>s.units))u.retreatAt=null;lockDeployment(b);
   for(let i=0;i<12&&!b.result;i++)stepBattle(b);
   const loaded=validateSave(JSON.parse(JSON.stringify(s)));
   while(!b.result){stepBattle(b);stepBattle(loaded.battle);}

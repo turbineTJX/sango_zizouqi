@@ -97,7 +97,7 @@ export const GAME_RECORDS=OFFICER_MASTER_RECORDS.map(base=>{
  const stratagems=officerStratagems(u.id);r.stratagemIds=stratagems.join('、');r.stratagemEffects=stratagems.map(k=>`${STRATAGEMS[k].name}：${STRATAGEMS[k].description}`).join('；')||'无个人军略';
  r.campaignPlacement=placements.get(u.id)||'未编入默认战役';
  r.historicalPlacement=HISTORICAL_CAMPAIGNS.flatMap(s=>['own','enemy'].flatMap(side=>s[side+'Team'].filter(t=>t.id===u.id).map(t=>`${s.name}／${s[side+'Name']}／${TROOPS[t.type].name}`))).join('；')||'未配置历史战役出场';
- assert.ok(route.length>0&&route.length<=OFFICER_TRAIT_SLOTS,u.id);assert.ok(route.every(k=>PASSIVES[k]),u.id);
+ assert.ok(route.length<=OFFICER_TRAIT_SLOTS,u.id);assert.ok(route.every(k=>PASSIVES[k]),u.id);
  assert.ok(validLoadout(u,unitTactics(u).map(s=>s.id))&&validLoadout(u,recommendedTacticIds(u)),u.id);
  assert.ok(GAME_COLUMNS.every(c=>r[c.key]!==undefined),u.id+' missing fields: '+GAME_COLUMNS.filter(c=>r[c.key]===undefined).map(c=>c.key).join(','));
  return Object.fromEntries(Object.entries(r).map(([k,v])=>[k,tidy(v)]));
@@ -114,7 +114,7 @@ export function exportGameOfficerTable(){
  const common=GAME_RECORDS.filter(r=>!SPECIAL_TACTICS[r.id]).length;
  const doc=[`# 武将总表说明（本游戏规则 ${RULES_VERSION}）`,'',
  `[打开完整 CSV](武将总表-本游戏.csv)｜${GAME_RECORDS.length} 人，${GAME_COLUMNS.length} 列。由当前运行模块生成，非旧版 Excel 转存。`,'',
- `全部 ${GAME_RECORDS.length} 人均固定持有正面特性，数量因人而异，开局可用。${GAME_RECORDS.length-common} 人有本人专属战法，${common} 人使用共享特性和兵种战法；“无专属”“无个人军略”是当前实现配置，不是未填。`,'',
+ `全部 ${GAME_RECORDS.length} 人具有预设羁绊成长上限，独立特性数量因人而异且开局可用。${GAME_RECORDS.length-common} 人有本人专属战法，${common} 人使用共享特性和兵种战法；“无专属”“无个人军略”是当前实现配置，不是未填。`,'',
  '- 表中默认属性以新建1级、3000现役为基准；另列10级同兵力静态面板、1级与10级带兵上限，便于比较。带兵上限不等于开局现役。',
  '- 兵力影响攻击、武技、谋略和攻城面板，不能把3000兵的数值当作满编队伍数值。无军团、地形、战斗状态修正；条件被动仍需按说明在战场判定。',
  '- 默认兵种与默认阵位取 makeOfficer；战役临时兵种覆盖单列。当前兵种在编制界面选择，普通模式受所在据点科技约束，战法自动携带。',

@@ -3,14 +3,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
-import {TACTICS_BOOK} from '../tactics.mjs';
+import {TACTICS_BOOK,SPECIAL_TACTICS} from '../tactics.mjs';
 
 test('cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically',()=>{
-  const heroes=['person-661','person-246','person-603','person-404'];
+  const heroes=['person-661','person-246','person-603','person-99'];
   const state=createScenario('officer-lab',17,20,[...heroes,'yu','shao']),b=state.battle;
   for(const u of b.sides[0].units.filter(u=>heroes.includes(u.id))){const setup={spear:'phalanx',cavalry:'gallop',archer:'fire',crossbow:'pierce',ship:'anchor',halberd:'bulwark',siege:'emplace'}[u.type];learnFixtureTactics(u,[setup,'unique-'+u.id]);}
   syncFixtureLearning(state);lockDeployment(b);
-  assert.ok(b.sides.flatMap(s=>s.units).every(u=>u.intent===0));
+  assert.ok(b.sides.flatMap(s=>s.units).every(u=>u.intent===(u.bondEntry?.intent||0)));
   const first=new Map();let resumed=null;
   while(!b.result){
     stepBattle(b);if(resumed)stepBattle(resumed.battle);
@@ -20,7 +20,7 @@ test('cheap setup precedes 100-intent finishers in real zero-intent combat and r
     if(!resumed&&first.has('person-661:unique-person-661'))resumed=validateSave(structuredClone(state));
   }
   for(const hero of heroes){
-    const id='unique-'+hero;
+    const id=SPECIAL_TACTICS[hero];
     assert.equal(TACTICS_BOOK[id].threshold,100);
     assert.ok(first.has(hero+':'+id),`${id} can reach its threshold before combat ends`);
     const u=b.sides[0].units.find(u=>u.id===hero);

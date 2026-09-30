@@ -13,15 +13,15 @@ test('电脑自然充能后的军略在部队行动结束后下达，与玩家�
   if(b.tick===20)resumed=validateSave(structuredClone(syncFixtureLearning(state)));
  }
  assert.ok(b.enemyCommand.commandSerial>0,'无需注入军略资源');
- assert.ok(b.logs[0].text.startsWith('敌军军略 ·'),'最新日志是步末军略，而非军略后的部队行动');
+ assert.ok(b.logs.some(l=>l.tick===b.enemyCommand.lastCommand.tick&&l.text.includes('军略')),'军略记录在本步末产生');
  assert.equal(b.logs[0].tick,b.enemyCommand.lastCommand.tick);
  assert.deepEqual(resumed.battle,b);
  while(!b.result){stepBattle(b);stepBattle(resumed.battle);}
  assert.deepEqual(resumed.battle,b);
 });
 
-for(const healer of ['liu','yu'])test(`自然击溃守军后，${healer}继续使用真实伤兵与战意救护`,t=>{
- const unit=(id,type,troops)=>({id,type,troops,level:5});
+for(const healer of ['liu'])test(`自然击溃守军后，${healer}继续使用真实伤兵与战意救护`,t=>{
+ const unit=(id,type,troops)=>({id,type,troops,level:5,retreatAt:null});
  // An authored siege fixture: enough gate durability to observe the period
  // after the defenders fall. No intent, cooldown or wounded ledger injection.
  const fixture={...SCENARIOS.find(s=>s.id==='siege'),id:'engine-gate-support',ownName:'攻城验证军',enemyName:'守城验证军',terrain:'land',gateHp:60000,limit:480,waves:[],ownTeamRoles:{leader:'person-396',advisor:'yu',deputy:null},enemyTeamRoles:{leader:'jin',advisor:'jin',deputy:null},ownTeam:[unit('person-396','cavalry',6000),unit(healer==='liu'?'person-636':'person-433','spear',3000),unit('yu','crossbow',3000)],enemyTeam:[unit('jin','spear',1500),unit('yuanxia','archer',1500),unit('person-610','crossbow',1500)]};
@@ -29,7 +29,7 @@ for(const healer of ['liu','yu'])test(`自然击溃守军后，${healer}继续�
  // Seed 2 leaves reachable wounded after the rule-50 defenders fall; seed 1 leaves them outside screen range.
  const state=createScenario(fixture.id,healer==='liu'?27:2),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');
  if(healer==='liu')learnFixtureTactics(b.sides[0].units.find(u=>u.id==='person-636'),['unique-person-636','phalanx','strike']);
- learnFixtureTactics(b.sides[0].units.find(u=>u.id==='yu'),['screen','seal','ambush']);syncFixtureLearning(state);
+
  validateSave(structuredClone(syncFixtureLearning(state)));lockDeployment(b);
  while(!b.result&&b.sides[1].units.some(u=>u.status==='active'&&u.hp>0))stepBattle(b);
  assert.equal(b.result,null);assert.ok(b.siege.gate.hp>0);

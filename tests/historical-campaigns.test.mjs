@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {HISTORICAL_CAMPAIGNS} from '../historical-campaigns.mjs';
@@ -24,7 +26,7 @@ for(const config of HISTORICAL_CAMPAIGNS)test(`${config.name}: historical roster
     if(b.commandProgress>=12000){
       // Choose legal player orders from visible combat data; never inject intent or resources.
       const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
-      if(key){assert.equal(issueCommand(b,key),null);assert.equal(issueCommand(resumed.battle,key),null);orders++;}
+      if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);assert.equal(issueCommand(resumed.battle,key,chooseStratagemPoint(resumed.battle,AREA_DESIGNS[key],0)),null);orders++;}
     }
     stepBattle(b);stepBattle(resumed.battle);
   }

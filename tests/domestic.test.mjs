@@ -88,13 +88,15 @@ test('actual siege pauses construction without charging again or completing in t
  const r=activeBattles(s).find(r=>r.cityId==='xuchang');assert.ok(r);const remaining=a.action.remaining,gold=s.gold;chooseEncounter(s,r.id,true);lockDeployment(r.battle);advanceCampaignDay(s);assert.equal(a.action.remaining,remaining);assert.equal(s.gold,gold);assert.ok(a.action.paused);restore(s);
 });
 
-test('a defeated city army retreats in columns of at most ten without duplicating personnel',()=>{
- const s=newCampaign(19),ids=addIdle(s,'xuchang',14);assert.equal(createCampaignArmy(s,'xuchang',ids),null);const own=s.cities.find(c=>c.id==='xuchang');own.units.forEach(u=>u.troops=300);const original=own.units.map(u=>u.id);assert.ok(original.length>10);
+test('defending city troops leave as real retreat transports without duplicating personnel',()=>{
+ const s=newCampaign(19),ids=addIdle(s,'xuchang',14);assert.equal(createCampaignArmy(s,'xuchang',ids),null);const own=s.cities.find(c=>c.id==='xuchang');own.units.forEach(u=>u.troops=1000);const original=own.units.map(u=>u.id);assert.ok(original.length>10);
  peacefulCities(s);const enemy=invadeFromGuandu(s);enemy.route=['xuchang'];enemy.target='xuchang';
  beginExecution(s);for(let i=0;i<20&&!activeBattles(s).some(r=>r.cityId==='xuchang');i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);for(const r of activeBattles(s).filter(r=>r.awaiting&&r.cityId!=='xuchang'))chooseEncounter(s,r.id,false);}
- const r=activeBattles(s).find(r=>r.cityId==='xuchang');assert.ok(r);chooseEncounter(s,r.id,true);lockDeployment(r.battle);assert.equal(issueCommand(r.battle,'retreat'),null);
+ const r=activeBattles(s).find(r=>r.cityId==='xuchang');assert.ok(r);chooseEncounter(s,r.id,true);lockDeployment(r.battle);restore(s);assert.equal(issueCommand(r.battle,'retreat'),null);
  for(let i=0;i<500&&!r.settled;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);advanceCampaignStep(s);}
- assert.ok(r.settled);const returned=s.armies.filter(a=>a.units.some(u=>original.includes(u.id)));assert.ok(returned.length>=2);assert.ok(returned.every(a=>a.units.length<=10));assert.equal(returned.flatMap(a=>a.units).filter(u=>original.includes(u.id)).length,original.length);restore(s);
+ assert.ok(r.settled);const withdrawn=r.battle.sides.flatMap(side=>side.units).filter(u=>original.includes(u.id)&&u.status==='withdrawn');assert.ok(withdrawn.length>10);assert.ok(withdrawn.every(u=>u.retreatDispatched));
+ const people=[...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units),...s.campaign.idle.map(o=>o.unit),...s.campaign.domestic.people.map(p=>p.unit)];for(const id of original)assert.equal(people.filter(u=>u?.id===id).length,1,id);
+ assert.ok(s.armies.filter(a=>!a.defense).every(a=>a.units.filter(u=>u.troops>0).length<=10));assert.ok(s.campaign.idle.some(o=>original.includes(o.unit.id)&&o.retreating&&o.journey.route.length));restore(s);
 });
 
 test('completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it',()=>{

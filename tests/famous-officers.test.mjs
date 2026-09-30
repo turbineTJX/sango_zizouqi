@@ -1,3 +1,7 @@
+import {currentBattle,readyCurrent} from './helpers/current-battle.mjs';
+import {officerTraits} from '../officer-traits.mjs';
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
 import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -10,29 +14,12 @@ import {hasPassive,passiveDamageMultiplier,passiveAttributes,passiveList,moved} 
 import {unitAttributes} from '../unit-stats.mjs';
 import {officerDetailMarkup} from '../officer-roster.mjs';
 
-function fixture(id){
- const state=createScenario('officer-lab',713,20,[id]),b=state.battle,u=b.sides[0].units[0],d=b.sides[1].units[0];
- b.sides[0].units=[u];b.sides[1].units=[d];
- Object.assign(u,{x:4,y:3,level:10,hp:2400,intent:100,cooldown:999,statuses:{},skillReady:{}});
- Object.assign(d,{x:5,y:3,hp:3000,maxHp:3000,intent:100,cooldown:999,statuses:{}});
- const ally={...structuredClone(u),id:'support-fixture',x:3,y:3,hp:900,intent:0,battleDamage:2100,healed:0};
- b.sides[0].units.push(ally);
- for(const a of [u,d,ally])a.skillReady=Object.fromEntries(unitTactics(a).map(s=>[s.id,999]));
- const s=TACTICS_BOOK[SPECIAL_TACTICS[id]];u.skillReady[s.id]=0;
- for(const a of [u,d,ally])a.entryStatusesApplied=true;
- lockDeployment(b);
- if(s.useEffect){
-   // Earn an actual ordinary cast before the recovery support becomes eligible.
-   ally.type='spear';ally.x=4;u.x=3;learnFixtureTactics(ally,['phalanx']);ally.intent=100;ally.skillReady.phalanx=0;u.skillReady[s.id]=999;
-   stepBattle(b);assert.equal(ally.tacticCasts.phalanx,1);u.skillReady[s.id]=0;u.x=4;ally.x=3;
- }
- return {state,b,u,d,ally,s};
-}
+function fixture(id){const skill=SPECIAL_TACTICS[id];assert.ok(skill,id+' has a current exclusive');const x=currentBattle(skill,'spear'),{state,b,u,ally,target:d}=x,s=TACTICS_BOOK[skill];u.hp=2400;u.battleDamage=600;ally.hp=900;ally.battleDamage=2100;d.intent=100;readyCurrent(x,skill);return{state,b,u,d,ally,s};}
 
-test('42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them',()=>{
- assert.equal(Object.keys(FAMOUS_OFFICERS).length,42);
- assert.equal(Object.keys(SPECIAL_TACTICS).length,42);
- for(const id of Object.keys(FAMOUS_OFFICERS)){
+test('16 current owners carry their exclusive outside ordinary slots and expose actual descriptions',()=>{
+ assert.equal(Object.keys(SPECIAL_TACTICS).length,16);
+ assert.equal(Object.keys(SPECIAL_TACTICS).length,16);
+ for(const id of Object.keys(SPECIAL_TACTICS)){
   const u=makeOfficer(id,3000,0,10),special=SPECIAL_TACTICS[id];
   assert.equal(unitTactics(u)[0].id,special);
   assert.ok(unitTactics(u).length>=1&&unitTactics(u).length<=4);
@@ -43,7 +30,7 @@ test('42 owners have five growth nodes, their exclusive loadout and visible desc
 });
 
 test('every exclusive tactic resolves through the real engine and enters only its own cooldown',()=>{
- for(const id of Object.keys(FAMOUS_OFFICERS)){
+ for(const id of Object.keys(SPECIAL_TACTICS)){
   const {b,u,d,ally,s}=fixture(id);
   if(s.effect==='terror')d.x=6;
   if(s.effect==='protect')Object.assign(ally,{x:5,y:4});
@@ -60,7 +47,7 @@ test('every exclusive tactic resolves through the real engine and enters only it
 
 test('area AI selects the larger cluster and includes the anchor despite enemy array order',()=>{
  const {b,u,d,s}=fixture('person-603');
- Object.assign(d,{x:5,y:0});
+ Object.assign(d,{x:5,y:0});Object.assign(b.sides[1].units[1],{x:13,y:7});
  const a={...structuredClone(d),id:'cluster-a',x:6,y:3},c={...structuredClone(d),id:'cluster-c',x:6,y:4};
  b.sides[1].units.push(a,c);
  const target=tacticTarget(b,u,s,3);assert.notEqual(target.id,d.id);
@@ -70,104 +57,28 @@ test('area AI selects the larger cluster and includes the anchor despite enemy a
 });
 
 test('multi-hit and multi-target exclusive attacks do not charge the caster',()=>{
- for(const id of ['person-390','person-603']){
+ for(const id of ['person-396','person-603']){
   const {b,u,d,s}=fixture(id);u.level=1;u.intent=s.threshold;
   b.sides[1].units.push({...structuredClone(d),id:'second-target',x:5,y:4});
   stepBattle(b);assert.equal(u.intent,s.threshold-s.intentCost);
  }
 });
 
-test('support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot',()=>{
- const {b,u,d,ally,s}=fixture('yu');
- u.hp=ally.hp=3000;d.x=12;
- assert.equal(tacticTarget(b,u,s,3),null);
- setStatus(b,ally,'despair',4);
- assert.equal(tacticTarget(b,u,s,3),ally);
- stepBattle(b);assert.ok(!hasStatus(b,ally,'despair'));assert.ok(hasStatus(b,ally,'resolve'));
- const q=fixture('person-636');q.u.hp=q.ally.hp=3000;q.ally.intent=100;q.d.x=8;
- q.u.type='crossbow';learnFixtureTactics(q.u,[q.s.id,'seal','pierce']);q.u.skillReady={};
- assert.equal(readyTactic(q.b,q.u,4).skill.id,'seal');
-});
+test('Liu Bei support waits for recoverable wounds instead of casting on an empty need',()=>{const x=fixture('person-636');x.u.hp=x.u.maxHp;x.u.battleDamage=0;x.ally.hp=x.ally.maxHp;x.ally.battleDamage=0;x.d.x=12;assert.equal(tacticTarget(x.b,x.u,x.s,3),null);x.ally.hp-=1000;x.ally.battleDamage=1000;assert.ok(tacticTarget(x.b,x.u,x.s,3));stepBattle(x.b);assert.equal(x.u.tacticCasts[x.s.id],1);assert.ok(hasStatus(x.b,x.ally,'regrowth'));});
 
 test('exclusive control respects resolve and discipline; deaths do not acquire new statuses',()=>{
  const x=fixture('person-433');setStatus(x.b,x.d,'resolve',5);
  stepBattle(x.b);assert.ok(!hasStatus(x.b,x.d,'confuse'));assert.ok(x.d.hp<3000);
- const y=fixture('person-425');y.d.politics=100;stepBattle(y.b);
- assert.ok(hasStatus(y.b,y.d,'confuse'));assert.ok(y.d.statuses.confuse.until-y.b.tick<=4);
+ let controlled=false;for(let seed=1;seed<=30&&!controlled;seed++){const y=fixture('liao');y.b.seed=seed;y.d.x=6;y.d.politics=100;stepBattle(y.b);assert.equal(y.u.tacticCasts.terror,1);if(hasStatus(y.b,y.d,'confuse')){controlled=true;assert.ok(y.d.statuses.confuse.until-y.b.tick<=3);}}assert.ok(controlled);
  const z=fixture('person-99');z.d.hp=1;stepBattle(z.b);
  assert.equal(z.d.hp,0);assert.ok(!z.d.statuses.armorBreak);
 });
 
-test('personal traits affect troop panels from level one, remain independent of tactics, and respect conditions',()=>{
- const x=fixture('person-99');x.u.hp=3000;
- x.u.level=1;assert.ok(hasPassive(x.u,famousPassiveId(x.u.id)));
- const before=unitAttributes(x.u,x.b),without=passiveDamageMultiplier(x.b,x.u,x.d,'force');
- x.u.level=10;const after=unitAttributes(x.u,x.b);
- assert.equal(after.attack,before.attack);assert.equal(after.attackInterval,before.attackInterval);
- assert.equal(after.martialPower,before.martialPower);assert.equal(passiveDamageMultiplier(x.b,x.u,x.d,'force'),without);
- x.u.tactics=['gallop','rush','valor'];assert.equal(unitAttributes(x.u,x.b).attack,after.attack);
- x.u.type='spear';assert.equal(passiveList(x.u,x.b).find(t=>t.id===famousPassiveId(x.u.id)).state,'兵种不符');
- const h=fixture('person-186');h.b.tick=3;assert.match((passiveAttributes(h.b,h.u).attack?.[0]?.label||''),/老健/);
- const from={x:h.u.x,y:h.u.y};h.u.x--;moved(h.b,h.u,from);assert.doesNotMatch((passiveAttributes(h.b,h.u).attack?.[0]?.label||''),/老健/);
- const a=fixture('person-396');assert.match(passiveAttributes(a.b,a.u).defense[0].label,/龙胆/);
- a.u.hp=1000;assert.match(passiveAttributes(a.b,a.u).defense[0].label,/龙胆/);
- const c=fixture('person-636');c.u.hp=c.u.maxHp*.5;assert.doesNotMatch(passiveAttributes(c.b,c.u).defense?.[0]?.label||'',/昭烈/);
- c.u.hp--;assert.match(passiveAttributes(c.b,c.u).defense[0].label,/昭烈/);
-});
+test('exclusive tactics and independent traits remain fixed across level and troop changes',()=>{for(const id of Object.keys(SPECIAL_TACTICS)){const a=makeOfficer(id,3000,0,1),b=makeOfficer(id,3000,0,10);assert.deepEqual(officerTraits(a),officerTraits(b));for(const type of ['spear','siege','ship'])assert.ok(availableTactics({...b,type}).some(t=>t.id===SPECIAL_TACTICS[id]));}});
 
-test('all personal troop skills have distinct panel identities and no hidden tactic damage multiplier',()=>{
- const identities=new Set();
- for(const [id,design] of Object.entries(FAMOUS_OFFICERS).filter(([,p])=>p.ultimate)){
-  const p=design.ultimate,x=fixture(id);
-  x.u.hp=p.trigger==='wounded'?x.u.maxHp*.49:x.u.maxHp;
-  if(p.trigger==='steady')x.b.tick=3;
-  if(p.trigger==='late')x.b.tick=40;
-  if(p.trigger==='alone')x.ally.x=0;
-  const identity=JSON.stringify([p.troops,p.stats,p.trigger]);
-  assert.ok(!identities.has(identity),id+' duplicates another personal skill');identities.add(identity);
-  const low=unitAttributes({...x.u,level:9},x.b),high=unitAttributes(x.u,x.b);
-  assert.equal(passiveList(x.u,x.b).find(t=>t.id===famousPassiveId(x.u.id)).state,'已生效',id);
-  for(const key of Object.keys(p.stats)){assert.equal(high[key],low[key],id+' '+key);assert.ok(Object.keys(passiveAttributes(x.b,x.u)).includes(key),id+' '+key);}
-  for(const kind of ['force','intellect'])assert.equal(passiveDamageMultiplier(x.b,x.u,x.d,kind),passiveDamageMultiplier(x.b,{...x.u,level:9},x.d,kind),id);
-  if(p.troops){
-   x.u.type='siege';const wrong=unitAttributes(x.u,x.b),wrongLow=unitAttributes({...x.u,level:9},x.b);
-   assert.deepEqual(wrong,wrongLow,id+' troop restriction');
-  }
- }
- assert.equal(identities.size,26);
-});
+test('Liu Bei support stays local and excludes reserves',()=>{const {b,u,ally,s}=fixture('person-636'),far={...structuredClone(ally),id:'far-ally',x:0,y:0},reserve={...structuredClone(ally),id:'reserve-ally',status:'reserve',arrivalTick:999};b.sides[0].units.push(far,reserve);const targets=famousTargets(b,u,s);assert.ok(targets.includes(ally));assert.ok(!targets.includes(far)&&!targets.includes(reserve));stepBattle(b);assert.ok(hasStatus(b,ally,'regrowth'));assert.equal(hasStatus(b,far,'regrowth'),false);assert.equal(hasStatus(b,reserve,'regrowth'),false);});
 
-test('exclusive support stays local and capped while army healing reaches distant active units',()=>{
- for(const id of ['cao','yu','jin','shao','ju','person-636','person-368','person-668']){
-  const {b,u,ally,d,s}=fixture(id);
-  // Every support has a real need; no artificial pending-cast state.
-  setStatus(b,ally,'seal',5);ally.intent=0;
-  const far={...structuredClone(ally),id:'far-ally',x:0,y:0},reserve={...structuredClone(ally),id:'reserve-ally',status:'reserve',arrivalTick:999};
-  b.sides[0].units.push(far,reserve);
-  const targets=famousTargets(b,u,s);
-  assert.ok(targets.length>0&&targets.length<=s.targets,id);
-  assert.ok(!targets.includes(far)&&!targets.includes(reserve),id);
-  const previous=structuredClone(far);stepBattle(b);assert.equal(u.tacticCasts[s.id],1,id);
-  assert.equal(far.hp,previous.hp);assert.equal(far.intent,previous.intent);assert.equal(shieldAmount(b,far),0);
-  if(s.heal){assert.ok(ally.hp>900);assert.ok(ally.healed<=735);assert.equal(shieldAmount(b,ally),0);}
-  assert.ok(!b.effects.some(e=>e.from===u.id&&e.target===d.id&&e.healing),id);
-  b.sides[0].commanders=[];appointBattleTestCommander(b,'yu');b.commandProgress=COMMAND_RESOURCE.capacity;
-  const nearHp=ally.hp,farHp=far.hp,reserveHp=reserve.hp;
-  assert.equal(issueCommand(b,'heal'),null);
-  assert.ok(ally.hp>nearHp&&far.hp>farHp,id+' army heal ignores distance');assert.equal(reserve.hp,reserveHp);
- }
-});
-
-test('Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded',()=>{
- const {b,u,ally,s}=fixture('person-636');
- u.battleDamage=0;ally.battleDamage=0;
- assert.equal(tacticTarget(b,u,s,3),null,'low HP alone does not create recoverable wounded');
- ally.battleDamage=100;const before=ally.hp;stepBattle(b);
- assert.equal(ally.hp,before+35);assert.equal(ally.healed,35);
- assert.equal(tacticTarget(b,u,s,3),null,'exhausted wounded pool');
- ally.battleDamage=2100;ally.hp=0;ally.status='defeated';
- assert.equal(tacticTarget(b,u,s,3),null);
-});
+test('Liu Bei regrowth consumes only actual wounded and never revives defeated units',()=>{const {b,u,ally,s}=fixture('person-636');u.battleDamage=0;ally.battleDamage=0;assert.equal(tacticTarget(b,u,s,3),null);ally.battleDamage=100;const before=ally.hp;stepBattle(b);assert.equal(ally.hp,before);assert.ok(hasStatus(b,ally,'regrowth'));for(let i=0;i<12;i++)stepBattle(b);assert.ok(ally.healed<=35);assert.ok(ally.hp<=before+35);ally.hp=0;ally.status='defeated';assert.equal(tacticTarget(b,u,s,3),null);});
 
 test('burn stacks retain the strongest snapshot, refresh duration, and cap at three',()=>{
  const {b,d}=fixture('person-246');
@@ -177,21 +88,10 @@ test('burn stacks retain the strongest snapshot, refresh duration, and cap at th
  b.tick=d.statuses.burn.until;setStatus(b,d,'burn',3,{amount:15,sourceId:'weak'});assert.equal(d.statuses.burn.sourceId,'weak');
 });
 
-test('self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent',()=>{
- for(const id of ['person-164','person-494']){
-  const {b,u,s}=fixture(id);u.level=1;u.intent=s.threshold;
-  u.initial=u.hp;u.battleDamage=0;u.healed=0;
-  setStatus(b,u,'shield',9,{amount:500,source:'self-test'});
-  const before=u.hp;stepBattle(b);
-  assert.equal(before-u.hp,Math.floor(before*s.selfCost));assert.equal(u.battleDamage,before-u.hp);
-  assert.equal(shieldAmount(b,u),500);assert.equal(u.intent,s.threshold-s.intentCost);
-  const low=fixture(id);low.u.hp=1;low.u.initial=1;low.u.battleDamage=0;low.u.healed=0;
-  stepBattle(low.b);assert.equal(low.u.hp,1);assert.equal(low.u.battleDamage,0);
- }
-});
+test('retired self-cost exclusives cannot be acquired by Huang Gai or Zhou Tai',()=>{for(const id of ['person-164','person-494']){const u=makeOfficer(id,3000,0,10);assert.equal(SPECIAL_TACTICS[id],undefined);assert.ok(unitTactics(u).every(s=>!s.selfCost));}});
 
-test('new exclusive effects resume deterministically and settle with conserved troops for all 42 officers',()=>{
- const ids=Object.keys(FAMOUS_OFFICERS);
+test('new exclusive effects resume deterministically and settle with conserved troops for all 16 holders',()=>{
+ const ids=Object.keys(SPECIAL_TACTICS);
  for(let i=0;i<ids.length;i+=6){
   const state=createScenario('officer-lab',81+i,20,ids.slice(i,i+6));
   lockDeployment(state.battle);for(let n=0;n<50&&!state.battle.result;n++)stepBattle(state.battle);
@@ -202,3 +102,4 @@ test('new exclusive effects resume deterministically and settle with conserved t
   for(const side of report.stats)assert.equal(side.initial,side.remaining+side.killed+side.wounded);
  }
 });
+

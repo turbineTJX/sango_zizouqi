@@ -10,7 +10,7 @@ for(const [type,t] of Object.entries(TROOPS))test(`${type}: gate attacks use der
  for(const hp of [300,1800])for(const buff of [false,true]){
   const b=createScenario('siege',173).battle,u=b.sides[0].units[0],gate=b.siege.gate;
   b.sides[0].units=[u];b.sides[1].units=[];
-  Object.assign(u,{type,level:1,hp,x:type==='siege'?9:11,y:4,cooldown:0,intent:0,statuses:{}});
+  Object.assign(u,{type,level:1,hp,retreatAt:null,x:type==='siege'?9:11,y:4,cooldown:0,intent:0,statuses:{}});
   u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,9999]));
   if(buff)b.sides[0].assaultUntil=9999;
   lockDeployment(b);

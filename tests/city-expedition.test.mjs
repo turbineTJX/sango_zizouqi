@@ -45,6 +45,7 @@ test('a deferred expedition stores composition, creates no army early, and launc
 });
 test('real sieges build temporary defense from city units and resume deterministically',()=>{
  const s=newCampaign(5,'guandu-200');let r;
+ assert.equal(launchExpedition(s,order(s,'chenliu','ye')),null);
  for(let n=0;n<20&&!r;n++){advance(s);r=activeBattles(s).find(r=>r.armies.some(a=>a.defense));}
  assert.ok(r);const guard=s.armies.find(a=>a.defense&&r.armyIds.includes(a.id));assert.ok(guard);assert.equal(town(s,guard.location).units.length,0);
  for(const pending of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,pending.id,false);

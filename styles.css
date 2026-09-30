@@ -215,9 +215,32 @@
 .enemy-command-state{padding:10px 0;color:#d9aaa0;font-size:12px;line-height:1.7}.enemy-command-state b{color:#efc6ba}.enemy-command-state p{margin:5px 0}
 @media(max-width:600px){.status-badge .status-icon{width:10px;height:10px}.status-badge small{font-size:8px}.unit-status-icons{gap:1px;bottom:-12px}.status-detail{gap:6px;padding:9px}.status-detail small{font-size:10px}}
 /* Persistent results stay outside the battlefield and open a paused history. */
+.ability-cues{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:none;padding:8px 0;height:122px;min-width:0}
+.ability-cue{--cue-accent:#a5e6cf;display:flex;align-items:stretch;gap:12px;min-width:0;width:100%;overflow:hidden;border:1px solid #a5e6cf44;border-left:3px solid var(--cue-accent);border-radius:3px;background:linear-gradient(115deg,#23463f,#10242a 70%);color:#e9e6d4;text-align:left;padding:0;cursor:pointer;font:12px/1.4 var(--sans)}
+.ability-cue.side-1{--cue-accent:#f1ac95;background:linear-gradient(115deg,#4a302f,#251e29 70%);border-color:#f1ac9544;border-left-color:var(--cue-accent)}
+.ability-cue:disabled{align-items:center;justify-content:center;opacity:.45;cursor:default}
+.ability-cue:focus-visible{outline:2px solid #ffe3a1;outline-offset:1px}
+.ability-cue.reveal{animation:ability-reveal .32s ease-out both}
+@keyframes ability-reveal{from{opacity:.25;transform:translateY(-8px);filter:brightness(1.6)}to{opacity:1;transform:translateY(0);filter:brightness(1)}}
+@media(prefers-reduced-motion:reduce){.ability-cue.reveal{animation:none}}
+.ability-portrait{position:relative;flex:0 0 82px;background:#132525;color:#d6c18e;font:48px/104px serif;text-align:center;overflow:hidden}
+.ability-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;opacity:0}.ability-portrait.loaded img{opacity:1}
+.ability-body{position:relative;display:block;min-width:0;flex:1;padding:8px 10px 6px 0}
+.ability-owner{display:block;font-size:11px;color:var(--cue-accent);letter-spacing:1px}.ability-body strong{display:inline-block;font:700 23px/1.25 var(--serif,serif);color:#ffe4a1;letter-spacing:3px;margin-right:8px}
+.ability-kind{font-size:10px;color:var(--cue-accent);border:1px solid #ffffff30;padding:1px 5px;vertical-align:3px}
+.ability-detail{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px;line-height:1.4;color:#e3e8de}.ability-hint{position:absolute;right:10px;top:8px;font-size:10px;color:#b6bcaa}
 .tactic-result{display:block;flex:none;width:100%;min-height:58px;max-height:78px;overflow:hidden;text-align:left;white-space:pre-line;border:1px solid #8cc6af44;border-left:3px solid #a9d9c7;border-radius:4px;padding:8px 12px;background:#172c2b;color:#e4ddc5;font:12px/1.6 var(--sans);cursor:pointer}
+@media(max-width:700px){.ability-cues{height:150px;gap:5px;padding:5px 0}.ability-cue{gap:6px;position:relative}.ability-portrait{flex-basis:34px;font-size:25px;line-height:140px;opacity:.85}.ability-body{padding:7px 5px 20px 0}.ability-owner{font-size:10px;letter-spacing:0}.ability-body strong{font-size:19px;letter-spacing:1px;display:block;margin:3px 0}.ability-kind{position:absolute;left:0;bottom:6px;font-size:9px}.ability-detail{font-size:10px;-webkit-line-clamp:3}.ability-hint{display:none}}
 .tactic-result:disabled{color:#91a79c;cursor:default}.tactic-result:focus-visible{outline:2px solid #eed192;outline-offset:2px}
 .battle-events .skill-feed{display:flex;flex-direction:column;gap:8px;max-height:55dvh;overflow:auto;min-height:60px}
+.battle-events #skill-feed[hidden]{display:none}
+.battle-log-filters{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}
+.battle-log-filters button{border:1px solid #cfbf8f55;padding:5px 9px;background:#172c2b;color:#c8d2c6;cursor:pointer;font:12px var(--sans)}
+.battle-log-filters button[aria-pressed=true]{background:#d8c48d;color:#172321}
+.battle-journal{max-height:52dvh;overflow:auto;overscroll-behavior:contain}
+.journal-row{display:grid;grid-template-columns:48px 65px 1fr;gap:8px;padding:9px 3px;border-bottom:1px solid #b3c6aa22;font:12px/1.6 var(--sans)}
+.journal-row time{color:#9cb2a4}.journal-row b{color:#d6bd85;font-weight:normal}.journal-row p{margin:0;color:#e2e6d7;overflow-wrap:anywhere}
+@media(max-width:600px){.journal-row{grid-template-columns:38px 1fr;gap:3px 8px;font-size:11px}.journal-row p{grid-column:1/-1}.battle-log-filters button{font-size:11px;padding:5px 7px}}
 .battle-events .skill-announcement{flex:none;order:1;padding:8px;grid-template-rows:auto auto auto}
 .battle-events .skill-announcement:first-child{border-top:1px solid #d9bc6f77}
 .battle-events .skill-announcement strong{white-space:normal;overflow:visible}
@@ -262,3 +285,27 @@ table.info-directory { display:table; width:100%; }
 
 /* Shared rule 62 states. Decoys never intercept pointer or movement input. */
 .decoy-marker{position:absolute;transform:translate(-50%,-50%);padding:5px 9px;border:1px dashed #b9c9e8;border-radius:50%;background:#59719077;color:#e9f0ff;opacity:.7;pointer-events:none;z-index:5;font-size:12px}.battle-unit.status-stealth{opacity:.48}
+
+#stratagem-area-overlay { position:absolute; inset:0; pointer-events:none; z-index:35; }
+#stratagem-area-overlay svg { width:100%; height:100%; overflow:hidden; fill:#e8b95b44; stroke:#ffe1a0; stroke-width:.045; }
+#stratagem-area-overlay .area-hit { fill:#ffdf7033; stroke:#fff1a6; stroke-width:.08; }
+.stratagem-area-controls { position:sticky; top:0; z-index:60; display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:12px; background:#263139; color:#fff0cc; border:1px solid #c7a85b; }
+.stratagem-area-controls[hidden] { display:none; }
+
+.battle-unit.stratagem-affected,.unit-nameplate.stratagem-affected { outline:3px solid #ffe58b; outline-offset:3px; box-shadow:0 0 16px #ffd65d99; }
+
+#stratagem-zone-overlay { position:absolute; inset:0; pointer-events:none; z-index:20; }
+#stratagem-zone-overlay svg { width:100%; height:100%; overflow:hidden; }
+.stratagem-zone { stroke:#a8d5ff; stroke-width:.035; fill:#6f9dff20; }
+.stratagem-zone.zone-side-1 { stroke:#f4a8ad; fill:#d5667020; }
+.stratagem-zone .zone-inner { fill:none; stroke-dasharray:.08 .06; }
+.stratagem-zone text { stroke:none; fill:#dbedff; font-size:.18px; font-weight:bold; }
+.stratagem-zone.zone-side-1 text { fill:#ffe0e0; }
+.bond-panel{margin:10px 0;padding:10px;border:1px solid #56647755;border-radius:8px;background:#14202e0a}.bond-panel h4,.personal-bonds h4{margin:0 0 6px}.bond-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px}.bond-row{padding:7px;border-left:3px solid #82909b;background:#8995a011;border-radius:4px}.bond-row.bond-lit{border-color:#bd943a;background:#be9b421a}.bond-heading{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.bond-heading>span,.bond-members{font-size:11px;opacity:.8}.bond-heading b{margin-left:auto}.bond-thresholds{display:flex;gap:5px;margin:5px 0}.bond-thresholds span{padding:1px 10px;border:1px solid #8893a166;border-radius:3px;opacity:.5}.bond-thresholds .reached{background:#b88e32;color:#fff;opacity:1}.bond-personal{opacity:.55}.bond-personal.learned{opacity:1}.personal-bonds{margin:8px 0}.personal-bonds small{font-weight:normal}.battle-sidebar .bond-list{grid-template-columns:1fr}
+.battle-bonds{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}.battle-bonds .bond-panel{min-width:0;margin:6px 0}.battle-bonds .bond-list{display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}.battle-bonds .bond-row{flex:0 0 190px}.battle-bonds .bond-members{display:block;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}@media(max-width:600px){.battle-bonds{grid-template-columns:1fr;gap:0}.battle-bonds .bond-row{flex-basis:165px}.bond-list{grid-template-columns:minmax(0,1fr)}}
+/* Preserve battlefield space when bond panels and the council are visible. */
+.arena-page .battle-layout{min-height:220px}.battle-bonds{flex-shrink:0}.bond-effect{display:block;font-size:11px;margin:3px 0}
+@media(max-width:1000px),(max-height:750px){body.battle-view{overflow:auto}.battle-view #app{height:auto;min-height:100dvh}.arena-page.battle-page{height:auto;min-height:100dvh}.arena-page .battle-layout{flex:none;height:450px;min-height:450px}.battle-bonds .bond-members{max-width:165px}}
+
+/* Military formation markers are visible during deployment and share the engine cells. */
+.hex-grid polygon.hex-formation{stroke:#d8b858;stroke-width:3;fill:#625522;fill-opacity:.35}.hex-grid polygon.hex-formation.formation-active{fill:#968239;fill-opacity:.48}.hex-grid polygon.hex-formation.formation-1{stroke:#ca8b88;fill:#75514a}.formation-cell-label{fill:#f1d98e;font-size:17px;font-weight:700;text-anchor:middle;pointer-events:none}.formation-council-note{color:#dec986}

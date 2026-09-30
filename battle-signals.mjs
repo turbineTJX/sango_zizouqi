@@ -1,6 +1,7 @@
 import {hidden} from './battle-status-rules.mjs';
 import {hexCenter} from './hex-grid.mjs';
 import {inspectionStatuses} from './status-display.mjs';
+import {isAreaStratagem,stratagemAreaContains} from './stratagem-area.mjs';
 import {STRATAGEMS} from './engine.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
@@ -25,7 +26,7 @@ export class BattleSignals {
    const resource=side?b.enemyCommand:b,last=resource?.lastCommand,serial=resource?.commandSerial||0;
    if(!fresh&&last&&serial!==this.serials[side]&&STRATAGEMS[last.key]){
     const definition=STRATAGEMS[last.key],targetSide=definition.side===0?side:1-side;
-    const targets=this.units.filter(u=>u.side===targetSide&&(last.key!=='range'||['archer','crossbow'].includes(u.type))).map(u=>({id:u.id,x:u.x,y:u.y}));
+    const targets=this.units.filter(u=>u.side===targetSide&&(!isAreaStratagem(definition)||stratagemAreaContains(definition,last.target,u))&&(last.key!=='range'||['archer','crossbow'].includes(u.type))).map(u=>({id:u.id,x:u.x,y:u.y}));
     this.orders.push({key:last.key,side,targetSide,name:definition.name,group:definition.group,targets,start:clock,duration:1800,serial});
    }
    this.serials[side]=serial;

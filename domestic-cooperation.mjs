@@ -1,4 +1,4 @@
-import {hasTrait} from './officer-traits.mjs';
+
 import {relationshipInfo,relationshipKey,changeRelationshipScore} from './relationships.mjs';
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
@@ -17,7 +17,7 @@ export function domesticAbility(u,work){
 }
 export function cooperationProfile(s,actor,helper,work){
  const relation=relationshipInfo(actor.id,helper.id,s.relationshipScores,s.relationshipTypes),affinity=compatibilityInfo(actor,helper),ability=domesticAbility(helper,work);
- return {chance:clamp(20+.4*(relation.score-50)+2*affinity.modifier+(hasTrait(actor,'mediator')||hasTrait(helper,'mediator')?10:0),5,65)/100,gain:.1+.15*ability/100,chanceGain:.03+.05*ability/100,relation:relation.score,affinity:affinity.label};
+ return {chance:clamp(20+.4*(relation.score-50)+2*affinity.modifier,5,65)/100,gain:.1+.15*ability/100,chanceGain:.03+.05*ability/100,relation:relation.score,affinity:affinity.label};
 }
 export const COOPERATION_MODES=Object.freeze({build:'progress',research:'quantity',cash:'quantity',grain:'quantity',effect:'quantity',discount:'quantity',recruit:'quantity',heal:'quantity',repair:'quantity',prepare:'quantity',trade:'chance',rescue:'chance',trial:'chance',explore:'chance',hire:'chance',persuade:'chance',reassure:'chance'});
 // Strategic events change the world relationship only. Running battles retain

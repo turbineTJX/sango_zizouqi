@@ -35,11 +35,10 @@ test('非均分兵力改变主辅判断，但不重抽或更换已学战法',()=
  }
 });
 
-test('持协阵特性的武将围绕实际主力布阵并覆盖光环，不凭空改变战意或随机数',()=>{
+test('固定阵容自动布阵可重复执行，不凭空改变战意或随机数',()=>{
  const s=make(ordinary,[unit('person-396','cavalry',6000),unit('person-641','spear',1000),unit('person-123','halberd',1000)]),b=s.battle;
  const own=structuredClone(b.sides[0]),seed=b.seed,core=b.sides[1].units[0],aux=b.sides[1].units[2];
- assert.ok(hexDistance(core,aux)<=1);assert.equal(formationAura(b,core)?.source.id,aux.id);
- assert.ok(aux.x>=core.x,'辅助不挡在主力前面');
+ assert.equal(formationAura(b,core),null,'已删除的协阵人物特性不再提供光环');
  const snapshot=structuredClone(b);planEnemyArmy(b);assert.deepEqual(b,snapshot);
  assert.deepEqual(b.sides[0],own);assert.equal(b.seed,seed);assert.ok(b.sides[1].units.every(u=>u.intent===0));
  validateSave(structuredClone(s));

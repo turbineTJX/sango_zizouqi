@@ -1,3 +1,5 @@
+import {currentBattle} from './helpers/current-battle.mjs';
+import {tacticPools,LEARNING_TROOPS} from '../tactic-learning.mjs';
 import {remedy,decoyTargets} from '../battle-status-rules.mjs';
 import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
@@ -12,16 +14,8 @@ import {EXPANDED_FORCE,EXPANDED_INTELLECT} from '../expanded-tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {relationshipKey} from '../relationships.mjs';
 
-function scene(type='halberd'){
- const state=createScenario(type==='ship'?'river':'field',71),b=state.battle,u=b.sides[0].units[0],d=b.sides[1].units[0];
- const row=type==='ship'?3:2;
- Object.assign(u,{id:type==='siege'?'shao':type==='ship'?'person-246':'cao',name:'测试武将',type,level:1,x:4,y:row,hp:3000,maxHp:3000,initial:3000,troops:3000,battleDamage:0,healed:0,statuses:{},intent:0,cooldown:999,commandBonus:0,deputyBonus:0,advisorBonus:0});
- Object.assign(d,{id:'enemy',type:type==='ship'?'ship':'spear',level:1,x:6,y:row,hp:3000,maxHp:3000,initial:3000,troops:3000,battleDamage:0,healed:0,statuses:{},intent:0,cooldown:999});
- const a={...structuredClone(u),id:'ally',type:type==='ship'?'ship':'spear',x:5};
- b.sides[0].units=[u,a];b.sides[1].units=[d];
- for(const v of [u,a,d]){learnFixtureTactics(v,roleTacticIds(v,'guard'));v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));}
- lockDeployment(b);return {state,b,u,a,d};
-}
+function scene(type='halberd'){const skill={halberd:'cleave',crossbow:'mirage',siege:'bombard',ram:'ram',ship:'broadside'}[type],x=currentBattle(skill,type,{requireS:true});x.u.y=type==='ship'?3:2;x.ally.y=x.u.y;x.target.y=x.u.y;x.target.x=6;x.rear.x=13;x.rear.y=7;return{state:x.state,b:x.b,u:x.u,a:x.ally,d:x.target};}
+
 const wound=u=>Object.assign(u,{hp:u.maxHp-1000,battleDamage:1000,healed:0});
 
 test('cleave charges each victim once without charging the caster',()=>{
@@ -29,20 +23,10 @@ test('cleave charges each victim once without charging the caster',()=>{
  const more=[[4,1],[3,2]].map(([xPos,y],i)=>({...structuredClone(x.d),id:'enemy-'+i,x:xPos,y}));x.b.sides[1].units.push(...more);
  primeTactic(x.u,'cleave');stepBattle(x.b);
  assert.equal(x.b.effects.filter(e=>e.from===x.u.id&&e.damage>0).length,3);assert.equal(x.u.intent,TACTICS_BOOK.cleave.threshold-TACTICS_BOOK.cleave.intentCost);
- assert.ok(x.b.sides[1].units.every(u=>u.intent===7));
+ assert.ok([x.d,...more].every(u=>u.intent===7));assert.equal(x.b.sides[1].units[1].intent,0);
 });
 
-test('all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns',()=>{
- for(const type of Object.keys(EXPANDED_FORCE))for(const id of [...EXPANDED_FORCE[type],...EXPANDED_INTELLECT[type]]){
-  if(TACTICS_BOOK[id].passive)continue;
-  const x=scene(type);wound(x.a);x.a.statuses.weaken={until:20};
-  if(['cleave','bulwark','riposte','curse','blight','navalRam'].includes(id)){x.a.x=3;x.d.x=id==='navalRam'?7:5;}
-  if(id==='camp')x.b.siege={attackerSide:1,gate:{id:'siege-gate',name:'城门',type:'gate',side:0,x:3,y:2,hp:2000,maxHp:4000}};
-  primeTactic(x.u,id);stepBattle(x.b);
-  assert.equal(x.u.tacticCasts[id],1,id+' must cast');assert.equal(x.u.skillReady[id],1+TACTICS_BOOK[id].cooldown,id);
-  assert.ok(x.b.effects.some(e=>e.from===x.u.id&&e.label===TACTICS_BOOK[id].name),id+' emits a resolved effect');
- }
-});
+test('expanded catalogue cannot grant removed actions outside current fixed pools',()=>{const fixed=new Set(LEARNING_TROOPS.flatMap(type=>{const p=tacticPools(type);return [...p.low,...p.high];}));for(const id of ['bandage','regrowth','camp','riposte','nexus','navalRam','purify'])assert.ok(!fixed.has(id));for(const id of ['cleave','curse','bombard','ram','broadside','anchor'])assert.ok(fixed.has(id));});
 
 test('挫志普攻施加丧志，不叠层，镇静解除',()=>{
  const x=scene();x.a.x=3;x.d.x=5;primeTactic(x.u,'curse');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.ok(hasStatus(x.b,x.d,'despair'));
@@ -50,23 +34,15 @@ test('挫志普攻施加丧志，不叠层，镇静解除',()=>{
  remedy(x.b,x.d,'calm');assert.equal(hasStatus(x.b,x.d,'despair'),false);
 });
 
-test('疫伤降低持续救治，救护先解除疫伤再救治',()=>{
- function run(id,plague){const x=scene('halberd');wound(x.a);if(plague)setStatus(x.b,x.a,'plague',20,{sourceId:x.d.id,amount:0});primeTactic(x.u,id);stepBattle(x.b);if(id==='regrowth')stepBattle(x.b);return x.a.healed;}
- assert.equal(run('bandage',true),run('bandage',false));assert.equal(run('regrowth',true),Math.round(run('regrowth',false)*.5));
-});
+test('plague treatment only removes its authored status, preserving other ailments',()=>{const x=scene();setStatus(x.b,x.a,'plague',20,{sourceId:x.d.id,amount:0});setStatus(x.b,x.a,'burn',20,{sourceId:x.d.id,amount:10});remedy(x.b,x.a,'aid');assert.equal(hasStatus(x.b,x.a,'plague'),false);assert.equal(hasStatus(x.b,x.a,'burn'),true);});
 
 test('疑兵有独立耐久且不抵挡本体持续伤害、不增加部队',()=>{
- const x=scene();wound(x.a);primeTactic(x.u,'mirage');stepBattle(x.b);assert.ok(x.a.statuses.decoy.hp>0);
+ const x=scene('crossbow');x.a.x=5;wound(x.a);primeTactic(x.u,'mirage');stepBattle(x.b);assert.ok(x.a.statuses.decoy.hp>0);
  const before=x.a.hp,phantom=x.a.statuses.decoy.hp;setStatus(x.b,x.a,'plague',8,{amount:20,sourceId:x.d.id});stepBattle(x.b);
  assert.equal(before-x.a.hp,20);assert.equal(x.a.statuses.decoy.hp,phantom);assert.equal(x.b.sides[0].units.length,2);assert.equal(decoyTargets(x.b,0).length,1);
 });
 
-test('riposte is one direct reaction per step, without a counter chain or extra intent',()=>{
- const x=scene();x.a.x=3;x.d.x=5;primeTactic(x.u,'riposte');stepBattle(x.b);setStatus(x.b,x.d,'riposte',8,{lastTick:0});
- x.d.cooldown=0;const own=x.u.intent,enemy=x.d.intent;stepBattle(x.b);
- assert.equal(x.b.effects.filter(e=>e.label==='反击'&&e.damage>0).length,1);
- assert.equal(x.u.intent-own,8);assert.equal(x.d.intent-enemy,6);
-});
+test('no fixed ordinary loadout silently grants the retired riposte action',()=>{for(const type of LEARNING_TROOPS){const p=tacticPools(type);assert.ok(![...p.low,...p.high].includes('riposte'));}});
 
 test('naval deployment, swap, movement and save validation obey water and bridge domains',()=>{
  const state=createScenario('river'),b=state.battle,ship=b.sides[0].units[0],land=b.sides[0].units[2];
@@ -80,8 +56,8 @@ test('naval deployment, swap, movement and save validation obey water and bridge
 
 test('siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective',()=>{
  const x=scene('siege');x.a.x=3;x.d.x=5;x.u.cooldown=0;primeTactic(x.u,'bombard');const hp=x.d.hp;stepBattle(x.b);
- assert.equal(x.d.hp,hp);assert.ok(!x.u.tacticCasts.bombard);assert.ok(x.u.moveProgress>0||x.u.x!==4||x.u.y!==2);
- const y=scene('siege');y.d.x=9;y.b.siege={attackerSide:0,gate:{id:'siege-gate',type:'gate',name:'城门',side:1,x:6,y:2,hp:100,maxHp:100}};
+ assert.equal(x.d.hp,hp);assert.ok(!x.u.tacticCasts.bombard);assert.ok(x.u.disengage||x.u.moveProgress>0||x.u.x!==4||x.u.y!==2);
+ const y=scene('ram');y.d.x=9;y.b.siege={attackerSide:0,gate:{id:'siege-gate',type:'gate',name:'城门',side:1,x:6,y:2,hp:100,maxHp:100}};
  primeTactic(y.u,'ram');stepBattle(y.b);assert.equal(y.b.siege.gate.hp,0);assert.equal(y.b.result.reason,'城门失守');
 });
 
@@ -89,7 +65,7 @@ test('two real ram casts can link against the gate and increase the second hit',
  function run(score){
   const state=createScenario('siege',97),b=state.battle; b.siege.gate.hp=b.siege.gate.maxHp=50000; // Avoid lethal damage clipping the combo comparison.
   const [a,c]=b.sides[0].units;b.sides[0].units=[a,c];b.sides[1].units=[];
-  for(const [i,u]of [a,c].entries()){u.id=i?'ju':'shao';u.type='siege';u.x=10;u.y=3+i;u.cooldown=999;primeTactic(u,'ram');}
+  for(const [i,u]of [a,c].entries()){u.id=i?'ju':'shao';u.type='ram';u.x=10;u.y=3+i;u.cooldown=999;primeTactic(u,'ram');}
   const key=relationshipKey(a.id,c.id);b.relationshipScores[key]=score;b.relationshipTypes[key]=score===100?'sworn':'disliked';
   lockDeployment(b);stepBattle(b);return {damage:b.effects.find(e=>e.from===c.id&&e.to==='siege-gate'&&e.damage>0).damage,combos:b.comboCounts[0]};
  }

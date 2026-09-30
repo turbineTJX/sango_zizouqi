@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,configureUnitTactics,configureBattleIntent,battleIntent,deployUnit,issueCommand,battleStratagems,STRATAGEMS,COMMAND_RESOURCE,validateSave} from '../engine.mjs';
@@ -59,7 +61,7 @@ export function runCase({draft,options},seed,{resume=false}={}){
  while(!b.result){
   const key=command(b);
   if(saved)assert.equal(command(saved.battle),key);
-  if(key){assert.equal(issueCommand(b,key),null);if(saved)assert.equal(issueCommand(saved.battle,key),null);commands.push({side:0,tick:b.tick,key});}
+  if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);if(saved)assert.equal(issueCommand(saved.battle,key,chooseStratagemPoint(saved.battle,AREA_DESIGNS[key],0)),null);commands.push({side:0,tick:b.tick,key});}
   stepBattle(b);if(saved)stepBattle(saved.battle);
   assert.ok(b.tick<=480);
   const active=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');

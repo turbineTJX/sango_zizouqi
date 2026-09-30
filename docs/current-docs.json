@@ -1,5 +1,5 @@
 {
-  "rulesVersion": 64,
+  "rulesVersion": 85,
   "files": [
     "docs/README.md",
     "docs/ZOC突破与远程优先-规则57.md",
@@ -90,6 +90,10 @@
     "docs/部队属性规则.md",
     "docs/部队状态与特殊机制-规则62.md",
     "docs/野外路口与横向小路-2026-09-22.md",
-    "docs/驻城部队与出征编组.md"
+    "docs/驻城部队与出征编组.md",
+    "docs/部队撤离与战前设置-规则65.md",
+    "docs/design-tables/羁绊成长一览表.md",
+    "docs/羁绊特性与成长-规则76.md",
+    "docs/design-tables/内政命令特性一览表.md"
   ]
 }

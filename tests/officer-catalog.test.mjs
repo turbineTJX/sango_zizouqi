@@ -32,7 +32,7 @@ test('every officer has fixed positive traits; ordinary officers have no exclusi
   const u=makeOfficer(entry.id);assert.equal(u.leadership,entry.source.command);assert.equal(u.force,entry.source.strength);
   assert.equal(u.intellect,entry.source.intelligence);assert.equal(u.politics,entry.source.politics);
   const stats=unitAttributes(u);for(const key of ['attack','defense','martialPower','strategyPower','discipline'])assert.ok(Number.isFinite(stats[key]));
-  assert.ok(unitTactics(u).length<=3);
+  assert.ok(unitTactics(u).length<=3+Number(!!SPECIAL_TACTICS[u.id]));
   if(!SKILL_ROUTES[u.id]){
    if(!SPECIAL_TACTICS[u.id])assert.equal(u.skill,'');assert.equal(officerStratagems(u.id).length,entry.intellect>=70?2:0);
    const growth=gainMerit(u,20000);assert.equal(u.level,10);assert.equal(growth.unlocked.length-growth.learned.length,0);assert.ok(passiveList(u).length>=2);assert.ok(passiveList(u).every(s=>s.tier!=='专属'));

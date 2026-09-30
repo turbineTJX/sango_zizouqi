@@ -1,3 +1,4 @@
+import {canPrepareSiegeDefense} from './strategic-roster.mjs';
 import {armyDetailsMarkup} from './army-details.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {unitFormationMarkup,unitReviewMarkup,commanderSetupMarkup} from './army-setup-view.mjs';
@@ -55,7 +56,7 @@ export function encounterFlowMarkup(s,p){
  const c=s.cities.find(c=>c.id===r.cityId),own=r.battle.sides[0],enemy=r.battle.sides[1],steps=['查看敌情','整备部队','确认指挥'];
  let body=`<div class="command-choices">${pending.map(b=>button('encounter-select',b.name,`data-id="${b.id}" ${b.id===p.id?'disabled':''}`)).join('')}</div><div class="command-trail">${steps.map((n,i)=>`<span class="${i===p.step?'active':''}">${i+1} · ${n}</span>`).join('')}</div><h3>${esc(r.name)}</h3><p>${esc(c.name)} · ${esc(c.province)} · 世界第 ${s.campaign.day} 天 · 待处理 ${pending.length} 处战线</p>`;
  if(p.step===0)body+=`<div class="encounter-versus"><div><b>我军</b><strong>${own.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div><span>对</span><div><b>敌军</b><strong>${enemy.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div></div><p>${r.kind==='siege'?'攻守城战 · 城门耐久 '+Math.round(r.battle.siege.gate.hp):'野外遭遇 · 双方以现有军团接战'}</p><details><summary>敌军部队情报</summary>${enemy.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}</details>`;
- if(p.step===1)body+=`<h3>核阅参战部队</h3>${own.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}${r.kind==='siege'&&c.owner===playerFaction(s)?button('campaign-defense-prepare','临时编制守城部队',`data-battle="${r.id}"`):''}`;
+ if(p.step===1)body+=`<h3>核阅参战部队</h3>${own.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}${canPrepareSiegeDefense(s,r)?button('campaign-defense-prepare','临时编制守城部队',`data-battle="${r.id}"`):''}`;
  if(p.step===1)body+=combatComparison(r.battle,own.units,{commanders:own.commanders},{prefix:'参战'});
  if(p.step===2)body+=`<h3>请选择本战指挥方式</h3><label class="command-reinforce"><input type="radio" name="encounter-control" value="manual" ${p.control==='manual'?'checked':''}>亲自指挥 · 进入战前会议，调整出阵顺序与布阵；确认开战前保持暂停</label><label class="command-reinforce"><input type="radio" name="encounter-control" value="auto" ${p.control==='auto'?'checked':''}>委托作战 · 按现有编制和固定规则自动作战</label>`;
  return {title:'战前军议',body,footer:button('military-cancel','返回舆图')+(p.step?button('encounter-back','上一步'):'')+button(p.step===2?'encounter-confirm':'encounter-next',p.step===2?'确认指挥方式':'下一步')};

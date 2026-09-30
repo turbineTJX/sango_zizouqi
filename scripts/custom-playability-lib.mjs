@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {planEnemyArmy,chooseEnemyCommand} from '../battle-ai.mjs';
@@ -109,8 +111,8 @@ export function fight(draft,{plan='default',controller='player',resume=false,tra
   return controller==='rule'?chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0):playerOrder(b);
  };
  while(!b.result){
-  const key=order(b);if(key){assert.equal(issueCommand(b,key),null);commands.push({tick:b.tick,key});}
-  if(saved){assert.equal(order(saved.battle),key);if(key)assert.equal(issueCommand(saved.battle,key),null);}
+  const key=order(b);if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);commands.push({tick:b.tick,key});}
+  if(saved){assert.equal(order(saved.battle),key);if(key)assert.equal(issueCommand(saved.battle,key,chooseStratagemPoint(saved.battle,AREA_DESIGNS[key],0)),null);}
   stepBattle(b);if(saved)stepBattle(saved.battle);
   assert.ok(b.tick<=480);
   const active=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');

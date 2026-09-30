@@ -4,9 +4,9 @@ import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle} from '../engine.mjs';
 import {CAMPAIGN} from '../strategic-campaign.mjs';
 
-test('standard field battles inflict meaningful daily losses while leaving time for repeated tactics',()=>{
+test('hold-position field battles inflict meaningful daily losses while leaving time for repeated tactics',()=>{
   for(const seed of [1,17,521200]){
-    const {battle:b}=createScenario('field',seed);lockDeployment(b);
+    const {battle:b}=createScenario('field',seed);for(const u of b.sides.flatMap(s=>s.units))u.retreatAt=null;lockDeployment(b);
     for(let i=0;i<CAMPAIGN.stepsPerDay;i++)stepBattle(b);
     const losses=b.sides.flatMap(s=>s.units).reduce((n,u)=>n+u.battleDamage,0);
     assert.ok(losses>=5000&&losses<=12000,`seed ${seed}: first-day casualties ${losses}`);

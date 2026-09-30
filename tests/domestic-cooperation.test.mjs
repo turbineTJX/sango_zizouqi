@@ -37,10 +37,10 @@ test('same city/direction retains multiple officers, reassigns only the selected
 test('compatibility uses circular distance including zero, and relation/affinity independently affect cooperation',()=>{
  assert.equal(compatibilityInfo({compatibility:149},{compatibility:0}).distance,1);assert.equal(compatibilityInfo({compatibility:75},{compatibility:0}).distance,75);assert.equal(compatibilityInfo({compatibility:null},{compatibility:0}).distance,null);
  const {s,officers}=setup(),a={...officers[0].unit,compatibility:75},b={...officers[1].unit,compatibility:75};setRelationshipType(s,a.id,b.id,'liked',70);
- const strong=cooperationProfile(s,a,b,ACTIONS.fair);assert.equal(strong.chance,.54);
+ const strong=cooperationProfile(s,a,b,ACTIONS.fair);assert.equal(strong.chance,.44);
  assert.ok(cooperationProfile(s,a,{...b,compatibility:0},ACTIONS.fair).chance<strong.chance);
  setRelationshipType(s,a.id,b.id,'disliked',0);assert.equal(cooperationProfile(s,a,{...b,compatibility:0},ACTIONS.fair).chance,.05);
- const nulls=cooperationProfile(s,{...a,compatibility:null},{...b,compatibility:null},ACTIONS.fair);assert.equal(nulls.chance,.1);
+ const nulls=cooperationProfile(s,{...a,compatibility:null},{...b,compatibility:null},ACTIONS.fair);assert.equal(nulls.chance,.05);
 });
 
 test('same-direction different actions can cooperate; waiting colleagues can assist a single research slot',()=>{

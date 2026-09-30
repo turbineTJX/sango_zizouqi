@@ -8,10 +8,11 @@ export const effectChance=(p,resistance)=>clamp(.65+(p-resistance)/1000,.25,.95)
 export const criticalChance=p=>clamp(.05+Math.max(0,p)/2000,.05,.30);
 export const statusFraction=(u,key,base)=>base*(u.statuses?.[key]?.potency??1);
 export const DURATION_POWER_STATUSES=new Set(['confuse','seal','taunt','resolve','haste','riposte','phase','pursuit','burningAttack','strategyAttack']);
-export const CHANCE_EFFECT_NAMES=Object.freeze({confuse:'混乱',seal:'封技',taunt:'挑衅',lure:'诱敌位移',knockback:'击退'});
+export const CHANCE_EFFECT_NAMES=Object.freeze({confuse:'混乱',seal:'封技',taunt:'嘲讽',root:'定身',lure:'诱敌位移',knockback:'击退'});
 const CRITICAL_EFFECTS=new Set(['thrust','strike','repeat','rush','terror','ram','navalRam','bombard','broadside']);
 export function tacticPowerProfile(s){
   const checks=[];
+  if(s.control==='root')checks.push('root');
   if(s.effect==='confuse'||s.control==='confuse')checks.push('confuse');
   if(s.effect==='terror'&&!checks.includes('confuse'))checks.push('confuse');
   if(s.effect==='seal'||s.debuff==='seal')checks.push('seal');

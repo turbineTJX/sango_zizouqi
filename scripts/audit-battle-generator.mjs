@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import {BATTLE_VALIDATION_CASES,BATTLE_VALIDATION_SEEDS} from '../data/design/battle-validation.mjs';
@@ -16,7 +18,7 @@ for(const group of BATTLE_VALIDATION_CASES)for(const variant of group.variants)f
   // Both armies use the same fixed command conditions. No future RNG or
   // scenario-specific optimization, tactic replacement or resource injection.
   const command=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
-  if(command){const error=issueCommand(b,command);if(!error){commands[0]++;if(replay)assert.equal(issueCommand(replay.battle,command),null);}}
+  if(command){const error=issueCommand(b,command,chooseStratagemPoint(b,AREA_DESIGNS[command],0));if(!error){commands[0]++;if(replay)assert.equal(issueCommand(replay.battle,command,chooseStratagemPoint(replay.battle,AREA_DESIGNS[command],0)),null);}}
   stepBattle(b);if(replay)stepBattle(replay.battle);
   for(const s of b.sides)assert.ok(s.units.filter(u=>u.status==='active').length<=6);
   for(const e of b.effects){if(e.phase==='cast')casts[e.label]=(casts[e.label]||0)+1;if(e.damage>0&&e.skill)hits[e.label]=(hits[e.label]||0)+e.damage;}

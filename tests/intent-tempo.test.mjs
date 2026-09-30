@@ -41,9 +41,9 @@ test('separate attackers still provide separate pressure rewards to a surviving 
 test('damage tactics against a gate do not charge the caster, basic siege attacks do',()=>{
   const b=createScenario('siege',9).battle,a=b.sides[0].units[0];
   lockDeployment(b);b.sides[0].units=[a];b.sides[1].units=[];
-  Object.assign(a,{id:'shao',level:1,type:'siege',x:b.siege.gate.x-2,y:b.siege.gate.y,cooldown:0,intent:0});
+  Object.assign(a,{id:'shao',level:1,type:'ram',x:b.siege.gate.x-2,y:b.siege.gate.y,cooldown:0,intent:0});
   primeTactic(a,'ram');stepBattle(b);assert.equal(a.tacticCasts.ram,1);assert.equal(a.intent,TACTICS_BOOK.ram.threshold-TACTICS_BOOK.ram.intentCost);
-  a.cooldown=0;stepBattle(b);assert.equal(a.intent,TACTICS_BOOK.ram.threshold-TACTICS_BOOK.ram.intentCost+11);
+  a.cooldown=0;let hit=false;for(let i=0;i<8&&!hit;i++){stepBattle(b);hit=b.effects.some(e=>e.from===a.id&&!e.skill&&e.damage>0);}assert.ok(hit);assert.equal(a.intent,TACTICS_BOOK.ram.threshold-TACTICS_BOOK.ram.intentCost+11);
 });
 
 test('zero-intent support and frontlines remain active, and save continuation is deterministic',()=>{

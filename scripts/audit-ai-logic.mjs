@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {mkdirSync, writeFileSync, readFileSync, readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -19,7 +21,7 @@ function run(id,state){
  const b=state.battle,streaks={},maxStreaks={},commands=[];let resumed=null,lastSerial=0;
  lockDeployment(b);
  while(!b.result){
-  if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key){assert.equal(issueCommand(b,key),null);if(resumed)assert.equal(issueCommand(resumed.battle,key),null);}}
+  if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);if(resumed)assert.equal(issueCommand(resumed.battle,key,chooseStratagemPoint(resumed.battle,AREA_DESIGNS[key],0)),null);}}
   stepBattle(b);if(resumed)stepBattle(resumed.battle);
   const active=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');
   assert.equal(new Set(active.map(u=>`${u.x},${u.y}`)).size,active.length);

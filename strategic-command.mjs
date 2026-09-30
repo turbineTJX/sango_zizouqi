@@ -1,3 +1,4 @@
+import {hasStrategicTrait} from './strategic-traits.mjs';
 import {mapNode,mapNodes} from './road-network.mjs';
 import {trainingCost} from './troop-training.mjs';
 import {DIRECTION_STATS} from './domestic-designs.mjs';
@@ -29,6 +30,7 @@ export function newCommand(s,task,city,{direction,armyId}={}){
 export function commandRoute(s,p){
  const a=s.armies.find(a=>a.id===p.armyId),from=p.task==='march'?(a?.travel?.to||a?.location):p.city;
  if(!from||!p.destination)return null;
+ if(p.task==='transfer'&&p.relay){if(p.relay===from||p.relay===p.destination||town(s,p.relay)?.owner!==playerFaction(s))return null;const first=findCampaignRoute(s,from,p.relay,playerFaction(s)),last=findCampaignRoute(s,p.relay,p.destination,playerFaction(s));if(!first||!last)return null;let at=from,cost=0;const route=[...first,...last];for(const id of route){cost+=roadCost(s,at,id);at=id;}return {from,route,cost};}
  const route=p.route?(validMapRoute(s,from,p.destination,p.route)?p.route:null):findCampaignRoute(s,from,p.destination,p.task==='transfer'?playerFaction(s):null,p.policy);
  if(!route)return null;
  let at=from,cost=0;for(const id of route){cost+=roadCost(s,at,id,p.policy);at=id;}
@@ -79,6 +81,8 @@ export function commandMarkup(s,ui,mapMarkup){
  if(['formation','unit-review','review'].includes(p.step)&&['draft','defense','expedition'].includes(p.task)){const returned=(p.disbandIds||[]).reduce((n,id)=>{const u=c.units.find(u=>u.id===id);return n+(u?u.troops+u.wounded:0);},0);body='<p class="command-reserves">预备兵：'+c.manpower+' 人'+(returned?' · 待解散返还：'+returned+' 人（含伤兵）':'')+'</p>'+body;if(p.disbandIds?.length)body+='<p>待解散：'+p.disbandIds.map(id=>esc(c.units.find(u=>u.id===id)?.name||id)).join('、')+'。兵员返还本城预备兵，编制金不返还；确认下令后生效。</p>'; }
  if(p.task==='transfer'&&['target','review'].includes(p.step)){
   const transport=chosen.some(r=>r.unit.troops>0||r.unit.wounded>0)||p.cargo.grain>0||p.cargo.manpower>0,route=commandRoute(s,p),speed=transport?TRANSPORT_SPEED:PERSONNEL_SPEED;
+  if(chosen.length===1&&hasStrategicTrait(chosen[0].unit,'cycleCargo'))body+=p.step==='target'?`<label class="strategy-field">运粮批次<select data-transfer-cycles>${[0,2,3,4,5].map(n=>`<option value="${n}" ${(p.cycles||0)===n?'selected':''}>${n?n+'批往返':'单次调任'}</option>`).join('')}</select></label>`:`<p>运粮：${p.cycles||1}批，后续批次仍须实际装粮。</p>`;
+  if(chosen.length===1&&hasStrategicTrait(chosen[0].unit,'relayCargo'))body+=p.step==='target'?`<label class="strategy-field">接力据点<select data-transfer-relay><option value="">直达</option>${s.cities.filter(v=>v.owner===c.owner&&v.id!==c.id&&v.id!==p.destination).map(v=>`<option value="${v.id}" ${p.relay===v.id?'selected':''}>${esc(v.name)}</option>`).join('')}</select></label>`:`<p>接力：${p.relay?esc(town(s,p.relay)?.name||'无效据点'):'直达'}</p>`;
   body+=`<section class="transport-cargo"><h3>随行部队与物资</h3><p>${chosen.some(r=>r.cityUnit)?'已编制部队随将调任，到达后编入目的地驻城部队。':'人才单独调任不显示地图标记；携带物资或预备兵时组成运输队。'}</p>${p.step==='target'?`<label class="strategy-field">携带粮草（本城 ${Math.floor(c.grain)}）<input type="number" min="0" max="${Math.floor(c.grain)}" step="1" data-transfer-cargo="grain" value="${p.cargo.grain}"></label><label class="strategy-field">携带预备兵（可用 ${Math.max(0,c.manpower-c.domestic.reserved)}）<input type="number" min="0" max="${Math.max(0,c.manpower-c.domestic.reserved)}" step="1" data-transfer-cargo="manpower" value="${p.cargo.manpower}"></label>`:`<p>运送粮草 ${p.cargo.grain} · 预备兵 ${p.cargo.manpower} · 随行部队 ${chosen.reduce((n,r)=>n+r.unit.troops,0)} 人 / 伤兵 ${chosen.reduce((n,r)=>n+r.unit.wounded,0)} 人</p>`}<p>${transport?'运输队 · 在大地图显示':'人才轻装移动 · 不在大地图显示'} · 每日 ${speed} 行动力${route?' · 预计 '+Math.ceil(route.cost/speed)+' 天':''}</p><small>运输队快速沿道路输运；途中遇敌，所带部队和物资全部损失，武将另行判定去向。粮仓不足则等待卸载。</small></section>`;
  }
  if(p.step==='target'&&['march','expedition'].includes(p.task)){

@@ -1,3 +1,5 @@
+import {tacticHolder} from './helpers/current-battle.mjs';
+import {createScenario} from '../scenarios.mjs';
 import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
@@ -9,15 +11,18 @@ import assert from 'node:assert/strict';
 import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,stepBattle,validateSave,COMBO} from '../engine.mjs';
 import {availableTactics,unitTactics,TACTICS_BOOK} from '../tactics.mjs';
 function campaign(seed){const s=newGame(seed);orderArmy(s,'a1','guandu');advanceTurn(s);startBattle(s);lockDeployment(s.battle);return s;}
-function scene(score=100){const state=campaign(),b=state.battle;b.sides[0].units=b.sides[0].units.slice(0,4);b.sides[1].units=b.sides[1].units.slice(0,2);
- const coords=[[3,2],[3,3],[3,4],[4,5]];b.sides[0].units.forEach((u,i)=>{u.id=['cao','ju','yuanxia','person-396'][i];u.type='crossbow';learnFixtureTactics(u,['repeat']);[u.x,u.y]=coords[i];});
- b.sides[1].units[0].x=6;b.sides[1].units[0].y=3;b.sides[1].units[1].x=13;b.sides[1].units[1].y=7;
+function scene(score=100,kits=Array.from({length:4},()=>['repeat','crossbow'])){
+ const ids=[],ownTeam=kits.map(([skill,type])=>{const id=tacticHolder(skill,type,ids,true);ids.push(id);return{id,type,troops:3000,level:1,retreatAt:null};});
+ const enemyIds=['jin','yuanxia','person-1','person-2','person-3','person-4'].filter(id=>!ids.includes(id)).slice(0,2);assert.equal(enemyIds.length,2);
+ const state=createScenario('custom-battle',19,20,null,{seed:19,terrain:'land',ownTeam,enemyTeam:enemyIds.map(id=>({id,type:'spear',troops:3000,level:1,retreatAt:null}))}),b=state.battle;lockDeployment(b);
+ const coords=[[3,2],[3,3],[3,4],[4,5]];b.sides[0].units.forEach((u,i)=>{[u.x,u.y]=coords[i];});
+ Object.assign(b.sides[1].units[0],{x:6,y:3});Object.assign(b.sides[1].units[1],{x:13,y:7});
  for(const u of b.sides.flatMap(s=>s.units)){u.intent=0;u.cooldown=999;u.statuses.phalanx={until:999};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
  for(const a of b.sides[0].units)for(const c of b.sides[0].units)if(a.id!==c.id){const key=relationshipKey(a.id,c.id);state.relationshipScores[key]=score;state.relationshipTypes[key]=score===100?'sworn':score===0?'disliked':'ordinary';}
- b.relationshipTypes=structuredClone(state.relationshipTypes);
- b.relationshipScores=structuredClone(state.relationshipScores);
- return {state,b,own:b.sides[0].units,target:b.sides[1].units[0]};}
-function cast(x,u,id,target=x.target){if(!availableTactics(u).some(s=>s.id===id))u.type=['harass','valor'].includes(id)?'cavalry':['fire','wildfire','smoke'].includes(id)?'archer':'spear';learnFixtureTactics(u,[id,...availableTactics(u).map(s=>s.id).filter(s=>s!==id).slice(0,2)]);u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));primeTactic(u,id);stepBattle(x.b);return x.b.effects.filter(e=>e.combo);}
+ b.relationshipTypes=structuredClone(state.relationshipTypes);b.relationshipScores=structuredClone(state.relationshipScores);
+ return{state,b,own:b.sides[0].units,target:b.sides[1].units[0]};
+}
+function cast(x,u,id){primeTactic(u,id);stepBattle(x.b);return x.b.effects.filter(e=>e.combo);}
 function damage(b,from){return b.effects.filter(e=>e.from===from&&e.skill).reduce((n,e)=>n+e.damage,0);}
 test('same target links distinct officers, doubles count once, triples cap at forty percent',()=>{
  const x=scene();assert.equal(cast(x,x.own[0],'repeat').length,0);assert.deepEqual(x.b.comboCounts,[0,0]);
@@ -35,21 +40,23 @@ test('self repeats, other targets, expired windows, enemy casts and departed par
  x=scene();cast(x,x.own[0],'repeat');x.b.comboWindows[0].side=1;assert.equal(cast(x,x.own[1],'repeat').length,0);
  x=scene();cast(x,x.own[0],'repeat');x.own[0].status='withdrawn';assert.equal(cast(x,x.own[1],'repeat').length,0);
 });
-test('a stunned unit and pure self buffs do not prime a combo',()=>{
- const x=scene();primeTactic(x.own[0],'repeat');x.own[0].statuses.confuse={until:99};stepBattle(x.b);assert.equal(x.b.comboWindows.length,0);x.own[0].cast=null;
- x.own[1].x=5;x.own[1].y=3;assert.equal(cast(x,x.own[1],'valor',x.own[1]).length,0);assert.equal(x.b.comboWindows.length,0);
+test('a confused unit and a current self buff do not prime a combo',()=>{
+ const x=scene(100,[['repeat','crossbow'],['gallop','cavalry'],['repeat','crossbow'],['repeat','crossbow']]);primeTactic(x.own[0],'repeat');x.own[0].statuses.confuse={until:99};stepBattle(x.b);assert.equal(x.b.comboWindows.length,0);
+ x.own[1].x=5;x.own[1].y=3;assert.equal(cast(x,x.own[1],'gallop').length,0);assert.equal(x.own[1].tacticCasts.gallop,1);assert.equal(x.b.comboWindows.length,0);
 });
-test('combo enhances damage-over-time, intent reduction and control duration while respecting immunity',()=>{
- const x=scene();cast(x,x.own[0],'repeat');cast(x,x.own[1],'wildfire');assert.equal(x.target.statuses.burn.amount,Math.round((unitAttributes(x.own[1],x.b).strategyPower*(6/280+.04))*100/(100+unitAttributes(x.target,x.b).discipline)*1.25));assert.equal(x.target.statuses.burn.until,x.b.tick+8);
- const y=scene();y.own[1].x=4;cast(y,y.own[0],'repeat');y.target.intent=100;cast(y,y.own[1],'harass');assert.equal(y.target.intent,100-Math.round((24+Math.round(unitAttributes(y.own[1],y.b).strategyPower*.03))*1.25));
- const z=scene();cast(z,z.own[0],'repeat');const e=cast(z,z.own[1],'smoke')[0];assert.equal(e.combo.level,2);const basic=Math.max(2,Math.min(4,Math.round(2+unitAttributes(z.own[1],z.b).strategyPower/140)));assert.equal(z.target.statuses.confuse.until,z.b.tick+disciplineDuration(z.b,z.target,basic+1)+1);
- const immune=scene();cast(immune,immune.own[0],'repeat');immune.target.statuses.resolve={until:99};assert.equal(cast(immune,immune.own[1],'smoke').length,0);assert.equal(immune.target.statuses.confuse,undefined);
+test('a real harass combo strengthens intent loss and respects control protection',()=>{
+ for(const immune of [false,true]){
+ const x=scene(100,[['repeat','crossbow'],['harass','cavalry'],['repeat','crossbow'],['repeat','crossbow']]);x.own[1].x=4;cast(x,x.own[0],'repeat');x.target.intent=100;if(immune)x.target.statuses.resolve={until:99};
+ const y=structuredClone(x);y.b.comboWindows=[];y.own=y.b.sides[0].units;y.target=y.b.sides[1].units[0];
+ assert.equal(cast(x,x.own[1],'harass')[0].combo.level,2);cast(y,y.own[1],'harass');assert.ok(100-x.target.intent>100-y.target.intent);
+ assert.equal(Boolean(x.target.statuses.disrupted),!immune);
+ }
 });
-test('support combos really strengthen shields and do not include unrelated primary targets',()=>{
- const x=scene(),patient=x.own[1],protector=x.own[3];protector.id='chu';x.b.relationshipScores[relationshipKey(x.own[0].id,protector.id)]=100;x.b.relationshipTypes[relationshipKey(x.own[0].id,protector.id)]='sworn';patient.hp=1000;patient.battleDamage=2000;patient.x=4;patient.y=3;x.target.x=5;x.target.y=3;protector.x=4;protector.y=4;
- cast(x,x.own[0],'screen',patient);assert.ok(patient.statuses.shield);const firstShield=patient.statuses.shield.amount;
- const expectedShield=Math.round(patient.maxHp*.12*powerFactor(unitAttributes(protector,x.b).martialPower)*1.25);
- const e=cast(x,protector,'protect',patient)[0];assert.equal(e.combo.level,2);assert.equal(e.combo.targetName,patient.name);assert.equal(patient.statuses.shield.amount,firstShield+expectedShield);assert.equal(patient.statuses.shield.layers.length,2);assert.equal(patient.statuses.shield.until,x.b.tick+10);
+test('current rally support combos strengthen real intent gains on the same patient',()=>{
+ const x=scene(100,[['rally','archer'],['rally','archer'],['repeat','crossbow'],['repeat','crossbow']]);const patient=x.own[2];Object.assign(patient,{x:4,y:3,intent:0});for(const u of x.own)if(u!==patient)u.intent=100;
+ cast(x,x.own[0],'rally');assert.ok(patient.intent>0);const before=patient.intent;
+ const y=structuredClone(x);y.b.comboWindows=[];y.own=y.b.sides[0].units;y.target=y.b.sides[1].units[0];
+ const event=cast(x,x.own[1],'rally')[0];cast(y,y.own[1],'rally');assert.equal(event.combo.level,2);assert.equal(event.combo.targetName,patient.name);assert.ok(patient.intent-before>y.own[2].intent-before);
 });
 test('ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed',()=>{
  let s;for(let seed=1;seed<=32;seed++){s=campaign(seed);while(!s.battle.result&&!s.battle.effects.some(e=>e.combo))stepBattle(s.battle);if(s.battle.effects.some(e=>e.combo))break;}

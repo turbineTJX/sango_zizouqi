@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {writeFileSync,mkdirSync,readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -19,7 +21,7 @@ for(const c of [...HISTORICAL_CAMPAIGNS,...TACTICAL_CAMPAIGNS]){
   while(!b.result){
    if(b.commandProgress>=COMMAND_RESOURCE.capacity){
     const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
-    if(key){assert.equal(issueCommand(b,key),null,`${c.id}/${seed}/${b.tick}: rejected ${key}`);commands[key]=(commands[key]||0)+1;assert.equal(b.commandProgress,0);}
+    if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null,`${c.id}/${seed}/${b.tick}: rejected ${key}`);commands[key]=(commands[key]||0)+1;assert.equal(b.commandProgress,0);}
    }
    stepBattle(b);
    assert.ok(b.tick<=c.limit);

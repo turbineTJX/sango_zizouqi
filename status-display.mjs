@@ -1,6 +1,5 @@
 import {STATUS_DEFINITIONS} from './data/design/battle-statuses.mjs';
 import {STRATAGEMS,stratagemEffectText} from './stratagems.mjs';
-import {formationAura,FORMATION_AURA} from './support-rules.mjs';
 import {ATTACK_ORBS,attackOrbDescription} from './attack-orbs.mjs';
 import {COMBAT} from './combat-rules.mjs';
 import {unitAttributes,ATTRIBUTE_LABELS} from './unit-stats.mjs';
@@ -10,12 +9,12 @@ import {fireTerrainFactor} from './terrain-rules.mjs';
 const entry=(name,icon,tone,priority,description)=>({name,icon,tone,priority,description});
 export function statusDescription(key,state={}){
   if(key==='attackOrb')return attackOrbDescription(state.skillId);
-  const factor=state.potency??1,p=n=>Number((n*factor).toFixed(1));
+  const factor=state.potency??1,p=n=>Number((state.fraction!==undefined&&['powerDown','weaken','armorBreak'].includes(key)?state.fraction*100:n*factor).toFixed(1));
   const dynamic={
     despair:`每步损失 ${state.amount??5} 战意`,intentSuppression:`攻击与受击战意获取减少 ${(state.fraction??.3)*100}%`,decoy:`幻象耐久 ${state.hp??0}，承受200%伤害；不能攻击、不占上场名额`,
     attackHaste:`普攻间隔缩短 ${(state.fraction??.2)*100}%`,longRange:`远程普攻最大射程 +${state.amount??1}`,shortRange:`远程普攻最大射程 −${state.amount??1}`,
-    armorBreak:`防御降低 ${p(20)}%`,weaken:`攻击降低 ${p(20)}%`,valor:`攻击提高 ${p(25)}%`,
-    phalanx:`减伤 ${p(30)}%，停止移动并免疫击退`,anchored:`减伤 ${p(25)}%，停止移动`,
+    powerDown:`武技威力与谋略威力降低 ${p(20)}%；可整军解除`,armorBreak:`防御降低 ${p(20)}%`,weaken:`攻击降低 ${p(20)}%`,valor:`攻击提高 ${p(25)}%`,
+    phalanx:`减伤 ${p(30)}%，停止移动并免疫击退`,anchored:`停止移动，普攻最大射程 +1`,
     bulwark:`防御 +${p(30)}%、军纪 +${p(20)}%，移动减半`,camp:`防御提高 ${p(25)}%`,
     nexus:`谋略威力与军纪提高 ${p(20)}%`,emplaced:`攻击 +${p(20)}%、普攻与投石射程 +1，停止移动`,
     attackSlow:`普攻间隔增加 ${(state.fraction??.25)*100}%`,
@@ -44,19 +43,18 @@ export function statusIcon(key){
 export function statusRemaining(until,tick){return Math.max(0,until-tick-1);}
 export function statusTimeLabel(until,tick){
   const steps=statusRemaining(until,tick);
-  return steps?`${steps} 日`:'本日结束';
+  return steps?`${steps} 回合`:'本回合结束';
 }
 export function visibleStatuses(b,u){
-  const statuses=Object.entries(u.statuses||{}).filter(([,s])=>s.until>b.tick).map(([key,s])=>({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:s,...(key==='attackOrb'?{name:s.sourceSkillName+' · 强化普攻',remaining:s.charges,time:'剩余 '+s.charges+' 次部队普攻 · 不随时间消耗'}:{remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)})}));
-  const aura=formationAura(b,u);if(aura)statuses.push({key:'formationAura',name:'协阵光环',icon:'heal',tone:'buff',priority:30,dynamic:true,description:`相邻武将协阵特性：每 ${FORMATION_AURA.aura.interval} 日救治最多兵力上限 ${(aura.factor*FORMATION_AURA.aura.healFraction*100).toFixed(2)}% 的已有伤兵、恢复 ${Math.round(FORMATION_AURA.aura.intent*aura.factor)} 战意；受减疗、伤兵额度和战意上限限制；不提高攻防，同类只取最强`,state:{sourceId:aura.source.id,sourceName:aura.source.name,sourceSkillName:'协阵'},remaining:'邻',time:'相邻时持续生效'});
-  if(u.supplyPenalty)statuses.push({key:'hunger',...STATUS_DISPLAY.hunger,description:`攻击、武技威力与谋略威力降低 ${Math.round(u.supplyPenalty*100)}%，需恢复粮道与供粮，无法镇静`,state:{},remaining:'粮',time:'随军团每日补给更新'});
+  const statuses=Object.entries(u.statuses||{}).filter(([,s])=>s.until>b.tick).map(([key,s])=>({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:s,...(key==='heavyAttack'?{remaining:s.charges,time:'剩余 '+s.charges+' 次物理主动普攻'}:key==='attackOrb'?{name:s.sourceSkillName+' · 强化普攻',remaining:s.charges,time:'剩余 '+s.charges+' 次部队普攻 · 不随时间消耗'}:{remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)})}));
+  if(u.supplyPenalty)statuses.push({key:'hunger',...STATUS_DISPLAY.hunger,description:`攻击、武技威力与谋略威力降低 ${Math.round(u.supplyPenalty*100)}%，需恢复粮道与供粮，无法镇静`,state:{},remaining:'粮',time:'随军团每回合补给更新'});
   return statuses.sort((a,c)=>a.priority-c.priority);
 }
 
 export const ARMY_STATUS_DISPLAY={
   assaultUntil:['全军猛攻','攻击提高 25%'],fortifyUntil:['坚壁之策','防御、军纪提高 20%'],
   disruptUntil:['虚实之策','攻击、防御、军纪降低 15%'],hasteUntil:['疾行赴援','移速 +1，与个人疾行不叠加'],
-  rangeUntil:['引弦远射','弓弩射程 +2'],recoveryUntil:['休养生息','在场各队每日救治初始兵力 1% 的本场伤兵'],
+  rangeUntil:['引弦远射','弓弩射程 +2'],recoveryUntil:['休养生息','在场各队每回合救治初始兵力 1% 的本场伤兵'],
   blockadeUntil:['断敌援路','暂停敌方预备队入场'],reliefUntil:['后军固阵','预备队入场时获得 15% 护盾，放宽轮换条件'],
 };
 export function statusSources(b,s){
@@ -87,11 +85,12 @@ export function statusAttributeChanges(b,u,s){
   return Object.entries(labels).flatMap(([key,name])=>{
     const scale=['damageReduction','controlResistance'].includes(key)?100:1;
     const delta=(after[key]-before[key])*scale;
-    return Math.abs(delta)>1e-8?[{key,name,before:before[key]*scale,after:after[key]*scale,delta,unit:scale===100?'百分点':key==='attackInterval'?'日':key==='move'?'格 / 日':key==='range'?'格':key==='attackSpeed'?'次 / 秒':''}]:[];
+    return Math.abs(delta)>1e-8?[{key,name,before:before[key]*scale,after:after[key]*scale,delta,unit:scale===100?'百分点':key==='attackInterval'?'回合':key==='move'?'格 / 回合':key==='range'?'格':key==='attackSpeed'?'次 / 秒':''}]:[];
   });
 }
 export function statusAmounts(b,u,s){
   const rows=[],v=s.state;
+  if(s.key==='heavyAttack')rows.push(['剩余重击',v.charges+' 次物理主动普攻']);
   if(s.key==='attackOrb'){
     const stats=unitAttributes(u,b),profile=ATTACK_ORBS[v.skillId];
     rows.push(['剩余次数',v.charges+' 次（普攻命中敌方部队时消耗）']);
@@ -99,11 +98,10 @@ export function statusAmounts(b,u,s){
   }
   if(['burn','burn','plague'].includes(s.key)){
     const amount=Math.round(v.amount*passiveDamageTaken(b,u,'dot')*(s.key==='plague'?1:fireTerrainFactor(b,u)));
-    rows.push(['当前每日伤害',`${amount} 人（护盾吸收前）`]);
+    rows.push(['当前每回合伤害',`${amount} 人（护盾吸收前）`]);
   }
-  if(s.key==='formationAura'){const aura=formationAura(b,u);if(aura){rows.push(['结算间隔','每 '+FORMATION_AURA.aura.interval+' 日；距下次 '+(FORMATION_AURA.aura.interval-b.tick%FORMATION_AURA.aura.interval)+' 日']);rows.push(['每次救治上限',Math.round(u.maxHp*FORMATION_AURA.aura.healFraction*aura.factor*((u.statuses?.plague?.until||0)>b.tick?1-.5*(u.statuses.plague.potency??1):1))+' 人（受现有伤兵限制）']);rows.push(['每次恢复战意',Math.round(FORMATION_AURA.aura.intent*aura.factor)+'（不超过 100）']);}}
-  if(s.key==='regrowth')rows.push(['每日救治上限',`${Math.round(v.amount*((u.statuses?.plague?.until||0)>b.tick?1-.5*(u.statuses.plague.potency??1):1))} 人（受现有伤兵限制）`]);
-  if(s.key==='recoveryUntil')rows.push(['每日救治上限',`${Math.round(u.maxHp*.01*((u.statuses?.plague?.until||0)>b.tick?1-.5*(u.statuses.plague.potency??1):1))} 人（受现有伤兵限制）`]);
+  if(s.key==='regrowth')rows.push(['每回合救治上限',`${Math.round(v.amount*((u.statuses?.plague?.until||0)>b.tick?1-.5*(u.statuses.plague.potency??1):1))} 人（受现有伤兵限制）`]);
+  if(s.key==='recoveryUntil')rows.push(['每回合救治上限',`${Math.round(u.maxHp*.01*((u.statuses?.plague?.until||0)>b.tick?1-.5*(u.statuses.plague.potency??1):1))} 人（受现有伤兵限制）`]);
   if(v.stacks!==undefined)rows.push(['叠层',`${v.stacks} / 3`]);
   if(v.hits!==undefined)rows.push(['剩余抵挡次数',`${v.hits} 次`]);
   if(s.key==='shield')for(const l of v.layers||[])if(l.until>b.tick&&l.amount>0)rows.push([l.label,`${l.amount} · ${statusTimeLabel(l.until,b.tick)}`]);

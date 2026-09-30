@@ -1,3 +1,4 @@
+import {initializeTacticLearning} from '../tactic-learning.mjs';
 import {peacefulCities,fieldCampaign as newCampaign} from './helpers/field-campaign.mjs';
 import {initializeTalent} from '../talent-lifecycle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
@@ -19,8 +20,8 @@ function runTo(s,day,{auto=true,planning=true}={}){
 function encounter(){const s=newCampaign();beginExecution(s);runTo(s,10,{auto:false});assert.ok(activeBattles(s).some(r=>r.awaiting));return s;}
 function prolongedEncounter(){
   const s=newCampaign(6),a=s.armies[0],d=s.armies.find(a=>a.faction==='yuan');s.armies=s.armies.filter(a=>!a.stationary);for(const a of s.armies)a.units=a.units.filter(u=>!u.cityGuard);
-  a.units=s.armies.filter(x=>x.faction==='cao').flatMap(x=>x.units);d.units=s.armies.filter(x=>x.faction==='yuan').flatMap(x=>x.units);s.armies=[a,d];for(const c of s.cities)for(const u of c.units)u.troops=0;initializeTalent(s);
-  for(const army of s.armies){army.tactic='defensive';army.units.forEach((u,i)=>{u.type='halberd';u.level=2;u.merit=0;u.first=i<6;assert.equal(learnFixtureTactics(u,['bandage','supply','regrowth']),null);});}
+  for(const extra of s.armies.filter(x=>x!==a&&x!==d))s.cities.find(c=>c.id===extra.location).units.push(...extra.units);s.armies=[a,d];for(const c of s.cities)for(const u of c.units)u.troops=0;initializeTalent(s);s.campaign.day=8;
+  for(const army of s.armies){army.tactic='defensive';army.units.forEach((u,i)=>{u.type='halberd';u.level=2;u.merit=0;u.first=i<6;u.retreatAt=null;initializeTacticLearning(u,s.seed);});}
   orderCampaignArmy(s,a.id,'guandu');d.route=['xuchang'];d.target='xuchang';beginExecution(s);runTo(s,10,{auto:false});return s;
 }
 
@@ -91,7 +92,7 @@ test('mid-day and multi-battle saves continue deterministically without charging
   runTo(s,21);runTo(restored,21);assert.deepEqual(JSON.parse(serializeCampaign(restored)),JSON.parse(serializeCampaign(s)));
 });
 test('troops arriving on the map reinforce an existing battle, sharing six slots',()=>{
-  const s=newCampaign();beginExecution(s);runTo(s,8);const r=activeBattles(s)[0];assert.ok(r.armyIds.length>=3);assert.ok(r.battle.sides.flatMap(x=>x.units).some(u=>u.arrivalTick!==undefined));
+  const s=newCampaign();for(const u of [...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units)])u.retreatAt=null;beginExecution(s);runTo(s,8);const r=activeBattles(s)[0];assert.ok(r.armyIds.length>=3);assert.ok(r.battle.sides.flatMap(x=>x.units).some(u=>u.arrivalTick!==undefined));
   for(const side of [0,1])assert.ok(activeUnits(r.battle,side).length<=6);resume(s);
 });
 test('construction is paid once, completes at the turn boundary and reports income once',()=>{
@@ -133,7 +134,7 @@ test('corrupt calendar, route, snapshot, duplicate participants and old saves ar
 test('combat desertions are never healable and dissolved officers are not duplicated in saves',()=>{
   const s=prolongedEncounter();
   const r=activeBattles(s)[0];chooseEncounter(s,r.id,false);s.cities.forEach(c=>c.grain=0);s.armies.forEach(a=>a.supply=0);
-  for(let day=0;day<6;day++){
+  for(let day=0;day<6;day++){if(s.campaign.phase==='planning')beginExecution(s);s.cities.forEach(c=>c.grain=0);s.armies.forEach(a=>a.supply=0);
     advanceCampaignDay(s);resume(s);
     for(const u of r.battle.sides.flatMap(x=>x.units)){
       assert.equal(battleWounded(u),recoverableWounded(u));

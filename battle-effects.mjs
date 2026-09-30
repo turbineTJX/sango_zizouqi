@@ -4,6 +4,8 @@ import {outcomeLines} from './tactic-outcomes.mjs';
 import {art} from './art-assets.mjs';
 import {BattleSignals} from './battle-signals.mjs';
 import {TACTICS_BOOK} from './tactics.mjs';
+import {AbilityCues,isHighlightedAbility} from './ability-cues.mjs';
+import {hidden} from './battle-status-rules.mjs';
 // Presentation-only effects. All hits and casualties come from engine events.
 
 const COLORS = {
@@ -19,9 +21,10 @@ const majorTactics = new Set(Object.values(TACTICS_BOOK).filter(s=>s.threshold>=
 export const isMajorCast = events => events.some(e=>!e.ongoing&&e.skill&&(majorTactics.has(e.label)||e.comboLevel>=2||e.combo?.level>=2));
 
 export class BattleEffects {
-  constructor(canvas, feed, result = null) {
+  constructor(canvas, feed, result = null, cues = null) {
     this.canvas = canvas; this.ctx = canvas.getContext('2d'); this.feed = feed;
     this.signals = new BattleSignals();
+    this.cues = new AbilityCues(cues);
     this.items = []; this.notices = []; this.clock = 0; this.lastFrame = 0;
     this.cinematics = []; this.battleId = null; this.result = result; this.resultKey = null;
     this.batch = null; this.consumed = 0; this.paused = true; this.speed = 1; this.destroyed = false; this.mode = 'clear';
@@ -39,9 +42,10 @@ export class BattleEffects {
   update(battle, { paused, speed, mode = 'clear' }) {
     if (this.battleId !== battle.id) {
       this.items = []; this.cinematics = []; this.batch = null;
+      this.cues.reset();
       this.notices.forEach(n => n.element.remove()); this.notices = [];
       this.resultKey = null;
-      if(this.result){this.result.textContent='战法效果将在此显示 · 点击暂停查看记录';this.result.disabled=true;}
+      if(this.result){this.result.textContent='特性与战法效果将在此显示 · 点击暂停查看记录';this.result.disabled=true;}
       this.battleId = battle.id;
     }
     if (speed !== this.speed) for (const e of this.items) {
@@ -65,16 +69,21 @@ export class BattleEffects {
       const key=`${e.from}:${e.label}`,notes=terrainNotes.get(key)||new Set();
       notes.add(e.terrain);terrainNotes.set(key,notes);
     }
-    const casts = new Map();
+    const casts = new Map(),traits = new Map();
     for (const event of added) {
       if(event.phase==='cast'||event.intentOnly) continue; // Ignore obsolete windup events restored from older saves.
       const source = battle.sides.flatMap(s => s.units).find(u => u.id === event.from);
+      if(event.abilityKind==='trait'&&source?.side===1&&hidden(battle,source))continue;
       const target = battle.sides.flatMap(s => s.units).find(u => u.id === event.to) || (battle.siege?.gate.id === event.to ? battle.siege.gate : null);
       const e = { ...event, ...(event.intentDrained!==undefined?{text:''}:{}), tick:battle.tick, targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
       e.duration = (e.combo ? 1000 : 650) / speed;
       e.tacticalNote=tacticalNotes.get(`${e.from}:${e.label}`);
       e.terrainNote=[...(terrainNotes.get(`${e.from}:${e.label}`)||[])].join('；');
       this.items.push(e);
+      if(e.abilityKind==='trait'){
+        const key=`${e.side}:${e.from}:${e.traitId}`;
+        if(!traits.has(key))traits.set(key,[]);traits.get(key).push(e);
+      }
       if (!e.ongoing && (e.skill || e.combo)) {
         const key = `${e.side}:${e.from}:${e.label}:${!!e.combo}`;
         if (!casts.has(key)) casts.set(key, []);
@@ -84,19 +93,21 @@ export class BattleEffects {
     // Only major tactics and links hold the simulation. A link shares its
     // originating cast's cut-in, including all damage and result information.
     const groups=[...casts.values()],linked=new Set();
-    for(const events of groups)this.notice(events);
+    for(const events of traits.values()){this.notice(events);this.cues.push(events,this.clock);if(isHighlightedAbility(events[0]))this.showResult(events);}
+    for(const events of groups){this.notice(events);if(!events[0].combo)this.cues.push(events,this.clock);}
     for(const events of groups.filter(events=>!events[0].combo)){
-      const e=events[0];if(e.enchantment)continue;e.showCastLabel=true;
+      const e=events[0];if(e.enchantment)continue;e.showCastLabel=isHighlightedAbility(e);
       const combo=groups.find(group=>group[0].combo&&group[0].from===e.from&&group[0].side===e.side);
       if(combo)linked.add(combo);
       const merged=combo?[...events,...combo]:events;
-      if(paused||!isMajorCast(merged)){this.showResult(events);continue;}
+      if(paused||!isMajorCast(merged)){if(isHighlightedAbility(e))this.showResult(events);continue;}
       this.queueCinematic(merged);
     }
     for(const events of groups.filter(events=>events[0].combo&&!linked.has(events))){
       if(!paused&&isMajorCast(events))this.queueCinematic(events);
     }
     this.syncCinematicState();
+    this.cues.advance(this.clock);
     this.items = this.items.slice(-100);
   }
   queueCinematic(events) {
@@ -122,7 +133,7 @@ export class BattleEffects {
     const key = `${e.tick}:${e.side}:${e.from}:${e.label}:${e.phase}:${!!e.combo}`;
     if (this.notices.some(n => n.key === key)) return;
     const item = document.createElement('div'); item.className = `skill-announcement side-${e.side} fx-${e.visual}${e.combo?' combo-announcement':''}`;
-    const badge = document.createElement('span'); badge.className = 'skill-seal'; badge.textContent = e.enchantment?'装填':e.combo ? e.label : '施放';
+    const badge = document.createElement('span'); badge.className = 'skill-seal'; badge.textContent = e.abilityKind==='trait'?'特性':e.enchantment?'装填':e.combo ? e.label : '施放';
     const name = document.createElement('span'); name.className = 'skill-officer'; name.textContent = `${e.side ? '敌' : '我'} · ${e.tick}日 · ${e.combo ? e.combo.actors.map(a=>a.name).join(' + ')+' → '+e.combo.targetName : e.name + (e.targetName && e.to !== e.from ? ' → '+e.targetName : '')}`;
     const title = document.createElement('strong'); title.textContent = e.combo ? '效果 +'+e.combo.bonus+'%' : e.label+(e.tacticalNote?' · '+e.tacticalNote:'')+(e.terrainNote?' · '+e.terrainNote:'');
     item.title = `${name.textContent} · ${badge.textContent} · ${title.textContent}`;
@@ -136,7 +147,7 @@ export class BattleEffects {
     }
   }
   isBusy() { return this.isCinematicPlaying() || this.items.some(e => this.clock - e.start < e.duration); }
-  destroy() { this.destroyed = true; cancelAnimationFrame(this.frame); this.resize.disconnect(); this.items = []; this.cinematics = []; this.syncCinematicState(); this.notices.forEach(n=>n.element.remove()); this.notices = []; }
+  destroy() { this.destroyed = true; cancelAnimationFrame(this.frame); this.resize.disconnect(); this.items = []; this.cinematics = []; this.cues.reset();this.syncCinematicState(); this.notices.forEach(n=>n.element.remove()); this.notices = []; }
   clearEffects() {
     const latest = new Map();
     for (const e of this.items) {
@@ -286,7 +297,7 @@ export class BattleEffects {
     }
     if(e.showCastLabel)this.label(e.label,from.x,from.y-cell*.72,color,fade,clamp(cell*.26,11,17));
     if(p>.35){
-      const text=[e.healing?'+'+e.healing:'',e.text&&!e.damage&&!e.healing?e.text:''].filter(Boolean).join(' · ');
+      const text=[e.healing?'+'+e.healing:'',e.text&&!e.damage&&!e.healing&&(e.text!==e.label||isHighlightedAbility(e))?e.text:''].filter(Boolean).join(' · ');
       if(text)this.label(text,to.x,to.y+cell*.36,color,fade,clamp(cell*.22,10,14));
       if(this.mode!=='clear'&&e.damage)this.label(damageLabel(e),to.x,to.y-cell*(.6+p*.2),'#fff1b4',fade,clamp(cell*.26,11,17));
     }
@@ -323,7 +334,7 @@ export class BattleEffects {
     const width=Math.min(this.width,stage?.clientWidth||this.width),offset=stage?.scrollLeft||0;
     const enter=this.reduced?1:ease(clamp(p/.14)),leave=this.reduced?0:ease(clamp((p-.43)/.15));
     const alpha=clamp((.59-p)/.1),height=Math.min(this.height*.66,300),top=(this.height-height)*.43;
-    const portrait=art.image(critical?art.pack.criticals?.default:art.pack.portraits[e.from]);
+    const portrait=art.image(art.pack.portraits[e.from]);
     c.save();c.translate(offset+(1-enter)*width*.15-leave*width*.08,top);c.globalAlpha=alpha;
     const bg=c.createLinearGradient(0,0,width,height);bg.addColorStop(0,critical?'#391d24':'#102f32');bg.addColorStop(.6,'#101b25');bg.addColorStop(1,'#07141aee');c.fillStyle=bg;
     c.beginPath();c.moveTo(0,height*.06);c.lineTo(width,height*.01);c.lineTo(width,height*.9);c.lineTo(0,height);c.closePath();c.fill();
@@ -401,6 +412,7 @@ export class BattleEffects {
     this.items = this.items.filter(e => this.clock - e.start < e.duration);
     this.cinematics = this.cinematics.filter(cast => this.clock - cast.start < cast.duration);
     this.syncCinematicState();
+    this.cues.advance(this.clock);
     const cell = Math.min(this.width / HEX_GRID.width, this.height / HEX_GRID.height);
     const clear = this.mode === 'clear' || this.reduced;
     this.signals.draw(this,cell);
@@ -411,7 +423,7 @@ export class BattleEffects {
       const [color, accent] = COLORS[e.visual] || COLORS.slash;
       if(e.enchantment||e.attackOrb)this.drawOrb(e,p,from,to,cell);
       else if(e.skill&&!e.cinematic&&!e.combo&&!e.ongoing)this.drawLocalSkill(e,p,from,to,cell);
-      else if (clear) {
+      else if (clear || e.abilityKind==='trait'&&!isHighlightedAbility(e)) {
         if(e.damage&&!e.skill)this.drawNormal(e,p,from,to,cell,true);else this.drawClear(e,p,from,to,cell);
         if(e.ongoing&&e.healing)this.label('+'+e.healing,to.x,to.y-cell*.5,'#b9ebd9',1-p,clamp(cell*.25,10,15));
       }
@@ -429,6 +441,7 @@ export class BattleEffects {
       if(p>.48)this.label(damageLabel(e),to.x,to.y-cell*(.65+(p-.48)*.45),e.critical?'#ffdc87':e.side?'#f5b5a5':'#b9ebd9',(1-p)*1.7,clamp(cell*(e.critical?.32:.25),11,e.critical?22:17));
     }
     if (this.cinematics[0]) this.drawCinematic(this.cinematics[0], cell);
+    else if(!this.paused)this.cues.draw(this,cell);
     this.signals.drawOrders(this,cell);
     this.frame = requestAnimationFrame(t => this.draw(t));
   }

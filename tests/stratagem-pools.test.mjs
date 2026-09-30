@@ -1,3 +1,7 @@
+import {remedy} from '../battle-status-rules.mjs';
+import {isTargetable} from '../engagement.mjs';
+import {chooseStratagemPoint,stratagemAreaContains} from '../stratagem-area.mjs';
+import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {OFFICER_CATALOG} from '../officer-catalog.mjs';
@@ -38,12 +42,13 @@ for(const [key,id] of Object.entries(EXCLUSIVE_STRATAGEMS))test(`${key}：史实
  const s=createScenario('custom-battle',4511,20,null,draft),b=s.battle;lockDeployment(b);
  while(!b.result&&b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
  assert.equal(b.result,null);assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
+ if(key==='zhou-redcliffs')for(const u of b.sides[1].units)remedy(b,u,'quench');
  if(key==='sima-isolate'){
   // Actual reinforcement fixture separately covers casting with reserves.
-  assert.match(issueCommand(b,key),/预备队/);assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
+  assert.match(issueCommand(b,key,chooseStratagemPoint(b,STRATAGEMS[key],0)),/预备队/);assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
  }else{
-  assert.equal(issueCommand(b,key),null);assert.equal(b.commandProgress,0);
-  if(key==='zhuge-eight')assert.ok(b.sides[0].units.filter(u=>u.status==='active').every(u=>hasStatus(b,u,'resolve')));
+  assert.equal(issueCommand(b,key,chooseStratagemPoint(b,STRATAGEMS[key],0)),null);assert.equal(b.commandProgress,0);
+  if(key==='zhuge-eight'){assert.equal(b.stratagemZones.length,1);assert.equal(b.sides[0].fortifyUntil,0);}
  }
  const copy=validateSave(structuredClone(s));for(let n=0;n<20&&!b.result;n++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
  if(key==='zhuge-eight'){assert.equal(chooseEnemyCommand(b,[key],STRATAGEMS,0),null);return;}
@@ -53,13 +58,14 @@ for(const [key,id] of Object.entries(EXCLUSIVE_STRATAGEMS))test(`${key}：史实
 test('赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则',async()=>{
  const {unitAttributes}=await import('../engine.mjs');
  const draft={seed:4511,terrain:'river',ownTeam:[entry('person-246','ship'),entry('cao'),entry('yu','halberd')],enemyTeam:[{...entry('shao','ship'),troops:7000},entry('wen'),entry('yan')],ownTeamRoles:{leader:'person-246',advisor:'yu'}};
- const s=createScenario('custom-battle',4511,20,null,draft),b=s.battle;lockDeployment(b);
+ const s=createScenario('custom-battle',4511,20,null,draft),b=s.battle;for(const u of b.sides.flatMap(s=>s.units))u.retreatAt=null;lockDeployment(b);
  while(!b.result&&b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
- assert.equal(b.result,null);const allies=b.sides[0].units.filter(u=>u.status==='active'&&u.hp>0),targets=b.sides[1].units.filter(u=>u.status==='active'&&u.hp>0);
+ assert.equal(b.result,null);const allies=b.sides[0].units.filter(u=>u.status==='active'&&u.hp>0),targets=b.sides[1].units.filter(u=>u.status==='active'&&u.hp>0&&isTargetable(b,u));
  assert.ok(targets.some(u=>u.type==='ship'));assert.ok(targets.some(u=>u.type!=='ship'));
  const amount=Math.floor(allies.reduce((sum,u)=>sum+unitAttributes(u,b).strategyPower,0)*(18/280)*selectStratagemSource(b.sides[0].commanders,'zhou-redcliffs').power/targets.length);
- assert.equal(issueCommand(b,'zhou-redcliffs'),null);
- for(const u of targets)assert.equal(u.statuses.burn.amount,Math.floor(amount*(u.type==='ship'?1.25:1)));
+ for(const u of targets)remedy(b,u,'quench');
+ assert.equal(issueCommand(b,'zhou-redcliffs',chooseStratagemPoint(b,AREA_DESIGNS['zhou-redcliffs'],0)),null);
+ for(const u of targets)if(stratagemAreaContains(STRATAGEMS['zhou-redcliffs'],b.lastCommand.target,u))assert.equal(u.statuses.burn.amount,Math.floor(amount*(u.type==='ship'?1.25:1)));else assert.equal(u.statuses.burn,undefined);
 });
 
 
@@ -70,7 +76,7 @@ test('曹操军略进入真实结算，并保存提供者与效果',async()=>{
   while(!b.result&&b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
   assert.equal(b.result,null);
   const u=b.sides[0].units.find(u=>u.status==='active'),before=unitAttributes(u,b);
-  assert.equal(issueCommand(b,key),null);
+  assert.equal(issueCommand(b,key,chooseStratagemPoint(b,STRATAGEMS[key],0)),null);
   const effect=b.sides[0].stratagemEffects[STRATAGEMS[key].field];
   assert.ok(effect.strength>min&&effect.strength<max);
   const after=unitAttributes(u,b);assert.notDeepEqual(after,before);

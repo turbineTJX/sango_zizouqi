@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 // Paired audit: only the reserve selector differs; learning, deployment,
 // commands, combat and seeds use the current real engine in both processes.
 import {registerHooks} from 'node:module';
@@ -40,7 +42,7 @@ for(const fixture of cases)for(let index=0;index<16;index++){
   const starters=activeUnits(b,1).map(u=>({id:u.id,type:u.type,troops:u.hp}));
   lockDeployment(b);
   while(!b.result){
-    if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)issueCommand(b,key);}
+    if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key)issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0));}
     stepBattle(b);
     if(b.sides.some(side=>side.units.filter(u=>u.status==='active').length>6))throw new Error('slot overflow');
   }

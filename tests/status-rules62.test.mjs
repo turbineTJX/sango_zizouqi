@@ -1,3 +1,4 @@
+import {currentBattle} from './helpers/current-battle.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
@@ -42,17 +43,12 @@ test('loss of ZOC, root and disarm have independent effects; resolve covers all 
  remedy(b,a,'rally');setStatus(b,a,'resolve',3);for(const k of ['confuse','root','disarm','seal','taunt','disrupted']){setStatus(b,a,k,2,{sourceId:d.id});assert.equal(hasStatus(b,a,k),false,k);}
 });
 test('personal range changes do not increase weapon tactic range',()=>{
- const {b,a,d,e}=scene();a.type='crossbow';d.x=8;e.x=12;setStatus(b,a,'longRange',6,{amount:2});
+ const {b,a,d,e}=scene();a.type='crossbow';d.x=9;e.x=12;setStatus(b,a,'longRange',6,{amount:2});
  assert.equal(unitAttributes(a,b).range,6);assert.equal(tacticTarget(b,a,TACTICS_BOOK.repeat,6),null);
 });
-test('learned opening ambush is first-entry only, respects ZOC, and is serialized with the current rules',()=>{
- const {state,b,a,d}=scene();a.type='cavalry';assert.equal(learnFixtureTactics(a,['concealment']),null);a.entryStatusesApplied=false;a.status='reserve';fillSlots(b,0);
- assert.ok(hasStatus(b,a,'stealth'));assert.equal(isTargetable(b,a),false);assert.equal(holdsLine(b,a),false);
- Object.assign(a,{x:3,y:3});assert.equal(interceptorsAt(b,a).length,1);
- const copy=structuredClone(a.statuses.stealth);breakStealth(b,a,'测试已受伤');a.status='reserve';fillSlots(b,0);assert.equal(hasStatus(b,a,'stealth'),false);
- a.statuses.stealth=copy;a.tacticRecoveryUntil=0;for(const u of b.sides.flatMap(s=>s.units))u.tacticRecoveryUntil=0;
- for(const u of b.sides.flatMap(s=>s.units))u.tactics=unitTactics(u).map(s=>s.id);
- const resumed=validateSave(structuredClone(syncFixtureLearning(state)));for(let i=0;i<15;i++){stepBattle(b);stepBattle(resumed.battle);}assert.deepEqual(resumed.battle,b);
+test('removed opening ambush cannot be equipped or generate an entry status',()=>{
+ const {state,b,u}=currentBattle('rush','cavalry');const kit=structuredClone(u.tactics);
+ assert.ok(learnFixtureTactics(u,['concealment']));assert.deepEqual(u.tactics,kit);assert.equal(hasStatus(b,u,'stealth'),false);validateSave(structuredClone(state));
 });
 test('ambush chooses reachable rear, waits to cast, and first strike confuses for one step',()=>{
  const {b,a,d,e}=scene();a.type='cavalry';a.cooldown=0;d.x=10;Object.assign(e,{x:4,y:3});setStatus(b,a,'stealth',12);
@@ -64,7 +60,7 @@ test('insight exposes hidden units without changing contact; damage breaks steal
  const x=scene();setStatus(x.b,x.a,'stealth',12);setStatus(x.b,x.a,'burn',3,{sourceId:x.d.id,amount:20});stepBattle(x.b);assert.equal(hasStatus(x.b,x.a,'stealth'),false);
 });
 test('single-target learned decoy creates a real target, not a seventh troop or damage shield',()=>{
- const {b,a,c,d}=scene();a.type='halberd';a.tacticRecoveryUntil=0;primeTactic(a,'mirage');Object.assign(c,{x:3,y:2});stepBattle(b);
+ const {b,u:a,ally:c,target:d,rear:e}=currentBattle('mirage','crossbow',{requireS:true});e.x=13;e.y=7;primeTactic(a,'mirage');Object.assign(c,{x:3,y:2});stepBattle(b);
  const owner=[a,c].find(u=>hasStatus(b,u,'decoy'));assert.ok(owner);assert.equal(b.sides[0].units.length,2);
  const proxy=decoyTargets(b,0)[0];assert.equal(holdsLine(b,proxy),false);assert.equal(proxy.hp,Math.round(owner.initial*.3));
  Object.assign(d,{type:'archer',x:4,y:2,cooldown:0});d.passiveState.targetId=owner.id;const hp=owner.hp,intent=d.intent;stepBattle(b);

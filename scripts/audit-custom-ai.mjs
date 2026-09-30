@@ -1,3 +1,5 @@
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
+import {STRATAGEM_DESIGNS as AREA_DESIGNS} from '../data/design/stratagems.mjs';
 import assert from 'node:assert/strict';
 import {mkdirSync,writeFileSync,readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -35,7 +37,7 @@ for(const c of cases){
   const initial=b.sides.map(s=>s.units.map(u=>({id:u.id,type:u.type,x:u.x,y:u.y,tactics:u.tactics})));
   lockDeployment(b);
   while(!b.result){
-   if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key){assert.equal(issueCommand(b,key),null);if(resumed)assert.equal(issueCommand(resumed.battle,key),null);}}
+   if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);if(resumed)assert.equal(issueCommand(resumed.battle,key,chooseStratagemPoint(resumed.battle,AREA_DESIGNS[key],0)),null);}}
    const previous=snapshot();stepBattle(b);if(resumed)stepBattle(resumed.battle);
    assert.ok(b.tick<=480);
    const active=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');

@@ -4,16 +4,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
-import {setStatus,shieldAmount} from '../tactics.mjs';
+import {setStatus,shieldAmount,unitTactics} from '../tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {outcomeLines} from '../tactic-outcomes.mjs';
 
-function scene(type='crossbow'){
-  const state=createScenario('field',71),b=state.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
-  b.sides[0].units=[a];b.sides[1].units=[d];
-  Object.assign(a,{type,x:4,y:3,cooldown:999,intent:0});
-  Object.assign(d,{x:5,y:3,cooldown:999,intent:0,skillReady:Object.fromEntries(d.tactics.map(id=>[id,999]))});
-  lockDeployment(b);return {state,b,a,d};
+function scene(type='crossbow',id='person-186'){
+  const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
+  const state=createScenario('custom-battle',71,20,null,{seed:71,terrain:'land',ownTeam:[entry(id,type)],enemyTeam:[entry('shao','spear')]});
+  const b=state.battle;lockDeployment(b);const a=b.sides[0].units[0],d=b.sides[1].units[0];
+  for(const u of [a,d]){u.cooldown=999;u.intent=0;u.skillReady=Object.fromEntries(unitTactics(u).map(t=>[t.id,999]));setStatus(b,u,'root',999);}
+  Object.assign(a,{x:4,y:3});Object.assign(d,{x:type==='crossbow'?6:5,y:3});return {state,b,a,d};
 }
 test('multi-hit results equal actual casualties and shield absorption, with no double counting',()=>{
   const {b,a,d}=scene();setStatus(b,d,'shield',10,{amount:40,source:'test'});
@@ -33,23 +33,23 @@ test('remaining shield after a hit is not misreported as a newly granted shield'
 });
 test('mixed damage and control report actual duration; resisted control is not claimed',()=>{
   for(const protectedTarget of [false,true]){
-    const {b,a,d}=scene('spear');
+    const {b,a,d}=scene('halberd','person-433');
     if(protectedTarget)setStatus(b,d,'resolve',20);
-    primeTactic(a,'doubt');const hp=d.hp;stepBattle(b);
+    primeTactic(a,'unique-person-433');const hp=d.hp;stepBattle(b);
     const target=b.effects.find(e=>e.outcome).outcome.find(t=>t.id===d.id);
     assert.equal(target.damage,hp-d.hp);
     const roll=b.effects.find(e=>e.resolution?.effect==='confuse').resolution;
     assert.equal(target.changes.some(t=>t.startsWith('混乱（')),roll.success);
     if(protectedTarget)assert.ok(target.changes.some(t=>t.startsWith('混乱免疫')));
-    if(roll.success)assert.ok(target.changes.some(t=>t.includes(`（${d.statuses.confuse.until-b.tick-1}步）`)));
+    if(roll.success)assert.ok(target.changes.some(t=>t.includes(`（${d.statuses.confuse.until-b.tick-1}回合）`)));
     else if(!protectedTarget)assert.ok(target.changes.some(t=>t.startsWith('混乱未成功')));
   }
 });
 test('healing results use wounded budget and show actual shield separately',()=>{
-  const {b,a}=scene();a.hp-=400;a.battleDamage=400;
-  primeTactic(a,'screen');const hp=a.hp;stepBattle(b);
+  const {b,a}=scene('spear','person-636');a.hp-=400;a.battleDamage=400;
+  primeTactic(a,'unique-person-636');const hp=a.hp;stepBattle(b);
   const target=b.effects.find(e=>e.outcome).outcome.find(t=>t.id===a.id);
-  assert.equal(target.healing,a.hp-hp);assert.equal(target.healing,140);
+  assert.equal(target.healing,a.hp-hp);assert.equal(target.healing,0);assert.ok(a.statuses.regrowth);
   assert.ok(target.changes.some(t=>t.startsWith(`护盾 ${shieldAmount(b,a)}`)));
   assert.equal(target.damage,0);
 });

@@ -1,5 +1,5 @@
 import {newGame,makeOfficer,startBattle,configureBattleTerrain,fillSlots} from './engine.mjs';
-import {validateCustomBattle,customRoles} from './custom-battle.mjs';
+import {validateCustomBattle,customRoles,customFrontlineCapacity,customReserveEntries} from './custom-battle.mjs';
 import {initializeTacticLearning} from './tactic-learning.mjs';
 import {setStatus} from './tactics.mjs';
 import {planEnemyArmy} from './battle-ai.mjs';
@@ -13,7 +13,7 @@ export function generateBattle(input,{id='custom-battle',name='自由对战',off
   for(const [army,key] of [[own,'ownTeam'],[enemy,'enemyTeam']]){
     army.units=draft[key].map((entry,i)=>{
       const u=makeOfficer(entry.id,entry.troops,i,entry.level,draft.seed);
-      Object.assign(u,{type:entry.type,formation:entry.formation||(['spear','halberd'].includes(entry.type)?'front':entry.type==='cavalry'?'left':'back'),first:entry.first??i<6});
+      Object.assign(u,{type:entry.type,retreatAt:entry.retreatAt??null,formation:entry.formation||(['spear','halberd'].includes(entry.type)?'front':entry.type==='cavalry'?'left':'back'),first:entry.first??i<customFrontlineCapacity(draft,key)});
       return initializeTacticLearning(u,draft.seed);
     });
     Object.assign(army,customRoles(draft,key),{deputy:draft[key+'Roles']?.deputy??null,tactic:draft[key+'Tactic']||'balanced',morale:80,location:'guandu'});
@@ -26,9 +26,9 @@ export function generateBattle(input,{id='custom-battle',name='自由对战',off
   configureBattleTerrain(b,draft.terrain);b.maxTicks=draft.limit;
   if(draft.holdUntil)b.holdUntil=draft.holdUntil;
   // Assign by draft roster, before enemy AI selects any starters.
-  let index=6;
+  const reserves=customReserveEntries(draft,'enemyTeam');let index=0;
   draft.waves.forEach((wave,i)=>{
-    for(const entry of draft.enemyTeam.slice(index,index+wave.count)){
+    for(const entry of reserves.slice(index,index+wave.count)){
       const u=b.sides[1].units.find(u=>u.id===entry.id);u.wave=i+1;u.arrivalTick=wave.tick;
     }
     index+=wave.count;

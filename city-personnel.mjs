@@ -8,13 +8,13 @@ export function residentArmy(s,a){
 }
 export function residentOfficer(s,id){
  const prepared=cityUnitRows(s).find(o=>o.unit.id===id);if(prepared&&!prepared.unit.mission)return prepared;
- const idle=s.campaign.idle.find(o=>o.unit.id===id&&!o.destination&&!o.unit.mission);
+ const idle=s.campaign.idle.find(o=>o.unit.id===id&&!o.destination&&!o.retreating&&!o.unit.mission);
  if(idle&&s.cities.some(c=>c.id===idle.location&&c.owner===idle.faction))return idle;
  const army=s.armies.find(a=>a.units.some(u=>u.id===id)&&residentArmy(s,a));
  return army?{unit:army.units.find(u=>u.id===id),faction:army.faction,location:army.location,destination:null,army}:undefined;
 }
 export function cityPersonnel(s,cityId){
  const city=s.cities.find(c=>c.id===cityId);if(!city)return [];
- return [...cityUnitRows(s).filter(o=>o.location===cityId&&!o.unit.mission),...s.campaign.idle.filter(o=>o.location===cityId&&o.faction===city.owner&&!o.destination&&!o.unit.mission),
+ return [...cityUnitRows(s).filter(o=>o.location===cityId&&!o.unit.mission),...s.campaign.idle.filter(o=>o.location===cityId&&o.faction===city.owner&&!o.destination&&!o.retreating&&!o.unit.mission),
   ...s.armies.filter(a=>a.location===cityId&&residentArmy(s,a)).flatMap(army=>army.units.map(unit=>({unit,faction:army.faction,location:cityId,destination:null,army})))];
 }

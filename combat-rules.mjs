@@ -7,4 +7,4 @@ export const TROOP_INTENT = Object.freeze(Object.fromEntries(Object.entries({
   spear:[6,7], halberd:[5,8], cavalry:[10,3], archer:[6,3],
   crossbow:[10,3], siege:[11,2], ram:[11,2], tower:[11,2], ship:[8,5],
 }).map(([type,[attack,hit]])=>[type,Object.freeze({attack,hit})])));
-export const RULES_VERSION = 64;
+export const RULES_VERSION = 85;

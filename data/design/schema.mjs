@@ -2,6 +2,10 @@
 export const DESIGN_SCHEMA_VERSION=1;
 export const DESIGN_FIELDS={
   "traits": [
+    "work",
+    "strategic",
+    "clinicIndependent",
+    "mechanics",
     "aura",
     "politicsStats",
     "available",
@@ -12,7 +16,6 @@ export const DESIGN_FIELDS={
     "effects",
     "kinds",
     "name",
-    "personal",
     "quantity",
     "recruitDiscount",
     "role",
@@ -22,7 +25,7 @@ export const DESIGN_FIELDS={
     "value"
   ],
   "tactics": [
-    "statusKey", "remedy", "stasisDays", "stasisHealth", "stasisLockDays",
+    "selfStatus", "selfStatusSteps", "regrowthFraction", "regrowthSteps", "targetRear", "meleeSustain", "statusKey", "remedy", "stasisDays", "stasisHealth", "stasisLockDays",
     "allyIntent",
     "allyRange",
     "allyTargets",
@@ -78,6 +81,8 @@ export const DESIGN_FIELDS={
     "ward"
   ],
   "stratagems": [
+    "scope",
+    "disciplineDuration",
     "baseStrength",
     "cost",
     "description",
@@ -92,7 +97,8 @@ export const DESIGN_FIELDS={
     "owner",
     "pool",
     "resolve",
-    "restoreUses",
+    "maxUses",
+    "zone",
     "shipFireBonus",
     "side",
     "source",
@@ -208,6 +214,9 @@ export const DESIGN_EFFECTS={
     "wildfire"
   ],
   "stratagems": [
+    "eightFormation",
+    "magicImmunity",
+    "rapidAdvance",
     "assault",
     "blockade",
     "cleanse",
@@ -226,7 +235,8 @@ export const DESIGN_EFFECTS={
 };
 
 // Existing ID-based trait handlers; new handlers must be registered deliberately.
-export const ENGINE_TRAIT_IDS=[
+export const ENGINE_TRAIT_IDS=["battleInsight","fieldMedicine","rapidMarch",
+  "hero-cao",
   "merchant",
   "farming",
   "inventor",
