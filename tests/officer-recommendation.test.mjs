@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import {assignDomestic,beginDomesticTurn,assignmentFor} from '../domestic.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -8,7 +9,7 @@ import {prepareEnemyDomestic} from '../talent-lifecycle.mjs';
 import {campaignRosterMarkup} from '../strategic-roster.mjs';
 const scene=()=>newCampaign(42,'heroes-251');
 test('commerce and agriculture no longer recommend deleted numerical traits',()=>{
- const s=scene(),c=s.cities.find(c=>c.id==='xuchang');c.commerce=5;c.farm=5;c.granary=5;c.grain=10000;s.gold=2500;
+ const s=scene(),c=s.cities.find(c=>c.id==='xuchang');c.commerce=5;c.farm=5;c.granary=5;c.grain=10000;fundCities(s,2500);
  const units=['person-533','person-107'].map(id=>s.cities.flatMap(c=>cityPersonnel(s,c.id)).find(o=>o.unit.id===id).unit);
  for(const u of units){for(const other of s.cities)other.units=other.units.filter(v=>v.id!==u.id);s.campaign.idle=s.campaign.idle.filter(o=>o.unit.id!==u.id);s.campaign.idle.push({unit:u,faction:'cao',location:c.id,destination:null});Object.assign(u,{politics:80,charm:80,intellect:80,leadership:80,personality:1});}
  const commerce=rankOfficerCandidates(s,units,{task:'domestic',city:c.id,direction:'commerce'}),agriculture=rankOfficerCandidates(s,units,{task:'domestic',city:c.id,direction:'agriculture'});

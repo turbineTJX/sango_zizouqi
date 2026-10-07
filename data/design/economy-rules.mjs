@@ -1,19 +1,48 @@
 // Authoritative shared economy; players and AI use the same income and costs.
 export const ECONOMY_RULES = {
+  "budget": {"days": 10, "goldReserve": 500, "grainReserve": 0, "maxReserve": 1000000, "criticalFoodDays": 3},
   "income": {
     "gold": {
-      "base": 320,
-      "perCommerce": 320
+      "base": 100,
+      "perCommerce": 100
     },
     "grain": {
-      "base": 1800,
-      "perFarm": 1400
+      "base": 300,
+      "perFarm": 770
     },
     "manpower": {
-      "base": 800,
-      "perBarracks": 800
+      "base": 100,
+      "perBarracks": 294
     },
     "governorPoliticsDivisor": 500
+  },
+  // Rounded normal sustained-demand coverage, not an executable market quote.
+  // Forming spends money + reserves; only formed soldiers consume rations.
+  "value": {"gold": 1, "grain": 0.13, "manpower": 0.34},
+  "work": {"base": 0.7, "abilityDivisor": 150, "constructionSetbackShare": 0.5},
+  "development": {
+    "economicBuildings": ["commerce", "farm", "barracks"],
+    "localLevels": {"small": 2, "large": 3, "rich": 6, "infrastructure": 5},
+    "richCities": ["xuchang", "luoyang", "ye", "town-18", "town-23", "town-30", "town-31", "town-40"],
+    "metropolitanMax": 12,
+    "externalLevels": {
+      "city": {"commerce": 2, "farm": 2, "barracks": 2, "other": 3},
+      "gate": {"commerce": 1, "farm": 0, "barracks": 2, "other": 3},
+      "port": {"commerce": 3, "farm": 1, "barracks": 1, "other": 3}
+    },
+    "workValueBase": 100,
+    "workValuePerLevel": 50,
+    "foodForecastSafety": 0.9,
+    "stockSupportDays": 60
+  },
+  "maintenance": {
+    "goldPerThousandTroops": 0,
+    "woundedGoldFactor": 0.5
+  },
+  "recruitment": {
+    "reserveCost": 0,
+    "reserveTargetBase": 10000,
+    "reserveTargetTroopShare": 0.35
   },
   "capacity": {
     "grainBase": 10000,
@@ -26,6 +55,7 @@ export const ECONOMY_RULES = {
     "foodReserveDays": 20,
     "recruitReserveDays": 10,
     "economicWorkersPerDirection": 3,
+    "cityTroopTarget": 4500,
     "offensive": {
       "maxWoundedShare": 0.2,
       "homeFoodDays": 10,

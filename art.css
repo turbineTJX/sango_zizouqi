@@ -1,4 +1,28 @@
 .portrait{position:relative;overflow:hidden}.portrait>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}.portrait>i{z-index:2}.portrait.has-art-portrait>span{visibility:hidden}
+[data-art-portrait]{position:relative;overflow:hidden}
+[data-art-portrait]>img[data-officer-art]{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+[data-art-portrait]>img[data-art-frame="face"]{transform:none}
+[data-art-portrait].has-art-portrait>span{visibility:hidden}
+.inspection-heading [data-art-scene="detail"],.catalog-detail-heading [data-art-scene="detail"]{width:96px;height:144px;flex-shrink:0}
+.diplomatic-officer{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.diplomatic-officer-art{display:block;width:56px;height:84px;flex-shrink:0;background:#21392e;border:1px solid #ae956b55}
+.city-building-staff .town-officer-face[data-art-scene]{width:56px;height:84px;flex-shrink:0}
+.detail-inspection .info-identity .info-portrait[data-art-scene]{width:104px;height:156px;min-height:0;padding:0;flex-shrink:0}
+.report-dispatches .report-dispatch:has([data-art-scene]){grid-template-columns:72px minmax(0,1fr)}
+.report-dispatches .report-portrait[data-art-scene]{width:64px;height:96px}
+.detail-inspection .info-identity .info-portrait[data-art-shape="standee"]{width:144px;height:360px;background:transparent;aspect-ratio:var(--officer-art-aspect)}
+.detail-inspection .info-identity:has(.info-portrait[data-art-shape="wide"]){display:grid;grid-template-columns:minmax(0,1fr);text-align:left;justify-items:start}
+.detail-inspection .info-identity .info-portrait[data-art-shape="wide"]{width:100%;height:auto;aspect-ratio:var(--officer-art-aspect);margin:0}
+.detail-inspection .info-identity .info-portrait[data-art-shape="portrait"]{width:140px;height:auto;aspect-ratio:var(--officer-art-aspect);margin:0}
+.inspection-heading [data-art-scene="detail"][data-art-shape="standee"],.catalog-detail-heading [data-art-scene="detail"][data-art-shape="standee"]{width:96px;height:240px}
+.city-building-staff .town-officer-face[data-art-shape="wide"]{width:112px;height:auto;aspect-ratio:var(--officer-art-aspect)}
+.diplomatic-officer-art[data-art-shape]{width:80px;height:auto;aspect-ratio:var(--officer-art-aspect)}
+.report-dispatches .report-dispatch:has(.report-portrait[data-art-shape="wide"]){grid-template-columns:minmax(0,1fr);gap:8px}
+.report-dispatches .report-dispatch:has(.report-portrait[data-art-shape="wide"]) .report-speaker{width:min(100%,320px);text-align:left}
+.report-dispatches .report-portrait[data-art-shape="wide"]{width:100%;height:auto;aspect-ratio:var(--officer-art-aspect);max-height:240px}
+.ability-cue .ability-portrait[data-art-shape="wide"]{width:96px;height:54px;flex-shrink:0}
+.ability-cue .ability-portrait[data-art-shape="wide"] img{object-fit:contain}
+@media(max-width:600px){.detail-inspection .info-identity .info-portrait[data-art-shape="standee"]{width:92px;height:230px}}
 .catalog-art-portrait{width:52px;height:62px;flex-shrink:0;margin-right:12px}.catalog-name{display:flex;align-items:center}.catalog-art-portrait>span{font-size:32px}
 .art-sprites,.art-models{position:absolute;inset:0;width:100%;height:100%;pointer-events:none!important}.art-models{z-index:1}.art-sprites{z-index:2}
 .battle-board.has-art-background{background-image:linear-gradient(#10282088,#102820aa),var(--art-background);background-size:cover;background-position:center}
@@ -69,10 +93,10 @@
  .battle-layout .arena-stage .battle-board{width:max(100%,780px);margin:auto}
 }
 .battle-inspection.modal-backdrop{justify-content:flex-end;align-items:stretch;padding:14px;background:#08171433;backdrop-filter:none}
-.battle-inspection .modal{width:min(470px,100%);max-height:100%;margin:0;display:flex;flex-direction:column}
-.battle-inspection .modal-body{overflow:auto;min-height:0}
-.battle-inspection .modal-header,.battle-inspection .modal-footer{flex-shrink:0}
-.battle-inspection .close-button{min-width:44px;min-height:44px}
+.battle-inspection :is(.modal,.detail-source-panel){width:min(470px,100%);max-height:100%;margin:0;display:flex;flex-direction:column}
+.battle-inspection :is(.modal-body,.detail-source-body){overflow:auto;min-height:0}
+.battle-inspection :is(.modal-header,.detail-source-header),.battle-inspection :is(.modal-footer,.detail-source-footer){flex-shrink:0}
+.battle-inspection :is(.close-button,.detail-source-close){min-width:44px;min-height:44px}
 @media(max-height:650px) and (min-width:601px){
  .battle-layout{display:grid;grid-template-columns:110px minmax(0,1fr) 110px;gap:8px;padding:4px 0}
  #battle-unit-labels{display:contents}
@@ -92,9 +116,9 @@
  .unit-view-hint{display:block;order:5;flex-basis:100%;font-size:10px}
  .unit-view-hint:before{content:'左右滑动战场 · '}
  .battle-inspection.modal-backdrop{align-items:flex-end;justify-content:center;padding:0;background:#08171455}
- .battle-inspection .modal{width:100%;max-width:100%;max-height:64dvh;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom)}
- .battle-inspection .modal-header{padding:12px 16px}.battle-inspection .modal-body{padding:14px 16px}
- .battle-inspection .modal-footer{padding:10px 16px}
+ .battle-inspection :is(.modal,.detail-source-panel){width:100%;max-width:100%;max-height:64dvh;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+ .battle-inspection :is(.modal-header,.detail-source-header){padding:12px 16px}.battle-inspection :is(.modal-body,.detail-source-body){padding:14px 16px}
+ .battle-inspection :is(.modal-footer,.detail-source-footer){padding:10px 16px}
 }
 
 /* Battle resources stay visible on both armies and the roster. */
@@ -109,3 +133,81 @@
 
 .arena-page .battle-unit:not(.has-unit-art)>.unit-type{display:none}.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{top:4%;width:94%;box-sizing:border-box}
 
+/* Portrait markers: faction rim, remaining troops, intent and active effects. */
+.arena-page .battle-unit .unit-map-caption{--army-color:#77dcc4;top:8%;width:52px;max-width:none;padding:0;gap:0;background:transparent;filter:drop-shadow(0 1px 2px #071610);align-items:center}
+.arena-page .battle-unit.side-1 .unit-map-caption{--army-color:#f39a83;background:transparent}
+.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{top:8%;width:52px}
+.map-portrait-row{position:relative;display:block;width:34px;height:34px}
+.map-portrait-ring{display:block;padding:2px;border-radius:50%;background:conic-gradient(var(--army-color) var(--troop-health),#292e32 var(--troop-health));box-shadow:0 0 0 1px #13191b}
+.unit-map-caption .portrait.small{display:block;position:relative;width:30px;height:30px;border-radius:50%;border:0;margin:0;overflow:hidden;background:#303b3b}
+.unit-map-caption .portrait>i{display:none}.unit-map-caption .portrait>span{font:700 18px/30px serif;color:#f5dfaa}
+.unit-map-caption .portrait img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.unit-map-caption .map-troop-type{position:absolute;left:-8px;bottom:0;font:10px/14px var(--sans);color:var(--army-color);background:#152222;border-radius:3px;padding:0 2px}
+.unit-map-caption .map-statuses{position:absolute;left:34px;top:0;display:flex;flex-direction:column;gap:1px}
+.map-status{display:flex;width:13px;height:13px;align-items:center;justify-content:center;background:#162521;border-radius:3px;color:#9de6c9}.map-status.debuff,.map-status.control{color:#ff9685}.map-status .status-icon{width:12px;height:12px}.map-status-overflow{font:9px/10px var(--sans);color:#fff1ce}
+.arena-page .unit-map-caption>b{font:600 10px/12px var(--sans);color:#fff0d2;background:#162322e8;padding:0 3px;border-radius:2px;max-width:62px}
+.arena-page .unit-map-caption .map-troops{font:600 14px/16px var(--sans);font-variant-numeric:tabular-nums;color:#fff;letter-spacing:.3px;text-shadow:0 1px 2px #000;background:#242038eb;border-bottom:1px solid var(--army-color);min-width:40px;padding:0 2px;text-align:center}
+.map-intent-pips{display:flex;gap:2px;width:42px;margin-top:2px}.map-intent-pips>span{height:3px;flex:1;background:#263a4b;overflow:hidden;border-radius:1px}.map-intent-pips>span>span{display:block;height:100%;background:#63c8ff}
+/* Fit the whole deployment board into the space left by compact controls. */
+.arena-page .battle-layout{flex:1;flex-shrink:1;min-height:380px}
+.arena-page .battle-layout .arena-stage{min-height:0;container-type:size;overflow:hidden;align-items:center;justify-content:center}
+.arena-page .battle-layout .arena-stage .battle-board{width:min(calc(100cqw - 32px),calc((100cqh - 40px) * var(--hex-aspect)));max-width:none;flex-shrink:0;margin:auto}
+.arena-page .battle-council .reserve-bench{min-height:36px;padding:4px;align-items:center}
+.arena-page .reserve-bench .council-unit{width:132px;min-height:60px;padding:7px;margin:0;border:1px solid #a7b99c26;border-left:2px solid #79aa91;border-radius:3px;background:#23342ac9;color:#f4ead0;text-align:left;text-decoration:none;cursor:grab}
+.arena-page .reserve-bench .council-unit:active{cursor:grabbing}
+.arena-page .reserve-bench .council-unit:hover,.arena-page .reserve-bench .council-unit:focus-visible{background:#4d4930;outline:1px solid #e2c385;outline-offset:1px}
+.reserve-arrival{color:#cdb17c;font-size:10px}
+@media(max-width:1000px){.arena-page .battle-layout{flex:none;height:62dvh;min-height:480px}.arena-page .battle-layout .arena-stage{container-type:inline-size;overflow:auto;justify-content:flex-start;min-height:320px}.arena-page .battle-layout .arena-stage .battle-board{width:max(100%,640px);margin:auto}}
+@media(max-width:600px){.arena-page .battle-layout{height:56dvh;min-height:460px}}
+@media(max-width:1000px),(max-height:650px){.arena-page .reserve-bench .council-unit{width:110px;min-height:46px;padding:4px;gap:6px}}
+
+@media(max-width:600px){.arena-header .arena-title{flex:1 0 100%}.arena-header .battle-playback{flex:1;justify-content:flex-end}}
+
+/* Each faction keeps its live bond progress beside its troop roster. */
+.arena-page .battle-layout{grid-template-columns:238px minmax(0,1fr) 238px}
+.arena-page .roster-side{display:grid;grid-template-columns:minmax(0,132px) minmax(0,98px);grid-template-rows:36px minmax(0,1fr);gap:0 8px;align-items:stretch}
+.arena-page .roster-side>header{grid-column:1;grid-row:1;letter-spacing:0}
+.arena-page .roster-list{grid-column:1;grid-row:2;align-items:stretch}
+.arena-page .battle-bonds{grid-column:2;grid-row:1 / span 2;display:flex;min-height:0;min-width:0}
+.battle-bonds .bond-panel{display:flex;flex-direction:column;align-items:stretch;gap:0;width:100%;min-height:0;padding:0;margin:0;border:0;border-radius:0}
+.battle-bonds .bond-panel h4{display:flex;align-items:center;height:36px;border-bottom:1px solid #a1c4ad40;color:#b6dbc2;font-size:12px;font-weight:400;white-space:nowrap}
+.roster-side-1 .battle-bonds .bond-panel h4{color:#e5b19a;border-color:#cf8d7540}
+.battle-bonds .bond-list{display:flex;flex:1;flex-direction:column;align-items:stretch;gap:6px;flex-wrap:nowrap;overflow-x:hidden;overflow-y:auto;padding:10px 2px 4px;min-height:0;scrollbar-width:thin}
+.battle-bonds .bond-row{flex:none;width:100%;padding:7px 6px;min-height:34px;text-align:left}
+.battle-bonds .bond-heading{justify-content:space-between;gap:4px;font-size:12px}
+.bond-heading .bond-progress{font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap;color:inherit}
+.bond-lit .bond-progress{color:#e3cc88}
+.battle-bonds .bond-row:focus-visible{outline-offset:-2px}
+/* Object details accept input locally and leave other objects selectable. */
+.detail-inspection.modal-backdrop{justify-content:flex-end;align-items:stretch;padding:14px;pointer-events:none;background:transparent;backdrop-filter:none;overflow:hidden;z-index:25;animation:none}
+.detail-inspection.modal-backdrop .modal{pointer-events:auto;width:min(470px,100%);max-height:100%;margin:0;display:flex;flex-direction:column;background:#2b2a22;animation:none}
+.detail-inspection .modal-body{min-height:0;overflow:auto}
+.detail-inspection .modal-header,.detail-inspection .modal-footer{flex-shrink:0}
+.detail-inspection .info-dossier{grid-template-columns:minmax(0,1fr)}
+.detail-inspection .info-identity{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:12px}
+.detail-inspection .info-identity h3{font-size:21px;margin:0}.detail-inspection .info-identity>p{margin:0}
+.detail-inspection .info-portrait{width:65px;height:80px;margin:0;font-size:18px}.detail-inspection .info-emblem{width:60px;height:60px;font-size:26px}
+@media(max-width:600px){
+ #detail-source-root .modal-backdrop{align-items:flex-start;padding:8px}
+ #detail-source-root .detail-source-panel{max-height:44dvh}
+ #detail-source-root .detail-source-header{padding:10px 12px}
+ #detail-source-root .detail-source-body{padding:12px}
+ .detail-inspection.modal-backdrop{align-items:flex-end;justify-content:center;padding:0}
+ .detail-inspection.modal-backdrop .modal{width:100%;max-width:100%;max-height:52dvh;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+ .detail-inspection .modal-header{padding:12px 16px}.detail-inspection .modal-body{padding:14px 16px}.detail-inspection .modal-footer{padding:10px 16px}
+}
+@media(max-width:1000px){
+ .arena-page .battle-layout{display:flex;flex-direction:column;height:auto;min-height:660px}
+ #battle-unit-labels{display:flex;flex-direction:column}
+ .arena-page .roster-side{grid-template-columns:minmax(0,1fr) 98px;grid-template-rows:24px minmax(0,1fr);height:142px;flex-shrink:0}
+ .arena-page .roster-list{flex-direction:row;align-items:flex-start}
+ .arena-page .roster-list .unit-nameplate{width:110px}
+ .battle-bonds .bond-panel h4{height:24px}
+ .battle-bonds .bond-list{padding-top:5px;gap:4px}
+ .battle-bonds .bond-row{min-height:32px;padding:6px}
+}
+@media(max-height:650px) and (min-width:1001px){
+ .arena-page .battle-layout{grid-template-columns:216px minmax(0,1fr) 216px}
+ .arena-page .roster-side{grid-template-columns:minmax(0,110px) minmax(0,98px);grid-template-rows:24px minmax(0,1fr)}
+ .battle-bonds .bond-panel h4{height:24px}
+}

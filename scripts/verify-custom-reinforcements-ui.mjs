@@ -1,0 +1,42 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import {mkdirSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {generateBattle} from '../battle-generator.mjs';
+import {defaultCustomBattle,validateCustomBattle,swapCustomBattle} from '../custom-battle.mjs';
+import {historicalBattleDraft} from '../historical-battle-library.mjs';
+import {validateSave,lockDeployment,stepBattle} from '../engine.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4207'},stdio:'pipe',windowsHide:true});let browser,page;
+const output='outputs/historical-reinforcements/ui';mkdirSync(output,{recursive:true});
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});
+ browser=await chromium.launch({channel:'msedge',headless:true});page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));const action=id=>page.locator(`[data-action="${id}"]`);
+ await page.goto('http://127.0.0.1:4207/');await action('campaign-lobby').click();await page.locator('[data-history="guandu"]').click();
+ assert.equal(await page.locator('[data-custom-reinforcement="side"]').count(),3);assert.match(await page.locator('.custom-reinforcements').innerText(),/敌军共 22 队/);
+ await page.locator('[data-reinforcement="0"]').click();await page.locator('[data-action="scenario-unit-edit"]').first().click();
+ const slider=page.locator('[data-scenario-troops]').first();await slider.fill('2000');await slider.dispatchEvent('input');await action('scenario-unit-save').click();
+ await action('scenario-setup-next').click();await action('scenario-setup-next').click();await action('scenario-setup-next').click();await action('scenario-setup-confirm').click();
+ let d=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-custom-draft-v46')));validateCustomBattle(d);assert.equal(d.reinforcements[0].team[0].troops,2000);assert.equal(d.ownTeam.length,10);assert.equal(d.enemyTeam.length,10);
+ const before=structuredClone(d);await action('custom-swap').click();d=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-custom-draft-v46')));assert.deepEqual(d,swapCustomBattle(before));
+ await page.screenshot({path:output+'/editor-desktop.png',fullPage:true,animations:'disabled'});
+ await action('launch-custom').click();assert.match(await page.locator('.modal').innerText(),/河北中军/);await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();
+ const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1'))),initial=await saved();validateSave(initial);
+ assert.equal(initial.armies.length,5);assert.equal(initial.battle.sides[0].units.length,22);assert.equal(initial.battle.sides[1].units.length,14);
+ await page.locator('.council-unit').first().click();await page.locator('.close-button').click();validateSave(await saved());
+ await page.reload();await page.locator('#battle-board').waitFor();assert.equal((await saved()).testScenario.customBattle.reinforcements.length,3);
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:output+'/battle-mobile.png',fullPage:true,animations:'disabled'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ const draft=defaultCustomBattle();draft.ownTeam=[{id:'yu',type:'spear',troops:5000,level:10}];draft.enemyTeam=[{id:'shao',type:'spear',troops:5000,level:10}];
+ draft.reinforcements=[{side:0,name:'己方援军',tick:4,team:[{id:'cao',type:'spear',troops:3000,level:10},{id:'chu',type:'halberd',troops:3000,level:10}],roles:{leader:'cao',advisor:'cao',deputy:null}}];
+ const fixture=generateBattle(draft);lockDeployment(fixture.battle);for(let n=0;n<4;n++)stepBattle(fixture.battle);validateSave(fixture);
+ const arrival=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});arrival.on('pageerror',e=>errors.push(e.message));
+ await arrival.addInitScript(raw=>localStorage.setItem('sango-historical-battle-v1',raw),JSON.stringify(fixture));await arrival.goto('http://127.0.0.1:4207/#historical-battle');await arrival.locator('[data-action="pause"]').first().click();
+ await arrival.locator('[data-action="battle-reinforcement-council"]').waitFor();await arrival.locator('[data-action="battle-reinforcement-council"]').click();
+ assert.match(await arrival.locator('.battle-council').innerText(),/援军军议/);assert.ok(await arrival.locator('#deployment-grid').isHidden());
+ const state=await arrival.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));assert.equal(state.battle.tick,4);assert.equal(state.battle.reinforcementCouncil,'open');validateSave(state);
+ await arrival.screenshot({path:output+'/arrival-council.png',fullPage:true,animations:'disabled'});await arrival.locator('[data-action="pause"]').first().click();
+ const resumed=await arrival.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));assert.equal(resumed.battle.reinforcementCouncil,null);assert.equal(resumed.testScenario.customBattle.reinforcements.length,1);assert.deepEqual(errors,[]);
+ console.log('PASS multi-army editor, isolated edits, complete swap, review, deployment, reload, mobile and standalone reinforcement council');
+}catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}
+finally{await browser?.close();server.kill();}

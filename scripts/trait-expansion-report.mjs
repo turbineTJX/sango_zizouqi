@@ -8,7 +8,7 @@ import {OFFICER_ASSIGNMENTS} from '../data/design/assignments.mjs';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const names=ids=>ids.map(id=>OFFICER_DESIGNS[id].name).join('、');
 const labels={commerce:'商业',agriculture:'农业',military:'军务',martial:'武备',technology:'技术',talent:'人才'};
-const implemented=()=>Object.entries(TRAIT_DESIGNS).filter(([,t])=>t.work).map(([id,t])=>({id,name:t.name,parameters:{tier:t.tier,group:labels[t.direction],actionIds:t.work.actions,trigger:'本人实际执行对应命令时',effect:t.description,cost:'原命令费用和工期；受阻后的追加时间按特性说明',boundary:'遵守原命令目标资格、资源与容量上限；同类修正取强，不重复结算',candidateIds:Object.entries(OFFICER_ASSIGNMENTS).filter(([,a])=>a.traits.includes(id)).map(([id])=>id),acceptance:'通过真实命令启动、结算与确定性续存回归'}}));
+const implemented=()=>Object.entries(TRAIT_DESIGNS).filter(([,t])=>t.work).map(([id,t])=>({id,name:t.name,parameters:{tier:t.tier,group:labels[t.direction],actionIds:t.work.actions,trigger:'本人实际执行对应命令时',effect:t.description,cost:t.kinds.includes('research')?'科技项目费用只支付一次；逐个实际工作日推进，接续不重复收费':'原命令费用和工期；受阻后的追加时间按特性说明',boundary:'遵守原命令目标资格、资源与容量上限；同类修正取强，不重复结算',candidateIds:Object.entries(OFFICER_ASSIGNMENTS).filter(([,a])=>a.traits.includes(id)).map(([id])=>id),acceptance:'通过真实命令启动、结算与确定性续存回归'}}));
 export function traitExpansionMarkdown(){
  const cell=s=>String(s).replaceAll('|','\\|').replaceAll('\n','<br>');
  const heads=['名称','类别／方向','对应命令','生效条件','机制效果','实际投入','边界','持有武将','验收'];

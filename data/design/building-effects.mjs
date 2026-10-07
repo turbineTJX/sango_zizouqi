@@ -10,7 +10,7 @@ export default {
       "id": "commerce",
       "name": "市场",
       "parameters": {
-        "description": "每级增加320金／旬",
+        "description": "每级增加100金／旬",
         "maximumLevel": 5
       },
       "source": "strategic-campaign.mjs",
@@ -20,7 +20,7 @@ export default {
       "id": "farm",
       "name": "农田",
       "parameters": {
-        "description": "每级增加1400粮／旬",
+        "description": "每级增加770粮／旬",
         "maximumLevel": 5
       },
       "source": "strategic-campaign.mjs",
@@ -40,7 +40,7 @@ export default {
       "id": "workshop",
       "name": "工坊",
       "parameters": {
-        "description": "每级提高研发效率与试制把握",
+        "description": "每级提高每日研发效率",
         "maximumLevel": 5
       },
       "source": "strategic-campaign.mjs",
@@ -50,7 +50,7 @@ export default {
       "id": "barracks",
       "name": "兵营",
       "parameters": {
-        "description": "预备兵收入+800／旬、征募额度+1000",
+        "description": "预备兵收入+294／旬、征募额度+1000",
         "maximumLevel": 5
       },
       "source": "strategic-campaign.mjs",

@@ -5,9 +5,10 @@ import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {canOccupy} from '../battlefield.mjs';
 import {TROOPS} from '../unit-stats.mjs';
+import {troopTypes} from '../troop-equipment.mjs';
 
 test('自由对战：所有兵种、双方配置、实际战斗及确定性存档重试',()=>{
-  for(const type of Object.keys(TROOPS)){
+  for(const type of troopTypes()){
     const draft=defaultCustomBattle();draft.terrain=type==='ship'?'river':'land';
     draft.ownTeam=[{id:'jia',type,troops:2000,level:8},{id:'cao',type:'spear',troops:2800,level:4}];
     draft.enemyTeam=[{id:'yu',type,troops:1900,level:6}];

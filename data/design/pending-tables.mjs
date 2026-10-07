@@ -1,4 +1,3 @@
-import t0 from './scenario-openings.mjs';
 import t1 from './factions.mjs';
 import t2 from './city-links.mjs';
 
@@ -19,4 +18,4 @@ import t17 from './battle-scenarios.mjs';
 import t18 from './regression-cases.mjs';
 
 
-export const PENDING_DESIGN_TABLES = [t0,t1,t2,t4,t5,t6,t8,t9,t10,t11,t12,t13,t14,t16,t17,t18];
+export const PENDING_DESIGN_TABLES = [t1,t2,t4,t5,t6,t8,t9,t10,t11,t12,t13,t14,t16,t17,t18];

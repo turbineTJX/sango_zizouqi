@@ -16,12 +16,13 @@ test('independent traits remain fixed while bond levels grow to actual personal 
 test('troop income has no removed personal denial or support multiplier',()=>{
  for(const id of ['cao','jia','person-661','yu'])for(const type of Object.keys(TROOP_INTENT)){const u={...makeOfficer(id,3000),type};assert.deepEqual(intentIncome(u),TROOP_INTENT[type]);assert.equal(supportMultiplier({},u),1);}
 });
-test('actual holders contribute only while on field and troop conditions gate benefits',()=>{
- const state=scene(),b=state.battle,u=b.sides[0].units[0],points=sideBonds(b,0).bondHorse.points;
- assert.equal(points,b.sides[0].units.reduce((n,v)=>n+(BOND_ASSIGNMENTS[v.id].bondHorse||0),0));assert.ok(passiveAttributes(b,u).move?.length);
- const old=u.status;u.status='reserve';assert.equal(sideBonds(b,0).bondHorse.points,points-(BOND_ASSIGNMENTS[u.id].bondHorse||0));assert.deepEqual(passiveAttributes(b,u),{});u.status=old;
- const base=passiveAttributes(b,u);u.type='crossbow';assert.equal(passiveAttributes(b,u).move,undefined);u.type='cavalry';assert.deepEqual(passiveAttributes(b,u),base);
+test('actual holders contribute only while on field and do not regain retired troop-family bonds',()=>{
+ const state=scene(),b=state.battle,u=b.sides[0].units[0],points=sideBonds(b,0).bondSong.points;
+ assert.equal(points,b.sides[0].units.reduce((n,v)=>n+(BOND_ASSIGNMENTS[v.id].bondSong||0),0));
+ u.status='reserve';assert.equal(sideBonds(b,0).bondSong?.points||0,points-(BOND_ASSIGNMENTS[u.id].bondSong||0));assert.deepEqual(passiveAttributes(b,u),{});u.status='active';
+ const before=sideBonds(b,0);u.type='longbow';assert.deepEqual(sideBonds(b,0),before);assert.equal(sideBonds(b,0).bondHorse,undefined);
 });
+
 test('ordinary and upgraded legal battles preserve actual damage and current snapshots',()=>{
  for(const level of [1,10]){const state=createScenario('custom-battle',71,20,null,{seed:71,terrain:'land',ownTeam:['cao','liao','jin'].map(id=>entry(id,'cavalry',level)),enemyTeam:['shao','wen','yan'].map(id=>entry(id,'spear',level))}),b=state.battle;lockDeployment(b);for(let i=0;i<20;i++)stepBattle(b);const copy=validateSave(structuredClone(state));while(!b.result){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(state,copy);for(const u of b.sides.flatMap(s=>s.units))assert.ok(u.hp>=0&&u.hp<=u.maxHp);assert.ok(b.journal?.events?.length||b.tick>0);}
 });

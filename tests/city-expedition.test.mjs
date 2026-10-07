@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -31,7 +32,7 @@ test('arrival at a friendly destination returns individual units and removes the
  assert.ok(!s.armies.some(a=>a.id===id));for(const id of q.officerIds)assert.ok(town(s,q.target).units.some(u=>u.id===id));reload(s);
 });
 test('a deferred expedition stores composition, creates no army early, and launches after real work completes',()=>{
- const s=newCampaign(19),c=town(s,'xuchang');s.gold=40000;
+ const s=newCampaign(19),c=town(s,'xuchang');fundCities(s,40000);
  for(const x of s.cities.filter(x=>x.owner!=='cao'))for(const u of x.units)u.troops=0;
  for(const [key,def]of Object.entries(ACTIONS))if(def.direction==='technology'&&key!=='build_workshop')c.domestic.cooldowns[key]=10000;
  const q=order(s),id=q.officerIds[0];assert.equal(assignDomestic(s,c.id,'technology',id),null);

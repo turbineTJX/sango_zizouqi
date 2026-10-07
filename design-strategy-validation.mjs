@@ -3,9 +3,23 @@ export function validateStrategyDesigns(t){
  const errors=[],check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},num=(v,min=0,max=Infinity)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
- for(const [group,keys] of Object.entries({income:['gold','grain','manpower','governorPoliticsDivisor'],capacity:['grainBase','grainPerGranary','manpowerMax','recruitmentBase','recruitmentPerBarracks'],ai:['foodReserveDays','recruitReserveDays','economicWorkersPerDirection']})){
+ for(const [group,keys] of Object.entries({income:['gold','grain','manpower','governorPoliticsDivisor'],capacity:['grainBase','grainPerGranary','manpowerMax','recruitmentBase','recruitmentPerBarracks'],ai:['foodReserveDays','recruitReserveDays','economicWorkersPerDirection','cityTroopTarget']})){
   const row=economy?.[group];if(!fields(row,group==='ai'?[...keys,'offensive']:keys,'economy.'+group))continue;
   for(const key of keys){const value=row[key];if(group==='income'&&key!=='governorPoliticsDivisor'){const subKeys={gold:['base','perCommerce'],grain:['base','perFarm'],manpower:['base','perBarracks']}[key];if(fields(value,subKeys,'economy.income.'+key))for(const sub of subKeys)check(num(value[sub],1),'economy.income.'+key+'.'+sub,'须为正数');}else check(Number.isSafeInteger(value)&&value>0,'economy.'+group+'.'+key,'须为正整数');}
+ }
+ for(const [group,keys] of Object.entries({value:['gold','grain','manpower'],work:['base','abilityDivisor','constructionSetbackShare'],maintenance:['goldPerThousandTroops','woundedGoldFactor'],recruitment:['reserveCost','reserveTargetBase','reserveTargetTroopShare']})){
+  const row=economy?.[group];if(fields(row,keys,'economy.'+group))for(const key of keys)check(num(row[key],['reserveCost','goldPerThousandTroops'].includes(key)?0:Number.EPSILON),'economy.'+group+'.'+key,'参数须为有效非负数，比例及收益须大于零');
+ }
+ check(num(economy?.maintenance?.woundedGoldFactor,0,1)&&num(economy?.recruitment?.reserveTargetTroopShare,0,1),'economy.maintenance','比例须为0至1');
+ check(num(economy?.work?.constructionSetbackShare,Number.EPSILON,1),'economy.work.constructionSetbackShare','工程延期比例须大于0且不超过1');
+ const development=economy?.development;
+ if(fields(development,['economicBuildings','localLevels','richCities','metropolitanMax','externalLevels','workValueBase','workValuePerLevel','foodForecastSafety','stockSupportDays'],'economy.development')){
+  check(Array.isArray(development.economicBuildings)&&development.economicBuildings.slice().sort().join(',')==='barracks,commerce,farm','economy.development.economicBuildings','须为三种生产设施');
+  check(Array.isArray(development.richCities)&&new Set(development.richCities).size===development.richCities.length&&development.richCities.every(id=>t.cities.some(c=>c.id===id&&c.kind==='city'&&c.citySize==='large')),'economy.development.richCities','须引用独立的大城');
+  for(const key of ['metropolitanMax','workValueBase','workValuePerLevel','stockSupportDays'])check(Number.isSafeInteger(development[key])&&development[key]>0,'economy.development.'+key,'须为正整数');
+  if(fields(development.localLevels,['small','large','rich','infrastructure'],'economy.development.localLevels'))for(const [key,v]of Object.entries(development.localLevels))check(Number.isSafeInteger(v)&&v>0&&v<=development.metropolitanMax,'economy.development.localLevels.'+key,'等级须在都市圈上限内');
+  if(fields(development.externalLevels,['city','gate','port'],'economy.development.externalLevels'))for(const kind of ['city','gate','port']){const row=development.externalLevels[kind];if(fields(row,['commerce','farm','barracks','other'],'economy.development.externalLevels.'+kind))for(const [key,v]of Object.entries(row))check(Number.isSafeInteger(v)&&v>=0&&v<=development.metropolitanMax,'economy.development.externalLevels.'+kind+'.'+key,'等级须为已接入的非负数');}
+  check(num(development.foodForecastSafety,Number.EPSILON,1),'economy.development.foodForecastSafety','预计口粮需保留安全余量');
  }
  const offensive=economy?.ai?.offensive,path='economy.ai.offensive';
  if(fields(offensive,['maxWoundedShare','homeFoodDays','styles','lossFactor','lossPerPoint','grainPerPoint','goldPerPoint','dayCost','workPerPoint','maxEstimateError','judgmentLeadershipWeight','counterattackWeight','objectiveValues','securityPowerPerPoint','securityValueCap'],path)){
@@ -17,7 +31,7 @@ export function validateStrategyDesigns(t){
    const row=offensive.styles[name];if(fields(row,['minimumValue','economicWeight','militaryWeight','ratio','reserve','patience'],path+'.styles.'+name)){check(num(row.minimumValue),path+'.styles.'+name+'.minimumValue','须为非负数');for(const key of ['economicWeight','militaryWeight'])check(num(row[key],.1,3),path+'.styles.'+name+'.'+key,'倾向权重须为0.1至3');check(num(row.ratio,1,3)&&num(row.reserve,0,1)&&Number.isSafeInteger(row.patience)&&row.patience>0,path+'.styles.'+name,'优势、守备或计划期限无效');}
   }
  }
- const modes={build:'progress',research:'quantity',cash:'quantity',grain:'quantity',effect:'quantity',discount:'quantity',recruit:'quantity',heal:'quantity',repair:'quantity',prepare:'quantity',trade:'chance',rescue:'chance',trial:'chance',explore:'chance',hire:'chance',persuade:'chance',reassure:'chance'};
+ const modes={build:'progress',research:'quantity',cash:'quantity',grain:'quantity',effect:'quantity',discount:'quantity',recruit:'quantity',heal:'quantity',repair:'quantity',prepare:'quantity',trade:'chance',rescue:'chance',explore:'chance',hire:'chance',persuade:'chance',reassure:'chance'};
  for(const id of Object.keys(t.directions))check(['leadership','force','intellect','politics','charm'].includes(t.directionStats?.[id]),'directionStats.'+id,'方向须指定唯一主属性');
  check(new Set(Object.values(t.directionStats||{})).size===5,'directionStats','六方向须覆盖五种属性');
  const buildingIds=['commerce','farm','granary','workshop','barracks','clinic','drill','walls','hall'];
@@ -25,13 +39,14 @@ export function validateStrategyDesigns(t){
  for(const id of Object.keys(t.directions))check(['commerce','agriculture','technology','military','martial','talent'].includes(id),'directions.'+id,'新增内政方向须先接入流程');
  for(const id of buildingIds)check(!!t.buildings[id],'buildings.'+id,'缺少已有建筑');
  for(const [id,b] of Object.entries(t.buildings)){
-  const path='buildings.'+id;if(!fields(b,['name','direction','cost','days','description','projectName','projectDescription'],path))continue;
+  const path='buildings.'+id;if(!fields(b,['name','direction','cost','days','description','projectName','projectDescription','durability'],path))continue;
   check(buildingIds.includes(id),path,'新建筑须先接入城市状态与效果');
   for(const k of ['name','description','projectName','projectDescription'])check(typeof b[k]==='string'&&b[k].length>0,path+'.'+k,'文本不能为空');
+  check(Number.isSafeInteger(b.durability)&&b.durability>0&&b.durability<=100000,'buildings.'+id+'.durability','每级耐久须为正整数');
   check(Object.hasOwn(t.directions,b.direction),path+'.direction','未知内政方向');check(num(b.cost)&&Number.isInteger(b.cost),path+'.cost','费用须为非负整数');check(num(b.days,1)&&Number.isInteger(b.days),path+'.days','工期须为正整数天');
  }
  for(const [id,a] of Object.entries(t.domesticActions)){
-  const path='domesticActions.'+id;if(!fields(a,['name','direction','cost','days','kind','value','stat','cooperation','power','risk','opportunity'],path))continue;
+  const path='domesticActions.'+id;if(!fields(a,['name','direction','cost','days','kind','value','reserveValue','stat','cooperation','power','risk','opportunity'],path))continue;
   check(Object.hasOwn(modes,a.kind),path+'.kind','未实现的内政动作类型');check(a.cooperation===modes[a.kind],path+'.cooperation','协作方式与当前处理器不符');
   check(['leadership','force','intellect','politics','charm'].includes(a.stat),path+'.stat','须指定一个有效主属性');
   const direction=a.kind==='build'?t.buildings[a.value]?.direction:a.direction;
@@ -48,6 +63,8 @@ export function validateStrategyDesigns(t){
   else if(a.kind!=='build')check(num(a.value),path+'.value','效果参数须为非负数');
   if(['effect','prepare'].includes(a.kind))check(num(a.power),path+'.power','缺少有效效果强度');
   if(a.risk!==undefined)check(num(a.risk,0,1),path+'.risk','风险须为0～1');
+  if(a.kind==='recruit')check(Number.isSafeInteger(a.reserveValue)&&a.reserveValue>0,path+'.reserveValue','征集预备兵须有正整数产出');
+  else check(a.reserveValue===undefined,path+'.reserveValue','该命令不支持征集兵源');
   if(a.opportunity!==undefined)check(['master','capture'].includes(a.opportunity),path+'.opportunity','未接入此机会事件');
  }
  for(const [key,cities] of [['roads',t.cities],['demoRoads',t.demoCities]]){
@@ -63,9 +80,15 @@ export function validateStrategyDesigns(t){
   check(visited.size===cities.length,key,'地图不连通：'+cities.filter(c=>!visited.has(c.id)).map(c=>c.id).join('、'));
  }
  const network=t.roadNetwork;
- if(fields(network,['trailCost','bypasses'],'roadNetwork')){
+ if(fields(network,['trailCost','bypasses','nodeNames','nodePositions'],'roadNetwork')){
   check(num(network.trailCost,1),'roadNetwork.trailCost','小路代价须不低于官道');
   check(Array.isArray(network.bypasses),'roadNetwork.bypasses','须为三据点数组');
+  const expectedNames=new Set(Object.keys(network.nodePositions||{}));
+  for(const key of expectedNames){const ids=key.split(':'),p=network.nodePositions[key];check(ids.length===2&&ids.every(id=>t.cities.some(c=>c.id===id&&c.kind==='city'))&&t.roads.some(e=>[...e].sort().join(':')===key),'roadNetwork.nodePositions.'+key,'节点必须位于已有城市陆路');check(Array.isArray(p)&&p.length===2&&p.every(n=>num(n,0,1024)),'roadNetwork.nodePositions.'+key,'节点坐标必须在地图内');}
+  check(network.nodeNames&&typeof network.nodeNames==='object','roadNetwork.nodeNames','须配置节点地名');
+  for(const key of expectedNames)check(typeof network.nodeNames?.[key]==='string'&&/^[\p{Script=Han}]{1,5}$/u.test(network.nodeNames[key]),'roadNetwork.nodeNames.'+key,'节点须使用附近地名');
+  for(const key of Object.keys(network.nodeNames||{}))check(expectedNames.has(key),'roadNetwork.nodeNames.'+key,'地名未对应实际节点');
+  check(new Set(Object.values(network.nodeNames||{})).size===expectedNames.size,'roadNetwork.nodeNames','节点地名须完整且不重复');
   const seen=new Set();
   for(const [i,row] of (network.bypasses||[]).entries()){
    const path='roadNetwork.bypasses.'+i;
@@ -74,10 +97,13 @@ export function validateStrategyDesigns(t){
    check(row.every(id=>t.cities.some(c=>c.id===id&&c.kind==='city')),path,'仅允许陆上城市，不得横跨关隘港口');
    const [center,...ends]=row;
    check(ends.every(id=>t.roads.some(([a,b])=>a===center&&b===id||b===center&&a===id)),path,'引用的官道不存在');
+   check(ends.every(id=>expectedNames.has([center,id].sort().join(':'))),path,'小路端点须配置府节点');
    const key=center+':'+ends.sort().join(':');check(!seen.has(key),path,'重复小路');seen.add(key);
   }
  }
- const m=t.movement;if(!fields(m,['distance','roadVariants','army','personnel'],'movement'))return errors;
+ const m=t.movement;if(!fields(m,['distance','roadVariants','army','personnel','vision','scouting'],'movement'))return errors;
+ if(fields(m.scouting,['speed','minimumDays','baseMaximumDays','intellectExtension','randomSpread'],'movement.scouting')){check(num(m.scouting.speed,Number.EPSILON),'movement.scouting.speed','斥候每日行程须大于0');for(const key of ['minimumDays','baseMaximumDays','intellectExtension','randomSpread'])check(Number.isSafeInteger(m.scouting[key])&&m.scouting[key]>=0,'movement.scouting.'+key,'须为非负整数');check(m.scouting.minimumDays>=1&&m.scouting.baseMaximumDays>=m.scouting.minimumDays,'movement.scouting','持续天数范围无效');}
+ if(fields(m.vision,['city','army','scout','unknownDefense','unknownGateHp'],'movement.vision'))for(const key of ['city','army','scout','unknownDefense','unknownGateHp'])check(num(m.vision[key],Number.EPSILON),'movement.vision.'+key,'须大于0');
  if(fields(m.distance,['minimum','coordinateScale'],'movement.distance'))for(const key of ['minimum','coordinateScale'])check(num(m.distance[key],Number.EPSILON),'movement.distance.'+key,'须大于0');
  if(fields(m.roadVariants,['main'],'movement.roadVariants'))for(const id of ['main']){
   const r=m.roadVariants[id],path='movement.roadVariants.'+id;if(!fields(r,['offset','names','costFactors'],path))continue;

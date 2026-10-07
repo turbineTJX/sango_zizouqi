@@ -8,7 +8,7 @@ import {canOccupy} from '../battlefield.mjs';
 import {roleTacticIds,SPECIAL_TACTICS,validLoadout,hasStatus} from '../tactics.mjs';
 import {hexDistance} from '../hex-grid.mjs';
 
-export const unit=(id,type,troops=3000,level=5)=>({id,type,troops,level});
+export const unit=(id,type,troops=3000,level=5)=>({id,type:['ram','siege','tower','heavyRam'].includes(type)?'halberd':type==='ship'?'archer':type,...(['ram','siege','tower','heavyRam','ship'].includes(type)?{equipment:{siege:type==='ship'?null:type,ship:type==='ship'?'ship':null}}:{}),troops,level});
 const team=(ids,types)=>ids.map((id,i)=>unit(id,types[i]));
 export const archetypes=[
  {id:'cooperation',name:'多二流协同',note:'王平、张翼、张嶷、马忠（蜀）、陈到、李典；本报告的二流是阵容定位，不是官方品阶。',team:team(['person-46','person-439','person-408','person-515','person-457','person-610'],['spear','halberd','halberd','archer','cavalry','crossbow'])},
@@ -113,7 +113,7 @@ export function fight(draft,{plan='default',controller='player',resume=false,tra
  while(!b.result){
   const key=order(b);if(key){assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);commands.push({tick:b.tick,key});}
   if(saved){assert.equal(order(saved.battle),key);if(key)assert.equal(issueCommand(saved.battle,key,chooseStratagemPoint(saved.battle,AREA_DESIGNS[key],0)),null);}
-  stepBattle(b);if(saved)stepBattle(saved.battle);
+  stepBattle(b,{pauseForReinforcements:false});if(saved)stepBattle(saved.battle,{pauseForReinforcements:false});
   assert.ok(b.tick<=480);
   const active=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');
   assert.equal(new Set(active.map(u=>`${u.x},${u.y}`)).size,active.length);

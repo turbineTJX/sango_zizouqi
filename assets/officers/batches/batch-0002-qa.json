@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "batchId": "batch-0002",
+  "status": "passed",
+  "portraitReview": {
+    "passed": [
+      "person-1",
+      "person-2",
+      "person-3"
+    ],
+    "comparedAgainst": [
+      "person-433",
+      "person-290",
+      "person-226"
+    ],
+    "corrections": [
+      "Added visible upper headroom for all three headshots.",
+      "Relaxed Wei Zhao's sharply angled eyebrows and glabella before accepting his identity."
+    ]
+  },
+  "needsRevision": [],
+  "approvedSceneCandidates": [
+    {
+      "officerId": "person-1",
+      "scene": "portrait",
+      "sha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "detail",
+      "sha256": "d7ff0caa70703ad5191c10422bf1f8c21060eb304b777e9318b2dfc94b0fe1c5",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "domestic",
+      "sha256": "33f47e64673a78a7c9196dad9cd78209b9bf708785bd820f2d279618e25f5e15",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "inspection",
+      "sha256": "b657aa19a897325bc359690adbe132f1fecfae460531978f36899ccec5fa4881",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "training",
+      "sha256": "a6eacc310b0b3ba0b671c7cd5cefae8fcfae5bd61d001c2999eb79c050b75d3b",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "diplomacy",
+      "sha256": "10329cec35f57a3686176698750b7e36fc3008a4865143ec405a29821e926583",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "command",
+      "sha256": "eb9c83185f2b269d63a141c61bc5a041a721a6cdf50f1899e45211b3d0537016",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "travel",
+      "sha256": "4325ab8086dc5d5f87aff35b7151407f1b694f2baf5af14330869980fb8b65eb",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "report",
+      "sha256": "e97614c2982d97709c06e91fec19fda1af1e22b7f558a392ad2bab5740468056",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "report-concern",
+      "sha256": "9ec25995227e79b19148e043950f6a2b6fe73d15870b7eb4d6fce9d63713eae0",
+      "passed": true
+    },
+    {
+      "officerId": "person-1",
+      "scene": "battle",
+      "sha256": "298a5dc6f4753c2af38c17a48517381b8c431dd0a3abc6024dcf847dfb4f454f",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "portrait",
+      "sha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "detail",
+      "sha256": "c3729b21644223c13975e2d69b083de2fa592ea65ec32eceb861bd37ad3730f1",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "domestic",
+      "sha256": "c3785d69dad19a07c90058728a3ac63384c9a40965a2dc4ec9f1c0778139f2c8",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "inspection",
+      "sha256": "da476afc96d0e30118ae7be9190d46b510c82442acbffc6c6cfa50f3fb3e5e7d",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "training",
+      "sha256": "769f6ee9f64f70e93d719279741ba94178d232c7b5c435cb5dd46a45e803566d",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "diplomacy",
+      "sha256": "69ab6608aaefe44fa4c01837f1cc2a60163f03f994d72649cbe71fe3fcc0d2cd",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "command",
+      "sha256": "a057117b2fe6f390dfb93e8873ba1c5299cf5f0db3ae0c2fd8f1ed9ac36bd401",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "travel",
+      "sha256": "2dbe87716cb27fcffe37e4e081a75596ab6f918868e7a3ddf833cdcc95a8c7f5",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "report",
+      "sha256": "8bcf6a7b38d84e03128861c28518d989281dafe0869b42abb78aac2fc2de6caa",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "report-concern",
+      "sha256": "3472ce0db2c9448c2a2c4ffb3d36c470d93408911f50a28d9fc63fa5b8e8bc5d",
+      "passed": true
+    },
+    {
+      "officerId": "person-2",
+      "scene": "battle",
+      "sha256": "dfc16a1213280eb353d8aa200bd96cdc9622e5a6aca00f5f44520d7117054c75",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "portrait",
+      "sha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "detail",
+      "sha256": "aa9065d07168cf9980f379a34858c6a00b084fdb9173260bff660aaf3aae3f0e",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "domestic",
+      "sha256": "6f58b33865ff7ab1a09f096498f48025c1418433cf8d6594d3149a5f3ecc8269",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "inspection",
+      "sha256": "3e163f0855821afa24db1a857125d3045613e397dc00ed043e19bf44052575ac",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "training",
+      "sha256": "03c421486d090e3e981804e8e71ba351d072711c186a70f5a771a85179ad51de",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "diplomacy",
+      "sha256": "ffb0bc003b31e0f89de306c348a5d12699970e757663571406093b396d84027d",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "command",
+      "sha256": "8eadf7c6123eb96103d9f90dab689b6287b6ec2649d2453d19cd08c1560c7fb7",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "travel",
+      "sha256": "ad84a9bbb60213704d48101312acbc1ef717a7b469b2d410bec26d67ed57197d",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "report",
+      "sha256": "445646489890910045f8f2aa921bad5c68b9290799a5c4b42d1aa9b0d78e2dc2",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "report-concern",
+      "sha256": "b60ed132ff3c5dcf62ec4f357aa20a5ce855e2a45aa4a305162ed2b244e203f5",
+      "passed": true
+    },
+    {
+      "officerId": "person-3",
+      "scene": "battle",
+      "sha256": "1636de7e3c1083df2f42864c90664884057d2c95a9f70a6d0e5df024eaf940bc",
+      "passed": true
+    }
+  ],
+  "note": "All 33 current candidate images visually reviewed and accepted; complete frames, neutral expressions, distinct scene compositions, comfortable hands, genuine standee alpha and consistent identities.",
+  "resolvedRevisions": [
+    {
+      "officerId": "person-1",
+      "scene": "detail",
+      "reason": "The halberd tip meets/cuts the top edge; require visible alpha margin.",
+      "revisions": 1,
+      "result": "passed",
+      "sha256": "d7ff0caa70703ad5191c10422bf1f8c21060eb304b777e9318b2dfc94b0fe1c5"
+    },
+    {
+      "officerId": "person-1",
+      "scene": "battle",
+      "reason": "Vertical one-hand halberd stance too similar to the full standee; use an independent low-arm command presence.",
+      "revisions": 1,
+      "result": "passed",
+      "sha256": "298a5dc6f4753c2af38c17a48517381b8c431dd0a3abc6024dcf847dfb4f454f"
+    },
+    {
+      "officerId": "person-3",
+      "scene": "travel",
+      "reason": "Rear shoe is concealed by the long robe hem; show both complete shoes and maintain a normal small step.",
+      "revisions": 1,
+      "result": "passed",
+      "sha256": "ad84a9bbb60213704d48101312acbc1ef717a7b469b2d410bec26d67ed57197d"
+    }
+  ],
+  "verification": {
+    "assetTests": 15,
+    "uiImages": 132,
+    "uiDecodedSamples": 66,
+    "desktopAndMobile": true,
+    "fallbackAndReadOnly": true,
+    "docsCheck": "passed"
+  }
+}

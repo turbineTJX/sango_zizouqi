@@ -307,7 +307,7 @@ test('a linked minor tactic and its multi-hit result get exactly one cut-in',t=>
 });
 
 test('real zero-intent combat only queues 100-intent tactics or genuine links',async t=>{
- const {createScenario}=await import('../scenarios.mjs');
+ const {createScenario}=await import('./helpers/scenarios.mjs');
  const {lockDeployment,stepBattle}=await import('../engine.mjs');
  const {isMajorCast}=await import('../battle-effects.mjs');
  const {fx}=scene(t);let small=0,big=0,links=0;

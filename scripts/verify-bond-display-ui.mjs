@@ -17,7 +17,7 @@ try{
  assert.match(await page.locator('[data-action="scenario-launch-confirm"]').innerText(),/前往战前会议/);
  await page.locator('[data-action="scenario-launch-confirm"]').click();
 
- assert.equal(await page.locator('#battle-bonds .bond-panel').count(),2);
+ assert.equal(await page.locator('.battle-bonds .bond-panel').count(),2);
  assert.ok(await page.locator('#battle-bonds').isVisible());
  const before=await page.locator('#battle-bonds').innerText();
  await page.locator('.battle-unit.side-0').first().dragTo(page.locator('[data-reserve-bench]'));
@@ -28,7 +28,7 @@ try{
  await page.screenshot({path:'outputs/bond-display/desktop.png'});
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:'outputs/bond-display/mobile.png',fullPage:true});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
- const layout=await page.locator('.battle-layout').boundingBox(),bonds=await page.locator('#battle-bonds').boundingBox();assert.ok(layout.height>=220);assert.ok(bonds.y>=layout.y+layout.height-1);
+ const layout=await page.locator('.battle-layout').boundingBox(),bonds=await page.locator('#battle-bonds').boundingBox(),roster=await page.locator('.roster-side-0 .roster-list').boundingBox();assert.ok(layout.height>=220);assert.ok(bonds.x>=roster.x+roster.width);assert.ok(bonds.y<roster.y);
  await page.locator('[data-action="pause"]').first().click();
  assert.ok(await page.locator('#battle-bonds').isVisible());
  assert.deepEqual(errors,[]);console.log('Bond UI passed: formation, live substitution, effect detail, desktop/mobile, battle visibility.');

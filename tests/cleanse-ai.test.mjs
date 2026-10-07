@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,STRATAGEMS} from '../engine.mjs';
 import {chooseEnemyCommand} from '../battle-ai.mjs';
 

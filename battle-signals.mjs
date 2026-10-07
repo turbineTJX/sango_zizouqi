@@ -6,7 +6,7 @@ import {STRATAGEMS} from './engine.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const THEMES={offense:['#ffdc80','#dc9a3f'],support:['#9cebcf','#45baaa'],control:['#e9b4ff','#ae69d3']};
-const GLYPHS={formationAura:'协',confuse:'乱',burn:'焚',plague:'疫',seal:'禁',taunt:'嘲',slow:'缓',armorBreak:'破',weaken:'弱',attackSlow:'缓',attackHaste:'速',despair:'志',intentSuppression:'抑',stealth:'伏',decoy:'疑',insight:'察',root:'缚',disarm:'卸',disrupted:'散',shortRange:'短',longRange:'射',guard:'护',link:'连',shield:'盾',resolve:'定',phalanx:'阵',ward:'御',illusion:'幻',regrowth:'愈',phase:'遁',pursuit:'追',bulwark:'壁',riposte:'反',camp:'垒',nexus:'枢',anchored:'锚',emplaced:'架',burningAttack:'焰',attackOrb:'刃',strategyAttack:'谋',haste:'速',valor:'攻',hunger:'粮',assaultUntil:'攻',fortifyUntil:'防',disruptUntil:'弱',hasteUntil:'速',rangeUntil:'射',recoveryUntil:'愈'};
+const GLYPHS={swiftRush:'疾',guardInvincible:'护',formationAura:'协',confuse:'乱',burn:'焚',plague:'疫',seal:'禁',taunt:'嘲',slow:'缓',armorBreak:'破',weaken:'弱',attackSlow:'缓',attackHaste:'速',despair:'志',intentSuppression:'抑',stealth:'伏',decoy:'疑',insight:'察',root:'缚',disarm:'卸',disrupted:'散',shortRange:'短',longRange:'射',guard:'护',link:'连',shield:'盾',resolve:'定',phalanx:'阵',ward:'御',illusion:'幻',regrowth:'愈',phase:'遁',pursuit:'追',bulwark:'壁',riposte:'反',camp:'垒',nexus:'枢',anchored:'锚',emplaced:'架',burningAttack:'焰',attackOrb:'刃',strategyAttack:'谋',haste:'速',valor:'攻',hunger:'粮',assaultUntil:'攻',fortifyUntil:'防',disruptUntil:'弱',hasteUntil:'速',rangeUntil:'射',recoveryUntil:'愈'};
 const TONES={control:'#e5b2ff',damage:'#ffb078',debuff:'#ffa5ab',buff:'#a2ecd2'};
 const rank=s=>s.priority??(s.tone==='debuff'?10:22);
 export function battlefieldStatuses(b,u){

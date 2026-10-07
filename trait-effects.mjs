@@ -5,6 +5,7 @@ import {hasStatus,setStatus,openCell,unitTactics} from './tactics.mjs';
 import {remedy,needsRemedy} from './battle-status-rules.mjs';
 import {recordContribution} from './progression.mjs';
 import {snapshotTactic,tacticOutcome} from './tactic-outcomes.mjs';
+import {bondBlocksEffect} from './bonds.mjs';
 
 // The engine supplies its seeded RNG and shared damage/healing pipeline.
 // Additional trait attacks never emit another trait attack event.
@@ -45,6 +46,7 @@ export function resolveTraitEvent(b,u,event,context,api){
    case 'selfStatus':case 'entryStealth':case 'phase':case 'rallySelf':case 'commandRefund':targets=[u];break;
    default:continue;
   }
+  if(['followUp','thunder','link','debuff','push','disrupt','burn','spreadFire'].includes(r.effect))targets=targets.filter(t=>!bondBlocksEffect(b,t,u));
   if(!targets.length)continue;
   const presentationBefore=snapshotTactic(b),effectStart=b.effects.length;
   const report=()=>{

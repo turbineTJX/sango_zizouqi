@@ -7,7 +7,7 @@ import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBat
 import {campaignInfoIndex,campaignInfoDetail,campaignInfoSections,campaignInfoMarkup} from '../campaign-info.mjs';
 test('all campaign information is read only and city units are not armies',()=>{
  const s=newCampaign(203,'guandu-200'),before=JSON.stringify(s),ix=campaignInfoIndex(s);
- assert.equal(ix.city.length,87);assert.equal(ix.army.length,0);assert.ok(ix.unit.length>0);
+ assert.equal(ix.city.length,s.cities.length);assert.equal(ix.army.length,0);assert.ok(ix.unit.length>0);
  for(const [type,rows] of Object.entries(ix)){assert.ok(campaignInfoMarkup(s,{type}).body);for(const r of rows){const detail=campaignInfoDetail(s,type,r.unit?.id||r.id);assert.ok(detail.sections.length);assert.doesNotMatch(campaignInfoSections(detail),/undefined|NaN/);}}
  assert.equal(JSON.stringify(s),before);
  const detail=campaignInfoDetail(s,'unit',ix.unit[0].unit.id),cropped=campaignInfoSections(detail,{sections:['overview','troops']});

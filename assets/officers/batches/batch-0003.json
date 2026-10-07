@@ -1,0 +1,1575 @@
+{
+  "version": 1,
+  "id": "batch-0003",
+  "status": "complete",
+  "formatVersion": "scene-neutral-v3",
+  "styleVersion": "han-neutral-v2",
+  "officerIds": [
+    "person-4",
+    "person-5",
+    "person-6"
+  ],
+  "jobs": [
+    {
+      "id": "person-4:portrait",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "portrait",
+      "label": "独立头像",
+      "size": [
+        1024,
+        1024
+      ],
+      "format": "头像",
+      "transparent": false,
+      "dependsOn": [],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-4",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0300_尹赏_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "8ab5408b24cab402f0fcc68aa1daedaf4ffea0d4879f3cfd4005ddea0213d0ff"
+      },
+      "output": "assets/officers/generated/v3/person-4/portrait.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：独立头肩头像，完整头饰，无手和武器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Near-frontal head-and-shoulders with a slight right turn, naturally level resting brows and calm closed lips. Complete crown and clear background above it.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/portrait-02.png",
+        "sha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "width": 1254,
+        "height": 1254,
+        "prompt": "Use case: identity-preserve\nAsset: original Three Kingdoms game officer identity portrait.\nInput: this exact same officer original candidate, not another officer. Preserve individual facial geometry and painterly semi-realistic style.\nTargeted revision: Change only framing: repaint a slightly wider head-and-shoulders view. The complete crown, horizontal pin, face, upper military lamellar and both shoulders fit within a square frame. Leave at least 10 percent visible background ABOVE the very highest headwear point, and comfortable margins beside both pin tips. Keep this same slender face, small fine mustache, narrow jaw, naturally calm expression, costume, colors and military role. Do not enlarge the crown or add a new expression.\nOne main subject only. No hands, held props, weapon, text, border or collage. Do not copy expressions or hat shapes from other people.",
+        "referenceSha256": null,
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "3501180b66e8a682fdfa8eee373ee004b8e71fe95db9f850fbd8bb5093b24223",
+          "file": "assets/officers/candidates/batch-0003/person-4/portrait-01.png"
+        },
+        {
+          "sha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+          "file": "assets/officers/candidates/batch-0003/person-4/portrait-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:detail",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "detail",
+      "label": "人物立绘",
+      "size": [
+        1024,
+        2560
+      ],
+      "format": "全身立绘",
+      "transparent": true,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/detail.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Full-length balanced military stance, a modest sheathed straight sword at the belt, one hand lightly on the belt away from the sword hilt and the other arm naturally down. Plain wrist guards and discreet leather-and-iron vest, level head. No held register or scholar sleeve greeting.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/detail-01.png",
+        "sha256": "2bc48f858aa119f6aa3695242a332b573b0c36770bd697f60ea3d79f13a8a0ee",
+        "width": 793,
+        "height": 1983,
+        "transparentFraction": 0.46396768496914825,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Full-length balanced military stance, a modest sheathed straight sword at the belt, one hand lightly on the belt away from the sword hilt and the other arm naturally down. Plain wrist guards and discreet leather-and-iron vest, level head. No held register or scholar sleeve greeting.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role. Full body including the complete crown and both shoes; leave generous genuinely transparent top, bottom and side margins. No white or checkerboard-painted background.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "2bc48f858aa119f6aa3695242a332b573b0c36770bd697f60ea3d79f13a8a0ee",
+          "file": "assets/officers/candidates/batch-0003/person-4/detail-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:domestic",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "domestic",
+      "label": "案牍内政",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/domestic.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军粮、补给或装备；保留本人的护腕、军装及军职气质，不默认案前执笔。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter beside a supply bench, one hand rests on the near edge of a small wooden equipment tray and the other naturally on the knee. Quietly checking orderly supplies, wrist guards visible. No brush or academic reading pose.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/domestic-01.png",
+        "sha256": "3d96457731d179f65c8fb0836a2d6e3e1c4d3769bba10034a00bc46f475c7a94",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军粮、补给或装备；保留本人的护腕、军装及军职气质，不默认案前执笔。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter beside a supply bench, one hand rests on the near edge of a small wooden equipment tray and the other naturally on the knee. Quietly checking orderly supplies, wrist guards visible. No brush or academic reading pose.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "3d96457731d179f65c8fb0836a2d6e3e1c4d3769bba10034a00bc46f475c7a94",
+          "file": "assets/officers/candidates/batch-0003/person-4/domestic-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:inspection",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "inspection",
+      "label": "现场巡视",
+      "size": [
+        1536,
+        1024
+      ],
+      "format": "横向场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/inspection.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。实地检查营防、仓储或装备，手臂自然垂放或低位持合适兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing in clear right profile near a city gate storehouse, both arms naturally low, gaze toward the gate fittings and supply crates. Discreet military vest and sheathed sword. No open scroll or pointing.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/inspection-01.png",
+        "sha256": "db7406737283d87c8357f3baf7bedef7147638dc987140880d8397874fb8d7d5",
+        "width": 1536,
+        "height": 1024,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。实地检查营防、仓储或装备，手臂自然垂放或低位持合适兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing in clear right profile near a city gate storehouse, both arms naturally low, gaze toward the gate fittings and supply crates. Discreet military vest and sheathed sword. No open scroll or pointing.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "db7406737283d87c8357f3baf7bedef7147638dc987140880d8397874fb8d7d5",
+          "file": "assets/officers/candidates/batch-0003/person-4/inspection-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:training",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "training",
+      "label": "整军训练",
+      "size": [
+        1792,
+        1008
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/training.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。近身检查兵器连接、护具或训练器械。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated on a plain practice-yard bench, one hand comfortably checks a simple leather wrist-guard strap while the other supports the resting forearm low above the lap. Quiet military equipment inspection, no book or action swing.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/training-01.png",
+        "sha256": "29ea48a436c1883e387c98ac6e30ef34702677deab44eddeb8adf9f25dc8f35b",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。近身检查兵器连接、护具或训练器械。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated on a plain practice-yard bench, one hand comfortably checks a simple leather wrist-guard strap while the other supports the resting forearm low above the lap. Quiet military equipment inspection, no book or action swing.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "29ea48a436c1883e387c98ac6e30ef34702677deab44eddeb8adf9f25dc8f35b",
+          "file": "assets/officers/candidates/batch-0003/person-4/training-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:diplomacy",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "diplomacy",
+      "label": "外交接洽",
+      "size": [
+        1024,
+        1280
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/diplomacy.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以军职站姿或稳坐接洽，手安放膝部、桌沿或自然下垂，不默认书生拢袖礼。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing shallow left three-quarter, one hand relaxed beside the belt and the other naturally down, slight head turn toward an off-screen visitor. Calm military reception, no joined hands in folded sleeves.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/diplomacy-01.png",
+        "sha256": "e2655acb8b9aaf17f4cb78325996d276d80c10ed79505e74ddbe338466b556d5",
+        "width": 1122,
+        "height": 1402,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以军职站姿或稳坐接洽，手安放膝部、桌沿或自然下垂，不默认书生拢袖礼。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing shallow left three-quarter, one hand relaxed beside the belt and the other naturally down, slight head turn toward an off-screen visitor. Calm military reception, no joined hands in folded sleeves.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "e2655acb8b9aaf17f4cb78325996d276d80c10ed79505e74ddbe338466b556d5",
+          "file": "assets/officers/candidates/batch-0003/person-4/diplomacy-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:command",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "command",
+      "label": "军团指挥",
+      "size": [
+        1536,
+        864
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/command.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在营地判断路线、阵位或布防，军事地图可以使用，文书不是贯穿全套的主道具。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated right three-quarter at a city-defense route map, one hand rests beside a nearby gate marker and the other on the thigh. Calm military planning, no held dispatch or feather fan.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/command-01.png",
+        "sha256": "4a65242867d784a3520930034c4b838607ed900cfda406176c2d0289ad01662f",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在营地判断路线、阵位或布防，军事地图可以使用，文书不是贯穿全套的主道具。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated right three-quarter at a city-defense route map, one hand rests beside a nearby gate marker and the other on the thigh. Calm military planning, no held dispatch or feather fan.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "4a65242867d784a3520930034c4b838607ed900cfda406176c2d0289ad01662f",
+          "file": "assets/officers/candidates/batch-0003/person-4/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:travel",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "travel",
+      "label": "行旅运输",
+      "size": [
+        1024,
+        1792
+      ],
+      "format": "行旅全身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/travel.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Ordinary short step in left-facing profile along a city road, a folded dispatch held close against the lower chest and the free arm at the side. Complete feet, still robe.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/travel-01.png",
+        "sha256": "d5a4b3ba3d97382d73cffbb2a518f957cb8d2bce051ae9c55a39cb131c665421",
+        "width": 948,
+        "height": 1659,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Ordinary short step in left-facing profile along a city road, a folded dispatch held close against the lower chest and the free arm at the side. Complete feet, still robe.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role. Clearly show both shoes fully inside the frame, no foot hidden by the bottom edge, crown also complete.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "d5a4b3ba3d97382d73cffbb2a518f957cb8d2bce051ae9c55a39cb131c665421",
+          "file": "assets/officers/candidates/batch-0003/person-4/travel-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:report",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "report",
+      "label": "报喜奏报",
+      "size": [
+        1536,
+        1152
+      ],
+      "format": "横向半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/report.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。在营门或军务场所自然站立口头汇报，双手舒适，不默认双手捧书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing waist-up slightly facing right, one hand comfortably on a nearby camp rail and the other relaxed beside the belt. Calm oral report toward an off-screen listener, no two-hand open-book presentation.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/report-01.png",
+        "sha256": "019e8dee245f532aa0d416385d2b2fbe6fb2a9fb0c9dce643fd88324be850207",
+        "width": 1448,
+        "height": 1086,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。在营门或军务场所自然站立口头汇报，双手舒适，不默认双手捧书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing waist-up slightly facing right, one hand comfortably on a nearby camp rail and the other relaxed beside the belt. Calm oral report toward an off-screen listener, no two-hand open-book presentation.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "019e8dee245f532aa0d416385d2b2fbe6fb2a9fb0c9dce643fd88324be850207",
+          "file": "assets/officers/candidates/batch-0003/person-4/report-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:report-concern",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "report-concern",
+      "label": "告急奏报",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "近景半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/report-concern.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。在岗听取军情或短暂查看单份消息，不默认书斋阅卷。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left profile on a gatehouse bench, one hand rests on the knee and the other on the bench edge, calm head turn toward an off-screen messenger. No inkstone, study desk, grimace or held book.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/report-concern-01.png",
+        "sha256": "f9b1ef00e979624e0d8aa8b95eba9c257031649883f62609f3be0ea523dbe307",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。在岗听取军情或短暂查看单份消息，不默认书斋阅卷。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left profile on a gatehouse bench, one hand rests on the knee and the other on the bench edge, calm head turn toward an off-screen messenger. No inkstone, study desk, grimace or held book.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "f9b1ef00e979624e0d8aa8b95eba9c257031649883f62609f3be0ea523dbe307",
+          "file": "assets/officers/candidates/batch-0003/person-4/report-concern-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-4:battle",
+      "officerId": "person-4",
+      "name": "尹赏",
+      "scene": "battle",
+      "label": "战斗切入",
+      "size": [
+        2048,
+        1152
+      ],
+      "format": "宽幅人物像",
+      "transparent": false,
+      "dependsOn": [
+        "person-4:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-4/battle.png",
+      "reference": "assets/officers/identity/person-4.png",
+      "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+      "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。穿本人军装，稳健警戒或低位持兵器，保持武人气质，闭嘴且不挥击。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Military officer standing on the LEFT of the wide canvas in a clear RIGHT-facing three-quarter profile, head turned calmly toward the RIGHT. BOTH hands rest naturally behind the LOWER back, elbows close, with no front hand on the belt or sword. Modest sheathed sword at the belt, plain wrist guards and familiar military lamellar. Quiet city-defense watch posture. This must differ from his front-facing one-hand-belt diplomacy and one-hand-sword standee, and from the camp-rail report. No held book, fan, weapon swing, rigid chest-out pose or shouting.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-4/battle-02.png",
+        "sha256": "09745947f75f38e9e325a273b298d1f2b1805a20256d3e4242632797fd72a98b",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹赏 / person-4\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。穿本人军装，稳健警戒或低位持兵器，保持武人气质，闭嘴且不挥击。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Military officer standing on the LEFT of the wide canvas in a clear RIGHT-facing three-quarter profile, head turned calmly toward the RIGHT. BOTH hands rest naturally behind the LOWER back, elbows close, with no front hand on the belt or sword. Modest sheathed sword at the belt, plain wrist guards and familiar military lamellar. Quiet city-defense watch posture. This must differ from his front-facing one-hand-belt diplomacy and one-hand-sword standee, and from the camp-rail report. No held book, fan, weapon swing, rigid chest-out pose or shouting.\nGenerate ONE independently composed finished game illustration from this exact officer identity only, not a crop or background swap. Keep his individual face, same modest crown and original clothes, naturally relaxed brow and closed lips. Follow the explicit revised body direction and hand placement. Exactly one main subject, no text, watermark or montage. Both hands BEHIND the lower back, no front belt-hand pose. Clear right-facing three-quarter body.",
+        "referenceSha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "6caf95dd78c9a284db17dc347d7070bd76017f44ff598107cb2dd82a2af6a519",
+          "file": "assets/officers/candidates/batch-0003/person-4/battle-01.png"
+        },
+        {
+          "sha256": "09745947f75f38e9e325a273b298d1f2b1805a20256d3e4242632797fd72a98b",
+          "file": "assets/officers/candidates/batch-0003/person-4/battle-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:portrait",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "portrait",
+      "label": "独立头像",
+      "size": [
+        1024,
+        1024
+      ],
+      "format": "头像",
+      "transparent": false,
+      "dependsOn": [],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-5",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0301_尹大目_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "5f66cc99ebc4f22b5243a4f7f5ac7446cee47931d3f301a5fc5786aba84fb1ef"
+      },
+      "output": "assets/officers/generated/v3/person-5/portrait.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：独立头肩头像，完整头饰，无手和武器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Near-frontal head-and-shoulders with a small left turn, modest naturally hooded eyes and relaxed mouth. Complete narrow crown with clear upper headroom.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/portrait-03.png",
+        "sha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "width": 1254,
+        "height": 1254,
+        "prompt": "Use case: precise-object-edit\nEdit only the resting eyebrows and tiny glabella area in this exact original officer portrait. The current inner eyebrow ends are lifted and peaked, producing a worried look. LOWER and gently level the INNER ends of BOTH eyebrows into an ordinary relaxed low shallow arc. Smooth only the small brow/glabella tension. Keep his natural heavy eyelids and normal open gaze, no surprise, sadness, raised eyebrow or squint.\nPreserve EVERYTHING else: the same person facial geometry, eye size and spacing, nose, jaw, mouth and beard, crown, hair, costume, colors, body framing, headroom, background and painterly style. Closed mouth. Calm emotionally neutral mature face. No smirk, smile or head tilt. Do not change the identity or enlarge the eyes.",
+        "referenceSha256": null,
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "e8511686beea6795f94b391740fb84da06f47254d08f7f0d4adf0508392359a4",
+          "file": "assets/officers/candidates/batch-0003/person-5/portrait-01.png"
+        },
+        {
+          "sha256": "8d81899987c648f5b75102f59f4089fcca2a06bf7a46b002776eb6e7ae4a4487",
+          "file": "assets/officers/candidates/batch-0003/person-5/portrait-02.png"
+        },
+        {
+          "sha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+          "file": "assets/officers/candidates/batch-0003/person-5/portrait-03.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:detail",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "detail",
+      "label": "人物立绘",
+      "size": [
+        1024,
+        2560
+      ],
+      "format": "全身立绘",
+      "transparent": true,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/detail.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Full-length balanced stance, both hands loosely folded inside the sleeves at low waist, a small cloth dispatch pouch on the belt. No theatrical bow.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/detail-02.png",
+        "sha256": "65b7d014057f85245d1def6c990a489a178ede3d9eb4e9480f40b881cbcf2574",
+        "width": 793,
+        "height": 1983,
+        "transparentFraction": 0.49808619164537915,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Full-length balanced stance, both hands loosely folded inside the sleeves at low waist, a small cloth dispatch pouch on the belt. No theatrical bow.\nGenerate ONE independently composed finished game illustration from this exact officer identity only, not a crop or background swap. Keep his individual face, same modest crown and original clothes, naturally relaxed brow and closed lips. Follow the explicit revised body direction and hand placement. Exactly one main subject, no text, watermark or montage. On a genuinely transparent canvas, the whole figure occupies at most82 percent of the IMAGE HEIGHT, leaving at least8 percent EMPTY ALPHA above the very highest crown tip and below the very lowest shoe sole. Complete crown, loose sleeves, pouch and both shoes visible. No body part touches a canvas edge. Actual2:5 canvas, no painted checkerboard or white backdrop.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "338860f11858ce624013b41f910de4667c62e8647c22d18a60a1706619814c3b",
+          "file": "assets/officers/candidates/batch-0003/person-5/detail-01.png"
+        },
+        {
+          "sha256": "65b7d014057f85245d1def6c990a489a178ede3d9eb4e9480f40b881cbcf2574",
+          "file": "assets/officers/candidates/batch-0003/person-5/detail-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:domestic",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "domestic",
+      "label": "案牍内政",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/domestic.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。依实际职能读写账册、编纂、审阅公文或处理城务。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated right three-quarter, left hand turns a near page of a small document book on the desk and right hand rests alongside a modest document pouch. Naturally lowered gaze.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/domestic-01.png",
+        "sha256": "dd41c42e1bc037756479eb23682043598e165a76e13a5a3b3e4e36d7cfca35c9",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。依实际职能读写账册、编纂、审阅公文或处理城务。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated right three-quarter, left hand turns a near page of a small document book on the desk and right hand rests alongside a modest document pouch. Naturally lowered gaze.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "dd41c42e1bc037756479eb23682043598e165a76e13a5a3b3e4e36d7cfca35c9",
+          "file": "assets/officers/candidates/batch-0003/person-5/domestic-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:inspection",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "inspection",
+      "label": "现场巡视",
+      "size": [
+        1536,
+        1024
+      ],
+      "format": "横向场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/inspection.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。巡视民政设施、档案、仓储或水利现场。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing left profile beside a courier stable, a small rolled delivery list held low in one hand, other arm at the side. Quietly observing the ordinary surroundings.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/inspection-01.png",
+        "sha256": "0db3a6da47d8c7d2d3661087ef5843d97c4abb761c3b74d9ee3d1abe7b8fdffd",
+        "width": 1536,
+        "height": 1024,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。巡视民政设施、档案、仓储或水利现场。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing left profile beside a courier stable, a small rolled delivery list held low in one hand, other arm at the side. Quietly observing the ordinary surroundings.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "0db3a6da47d8c7d2d3661087ef5843d97c4abb761c3b74d9ee3d1abe7b8fdffd",
+          "file": "assets/officers/candidates/batch-0003/person-5/inspection-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:training",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "training",
+      "label": "整军训练",
+      "size": [
+        1792,
+        1008
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/training.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。在训练场旁处理名册、军需或记录，不持战斗兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing right three-quarter at the edge of an orderly practice camp, one hand lightly steadies a closed roster on a low table and the other remains inside the sleeve. No weapon.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/training-01.png",
+        "sha256": "82f81ad953924d3329e7158ca9b080aa2d243d9d247a1b8e3688e1e3d5d0e3ed",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。在训练场旁处理名册、军需或记录，不持战斗兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing right three-quarter at the edge of an orderly practice camp, one hand lightly steadies a closed roster on a low table and the other remains inside the sleeve. No weapon.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "82f81ad953924d3329e7158ca9b080aa2d243d9d247a1b8e3688e1e3d5d0e3ed",
+          "file": "assets/officers/candidates/batch-0003/person-5/training-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:diplomacy",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "diplomacy",
+      "label": "外交接洽",
+      "size": [
+        1024,
+        1280
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/diplomacy.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以文臣或使者身份平静接洽，坐姿或站姿因人物而异。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter, a small closed dispatch held low in both hands over the lap. Slight natural head turn to listen, calm lips, no bow or extended hands.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/diplomacy-01.png",
+        "sha256": "420e85c4704867b1de154b41877030e9eebf084e64cb51dcf5e8bd59a2d3cc5a",
+        "width": 1122,
+        "height": 1402,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以文臣或使者身份平静接洽，坐姿或站姿因人物而异。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter, a small closed dispatch held low in both hands over the lap. Slight natural head turn to listen, calm lips, no bow or extended hands.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "420e85c4704867b1de154b41877030e9eebf084e64cb51dcf5e8bd59a2d3cc5a",
+          "file": "assets/officers/candidates/batch-0003/person-5/diplomacy-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:command",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "command",
+      "label": "军团指挥",
+      "size": [
+        1536,
+        864
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/command.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在军务场所办理文书、补给或联络，表现辅助职责。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated facing slightly right at a transport-map desk, both hands comfortably rest on the near table edge, a closed cloth document pouch beside them. No pointing.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/command-01.png",
+        "sha256": "340aac6af5ad30fab0c362cb189321799064268b9deb75f57a22317217744e76",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在军务场所办理文书、补给或联络，表现辅助职责。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated facing slightly right at a transport-map desk, both hands comfortably rest on the near table edge, a closed cloth document pouch beside them. No pointing.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "340aac6af5ad30fab0c362cb189321799064268b9deb75f57a22317217744e76",
+          "file": "assets/officers/candidates/batch-0003/person-5/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:travel",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "travel",
+      "label": "行旅运输",
+      "size": [
+        1024,
+        1792
+      ],
+      "format": "行旅全身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/travel.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Ordinary short step right-facing profile, one hand carries a small document pouch near the waist while the other lightly gathers the robe. Complete feet and crown, no running.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/travel-01.png",
+        "sha256": "00cbdf9ddd5b6ac0ee8ed92eeccf38a728f2369b76f6f7a76266d94e5de4c321",
+        "width": 948,
+        "height": 1659,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Ordinary short step right-facing profile, one hand carries a small document pouch near the waist while the other lightly gathers the robe. Complete feet and crown, no running.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role. Clearly show both shoes fully inside the frame, no foot hidden by the bottom edge, crown also complete.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "00cbdf9ddd5b6ac0ee8ed92eeccf38a728f2369b76f6f7a76266d94e5de4c321",
+          "file": "assets/officers/candidates/batch-0003/person-5/travel-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:report",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "report",
+      "label": "报喜奏报",
+      "size": [
+        1536,
+        1152
+      ],
+      "format": "横向半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/report.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing waist-up slightly left, one hand holds a narrow paper dispatch low above the belt and the other rests in the sleeve. Neutral attentive gaze.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/report-01.png",
+        "sha256": "681f324b8346cbf43ec56e311f6c22247565c746434d6f70a4556516018e0000",
+        "width": 1448,
+        "height": 1086,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing waist-up slightly left, one hand holds a narrow paper dispatch low above the belt and the other rests in the sleeve. Neutral attentive gaze.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "681f324b8346cbf43ec56e311f6c22247565c746434d6f70a4556516018e0000",
+          "file": "assets/officers/candidates/batch-0003/person-5/report-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:report-concern",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "report-concern",
+      "label": "告急奏报",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "近景半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/report-concern.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated right three-quarter holding a small open bamboo dispatch in both hands near the desk, calm lowered gaze and relaxed closed lips. No worried grimace.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/report-concern-01.png",
+        "sha256": "4c2e56de7300e3bfd025567819e389b448839276022656b53305d94866ce1a8b",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated right three-quarter holding a small open bamboo dispatch in both hands near the desk, calm lowered gaze and relaxed closed lips. No worried grimace.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "4c2e56de7300e3bfd025567819e389b448839276022656b53305d94866ce1a8b",
+          "file": "assets/officers/candidates/batch-0003/person-5/report-concern-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-5:battle",
+      "officerId": "person-5",
+      "name": "尹大目",
+      "scene": "battle",
+      "label": "战斗切入",
+      "size": [
+        2048,
+        1152
+      ],
+      "format": "宽幅人物像",
+      "transparent": false,
+      "dependsOn": [
+        "person-5:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-5/battle.png",
+      "reference": "assets/officers/identity/person-5.png",
+      "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+      "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Civil attendant seated at the left of a wide quiet field-office scene, one hand rests on a closed bamboo document on the knee and the other on the bench edge. Level shoulders, no armor, weapon, frown or flourish.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-5/battle-01.png",
+        "sha256": "da65e33a911f35bddcc4da9760c3e753e0a8bffe29f1189f4604a13d14faaae0",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹大目 / person-5\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Civil attendant seated at the left of a wide quiet field-office scene, one hand rests on a closed bamboo document on the knee and the other on the bench edge. Level shoulders, no armor, weapon, frown or flourish.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role. Character on the left half of the wide composition, natural scene negative space on the right.",
+        "referenceSha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "da65e33a911f35bddcc4da9760c3e753e0a8bffe29f1189f4604a13d14faaae0",
+          "file": "assets/officers/candidates/batch-0003/person-5/battle-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:portrait",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "portrait",
+      "label": "独立头像",
+      "size": [
+        1024,
+        1024
+      ],
+      "format": "头像",
+      "transparent": false,
+      "dependsOn": [],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-6",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0243_尹默_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "87b6334e50b481414148c157c6d497b5f58236ccefd7c1ba4520fea08bea8fd2"
+      },
+      "output": "assets/officers/generated/v3/person-6/portrait.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：独立头肩头像，完整头饰，无手和武器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Near-frontal head-and-shoulders slightly turned right, substantial but nearly horizontal relaxed brows, smooth unpinched glabella and calm closed lips. Complete modest crown.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/portrait-03.png",
+        "sha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "width": 1254,
+        "height": 1254,
+        "prompt": "Use case: precise-object-edit\nEdit only the resting eyebrows and tiny glabella area in this exact original officer portrait. The current inner eyebrow ends slope DOWN steeply, producing a V-shaped scowl. RAISE and gently level the INNER ends of BOTH eyebrows until each brow is a nearly horizontal resting line, without the V, pinched bridge or angry squint. Relax the eyelids and smooth only the tiny glabella tension. Keep normal eyes, not wide-eyed surprise.\nPreserve EVERYTHING else: the same person facial geometry, eye size and spacing, nose, jaw, mouth and beard, crown, hair, costume, colors, body framing, headroom, background and painterly style. Closed mouth. Calm emotionally neutral mature face. No smirk, smile or head tilt. Do not change the identity or enlarge the eyes.",
+        "referenceSha256": null,
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "0870090dca38f4318af5dd595ce2da43200b10cc1eadfb29d152f8a5b91724bf",
+          "file": "assets/officers/candidates/batch-0003/person-6/portrait-01.png"
+        },
+        {
+          "sha256": "af74c823acd96bebcf2aec2366620a3b160e2a5e96a4b7d89a8638441fc44e54",
+          "file": "assets/officers/candidates/batch-0003/person-6/portrait-02.png"
+        },
+        {
+          "sha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+          "file": "assets/officers/candidates/batch-0003/person-6/portrait-03.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:detail",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "detail",
+      "label": "人物立绘",
+      "size": [
+        1024,
+        2560
+      ],
+      "format": "全身立绘",
+      "transparent": true,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/detail.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Full-length upright balanced stance, a small closed bamboo book supported at low waist in both hands, natural elbows and comfortable feet.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/detail-01.png",
+        "sha256": "a3ae70879a636a843bd9eec7d1929ec39548055cdb3fca051071a4287def50d2",
+        "width": 793,
+        "height": 1983,
+        "transparentFraction": 0.4212038137536017,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Full-length upright balanced stance, a small closed bamboo book supported at low waist in both hands, natural elbows and comfortable feet.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role. Full body including the complete crown and both shoes; leave generous genuinely transparent top, bottom and side margins. No white or checkerboard-painted background.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "a3ae70879a636a843bd9eec7d1929ec39548055cdb3fca051071a4287def50d2",
+          "file": "assets/officers/candidates/batch-0003/person-6/detail-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:domestic",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "domestic",
+      "label": "案牍内政",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/domestic.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。依实际职能读写账册、编纂、审阅公文或处理城务。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter at a study desk, one hand gently holds a paper leaf open, the other rests beside a brush tray. Quietly reading, no dramatic expression.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/domestic-01.png",
+        "sha256": "4e5932990ee90f0885fbfc95300f7918c647ff5dc9e9b334796d2a15b076ec56",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。依实际职能读写账册、编纂、审阅公文或处理城务。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter at a study desk, one hand gently holds a paper leaf open, the other rests beside a brush tray. Quietly reading, no dramatic expression.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "4e5932990ee90f0885fbfc95300f7918c647ff5dc9e9b334796d2a15b076ec56",
+          "file": "assets/officers/candidates/batch-0003/person-6/domestic-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:inspection",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "inspection",
+      "label": "现场巡视",
+      "size": [
+        1536,
+        1024
+      ],
+      "format": "横向场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/inspection.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。巡视民政设施、档案、仓储或水利现场。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing right profile in a granary records room, one hand holds a rolled stock list low and the other rests behind the lower back. Relaxed observation, no pointing.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/inspection-01.png",
+        "sha256": "4d3dab63c20eabe57ad8cf24e53ad0b716608fa0e7235847b5f3b1ac2c99e504",
+        "width": 1536,
+        "height": 1024,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。巡视民政设施、档案、仓储或水利现场。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing right profile in a granary records room, one hand holds a rolled stock list low and the other rests behind the lower back. Relaxed observation, no pointing.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "4d3dab63c20eabe57ad8cf24e53ad0b716608fa0e7235847b5f3b1ac2c99e504",
+          "file": "assets/officers/candidates/batch-0003/person-6/inspection-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:training",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "training",
+      "label": "整军训练",
+      "size": [
+        1792,
+        1008
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/training.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。在训练场旁处理名册、军需或记录，不持战斗兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated facing slightly right beside a drill-ground desk, right hand writes a small near mark on a roster with a brush and the left steadies the bamboo register. Scholar doing camp records, no weapon.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/training-01.png",
+        "sha256": "f97dda04321175049fc79654f2f2a8a24d01b7df2681e8a2698beebfcca0ca4a",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。在训练场旁处理名册、军需或记录，不持战斗兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated facing slightly right beside a drill-ground desk, right hand writes a small near mark on a roster with a brush and the left steadies the bamboo register. Scholar doing camp records, no weapon.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "f97dda04321175049fc79654f2f2a8a24d01b7df2681e8a2698beebfcca0ca4a",
+          "file": "assets/officers/candidates/batch-0003/person-6/training-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:diplomacy",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "diplomacy",
+      "label": "外交接洽",
+      "size": [
+        1024,
+        1280
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/diplomacy.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以文臣或使者身份平静接洽，坐姿或站姿因人物而异。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing shallow left three-quarter, one hand holds a closed folded document low near the belt, the other in the sleeve. Calm polite listening, no bow.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/diplomacy-01.png",
+        "sha256": "3ab8dbd4944dc209696d3e48ece4625119b37b14f21dcae0c0fd054795817c22",
+        "width": 1122,
+        "height": 1402,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以文臣或使者身份平静接洽，坐姿或站姿因人物而异。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing shallow left three-quarter, one hand holds a closed folded document low near the belt, the other in the sleeve. Calm polite listening, no bow.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "3ab8dbd4944dc209696d3e48ece4625119b37b14f21dcae0c0fd054795817c22",
+          "file": "assets/officers/candidates/batch-0003/person-6/diplomacy-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:command",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "command",
+      "label": "军团指挥",
+      "size": [
+        1536,
+        864
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/command.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在军务场所办理文书、补给或联络，表现辅助职责。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter at a compact route-map table, both hands lie comfortably beside a nearby marker and a closed register. Soft thoughtful gaze at the table, no flourish.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/command-01.png",
+        "sha256": "0891c40d05cb2defb9e200c5c9d88ae39824ce50ffbc623695b0f5e719a7888f",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在军务场所办理文书、补给或联络，表现辅助职责。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter at a compact route-map table, both hands lie comfortably beside a nearby marker and a closed register. Soft thoughtful gaze at the table, no flourish.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "0891c40d05cb2defb9e200c5c9d88ae39824ce50ffbc623695b0f5e719a7888f",
+          "file": "assets/officers/candidates/batch-0003/person-6/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:travel",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "travel",
+      "label": "行旅运输",
+      "size": [
+        1024,
+        1792
+      ],
+      "format": "行旅全身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/travel.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Ordinary short walking step in a clear LEFT-FACING SIDE PROFILE on a sheltered road. Near foot forward toward the LEFT, farther foot comfortably back toward the RIGHT; both shoes visibly separate and entirely inside the frame with generous ground below. The robe hem ends just above the ankles and does not hide either shoe. A closed bamboo book carried in one hand at the hip, the other lightly gathers a small amount of robe. Complete headwear, normal small stride, calm gaze forward, no running, flying cloth or frontal one-shoe pose.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/travel-02.png",
+        "sha256": "82a58674e9942f2de31b334c7529452bbad12cae79950531e56c76e998ac1953",
+        "width": 948,
+        "height": 1659,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Ordinary short walking step in a clear LEFT-FACING SIDE PROFILE on a sheltered road. Near foot forward toward the LEFT, farther foot comfortably back toward the RIGHT; both shoes visibly separate and entirely inside the frame with generous ground below. The robe hem ends just above the ankles and does not hide either shoe. A closed bamboo book carried in one hand at the hip, the other lightly gathers a small amount of robe. Complete headwear, normal small stride, calm gaze forward, no running, flying cloth or frontal one-shoe pose.\nGenerate ONE independently composed finished game illustration from this exact officer identity only, not a crop or background swap. Keep his individual face, same modest crown and original clothes, naturally relaxed brow and closed lips. Follow the explicit revised body direction and hand placement. Exactly one main subject, no text, watermark or montage. A clear left-facing SIDE view with TWO completely visible separate shoes, near foot left-forward and far foot right-back; generous ground beneath, no robe hiding the rear shoe.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "cc812da6830029c3723cdaa52863d40e83d9bdfc4563d742b89c6720b961e109",
+          "file": "assets/officers/candidates/batch-0003/person-6/travel-01.png"
+        },
+        {
+          "sha256": "82a58674e9942f2de31b334c7529452bbad12cae79950531e56c76e998ac1953",
+          "file": "assets/officers/candidates/batch-0003/person-6/travel-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:report",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "report",
+      "label": "报喜奏报",
+      "size": [
+        1536,
+        1152
+      ],
+      "format": "横向半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/report.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing waist-up slightly facing right, both hands naturally support a small open bamboo book low above the waist. Eyes calmly toward listener, mouth gently closed.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/report-01.png",
+        "sha256": "13b7f5bbc7cfca5a70caade18d817543ce89346f12c73e111aee249b86fb1de1",
+        "width": 1448,
+        "height": 1086,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Standing waist-up slightly facing right, both hands naturally support a small open bamboo book low above the waist. Eyes calmly toward listener, mouth gently closed.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "13b7f5bbc7cfca5a70caade18d817543ce89346f12c73e111aee249b86fb1de1",
+          "file": "assets/officers/candidates/batch-0003/person-6/report-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:report-concern",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "report-concern",
+      "label": "告急奏报",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "近景半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/report-concern.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Civil scholar STANDING outside a quiet camp office in a CLEAR LEFT-FACING PROFILE, body and face turned approximately75 degrees toward the LEFT, nose points left and only the nearer eye visible. BOTH hands rest softly behind the LOWER back, no held paper, book or document. Close waist-up framing, no writing desk, table or chair. Quietly listening to an off-screen messenger to the LEFT, level head, relaxed brows and closed mouth. This must differ from his seated one-hand-paper domestic scene, standing front-held dispatch diplomacy, two-hand open-book report and seated right-profile battle. No armor, weapon, frown or frightened expression.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/report-concern-02.png",
+        "sha256": "bb5ad125d5371d993b1496afcd6bbae686e75025131fa84c394a92cd43eff88f",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Civil scholar STANDING outside a quiet camp office in a CLEAR LEFT-FACING PROFILE, body and face turned approximately75 degrees toward the LEFT, nose points left and only the nearer eye visible. BOTH hands rest softly behind the LOWER back, no held paper, book or document. Close waist-up framing, no writing desk, table or chair. Quietly listening to an off-screen messenger to the LEFT, level head, relaxed brows and closed mouth. This must differ from his seated one-hand-paper domestic scene, standing front-held dispatch diplomacy, two-hand open-book report and seated right-profile battle. No armor, weapon, frown or frightened expression.\nGenerate ONE independently composed finished game illustration from this exact officer identity only, not a crop or background swap. Keep his individual face, same modest crown and original clothes, naturally relaxed brow and closed lips. Follow the explicit revised body direction and hand placement. Exactly one main subject, no text, watermark or montage. Clear LEFT-facing side profile, standing with both hands BEHIND the lower back and no held paper or study desk.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "602f3d66c4b4bf48186605cf4f8d9449941b81aedd854b8833423c6a88dbbbba",
+          "file": "assets/officers/candidates/batch-0003/person-6/report-concern-01.png"
+        },
+        {
+          "sha256": "bb5ad125d5371d993b1496afcd6bbae686e75025131fa84c394a92cd43eff88f",
+          "file": "assets/officers/candidates/batch-0003/person-6/report-concern-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-6:battle",
+      "officerId": "person-6",
+      "name": "尹默",
+      "scene": "battle",
+      "label": "战斗切入",
+      "size": [
+        2048,
+        1152
+      ],
+      "format": "宽幅人物像",
+      "transparent": false,
+      "dependsOn": [
+        "person-6:portrait"
+      ],
+      "status": "complete",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-6/battle.png",
+      "reference": "assets/officers/identity/person-6.png",
+      "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+      "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Civil scholar seated upright on the LEFT of a wide quiet camp pavilion scene, in a clear RIGHT-facing profile. One hand rests comfortably on the near bench arm and the other naturally on the thigh, no held book or dispatch. A small closed book lies on a separate nearby table. Level shoulders, relaxed brows and closed lips. This seated listening posture differs from his standing two-hand book standee, folded-sleeve diplomacy, writing training and map-desk command. No armor, weapon, feather fan or exaggerated gesture.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0003/person-6/battle-01.png",
+        "sha256": "314997b7efc6cf81bb1744db837aa569abcc8e794eb2c5b3bf2430cf23653263",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：尹默 / person-6\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：Civil scholar seated upright on the LEFT of a wide quiet camp pavilion scene, in a clear RIGHT-facing profile. One hand rests comfortably on the near bench arm and the other naturally on the thigh, no held book or dispatch. A small closed book lies on a separate nearby table. Level shoulders, relaxed brows and closed lips. This seated listening posture differs from his standing two-hand book standee, folded-sleeve diplomacy, writing training and map-desk command. No armor, weapon, feather fan or exaggerated gesture.\nIndependently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role. Character on the left half of the wide composition, natural scene negative space on the right.",
+        "referenceSha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "314997b7efc6cf81bb1744db837aa569abcc8e794eb2c5b3bf2430cf23653263",
+          "file": "assets/officers/candidates/batch-0003/person-6/battle-01.png"
+        }
+      ]
+    }
+  ]
+}

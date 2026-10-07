@@ -12,3 +12,9 @@ export function abilityReference(kind,id){
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function abilityButton(kind,id,label,effect='') {return `<button class="text-button ability-link" data-action="ability-reference" data-kind="${esc(kind)}" data-id="${esc(id)}" ${effect?`data-effect="${esc(effect)}"`:''}>${esc(label)}</button>`;}
+
+export function abilityOverview(kind){
+ const catalog={trait:PASSIVES,tactic:TACTICS_BOOK,stratagem:STRATAGEMS}[kind];
+ if(!catalog)return null;
+ return {title:({trait:'特性',tactic:'战法',stratagem:'军略'})[kind]+'一览',groups:[{name:'全部',rows:Object.keys(catalog).flatMap(id=>abilityReference(kind,id)?.groups[0].rows||[])}]};
+}

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {OFFICER_CATALOG} from '../officer-catalog.mjs';
 import {relationshipInfo,relationshipKey,setRelationshipScore,validRelationshipScores,setRelationshipType,changeRelationshipScore} from '../relationships.mjs';
 import {newGame,validateSave,lockDeployment,stepBattle} from '../engine.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {relationshipEditorMarkup,officerDetailMarkup} from '../officer-roster.mjs';
 
 const sworn=['person-636','person-99'];

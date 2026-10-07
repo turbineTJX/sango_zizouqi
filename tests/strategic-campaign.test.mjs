@@ -1,5 +1,6 @@
+import {gateDurability} from '../building-durability.mjs';
 import {initializeTacticLearning} from '../tactic-learning.mjs';
-import {peacefulCities,fieldCampaign as newCampaign} from './helpers/field-campaign.mjs';
+import {peacefulCities,fieldCampaign as newCampaign,approachDestination} from './helpers/field-campaign.mjs';
 import {initializeTalent} from '../talent-lifecycle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -8,6 +9,7 @@ import {beginExecution,advanceCampaignDay,advanceCampaignStep,chooseEncounter,ac
 import {lockDeployment,configureUnitTactics,deployUnit,activeUnits,armyTroops,battleWounded} from '../engine.mjs';
 import {recoverableWounded,configureTactics} from '../tactics.mjs';
 import {visibleStatuses} from '../status-display.mjs';
+import {recordOfficerActivities} from '../officer-activity.mjs';
 const resume=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function runTo(s,day,{auto=true,planning=true}={}){
   for(let guard=0;s.campaign.day<day&&guard<2000;guard++){
@@ -17,12 +19,12 @@ function runTo(s,day,{auto=true,planning=true}={}){
     if(result.deployment||s.finished)break;
   }return s;
 }
-function encounter(){const s=newCampaign();beginExecution(s);runTo(s,10,{auto:false});assert.ok(activeBattles(s).some(r=>r.awaiting));return s;}
+function encounter(){const s=newCampaign();beginExecution(s);for(const a of s.armies.filter(a=>a.route.length))approachDestination(s,a,2);runTo(s,10,{auto:false});assert.ok(activeBattles(s).some(r=>r.awaiting));return s;}
 function prolongedEncounter(){
   const s=newCampaign(6),a=s.armies[0],d=s.armies.find(a=>a.faction==='yuan');s.armies=s.armies.filter(a=>!a.stationary);for(const a of s.armies)a.units=a.units.filter(u=>!u.cityGuard);
-  for(const extra of s.armies.filter(x=>x!==a&&x!==d))s.cities.find(c=>c.id===extra.location).units.push(...extra.units);s.armies=[a,d];for(const c of s.cities)for(const u of c.units)u.troops=0;initializeTalent(s);s.campaign.day=8;
+  for(const extra of s.armies.filter(x=>x!==a&&x!==d))s.cities.find(c=>c.id===extra.location).units.push(...extra.units);s.armies=[a,d];for(const c of s.cities)for(const u of c.units)u.troops=0;initializeTalent(s);for(let day=2;day<=8;day++){s.campaign.day=day;recordOfficerActivities(s);}
   for(const army of s.armies){army.tactic='defensive';army.units.forEach((u,i)=>{u.type='halberd';u.level=2;u.merit=0;u.first=i<6;u.retreatAt=null;initializeTacticLearning(u,s.seed);});}
-  orderCampaignArmy(s,a.id,'guandu');d.route=['xuchang'];d.target='xuchang';beginExecution(s);runTo(s,10,{auto:false});return s;
+  orderCampaignArmy(s,a.id,'guandu');d.route=['xuchang'];d.target='xuchang';beginExecution(s);approachDestination(s,a,2);d.travel={from:'guandu',to:'xuchang',road:'main',progress:0};runTo(s,10,{auto:false});return s;
 }
 
 test('campaign begins in day-one planning with cities, homes and at most ten units',()=>{
@@ -40,10 +42,10 @@ test('armies move visibly along road interiors before arriving',()=>{
 
 for(const owner of ['neutral','yuan'])test(`a ${owner} city with intact walls and no defenders is occupied on arrival without combat`,()=>{
   const s=newCampaign(),a=s.armies[0],target=s.cities.find(c=>c.id==='guandu');
-  s.armies=[a];target.units=[];target.garrison=0;target.owner=owner;target.domestic.owner=owner;target.governor=null;target.gateHp=15000;
+  s.armies=[a];target.units=[];target.garrison=0;target.owner=owner;target.domestic.owner=owner;target.governor=null;gateDurability(target).hp=15000;
   initializeTalent(s);assert.equal(orderCampaignArmy(s,a.id,target.id),null);beginExecution(s);
-  for(let i=0;i<10&&target.owner!==a.faction;i++)advanceCampaignDay(s);
-  assert.equal(target.owner,a.faction);assert.equal(target.gateHp,15000);
+  for(let i=0;i<40&&target.owner!==a.faction;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
+  assert.equal(target.owner,a.faction);assert.equal(gateDurability(target).hp,15000);
   assert.equal(s.campaign.battles.filter(r=>r.cityId===target.id).length,0);
   assert.equal(a.travel,null);assert.equal(a.location,target.id);resume(s);
 });
@@ -52,7 +54,7 @@ test('head-on marching armies meet on the road without passing through each othe
   const r=activeBattles(s)[0];assert.equal(r.kind,'field');assert.equal(r.armyIds.length,2);const [a,b]=s.armies;assert.ok(Math.abs(armyPosition(s,a).x-armyPosition(s,b).x)<.01);assert.ok(Math.abs(armyPosition(s,a).y-armyPosition(s,b).y)<.01);resume(s);
 });
 test('delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns',()=>{
-  const s=encounter(),r=activeBattles(s)[0];chooseEncounter(s,r.id,false);runTo(s,s.campaign.day+3);const before=JSON.stringify(r.battle),day=s.campaign.day;
+  const s=encounter(),r=activeBattles(s).find(r=>r.awaiting&&r.armies.some(a=>a.faction==='cao'));assert.ok(r);chooseEncounter(s,r.id,false);runTo(s,s.campaign.day+3);const before=JSON.stringify(r.battle),day=s.campaign.day;
   assert.equal(takeOverBattle(s,r.id),null);assert.equal(JSON.stringify(s.battle),before);assert.equal(s.campaign.day,day);assert.ok(s.battle.deploymentLocked);
   const u=s.battle.sides[0].units[0];assert.ok(configureUnitTactics(s,u.id,u.tactics));assert.ok(deployUnit(s.battle,u.id,0,0));resume(s);
 });
@@ -77,6 +79,7 @@ test('a real learned-loadout battle crosses planning boundaries and respects the
 
 test('multiple battles and their snapshots share the same global day',()=>{
   const s=newCampaign();for(const id of ['guandu','baima'])s.cities.find(c=>c.id===id).kind='gate';orderCampaignArmy(s,'a1','guandu');orderCampaignArmy(s,'a3','baima');beginExecution(s);
+  for(const a of s.armies.filter(a=>a.route.length))approachDestination(s,a,2);
   for(let guard=0;activeBattles(s).length<2&&guard<10;guard++){advanceCampaignDay(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);}
   const battles=activeBattles(s);assert.ok(battles.length>=2);const day=s.campaign.day,ticks=battles.map(r=>r.battle.tick);
   advanceCampaignStep(s);battles.forEach((r,i)=>assert.equal(r.battle.tick,ticks[i]+1));runTo(s,day+1);
@@ -92,7 +95,9 @@ test('mid-day and multi-battle saves continue deterministically without charging
   runTo(s,21);runTo(restored,21);assert.deepEqual(JSON.parse(serializeCampaign(restored)),JSON.parse(serializeCampaign(s)));
 });
 test('troops arriving on the map reinforce an existing battle, sharing six slots',()=>{
-  const s=newCampaign();for(const u of [...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units)])u.retreatAt=null;beginExecution(s);runTo(s,8);const r=activeBattles(s)[0];assert.ok(r.armyIds.length>=3);assert.ok(r.battle.sides.flatMap(x=>x.units).some(u=>u.arrivalTick!==undefined));
+  const s=newCampaign();for(const u of [...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units)])u.retreatAt=null;beginExecution(s);
+  for(const a of s.armies.filter(a=>a.route.length))approachDestination(s,a,a.location==='guandu'?1:3);
+  runTo(s,8);const r=s.campaign.battles.find(r=>r.armyIds.length>=3);assert.ok(r,'an arriving army joined a real battle, even if it finished before day eight');assert.ok(r.battle.sides.flatMap(x=>x.units).some(u=>u.arrivalTick!==undefined));
   for(const side of [0,1])assert.ok(activeUnits(r.battle,side).length<=6);resume(s);
 });
 test('construction is paid once, completes at the turn boundary and reports income once',()=>{
@@ -147,7 +152,7 @@ test('combat desertions are never healable and dissolved officers are not duplic
 });
 
 test('city capture settles once and can be saved immediately within a day',()=>{
-  const s=newCampaign();for(const c of s.cities.filter(c=>c.owner==='yuan'))c.kind='gate';for(const a of s.armies.filter(a=>a.faction==='yuan'))a.stationary=true;orderCampaignArmy(s,'a1','guandu');beginExecution(s);runTo(s,7);
+  const s=newCampaign();for(const c of s.cities.filter(c=>c.owner==='yuan'))c.kind='gate';for(const a of s.armies.filter(a=>a.faction==='yuan'))a.stationary=true;orderCampaignArmy(s,'a1','guandu');approachDestination(s,s.armies.find(a=>a.id==='a1'),2);beginExecution(s);runTo(s,7);
   const r=s.campaign.battles.find(r=>r.cityId==='guandu');assert.ok(r);
   for(let guard=0;guard<240&&!r.settled;guard++){
     if(s.campaign.phase==='planning')beginExecution(s);

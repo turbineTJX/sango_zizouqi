@@ -1,0 +1,10 @@
+Use case: identity-preserve
+人物：周瑜 / person-246
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+身份：An elegant commander with a visual age around 31, slender gently triangular face, somewhat broader temples and upper cheekbones narrowing to a small tapered chin, fine naturally curved relaxed eyebrows, more open elongated almond eyes, delicate straight narrow-bridge nose and small closed mouth with a fuller lower lip. Clean-shaven, natural skin texture. Modest upright folded dark-red cloth crown with bronze fitting, burgundy robe, ivory collar and restrained dark lamellar shoulders with muted bronze edging. Facial geometry guided by his own existing local portrait, visibly distinct from Zhao Yun. A small plain wooden command baton or sheathed straight sword, not Zhuge Liang’s signature feather fan; calm cultivated military bearing.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1024×1792，行旅全身像，有场景背景。
+场景含义：完整双脚的普通小步行走，侧面或三分之四朝前，目光沿路，衣摆轻微运动，持物贴近身体，不奔跑、大幅回头或披风飞扬。
+该人物独立表演（优先于通用示例手势）：Ordinary short walking step in side view, wooden baton held low by his side, free hand lightly gathers his burgundy robe. Full body and both feet visible, gaze forward.
+Canvas requested: 1024x1792, aspect 1024:1792. Use this input ONLY to preserve this officer's exact NEW distinctive face, headwear and costume identity; do not revert to a generic handsome oval face. Keep his facial geometry apparent at all angles. Neutral natural closed lips, relaxed brows and forehead, quiet gaze. New independent scene composition, never reuse the portrait framing or another scene's pose. No dramatic gesture. Complete headwear with clear margin above its highest tip. Complete walking body and BOTH FEET, quiet short step.

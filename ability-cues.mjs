@@ -41,15 +41,15 @@ export class AbilityCues {
    card.dataset.action='battle-panel';card.dataset.panel='events';
    if(!cue){card.disabled=true;card.textContent=(side?'敌军':'我军')+' · 等待发动';this.root.append(card);continue;}
    const portrait=document.createElement('span');portrait.className='ability-portrait';portrait.textContent=cue.name?.slice(0,1)||'将';
-   const url=art.active&&assetURL(art.pack.portraits[cue.from]);
-   if(url){const img=document.createElement('img');img.src=url;img.alt='';img.onload=()=>portrait.classList.add('loaded');img.onerror=()=>img.remove();portrait.append(img);}
+   const url=art.portraitURL(cue.from,'battle');
+   if(url){const entry=art.resolvePortrait(cue.from,'battle');if(entry?.width>entry?.height*1.15)portrait.dataset.artShape='wide';const img=document.createElement('img');img.src=url;img.alt='';img.onload=()=>portrait.classList.add('loaded');img.onerror=()=>img.remove();portrait.append(img);}
    const body=document.createElement('span');body.className='ability-body';
-   const owner=document.createElement('span');owner.className='ability-owner';owner.textContent=`${side?'敌军':'我军'} · ${cue.name} · ${cue.tick}日`;
+   const owner=document.createElement('span');owner.className='ability-owner';owner.textContent=`${side?'敌军':'我军'} · ${cue.name}`;
    const title=document.createElement('strong');title.textContent=cue.label;
    const kind=document.createElement('span');kind.className='ability-kind';kind.textContent=(cue.trait?'特性':'战法')+(cue.count>1?' ×'+cue.count:'');
    const detail=document.createElement('span');detail.className='ability-detail';detail.textContent=outcomeLines(cue.events).join(' / ');
    const hint=document.createElement('span');hint.className='ability-hint';hint.textContent=`点击暂停查看${this.waiting[side].length?' · 另有'+this.waiting[side].length+'项':''}`;
-   body.append(owner,title,kind,detail,hint);card.append(portrait,body);card.title=`${owner.textContent}「${cue.label}」\n${detail.textContent}`;card.setAttribute('aria-label',card.title+'，点击暂停查看记录');this.root.append(card);
+   body.append(owner,title,kind,detail,hint);card.append(portrait,body);card.title=`${owner.textContent}「${cue.label}」\n${detail.textContent}`;card.setAttribute('aria-label',card.title+' · 暂停查看');this.root.append(card);
   }
  }
  draw(fx,cell){

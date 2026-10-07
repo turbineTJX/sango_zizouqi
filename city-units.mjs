@@ -8,7 +8,7 @@ export function cityForce(c){
 }
 export function cityForces(s){return s.cities.filter(c=>c.units.length).map(cityForce);}
 
-// Location eligibility shared by expedition orders and retreat destinations.
+// City services and expedition preparation; field reorganization uses canRallyAt.
 export function canFormArmyAt(s,id,faction){
  const c=s.cities.find(c=>c.id===id);
  return !!c&&c.kind!=='junction'&&c.owner===faction&&!s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===id);

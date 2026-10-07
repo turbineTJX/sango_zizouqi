@@ -11,8 +11,8 @@ test('inspection during real combat is read-only and preserves deterministic con
  for(let i=0;i<100&&!b.result;i++){
   stepBattle(b);const before=JSON.stringify(s);
   for(const u of b.sides.flatMap(side=>side.units)){
-   const rows=battleUnitSummary(b,u);action||=rows.some(([key])=>key==='本日实际作用对象');
-   for(const skill of unitTactics(u)){const reasons=battleTacticConditions(b,u,skill).join(' ');exhausted||=reasons.includes('次数已用尽');cooldown||=reasons.includes('冷却剩余');assert.doesNotMatch(battleTacticDetailMarkup(b,u,skill),/NaN|undefined/);}
+   const rows=battleUnitSummary(b,u);action||=rows.some(([key])=>key==='最近作用对象');assert.ok(!rows.some(([key])=>key==='在场羁绊'));
+   for(const skill of unitTactics(u)){const reasons=battleTacticConditions(b,u,skill).join(' ');exhausted||=reasons.includes('次数已用尽');cooldown||=reasons.includes('冷却中');assert.doesNotMatch(battleTacticDetailMarkup(b,u,skill),/NaN|undefined/);}
   }
   assert.equal(JSON.stringify(s),before);
  }
@@ -21,4 +21,5 @@ test('inspection during real combat is read-only and preserves deterministic con
 test('deployment and reserve inspection never claims a live grid position or cast readiness',()=>{
  const s=scenario(),u=s.battle.sides[0].units[0];assert.match(battleTacticConditions(s.battle,u,unitTactics(u)[0]).join(' '),/战前布阵/);
  const reserve={...u,status:'reserve',x:-1,y:-1,arrivalTick:20};assert.equal(battleUnitSummary(s.battle,reserve).find(([k])=>k==='战场位置')[1],'场外预备区');assert.match(battleUnitSummary(s.battle,reserve).find(([k])=>k==='入场条件')[1],/援军尚未抵达/);
+ assert.ok(!battleUnitSummary(s.battle,reserve).some(([key])=>key==='在场羁绊'));
 });

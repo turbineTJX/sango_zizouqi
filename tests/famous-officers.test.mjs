@@ -8,7 +8,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {FAMOUS_OFFICERS,famousPassiveId} from '../famous-officers.mjs';
 import {makeOfficer,stepBattle,lockDeployment,validateSave,settleBattle,issueCommand,COMMAND_RESOURCE} from '../engine.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {TACTICS_BOOK,SPECIAL_TACTICS,availableTactics,unitTactics,tacticTarget,famousTargets,readyTactic,hasStatus,shieldAmount,setStatus} from '../tactics.mjs';
 import {hasPassive,passiveDamageMultiplier,passiveAttributes,passiveList,moved} from '../passives.mjs';
 import {unitAttributes} from '../unit-stats.mjs';

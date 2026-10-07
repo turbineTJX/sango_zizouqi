@@ -75,10 +75,10 @@ export const DOMESTIC_ACTION_DESIGNS = {
   "fair": {
     "name": "举办集市",
     "direction": "commerce",
-    "cost": 200,
+    "cost": 0,
     "days": 10,
     "kind": "cash",
-    "value": 800,
+    "value": 200,
     "stat": "politics",
     "cooperation": "quantity"
   },
@@ -127,10 +127,10 @@ export const DOMESTIC_ACTION_DESIGNS = {
   "cultivate": {
     "name": "督耕",
     "direction": "agriculture",
-    "cost": 100,
+    "cost": 0,
     "days": 10,
     "kind": "grain",
-    "value": 1400,
+    "value": 1538,
     "stat": "politics",
     "cooperation": "quantity"
   },
@@ -181,7 +181,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 180,
     "days": 10,
     "kind": "research",
-    "value": 24,
+    "value": 100,
     "stat": "intellect",
     "cooperation": "quantity"
   },
@@ -191,7 +191,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 400,
     "days": 10,
     "kind": "research",
-    "value": 48,
+    "value": 135,
     "stat": "intellect",
     "cooperation": "quantity",
     "risk": 0.15
@@ -202,7 +202,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 100,
     "days": 10,
     "kind": "research",
-    "value": 32,
+    "value": 110,
     "stat": "intellect",
     "cooperation": "quantity",
     "risk": 0.2
@@ -213,7 +213,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 450,
     "days": 10,
     "kind": "research",
-    "value": 55,
+    "value": 150,
     "stat": "intellect",
     "cooperation": "quantity",
     "opportunity": "master"
@@ -224,20 +224,10 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 120,
     "days": 10,
     "kind": "research",
-    "value": 45,
+    "value": 125,
     "stat": "intellect",
     "cooperation": "quantity",
     "opportunity": "capture"
-  },
-  "trial": {
-    "name": "试制验证",
-    "direction": "technology",
-    "cost": 200,
-    "days": 10,
-    "kind": "trial",
-    "value": 0,
-    "stat": "intellect",
-    "cooperation": "chance"
   },
   "recruit": {
     "name": "常规征兵",
@@ -246,6 +236,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "days": 10,
     "kind": "recruit",
     "value": 1400,
+    "reserveValue": 588,
     "stat": "leadership",
     "cooperation": "quantity"
   },
@@ -256,6 +247,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "days": 5,
     "kind": "recruit",
     "value": 1800,
+    "reserveValue": 900,
     "stat": "leadership",
     "cooperation": "quantity",
     "risk": 0.15
@@ -263,20 +255,20 @@ export const DOMESTIC_ACTION_DESIGNS = {
   "heal": {
     "name": "集中救治",
     "direction": "technology",
-    "cost": 160,
+    "cost": 30,
     "days": 5,
     "kind": "heal",
-    "value": 300,
+    "value": 430,
     "stat": "intellect",
     "cooperation": "quantity"
   },
   "recover": {
     "name": "精心疗养",
     "direction": "technology",
-    "cost": 80,
+    "cost": 20,
     "days": 10,
     "kind": "heal",
-    "value": 450,
+    "value": 410,
     "stat": "intellect",
     "cooperation": "quantity"
   },

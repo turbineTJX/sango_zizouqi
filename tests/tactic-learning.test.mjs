@@ -35,7 +35,7 @@ test('属性比较按智武、政统、魅力50边界选择，不受等级或随
   [{force:80,intellect:80,leadership:70,politics:70,charm:50},'intellect'],
  ]){assert.equal(smallTacticCategory(stats),expected);const r=createTacticLearning({...stats,aptitudes:{spear:1}});assert.equal(TACTICS_BOOK[r.byTroop.spear.low[0]].category,expected);}
 });
-test('仅确认16人拥有专属，一级即可跨九兵种携带且不挤占普通名额',()=>{
+test('仅确认16人拥有专属，一级即可跨四兵科及升级兵种携带且不挤占普通名额',()=>{
  const expected='曹操 刘备 孙策 关羽 张飞 赵云 马超 黄忠 吕布 张辽 诸葛亮 庞统 郭嘉 司马懿 周瑜 陆逊'.split(' ').sort();
  assert.deepEqual(OFFICER_CATALOG.filter(p=>SPECIAL_TACTICS[p.id]).map(p=>p.name).sort(),expected);
  for(const source of OFFICER_CATALOG){const u=makeOfficer(source.id,1000,0,1);assert.equal(u.tacticLearning.special,!!SPECIAL_TACTICS[u.id]);for(const type of LEARNING_TROOPS){u.type=type;u.tactics=learnedTacticIds(u);assert.equal(u.tactics.length,[1,1,2,3][troopAptitude(u)]+Number(!!SPECIAL_TACTICS[u.id]));assert.ok(validLoadout(u,u.tactics));if(SPECIAL_TACTICS[u.id])assert.ok(u.tactics.includes(SPECIAL_TACTICS[u.id]));}}
@@ -67,7 +67,7 @@ test('所有预设共用固定配置生成器，没有场景专属授予或随�
 });
 
 
-test('16名将一级专属在九兵种下通过真实自动施放、次数与冷却流程',()=>{
+test('16名将一级专属在四兵科及升级兵种下通过真实自动施放、次数与冷却流程',()=>{
  for(const [id,special] of Object.entries(SPECIAL_TACTICS))for(const type of LEARNING_TROOPS){
   const entry=id=>({id,type,troops:3000,level:1});
   const state=createScenario('custom-battle',713,20,null,{seed:713,terrain:type==='ship'?'river':'land',ownTeam:[entry(id),entry('dun')],enemyTeam:[entry('wen')]});

@@ -9,5 +9,5 @@ test('自定义军团长与军师独立于队列，军略按指定人选带入�
  assert.equal(s.armies[0].leader,'person-255');assert.equal(s.armies[0].advisor,'cao');
  assert.deepEqual(new Set(battleStratagems(b)),new Set(['person-255','cao'].flatMap(officerStratagems)));
  assert.deepEqual(validateSave(JSON.parse(JSON.stringify(s))).testScenario.customBattle.ownTeamRoles,d.ownTeamRoles);
- d.ownTeamRoles.advisor='shao';assert.throws(()=>validateCustomBattle(d),/军团长和军师/);
+ d.ownTeamRoles.advisor='shao';assert.throws(()=>validateCustomBattle(d),/必须来自本军团/);
 });

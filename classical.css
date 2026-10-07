@@ -26,8 +26,8 @@ select, input:not([type=checkbox]):not([type=range]) { background-color: #29291f
 .topbar { background: #24251e; border-bottom: 3px double #a38b565c; }
 .brand-seal, .lobby-brand>span { background: #963e2d; color: #fff0d3; border: 1px solid #9b4934; box-shadow: inset 0 0 0 3px #eed7ad, inset 0 0 0 4px #963e2d; }
 .brand small { color: #c0ad87; letter-spacing: 5px; }
-.modal, .arena-panel { background: #2b2a22f7; border: 3px double #b49a6966; border-radius: 2px; }
-.modal-header, .arena-panel>header { background: #363328; border-color: #ae92633d; }
+:is(.modal,.detail-source-panel), .arena-panel { background: #2b2a22f7; border: 3px double #b49a6966; border-radius: 2px; }
+:is(.modal-header,.detail-source-header), .arena-panel>header { background: #363328; border-color: #ae92633d; }
 .modal-backdrop { background: #171810b8; }
 .side-panel, .battle-main, .battle-sidebar, .versus-bar { background: #2b2d24; border-color: var(--border); border-radius: 2px; }
 
@@ -164,3 +164,6 @@ body:has(.campaign-lobby) {
   .mode-card { transition: none; }
   .mode-card:hover { transform: none; }
 }
+
+/* National scenarios support many independent rulers. */
+.national-lobby .scenario-scroll{overflow-y:auto;max-height:68vh;justify-content:flex-start;padding-right:14px}.national-lobby .scenario-ribbon{flex:none}.national-lobby .ruler-strip{justify-content:flex-start;overflow-x:auto;max-width:100%;gap:16px;padding:18px 4px;scrollbar-width:thin}.national-lobby .ruler-strip button{flex:0 0 86px;min-width:0}@media(max-width:800px){.national-lobby .scenario-scroll{max-height:none;overflow:visible;padding-right:0}.national-lobby .ruler-strip button{flex-basis:68px}}

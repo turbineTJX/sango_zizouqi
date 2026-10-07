@@ -4,7 +4,7 @@ export function armyFrontlineCapacity(army){return 6+(mechanicEntries({id:army.l
 
 // Appointment snapshots fix this battle's organization even after casualties.
 export function extraFrontlineArmies(side){
- return new Set((side.commanders||[]).filter(c=>mechanicEntries(c,'passive').some(({rule})=>rule.effect==='frontline'&&rule.roles.includes(c.role))).map(c=>c.armyId));
+ return new Set((side.commanders||[]).filter(c=>side.units.some(u=>u.armyId===c.armyId&&u.arrivalConfirmed!==false)&&mechanicEntries(c,'passive').some(({rule})=>rule.effect==='frontline'&&rule.roles.includes(c.role))).map(c=>c.armyId));
 }
 export function frontlineCapacity(b,side){return 6+(extraFrontlineArmies(b.sides[side]).size?1:0);}
 export function validFrontline(b,side,units=b.sides[side].units.filter(u=>u.status==='active'&&u.hp>0)){

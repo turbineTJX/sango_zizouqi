@@ -16,7 +16,7 @@ for(const type of LEARNING_TROOPS)for(const id of [...tacticPools(type).low,...t
    x.target.x=6;x.rear.x=7;
   }
   if(id==='gallop'){x.target.x=8;x.rear.x=9;}
-  if(id==='rush'){x.target.x=7;x.rear.x=9;}
+  if(skill.effect==='rush'){x.target.x=7;x.rear.x=9;}
   readyCurrent(x,id);const before=x.u.intent;stepBattle(x.b);
   assert.equal(x.u.tacticCasts[id],1,id);
   assert.equal(x.u.intent,before-skill.intentCost);

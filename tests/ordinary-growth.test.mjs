@@ -5,7 +5,7 @@ import {OFFICER_CATALOG} from '../officer-catalog.mjs';
 import {makeOfficer,unitAttributes,lockDeployment,stepBattle,validateSave,settleBattle} from '../engine.mjs';
 import {commonRouteKey,commonRouteName,skillRoute,passiveList,SKILL_ROUTES} from '../passives.mjs';
 import {configureTactics,unitTactics,availableTactics,SPECIAL_TACTICS} from '../tactics.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {rosterMarkup} from '../officer-roster.mjs';
 
 test('ordinary officers may have no independent trait and never gain traits from levels',()=>{let checked=0;for(const p of OFFICER_CATALOG.filter(p=>!SPECIAL_TACTICS[p.id])){checked++;const a=makeOfficer(p.id,1000,0,1),b=makeOfficer(p.id,1000,0,10);assert.deepEqual(skillRoute(a),skillRoute(b));assert.equal(new Set(skillRoute(a)).size,skillRoute(a).length);assert.ok(unitTactics(a).length<=3);}assert.ok(checked>800);});

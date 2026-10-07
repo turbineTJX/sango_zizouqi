@@ -1,0 +1,11 @@
+Use case: identity-preserve
+人物：尹大目 / person-5
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+人物类型：主类型：文臣学士；次类型：无。依据：名册记为曹爽心腹、随侍皇帝，承担使者联络。人物仪态：宫廷随侍与实务使者，衣装和动作保持文职联络身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。
+身份：A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo. A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1024×1280，半身像，有场景背景。
+场景含义：接洽来访者或使者，平静听取意见。以文臣或使者身份平静接洽，坐姿或站姿因人物而异。
+该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter, a small closed dispatch held low in both hands over the lap. Slight natural head turn to listen, calm lips, no bow or extended hands.
+Independently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {defaultCustomBattle} from '../custom-battle.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {saveScenarioUnit,newScenarioSetup,newBattleSetup,changeScenarioSetup,scenarioSetupError,scenarioSetupDraft,scenarioSetupUnits,scenarioSetupMarkup,applyBattleSetup} from '../scenario-setup.mjs';
 test('shared custom setup is an isolated draft and applies all commander and unit fields',()=>{
@@ -21,7 +21,7 @@ test('ordinary picker, formation and comparison views render without a strategic
  for(const step of ['formation','unit-review','unit-select','commanders','review']){p.step=step;const html=scenarioSetupMarkup(p).body;assert.doesNotMatch(html,/undefined|NaN/);assert.match(html,/command-flow/);}
  p.step='formation';assert.doesNotMatch(scenarioSetupMarkup(p).body,/task-personnel/);p.choosingMain=true;assert.match(scenarioSetupMarkup(p).body,/type="radio"/);p.choosingMain=false;
  p.step='formation';assert.match(scenarioSetupMarkup(p).body,/command-formation/);assert.doesNotMatch(scenarioSetupMarkup(p).body,/data-scenario-role|data-scenario-first|combat-page/);
- p.step='unit-review';assert.match(scenarioSetupMarkup(p).body,/compiled-unit/);assert.doesNotMatch(scenarioSetupMarkup(p).body,/data-scenario-role|combat-page/);
+ p.step='unit-review';assert.match(scenarioSetupMarkup(p).body,/unit-muster/);assert.match(scenarioSetupMarkup(p).body,/data-scenario-troops/);assert.doesNotMatch(scenarioSetupMarkup(p).body,/data-scenario-role|combat-page/);
  p.step='unit-select';assert.match(scenarioSetupMarkup(p).body,/友好度/);
  p.step='commanders';assert.match(scenarioSetupMarkup(p).body,/data-scenario-role/);assert.doesNotMatch(scenarioSetupMarkup(p).body,/data-scenario-role="deputy"|友好度|data-scenario-formation|data-scenario-first/);
 });
@@ -75,7 +75,7 @@ test('single-unit editor chooses one commander and adds only on unit confirmatio
  assert.equal(saveScenarioUnit(p),'');assert.ok(p.selected.includes('liao'));assert.ok(!p.selected.includes('person-255'));
 });
 
-test('custom unit management exposes disband and unlimited reserves, preset participants stay fixed',()=>{
- const p=newScenarioSetup(defaultCustomBattle(),'ownTeam');assert.match(scenarioSetupMarkup(p).body,/预备兵：inf/);assert.match(scenarioSetupMarkup(p).body,/scenario-unit-disband/);
+test('custom unit management exposes disband and finite reserves, preset participants stay fixed',()=>{
+ const p=newScenarioSetup(defaultCustomBattle(),'ownTeam');assert.match(scenarioSetupMarkup(p).body,/总预备兵 30,000 人/);assert.match(scenarioSetupMarkup(p).body,/可用 27,000 人/);assert.doesNotMatch(scenarioSetupMarkup(p).body,/预备兵：inf/);assert.match(scenarioSetupMarkup(p).body,/scenario-unit-disband/);
  const s=createScenario('custom-battle'),locked=newBattleSetup(s,s.armies[0].id);assert.doesNotMatch(scenarioSetupMarkup(locked).body,/scenario-unit-disband/);
 });

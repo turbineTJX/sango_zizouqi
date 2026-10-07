@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave,makeOfficer} from '../engine.mjs';
 import {hexNeighbors} from '../hex-grid.mjs';
 import {configureTactics,roleTacticIds,unitTactics,TACTICS_BOOK,setStatus} from '../tactics.mjs';

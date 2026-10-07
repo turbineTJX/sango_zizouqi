@@ -1,4 +1,7 @@
-import {invadeFromGuandu,fieldFromCity,peacefulCities} from './helpers/field-campaign.mjs';
+import {completeTechnologyBuilding} from '../building-durability.mjs';
+import {setBuildingLevel} from './building-fixtures.mjs';
+import {fundCities} from './resource-fixtures.mjs';
+import {invadeFromGuandu,fieldFromCity,peacefulCities,approachDestination} from './helpers/field-campaign.mjs';
 import {talentKey,refreshTalentDemand} from '../talent-core.mjs';
 import {setRelationshipType} from '../relationships.mjs';
 import {learnedTacticIds} from '../tactic-learning.mjs';
@@ -9,11 +12,12 @@ import {ACTIONS,BUILDINGS,DIRECTIONS,TECHS,assignDomestic,assignmentFor,actionCa
 import {makeOfficer,lockDeployment,activeUnits,issueCommand} from '../engine.mjs';
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
+import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
-function peaceful(seed=81){const s=newCampaign(seed);peacefulCities(s);s.gold=40000;s.cities.forEach(c=>c.grain=20000);s.grain=s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0);return s;}
+function peaceful(seed=81){const s=newCampaign(seed);peacefulCities(s);fundCities(s,40000);s.cities.forEach(c=>c.grain=20000);s.grain=s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0);return s;}
 function advance(s,to){for(let guard=0;guard<3000&&s.campaign.day<to;guard++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);}assert.equal(s.campaign.day,to);}
 function addIdle(s,c,count){const used=new Set([...s.cities.flatMap(c=>c.units.map(u=>u.id)),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)]),ids=Object.keys(OFFICER_BY_ID).filter(id=>!used.has(id)).slice(0,count);s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>!ids.includes(p.id));for(const id of ids){const u={...makeOfficer(id,0),homeCity:c,type:'spear'};u.tactics=learnedTacticIds(u);s.campaign.idle.push({unit:u,faction:'cao',location:c,destination:null,remainingDays:0});s.campaign.domestic.loyalty[id]=85;}return ids;}
-function selectOnly(s,key){const c=s.cities.find(c=>c.id==='xuchang');for(const [k,d]of Object.entries(ACTIONS))if(d.direction===ACTIONS[key].direction&&k!==key)c.domestic.cooldowns[k]=1000;const o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao');assert.equal(assignDomestic(s,c.id,ACTIONS[key].direction,o.unit.id),null);return assignmentFor(s,o.unit.id);}
+function selectOnly(s,key){const c=s.cities.find(c=>c.id==='xuchang');if(ACTIONS[key].kind==='recruit')c.manpower=20000;for(const [k,d]of Object.entries(ACTIONS))if(d.direction===ACTIONS[key].direction&&k!==key)c.domestic.cooldowns[k]=1000;const o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao');assert.equal(assignDomestic(s,c.id,ACTIONS[key].direction,o.unit.id),null);return assignmentFor(s,o.unit.id);}
 
 test('all six directions have independent work and a single stat; no city morale multiplier',()=>{
  const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');for(const dir of Object.keys(DIRECTIONS)){assert.ok(Object.values(BUILDINGS).some(b=>b.direction===dir));assert.ok(Object.values(ACTIONS).filter(a=>a.direction===dir).length>=2);}
@@ -28,13 +32,13 @@ test('assignments persist across turns, log starts and results, and reload deter
 test('random results vary across seeds while identical seed is reproducible',()=>{
  const results=new Set();for(let seed=1;seed<=24;seed++){const s=peaceful(seed);selectOnly(s,'fair');advance(s,11);results.add(s.campaign.domestic.events.find(e=>e.result.factor!==undefined)?.result.factor);}assert.ok(results.size>=3);
 });
-test('no reserves or no legal unit vacancies means no recruitment candidate',()=>{
- const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang'),a=selectOnly(s,'recruit');c.manpower=0;assert.equal(actionCandidates(s,a).length,0);assert.match(recruitCityUnits(s,c.id,c.units.map(u=>u.id)),/不足/);
- c.manpower=6500;for(const u of c.units)u.troops=troopCapacity(u)-u.wounded;assert.equal(actionCandidates(s,a).length,0);
+test('no reserves permits source recruitment; stocked full units need no replenishment',()=>{
+ const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang'),a=selectOnly(s,'recruit');c.manpower=0;assert.equal(actionCandidates(s,a)[0].recruitMode,'reserve');assert.match(recruitCityUnits(s,c.id,c.units.map(u=>u.id)),/不足/);
+ c.manpower=20000;for(const u of c.units)u.troops=troopCapacity(u)-u.wounded;assert.equal(actionCandidates(s,a).length,0);
 });
 test('recruitment reserves are shared with manual replenishment and only actual recruits are charged',()=>{
  const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang'),a=selectOnly(s,'recruit'),before=cityMilitary(s,c).troops,people=c.manpower;beginExecution(s);assert.equal(a.action.key,'recruit');assert.equal(c.domestic.reserved,a.action.amount);restore(s);
- advance(s,11);const recruited=cityMilitary(s,c).troops-before;assert.ok(recruited>=0&&recruited<=1400);assert.equal(c.manpower,people-recruited+cityIncome(s,c).manpower);assert.equal(c.domestic.reserved,0);assert.equal(c.drafted,0);restore(s);
+ advance(s,11);const recruited=cityMilitary(s,c).troops-before;assert.ok(recruited>=0&&recruited<=1400);const retained=people-recruited;assert.equal(c.manpower,retained+cityIncome(s,c).manpower);assert.equal(c.domestic.reserved,0);assert.equal(c.drafted,0);restore(s);
 });
 test('cancelling recruitment releases reserves; leaving recipients never get remote troops',()=>{
  const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang'),a=selectOnly(s,'recruit');beginExecution(s);const gold=s.gold,people=c.manpower;cancelDomestic(s,a.officerId);assert.equal(c.domestic.reserved,0);assert.equal(c.manpower,people);assert.ok(s.gold>gold);restore(s);
@@ -48,20 +52,22 @@ test('new commands replace appointments and construction can be resumed without 
  const s=peaceful(),a=selectOnly(s,'build_workshop'),c=s.cities.find(c=>c.id==='xuchang');advance(s,11);assert.ok(a.action);const left=a.action.remaining;cancelDomestic(s,a.officerId);assert.equal(c.domestic.suspended.remaining,left);const gold=s.gold;
  const o=s.campaign.idle.find(o=>o.location===c.id&&o.unit.id!==a.officerId);assert.equal(assignDomestic(s,c.id,'technology',o.unit.id),null);beginExecution(s);assert.equal(s.gold,gold);assert.equal(assignmentFor(s,o.unit.id).action.remaining,left);restore(s);
 });
-test('research unlocks a local troop only after a successful trial',()=>{
- const s=peaceful(13),c=s.cities.find(c=>c.id==='xuchang');c.domestic.techs=['spear','archer'];c.domestic.research={type:'crossbow',progress:100};selectOnly(s,'trial');advance(s,61);assert.ok(c.domestic.techs.includes('crossbow'));assert.equal(c.domestic.research,null);
- assert.equal(changeCityTroop(s,c.id,c.units[0].id,'crossbow'),null);assert.match(changeCityTroop(s,c.id,c.units[0].id,'ship'),/兵种/);restore(s);
+test('research progresses for actual work days and directly unlocks the local troop',()=>{
+ const s=peaceful(13),c=s.cities.find(c=>c.id==='xuchang');c.domestic.techs=['militaryRegistry','militaryHouseholds','militarySupply','taxation','cultivation','efficientConstruction','watchtower','tigerCavalry'];completeTechnologyBuilding(c,'watchtower');c.granary=1;
+ selectOnly(s,'research');advance(s,5);assert.ok(c.domestic.research?.progress>0);assert.equal(c.domestic.techs.includes('baier'),false);advance(s,81);assert.ok(c.domestic.techs.includes('baier'));
+ assert.equal(changeCityTroop(s,c.id,c.units[0].id,'baier'),null);assert.match(changeCityTroop(s,c.id,c.units[0].id,'ship'),/兵种/);restore(s);
 });
+
 test('exploration discovers actual candidates and recruiting never duplicates a person',()=>{
  const s=peaceful(7),a=selectOnly(s,'explore');advance(s,31);assert.ok(Object.keys(s.campaign.talent.knowledge.cao).length>0);restore(s);
  cancelDomestic(s,a.officerId);const c=s.cities.find(c=>c.id==='xuchang');c.domestic.cooldowns={};selectOnly(s,'hire');advance(s,91);const ids=[...s.cities.flatMap(c=>c.units.map(u=>u.id)),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id),...s.campaign.domestic.people.map(p=>p.id)];assert.equal(new Set(ids).size,ids.length);restore(s);
 });
 test('healing conserves personnel and does not require local troop technology',()=>{
- const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');c.clinic=2;c.domestic.techs=['spear'];const u=c.units[0];u.troops-=1000;u.wounded+=1000;const total=u.troops+u.wounded,people=c.manpower;selectOnly(s,'heal');advance(s,6);assert.equal(u.troops+u.wounded,total);assert.ok(u.wounded<1000);assert.equal(c.manpower,people);restore(s);
+ const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');setBuildingLevel(c,'clinic',2);c.domestic.techs=[];const u=c.units[0];u.troops-=1000;u.wounded+=1000;const total=u.troops+u.wounded,people=c.manpower;selectOnly(s,'heal');advance(s,6);assert.equal(u.troops+u.wounded,total);assert.ok(u.wounded<1000);assert.equal(c.manpower,people);restore(s);
 });
 test('siege opening bonuses apply once at deployment lock, only to first six defenders',()=>{
- const s=newCampaign(12),c=s.cities.find(c=>c.id==='guandu');c.kind='gate';c.drill=5;c.walls=3;c.gateHp=21000;c.domestic.preparation={intent:{amount:12,until:100,actionId:1},shield:{amount:.1,until:100,actionId:2}};
- fieldFromCity(s,'xuchang',{id:'a1',target:c.id});beginExecution(s);
+ const s=newCampaign(12),c=s.cities.find(c=>c.id==='guandu');c.kind='gate';setBuildingLevel(c,'drill',5);setBuildingLevel(c,'walls',3);c.domestic.preparation={intent:{amount:12,until:100,actionId:1},shield:{amount:.1,until:100,actionId:2}};
+ approachDestination(s,fieldFromCity(s,'xuchang',{id:'a1',target:c.id}));beginExecution(s);
  // Keep this prepared garrison stationed; unrelated encounters must not pause its arrival.
  for(let i=0;i<12&&!activeBattles(s).some(r=>r.cityId===c.id);i++){advanceCampaignDay(s);for(const other of activeBattles(s).filter(r=>r.awaiting&&r.cityId!==c.id))chooseEncounter(s,other.id,false);}
  const r=activeBattles(s).find(r=>r.cityId===c.id);assert.ok(r,'the intended prepared city is under siege');assert.equal(r.kind,'siege');chooseEncounter(s,r.id,true);const b=r.battle,def=b.sides[1-r.attackSide];assert.ok(def.units.every(u=>!u.statuses.shield));lockDeployment(b);
@@ -79,7 +85,7 @@ test('persuasion respects nearby foreign targets and cooldowns; reassurance rais
 
 test('new assignments end on transfer, and unresearched troops cannot receive new recruits',()=>{
  const s=peaceful(),a=selectOnly(s,'fair');assert.equal(transferOfficer(s,a.officerId,'chenliu'),null);assert.equal(assignmentFor(s,a.officerId),undefined);restore(s);
- const x=peaceful(),c=x.cities.find(c=>c.id==='xuchang'),army=c;c.domestic.techs=['spear'];const u=army.units.find(u=>u.type!=='spear');assert.ok(u);const before=u.troops;recruitCityUnits(x,c.id,c.units.map(u=>u.id));assert.equal(u.troops,before);restore(x);
+ const x=peaceful(),c=x.cities.find(c=>c.id==='xuchang'),army=c;c.domestic.techs=[];const u=army.units[0];c.domestic.techs=['militaryRegistry','baier'];assert.equal(changeCityTroop(x,c.id,u.id,'baier'),null);c.domestic.techs=[];const before=u.troops;recruitCityUnits(x,c.id,c.units.map(u=>u.id));assert.equal(u.troops,before);restore(x);
 });
 
 test('actual siege pauses construction without charging again or completing in the background',()=>{
@@ -110,7 +116,7 @@ test('force-led drills and patrols produce real defensive preparation with no se
  for(const key of ['exercise','patrol']){
   let weak=0,strong=0;
   for(let seed=1;seed<=20;seed++){
-   const s=peaceful(seed),a=selectOnly(s,key),c=s.cities.find(c=>c.id===a.cityId),u=s.campaign.idle.find(o=>o.unit.id===a.officerId).unit;c.drill=1;c.walls=1;c.governor=null;
+   const s=peaceful(seed),a=selectOnly(s,key),c=s.cities.find(c=>c.id===a.cityId),u=s.campaign.idle.find(o=>o.unit.id===a.officerId).unit;setBuildingLevel(c,'drill',1);setBuildingLevel(c,'walls',1);c.governor=null;
    const original=Object.fromEntries(['force','leadership','intellect','politics','charm'].map(k=>[k,u[k]]));Object.assign(u,{force:20,leadership:70,intellect:70,politics:70,charm:70});const high=structuredClone(s),v=high.campaign.idle.find(o=>o.unit.id===u.id).unit;v.force=95;
    beginExecution(s);beginExecution(high);assert.equal(a.action.key,key);assert.ok(assignmentFor(high,u.id).action.chance>a.action.chance);
    advance(s,11);advance(high,11);const field=ACTIONS[key].value;weak+=c.domestic.preparation[field]?.amount||0;strong+=high.cities.find(x=>x.id===c.id).domestic.preparation[field]?.amount||0;

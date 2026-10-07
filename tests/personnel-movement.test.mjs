@@ -26,7 +26,7 @@ test('cargo-only convoys are visible and full warehouses retain cargo',()=>{
  dest.grain-=400;advancePersonnel(s,o);assert.equal(o.cargo.grain,600);assert.equal(o.destination,dest.id);restore(s);dest.grain-=600;advancePersonnel(s,o);assert.equal(o.destination,null);assert.equal(dest.grain,10000+dest.granary*10000);assert.ok(s.campaign.idle.includes(o));restore(s);
 });
 test('deferred transport preserves cargo instructions without deducting resources or moving its officer',()=>{
- const {s,c,id}=busyFixture(),command={kind:'transfer',cityId:c.id,officerIds:[id],target:'chenliu',cargo:{grain:600,manpower:200}},before=serializeCampaign(s);
+ const {s,c,id}=busyFixture(),command={kind:'transfer',cityId:c.id,officerIds:[id],target:'chenliu',cargo:{gold:0,grain:600,manpower:200}},before=serializeCampaign(s);
  assert.ok(requestStrategicOrder(s,command).confirmation);assert.equal(serializeCampaign(s),before);const grain=c.grain,men=c.manpower;
  assert.ok(requestStrategicOrder(s,command,'after').queued);assert.deepEqual(s.campaign.domestic.orders[0].cargo,command.cargo);assert.equal(c.grain,grain);assert.equal(c.manpower,men);assert.ok(c.units.some(u=>u.id===id));const copy=restore(s);
  for(const value of [s,copy])for(let i=0;i<300&&value.campaign.day<61;i++){if(value.campaign.phase==='planning')beginExecution(value);for(const b of activeBattles(value).filter(b=>b.awaiting))chooseEncounter(value,b.id,false);advanceCampaignDay(value);}

@@ -5,10 +5,13 @@ import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
 import {campaignOfficers} from '../strategic-roster.mjs';
 import {nationalLobby} from '../national-lobby.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
-for(const spec of NATIONAL_SCENARIOS)for(const faction of spec.factions)test(`${spec.id}: control and persistence for ${faction}`,()=>{
+// All source rulers are initialized and saved in reference-scenarios.test.mjs;
+// daily control here samples a different non-Cao ruler in each new layout.
+const controlSamples={'coalition-190':'force-6','warlords-194':'lijue','red-cliffs-208':'sunquan','hanzhong-219':'force-2','all-heroes-251':'force-29'};
+for(const spec of NATIONAL_SCENARIOS)for(const faction of spec.factions.filter(f=>!controlSamples[spec.id]||f===controlSamples[spec.id]))test(`${spec.id}: control and persistence for ${faction}`,()=>{
  const s=newCampaign(521200,spec.id,faction),rows=campaignOfficers(s);
  assert.ok(rows.length>0);const expected=[...s.cities.filter(c=>c.owner===faction).flatMap(c=>c.units.map(u=>u.id)),...s.campaign.idle.filter(o=>o.faction===faction).map(o=>o.unit.id)];assert.deepEqual(rows.map(r=>r.unit.id).sort(),expected.sort());
- assert.deepEqual(Object.keys(s.campaign.ai.treasuries).sort(),spec.factions.filter(f=>f!==faction).sort());
+ assert.deepEqual(Object.keys(s.campaign.ai.factions).sort(),spec.factions.filter(f=>f!==faction).sort());
  assert.equal(s.grain,Math.floor(s.cities.filter(c=>c.owner===faction).reduce((n,c)=>n+c.grain,0)));
  const own=s.cities.find(c=>c.owner===faction&&rows.some(r=>r.location===c.id));
  const officer=rows.find(r=>r.location===own.id);assert.equal(assignDomestic(s,own.id,'agriculture',officer.unit.id),null);

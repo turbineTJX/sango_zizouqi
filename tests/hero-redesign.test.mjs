@@ -24,7 +24,7 @@ for(const [id,name,type] of HERO_CASES.filter(([id])=>SPECIAL_TACTICS[id]))test(
  const seed=440211,draft=heroDraft([[id,type],['person-646','spear'],['person-123','halberd']],seed,8);
  const state=createScenario('custom-battle',seed,20,null,draft),b=state.battle;
  lockDeployment(b);const u=b.sides[0].units[0],s=TACTICS_BOOK[SPECIAL_TACTICS[id]],learning=JSON.stringify(u.tacticLearning);
- assert.equal(u.intent,u.bondEntry.intent);assert.ok(u.tactics.includes(s.id));
+ assert.equal(u.intent,u.bondEntry.intent||0);assert.ok(u.tactics.includes(s.id));
  let resumed,casts=0,last=-Infinity;
  while(!b.result){
    const before=u.tacticCasts[s.id]||0;stepBattle(b);if(resumed)stepBattle(resumed.battle);

@@ -31,6 +31,7 @@ export const DESIGN_FIELDS={
     "allyTargets",
     "attackOrb",
     "buffSteps",
+    "suppression",
     "buffs",
     "burn",
     "category",
@@ -104,7 +105,7 @@ export const DESIGN_FIELDS={
     "source",
     "weights"
   ],
-  "troops": [
+  "troops": ["category", "tier", "technology", "equipmentSlot",
     "family",
     "goldPerThousand",
     "attack",
@@ -119,7 +120,7 @@ export const DESIGN_FIELDS={
     "range",
     "siegeFactor"
   ],
-  "officers": [
+  "officers": ["equipment",
     "skill",
     "trait",
     "aliases",
@@ -147,6 +148,7 @@ export const DESIGN_FIELDS={
     "type"
   ],
   "cities": [
+    "citySize",
     "garrison",
     "id",
     "kind",
@@ -161,7 +163,7 @@ export const DESIGN_FIELDS={
 };
 export const DESIGN_EFFECTS={
   "tactics": [
-    "status", "remedy", "openingAmbush", "ambush",
+    "status", "remedy", "displace", "openingAmbush", "ambush",
     "anchor",
     "aura",
     "bandage",

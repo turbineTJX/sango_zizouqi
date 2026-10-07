@@ -1,0 +1,10 @@
+Use case: identity-preserve
+人物：孙权 / person-368
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+身份：A Chinese ruler with a visual age around 31, a broad oval face and firm jaw, natural warm skin, attentive dark brown eyes, neat dark-brown mustache and short auburn-brown goatee. Medium build. Modest upright black crown with a narrow bronze-gold front fitting, dark wine-red robe, black lamellar shoulder armor and modest bronze details. A sheathed straight sword and low-held rolled dispatch; restrained dignified bearing, normal natural eye color and no flamboyant crown.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1152×1536，半身像，有场景背景。
+场景含义：平视侧坐案前，肩部放松，低幅度阅简、翻页或执笔，眼神自然落在文书，专注而不皱眉瞪眼。
+该人物独立表演（优先于通用示例手势）：Seated at a desk, one hand opens a small folded paper document, the other rests beside a bamboo ledger. Natural attentive eyes toward the papers.
+Canvas requested: 1152x1536, aspect 1152:1536. Eye-level naturally proportioned original painting. Input 1 fixes ONLY this man's face, headwear and costume identity, never copies the headshot framing into a scene. Keep lips gently closed, brows naturally relaxed, gestures small and comfortable.

@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import {cityForce} from '../city-units.mjs';
 import {peacefulCities,invadeFromGuandu,expeditionFrom} from './helpers/field-campaign.mjs';
 import test from 'node:test';
@@ -8,7 +9,7 @@ import {residentOfficer,cityPersonnel} from '../city-personnel.mjs';
 import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';
 import {issueCommand} from '../engine.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
-function peaceful(seed=81){const s=newCampaign(seed);peacefulCities(s);s.gold=40000;return s;}
+function peaceful(seed=81){const s=newCampaign(seed);peacefulCities(s);fundCities(s,40000);return s;}
 function advance(s,to){for(let i=0;i<500&&s.campaign.day<to;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,to);}
 
 test('prepared officers can take every civil direction and govern without duplicating their units',()=>{
@@ -47,6 +48,7 @@ test('appointed prepared units actually defend the city, interrupt work under si
  for(const [k,d] of Object.entries(ACTIONS))if(d.direction==='technology'&&k!=='build_workshop')c.domestic.cooldowns[k]=10000;
  assert.equal(assignDomestic(s,c.id,'technology',u.id),null);assert.equal(appointGovernor(s,c.id,u.id),null);
  const civilian=s.campaign.idle.find(o=>o.location===c.id).unit;assert.equal(assignDomestic(s,c.id,'commerce',civilian.id),null);
+ for(const [key,def] of Object.entries(ACTIONS))if(def.direction==='commerce'&&key!=='fair')c.domestic.cooldowns[key]=10000;
  const enemy=invadeFromGuandu(s);enemy.route=['xuchang'];enemy.target='xuchang';beginExecution(s);
  for(let i=0;i<10&&!activeBattles(s).some(r=>r.cityId===c.id);i++)advanceCampaignDay(s);
  const r=activeBattles(s).find(r=>r.cityId===c.id);assert.ok(r);assert.equal(r.kind,'siege');

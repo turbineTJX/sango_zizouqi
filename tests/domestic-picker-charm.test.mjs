@@ -24,7 +24,7 @@ test('appointments confirm on the officer page with no review step',()=>{
  for(const task of ['domestic','governor']){
   const p=newCommand(s,task,'xuchang',{direction:'talent'});p.step='officers';p.selected=[s.cities.find(c=>c.id==='xuchang').units[0].id];
   assert.ok(!commandSteps(p).includes('review'));
-  const v=commandMarkup(s,{officerPick:p,personnel:{}},'');assert.match(v.footer,/data-action="campaign-pick-confirm"[^>]*>确认任命/);
+  const v=commandMarkup(s,{officerPick:p,personnel:{}},'');assert.match(v.footer,/data-action="campaign-pick-confirm"[^>]*>确认</);
   assert.doesNotMatch(v.body,/data-sort="leadership"|data-sort="force"/);
  }
 });

@@ -1,0 +1,50 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import {mkdirSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {defaultCustomBattle,customReserveTroops,validateCustomBattle} from '../custom-battle.mjs';
+import {validateSave} from '../engine.mjs';
+import {highestAptitudeTroop,battleTroopTypes} from '../troop-choice.mjs';
+import {OFFICER_BY_ID} from '../officer-catalog.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4221'},stdio:'pipe',windowsHide:true});
+const output='outputs/battle-troop-budget/ui';mkdirSync(output,{recursive:true});let browser,page;
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});
+ browser=await chromium.launch({channel:'msedge',headless:true});page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));const action=id=>page.locator(`[data-action="${id}"]`);
+ const d=defaultCustomBattle();d.ownTroopBudget=7000;d.ownTeam.push({id:'yu',type:'crossbow',troops:1000,level:5});
+ d.reinforcements=[{side:0,name:'我军后援',tick:24,team:[{id:'liao',type:'cavalry',troops:1000,level:5}]}];
+ await page.addInitScript(d=>{if(!sessionStorage.getItem('budget-fixture')){localStorage.setItem('sango-custom-draft-v46',JSON.stringify(d));sessionStorage.setItem('budget-fixture','1');}},d);
+ await page.goto('http://127.0.0.1:4221/');await action('campaign-lobby').click();
+ const own=()=>page.locator('[data-action="scenario-setup-open"][data-team="ownTeam"]:not([data-reinforcement])');
+ const stored=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-custom-draft-v46')));
+ const budget=()=>page.locator('[data-custom-option="ownTroopBudget"]');
+ const addOfficer=async()=>{
+  await action('scenario-unit-new').first().click();await action('scenario-unit-choose').click();
+  await page.locator('[data-scenario-query]').fill('荀彧');await page.locator('[data-scenario-choice="person-255"]').click();
+ };
+ assert.equal(await budget().inputValue(),'7000');assert.match(await page.locator('[data-custom-budget-summary]').innerText(),/已编制 5,000 人 · 可用 2,000 人/);
+ await own().click();await addOfficer();assert.equal(await page.locator('[data-scenario-type="person-255"]').inputValue(),'halberd');
+ const slider=()=>page.locator('[data-scenario-troops="person-255"]');assert.equal(await slider().getAttribute('max'),'2000');
+ await action('troop-min').click();assert.equal(await slider().inputValue(),'1000');await action('troop-max').click();assert.equal(await slider().inputValue(),'2000');
+ await action('scenario-unit-save').click();assert.match(await page.locator('[data-scenario-budget]').innerText(),/可用 0 人/);assert.ok(await action('scenario-unit-new').first().isDisabled());
+ await action('scenario-setup-cancel').click();assert.equal((await stored()).ownTeam.length,2);
+ await own().click();await addOfficer();await page.locator('[data-scenario-type="person-255"]').selectOption('archer');await action('scenario-unit-save').click();
+ for(let i=0;i<3;i++)await action('scenario-setup-next').click();await action('scenario-setup-confirm').click();
+ let draft=await stored();validateCustomBattle(draft);assert.equal(customReserveTroops(draft),0);assert.equal(draft.ownTeam.at(-1).type,'archer');
+ await page.locator('[data-reinforcement="0"]').click();await action('scenario-unit-edit').first().click();assert.equal(await page.locator('[data-scenario-troops="liao"]').getAttribute('max'),'1000');await action('scenario-setup-cancel').click();
+ await budget().fill('6999');await budget().press('Tab');assert.ok(await action('launch-custom').isDisabled());assert.match(await page.locator('.custom-launch [role="status"]').innerText(),/超过总预备兵/);
+ await budget().fill('8000');await budget().press('Tab');assert.equal(customReserveTroops(await stored()),1000);
+ await action('custom-reinforcement-add').click();draft=await stored();const u=draft.reinforcements.at(-1).team[0];assert.equal(u.type,highestAptitudeTroop(OFFICER_BY_ID[u.id],battleTroopTypes(draft.terrain)));
+ await page.locator('[data-action="custom-reinforcement-remove"][data-index="1"]').click();
+ await page.reload();await action('campaign-lobby').click();assert.equal(await budget().inputValue(),'8000');assert.match(await page.locator('[data-custom-budget-summary]').innerText(),/可用 1,000 人/);
+ await page.locator('.custom-battle').screenshot({path:output+'/editor-desktop.png',animations:'disabled'});
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.locator('.custom-battle').screenshot({path:output+'/editor-mobile.png',animations:'disabled'});
+ await action('launch-custom').click();assert.match(await page.locator('.modal').innerText(),/我方总预备兵 8,000 人/);await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();
+ const save=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));const initial=await save();validateSave(initial);assert.equal(initial.testScenario.customBattle.ownTroopBudget,8000);
+ await page.reload();await page.locator('#battle-board').waitFor();validateSave(await save());assert.equal((await save()).testScenario.customBattle.ownTroopBudget,8000);
+ assert.deepEqual(errors,[]);console.log('PASS shared finite pool, aptitude defaults, manual choices, bounded sliders, cancellation, reinforcement quota, launch validation, reload, desktop/mobile and battle saves');
+}catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}
+finally{await browser?.close();server.kill();}

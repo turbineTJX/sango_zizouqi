@@ -2,7 +2,7 @@ import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
 import {setStatus,shieldAmount,unitTactics} from '../tactics.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';

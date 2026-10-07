@@ -1,4 +1,5 @@
 import {learnedTacticIds} from '../tactic-learning.mjs';
+import {chooseStratagemPoint} from '../stratagem-area.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
@@ -14,7 +15,7 @@ test('水战攻击舰船不会因无收益策应停手，实际行动与存读�
  const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'river',ownTeam:c.z,enemyTeam:c.a}),b=state.battle;
  lockDeployment(b);let resumed,still=0,maxStill=0,damage=0;
  while(!b.result){
-  if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key){assert.equal(issueCommand(b,key),null);if(resumed)assert.equal(issueCommand(resumed.battle,key),null);}}
+  if(b.commandProgress>=COMMAND_RESOURCE.capacity){const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);if(key){const point=chooseStratagemPoint(b,STRATAGEMS[key],0);assert.equal(issueCommand(b,key,point),null);if(resumed)assert.equal(issueCommand(resumed.battle,key,point),null);}}
   stepBattle(b);if(resumed)stepBattle(resumed.battle);
   const u=b.sides[1].units.find(u=>u.id==='person-246');
   still=u.status==='active'&&u.action==='策应队友'?still+1:0;maxStill=Math.max(maxStill,still);

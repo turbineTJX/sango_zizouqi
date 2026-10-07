@@ -1,0 +1,56 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import {mkdirSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {defaultCustomBattle,validateCustomBattle} from '../custom-battle.mjs';
+import {generateBattle} from '../battle-generator.mjs';
+import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4219'},stdio:'pipe',windowsHide:true});
+const output='outputs/conditional-reinforcements/ui';mkdirSync(output,{recursive:true});let browser,page;
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});
+ browser=await chromium.launch({channel:'msedge',headless:true});page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));const action=id=>page.locator(`[data-action="${id}"]`);
+ const d=defaultCustomBattle();d.ownTeam=[{id:'yu',type:'spear',troops:1000,level:1}];d.enemyTeam=[{id:'shao',type:'spear',troops:5000,level:10}];
+ await page.addInitScript(d=>{if(!sessionStorage.getItem('conditional-fixture')){localStorage.setItem('sango-custom-draft-v46',JSON.stringify(d));sessionStorage.setItem('conditional-fixture','1');}},d);
+ await page.goto('http://127.0.0.1:4219/');await action('campaign-lobby').click();await action('custom-reinforcement-add').click();
+ const field=(name,index=0)=>page.locator(`[data-custom-reinforcement="${name}"][data-index="${index}"]`);
+ await field('name').fill('荀攸后援');await field('name').press('Tab');await field('side').selectOption('0');
+ await field('arrivalType').selectOption('unit-defeated');assert.ok(await action('launch-custom').isDisabled());
+ await field('unitId').selectOption('yu');assert.ok(await action('launch-custom').isEnabled());
+ const savedDraft=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-custom-draft-v46')));
+ let draft=await savedDraft();validateCustomBattle(draft);assert.deepEqual(draft.reinforcements[0].arrivalCondition,{type:'unit-defeated',unitId:'yu'});assert.equal(draft.reinforcements[0].tick,undefined);
+ await field('arrivalType').selectOption('army-defeated');await field('armyId').selectOption('a1');
+ await action('custom-swap').click();assert.equal((await savedDraft()).reinforcements[0].arrivalCondition.armyId,'a2');await action('custom-swap').click();
+ await field('arrivalType').selectOption('unit-defeated');await field('unitId').selectOption('yu');
+ await action('custom-reinforcement-add').click();await field('tick',1).fill('3');await field('tick',1).press('Tab');assert.equal((await savedDraft()).reinforcements[1].tick,72);
+ await page.locator('[data-action="custom-reinforcement-remove"][data-index="1"]').click();
+ await page.locator('[data-reinforcement="0"]').click();await action('scenario-unit-edit').first().click();
+ const slider=page.locator('[data-scenario-troops]').first();await slider.fill('2000');await slider.dispatchEvent('input');await action('scenario-unit-save').click();
+ for(let i=0;i<3;i++)await action('scenario-setup-next').click();await action('scenario-setup-confirm').click();
+ draft=await savedDraft();assert.equal(draft.reinforcements[0].team[0].troops,2000);assert.equal(draft.reinforcements[0].arrivalCondition.unitId,'yu');
+ await page.reload();await action('campaign-lobby').click();assert.equal(await field('arrivalType').inputValue(),'unit-defeated');assert.equal(await field('unitId').inputValue(),'yu');
+ await page.locator('.custom-battle').screenshot({path:output+'/editor-desktop.png',animations:'disabled'});
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.locator('.custom-battle').screenshot({path:output+'/editor-mobile.png',animations:'disabled'});
+ await action('launch-custom').click();assert.match(await page.locator('.modal').innerText(),/荀攸队被消灭后/);await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();
+ assert.match(await page.locator('.reinforcement-panel').innerText(),/待抵达 · 荀攸队被消灭后/);
+ assert.match(await page.locator('.battle-council').innerText(),/荀攸队被消灭后/);
+ const initial=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));validateSave(initial);
+ const fixture=generateBattle(draft);lockDeployment(fixture.battle);let before;
+ while(!fixture.battle.reinforcementCouncil&&!fixture.battle.result){before=structuredClone(fixture);stepBattle(fixture.battle);}
+ assert.equal(fixture.battle.reinforcementCouncil,'pending');validateSave(before);
+ const arrival=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});arrival.on('pageerror',e=>errors.push(e.message));
+ await arrival.addInitScript(raw=>{if(!sessionStorage.getItem('conditional-arrival')){localStorage.setItem('sango-historical-battle-v1',raw);sessionStorage.setItem('conditional-arrival','1');}},JSON.stringify(before));
+ await arrival.goto('http://127.0.0.1:4219/#historical-battle');await arrival.locator('[data-action="pause"]').first().click();
+ await arrival.locator('[data-action="battle-reinforcement-council"]').click();assert.match(await arrival.locator('.battle-council').innerText(),/援军军议/);
+ const getBattleSave=()=>arrival.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+ const pending=await getBattleSave();validateSave(pending);assert.equal(pending.battle.reinforcementCouncil,'open');
+ assert.ok(pending.battle.sides[0].units.filter(u=>u.arrivalCondition).every(u=>u.arrivalConfirmed&&u.status==='reserve'));
+ await arrival.reload();assert.match(await arrival.locator('.battle-council').innerText(),/援军军议/);assert.equal((await getBattleSave()).battle.tick,pending.battle.tick);
+ await arrival.screenshot({path:output+'/arrival-council.png',fullPage:true,animations:'disabled'});
+ await arrival.locator('[data-action="pause"]').first().click();assert.equal((await getBattleSave()).battle.reinforcementCouncil,null);validateSave(await getBattleSave());
+ assert.deepEqual(errors,[]);console.log('PASS condition selection, name, timing, isolated army edits, swaps, reload, review, desktop/mobile, real defeat arrival and saved council');
+}catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}
+finally{await browser?.close();server.kill();}

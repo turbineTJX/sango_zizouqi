@@ -3,7 +3,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign,validateCampaign,assignDomestic} from '../strategic-campaign.mjs';
 import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';
-import {removeCommandUnit,newCommand,prepareCommandFormation,commandCanAdvance,commandRoute,commandMarkup,commandSteps} from '../strategic-command.mjs';
+import {changeCommandUnit,removeCommandUnit,newCommand,prepareCommandFormation,commandCanAdvance,commandRoute,commandMarkup,commandSteps} from '../strategic-command.mjs';
+test('inline city roster edits enlist existing units and validate the same allocation on a copy',()=>{
+ const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),u=c.units[0],p=newCommand(s,'draft',c.id),before=serializeCampaign(s);
+ assert.equal(changeCommandUnit(s,p,u.id,'troops',1000),null);
+ assert.equal(changeCommandUnit(s,p,u.id,'type','spear'),null);
+ assert.deepEqual(p.selected,[u.id]);assert.deepEqual(p.formationPool,[u.id]);
+ const result=prepareCommandFormation(s,p);assert.equal(result.error,undefined);
+ const after=result.state.cities.find(c=>c.id===p.city).units.find(x=>x.id===u.id);
+ assert.equal(after.troops,1000);assert.equal(after.type,'spear');assert.equal(result.state.cities.find(x=>x.id===p.city).manpower,c.manpower+u.troops-1000);
+ assert.equal(serializeCampaign(s),before);assert.ok(commandCanAdvance(s,p));
+ for(const troops of [999,1000.5,999999]){changeCommandUnit(s,p,u.id,'troops',troops);assert.ok(prepareCommandFormation(s,p).error);assert.ok(!commandCanAdvance(s,p));assert.equal(serializeCampaign(s),before);}
+});
 test('formation preview preserves source, learning and domestic appointments; final copy is a valid save',()=>{
  const s=newCampaign(203,'guandu-200'),p=newCommand(s,'draft','xuchang');
  const row=campaignOfficers(s).find(r=>!pickerReason(s,r,p));p.selected=[row.unit.id];

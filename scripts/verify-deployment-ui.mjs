@@ -13,7 +13,7 @@ try {
   page.on('pageerror',error=>errors.push(error.message));
   await page.goto('http://127.0.0.1:4196');
   await page.locator('[data-action="campaign-lobby"]').click();
-  await page.locator('[data-action="launch-history"]').click();
+  await page.locator('[data-history="xiapi"]').click();await page.locator('[data-action="launch-custom"]').click();await page.locator('[data-action="scenario-launch-confirm"]').click();
   const first=page.locator('.battle-unit.side-0').first();
   const id=await first.getAttribute('data-unit');
   const unit=page.locator(`[data-unit="${id}"]`);
@@ -28,18 +28,17 @@ try {
   await unit.dragTo(other);
   assert.deepEqual(await position(unit),otherPosition,'drag onto a friendly unit swaps positions');
   assert.deepEqual(await position(page.locator(`[data-unit="${otherId}"]`)),await position(cell(0,0)));
-  await unit.click();await cell(1,0).click();
+  const beforeClick=await position(unit);await unit.click();assert.equal(await page.locator('#inspect-unit').inputValue(),id);assert.deepEqual(await position(unit),beforeClick,'click opens details without moving');await page.locator('[data-action="deployment-select"]').click();await cell(1,0).click();
   assert.deepEqual(await position(unit),await position(cell(1,0)),'click placement');
-  await page.locator('[data-panel="tools"]').click();
-  await page.locator('[data-action="art-mode"]').click();
-  await page.locator('[data-action="close-battle-panel"]').click();
-  await unit.dragTo(cell(2,0));
+  await page.evaluate(()=>localStorage.setItem('sango-art-mode','builtin'));await page.reload();await unit.waitFor();
+  await page.locator('.roster-side-0 [data-inspect="'+id+'"]').dragTo(cell(2,0));
   assert.deepEqual(await position(unit),await position(cell(2,0)),'drag with art disabled');
   await page.setViewportSize({width:390,height:844});
-  await unit.click();await cell(3,0).click();
+  await unit.click();await page.locator('[data-action="deployment-select"]').click();await cell(3,0).click();
   assert.deepEqual(await position(unit),await position(cell(3,0)),'mobile click placement');
+  const reserve=page.locator('.council-unit').first(),reserveId=await reserve.getAttribute('data-inspect'),fieldPosition=await position(unit);await reserve.click();await page.locator('[data-action="deployment-select"]').click();await unit.click();assert.deepEqual(await position(page.locator('[data-unit="'+reserveId+'"]')),fieldPosition,'explicit mobile placement swaps reserve with active unit');assert.ok(await page.locator('.council-unit[data-inspect="'+id+'"]').count());
   await page.locator('[data-action="pause"]').click();
-  assert.equal(await unit.getAttribute('draggable'),'false','deployment locks after battle starts');
+  assert.equal(await page.locator('.battle-unit.side-0').first().getAttribute('draggable'),'false','deployment locks after battle starts');
   assert.deepEqual(errors,[]);
   console.log('Deployment UI passed: hit testing, drag, swap, click, art off, mobile, battle lock.');
 } finally {

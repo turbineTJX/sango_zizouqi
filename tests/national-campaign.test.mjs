@@ -1,7 +1,7 @@
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {NATIONAL_SCENARIOS,nationalWorld,nationalRoster} from '../national-scenarios.mjs';
+import {NATIONAL_MAP_COUNTS,NATIONAL_SCENARIOS,nationalWorld,nationalRoster} from '../national-scenarios.mjs';
 import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,orderCampaignArmy,splitCampaignArmy,assignDomestic,launchExpedition} from '../strategic-campaign.mjs';
 const restored=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function startTestSiege(s){
@@ -9,9 +9,11 @@ function startTestSiege(s){
  assert.equal(launchExpedition(s,{cityId:'chenliu',officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],deputy:null,target:'ye',policy:'auto'}),null);
 }
 function toDay(s,day){for(let guard=0;s.campaign.day<day&&guard<300&&!s.finished;guard++){if(s.campaign.phase==='planning')beginExecution(s);const result=advanceCampaignDay(s);if(result.encounter)for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);}return s;}
-for(const spec of NATIONAL_SCENARIOS){
+// These long combat fixtures exercise the original four-force layouts. The
+// expanded source layouts have their own ruler/roster/marching coverage.
+for(const spec of NATIONAL_SCENARIOS.filter(s=>s.layout.startsWith('legacy'))){
  test(`${spec.name}: connected national map, valid unique officers and reproducible saves`,()=>{
-  const s=newCampaign(203,spec.id);assert.equal(s.cities.length,87);assert.deepEqual(['city','gate','port'].map(k=>s.cities.filter(c=>c.kind===k).length),[42,10,35]);
+  const s=newCampaign(203,spec.id);assert.equal(s.cities.length,NATIONAL_MAP_COUNTS.city);assert.ok(s.cities.every(c=>c.kind==='city'));assert.deepEqual(['gate','port','junction'].map(k=>s.junctions.filter(c=>c.kind===k).length),[NATIONAL_MAP_COUNTS.gate,NATIONAL_MAP_COUNTS.port,23]);
   for(const c of s.cities)assert.ok(findCampaignRoute(s,'xuchang',c.id),c.name);
   assert.equal(s.armies.length,0);assert.ok(s.cities.filter(c=>c.units.length).length>15);const first=serializeCampaign(s);assert.equal(serializeCampaign(restored(s)),first);
   const ids=[...s.cities.flatMap(c=>c.units.map(u=>u.id)),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)];assert.equal(ids.length,new Set(ids).size);
@@ -38,7 +40,7 @@ test('Guandu and Heroes differ in ownership and time-appropriate recruitment',()
 test('a month of real multi-front warfare archives old snapshots and keeps the save compact',()=>{
  const s=newCampaign(417,'heroes-251');startTestSiege(s);toDay(s,31);assert.equal(s.campaign.day,31);assert.ok(s.campaign.battles.some(b=>b.settled));assert.ok(s.campaign.battles.filter(r=>r.settled).length<=20);assert.ok(serializeCampaign(s).length<4_000_000);restored(s);
  const copy=restored(s);toDay(copy,32);toDay(s,32);assert.equal(serializeCampaign(copy),serializeCampaign(s));
- for(const mutate of [s=>s.campaign.ai.treasuries.yuan=-1,s=>s.cities[0].kind='port',s=>s.cities[0].water=!s.cities[0].water]){const bad=structuredClone(s);mutate(bad);assert.throws(()=>restored(bad));}
+ for(const mutate of [s=>s.cities.find(c=>c.owner==='yuan').gold=-1,s=>s.cities[0].kind='port',s=>s.cities[0].water=!s.cities[0].water]){const bad=structuredClone(s);mutate(bad);assert.throws(()=>restored(bad));}
 });
 test('national victory and defeat depend on ownership of the complete map',()=>{
  for(const [owner,result]of [['cao','victory'],['yuan','defeat']]){const s=newCampaign(5,'guandu-200');s.armies=[];s.cities.forEach(c=>c.owner=owner);beginExecution(s);advanceCampaignDay(s);assert.equal(s.finished,result);}

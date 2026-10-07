@@ -1,7 +1,7 @@
 // UI-only state: never persisted with a campaign or battle save.
 export function createModalScrollMemory(){
  const saved=new Map();let renderedKey=null;
- const selector='.modal-body,.task-candidate-list,.personnel-table-wrap,.combat-comparison,.catalog-pages,.roster-table,.snapshot-tables,.text-detail-scroll';
+ const selector='.unit-muster-list,.modal-body,.task-candidate-list,.personnel-table-wrap,.combat-comparison,.catalog-pages,.roster-table,.snapshot-tables,.text-detail-scroll';
  const containers=root=>[...root.querySelectorAll(selector)];
  const rowId=row=>{
   const el=row.querySelector('[data-scenario-choice],[data-personnel-choice],[data-military-unit],[data-officer],[data-inspect],[data-id]');
@@ -18,9 +18,10 @@ export function createModalScrollMemory(){
    }));
    if(saved.size>100)saved.delete(saved.keys().next().value);
   },
-  restore(root,key){
+  restore(root,key,keepPosition=false){
    renderedKey=key;
    if(!key){saved.clear();return;}
+   if(keepPosition)return;
    const positions=saved.get(key)||[];
    containers(root).forEach((el,index)=>{
     const position=positions.find(p=>p.key===identify(el,index));if(!position)return;

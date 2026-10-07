@@ -1,0 +1,10 @@
+Use case: identity-preserve
+人物：司马懿 / person-226
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+身份：A slender mature Chinese scholar strategist with a visual age around 54, a long narrow face, high cheekbones, straight slender nose, naturally slightly hooded dark eyes and relaxed brows. Fine mustache and narrow medium black-grey beard, subtle grey at temples. Upright black scholar crown with three simple vertical panels, dark plum-grey outer robe, pale grey inner collar and a dark slate sash. A low-held bamboo dispatch or plain dark wooden baton; a scholar strategist with composed analytical gaze, no villainous grin, no feather fan and no fighting weapon.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：2048×1152，宽幅人物像，有场景背景。
+场景含义：平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。
+该人物独立表演（优先于通用示例手势）：Calm scholar commander standing in a shallow left-facing three-quarter posture on the LEFT of the wide canvas, BOTH hands naturally resting behind the LOWER back and completely concealed by the robe sleeves. Upright comfortable balance, level chin and quietly steady eyes. No visible dispatch, fan, weapon, desk or chair; this must differ from his one-handed diplomatic document pose. No gesture or evil grin.
+Canvas requested: 2048x1152, aspect 2048:1152. Use this input ONLY to preserve this officer's exact NEW distinctive face, headwear and costume identity; do not revert to a generic handsome oval face. Keep his facial geometry apparent at all angles. Neutral natural closed lips, relaxed brows and forehead, quiet gaze. New independent scene composition, never reuse the portrait framing or another scene's pose. No dramatic gesture. Complete headwear with clear margin above its highest tip.

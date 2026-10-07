@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario,SCENARIOS} from '../scenarios.mjs';
+import {createScenario,SCENARIOS} from './helpers/scenarios.mjs';
 import {stepBattle,validateSave} from '../engine.mjs';
 import {inspectionStatuses,statusAttributeChanges,statusAmounts,statusSources} from '../status-display.mjs';
 import {unitAttributes} from '../unit-stats.mjs';

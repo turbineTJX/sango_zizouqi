@@ -1,7 +1,7 @@
 import {currentBattle} from './helpers/current-battle.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave,fillSlots} from '../engine.mjs';
 import {setStatus,hasStatus,unitTactics,readyTactic,routeTo,tacticTarget,TACTICS_BOOK} from '../tactics.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
@@ -59,11 +59,11 @@ test('insight exposes hidden units without changing contact; damage breaks steal
  d.cooldown=0;stepBattle(b);assert.equal(hasStatus(b,a,'stealth'),false);assert.equal(hasStatus(b,d,'confuse'),false);
  const x=scene();setStatus(x.b,x.a,'stealth',12);setStatus(x.b,x.a,'burn',3,{sourceId:x.d.id,amount:20});stepBattle(x.b);assert.equal(hasStatus(x.b,x.a,'stealth'),false);
 });
-test('single-target learned decoy creates a real target, not a seventh troop or damage shield',()=>{
- const {b,u:a,ally:c,target:d,rear:e}=currentBattle('mirage','crossbow',{requireS:true});e.x=13;e.y=7;primeTactic(a,'mirage');Object.assign(c,{x:3,y:2});stepBattle(b);
+test('authored decoy status creates a real target, not a seventh troop or damage shield',()=>{
+ const {b,u:a,ally:c,target:d,rear:e}=currentBattle('fire','crossbow',{requireS:true,enemyTypes:['archer','archer']});e.x=13;e.y=7;Object.assign(c,{x:3,y:2});createDecoy(b,a);
  const owner=[a,c].find(u=>hasStatus(b,u,'decoy'));assert.ok(owner);assert.equal(b.sides[0].units.length,2);
  const proxy=decoyTargets(b,0)[0];assert.equal(holdsLine(b,proxy),false);assert.equal(proxy.hp,Math.round(owner.initial*.3));
- Object.assign(d,{type:'archer',x:4,y:2,cooldown:0});d.passiveState.targetId=owner.id;const hp=owner.hp,intent=d.intent;stepBattle(b);
+ Object.assign(d,{x:proxy.x+2,y:proxy.y,cooldown:0});d.passiveState.targetId=owner.id;const hp=owner.hp,intent=d.intent;stepBattle(b);
  assert.equal(owner.hp,hp);assert.ok(b.effects.some(e=>e.decoyDamage>0));assert.equal(d.intent,intent);
 });
 test('prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage',()=>{

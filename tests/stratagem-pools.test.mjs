@@ -1,3 +1,5 @@
+import {equipmentEntry} from './helpers/current-battle.mjs';
+import {combatType} from '../troop-equipment.mjs';
 import {remedy} from '../battle-status-rules.mjs';
 import {isTargetable} from '../engagement.mjs';
 import {chooseStratagemPoint,stratagemAreaContains} from '../stratagem-area.mjs';
@@ -7,10 +9,10 @@ import assert from 'node:assert/strict';
 import {OFFICER_CATALOG} from '../officer-catalog.mjs';
 import {OFFICER_STRATAGEMS,EXCLUSIVE_STRATAGEMS,STRATAGEMS,ORDINARY_STRATAGEM_POOL,officerStratagems,commanderStratagems,selectStratagemSource} from '../stratagems.mjs';
 import {createScenario} from '../scenarios.mjs';
-import {battleStratagems,lockDeployment,stepBattle,issueCommand,validateSave,COMMAND_RESOURCE} from '../engine.mjs';
+import {battleStratagems,lockDeployment,stepBattle,syncCombatForm,issueCommand,validateSave,COMMAND_RESOURCE} from '../engine.mjs';
 import {chooseEnemyCommand} from '../battle-ai.mjs';
 import {hasStatus} from '../tactics.mjs';
-const entry=(id,type='spear')=>({id,type,level:5,troops:3000});
+const entry=(id,type='spear')=>({...equipmentEntry(id,type),level:5});
 function scene(leader,advisor=leader){const ownTeam=[entry(leader),...(advisor===leader?[]:[entry(advisor,'crossbow')])];return createScenario('custom-battle',4511,20,null,{seed:4511,terrain:'land',ownTeam,enemyTeam:[entry('shao'),entry('wen'),entry('yan')],ownTeamRoles:{leader,advisor},enemyTeamRoles:{leader:'shao',advisor:'wen'}});}
 test('832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项',()=>{
  const three=[];for(const u of OFFICER_CATALOG){const keys=officerStratagems(u.id);assert.equal(keys.length,u.id==='person-290'?3:u.intellect>=70?2:0);assert.equal(new Set(keys).size,keys.length);if(keys.length===3)three.push(u.id);for(const key of keys){assert.ok(STRATAGEMS[key]);if(EXCLUSIVE_STRATAGEMS[key])assert.equal(EXCLUSIVE_STRATAGEMS[key],u.id);else assert.ok(ORDINARY_STRATAGEM_POOL.includes(key));}}
@@ -60,12 +62,12 @@ test('赤壁火攻仅对舰船提高火势，普通目标保持共同结算规�
  const draft={seed:4511,terrain:'river',ownTeam:[entry('person-246','ship'),entry('cao'),entry('yu','halberd')],enemyTeam:[{...entry('shao','ship'),troops:7000},entry('wen'),entry('yan')],ownTeamRoles:{leader:'person-246',advisor:'yu'}};
  const s=createScenario('custom-battle',4511,20,null,draft),b=s.battle;for(const u of b.sides.flatMap(s=>s.units))u.retreatAt=null;lockDeployment(b);
  while(!b.result&&b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b);
- assert.equal(b.result,null);const allies=b.sides[0].units.filter(u=>u.status==='active'&&u.hp>0),targets=b.sides[1].units.filter(u=>u.status==='active'&&u.hp>0&&isTargetable(b,u));
- assert.ok(targets.some(u=>u.type==='ship'));assert.ok(targets.some(u=>u.type!=='ship'));
+ assert.equal(b.result,null);const boat=b.sides[1].units.find(u=>u.equipment.ship);boat.x=9;boat.y=4;syncCombatForm(b,boat);const allies=b.sides[0].units.filter(u=>u.status==='active'&&u.hp>0),targets=b.sides[1].units.filter(u=>u.status==='active'&&u.hp>0&&isTargetable(b,u));
+ assert.ok(targets.some(u=>combatType(u)==='ship'));assert.ok(targets.some(u=>combatType(u)!=='ship'));
  const amount=Math.floor(allies.reduce((sum,u)=>sum+unitAttributes(u,b).strategyPower,0)*(18/280)*selectStratagemSource(b.sides[0].commanders,'zhou-redcliffs').power/targets.length);
  for(const u of targets)remedy(b,u,'quench');
  assert.equal(issueCommand(b,'zhou-redcliffs',chooseStratagemPoint(b,AREA_DESIGNS['zhou-redcliffs'],0)),null);
- for(const u of targets)if(stratagemAreaContains(STRATAGEMS['zhou-redcliffs'],b.lastCommand.target,u))assert.equal(u.statuses.burn.amount,Math.floor(amount*(u.type==='ship'?1.25:1)));else assert.equal(u.statuses.burn,undefined);
+ for(const u of targets)if(stratagemAreaContains(STRATAGEMS['zhou-redcliffs'],b.lastCommand.target,u))assert.equal(u.statuses.burn.amount,Math.floor(amount*(combatType(u)==='ship'?1.25:1)));else assert.equal(u.statuses.burn,undefined);
 });
 
 

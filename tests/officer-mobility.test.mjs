@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import {issueCommand,lockDeployment} from '../engine.mjs';
 import {armyPosition} from '../strategic-campaign.mjs';
 import {cityForce} from '../city-units.mjs';
@@ -14,7 +15,7 @@ import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {campaignInfoDetail} from '../campaign-info.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function advance(s,target){for(let i=0;i<500&&s.campaign.day<target;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,target);}
-function mission(){const s=newCampaign(15);peacefulCities(s);s.gold=100000;const c=s.cities.find(c=>c.id==='xuchang'),p=readyTalent(s,'chenliu'),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao'&&o.unit.id!==c.governor);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='talent'&&k!=='hire')c.domestic.cooldowns[k]=100000;assert.equal(assignDomestic(s,c.id,'talent',o.unit.id),null);beginExecution(s);assert.ok(o.unit.mission);return {s,o,p,a:assignmentFor(s,o.unit.id)};}
+function mission(){const s=newCampaign(15);peacefulCities(s);fundCities(s,100000);const c=s.cities.find(c=>c.id==='xuchang'),p=readyTalent(s,'chenliu'),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao'&&o.unit.id!==c.governor);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='talent'&&k!=='hire')c.domestic.cooldowns[k]=100000;assert.equal(assignDomestic(s,c.id,'talent',o.unit.id),null);beginExecution(s);assert.ok(o.unit.mission);return {s,o,p,a:assignmentFor(s,o.unit.id)};}
 test('talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact',()=>{
  const {s,o,a}=mission(),remaining=a.action.remaining;assert.equal(residentOfficer(s,o.unit.id),undefined);advanceCampaignDay(s);assert.equal(a.action.remaining,remaining);assert.ok(o.unit.mission.progress>0);const copy=restore(s);advance(s,11);advance(copy,11);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.ok(o.unit.mission);assert.match(campaignInfoDetail(s,'officer',o.unit.id).sections[0].html,/当前|赴访|接洽|返城/);
  advance(s,21);assert.equal(o.unit.mission,undefined);assert.ok(residentOfficer(s,o.unit.id));restore(s);
@@ -45,8 +46,8 @@ test('surviving withdrawn officers leave their army and return as unique transpo
  for(let i=0;i<100&&!r.settled;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}assert.ok(r.settled);const withdrawn=r.battle.sides[0].units.filter(u=>u.status==='withdrawn'&&u.hp>0);assert.ok(withdrawn.length);for(const u of withdrawn)assert.ok(!s.campaign.personnelEvents.some(e=>e.id===r.id+':'+u.id));const people=[...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units),...s.campaign.idle.map(o=>o.unit),...s.campaign.domestic.people.map(p=>p.unit)].filter(Boolean);for(const u of withdrawn){assert.ok(!a.units.some(v=>v.id===u.id));assert.equal(people.filter(v=>v.id===u.id).length,1);}restore(s);
 });
 test('a prepared commander visiting talent cannot also defend or depart before returning',()=>{
- const s=newCampaign(15);peacefulCities(s);s.gold=100000;readyTalent(s,'chenliu');const c=s.cities.find(c=>c.id==='xuchang'),u=c.units.find(u=>u.id!==c.governor);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='talent'&&k!=='hire')c.domestic.cooldowns[k]=100000;
+ const s=newCampaign(15);peacefulCities(s);fundCities(s,100000);readyTalent(s,'chenliu');const c=s.cities.find(c=>c.id==='xuchang'),u=c.units.find(u=>u.id!==c.governor);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='talent'&&k!=='hire')c.domestic.cooldowns[k]=100000;
  assert.equal(assignDomestic(s,c.id,'talent',u.id),null);beginExecution(s);assert.ok(u.mission);assert.ok(!cityForce(c).units.includes(u));advance(s,11);
  const command={kind:'expedition',cityId:c.id,officerIds:[u.id],leader:u.id,advisor:u.id,deputy:null,target:'chenliu',policy:'auto',formation:{types:{},reinforce:false}};
- assert.ok(requestStrategicOrder(s,command).confirmation);assert.ok(requestStrategicOrder(s,command,'after').queued);assert.equal(s.armies.filter(a=>a.units.some(x=>x.id===u.id)).length,0);restore(s);advance(s,31);const arrived=s.cities.find(c=>c.id==='chenliu').units.find(x=>x.id===u.id);assert.ok(arrived);assert.equal(arrived.mission,undefined);restore(s);
+ assert.ok(requestStrategicOrder(s,command).confirmation);assert.ok(requestStrategicOrder(s,command,'after').queued);assert.equal(s.armies.filter(a=>a.units.some(x=>x.id===u.id)).length,0);restore(s);advance(s,51);const arrived=s.cities.find(c=>c.id==='chenliu').units.find(x=>x.id===u.id);assert.ok(arrived);assert.equal(arrived.mission,undefined);restore(s);
 });

@@ -5,8 +5,10 @@ import {chooseEnemyCommand} from '../battle-ai.mjs';
 import {STRATAGEMS,battleStratagems,COMMAND_RESOURCE} from '../engine.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
 import {makeOfficer,validateSave,lockDeployment,stepBattle,issueCommand,settleBattle} from '../engine.mjs';
-import {createScenario} from '../scenarios.mjs';
-import {TACTICAL_CAMPAIGNS,scenarioTroops} from '../tactical-campaigns.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
+import {REGRESSION_DRAFTS} from './helpers/battle-drafts.mjs';
+import {scenarioTroops} from '../tactical-campaigns.mjs';
+const TACTICAL_CAMPAIGNS=REGRESSION_DRAFTS.filter(c=>c.id.startsWith('tactical-'));
 
 test('command and merit define individual capacity; fielded troops are independent',()=>{
  const lv=makeOfficer('person-661',8500,0,8),diao=makeOfficer('person-425',2000,0,8);

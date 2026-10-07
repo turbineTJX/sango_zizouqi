@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave,settleBattle} from '../engine.mjs';
 import {battleMerit,meritNeeded} from '../progression.mjs';
 

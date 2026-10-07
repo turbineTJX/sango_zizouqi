@@ -1,5 +1,7 @@
 // Authoritative shared status definitions. Runtime and exported tables read this file.
 export const STATUS_DEFINITIONS = {
+  "swiftRush": {"name":"突进","icon":"move","tone":"buff","priority":2,"description":"疾驰窗口内移动力提高、无视ZOC并优先合法后排；仍须实际在场、具有激活羁绊且可以行动，受占位、地形和定身约束"},
+  "guardInvincible": {"name":"护卫免伤","icon":"shield","tone":"buff","priority":0,"description":"护卫护盾破裂后短暂免疫直接、持续、分担及传导伤害，可以正常行动；每队每场一次，不回滚同批致命伤害"},
   "magicImmune": {"name":"魔免","icon":"shield","tone":"buff","priority":0,"description":"解除并免疫战斗异常，仅承受物理普攻伤害；不免除缺粮或主动代价"},
   "rapidAdvance": {"name":"神速","icon":"wind","tone":"buff","priority":2,"moveBonus":1,"attackFraction":0.25,"description":"移动力 +1，攻击间隔缩短25%，无视ZOC；不能穿越部队或不可通行地形"},
   "powerDown": {
@@ -328,7 +330,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "target",
     "tone": "debuff",
     "priority": 5,
-    "description": "同组其他部队分摊合计20%传导伤害，不递归传导",
+    "description": "同组其他部队平分额外传导总额，比例由施加来源决定，不递归传导",
     "fraction": 0.2
   }
 };

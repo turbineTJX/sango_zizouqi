@@ -2,7 +2,7 @@ import {currentBattle} from './helpers/current-battle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
 import {roleTacticIds,unitTactics,routeTo,tacticTarget,TACTICS_BOOK} from '../tactics.mjs';
 import {hexDistance} from '../hex-grid.mjs';

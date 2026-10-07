@@ -1,8 +1,9 @@
+import {remedy} from '../battle-status-rules.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,issueCommand,COMMAND_RESOURCE,validateSave,unitAttributes} from '../engine.mjs';
-import {setStatus,hasStatus,NEGATIVE_STATUSES} from '../tactics.mjs';
+import {setStatus,hasStatus,NEGATIVE_STATUSES,readyTactic} from '../tactics.mjs';
 import {STRATAGEMS} from '../stratagems.mjs';
 import {chooseStratagemPoint,stratagemAreaTargets,zoneStatusChoices} from '../stratagem-area.mjs';
 import {areaPreview} from '../stratagem-area-view.mjs';
@@ -12,7 +13,9 @@ import {chooseEnemyCommand} from '../battle-ai.mjs';
 
 function charged(seed=7311,early=false){
  const entry=id=>({id,type:'spear',level:10,troops:5000});
- const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:['cao','jia','yu',early?'person-290':'jin','liao','dun','chu'].map(entry),enemyTeam:['shao','wen','yan','tian','gao','person-246',early?'person-226':'person-290'].map(id=>({...entry(id),type:['wen','yan'].includes(id)?'cavalry':'spear'})),ownTeamRoles:{leader:'cao',advisor:early?'person-290':'jia'}});
+ // The immunity probe needs incoming spells: omit Guo Jia's group suppression
+ // from that fixture so it does not prevent the event under test from occurring.
+ const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:['cao',early?'jin':'jia','yu',early?'person-290':'jin','liao','dun','chu'].map(entry),enemyTeam:['shao','wen','yan','tian','gao','person-246',early?'person-226':'person-290'].map(id=>({...entry(id),type:['wen','yan'].includes(id)?'cavalry':'spear'})),ownTeamRoles:{leader:'cao',advisor:early?'person-290':'jia'}});
  for(const u of state.battle.sides.flatMap(s=>s.units))u.retreatAt=null;
  lockDeployment(state.battle);
  while(!state.battle.result&&state.battle.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(state.battle);
@@ -41,7 +44,11 @@ test('魔免阻止全部异常与八阵；只让物理普攻伤害通过，到�
 test('真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵，确定性续战一致',()=>{
  let basic=0,blocked=0;
  for(const seed of [7311,7313,7317]){
-  const state=charged(seed,true),b=state.battle;assert.equal(issueCommand(b,'cao-wuchao'),null);const copy=validateSave(structuredClone(state));
+  const state=charged(seed,true),b=state.battle;
+  // Lower intent income changes spell timing. Use a naturally earned incoming
+  // thrust window so this tests protection, not the old charging schedule.
+  while(!b.result&&!b.sides[1].units.some(u=>u.status==='active'&&readyTactic(b,u,unitAttributes(u,b).range)?.skill.effect==='thrust'))stepBattle(b);
+  assert.equal(b.result,null);assert.equal(issueCommand(b,'cao-wuchao'),null);const copy=validateSave(structuredClone(state));
   for(let n=0;n<6&&!b.result;n++){
    stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);
    for(const e of b.effects){const u=b.sides[0].units.find(u=>u.id===e.to);if(!u||!hasStatus(b,u,'magicImmune')||e.side!==1)continue;
@@ -54,7 +61,7 @@ test('真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵�
 });
 test('兵贵神速只选一队，空地敌军与重复目标不消费，预览高亮与AI一致',()=>{
  const state=charged(),b=state.battle,s=STRATAGEMS['jia-speed'],point=chooseStratagemPoint(b,s,0),target=stratagemAreaTargets(b,s,point,0)[0];
- const before=unitAttributes(target,b);assert.ok(issueCommand(b,'jia-speed',{x:0,y:0}));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
+ remedy(b,target,'breakFormation');delete target.statuses.root;const before=unitAttributes(target,b);assert.ok(issueCommand(b,'jia-speed',{x:0,y:0}));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
  assert.ok(issueCommand(b,'jia-speed',b.sides[1].units.find(u=>u.status==='active')));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
  assert.deepEqual(areaPreview(b,s,{point}).targetIds,[target.id]);assert.equal(issueCommand(b,'jia-speed',point),null);
  assert.equal(b.sides[0].units.filter(u=>hasStatus(b,u,'rapidAdvance')).length,1);assert.equal(target.statuses.rapidAdvance.until,b.tick+25);
@@ -65,7 +72,7 @@ test('兵贵神速只选一队，空地敌军与重复目标不消费，预览�
 test('神速无视ZOC但保留目标合法性；攻速及移速同类取高不叠加',()=>{
  const b=charged().battle,u=b.sides[0].units.find(u=>u.status==='active'),enemy=b.sides[1].units.find(u=>u.status==='active');
  Object.assign(u,{x:5,y:3});Object.assign(enemy,{x:6,y:3});enemy.statuses={};enemy.withdrawing=false;enemy.disengage=null;
- assert.ok(interceptorsAt(b,u).length);const stats=unitAttributes(u,b);setStatus(b,u,'rapidAdvance',24);
+ assert.ok(interceptorsAt(b,u).length);remedy(b,u,'breakFormation');delete u.statuses.root;const stats=unitAttributes(u,b);setStatus(b,u,'rapidAdvance',24);
  assert.deepEqual(interceptorsAt(b,u),[]);assert.deepEqual(meleeTargetPool(b,u,[enemy]),[enemy]);
  setStatus(b,u,'haste',4);setStatus(b,u,'attackHaste',4,{fraction:.2});const buff=unitAttributes(u,b);assert.equal(buff.move,stats.move+1);assert.equal(buff.attackInterval,stats.attackInterval*.75);
 });

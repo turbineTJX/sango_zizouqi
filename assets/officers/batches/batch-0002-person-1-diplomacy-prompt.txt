@@ -1,0 +1,11 @@
+Use case: identity-preserve
+人物：阿会喃 / person-1
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1024×1280，半身像，有场景背景。
+场景含义：平视自然坐姿或轻微侧站，双手安放桌面或低位拢袖，神态礼貌中性，轻微转头听取意见，不夸张作揖、大笑或挑眉。
+该人物独立表演（优先于通用示例手势）：Standing in a shallow right turn, both hands loosely joined within the sleeves at low waist. Calm attentive gaze toward an off-screen visitor, no bow or salute.
+Input image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.
+Maintain the requested 1024×1280 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.

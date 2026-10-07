@@ -1,3 +1,4 @@
+import {combatType,allowedFormTypes,troopTypes} from './troop-equipment.mjs';
 import {advanceBonds} from './bonds.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {TACTICS_BOOK,TROOP_TACTICS,INTELLECT_TACTICS,SPECIAL_TACTICS} from './tactics.mjs';
@@ -5,9 +6,9 @@ import {TROOP_DESIGNS} from './data/design/troops.mjs';
 
 // Current fixed configuration. Level and random seed never grant tactics.
 export const LEARNING_RULES=Object.freeze({lowLimit:[1,1,1,2],highLimit:[0,0,1,1]});
-export const LEARNING_TROOPS=Object.keys(TROOP_DESIGNS);
+export const LEARNING_TROOPS=troopTypes();
 export function troopAptitude(u,type=u.type){
- const family=TROOP_DESIGNS[type]?.family||type;
+ const family=TROOP_DESIGNS[type]?.category==='equipment'?TROOP_DESIGNS[u.type]?.family:TROOP_DESIGNS[type]?.family||type;
  return OFFICER_BY_ID[u.id]?.aptitudes[family]??u.aptitudes?.[family]??0;
 }
 export function smallTacticCategory(u){
@@ -33,7 +34,8 @@ export function createTacticLearning(u){
  })),special:!!SPECIAL_TACTICS[u.id]};
 }
 export function learnedTacticIds(u){
- const record=u.tacticLearning,pool=record?.byTroop[u.type];
+ const record=u.tacticLearning,type=combatType(u),p=tacticPools(type),limits=tacticLearningLimits(u,type);
+ const pool=TROOP_DESIGNS[type]?.category==='equipment'?{low:limits.low===2?p.low:p.low.filter(id=>TACTICS_BOOK[id].category===smallTacticCategory(u)),high:limits.high?p.high:[]}:record?.byTroop[type];
  if(!pool)return [];
  return [...(record.special&&SPECIAL_TACTICS[u.id]?[SPECIAL_TACTICS[u.id]]:[]),...pool.low,...pool.high];
 }
@@ -51,3 +53,5 @@ export function advanceTacticLearning(u){
 export function validTacticLearning(u){
  return JSON.stringify(u.tacticLearning)===JSON.stringify(createTacticLearning(u));
 }
+
+export function allLearnedTacticIds(u){return [...new Set(allowedFormTypes(u).flatMap(type=>learnedTacticIds({...u,formType:type===u.type?null:type})))];}

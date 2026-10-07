@@ -4,7 +4,7 @@ import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {learnedTacticIds} from '../tactic-learning.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {planEnemyArmy,chooseEnemyCommand} from '../battle-ai.mjs';
 import {configureBattleTerrain,stepBattle,lockDeployment,issueCommand,commandIntellect,battleStratagems,STRATAGEMS,validateSave,COMMAND_RESOURCE} from '../engine.mjs';
 import {canOccupy,unitTerrain} from '../battlefield.mjs';

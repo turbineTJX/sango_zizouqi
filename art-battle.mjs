@@ -1,10 +1,12 @@
+import {combatType,combatFamily} from './troop-equipment.mjs';
+import {TROOP_DESIGNS} from './data/design/troops.mjs';
 import {hidden} from './battle-status-rules.mjs';
 import {art} from './art-assets.mjs';
 import {hexCenter} from './hex-grid.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const smooth=t=>t*t*(3-2*t);
-const ranged=type=>['archer','crossbow','siege','tower','ship'].includes(type);
+const ranged=type=>TROOP_DESIGNS[type]?.range>1;
 // All animation state lives here; positions, hits and casualties remain engine-owned.
 export function attackPose(progress,type){
  const p=clamp(progress),strike=Math.sin(clamp((p-.2)/.36)*Math.PI);
@@ -36,7 +38,7 @@ export class BattleArt {
   for(const [id,u]of this.units)if(!live.some(v=>v.id===id)&&u.deadAt===undefined){if(paused)this.units.delete(id);else u.deadAt=this.clock;}
   for(const u of live){
    const old=this.units.get(u.id),pos=hexCenter(u.x,u.y),moved=old&&(old.x!==u.x||old.y!==u.y);
-   const next={...old,id:u.id,type:u.type,side:u.side,x:u.x,y:u.y,pos,hp:u.hp,maxHp:u.maxHp};
+   const next={...old,id:u.id,type:combatType(u),baseType:u.type,side:u.side,x:u.x,y:u.y,pos,hp:u.hp,maxHp:u.maxHp};
    if(moved){next.from=paused?undefined:this.position(old);next.moveAt=paused?undefined:this.clock;next.facing=facingRow(pos.x-old.pos.x,pos.y-old.pos.y,u.side);}
    const hit=localEvents.find(e=>e.from===u.id&&!e.ongoing&&e.damage>0);
    if(hit){next.attackAt=this.clock;next.target=hexCenter(hit.x,hit.y);next.facing=facingRow(next.target.x-pos.x,next.target.y-pos.y,u.side);}
@@ -48,7 +50,7 @@ export class BattleArt {
   this.models?.update(this.snapshot);
   // Preload while deployed so the first cast never waits on an image request.
   art.image(art.pack.criticals?.default);
-  for(const u of live)art.image(art.pack.portraits[u.id]);
+  for(const u of live){art.image(art.portraitURL(u.id));art.image(art.portraitURL(u.id,'battle'));}
  }
  position(u){
   const t=this.reduced.matches?1:smooth(clamp((this.clock-(u.moveAt??-10))/.48));
@@ -71,7 +73,7 @@ export class BattleArt {
    const moving=!cinematic&&u.moveAt!==undefined&&this.clock-u.moveAt<.48;
    let ap=cinematic?(actor?clamp((castP-.32)/.5):1):clamp((this.clock-(u.attackAt??-10))/.65);
    const attacking=ap<1&&(!cinematic||castP>=.32),target=actor?hexCenter(actor.x,actor.y):u.target;
-   const clips=art.pack.troops[['ram','tower'].includes(u.type)?'siege':u.type],key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
+   const clips=art.pack.troops[combatFamily(u)],key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
    const img=art.image(clip?.url),el=elements.get(u.id),model=this.models?.hasUnit(u.id);
    el?.classList.toggle('has-unit-art',!!img||!!model);
    if(!img||model)continue;
@@ -81,8 +83,8 @@ export class BattleArt {
    const recoil=this.reduced.matches?0:Math.sin(recoilP*Math.PI)*cell*.09;
    let x=p.x*w+(this.reduced.matches?0:nx*pose.reach*cell)-nx*recoil,y=p.y*h+(this.reduced.matches?0:ny*pose.reach*cell)-ny*recoil;
    const row=Math.min(clip.rows-1,actor?facingRow(dx,dy,u.side):(u.facing??facingRow(0,0,u.side)));
-   const size=cell*(u.type==='cavalry'?.57:.5),sw=img.width/clip.columns,sh=img.height/clip.rows;
-   const formation=u.type==='cavalry'?[[-.23,-.12],[.22,-.12],[0,.08]]:[[-.27,-.16],[0,-.16],[.27,-.16],[-.27,.08],[0,.08],[.27,.08]];
+   const size=cell*(combatFamily(u)==='cavalry'?.57:.5),sw=img.width/clip.columns,sh=img.height/clip.rows;
+   const formation=combatFamily(u)==='cavalry'?[[-.23,-.12],[.22,-.12],[0,.08]]:[[-.27,-.16],[0,-.16],[.27,-.16],[-.27,.08],[0,.08],[.27,.08]];
    c.save();c.globalAlpha=1-death;
    // Ground footprint and pennant make allegiance visible even with shared source sprites.
    c.fillStyle=u.side?'#ae584a44':'#50b99d44';c.strokeStyle=u.side?'#eeb09a99':'#9fe2c599';c.lineWidth=1;

@@ -1,3 +1,4 @@
+import {scoutAssignment} from './scouting-state.mjs';
 import {abilityButton} from './ability-reference.mjs';
 import {mapNode} from './road-network.mjs';
 import {DIRECTION_STATS} from './domestic-designs.mjs';
@@ -17,11 +18,13 @@ import {residentOfficer} from './city-personnel.mjs';
 import {ACTIONS,DIRECTIONS,assignmentFor,canTrain} from './domestic.mjs';
 import {isPlanning,armyBattle} from './strategic-campaign.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
+import {diplomaticAssignment} from './diplomacy-relations.mjs';
+import {DIPLOMACY_DIRECTIONS} from './data/design/diplomacy-rules.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const OFFICER_STATS=[['leadership','统率'],['force','武力'],['intellect','智力'],['politics','政治'],['charm','魅力']];
 export function campaignOfficers(s){
  const town=id=>mapNode(s,id)?.name||'—',rows=new Map();
- const appointments=id=>{const a=assignmentFor(s,id);return [s.cities.some(c=>c.governor===id)?'太守':'',a?DIRECTIONS[a.direction]+'负责人':''].filter(Boolean);};
+ const appointments=id=>{const a=assignmentFor(s,id),d=diplomaticAssignment(s,id);return [s.cities.some(c=>c.governor===id)?'太守':'',a?DIRECTIONS[a.direction]+'负责人':'',scoutAssignment(s,id)?'侦察负责人':'',d?DIPLOMACY_DIRECTIONS[d.direction].name+'使臣':''].filter(Boolean);};
  for(const o of cityUnitRows(s).filter(o=>o.faction===playerFaction(s)))rows.set(o.unit.id,{...o,home:o.unit.homeCity,place:town(o.location),status:'驻城部队',duty:appointments(o.unit.id).join(' · ')||'—',appointments:appointments(o.unit.id)});
  for(const a of s.armies.filter(a=>a.faction===playerFaction(s)&&!a.disbanded))for(const unit of a.units){
   const moving=!!a.travel,battle=armyBattle(s,a.id);
@@ -32,12 +35,14 @@ export function campaignOfficers(s){
   const duty=assignmentFor(s,o.unit.id),governor=s.cities.find(c=>c.governor===o.unit.id),returning=!s.campaign.idle.includes(o);
   rows.set(o.unit.id,{unit:o.unit,location:o.destination||o.retreating||returning?null:o.location,home:o.unit.homeCity,place:o.destination?`${town(o.location)} → ${town(o.destination)}（${o.remainingDays}天）`:town(o.location),status:returning?'待返城':o.retreating?(o.journey?.blocked||'撤离'):o.destination?(isTransport(o)?'运输':'调任'):governor?'太守':duty?'内政':'待命',duty:[governor?'太守':'',duty?DIRECTIONS[duty.direction]+'负责人':''].filter(Boolean).join(' · ')||'—',appointments:appointments(o.unit.id),idle:o,returning});
  }
- for(const r of rows.values())if(r.unit.mission){const m=r.unit.mission;r.location=m.route.length?null:m.location;r.place=town(m.location)+(m.route.length?' → '+town(m.route[0]):'');r.status=missionStatus(m);r.duty='外出人才任务';}
+ for(const r of rows.values())if(r.unit.mission){const m=r.unit.mission;r.location=m.route.length?null:m.location;r.place=town(m.location)+(m.route.length?' → '+town(m.route[0]):'');r.status=missionStatus(m);r.duty=m.type==='diplomacy'?'外交事务':'外出人才任务';}
+ for(const r of rows.values()){const t=scoutAssignment(s,r.unit.id);if(t){r.status='工作中 · 侦察';r.duty='侦察负责人 · '+town(t.targetCity);}}
  return [...rows.values()];
 }
 export function pickerReason(s,row,pick){
  if((!isPlanning(s)&&pick.task!=='defense')||s.finished)return '执行期间不可委任';
  if(row.returning)return '待返城';
+ if(row.unit.scouting)return '正在负责侦察，请先停止侦察';
  if(row.unit.mission){if(!['transfer','domestic','expedition'].includes(pick.task))return '外出任务中，须先返城';return row.unit.mission.homeCity===pick.city?'':'不属于本城';}
  if(row.idle?.retreating)return '撤离途中';
  if(row.idle?.destination)return '调任途中';
@@ -58,14 +63,14 @@ export function pickerReason(s,row,pick){
  if(pick.task==='governor'&&c.governor===row.unit.id)return '现任太守';
  return '';
 }
-export const pickerTitle=p=>({governor:'任命太守',domestic:'委任'+DIRECTIONS[p.direction]+'负责人',defense:'战前编制守城部队',draft:'预编守城部队',transfer:'调任武将',expedition:'编组出征'}[p.task]);
+export const pickerTitle=p=>({governor:'任命太守',domestic:'委任'+DIRECTIONS[p.direction]+'负责人',defense:'战前编制守城部队',draft:'守城编制',transfer:'调任武将',expedition:'编组出征'}[p.task]);
 export function taskPickerMarkup(s,ui,pick,rows,recs,sort,adapter={}){
  const military=['draft','expedition','defense'].includes(pick.task),keys=pick.task==='domestic'?[DIRECTION_STATS[pick.direction]]:pick.task==='governor'?['politics']:military?['leadership','force','intellect']:[],labels=Object.fromEntries(OFFICER_STATS);
  const source=adapter.rows||campaignOfficers(s),chosen=source.filter(r=>pick.selected.includes(r.unit.id)),multi=!pick.single&&['draft','domestic','expedition','defense'].includes(pick.task);
  const traits=[...new Map(source.filter(r=>adapter.rows||r.location===pick.city||r.unit.mission?.homeCity===pick.city).flatMap(r=>officerRecommendation(s,r.unit,pick).traits).map(t=>[t.id,t])).values()];
  const direction=ui.personnel?.direction||'desc',traitId=t=>'task-trait-'+t.id;
  const appointment=['domestic','governor'].includes(pick.task),scope=adapter.sortScope||'personnel',tab=!appointment&&ui.personnel?.tab==='traits'?'traits':'abilities',traitPages=Math.max(1,Math.ceil(traits.length/4)),traitPage=Math.min(ui.personnel?.traitPage||0,traitPages-1),visibleTraits=appointment?traits:tab==='traits'?traits.slice(traitPage*4,traitPage*4+4):[],showAbilities=tab==='abilities',showRelations=tab==='relations';
- const tabs=`<nav class="picker-tabs" aria-label="候选信息分页签">${[['abilities',['domestic','governor'].includes(pick.task)?'基本':'能力与兵力'],['traits','相关特性']].map(([key,name])=>`<button type="button" class="button secondary" data-action="task-picker-tab" data-scope="${scope}" data-tab="${key}" aria-pressed="${tab===key}">${name}</button>`).join('')}</nav>${tab==='traits'&&traits.length?`<nav class="picker-trait-pages" aria-label="特性列翻页"><button class="button secondary" data-action="task-picker-traits" data-scope="${scope}" data-page="${traitPage-1}" ${traitPage===0?'disabled':''}>上一组</button><span>特性 ${traitPage+1} / ${traitPages} · 每组最多四项</span><button class="button secondary" data-action="task-picker-traits" data-scope="${scope}" data-page="${traitPage+1}" ${traitPage+1>=traitPages?'disabled':''}>下一组</button></nav>`:''}`;
+ const tabs=`<nav class="picker-tabs" aria-label="候选信息分页签">${[['abilities',['domestic','governor'].includes(pick.task)?'基本':'能力兵力'],['traits','相关特性']].map(([key,name])=>`<button type="button" class="button secondary" data-action="task-picker-tab" data-scope="${scope}" data-tab="${key}" aria-pressed="${tab===key}">${name}</button>`).join('')}</nav>${tab==='traits'&&traits.length?`<nav class="picker-trait-pages" aria-label="特性列翻页"><button class="button secondary" data-action="task-picker-traits" data-scope="${scope}" data-page="${traitPage-1}" ${traitPage===0?'disabled':''}>上一组</button><span>特性 ${traitPage+1} / ${traitPages} · 每组最多四项</span><button class="button secondary" data-action="task-picker-traits" data-scope="${scope}" data-page="${traitPage+1}" ${traitPage+1>=traitPages?'disabled':''}>下一组</button></nav>`:''}`;
  const purpose=pick.single?'选择这支部队的主将（单选）':pick.task==='domestic'?`为${DIRECTIONS[pick.direction]}选择负责人`:pick.task==='governor'?'选择主持本城政务的太守':pick.task==='transfer'?'选择调往其它据点的武将':'选择此次参军的武将与部队';
  return `<section class="task-personnel"><div class="task-personnel-heading"><div><small>${esc(adapter.title||s.cities?.find(c=>c.id===pick.city)?.name)} · ${pickerTitle(pick)}</small><h3>${purpose}</h3></div><span>已选 ${chosen.length}${pick.single?' / 1':pick.task==='expedition'?' / '+(adapter.limit||10):''} 人</span></div>
  <div class="task-personnel-tools"><label>查找武将<input type="search" ${adapter.queryAttribute||'data-personnel-filter'}="query" value="${esc(ui.personnel?.query||'')}" placeholder="姓名 / 字"></label>${sortButton(adapter.sortScope||'personnel','recommended','任务推荐',sort,direction)}</div>

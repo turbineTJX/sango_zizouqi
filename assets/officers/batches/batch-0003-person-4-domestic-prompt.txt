@@ -1,0 +1,11 @@
+Use case: identity-preserve
+人物：尹赏 / person-4
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+人物类型：主类型：武勇将领；次类型：战场统帅。依据：名册记为天水武将、姜维友人，涉及守城与城门行动。人物仪态：地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。
+身份：A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo. A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1152×1536，半身像，有场景背景。
+场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军粮、补给或装备；保留本人的护腕、军装及军职气质，不默认案前执笔。
+该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter beside a supply bench, one hand rests on the near edge of a small wooden equipment tray and the other naturally on the knee. Quietly checking orderly supplies, wrist guards visible. No brush or academic reading pose.
+Independently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.

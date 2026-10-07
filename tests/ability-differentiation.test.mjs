@@ -1,29 +1,32 @@
+import {currentBattle,readyCurrent,resumeCurrent} from './helpers/current-battle.mjs';
+import {equipmentEntry} from './helpers/current-battle.mjs';
+import {combatType} from '../troop-equipment.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
-import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
+import {lockDeployment,stepBattle,validateSave,syncCombatForm} from '../engine.mjs';
 import {unitTactics,setStatus,hasStatus,shieldAmount} from '../tactics.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
 import {detected,remedy,breakStealth} from '../battle-status-rules.mjs';
 import {holdsLine} from '../engagement.mjs';
 
-const entry=(id,type,troops=3000)=>({id,type,troops,level:1,retreatAt:null});
+const entry=(id,type,troops=3000)=>({...equipmentEntry(id,type),troops});
 function scene(id,type='cavalry',side=0,seed=17){
- const own=[entry(id,type),entry('person-1','halberd',1500)],enemy=[entry('shao','spear'),entry('tian','archer',1800)];
+ const own=[entry(id,type),entry('person-1',type==='ship'?'ship':'halberd',1500)],enemy=[entry('shao','spear'),entry('tian','archer',1800)];
  const state=createScenario('custom-battle',seed,20,null,{seed,terrain:type==='ship'?'river':'land',ownTeam:side?enemy:own,enemyTeam:side?own:enemy});
  const b=state.battle;lockDeployment(b);const [u,ally]=b.sides[side].units,[target,rear]=b.sides[1-side].units;
  for(const v of b.sides.flatMap(s=>s.units)){v.intent=0;v.cooldown=999;v.skillReady=Object.fromEntries(unitTactics(v).map(t=>[t.id,999]));setStatus(b,v,'root',999);}
- Object.assign(u,{x:4,y:3});Object.assign(ally,{x:4,y:4});Object.assign(target,{x:5,y:3});Object.assign(rear,{x:7,y:3});
+ Object.assign(u,{x:4,y:3});Object.assign(ally,{x:4,y:4});Object.assign(target,{x:5,y:3});Object.assign(rear,{x:7,y:type==='ship'?2:3});if(type==='ship'){target.y=2;syncCombatForm(b,u);syncCombatForm(b,ally);}
  return {state,b,u,ally,target,rear};
 }
 function cast(x,id){assert.ok(unitTactics(x.u).some(t=>t.id===id),'legal fixed kit '+id);x.u.intent=100;x.u.skillReady[id]=0;stepBattle(x.b);assert.equal(x.u.tacticCasts[id],1);}
 function resume(x){const copy=validateSave(structuredClone(x.state));for(let i=0;i<10;i++){stepBattle(x.b);stepBattle(copy.battle);}assert.deepEqual(x.b,copy.battle);}
 
-for(const side of [0,1])test('fixed replacements apply real plague, short range and decoy on side '+side,()=>{
- const a=scene('jia','ram',side);cast(a,'blight');assert.ok(hasStatus(a.b,a.target,'plague'));assert.equal(hasStatus(a.b,a.target,'attackSlow'),false);resume(a);
- const b=scene('jia','tower',side);b.target.x=10;const range=unitAttributes(b.rear,b.b).range;cast(b,'cutRange');assert.ok(hasStatus(b.b,b.rear,'shortRange'));assert.equal(unitAttributes(b.rear,b.b).range,range-1);resume(b);
- const c=scene('jia','crossbow',side);c.ally.hp=140;c.ally.battleDamage=c.ally.initial-140;cast(c,'mirage');assert.ok(hasStatus(c.b,c.ally,'decoy'));assert.ok(hasStatus(c.b,c.ally,'stasis'));assert.ok(hasStatus(c.b,c.ally,'stasisLock'));resume(c);
+for(const side of [0,1])test('carried siege small tactics apply real plague and short range on side '+side,()=>{
+ const a=currentBattle('blight','ram',{side,requireS:true});Object.assign(a.target,{x:a.u.x,y:3});readyCurrent(a,'blight');stepBattle(a.b);assert.ok(hasStatus(a.b,a.target,'plague'));assert.equal(hasStatus(a.b,a.target,'attackSlow'),false);resumeCurrent(a);
+ const b=currentBattle('cutRange','tower',{side,requireS:true,enemyTypes:['archer','archer']});const range=unitAttributes(b.target,b.b).range;readyCurrent(b,'cutRange');stepBattle(b.b);const reduced=[b.target,b.rear].find(u=>hasStatus(b.b,u,'shortRange'));assert.ok(reduced);assert.equal(unitAttributes(reduced,b.b).range,range-1);resumeCurrent(b);
 });
+
 test('Ma Chao roots through a legal special, preserves ZOC and respects resolve',()=>{
  let found=false;
  for(let seed=1;seed<=25&&!found;seed++){const x=scene('person-516','cavalry',0,seed);delete x.target.statuses.root;cast(x,'unique-person-516');assert.equal(hasStatus(x.b,x.target,'armorBreak'),false);if(hasStatus(x.b,x.target,'root')){found=true;assert.ok(holdsLine(x.b,x.target));assert.equal(unitAttributes(x.target,x.b).move,0);resume(x);}}

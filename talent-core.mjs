@@ -5,6 +5,7 @@ import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {FACTIONS,battleWounded} from './engine.mjs';
 import {relationshipInfo} from './relationships.mjs';
 import {compatibilityInfo} from './domestic-cooperation.mjs';
+import {diplomaticFeeReserve,diplomaticAssetReserve} from './diplomacy-relations.mjs';
 
 export const TALENT_RULES=Object.freeze({version:1,standardSoldiers:6000,adultAge:16,seekDays:180,graceDays:90});
 export const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
@@ -29,9 +30,10 @@ export function factionLord(s,faction){
  const id=Object.values(OFFICER_BY_ID).find(u=>u.sourceKind==='common'&&u.sourceId===source)?.id||({cao:'cao',yuan:'shao'}[faction])||null;lordIds.set(faction,id);return id;
 }
 export const isLord=(s,id,faction)=>factionLord(s,faction)===id;
-export const factionGold=(s,f)=>f===playerFaction(s)?s.gold:s.campaign.ai?.treasuries[f]??s.campaign.talent.treasuries[f]??0;
-export function addFactionGold(s,f,n){if(f===playerFaction(s))s.gold+=n;else if(Object.hasOwn(s.campaign.ai?.treasuries||{},f))s.campaign.ai.treasuries[f]+=n;else s.campaign.talent.treasuries[f]=(s.campaign.talent.treasuries[f]??0)+n;}
-export const factionReserve=(s,f)=>f===playerFaction(s)?s.campaign.domestic.reserveGold:s.campaign.ai?.factions?.[f]?.reserveGold??500;
+export {factionGold} from './city-resources.mjs';
+export {addCityGold} from './city-resources.mjs';
+export const cityReserve=(s,c)=>c.budget.goldReserve+diplomaticFeeReserve(s,c.owner,c.id)+diplomaticAssetReserve(s,c.owner,'gold',c.id)+(s.campaign.domestic?.orders||[]).filter(q=>q.kind==='transfer'&&q.cityId===c.id).reduce((n,q)=>n+(q.cargo?.gold||0),0);
+export const factionReserve=(s,f)=>s.cities.filter(c=>c.owner===f).reduce((n,c)=>n+cityReserve(s,c),0);
 export const cityBesieged=(s,id)=>s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===id);
 export const nearby=(s,a,b)=>a===b||cityRoads(s).some(([x,y])=>x===a&&y===b||x===b&&y===a);
 export function legalRoad(s,a,b){

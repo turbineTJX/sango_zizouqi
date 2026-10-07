@@ -1,0 +1,1307 @@
+{
+  "version": 1,
+  "id": "batch-0002",
+  "status": "complete",
+  "formatVersion": "scene-neutral-v3",
+  "styleVersion": "han-neutral-v2",
+  "officerIds": [
+    "person-1",
+    "person-2",
+    "person-3"
+  ],
+  "jobs": [
+    {
+      "id": "person-1:portrait",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "portrait",
+      "label": "独立头像",
+      "size": [
+        1024,
+        1024
+      ],
+      "format": "头像",
+      "transparent": false,
+      "dependsOn": [],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/portrait.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：近正面头肩像，完整头饰，眉眼自然放松、嘴唇轻合、目光沉静，无手和武器。\n该人物独立表演（优先于通用示例手势）：Near-frontal head-and-shoulders, a small natural turn right, relaxed brow and closed lips, calm steady eyes. No hands or weapon.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/portrait-02.png",
+        "sha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "width": 1254,
+        "height": 1254,
+        "prompt": "Use case: historical-scene\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n新建本人物的原创视觉身份，不借用其他人物的脸型；外貌与视觉年龄是美术设定，不宣称史实外貌。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：近正面头肩像，完整头饰，眉眼自然放松、嘴唇轻合、目光沉静，无手和武器。\n该人物独立表演（优先于通用示例手势）：Near-frontal head-and-shoulders, a small natural turn right, relaxed brow and closed lips, calm steady eyes. No hands or weapon.\nRequired composition revision: pull the camera back enough that the highest point of the headwear begins at y=130 in a 1024×1024 square. Show a clear 12% band of background above the entire cap/headcloth. Show the upper chest and both shoulder roots. Do not enlarge or crop the face back to a close-up. Complete headwear and calm mouth.\nInput 1 is the current original headshot to reframe. Preserve this exact facial structure, natural closed-mouth expression, skin tone, beard, headwear, costume and painted style. Change only the camera distance and framing. Do not change the officer's identity.",
+        "referenceSha256": null,
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "9d70fd174d6e8b62c35c4c14f1906ed1a9e5e950c0bfbd77c2e60d0d294a4493",
+          "file": "assets/officers/candidates/batch-0002/person-1/portrait-01.png"
+        },
+        {
+          "sha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+          "file": "assets/officers/candidates/batch-0002/person-1/portrait-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:detail",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "detail",
+      "label": "人物立绘",
+      "size": [
+        1024,
+        2560
+      ],
+      "format": "全身立绘",
+      "transparent": true,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/detail.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：完整头饰至双脚的透明全身立绘，重心稳定、自然站姿，手臂放松或低位持标志物，头部平正，神态中性沉稳。\n该人物独立表演（优先于通用示例手势）：Balanced full-length stance, halberd vertical at the left side, left hand supports its shaft comfortably near the waist and right arm relaxed. The entire weapon blade and shaft, complete headcloth and both feet fit safely inside the tall frame, with at least 5 percent genuinely transparent margin above the highest tip and below the feet. Use a modest shorter halberd, not an oversized fantasy blade.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/detail-02.png",
+        "sha256": "d7ff0caa70703ad5191c10422bf1f8c21060eb304b777e9318b2dfc94b0fe1c5",
+        "width": 793,
+        "height": 1983,
+        "transparentFraction": 0.4608987236402231,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：完整头饰至双脚的透明全身立绘，重心稳定、自然站姿，手臂放松或低位持标志物，头部平正，神态中性沉稳。\n该人物独立表演（优先于通用示例手势）：Balanced full-length stance, halberd vertical at the left side, left hand supports its shaft comfortably near the waist and right arm relaxed. The entire weapon blade and shaft, complete headcloth and both feet fit safely inside the tall frame, with at least 5 percent genuinely transparent margin above the highest tip and below the feet. Use a modest shorter halberd, not an oversized fantasy blade.\nInput image 1 role: this exact officer's approved original identity, facial geometry and costume, not an action or background template. Recompose the scene independently. Keep quiet resting brows with smooth unpinched glabella and naturally closed lips. Hands remain low and comfortable.\nRequired: a genuine alpha transparent 2:5 full-body frame. ALL of the halberd's blade, entire headwear, hands and feet fit well inside the image with at least 5% transparent margin above the highest object and beneath both soles. Pull camera back and use a modest shorter halberd no taller than 1.15 times the officer. Blade tip must NEVER meet an image edge. No backdrop, floor, checkerboard, colored fringe or opaque shadow.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "70565cc6a4a5e4269e83d2b92551b23a4f397904ec33c925508e0dfe86003e0b",
+          "file": "assets/officers/candidates/batch-0002/person-1/detail-01.png"
+        },
+        {
+          "sha256": "d7ff0caa70703ad5191c10422bf1f8c21060eb304b777e9318b2dfc94b0fe1c5",
+          "file": "assets/officers/candidates/batch-0002/person-1/detail-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:domestic",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "domestic",
+      "label": "案牍内政",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/domestic.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：平视侧坐案前，肩部放松，低幅度阅简、翻页或执笔，眼神自然落在文书，专注而不皱眉瞪眼。\n该人物独立表演（优先于通用示例手势）：Seated in right three-quarter view, one hand lightly steadies a bamboo ledger on a low desk and the other holds a brush just above it. Quiet eyes directed at the ledger.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/domestic-01.png",
+        "sha256": "33f47e64673a78a7c9196dad9cd78209b9bf708785bd820f2d279618e25f5e15",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：平视侧坐案前，肩部放松，低幅度阅简、翻页或执笔，眼神自然落在文书，专注而不皱眉瞪眼。\n该人物独立表演（优先于通用示例手势）：Seated in right three-quarter view, one hand lightly steadies a bamboo ledger on a low desk and the other holds a brush just above it. Quiet eyes directed at the ledger.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1152×1536 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "33f47e64673a78a7c9196dad9cd78209b9bf708785bd820f2d279618e25f5e15",
+          "file": "assets/officers/candidates/batch-0002/person-1/domestic-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:inspection",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "inspection",
+      "label": "现场巡视",
+      "size": [
+        1536,
+        1024
+      ],
+      "format": "横向场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/inspection.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：侧身或四分之三站姿，双手低位持卷、兵器或收于袖内，平静观察现场，不抬臂遮眼、前伸手掌或扭身。\n该人物独立表演（优先于通用示例手势）：Standing in clear left profile beside a granary, a small rolled plan low in the right hand and the free hand behind the lower back. Quietly observing the stores, no halberd or pointing.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/inspection-01.png",
+        "sha256": "b657aa19a897325bc359690adbe132f1fecfae460531978f36899ccec5fa4881",
+        "width": 1536,
+        "height": 1024,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：侧身或四分之三站姿，双手低位持卷、兵器或收于袖内，平静观察现场，不抬臂遮眼、前伸手掌或扭身。\n该人物独立表演（优先于通用示例手势）：Standing in clear left profile beside a granary, a small rolled plan low in the right hand and the free hand behind the lower back. Quietly observing the stores, no halberd or pointing.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1536×1024 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "b657aa19a897325bc359690adbe132f1fecfae460531978f36899ccec5fa4881",
+          "file": "assets/officers/candidates/batch-0002/person-1/inspection-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:training",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "training",
+      "label": "整军训练",
+      "size": [
+        1792,
+        1008
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/training.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：平视整军监督或器械检查，沉静站立、低位自然持兵器或坐姿检查器械，嘴唇闭合，不大幅指点、挥击或蹲摆动作。\n该人物独立表演（优先于通用示例手势）：Seated upright beside an equipment bench, halberd shaft resting low across the thighs, both hands comfortably support it while he checks the binding. Quiet lowered gaze, no fighting stance.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/training-01.png",
+        "sha256": "a6eacc310b0b3ba0b671c7cd5cefae8fcfae5bd61d001c2999eb79c050b75d3b",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：平视整军监督或器械检查，沉静站立、低位自然持兵器或坐姿检查器械，嘴唇闭合，不大幅指点、挥击或蹲摆动作。\n该人物独立表演（优先于通用示例手势）：Seated upright beside an equipment bench, halberd shaft resting low across the thighs, both hands comfortably support it while he checks the binding. Quiet lowered gaze, no fighting stance.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1792×1008 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "a6eacc310b0b3ba0b671c7cd5cefae8fcfae5bd61d001c2999eb79c050b75d3b",
+          "file": "assets/officers/candidates/batch-0002/person-1/training-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:diplomacy",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "diplomacy",
+      "label": "外交接洽",
+      "size": [
+        1024,
+        1280
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/diplomacy.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：平视自然坐姿或轻微侧站，双手安放桌面或低位拢袖，神态礼貌中性，轻微转头听取意见，不夸张作揖、大笑或挑眉。\n该人物独立表演（优先于通用示例手势）：Standing in a shallow right turn, both hands loosely joined within the sleeves at low waist. Calm attentive gaze toward an off-screen visitor, no bow or salute.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/diplomacy-01.png",
+        "sha256": "10329cec35f57a3686176698750b7e36fc3008a4865143ec405a29821e926583",
+        "width": 1122,
+        "height": 1402,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：平视自然坐姿或轻微侧站，双手安放桌面或低位拢袖，神态礼貌中性，轻微转头听取意见，不夸张作揖、大笑或挑眉。\n该人物独立表演（优先于通用示例手势）：Standing in a shallow right turn, both hands loosely joined within the sleeves at low waist. Calm attentive gaze toward an off-screen visitor, no bow or salute.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1024×1280 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "10329cec35f57a3686176698750b7e36fc3008a4865143ec405a29821e926583",
+          "file": "assets/officers/candidates/batch-0002/person-1/diplomacy-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:command",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "command",
+      "label": "军团指挥",
+      "size": [
+        1536,
+        864
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/command.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：自然端坐地图案前，略微前倾，一手轻触近处路线或图筹，另一手安放桌面或低位持扇，沉静研判，不俯压案面或伸长手臂。\n该人物独立表演（优先于通用示例手势）：Seated in left three-quarter view at a route-map table, one hand rests beside a nearby marker and the other holds a closed bamboo dispatch at lap height. Calm head slightly lowered.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/command-01.png",
+        "sha256": "eb9c83185f2b269d63a141c61bc5a041a721a6cdf50f1899e45211b3d0537016",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：自然端坐地图案前，略微前倾，一手轻触近处路线或图筹，另一手安放桌面或低位持扇，沉静研判，不俯压案面或伸长手臂。\n该人物独立表演（优先于通用示例手势）：Seated in left three-quarter view at a route-map table, one hand rests beside a nearby marker and the other holds a closed bamboo dispatch at lap height. Calm head slightly lowered.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1536×864 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "eb9c83185f2b269d63a141c61bc5a041a721a6cdf50f1899e45211b3d0537016",
+          "file": "assets/officers/candidates/batch-0002/person-1/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:travel",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "travel",
+      "label": "行旅运输",
+      "size": [
+        1024,
+        1792
+      ],
+      "format": "行旅全身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/travel.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：完整双脚的普通小步行走，侧面或三分之四朝前，目光沿路，衣摆轻微运动，持物贴近身体，不奔跑、大幅回头或披风飞扬。\n该人物独立表演（优先于通用示例手势）：An ordinary short forward step in right-facing side view along a country path. Halberd vertical close to the shoulder, free arm relaxed. Full body and both feet visible, no running or flying cloth.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/travel-01.png",
+        "sha256": "4325ab8086dc5d5f87aff35b7151407f1b694f2baf5af14330869980fb8b65eb",
+        "width": 948,
+        "height": 1659,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：完整双脚的普通小步行走，侧面或三分之四朝前，目光沿路，衣摆轻微运动，持物贴近身体，不奔跑、大幅回头或披风飞扬。\n该人物独立表演（优先于通用示例手势）：An ordinary short forward step in right-facing side view along a country path. Halberd vertical close to the shoulder, free arm relaxed. Full body and both feet visible, no running or flying cloth.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1024×1792 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized. Complete both feet and headwear, an ordinary short walking step without twisted limbs.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "4325ab8086dc5d5f87aff35b7151407f1b694f2baf5af14330869980fb8b65eb",
+          "file": "assets/officers/candidates/batch-0002/person-1/travel-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:report",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "report",
+      "label": "报喜奏报",
+      "size": [
+        1536,
+        1152
+      ],
+      "format": "横向半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/report.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：平静呈报结果，低位自然持简、文书或扇，略有满意但保持嘴唇闭合，手势靠近身体，不大笑、拳礼或向镜头递卷。\n该人物独立表演（优先于通用示例手势）：Standing waist-up near a doorway, both hands naturally support a small open bamboo dispatch near the waist. Level head and reserved quiet satisfaction, lips closed.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/report-01.png",
+        "sha256": "e97614c2982d97709c06e91fec19fda1af1e22b7f558a392ad2bab5740468056",
+        "width": 1448,
+        "height": 1086,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：平静呈报结果，低位自然持简、文书或扇，略有满意但保持嘴唇闭合，手势靠近身体，不大笑、拳礼或向镜头递卷。\n该人物独立表演（优先于通用示例手势）：Standing waist-up near a doorway, both hands naturally support a small open bamboo dispatch near the waist. Level head and reserved quiet satisfaction, lips closed.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1536×1152 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "e97614c2982d97709c06e91fec19fda1af1e22b7f558a392ad2bab5740468056",
+          "file": "assets/officers/candidates/batch-0002/person-1/report-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:report-concern",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "report-concern",
+      "label": "告急奏报",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "近景半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/report-concern.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：坐姿阅急报、略低眼神与轻微凝神，仍沉着中性，双手自然放置，不惊慌瞪眼、张口、扶额、抓须或前伸警示。\n该人物独立表演（优先于通用示例手势）：Seated upright at a desk, a narrow paper report held low in the left hand while the right rests comfortably on the table. Composed sober downward gaze, no clutching gesture.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/report-concern-01.png",
+        "sha256": "9ec25995227e79b19148e043950f6a2b6fe73d15870b7eb4d6fce9d63713eae0",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：坐姿阅急报、略低眼神与轻微凝神，仍沉着中性，双手自然放置，不惊慌瞪眼、张口、扶额、抓须或前伸警示。\n该人物独立表演（优先于通用示例手势）：Seated upright at a desk, a narrow paper report held low in the left hand while the right rests comfortably on the table. Composed sober downward gaze, no clutching gesture.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1152×1536 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "9ec25995227e79b19148e043950f6a2b6fe73d15870b7eb4d6fce9d63713eae0",
+          "file": "assets/officers/candidates/batch-0002/person-1/report-concern-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-1:battle",
+      "officerId": "person-1",
+      "name": "阿会喃",
+      "scene": "battle",
+      "label": "战斗切入",
+      "size": [
+        2048,
+        1152
+      ],
+      "format": "宽幅人物像",
+      "transparent": false,
+      "dependsOn": [
+        "person-1:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-1/battle.png",
+      "reference": "assets/officers/identity/person-1.png",
+      "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+      "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。\n该人物独立表演（优先于通用示例手势）：Quiet military presence standing on the left half of a wide camp canvas, torso in shallow three-quarter view and head turned slightly left. Both arms rest naturally low alongside the body with comfortable hands, no held weapon or document. His modest halberd rests on a simple nearby rack in the middle background. Calm steady eyes and closed lips, no fold-sleeve greeting, pointing, swing or pose copied from the standee.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-1/battle-02.png",
+        "sha256": "298a5dc6f4753c2af38c17a48517381b8c431dd0a3abc6024dcf847dfb4f454f",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：阿会喃 / person-1\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions. A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。\n该人物独立表演（优先于通用示例手势）：Quiet military presence standing on the left half of a wide camp canvas, torso in shallow three-quarter view and head turned slightly left. Both arms rest naturally low alongside the body with comfortable hands, no held weapon or document. His modest halberd rests on a simple nearby rack in the middle background. Calm steady eyes and closed lips, no fold-sleeve greeting, pointing, swing or pose copied from the standee.\nInput image 1 role: this exact officer's approved original identity, facial geometry and costume, not an action or background template. Recompose the scene independently. Keep quiet resting brows with smooth unpinched glabella and naturally closed lips. Hands remain low and comfortable.\nExact requested aspect 2048×1152, clear space over the whole crown. Natural head and shoulder proportions.\nWide frame: officer on left half. His hands remain naturally low and EMPTY, no vertical pole held by his hand. The modest halberd is separately resting on a middle-background rack. This must be visibly different from the standee's one-hand vertical-halberd stance. Quiet context to the right, no extra people.",
+        "referenceSha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "4ad3daa26bdaeada83e6c34219c882fbe54c7b05428a2244bf17d8e20b79c6c7",
+          "file": "assets/officers/candidates/batch-0002/person-1/battle-01.png"
+        },
+        {
+          "sha256": "298a5dc6f4753c2af38c17a48517381b8c431dd0a3abc6024dcf847dfb4f454f",
+          "file": "assets/officers/candidates/batch-0002/person-1/battle-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:portrait",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "portrait",
+      "label": "独立头像",
+      "size": [
+        1024,
+        1024
+      ],
+      "format": "头像",
+      "transparent": false,
+      "dependsOn": [],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-2",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0505_韦昭_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "fbc05a3661e911e2c8718b8f303cd7edfd35ca4ffefa0d5c2fa32c7c664044ac"
+      },
+      "output": "assets/officers/generated/v3/person-2/portrait.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：近正面头肩像，完整头饰，眉眼自然放松、嘴唇轻合、目光沉静，无手和武器。\n该人物独立表演（优先于通用示例手势）：Near-frontal head-and-shoulders with a slight left turn, eyes naturally attentive, relaxed brow and gently closed lips. Complete plain scholar cap.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/portrait-03.png",
+        "sha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "width": 1254,
+        "height": 1254,
+        "prompt": "Use case: precise-object-edit\nEdit this original square officer portrait. One targeted correction only: make the eyebrow muscles visibly relaxed. Replace both sharply diagonal V-shaped eyebrows with thick but nearly HORIZONTAL, gently level eyebrows in a resting position. Inner and outer eyebrow ends should be almost at the same height. Remove the central vertical frown creases and smooth the skin between the eyebrows. This is a calm civil scholar listening neutrally, with soft hooded narrow eyes and his mouth naturally closed. Do not raise an eyebrow, smile or scowl.\nKeep everything else unchanged: this exact face identity, broad firm jaw, eyes, nose, mouth, skin tone, short goatee, complete black cap, blue-grey robe, proportions, painted style, background and square camera framing with generous visible background above the cap. Only alter the eyebrows and glabella, no other changes. No text, no border, no watermark. 1024×1024.",
+        "referenceSha256": null,
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "d59b8f41dde6ec3987b17cad15c53c800394755bfab522db335fb2c579539878",
+          "file": "assets/officers/candidates/batch-0002/person-2/portrait-01.png"
+        },
+        {
+          "sha256": "0d654b5521f157eec9dc795f7e21bcf4ec02a72b898b3c59a44fead13d424d1b",
+          "file": "assets/officers/candidates/batch-0002/person-2/portrait-02.png"
+        },
+        {
+          "sha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+          "file": "assets/officers/candidates/batch-0002/person-2/portrait-03.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:detail",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "detail",
+      "label": "人物立绘",
+      "size": [
+        1024,
+        2560
+      ],
+      "format": "全身立绘",
+      "transparent": true,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/detail.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：完整头饰至双脚的透明全身立绘，重心稳定、自然站姿，手臂放松或低位持标志物，头部平正，神态中性沉稳。\n该人物独立表演（优先于通用示例手势）：Full-length balanced stance, a closed bamboo book held low in one hand while the other rests within a loose sleeve. Head level and shoulders comfortable, no armor or weapon.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/detail-01.png",
+        "sha256": "c3729b21644223c13975e2d69b083de2fa592ea65ec32eceb861bd37ad3730f1",
+        "width": 793,
+        "height": 1983,
+        "transparentFraction": 0.34480219316904914,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：完整头饰至双脚的透明全身立绘，重心稳定、自然站姿，手臂放松或低位持标志物，头部平正，神态中性沉稳。\n该人物独立表演（优先于通用示例手势）：Full-length balanced stance, a closed bamboo book held low in one hand while the other rests within a loose sleeve. Head level and shoulders comfortable, no armor or weapon.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nGenerate a genuinely transparent PNG in the requested tall 2:5 frame. The entire officer, highest point of headwear, both feet and any weapon tip must fit with clear space around them. No painted floor, shadow backdrop, checkerboard or white background.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "c3729b21644223c13975e2d69b083de2fa592ea65ec32eceb861bd37ad3730f1",
+          "file": "assets/officers/candidates/batch-0002/person-2/detail-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:domestic",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "domestic",
+      "label": "案牍内政",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/domestic.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：平视侧坐案前，肩部放松，低幅度阅简、翻页或执笔，眼神自然落在文书，专注而不皱眉瞪眼。\n该人物独立表演（优先于通用示例手势）：Seated in left-facing three-quarter view, right hand holds a brush close to a paper page and left hand steadies the page. Eyes naturally lowered, shoulders relaxed.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/domestic-01.png",
+        "sha256": "c3785d69dad19a07c90058728a3ac63384c9a40965a2dc4ec9f1c0778139f2c8",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：平视侧坐案前，肩部放松，低幅度阅简、翻页或执笔，眼神自然落在文书，专注而不皱眉瞪眼。\n该人物独立表演（优先于通用示例手势）：Seated in left-facing three-quarter view, right hand holds a brush close to a paper page and left hand steadies the page. Eyes naturally lowered, shoulders relaxed.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1152×1536 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "c3785d69dad19a07c90058728a3ac63384c9a40965a2dc4ec9f1c0778139f2c8",
+          "file": "assets/officers/candidates/batch-0002/person-2/domestic-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:inspection",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "inspection",
+      "label": "现场巡视",
+      "size": [
+        1536,
+        1024
+      ],
+      "format": "横向场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/inspection.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：侧身或四分之三站姿，双手低位持卷、兵器或收于袖内，平静观察现场，不抬臂遮眼、前伸手掌或扭身。\n该人物独立表演（优先于通用示例手势）：Standing in clear right profile beside archive shelves, both hands low holding a modest rolled inventory plan. Quiet gaze toward the shelves, no reaching arm.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/inspection-01.png",
+        "sha256": "da476afc96d0e30118ae7be9190d46b510c82442acbffc6c6cfa50f3fb3e5e7d",
+        "width": 1536,
+        "height": 1024,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：侧身或四分之三站姿，双手低位持卷、兵器或收于袖内，平静观察现场，不抬臂遮眼、前伸手掌或扭身。\n该人物独立表演（优先于通用示例手势）：Standing in clear right profile beside archive shelves, both hands low holding a modest rolled inventory plan. Quiet gaze toward the shelves, no reaching arm.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1536×1024 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "da476afc96d0e30118ae7be9190d46b510c82442acbffc6c6cfa50f3fb3e5e7d",
+          "file": "assets/officers/candidates/batch-0002/person-2/inspection-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:training",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "training",
+      "label": "整军训练",
+      "size": [
+        1792,
+        1008
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/training.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：平视整军监督或器械检查，沉静站立、低位自然持兵器或坐姿检查器械，嘴唇闭合，不大幅指点、挥击或蹲摆动作。\n该人物独立表演（优先于通用示例手势）：Standing in left three-quarter view beside training records and an equipment rack, a small tally book held open low in both hands. Quietly examining the record, no weapon or theatrical command.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/training-01.png",
+        "sha256": "769f6ee9f64f70e93d719279741ba94178d232c7b5c435cb5dd46a45e803566d",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：平视整军监督或器械检查，沉静站立、低位自然持兵器或坐姿检查器械，嘴唇闭合，不大幅指点、挥击或蹲摆动作。\n该人物独立表演（优先于通用示例手势）：Standing in left three-quarter view beside training records and an equipment rack, a small tally book held open low in both hands. Quietly examining the record, no weapon or theatrical command.\nInput image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.\nMaintain the requested 1792×1008 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "769f6ee9f64f70e93d719279741ba94178d232c7b5c435cb5dd46a45e803566d",
+          "file": "assets/officers/candidates/batch-0002/person-2/training-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:diplomacy",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "diplomacy",
+      "label": "外交接洽",
+      "size": [
+        1024,
+        1280
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/diplomacy.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：平视自然坐姿或轻微侧站，双手安放桌面或低位拢袖，神态礼貌中性，轻微转头听取意见，不夸张作揖、大笑或挑眉。\n该人物独立表演（优先于通用示例手势）：Seated upright at a reception table, one hand on a closed document and the other naturally on his lap. Small comfortable head turn toward an off-screen listener, neutral courteous eyes.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/diplomacy-01.png",
+        "sha256": "69ab6608aaefe44fa4c01837f1cc2a60163f03f994d72649cbe71fe3fcc0d2cd",
+        "width": 1122,
+        "height": 1402,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：平视自然坐姿或轻微侧站，双手安放桌面或低位拢袖，神态礼貌中性，轻微转头听取意见，不夸张作揖、大笑或挑眉。\n该人物独立表演（优先于通用示例手势）：Seated upright at a reception table, one hand on a closed document and the other naturally on his lap. Small comfortable head turn toward an off-screen listener, neutral courteous eyes.\nInput image 1 role: this exact officer's approved original identity, facial geometry and costume, not an action or background template. Recompose the scene independently. Keep quiet resting brows with smooth unpinched glabella and naturally closed lips. Hands remain low and comfortable.\nExact requested aspect 1024×1280, clear space over the whole crown. Natural head and shoulder proportions.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "69ab6608aaefe44fa4c01837f1cc2a60163f03f994d72649cbe71fe3fcc0d2cd",
+          "file": "assets/officers/candidates/batch-0002/person-2/diplomacy-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:command",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "command",
+      "label": "军团指挥",
+      "size": [
+        1536,
+        864
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/command.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：自然端坐地图案前，略微前倾，一手轻触近处路线或图筹，另一手安放桌面或低位持扇，沉静研判，不俯压案面或伸长手臂。\n该人物独立表演（优先于通用示例手势）：Seated in right three-quarter view at a map desk, one hand lightly rests beside a route marker and the other rests on the tabletop. Calm analytical gaze at the map, no fan or pointing.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/command-01.png",
+        "sha256": "a057117b2fe6f390dfb93e8873ba1c5299cf5f0db3ae0c2fd8f1ed9ac36bd401",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：自然端坐地图案前，略微前倾，一手轻触近处路线或图筹，另一手安放桌面或低位持扇，沉静研判，不俯压案面或伸长手臂。\n该人物独立表演（优先于通用示例手势）：Seated in right three-quarter view at a map desk, one hand lightly rests beside a route marker and the other rests on the tabletop. Calm analytical gaze at the map, no fan or pointing.\nInput image 1 role: this exact officer's approved original identity, facial geometry and costume, not an action or background template. Recompose the scene independently. Keep quiet resting brows with smooth unpinched glabella and naturally closed lips. Hands remain low and comfortable.\nExact requested aspect 1536×864, clear space over the whole crown. Natural head and shoulder proportions.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "a057117b2fe6f390dfb93e8873ba1c5299cf5f0db3ae0c2fd8f1ed9ac36bd401",
+          "file": "assets/officers/candidates/batch-0002/person-2/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:travel",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "travel",
+      "label": "行旅运输",
+      "size": [
+        1024,
+        1792
+      ],
+      "format": "行旅全身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/travel.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：完整双脚的普通小步行走，侧面或三分之四朝前，目光沿路，衣摆轻微运动，持物贴近身体，不奔跑、大幅回头或披风飞扬。\n该人物独立表演（优先于通用示例手势）：Ordinary short walking step in left-facing side view, a closed bamboo book held close at waist under one sleeve and the free hand lightly gathers the robe. Complete body and both feet.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/travel-01.png",
+        "sha256": "2dbe87716cb27fcffe37e4e081a75596ab6f918868e7a3ddf833cdcc95a8c7f5",
+        "width": 948,
+        "height": 1659,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：完整双脚的普通小步行走，侧面或三分之四朝前，目光沿路，衣摆轻微运动，持物贴近身体，不奔跑、大幅回头或披风飞扬。\n该人物独立表演（优先于通用示例手势）：Ordinary short walking step in left-facing side view, a closed bamboo book held close at waist under one sleeve and the free hand lightly gathers the robe. Complete body and both feet.\nInput image 1 role: this exact officer's approved original identity, facial geometry and costume, not an action or background template. Recompose the scene independently. Keep quiet resting brows with smooth unpinched glabella and naturally closed lips. Hands remain low and comfortable.\nExact requested aspect 1024×1792, clear space over the whole crown. Natural head and shoulder proportions.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "2dbe87716cb27fcffe37e4e081a75596ab6f918868e7a3ddf833cdcc95a8c7f5",
+          "file": "assets/officers/candidates/batch-0002/person-2/travel-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:report",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "report",
+      "label": "报喜奏报",
+      "size": [
+        1536,
+        1152
+      ],
+      "format": "横向半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/report.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：平静呈报结果，低位自然持简、文书或扇，略有满意但保持嘴唇闭合，手势靠近身体，不大笑、拳礼或向镜头递卷。\n该人物独立表演（优先于通用示例手势）：Standing waist-up in a shallow right turn, a small folded paper report in one hand near the abdomen and the other hand inside a sleeve. Calm direct gaze, slight softness around the eyes only.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/report-01.png",
+        "sha256": "8bcf6a7b38d84e03128861c28518d989281dafe0869b42abb78aac2fc2de6caa",
+        "width": 1448,
+        "height": 1086,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：平静呈报结果，低位自然持简、文书或扇，略有满意但保持嘴唇闭合，手势靠近身体，不大笑、拳礼或向镜头递卷。\n该人物独立表演（优先于通用示例手势）：Standing waist-up in a shallow right turn, a small folded paper report in one hand near the abdomen and the other hand inside a sleeve. Calm direct gaze, slight softness around the eyes only.\nInput image 1 role: this exact officer's approved original identity, facial geometry and costume, not an action or background template. Recompose the scene independently. Keep quiet resting brows with smooth unpinched glabella and naturally closed lips. Hands remain low and comfortable.\nExact requested aspect 1536×1152, clear space over the whole crown. Natural head and shoulder proportions.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "8bcf6a7b38d84e03128861c28518d989281dafe0869b42abb78aac2fc2de6caa",
+          "file": "assets/officers/candidates/batch-0002/person-2/report-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:report-concern",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "report-concern",
+      "label": "告急奏报",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "近景半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/report-concern.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：坐姿阅急报、略低眼神与轻微凝神，仍沉着中性，双手自然放置，不惊慌瞪眼、张口、扶额、抓须或前伸警示。\n该人物独立表演（优先于通用示例手势）：Seated in right profile reading an open document lying on the desk, left hand at its lower edge and right hand beside an inkstone. Quiet sober eyes, no strained forehead or mouth.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/report-concern-01.png",
+        "sha256": "3472ce0db2c9448c2a2c4ffb3d36c470d93408911f50a28d9fc63fa5b8e8bc5d",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：坐姿阅急报、略低眼神与轻微凝神，仍沉着中性，双手自然放置，不惊慌瞪眼、张口、扶额、抓须或前伸警示。\n该人物独立表演（优先于通用示例手势）：Seated in right profile reading an open document lying on the desk, left hand at its lower edge and right hand beside an inkstone. Quiet sober eyes, no strained forehead or mouth.\nInput image 1 role: this exact officer's approved original identity and costume, not an action or background template. Recompose the scene independently, keeping his facial geometry, eyes, nose, beard, age and colors. Civil scholar/envoy clothing only, no armor or fighting weapon. Near-horizontal relaxed eyebrows, smooth unpinched glabella, soft natural eyelids and gently closed lips. Comfortable low hands.\nMaintain requested 1152×1536 aspect. Entire crown with visible upper background, natural head and shoulder sizes.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "3472ce0db2c9448c2a2c4ffb3d36c470d93408911f50a28d9fc63fa5b8e8bc5d",
+          "file": "assets/officers/candidates/batch-0002/person-2/report-concern-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-2:battle",
+      "officerId": "person-2",
+      "name": "韦昭",
+      "scene": "battle",
+      "label": "战斗切入",
+      "size": [
+        2048,
+        1152
+      ],
+      "format": "宽幅人物像",
+      "transparent": false,
+      "dependsOn": [
+        "person-2:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-2/battle.png",
+      "reference": "assets/officers/identity/person-2.png",
+      "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+      "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。\n该人物独立表演（优先于通用示例手势）：Civil scholar seated upright on a plain low bench on the left of a wide quiet camp pavilion scene, shallow left three-quarter torso and a small natural turn of the head to listen. Both hands rest comfortably on the robe-covered thighs, no held document or weapon; a closed bamboo book lies on a separate small stool beside him. Level shoulders, relaxed resting brows and closed lips. This is different from the standing two-hand open-book training pose and the map-table command scene. No armor, sword, spear, feather fan or dramatic gesture.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-2/battle-01.png",
+        "sha256": "dfc16a1213280eb353d8aa200bd96cdc9622e5a6aca00f5f44520d7117054c75",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：韦昭 / person-2\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。\n该人物独立表演（优先于通用示例手势）：Civil scholar seated upright on a plain low bench on the left of a wide quiet camp pavilion scene, shallow left three-quarter torso and a small natural turn of the head to listen. Both hands rest comfortably on the robe-covered thighs, no held document or weapon; a closed bamboo book lies on a separate small stool beside him. Level shoulders, relaxed resting brows and closed lips. This is different from the standing two-hand open-book training pose and the map-table command scene. No armor, sword, spear, feather fan or dramatic gesture.\nInput image 1 role: this exact officer's approved original identity and costume, not an action or background template. Recompose the scene independently, keeping his facial geometry, eyes, nose, beard, age and colors. Civil scholar/envoy clothing only, no armor or fighting weapon. Near-horizontal relaxed eyebrows, smooth unpinched glabella, soft natural eyelids and gently closed lips. Comfortable low hands.\nMaintain requested 2048×1152 aspect. Entire crown with visible upper background, natural head and shoulder sizes.\nUse the officer-specific SEATED low-bench pose, empty hands comfortably resting on thighs, closed book on a separate stool. No standing two-hand book pose, no document held, no armor or weapon. Officer on left half of wide canvas, quiet atmospheric camp space to right.",
+        "referenceSha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "dfc16a1213280eb353d8aa200bd96cdc9622e5a6aca00f5f44520d7117054c75",
+          "file": "assets/officers/candidates/batch-0002/person-2/battle-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:portrait",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "portrait",
+      "label": "独立头像",
+      "size": [
+        1024,
+        1024
+      ],
+      "format": "头像",
+      "transparent": false,
+      "dependsOn": [],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-3",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0031_伊籍_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "475ea2f6e56cc41286f2dd75b9664a6697d694f057f9844a606490e62d43e54f"
+      },
+      "output": "assets/officers/generated/v3/person-3/portrait.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：近正面头肩像，完整头饰，眉眼自然放松、嘴唇轻合、目光沉静，无手和武器。\n该人物独立表演（优先于通用示例手势）：Near-frontal head-and-shoulders, small natural turn right, gentle steady eyes and relaxed lips. Complete modest cloth crown.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/portrait-02.png",
+        "sha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "width": 1254,
+        "height": 1254,
+        "prompt": "Use case: historical-scene\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n新建本人物的原创视觉身份，不借用其他人物的脸型；外貌与视觉年龄是美术设定，不宣称史实外貌。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1024，头像，有场景背景。\n场景含义：近正面头肩像，完整头饰，眉眼自然放松、嘴唇轻合、目光沉静，无手和武器。\n该人物独立表演（优先于通用示例手势）：Near-frontal head-and-shoulders, small natural turn right, gentle steady eyes and relaxed lips. Complete modest cloth crown.\nRequired composition revision: pull the camera back enough that the highest point of the headwear begins at y=130 in a 1024×1024 square. Show a clear 12% band of background above the entire cap/headcloth. Show the upper chest and both shoulder roots. Do not enlarge or crop the face back to a close-up. Complete headwear and calm mouth.\nInput 1 is the current original headshot to reframe. Preserve this exact facial structure, natural closed-mouth expression, skin tone, beard, headwear, costume and painted style. Change only the camera distance and framing. Do not change the officer's identity.",
+        "referenceSha256": null,
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "caa2c77acd5099efc40df7f6edf6e2fff892c98c35caf8979c31029b454147c3",
+          "file": "assets/officers/candidates/batch-0002/person-3/portrait-01.png"
+        },
+        {
+          "sha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+          "file": "assets/officers/candidates/batch-0002/person-3/portrait-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:detail",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "detail",
+      "label": "人物立绘",
+      "size": [
+        1024,
+        2560
+      ],
+      "format": "全身立绘",
+      "transparent": true,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/detail.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：完整头饰至双脚的透明全身立绘，重心稳定、自然站姿，手臂放松或低位持标志物，头部平正，神态中性沉稳。\n该人物独立表演（优先于通用示例手势）：Full-length upright stance, both hands loosely folded within sleeves at low waist, a narrow rolled dispatch visible between them. Balanced feet, level head and natural shoulders.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/detail-01.png",
+        "sha256": "aa9065d07168cf9980f379a34858c6a00b084fdb9173260bff660aaf3aae3f0e",
+        "width": 793,
+        "height": 1983,
+        "transparentFraction": 0.4033089584291191,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：完整头饰至双脚的透明全身立绘，重心稳定、自然站姿，手臂放松或低位持标志物，头部平正，神态中性沉稳。\n该人物独立表演（优先于通用示例手势）：Full-length upright stance, both hands loosely folded within sleeves at low waist, a narrow rolled dispatch visible between them. Balanced feet, level head and natural shoulders.\nInput image 1 role: this exact officer's approved original identity and costume, not an action or background template. Recompose the scene independently, keeping his facial geometry, eyes, nose, beard, age and colors. Civil scholar/envoy clothing only, no armor or fighting weapon. Near-horizontal relaxed eyebrows, smooth unpinched glabella, soft natural eyelids and gently closed lips. Comfortable low hands.\nGenuinely transparent 2:5 PNG, complete full figure from crown top to BOTH shoe soles, with clear alpha margin above, beside and below. Stable ordinary feet and normal limb proportions. No ground, backdrop, checkerboard or colored fringe.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "aa9065d07168cf9980f379a34858c6a00b084fdb9173260bff660aaf3aae3f0e",
+          "file": "assets/officers/candidates/batch-0002/person-3/detail-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:domestic",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "domestic",
+      "label": "案牍内政",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/domestic.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：平视侧坐案前，肩部放松，低幅度阅简、翻页或执笔，眼神自然落在文书，专注而不皱眉瞪眼。\n该人物独立表演（优先于通用示例手势）：Seated in right three-quarter view, one hand turns the near edge of a paper document and the other rests beside a low stack of bamboo books. Calm lowered eyes, small natural action.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/domestic-01.png",
+        "sha256": "6f58b33865ff7ab1a09f096498f48025c1418433cf8d6594d3149a5f3ecc8269",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：平视侧坐案前，肩部放松，低幅度阅简、翻页或执笔，眼神自然落在文书，专注而不皱眉瞪眼。\n该人物独立表演（优先于通用示例手势）：Seated in right three-quarter view, one hand turns the near edge of a paper document and the other rests beside a low stack of bamboo books. Calm lowered eyes, small natural action.\nInput image 1 role: this exact officer's approved original identity and costume, not an action or background template. Recompose the scene independently, keeping his facial geometry, eyes, nose, beard, age and colors. Civil scholar/envoy clothing only, no armor or fighting weapon. Near-horizontal relaxed eyebrows, smooth unpinched glabella, soft natural eyelids and gently closed lips. Comfortable low hands.\nMaintain requested 1152×1536 aspect. Entire crown with visible upper background, natural head and shoulder sizes.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "6f58b33865ff7ab1a09f096498f48025c1418433cf8d6594d3149a5f3ecc8269",
+          "file": "assets/officers/candidates/batch-0002/person-3/domestic-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:inspection",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "inspection",
+      "label": "现场巡视",
+      "size": [
+        1536,
+        1024
+      ],
+      "format": "横向场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/inspection.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：侧身或四分之三站姿，双手低位持卷、兵器或收于袖内，平静观察现场，不抬臂遮眼、前伸手掌或扭身。\n该人物独立表演（优先于通用示例手势）：Standing in left profile near a river quay, a rolled route plan held low in one hand and the other relaxed by the side. Quietly observing the water and stores, no pointing.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/inspection-01.png",
+        "sha256": "3e163f0855821afa24db1a857125d3045613e397dc00ed043e19bf44052575ac",
+        "width": 1536,
+        "height": 1024,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：侧身或四分之三站姿，双手低位持卷、兵器或收于袖内，平静观察现场，不抬臂遮眼、前伸手掌或扭身。\n该人物独立表演（优先于通用示例手势）：Standing in left profile near a river quay, a rolled route plan held low in one hand and the other relaxed by the side. Quietly observing the water and stores, no pointing.\nInput image 1 role: this exact officer's approved original identity and costume, not an action or background template. Recompose the scene independently, keeping his facial geometry, eyes, nose, beard, age and colors. Civil scholar/envoy clothing only, no armor or fighting weapon. Near-horizontal relaxed eyebrows, smooth unpinched glabella, soft natural eyelids and gently closed lips. Comfortable low hands.\nMaintain requested 1536×1024 aspect. Entire crown with visible upper background, natural head and shoulder sizes.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "3e163f0855821afa24db1a857125d3045613e397dc00ed043e19bf44052575ac",
+          "file": "assets/officers/candidates/batch-0002/person-3/inspection-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:training",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "training",
+      "label": "整军训练",
+      "size": [
+        1792,
+        1008
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/training.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：平视整军监督或器械检查，沉静站立、低位自然持兵器或坐姿检查器械，嘴唇闭合，不大幅指点、挥击或蹲摆动作。\n该人物独立表演（优先于通用示例手势）：Seated upright at a low administrative table beside a practice ground, one hand holds a small bamboo register open and the other rests on the table. Calmly checking the roster, no weapon.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/training-01.png",
+        "sha256": "03c421486d090e3e981804e8e71ba351d072711c186a70f5a771a85179ad51de",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：平视整军监督或器械检查，沉静站立、低位自然持兵器或坐姿检查器械，嘴唇闭合，不大幅指点、挥击或蹲摆动作。\n该人物独立表演（优先于通用示例手势）：Seated upright at a low administrative table beside a practice ground, one hand holds a small bamboo register open and the other rests on the table. Calmly checking the roster, no weapon.\nInput image 1 role: this exact officer's approved original identity and costume, not an action or background template. Recompose the scene independently, keeping his facial geometry, eyes, nose, beard, age and colors. Civil scholar/envoy clothing only, no armor or fighting weapon. Near-horizontal relaxed eyebrows, smooth unpinched glabella, soft natural eyelids and gently closed lips. Comfortable low hands.\nMaintain requested 1792×1008 aspect. Entire crown with visible upper background, natural head and shoulder sizes.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "03c421486d090e3e981804e8e71ba351d072711c186a70f5a771a85179ad51de",
+          "file": "assets/officers/candidates/batch-0002/person-3/training-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:diplomacy",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "diplomacy",
+      "label": "外交接洽",
+      "size": [
+        1024,
+        1280
+      ],
+      "format": "半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/diplomacy.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：平视自然坐姿或轻微侧站，双手安放桌面或低位拢袖，神态礼貌中性，轻微转头听取意见，不夸张作揖、大笑或挑眉。\n该人物独立表演（优先于通用示例手势）：Seated upright on a plain visitor bench in shallow left three-quarter view, one hand rests comfortably on the near bench edge and the other on the robe-covered thigh. A closed narrow dispatch lies on a separate small side table, not held. Slight natural head turn toward an off-screen host, neutral polite gaze, closed lips and relaxed shoulders. This seated listening pose is distinct from his standing fold-sleeve full-body figure, two-hand open-dispatch report and map-table command scene. No deep bow, smile, extended palm or weapon.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/diplomacy-01.png",
+        "sha256": "ffb0bc003b31e0f89de306c348a5d12699970e757663571406093b396d84027d",
+        "width": 1122,
+        "height": 1402,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：平视自然坐姿或轻微侧站，双手安放桌面或低位拢袖，神态礼貌中性，轻微转头听取意见，不夸张作揖、大笑或挑眉。\n该人物独立表演（优先于通用示例手势）：Seated upright on a plain visitor bench in shallow left three-quarter view, one hand rests comfortably on the near bench edge and the other on the robe-covered thigh. A closed narrow dispatch lies on a separate small side table, not held. Slight natural head turn toward an off-screen host, neutral polite gaze, closed lips and relaxed shoulders. This seated listening pose is distinct from his standing fold-sleeve full-body figure, two-hand open-dispatch report and map-table command scene. No deep bow, smile, extended palm or weapon.\nInput image 1 role: Yi Ji's approved original face and costume, not an action or background template. Preserve his fuller cheeks, soft oval jaw, fine curved brows, nose, short fine mustache and separate pointed goatee, jade-green robe and modest complete crown. Recompose the requested specific scene. Civil envoy attire only, no armor, fighting weapon or fan. Neutral quiet resting brows, unpinched glabella, naturally closed lips and comfortable low arms. Maintain requested 1024×1280 aspect, and clear background over complete headwear.\nUse the officer-specific SEATED visitor-bench listening pose: one hand resting on bench edge and the other on thigh. Closed dispatch placed on separate small side table, no object held. No standing two-hand dispatch pose.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "ffb0bc003b31e0f89de306c348a5d12699970e757663571406093b396d84027d",
+          "file": "assets/officers/candidates/batch-0002/person-3/diplomacy-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:command",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "command",
+      "label": "军团指挥",
+      "size": [
+        1536,
+        864
+      ],
+      "format": "宽幅场景",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/command.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：自然端坐地图案前，略微前倾，一手轻触近处路线或图筹，另一手安放桌面或低位持扇，沉静研判，不俯压案面或伸长手臂。\n该人物独立表演（优先于通用示例手势）：Seated in left three-quarter view at a route-map desk, one hand rests naturally on a closed dispatch and the other beside a nearby map marker. Quiet measured gaze, no flourish.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/command-01.png",
+        "sha256": "8eadf7c6123eb96103d9f90dab689b6287b6ec2649d2453d19cd08c1560c7fb7",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：自然端坐地图案前，略微前倾，一手轻触近处路线或图筹，另一手安放桌面或低位持扇，沉静研判，不俯压案面或伸长手臂。\n该人物独立表演（优先于通用示例手势）：Seated in left three-quarter view at a route-map desk, one hand rests naturally on a closed dispatch and the other beside a nearby map marker. Quiet measured gaze, no flourish.\nInput image 1 role: Yi Ji's approved original face and costume, not an action or background template. Preserve his fuller cheeks, soft oval jaw, fine curved brows, nose, short fine mustache and separate pointed goatee, jade-green robe and modest complete crown. Recompose the requested specific scene. Civil envoy attire only, no armor, fighting weapon or fan. Neutral quiet resting brows, unpinched glabella, naturally closed lips and comfortable low arms. Maintain requested 1536×864 aspect, and clear background over complete headwear.\nSEATED at map desk, one hand naturally rests on the CLOSED dispatch lying on the desk, the other gently touches a nearby map marker. Nothing raised or held to read; distinct from his training open-register pose.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "8eadf7c6123eb96103d9f90dab689b6287b6ec2649d2453d19cd08c1560c7fb7",
+          "file": "assets/officers/candidates/batch-0002/person-3/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:travel",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "travel",
+      "label": "行旅运输",
+      "size": [
+        1024,
+        1792
+      ],
+      "format": "行旅全身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/travel.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：完整双脚的普通小步行走，侧面或三分之四朝前，目光沿路，衣摆轻微运动，持物贴近身体，不奔跑、大幅回头或披风飞扬。\n该人物独立表演（优先于通用示例手势）：Normal small walking step in right-facing three-quarter view on a country path. Dispatch held low close to the body and free hand lightly gathers the robe, complete feet and crown.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/travel-02.png",
+        "sha256": "ad84a9bbb60213704d48101312acbc1ef717a7b469b2d410bec26d67ed57197d",
+        "width": 948,
+        "height": 1659,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：完整双脚的普通小步行走，侧面或三分之四朝前，目光沿路，衣摆轻微运动，持物贴近身体，不奔跑、大幅回头或披风飞扬。\n该人物独立表演（优先于通用示例手势）：Normal small walking step in right-facing three-quarter view on a country path. Dispatch held low close to the body and free hand lightly gathers the robe, complete feet and crown.\nInput 1: approved Yi Ji identity, exact face, crown, beard and costume palette. Input 2: the current ORIGINAL travel illustration to correct. Preserve its character identity, neutral facial expression, upper-body action, gently held rolled dispatch, painted style, quiet road setting and tall 1024×1792 proportion.\nOne necessary visibility correction: BOTH complete cloth shoes must be clearly visible and separate in an ordinary short walking step. The current rear shoe disappears under the robe. Paint a naturally ankle-length robe hem and slightly clearer rear-foot placement to reveal the entire back shoe and its sole, while keeping both legs normally proportioned and balanced. Do not create crossed legs, a huge stride, floating feet or a theatrical skirt lift. Keep generous ground below both shoes and the whole crown within the frame. Normal low free hand, still cloth, no running, no wind or fluttering cape. No added people or text.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "070fa77b72a134a5dec5d7b1a84bc7cf5cda16c1074e779e5af1e2375117aa30",
+          "file": "assets/officers/candidates/batch-0002/person-3/travel-01.png"
+        },
+        {
+          "sha256": "ad84a9bbb60213704d48101312acbc1ef717a7b469b2d410bec26d67ed57197d",
+          "file": "assets/officers/candidates/batch-0002/person-3/travel-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:report",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "report",
+      "label": "报喜奏报",
+      "size": [
+        1536,
+        1152
+      ],
+      "format": "横向半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/report.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：平静呈报结果，低位自然持简、文书或扇，略有满意但保持嘴唇闭合，手势靠近身体，不大笑、拳礼或向镜头递卷。\n该人物独立表演（优先于通用示例手势）：Standing waist-up facing slightly left, an open bamboo dispatch supported near the waist in both hands. Eyes calmly meet an off-screen listener, reserved satisfaction without a smile.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/report-01.png",
+        "sha256": "445646489890910045f8f2aa921bad5c68b9290799a5c4b42d1aa9b0d78e2dc2",
+        "width": 1448,
+        "height": 1086,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：平静呈报结果，低位自然持简、文书或扇，略有满意但保持嘴唇闭合，手势靠近身体，不大笑、拳礼或向镜头递卷。\n该人物独立表演（优先于通用示例手势）：Standing waist-up facing slightly left, an open bamboo dispatch supported near the waist in both hands. Eyes calmly meet an off-screen listener, reserved satisfaction without a smile.\nInput image 1 role: Yi Ji's approved original face and costume, not an action or background template. Preserve his fuller cheeks, soft oval jaw, fine curved brows, nose, short fine mustache and separate pointed goatee, jade-green robe and modest complete crown. Recompose the requested specific scene. Civil envoy attire only, no armor, fighting weapon or fan. Neutral quiet resting brows, unpinched glabella, naturally closed lips and comfortable low arms. Maintain requested 1536×1152 aspect, and clear background over complete headwear.\nSTANDING upright reporting, open bamboo dispatch supported in both hands near low waist, relaxed neutral eyes toward an off-screen listener, no smile or document thrust.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "445646489890910045f8f2aa921bad5c68b9290799a5c4b42d1aa9b0d78e2dc2",
+          "file": "assets/officers/candidates/batch-0002/person-3/report-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:report-concern",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "report-concern",
+      "label": "告急奏报",
+      "size": [
+        1152,
+        1536
+      ],
+      "format": "近景半身像",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/report-concern.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：坐姿阅急报、略低眼神与轻微凝神，仍沉着中性，双手自然放置，不惊慌瞪眼、张口、扶额、抓须或前伸警示。\n该人物独立表演（优先于通用示例手势）：Seated in left three-quarter view, reading a small paper dispatch held low just above the desk in one hand, the other hand naturally rests on its edge. Composed thoughtful eyes and closed lips.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/report-concern-01.png",
+        "sha256": "b60ed132ff3c5dcf62ec4f357aa20a5ce855e2a45aa4a305162ed2b244e203f5",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：坐姿阅急报、略低眼神与轻微凝神，仍沉着中性，双手自然放置，不惊慌瞪眼、张口、扶额、抓须或前伸警示。\n该人物独立表演（优先于通用示例手势）：Seated in left three-quarter view, reading a small paper dispatch held low just above the desk in one hand, the other hand naturally rests on its edge. Composed thoughtful eyes and closed lips.\nInput image 1 role: Yi Ji's approved original face and costume, not an action or background template. Preserve his fuller cheeks, soft oval jaw, fine curved brows, nose, short fine mustache and separate pointed goatee, jade-green robe and modest complete crown. Recompose the requested specific scene. Civil envoy attire only, no armor, fighting weapon or fan. Neutral quiet resting brows, unpinched glabella, naturally closed lips and comfortable low arms. Maintain requested 1152×1536 aspect, and clear background over complete headwear.\nSEATED in shallow left three-quarter view reading one small paper held comfortably low; other hand on desk edge, calm lowered eyes, no furrow or alarm.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "b60ed132ff3c5dcf62ec4f357aa20a5ce855e2a45aa4a305162ed2b244e203f5",
+          "file": "assets/officers/candidates/batch-0002/person-3/report-concern-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-3:battle",
+      "officerId": "person-3",
+      "name": "伊籍",
+      "scene": "battle",
+      "label": "战斗切入",
+      "size": [
+        2048,
+        1152
+      ],
+      "format": "宽幅人物像",
+      "transparent": false,
+      "dependsOn": [
+        "person-3:portrait"
+      ],
+      "status": "complete",
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v3/person-3/battle.png",
+      "reference": "assets/officers/identity/person-3.png",
+      "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+      "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。\n该人物独立表演（优先于通用示例手势）：Calm civil envoy standing on the left of a wide quiet camp pavilion canvas, shallow left three-quarter torso, steady gaze and level head. Both hands rest softly behind the lower back with elbows close, relaxed ordinary shoulders and no held document or weapon. A closed rolled dispatch lies on a separate near desk. This stance differs from his front-held two-hand standee and report, one-hand rolled-plan inspection and seated diplomacy. No armor, feather fan, rigid chest-out pose or dramatic gesture.",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0002/person-3/battle-01.png",
+        "sha256": "1636de7e3c1083df2f42864c90664884057d2c95a9f70a6d0e5df024eaf940bc",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：伊籍 / person-3\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。\n该人物独立表演（优先于通用示例手势）：Calm civil envoy standing on the left of a wide quiet camp pavilion canvas, shallow left three-quarter torso, steady gaze and level head. Both hands rest softly behind the lower back with elbows close, relaxed ordinary shoulders and no held document or weapon. A closed rolled dispatch lies on a separate near desk. This stance differs from his front-held two-hand standee and report, one-hand rolled-plan inspection and seated diplomacy. No armor, feather fan, rigid chest-out pose or dramatic gesture.\nInput image 1 role: Yi Ji's approved original face and costume, not an action or background template. Preserve his fuller cheeks, soft oval jaw, fine curved brows, nose, short fine mustache and separate pointed goatee, jade-green robe and modest complete crown. Recompose the requested specific scene. Civil envoy attire only, no armor, fighting weapon or fan. Neutral quiet resting brows, unpinched glabella, naturally closed lips and comfortable low arms. Maintain requested 2048×1152 aspect, and clear background over complete headwear.\nSTANDING relaxed on left half of wide canvas, BOTH hands softly behind the LOWER back, elbows close and ordinary shoulders. No held prop, no folded hands in front, no stiff chest-out pose. Closed dispatch on a separate near desk; quiet camp atmosphere to the right. No extra people.",
+        "referenceSha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "1636de7e3c1083df2f42864c90664884057d2c95a9f70a6d0e5df024eaf940bc",
+          "file": "assets/officers/candidates/batch-0002/person-3/battle-01.png"
+        }
+      ]
+    }
+  ]
+}

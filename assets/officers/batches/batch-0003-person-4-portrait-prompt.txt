@@ -1,0 +1,5 @@
+Use case: identity-preserve
+Asset: original Three Kingdoms game officer identity portrait.
+Input: this exact same officer original candidate, not another officer. Preserve individual facial geometry and painterly semi-realistic style.
+Targeted revision: Change only framing: repaint a slightly wider head-and-shoulders view. The complete crown, horizontal pin, face, upper military lamellar and both shoulders fit within a square frame. Leave at least 10 percent visible background ABOVE the very highest headwear point, and comfortable margins beside both pin tips. Keep this same slender face, small fine mustache, narrow jaw, naturally calm expression, costume, colors and military role. Do not enlarge the crown or add a new expression.
+One main subject only. No hands, held props, weapon, text, border or collage. Do not copy expressions or hat shapes from other people.

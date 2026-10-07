@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {newGame,makeOfficer,startBattle,fillSlots,activeUnits,lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {initializeTacticLearning} from '../tactic-learning.mjs';
 import {rankEnemyReserves,planEnemyArmy} from '../battle-ai.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {canOccupy} from '../battlefield.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 
@@ -13,7 +13,7 @@ function encounter(entries,seed=710321){
   const s=newGame(seed),own=s.armies[0],enemy=s.armies[1];
   s.armies=[own,enemy];own.units=own.units.slice(0,6);
   enemy.units=entries.map(([type,troops=3000],i)=>{
-    const u=makeOfficer(enemyIds[i],troops,i,5,seed);u.type=type;
+    const u=makeOfficer(enemyIds[i],troops,i,5,seed);u.type=type==='ship'?'archer':type;if(type==='ship')u.equipment.ship='ship';
     initializeTacticLearning(u,seed);return u;
   });
   enemy.leader=enemy.units[0].id;enemy.advisor=enemy.units[0].id;enemy.deputy=null;
@@ -81,9 +81,9 @@ test('future arrivals, blockade and retreat never admit a stronger reserve early
   assert.ok(waves.sides[1].units.filter(u=>u.wave).every(u=>u.status==='reserve'));
 });
 
-test('unplaceable ships do not block land reserves; river deployment is legal and unique',()=>{
+test('boat carriers can deploy on land and river deployment is legal and unique',()=>{
   const s=encounter([['ship'],['spear']]),b=s.battle;b.terrain='land';
-  fillSlots(b,1);assert.equal(b.sides[1].units[0].status,'reserve');assert.equal(b.sides[1].units[1].status,'active');
+  fillSlots(b,1);assert.equal(b.sides[1].units[0].status,'active');assert.equal(b.sides[1].units[1].status,'active');
   const river=createScenario('river').battle,all=river.sides.flatMap(s=>s.units).filter(u=>u.status==='active');
   assert.ok(all.every(u=>canOccupy(river,u,u.x,u.y)));
   assert.equal(new Set(all.map(u=>`${u.x},${u.y}`)).size,all.length);

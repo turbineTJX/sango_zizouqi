@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {TACTICS_BOOK,unitTactics} from '../tactics.mjs';
 import {tacticPools,LEARNING_TROOPS} from '../tactic-learning.mjs';

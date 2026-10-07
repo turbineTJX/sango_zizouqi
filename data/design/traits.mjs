@@ -153,7 +153,7 @@ export const TRAIT_DESIGNS = {
     "description": "安抚成功后，若同城还有其他合法对象，可立即启动下一次安抚；重新支付费用和完整办理时间，等待军令时不续办。"
   },
   "trialChain": {
-    "name": "试制",
+    "name": "续研",
     "tier": "普通",
     "domain": "domestic",
     "scope": "actor",
@@ -163,7 +163,7 @@ export const TRAIT_DESIGNS = {
     "strategic": {
       "effect": "chain"
     },
-    "description": "研究成功达到门槛后，可当天衔接合法试制；另付试制费用，仍需完整试制时间与成功判定。"
+    "description": "完成一轮研究后，当天接续本城未完成项目或下一项合法科技；新项目支付费用，仍按实际工作日推进，等待军令时不续办。"
   },
   "successor": {
     "name": "接任",
@@ -188,13 +188,12 @@ export const TRAIT_DESIGNS = {
     "domain": "domestic",
     "scope": "actor",
     "kinds": [
-      "research",
-      "trial"
+      "research"
     ],
     "strategic": {
       "effect": "handoff"
     },
-    "description": "同城技术负责人被改任或调离时，可承接其尚在办理的研究或试制行动；保留该行动进度和已付费用，研究项目本身仍人人可接续。"
+    "description": "同城技术负责人被改任或调离时，可承接其正在办理的研究；保留行动进度和已付费用，城市项目仍可由其他负责人继续。"
   },
   "speakerHandoff": {
     "name": "说客",
@@ -335,13 +334,12 @@ export const TRAIT_DESIGNS = {
     "domain": "domestic",
     "scope": "actor",
     "kinds": [
-      "research",
-      "trial"
+      "research"
     ],
     "strategic": {
       "effect": "chain"
     },
-    "description": "研究与试制之间可连续衔接：完成研究立即办理试制，试制失败仍可重新评估后接续；每次都需实际费用、完整工期和合法目标。"
+    "description": "完成一轮研究后，立即接续本城未完成项目或下一项合法科技；仍需真实费用和工作时间。"
   },
   "cycleCargo": {
     "name": "漕运",
@@ -745,7 +743,7 @@ export const TRAIT_DESIGNS = {
       ],
       "quantity": 0.3
     },
-    "description": "非失败时，本次常规研制的实际研究进度提高30%；不能超过当前项目门槛，也不自动解锁科技。"
+    "description": "非失败时，常规研制的每日研究进度提高30%；仍需实际工作时间，达到100%按公共规则完成科技。"
   },
   "focusedResearch": {
     "name": "攻坚",
@@ -821,16 +819,16 @@ export const TRAIT_DESIGNS = {
     "domain": "domestic",
     "scope": "actor",
     "kinds": [
-      "trial"
+      "research"
     ],
     "direction": "technology",
     "work": {
       "actions": [
-        "trial"
+        "research"
       ],
       "chance": 0.1
     },
-    "description": "试制验证成功机会增加10个百分点，遵守统一成功率上限；只判定一次，未通过仍保留原研究进度。"
+    "description": "办理常规研制时，成果判定成功机会增加10个百分点，遵守统一上限；按实际工作日推进研究。"
   },
   "acuteHealing": {
     "name": "疗伤",
@@ -1015,21 +1013,19 @@ export const TRAIT_DESIGNS = {
     "domain": "domestic",
     "scope": "actor",
     "kinds": [
-      "trial"
+      "research"
     ],
     "direction": "technology",
     "work": {
       "actions": [
-        "trial"
+        "research"
       ],
       "chance": 0.2,
       "targets": [
-        "ram",
-        "siege",
-        "tower"
+        "siegeEngineering"
       ]
     },
-    "description": "试制冲车、投石或井栏时，成功机会增加20个百分点；其它科技不生效，仍须达到研究门槛并完成原试制命令。"
+    "description": "办理攻城器械研究时，常规研制的成功机会增加20个百分点；其它科技不生效，仍需真实研究时间。"
   },
   "jiaContingency": {
     "name": "审势",

@@ -1,7 +1,7 @@
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario,SCENARIOS} from '../scenarios.mjs';
+import {createScenario,SCENARIOS} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave,configureUnitTactics} from '../engine.mjs';
 import {recoverableWounded} from '../tactics.mjs';
 
@@ -24,10 +24,10 @@ for(const healer of ['liu'])test(`自然击溃守军后，${healer}继续使用�
  const unit=(id,type,troops)=>({id,type,troops,level:5,retreatAt:null});
  // An authored siege fixture: enough gate durability to observe the period
  // after the defenders fall. No intent, cooldown or wounded ledger injection.
- const fixture={...SCENARIOS.find(s=>s.id==='siege'),id:'engine-gate-support',ownName:'攻城验证军',enemyName:'守城验证军',terrain:'land',gateHp:60000,limit:480,waves:[],ownTeamRoles:{leader:'person-396',advisor:'yu',deputy:null},enemyTeamRoles:{leader:'jin',advisor:'jin',deputy:null},ownTeam:[unit('person-396','cavalry',6000),unit(healer==='liu'?'person-636':'person-433','spear',3000),unit('yu','crossbow',3000)],enemyTeam:[unit('jin','spear',1500),unit('yuanxia','archer',1500),unit('person-610','crossbow',1500)]};
+ const fixture={...SCENARIOS.find(s=>s.id==='siege'),id:'engine-gate-support',ownName:'攻城验证军',enemyName:'守城验证军',terrain:'land',gateHp:60000,limit:480,waves:[],ownTeamRoles:{leader:'person-396',advisor:'yu',deputy:null},enemyTeamRoles:{leader:'jin',advisor:'jin',deputy:null},ownTeam:[unit('person-396','cavalry',6000),unit(healer==='liu'?'person-636':'person-433','spear',3000),unit('yu','crossbow',3000)],enemyTeam:[unit('jin','spear',1800),unit('yuanxia','archer',1800),unit('person-610','crossbow',1800)]};
  SCENARIOS.push(fixture);t.after(()=>SCENARIOS.splice(SCENARIOS.indexOf(fixture),1));
- // Seed 2 leaves reachable wounded after the rule-50 defenders fall; seed 1 leaves them outside screen range.
- const state=createScenario(fixture.id,healer==='liu'?27:2),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');
+ // Current legal troop kits: seed 2 leaves real wounded and one support use after defenders fall.
+ const state=createScenario(fixture.id,2),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');
  if(healer==='liu')learnFixtureTactics(b.sides[0].units.find(u=>u.id==='person-636'),['unique-person-636','phalanx','strike']);
 
  validateSave(structuredClone(syncFixtureLearning(state)));lockDeployment(b);

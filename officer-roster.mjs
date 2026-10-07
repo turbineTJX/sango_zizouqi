@@ -22,12 +22,12 @@ export function rosterMarkup({query='',sort='source',direction,kind='all',page=0
  <div class="field-sort-bar" aria-label="点击字段排序">${[['source','来源编号'],['name','姓名'],...stats].map(([k,n])=>sortButton('catalog',k,n,sort,direction||(sort==='source'?'asc':'desc'))).join('')}</div></div>
  ${picker?'':`<section class="catalog-selection"><b>试炼阵容 ${selected.length} / 6</b><small>按加入顺序排列，首位任主将</small>
  <div>${selected.length?selected.map(id=>`<button class="button secondary" data-action="catalog-toggle" data-id="${id}" title="移出阵容">${esc(OFFICER_BY_ID[id]?.name)} ×</button>`).join(''):'尚未选将，在下方卡片加入。'}</div>
- <button class="button primary" data-action="catalog-launch" ${selected.length?'':'disabled'}>以此阵容开始试炼</button>
+ <button class="button primary" data-action="catalog-launch" ${selected.length?'':'disabled'}>开始</button>
  <button class="button secondary" data-action="catalog-clear" ${selected.length?'':'disabled'}>清空阵容</button></section>`}
  <p class="muted" role="status">共 ${matches.length} 人 · 第 ${page+1} / ${pages} 页</p>
- <div class="officer-grid">${rows.map(u=>`<article class="officer-card catalog-card"><div class="catalog-name"><span class="portrait catalog-art-portrait" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></span><h3>${esc(u.name)}<small>${u.courtesy?'字 '+esc(u.courtesy):'字未载'}</small></h3><span class="trait">${origin(u)} #${u.sourceId}</span></div>
+ <div class="officer-grid">${rows.map(u=>`<article class="officer-card catalog-card"><div class="catalog-name"><button type="button" class="portrait catalog-art-portrait portrait-inspect" data-action="${picker?'custom-person-detail':'catalog-detail'}" data-id="${esc(u.id)}" aria-label="查看${esc(u.name)}资料" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></button><h3>${esc(u.name)}<small>${u.courtesy?'字 '+esc(u.courtesy):'字未载'}</small></h3><span class="trait">${origin(u)} #${u.sourceId}</span></div>
  ${statMarkup(u)}<p class="muted">${FAMOUS_OFFICERS[u.id]?esc(FAMOUS_OFFICERS[u.id]?.role)+' · '+esc(TACTICS_BOOK[SPECIAL_TACTICS[u.id]]?.name):esc(commonRouteName(u))+' · 羁绊成长'}</p>
- <div class="catalog-card-actions"><button class="button secondary" data-action="${picker?'custom-person-detail':'catalog-detail'}" data-id="${u.id}">查看资料</button>${picker?`<button class="button secondary" data-action="custom-person-select" data-id="${u.id}" ${picker.used.includes(u.id)&&picker.current!==u.id?'disabled':''}>${picker.current===u.id?'当前武将':picker.used.includes(u.id)?'已在阵容':'选用此将'}</button>`:`<button class="button ${selected.includes(u.id)?'primary':'secondary'}" data-action="catalog-toggle" data-id="${u.id}" ${!selected.includes(u.id)&&selected.length>=6?'disabled':''}>${selected.includes(u.id)?'移出试炼':'加入试炼'}</button>`}</div></article>`).join('')||'<p class="catalog-empty">没有匹配的武将，请更换搜索词。</p>'}</div>
+ <div class="catalog-card-actions"><button class="button secondary" data-action="${picker?'custom-person-detail':'catalog-detail'}" data-id="${u.id}">查看资料</button>${picker?`<button class="button secondary" data-action="custom-person-select" data-id="${u.id}" ${picker.used.includes(u.id)&&picker.current!==u.id?'disabled':''}>${picker.current===u.id?'当前':picker.used.includes(u.id)?'已选':'选用'}</button>`:`<button class="button ${selected.includes(u.id)?'primary':'secondary'}" data-action="catalog-toggle" data-id="${u.id}" ${!selected.includes(u.id)&&selected.length>=6?'disabled':''}>${selected.includes(u.id)?'移出试炼':'加入试炼'}</button>`}</div></article>`).join('')||'<p class="catalog-empty">没有匹配的武将，请更换搜索词。</p>'}</div>
  <nav class="catalog-pages" aria-label="武将名录分页"><button class="button secondary" data-action="catalog-page" data-page="${page-1}" ${page===0?'disabled':''}>上一页</button><span>${page+1} / ${pages}</span><button class="button secondary" data-action="catalog-page" data-page="${page+1}" ${page+1>=pages?'disabled':''}>下一页</button></nav>`;
 }
 const traitName=(names,value)=>value===null||value===undefined?'未载':value===0?'未设置':names[value]||('未知（'+value+'）');
@@ -56,7 +56,7 @@ export function officerDetailMarkup(id,scores={},types={},preview=null){
  const u=Object.hasOwn(OFFICER_BY_ID,id)?{...OFFICER_BY_ID[id],...preview}:null;if(!u)return '<p>未找到武将。</p>';
  const s=u.profileSource;
  const aptitude=[['spearLv','枪兵'],['halberdLv','戟兵'],['crossbowLv','弓兵'],['rideLv','骑兵'],['machineLv','兵器'],['waterLv','水军']];
- return `<div class="catalog-detail-heading"><span class="portrait catalog-art-portrait" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></span><h3>${esc(u.name)} ${u.courtesy?'<small>字 '+esc(u.courtesy)+'</small>':''}</h3><span>${origin(u)} #${u.sourceId}</span></div>${statMarkup(u)}
+ return `<div class="catalog-detail-heading"><span class="portrait catalog-art-portrait" data-art-portrait="${esc(u.id)}" data-art-scene="detail"><span>${esc(u.name.slice(-1))}</span></span><h3>${esc(u.name)} ${u.courtesy?'<small>字 '+esc(u.courtesy)+'</small>':''}</h3><span>${origin(u)} #${u.sourceId}</span></div>${statMarkup(u)}
  ${officerCommandMarkup(id,u)}
  ${traitMarkup(u)}
  ${officerProfileMarkup(u,scores,types)}
@@ -78,8 +78,8 @@ export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,typ
  <p class="muted">初始关系：${info.sourceLabel}；当前关系可以变化，初始人物资料保留。</p>
  <label>当前关系（选择即保存）<select id="relationship-type" ${locked?'disabled':''}>${Object.entries(RELATIONSHIP_TIERS).filter(([type])=>type!=='parent'||info.sourceTypes.includes('parent')).map(([type,tier])=>`<option value="${type}" ${type===info.type?'selected':''}>${tier.label} · ${tier.min}～${tier.max}</option>`).join('')}</select></label>
  <div class="relationship-controls"><label>关系值（${info.min}～${info.max}）<input id="relationship-score" type="number" min="${info.min}" max="${info.max}" step="1" value="${info.score}" ${locked?'disabled':''}></label>
- <button class="button primary" data-action="relationship-save" ${locked?'disabled':''}>保存关系值</button>
- <button class="button secondary" data-action="relationship-reset" ${locked?'disabled':''}>恢复基准 ${info.base}</button></div>
+ <button class="button primary" data-action="relationship-save" ${locked?'disabled':''}>保存</button>
+ <button class="button secondary" data-action="relationship-reset" ${locked?'disabled':''} title="恢复关系基准值 ${info.base}">恢复基准</button></div>
  <p class="muted">${locked?'交战已经开始，关系锁定。':'修改保存在当前进度中；带入新试炼，试炼中的修改仅保存在试炼进度。'}两人共享当前关系及分值。厌恶 0～20、疏远 21～39、普通 40～59、友好 60～69、亲爱 70～79；父母子女 75～90、夫妻 80～95、义兄弟 80～100。变更关系时，原分值保留到新档允许的范围内。</p>
  <p class="muted">不同武将在 3 日内对同一目标完成战法时，按与上一位连携参与者的关系值判定（80 即 80%）。失败不加成，当前战法成为新一轮起点；自身增益不触发连携。</p></section>`;
 }

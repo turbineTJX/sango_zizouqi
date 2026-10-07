@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {battleIntent,configureBattleIntent,lockDeployment,stepBattle,validateSave,issueCommand} from '../engine.mjs';
 
 test('battle intent is selected before combat and stays locked at tick zero and after save recovery',()=>{

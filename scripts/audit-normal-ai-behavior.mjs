@@ -34,7 +34,7 @@ for(const spec of NATIONAL_SCENARIOS.filter(s=>!process.argv[5]||s.id===process.
   }
   validateCampaign(JSON.parse(serializeCampaign(s)));await writeFile(`${dir}/${spec.id}-${player}-final-save.json`,serializeCampaign(s));
  }catch(error){issues.push({day:s.campaign.day,type:'exception',message:error.stack});await writeFile(`${dir}/${spec.id}-${player}-failure.json`,serializeCampaign(s));}
- for(const f of factions){const m=metrics[f];m.endCities=s.cities.filter(c=>c.owner===f).length;m.gold=s.campaign.ai.treasuries[f];m.activeAssignments=s.campaign.domestic.assignments.filter(a=>s.cities.find(c=>c.id===a.cityId).owner===f).length;delete m.directions;}
+ for(const f of factions){const m=metrics[f];m.endCities=s.cities.filter(c=>c.owner===f).length;m.gold=s.cities.filter(c=>c.owner===f).reduce((n,c)=>n+c.gold,0);m.activeAssignments=s.campaign.domestic.assignments.filter(a=>s.cities.find(c=>c.id===a.cityId).owner===f).length;delete m.directions;}
  const nonSiegeShortages=shortages.filter(x=>x.men>0&&!x.besieged);
  const findings=nonSiegeShortages.length?[{type:'non-siege-garrison-hunger',cityDays:nonSiegeShortages.length,cities:[...new Set(nonSiegeShortages.map(x=>x.city))],message:'非围城驻军发生缺粮，需要检查补兵、供给和内政优先级。'}]:[];
  const result={scenario:spec.id,seed,player,day:s.campaign.day,finished:s.finished||null,issues,findings,metrics,planTrace,battleTrace,queueTrace,expeditions,shortages,plans:s.campaign.ai.plans,decisions:s.campaign.ai.decisions};results.push(result);

@@ -1,0 +1,22 @@
+{
+  "tool": "built-in image_gen",
+  "generatedAt": "2026-10-07",
+  "prompts": [
+    {
+      "region": "plain",
+      "prompt": "Use case: historical-scene. Asset type: original terrain foundation for a Han-era Chinese strategy game's city model. Create a landscape 3:2 orthographic elevated isometric aerial terrain plate, camera tilted about 35 degrees down, entire canvas filled with land seen from overhead, no horizon, no sky. Richly painted detailed realistic classic strategy-game environment, earth paths, stone edges, natural trees, shrubs, terrain with depth, restrained warm daylight, NOT flat geometry. Center 70 percent is open gently textured buildable ground for movable building sprites, no predetermined building slots. No buildings, no walls, no temples, no people, no text, no labels, no user interface, no grid. Map art must be continuous and believable when zoomed from a map. Scene: Central Chinese plains. Broad sandy ochre open ground, old earthen paths crossing near the center, cropped wheat fields and low hedgerows near the lower outer margins, scattered willow and elm along outer edges, distant low relief only at upper corners. No dramatic mountains, no water."
+    },
+    {
+      "region": "mountain",
+      "prompt": "Use case: historical-scene. Asset type: original terrain foundation for a Han-era Chinese strategy game's city model. Create a landscape 3:2 orthographic elevated isometric aerial terrain plate, camera tilted about 35 degrees down, entire canvas filled with land seen from overhead, no horizon, no sky. Richly painted detailed realistic classic strategy-game environment, earth paths, stone edges, natural trees, shrubs, terrain with depth, restrained warm daylight, NOT flat geometry. Center 70 percent is open gently textured buildable ground for movable building sprites, no predetermined building slots. No buildings, no walls, no temples, no people, no text, no labels, no user interface, no grid. Map art must be continuous and believable when zoomed from a map. Scene: Mountain basin in western China. Buildable open valley ground in the center, wooded rocky slopes at left and upper edges, natural terraces and narrow dirt lanes, sparse muted conifers and broadleaf woodland, subtle stream confined to far right edge, no epic cliffs cutting across the center."
+    },
+    {
+      "region": "river",
+      "prompt": "Use case: historical-scene. Asset type: original terrain foundation for a Han-era Chinese strategy game's city model. Create a landscape 3:2 orthographic elevated isometric aerial terrain plate, camera tilted about 35 degrees down, entire canvas filled with land seen from overhead, no horizon, no sky. Richly painted detailed realistic classic strategy-game environment, earth paths, stone edges, natural trees, shrubs, terrain with depth, restrained warm daylight, NOT flat geometry. Center 70 percent is open gently textured buildable ground for movable building sprites, no predetermined building slots. No buildings, no walls, no temples, no people, no text, no labels, no user interface, no grid. Map art must be continuous and believable when zoomed from a map. Scene: Southern Chinese riverside land. Green buildable open ground through the center, river curving down far left edge occupying at most 15 percent, humid trees and bamboo along upper and lower margins, rice-field edges at bottom right, natural levee and paths, no mountains dominating the scene."
+    },
+    {
+      "region": "frontier",
+      "prompt": "Use case: historical-scene. Asset type: original terrain foundation for a Han-era Chinese strategy game's city model. Create a landscape 3:2 orthographic elevated isometric aerial terrain plate, camera tilted about 35 degrees down, entire canvas filled with land seen from overhead, no horizon, no sky. Richly painted detailed realistic classic strategy-game environment, earth paths, stone edges, natural trees, shrubs, terrain with depth, restrained warm daylight, NOT flat geometry. Center 70 percent is open gently textured buildable ground for movable building sprites, no predetermined building slots. No buildings, no walls, no temples, no people, no text, no labels, no user interface, no grid. Map art must be continuous and believable when zoomed from a map. Scene: Northwestern Chinese oasis frontier. Broad dry sandy loess ground in center, ochre rocky ridges at upper perimeter, sparse poplars and dry shrubs at margins, faint agricultural oasis plots at bottom corner, worn earthen roads. No green lush mountains, no buildings."
+    }
+  ]
+}

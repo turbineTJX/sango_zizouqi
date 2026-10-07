@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {HEX_ASPECT,hexNeighbors,hexDistance,hexBeyond,hexCenter,insideHexGrid} from '../hex-grid.mjs';
 import {routeTo,unitTactics} from '../tactics.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 
 test('each offset-row neighbor is reciprocal, one step away, and equally spaced on screen',()=>{

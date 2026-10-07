@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {fieldCampaign,fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldCampaign,fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
 import {beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,orderCampaignArmy,splitCampaignArmy,supplyConnection,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
 
 function nextDays(s,count=2){const end=s.campaign.day+count;for(let i=0;i<20&&s.campaign.day<end;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,end);}
@@ -10,7 +10,7 @@ function siege(columns=1){
  for(const c of s.cities.filter(c=>c.owner==='yuan'))c.kind='gate';
  for(const a of s.armies.filter(a=>a.faction==='yuan'))a.stationary=true;
  const ids=['a1'];for(let i=1;i<columns;i++){const first=s.armies.find(a=>a.id==='a1');assert.equal(splitCampaignArmy(s,'a1',[first.units.at(-1).id]),null);ids.push(s.armies.at(-1).id);}
- for(const id of ids)assert.equal(orderCampaignArmy(s,id,'guandu'),null);beginExecution(s);
+ for(const id of ids){assert.equal(orderCampaignArmy(s,id,'guandu'),null);approachDestination(s,s.armies.find(a=>a.id===id));}beginExecution(s);
  for(let i=0;i<20&&!activeBattles(s).some(r=>r.cityId==='guandu'&&ids.every(id=>r.armyIds.includes(id)));i++){for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  const r=activeBattles(s).find(r=>r.cityId==='guandu');assert.ok(r);assert.equal(r.kind,'siege');
  const a=s.armies.find(a=>a.id==='a1');assert.equal(a.travel,null);

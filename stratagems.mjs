@@ -16,8 +16,8 @@ export const officerStratagems=id=>Object.hasOwn(OFFICER_STRATAGEMS,id)?OFFICER_
 export const stratagemPoolLabel=id=>STRATAGEMS[id]?.pool==='exclusive'?'专属军略':'普通军略';
 
 export const commanderStratagems=c=>c&&['leader','advisor'].includes(c.role)&&stratagemEligible(c.id)?officerStratagems(c.id):[];
-export const availableBattleCommanders = side => side.retreat ? [] : (side.commanders||[]).filter(c=>side.units.some(u=>u.id===c.id && u.hp>0 && !u.withdrawing && ['active','reserve'].includes(u.status)));
-export const STRATAGEM_RULE_TEXT='仅基础智力≥70的武将拥有军略，任军团长或军师时提供；所率部队被歼灭、开始撤离或撤退后不能再提供军略；通常2项，仅诸葛亮3项。基础智力不足70者无军略，升级不改变资格。专属占用总名额；重复军略取合资格持有者的较强效果。普通军略数值按持有者统率、智力折算，督军可强化指定普通军略的数值效果，不增强专属、范围、时长或冷却缩短；八阵概率与魏武挥鞭时长按目标军纪判定，兵贵神速固定强化一队；统军类偏重统率，谋划与救治类偏重智力。';
+export const availableBattleCommanders = (side,tick=0) => side.retreat ? [] : (side.commanders||[]).filter(c=>side.units.some(u=>u.id===c.id && u.hp>0 && !u.withdrawing && (u.arrivalTick||0)<=tick && u.arrivalConfirmed!==false && ['active','reserve'].includes(u.status)));
+export const STRATAGEM_RULE_TEXT='仅基础智力≥70的武将拥有军略，任军团长或军师时提供；所率部队被歼灭、开始撤离或撤退后不能再提供军略；通常2项，仅诸葛亮3项。基础智力不足70者无军略，升级不改变资格。专属占用总名额；重复军略取合资格持有者的较强效果。普通军略数值按持有者统率、智力折算；八阵概率与魏武挥鞭时长按目标军纪判定，兵贵神速固定强化一队；统军类偏重统率，谋划与救治类偏重智力。';
 
 const baseStrength={assault:.25,fortify:.2,disrupt:.15,heal:.08,regenerate:.01,relief:.15,inspire:35,demoralize:45,cycle:15,range:2,haste:1,blockade:1,cleanse:1,firestorm:1};
 export function stratagemProfile(key,holder,bondBonus=0){
@@ -25,7 +25,7 @@ export function stratagemProfile(key,holder,bondBonus=0){
  const u={...OFFICER_BY_ID[holder.id],...holder},effect=s.effect||key;
  const weights=s.weights||(['heal','regenerate','firestorm','disrupt','demoralize','blockade','cycle','cleanse'].includes(effect)?{leadership:.3,intellect:.7}:{leadership:.7,intellect:.3});
  const score=Object.entries(weights).reduce((n,[k,w])=>n+(u[k]??0)*w,0),power=Math.round(Math.max(.35,Math.min(1.3,(score/80)**2))*10000)/10000;
- const bondStrength=s.pool==='ordinary'&&BOND_DESIGNS.bondCommand.enhancedEffects.includes(effect)?bondBonus:0;
+ const bondStrength=0;
  const strength=(s.baseStrength??baseStrength[effect]??1)*power*(1+bondStrength);
  const duration=['range','haste','blockade'].includes(effect)?Math.max(1,Math.round(s.duration*power)):s.duration;
  return {key,bondStrength,id:u.id,name:u.name,role:holder.role||'leader',power,score,weights,strength,duration,resolve:Math.max(1,Math.round((s.resolve||3)*power)),cooldownReduction:Math.max(1,Math.round(4*power)),intentDrain:Math.round((s.intentDrain||0)*power)};

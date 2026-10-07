@@ -210,7 +210,7 @@ export const DESIGN_NOTES = {
     "liuEngines": {
       "classification": "已有内政命令效果",
       "rationale": "仅对应实际命令生效，双方共用结算；人选为游戏设计分配，不作为史实断言。",
-      "acceptance": "固定同一合法命令、投入和随机种子，对照有无特性；验证siegeTrialChance只影响本命令对应结算字段，目标失效、中断与存读档不重复获益。"
+      "acceptance": "固定同一合法命令、投入和随机种子，对照有无特性；验证目标限定的研究概率只影响本命令对应结算字段，目标失效、中断与存读档不重复获益。"
     },
     "jiaContingency": {
       "classification": "已有内政命令效果",

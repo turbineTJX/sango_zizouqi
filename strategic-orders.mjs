@@ -1,4 +1,5 @@
 import {validMapRoute} from "./strategic-movement.mjs";
+import {intelligenceWorld} from './strategic-vision.mjs';
 import {mapNode} from './road-network.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {strategicDepartureError} from './strategic-ai.mjs';
@@ -8,6 +9,7 @@ import {residentOfficer} from './city-personnel.mjs';
 import {DIRECTIONS,TECHS,assignmentFor,assignDomestic,dismissDomestic,actionName,cancelOrdersFor,removeDomesticOrder,recordDomesticOrder} from './domestic.mjs';
 import {prepareDepartureUnits,expeditionError,launchExpedition,isPlanning,armyBattle,findCampaignRoute,orderCampaignArmy,transferOfficer} from './strategic-campaign.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
+import {requestDiplomaticInterruption,clearDiplomaticAppointments} from './diplomacy.mjs';
 const town=mapNode;
 export function strategicOrderLabel(s,q){
  if(q.kind==='expedition')return `编组出征${town(s,q.target)?.name||'目标据点'}`;
@@ -27,13 +29,14 @@ function normalize(s,command){
   const a=s.armies.find(a=>a.id===command.armyId);
   return {kind:'march',armyId:command.armyId,cityId:a?.location,officerIds:a?.units.map(u=>u.id)||[],target:command.target,policy:command.policy||'auto',...(command.route?{route:[...command.route]}:{})};
  }
- return {kind:command.kind,cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],...(command.kind==='assign'?{direction:command.direction}:command.kind==='transfer'?{target:command.target,cargo:command.cargo||{grain:0,manpower:0},relay:command.relay||null,cycles:command.cycles||0,safeOnly:command.safeOnly===true}:{})};
+ return {kind:command.kind,cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],...(command.kind==='assign'?{direction:command.direction}:command.kind==='transfer'?{target:command.target,cargo:{gold:0,grain:0,manpower:0,...command.cargo},relay:command.relay||null,cycles:command.cycles||0,safeOnly:command.safeOnly===true}:{})};
 }
 function check(s,q){
  const faction=q.faction;
  if(q.officerIds.some(id=>missionOfficer(s,id))){const local=structuredClone(s);for(const u of missionUnits(local))delete u.mission;return check(local,q);}
  if(s.finished)return '本局已结束';
  if(!['assign','march','expedition','transfer','dismiss'].includes(q.kind)||!q.officerIds.length)return '命令或武将无效';
+ if(q.officerIds.some(id=>residentOfficer(s,id)?.unit.scouting))return '该武将正在负责侦察，请先停止侦察';
  if(q.kind==='expedition'){const error=expeditionError(s,q,{scheduled:true,faction});if(error)return error;if(!Number.isSafeInteger(q.minSupply)||q.minSupply<0||q.minSupply>q.officerIds.length*900)return '携粮要求无效';return town(s,q.cityId).grain<q.minSupply?'粮草未达到出征要求':null;}
  if(q.kind==='march'){
   const a=s.armies.find(a=>a.id===q.armyId);
@@ -57,7 +60,7 @@ function check(s,q){
    const error=transferOfficer(s,id,q.target,{scheduled:true,cargo:q.cargo,relay:q.relay,cycles:q.cycles,checkOnly:true,faction});if(error)return error;
    if(s.cities.some(c=>c.governor===id))return '请先解除太守任命';
    const path=findCampaignRoute(s,o.location,q.target,faction);if(!path)return '调任道路不通';
-   if(q.safeOnly&&threatenedTransportRoute(s,o.location,path,faction))return '运输道路出现敌军，取消本次安排';
+   if(q.safeOnly&&threatenedTransportRoute(intelligenceWorld(s,faction),o.location,path,faction))return '运输道路出现敌军，取消本次安排';
   }
  }
  return null;
@@ -69,10 +72,11 @@ function affected(s,q){
 }
 function apply(s,q,scheduled=false){
  const faction=q.faction;
- if(q.kind==='expedition')return launchExpedition(s,q,{scheduled,faction});
+ if(q.kind==='expedition'){const error=launchExpedition(s,q,{scheduled,faction});if(!error)clearDiplomaticAppointments(s,q.officerIds);return error;}
  if(q.kind==='march')return orderCampaignArmy(s,q.armyId,q.target,q.policy,{scheduled,faction,path:q.route});
- if(q.kind==='transfer')return transferOfficer(s,q.officerIds[0],q.target,{scheduled,cargo:q.cargo,relay:q.relay,cycles:q.cycles,faction});
+ if(q.kind==='transfer'){const error=transferOfficer(s,q.officerIds[0],q.target,{scheduled,cargo:q.cargo,relay:q.relay,cycles:q.cycles,faction});if(!error)clearDiplomaticAppointments(s,q.officerIds);return error;}
  for(const id of q.officerIds){const error=q.kind==='assign'?assignDomestic(s,q.cityId,q.direction,id,{scheduled,faction}):dismissDomestic(s,id,{scheduled,faction});if(error)return error;}
+ clearDiplomaticAppointments(s,q.officerIds);
  return null;
 }
 export function requestStrategicOrder(s,command,choice=null){
@@ -80,8 +84,10 @@ export function requestStrategicOrder(s,command,choice=null){
 }
 // Controller identity is explicit; never swap the player's faction or treasury.
 export function requestFactionOrder(s,faction,command,choice='after',scheduled=true){
+ if(!scheduled&&!isPlanning(s))return {error:'须在筹划阶段下令'};
+ const diplomatic=requestDiplomaticInterruption(s,faction,command,choice);if(diplomatic)return diplomatic;
  if(command.kind==='expedition'&&command.formation){
-  const next=structuredClone(s),away=missionUnits(next).filter(u=>command.officerIds.includes(u.id)).map(u=>({u,m:u.mission}));for(const x of away)delete x.u.mission;const error=prepareDepartureUnits(next,command.cityId,command.officerIds,command.formation.types,command.formation.reinforce,command.formation.troops,command.formation.disbandIds);for(const x of away)x.u.mission=x.m;if(error)return {error};
+  const next=structuredClone(s),away=missionUnits(next).filter(u=>command.officerIds.includes(u.id)).map(u=>({u,m:u.mission}));for(const x of away)delete x.u.mission;const error=prepareDepartureUnits(next,command.cityId,command.officerIds,command.formation.types,command.formation.reinforce,command.formation.troops,command.formation.disbandIds,command.formation.equipment);for(const x of away)x.u.mission=x.m;if(error)return {error};
   const clean={...command};delete clean.formation;const result=requestFactionOrder(next,faction,clean,choice,scheduled);
   if(result.confirmation)result.confirmation.command=structuredClone(command);
   else if(!result.error)Object.assign(s,next);
@@ -138,7 +144,7 @@ export function validateStrategicOrders(s){
   if(q.kind==='expedition')fail(Number.isSafeInteger(q.minSupply)&&q.minSupply>=0&&q.minSupply<=q.officerIds.length*900&&q.officerIds.length<=10&&q.officerIds.includes(q.leader)&&q.officerIds.includes(q.advisor)&&(q.deputy===null||q.officerIds.includes(q.deputy))&&town(s,q.target)&&q.target!==q.cityId&&['auto','main'].includes(q.policy));
   if(q.kind==='assign')fail(!!DIRECTIONS[q.direction]);
   if(q.kind==='march'){const a=s.armies.find(a=>a.id===q.armyId);fail(a&&!a.travel&&!a.route.length&&a.units.filter(u=>u.troops>0).length<=10&&a.units.length===q.officerIds.length&&a.units.every(u=>q.officerIds.includes(u.id))&&town(s,q.target)&&q.target!==q.cityId&&['auto','main'].includes(q.policy));}
-  if(q.kind==='transfer'){fail(typeof q.safeOnly==='boolean'&&q.cargo&&['grain','manpower'].every(k=>Number.isSafeInteger(q.cargo[k])&&q.cargo[k]>=0));} if(q.cycles!==undefined)fail(Number.isInteger(q.cycles)&&q.cycles>=0&&q.cycles<=5&&q.cycles!==1);
+  if(q.kind==='transfer'){fail(typeof q.safeOnly==='boolean'&&q.cargo&&['gold','grain','manpower'].every(k=>Number.isSafeInteger(q.cargo[k])&&q.cargo[k]>=0));} if(q.cycles!==undefined)fail(Number.isInteger(q.cycles)&&q.cycles>=0&&q.cycles<=5&&q.cycles!==1);
   if(q.relay)fail(q.kind==='transfer'&&town(s,q.relay)&&q.relay!==q.target&&q.relay!==q.cityId);
   if(q.kind==='transfer')fail(q.officerIds.length===1&&town(s,q.target)&&q.target!==q.cityId&&!(residentOfficer(s,q.officerIds[0])||missionOfficer(s,q.officerIds[0])).army);
  }

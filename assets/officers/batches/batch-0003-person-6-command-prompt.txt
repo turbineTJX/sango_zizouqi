@@ -1,0 +1,11 @@
+Use case: identity-preserve
+人物：尹默 / person-6
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+人物类型：主类型：文臣学士；次类型：无。依据：名册记为蜀汉学士，教左氏春秋，任博士、劝学从事。人物仪态：经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。
+身份：A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face. A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1536×864，宽幅场景，有场景背景。
+场景含义：参与军团部署，表现本人实际指挥或辅助职责。在军务场所办理文书、补给或联络，表现辅助职责。
+该人物独立表演（符合人物类型，并优先于通用示例手势）：Seated left three-quarter at a compact route-map table, both hands lie comfortably beside a nearby marker and a closed register. Soft thoughtful gaze at the table, no flourish.
+Independently paint ONE complete original illustration for this exact task and aspect ratio. The input image provides only this individual face and clothing identity; do not reuse its headshot framing or pose. Keep the mature semi-realistic hand-painted game finish, relaxed resting brows and closed lips. Exactly one visible subject, no lettering, watermark, frame or montage. Follow the specified individual action and military/civil role.

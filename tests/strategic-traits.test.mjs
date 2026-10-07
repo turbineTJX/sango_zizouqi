@@ -1,3 +1,5 @@
+import {initializeBuildingDurability} from '../building-durability.mjs';
+import {fundCities} from './resource-fixtures.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -12,16 +14,16 @@ import {movementPoints} from '../strategic-movement.mjs';
 import {setRelationshipType} from '../relationships.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function setup(ids,seed=71){
- const s=peacefulCities(newCampaign(seed)),c=s.cities.find(c=>c.id==='xuchang');s.gold=100000;c.granary=5;c.grain=50000;c.clinic=1;c.workshop=1;c.farm=1;c.commerce=1;
+ const s=peacefulCities(newCampaign(seed)),c=s.cities.find(c=>c.id==='xuchang');fundCities(s,100000);c.granary=5;c.grain=50000;c.clinic=1;c.workshop=1;c.farm=1;c.commerce=1;initializeBuildingDurability(c);
  for(const id of ids){for(const t of s.cities)t.units=t.units.filter(u=>u.id!==id);for(const a of s.armies)a.units=a.units.filter(u=>u.id!==id);s.campaign.idle=s.campaign.idle.filter(o=>o.unit.id!==id);s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);c.units.push({...makeOfficer(id,2000),homeCity:c.id});}
  s.grain=Math.floor(s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0));return {s,c,units:ids.map(id=>c.units.find(u=>u.id===id))};
 }
 function only(c,direction,keys){for(const [key,d]of Object.entries(ACTIONS))if(d.direction===direction&&!keys.includes(key))c.domestic.cooldowns[key]=1000;}
 function days(s,n){const target=s.campaign.day+n;for(let i=0;i<500&&s.campaign.day<target;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,target);}
 test('Diao Chan alone starts Qingguo and cap budget is preserved; real hits and saves use common statuses',()=>{
- assert.equal(BOND_ASSIGNMENTS['person-425'].bondBeauty,2);for(const id of ['person-301','person-388','person-267','person-311'])assert.equal(BOND_ASSIGNMENTS[id].bondBeauty,1);
+ assert.equal(BOND_ASSIGNMENTS['person-425'].bondBeauty,2);for(const id of ['person-301','person-388','person-267'])assert.equal(BOND_ASSIGNMENTS[id].bondBeauty,1);
  const u=id=>({id,type:'archer',troops:5000,level:10});const s=createScenario('custom-battle',811,20,null,{seed:811,terrain:'land',ownTeam:['person-425','person-301','person-388','person-267'].map(u),enemyTeam:['cao','dun','chu','liao'].map(u)}),b=s.battle;lockDeployment(b);assert.equal(sideBonds(b,0).bondBeauty.points,5);
- let seen=false;for(let i=0;i<120&&!b.result;i++){stepBattle(b);if(b.sides[1].units.some(u=>u.statuses.powerDown?.sourceSkillName==='倾国')){seen=true;break;}}assert.ok(seen);
+ let seen=false;for(let i=0;i<120&&!b.result;i++){stepBattle(b);if(b.sides[1].units.some(u=>Object.values(u.statuses).some(s=>s.sourceSkillName==='倾国'))){seen=true;break;}}assert.ok(seen);
  const copy=validateSave(structuredClone(s));for(let i=0;i<8;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(s,copy);
 });
 test('real paid work can hand off exactly once without double fees and resumes deterministically',()=>{
@@ -55,7 +57,7 @@ test('referral finds a real relationship candidate without recruiting or relocat
  }assert.ok(found);
 });
 test('continuous convoys reload each batch from real source stock and cannot duplicate troops',()=>{
- const {s,c,units}=setup(['person-195']);units[0].troops=0;const destination=s.cities.find(v=>v.id==='chenliu');destination.granary=5;destination.grain=0;
+ const {s,c,units}=setup(['person-195']);units[0].troops=0;const destination=s.cities.find(v=>v.id==='chenliu');destination.granary=5;initializeBuildingDurability(destination);destination.grain=0;
  assert.equal(transferOfficer(s,units[0].id,destination.id,{cargo:{grain:500,manpower:0},cycles:2}),null);let o=s.campaign.idle.find(o=>o.unit.id===units[0].id);assert.equal(o.convoyCycle.remaining,2);const copy=restore(s);days(s,10);days(copy,10);assert.equal(serializeCampaign(s),serializeCampaign(copy));
  o=s.campaign.idle.find(o=>o.unit.id===units[0].id);assert.ok(!o.convoyCycle||o.convoyCycle.remaining<2);assert.equal(s.cities.flatMap(c=>c.units).filter(u=>u.id===units[0].id).length,0);restore(s);
 });
@@ -66,10 +68,11 @@ test('healing remainder reaches only real new wounded and never creates soldiers
   first.troops+=first.wounded;first.wounded=0;other.troops-=300;other.wounded=300;const before=other.troops;days(s,5);if(other.troops>before){verified=true;assert.ok(other.troops-before<=300);assert.equal(other.wounded,300-(other.troops-before));restore(s);}
  }assert.ok(verified);
 });
-test('crafting continuation starts a new fully paid timed trial and pending orders suppress chains',()=>{
+test('research continuation starts the next paid timed project and waiting orders suppress chains',()=>{
  let verified=false;for(let seed=1;seed<12&&!verified;seed++){
-  const {s,c}=setup(['person-509'],seed);only(c,'technology',['research','trial']);assignDomestic(s,c.id,'technology','person-509');beginDomesticTurn(s);const a=assignmentFor(s,'person-509');assert.equal(a.action.key,'research');
-  c.domestic.research.progress=TECHS[a.action.targetId].requiredProgress-1;const waiting=structuredClone(s);assert.ok(requestStrategicOrder(waiting,{kind:'dismiss',cityId:c.id,officerIds:['person-509']},'after').queued);days(s,10);days(waiting,10);assert.equal(assignmentFor(waiting,'person-509'),undefined);if(a.action?.key==='trial'){verified=true;assert.equal(a.action.remaining,ACTIONS.trial.days);assert.equal(a.action.cost,ACTIONS.trial.cost);restore(s);}
+  const {s,c}=setup(['person-509'],seed);only(c,'technology',['research']);assignDomestic(s,c.id,'technology','person-509');beginDomesticTurn(s);const a=assignmentFor(s,'person-509'),first=a.action.targetId;
+  const waiting=structuredClone(s);assert.ok(requestStrategicOrder(waiting,{kind:'dismiss',cityId:c.id,officerIds:['person-509']},'after').queued);days(s,10);days(waiting,10);assert.equal(assignmentFor(waiting,'person-509'),undefined);
+  if(c.domestic.techs.includes(first)&&a.action?.key==='research'&&a.action.targetId!==first){verified=true;assert.equal(a.action.cost,TECHS[a.action.targetId].cost);assert.ok(a.action.remaining>0);assert.ok(c.domestic.research.progress<100);restore(s);}
  }assert.ok(verified);
 });
 

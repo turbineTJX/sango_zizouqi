@@ -1,3 +1,5 @@
+import {setBuildingLevel} from './building-fixtures.mjs';
+import {fundCities} from './resource-fixtures.mjs';
 import {invadeFromGuandu,fieldFromCity,peacefulCities} from './helpers/field-campaign.mjs';
 import {readyTalent} from './helpers/talent.mjs';
 import test from 'node:test';
@@ -13,7 +15,8 @@ import {strategicView} from '../strategic-view.mjs';
 
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function setup(seed=1,keys=['fair'],count=2){
- const s=newCampaign(seed),c=s.cities.find(c=>c.id==='xuchang');peacefulCities(s);s.gold=40000;s.cities.forEach(c=>c.grain=20000);s.grain=s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0);
+ const s=newCampaign(seed),c=s.cities.find(c=>c.id==='xuchang');peacefulCities(s);fundCities(s,40000);s.cities.forEach(c=>c.grain=20000);s.grain=s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0);
+ if(keys.some(key=>ACTIONS[key].kind==='recruit'))c.manpower=20000;
  const present=s.campaign.idle.filter(o=>o.location===c.id&&o.faction===c.owner);
  if(count>present.length){const used=new Set([...s.cities.flatMap(c=>c.units.map(u=>u.id)),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)]);for(const id of Object.keys(OFFICER_BY_ID).filter(id=>!used.has(id)).slice(0,count-present.length)){const o={unit:{...makeOfficer(id,0),homeCity:c.id},faction:c.owner,location:c.id,destination:null,remainingDays:0};s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);s.campaign.idle.push(o);present.push(o);}}
  const dir=ACTIONS[keys[0]].direction;
@@ -50,7 +53,7 @@ test('same-direction different actions can cooperate; waiting colleagues can ass
 
 test('real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost',()=>{
  const {s,r}=example(['fair'],r=>r.success&&r.actual>0&&r.relationGain>0);
- const e=s.campaign.domestic.events.find(e=>e.phase==='complete'&&e.actionId===r.actionId);assert.equal(e.result.actual,r.after);assert.ok(r.after>r.before);
+ const e=s.campaign.domestic.events.find(e=>['complete','failure'].includes(e.phase)&&e.actionId===r.actionId);assert.equal(e.result.actual,r.after);assert.ok(r.after>r.before);
  assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='start').length,2);assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='cooperation').length,1);
  assert.equal(relationshipInfo(r.officerId,r.helperId,s.relationshipScores,s.relationshipTypes).score,r.relation+r.relationGain);restore(s);
 });
@@ -69,11 +72,11 @@ test('group cap is independent of officer count, and UI/refresh preserve determi
 test('different directions, different cities and empty tasks cannot generate cooperation',()=>{
  const {s,c,officers}=setup();assignDomestic(s,c.id,'agriculture',officers[1].unit.id);advance(s,11);assert.deepEqual(s.campaign.domestic.cooperation,{});
  const f=setup();assert.equal(transferOfficer(f.s,f.officers[1].unit.id,'chenliu'),null);advance(f.s,11);assert.deepEqual(f.s.campaign.domestic.cooperation,{});
- const empty=setup();empty.s.gold=0;advance(empty.s,11);assert.deepEqual(empty.s.campaign.domestic.cooperation,{});restore(empty.s);
+ const empty=setup(1,['research']);fundCities(empty.s,0);advance(empty.s,11);assert.deepEqual(empty.s.campaign.domestic.cooperation,{});restore(empty.s);
 });
 
 test('multiple research and talent assignments retain exclusive research and person targets',()=>{
- const f=setup(5,['research','trial'],6);beginExecution(f.s);assert.equal(f.s.campaign.domestic.assignments.filter(a=>a.action).length,1);restore(f.s);
+ const f=setup(5,['research','breakthrough'],6);beginExecution(f.s);assert.equal(f.s.campaign.domestic.assignments.filter(a=>a.action).length,1);restore(f.s);
  const g=setup(5,['hire'],5),p=readyTalent(g.s,g.c.id);beginExecution(g.s);assert.equal(g.s.campaign.domestic.assignments.filter(a=>a.action).length,1);advance(g.s,11);restore(g.s);
  const all=[...g.s.armies.flatMap(a=>a.units.map(u=>u.id)),...g.s.campaign.idle.map(o=>o.unit.id),...g.s.campaign.domestic.people.map(p=>p.id)];assert.equal(all.length,new Set(all).size);
 });
@@ -86,7 +89,7 @@ test('parallel recruiting reserves different capacity and cooperation respects a
 });
 
 test('cooperative healing conserves existing people and grain storage clips extra harvest',()=>{
- const healing=example(['heal'],r=>r.success&&r.actual>0,f=>{const {s,c}=f;c.clinic=1;for(const u of c.units){const n=Math.min(1500,u.troops);u.troops-=n;u.wounded+=n;}const military=cityMilitary(s,c);f.initialPeople=military.troops+military.wounded;},6);
+ const healing=example(['heal'],r=>r.success&&r.actual>0,f=>{const {s,c}=f;setBuildingLevel(c,'clinic',1);for(const u of c.units){const n=Math.min(1500,u.troops);u.troops-=n;u.wounded+=n;}const military=cityMilitary(s,c);f.initialPeople=military.troops+military.wounded;},6);
  const {s,c}=healing,military=cityMilitary(s,c);assert.equal(military.troops+military.wounded,healing.initialPeople);restore(s);
  let clipped=false;for(let seed=1;seed<=30&&!clipped;seed++){const f=setup(seed,['cultivate']);f.c.grain=1000;advance(f.s,10);f.c.grain=10000+f.c.granary*10000;f.s.grain=f.s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0);advance(f.s,11);const r=f.s.campaign.domestic.cooperation[f.c.id+':'+f.dir];if(r?.success&&r.actual===0){assert.equal(r.relationGain,0);assert.ok(f.c.grain<=10000+f.c.granary*10000);restore(f.s);clipped=true;}}assert.ok(clipped);
 });

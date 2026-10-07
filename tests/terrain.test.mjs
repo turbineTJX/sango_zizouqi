@@ -1,19 +1,19 @@
-import {tacticHolder} from './helpers/current-battle.mjs';
+import {tacticHolder,equipmentEntry} from './helpers/current-battle.mjs';
 import {initializeTacticLearning} from '../tactic-learning.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
-import {stepBattle,configureBattleTerrain,lockDeployment,validateSave,unitAttributes} from '../engine.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
+import {stepBattle,configureBattleTerrain,lockDeployment,validateSave,unitAttributes,syncCombatForm} from '../engine.mjs';
 import {BATTLE_TERRAINS,terrainAt,canOccupy,unitTerrain} from '../battlefield.mjs';
 import {TACTICS_BOOK,roleTacticIds,unitTactics} from '../tactics.mjs';
 import {tacticTerrainEffect} from '../terrain-rules.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function scene(terrain='land',type='archer',positions=[[4,2],[6,2]],skill=({archer:'fire',crossbow:'repeat',cavalry:'rush',spear:'phalanx',ship:'broadside',siege:'bombard'}[type])){
- const id=tacticHolder(skill,type,[],!TACTICS_BOOK[skill].special),targetId=id==='person-342'?'person-1':'person-342',entry=(id,type)=>({id,type,level:1,troops:3000});
+ const id=tacticHolder(skill,type,[],!TACTICS_BOOK[skill].special),targetId=id==='person-342'?'person-1':'person-342',entry=equipmentEntry;
  const state=createScenario('custom-battle',1729,20,null,{seed:1729,terrain,ownTeam:[entry(id,type)],enemyTeam:[entry(targetId,terrain==='river'?'ship':'archer')]}),b=state.battle;lockDeployment(b);const u=b.sides[0].units[0],t=b.sides[1].units[0];
- for(const [i,v]of [u,t].entries()){Object.assign(v,{x:positions[i][0],y:positions[i][1],intent:0,cooldown:999});v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));}return{state,b,u,t};
+ for(const [i,v]of [u,t].entries()){Object.assign(v,{x:positions[i][0],y:positions[i][1],intent:0,cooldown:999});v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));syncCombatForm(b,v);}return{state,b,u,t};
 }
 
 function cast(terrain,id,type='archer',positions){
@@ -24,14 +24,15 @@ function cast(terrain,id,type='archer',positions){
   return result;
 }
 
-test('all presets have symmetric cells; ships never occupy forests, hills or marshes',()=>{
+test('all presets have symmetric cells and boat carriers can use both land and water',()=>{
   for(const terrain of Object.keys(BATTLE_TERRAINS)){
     const b={terrain};
     for(let x=0;x<14;x++)for(let y=0;y<8;y++)assert.equal(terrainAt(b,x,y),terrainAt(b,13-x,7-y));
-    if(terrain!=='river')assert.equal(canOccupy(b,{type:'ship'},4,2),false);
+    if(terrain!=='river')assert.equal(canOccupy(b,{type:'archer',equipment:{ship:'ship',siege:null}},4,2),true);
   }
   const b={terrain:'river'};
-  assert.equal(unitTerrain(b,{type:'ship',x:6,y:3}),'water');
+  assert.equal(unitTerrain(b,{type:'archer',formType:null,equipment:{ship:'ship',siege:null},x:6,y:3}),'bridge');
+  assert.equal(canOccupy(b,{type:'archer',equipment:{ship:null,siege:null}},4,3),false);
   assert.equal(unitTerrain(b,{type:'spear',x:6,y:3}),'bridge');
 });
 
@@ -47,7 +48,7 @@ test('terrain changes only during deployment, resets both sides legally and pres
   const before=structuredClone(b);assert.ok(configureBattleTerrain(b,'lava'));assert.deepEqual(b,before);
   lockDeployment(b);assert.ok(configureBattleTerrain(b,'forest'));
   const river=createScenario('river').battle,original=structuredClone(river);
-  assert.ok(configureBattleTerrain(river,'forest'));assert.deepEqual(river,original);
+  assert.equal(configureBattleTerrain(river,'forest'),null);assert.ok(river.sides.flatMap(s=>s.units).filter(u=>u.status==='active').every(u=>canOccupy(river,u,u.x,u.y)));
 });
 
 test('fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs',()=>{
@@ -107,7 +108,7 @@ test('fortifications change duration, while terrain slow is visible in derived m
   assert.ok(unitAttributes(cavalry.u,cavalry.b).breakdown.move.modifiers.some(m=>m.label==='林地行军'));
 });
 
-test('current fire treats a ship under the bridge as water',()=>{const x=scene('river','archer',[[4,2],[6,3]]);primeTactic(x.u,'fire');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.equal(unitTerrain(x.b,x.t),'water');assert.equal(x.b.effects.find(e=>e.from===x.u.id&&e.damage>0).terrainFactor,.6);});
+test('current fire treats an actual boat on water as water',()=>{const x=scene('river','archer',[[4,2],[4,3]]);primeTactic(x.u,'fire');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.equal(unitTerrain(x.b,x.t),'water');assert.equal(x.b.effects.find(e=>e.from===x.u.id&&e.damage>0).terrainFactor,.6);});
 
 test('famous fire tactics share terrain effects and all tactics explain their terrain rules',()=>{
   const skill=Object.values(TACTICS_BOOK).find(s=>s.special&&s.burn);

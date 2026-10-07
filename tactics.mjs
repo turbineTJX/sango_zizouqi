@@ -1,13 +1,15 @@
+import {combatType,combatFamily} from './troop-equipment.mjs';
 import {traitImmune} from './trait-mechanics.mjs';
-import {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES,needsRemedy,createDecoy,decoyTargets} from './battle-status-rules.mjs';
+import {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES,statusOn,needsRemedy,createDecoy,decoyTargets} from './battle-status-rules.mjs';
+import {bondBlocksEffect,bondSwiftEffect} from './bonds.mjs';
 import {battleBuildings} from './building-rules.mjs';
 import {defenseLine} from './defense-line.mjs';
-import {describeTacticTempo,tacticUsesLeft,useRecoveryTargets} from './tactic-tempo.mjs';
+import {describeTacticTempo,tacticUsesLeft,tacticReadyAt,useRecoveryTargets} from './tactic-tempo.mjs';
 import {learnedTacticIds} from './tactic-learning.mjs';
 import {attackOrbDescription} from './attack-orbs.mjs';
 import {EXPANDED_ROLES} from './expanded-tactics.mjs';
 import {hexDistance, hexNeighbors, hexBeyond} from './hex-grid.mjs';
-import {unitAttributes,isRear} from './unit-stats.mjs';
+import {unitAttributes,isRear,battleSupplyPenalty} from './unit-stats.mjs';
 import {blockedTerrain,canOccupy,gateTarget} from './battlefield.mjs';
 import {COMBAT} from './combat-rules.mjs';
 import {tacticPowerProfile,tacticPowerDescription} from './tactic-power.mjs';
@@ -25,7 +27,8 @@ export const INTELLECT_TACTICS=structuredClone(INTELLECT_TACTIC_POOLS);
 export const SPECIAL_TACTICS=Object.fromEntries(Object.entries(OFFICER_ASSIGNMENTS).filter(([,a])=>a.specialTactic).map(([id,a])=>[id,a.specialTactic]));
 export const CATEGORY_NAMES = {force:'武力',intellect:'智力',politics:'政治'};
 export function availableTactics(unit) {
-  return [...(TROOP_TACTICS[unit.type]||TROOP_TACTICS.spear),...(INTELLECT_TACTICS[unit.type]||INTELLECT_TACTICS.spear),...(SPECIAL_TACTICS[unit.id]?[SPECIAL_TACTICS[unit.id]]:[])].map(id=>TACTICS_BOOK[id]);
+  const type=combatType(unit);
+  return [...(TROOP_TACTICS[type]||TROOP_TACTICS.spear),...(INTELLECT_TACTICS[type]||INTELLECT_TACTICS.spear),...(SPECIAL_TACTICS[unit.id]?[SPECIAL_TACTICS[unit.id]]:[])].map(id=>TACTICS_BOOK[id]);
 }
 // Roles are available to every officer; stats affect output, never role eligibility.
 export const TACTIC_ROLES = {...EXPANDED_ROLES,
@@ -62,7 +65,7 @@ export function configureTactics(unit,ids) {
   unit.tactics=[...ids];return null;
 }
 export const NEGATIVE_STATUSES=Object.keys(STATUS_DEFINITIONS).filter(k=>['debuff','control','damage'].includes(STATUS_DEFINITIONS[k].tone));
-export const statusPower = (unit,skill,b=null) => {const stats=unitAttributes(unit,b);if(skill.passive)return (80+(unit.intellect||0)*1.4+(unit.politics||0)*.6)*Math.max(0,unit.hp??unit.troops??0)/3000*(1-(unit.supplyPenalty||0));return skill.category==='politics'?stats.supportPower:skill.category==='intellect'?stats.strategyPower:stats.martialPower;};
+export const statusPower = (unit,skill,b=null) => {const stats=unitAttributes(unit,b);if(skill.passive)return (80+(unit.intellect||0)*1.4+(unit.politics||0)*.6)*Math.max(0,unit.hp??unit.troops??0)/3000*(1-battleSupplyPenalty(unit,b));return skill.category==='politics'?stats.supportPower:skill.category==='intellect'?stats.strategyPower:stats.martialPower;};
 export const distance = hexDistance;
 export const living = (b,side) => b.sides[side].units.filter(u=>u.status==='active' && u.hp>0);
 export function shieldLayers(b,u) {
@@ -74,13 +77,14 @@ export function refreshShield(b,u,layers=shieldLayers(b,u)) {
   if(!layers.length){if(u.statuses)delete u.statuses.shield;return;}
   u.statuses ||= {};u.statuses.shield={until:Math.max(...layers.map(l=>l.until)),amount:layers.reduce((n,l)=>n+l.amount,0),layers};
 }
-export function absorbShield(b,u,damage) {
+export function absorbShield(b,u,damage,onBreak=null) {
   const layers=shieldLayers(b,u).sort((a,c)=>a.until-c.until||a.source.localeCompare(c.source));
-  for(const l of layers){const used=Math.min(l.amount,damage);l.amount-=used;damage-=used;if(!damage)break;}
+  for(const l of layers){const used=Math.min(l.amount,damage);l.amount-=used;damage-=used;if(used>0&&l.amount===0)onBreak?.(l);if(!damage)break;}
   refreshShield(b,u,layers.filter(l=>l.amount>0));return damage;
 }
-export const hasStatus = (b,u,key) => key==='shield'?shieldAmount(b,u)>0:(u.statuses?.[key]?.until||0)>b.tick;
+export const hasStatus = (b,u,key) => key==='shield'?shieldAmount(b,u)>0:statusOn(b,u,key);
 export function setStatus(b,u,key,duration,extra={}) {
+  if(bondBlocksEffect(b,u,extra,{beneficial:STATUS_DEFINITIONS[key]?.tone==='buff'}))return false;
   if(!STATUS_DEFINITIONS[key]||u.isDecoy||traitImmune(u,key))return false;
   if(NEGATIVE_STATUSES.includes(key)&&(hasStatus(b,u,'stasis')||key!=='hunger'&&hasStatus(b,u,'magicImmune')))return false;
   if(CONTROL_STATUSES.includes(key)&&hasStatus(b,u,'resolve'))return false;
@@ -93,7 +97,7 @@ export function setStatus(b,u,key,duration,extra={}) {
   if(key==='shield') {
     const source=extra.source||'unattributed',layers=shieldLayers(b,u).filter(l=>l.source!==source);
     const amount=Math.max(0,Math.min(extra.amount,u.maxHp-layers.reduce((n,l)=>n+l.amount,0)));
-    if(amount)layers.push({source,label:extra.label||'护盾',amount,until:b.tick+duration+1});
+    if(amount)layers.push({source,label:extra.label||'护盾',amount,until:b.tick+duration+1,...(extra.bondGuardTier!==undefined?{bondGuardTier:extra.bondGuardTier,sourceId:extra.sourceId,castTick:extra.castTick}:{})});
     refreshShield(b,u,layers);return;
   }
   // Independent applications build one bounded fire, not unlimited DOT instances.
@@ -142,14 +146,14 @@ export function tauntTarget(b,u,range) {
 }
 export function pursuitTarget(b,u,enemies) {
   const pursuit=u.statuses?.pursuit;
-  if(u.type!=='cavalry'||!pursuit||pursuit.until<=b.tick||interceptorsAt(b,u).length)return null;
+  if(combatFamily(u)!=='cavalry'||!pursuit||pursuit.until<=b.tick||interceptorsAt(b,u).length)return null;
   return enemies.filter(e=>isRear(e)&&distance(u,e)<=4&&routeTo(b,u,e,4)!==null)
     .sort((a,c)=>Number(c.id===pursuit.targetId)-Number(a.id===pursuit.targetId)||distance(u,a)-distance(u,c)||a.hp/a.maxHp-c.hp/c.maxHp||a.id.localeCompare(c.id))[0]||null;
 }
 // A charger may spend time flanking an exposed rear, but cannot leave a live
 // interception or take an unbounded detour. Ordinary melee keeps its front focus.
 export function flankingTarget(b,u,enemies) {
-  if(interceptorsAt(b,u).length||!(hasStatus(b,u,'phase')&&isMelee(u))&&(u.type!=='cavalry'||!unitTactics(u).some(s=>['rush','terror'].includes(s.effect))))return null;
+  if(interceptorsAt(b,u).length||!(hasStatus(b,u,'phase')&&isMelee(u))&&(combatFamily(u)!=='cavalry'||!unitTactics(u).some(s=>['rush','terror'].includes(s.effect))))return null;
   const nearest=Math.min(...enemies.map(e=>distance(u,e)));
   return enemies.filter(e=>isRear(e)&&distance(u,e)<=6)
     .map(target=>({target,path:routeTo(b,u,target,Math.min(6,nearest+2))}))
@@ -174,7 +178,7 @@ export function supportApproach(b,u) {
   // A charger may carry relay without becoming a stationary medic. Offensive
   // cavalry must still close with enemies when its support targets are not ready.
   // Pure guard/control cavalry (gallop/relay/harass, lure/harass/relay) still anchor.
-  if(u.type==='cavalry'&&skills.some(s=>s.category==='force'&&!['gallop','valor'].includes(s.effect)&&!(s.effect==='famous'&&s.mode==='support')))return null;
+  if(combatFamily(u)==='cavalry'&&skills.some(s=>s.category==='force'&&!['gallop','valor'].includes(s.effect)&&!(s.effect==='famous'&&s.mode==='support')))return null;
   if(!medical.length||skills.filter(s=>s.category==='force'&&!['gallop','phalanx','valor','protect','bandage','supply','camp','bulwark','riposte','anchor','emplace'].includes(s.effect)).length>1)return null;
   // Reuse casting eligibility with distance relaxed, then require a real path
   // to the skill's actual range. Mere ownership of a heal never causes waiting.
@@ -232,6 +236,13 @@ export function tacticOpening(b,s,target){
   const highIntent=!!s.highIntent&&target.intent>=s.highIntent.threshold;
   return {setup,highIntent,scale:(setup?s.exploit.scale||0:0)+(highIntent?s.highIntent.scale||0:0),drain:highIntent?s.highIntent.drain||0:0};
 }
+// Suppression must threaten a remaining tactic, not an exhausted intent bar.
+export function undermineTargets(b,u,s,target){
+  const eligible=e=>isTargetable(b,e)&&!e.isDecoy&&!hasStatus(b,e,'magicImmune')&&e.intent>0&&unitTactics(e).some(t=>tacticUsesLeft(e,t)>0);
+  if(!target||!eligible(target)||distance(u,target)>s.range)return [];
+  return [target,...living(b,1-u.side).filter(e=>e!==target&&eligible(e)&&distance(u,e)<=s.range&&distance(target,e)<=s.radius)
+    .sort((a,c)=>c.intent-a.intent||idOrder(a,c))].slice(0,s.targets);
+}
 function famousTarget(b,u,s,enemies){
   if(s.mode==='support')return famousTargets(b,u,s)[0]||null;
   const score=e=>{
@@ -259,7 +270,7 @@ export function expandedSupportTargets(b,u,s){
     case 'purify':allies=allies.filter(negative);break;
     case 'supply':return allies.filter(a=>a!==u&&a.intent<=COMBAT.intentCap-15).sort((a,c)=>a.intent-c.intent||idOrder(a,c)).slice(0,1);
     case 'camp':case 'mirage':case 'mist':allies=allies.filter(a=>threatened(b,a)&&(!hasStatus(b,a,s.effect==='camp'?'camp':'decoy')||(s.stasisDays&&a.hp/a.maxHp<=s.stasisHealth&&!hasStatus(b,a,'stasisLock'))));break;
-    case 'boarding':allies=allies.filter(a=>a!==u&&a.type==='ship'&&(wound(a)>=a.maxHp*.02||a.intent<=COMBAT.intentCap-20));break;
+    case 'boarding':allies=allies.filter(a=>a!==u&&combatFamily(a)==='ship'&&(wound(a)>=a.maxHp*.02||a.intent<=COMBAT.intentCap-20));break;
     case 'nexus':return allies.filter(a=>a!==u&&!hasStatus(b,a,'nexus')&&(threatened(b,a)||unitTactics(a).some(t=>t.category==='intellect'))).sort((a,c)=>unitAttributes(c,b).strategyPower-unitAttributes(a,b).strategyPower||idOrder(a,c)).slice(0,1);
     default:return [];
   }
@@ -269,6 +280,12 @@ export function repairTarget(b,u,range=2){
   if(tacticUsesLeft(u,TACTICS_BOOK.camp)<=0)return null;
   return battleBuildings(b).filter(a=>a.side===u.side&&a.hp>0&&a.hp<a.maxHp&&distance(u,a)<=range).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp||distance(u,a)-distance(u,c)||a.id.localeCompare(c.id))[0]||null;
 }
+function swiftTacticTargets(b,u,targets){
+ if(!bondSwiftEffect(b,u))return targets;
+ const side=b.sides[u.side],ordered=side.focusUntil>b.tick&&targets.find(t=>t.id===side.focus);
+ if(ordered)return [ordered];
+ const rear=targets.filter(t=>!t.isDecoy&&isRear(t));return rear.length?rear:targets;
+}
 export function tacticTarget(b,u,s,range) {
   // Personal shooting-range states affect basic attacks only. Army range and
   // explicit weapon-setup rules retain their existing tactic semantics.
@@ -277,7 +294,8 @@ export function tacticTarget(b,u,s,range) {
     const friendly=s.mode==='support',forced=friendly?null:tauntTarget(b,u,s.range);
     const candidates=(forced?[forced]:living(b,friendly?u.side:1-u.side)).filter(t=>(friendly||isTargetable(b,t))&&distance(u,t)<=s.range);
     if(s.effect==='remedy')return candidates.find(t=>needsRemedy(b,t,s.remedy))||null;
-    return candidates.filter(t=>(!CONTROL_STATUSES.includes(s.statusKey)||!hasStatus(b,t,'resolve'))&&(!['longRange','shortRange'].includes(s.statusKey)||unitAttributes(t,b).minRange>0||['archer','crossbow','siege','tower','ship'].includes(t.type))&&!hasStatus(b,t,s.statusKey)&&(!s.excludeSelf||t!==u)).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp||idOrder(a,c))[0]||null;
+    const eligible=candidates.filter(t=>(!CONTROL_STATUSES.includes(s.statusKey)||!hasStatus(b,t,'resolve'))&&(!['longRange','shortRange'].includes(s.statusKey)||unitAttributes(t,b).range>1)&&!hasStatus(b,t,s.statusKey)&&(!s.excludeSelf||t!==u));
+    return (friendly||forced?eligible:swiftTacticTargets(b,u,eligible)).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp||idOrder(a,c))[0]||null;
   }
   if(s.passive)return null;
   if(s.effect==='repair')return repairTarget(b,u,s.range);
@@ -290,7 +308,7 @@ export function tacticTarget(b,u,s,range) {
   if(s.effect==='cleanse')return living(b,u.side).find(a=>distance(u,a)<=(s.range??range)&&needsRemedy(b,a,'calm'))||null;
   if(s.effect==='ram'){const gate=gateTarget(b,u);if(gate&&distance(u,gate)<=s.range&&(!tauntTarget(b,u,s.range)))return gate;}
   let enemies=living(b,1-u.side).concat(decoyTargets(b,1-u.side)).filter(e=>isTargetable(b,e)).sort((a,c)=>distance(u,a)-distance(u,c)||a.id.localeCompare(c.id));
-  const offensive=['cleave','curse','blight','bombard','ram','plague','tremor','navalRam','broadside','undertow','confuse','harass','ambush','suppress','pierce','strike','thrust','scatter','wildfire','seal','lure','undermine','rush','terror','retreatShot','repeat','fire','taunt'].includes(s.effect)||s.effect==='famous'&&s.mode==='attack';
+  const offensive=['displace','cleave','curse','blight','bombard','ram','plague','tremor','navalRam','broadside','undertow','confuse','harass','ambush','suppress','pierce','strike','thrust','scatter','wildfire','seal','lure','undermine','rush','terror','retreatShot','repeat','fire','taunt'].includes(s.effect)||s.effect==='famous'&&s.mode==='attack';
   const forced=offensive?tauntTarget(b,u,range):null;
   if(forced){
     const charging=['rush','terror'].includes(s.effect),reach=charging?4:(s.range??range);
@@ -302,12 +320,13 @@ export function tacticTarget(b,u,s,range) {
   const targets=physicalAttack?meleeTargetPool(b,u,enemies):enemies;
   range=(s.range ?? range)+(hasStatus(b,u,'emplaced')&&s.category==='force'&&['bombard'].includes(s.effect)?1:0);
   let inRange=targets.filter(e=>distance(u,e)<=range&&distance(u,e)>=(s.minRange||0));
+  if(offensive&&!forced)inRange=swiftTacticTargets(b,u,inRange);
   if(s.targetRear&&inRange.some(isRear))inRange=inRange.filter(isRear);
   if(s.effect==='famous')return famousTarget(b,u,s,inRange);
   switch(s.effect) {
     case 'confuse': {
       // Support a nearby equipped charger; control protection still rules out a target.
-      const opening=e=>holdsLine(b,e)&&living(b,u.side).some(a=>a!==u&&a.type==='cavalry'&&distance(a,e)<=2&&unitTactics(a).some(t=>['rush','terror'].includes(t.effect)));
+      const opening=e=>holdsLine(b,e)&&living(b,u.side).some(a=>a!==u&&combatFamily(a)==='cavalry'&&distance(a,e)<=2&&unitTactics(a).some(t=>['rush','terror'].includes(t.effect)));
       const eligible=inRange.filter(e=>!hasStatus(b,e,'resolve')&&!hasStatus(b,e,'confuse'));
       return (eligible.length?eligible:s.id==='doubt'?inRange:[]).sort((a,c)=>Number(opening(c))-Number(opening(a))||c.intent-a.intent||idOrder(a,c))[0]||null;
     }
@@ -337,7 +356,7 @@ export function tacticTarget(b,u,s,range) {
     case 'bulwark':case 'riposte':return distance(u,nearest)<=2&&!hasStatus(b,u,s.effect)?u:null;
     case 'emplace':return distance(u,nearest)>=2&&distance(u,nearest)<=range&&!hasStatus(b,u,'emplaced')?u:null;
     case 'anchor':return distance(u,nearest)<=range&&!hasStatus(b,u,'anchored')?u:null;
-    case 'navalRam':return enemies.find(e=>e.type==='ship'&&distance(u,e)>1&&distance(u,e)<=3&&routeTo(b,u,e,2)?.length)||null;
+    case 'navalRam':return enemies.find(e=>combatFamily(e)==='ship'&&distance(u,e)>1&&distance(u,e)<=3&&routeTo(b,u,e,2)?.length)||null;
     case 'curse':return inRange.sort(idOrder)[0]||null;
     case 'blight':case 'plague':return inRange.sort((a,c)=>Number(hasStatus(b,a,'plague'))-Number(hasStatus(b,c,'plague'))||recoverableWounded(c)-recoverableWounded(a)||idOrder(a,c))[0]||null;
     case 'gallop': return !hasStatus(b,u,'ward') && (distance(u,nearest)<=2 || !hasStatus(b,u,'haste') && routeTo(b,u,nearest,14)?.length) ? u : null;
@@ -350,10 +369,14 @@ export function tacticTarget(b,u,s,range) {
       const rear=e=>isRear(e);
       return reachable.sort((a,c)=>Number(rear(c))-Number(rear(a))||distance(u,a)-distance(u,c)||idOrder(a,c))[0] || (s.effect==='terror'?targets.find(e=>distance(u,e)===1):null);
     }
-    case 'retreatShot': return distance(u,nearest)<=2 && retreatCell(b,u) ? nearest : null;
+    case 'retreatShot': {const target=bondSwiftEffect(b,u)?inRange[0]:nearest;return target&&distance(u,target)<=2&&retreatCell(b,u)?target:null;}
     case 'protect': return living(b,u.side).filter(a=>a!==u && distance(u,a)<=2 && enemies.some(e=>distance(a,e)===1))
       .sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp)[0] || null;
-    case 'undermine': return inRange.filter(e=>e.intent>0).sort((a,c)=>c.intent-a.intent)[0] || null;
+    case 'undermine': {
+      const threat=e=>unitTactics(e).filter(t=>tacticUsesLeft(e,t)>0).reduce((best,t)=>Math.max(best,(e.intent>=t.threshold?40:15)-Math.min(20,Math.max(0,(e.skillReady?.[t.id]||0)-b.tick))),0);
+      const score=e=>undermineTargets(b,u,s,e).reduce((n,t)=>n+threat(t)+Math.min(t.intent,s.drain)/4,0);
+      return inRange.filter(e=>undermineTargets(b,u,s,e).length).sort((a,c)=>score(c)-score(a)||idOrder(a,c))[0]||null;
+    }
     default: return inRange[0] || null;
   }
 }
@@ -365,7 +388,7 @@ export function readyTactic(b,u,range) {
   if(hasStatus(b,u,'seal') || hasStatus(b,u,'stealth') || (u.tacticRecoveryUntil||0)>b.tick)return null;
   // Player slot order is the priority; blocked tactics never block a later legal one.
   for(const s of unitTactics(u)) {
-    if(tacticUsesLeft(u,s)<=0 || u.intent<Math.max(s.threshold,s.intentCost) || (u.skillReady?.[s.id]||0)>b.tick)continue;
+    if(tacticUsesLeft(u,s)<=0 || u.intent<Math.max(s.threshold,s.intentCost) || tacticReadyAt(u,s)>b.tick)continue;
     const target=tacticTarget(b,u,s,range);
     if(hasStatus(b,u,'phase')){const rear=flankingTarget(b,u,living(b,1-u.side).filter(e=>isTargetable(b,e)));if(rear&&(!target||target.side===u.side||!isRear(target)))continue;}
     if(target)return {skill:s,target};

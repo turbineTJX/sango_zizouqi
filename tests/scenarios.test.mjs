@@ -2,7 +2,7 @@ import {frontlineCapacity,validFrontline} from '../army-trait-rules.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { SCENARIOS, createScenario } from '../scenarios.mjs';
+import { SCENARIOS, createScenario } from './helpers/scenarios.mjs';
 import { startBattle, activeUnits, stepBattle, settleBattle, validateSave, issueCommand, deployUnit, resetDeployment, lockDeployment } from '../engine.mjs';
 import { shieldAmount, absorbShield, openCell, routeTo } from '../tactics.mjs';
 import { blockedTerrain } from '../battlefield.mjs';

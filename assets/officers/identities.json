@@ -1,0 +1,292 @@
+{
+  "cao": {
+    "approved": true,
+    "sha256": "31768c756b3f5140cc6352c1f60e8cba375af3c2e5339044e8fc658eda64bff0",
+    "width": 1024,
+    "height": 1536,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-99": {
+    "approved": true,
+    "sha256": "2bf2aa9e247809c7be585a1c612c4a908369d908d476d2517acb856869ed2941",
+    "width": 1024,
+    "height": 1536,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-290": {
+    "approved": true,
+    "sha256": "35eff10600336df16a84601fbaacc34454b7c2e0ee1781a0cc4faf695dacc4dd",
+    "width": 1024,
+    "height": 1536,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-636": {
+    "approved": true,
+    "sha256": "3f5e1494bcfa36b210ad5c4ae9071a258897ad1af436d4c0bd44061c11dc7a74",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-433": {
+    "approved": true,
+    "sha256": "6cee47fc945d2398385ced9abbcd33e1c41fb2486a0ed87eb39533ef5ed51822",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-396": {
+    "approved": true,
+    "sha256": "a96ea5707dd40e17e7ec47b42fdf1cece9aa0837f7468a8e098013d28cd29949",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": "outputs/officer-art-batch-0001/person-396-face-framed-result.json"
+  },
+  "person-368": {
+    "approved": true,
+    "sha256": "265405a6d2f0b886b45c75bdfcc7b6c9b7691d3f5216543fbd1a1fc8660eb7cb",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-246": {
+    "approved": true,
+    "sha256": "26e692a7d2b473e99f6e8ed91c493298d89f5eca4b110e035d681a433f279c4b",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": "outputs/officer-art-batch-0001/person-246-face-framed-result.json"
+  },
+  "person-226": {
+    "approved": true,
+    "sha256": "29462fda969bed4294e42c5aa74f13af8a04c634eb83ff417c552afee79d4aac",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-1": {
+    "approved": true,
+    "sha256": "ad79c9d2532e22d593e78a35d77cf2e218d24bc2d59a07f6bf6500f5d1512ce9",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0002/person-1-portrait-revision-1.json"
+  },
+  "person-2": {
+    "approved": true,
+    "sha256": "123c67bc98feae6abb5d877f3672504b09a5d111fb9bbb50a85865d952269ef0",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0002/person-2-portrait-revision-2.json"
+  },
+  "person-3": {
+    "approved": true,
+    "sha256": "01624ccb50e552b0ce0af9b195aaed748a2b2312d1955f81d7bfdd08bf115dd6",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0002/person-3-portrait-revision-1.json"
+  },
+  "person-4": {
+    "approved": true,
+    "sha256": "97d501a0337cd87547cffaecce8d4eabec8c61713be40d3173fba1234ea278be",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0003/person-4-portrait-02.json"
+  },
+  "person-5": {
+    "approved": true,
+    "sha256": "ddbb1c3f9dd5f94122371ade0b2272b7fa322fff60f9ff132052279ffdc08c8e",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0003/person-5-portrait-03.json"
+  },
+  "person-6": {
+    "approved": true,
+    "sha256": "fba1a0c542703799a2fab8149a5f8a5f40dd0669111c992959476d27c26060b7",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0003/person-6-portrait-03.json"
+  },
+  "jin": {
+    "approved": true,
+    "sha256": "af6764db0efce783039c94d8b93d579c5eb9e9adc0fa741d90cc801d6075aaae",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0004/jin-portrait-03.json"
+  },
+  "person-8": {
+    "approved": true,
+    "sha256": "b7ac3951207ba4863df08af1d25670477e4da8b087cb6493aa3b9e24f11e58f5",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0004/person-8-portrait-03.json"
+  },
+  "person-9": {
+    "approved": true,
+    "sha256": "d48f85589ab3b072081646998cd915e73a9f3cd3422f2bbe15c0c4e499fbfe6e",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0004/person-9-portrait-03.json"
+  },
+  "person-10": {
+    "approved": true,
+    "sha256": "28430d142575254390741bfc8c1124c73a3677df6192b8b8e4c5bc55326758c3",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0005/person-10-portrait-03.json"
+  },
+  "person-11": {
+    "approved": true,
+    "sha256": "fa7976a5569b96d7e521f25059ff93b6e7af65a649cae888caff54e52542e66f",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0005/person-11-portrait-03.json"
+  },
+  "person-12": {
+    "approved": true,
+    "sha256": "1f5b186e9d5f88429cf6556798a8f43fd7283d3ef694a52d16c6697570ca9829",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0005/person-12-portrait-03.json"
+  },
+  "person-13": {
+    "approved": true,
+    "sha256": "6c6f31df86282b1c66d93d6f6c492a249b5ae7dade4dbb5d5a0a670a641bdad1",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0006/person-13-portrait-03.json"
+  },
+  "person-14": {
+    "approved": true,
+    "sha256": "f91fcc3de0c8af7d2adb73f083fff86484974335499c77ad0295ae130ca8ace6",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0006/person-14-portrait-03.json"
+  },
+  "person-15": {
+    "approved": true,
+    "sha256": "5049bcbd7a0fa4520fb870d49eedcdcb832257600c2ef0436eceed127981300f",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0006/person-15-portrait-03.json"
+  },
+  "person-16": {
+    "approved": true,
+    "sha256": "309e0c71c7109ca86914920fd02714bae95a1946d9a9ff5ba654cbe19c5b2841",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0007/person-16-portrait-02.json"
+  },
+  "person-17": {
+    "approved": true,
+    "sha256": "0fa5bd043057accd2e1256d740ad0991ef4f37d91b51f684fd9c87c2421e0f28",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0007/person-17-portrait-02.json"
+  },
+  "person-18": {
+    "approved": true,
+    "sha256": "94da4c6b1449f0aa07b27b64021f5f6a6dfc2069d2d57599027cbf9d627130ea",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0007/person-18-portrait-02.json"
+  },
+  "shao": {
+    "approved": true,
+    "sha256": "e1d43cfeb348c7a23ee698471a6d5b8b091ea8e2b74014670e26dae53ff65e8f",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0008/shao-portrait-02.json"
+  },
+  "person-20": {
+    "approved": true,
+    "sha256": "6eaf3e42962b28a57b94b5bc7b17c84f562ccb4c2668d04e0cabed1e06900846",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0008/person-20-portrait-02.json"
+  },
+  "person-21": {
+    "approved": true,
+    "sha256": "b337ff3059b839e346eeb66220998010d4ebac4d1a2f24594255a18fd1b0fa81",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0008/person-21-portrait-02.json"
+  },
+  "person-22": {
+    "approved": true,
+    "sha256": "dd63b091a23138be20969d14d315d92ef9e25ffcc58ba7e4f21d1b7ad4624957",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0009/person-22-portrait-01.json"
+  },
+  "person-23": {
+    "approved": true,
+    "sha256": "161d5df1648897de9db0d6a0e987e113726d32467502eba6705dc7aa24dd1d46",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0009/person-23-portrait-02.json"
+  },
+  "person-24": {
+    "approved": true,
+    "sha256": "c93b43abdc7301652744320f660b7c0f9588e5cf4eb97ec5c7a8cc4e64f7da81",
+    "width": 1254,
+    "height": 1254,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen",
+    "referenceRecord": ".local/officer-art-results/batch-0009/person-24-portrait-02.json"
+  }
+}

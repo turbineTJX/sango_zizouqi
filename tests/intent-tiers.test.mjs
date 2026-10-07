@@ -1,7 +1,7 @@
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {TACTICS_BOOK,SPECIAL_TACTICS} from '../tactics.mjs';
 

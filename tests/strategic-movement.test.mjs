@@ -8,7 +8,7 @@ import {initializeTalent} from '../talent-lifecycle.mjs';
 test('each connection has one bidirectional road with terrain costs',()=>{
   const s=newCampaign(1,'guandu-200');
   for(const [a,b] of s.roads){const roads=campaignRoads(s,a,b);assert.equal(roads.length,1);assert.deepEqual(roads,campaignRoads(s,b,a));}
-  const gate=s.roads.find(([a,b])=>s.cities.some(c=>[a,b].includes(c.id)&&c.kind==='gate'));
+  const gate=s.roads.find(([a,b])=>s.junctions.some(c=>[a,b].includes(c.id)&&c.kind==='gate'));
   assert.ok(roadCost(s,...gate)>roadDistance(s,...gate));
   assert.equal((renderRoads(s).match(/<title>/g)||[]).length,s.roads.length);
 });

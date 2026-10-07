@@ -1,12 +1,19 @@
+import {portModel} from './strategic-relief.mjs';
+import {mapNode,mapNodes} from './map-node-data.mjs';
+export {mapNode,mapNodes} from './map-node-data.mjs';
+import {citySceneState,cityCompactMarkup} from './city-scene.mjs';
+import {metropolitanCenter} from './metropolitan-areas.mjs';
 import {ROAD_NETWORK_DESIGN as DESIGN} from './data/design/road-network.mjs';
 import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
 import {NATIONAL_ROAD_DESIGNS} from './data/design/roads.mjs';
+import {ROAD_DISTANCE_DESIGNS} from './data/design/road-distances.mjs';
+import {factionsHostile} from './diplomacy-relations.mjs';
 
-export const mapNode=(s,id)=>s.cities.find(c=>c.id===id)||s.junctions?.find(c=>c.id===id);
-export const mapNodes=s=>[...s.cities,...(s.junctions||[])];
 export const edgeKey=(a,b)=>[a,b].sort().join(':');
 export const roadSegment=(s,a,b)=>s.roadSegments?.[edgeKey(a,b)];
-export const isJunction=(s,id)=>mapNode(s,id)?.kind==='junction';
+// All non-city locations share node rules; their kind selects the battlefield.
+export const isJunction=(s,id)=>!!s.junctions?.some(n=>n.id===id);
+export const nodeKindName=n=>({port:'港口',gate:'关卡',junction:'野外路口'}[n?.kind]||'城市');
 const cityRoadCache=new WeakMap();
 export function cityRoads(s){
   if(!s.junctions)return s.roads;
@@ -28,33 +35,54 @@ export function cityRoads(s){
 }
 export function adjacentCityPath(s,a,b){
   if(!cityRoads(s).some(([x,y])=>edgeKey(x,y)===edgeKey(a,b)))return null;
-  const mid='junction:'+edgeKey(a,b);
-  return s.roads.some(([x,y])=>edgeKey(x,y)===edgeKey(a,b))?[b]:isJunction(s,mid)?[mid,b]:null;
+  const queue=[{id:a,path:[]}],seen=new Set([a]);
+  while(queue.length){const current=queue.shift();
+    for(const [x,y] of s.roads){const next=x===current.id?y:y===current.id?x:null;
+      if(!next||seen.has(next)||roadSegment(s,x,y)?.trail)continue;
+      const path=[...current.path,next];if(next===b)return path;
+      if(isJunction(s,next)){seen.add(next);queue.push({id:next,path});}
+    }
+  }
+  return null;
 }
-export const junctionBlocked=(s,id,faction)=>isJunction(s,id)&&s.armies.some(a=>!a.disbanded&&a.faction!==faction&&!a.travel&&a.location===id&&a.units.some(u=>u.troops>0));
+export const junctionBlocked=(s,id,faction)=>isJunction(s,id)&&s.armies.some(a=>!a.disbanded&&factionsHostile(s,a.faction,faction)&&!a.travel&&a.location===id&&a.units.some(u=>u.troops>0));
 
-// Junctions have no owner, resources, garrison, domestic work or occupation state.
+// Nodes have no independent economy; metropolitan construction is saved by cities.
 // The neutral label is solely for shared map labels; they never enter cities[].
-export function buildRoadNetwork(cities,cityRoads){
+export function buildRoadNetwork(cities,cityRoads,{requireLengths=true}={}){
   const roads=structuredClone(cityRoads),junctions=[],roadSegments={};
   const byId=id=>cities.find(c=>c.id===id),created=new Map();
   const junction=(a,b)=>{
     const key=edgeKey(a,b);if(created.has(key))return created.get(key);
     const x=byId(a),y=byId(b),index=roads.findIndex(([u,v])=>edgeKey(u,v)===key);
     if(index<0||x.kind!=='city'||y.kind!=='city')throw new Error(`岔路只能连接既有陆路：${key}`);
-    const id='junction:'+key,n={id,name:`${x.name}—${y.name}路口`,kind:'junction',owner:'neutral',x:(x.x+y.x)/2,y:(x.y+y.y)/2,province:x.province};
-    const distance=Math.max(MOVEMENT_RULES.distance.minimum,Math.round(Math.hypot(x.x-y.x,x.y-y.y)*MOVEMENT_RULES.distance.coordinateScale))/2;
+    if(!DESIGN.nodeNames[key])throw new Error(`节点缺少地名：${key}`);
+    const [nx,ny]=DESIGN.nodePositions[key];
+    const id='junction:'+key,n={id,name:DESIGN.nodeNames[key],kind:'junction',owner:'neutral',x:nx,y:ny,province:x.province};
+    const distance=(a,b)=>Math.max(1,Math.round(Math.hypot(a.x-b.x,a.y-b.y)*MOVEMENT_RULES.distance.coordinateScale*10)/10);
     roads.splice(index,1,[a,id],[id,b]);junctions.push(n);created.set(key,id);
-    roadSegments[edgeKey(a,id)]={distance};roadSegments[edgeKey(id,b)]={distance};
+    roadSegments[edgeKey(a,id)]={distance:distance(x,n)};roadSegments[edgeKey(id,b)]={distance:distance(n,y)};
     return id;
   };
+  for(const key of Object.keys(DESIGN.nodeNames))junction(...key.split(':'));
   for(const [center,left,right] of DESIGN.bypasses){
     const a=junction(center,left),b=junction(center,right),x=junctions.find(n=>n.id===a),y=junctions.find(n=>n.id===b);
-    roads.push([a,b]);roadSegments[edgeKey(a,b)]={trail:true,distance:Math.max(15,Math.hypot(x.x-y.x,x.y-y.y)*MOVEMENT_RULES.distance.coordinateScale),costFactor:DESIGN.trailCost};
+    roads.push([a,b]);roadSegments[edgeKey(a,b)]={trail:true,distance:Math.max(1,Math.round(Math.hypot(x.x-y.x,x.y-y.y)*MOVEMENT_RULES.distance.coordinateScale*10)/10),costFactor:DESIGN.trailCost};
+  }
+  // Atlas positions change while authored marching/supply budgets stay fixed.
+  for(const [a,b] of roads){
+    const key=edgeKey(a,b),distance=ROAD_DISTANCE_DESIGNS[key];
+    if(!Number.isFinite(distance)||distance<=0){if(requireLengths)throw new Error(`道路缺少行程长度：${key}`);continue;}
+    roadSegments[key]={...roadSegments[key],distance};
   }
   return {roads,junctions,roadSegments};
 }
 
 export function renderJunctions(s,selected){
-  return (s.junctions||[]).map(n=>`<g class="strategy-junction ${selected===n.id?'selected':''}" data-junction="${n.id}" data-x="${n.x}" data-y="${n.y}" tabindex="0" role="button" aria-label="${n.name}，野外路口" aria-pressed="${selected===n.id}" transform="translate(${n.x} ${n.y})"><circle r="6"/><title>${n.name} · 可停驻、转向和截断补给</title></g>`).join('');
+  return (s.junctions||[]).map(n=>{
+   const site=['gate','port'].includes(n.kind),center=site?metropolitanCenter(s,n):null,model=site?citySceneState(s,n):null;
+   const scene=site?`<script type="application/json" data-city-model>${JSON.stringify(model).replaceAll('<','\\u003c')}</script><g class="map-city-scene" data-city-scene transform="scale(${model.layout.mapScale})"></g>`:'';
+   const facilities=site?cityCompactMarkup(model):'';
+   return `<g class="strategy-junction node-${n.kind} ${site?'node-metropolitan-site':''} ${selected===n.id?'selected':''}" ${site?`data-metropolis="${center.id}"`:''} data-junction="${n.id}" data-x="${n.x}" data-y="${n.y}" tabindex="0" role="button" aria-label="${n.name}，${nodeKindName(n)}${site?'，'+center.name+'都市圈':''}" aria-pressed="${selected===n.id}" transform="translate(${n.x} ${n.y})">${scene}${facilities}<g data-map-glyph><rect class="junction-hit" x="-9" y="-11" width="54" height="24" rx="3"/>${n.kind==='gate'?'<path class="atlas-gate-outline" d="M0-11L11 0 0 11-11 0Z" fill="#ece2c9" stroke="#6d6657" stroke-width="1.3"/><path class="junction-banner" d="M-6 6V-6h3v3h6v-3h3V6ZM-2 6V1h4v5"/>':n.kind==='port'?portModel():'<path class="junction-banner" d="M-5-7H5V4L0 7-5 4Z"/>'}<text class="junction-name" x="${n.kind==='port'?0:10}" y="${n.kind==='port'?21:4}" text-anchor="${n.kind==='port'?'middle':'start'}">${n.name}</text></g><title>${n.name}${site?' · '+center.name+'都市圈':''}</title></g>`;
+  }).join('');
 }

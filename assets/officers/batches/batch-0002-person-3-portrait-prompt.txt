@@ -1,0 +1,11 @@
+Use case: historical-scene
+人物：伊籍 / person-3
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+身份：A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes. A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.
+新建本人物的原创视觉身份，不借用其他人物的脸型；外貌与视觉年龄是美术设定，不宣称史实外貌。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1024×1024，头像，有场景背景。
+场景含义：近正面头肩像，完整头饰，眉眼自然放松、嘴唇轻合、目光沉静，无手和武器。
+该人物独立表演（优先于通用示例手势）：Near-frontal head-and-shoulders, small natural turn right, gentle steady eyes and relaxed lips. Complete modest cloth crown.
+Required composition revision: pull the camera back enough that the highest point of the headwear begins at y=130 in a 1024×1024 square. Show a clear 12% band of background above the entire cap/headcloth. Show the upper chest and both shoulder roots. Do not enlarge or crop the face back to a close-up. Complete headwear and calm mouth.
+Input 1 is the current original headshot to reframe. Preserve this exact facial structure, natural closed-mouth expression, skin tone, beard, headwear, costume and painted style. Change only the camera distance and framing. Do not change the officer's identity.

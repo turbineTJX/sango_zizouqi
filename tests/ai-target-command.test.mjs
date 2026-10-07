@@ -1,3 +1,5 @@
+import {equipmentEntry} from './helpers/current-battle.mjs';
+import {combatType} from '../troop-equipment.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario,SCENARIOS} from '../scenarios.mjs';
@@ -5,7 +7,7 @@ import {lockDeployment,stepBattle,validateSave,STRATAGEMS,battleWounded,issueCom
 import {chooseEnemyCommand} from '../battle-ai.mjs';
 import {routeTo} from '../tactics.mjs';
 
-const unit=(id,type)=>({id,type,troops:3000,level:5});
+const unit=(id,type)=>({...equipmentEntry(id,type),level:5});
 const custom=enemyTeam=>createScenario('custom-battle',123,20,null,{seed:123,terrain:'land',ownTeam:[unit('cao','spear')],enemyTeam});
 
 for(const defenderSide of [0,1])test(`守军 ${defenderSide} 不追界外近战，转向可达的攻城兵器并确定性续战`,t=>{

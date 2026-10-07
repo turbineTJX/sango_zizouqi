@@ -1,9 +1,10 @@
+import {combatType,combatFamily} from './troop-equipment.mjs';
 import {mechanicEntries,traitEligible} from './trait-mechanics.mjs';
 import {TROOP_INTENT} from './combat-rules.mjs';
 import {COMMAND_TRAITS,activeCommandTraits,COMMON_TRAITS,CIVIC_TRAITS,OFFICER_TRAITS,officerTraits,aptitudeKey} from './officer-traits.mjs';
 import {TRAIT_DESIGNS} from './data/design/traits.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
-import {bondAttributes,bondList,bondDamage,bondProtection} from './bonds.mjs';
+import {bondAttributes,bondList,bondDamage,bondProtection,bondIntentIncomeFactor} from './bonds.mjs';
 export const PASSIVES=structuredClone({...TRAIT_DESIGNS,...Object.fromEntries(Object.entries(BOND_DESIGNS).map(([id,d])=>[id,{...d,domain:'battle'}]))});
 export const SKILL_ROUTES=OFFICER_TRAITS;
 export const COMMON_ROUTES=COMMON_TRAITS;
@@ -14,13 +15,15 @@ export const officerLevel=u=>u.level??1;
 export const skillRoute=officerTraits;
 export const hasPassive=(u,id)=>!!u&&skillRoute(u).includes(id);
 export const domesticEffects=u=>u?skillRoute(u).filter(id=>PASSIVES[id]?.effects).reduce((sum,id)=>{for(const [key,value] of Object.entries(PASSIVES[id].effects))sum[key]=(sum[key]||0)+value;return sum;},{}):{};
-export const intentIncome=u=>({...TROOP_INTENT[u.type]});
-export const deniesHitIntent=()=>false;
+export function intentIncome(u,b=null){
+ const base=TROOP_INTENT[combatType(u)],factor=bondIntentIncomeFactor(b,u);
+ return {attack:base.attack*factor,hit:base.hit*factor};
+}
 export const hpRatio=u=>Math.max(0,Math.min(1,(u.hp??u.troops)/Math.max(1,u.maxHp??3000)));
 export const adapting=()=>false;
 export function initialPassiveState(tick=0){return {lastMoveTick:tick,moveCount:0,targetId:null,shots:0,shotType:null,reserveEntered:false,entryUntil:0};}
 export function moved(b,u,from){if(from.x!==u.x||from.y!==u.y){u.passiveState ||= initialPassiveState(b.tick);u.passiveState.lastMoveTick=b.tick;u.passiveState.moveCount++;}}
-export function recordBasicAttack(u,target){u.passiveState ||= initialPassiveState();const p=u.passiveState;p.shots=p.targetId===target.id&&p.shotType===u.type?p.shots+1:1;p.targetId=target.id;p.shotType=u.type;}
+export function recordBasicAttack(u,target){u.passiveState ||= initialPassiveState();const p=u.passiveState;p.shots=p.targetId===target.id&&p.shotType===combatType(u)?p.shots+1:1;p.targetId=target.id;p.shotType=combatType(u);}
 export const passiveAttributes=(b,u)=>bondAttributes(b,u);
 export const passiveDamageMultiplier=(b,u,target,kind)=>bondDamage(b,u,target,kind);
 export const passiveDamageTaken=(b,u,kind)=>bondProtection(b,u,kind);

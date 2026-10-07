@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {BattleSignals,battlefieldStatuses} from '../battle-signals.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,issueCommand,COMMAND_RESOURCE} from '../engine.mjs';
 import {setStatus} from '../tactics.mjs';
 

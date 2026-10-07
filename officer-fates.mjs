@@ -1,15 +1,20 @@
 import {mapNode,mapNodes} from './road-network.mjs';
+import {appendActivityNode} from './activity-nodes.mjs';
+import {officerActivities} from './officer-activity.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {FACTIONS,log} from './engine.mjs';
 import {findCampaignRoute,isPlanning} from './strategic-campaign.mjs';
 import {roadCost,roadDistance} from './strategic-movement.mjs';
 import {startPersonnelJourney} from './personnel-movement.mjs';
 import {cancelDomestic} from './domestic.mjs';
-import {factionGold,addFactionGold} from './talent-core.mjs';
+import {factionFundingCity} from './city-resources.mjs';
+import {addCityGold} from './talent-core.mjs';
 const town=mapNode;
-export function personnelEvent(s,id,type,unit,text){
+export function personnelEvent(s,id,type,unit,text,context=null){
  if(s.campaign.personnelEvents.some(e=>e.id===id))return;
  s.campaign.personnelEvents.unshift({id,day:s.campaign.day,type,officerId:unit.id,text});s.campaign.personnelEvents.length=Math.min(100,s.campaign.personnelEvents.length);log(s,text,'war');
+ const at=context||officerActivities(s).get(unit.id);
+ appendActivityNode(s,{sourceId:'personnel:'+id,category:'personnel',phase:type,faction:at?.faction,officerId:unit.id,cityId:at?.siteId||at?.location||null,text});
 }
 export function fateRoll(s,key){let h=s.seed>>>0;for(const c of key)h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;h^=h>>>16;h=Math.imul(h,0x45d9f3b)>>>0;return h/4294967296;}
 export function removeOfficer(s,id){
@@ -53,24 +58,26 @@ export function resolveOfficerLoss(s,{unit,faction,location,enemy,eventId,edge=n
   if(result==='CAPTIVE'){const start=edge?.to||location,route=findCampaignRoute(s,start,prison.id)||[];prisoner.custody={destination:prison.id,route:edge?[edge.to,...route]:route,progress:edge?roadCost(s,edge.from,edge.to)*edge.fraction:0};if(edge)prisoner.cityId=edge.from;if(prisoner.custody.route.length&&prisoner.custody.progress>=roadCost(s,prisoner.cityId,prisoner.custody.route[0])){prisoner.cityId=prisoner.custody.route.shift();prisoner.custody.progress=0;}if(!prisoner.custody.route.length)delete prisoner.custody;}
   s.campaign.domestic.people.push(prisoner);
  }
- personnelEvent(s,eventId,result,unit,`${unit.name}${reason}：${result==='DEAD'?'战死':result==='CAPTIVE'?`被${FACTIONS[enemy].name}俘获`:escapedHome?'脱身，正沿道路返回友城':'脱身，但已无可归城池，转为在野'}。`);return result;
+ personnelEvent(s,eventId,result,unit,`${unit.name}${reason}：${result==='DEAD'?'战死':result==='CAPTIVE'?`被${FACTIONS[enemy].name}俘获`:escapedHome?'脱身，正沿道路返回友城':'脱身，但已无可归城池，转为在野'}。`,{faction,siteId:location});return result;
 }
 export const ransomCost=p=>300+5*Math.max(p.unit.leadership,p.unit.force,p.unit.intellect);
-export function releaseCaptive(s,id,{ransom=false,automatic=false}={}){
+export function releaseCaptive(s,id,{ransom=false,automatic=false,diplomatic=false}={}){
  const p=s.campaign.domestic.people.find(p=>p.id===id&&p.status==='CAPTIVE'&&p.fate);
  if(!p)return '该武将不在被俘状态';
+ if(p.diplomaticLock&&!diplomatic)return '该武将正在外交交接，须按已批准方案办理';
  if(p.custody&&!automatic)return '正在押送，抵达后可办理赎回或释放';
  const f=p.fate.originalFaction;
  if(!automatic&&(!isPlanning(s)||s.finished||!(ransom?f===playerFaction(s):p.fate.captor===playerFaction(s))))return '只能在筹划阶段处置相关俘虏';
- if(ransom){const cost=ransomCost(p);if(factionGold(s,f)<cost)return '赎金不足';if(!s.cities.some(c=>c.owner===f))return '已无可返回的己方城池';addFactionGold(s,f,-cost);addFactionGold(s,p.fate.captor,cost);}
+ if(ransom){const cost=ransomCost(p);const home=factionFundingCity(s,f),captor=town(s,p.cityId);if(!home)return '已无可返回的己方城池';if(home.gold<cost)return '付款城市赎金不足';if(captor?.owner!==p.fate.captor)return '关押城市已失守';addCityGold(s,home,-cost);addCityGold(s,captor,cost);}
  s.campaign.domestic.people=s.campaign.domestic.people.filter(x=>x!==p);sendOfficerHome(s,p.unit,f,p.cityId,{edge:p.custody?.route.length?{from:p.cityId,to:p.custody.route[0],fraction:p.custody.progress/roadCost(s,p.cityId,p.custody.route[0])}:null,reason:ransom?'赎回返城':'获释返城'});
- personnelEvent(s,`${p.fate.eventId}:release`,ransom?'RANSOM':'RELEASE',p.unit,`${p.unit.name}${ransom?'已付赎金获释':'获释'}，从${town(s,p.cityId).name}出发返城。`);return null;
+ personnelEvent(s,`${p.fate.eventId}:release`,ransom?'RANSOM':'RELEASE',p.unit,`${p.unit.name}${ransom?'已付赎金获释':'获释'}，从${town(s,p.cityId).name}出发返城。`,{faction:f,siteId:p.cityId});return null;
 }
 export function updateCaptives(s){
  for(const p of [...s.campaign.domestic.people].filter(p=>p.status==='CAPTIVE'&&p.fate)){
-  if(p.custody){const t=p.custody;if(town(s,t.destination).owner!==p.fate.captor){releaseCaptive(s,p.id,{automatic:true});continue;}let budget=50;while(t.route.length&&budget>0){const to=t.route[0],cost=roadCost(s,p.cityId,to),used=Math.min(budget,cost-t.progress);t.progress+=used;budget-=used;if(t.progress>=cost){p.cityId=to;t.route.shift();t.progress=0;}}if(!t.route.length)delete p.custody;continue;}
-  if(town(s,p.cityId).owner!==p.fate.captor)releaseCaptive(s,p.id,{automatic:true});
-  else if(p.fate.originalFaction!==playerFaction(s)&&s.campaign.day-p.fate.day>=3)releaseCaptive(s,p.id,{ransom:true,automatic:true});
+  if(p.diplomaticEscort)continue;
+  if(p.custody){const t=p.custody;if(town(s,t.destination).owner!==p.fate.captor){delete p.diplomaticLock;releaseCaptive(s,p.id,{automatic:true});continue;}let budget=50;while(t.route.length&&budget>0){const to=t.route[0],cost=roadCost(s,p.cityId,to),used=Math.min(budget,cost-t.progress);t.progress+=used;budget-=used;if(t.progress>=cost){p.cityId=to;t.route.shift();t.progress=0;}}if(!t.route.length)delete p.custody;continue;}
+  if(town(s,p.cityId).owner!==p.fate.captor){delete p.diplomaticLock;releaseCaptive(s,p.id,{automatic:true});}
+  else if(!s.campaign.diplomacy&&p.fate.originalFaction!==playerFaction(s)&&s.campaign.day-p.fate.day>=3)releaseCaptive(s,p.id,{ransom:true,automatic:true});
  }
 }
 export function roadEdgeForArmy(s,a){return a.travel?{from:a.travel.from,to:a.travel.to,fraction:a.travel.progress/roadDistance(s,a.travel.from,a.travel.to)}:null;}

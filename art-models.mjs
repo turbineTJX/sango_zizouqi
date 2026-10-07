@@ -1,3 +1,4 @@
+import {combatFamily} from './troop-equipment.mjs';
 import * as T from './vendor/three/three.module.js';
 import {GLTFLoader} from './vendor/three/loaders/GLTFLoader.js';
 import {OBJLoader} from './vendor/three/loaders/OBJLoader.js';
@@ -29,7 +30,7 @@ export class ModelLayer {
   const wanted=new Map(),add=(id,key,x,y,size=1)=>{if(this.pack.models[key])wanted.set(id,{key,x,y,size});};
   const gate=snapshot.gate;if(gate&&gate.hp>0)add('gate',gate.hp<gate.maxHp*.5?'gateDamaged':'gate',gate.x,gate.y,1.4);
   for(let y=0;y<8;y++)for(let x=0;x<14;x++){const ground=terrainAt(snapshot,x,y);if(ground==='bridge'&&y===3)add(`ground-${x}-${y}`,'bridge',x,y,1.1);else if(['forest','hill'].includes(ground)&&(x+y)%3===0)add(`ground-${x}-${y}`,ground,x,y,.65);}
-  for(const u of snapshot.units)if(['ship','siege','ram','tower'].includes(u.type)){add('unit-'+u.id,['ram','tower'].includes(u.type)?'siege':u.type,u.x,u.y,.8);const d=wanted.get('unit-'+u.id);if(d)d.unit=u;}
+  for(const u of snapshot.units)if(['ship','siege'].includes(combatFamily(u))){add('unit-'+u.id,combatFamily(u),u.x,u.y,.8);const d=wanted.get('unit-'+u.id);if(d)d.unit=u;}
   this.wanted=wanted;
   for(const [id,o]of this.objects)if(!wanted.has(id)||wanted.get(id).key!==o.key){this.scene.remove(o.root);this.objects.delete(id);}
   for(const [id,def]of wanted){if(this.objects.has(id))continue;this.load(def.key).then(source=>{

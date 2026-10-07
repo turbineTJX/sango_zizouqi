@@ -1,0 +1,11 @@
+Use case: identity-preserve
+人物：韦昭 / person-2
+原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。
+身份：A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji. A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.
+输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。
+固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。
+画幅：1792×1008，宽幅场景，有场景背景。
+场景含义：平视整军监督或器械检查，沉静站立、低位自然持兵器或坐姿检查器械，嘴唇闭合，不大幅指点、挥击或蹲摆动作。
+该人物独立表演（优先于通用示例手势）：Standing in left three-quarter view beside training records and an equipment rack, a small tally book held open low in both hands. Quietly examining the record, no weapon or theatrical command.
+Input image 1 role: approved original identity of this exact officer. Keep his particular facial structure, eyes, nose, beard, skin tone, headwear and garment palette. Independently compose the requested scene and natural pose; do not copy the headshot pose or background. Eyebrows rest calmly, unpinched glabella, lips gently closed. Use comfortable low hands and clear simple props.
+Maintain the requested 1792×1008 frame proportion. Leave visible background above the complete headwear; keep the subject's head normal-sized.

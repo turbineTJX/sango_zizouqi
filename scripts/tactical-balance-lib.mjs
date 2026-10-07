@@ -13,7 +13,7 @@ export function fight(id,seed,{orders=false}={}){
    const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
    if(key&&!issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)))ordersUsed++;
   }
-  stepBattle(b);
+  stepBattle(b,{pauseForReinforcements:false});
   controls+=b.sides[1].units.filter(u=>u.status==='active'&&['stun','confuse','seal','slow'].some(k=>(u.statuses[k]?.until||0)>b.tick)).length;
   casts=b.sides[0].units.reduce((n,u)=>n+u.skillCasts,0);
  }

@@ -39,12 +39,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -79,7 +74,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴的幕僚。在正史中，避开司马昭之名，以韦曜记述。\n\n演：没有记载。\n\n史：奉太子孙和之令写出「博弈论」，评论赌博是个毫无益处的遊戏。孙亮即位後受到诸葛恪的推薦，和薛莹、华覈共同编辑「吴书」。但孙皓即位後，在「吴书」的编辑方针上和孙皓对立。不擅饮酒的他受迫强饮，並以态度反叛为名遭受处刑。华覈与其交情甚笃，直到最後还为了救助其性命而四处奔走。\n\n",
@@ -87,15 +82,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-3": {
     "id": "person-3",
@@ -137,12 +131,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -186,12 +175,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -234,12 +218,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -272,7 +251,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "蜀国学士。为司马徽、宗忠的门下弟子。\n\n演：和诸葛亮等人，同为让刘备决心自立为皇帝的幕僚之一。在诸葛亮的第一次北伐时，曾被任命为博士。\n\n史：相当了解经书史记，特别是熟悉「左氏春秋」。於刘备平定益州後被委任劝学从事，在刘禅成为天子时，曾教导「左氏春秋」。\n\n",
@@ -280,15 +259,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "jin": {
     "id": "jin",
@@ -328,12 +306,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "坚壁清野",
     "trait": "治军严整"
@@ -374,12 +347,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -422,12 +390,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -468,12 +431,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -514,12 +472,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -564,12 +517,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -610,12 +558,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -656,12 +599,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -702,12 +640,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -748,12 +681,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -797,12 +725,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -841,7 +764,7 @@ export const OFFICER_DESIGNS = {
         "cao"
       ]
     },
-    "type": "siege",
+    "type": "spear",
     "formation": "front",
     "skills": [],
     "biography": "袁绍三子，为袁谭、袁熙之弟。母亲为刘氏。\n\n演：容貌出色，受到袁绍的宠爱。袁绍死後被审配、逢纪拥立成为继承者。和长兄袁谭对立，在对曹操一战中，袁谭和曹操联手，於是靠著次兄袁熙逃往幽州。在曹操北上时，依靠辽西的乌丸、辽东的公孙康企图东山再起。不料却被畏惧於曹操的公孙康所伐，将他和袁熙的首级一同献给了曹操。\n\n史：在邺城遭到曹操包围时，拒绝了所提出的劝降。企图夺取公孙康的兵力，却反遭袭击。\n\n",
@@ -849,15 +772,14 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "shao": {
     "id": "shao",
@@ -902,12 +824,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "名门号令",
     "trait": "名门雄主"
@@ -940,7 +857,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "袁术的幕僚。\n\n演：在袁术意图自立为帝时，以「至於文王，三分天下有其二，犹以服事殷」的周文王的故事劝谏。然而袁术却相信「代汉者，当塗高也（字公路，和「途」的意思相应）」的民间说法，並未聽从劝谏。\n\n史：１９５年，献帝被李傕等人追赶，袁术企图谋篡皇位之际，於是提出周文王的故事劝谏。但於１９７年，袁术仍以瑞兆降临为由而自命为帝。\n\n",
@@ -948,15 +865,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-21": {
     "id": "person-21",
@@ -996,12 +912,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -1034,7 +945,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "张鲁的幕僚。\n\n演：向张鲁进言夺取蜀汉自立为王。在刘璋遭受刘备进攻之时，劝谏张鲁答应刘璋的援军要求。汉中受到曹操攻击时和庞德抗战，制止了受贿而欲屈於曹操军的杨松。但最後却未能阻止聽从杨松提案的张鲁而败北。遂同张鲁降於曹操。\n\n史：曹丕即位後爵位跟领地受增，但却在约十年後病死。\n\n",
@@ -1042,15 +953,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-23": {
     "id": "person-23",
@@ -1089,12 +999,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -1135,12 +1040,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -1184,12 +1084,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -1230,12 +1125,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -1276,12 +1166,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -1322,12 +1207,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -1368,12 +1248,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -1414,12 +1289,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -1462,12 +1332,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -1510,12 +1375,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -1556,12 +1416,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 3,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -1605,12 +1460,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -1651,12 +1501,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -1689,7 +1534,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "王浑（和玄冲不同人）之子。为竹林七贤的最年少者。\n\n演：晋国建威将军。参与２７９年的吴国讨伐战。进军武昌，和先进入石头城的王濬会合。\n\n史：年少时就发挥他不输给大人的聪明才智。因锺会的推薦受到司马懿重用。历任河东太守、荆州刺史等职。在晋惠帝时成为司徒。不过並不关心政务只执著於自己的利益。\n\n",
@@ -1697,15 +1542,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-37": {
     "id": "person-37",
@@ -1743,12 +1587,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -1782,7 +1621,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "spear",
     "formation": "front",
     "skills": [],
     "biography": "晋国益州刺史。\n\n演：陆抗死後，上奏讨伐吴国。２７９年，吴国讨伐战时受任龙骧将军，同唐彬从益州沿长江而下进攻。吴国的岑昏为了防止晋军的舰队，在水中设置了铁锥，却遭筏子作战所破壞。在石头城击败张象，降服了孙皓。之後和杜预、司马[0xFA][0x40]等人会合完全平定吴国，因此功绩而受封为辅国大将军。\n\n史：於吴国讨伐战中和王浑互争功绩。\n\n",
@@ -1790,15 +1629,14 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 3,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-39": {
     "id": "person-39",
@@ -1838,12 +1676,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -1884,12 +1717,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -1930,12 +1758,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -1976,12 +1799,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -2025,12 +1843,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -2071,12 +1884,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -2119,12 +1927,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -2167,12 +1970,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -2208,7 +2006,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "蜀国武将，关羽的随军司马。\n\n演：奉关羽的命令在长江沿岸建造狼烟台，以防吕蒙的袭击。荆州被吕蒙夺走後，和关羽同困在麦城。在关羽父子企图脱逃之际，同周仓留在麦城。得知关羽父子死亡时，便拒降而自刎。\n\n史：在刘璋的时代，任州的书佐。在夷陵之战时从军，战败而亡。是喜好评论以及议论人物的人。\n\n",
@@ -2216,15 +2014,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-48": {
     "id": "person-48",
@@ -2262,12 +2059,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -2313,12 +2105,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -2361,12 +2148,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -2407,12 +2189,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -2455,12 +2232,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -2503,12 +2275,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -2549,12 +2316,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -2595,12 +2357,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -2641,12 +2398,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -2682,7 +2434,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国之臣，韦昭的好友。\n\n演：蜀灭亡时，向孙休提议必须强化防禦的體制。当孙皓即位打算进攻晋时，主张与其出兵必须先以德治民。却惹火了孙皓被赶走，感叹「可惜啊，如此美的国土，不久也将成为别人的吧」。\n\n史：文章学识受到相当的评價，在孙皓当权时担任右国史，和韦昭、薛莹等人共编撰「吴书」。劝谏孙皓的状书达百次以上，在韦昭被处刑时也抗议到最後。推举了众多人才。\n\n",
@@ -2690,15 +2442,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-58": {
     "id": "person-58",
@@ -2739,12 +2490,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -2785,12 +2531,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -2831,12 +2572,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -2879,12 +2615,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -2927,12 +2658,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -2973,12 +2699,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -3016,7 +2737,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "crossbow",
+    "type": "archer",
     "formation": "back",
     "skills": [],
     "biography": "曹操的参谋，郭奕之父。\n\n演：经由程昱的推举服侍曹操，而自己也推举了刘晔。在刘备投靠曹操，对於荀彧和程昱向曹操进言斩首刘备一事时，晓谕如果将刘备斩首将会失去人心。官渡之战前，向曹操说明有战勝袁绍的十个勝因，劝曹操在进攻袁绍之前先讨伐吕布。之後也预言了孙策的早逝，以及正确地看穿了袁尚的灭亡，不过却在袁尚讨伐战的途中病倒。赤壁之战失败後，曾令曹操感叹若是有郭嘉在，就不会如此一败塗地。\n\n史：以谋臣·戏志才的继承者被荀彧推举。\n\n",
@@ -3024,12 +2745,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "奇谋破阵",
     "trait": "料敌先机"
@@ -3070,12 +2786,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -3116,12 +2827,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -3162,12 +2868,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -3210,12 +2911,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -3256,12 +2952,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -3305,12 +2996,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -3354,12 +3040,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -3404,12 +3085,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -3450,12 +3126,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -3496,12 +3167,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -3542,12 +3208,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -3588,12 +3249,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -3637,12 +3293,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -3683,12 +3334,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -3735,12 +3381,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 3
     },
     "skill": "疾风奔袭",
     "trait": "神速奔袭"
@@ -3781,12 +3422,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -3827,12 +3463,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -3873,12 +3504,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -3925,12 +3551,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -3975,12 +3596,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -4021,12 +3637,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -4073,12 +3684,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "拔矢啖睛",
     "trait": "刚烈奋勇"
@@ -4122,12 +3728,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4170,12 +3771,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4216,12 +3812,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -4266,12 +3857,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -4312,12 +3898,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4358,12 +3939,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4404,12 +3980,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 3,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4451,12 +4022,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -4500,12 +4066,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4546,12 +4107,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -4594,12 +4150,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -4640,12 +4191,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4699,12 +4245,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "青龙偃月",
     "trait": "破甲斩将"
@@ -4740,7 +4281,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "孙坚的属臣，後改仕曹操。桓嘉之父。\n\n演：与刘表为旧识的缘故，便负责与刘表军交涉取回战死的孙坚遗體。後来改仕於魏国，策劃曹操继承人曹丕的即位。同华歆等人进入宫中，逼迫献帝退位。\n\n史：为报答受孙坚推举为孝廉之恩，冒著危险受请要回孙坚的遗體。曾向宠爱曹植的曹操进言应选择曹丕为继承者。任尚书时负责任用官吏人事。曹丕时代为尚书令。在病危之时被任命为太常，但不久之後就死去，让曹丕大感惋惜。\n\n",
@@ -4748,15 +4289,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-101": {
     "id": "person-101",
@@ -4794,12 +4334,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -4845,12 +4380,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -4891,12 +4421,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -4937,12 +4462,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -4983,12 +4503,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -5029,12 +4544,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -5077,12 +4587,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -5127,12 +4632,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -5176,12 +4676,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -5226,12 +4721,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -5264,7 +4754,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "刘表的幕僚，荆州的名士。\n\n演：官渡之战前，被刘表询问该在曹操和袁绍中选择支持谁，回答为曹操。奉命侦查许昌时，受到献帝告知如果接受了赐位就不再是刘表的家臣之後離走。被曹操任命为侍中、零陵太守，返回後，被刘表关入牢狱。在刘琮降於曹操，曹操进入荆州後被释放。\n\n史：刘表死後，同蒯越、傅巽等人劝告刘琮向曹操投降。\n\n",
@@ -5272,15 +4762,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-112": {
     "id": "person-112",
@@ -5318,12 +4807,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -5364,12 +4848,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -5414,12 +4893,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -5460,12 +4934,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -5506,12 +4975,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -5556,12 +5020,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -5602,12 +5061,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -5654,12 +5108,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 3,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "百骑劫营",
     "trait": "近战袭扰"
@@ -5701,12 +5150,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -5747,12 +5191,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -5798,12 +5237,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -5840,7 +5274,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "刘备的幕僚，和同乡的刘备是旧交。\n\n演：在刘备跟吕布争夺徐州时，和糜竺一起留在徐州。当徐州被曹操攻下後，就同刘备前去投靠袁绍，並在刘备脱離袁绍时出了不少计策。之後转战加入刘备一军，也在刘备劝降刘璋时担任使者前去。故意採取傲慢的态度让秦宓对其怒喝，接著回以微笑为自己的无礼谢罪，就如此劝降了秦宓及刘璋。便让决定投降的刘璋搭车与刘备会面。\n\n史：在刘备下达禁酒令时，半开玩笑的劝谏刘备说，只是带著酿酒的道具就要处罚，未免太过份了。\n\n",
@@ -5848,15 +5282,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "治政人才专长"
+    "trait": "治政人才专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "yan": {
     "id": "yan",
@@ -5896,12 +5329,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "河北雄锋",
     "trait": "勇冠三军"
@@ -5947,12 +5375,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "子午奇袭",
     "trait": "孤军斩击"
@@ -5994,12 +5417,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -6032,7 +5450,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "曹操的谋臣。\n\n演：没有记载。\n\n史：因荀彧的推薦加入曹操阵营。精於策略，十分受曹操重用。不过英年早逝，让曹操感叹「戏志才一死，就没有可谈论计略的对象了」。其後任者，荀彧推薦了郭嘉。\n\n",
@@ -6040,15 +5458,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-128": {
     "id": "person-128",
@@ -6089,12 +5506,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -6135,12 +5547,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -6183,12 +5590,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -6229,12 +5631,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -6277,12 +5674,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -6323,12 +5715,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -6369,12 +5756,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -6415,12 +5797,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -6461,12 +5838,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -6517,12 +5889,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "麒麟破阵",
     "trait": "文武压制"
@@ -6563,12 +5930,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -6609,12 +5971,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -6657,12 +6014,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -6703,12 +6055,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -6749,12 +6096,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -6795,12 +6137,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -6841,12 +6178,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -6892,12 +6224,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "虎痴怒击",
     "trait": "悍勇护主"
@@ -6940,12 +6267,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -6986,12 +6308,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -7033,12 +6350,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -7082,12 +6394,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -7128,12 +6435,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -7166,7 +6468,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "吴国武将，虞翻的第四子。\n\n演：没有记载。\n\n史：在孙綝企图废孙亮迎孙休时，唯一劝告欲即帝位的孙綝自重的人。同薛珝、陶璜等人进晋国的交州，２７１年攻入交趾郡。将九真、日南郡重返吴国，分割交趾郡新设新昌郡。虽然更近一步的讨伐扶严並成为交州刺史，不久後病死。\n\n",
@@ -7174,15 +6476,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-152": {
     "id": "person-152",
@@ -7224,12 +6525,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -7270,12 +6566,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -7317,12 +6608,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -7366,12 +6652,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -7404,7 +6685,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "牵招的次子。魏国陇西太守。\n\n演：在邓艾进攻姜维所在的沓水时，加入邓艾的军队。在邓艾和锺会的蜀国讨伐战中，也在邓艾的指挥下参战。和王颀合力击破诸葛瞻，攻下绵竹关。邓艾攻下成都後，成为益州诸郡的太守。\n\n史：在曹奂时代为陇西太守。在晋代为扬州、凉州刺史，在边境之战中战死。\n\n",
@@ -7412,15 +6693,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-157": {
     "id": "person-157",
@@ -7458,12 +6738,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -7508,12 +6783,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -7554,12 +6824,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -7600,12 +6865,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -7646,12 +6906,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -7692,12 +6947,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -7738,12 +6988,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -7788,12 +7033,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 3,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "苦肉火船",
     "trait": "火攻承伤"
@@ -7835,12 +7075,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -7885,12 +7120,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 2,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -7931,12 +7161,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -7982,12 +7207,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -8028,12 +7248,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -8079,12 +7294,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8125,12 +7335,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8172,12 +7377,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -8218,12 +7418,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -8267,12 +7462,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8313,12 +7503,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8363,12 +7548,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -8409,12 +7589,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8455,12 +7630,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -8501,12 +7671,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -8547,12 +7712,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8598,12 +7758,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8644,12 +7799,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8690,12 +7840,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8737,12 +7882,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -8784,12 +7924,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -8834,12 +7969,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "百步穿杨",
     "trait": "远距点杀"
@@ -8880,12 +8010,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -8918,7 +8043,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "魏国官僚。西汉儒者·高堂生的子孙。\n\n演：没有记载。\n\n史：为曹操所招揽下进入丞相府。曹丕时代负责守护平原王·曹叡，因长於天文学而被任命研究历法。在曹叡即位後历任陈留太守等职。在曹叡打算继续建造宫殿时，曾严厉地劝谏。後来晋升为侍中、太史令、光禄勋。\n\n",
@@ -8926,15 +8051,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-189": {
     "id": "person-189",
@@ -8974,12 +8098,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -9020,12 +8139,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -9068,12 +8182,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9118,12 +8227,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "奋武突击",
     "trait": "沉毅善战"
@@ -9164,12 +8268,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -9210,12 +8309,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -9248,7 +8342,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "魏国官僚，国泰之父。\n\n演：没有记载。\n\n史：热衷研究学问，喜好古学，曾被老师郑玄评论为「将成为国家级的人物」。一时曾为了避战乱而移到辽东，返回後为曹操效命。统括屯田政策，五年之间就回復亏损的国库。曹操讨伐马超和韩遂的反叛时受命留守，镇压在河间发起叛乱的田银和苏伯。因此功绩晋成为魏郡太守。後升为太僕，在任职中死去。即使身处大臣高位，依然是粗衣粗食，贯彻谦虚的态度。\n\n",
@@ -9256,15 +8350,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-196": {
     "id": "person-196",
@@ -9302,12 +8395,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -9348,12 +8436,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -9394,12 +8477,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9445,12 +8523,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9491,12 +8564,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9537,12 +8605,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9583,12 +8646,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9633,12 +8691,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9680,12 +8733,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -9726,12 +8774,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -9772,12 +8815,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -9823,12 +8861,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -9869,12 +8902,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -9915,12 +8943,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -9961,12 +8984,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -9999,7 +9017,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "cavalry",
     "formation": "front",
     "skills": [],
     "biography": "魏国武将。胡遵之子，胡烈之兄。\n\n演：在诸葛诞掀起反叛时，加入司马昭所指挥的镇压军，进入寿春城将诸葛诞杀死。晋时代为平南将军，在杜预所指挥的吴国讨伐战中奉命攻打夏口。虽叮咛主张速攻的杜预自重但是杜预还是贯彻速攻，策略战勝吴国。\n\n史：历任地方的军政官。当王经被姜维包围在狄道城时，和陈泰、邓艾、王秘一起前往救援。由於女兒成为武帝司马炎的贵人（宫廷女官）备受宠爱，因此就任镇东大将军等高官。\n\n",
@@ -10007,15 +9025,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-212": {
     "id": "person-212",
@@ -10047,7 +9064,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国之臣。顾邵、谭、承之父。为「吴之四姓」的顾家之後。\n\n演：在张紘的推举下侍奉孙权，代理执行太守一职。赤壁之战开战前，同张昭与曹操交战。夷陵之战前，在孙权臣服曹丕得到吴王的地位时，以不该受取他人爵位的理由反对。２２９年，孙权登上帝位後就任丞相。\n\n史：蔡邕的门生。２２５年丞相孙邵死後，周围的人皆推举张昭为後任，不过孙权却任用顾雍。沉默寡言，尤其是反对政策时完全不发言。只要一看到顾雍默不作声，孙权就会从新考虑政策。\n\n",
@@ -10055,15 +9072,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "治政人才专长"
+    "trait": "治政人才专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-213": {
     "id": "person-213",
@@ -10103,12 +9119,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -10149,12 +9160,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -10197,12 +9203,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -10243,12 +9244,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -10289,12 +9285,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -10342,12 +9333,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -10388,12 +9374,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -10440,12 +9421,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -10488,12 +9464,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -10534,12 +9505,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -10580,12 +9546,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -10626,12 +9587,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -10672,12 +9628,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -10718,7 +9669,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "crossbow",
+    "type": "archer",
     "formation": "back",
     "skills": [],
     "biography": "魏国重臣。司马师、昭之父，司马炎的祖父。晋宣帝。\n\n演：荆州的关羽攻击襄阳时，献策和孙权同盟共同攻击关羽。得到曹丕的信任，曹叡时代统括雍州和凉州的军事。虽一度因诸葛亮和马谡的计谋被懷疑谋反遭到解职，在诸葛亮北伐後又復职。之後到诸葛亮战死於於五丈原为止，一直防禦著蜀军的攻击。此外，公孙渊在辽东企图自立时，以电击般的速度远征並且讨伐。在曹芳时代，因为曹爽的阴谋而被夺去实权，不过２４９年时成功地讨伐曹爽而夺回政权。\n\n史：平定王淩的反叛後就任相国。奠定了晋朝的基础。\n\n",
@@ -10726,12 +9677,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "鹰视狼顾",
     "trait": "后发压制"
@@ -10777,12 +9723,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -10827,12 +9768,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -10876,12 +9812,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -10923,12 +9854,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -10971,12 +9897,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -11017,12 +9938,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -11063,12 +9979,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -11113,12 +10024,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -11159,12 +10065,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -11206,12 +10107,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -11252,12 +10148,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -11301,12 +10192,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -11347,12 +10233,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -11393,12 +10274,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -11431,7 +10307,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "cavalry",
     "formation": "front",
     "skills": [],
     "biography": "晋国武将。\n\n演：２７９年，晋国发起吴国讨伐战时，在杜预的指挥下参战。江陵之战时率领八百水军在巴山埋伏，杀了因败给杜预而逃亡的孙歆。接著也和攻打前来的张悌、沈莹、诸葛靓等军战鬥，在乱战之中，杀掉沈莹为晋军取得勝利。\n\n史：没有记载。\n\n",
@@ -11439,15 +10315,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 3,
-      "ship": 2,
-      "ram": 3,
-      "tower": 3
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-242": {
     "id": "person-242",
@@ -11489,12 +10364,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -11538,12 +10408,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -11584,12 +10449,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -11630,12 +10490,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -11688,12 +10543,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "神火燎原",
     "trait": "火攻破阵"
@@ -11734,12 +10584,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -11780,12 +10625,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 3,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -11830,12 +10670,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -11877,12 +10712,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -11925,12 +10755,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 3,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -11971,12 +10796,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12017,12 +10837,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -12063,12 +10878,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -12114,12 +10924,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "王佐之才",
     "trait": "王佐救急"
@@ -12160,12 +10965,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -12211,12 +11011,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12258,12 +11053,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12304,12 +11094,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12344,7 +11129,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "crossbow",
+    "type": "archer",
     "formation": "back",
     "skills": [],
     "biography": "曹操的幕僚。虽是荀彧的外甥，但比荀彧年长六岁。\n\n演：在何进政权下担任黄门侍郎。回乡之後同荀彧服侍曹操。在下邳包围吕布时，向考虑撤退的曹操进言速攻之策。之後在官渡、赤壁、渭水之战时从军献策。在王粲等人提议曹操就任魏王时，以没有名分为由而反对。得知曹操为此事大怒之後，病死。因此就任魏王一事也就此作罢。\n\n史：在讨伐孙权的途中病死，曹操每当提到此事时便流泪。並没有荀攸反对曹操即位的记载，也不见和曹操关係恶化一事的叙述。\n\n",
@@ -12352,12 +11137,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "声东击西",
     "trait": "谋定后动"
@@ -12398,12 +11178,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -12449,12 +11224,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12487,7 +11257,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "蜀国官僚。和诸葛亮、费禕、董允並称「蜀国四相」。\n\n演：刘备在益州苦战刘璋时，与诸葛亮同行前往益州。追随诸葛亮压制南蛮，街亭之战时劝谏欲将马谡斩首的诸葛亮。之後在诸葛亮北伐期间，在成都致力於後方支援。诸葛亮死後由遗言被指定为继承者，成为丞相、大将军录尚书事。\n\n史：诸葛亮死後只有蒋琬一人没有动摇。在魏国公孙渊反叛时，趁機拟定计劃从汉中派水军袭击魏兴、上庸，却因病而放弃。\n\n",
@@ -12495,15 +11265,14 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 2,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
-    "trait": "治政人才专长"
+    "trait": "治政人才专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-264": {
     "id": "person-264",
@@ -12546,12 +11315,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12593,12 +11357,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12639,12 +11398,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -12691,12 +11445,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12739,12 +11488,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -12787,12 +11531,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12836,12 +11575,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -12882,12 +11616,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -12928,12 +11657,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -12974,12 +11698,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -13020,12 +11739,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -13066,12 +11780,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -13114,12 +11823,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -13166,12 +11870,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -13214,12 +11913,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -13262,12 +11956,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -13308,12 +11997,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -13362,12 +12046,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -13408,12 +12087,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -13459,12 +12133,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -13505,12 +12174,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -13551,12 +12215,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -13599,12 +12258,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -13645,12 +12299,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -13691,12 +12340,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -13745,12 +12389,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -13796,7 +12435,7 @@ export const OFFICER_DESIGNS = {
         "person-653"
       ]
     },
-    "type": "crossbow",
+    "type": "archer",
     "formation": "back",
     "skills": [],
     "biography": "诸葛珪之子，诸葛瑾之弟。诸葛均之兄，诸葛瞻之父。\n\n演：自幼在叔父诸葛玄的庇护下成长，之後进入司马徽门下被称为「卧龙」。被刘备三顾茅庐所招揽後，说动孙权军並大破曹操军。在自己的三分天下之计下，使刘备称霸荆州南部和益州並建立蜀国。随刘备即帝位後成为丞相，受刘备临终受託辅佐刘禅。刘备死後，和吴国恢復邦交並且平定南蛮。反覆地进行北伐，全心执著的想要讨伐魏国，却病逝五丈原。\n\n史：比起神機妙算的军事战略家，多半是以政治家的身份被描述较多。\n\n",
@@ -13804,12 +12443,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 2,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "八阵奇门",
     "trait": "破谋控场"
@@ -13854,12 +12488,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "长驱直入",
     "trait": "破阵削弱"
@@ -13904,12 +12533,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -13952,12 +12576,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -14000,12 +12619,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -14048,12 +12662,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 3,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -14094,12 +12703,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -14140,12 +12744,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -14188,12 +12787,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -14226,7 +12820,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "魏臣·辛毘之女，辛敞之姐。魏国太常·羊耽之妻，羊琇之母。晋国名将羊祜为其外甥。\n\n演：２４９年，司马懿夺得曹爽政权时，受到弟弟辛敞商量应该如何自处。辛宪英看清司马懿的目的是彻底清算曹爽一派，判断並不会危害自己的弟弟後，就指示返回曹爽手下。结果辛敞被认为是义气凛然，继续留在原职。\n\n史：聪明且有见识，並看清曹丕、曹爽、锺会将会失败。在其子被任命为锺会的参军时，授予自保之道，最後保住了羊琇的性命。\n\n",
@@ -14234,15 +12828,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-300": {
     "id": "person-300",
@@ -14282,12 +12875,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -14332,12 +12920,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -14378,12 +12961,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -14426,12 +13004,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -14480,12 +13053,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -14526,12 +13094,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -14574,12 +13137,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -14622,12 +13180,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -14668,12 +13221,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -14714,12 +13262,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -14760,12 +13303,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -14808,12 +13346,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -14854,12 +13387,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -14900,12 +13428,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -14946,12 +13469,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -14992,12 +13510,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -15038,12 +13551,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -15086,12 +13594,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15132,12 +13635,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -15170,7 +13668,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国官吏·薛综之子，薛莹之兄。\n\n演：蜀国遣使来贺诛杀在吴国执政权牛耳的孙綝後，为了答礼前往蜀国。返回後，向吴帝·孙休报告蜀国因宦官的黄皓掌权，无人劝谏而导致国家弊病丛生。\n\n史：当上守大匠（建设大臣的代理），被吴帝·孙皓命令营建清庙（祭祀孙皓之父孙和的庙）的正殿和内殿。２６９年，同虞汜、陶璜等人从合浦攻入交趾，在回程途中时病死。\n\n",
@@ -15178,15 +13676,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-320": {
     "id": "person-320",
@@ -15216,7 +13713,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国官吏，薛珝、薛莹之父。\n\n演：为继承孙策之位的孙权所招揽。赤壁之战前，诸葛亮为了刘备和孙权的结盟一事前来吴国时，同张昭等人挑起论战却输给了诸葛亮。\n\n史：年轻时逃难到交州，向刘熙学习。在交州太守·士燮受到孙权支配後，服侍孙权成为合浦和交趾太守，同交州刺史·吕岱共远征至九真郡。孙权即位後，历任尚书僕射、太子少傅（皇太子的辅导官）。著有汇整自己诗赋的「私载」和「五宗图述」。\n\n",
@@ -15224,15 +13721,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-321": {
     "id": "person-321",
@@ -15271,12 +13767,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15317,12 +13808,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -15363,12 +13849,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15409,12 +13890,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -15455,12 +13931,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15505,12 +13976,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 3,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15551,12 +14017,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15599,12 +14060,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15653,12 +14109,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -15699,12 +14150,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -15745,12 +14191,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -15791,12 +14232,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -15837,12 +14273,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -15886,12 +14317,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -15932,12 +14358,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -15980,12 +14401,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -16030,12 +14446,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -16076,12 +14487,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -16124,12 +14530,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -16170,7 +14571,7 @@ export const OFFICER_DESIGNS = {
         "person-348"
       ]
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "曹操的四子。母亲是卞氏。曹丕、曹彰之弟，曹熊之兄。是代表建安文学的诗人。临淄侯。陈王。\n\n演：才能受到曹操所喜爱，同曹丕争夺继承者之位。虽得杨修的助言讨曹操欢心，在被发现是杨修所出的主意後，便被曹操疏远，让出了继承者一位。曹操死後，因未出席葬礼而险遭曹丕所杀，在卞氏的劝解下即兴做出「七步诗」，免於一死。之後虽经过改朝换代，依然懷才不遇。\n\n史：留有「赠白马王彪」「野田黄雀行」「洛神赋」等遗作。据说「洛神赋」是曹植对甄氏的思念所吟咏之作。\n\n",
@@ -16178,15 +14579,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-341": {
     "id": "person-341",
@@ -16226,12 +14626,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -16277,12 +14672,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -16323,12 +14713,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -16383,12 +14768,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "魏武之强",
     "trait": "雄才大略"
@@ -16436,12 +14816,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -16474,7 +14849,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "曹操之子，母亲为环氏。曹据、曹宇之兄。\n\n演：没有记载。\n\n史：年少时便相当聪明且理解力甚强。２０２年，在孙权献象时，群臣中唯独他一个人想出测量大象體重的方法，令曹操相当高兴（让象搭上小船，然後在吃水线之处做上记号，将大象卸下船後再慢慢堆放石头直到船下沉到记号之处，然後测量石头的总重量）。判断力、仁爱的情操虽受到曹操的喜爱，而内定为继承人，却在１３岁时病逝。让曹操後悔将名医华佗处刑一事。曹丕曾脱口而出「如果仓舒还活著，亦无法成为继承者了」。\n\n",
@@ -16482,15 +14857,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-347": {
     "id": "person-347",
@@ -16530,12 +14904,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -16589,12 +14958,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -16635,12 +14999,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -16681,12 +15040,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -16729,12 +15083,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -16775,12 +15124,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -16821,12 +15165,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -16859,7 +15198,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "crossbow",
+    "type": "archer",
     "formation": "back",
     "skills": [],
     "biography": "袁绍的幕僚。原本仕於韩馥。\n\n演：受到进入邺的袁绍任命为行政官。在被袁绍询问是否和曹操开战时，主张时候尚早。即使出征黎阳时依然没有积極的行动。官渡之战前，田豐仍忠告说时機还早而入囚後，将家产分散家族成员而出阵。虽时而献策，但不被聽从而被打下大牢，使得袁绍军败退。之後虽被曹操军逮捕但拒绝投降，在企图逃走时被杀。曹操也後悔杀了忠义之士，於是将其厚葬。\n\n史：曾经向袁绍进言拥戴献帝，但却被拒绝。\n\n",
@@ -16867,12 +15206,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "料敌布防",
     "trait": "筹略深远"
@@ -16915,12 +15249,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -16963,12 +15292,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -17009,12 +15333,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -17056,12 +15375,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -17107,12 +15421,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -17153,12 +15462,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -17201,12 +15505,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -17247,12 +15546,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -17298,12 +15592,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -17344,12 +15633,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -17390,12 +15674,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -17444,12 +15723,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -17486,7 +15760,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "刘备的幕僚。\n\n演：在陶谦临终时，被推薦为刘备的辅佐官。当刘备企图在徐州脱離曹操独立时，成为向袁绍请求援军的使者。但其间因刘备军败给了曹操而瓦解，於是逃往汝南的刘备一黨策画再次集结。於汝南再次出发的刘备军再度败给曹操时，便前去与刘表交涉请求庇护。之後也担任刘备和孙尚香媒妁之言的中间人，在外交面上十分活跃。刘备入蜀後，同众多将领受到赏赐。\n\n史：平定益州後，受到次於糜竺的厚待，不久之後病死。\n\n",
@@ -17494,15 +15768,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-368": {
     "id": "person-368",
@@ -17545,12 +15818,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "江东制衡",
     "trait": "制衡援军"
@@ -17598,12 +15866,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -17646,12 +15909,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -17703,12 +15961,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 3,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "霸王讨逆",
     "trait": "突阵压制"
@@ -17753,12 +16006,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -17801,12 +16049,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -17852,12 +16095,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -17898,12 +16136,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -17950,12 +16183,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -17996,12 +16224,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -18042,12 +16265,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -18088,12 +16306,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -18140,12 +16353,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -18192,12 +16400,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -18238,12 +16441,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 3,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -18289,12 +16487,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -18337,12 +16530,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -18383,12 +16571,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -18429,12 +16612,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -18480,12 +16658,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -18532,12 +16705,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -18578,12 +16746,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -18626,12 +16789,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "弦无虚发",
     "trait": "连射压制"
@@ -18672,12 +16830,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -18718,12 +16871,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -18764,12 +16912,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -18810,12 +16953,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -18859,12 +16997,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -18912,12 +17045,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "七进七出",
     "trait": "攻守救援"
@@ -18958,12 +17086,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -19004,12 +17127,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -19050,12 +17168,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -19096,12 +17209,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -19142,12 +17250,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -19182,7 +17285,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "晋国官僚。\n\n演：正当与司马炎下棋之时，杜预上奏进言讨伐吴国，而与杜预持相同意见建议司马炎开战。於晋军连勝之时，於贾充进言为求防止陷入长期战，最好暂时先行撤退之际，以仅缺一把之力为由，表达继续攻击为妥之意见，使司马炎决定继续攻击。\n\n史：名书法家。陈寿受张华赏识，负责编纂「三国志」。其外，博学多才，著有「博物志」。於惠帝之时担任侍中、司空等，但於八王之乱时为赵王司马伦所弑。\n\n",
@@ -19190,15 +17293,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-403": {
     "id": "person-403",
@@ -19237,12 +17339,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -19283,12 +17380,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "黄天当立",
     "trait": "范围谋攻"
@@ -19324,7 +17416,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "cavalry",
     "formation": "front",
     "skills": [],
     "biography": "魏国官僚。\n\n演：於渭水之战曹操讨伐马超後，因夏侯渊之推举下成为京兆尹，与夏侯渊共同防守长安。\n\n史：於曹操成为司空後受召返回。与袁尚军对战时，奉锺繇之命说服马腾，使马超等人讨伐郭援。於曹操开始进攻荆州後，为能断绝後顾之忧促使马腾仕官，而让马超率领军队。於马超发起反叛後，追随曹操前往镇压。於魏国建国後成为尚书、雍州刺史，参与讨伐张鲁及刘备之汉中攻防战。曹丕即位後为平定異民族之反叛而四处奔走。\n\n",
@@ -19332,15 +17424,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 1
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-406": {
     "id": "person-406",
@@ -19383,12 +17474,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -19429,12 +17515,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -19475,12 +17556,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -19521,12 +17597,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -19569,12 +17640,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -19611,7 +17677,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国幕僚，与张昭一同並称为「江东二张」之策士。\n\n演：於孙策进军江东之前，於周瑜之建议下与张昭一同受招揽。於孙策称霸江东後，为将成果报告於献帝而前往许昌，与曹操会面。於回国後推举顾雍，辅佐继承孙策之孙权录用人才。临终之际留下将据点迁移至秣陵之遗言。孙权亦服从此事，将秣陵改名为建业。劝谏血气方刚之孙策及孙权莫往前线，於赤壁之战时亦反对与曹操交战，为稳健派之代表。\n\n史：献上迁都秣陵策略，於孙权实行後即病故。\n\n",
@@ -19619,15 +17685,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "he": {
     "id": "he",
@@ -19671,12 +17736,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "巧变奇袭",
     "trait": "善识地势"
@@ -19717,12 +17777,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -19763,12 +17818,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -19811,12 +17861,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -19859,12 +17904,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -19911,12 +17951,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -19957,12 +17992,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -20005,12 +18035,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -20055,12 +18080,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -20106,12 +18126,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -20152,12 +18167,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -20203,12 +18213,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -20251,12 +18256,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -20293,7 +18293,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "crossbow",
+    "type": "archer",
     "formation": "back",
     "skills": [],
     "biography": "服侍东汉司徒·王允之歌姬。擅长歌舞之美女。\n\n演：１６岁之时，协助王允所策劃之「连环计」。於董卓与吕布面前表演歌舞夺走二人之心。虽被带进董卓自宅，但教唆吕布杀害董卓，最後终於使吕布杀董卓。尔後成为吕布之侧室。吕布於下邳遭曹操包围，而陈宫要求吕布出征时，与正室严氏共同阻止吕布出征。吕布战亡後，连同其家人一同被送往许昌。\n\n史：並无记载。杀害董卓前，吕布曾与董卓之侍女私通。据说其侍女即为貂蝉之原型。\n\n",
@@ -20301,12 +18301,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "闭月离间",
     "trait": "单体扰乱"
@@ -20347,12 +18342,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -20393,12 +18383,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -20439,12 +18424,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -20485,12 +18465,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -20531,12 +18506,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -20580,12 +18550,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -20627,12 +18592,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -20685,12 +18645,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "长坂怒喝",
     "trait": "邻阵震慑"
@@ -20734,12 +18689,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -20784,12 +18734,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -20830,12 +18775,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -20876,12 +18816,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -20922,12 +18857,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -20968,12 +18898,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -21020,12 +18945,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "威震逍遥",
     "trait": "勇略过人"
@@ -21066,12 +18986,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -21116,12 +19031,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -21164,12 +19074,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -21210,12 +19115,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -21258,12 +19158,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -21304,12 +19199,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -21355,12 +19245,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -21406,12 +19291,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -21456,12 +19336,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -21498,7 +19373,7 @@ export const OFFICER_DESIGNS = {
         "person-661"
       ]
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "东汉之济北相。徐州名士。陈登之父。\n\n演：服侍陶谦，心服於曹操来袭之时前来救援之刘备。尔後成为徐州牧支援刘备。於刘备遭吕布夺走徐州後，计劃打倒吕布。於袁术自封皇帝攻打吕布之时，使袁术军之韩暹及杨奉倒戈拯救吕布，但此为欲得吕布信任之策。尔後与曹操联手追杀吕布，成功地使吕布战亡於下邳。\n\n史：虽与袁术深交，但因其子陈应遭挟持做人质强迫其仕官，故与袁术对立。尔後阻挠袁术及吕布之联合。\n\n",
@@ -21506,15 +19381,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-451": {
     "id": "person-451",
@@ -21552,12 +19426,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -21600,12 +19469,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -21642,7 +19506,7 @@ export const OFFICER_DESIGNS = {
         "person-290"
       ]
     },
-    "type": "siege",
+    "type": "spear",
     "formation": "front",
     "skills": [],
     "biography": "蜀国武将。有一说为正史「三国志」之作者·陈寿之父。\n\n演：於与曹操之汉中攻防战中做为黄忠部下参战。虽於定军山之战遭魏军逮捕，但因与夏侯尚交换人质得以生还。尔後参与诸葛亮之北伐。２３０年，於进攻蜀国领地之曹真与司马懿因大雨而撤退时，违背诸葛亮命令与魏延一同追击，败北。故遭处刑。\n\n史：於夷陵之战与吴班一同率领水军。２２９年第三回北伐攻下武都、阴平。並无遭诸葛亮处刑之记载。於「晋书」中陈寿之父因街亭之战，与马谡遭连座处刑，演义中之处刑即以此做为题材。\n\n",
@@ -21650,15 +19514,14 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-454": {
     "id": "person-454",
@@ -21696,12 +19559,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -21748,12 +19606,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -21791,7 +19644,7 @@ export const OFFICER_DESIGNS = {
         "person-661"
       ]
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "徐州名士。陈珪之子。\n\n演：服侍陶谦，及继其後之刘备。於刘备讨伐袁术出征之时，与张飞一同防守下邳，但因张飞烂醉使吕布有機可趁，故城遭夺走。尔後陈珪一同服侍吕布，並筹劃陷害吕布欲使刘备復权之计谋。尔後协助进入徐州之刘备讨伐曹操之徐州刺史·车胄，却因为刘备败於曹操投靠袁绍之故，而将徐州献与曹操。\n\n史：因立下讨伐吕布之功绩，受曹操任命为伏波将军，尔後並屡屡击退侵略广陵之孙策军。於３９岁急逝。\n\n",
@@ -21799,15 +19652,14 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-457": {
     "id": "person-457",
@@ -21847,12 +19699,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -21898,12 +19745,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -21944,12 +19786,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -21992,12 +19829,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -22033,7 +19865,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "东汉官僚。服侍袁绍、曹操。建安七子之一。\n\n演：劝谏何进为讨伐宦官而命群雄上洛一事，却不为何进接纳。於董卓掌握政权之後逃至冀州追随袁绍。於官渡之战前，起草打倒曹操之檄文，曹操亦称赞其为名文。於袁绍殁後，与审配共同防守邺。於邺遭攻陷後受捕，受曹操逼问何故起草写出侮辱其父、祖父之檄文，直言无讳道「箭在弦上，不得不发」，尔後即为爱才之曹操所任用。\n\n史：留下歌咏长城苦役之「饮马长城窟行」等作品。\n\n",
@@ -22041,15 +19873,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-462": {
     "id": "person-462",
@@ -22090,12 +19921,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -22136,12 +19962,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -22176,7 +19997,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "魏国官僚。曹植之心腹。丁冲之子。丁廙之兄。\n\n演：曹植之心腹。与杨修、丁廙一同策劃，欲使曹植成为曹操之继位者。於继位者决定为曹丕後，与怨己懷才不遇之曹植一同藉酒消愁。曹操去世，曹丕成为魏王之时，对前来质问曹植何故未出席葬礼之使者道「曹植理应成为魏王」而激怒曹丕被杀。其不凡才能为众人甚感惋惜。\n\n史：虽与曹操之女（为日後之清河公主）曾有婚约，但因批评曹丕之故而破局，与曹植联手与曹丕敌对。於曹丕登上帝位後即遭杀害。\n\n",
@@ -22184,15 +20005,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-465": {
     "id": "person-465",
@@ -22230,12 +20050,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -22278,12 +20093,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -22329,12 +20139,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 3,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -22375,12 +20180,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -22413,7 +20213,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国官僚。郑玄门生。\n\n演：孙策殁後，受继承孙策之孙权所招揽。於赤壁之战前，诸葛亮为与刘备及孙权结盟而拜访吴国之际，企图与张昭等人诸葛亮挑战却反被驳倒。２２２年，於刘备为替关羽及张飞復仇而进攻荆州後，成为使者将杀害张飞之范彊、张达引渡刘备。向刘备提出归还荆州及孙尚香之提案，建议双方和睦相处，但无法削减刘备之敌意。\n\n史：於交州与刘熙交流，学习五经。虽曾经服侍士燮，但尔後受孙权之招揽成为太子太傅。\n\n",
@@ -22421,15 +20221,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-470": {
     "id": "person-470",
@@ -22469,12 +20268,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 3,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -22515,12 +20309,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -22566,12 +20355,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "古之恶来",
     "trait": "承压反击"
@@ -22612,12 +20396,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -22660,12 +20439,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -22709,12 +20483,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -22759,12 +20528,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "审势定谋",
     "trait": "刚直多谋"
@@ -22805,12 +20569,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -22853,12 +20612,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -22902,12 +20656,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -22952,12 +20701,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -22998,12 +20742,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -23050,12 +20789,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -23089,7 +20823,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "spear",
     "formation": "front",
     "skills": [],
     "biography": "魏国邓艾之幕僚。\n\n演：２５８年，於邓艾出征祁山但败於姜维之後，进言亲自潜入蜀国。贿赂蜀帝·刘禅之宠臣宦官·黄皓，故意传放姜维将投降於魏之虚报。自黄皓处得此情报之刘禅唤回前线之姜维，而姜维於往後数年之间，中止北伐。\n\n史：並无记载。\n\n",
@@ -23097,15 +20831,14 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-484": {
     "id": "person-484",
@@ -23143,12 +20876,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -23189,12 +20917,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -23235,12 +20958,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -23283,12 +21001,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -23329,12 +21042,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -23375,12 +21083,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 3,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -23422,12 +21125,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -23461,7 +21159,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "吴国武将。\n\n演：於王濬率领之晋国水军进攻吴都之际，进言欲率领两万名兵力及水军迎击。率领御林军（近卫军）欲进行战鬥。但先锋之张象因部下之士兵逃走之故而投降，並因打开石头城门之故，迎击军尚未作战即遭歼灭。\n\n史：徐陵督。２７９年，郭马於交州叛变之时前往讨伐。但因晋国大军向吴国进攻之故而自武昌归返。虽率领两万兵力準备迎击，但於出征前士兵逃亡之故，作战未能实行。\n\n",
@@ -23469,15 +21167,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-492": {
     "id": "person-492",
@@ -23515,12 +21212,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -23553,7 +21245,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "魏国官僚。为眉清目秀之有识之人。\n\n演：於服侍袁绍、张杨後，成为议郎服侍献帝。於曹操拥护献帝後，向曹操进言迁都许昌。２１２年，上奏於献帝请其赐与曹操魏公爵位及九锡。於曹仁遭关羽包围後，提议告知关羽孙权侵略荆州一事，而由背後攻击撤退之关羽。於曹丕时代为大鸿胪、侍中，在曹叡时代成为司徒。\n\n史：於袁绍毫下之时历任钜鹿太守、魏郡太守。於曹操讨伐袁尚及乌丸之蹋顿之际，挖掘平虏、泉州之两条运河，以海上运输做进行兵粮支援。\n\n",
@@ -23561,15 +21253,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-494": {
     "id": "person-494",
@@ -23610,12 +21301,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "暴戾横征",
     "trait": "强攻夺气"
@@ -23656,12 +21342,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -23694,7 +21375,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国官僚。\n\n演：於孙綝废孙亮，立琅邪王·孙休为新皇帝时，与孙楷一同前往虎林迎接孙休。\n\n史：於孙皓时代成为中书令兼司徒。丞相陆凯临终之际，为孙皓所遣聽取陆凯之遗言。\n\n",
@@ -23702,15 +21383,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-497": {
     "id": "person-497",
@@ -23751,12 +21431,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -23789,7 +21464,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "spear",
     "formation": "front",
     "skills": [],
     "biography": "晋国武将。\n\n演：晋国之广武将军。２７９年，於晋国发起吴国讨伐战时，与龙骧将军·王濬共同率领水陆二十多万名士兵，自旧蜀领地沿长江进军。\n\n史：年少时虽为凭藉腕力之武将，尔後通晓「易经」等经史。於讨伐吴国後，高昇雍州刺史。\n\n",
@@ -23797,15 +21472,14 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-499": {
     "id": "person-499",
@@ -23843,12 +21517,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -23889,12 +21558,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -23927,7 +21591,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "魏国官僚。杜恕之父、杜预之祖父。\n\n演：並无记载。\n\n史：受荀彧之推薦服侍曹操。於曹操平定河北後，任河东太守。致力於回復农业生产、军事训练、开设学校等，故尔後於河东儒学家辈出。２１１年，於曹操镇压马超及韩遂久叛乱时，兵粮调度全由河东郡负责，故与汉朝之萧何齐名。於魏国建国後历任尚书僕射等职。於曹丕进攻吴国时负责留守。其後，负责指挥建造皇帝之御用座船，於试航中座船翻覆，溺死。\n\n",
@@ -23935,15 +21599,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "治政人才专长"
+    "trait": "治政人才专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-502": {
     "id": "person-502",
@@ -23983,12 +21646,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 3,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -24030,12 +21688,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24078,12 +21731,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -24119,7 +21767,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "魏晋官僚。裴潜之子。郭配（郭淮之弟）之婿。\n\n演：於诸葛诞发起反叛之时，与锺会一同辅佐前往镇压之司马昭。於司马昭正愁於继承者问题时，与贾充、何曾等人共同推举长男司马炎。２６５年，於司马炎成为晋王後与贾充一同胁迫魏帝曹奂让位。\n\n史：因曹爽一派之何晏受任用之故，因政变致使曹爽一派遭清算後，曾一时遭免职。於晋朝时立案五等级爵位制度，尔後成为司空。亦为著名之地理学者著有「禹贡地域图」。製图法之「製图六體」尔後成为製图之规範。\n\n",
@@ -24127,15 +21775,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-506": {
     "id": "person-506",
@@ -24182,12 +21829,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24228,12 +21870,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24282,12 +21919,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24320,7 +21952,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "魏国科学家。亦写为马均。\n\n演：奉魏帝曹叡之命负责营造宫殿之监督。应期能不老不死之曹叡要求，将西汉武帝於长安所建之承露盘运至洛阳。当时因烈风起故柱倒，牺牲者不在少数。\n\n史：年轻时虽放荡不羁，但於生计困苦之时改良织布機。使其发明之才能得以激发。於效命魏国後亦有多项发明，献给曹叡指南车、水车、及具機械装置之人偶。並著手於投石车之改良。晋国之傅玄评其为「天下之名巧也」。\n\n",
@@ -24328,15 +21960,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-510": {
     "id": "person-510",
@@ -24374,12 +22005,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -24420,12 +22046,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24470,12 +22091,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -24524,12 +22140,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24570,12 +22181,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -24616,12 +22222,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -24671,12 +22272,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "西凉铁骑",
     "trait": "骑阵破防"
@@ -24725,12 +22321,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24781,12 +22372,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -24827,12 +22413,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -24876,12 +22457,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -24916,7 +22492,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国官僚。\n\n演：２６４年，於孙休病故後，以嫡男之孙[0xFA][0x44]尚年少为由，主张由孙皓即位。於孙皓即位後成为宰相，却因告诫孙皓施行暴政而惹怒孙皓被杀。\n\n史：於乌程官员时代，与孙皓有深交。於孙皓即位後成为右丞相，负责守备巴丘。２７１年，於孙皓使民众遭受莫大牺牲，一意孤行巡幸各地时，与丁奉、留平商量返回都城一事。故激怒孙皓被迫饮毒酒，自杀。\n\n",
@@ -24924,15 +22500,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-522": {
     "id": "person-522",
@@ -24970,12 +22545,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -25018,12 +22588,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -25065,12 +22630,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -25111,12 +22671,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -25159,12 +22714,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -25205,12 +22755,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -25251,12 +22796,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -25300,12 +22840,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -25346,12 +22881,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -25384,7 +22914,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "蜀国官僚。原为刘璋之部下。\n\n演：於刘璋向刘备投降後，即为刘备效命。於成为汉中王之刘备将五虎将军头衔封於关羽之时，说服不满与老将黄忠被视为同格之关羽，使其接受册封。尔後於诸葛亮北伐时，与郤正一同受命为秘书，滞留成都。\n\n史：刘璋部下，绵竹之令。於刘备攻至之时率先臣服。因反对刘备即位皇帝故贬至永昌，但为诸葛亮所重用，亦从军於征伐南蛮。蒋琬掌握政权後，就任谏议大夫。\n\n",
@@ -25392,15 +22922,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-532": {
     "id": "person-532",
@@ -25440,12 +22969,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -25489,12 +23013,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -25539,12 +23058,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -25585,12 +23099,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -25631,12 +23140,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -25677,12 +23181,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -25727,12 +23226,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -25777,12 +23271,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -25825,12 +23314,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -25871,12 +23355,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -25917,12 +23396,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -25965,12 +23439,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -26017,12 +23486,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -26063,12 +23527,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -26112,12 +23571,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "破阵长驱",
     "trait": "锐不可当"
@@ -26158,12 +23612,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -26204,12 +23653,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -26252,12 +23696,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -26298,12 +23737,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -26349,12 +23783,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -26395,12 +23824,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -26444,12 +23868,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -26490,12 +23909,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -26539,12 +23953,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -26587,12 +23996,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -26638,12 +24042,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -26688,12 +24087,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "连环奇计",
     "trait": "连环谋攻"
@@ -26734,12 +24128,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -26782,12 +24171,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -26828,12 +24212,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -26874,12 +24253,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -26915,7 +24289,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴之丞相。\n\n演：於孙休临终之际，留下欲让太子·孙[0xFA][0x44]即位之遗言，但与万彧、张布等人共谋拥立孙皓。即位後、因对施行暴虐政治统治而谏言之，激怒孙皓致使一族遭满门抄斩。\n\n史：代替孙权接掌会稽太守，当时，与会稽之孙休有深交。於孙休即位之後，担任过太常、卫将军、尔後就任为丞相。与孙休之另一宠臣·张布勾结，将政治操弄於己之手。孙皓即位後、因万彧之谋略而遭流放交州途中，因孙皓之命令被杀。\n\n",
@@ -26923,15 +24297,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-564": {
     "id": "person-564",
@@ -26969,12 +24342,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -27013,7 +24381,7 @@ export const OFFICER_DESIGNS = {
         "person-420"
       ]
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "吴之幕僚。\n\n演：於赤壁之战前，与前来与孙权结盟之诸葛亮进行辩论战，惨遭败北。於孙权攻击关羽防守之荆州之际，进言使曹仁与关羽交战，再趁隙抢夺荆州之计策。此计成功，使荆州重返孙权之手。於夷陵之战时，反对陆逊就任指挥官。\n\n史：２１０年、成为交州刺史，讨伐苍梧太守吴巨。使士燮降服，为吴之进军南方建立桥头堡。孙权即位後就任骠骑将军、西陵都督。於陆逊殁後，成为丞相。\n\n",
@@ -27021,15 +24389,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 2,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-566": {
     "id": "person-566",
@@ -27067,12 +24434,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -27117,12 +24479,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -27166,12 +24523,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -27216,12 +24568,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -27254,7 +24601,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "吴之官僚。尔後为避讳孙皓之字「元宗」，改名为孟宗。二十四孝中之一人。留传下孟宗竹之故事。\n\n演：２５８年，奉孙綝之命，率领精兵驻紮武昌。此事被判断为孙綝欲废除孙休之兆，亦成为丁奉、张布暗杀孙綝之契機。\n\n史：拜南阳李肃为师，李肃评其为「宰相之器」。因事母至孝而著名。於其母死後，明知擅離任地难逃死罪，但仍赶往参加葬仪，於事後自首。因陆逊为其辩护，而获孙权以特例无罪开释。曾任光禄勋、御史大夫、一路高昇至司空。\n\n",
@@ -27262,15 +24609,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-571": {
     "id": "person-571",
@@ -27318,12 +24664,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -27365,12 +24706,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -27411,12 +24747,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -27460,12 +24791,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -27499,7 +24825,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "益州之豪族。对蜀扬起反旗。\n\n演：蜀国建寧郡太守。２２５年，与孟获联手，对蜀发动叛乱。牂牁郡太守朱褒、越巂郡太守高定虽响应反叛之号召，但因永昌邵之王伉並未呼应，故攻击永昌郡。与诸葛亮率领之南征军交战，因中離间计而遭高定之手下颚焕所杀。\n\n史：与孙权合力欲自益州攻击蜀国。杀害蜀益州太守·正昂，捕捉後任之张裔送予吴国。２２３年，於刘备殁後，成为吴之益州太守进行反抗。但於与蜀军交战之前，即遭高定手下所杀。\n\n",
@@ -27507,15 +24833,14 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-576": {
     "id": "person-576",
@@ -27558,12 +24883,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -27604,12 +24924,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -27653,12 +24968,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "治政专长"
@@ -27699,12 +25009,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -27745,12 +25050,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -27791,12 +25091,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -27838,12 +25133,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -27888,12 +25178,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -27934,12 +25219,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -27980,12 +25260,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -28026,12 +25301,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -28072,12 +25342,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -28118,12 +25383,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -28166,12 +25426,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -28206,7 +25461,7 @@ export const OFFICER_DESIGNS = {
         "person-516"
       ]
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "凉州刺史·韦康之幕僚。尔後为魏国效命。杨岳之堂兄。\n\n演：２１３年，於冀城为马超所包围时，劝谏韦康投降。马超讨伐韦康後，马超评其为义人而使其留任现职，尔後，与姜叙、尹奉、赵昂联手，於历城反叛马超。兄弟七人被杀，自身亦负伤，凭藉夏侯渊之援军了驱逐马超。２３０年，攻进蜀国之曹真及司马懿遭长雨阻止进军时，进言撤退。成为少府，劝谏曹叡营造宫殿。\n\n史：获张既之佳评，於平定汉中後成为武都太守。\n\n",
@@ -28214,15 +25469,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-591": {
     "id": "person-591",
@@ -28260,12 +25514,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -28306,12 +25555,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -28355,12 +25599,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -28403,12 +25642,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -28449,12 +25683,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -28495,12 +25724,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -28542,12 +25766,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -28590,12 +25809,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -28636,12 +25850,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -28674,7 +25883,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "吴国幕僚。陆逊之外甥。陆禕之父。\n\n演：左丞相。於孙皓迁都武昌时，命令扬州人民将物品贡献至武昌後，上奏劝谏。但未受採纳。\n\n史：担任永兴、诸暨之县长累进功绩，於转从军职後致力於平定不服从之山岳之民。即使从事军务依然手不離书。於孙休即位後成为征北将军、豫州牧，於孙皓即位後成为镇西将军·荆州牧。２６６年，就任左丞相。屡次劝谏孙皓之暴政，並向孙皓进言，劝其远離宠爱之奸臣何定。\n\n",
@@ -28682,15 +25891,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-601": {
     "id": "person-601",
@@ -28730,12 +25938,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 3,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -28771,7 +25974,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国官僚。「吴之四姓」陆家出身。陆康之子。陆逊之堂兄弟。\n\n演：６岁时与袁术见面，受盘问为何懷中有柑橘，其答道「我想要送给母亲」，使袁术为之感佩。孙策殁後，为孙权所採用。於赤壁之战前，欲试图以辩论战挑战为与孙权结盟而至吴国拜访之诸葛亮但失败。\n\n史：博学多闻，知晓天文、历法、算术，著有「浑天图」。因其自认为正确之事即毫无忌惮地发言惹恼孙权，故遭指派出任鬱林太守。\n\n",
@@ -28779,15 +25982,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-603": {
     "id": "person-603",
@@ -28831,12 +26033,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 2,
-      "ship": 3,
-      "ram": 2,
-      "tower": 2
+      "archer": 3
     },
     "skill": "火烧连营",
     "trait": "火攻削弱"
@@ -28880,12 +26077,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -28928,12 +26120,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -28976,12 +26163,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -29017,7 +26199,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "魏国之官僚。曹爽之心腹。\n\n演：於曹爽掌握政权後，成为河南尹参与政治。於转任荆州刺史之际，为探其病情拜访司马懿府。将佯装重病之司马懿演技信以为真，向曹爽报告「司马懿看来不久了」。获知此报告後曹爽失之大意外出围猎。於那段期间司马懿毅然夺取政权後，李勝遭逮捕处刑。\n\n史：被评为人风雅並具才智，与何晏同样受曹爽信用。但为曹叡所疏远，遭剥夺官职。\n\n",
@@ -29025,15 +26207,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-608": {
     "id": "person-608",
@@ -29071,12 +26252,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -29117,12 +26293,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -29158,7 +26329,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "曹操之武将。李乾之外甥。李整之堂兄弟。\n\n演：追随举兵之曹操，与吕布、张绣、袁绍等人作战。於曹仁攻击新野之刘备时，以副将之身份参战，却遭徐庶看穿夜袭计劃而大败。其後，於夏侯惇攻击新野之时亦成为副将，但败於诸葛亮之火计。於赤壁之战後与张辽、乐进共同防守合淝。２１５年，於逍遥津迎击孙权大军。虽平日与张辽个性不合，但於此时却协力击溃孙权军。\n\n史：叔父李乾追随曹操举兵。於李乾与其子李整死後接掌军队。於３６岁早逝。\n\n",
@@ -29166,15 +26337,14 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 2
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-611": {
     "id": "person-611",
@@ -29212,12 +26382,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "谋略专长"
@@ -29259,12 +26424,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -29304,7 +26464,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "魏国官僚。李义之子。李翼之兄。李韬之父。\n\n演：中书令。２５４年，受曹芳召集，与夏侯玄、张缉一同商榷讨伐司马师之计策。但於归途中曹芳之密诏为司马师发现，一族满门抄斩。\n\n史：年少时即被评價为人清风亮潔，並具评鑑人物之優秀眼力，其名声远播至吴国。巧妙地遊走於掌握政权之曹爽与司马懿之间，因其子李韬与内亲王成婚之故而获得地位。於司马懿殁後成为中书令，与张缉、李翼、李韬等人一同计劃让夏侯玄取代司马师。於事迹败露後为司马师所杀。\n\n",
@@ -29312,15 +26472,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-614": {
     "id": "person-614",
@@ -29359,12 +26518,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -29397,7 +26551,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "archer",
     "formation": "front",
     "skills": [],
     "biography": "东汉之群雄。西汉鲁国恭王之子孙。刘璋之父。\n\n演：黄巾之乱发生之时任幽州太守。徵召讨伐黄巾之义勇兵，命令前来应徵之刘备援救龚景。\n\n史：因为皇族之末裔，年轻时即成为中郎，历任冀州刺史、南阳太守。１８８年，为镇压於各地接连发生之反叛，建议创设权限更甚於刺史之「牧」。於提议获得赞同後自身即任益州牧。其後，将张鲁置於汉中以垄断其与中央之连络，而於益州建立起独立體制，成为群雄割据之先驱。未曾做过幽州太守，亦未有与刘备一同奋鬥之记录。\n\n",
@@ -29405,15 +26559,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 1
     },
     "skill": "",
-    "trait": "治政专长"
+    "trait": "治政专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-616": {
     "id": "person-616",
@@ -29451,12 +26604,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -29498,12 +26646,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -29544,12 +26687,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -29592,12 +26730,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -29638,12 +26771,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -29684,12 +26812,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -29732,12 +26855,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -29782,12 +26900,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -29828,12 +26941,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -29876,12 +26984,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -29922,12 +27025,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -29968,12 +27066,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30016,12 +27109,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -30063,12 +27151,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30111,12 +27194,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30160,12 +27238,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -30206,12 +27279,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30252,12 +27320,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "弓术专长"
@@ -30301,12 +27364,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -30350,12 +27408,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30411,12 +27464,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "义勇援军",
     "trait": "义勇救援"
@@ -30461,12 +27509,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -30507,12 +27550,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -30545,7 +27583,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国武将。留赞之子。留略之兄弟。\n\n演：劝谏施行暴政之孙皓，却因激怒孙皓而被杀。\n\n史：２６４年，与陆抗、步协、盛曼等人共同攻击巴东之罗宪。历任征西将军、左将军等。２７１年，於孙皓强行牺牲民众执意欲从华里向西巡幸之际，与万彧、丁奉等人一同商议「若就此持续西进，哪怕仅有我等亦要返乡」。尔後此事东窗事发，於宴席上遭孙皓下毒。当时虽因解毒药免於一死，但因極度之愤怒与不安而於一个月後死亡。\n\n",
@@ -30553,15 +27591,14 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "攻城专长"
+    "trait": "攻城专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-640": {
     "id": "person-640",
@@ -30601,12 +27638,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30651,12 +27683,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30693,7 +27720,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "曹操之幕僚。阜陵王刘延（东汉光武帝之子）之末裔。\n\n演：受郭嘉之推薦下效命曹操，推薦满宠及吕虔。说服张绣使其投降，於关渡之战与袁绍之弓橹对抗发明投石车，表现卓越。２１５年，於曹操平定汉中後，与司马懿一同进言须趁勝追击进攻蜀国。於事後，曹操相当後悔未採纳其建言。曹叡时代，於曹真进攻蜀国时担任军师。\n\n史：遵从其母之「父亲之亲信为恶，待你成人後必杀之」遗言，於１３岁时实行。受许劭评为「具辅佐君主之才」。\n\n",
@@ -30701,15 +27728,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-643": {
     "id": "person-643",
@@ -30747,12 +27773,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30793,12 +27814,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -30839,12 +27855,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30888,12 +27899,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -30934,12 +27940,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -30980,12 +27981,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -31026,12 +28022,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -31075,12 +28066,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -31121,12 +28107,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -31170,12 +28151,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -31218,12 +28194,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -31258,7 +28229,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "蜀国官僚。\n\n演：为攻略南蛮，绘製军略图「平蛮指掌图」。２２５年，孟获攻入永昌郡之时，协助太守王伉进行笼城。於诸葛亮前来救援之际，递出「平蛮指掌图」，成为征讨南蛮之路线图。於孟获投降後，与王伉共同统治益州、越巂、牂牁、永昌四郡。\n\n史：刘备殁後，曾受与孙权联手发起反叛之雍闓再三请求成为友方但拒绝。诸葛亮前来救援时，称赞其之忠义，成为雲南太守。尔後遭发起叛乱之異族杀害。\n\n",
@@ -31266,15 +28237,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-655": {
     "id": "person-655",
@@ -31314,12 +28284,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -31365,12 +28330,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -31411,12 +28371,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -31457,12 +28412,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -31503,12 +28453,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 3,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -31550,12 +28495,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "弓术专长"
@@ -31606,12 +28546,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 3,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 3
     },
     "skill": "人中吕布",
     "trait": "震军强攻"
@@ -31656,12 +28591,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 3,
-      "ship": 3,
-      "ram": 3,
-      "tower": 3
+      "archer": 1
     },
     "skill": "白衣渡江",
     "trait": "攻心封技"
@@ -31704,12 +28634,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -31750,12 +28675,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -31796,12 +28716,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -31834,7 +28749,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "曹操之幕僚。\n\n演：号梦梅居士，隐居於终南山。当曹操於渭水之战苦恼马超军之夜袭时，建议曹操利用寒气建造冰城。\n\n史：於年轻之时与曹操有段渊源。当诸侯发起打倒董卓之军队时，於荆州之北境聚集兵力与刘表结为同盟。尔後效命於曹操，必定参与及策劃军事、国家之大计。於讨伐马超之时亦立下卓越功绩，曹操评其为「子伯所立之策略，吾望尘莫及是也」。尔後因做出傲慢之发言，遭曹操处刑。\n\n",
@@ -31842,15 +28757,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-667": {
     "id": "person-667",
@@ -31880,7 +28794,7 @@ export const OFFICER_DESIGNS = {
       "likedIds": [],
       "dislikedIds": []
     },
-    "type": "siege",
+    "type": "halberd",
     "formation": "front",
     "skills": [],
     "biography": "吴国官僚。楼据之父。\n\n演：大司农。因劝谏施行暴政之孙皓，故触怒孙皓而遇害。\n\n史：於孙休时代为监农御史，而於孙皓时代历任散骑中常侍、会稽太守、大司农。但因直言不讳之个性及崇高之名声遭孙皓憎恨。尔後因与贺邵共同批评孙皓政治一事遭受密告，与其子楼据一同遭流放至交州。虽於张弈指挥下镇压反叛等表现傑出，但於得知孙皓已下达杀害命令後自尽。\n\n",
@@ -31888,15 +28802,14 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
-    "trait": "谋略专长"
+    "trait": "谋略专长",
+    "equipment": {
+      "siege": "siege",
+      "ship": null
+    }
   },
   "person-668": {
     "id": "person-668",
@@ -31930,7 +28843,7 @@ export const OFFICER_DESIGNS = {
       ],
       "dislikedIds": []
     },
-    "type": "crossbow",
+    "type": "archer",
     "formation": "back",
     "skills": [],
     "biography": "吴国重臣。鲁淑之父。\n\n演：於孙策殁後，受周瑜之推举效命於孙权。自身亦推举诸葛瑾，受孙权之信赖。２０８年，招揽诸葛亮使孙权下定决心与曹操一战，引导赤壁之战迈向勝利之途。於周瑜殁後成为後继者。於临江亭与关羽会面後，达成归还江夏、长沙、桂阳之使命。於前往陆口赴任之途中病故。\n\n史：於受到周瑜要求提供兵粮支援之时，提供储藏米而受周瑜之感叹。向孙权提示二分天下之计。２１５年，於益阳与关羽对阵，使刘备认同湘水以东为吴国之领地。\n\n",
@@ -31938,12 +28851,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "榻上定策",
     "trait": "战意补给"
@@ -31986,12 +28894,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -32037,12 +28940,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "治政专长"
@@ -32083,12 +28981,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32129,12 +29022,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32175,12 +29063,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32221,12 +29104,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32267,12 +29145,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32313,12 +29186,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32359,12 +29227,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32405,12 +29268,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32451,12 +29309,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32497,12 +29350,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32543,12 +29391,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32589,12 +29432,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32635,12 +29473,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32681,12 +29514,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32727,12 +29555,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32773,12 +29596,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32819,12 +29637,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32865,12 +29678,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32911,12 +29719,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -32957,12 +29760,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33003,12 +29801,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33049,12 +29842,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33095,12 +29883,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33141,12 +29924,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33187,12 +29965,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33233,12 +30006,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33279,12 +30047,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33325,12 +30088,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33371,12 +30129,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33417,12 +30170,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33465,12 +30213,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33513,12 +30256,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33559,12 +30297,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -33607,12 +30340,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -33657,12 +30385,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政人才专长"
@@ -33703,12 +30426,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -33753,12 +30471,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -33803,12 +30516,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -33853,12 +30561,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -33905,12 +30608,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -33953,12 +30651,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34001,12 +30694,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -34047,12 +30735,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -34093,12 +30776,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -34139,12 +30817,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34185,12 +30858,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34231,12 +30899,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34278,12 +30941,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34325,12 +30983,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34371,12 +31024,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34417,12 +31065,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34463,12 +31106,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -34509,12 +31147,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "骑战专长"
@@ -34555,12 +31188,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -34601,12 +31229,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 0,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "骑战专长"
@@ -34647,12 +31270,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -34693,12 +31311,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -34739,12 +31352,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -34785,12 +31393,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -34833,12 +31436,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -34881,12 +31479,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -34928,12 +31521,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -34974,12 +31562,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35020,12 +31603,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35066,12 +31644,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35112,12 +31685,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35158,12 +31726,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35204,12 +31767,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35250,12 +31808,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35296,12 +31849,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35342,12 +31890,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35388,12 +31931,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35434,12 +31972,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35480,12 +32013,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35526,12 +32054,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35572,12 +32095,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35619,12 +32137,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35665,12 +32178,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35711,12 +32219,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35757,12 +32260,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35803,12 +32301,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35849,12 +32342,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35895,12 +32383,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35941,12 +32424,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -35987,12 +32465,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36033,12 +32506,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36079,12 +32547,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36125,12 +32588,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36171,12 +32629,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36217,12 +32670,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36263,12 +32711,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36309,12 +32752,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36355,12 +32793,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36401,12 +32834,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36447,12 +32875,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36493,12 +32916,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36539,12 +32957,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36585,12 +32998,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36631,12 +33039,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36677,12 +33080,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36723,12 +33121,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36769,12 +33162,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36815,12 +33203,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36861,12 +33244,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36907,12 +33285,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36953,12 +33326,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -36999,12 +33367,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37045,12 +33408,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37091,12 +33449,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37137,12 +33490,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37183,12 +33531,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37229,12 +33572,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37275,12 +33613,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37321,12 +33654,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37367,12 +33695,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37413,12 +33736,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37459,12 +33777,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37505,12 +33818,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37551,12 +33859,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37597,12 +33900,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37643,12 +33941,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37689,12 +33982,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37735,12 +34023,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37781,12 +34064,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37827,12 +34105,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37873,12 +34146,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37919,12 +34187,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -37965,12 +34228,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38011,12 +34269,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38057,12 +34310,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38108,12 +34356,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -38156,12 +34399,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 0,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -38202,12 +34440,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -38251,12 +34484,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -38301,12 +34529,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -38347,12 +34570,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38396,12 +34614,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 1
     },
     "skill": "",
     "trait": "治政专长"
@@ -38444,12 +34657,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -38494,12 +34702,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 1,
-      "ship": 1,
-      "ram": 1,
-      "tower": 1
+      "archer": 3
     },
     "skill": "",
     "trait": "弓术专长"
@@ -38542,12 +34745,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 0,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -38590,12 +34788,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38638,12 +34831,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "谋略专长"
@@ -38684,12 +34872,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38734,12 +34917,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38783,12 +34961,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 2,
-      "ship": 0,
-      "ram": 2,
-      "tower": 2
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -38831,12 +35004,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 1,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -38877,12 +35045,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 2,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -38923,12 +35086,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -38972,12 +35130,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -39018,12 +35171,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -39066,12 +35214,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 3,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "戟阵专长"
@@ -39113,12 +35256,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "谋略专长"
@@ -39161,12 +35299,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "日阵专长"
@@ -39209,12 +35342,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 3,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -39260,12 +35388,7 @@ export const OFFICER_DESIGNS = {
       "spear": 3,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 1,
-      "ship": 2,
-      "ram": 1,
-      "tower": 1
+      "archer": 2
     },
     "skill": "",
     "trait": "日阵专长"
@@ -39308,12 +35431,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 2,
       "cavalry": 3,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 0,
-      "ship": 1,
-      "ram": 0,
-      "tower": 0
+      "archer": 2
     },
     "skill": "",
     "trait": "骑战专长"
@@ -39356,12 +35474,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 2,
-      "archer": 1,
-      "crossbow": 1,
-      "siege": 0,
-      "ship": 3,
-      "ram": 0,
-      "tower": 0
+      "archer": 1
     },
     "skill": "",
     "trait": "日阵专长"
@@ -39406,12 +35519,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 2,
-      "ship": 1,
-      "ram": 2,
-      "tower": 2
+      "archer": 3
     },
     "skill": "",
     "trait": "治政专长"
@@ -39454,12 +35562,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 1,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"
@@ -39502,12 +35605,7 @@ export const OFFICER_DESIGNS = {
       "spear": 1,
       "halberd": 1,
       "cavalry": 1,
-      "archer": 3,
-      "crossbow": 3,
-      "siege": 3,
-      "ship": 1,
-      "ram": 3,
-      "tower": 3
+      "archer": 3
     },
     "skill": "",
     "trait": "谋略专长"
@@ -39550,12 +35648,7 @@ export const OFFICER_DESIGNS = {
       "spear": 2,
       "halberd": 2,
       "cavalry": 1,
-      "archer": 2,
-      "crossbow": 2,
-      "siege": 2,
-      "ship": 2,
-      "ram": 2,
-      "tower": 2
+      "archer": 2
     },
     "skill": "",
     "trait": "治政专长"
@@ -39599,12 +35692,7 @@ export const OFFICER_DESIGNS = {
       "spear": 0,
       "halberd": 0,
       "cavalry": 0,
-      "archer": 0,
-      "crossbow": 0,
-      "siege": 0,
-      "ship": 0,
-      "ram": 0,
-      "tower": 0
+      "archer": 0
     },
     "skill": "",
     "trait": "治政专长"

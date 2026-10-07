@@ -1,0 +1,60 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import {mkdir} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {reinforcementCampaign} from '../tests/helpers/reinforcement-campaign.mjs';
+import {advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {confirmReinforcementCouncil} from '../engine.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const {s,r}=reinforcementCampaign();
+for(let wave=0;wave<3;wave++){
+ for(let i=0;i<10&&!r.battle.reinforcementCouncil;i++)advanceCampaignDay(s);
+ assert.equal(r.battle.reinforcementCouncil,'pending');if(wave<2)confirmReinforcementCouncil(r.battle);
+}
+validateCampaign(structuredClone(s));
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4206'},stdio:'pipe',windowsHide:true});
+let browser,page;const output='outputs/reinforcements';await mkdir(output,{recursive:true});
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('server '+code)));});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(raw=>{if(!sessionStorage.getItem('reinforcement-fixture')){localStorage.setItem('sango-sovereign-v2',raw);sessionStorage.setItem('reinforcement-fixture','1');}},serializeCampaign(s));
+ const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ const battle=async()=> (await saved()).campaign.battles.find(x=>x.id===r.id).battle;
+ await page.goto('http://127.0.0.1:4206/#strategy');await page.locator('.strategy-battle-card').waitFor();
+ assert.match(await page.locator('.modal').innerText(),/援军抵达/);
+ const before=await battle(),fronts=before.sides[0].units.filter(u=>u.status==='active');
+ await page.locator('.modal [data-action="campaign-focus"]').click();await page.locator('.council-unit').first().waitFor();
+ assert.match(await page.locator('.battle-council').innerText(),/援军军议/);
+ assert.equal(await page.locator('.council-unit').count(),5);assert.ok(await page.locator('#deployment-grid').isHidden());
+ assert.equal(await page.locator('#battle-intent,#battle-terrain,[data-action="reset-deployment"]').count(),0);
+ assert.ok(await page.locator('.battle-unit.side-0').evaluateAll(els=>els.every(el=>!el.draggable)));
+ const last=page.locator('.council-unit').last(),id=await last.getAttribute('data-council-unit');
+ await last.dragTo(page.locator('.council-unit').first());assert.equal(await page.locator('.council-unit').first().getAttribute('data-council-unit'),id);
+ assert.deepEqual((await battle()).sides[0].units.filter(u=>u.status==='active'),fronts);
+ await page.locator('.council-unit').first().click();assert.equal(await page.locator('#inspect-unit').inputValue(),id);await page.locator('.close-button').click();
+ await page.locator('.retreat-council>summary').click();await page.locator(`[data-unit-retreat="${id}"]`).fill('100');await page.locator(`[data-unit-retreat="${id}"]`).blur();
+ assert.equal((await battle()).sides[0].units.find(u=>u.id===id).retreatAt,100);
+ await page.screenshot({path:output+'/desktop.png',fullPage:true,animations:'disabled'});
+ await page.reload();await page.locator('.council-unit').first().waitFor();assert.equal((await battle()).reinforcementCouncil,'open');
+ assert.equal(await page.locator('.council-unit').first().getAttribute('data-council-unit'),id);
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:output+'/mobile.png',fullPage:true,animations:'disabled'});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.locator('.council-unit').first().click();assert.equal(await page.locator('#inspect-unit').inputValue(),id);await page.locator('.close-button').click();
+ assert.deepEqual((await battle()).sides[0].units.filter(u=>u.status==='active'),fronts);assert.equal((await battle()).tick,before.tick);
+ await action('pause').first().click();assert.ok(await page.locator('#deployment-guide').isHidden());assert.equal((await battle()).reinforcementCouncil,null);
+ await page.waitForFunction(tick=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).campaign.battles[0].battle.tick>tick,before.tick);
+ if(await action('pause').count())await action('pause').first().click();validateCampaign(await saved());assert.deepEqual(errors,[]);
+ const continued=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});continued.on('pageerror',e=>errors.push(e.message));
+ await continued.addInitScript(raw=>localStorage.setItem('sango-sovereign-v2',raw),serializeCampaign(s));
+ await continued.goto('http://127.0.0.1:4206/#strategy');await continued.locator('[data-action="reinforcement-continue"]').waitFor();
+ await continued.locator('[data-action="reinforcement-continue"]').click();
+ assert.match(await continued.locator('[data-action="pause"]').first().innerText(),/暂停/);
+ assert.ok(await continued.locator('#deployment-guide').isHidden());
+ await continued.locator('[data-action="pause"]').first().click();
+ const continuedSave=await continued.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ assert.equal(continuedSave.campaign.battles[0].battle.reinforcementCouncil,null);validateCampaign(continuedSave);assert.deepEqual(errors,[]);
+ console.log('Reinforcement UI passed: arrival, five reserves, reorder, frontline lock, withdrawal, details, reload, desktop/mobile and resume.');
+}catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}
+finally{await browser?.close();server.kill();}

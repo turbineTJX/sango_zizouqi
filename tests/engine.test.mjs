@@ -238,10 +238,10 @@ function duel() {
 }
 test('intent grows from actual attacks and surviving hits, never elapsed time', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
-  stepBattle(b); assert.equal(a.intent,6); assert.equal(d.intent,7);
+  stepBattle(b); assert.equal(a.intent,3); assert.equal(d.intent,2);
   a.cooldown=99;d.cooldown=99;
   for(let i=0;i<10;i++)stepBattle(b);
-  assert.equal(a.intent,6); assert.equal(d.intent,7);
+  assert.equal(a.intent,3); assert.equal(d.intent,2);
 });
 test('a ready tactic casts with fixed intent expenditure, regardless of morale or attack cooldown', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0];
@@ -262,7 +262,7 @@ test('no valid target preserves intent and leaving range cannot duplicate an ins
 test('each skill has its own threshold, and intent below threshold cannot cast', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0];
   assert.equal(unitTactics(a).find(s=>s.id==='thrust').threshold,45);
-  assert.equal(TACTICS_BOOK.undermine.threshold,45);
+  assert.equal(TACTICS_BOOK.undermine.threshold,35);
   a.intent=skillThreshold(a)-1;a.cooldown=99;stepBattle(b);assert.equal(a.cast,null);assert.equal(a.skillCasts,0);
 });
 test('deployment can move, swap, reset and persist without advancing time', () => {

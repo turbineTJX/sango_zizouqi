@@ -45,7 +45,7 @@ export class BattleEffects {
       this.cues.reset();
       this.notices.forEach(n => n.element.remove()); this.notices = [];
       this.resultKey = null;
-      if(this.result){this.result.textContent='特性与战法效果将在此显示 · 点击暂停查看记录';this.result.disabled=true;}
+      if(this.result){this.result.textContent='战斗记录 · 暂停查看';this.result.disabled=true;}
       this.battleId = battle.id;
     }
     if (speed !== this.speed) for (const e of this.items) {
@@ -334,19 +334,20 @@ export class BattleEffects {
     const width=Math.min(this.width,stage?.clientWidth||this.width),offset=stage?.scrollLeft||0;
     const enter=this.reduced?1:ease(clamp(p/.14)),leave=this.reduced?0:ease(clamp((p-.43)/.15));
     const alpha=clamp((.59-p)/.1),height=Math.min(this.height*.66,300),top=(this.height-height)*.43;
-    const portrait=art.image(art.pack.portraits[e.from]);
+    const portrait=art.image(art.portraitURL(e.from,'battle')),wide=portrait&&portrait.width>portrait.height*1.15;
     c.save();c.translate(offset+(1-enter)*width*.15-leave*width*.08,top);c.globalAlpha=alpha;
     const bg=c.createLinearGradient(0,0,width,height);bg.addColorStop(0,critical?'#391d24':'#102f32');bg.addColorStop(.6,'#101b25');bg.addColorStop(1,'#07141aee');c.fillStyle=bg;
     c.beginPath();c.moveTo(0,height*.06);c.lineTo(width,height*.01);c.lineTo(width,height*.9);c.lineTo(0,height);c.closePath();c.fill();
-    const artWidth=width*.43;
+    const artWidth=wide?width:width*.43;
     c.save();c.beginPath();c.moveTo(0,0);c.lineTo(artWidth+20,0);c.lineTo(artWidth-20,height);c.lineTo(0,height);c.closePath();c.clip();
     if(portrait){
-      const scale=Math.max(artWidth/portrait.width,height/portrait.height)*(1+(this.reduced?0:(1-enter)*.1)),iw=portrait.width*scale,ih=portrait.height*scale;
-      c.drawImage(portrait,(artWidth-iw)/2,(height-ih)/2,iw,ih);
+      const scale=(wide?Math.min(artWidth/portrait.width,height/portrait.height):Math.max(artWidth/portrait.width,height/portrait.height))*(1+(this.reduced||wide?0:(1-enter)*.1)),iw=portrait.width*scale,ih=portrait.height*scale;
+      c.drawImage(portrait,wide?0:(artWidth-iw)/2,(height-ih)/2,iw,ih);
     }else{
       c.fillStyle='#254849';c.fillRect(0,0,artWidth,height);c.fillStyle=color;c.font=`bold ${height*.43}px serif`;c.textAlign='center';c.fillText(e.name?.slice(0,1)||'将',artWidth*.48,height*.68);
     }
     c.restore();
+    if(wide){const shade=c.createLinearGradient(width*.38,0,width,0);shade.addColorStop(0,'#06131900');shade.addColorStop(1,'#061319ec');c.fillStyle=shade;c.fillRect(width*.38,0,width*.62,height);}
     c.globalAlpha=alpha*.18;c.strokeStyle=accent;c.lineWidth=1;
     for(let i=0;i<13;i++){const y=height*(i/13);c.beginPath();c.moveTo(width*.48,y);c.lineTo(width,y-height*.1);c.stroke();}
     this.line(0,height*.06,width,height*.01,accent,2,alpha*.9);this.line(0,height,width,height*.9,accent,2,alpha*.8);

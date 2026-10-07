@@ -2,22 +2,29 @@ import {buildRoadNetwork} from './road-network.mjs';
 import {NATIONAL_MAP as MAP_SOURCE} from './data/national-map.mjs';
 import {CITY_DESIGNS} from './data/design/cities.mjs';
 import {NATIONAL_ROAD_DESIGNS} from './data/design/roads.mjs';
+import {ATLAS_CITY_ADDITIONS} from './data/design/atlas-cities.mjs';
+import {NATIONAL_SCENARIO_DESIGNS,EXTRA_FACTION_DESIGNS,ATLAS_SCENARIO_ANCHORS} from './data/design/national-scenarios.mjs';
+import {REFERENCE_SCENARIO} from './data/design/reference-scenario.mjs';
 const NATIONAL_MAP={...MAP_SOURCE,cities:CITY_DESIGNS,roads:NATIONAL_ROAD_DESIGNS};
+export const NATIONAL_MAP_COUNTS=Object.fromEntries(['city','gate','port'].map(kind=>[kind,CITY_DESIGNS.filter(c=>c.kind===kind).length]));
 import {OFFICER_CATALOG} from './officer-catalog.mjs';
 
-export const NATIONAL_FACTIONS={...NATIONAL_MAP.forces,sunce:{name:'孙策',short:'孙',color:'#ac7a35',leaderSourceId:OFFICER_CATALOG.find(u=>u.name==='孙策').sourceId},liuzhang:{name:'刘璋',short:'刘',color:'#667743'}};
-export const NATIONAL_SCENARIOS=Object.freeze([
- {id:'guandu-200',name:'官渡风云',year:200,era:'建安五年',difficulty:'推荐入门',capital:'xuchang',description:'曹操立足许昌，袁绍雄踞河北。先守住黄河沿线，再向江东、荆襄与巴蜀推进。',hint:'曹操开局拥有多座城池与充足人才；先委任内政，再从许昌编军北上。',factions:['cao','yuan','force-7','sunce'],note:'四势力试玩：曹操、袁绍、刘表、孙策。其他地区为地方据点；归属与兵力为玩法改编。'},
- {id:'heroes-251',name:'英雄集结',year:251,era:'群英并起',difficulty:'群雄混战',capital:'xuchang',description:'曹操居中原，袁绍据河北，刘备领巴蜀荆襄，孙策控江东。四方群英同世，争夺关津与天下。',hint:'四方均有腹地与前线，先守住关隘和粮道，再集中军团突破。',factions:['cao','yuan','force-2','sunce'],note:'四势力架空试玩；参考项目人物按区域归并，不限制生卒年。'},
-]);
+const referenceFaction=n=>n===1?'cao':n===8?'yuan':n?`force-${n}`:'neutral';
+const extraFactions=Object.fromEntries(Object.entries(EXTRA_FACTION_DESIGNS).map(([id,{leaderName,...f}])=>{
+ const leader=OFFICER_CATALOG.find(u=>u.sourceKind==='common'&&u.name===leaderName);if(!leader)throw Error('剧本君主不在公共人物库：'+leaderName);
+ return [id,{...f,leaderSourceId:leader.sourceId}];
+}));
+const sourceFactions=Object.fromEntries(REFERENCE_SCENARIO.forces.map(f=>{const id=referenceFaction(f.sourceId);return [id,{...NATIONAL_MAP.forces[id],name:f.name,short:f.name.slice(0,1),leaderSourceId:f.leaderSourceId}];}));
+export const NATIONAL_FACTIONS={...NATIONAL_MAP.forces,...sourceFactions,...extraFactions};
+export const NATIONAL_SCENARIOS=Object.freeze(NATIONAL_SCENARIO_DESIGNS.map(spec=>({...spec,factions:spec.factions|| (spec.layout==='reference'?REFERENCE_SCENARIO.forces.map(f=>referenceFaction(f.sourceId)):Object.keys(spec.cityGroups))})));
 export const nationalScenario=id=>NATIONAL_SCENARIOS.find(s=>s.id===id);
 // Talent uses catalogue dates only in historical campaigns. No fabricated dates
 // or locations are assigned to the timeless heroes scenario.
 export function talentScenarioEntry(id,u,cities){
- const spec=nationalScenario(id),historical=spec&&id!=='heroes-251';
+ const spec=nationalScenario(id),historical=spec&&spec.kind!=='fictional';
  const year=historical?Math.max(spec.year,(u.birthYear||spec.year-16)+16,u.profileSource?.yearAvailable||spec.year):null;
  const earliestTurn=year===null?null:Math.max(0,(year-spec.year)*36);
- const source=u.profileSource?.BelongCity,city=cities.find(c=>c.sourceId===source&&c.kind==='city');
+ const source=(spec?.rosterDistribution==='reference'?REFERENCE_SCENARIO.people.find(p=>p.sourceId===u.sourceId)?.citySourceId:null)??u.profileSource?.BelongCity,city=cities.find(c=>c.sourceId===source&&c.kind==='city');
  return {autoEligible:u.sourceKind==='common'&&u.profileSource.description>0,activityCityIds:city?[city.id]:[],earliestTurn,latestTurn:earliestTurn};
 }
 const key=n=>NATIONAL_MAP.cities.find(c=>c.sourceId===n).id;
@@ -26,12 +33,24 @@ for(const [owner,ids] of Object.entries({cao:[8,9,10,11,12,13,14,16,17,18],yuan:
 const heroOwners={};
 for(const [owner,ids]of Object.entries({cao:[12,13,14,15,16,17,18,19,20,21,22],yuan:[1,2,3,4,5,6,7,8],'force-2':[30,31,33,35,36,37,38,39,40,41,42],sunce:[9,10,11,23,24,25,26,27,28,29,32,34]}))for(const n of ids)heroOwners[key(n)]=owner;
 const gateParents={43:7,44:16,45:18,46:18,47:18,48:37,49:38,50:38,51:40,52:40};
+export function scenarioCityOwners(spec){
+ if(spec.layout==='legacy-guandu'||spec.layout==='legacy-heroes')return {...(spec.layout==='legacy-guandu'?guanduOwners:heroOwners),...Object.fromEntries(ATLAS_CITY_ADDITIONS.map(c=>[c.id,c.owners[spec.layout==='legacy-guandu'?0:1]]))};
+ const owners={};
+ if(spec.layout==='reference')for(const c of REFERENCE_SCENARIO.cities)owners[key(c.sourceId)]=referenceFaction(c.forceId);
+ else for(const [faction,ids] of Object.entries(spec.cityGroups))for(const sourceId of ids)owners[key(sourceId)]=faction;
+ for(const [id,sourceId] of Object.entries(ATLAS_SCENARIO_ANCHORS))owners[id]=owners[key(sourceId)]||'neutral';
+ return owners;
+}
 export function nationalWorld(id){
  if(!nationalScenario(id))throw new Error('未知天下剧本');
  const cities=NATIONAL_MAP.cities.map(c=>({...c,water:c.kind==='port'||[9,11,23,24,25,26,27,28,30,31,32,33,34,35,36,39].includes(c.sourceId),garrison:0}));
- const owners=id==='guandu-200'?guanduOwners:heroOwners,allowed=nationalScenario(id).factions;
+ const owners=scenarioCityOwners(nationalScenario(id)),allowed=nationalScenario(id).factions;
+ for(const c of cities)if(['atlas-pengcheng','atlas-fuling','atlas-yuzhang','atlas-panyu','atlas-longbian','atlas-wuchang','atlas-zhongli','atlas-hefei','atlas-guangling','atlas-jingkou','atlas-houguan','atlas-xunyang','atlas-baling','atlas-linchuan'].includes(c.id))c.water=true;
  for(const c of cities){const parent=NATIONAL_MAP.portParents[c.id]||(gateParents[c.sourceId]?key(gateParents[c.sourceId]):null),owner=owners[c.id]||owners[parent];c.owner=allowed.includes(owner)?owner:'neutral';}
- return {cities,...buildRoadNetwork(cities,NATIONAL_MAP.roads)};
+ const network=buildRoadNetwork(cities,NATIONAL_MAP.roads);
+ // Ports and passes are road nodes, never economic or officer residence cities.
+ const nodes=cities.filter(c=>c.kind!=='city').map(({id,name,kind,x,y,province,sourceId})=>({id,name,kind,x,y,province,sourceId,owner:'neutral'}));
+ return {cities:cities.filter(c=>c.kind==='city'),...network,junctions:[...network.junctions,...nodes]};
 }
 // Explicit opening rosters take precedence over the timeless reference roster.
 const opening={cao:['曹操','夏侯惇','夏侯渊','许褚','张辽','于禁','乐进','徐晃','李典','曹仁','曹洪','郭嘉','荀彧','荀攸','程昱','满宠','陈群'],yuan:['袁绍','颜良','文丑','张郃','高览','沮授','田丰','审配','逢纪','许攸','袁谭','袁尚','袁熙'],'force-2':['刘备','关羽','张飞','赵云','孙乾','简雍','糜竺'],'force-4':['马腾','马超','马岱','庞德','韩遂'],sunce:['孙策','孙权','周瑜','鲁肃','程普','黄盖','韩当','周泰','蒋钦','太史慈','张昭','张纮'],'force-7':['刘表','黄忠','魏延','文聘','黄祖','蔡瑁','蒯良','蒯越','韩玄','刘琦','刘琮'],liuzhang:['刘璋','张任','严颜','法正','黄权','刘巴','吴懿','李严'],'force-10':['张鲁','张卫','阎圃','杨松'],'force-13':['公孙度','公孙康']};
@@ -43,7 +62,37 @@ const openingExpansion={
  sunce:['顾雍','日骘','吕范','吕岱','陈武','董袭','贺齐','宋谦','朱桓','张承','严畯','程秉','潘璋'],
  'force-7':['伊籍','王粲','王威','韩嵩','桓阶','傅巽','苏飞','向朗','霍峻','潘濬']
 };
+export function scenarioOfficerEligible(spec,u){
+ return u.sourceKind==='common'&&(spec.kind==='fictional'||(!u.birthYear||u.birthYear+16<=spec.year)&&(!u.deathYear||u.deathYear>=spec.year)&&(!u.profileSource?.yearAvailable||u.profileSource.yearAvailable<=spec.year));
+}
+function referenceRoster(spec,cities){
+ const bySource=new Map(OFFICER_CATALOG.filter(u=>u.sourceKind==='common').map(u=>[u.sourceId,u])),placed=new Map();
+ const factions=new Set(spec.factions),mapping=new Map();
+ if(spec.layout==='reference')for(const f of REFERENCE_SCENARIO.forces)mapping.set(f.sourceId,referenceFaction(f.sourceId));
+ else for(const [faction,ids] of Object.entries(spec.referenceGroups))for(const id of ids)mapping.set(id,faction);
+ const capitals=Object.fromEntries(spec.factions.map(f=>[f,spec.layout==='historical'?(spec.capitals?.[f]||(f==='cao'&&cities.some(c=>c.id===spec.capital&&c.owner===f)?spec.capital:spec.cityGroups[f].map(key).find(id=>cities.some(c=>c.id===id&&c.owner===f)))):cities.find(c=>c.owner===f)?.id]));
+ for(const p of REFERENCE_SCENARIO.people){
+  const u=bySource.get(p.sourceId),faction=mapping.get(p.forceId);if(!u||!factions.has(faction)||![1,2,3,4].includes(p.state)||spec.officerExclusions?.includes(p.sourceId)||!scenarioOfficerEligible(spec,u))continue;
+  const home=cities.find(c=>c.sourceId===p.citySourceId&&c.owner===faction)||cities.find(c=>c.id===capitals[faction]);
+  if(home)placed.set(u.id,{id:u.id,faction,cityId:home.id});
+ }
+ for(const entry of spec.officerPlacements||[]){
+  const u=bySource.get(entry.sourceId);if(!u)throw Error('剧本人事不在公共人物库：'+entry.sourceId);
+  if(!factions.has(entry.faction)||!cities.some(c=>c.id===entry.cityId&&c.owner===entry.faction))throw Error('剧本人事驻城与势力不匹配：'+entry.sourceId);
+  if(scenarioOfficerEligible(spec,u))placed.set(u.id,{id:u.id,faction:entry.faction,cityId:entry.cityId});
+ }
+ // A ruler is a real catalogue person and is always placed in a city they own.
+ // Source-only scenarios keep the ruler's original home; historical ones use
+ // the declared capital instead of redistributing people to fill every town.
+ for(const faction of spec.factions){
+  const u=bySource.get(NATIONAL_FACTIONS[faction].leaderSourceId);if(!u||!scenarioOfficerEligible(spec,u))throw Error('剧本君主年代无效：'+faction);
+  const home=spec.layout==='reference'?placed.get(u.id)?.cityId:capitals[faction];if(!cities.some(c=>c.id===home&&c.owner===faction))throw Error('剧本君主缺少所属城池：'+faction);
+  placed.set(u.id,{id:u.id,faction,cityId:home});
+ }
+ return [...placed.values()];
+}
 export function nationalRoster(id,cities){
+ const spec=nationalScenario(id);if(!spec)throw Error('未知天下剧本');if(spec.rosterDistribution==='reference')return referenceRoster(spec,cities);
  const common=OFFICER_CATALOG.filter(u=>u.sourceKind==='common'),bySource=new Map(common.map(u=>[u.sourceId,u]));
  const placed=new Map(),capital={cao:'xuchang',yuan:'ye','force-2':key(15),'force-4':key(22),sunce:key(23),'force-7':key(30),liuzhang:key(40),'force-10':key(37),'force-13':key(1)};
  if(id==='guandu-200')for(const [faction,names]of Object.entries(opening).filter(([f])=>nationalScenario(id).factions.includes(f)))for(const name of [...names,...(openingExpansion[faction]||[])]){const u=common.find(u=>u.name===name||u.aliases.includes(name));if(u)placed.set(u.id,{id:u.id,faction,cityId:capital[faction]});}

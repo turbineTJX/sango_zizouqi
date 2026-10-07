@@ -1,0 +1,4 @@
+// Shared monochrome symbols; accessible labels retain the meaning of each value.
+export const METRIC_ICONS={troops:'M3 3l14 14m0-14L3 17M2 12l6 6m4-16 6 6',grain:'M10 18V3M10 7Q2 7 4 2Q10 2 10 7M10 12Q18 12 16 7Q10 7 10 12M10 17Q2 17 4 12Q10 12 10 17',reserve:'M4 5h12v13H4ZM7 2h6v3H7M7 10h6m-3-3v6',staff:'M4 3h12v15H4ZM7 7h6m-6 4h6m-6 4h3',idle:'M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6M4 18v-3a6 6 0 0 1 12 0v3',morale:'M5 18V2l11 2-3 4 3 4-11-2',leader:'M3 6l4 3 3-6 3 6 4-3-2 9H5Z',route:'M3 5h12l-3-3m3 3-3 3M17 15H5l3-3m-3 3 3 3'};
+export const metricIcon=(key,label)=>`<svg viewBox="0 0 20 20" aria-label="${label}" role="img"><path d="${METRIC_ICONS[key]}"/></svg>`;
+export const metric=(key,label,value)=>`<span class="compact-metric" aria-label="${label} ${value}" title="${label}">${metricIcon(key,label)}<b>${value}</b></span>`;

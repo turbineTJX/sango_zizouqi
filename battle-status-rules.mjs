@@ -2,9 +2,10 @@ import {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES} from './data/design/battle
 import {hexDistance,hexNeighbors} from './hex-grid.mjs';
 import {canOccupy} from './battlefield.mjs';
 import {appendBattleLog} from './battle-log.mjs';
+import {bondBlocksEffect} from './bonds.mjs';
 
 export {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES};
-export const statusOn=(b,u,key)=>(u.statuses?.[key]?.until||0)>b.tick;
+export const statusOn=(b,u,key)=>(u.statuses?.[key]?.until||0)>b.tick&&!bondBlocksEffect(b,u,u.statuses[key],{beneficial:STATUS_DEFINITIONS[key]?.tone==='buff'});
 export const statusValue=(u,key,field)=>u.statuses?.[key]?.[field]??STATUS_DEFINITIONS[key]?.[field];
 export const statusNotice=(b,u,text)=>appendBattleLog(b,u.name+' · '+text);
 export function detected(b,u,side=1-u.side){

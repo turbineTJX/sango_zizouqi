@@ -51,8 +51,8 @@ for(let i=0;i<OFFICER_TRAIT_SLOTS;i++){
 }
 for(const level of [1,10]){
  add(`capacity${level}`,`${level}级带兵上限`,'部队','floor((3000 + 统率×50 + (等级−1)×200)/100)×100；伤兵也占名额。');
- add(`intentAttack${level}`,`${level}级普攻战意`,'部队','一次普攻命中的基础战意收入，包含固定振奋特性。伤害战法不给施法者攻击战意。');
- add(`intentHit${level}`,`${level}级受击战意`,'部队','存活受直接伤害时的基础收入，包含坚忍。同次多段只计一次；截气、断势等可阻止收入。');
+ add(`intentAttack${level}`,`${level}级普攻战意`,'部队','一次普攻的基础战意收入；抑气可削弱收入。伤害战法不给施法者攻击战意。');
+ add(`intentHit${level}`,`${level}级受击战意`,'部队','存活且实际受直接伤害时的基础收入，较低且不随人数复制同次多段奖励；护盾完全吸收、反击与持续伤害不提供受击战意。');
 }
 for(const [key,label] of [['attack','攻击'],['defense','防御'],['martialPower','武技威力'],['strategyPower','谋略威力'],['discipline','军纪'],['move','移速'],['range','射程'],['attackSpeed','每秒普攻次数'],['siege','攻城属性']])
  add('level10-'+key,`10级${label}`,'部队','默认兵种、3000兵、无战场/军团/地形状态，包含静态及满兵条件被动；邻接、孤立、预备入场等须在战场结算。');

@@ -1,7 +1,10 @@
 {
-  "rulesVersion": 85,
+  "rulesVersion": 107,
   "files": [
+    "docs/战争迷雾与武将侦察.md",
+    "docs/当前剧本经济运营验证.md",
     "docs/README.md",
+    "docs/多战役玩家操作空间实测.md",
     "docs/ZOC突破与远程优先-规则57.md",
     "docs/design-tables/README.md",
     "docs/design-tables/人员战后去向与俘虏一览表.md",
@@ -18,8 +21,10 @@
     "docs/design-tables/功绩成长与固定战法一览表.md",
     "docs/design-tables/势力一览表.md",
     "docs/design-tables/后勤与补给一览表.md",
+    "docs/design-tables/历史战役与援军一览表.md",
     "docs/design-tables/回归案例一览表.md",
     "docs/design-tables/城市一览表.md",
+    "docs/design-tables/外交规则与原子动作一览表.md",
     "docs/design-tables/大地图道路一览表.md",
     "docs/design-tables/建筑一览表.md",
     "docs/design-tables/建筑效果一览表.md",
@@ -48,6 +53,7 @@
     "docs/内政六方向-规则56.md",
     "docs/内政协作实现与验证.md",
     "docs/内政系统最终设计.md",
+    "docs/外交系统设计.md",
     "docs/军事命令分步交互.md",
     "docs/军团特技设计表.md",
     "docs/军略AI固定条件触发.md",
@@ -94,6 +100,10 @@
     "docs/部队撤离与战前设置-规则65.md",
     "docs/design-tables/羁绊成长一览表.md",
     "docs/羁绊特性与成长-规则76.md",
-    "docs/design-tables/内政命令特性一览表.md"
+    "docs/design-tables/内政命令特性一览表.md",
+    "docs/羁绊门槛与混搭-2026-10-05.md",
+    "docs/玩家布阵与羁绊强度-下邳.md",
+    "docs/武将多场景美术流程.md",
+    "docs/城市钱粮与预算.md"
   ]
 }

@@ -6,7 +6,7 @@ import {OFFICER_SOURCE} from '../data/officers.mjs';
 import {OFFICER_CATALOG,OFFICER_BY_ID,LEGACY_SOURCE_IDS,searchOfficers} from '../officer-catalog.mjs';
 import {rosterMarkup,officerDetailMarkup} from '../officer-roster.mjs';
 import {makeOfficer,newGame,validateSave,stepBattle,settleBattle,unitAttributes,officerStratagems} from '../engine.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {passiveList,SKILL_ROUTES} from '../passives.mjs';
 import {unitTactics,SPECIAL_TACTICS} from '../tactics.mjs';
 import {gainMerit} from '../progression.mjs';
@@ -55,7 +55,7 @@ test('catalogue search, source filters, descending stats, no-result and HTML esc
 test('custom rosters including legacy enemies and same-name people save, resume and settle deterministically',()=>{
  for(const ids of [['person-290','person-246','person-661'],['shao','he','yan','person-1','person-429','person-430'],['person-3']]){
   const state=createScenario('officer-lab',21,20,ids);
-  assert.deepEqual(state.testScenario.officerIds,ids);assert.equal(state.armies[0].leader,ids[0]);
+  assert.deepEqual(state.testScenario.customBattle.ownTeam.map(u=>u.id),ids);assert.equal(state.armies[0].leader,ids[0]);
   for(let i=0;i<15;i++)stepBattle(state.battle);
   const resumed=validateSave(structuredClone(state));
   while(!state.battle.result){stepBattle(state.battle);stepBattle(resumed.battle);}
@@ -74,10 +74,10 @@ test('invalid custom roster, unknown source ID, edited attributes and duplicate 
  for(const ids of [[],['person-290','person-290'],['missing'],['toString'],OFFICER_CATALOG.slice(0,7).map(u=>u.id)])assert.throws(()=>createScenario('officer-lab',1,20,ids));
  assert.throws(()=>createScenario('field',1,20,['person-290']));
  for(const mutate of [
-  s=>s.testScenario.officerIds=['missing'],
+  s=>s.testScenario.customBattle.ownTeam[0].id='missing',
   s=>s.armies[0].units[0].intellect++,
   s=>s.battle.sides[0].units[0].politics++,
-  s=>s.testScenario.officerIds.push(s.testScenario.officerIds[0])
+  s=>s.testScenario.customBattle.ownTeam.push(s.testScenario.customBattle.ownTeam[0])
  ]){
   const state=createScenario('officer-lab');mutate(state);assert.throws(()=>validateSave(state));
  }

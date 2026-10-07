@@ -1,4 +1,5 @@
-import {bondEntryIgnoresZoc} from './bonds.mjs';
+import {combatType,combatFamily} from './troop-equipment.mjs';
+import {bondEntryIgnoresZoc,bondBlocksEffect} from './bonds.mjs';
 import {TRAIT_DESIGNS} from './data/design/traits.mjs';
 import {OFFICER_ASSIGNMENTS} from './data/design/assignments.mjs';
 
@@ -10,17 +11,17 @@ export function mechanicEntries(u,event=null){
 }
 export function traitEligible(b,u,rule){
  if(!u||u.hp<=0||u.withdrawing||b?.sides?.[u.side]?.retreat)return false;
- if(rule.troops&&!rule.troops.includes(u.type))return false;
+ if(rule.troops&&!rule.troops.some(type=>type===combatType(u)||type===combatFamily(u)))return false;
  if(rule.roles){
   if(!['active','reserve'].includes(u.status))return false;
   if(!['commandRefund','frontline'].includes(rule.effect)&&u.status!=='active')return false;
-  if(rule.event!=='passive'&&['confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0)))return false;
+  if(rule.event!=='passive'&&['confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0)&&!bondBlocksEffect(b,u,u.statuses[k])))return false;
   return !!b?.sides?.[u.side]?.commanders?.some(c=>c.id===u.id&&c.armyId===u.armyId&&rule.roles.includes(c.role));
  }
- return u.status==='active'&&!['confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0));
+ return u.status==='active'&&!['confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0)&&!bondBlocksEffect(b,u,u.statuses[k]));
 }
 export const traitIgnoresZoc=(b,u)=>bondEntryIgnoresZoc(b,u)||mechanicEntries(u,'passive').some(x=>x.rule.effect==='ignoreZoc'&&traitEligible(b,u,x.rule));
-export const traitImmune=(u,key)=>mechanicEntries(u,'passive').some(x=>x.rule.effect==='immunity'&&(!x.rule.troops||x.rule.troops.includes(u.type))&&x.rule.statuses.includes(key));
+export const traitImmune=(u,key)=>mechanicEntries(u,'passive').some(x=>x.rule.effect==='immunity'&&(!x.rule.troops||x.rule.troops.some(type=>type===combatType(u)||type===combatFamily(u)))&&x.rule.statuses.includes(key));
 export function traitChance(u,target,rule){return Math.max(rule.minChance??0,Math.min(rule.maxChance??1,(rule.chance??1)+(rule.difference?((u[rule.difference]||0)-(target[rule.difference]||0))*(rule.differenceScale||0):0)));}
 export const commandTraitMultiplier=()=>1;
 export function validTraitState(u,tick){

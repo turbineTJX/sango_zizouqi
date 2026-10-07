@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
 import {mapObjectMenu} from '../map-object-menu.mjs';
-import {newCommand,commandMarkup} from '../strategic-command.mjs';
+import {newCommand,commandMarkup,changeCommandUnit,prepareCommandFormation} from '../strategic-command.mjs';
+import {cityVisible} from '../strategic-vision.mjs';
 test('map menu restricts orders to owned objects and renders without state changes',()=>{
  const s=newCampaign(203,'guandu-200'),before=serializeCampaign(s);
  const own=mapObjectMenu(s,{kind:'city',id:'xuchang',x:20,y:30});
@@ -12,12 +13,21 @@ test('map menu restricts orders to owned objects and renders without state chang
  assert.equal(mapObjectMenu(s,{kind:'city',id:'missing'}),'');
  assert.equal(serializeCampaign(s),before);
 });
-test('workbench previews officer data and editing cost without committing the draft',()=>{
- const s=newCampaign(203,'guandu-200'),p=newCommand(s,'draft','xuchang'),unit=s.cities.find(c=>c.id==='xuchang').units[0],before=serializeCampaign(s);
- p.workbench={id:unit.id,tab:'officer'};
- assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/武将详情/);
- p.step='formation';p.unitOfficer=unit.id;
+test('army muster previews equipment and cost without committing the draft',()=>{
+ const s=newCampaign(203,'guandu-200'),p=newCommand(s,'draft','xuchang'),home=s.cities.find(c=>c.id==='xuchang');home.gold=5000;
+ const unit=home.units[0],before=serializeCampaign(s);
+ assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/campaign-unit-detail/);
+ assert.deepEqual(p.selected,[]);
+ assert.equal(changeCommandUnit(s,p,unit.id,'siege','ram'),null);
  const html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
- assert.match(html,/unit-workbench/);assert.doesNotMatch(html,/请选择武将/);
- assert.deepEqual(p.selected,[]);assert.equal(serializeCampaign(s),before);
+ assert.match(html,/unit-muster/);assert.match(html,/value="ram" selected/);
+ const preview=prepareCommandFormation(s,p);assert.equal(preview.error,undefined);assert.ok(preview.gold>0);
+ assert.equal(preview.state.cities.find(c=>c.id==='xuchang').units.find(u=>u.id===unit.id).equipment.siege,'ram');
+ assert.equal(serializeCampaign(s),before);
+});
+test('expedition destination details use city intelligence instead of hidden resources',()=>{
+ const s=newCampaign(203,'guandu-200'),target=s.cities.find(c=>c.owner!=='cao'&&!cityVisible(s,c.id)),p=newCommand(s,'expedition','xuchang');
+ target.grain=987654;target.manpower=765432;p.step='target';p.destination=target.id;
+ const before=serializeCampaign(s),html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
+ assert.match(html,/尚未侦察/);assert.doesNotMatch(html,/987654|765432/);assert.equal(serializeCampaign(s),before);
 });

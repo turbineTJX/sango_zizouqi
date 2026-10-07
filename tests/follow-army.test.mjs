@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import {transportProxy} from '../personnel-movement.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -55,7 +56,7 @@ test('Cao loses his unit in real combat but a victorious army keeps him, his com
  // action restores actual manpower and then permits this officer to fight again.
  run(s,r,()=>s.campaign.phase==='planning');assert.equal(orderCampaignArmy(s,a.id,'xuchang','auto',{reverse:true}),null);beginExecution(s);
  run(s,r,()=>s.cities.find(c=>c.id==='xuchang').units.some(u=>u.id==='cao'));run(s,r,()=>s.campaign.phase==='planning');
- const c=s.cities.find(c=>c.id==='xuchang');assert.ok(c.units.includes(cao));c.manpower=10000;c.grain=20000;c.drafted=0;s.gold=10000;
+ const c=s.cities.find(c=>c.id==='xuchang');assert.ok(c.units.includes(cao));c.manpower=10000;c.grain=20000;c.drafted=0;fundCities(s,10000);
  assert.equal(recruitCityUnits(s,c.id,['cao']),null);assert.ok(cao.troops>0);assert.ok(c.manpower<10000);
  assert.deepEqual(cao.tacticLearning,learning);
  const reformed={...a,units:[cao],leader:'cao',advisor:'cao',deputy:null};

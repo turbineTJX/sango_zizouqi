@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,cityIncome} from '../strategic-campaign.mjs';
@@ -22,7 +23,7 @@ test('AI replenishment keeps food for existing soldiers and the next turn of new
 });
 
 test('autonomous recruitment rechecks rations at completion after grain is depleted',()=>{
- const s=newCampaign(417),c=s.cities.find(c=>c.id==='xuchang'),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao');s.gold=50000;c.grain=20000;
+ const s=newCampaign(417),c=s.cities.find(c=>c.id==='xuchang'),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao');fundCities(s,50000);c.grain=20000;
  c.units.forEach(u=>{u.troops=1000;u.wounded=0;});for(const [k,d] of Object.entries(ACTIONS))if(d.direction==='military'&&k!=='recruit')c.domestic.cooldowns[k]=1000;
  assert.equal(assignDomestic(s,c.id,'military',o.unit.id),null);beginDomesticTurn(s);const a=assignmentFor(s,o.unit.id);assert.equal(a.action.key,'recruit');
  c.grain=cityFoodReserve(s,c);const before=c.units.reduce((n,u)=>n+u.troops,0),grain=c.grain;
@@ -30,7 +31,9 @@ test('autonomous recruitment rechecks rations at completion after grain is deple
  assert.equal(c.units.reduce((n,u)=>n+u.troops,0),before);assert.equal(c.grain,grain);assert.equal(c.domestic.reserved,0);
 });
 
-test('low food excludes new autonomous recruitment even with men and money',()=>{
- const s=newCampaign(417),c=s.cities.find(c=>c.id==='xuchang'),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao');s.gold=50000;
- c.grain=cityFoodReserve(s,c);assert.ok(!actionCandidates(s,{cityId:c.id,direction:'military',officerId:o.unit.id,lastKey:null,failures:0}).some(x=>x.key==='recruit'||x.key==='urgent'));
+test('low food stops autonomous troop replenishment but not gathering unformed reserve resources',()=>{
+ const s=newCampaign(417),c=s.cities.find(c=>c.id==='xuchang'),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao');fundCities(s,50000);
+ c.grain=cityFoodReserve(s,c);const a={cityId:c.id,direction:'military',officerId:o.unit.id,lastKey:null,failures:0};
+ c.manpower=20000;assert.ok(!actionCandidates(s,a).some(x=>x.key==='recruit'||x.key==='urgent'));
+ c.manpower=0;assert.ok(actionCandidates(s,a).some(x=>x.key==='recruit'));
 });

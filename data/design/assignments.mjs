@@ -5206,7 +5206,7 @@ export const TROOP_TACTIC_POOLS = {
     "scatter"
   ],
   "crossbow": [
-    "pierce",
+    "fire",
     "repeat"
   ],
   "siege": [
@@ -5222,6 +5222,50 @@ export const TROOP_TACTIC_POOLS = {
     "repeat"
   ],
   "ship": [
+    "anchor",
+    "broadside"
+  ],
+  "qingzhou": [
+    "phalanx",
+    "qingzhou-fight"
+  ],
+  "baier": [
+    "phalanx",
+    "baier-guard"
+  ],
+  "rattan": [
+    "bulwark",
+    "rattan-wall"
+  ],
+  "greatHalberd": [
+    "bulwark",
+    "halberd-shift"
+  ],
+  "tigerCavalry": [
+    "gallop",
+    "tiger-charge"
+  ],
+  "whiteHorse": [
+    "gallop",
+    "horse-volley"
+  ],
+  "longbow": [
+    "fire",
+    "longbow-shot"
+  ],
+  "heavyRam": [
+    "bulwark",
+    "ram"
+  ],
+  "mengchong": [
+    "anchor",
+    "navalRam"
+  ],
+  "louShip": [
+    "anchor",
+    "broadside"
+  ],
+  "fightingShip": [
     "anchor",
     "broadside"
   ]
@@ -5240,7 +5284,7 @@ export const INTELLECT_TACTIC_POOLS = {
     "rally"
   ],
   "crossbow": [
-    "mirage"
+    "rally"
   ],
   "siege": [
     "tremor"
@@ -5252,6 +5296,39 @@ export const INTELLECT_TACTIC_POOLS = {
     "cutRange"
   ],
   "ship": [
+    "boarding"
+  ],
+  "qingzhou": [
+    "ward"
+  ],
+  "baier": [
+    "ward"
+  ],
+  "rattan": [
+    "curse"
+  ],
+  "greatHalberd": [
+    "curse"
+  ],
+  "tigerCavalry": [
+    "harass"
+  ],
+  "whiteHorse": [
+    "harass"
+  ],
+  "longbow": [
+    "rally"
+  ],
+  "heavyRam": [
+    "blight"
+  ],
+  "mengchong": [
+    "boarding"
+  ],
+  "louShip": [
+    "boarding"
+  ],
+  "fightingShip": [
     "boarding"
   ]
 };

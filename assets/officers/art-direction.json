@@ -1,0 +1,995 @@
+{
+  "version": 1,
+  "styleVersion": "han-neutral-v2",
+  "priority": [
+    "cao",
+    "person-99",
+    "person-290",
+    "person-636",
+    "person-433",
+    "person-396",
+    "person-368",
+    "person-246",
+    "person-226"
+  ],
+  "profiles": {
+    "cao": {
+      "identity": "约48岁，方阔颧骨、略鹰钩鼻、狭长审慎眼、浓眉、左颊小痣、整齐髭须和短尖黑须夹少许银丝，结实体型。靛蓝袍、黑铁札甲、铜扣、暗酒红领、低冠黑头巾。",
+      "signature": "佩汉式直剑；战斗表现沉稳军姿，兵器留在鞘内，不挥剑怒吼。",
+      "role": {
+        "primary": "ruler",
+        "secondary": [
+          "commander",
+          "strategist"
+        ],
+        "evidence": "名册记为魏武王，兼政治、军事统领，亦有诗文创作",
+        "bearing": "有军政权威的君主，文武兼备；文书和军事装束须服务具体场景"
+      }
+    },
+    "person-99": {
+      "identity": "约43岁，长阔脸、自然红铜肤色、直鼻、长眉、沉稳细长眼，及胸浓密长黑须分为自然两绺，高大宽肩。松绿头巾、深绿袍、黑铁札甲、少量铜饰云纹。",
+      "signature": "长柄偃月刀自然近身持握；不大幅挥击，不添加兽首巨肩甲，保持沉稳威严。",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为五虎将、镇守荆州的将领，并记好读春秋左氏传",
+        "bearing": "沉稳武勇将领；保持持刀、着甲及军职体态，不以怒目表现勇武",
+        "propExceptions": "读春秋有传记依据，可在特定闲读或研读场景使用，不能让训练、外交、汇报都变成捧书"
+      }
+    },
+    "person-290": {
+      "identity": "约38岁，修长椭圆脸、高颧骨、略弯长鼻、清醒温和杏眼、柔弧眉、细髭与中长窄黑须，修长体型。简洁深灰软巾、象牙色袍、褪色蓝绿外衣、藏青领。",
+      "signature": "米白羽扇与深色竹柄，手臂放松、低幅度持扇；保持丞相与文臣统帅身份，不扭身挥扇或挥舞武器。",
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "civil",
+          "commander"
+        ],
+        "evidence": "名册记为蜀汉丞相、政治家与北伐军务统筹者",
+        "bearing": "文臣统帅，筹划和治理兼具；羽扇是本人标志物，不能变成所有军师的模板"
+      }
+    },
+    "person-636": {
+      "identity": "A Chinese lord with a visual age around 45, a long oval face, straight nose, naturally slightly prominent ears, gentle steady dark eyes, tidy fine mustache and medium pointed black beard. Lean average build. Modest upright black cloth crown with small bronze fitting, dark olive-green robe with ivory inner collar and restrained dark bronze-edged lamellar shoulder armor.",
+      "signature": "A plain sheathed Han-style straight sword at the belt; a modest natural leader, no drawn sword or theatrical gesture.",
+      "designNote": "Appearance is an original visual design, not asserted historical physical fact.",
+      "role": {
+        "primary": "ruler",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为蜀汉昭烈帝，经历诸侯军政统领",
+        "bearing": "克制亲和的领袖，保留君主和军事主事者气质"
+      }
+    },
+    "person-433": {
+      "identity": "A sturdy broad-shouldered Chinese general with a visual age around 38, broad square-round face, warm tan skin, thick dark brows kept relaxed, naturally open dark eyes, short dense curly black beard and full mustache. Black wrapped headcloth with a small dull bronze ornament, charcoal lamellar armor and muted rust-brown outer robe.",
+      "signature": "A long dark-shafted spear with a modest sinuous blade, held close and safely upward; closed mouth, calm sturdy dignity rather than roaring.",
+      "designNote": "Appearance is an original visual design, not asserted historical physical fact.",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为五虎将，勇武将领，亦有智擒严颜等指挥经历",
+        "bearing": "结实稳健的武人，长矛近身持握；不把勇武画成咆哮或怪相"
+      }
+    },
+    "person-396": {
+      "identity": "An athletic general with a visual age around 35, long angular rectangular face, defined cheekbones, strong broad straight jaw and blunt square chin, deeper-set narrow almond eyes, fairly straight substantial relaxed eyebrows, prominent long straight nose with a slightly broader bridge and a thin closed upper lip. Clean-shaven, natural skin texture. Restrained silver-grey helmet with small dark-red tassel, silver-grey lamellar armor, ivory collar and muted blue-teal cloak. Facial geometry guided by his own existing local portrait, visibly distinct from Zhou Yu.",
+      "signature": "A simple silver-bladed long spear with a dark shaft, held vertically or close to the body; calm alert posture, no lunge or swing.",
+      "designNote": "Appearance is an original visual design, not asserted historical physical fact.",
+      "faceReference": "existing-local-portrait:person-396",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为五虎将和军职将领",
+        "bearing": "沉着警戒的武勇将领，军装与长枪保持本人身份"
+      }
+    },
+    "person-368": {
+      "identity": "A Chinese ruler with a visual age around 31, a broad oval face and firm jaw, natural warm skin, attentive dark brown eyes, neat dark-brown mustache and short auburn-brown goatee. Medium build. Modest upright black crown with a narrow bronze-gold front fitting, dark wine-red robe, black lamellar shoulder armor and modest bronze details.",
+      "signature": "A sheathed straight sword and low-held rolled dispatch; restrained dignified bearing, normal natural eye color and no flamboyant crown.",
+      "designNote": "Appearance is an original visual design, not asserted historical physical fact.",
+      "role": {
+        "primary": "ruler",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为吴大帝与江东统治者",
+        "bearing": "年轻而稳重的统治者，接见、检阅与部署体现主事者身份"
+      }
+    },
+    "person-246": {
+      "identity": "An elegant commander with a visual age around 31, slender gently triangular face, somewhat broader temples and upper cheekbones narrowing to a small tapered chin, fine naturally curved relaxed eyebrows, more open elongated almond eyes, delicate straight narrow-bridge nose and small closed mouth with a fuller lower lip. Clean-shaven, natural skin texture. Modest upright folded dark-red cloth crown with bronze fitting, burgundy robe, ivory collar and restrained dark lamellar shoulders with muted bronze edging. Facial geometry guided by his own existing local portrait, visibly distinct from Zhao Yun.",
+      "signature": "A small plain wooden command baton or sheathed straight sword, not Zhuge Liang’s signature feather fan; calm cultivated military bearing.",
+      "designNote": "Appearance is an original visual design, not asserted historical physical fact.",
+      "faceReference": "existing-local-portrait:person-246",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "名册记为大都督、赤壁率军者，兼有名士风度",
+        "bearing": "儒雅的军事统帅，仪态有军职组织感，不能因儒雅全套画成书生"
+      }
+    },
+    "person-226": {
+      "identity": "A slender mature Chinese scholar strategist with a visual age around 54, a long narrow face, high cheekbones, straight slender nose, naturally slightly hooded dark eyes and relaxed brows. Fine mustache and narrow medium black-grey beard, subtle grey at temples. Upright black scholar crown with three simple vertical panels, dark plum-grey outer robe, pale grey inner collar and a dark slate sash.",
+      "signature": "A low-held bamboo dispatch or plain dark wooden baton; a scholar strategist with composed analytical gaze, no villainous grin, no feather fan and no fighting weapon.",
+      "designNote": "Appearance is an original visual design, not asserted historical physical fact.",
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为魏重臣，统括雍凉军务并参与战略部署",
+        "bearing": "成熟谋臣统帅，安静研判；不是通用文弱书生或奸笑反派"
+      }
+    },
+    "person-1": {
+      "identity": "A southern frontier commander with a visual age around 32, a broad oval face, warm medium-tan skin, rounded straight nose, relaxed thick eyebrows and steady dark eyes. Short neatly trimmed black beard, sturdy medium build. Plain dark-olive wrapped headcloth with a small woven ochre band, earth-green tunic, brown leather-and-iron lamellar protection and a muted ochre shoulder cloth. Ordinary natural human proportions.",
+      "signature": "A modest dark-shafted Han-style halberd held vertically or low close to the body. No horns, skulls, animal masks, face paint, bare-chest caricature or roaring.",
+      "designNote": "Original art choices for a literary character; no asserted historical appearance or ethnic physiognomy.",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册演义条目记为孟获部下、第三洞元帅，参与作战和沙口守备；史条目无记载",
+        "bearing": "稳健的南方军职将领，以护腕、札甲、短幅自然军姿、兵器和营务体现身份。内政、外交、奏报也保留武人气质，不套执笔书生或拢袖学士；不添加族群脸型或服饰刻板印象"
+      }
+    },
+    "person-2": {
+      "identity": "A scholarly civil officer with a visual age around 43, a broad angular trapezoid-rectangular face, firm wider jaw and short square chin, somewhat hooded narrow almond eyes, substantial naturally level eyebrows, a broad straight nose bridge with a blunt rounded tip, neat mustache and a short compact dark goatee. Facial geometry follows his own existing local portrait while relaxing its frown. Average build, a simple low folded black scholar cap, dusty blue-grey robe, ivory collar and slate sash, no armor. Natural skin texture, distinct from the fuller oval-faced Yi Ji.",
+      "signature": "A small bamboo book or folded document held low; a civil scholar in all scenes, no sword, spear or signature feather fan.",
+      "designNote": "Appearance and visual age are original art design choices, not asserted historical physical facts.",
+      "faceReference": "existing-local-portrait:person-2",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为吴幕僚，编撰吴书、著博弈论",
+        "bearing": "编纂学士，读写与档案道具有具体职能；兵种为戟兵不代表人物是武人"
+      }
+    },
+    "person-3": {
+      "identity": "A composed civil envoy with a visual age around 42, fuller rounded oval face, broad high forehead and softer fuller cheeks, smoothly tapering jaw, more open almond eyes and fine gently curved eyebrows, medium-length straight nose with a small rounded tip, fine mustache with slight downward ends and a separate narrow pointed dark goatee. Facial geometry follows his own existing local portrait with neutral quiet expression. Average build, modest upright charcoal crown with a narrow jade-coloured band, pale muted jade-green robe, beige collar and dark olive sash, no armor. Distinct from Wei Zhao's broader angular jaw and narrow eyes.",
+      "signature": "A narrow rolled dispatch or closed bamboo document held near the waist; calm practical envoy bearing, no fighting weapon or feather fan.",
+      "designNote": "Appearance and visual age are original art design choices, not asserted historical physical facts.",
+      "faceReference": "existing-local-portrait:person-3",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为幕僚、使者，并参与编撰蜀科",
+        "bearing": "实务文臣和外交使者，重接洽、记录、联络，不能按枪兵字段着重甲"
+      }
+    },
+    "person-4": {
+      "identity": "A Tianshui officer with a visual age around 34, a long slim oval-rectangular face, narrow cheeks and a smoothly narrowing jaw with a short small chin. Shallow-set narrow almond eyes, fine straight almost horizontal eyebrows, moderately narrow straight nose with a small defined tip, thin closed lips, a fine neat horizontal mustache and a very small central chin tuft. Facial proportions follow his own local portrait, relaxing its stern brow. Slim-average build, low dark bronze cloth crown with a small muted green inset, deep indigo robe with muted turquoise inner collar and a discreet leather-and-iron vest under the robe. Ordinary human proportions, not the wider jaw of Wei Zhao or the broader face of Yin Mo.",
+      "signature": "A modest sheathed Han-style straight sword, restrained leather-and-iron vest and simple wrist guards. Quiet Tianshui military officer bearing; a route plan is used only for an actual planning task, not as the main prop in every scene. No feather fan or weapon swing.",
+      "designNote": "Appearance and visual age are original art design choices, not asserted historical physical facts.",
+      "faceReference": "existing-local-portrait:person-4",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为天水武将、姜维友人，涉及守城与城门行动",
+        "bearing": "地区军职武将，低调军服、护腕与佩剑，营防和补给动作；不是全套伏案书吏"
+      }
+    },
+    "person-5": {
+      "identity": "A court attendant and practical envoy with a visual age around 46, an elongated oblong face, high long midface, lean slightly hollow cheeks, narrow tapered jaw and small rounded chin. Naturally heavy upper eyelids over modest narrow eyes with gently downward outer corners, fine softly arched brows, a longer straight narrow nose with a restrained rounded tip, thin neutral lips, sparse short mustache and a separate narrow tapering dark goatee. Facial geometry follows his own local portrait, with relaxed expression, not caricatured big eyes. Slender-average build, modest narrow charcoal folded crown with a plain brass band, muted steel-blue robe, warm grey inner collar and dark blue sash. Civil attire in every scene, no armor. Visibly longer and leaner face than Yi Ji and Yin Mo.",
+      "signature": "A modest folded dispatch or small cloth document pouch held close to the waist; calm attendant bearing, no sword, spear, feather fan or flamboyant bow.",
+      "designNote": "Appearance and visual age are original art design choices, not asserted historical physical facts or personality inferred from game stats.",
+      "faceReference": "existing-local-portrait:person-5",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为曹爽心腹、随侍皇帝，承担使者联络",
+        "bearing": "宫廷随侍与实务使者，衣装和动作保持文职联络身份"
+      }
+    },
+    "person-6": {
+      "identity": "A learned civil scholar with a visual age around 50, a broad angular midface, clearly defined cheekbones, relatively firm square jaw and a short broad chin. Small slightly slanted almond eyes under substantial level eyebrows, a broad straight nose with a blunt compact tip, a short angular mustache and a medium narrow pointed goatee. His facial proportions follow his own local portrait while smoothing its frown and resting the brows. Average build, a modest low dark charcoal scholar crown edged with subdued ochre, pale warm-grey robe, muted plum inner collar and taupe sash. Civil scholar, no armor. Broader and shorter face than Yin Da Mu and Yin Shang, distinct from Zhuge Liang's longer refined face.",
+      "signature": "A small closed bamboo book, brush or modest paper register; a scholar in every scene, never a halberd fighter, no signature feather fan.",
+      "designNote": "Appearance and visual age are original art design choices, not asserted historical physical facts.",
+      "faceReference": "existing-local-portrait:person-6",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册记为蜀汉学士，教左氏春秋，任博士、劝学从事",
+        "bearing": "经学教师和学士，书册、教学记录适合本人；戟兵字段不改变学士身份"
+      }
+    },
+    "jin": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册记为魏国武将，参与讨伐黄巾；演义条目有后防、水军督率与救援任务，史条目记对部下严格",
+        "bearing": "有纪律感的职业统帅，军姿稳健、装备实用；内政以检查军需和布防为主，接洽与奏报保留军职气质。不把传记遭遇转成惊慌、求饶或悲愤脸"
+      },
+      "identity": "A mature military commander with an original visual age around47. Broad rectangular face, long straight prominent nose with a gently downward rounded tip, deep-set narrow dark almond eyes, substantial naturally relaxed straight eyebrows, defined angular jaw and firm chin. Neat dark mustache and a compact narrow pointed black chin beard. Facial geometry follows his own local portrait, while relaxing its stern brow. Solid average build. Our ORIGINAL modest dull-silver iron helmet with simple narrow cheek guards and a very SHORT dark blue-grey crest, not the huge flying plume of the reference. Charcoal iron lamellar, muted slate-blue shoulder cloth, ivory inner collar and restrained dark brown belt. Ordinary human proportions, distinct from Yu Quan shorter rounder clean-shaven face and Wei Guan leaner cheek structure.",
+      "signature": "A modest sheathed Han-style straight sword and a small plain dark wooden command baton. Composed professional military bearing, no swinging blade, raised palm, feather fan or dramatic plume.",
+      "designNote": "Visual age, face interpretation and costume are original art choices, not asserted historical physical facts or a stat-based appearance.",
+      "faceReference": "existing-local-portrait:jin"
+    },
+    "person-8": {
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "名册记为吴国武将，寿春援军成员，拒降作战；史条目说明与演义相同",
+        "bearing": "沉着的前线军职将领，以护甲、护腕、近身兵器与实际营务区分场景；不以怒吼、搏命动作、执笔或拢袖书生仪态替代身份"
+      },
+      "identity": "A frontline military officer with an original visual age around38. Broad short square-round face, fuller cheeks, wide strong rounded jaw and blunt chin, fairly widely spaced ordinary dark eyes, thick relaxed almost horizontal eyebrows, a SHORT broad straight nose with a rounded blunt tip, natural medium-full CLOSED lips, clean-shaven face. His own local portrait guides facial structure only: remove its open roaring mouth, wide-eyed stare and frown. Sturdy average build. Our original simple dark bronze rounded helmet with plain cheek guards and a SHORT restrained burgundy cloth crest, warm brown-black lamellar, muted grey-green neck cloth lying softly on the shoulder and a taupe underlayer. No giant horns or windblown white scarf. Distinct from the longer angular Yu Jin face and from Zhao Yun sharper longer jaw.",
+      "signature": "A simple Han-style long spear with modest narrow iron blade and dark shaft, kept close to the body, vertical or low. Small natural military actions, never a lunge, roar or weapon swing.",
+      "designNote": "Visual age, reconstructed closed-mouth proportions and clothing are original design choices, not claims about historical appearance or traits inferred from game stats.",
+      "faceReference": "existing-local-portrait:person-8"
+    },
+    "person-9": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册记为魏臣与监军，晋朝历任刺史、将军及司空；史条目记擅长草书，与索靖并称二妙",
+        "bearing": "成熟的文职监军与政务官，主要处理政务、核对军务和听取报告；军事场景表现监军或组织职责，不扮成冲锋武人，也不画成奸笑反派",
+        "propExceptions": "草书有传记依据，内政可以执笔；检查、接洽、告急与战斗切入不都捧同一卷书"
+      },
+      "identity": "A mature civil officer and military supervisor with an original visual age around48. Long lean trapezoid-oval face with high defined cheekbones and subtly hollow cheeks, narrower lower jaw and a short small square chin. Modest slightly hooded dark almond eyes, long fairly straight relaxed eyebrows, a long narrow straight nose with a small compact tip, thin calm closed lips. A very fine short horizontal dark mustache, NO chin beard. Facial geometry guided by his own local portrait with unpinched resting brow, naturally distinct from Wei Zhao broad jaw and Yu Jin compact chin beard. Lean average build, original soft smoky-teal cloth cap with a modest low crown and narrow muted green band, warm grey-beige outer civil robe, subdued dark plum inner collar and taupe sash. No armor or sword in this civil-first original outfit.",
+      "signature": "A modest folded dispatch, small administrative seal or a plain writing brush when the task warrants it. Civil supervisory bearing throughout, no fighting weapon or generic feather fan.",
+      "designNote": "Visual age, face and attire are original art choices. Biography supports civil governance, military supervision and calligraphy, not a universal scholar-book pose in every scene.",
+      "faceReference": "existing-local-portrait:person-9"
+    },
+    "person-10": {
+      "role": {
+        "primary": "ruler",
+        "secondary": [
+          "civil",
+          "commander"
+        ],
+        "evidence": "名册为东汉山阳太守；演义条目列为讨董诸侯，并记参与救援王匡；史条目记任扬州刺史及成人后仍努力向学。诸侯领袖形象依据演义，官职与向学依据史条目。",
+        "bearing": "地方诸侯兼治理官员的成熟仪态，接见、视察、军务统筹与城务并重；军阵中监督部署而非冲锋。向学仅用于合适的独立场景，不做全套捧书。",
+        "propExceptions": "史条目有持续向学的描述，内政可审阅一份治理文书；其余场景按地方领袖实际事务设计。"
+      },
+      "identity": "Original visual age around50, lean mature regional governor. A LONG narrow angular face, high slightly hollow cheekbones, elongated straight narrow nose with an angled compact tip, close-set slightly deep almond eyes, medium fine relaxed near-horizontal brows, a sharply tapering lower jaw and small POINTED chin. Thin horizontal mustache extending just past the mouth and a neat separated narrow pointed chin beard. Normal closed lips and an unpinched forehead. His own existing portrait guides facial proportions only. Original restrained LOW dark brown-plum four-panel official cap with modest flat top and a narrow aged-bronze band, olive-grey robe with muted dark green collar, pale ivory inner collar and simple brown sash. No giant tall crown, patterned dragon costume or shiny jewels. Ordinary lean human proportions, different from Yuan Yin fuller oval face and Yan Yu broad rectangular jaw.",
+      "signature": "A small plain wooden office seal and a discreet closed dispatch roll when the scene warrants it; restrained regional leadership bearing. No fighting weapon or generic feather fan.",
+      "designNote": "Visual age, facial interpretation and costume are original art choices, not historical appearance claims or traits inferred from stats.",
+      "faceReference": "existing-local-portrait:person-10"
+    },
+    "person-11": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "史条目记被袁术任命为丹阳太守，之后投靠刘勋；演义记保护袁术家眷及棺木转移。史称堂弟、演义称侄，关系不混写。",
+        "bearing": "宗族出身的地方政务官，朴素端正的官服与办事、接待、核对物资及护送组织姿态。军务界面处理后方补给和名册，不着重甲挥兵器；不将败亡经历画成惊慌或谄笑。"
+      },
+      "identity": "Original visual age around38, civil provincial administrator. Moderately long OVAL face with broad smooth forehead, fuller lower cheeks, softly rounded broad jaw and a small rounded chin, ordinary narrowly almond dark eyes with moderate spacing, fine straight relaxed brows. Medium-long straight nose with a softly rounded wider tip, thin naturally closed mouth. A distinct tidy dark horizontal mustache of medium thickness, NO chin beard. Own legacy portrait is used for facial geometry, not expression or attire. Original LOW softly structured dusty-maroon official cap with a small bronze edge band, subdued brick-red outer robe, dark ochre-brown collar, pale cream inner layer and dark brown sash. Average soft adult build, not armored. Different from Wei Guan high hollow cheekbones/narrower lower jaw and Yuan Yi sharply pointed beard and chin.",
+      "signature": "A plain cloth pouch, small travel dispatch wallet or administrative tablet according to the job. Practical civil bearing, no armor, spear, sword, fan or theatrical ritual pose.",
+      "designNote": "Appearance, visual age and attire are art decisions; local biography supplies the civil office and escort-organizing function, not physical facts or a stat-based face.",
+      "faceReference": "existing-local-portrait:person-11"
+    },
+    "person-12": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册为蜀国右将军；史条目记累积功绩、继任马忠职位，并与罗宪共守白帝城；演义另有与黄皓交往及争取前线职务的描写。",
+        "bearing": "有资历的驻防将领，着实用军装护甲，监督营防、装备和补给，内政接洽奏报保留军职仪态；不以演义褒贬或魅力数值绘制奸笑、丑化脸或夸张动作。"
+      },
+      "identity": "Original visual age around51, experienced garrison general with solid average build. Broad elongated RECTANGULAR face, full middle cheeks, wide nearly parallel jaw sides and a substantial square chin. Ordinary open almond eyes spaced a little widely, thick relaxed mostly level eyebrows, a fairly broad straight nose bridge with a rounded broad tip, medium closed lips. Dense horizontal dark mustache with short downward outer tips, NO chin beard. Own legacy portrait guides proportions, removing its tense brow. Original matte grey iron helmet with plain narrow cheek guards and a VERY SHORT muted grey-green crest, iron-grey lamellar and subdued dark teal padded sleeves with brown wrist guards, pale beige inner collar, simple dark leather belt. No huge bright red plume, sneer or embellished fantasy armor. Face differs from Yu Jin compact pointed beard/longer narrow nose and Yu Quan short round clean-shaven face.",
+      "signature": "A simple short straight sword kept SHEATHED and a small cord-tied military token when needed. Practical fortified-garrison commander posture; no swinging weapon or scholar-sleeve gestures.",
+      "designNote": "Visual age, neutral face reconstruction and clothing are original art choices, not claims derived from historical physical description or game stats.",
+      "faceReference": "existing-local-portrait:person-12"
+    },
+    "person-13": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册为东汉司徒袁滂之子、后来的魏国官僚。史条目记其对屯田制实施有贡献，回归官场后任谏议大夫等职，并拒绝为吕布书信辱骂刘备；演义条目无记载。",
+        "bearing": "沉稳而有原则的政务官员，以田务、粮储、行政记录和接待为场景职责；训练和战斗界面仍为后方供给与行政辅助，穿文职衣装，不持兵器、不披冲锋护甲。"
+      },
+      "identity": "Original visual age46, slender but ordinary adult civil build. A long tapered angular face with a broad forehead, gently hollow lower cheeks, prominent HIGH cheekbones, and a small narrow angled chin. Rather widely spaced narrow almond eyes with subtly lowered outer corners, relaxed medium-thin brows, medium-long straight nose with a fairly broad rounded tip and clear nostril wings, thin naturally closed lips. Thin horizontal dark mustache with short uneven tapered ends, a separate SMALL triangular chin beard, no long flowing beard. Own local portrait supplies proportions, remove its furrowed brow and raised-brow asymmetry. Original LOW soft FOUR-PANEL slate-blue cloth cap with a simple curved band; NO knot, top bun, bow or hanging side cloth. Dark indigo robe, muted teal collar edging, warm off-white inner collar, plain brown sash. Not a template wise-man face; distinct from Yuan Yi narrow nose/pointed long beard and Yuan Yin full rounded lower cheeks.",
+      "signature": "Small plain wooden office seal box or ONE rolled administrative dispatch when relevant; most scenes have no held document. Dignified practical civil governance and agricultural administration, no armor or carried weapon.",
+      "designNote": "Visual age, proportions, neutral face, cap and clothing are original art choices, not historical physical facts or deductions from game attributes.",
+      "faceReference": "existing-local-portrait:person-13"
+    },
+    "person-14": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册为袁绍次子袁熙。演义条目记幽州刺史、护卫袁尚，以及组织退往乌丸和辽东；史条目另记蹋顿援救袁熙。以地方军政负责人及带领部众的身份作美术分类，不从兵种和能力值推断。",
+        "bearing": "年轻地方军政负责人，着简洁实用军装，监督营防、补给和训练，内政接洽奏报保留从容的军职仪态。安静组织与观察，不将败退经历画成惊慌或怯懦，不装成执笔捧书的学士。"
+      },
+      "identity": "Original visual age30, average young adult military build. Broad smooth elongated OVAL-to-RECTANGULAR face with broad open forehead, FULL even middle cheeks, strong softly squared jaw and broad compact slightly flattened chin. Fairly widely spaced narrow almond eyes, thick mostly level relaxed brows, a high straight medium-width nose bridge with rounded compact tip, medium thin closed upper lip and fuller lower lip. Neat THIN horizontal mustache only, NO chin beard or jaw beard. Exact own reference guides these broad youthful proportions, discard knitted brow. Original LOW dark-bronze topknot clasp with no tower or crown, black hair pulled tightly back. Subdued green-grey simple lamellar cuirass with plain bronze edging, muted navy sleeves, dark brown wrist guards and belt, off-white collar. Distinct from Yuan Huan long tapered hollow cheeks and Yan Xing narrow angular hooked-nose profile.",
+      "signature": "Simple short sword always SHEATHED; small plain wooden deployment token only when appropriate. Young regional military organizer bearing, no scholar sleeve greeting, no forceful archery pose.",
+      "designNote": "Visual age and plain costume are art choices. Military bearing follows biography office and command responsibilities, not troop type or numeric stats.",
+      "faceReference": "existing-local-portrait:person-14"
+    },
+    "person-15": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册为韩遂女婿、后改名艳。史条目记年少加入韩遂，在与马腾交战中胜马超，209年作为韩遂使者往见曹操，后参与金城军事行动并归曹；演义条目无记载。",
+        "bearing": "有实战经历兼实际出使经历的军职武人，实用护甲、护腕、低位稳持兵器或检查装备；内政为军需，外交为军人平静接洽，奏报和告急保留营地岗位仪态。不开怒眉、不摆挥击姿态，不依据阵营或西凉身份做族群刻板化。"
+      },
+      "identity": "Original visual age44, lean sturdy adult military build. LONG angular WEDGE-shaped face with prominent projected cheekbones, slightly hollow cheek planes, narrow tapered lower jaw ending in a compact squared chin. Moderately close-set ordinary narrow eyes under strong relaxed nearly level brows. DISTINCT LONG slightly AQUILINE nose bridge and projecting tapered tip; medium-width closed mouth. Dense short horizontal mustache with downward tapered outer ends, a short separate trimmed chin beard and subtle jaw stubble, no flowing beard. Own local portrait guides the long hooked nose and angular geometry, discard scowl and tense forehead. Original PLAIN matte-grey rounded iron helmet with narrow simple cheek guards and a SHORT muted ochre cloth tail attached rear, NO flowing crest or huge plume. Plain dark iron lamellar, desaturated rust-brown sleeves, leather wrist guards, dark ochre inner collar and plain belt. No sculpted animal pauldrons, cape or towering helmet. Face visibly differs from Yan Yu broad parallel rectangle/large square chin, Yu Jin compact long pointed beard, and Yuan Xi full youthful oval.",
+      "signature": "A modest straight-shaft spear for the standee and one equipment scene, sword SHEATHED when visible. Calm experienced soldier and practical military envoy, not a scholar with universal book.",
+      "designNote": "Art age and reconstructed neutral facial proportions are design choices. Military and envoy functions have biography basis, not assumptions about ancestry, faction or abilities.",
+      "faceReference": "existing-local-portrait:person-15"
+    },
+    "person-16": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册为阎志之弟。史条目记其得到鲜卑帮助与公孙瓒对抗，官渡后归曹，对讨伐乌丸有贡献，曹丕即位后为度辽将军；演义条目无记载。",
+        "bearing": "有营防与军务经历的边地统帅，着实用军装，安排部署、检查营防补给和接洽来访者。以其实际军职确定仪态，不从曾被俘经历绘制惊惧，也不因与乌丸鲜卑交往添加族群刻板服饰或夸张神态。"
+      },
+      "identity": "Original visual age40, sturdy ordinary military build. LONG broad RECTANGULAR face with a high broad forehead, strongly projected cheekbones, relatively flat cheeks and a wide angular jaw ending in a large SQUARE chin. Fairly widely spaced narrow eyes of ordinary aperture, thick strong mostly level resting brows, a LONG BROAD straight nose bridge ending in a blunt broad tip, fairly FULL closed lips with a distinct lower lip. Completely CLEAN-SHAVEN: no mustache or beard. Own reference guides this long heavy-jawed geometry, remove its contracted brows, glaring eyes and flying hair. Original LOW plain rounded iron helmet with narrow simple cheek guards and NO crest, plume or ornamental forehead piece. Hair neatly contained; no wild loose locks. Dull grey-green simple lamellar cuirass, muted indigo sleeves, plain brown leather wrist guards and belt, off-white inner collar. No fur, cape, necklace or ethnic costume. Distinct from Yu Quan short round face, Yuan Xi shorter full oval with thin mustache, and Yan Xing tapered hooked-nose bearded face.",
+      "signature": "ONE short sword always SHEATHED; small plain cord-tied military token for the standing detail if relevant. Calm practical officer supervising camp and receiving visitors.",
+      "designNote": "Visual age and facial/costume choices are original art direction, not factual physical description, ethnic inference or game-stat interpretation.",
+      "faceReference": "existing-local-portrait:person-16"
+    },
+    "person-17": {
+      "role": {
+        "primary": "ruler",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册为四世三公名门出身的袁术，袁绍堂弟（一说异母弟）。演义记参与反董联盟、据淮南并称帝；史条目记与公孙瓒、陶谦、孙坚联合及匡亭战后移往扬州。以实际势力领袖身份分类，演义褒贬不当作表情设计依据。",
+        "bearing": "名门出身的地方势力领袖，正式但克制的领袖衣冠，治理、接见、检阅与统筹。保持自然中性，不把称帝和败亡经历画成奸笑、傲慢挑眉、吐血或惊慌；可以低位处理一份行政文件，不能把十一场景都变成捧卷。"
+      },
+      "identity": "Original visual age52, average slightly substantial adult ruler build. A LONG DIAMOND-shaped mature face with broad upper cheekbone span, mildly sunken temples and lower cheek planes, a very NARROW tapered jaw and compact pointed chin. Relatively CLOSE-SET narrow hooded eyes with naturally lowered outer corners, thin-medium soft mostly level eyebrows, a long straight high nose bridge with a slightly hooked compact tip, a narrow horizontal closed mouth with thin lips. Fine horizontal mustache with gently DOWNWARD tapered ends, separate MEDIUM-LENGTH fairly broad triangular dark chin beard with a few grey strands; no long theatrical beard. Exact own legacy guides this angular mature structure, remove its asymmetric sneer, inward frown and chin-lift. Original LOW straight-sided FOUR-PANEL deep-plum cloth formal cap with a NARROW plain bronze band, no tall winged crown, blue jewel, gold piping cage or chin ties. Subdued deep plum-red formal robe, dark charcoal collar edging, warm ivory inner collar and plain dark-brown sash with small dull bronze clasp. Quiet formal leadership, no armor, emperor costume exaggeration or borrowed famous-ruler face. Face differs from Yuan Yi longer uniformly narrow face and thin straight nose, Yuan Yin full rounded cheeks, and Jin compact bearded jaw.",
+      "signature": "A small CLOSED plain office seal box kept on a separate stool or low table when needed, never raised for display. A regional ruler receiving, governing and inspecting, no carried sword or generic scholar scroll.",
+      "designNote": "Art age, facial proportions and formal robe/cap are original choices; novel praise/blame and claimed imperial status do not prescribe a malicious face or fantasy regalia.",
+      "faceReference": "existing-local-portrait:person-17"
+    },
+    "person-18": {
+      "role": {
+        "primary": "ruler",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册为袁绍三子袁尚。演义条目记袁绍死后被拥立为继承者，率部与曹操交战及转往幽州；史条目记邺城被围时拒绝劝降、企图夺取公孙康兵力。容貌出色属于演义描述，美术年龄与具体脸型另行原创设计。",
+        "bearing": "年轻继承者兼实际部众领袖，以朴素贵族军政服饰和轻型护甲保持统领气质；治理、接洽、汇报仍为领袖军政职责。没有书生拢袖模板，不从争位和败亡故事画成骄狂、恐惧或奸相；与兄袁熙用脸型和鼻颌比例区别。"
+      },
+      "identity": "Original visual age23, slim ordinary young adult leader build, adult normal head/shoulder ratio. LONG SLIM OVAL face, broad open forehead but notably NARROW lower cheeks and smooth tapering jaw ending in a small rounded POINTED chin. Fairly widely spaced open almond eyes with ordinary aperture, fine gently curved but RESTING brows, a narrow straight medium-long nose with a small pointed tip, medium-width closed mouth with a thin upper lip and fuller soft lower lip. Completely CLEAN-SHAVEN, no mustache or beard. Exact own local reference guides the slender youthful structure, remove its contracted inner brow and raised disdainful chin. Neat black hair in a compact topknot wrapped by a VERY LOW simple dark-bronze clasp, no tall gold folded crown or chin straps. Original light plain bronze-grey lamellar cuirass, muted sage-green fitted sleeves, dark brown slim belt and leather wrist guards, warm pale-grey inner collar. NO cape/scarf around shoulders, decorative neck knot or conspicuous bright gold ornament. Distinct from Yuan Xi full broad oval/rectangular jaw and mustache, Zhao Yun long heavy rectangular jaw, Zhou Yu narrower mature lower face, and Yan Rou wide square chin/full lips.",
+      "signature": "A simple short sword always SHEATHED; a small closed leather dispatch wallet only for one low-held scene. Young inherited leadership and calm military administration, no book presentation or fan template.",
+      "designNote": "Youthful art age, clean-shaven slender geometry and light armor are original design choices; specific attractiveness is not a historical fact or stat-derived trait.",
+      "faceReference": "existing-local-portrait:person-18"
+    },
+    "shao": {
+      "role": {
+        "primary": "ruler",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册身份为名门出身的袁绍，袁术堂兄（一说亲兄）。演义条目记其任反董卓联盟盟主、取得冀州、击败公孙瓒并统领河北，率势力与曹操交战；史条目记其推举刘虞与是否拥护献帝的政治选择。以其势力领袖和统军职责确定美术类型，不把演义事件全部宣称史实。",
+        "bearing": "成熟的区域君主兼统帅，保持正式而实用的领袖军政服饰；内政为治理与检查，外交为接见，训练为检阅，指挥与战斗为部署和督察。中性不靠骄狂、奸笑或大怒表现名门身份，也不变成通用捧书文士。"
+      },
+      "identity": "Original visual age48, broad sturdy adult leader build with normal head/shoulder proportions. Relatively SHORT WIDE TRAPEZOID face, broad low forehead, prominent full upper cheeks and a heavy WIDE angular jaw narrowing only slightly to a broad chin. Medium-spaced deep-set ordinary almond eyes, thick mostly STRAIGHT RESTING brows, SHORT BROAD nose bridge with a compact rounded slightly downturned tip, broad CLOSED mouth with full lower lip. Dense dark mustache following lip with gently downward ends, thick short-to-medium TRIANGULAR beard covering broad chin, a few quiet grey strands. Own legacy face guides the broad compact geometry; REMOVE contracted brows, glare and raised finger. Distinct from Cao Cao longer narrower face, Yuan Shu long diamond cheeks and fine narrow triangular beard, Yan Rou long rectangular clean-shaven chin, and Yuan Tan long oval clean chin. Original LOW dark-bronze FLAT-ROUNDED helmet with plain angled narrow cheek guards and one small horizontal front band, NO plume, tall gold crown, jewel or crest. Plain bronze-brown lamellar breastplate, muted burgundy fitted sleeves, brown wrist guards and belt, warm grey inner collar. NO cape, scarf, necklace or ornamental chest medallion. One short sword fully SHEATHED at hip, never drawn. Calm mature regional leader governing, receiving and supervising defense.",
+      "signature": "短宽梯形脸、宽颌、短宽鼻与浓密三角胡须；低暗铜盔、朴素铜甲、暗绛袖。",
+      "designNote": "视觉年龄、具体面部比例和服饰均为原创美术选择，并非从能力值推断或宣称史实。按本人现有脸保留短宽结构，删除夸张怒眉、指点和高羽饰。",
+      "faceReference": {
+        "officerId": "shao",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0005_袁绍_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "dde468359195d231dd76cd15ddfa2b6f550f7f0351cefc904d98250d52a87f68"
+      }
+    },
+    "person-20": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册身份为袁术幕僚阎象。演义条目记其引用周文王事例劝谏称帝；史条目也记其在袁术谋篡皇位时提出同类劝谏。依据幕僚与政务谏议职能分类为文臣，不依据战斗兵种或能力值；没有本人冲锋作战依据。",
+        "bearing": "平静而端正的文职幕僚，以朴素官帽、布袍和政务记录表达职能。内政可处理文书，外交为听取与沟通，训练和指挥界面为军需、名册和事务辅助，战斗界面处于阵后支援；不加盔甲或持刀冲锋。少量记录工具适用，不让十一张全部捧卷或拢袖。",
+        "propExceptions": [
+          "人物幕僚和谏议职能允许内政使用一份政务文书；训练使用名册辅助，其他场景通过坐立、观察和自然空手姿态区别。"
+        ]
+      },
+      "identity": "Original visual age44, slender ordinary adult civil adviser build. LONG NARROW WEDGE-shaped face, fairly high open forehead, narrow prominent cheekbones and hollow lower cheeks, strongly tapering jaw to a small POINTED chin. Fairly CLOSE-set narrow ordinary eyes, thin gently curved relaxed eyebrows with a CLEAR relaxed gap at roots, a LONG NARROW high straight nose ending in a fine slightly downturned pointed tip, a small CLOSED mouth with thin lips. Thin fine mustache with small downturned ends, sparse SHORT pointed chin tuft with visible skin on either side, no full cheek beard. Own legacy face guides pointed fine geometry, remove its frown and severe glare. Distinct from Wei Zhao longer smooth oval with rounded chin, Yin Mo fuller cheeks/soft broad nose, Yuan Huan medium oval and Yuan Shu broad diamond cheekbones. Original LOW plain BLACK soft cloth cap with a narrow muted brown band, no tall wooden tower or hard vertical crown. Muted dark OLIVE simple cloth robe with warm grey collar and subdued brown straight edging, plain fabric sash, no armor, bracers, sword, feather fan or chin straps. Small CLOSED rectangular plain wooden seal case only when a specific scene calls for it. Calm civil adviser handling practical political records, receiving and helping camp administration without becoming a fighter.",
+      "signature": "长窄楔形脸、收尖下颌、长细鼻和稀疏短颏须；低黑布帽、暗橄榄朴素布袍。",
+      "designNote": "视觉年龄与细部脸型为原创美术选择。本人参考中的政务文职气质保留，怒眉与高柱冠舍去；不因名册战斗兵种着甲。",
+      "faceReference": {
+        "officerId": "person-20",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0518_阎象_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "a2f28cc63560a015697a39681120d40f446e2fd98e31f865445351f902760224"
+      }
+    },
+    "person-21": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "ruler"
+        ],
+        "evidence": "名册身份为袁绍长子袁谭。演义条目记其为青州刺史、率部抵抗曹操、控制领地并在南皮交战；史条目记其被推荐为茂才、降曹后的婚姻关系与南皮被讨伐。按地域军政负责人及统军活动分类，不由兵种、能力值或继承争斗推断外貌。",
+        "bearing": "有地方军政职责的成年统帅，使用轻型实用护甲和低位佩剑，治理、接待、汇报也保持军职气质。检阅补给、城防与部署为主要自然动作。不以兄弟争位画成骄横、恐惧或奸相；面部另按本人参考设计，区别袁熙、袁尚与袁绍。"
+      },
+      "identity": "Original visual age32, solid ordinary adult military governor build. LONG BROAD OVAL face, high broad open forehead, full rounded cheekbones and relatively full lower cheeks, a broad STRONG gently angular jaw with a large ROUNDED SQUARE chin. Medium-to-wide-spaced ordinary rounded almond eyes, thick smooth almost-level RESTING brows, a MEDIUM-LONG BROAD straight nose ending in a distinct FULL ROUNDED tip, medium-wide CLOSED mouth with thick upper lip and fuller lower lip. Thick DARK mustache across entire upper lip with compact subtly downturned ends; chin and cheeks CLEAN-SHAVEN, no beard. Own local face guides strong broad nose, full cheeks and heavy mustache; REMOVE glabellar frown, wide glaring eyes and tall golden crown. Distinct from Yuan Xi finer nose/smaller thin mustache, Yuan Shang small tapering chin and narrow nose, Yan Rou flatter LONG rectangular cheeks with no mustache, and Yuan Shao SHORT trapezoid face with full beard. Neat compact topknot held by LOW dark-brown cloth band with a small plain bronze clasp, NO tall crown, forehead jewelry, chin straps, cape or scarf. Plain iron-grey lamellar cuirass, muted grey-TEAL fitted sleeves, dark brown leather wrist guards and belt, warm pale collar. Exactly ONE short sword fully SHEATHED at left hip, never carried or drawn. Regional military governor supervising supplies and city defense with neutral bearing.",
+      "signature": "长宽椭圆脸、丰满颧颊、宽直鼻圆鼻尖、浓黑髭与洁净下巴；低束髻、铁灰甲、灰青袖。",
+      "designNote": "年龄、体型、鼻颌比例均为原创美术选择，不按性格、阵营或能力值画脸。以本人参考结构区分袁熙与袁尚，保持地方统帅的军政仪态。",
+      "faceReference": {
+        "officerId": "person-21",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0035_袁谭_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "841e0c7dbc74db77d2e215180e21332162ef4cf38b16fe81cf5b3b5b8d118995"
+      }
+    },
+    "person-22": {
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册身份为张鲁幕僚阎圃。演义条目记其提出立国、援助刘璋、汉中防御等军政建议；史条目记曹丕即位后爵位与领地增加。幕僚身份和演义中的军政研判构成谋士兼文职的美术依据，爵位不被当作冲锋或统兵的依据，史实与演义分别记录。",
+        "bearing": "有军政建议职责的谋士，以朴素文职衣装、观察和低位军务工具表达研判；内政可核对补给或单份记录，巡视可看工事，训练和指挥为事务、部署辅助。接见和奏报不套用全套捧书模板，战斗场景处于阵后分析，没有挥刀、强加盔甲或通用羽扇。",
+        "propExceptions": [
+          "幕僚身份允许个别内政与部署场景有单份平放记录或低位小型军务工具；不将书卷和羽扇贯穿整套。"
+        ]
+      },
+      "identity": "Original visual age39, ordinary medium slender adviser build and normal adult head/shoulder proportions. Fairly LONG OVAL face, high smooth forehead, clear slightly prominent upper cheekbones with moderately flat cheeks, a gently tapering jaw ending in a broad ROUND-SQUARE chin. Medium-spaced ordinary narrow almond eyes with soft lids, medium-thick nearly straight RESTING brows, a LONG SLIM straight nose with a compact blunt tip, a medium-width CLOSED mouth with a thin upper lip and fairly full lower lip. Completely CLEAN-SHAVEN chin and cheeks, no mustache or beard. Own reference guides oval face and long slender nose; preserve ordinary facial structure while removing its metal crown, plume, dramatic fittings and any tension. Distinct from Yan Rou long broad rectangular/square jaw, Yuan Shang smaller pointed chin and fine curved brows, Yuan Yao short wide pear face and very short broad nose, and Yu Quan full short round face. ORIGINAL LOW soft dark-TEAL cloth cap with narrow plain grey band, no helmet, crown, chin straps or plume. Plain muted blue-GREY cloth robe with subdued dark-teal straight trim, off-white cross collar and simple brown cloth sash. NO armor, wrist guards, sword, fan, cloak or decorative necklace. A small plain CLOSED wooden dispatch case only when explicitly specified. Calm military-political adviser observing, discussing and arranging practical records.",
+      "signature": "长椭圆脸、窄长直鼻、圆方下巴与无须面部；低青灰布帽、蓝灰朴素布袍。",
+      "designNote": "脸型细部、视觉年龄与原制服为美术选择，不宣称史实；名册幕僚类型先确定，既有头像的金属冠与羽饰不照搬为新服饰。",
+      "faceReference": {
+        "officerId": "person-22",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0170_阎圃_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "6ac245c2e1d844eada3159b67b7a0f9ade1efa30baf8b4643647c19a2c31aaf1"
+      }
+    },
+    "person-23": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册身份为袁术之子袁燿。演义没有本人活动记载；史条目记其在袁术死后转投刘勋、被孙策俘获，后来因袁术之女入孙权后宫而任郎中。以实际郎中和文职朝廷职能确定美术类型，不因出身画成君主、将领或被俘恐惧形象。",
+        "bearing": "年轻至壮年的文职郎中，朴素整齐官帽和布袍，朝廷接洽、记录、行政检查等小自然动作；训练、指挥、战斗界面属于政务与阵后辅助。保持独立原创脸型，不沿用父亲或袁氏兄弟的脸，不加武将护甲和佩剑。",
+        "propExceptions": [
+          "郎中职能允许内政使用简洁印匣或一份文书，其他场景依自然坐立和接待、观察区分。"
+        ]
+      },
+      "identity": "Original visual age29, ordinary slightly full young-adult civil court official build. SHORT WIDE PEAR-shaped face, broad high forehead, gently full ROUND upper/lower cheeks, a broad lower jaw ending in a broad SHORT ROUNDED chin. Fairly CLOSE-set ordinary softly hooded eyes, thin gently curved RESTING eyebrows with clearly uncontracted roots, a SHORT LOW straight nose bridge with a BROAD ROUND slightly upturned tip, a fairly WIDE CLOSED mouth with thin upper lip and full lower lip. Completely CLEAN-SHAVEN, no mustache or beard. Own exact reference guides short broad midface, full cheeks and wide mouth; REMOVE its open tooth smile and raised eyebrow/frown shape. Distinct from Yan Pu elongated oval/long slender nose, Yuan Shang long fine oval/small pointed chin, Yuan Xi longer face and thin mustache, Yu Quan wider-spaced eyes/heavier angular jaw, and Yuan Shu long mature diamond face with beard. ORIGINAL very LOW plain muted MAROON soft cloth court cap with a slim dull-brown band, no tall golden crown, jewels or chin straps. Original dusty warm-BROWN simple robe with dark-maroon straight edging, pale grey cross collar and a plain dull beige fabric sash. No purple brocade pattern inherited from reference, NO armor, weapon, feather fan, cape or necklace. A small CLOSED plain wooden seal case or cloth dispatch wallet only in explicitly specified scenes. Calm court official doing administrative work and receiving.",
+      "signature": "短宽梨形脸、丰满圆颊、短低鼻梁圆鼻尖与宽闭合嘴形，无须；低暗红布帽、暖褐文职袍。",
+      "designNote": "视觉年龄与具体脸型均为原创美术选择，不按出身、被俘经历或能力值画脸。保留本人参考的宽短结构，闭合笑嘴，不复制父兄面部。",
+      "faceReference": {
+        "officerId": "person-23",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0489_袁燿_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "5e38d3304037d4cb1808b50ae2d871b6ec353bea0da44a2ffb89d5eba6d8bad9"
+      }
+    },
+    "person-24": {
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "名册身份为刘表武将王威。演义条目记其与文聘共担军职任务并向刘琮提出奇袭曹操的建议；史条目也记其建议趁曹操南下大意时袭杀，未被采纳，且没有演义所述同刘琮遇害记载。按明确武将及军事建议活动分类，不依能力值、兵种或小说遇害情节设计外貌。",
+        "bearing": "可提出军事建议的军职武人，使用实用轻甲、护腕与一柄收鞘近身兵器；内政检查军需，巡视营防，训练检查装备，外交和奏报保留军职仪态，战斗为稳定警戒观察。沉着自然，不因奇袭提案作鬼祟奸相，也不因遇害情节作惊惧表情或变成执笔学士。"
+      },
+      "identity": "Original visual age47, lean sturdy ordinary mature military officer build. LONG ANGULAR HEXAGON-shaped face, moderately broad open forehead, HIGH fairly WIDE projecting cheekbones with HOLLOW lower cheeks, jaw tapering inward below cheekbones to a SMALL SQUARE chin. Fairly widely spaced ordinary narrow horizontal eyes with slightly heavier upper lids, medium fine mostly straight RESTING brows, a LONG moderately NARROW gently CONVEX nose bridge with a compact pronounced downturned tip, thin CLOSED lips in a narrow mouth. Thin dark mustache with short naturally downward ends, medium-long narrow POINTED beard on chin with a few grey strands, cheeks sparsely bearded. Own exact reference guides long angular cheek structure and slender prominent nose; REMOVE frown, cunning glare, high red tower hat and extravagant shoulder ornaments. Distinct from Yan Xing more triangular taper/strongly hooked nose and fuller mustache, Yuan Shao short broad trapezoid/heavy jaw/full dense beard, Yuan Shu longer diamond cheeks and fine short beard, and Cao Cao longer broader chin/beard framing. ORIGINAL LOW dark-IRON rounded helmet with narrow simple straight cheek guards, no tower, crest, plume or chin straps. Plain iron-grey lamellar breastplate, muted SLATE-BLUE fitted sleeves, plain tan-brown leather wrist guards and belt, warm pale-grey inner collar. No cape, scarf, carved animal shoulder, bright turquoise brocade or necklace. Exactly ONE short sword fully SHEATHED at hip, never drawn. A small plain cord-tied wooden military token only in the standing detail, or closed small dispatch pouch when explicitly specified. Quiet practical military bearing in supplies, reception and defense.",
+      "signature": "长六角颧骨脸、收窄下颌、小方下巴、窄长微凸鼻与尖颏须；低铁盔、铁灰甲、灰蓝袖。",
+      "designNote": "面部细部、视觉年龄、服饰为原创选择，不由遇害或奇袭情节制造奸相和惊恐；本人参考只提供面部几何，不继承红高帽与兽肩饰。",
+      "faceReference": {
+        "officerId": "person-24",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0460_王威_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "e79a583de971e08f3398fc0e2dcf1adfae8f4c02b0fe559c1ab4cf6e2c12bd44"
+      }
+    }
+  },
+  "qa": [
+    "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+    "脸型、年龄、胡须、头饰、主色与身份参考一致",
+    "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+    "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+    "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+    "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+    "头像、透明全身立绘、半身与横幅各自独立构图",
+    "立绘完整头饰至双脚并具备真实透明背景",
+    "手部、五官与装备结构正确，无文字水印与其他主体人物",
+    "原图和界面显示均不以裁切伪造构图差异"
+  ],
+  "formatVersion": "scene-neutral-v3",
+  "acting": {
+    "cao": {
+      "portrait": "Near-frontal head-and-upper-shoulders portrait, head turned only ten degrees to his left. Quiet steady eyes, relaxed forehead, gently closed mouth. Both shoulders level, no hands.",
+      "detail": "Upright balanced stance, right hand naturally holds the sheathed sword at his hip without gripping tightly, left arm relaxed under his robe. Head level, calm and dignified.",
+      "domestic": "Seated three-quarter to the left at a desk, shoulders relaxed. Left hand steadies a bamboo ledger, right hand holds a brush just above the desk. Quiet eyes directed at the ledger.",
+      "inspection": "Standing in side three-quarter view overlooking farmland, both hands low at waist holding a rolled plan. Head turns gently toward the works, steady thoughtful eyes.",
+      "training": "Cao Cao stands in a CLEAR RIGHT-FACING SIDE PROFILE at the practice ground, both hands relaxed behind his lower back and concealed by the sleeves. No hand on belt, no hand on sword, no weapon visible. Shoulders relaxed, head level, eyes quietly watching the equipment ahead to the RIGHT, mouth naturally closed. Only small comfortable body turn; ordinary eye-level illustration, no dramatic pose. This must differ from his three-quarter frontal battle pose with a hand on the sword. Keep face calm and eyebrows relaxed.",
+      "diplomacy": "Seated upright at a reception table, hands loosely folded one over the other on the tabletop. Head turns slightly to the right, attentive and courteous, faint softness around eyes only.",
+      "command": "Seated at a map table, body upright with a slight comfortable lean. One finger rests on a route near the edge of the map, other hand relaxed on the tabletop. Eyes calmly study the map.",
+      "travel": "A normal small walking step in side three-quarter view along a country path. Left hand lightly gathers robe hem, other arm relaxed. Head faces the path, calm closed-mouth expression.",
+      "report": "Standing waist-up with a small open bamboo dispatch held naturally in both hands near waist height. Shoulders relaxed, eyes meet a person off-screen, reserved satisfied expression without smiling broadly.",
+      "report-concern": "Seated at a desk reading a small document held in one hand, other hand rests on the desk. Lips closed, a very slight thoughtful brow, composed even when considering difficult news.",
+      "battle": "A calm military command portrait: standing three-quarter, shoulders square, one hand resting on the hilt of a SHEATHED straight sword at the waist, other arm relaxed. Head level, restrained firm gaze off-screen. No drawn sword, no gesture."
+    },
+    "person-99": {
+      "portrait": "Near-frontal head-and-upper-shoulders portrait, gaze slightly to the right of viewer. Forehead and eyes relaxed, mouth softly closed, composed dignity. No hands.",
+      "detail": "Stable full-length stance, one hand comfortably supports a vertical crescent glaive at his side, the other rests low inside the robe sleeve. Head level, quiet dignity, no beard-stroking.",
+      "domestic": "Seated angled to the right at a desk, right hand holding a thin bamboo ledger open and left hand resting on the table. Eyes quietly read downward, brow relaxed.",
+      "inspection": "Standing near a granary in left profile, upright with weight evenly distributed, one hand holds the glaive vertically at his side while the free hand rests at waist. Quietly observing the site.",
+      "training": "Standing beside a weapon rack, both hands gently support the glaive shaft at a low diagonal close to his body, blade facing safely upward. Quietly inspecting the equipment. No fighting stance.",
+      "diplomacy": "Standing in a natural shallow three-quarter angle, hands joined within robe sleeves at waist in a modest formal greeting, no exaggerated bow. Gentle attentive gaze, mouth closed, no grin.",
+      "command": "Seated upright at a military desk, one hand rests beside a map marker, the other keeps a folded dispatch at the near edge of the desk. Head slightly turned toward the map, quiet concentration.",
+      "travel": "Walking with an ordinary short step along a path, full body in side view. Glaive carried nearly vertical close to his shoulder, free arm lowered. Looks forward, composed face, no look-back contortion.",
+      "report": "Standing waist-up with a closed dispatch held loosely in one hand at waist, other hand rests calmly at belt. A small natural nod toward the listener, composed approval, no salute fist.",
+      "report-concern": "Seated in three-quarter view, left hand steadies a narrow urgent dispatch on the table, right hand rests near it. Eyes thoughtfully lowered, mouth closed, a subtly sober expression, no beard clutching.",
+      "battle": "A restrained martial portrait: body turned three-quarter, weight balanced, crescent glaive held diagonally near the torso with both hands at natural separation. Blade points upward and remains fully visible. Quiet resolute gaze, mouth closed. No swing or lunging."
+    },
+    "person-290": {
+      "portrait": "Near-frontal head-and-upper-shoulders portrait, chin level, eyes softly attentive, relaxed brow, lips naturally closed. Quiet intelligence without a smirk. No hands or fan in the headshot.",
+      "detail": "Natural upright full-length posture, right hand holds the feather fan low in front of his abdomen, other hand hidden naturally within the sleeve at his side. Calm gentle face, head level.",
+      "domestic": "Seated in right three-quarter view at a desk, one hand turns the edge of a paper chart, other hand rests beside a brush. Eyes read downward, relaxed mouth and brow. Feather fan laid flat beside the papers.",
+      "inspection": "Standing in side view near a watercourse, fan held low at waist, left hand rests inside the opposite sleeve. Head turned gently toward the water, neutral reflective gaze. No outstretched arm.",
+      "training": "Seated beside a crossbow apparatus on a low worktable, one hand lightly touches a small wooden part, other hand rests in his lap. Attentive calm gaze at the mechanism, no squatting or theatrics.",
+      "diplomacy": "Seated at a reception desk with shoulders relaxed, fan rests across his lap and one hand lies on the table. Head gently turns toward a listener, polite neutral attentive face, mouth closed.",
+      "command": "Seated in a three-quarter angle at a map desk, fan rests in left hand at lap, right hand lightly touches a wooden route marker close to him. Chin slightly lowered, calm analytical gaze.",
+      "travel": "Ordinary short walking step along a path, full body in three-quarter front view, fan held low at his side, free hand gently gathers sleeve. Gaze along path, natural composed face, modest fabric movement.",
+      "report": "Standing waist-up turned slightly toward a listener, left hand holds a small folded report at waist, right hand holds fan close to abdomen. Eyes attentive with subtle contentment, mouth closed, no hand raised.",
+      "report-concern": "Seated upright at a desk, a small paper dispatch on the tabletop, one hand resting beside it and fan in the other low beside his lap. Slightly lowered eyes and quiet serious thought, no forehead clutching.",
+      "battle": "A quiet strategist command portrait: standing in a shallow three-quarter turn beside a campaign tent, feather fan held at lower chest naturally, free hand relaxed inside his sleeve. Level chin, steady thoughtful gaze off-screen, closed lips. No pointing, twisting or fan flourish."
+    },
+    "person-636": {
+      "portrait": "Near-frontal head-and-shoulders, calm gentle eyes, level chin, lips closed, a small natural turn to the right.",
+      "detail": "Standing upright and balanced, both hands loosely folded low over the belt, plain sword remains sheathed and untouched. Quiet gentle gaze, no smile.",
+      "domestic": "Seated in left three-quarter view, reading an open bamboo ledger with one hand steadying it on the table, the other relaxed beside it. Eyes calmly down.",
+      "inspection": "Standing in a right-facing three-quarter view, holding a rolled site plan with both hands at waist height, quietly observing cultivated fields.",
+      "training": "Standing side-on beside quiet practice equipment, both hands loosely behind his back, head level and eyes watching the ground. No hand on sword.",
+      "diplomacy": "Seated upright at a reception table, hands loosely folded on the table, head gently turned toward a listener. Polite neutral attentive gaze.",
+      "command": "Seated at a map desk turned slightly left, one hand lightly touches a nearby route marker, other hand rests on the desk. Calm attention to the map.",
+      "travel": "Ordinary short walking step toward the right, complete body and both feet visible. One hand lightly gathers robe hem, other arm down, sword stays sheathed.",
+      "report": "Standing waist-up in a slight left turn, holding a small open bamboo report naturally with both hands at waist. Reserved calm contentment, lips closed.",
+      "report-concern": "Seated in three-quarter view reading a narrow dispatch held in one hand, other hand on the desk. Subtly thoughtful lowered eyes, composed and calm.",
+      "battle": "Standing in shallow three-quarter military posture, one hand rests gently on the sword scabbard at waist and the other stays relaxed inside the sleeve. Quiet firm gaze toward the right, lips closed."
+    },
+    "person-433": {
+      "portrait": "Near-frontal square headshot, eyes naturally open and brows relaxed, closed mouth, broad sturdy face without a scowl.",
+      "detail": "Balanced full-length stance, one hand comfortably supports a vertical spear beside him, other hand rests low inside the robe sleeve. Entire spear blade and both feet visible.",
+      "domestic": "Seated turned slightly right at a work desk, one hand holds a brush just above a bamboo ledger and the other keeps it flat. Quiet eyes down, mouth closed.",
+      "inspection": "Standing near modest fortification works in left profile, both hands naturally behind his back, arms relaxed. No weapon grip or gesture, calmly observing the works.",
+      "training": "Seated on a low bench beside a spear rack, one hand lightly checks a spear shaft resting on a low support, other hand rests on his lap. No striking stance.",
+      "diplomacy": "Standing three-quarter with hands loosely joined inside sleeves at waist, head level, calmly listening. No deep bow and no open mouth.",
+      "command": "Seated upright at a military desk, right hand rests near a map token, left holds a folded dispatch at the near edge of the table. Quiet concentration.",
+      "travel": "Ordinary short walking step in three-quarter front view, spear carried nearly vertical close to his shoulder, free arm down. Entire body and both feet visible, gaze along the path.",
+      "report": "Standing waist-up, a closed bamboo dispatch held naturally in one hand at low waist, other hand resting at belt. A slight natural nod, calm face.",
+      "report-concern": "Seated and looking down at a small paper dispatch on the table, one hand at its edge, other hand relaxed beside it. Composed sober eyes, no clenched fist.",
+      "battle": "Standing balanced in three-quarter view, spear held almost vertical close beside the torso with one hand at hip height, free arm relaxed. Spear blade visible. Quiet resolute gaze, closed mouth, no thrust."
+    },
+    "person-396": {
+      "portrait": "Near-frontal head-and-shoulders, complete restrained silver helmet, gentle attentive eyes, relaxed mouth, head slightly to the left.",
+      "detail": "Full-length balanced stance in silver-grey armor, spear held vertically beside the body in one hand, free arm hangs naturally. Entire spear blade and both boots visible.",
+      "domestic": "Seated in side three-quarter view, one hand turns a page of a thin ledger, other rests beside a brush. Calm downward gaze.",
+      "inspection": "Standing by a watercourse in right-facing three-quarter view, holding a small rolled plan at waist in one hand, free arm relaxed. No spear in this scene.",
+      "training": "Standing beside a weapon rack, both hands gently support the spear shaft at a low diagonal near the torso, quietly checking the equipment. No combat stance.",
+      "diplomacy": "Seated in a reception chair in slight side view, one hand rests on a low armrest, the other in his lap. Calm polite gaze toward a listener, no weapon.",
+      "command": "Seated facing slightly right at a map table, one finger lightly touches a nearby route, other hand rests flat at the near table edge. Calm level shoulders.",
+      "travel": "Normal short walking step in right side view, spear carried close near shoulder, free hand gently gathers a small cloak fold. Full helmet to both boots visible, no running or cloak flourish.",
+      "report": "Standing waist-up, a small folded report held comfortably in both hands below the chest, eyes softly attentive to a person off-screen. Neutral reserved approval.",
+      "report-concern": "Seated turned slightly left, reading a narrow dispatch held low above the tabletop, free hand relaxed on the desk. Thoughtful neutral eyes, lips closed.",
+      "battle": "Standing in a calm three-quarter guard posture, silver spear held nearly vertical close to his body, free hand rests low beside the belt. Head level and alert steady gaze, no lunge or swing."
+    },
+    "person-368": {
+      "portrait": "Near-frontal headshot, natural dark-brown eyes, closed relaxed mouth, level chin and a slight turn to the right.",
+      "detail": "Upright full-body stance, one hand rests on a low robe fold near the belt and other arm rests inside the sleeve at his side. Sheathed sword untouched, neutral dignity.",
+      "domestic": "Seated at a desk, one hand opens a small folded paper document, the other rests beside a bamboo ledger. Natural attentive eyes toward the papers.",
+      "inspection": "Clearly standing in a left-facing side profile on a granary balcony, visible from complete crown through upper thighs. Both hands naturally support a small rolled plan close to the lower abdomen, elbows comfortably near the body, shoulders relaxed, eyes quietly toward the stores to the left. No chair, seated posture, desk or armrest; this must differ from his seated training scene.",
+      "training": "Seated upright at the side of a quiet practice ground, a small rolled report rests across his lap held loosely. Calm supervisory gaze, no raised hands.",
+      "diplomacy": "Standing in a shallow three-quarter turn in a modest reception hall, hands resting low inside the sleeves, shoulders relaxed, politely listening with a neutral face.",
+      "command": "Seated turned slightly left at a map desk, a small wooden marker lightly touched by one hand, other hand resting on the armrest. Calm thoughtful gaze down.",
+      "travel": "Ordinary short walking step in three-quarter side view along a path, rolled dispatch held low in one hand, other arm down. Entire body and both feet visible, gaze along the path.",
+      "report": "Standing waist-up, holding a narrow open bamboo dispatch in one hand close at waist height, other hand supports its lower edge naturally. Subtle calm satisfaction without a grin.",
+      "report-concern": "Seated reading a small paper document on the tabletop, one hand rests beside it and other on the chair armrest. Quiet serious reflection, no tense grimace.",
+      "battle": "Standing composed in military attire in shallow three-quarter view, one hand rests gently on the belt and the other stays down inside the robe sleeve. Sheathed sword remains untouched. Calm resolute gaze off-screen."
+    },
+    "person-246": {
+      "portrait": "Near-frontal head-and-shoulders, clean-shaven elegant face, softly attentive eyes, relaxed lips, small natural turn left.",
+      "detail": "Balanced full-length stance, a plain small wooden baton held low at waist in one hand, other hand rests behind his back. Calm head level, no flourish.",
+      "domestic": "Seated in right three-quarter view, quietly annotating a chart with a brush held low, free hand rests beside the paper. Eyes naturally directed down.",
+      "inspection": "Standing in left profile by river works, wooden baton held low near the waist, free arm relaxed inside a sleeve. Calmly considering the watercourse.",
+      "training": "Clearly SEATED in a right-facing three-quarter view beside a practice ground, shoulders relaxed. Both hands naturally hold a small OPEN bamboo training register low over his lap while his calm eyes read it. Wooden baton rests unused on a nearby low stool. No standing baton pose, no weapon, pointing or dramatic command. This must differ from his standing military battle portrait.",
+      "diplomacy": "Seated at a reception desk, one hand rests naturally on the tabletop and the other inside the sleeve in his lap. A small comfortable head turn toward a listener, neutral polite gaze.",
+      "command": "Seated upright in left three-quarter view at a map desk, one hand lightly touches a nearby wooden token, baton rests in the other hand low beside his lap. Quiet analytical gaze.",
+      "travel": "Ordinary short walking step in side view, wooden baton held low by his side, free hand lightly gathers his burgundy robe. Full body and both feet visible, gaze forward.",
+      "report": "Standing waist-up, a small folded dispatch held in one hand close to the waist, other hand holds the baton low beside it. Reserved composed satisfaction, mouth closed.",
+      "report-concern": "Seated upright reading a document held low over the desk, other hand rests beside the route chart. Subtly serious calm eyes and relaxed lips.",
+      "battle": "Standing in a shallow three-quarter military posture, wooden baton held naturally near the abdomen with one hand, other arm down. Sword stays sheathed at the belt. Quiet firm gaze, no gesture or feather fan."
+    },
+    "person-226": {
+      "portrait": "Near-frontal mature scholar headshot, calm slightly hooded eyes with relaxed brows, naturally closed lips, no smirk or villain expression.",
+      "detail": "Full-length upright natural posture, both hands rest inside folded sleeves at low waist, feet balanced. Level head, calm mature gaze, no weapon or fan.",
+      "domestic": "Seated in left three-quarter view, quietly reading a small open paper dispatch held near the desk, other hand rests beside a brush. Relaxed shoulders and sober neutral eyes.",
+      "inspection": "Standing in right three-quarter view beside a watercourse, rolled plan held low in one hand, other hand relaxed behind his back. Calmly observing the site, no arm extended.",
+      "training": "Seated at a low worktable with a modest crossbow mechanism, one hand lightly rests on a nearby small wooden component, other hand on his lap. Quiet attentive gaze, no squat or gesture.",
+      "diplomacy": "Standing in a shallow side turn, small closed dispatch held at waist in one hand, other arm comfortably inside the sleeve. Neutral polite mature gaze toward a listener.",
+      "command": "Seated at a map desk in side three-quarter view, one hand rests beside a nearby route marker, other holds a closed document on his lap. Calm measured reflection.",
+      "travel": "Ordinary short walking step in three-quarter front view, document held low within the sleeves, head faces along the path. Full body and both feet visible, slight robe movement.",
+      "report": "Standing waist-up in a slight right turn, a small open bamboo report supported naturally by both hands at waist level. Attentive composed face, lips closed, no smile.",
+      "report-concern": "Seated upright, reading a narrow dispatch on the tabletop, one hand at its edge and the other resting beside it. Quiet lowered eyes, subtle sober reflection, no forehead clutching.",
+      "battle": "Calm scholar commander standing in a shallow left-facing three-quarter posture on the LEFT of the wide canvas, BOTH hands naturally resting behind the LOWER back and completely concealed by the robe sleeves. Upright comfortable balance, level chin and quietly steady eyes. No visible dispatch, fan, weapon, desk or chair; this must differ from his one-handed diplomatic document pose. No gesture or evil grin."
+    },
+    "person-1": {
+      "portrait": "Near-frontal head-and-shoulders, a small natural turn right, relaxed brow and closed lips, calm steady eyes. No hands or weapon.",
+      "detail": "Balanced full-length stance, halberd vertical at the left side, left hand supports its shaft comfortably near the waist and right arm relaxed. The entire weapon blade and shaft, complete headcloth and both feet fit safely inside the tall frame, with at least 5 percent genuinely transparent margin above the highest tip and below the feet. Use a modest shorter halberd, not an oversized fantasy blade.",
+      "domestic": "Standing in right three-quarter view at a modest military supply station, left hand rests comfortably on the near rim of a wooden provision crate while the right arm hangs naturally beside a plain belt. Quietly inspecting grain sacks and supply packing, leather wrist guards and familiar lamellar visible. No brush, writing desk, reading book or folded scholar sleeves.",
+      "inspection": "Standing in clear left profile beside a granary entrance, one hand comfortably rests on the belt and the free arm hangs naturally. Calmly looking at stacked supplies, military wrist guards and armor visible. No held scroll, pointing or scholar sleeve greeting.",
+      "training": "Seated upright beside an equipment bench, halberd shaft resting low across the thighs, both hands comfortably support it while he checks the binding. Quiet lowered gaze, no fighting stance.",
+      "diplomacy": "Seated upright on a plain military visitor bench, torso in shallow right three-quarter view, one hand naturally on the knee and the other resting on the near bench edge. Small calm head turn toward an off-screen visitor, comfortable military bearing and ordinary elbows. No joined hands inside folded sleeves, bow, brush or book.",
+      "command": "Seated in left three-quarter view at a route-map table, one hand rests beside a nearby deployment marker while the other rests naturally on the armored thigh. Quiet field commander assessing a position, no held bamboo book, fan, extended pointing or exaggerated forward lean.",
+      "travel": "An ordinary short forward step in right-facing side view along a country path. Halberd vertical close to the shoulder, free arm relaxed. Full body and both feet visible, no running or flying cloth.",
+      "report": "Standing waist-up near an ordinary camp gate, shallow right three-quarter torso, one hand relaxed on the belt and the other hangs naturally by the side. Calm oral military report toward an off-screen listener, wrist guards and lamellar visible, closed lips and reserved satisfaction. No open book, two-hand document presentation, brush or folded scholar sleeves.",
+      "report-concern": "Seated on a plain camp bench in a CLEAR LEFT-FACING PROFILE, body and face turned roughly 75 degrees toward the LEFT edge of the canvas; the nose points left and only the nearer eye is visible. Calmly listening to an off-screen messenger to the LEFT, not looking right or at the viewer. One hand rests comfortably on the near knee; the other rests farther back on the bench edge beside the hip, elbows relaxed. Frame as a close waist-up portrait, with no full thighs or symmetrical two-hand knee pose. Military wrist guards and familiar armor visible. A plain timber palisade is softly seen behind him, without the reception chair or doorway from the diplomacy scene. No study desk, book, inkstone, held document, frown or forehead clutching.",
+      "battle": "Quiet military presence standing on the left half of a wide camp canvas, torso in shallow three-quarter view and head turned slightly left. Both arms rest naturally low alongside the body with comfortable hands, no held weapon or document. His modest halberd rests on a simple nearby rack in the middle background. Calm steady eyes and closed lips, no fold-sleeve greeting, pointing, swing or pose copied from the standee."
+    },
+    "person-2": {
+      "portrait": "Near-frontal head-and-shoulders with a slight left turn, eyes naturally attentive, relaxed brow and gently closed lips. Complete plain scholar cap.",
+      "detail": "Full-length balanced stance, a closed bamboo book held low in one hand while the other rests within a loose sleeve. Head level and shoulders comfortable, no armor or weapon.",
+      "domestic": "Seated in left-facing three-quarter view, right hand holds a brush close to a paper page and left hand steadies the page. Eyes naturally lowered, shoulders relaxed.",
+      "inspection": "Standing in clear right profile beside archive shelves, both hands low holding a modest rolled inventory plan. Quiet gaze toward the shelves, no reaching arm.",
+      "training": "Standing in left three-quarter view beside training records and an equipment rack, a small tally book held open low in both hands. Quietly examining the record, no weapon or theatrical command.",
+      "diplomacy": "Seated upright at a reception table, one hand on a closed document and the other naturally on his lap. Small comfortable head turn toward an off-screen listener, neutral courteous eyes.",
+      "command": "Seated in right three-quarter view at a map desk, one hand lightly rests beside a route marker and the other rests on the tabletop. Calm analytical gaze at the map, no fan or pointing.",
+      "travel": "Ordinary short walking step in left-facing side view, a closed bamboo book held close at waist under one sleeve and the free hand lightly gathers the robe. Complete body and both feet.",
+      "report": "Standing waist-up in a shallow right turn, a small folded paper report in one hand near the abdomen and the other hand inside a sleeve. Calm direct gaze, slight softness around the eyes only.",
+      "report-concern": "Seated in right profile reading an open document lying on the desk, left hand at its lower edge and right hand beside an inkstone. Quiet sober eyes, no strained forehead or mouth.",
+      "battle": "Civil scholar seated upright on a plain low bench on the left of a wide quiet camp pavilion scene, shallow left three-quarter torso and a small natural turn of the head to listen. Both hands rest comfortably on the robe-covered thighs, no held document or weapon; a closed bamboo book lies on a separate small stool beside him. Level shoulders, relaxed resting brows and closed lips. This is different from the standing two-hand open-book training pose and the map-table command scene. No armor, sword, spear, feather fan or dramatic gesture."
+    },
+    "person-3": {
+      "portrait": "Near-frontal head-and-shoulders, small natural turn right, gentle steady eyes and relaxed lips. Complete modest cloth crown.",
+      "detail": "Full-length upright stance, both hands loosely folded within sleeves at low waist, a narrow rolled dispatch visible between them. Balanced feet, level head and natural shoulders.",
+      "domestic": "Seated in right three-quarter view, one hand turns the near edge of a paper document and the other rests beside a low stack of bamboo books. Calm lowered eyes, small natural action.",
+      "inspection": "Standing in left profile near a river quay, a rolled route plan held low in one hand and the other relaxed by the side. Quietly observing the water and stores, no pointing.",
+      "training": "Seated upright at a low administrative table beside a practice ground, one hand holds a small bamboo register open and the other rests on the table. Calmly checking the roster, no weapon.",
+      "diplomacy": "Seated upright on a plain visitor bench in shallow left three-quarter view, one hand rests comfortably on the near bench edge and the other on the robe-covered thigh. A closed narrow dispatch lies on a separate small side table, not held. Slight natural head turn toward an off-screen host, neutral polite gaze, closed lips and relaxed shoulders. This seated listening pose is distinct from his standing fold-sleeve full-body figure, two-hand open-dispatch report and map-table command scene. No deep bow, smile, extended palm or weapon.",
+      "command": "Seated in left three-quarter view at a route-map desk, one hand rests naturally on a closed dispatch and the other beside a nearby map marker. Quiet measured gaze, no flourish.",
+      "travel": "Normal small walking step in right-facing three-quarter view on a country path. Dispatch held low close to the body and free hand lightly gathers the robe, complete feet and crown.",
+      "report": "Standing waist-up facing slightly left, an open bamboo dispatch supported near the waist in both hands. Eyes calmly meet an off-screen listener, reserved satisfaction without a smile.",
+      "report-concern": "Seated in left three-quarter view, reading a small paper dispatch held low just above the desk in one hand, the other hand naturally rests on its edge. Composed thoughtful eyes and closed lips.",
+      "battle": "Calm civil envoy standing on the left of a wide quiet camp pavilion canvas, shallow left three-quarter torso, steady gaze and level head. Both hands rest softly behind the lower back with elbows close, relaxed ordinary shoulders and no held document or weapon. A closed rolled dispatch lies on a separate near desk. This stance differs from his front-held two-hand standee and report, one-hand rolled-plan inspection and seated diplomacy. No armor, feather fan, rigid chest-out pose or dramatic gesture."
+    },
+    "person-4": {
+      "portrait": "Near-frontal head-and-shoulders with a slight right turn, naturally level resting brows and calm closed lips. Complete crown and clear background above it.",
+      "detail": "Full-length balanced military stance, a modest sheathed straight sword at the belt, one hand lightly on the belt away from the sword hilt and the other arm naturally down. Plain wrist guards and discreet leather-and-iron vest, level head. No held register or scholar sleeve greeting.",
+      "domestic": "Seated left three-quarter beside a supply bench, one hand rests on the near edge of a small wooden equipment tray and the other naturally on the knee. Quietly checking orderly supplies, wrist guards visible. No brush or academic reading pose.",
+      "inspection": "Standing in clear right profile near a city gate storehouse, both arms naturally low, gaze toward the gate fittings and supply crates. Discreet military vest and sheathed sword. No open scroll or pointing.",
+      "training": "Seated on a plain practice-yard bench, one hand comfortably checks a simple leather wrist-guard strap while the other supports the resting forearm low above the lap. Quiet military equipment inspection, no book or action swing.",
+      "diplomacy": "Standing shallow left three-quarter, one hand relaxed beside the belt and the other naturally down, slight head turn toward an off-screen visitor. Calm military reception, no joined hands in folded sleeves.",
+      "command": "Seated right three-quarter at a city-defense route map, one hand rests beside a nearby gate marker and the other on the thigh. Calm military planning, no held dispatch or feather fan.",
+      "travel": "Ordinary short step in left-facing profile along a city road, a folded dispatch held close against the lower chest and the free arm at the side. Complete feet, still robe.",
+      "report": "Standing waist-up slightly facing right, one hand comfortably on a nearby camp rail and the other relaxed beside the belt. Calm oral report toward an off-screen listener, no two-hand open-book presentation.",
+      "report-concern": "Seated left profile on a gatehouse bench, one hand rests on the knee and the other on the bench edge, calm head turn toward an off-screen messenger. No inkstone, study desk, grimace or held book.",
+      "battle": "Military officer standing on the LEFT of the wide canvas in a clear RIGHT-facing three-quarter profile, head turned calmly toward the RIGHT. BOTH hands rest naturally behind the LOWER back, elbows close, with no front hand on the belt or sword. Modest sheathed sword at the belt, plain wrist guards and familiar military lamellar. Quiet city-defense watch posture. This must differ from his front-facing one-hand-belt diplomacy and one-hand-sword standee, and from the camp-rail report. No held book, fan, weapon swing, rigid chest-out pose or shouting."
+    },
+    "person-5": {
+      "portrait": "Near-frontal head-and-shoulders with a small left turn, modest naturally hooded eyes and relaxed mouth. Complete narrow crown with clear upper headroom.",
+      "detail": "Full-length balanced stance, both hands loosely folded inside the sleeves at low waist, a small cloth dispatch pouch on the belt. No theatrical bow.",
+      "domestic": "Seated right three-quarter, left hand turns a near page of a small document book on the desk and right hand rests alongside a modest document pouch. Naturally lowered gaze.",
+      "inspection": "Standing left profile beside a courier stable, a small rolled delivery list held low in one hand, other arm at the side. Quietly observing the ordinary surroundings.",
+      "training": "Standing right three-quarter at the edge of an orderly practice camp, one hand lightly steadies a closed roster on a low table and the other remains inside the sleeve. No weapon.",
+      "diplomacy": "Seated left three-quarter, a small closed dispatch held low in both hands over the lap. Slight natural head turn to listen, calm lips, no bow or extended hands.",
+      "command": "Seated facing slightly right at a transport-map desk, both hands comfortably rest on the near table edge, a closed cloth document pouch beside them. No pointing.",
+      "travel": "Ordinary short step right-facing profile, one hand carries a small document pouch near the waist while the other lightly gathers the robe. Complete feet and crown, no running.",
+      "report": "Standing waist-up slightly left, one hand holds a narrow paper dispatch low above the belt and the other rests in the sleeve. Neutral attentive gaze.",
+      "report-concern": "Seated right three-quarter holding a small open bamboo dispatch in both hands near the desk, calm lowered gaze and relaxed closed lips. No worried grimace.",
+      "battle": "Civil attendant seated at the left of a wide quiet field-office scene, one hand rests on a closed bamboo document on the knee and the other on the bench edge. Level shoulders, no armor, weapon, frown or flourish."
+    },
+    "person-6": {
+      "portrait": "Near-frontal head-and-shoulders slightly turned right, substantial but nearly horizontal relaxed brows, smooth unpinched glabella and calm closed lips. Complete modest crown.",
+      "detail": "Full-length upright balanced stance, a small closed bamboo book supported at low waist in both hands, natural elbows and comfortable feet.",
+      "domestic": "Seated left three-quarter at a study desk, one hand gently holds a paper leaf open, the other rests beside a brush tray. Quietly reading, no dramatic expression.",
+      "inspection": "Standing right profile in a granary records room, one hand holds a rolled stock list low and the other rests behind the lower back. Relaxed observation, no pointing.",
+      "training": "Seated facing slightly right beside a drill-ground desk, right hand writes a small near mark on a roster with a brush and the left steadies the bamboo register. Scholar doing camp records, no weapon.",
+      "diplomacy": "Standing shallow left three-quarter, one hand holds a closed folded document low near the belt, the other in the sleeve. Calm polite listening, no bow.",
+      "command": "Seated left three-quarter at a compact route-map table, both hands lie comfortably beside a nearby marker and a closed register. Soft thoughtful gaze at the table, no flourish.",
+      "travel": "Ordinary short walking step in a clear LEFT-FACING SIDE PROFILE on a sheltered road. Near foot forward toward the LEFT, farther foot comfortably back toward the RIGHT; both shoes visibly separate and entirely inside the frame with generous ground below. The robe hem ends just above the ankles and does not hide either shoe. A closed bamboo book carried in one hand at the hip, the other lightly gathers a small amount of robe. Complete headwear, normal small stride, calm gaze forward, no running, flying cloth or frontal one-shoe pose.",
+      "report": "Standing waist-up slightly facing right, both hands naturally support a small open bamboo book low above the waist. Eyes calmly toward listener, mouth gently closed.",
+      "report-concern": "Civil scholar STANDING outside a quiet camp office in a CLEAR LEFT-FACING PROFILE, body and face turned approximately75 degrees toward the LEFT, nose points left and only the nearer eye visible. BOTH hands rest softly behind the LOWER back, no held paper, book or document. Close waist-up framing, no writing desk, table or chair. Quietly listening to an off-screen messenger to the LEFT, level head, relaxed brows and closed mouth. This must differ from his seated one-hand-paper domestic scene, standing front-held dispatch diplomacy, two-hand open-book report and seated right-profile battle. No armor, weapon, frown or frightened expression.",
+      "battle": "Civil scholar seated upright on the LEFT of a wide quiet camp pavilion scene, in a clear RIGHT-facing profile. One hand rests comfortably on the near bench arm and the other naturally on the thigh, no held book or dispatch. A small closed book lies on a separate nearby table. Level shoulders, relaxed brows and closed lips. This seated listening posture differs from his standing two-hand book standee, folded-sleeve diplomacy, writing training and map-desk command. No armor, weapon, feather fan or exaggerated gesture."
+    },
+    "jin": {
+      "portrait": "Near-frontal head-and-shoulders with a slight natural turn LEFT. Resting almost horizontal brows, smooth glabella, calmly attentive eyes and naturally closed lips. Complete modest helmet and SHORT crest, no hands or weapons.",
+      "detail": "Balanced full-length military stance in shallow left three-quarter view, one hand comfortably holds the short wooden baton VERTICAL low at the left hip, the other arm naturally at the side. Sword stays sheathed. Complete helmet, crest, both feet and baton, generous transparent margins. No formal folded sleeves.",
+      "domestic": "Clearly SEATED in right three-quarter view beside a military supply bench, one hand rests comfortably on a small provision-crate lid and the other on the knee. Calm gaze at the prepared supplies, practical military wrist guards and lamellar visible. No brush, writing desk or open book.",
+      "inspection": "STANDING in clear LEFT-facing profile beside a city defense gate, BOTH hands rest naturally behind the LOWER back, elbows close. Quietly observe the gate fittings and fortifications to the LEFT. No held scroll, baton, extended arm or scholar sleeve greeting.",
+      "training": "STANDING in RIGHT-facing three-quarter view at a practice-yard equipment table, BOTH hands rest separately and comfortably on the two near edges of a plain spare helmet resting on the table, not lifted. Calmly inspecting its straps, with his own helmet still on his head. Baton lies unused nearby. No pointing, book or fighting stance.",
+      "diplomacy": "SEATED in a left-facing three-quarter military visitor-chair posture, one hand naturally on the chair armrest and the other on the knee. Small calm head turn toward an off-screen listener to the LEFT, no held prop, joined sleeves, bow or handshake.",
+      "command": "SEATED nearly front-facing at a deployment-map desk, one hand lightly rests beside a near route marker and the other holds a short closed wooden baton low by the lap. Calm professional planning gaze, no outstretched pointing or bamboo book.",
+      "travel": "Ordinary small walking step in a clear RIGHT-facing side profile, wooden baton held LOW down by the side and free arm gently relaxed. Sword stays sheathed. Complete modest helmet and both separate shoes, ample ground below, no flying cloth or exaggerated stride.",
+      "report": "STANDING waist-up in a shallow RIGHT turn near a military dispatch station, one hand rests gently on the near corner of a low table and the other hangs naturally by the side. Calm oral report toward an off-screen listener, no held baton, book, formal sleeve greeting or triumphant gesture.",
+      "report-concern": "SEATED in clear RIGHT-facing profile at a field-office bench, one hand holds ONE small folded military dispatch low near the waist and the other naturally rests on the near bench edge. Quietly checking this single message with a composed lowered gaze, no study books, inkstone, grimace or panic.",
+      "battle": "STANDING on the LEFT of the wide canvas in a shallow RIGHT-facing military posture, one hand relaxed on the belt away from the sword hilt and the other comfortably down at the side. Baton rests on a separate nearby camp rail. Quiet resolute gaze, mouth closed. This differs from the one-hand vertical-baton standee, hands-behind-back inspection and hand-on-table report. No sleeve greeting or dramatic command."
+    },
+    "person-8": {
+      "portrait": "Near-frontal head-and-shoulders, slight natural turn RIGHT. Clean-shaven CLOSED mouth with ordinary medium lips, normal resting eye aperture, relaxed level eyebrows and smooth brow. Complete simple helmet and short cloth crest. No roar, gritted teeth, hands or spear.",
+      "detail": "Balanced full-length natural military stance, a modest spear held VERTICAL close to the RIGHT side with one hand comfortably on the shaft near the waist, the other arm down. Complete narrow blade tip, helmet, both shoes and shaft with generous transparent top and bottom margins. No huge fantasy blade.",
+      "domestic": "STANDING in a shallow LEFT three-quarter view beside a military grain bin, one hand naturally rests on the near bin rim and the other comfortably on the belt. Calmly checking packed supplies, shoulders relaxed, no held spear, brush, ledger or folded scholar sleeves.",
+      "inspection": "Clearly SEATED in LEFT-facing profile on a low timber beside a camp checkpoint, BOTH hands separately rest on the knees. Quietly look along the stockade to the LEFT, pause during an on-site military inspection. Spear stands unused in a separate nearby rack. No held document, pointing or dramatic pose.",
+      "training": "SEATED in RIGHT-facing three-quarter view on an equipment bench, spear shaft rests low across the thighs, one hand supports the near shaft and the other quietly checks a small binding close to the lap. Comfortable elbows and lowered calm eyes, no swing or fighting stance.",
+      "diplomacy": "STANDING in shallow LEFT three-quarter view near a military visitor pavilion, one hand naturally at the belt away from any weapon and the other arm low at the side. Calm polite listening gaze, no bow, joined sleeves, open book or aggressive stance.",
+      "command": "SEATED in RIGHT three-quarter view at a modest camp-defense map, one hand rests beside a nearby wooden position block and the other on the armored thigh. Quietly considering the local defenses, no held spear, scroll, feather fan or extended finger.",
+      "travel": "Ordinary small walking step in a clear LEFT-facing side view, spear kept VERTICAL close to the shoulder and one hand low on its shaft, free arm relaxed. Complete helmet, modest blade and both separated shoes inside the frame; no hidden back foot, running, billowing scarf or leap.",
+      "report": "SEATED in LEFT three-quarter view at an ordinary military meeting table, BOTH hands lie naturally open and flat on its near edge, shoulders comfortable. Calm oral report toward an off-screen listener, closed mouth and restrained satisfaction. No held dispatch, bamboo book, bow or salute.",
+      "report-concern": "STANDING in a clear RIGHT-facing side profile, BOTH hands rest softly behind the LOWER back, elbows close. Quietly listen to an off-screen messenger to the RIGHT, waist-up close framing near a plain timber camp wall. No held spear, reading desk, book, frown or alarm gesture.",
+      "battle": "STANDING on the LEFT of the wide canvas in shallow LEFT three-quarter military view, spear held LOW DIAGONALLY close across the abdomen with both hands comfortably supporting its modest shaft. Arms stay close, blade safely upward, no thrust or swing. Calm alert closed-mouth face. This standing low-diagonal spear posture differs from the vertical spear standee and seated equipment-check training."
+    },
+    "person-9": {
+      "portrait": "Near-frontal head-and-shoulders, slight natural turn LEFT. Lean mature face, very fine horizontal mustache and no chin beard, soft level resting brows, closed relaxed lips. Complete original low soft smoky-teal cap, no armor, hands or weapon.",
+      "detail": "Full-length balanced civil stance, ONE narrow rolled dispatch held low in one hand while the other rests comfortably inside a loose sleeve at the side. Level head and ordinary feet. Entire soft cap and both shoes visible with transparent margins, no armor or sword.",
+      "domestic": "Clearly SEATED in LEFT three-quarter view at a civil workdesk, right hand holds a brush low just above one near sheet and the left hand comfortably steadies its edge. Small focused calligraphic administrative action grounded in his biography, relaxed brow. No dramatic brush flourish or readable lettering overlay.",
+      "inspection": "STANDING in clear RIGHT-facing profile beside a warehouse aisle, BOTH hands softly behind the LOWER back, no held paper or book. Calmly inspecting stored goods and inventory arrangements, no pointing or military weapon.",
+      "training": "SEATED in RIGHT three-quarter view on a plain bench at the edge of a drill ground, one hand holds a small CLOSED wooden muster tablet low on the lap and the other naturally on the knee. Quiet civil military supervisor, no weapon, armor, pointing or theatrical command.",
+      "diplomacy": "SEATED upright in RIGHT three-quarter view at a reception table, one hand rests comfortably on its near edge and the other on the lap. Calm head turn toward an off-screen visitor, no held book, seal, bow or extended palm.",
+      "command": "SEATED in LEFT three-quarter view at a compact logistics map, one hand lightly rests beside a nearby route block and the other beside a closed dispatch on the desk. Quiet military-supervision planning, civil clothing, no spear, feather fan or sweeping gesture.",
+      "travel": "Ordinary small walking step in a clear RIGHT-facing side profile along a sheltered road, small cloth dispatch wallet held close near the hip and the free hand lightly gathers the robe. Complete low cloth cap and BOTH separated shoes visible, no running or flying cloth.",
+      "report": "STANDING waist-up nearly front-facing at a civil dispatch desk, BOTH hands rest separately and comfortably on its near edge. Calm oral administrative report toward an off-screen listener, level head and closed lips, no held scroll, formal greeting or exaggerated smile.",
+      "report-concern": "STANDING in a clear LEFT-facing side profile outside an ordinary field office, one arm naturally down and the other softly at the sash. Quietly listen to an off-screen messenger to the LEFT, close waist-up framing, no held paper, reading desk, scowl, panic or chin beard.",
+      "battle": "Civil military supervisor SEATED on the LEFT of a wide calm camp pavilion scene, shallow RIGHT three-quarter torso, one hand naturally on the bench armrest and the other comfortably inside a sleeve on the lap. A closed dispatch lies on a separate nearby stool, not held. Quiet watching of military preparations, no armor, weapon or dramatic gesture. This differs from the hands-behind-back standing inspection, low-tablet training and front-facing report."
+    },
+    "person-10": {
+      "portrait": "Near-frontal independent square head-and-shoulders portrait, a slight gaze to the LEFT. Complete low cap with at least12 percent clear background above it. Relaxed inner brows, closed lips, quiet dignified regional leadership; no hands or carried book.",
+      "detail": "Full-length balanced standing shallow RIGHT three-quarter view. One hand rests gently on the sash at low waist, the other arm straight comfortably down. No held book, seal or weapon. Complete low cap and BOTH separately visible shoes, ample alpha margins.",
+      "domestic": "SEATED clear LEFT three-quarter view at a modest governance desk, looking down at ONE open page. One hand lightly rests on the page edge, the other loosely on the chair arm. No brush; scholarly attention supported by biography, not a presentation pose.",
+      "inspection": "STANDING clear RIGHT profile beside a city granary porch, BOTH hands comfortably behind the LOWER back, no held object. Gaze across the stores, mature administrative inspection. Wide environmental framing.",
+      "training": "SEATED shallow RIGHT three-quarter on a timber bench at the training ground, BOTH hands comfortably on separate knees, no held document or weapon. Watching formations as regional leader, not a frontline fighter.",
+      "diplomacy": "STANDING near-frontal behind a LOW plain receiving counter, BOTH hands rest separately and comfortably FLAT on the counter edge, forearms angled naturally down. Slight LEFT gaze toward a visitor outside the frame, regional leader calmly listening. No hand at sash, no gathered robe, no held object or scholar sleeves.",
+      "command": "SEATED near front at the deployment table, one hand near a small wooden map token, the other comfortably on the armrest. A civil-regional commander overseeing arrangements, no weapon, brush or scroll in hand.",
+      "travel": "Complete full-length small natural step walking RIGHT along a sheltered city road, one hand steadies a small leather dispatch wallet low at the hip, the other arm hangs naturally. Full cap and BOTH shoes separately exposed, gentle hem movement.",
+      "report": "STANDING clear LEFT three-quarter at a hall doorway, BOTH hands relaxed and separate at the sides, giving a calm oral administrative update. No table or held book in the foreground, head-to-mid-thigh horizontal framing.",
+      "report-concern": "STANDING in a clear RIGHT profile beside a low shaded stone balustrade, nose and gaze point RIGHT. ONE hand lightly rests LOW on the balustrade, the other comfortably behind the LOWER back. Quietly listening to news as a regional administrator, no held message, book or writing desk.",
+      "battle": "SEATED at the LEFT of a wide scene, in LEFT three-quarter side view with face looking toward the center, both hands comfortably on separate armrests. Regional leader observing organized camp defense, small seal on a separate stool, no weapon. Quiet scenery to the right."
+    },
+    "person-11": {
+      "portrait": "Independent square head-and-shoulders near-front portrait looking slightly RIGHT, complete low maroon cap and12 percent background above highest point. Calm unpinched resting brow, naturally closed lips, no smile and no hands.",
+      "detail": "Full-length stable standing shallow LEFT three-quarter, one hand holds a small plain cloth pouch LOW at the right hip, the other comfortably rests on the sash. Both shoes separately visible below robe, complete cap and generous alpha margins. No book or weapon.",
+      "domestic": "SEATED shallow RIGHT three-quarter at a storehouse counter, one hand rests gently on a small closed office seal box, the other at the table edge. Civil supply accounting without a book or writing brush, naturally listening.",
+      "inspection": "STANDING clear LEFT profile beside transport crates, one hand lightly on the top rim of a waist-high crate, the other arm down. Checking stored cargo as a local administrator, no weapons or scroll.",
+      "training": "STANDING shallow RIGHT three-quarter at a training-office porch, ONE hand holds a small closed roster tablet LOW at the waist, the other naturally at the side. Civil registrar, no armor or combat gesture.",
+      "diplomacy": "SEATED clear LEFT three-quarter in a modest receiving chair, one hand on armrest, the other resting comfortably on the knee. No held object or folded scholar sleeves; quiet natural listener.",
+      "command": "SEATED clear RIGHT three-quarter beside a supply-route map, one hand near a plain map weight, the other rests on the knee. Civil rear-area coordination, not an armored field general; no held scroll or weapon.",
+      "travel": "Full-length ordinary small step walking LEFT on a city outskirts road, one hand gathers the robe hem LOW by the side, the other holds a plain cloth wallet close to the opposite hip. BOTH shoes exposed and complete cap, not running or panicking.",
+      "report": "SEATED near frontal at a small plain counter, one hand comfortably flat on the counter edge, the other loosely at the lap. Giving an oral civil update with naturally closed lips, no large book or seal raised in hands.",
+      "report-concern": "STANDING clear RIGHT profile beside a sheltered transport staging gate, BOTH hands behind the LOWER back. Listening quietly to news from off-frame, no paper or desk; practical civil organizing demeanor, not frightened.",
+      "battle": "SEATED at the LEFT of a wide rear-area camp scene on a modest low timber bench, in clear RIGHT profile with the nose and gaze pointing RIGHT. BOTH hands rest separately and comfortably LOW in the lap, one flat on the nearer thigh and one loosely cupped on the farther thigh. Civil logistics observer, no held wallet, book, weapon or armor, no head twist. Quiet distant camp to the right."
+    },
+    "person-12": {
+      "portrait": "Independent square head-and-shoulders near-front portrait with slight LEFT gaze, complete matte iron helmet and SHORT muted crest with12 percent clear space above. Resting level inner brows and closed lips, no sneer or roaring.",
+      "detail": "Full-length stable military stance near frontal with slight RIGHT turn. One hand rests on belt AWAY from the sword hilt, other arm naturally down. Sword sheathed, no held document. Complete crest and BOTH shoes, generous transparent margins.",
+      "domestic": "STANDING shallow LEFT three-quarter at a garrison supply porch, one hand comfortably rests on a CLOSED supply crate lid, the other arm down. Military stores inspection, no writing brush, book or folded sleeves.",
+      "inspection": "SEATED clear RIGHT profile on a low fortified-wall bench, BOTH hands comfortably on separate knees. Watching the garrison perimeter, no held object. Wide environment, full short crest.",
+      "training": "STANDING shallow RIGHT three-quarter at an equipment rack, one hand lightly steadies a spare wrist guard resting on a waist-height table, the other at the belt. Own armor intact, gear inspection, no book or weapon swing.",
+      "diplomacy": "SEATED shallow LEFT three-quarter on a simple military visitor chair, one hand on armrest and other on thigh. No held object, scholar sleeves or bow. Neutral military listener.",
+      "command": "SEATED near-front at a camp defense map, one hand near a plain wooden token, the other holds a SMALL cord-tied military token LOW beside his lap. Small comfortable movement, no pointing, raised palm or bamboo book.",
+      "travel": "Full-length natural small step walking RIGHT along a garrison road, both arms down in a relaxed walking phase, sword sheathed. Complete helmet and crest, BOTH separately visible shoes below the armor hem, no held baton.",
+      "report": "STANDING shallow RIGHT three-quarter beside a military gate, one hand rests lightly on a LOW rail, the other arm down. Oral field-duty update, no book, brush or paper in hands. Broad half-body crop with full crest.",
+      "report-concern": "STANDING clear LEFT profile beside a shaded rampart gate, BOTH hands comfortably behind the LOWER back, no held prop. Listening to military news, composed face; no desk, scholar robe or grimace.",
+      "battle": "SEATED at the LEFT of a wide fortified-garrison illustration on a LOW stone bench, in clear RIGHT profile with nose and gaze RIGHT. ONE hand rests loosely on the bench BEHIND the hip, the other drapes comfortably over the nearer KNEE. Exact military armor and helmet, sheathed sword; quietly supervising defense. No hand at belt, no hand on parapet, no held prop or raised gesture. Right half distant defensive scenery."
+    },
+    "person-13": {
+      "portrait": "Square independent head-and-shoulders, almost front with slight RIGHT gaze. LOW soft slate-blue cap fully inside with12percent plain background above. Relaxed resting inner brows, thin closed lips, small separate chin beard; no hand, scroll or armor.",
+      "detail": "Full-length comfortable civil standing shallow LEFT three-quarter. One hand holds a SMALL closed wooden seal box LOW beside the hip, other arm naturally down. Full low cap and BOTH separately visible shoes, ample real alpha margins, no raised object.",
+      "domestic": "SEATED clear RIGHT three-quarter at a modest agricultural-administration table. One hand steadies the corner of ONE near field-allotment sheet, other lies flat and relaxed on the table edge. Calm downward checking gaze, no brush or stacks of books.",
+      "inspection": "STANDING clear LEFT profile beside a granary yard, one hand rests on a waist-high grain-sack corner and the other loosely at the sash. Observing supplies and cultivated land as civil administrator, no held paper or sword.",
+      "training": "SEATED clear LEFT three-quarter on a camp supply bench. One hand holds ONE narrow CLOSED muster tablet low on lap, other rests comfortably on knee. Civil support of training logistics, no armor, weapon or waving tablet.",
+      "diplomacy": "SEATED clear RIGHT profile at a plain receiving seat, BOTH hands separately resting on the two armrests. Quiet attentive gaze toward an off-frame visitor, no held object, folded sleeves, bow or finger gesture.",
+      "command": "STANDING shallow RIGHT three-quarter beside a LOW supply-route table, one hand rests flat next to a small route block and the other naturally down. Civil logistics coordination, no raised pointing or warrior disguise.",
+      "travel": "Complete full-length ordinary small step walking LEFT on a sheltered road, both arms relaxed at sides, small cloth wallet fastened to sash rather than held. Full cap and TWO separately visible shoes, restrained hem movement, no marching flourish.",
+      "report": "STANDING near frontal at a civil office doorway, BOTH hands relaxed behind the LOWER back, small calm LEFT gaze giving an oral administrative report. No desk in front, no documents held.",
+      "report-concern": "SEATED clear LEFT profile at a porch bench, one hand lightly supports a SINGLE small folded message LOW near lap and other rests on the near bench edge. Calm lowered gaze reading this one administrative notice, no writing tools or library background.",
+      "battle": "SEATED at LEFT of wide rear-area supply pavilion, RIGHT three-quarter view, one hand rests on a low stool beside the seat, other comfortably on nearer thigh. Both elbows close, no held prop. Calm civil observer of organized transport preparations, no armor or weapon; quiet background extends to RIGHT."
+    },
+    "person-14": {
+      "portrait": "Independent square head-and-shoulders near frontal slight LEFT gaze. Complete LOW bronze topknot clasp with12percent clear background above. Resting thick level eyebrows, youthful closed lips and thin mustache, no pinched inner brow or sneer.",
+      "detail": "Full-length balanced military stance shallow RIGHT three-quarter. BOTH hands rest comfortably behind LOWER back, sword stays sheathed. Full topknot clasp and BOTH separate shoes with wide alpha margins, no formal bow.",
+      "domestic": "STANDING shallow LEFT three-quarter at military storage counter, one hand rests on a CLOSED small supply box and the other hangs naturally at side. Calm checking of garrison supplies, no book, brush or ceremonial scroll.",
+      "inspection": "SEATED clear RIGHT profile on a low wall-side bench, one hand rests loosely on nearer thigh, other on bench BEHIND hip. Calmly watching city-gate arrangements, no hand at belt or held object; wide environment.",
+      "training": "STANDING shallow RIGHT three-quarter at an equipment table, both hands comfortably support a small folded spare wrist guard LOW just above waist, checking leather ties. No weapon swing, book or lifted arm.",
+      "diplomacy": "SEATED shallow LEFT three-quarter on a military receiving chair, one hand on armrest and other flat on lap. Calm small LEFT gaze toward visitor, original military clothing, no held object or folded scholar sleeves.",
+      "command": "SEATED near-front at a modest garrison deployment map, one hand lightly rests near a wooden position marker, other lies on opposite table edge. Quiet consideration, not pointing; no held scroll or sword.",
+      "travel": "FOOT-VISIBILITY CORRECTION: A clear TRUE RIGHT-facing SIDE PROFILE of torso and head while walking RIGHT. Camera is SIDE-ON, never front-on. A small ordinary walking step with the two boots separately visible from heel to toe, a clear strip of GROUND BETWEEN their silhouettes. Rear boot is not hidden behind nearer leg or garment. No crossed legs, no lunging or running. Move the viewer farther away so complete bun clasp, BOTH complete boot silhouettes and ample ground below are inside this4:7 canvas. One hand gently at belt far away from sword, other comfortably down.",
+      "report": "STANDING clear RIGHT profile beside a military dispatch rail, BOTH hands rest separate and comfortably flat LOW on rail. Calm oral military update, relaxed shoulders, no held message or dramatic pride.",
+      "report-concern": "STANDING clear LEFT profile near a sheltered camp gate, one hand loosely beside the sash and other arm down. Quiet listening toward off-frame messenger; close half-body framing, no paper, desk, panic or frown.",
+      "battle": "SEATED at LEFT of wide military pavilion scene, RIGHT-facing side profile, BOTH hands comfortably on separate knees. Still military organizer watching defenses, no held prop, no hand on belt/bench, no thrusting gesture. Right half contains distant calm rampart scenery."
+    },
+    "person-15": {
+      "portrait": "Independent square head-and-shoulders near frontal slight RIGHT turn. Complete PLAIN rounded iron helmet and SHORT rear cloth tab with12percent background above. Long aquiline nose, resting unknitted brows, naturally closed mouth; no inherited glare or weapon.",
+      "detail": "Full-length balanced near-frontal stance with slight LEFT turn. One hand comfortably supports a modest spear VERTICAL close along the RIGHT side at low waist, other arm down. Complete blade, shaft, helmet and BOTH separate shoes with generous alpha margins; no leaning fight posture.",
+      "domestic": "SEATED shallow LEFT three-quarter on a low camp-store bench, one hand lightly rests on a CLOSED ration crate beside the seat, other on near thigh. Quiet military supply check, no spear held or scholar desk/book.",
+      "inspection": "STANDING clear RIGHT profile beside camp perimeter, BOTH hands comfortably behind LOWER back, no held object. Calm observation of stockade and equipment arrangement, practical armor; wide environmental view.",
+      "training": "SEATED clear RIGHT three-quarter on an equipment bench. Spear rests LOW across thighs, one hand supports shaft close to lap and the other gently checks a binding near knee. Elbows close, normal hands; no swinging or lunging, spear tip never aimed at viewer.",
+      "diplomacy": "STANDING nearly front with slight LEFT gaze beside military guest station, BOTH hands resting separately flat LOW on a plain receiving counter. Quiet military envoy listening, no bow, handshake, book or folded sleeves.",
+      "command": "SEATED clear LEFT three-quarter at local defense-route map, one hand near a small plain position block, other loosely on the chair armrest. Calm field planning in own armor, no feather fan, held scroll or pointing finger.",
+      "travel": "Complete full-length small natural step walking LEFT on a sheltered camp road, BOTH arms comfortably down, modest sword sheathed and spear absent. Complete short helmet tab and TWO separately visible shoes, no cape or running.",
+      "report": "SEATED near-front at an ordinary camp meeting bench, BOTH hands comfortably on separate knees. Calm oral field-duty update with small RIGHT gaze, no held paper, book or raised salute.",
+      "report-concern": "STANDING clear RIGHT profile beside a low sheltered stone rail, one hand rests lightly on rail LOW near hip, other behind LOWER back. Calmly listening to military news off-frame, no spear, book, brush or anxious face.",
+      "battle": "HAND/WEAPON CORRECTION AND FINAL ACTING: STANDING on LEFT of16:9 camp scene, shallow RIGHT three-quarter looking calmly into quiet scenery to RIGHT. RIGHT hand holds ONE small CLOSED leather military token wallet LOW beside right hip, fingers relaxed. LEFT hand comfortably rests behind LOWER back and is not gripping anything. BOTH hands FAR AWAY from any sword hilt. Exactly ONE sword, fully SHEATHED and fastened to belt on left hip, no hand touches it. NO extra dagger, pommel, baton or spear in hands. This differs from two-hands-behind-back inspection and vertical-spear standee. Helmet plain round with NO peg or plume. Calm resting face, closed lips, no fight stance."
+    },
+    "person-16": {
+      "portrait": "Independent square head-and-shoulders near front slight LEFT turn. Plain low iron helmet complete with12percent background above. Clean-shaven broad square chin and full closed lips, level uncontracted brow, no glare or hands.",
+      "detail": "Full-length balanced standing shallow RIGHT three-quarter, ONE small cord-tied wooden military token held LOW beside right thigh, OTHER hand rests comfortably behind the LOWER back with a small relaxed elbow. Complete low helmet and BOTH separate shoes with generous alpha margin. Exactly ONE fully SHEATHED sword attached securely to left hip, both hands far from its hilt; no second handle, peg or dagger.",
+      "domestic": "STANDING clear LEFT three-quarter at a camp store counter, BOTH hands rest separately FLAT low on top of a CLOSED ration crate. Calm military stock check, no held token, book, brush or sleeve greeting.",
+      "inspection": "STANDING clear RIGHT profile beside a stockade, one hand rests lightly on a LOW rail at hip height, other arm hangs down. Quiet inspection of perimeter, no held object or raised finger. Wide quiet environment.",
+      "training": "SEATED clear LEFT three-quarter on equipment bench, one hand supports a small spare leather wrist guard LOW in lap, other gently checks its cord. Own armor intact, no weapon swing or scholar document.",
+      "diplomacy": "SEATED clear RIGHT three-quarter on plain military visitor chair, BOTH hands loosely and separately on the knees. Quiet military listening gaze off frame, no table, held object, bow or joined sleeves.",
+      "command": "SEATED near front at camp-defense map, one hand beside a near wooden position block, other on chair armrest. Calm deployment assessment in armor, no held token, scroll or feather fan, no extended pointing.",
+      "travel": "Complete full-length small natural step walking LEFT in clear side profile, BOTH arms comfortably down, sword sheathed. Full helmet and TWO complete distinct shoe silhouettes with ground separating them, no cloak or running.",
+      "report": "STANDING near front by field-office gate, BOTH hands resting comfortably behind LOWER back. Calm small RIGHT gaze for oral military report; no desk or book held.",
+      "report-concern": "SEATED clear RIGHT profile beside camp wall, one hand naturally at nearer knee and the other comfortably on bench BEHIND the hip. Quietly listening to an off-frame messenger, no paper or writing desk, close half-body framing.",
+      "battle": "STANDING at LEFT of wide defense pavilion in shallow RIGHT three-quarter view. ONE hand holds a small CLOSED leather token pouch LOW close to hip, other arm hangs comfortably down; sword remains sheathed untouched. Calm military observer, no spear, waving object or fight stance; quiet scenery to RIGHT."
+    },
+    "person-17": {
+      "portrait": "Independent square almost frontal head-and-shoulders, subtle RIGHT turn. Complete original LOW straight-sided plum cloth cap with12percent clear background above. Resting soft eyebrows, closed neutral lips, both eyes comfortably open; no legacy sneer, raised chin or hands.",
+      "detail": "Full-length natural near-front standing with slight LEFT view, one hand gently rests at sash LOW waist, other arm comfortably down. No held seal, book or weapon. Full cap and BOTH shoes separate inside generous real alpha margins.",
+      "domestic": "SEATED clear RIGHT three-quarter at a governance counter, one hand lightly rests on a SMALL CLOSED seal box, other comfortably flat on near counter edge. Quiet listening while overseeing administrative work, no brush or raised scroll.",
+      "inspection": "STANDING clear LEFT profile beside a city granary porch, BOTH hands comfortably behind LOWER back, no held object. Calm supervision of regional stores, relaxed head, wide environmental view.",
+      "training": "SEATED clear LEFT three-quarter at a practice-ground viewing bench, one hand resting on bench armrest and other on nearer knee. Ruler observing orderly military preparations in formal robe, no fighting gear or raised command.",
+      "diplomacy": "STANDING behind a LOW receiving counter, BOTH hands separate comfortably flat on counter edge. Almost front torso with slight LEFT gaze toward an off-frame guest, neutral relaxed mouth; no held object, ceremonial sleeve bow or smile.",
+      "command": "SEATED clear LEFT three-quarter beside a deployment map, one hand lightly near a plain wooden marker, other loose in lap. Formal regional leader overseeing arrangements, no held weapon, feather fan or pointing arm.",
+      "travel": "Complete full-length small ordinary step walking RIGHT in clear side view, one hand gently gathers robe hem LOW at side, other arm relaxed down. A small closed wallet FASTENED to sash, not held. Full cap and BOTH exposed shoes with ground below, no flying cloth.",
+      "report": "STANDING clear RIGHT three-quarter in shaded hall doorway, BOTH arms relaxed and separate at sides, giving calm oral report. No desk in front or held dispatch, naturally closed lips and level head.",
+      "report-concern": "SEATED clear RIGHT profile on a modest civil reception bench, one hand rests on nearer thigh, other on bench BEHIND hip. Quietly listening to news, no paper, books or panicked expression.",
+      "battle": "SEATED at LEFT of wide calm command-pavilion scene, RIGHT-facing three-quarter view, BOTH hands separately on chair armrests. Plain small closed seal box on nearby separate stool. Mature leader watching defenses in own formal robe, no armor or weapons; quiet scenery to RIGHT."
+    },
+    "person-18": {
+      "portrait": "Independent square nearly frontal head-and-shoulders, subtle LEFT gaze. Whole original LOW bronze topknot clasp with12percent background above; fine resting eyebrows, closed neutral lips, clean chin, no sneer or raised chin.",
+      "detail": "Full-length calm standing shallow LEFT three-quarter, BOTH hands resting behind LOWER back, sword sheathed. Complete compact bun clasp and BOTH separate shoes, genuine alpha and generous margins. No held document.",
+      "domestic": "STANDING shallow RIGHT three-quarter beside a military grain bin, one hand gently on bin rim, other softly at sash away from sword. Quiet oversight of supplies, no ink brush, book or scholar sleeves.",
+      "inspection": "SEATED clear LEFT profile at a city-wall bench, BOTH hands comfortably on separate knees. Young leader inspecting the perimeter with small natural gaze, no held object or dramatic gesture. EMPTY lap and EMPTY bench with NO horizontal sword or scabbard. If visible, exactly ONE short sword, fully SHEATHED at the hip and mostly behind the body, never across thighs. Wide environment.",
+      "training": "STANDING clear LEFT three-quarter by an equipment rack, one hand lightly steadies a spare CLOSED equipment box on waist-high table, other naturally down. Quiet check of preparations, no held weapon or ledger.",
+      "diplomacy": "SEATED clear RIGHT three-quarter on a modest reception chair, one hand at armrest, other comfortably on lap. Calm slightly RIGHT gaze toward visitor, military-leadership bearing, no book or sleeve greeting.",
+      "command": "SEATED near-front at a local-defense map, one hand gently beside a low route marker, the other flat at the opposite table edge. Original light armor, calm assessment without pointing, holding scroll or frowning.",
+      "travel": "Complete full-length small ordinary step walking RIGHT in clear side view, BOTH arms comfortably down, short sword sheathed. Full low clasp and BOTH separately exposed complete shoes, no cloak, running or crossed legs.",
+      "report": "STANDING clear RIGHT profile behind a LOW dispatch rail, BOTH hands resting separately flat on the rail. Calm oral military update, no held message, book, waving hand or proud smile.",
+      "report-concern": "STANDING clear LEFT profile beside shaded camp gate, one hand naturally on sash LOW near waist, other comfortably behind lower back. Quiet listening off frame, no paper, writing desk, fear or furrow.",
+      "battle": "SEATED at LEFT of a wide military-pavilion illustration, RIGHT-facing profile, one hand comfortably on bench BEHIND hip and other on nearer thigh. Quiet young leader observing defenses, no held object or hands on map; original light armor, sheathed sword and quiet scenery to RIGHT."
+    },
+    "shao": {
+      "portrait": "Independent square head-and-shoulders near front shallow LEFT turn. Complete LOW dark-bronze helmet with at least12percent quiet background above; SHORT WIDE trapezoid face, broad jaw and dense triangular beard, resting brows and closed lips, no hands.",
+      "detail": "Full-length balanced standing shallow LEFT three-quarter, one hand holds a small CLOSED dispatch wallet LOW beside left thigh, other arm hangs naturally down. ONE sheathed hip sword remains untouched, full helmet and BOTH complete separate boots; generous clear alpha margin.",
+      "domestic": "SEATED shallow RIGHT three-quarter at a granary counter. One hand rests FLAT on a closed ration crate at low table height, OTHER hand on his own knee. Calm ruler inspecting stocks, no held book or brush.",
+      "inspection": "STANDING clear RIGHT profile beside a low city-wall parapet, one hand lightly touches the low stone surface, other rests loosely on belt FAR from sword. Quiet territorial inspection, empty hands, wide environment.",
+      "training": "SEATED clear LEFT three-quarter at a review pavilion, BOTH hands resting separately on knees. Calm ruler observing a QUIET drill yard with stored equipment and practice targets, no held weapon or pointing.",
+      "diplomacy": "STANDING near front at reception counter, one hand rests flat LOW on the near counter corner, OTHER rests comfortably behind lower back. Natural slight RIGHT listening gaze, no joined sleeves or held object.",
+      "command": "SEATED near front at a plain defense map table, one hand comfortably beside a wooden position block, OTHER hand flat at table edge. Assessing deployment with small gaze, no raised finger, scroll or fan.",
+      "travel": "Complete full-length small step walking RIGHT in CLEAR side profile. One arm hangs naturally down, OTHER hand rests loosely at belt FAR from sheathed sword. Complete helmet and BOTH distinct full boots with visible ground between them.",
+      "report": "STANDING in clear shallow LEFT three-quarter at military government gate, BOTH arms comfortably down. Natural oral account, closed lips, no held object, no pose copied from seated work.",
+      "report-concern": "SEATED clear LEFT three-quarter, one hand rests on chair armrest, OTHER naturally on thigh. Listening quietly to off-frame news, no document, no panic, close half body.",
+      "battle": "STANDING at LEFT of wide lookout pavilion in shallow RIGHT three-quarter view, BOTH hands comfortably behind LOWER back. Calm leader observing defenses, single sword sheathed and untouched; quiet landscape occupies RIGHT, no aggressive pose."
+    },
+    "person-20": {
+      "portrait": "Independent square head-and-shoulders near front shallow RIGHT turn. Complete LOW black cloth cap with12percent quiet background above; long narrow wedge face, fine long pointed nose, small pointed chin and sparse chin tuft. Brows relaxed, closed lips, no hands.",
+      "detail": "Full-length relaxed standing shallow RIGHT three-quarter, ONE small CLOSED rectangular wooden seal case held LOW alongside left thigh, OTHER arm naturally down. Complete low cap and BOTH full shoes, generous empty alpha margin; no weapon or armor.",
+      "domestic": "SEATED clear RIGHT three-quarter at a modest government desk, one hand rests lightly beside ONE plain laid-flat sheet, OTHER hand flat at the desk corner. Calm civil review; no raised brush, held stack, fan or ornate military equipment.",
+      "inspection": "STANDING clear LEFT profile by granary/worksite entrance, BOTH hands comfortably behind LOWER back. Quiet civil adviser inspecting provision administration, no book, brush or armor, wide environment.",
+      "training": "STANDING shallow RIGHT three-quarter at a camp administrative counter, one hand gently rests beside a wooden roster tablet LYING FLAT on the low counter, OTHER on the counter edge. Civil support of training records, no weapon, armor or drill stance.",
+      "diplomacy": "SEATED near front on a visitor chair, one hand rests on chair armrest, OTHER on his own knee. Gentle slight LEFT listening gaze, hands separate and empty, no folded sleeve greeting.",
+      "command": "SEATED clear LEFT profile at a plain administrative bench, one hand holds a small CLOSED leather dispatch wallet LOW in lap, OTHER rests on thigh. Assisting dispatch organization with defense table in BACKGROUND, no feather fan, raised finger, armor or sword.",
+      "travel": "Complete full-length small natural step walking LEFT in clear side profile, BOTH arms naturally down, small seal wallet fastened at sash. Full cap and BOTH complete separate shoe silhouettes with ground between, no flowing cape or running.",
+      "report": "STANDING shallow RIGHT three-quarter at low receiving counter, BOTH hands resting separately flat on counter. Calm spoken civil report with slight sideward gaze, no held paper, no smile performance.",
+      "report-concern": "SEATED clear RIGHT three-quarter on a plain bench, one hand comfortably on knee, OTHER on bench BEHIND hip. Quietly listening to news off-frame, no letter or writing desk, no panic.",
+      "battle": "SEATED at LEFT of wide quiet REAR CAMP office in shallow RIGHT three-quarter view, BOTH hands separately resting on knees. Civil support observer in plain robe, a closed record box on distant table, no armor or weapon; quiet scenery to RIGHT."
+    },
+    "person-21": {
+      "portrait": "Independent square head-and-shoulders near front shallow LEFT turn. Complete compact topknot with low plain clasp and12percent headroom; long BROAD oval face, FULL ROUNDED nose tip, heavy dark mustache and broad clean-shaven chin. Relaxed brows and closed lips.",
+      "detail": "Full-length balanced standing near front with tiny RIGHT head turn, BOTH arms naturally DOWN. Exactly one SHEATHED sword secured to hip and untouched, full topknot and BOTH separate full boots with generous clear alpha margin, no held prop.",
+      "domestic": "STANDING clear RIGHT profile at a camp grain store, one hand rests naturally on the low grain-bin rim, OTHER comfortably behind lower back. Military governor checking supplies, no book, brush or scholar sleeve pose.",
+      "inspection": "SEATED shallow RIGHT three-quarter on a city-wall bench, one hand rests lightly on bench BESIDE hip, OTHER on his own thigh. Calm military inspection, EMPTY lap, at most one sheathed hip sword, no horizontal lap weapon.",
+      "training": "STANDING shallow LEFT three-quarter beside equipment stand, one hand supports a small SPARE leather wrist guard LOW close to waist, OTHER naturally checks its short cord. Own armor intact, no weapon drawn, no wide elbow or gesturing.",
+      "diplomacy": "STANDING clear LEFT profile at a low visitor counter, BOTH hands separate and comfortably flat at low counter height. Neutral military listening, no paper, book or joined sleeves, half-body framing. All visitors entirely OFF FRAME; only Yuan Tan visible, no second body or partial sleeve at any edge.",
+      "command": "SEATED near front at defensive map table, one hand rests beside a nearby wooden position block, OTHER on chair armrest. Calm command assessment, no pointing finger, lifted sword or feather fan.",
+      "travel": "Complete full-length small natural step walking RIGHT in clear side profile, one hand holds a small CLOSED leather dispatch wallet LOW by thigh, OTHER arm down. Complete topknot and BOTH full distinct boots with ground between, sword sheathed and untouched.",
+      "report": "SEATED clear LEFT three-quarter in field-office visitor chair, one hand rests naturally on own knee, OTHER on armrest. Upright calm oral account, empty hands, no scroll, no smile performance.",
+      "report-concern": "STANDING near front by camp-office wall, BOTH hands comfortably behind LOWER back. Natural slight LEFT gaze listening to urgent news off-frame, no held paper or desk, relaxed brows and closed lips.",
+      "battle": "SEATED at LEFT of wide defense pavilion near front with slight RIGHT gaze, BOTH hands rest separately on chair armrests. Military governor observing defense line, no held object, one sword sheathed at hip; quiet landscape to RIGHT."
+    },
+    "person-22": {
+      "portrait": "Independent square head-and-shoulders near front shallow RIGHT turn. Full LOW soft dark-teal cap with at least12percent quiet background above. Long oval face, long slender nose, broad round-square clean-shaven chin, relaxed eyebrows and closed lips. No hands.",
+      "detail": "Full-length relaxed standing near front slight LEFT gaze. One hand holds a small CLOSED rectangular wooden dispatch case LOW beside right thigh, OTHER comfortably behind LOWER back. Complete low cloth cap and BOTH complete separate shoes, generous empty alpha margins. No armor or weapon.",
+      "domestic": "STANDING clear LEFT three-quarter at a provision counter, BOTH hands rest separately FLAT low on top of a CLOSED ration crate. Adviser checking stocks for administration, no book held, no brush or scholar sleeve pose.",
+      "inspection": "SEATED near front on a worksite bench, one hand naturally on knee, OTHER lightly on bench BESIDE hip. Calm observation of camp engineering, hands empty, no armor, wide quiet environment.",
+      "training": "STANDING clear RIGHT profile beside a low camp inventory counter, one hand rests lightly at counter edge, OTHER arm naturally down. A small CLOSED tally box lies on counter; adviser checking equipment administration, no weapons or held book.",
+      "diplomacy": "SEATED clear LEFT three-quarter on a plain visitor chair, BOTH hands separately resting on armrests. Natural listening glance, hands empty, visitor entirely OFF FRAME, no bow or joined sleeves.",
+      "command": "SEATED clear RIGHT three-quarter at a defense table, one hand rests beside ONE wooden map-position block, OTHER naturally on lap. Calm deployment advice in plain cloth robe, no lifted finger, fan, armor or sword.",
+      "travel": "Complete full-length SMALL comfortable step walking LEFT in clear SIDE profile. One arm hangs naturally down, OTHER hand rests loosely at plain cloth sash. Small dispatch case fastened at sash; full cap and BOTH complete shoes with ground between, no running or cape.",
+      "report": "STANDING shallow RIGHT three-quarter at low field-office counter, one hand rests FLAT on low counter, OTHER comfortably behind LOWER back. Calm spoken administrative account, no held document, neutral closed lips.",
+      "report-concern": "STANDING near front by government-office wall, BOTH hands comfortably behind LOWER back. Small natural LEFT gaze listening to off-frame news, no desk, held letter or dramatic expression. Close half body, cap complete.",
+      "battle": "SEATED at LEFT of wide quiet rear-camp pavilion in clear RIGHT profile, BOTH hands comfortably on separate knees. Adviser observing defense preparations with a simple map table in BACKGROUND, no armor, weapon or feather fan; scenery to RIGHT."
+    },
+    "person-23": {
+      "portrait": "Independent square head-and-shoulders near front shallow LEFT turn. Full LOW maroon soft cloth cap with at least12percent headroom; short broad pear face, full rounded cheeks, short broad rounded nose and WIDE CLOSED mouth. Resting brows, no teeth or hands.",
+      "detail": "Full-length balanced standing clear LEFT three-quarter, BOTH arms comfortably DOWN. Complete low cap and BOTH separate full shoes, no held prop or weapon, generous clear alpha margin.",
+      "domestic": "SEATED near front at plain government desk, one hand rests on top of ONE small CLOSED wooden seal case, OTHER naturally flat at table corner. Simple administrative duty, no held book or raised brush.",
+      "inspection": "STANDING clear RIGHT profile beside a low granary rail, one hand rests gently at rail at hip height, OTHER arm down. Calm civil stock inspection, hands empty and no armor, wide scene.",
+      "training": "SEATED clear LEFT profile at a camp administrative bench, BOTH hands comfortably support ONE small CLOSED cloth dispatch wallet LOW on lap. Civil records support, no drill stance, weapon or military armor.",
+      "diplomacy": "STANDING shallow LEFT three-quarter at reception counter, one hand rests flat LOW on counter, OTHER rests loosely at cloth sash. Quiet listening gaze; ALL visitors entirely OFF FRAME, no extra shoulder or sleeve, no held book or joined sleeves.",
+      "command": "STANDING near front at plain camp administrative table, BOTH hands separate and FLAT at low table edge. Helping dispatch organization with ONE laid-flat roster in BACKGROUND, no lifted item, pointing, armor or fan.",
+      "travel": "Complete full-length SMALL natural step walking RIGHT in clear SIDE profile, BOTH arms comfortably DOWN, small closed cloth dispatch wallet fastened at plain sash. Full cap, full hem and TWO complete distinct shoes with ground between, no running.",
+      "report": "SEATED clear RIGHT three-quarter on visitor chair, one hand on armrest, OTHER naturally on knee. Calm spoken civil account, hands empty, closed lips and no forced smile.",
+      "report-concern": "STANDING clear LEFT profile beside camp office, BOTH hands comfortably behind LOWER back. Quiet off-frame listening, no paper or desk, no fear; close half-body and complete low cap.",
+      "battle": "STANDING at LEFT of wide quiet REAR CAMP office in shallow RIGHT three-quarter view, one hand holds ONE small CLOSED cloth dispatch wallet LOW beside hip, OTHER arm naturally down. Civil logistics support in robe, no armor or weapon; quiet scenery to RIGHT."
+    },
+    "person-24": {
+      "portrait": "Independent square head-and-shoulders near front shallow LEFT turn. Complete LOW plain iron helmet with at least12percent headroom. Long angular hexagonal cheeks, long slender convex nose, small square chin and pointed beard, relaxed eyebrows and closed lips, no hands.",
+      "detail": "Full-length balanced standing near front slight RIGHT gaze. One small cord-tied wooden military token held LOW alongside right thigh, OTHER arm naturally down. Exactly ONE untouched SHEATHED hip sword, full helmet and BOTH separate complete boots, generous empty alpha margin.",
+      "domestic": "SEATED clear RIGHT three-quarter at a camp store counter, one hand rests FLAT on a CLOSED ration crate LOW at table height, OTHER naturally on own knee. Quiet military supplies check, no held book or brush.",
+      "inspection": "STANDING clear LEFT profile by stockade, BOTH hands comfortably behind LOWER back. Empty hands, quiet inspection of camp perimeter, sword remains sheathed, wide scene.",
+      "training": "SEATED near front at an equipment bench, one hand supports a small SPARE leather wrist guard LOW on lap, OTHER naturally checks its short cord. Own wrist guards intact; no sword swing, raised elbow or held book.",
+      "diplomacy": "STANDING clear RIGHT profile at a low visitor counter, one hand rests FLAT LOW on counter, OTHER comfortably behind LOWER back. Quiet military listener, ALL visitors entirely OFF FRAME, no extra shoulder/sleeve, no scholar greeting.",
+      "command": "SEATED near front at a simple defense map, one hand rests beside a nearby wooden position block, OTHER on chair armrest. Practical military assessment, no raised finger, lifted sword or feather fan.",
+      "travel": "Complete full-length SMALL natural step walking LEFT in clear SIDE profile, BOTH arms comfortably DOWN. Sword fully SHEATHED at hip; full helmet, TWO complete distinct boot silhouettes with ground between, no cloak or running.",
+      "report": "STANDING shallow LEFT three-quarter by military office gate, one hand rests loosely at LOWER belt FAR from sword, OTHER arm naturally down. Calm oral military account, hands empty, no scroll or smile performance.",
+      "report-concern": "SEATED clear RIGHT profile on plain camp bench, BOTH hands separately and comfortably on knees. Quietly listening to off-frame military news, armor retained, no document, desk or panic, close half body.",
+      "battle": "STANDING at LEFT of wide defense pavilion in clear RIGHT three-quarter view, one hand rests on LOW rail, OTHER holds a small CLOSED leather dispatch pouch LOW beside thigh. Exactly one untouched sheathed hip sword, calm military observer, quiet scenery to RIGHT."
+    }
+  },
+  "referenceDirection": {
+    "title": "三国志系列的沉稳人物表现",
+    "source": "https://www.gamecity.ne.jp/sangokushi/11ps2/warriors/",
+    "principle": "先按身份和传记确定主类型与次类型，再设计自然比例、中性神态、克制手势；场景通过画幅、坐立、视线和符合职责的道具区分，不能用通用书生姿态代替人物类型。"
+  },
+  "roleReviews": {
+    "person-1": {
+      "status": "complete",
+      "reason": "用户指出阿会喃出现书生姿态；按第三洞元帅的武勇将领身份复核，以下四图需返修",
+      "identityAction": "retain-approved-identity",
+      "scenes": {
+        "domestic": {
+          "status": "complete",
+          "reason": "案前执笔和账册主导，不符合当前人物军需检查方向",
+          "reviewedSha256": "33f47e64673a78a7c9196dad9cd78209b9bf708785bd820f2d279618e25f5e15",
+          "replacementSha256": "56a671bdf30de8c3275c22e8789b468f2b96dcd3fe3068d1d889c0017ddf07aa",
+          "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\role-rework-person-1\\domestic-01.json",
+          "completedAt": "2026-10-07T15:58:04.187Z"
+        },
+        "diplomacy": {
+          "status": "complete",
+          "reason": "双手拢袖使整个人物变为文臣接洽仪态",
+          "reviewedSha256": "10329cec35f57a3686176698750b7e36fc3008a4865143ec405a29821e926583",
+          "replacementSha256": "6a52dfec0995f769882c37a30a6a6b06c775677385af459c9408d78f851a6f9e",
+          "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\role-rework-person-1\\diplomacy-01.json",
+          "completedAt": "2026-10-07T15:58:04.219Z"
+        },
+        "report": {
+          "status": "complete",
+          "reason": "双手捧打开的竹简，延续书生汇报模板",
+          "reviewedSha256": "e97614c2982d97709c06e91fec19fda1af1e22b7f558a392ad2bab5740468056",
+          "replacementSha256": "19d05ac417e49aa3e6d19cf26a709ba16bb773dca0432ba45b68949d9e194ae6",
+          "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\role-rework-person-1\\report-01.json",
+          "completedAt": "2026-10-07T16:03:23.999Z"
+        },
+        "report-concern": {
+          "status": "complete",
+          "reason": "书案阅纸与文房器具主导，缺少在岗听取军情的军职气质",
+          "reviewedSha256": "9ec25995227e79b19148e043950f6a2b6fe73d15870b7eb4d6fce9d63713eae0",
+          "replacementSha256": "d3a2b9a33c153775253558fda62922215f5502cb73c29d0d1be8ff2f689c4d8f",
+          "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\role-rework-person-1\\report-concern-02.json",
+          "completedAt": "2026-10-07T16:05:55.576Z"
+        }
+      }
+    }
+  }
+}

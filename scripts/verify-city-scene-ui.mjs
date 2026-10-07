@@ -1,0 +1,73 @@
+import {setBuildingLevel} from '../tests/building-fixtures.mjs';
+import {spawn} from 'node:child_process';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {newCampaign,serializeCampaign,beginExecution,advanceCampaignDay,launchExpedition} from '../strategic-campaign.mjs';
+import {assignDomestic,ACTIONS} from '../domestic.mjs';
+import {BUILDINGS} from '../domestic-designs.mjs';
+import {localBuildingLimit} from '../metropolitan-areas.mjs';
+import {cityStaffStatus,acknowledgeDomesticAlerts,pendingDomesticAlerts} from '../domestic-feedback.mjs';
+import {peacefulCities} from '../tests/helpers/field-campaign.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const s=peacefulCities(newCampaign(81,'guandu-200')),c=s.cities.find(c=>c.id==='xuchang');s.cities.forEach(c=>c.gold=40000);s.gold=s.cities.filter(c=>c.owner===s.campaign.playerFaction).reduce((n,c)=>n+c.gold,0);
+acknowledgeDomesticAlerts(s,pendingDomesticAlerts(s).map(e=>e.id));
+const baseline=serializeCampaign(s),level=c.commerce,u=cityStaffStatus(s,c).idle[0].unit;
+for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='commerce'&&k!=='build_commerce')c.domestic.cooldowns[k]=1000;
+assert.equal(assignDomestic(s,c.id,'commerce',u.id),null);beginExecution(s);advanceCampaignDay(s);advanceCampaignDay(s);
+acknowledgeDomesticAlerts(s,pendingDomesticAlerts(s).map(e=>e.id));const construction=serializeCampaign(s);
+for(let i=0;i<60&&c.commerce===level;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
+assert.equal(c.commerce,level+1);acknowledgeDomesticAlerts(s,pendingDomesticAlerts(s).map(e=>e.id));const completed=serializeCampaign(s);
+const port='4213',out='outputs/town-art-ui';mkdirSync(out,{recursive:true});
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'off'},stdio:'pipe',windowsHide:true});let browser;
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});
+ browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(()=>{const save=sessionStorage.getItem('city-scene-fixture');if(save)localStorage.setItem('sango-sovereign-v2',save);});await page.goto(`http://127.0.0.1:${port}/#strategy`);
+ const load=async save=>{await page.evaluate(save=>sessionStorage.setItem('city-scene-fixture',save),save);await page.reload();await page.locator('.national-world').waitFor();await page.evaluate(async()=>{await Promise.all(['./assets/town/han-town-background.png','./assets/town/han-buildings-transparent.png','./assets/town/han-construction.png'].map(async src=>{const image=new Image();image.src=src;await image.decode();if(image.naturalWidth<1000)throw Error('Town image did not load at its full resolution: '+src);}));});};
+ const main=page.locator('.national-world'),city=page.locator('.national-world [data-city="xuchang"]');
+ const view=()=>main.evaluate(s=>({width:s.viewBox.baseVal.width,height:s.viewBox.baseVal.height,x:s.viewBox.baseVal.x,y:s.viewBox.baseVal.y}));
+ const sync=async()=>{const v=await view(),r=await page.locator('.radar-viewport').evaluate(el=>Object.fromEntries(['x','y','width','height'].map(k=>[k,+el.getAttribute(k)])));for(const k in v)assert.ok(Math.abs(v[k]-r[k])<.001);};
+ await load(baseline);await page.screenshot({path:out+'/strategy.png'});
+ const before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
+ await page.locator('[data-map-view="city"]').click();assert.ok((await view()).height<150);assert.match(await main.getAttribute('class'),/map-close/);await sync();
+ assert.equal(await city.locator('.map-city-scene [data-city-building]').count(),9);
+ assert.equal(await city.locator('.town-background').count(),1);assert.ok(await city.locator('.town-building-sprite').count()>0);
+ await page.screenshot({path:out+'/baseline.png'});
+ const market=city.locator('.map-city-scene [data-city-building="commerce"]');
+ const clickMarket=async()=>{const hit=market.locator('.city-district-hit'),position=await hit.evaluate(el=>{const r=el.getBoundingClientRect(),building=el.closest('[data-city-building]');for(const y of [.2,.5,.8])for(const x of [.2,.5,.8]){const p={x:r.width*x,y:r.height*y};if(document.elementFromPoint(r.x+p.x,r.y+p.y)?.closest('[data-city-building]')===building)return p;}throw Error('Market has no unobstructed hit point');});await hit.click({position});};
+ await clickMarket();assert.match(await page.locator('.city-building-card').innerText(),/市场[\s\S]*商业/);assert.equal(await page.locator('.map-object-menu').count(),0);
+ assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),before);
+ await page.keyboard.press('Escape');assert.equal(await page.locator('.city-building-card').count(),0);
+ await market.focus();await page.keyboard.press('Enter');assert.equal(await page.locator('.city-building-card').count(),1);await page.locator('[data-city-card-close]').click();
+ await page.locator('[data-map-view="out"]').click();const wheelBefore=await view();const box=await main.boundingBox();await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,-300);await page.waitForTimeout(180);assert.ok((await view()).height<wheelBefore.height);await sync();
+ await page.locator('[data-map-view="national"]').click();assert.equal(await city.locator('.map-city-scene').evaluate(el=>+getComputedStyle(el).opacity),0);await sync();
+ await page.locator('[data-metropolis-focus="xuchang"] .metropolis-halo').click();await city.locator('.map-city-banner').click();await page.locator('.modal [data-action="map-city-inspect"]').click();assert.match(await main.getAttribute('class'),/map-close/);await sync();
+ await load(construction);await page.locator('[data-map-view="city"]').click();assert.equal(await city.locator('.city-scaffold').count(),1);await clickMarket();assert.match(await page.locator('.city-building-card').innerText(),/施工中/);await page.screenshot({path:out+'/construction.png'});
+ await load(completed);await page.locator('[data-map-view="city"]').click();assert.equal(await market.getAttribute('data-level'),String(level+1));assert.equal(await city.locator('.city-scaffold').count(),0);await clickMarket();await page.screenshot({path:out+'/completed.png'});
+ await page.locator('[data-city-card-close]').click();await page.locator('#map-season').selectOption('winter');assert.match(await main.getAttribute('class'),/map-close/);assert.equal(await market.getAttribute('data-level'),String(level+1));await sync();
+ await page.locator('[data-map-view="national"]').click();await main.focus();for(let i=0;i<12;i++)await page.keyboard.press('+');assert.ok(Math.min((await view()).width,(await view()).height)<150);await sync();
+ await page.setViewportSize({width:390,height:844});await load(completed);await page.locator('[data-map-view="city"]').click();assert.equal(await market.getAttribute('data-level'),String(level+1));await clickMarket();const cardBox=await page.locator('.city-building-card').boundingBox();assert.ok(cardBox.x>=0&&cardBox.x+cardBox.width<=390&&cardBox.y+cardBox.height<=844);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await sync();await page.screenshot({path:out+'/mobile.png'});
+ // Art-only fixture: no player save is changed. Real progression is verified above.
+ const developed=newCampaign(81,'guandu-200'),developedCity=developed.cities.find(c=>c.id==='xuchang');
+ for(const key of Object.keys(BUILDINGS))setBuildingLevel(developedCity,key,3);
+ await page.setViewportSize({width:1440,height:1000});await load(serializeCampaign(developed));await page.locator('[data-map-view="city"]').click();
+ assert.equal(await city.locator('.town-annex').count(),9);
+ for(const key of Object.keys(BUILDINGS)){await city.locator(`[data-city-building="${key}"] .city-district-hit`).click();assert.ok((await page.locator('.city-building-card').innerText()).includes('3 / '+localBuildingLimit(developed,developedCity,key)));await page.locator('[data-city-card-close]').click();}
+ await page.mouse.move(1400,700);await page.screenshot({path:out+'/developed-preview.png'});
+ for(const key of Object.keys(BUILDINGS))setBuildingLevel(developedCity,key,5);
+ await load(serializeCampaign(developed));await page.locator('[data-map-view="city"]').click();assert.equal(await city.locator('.town-annex').count(),18);
+ for(const key of Object.keys(BUILDINGS)){await city.locator(`[data-city-building="${key}"] .city-district-hit`).click();assert.ok((await page.locator('.city-building-card').innerText()).includes('5 / '+localBuildingLimit(developed,developedCity,key)));await page.locator('[data-city-card-close]').click();}
+ await page.mouse.move(1400,700);await page.screenshot({path:out+'/fully-developed-preview.png'});
+ const marching=newCampaign(203,'guandu-200'),home=marching.cities.find(c=>c.id==='xuchang'),ids=home.units.slice(0,2).map(u=>u.id);
+ assert.equal(launchExpedition(marching,{kind:'expedition',cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[0],deputy:null,target:'chenliu',policy:'auto'}),null);
+ await page.setViewportSize({width:1440,height:1000});await load(serializeCampaign(marching));await page.locator('#national-city-search').selectOption('xuchang');await page.locator('[data-action="close"]').click();await page.locator('[data-map-view="city"]').click();await page.locator(`[data-campaign-army="${marching.armies[0].id}"] [data-map-army-card]`).click();await page.locator('.modal [data-action="campaign-order"]').click();await page.locator('.map-command-screen').waitFor();
+ const target=page.locator('[data-command-city="chenliu"]'),position=await target.evaluate(el=>({x:+el.dataset.x,y:+el.dataset.y})),radar=page.locator('[data-strategy-radar]'),radarPoint=await radar.evaluate((el,p)=>{const point=new DOMPoint(p.x,p.y).matrixTransform(el.getScreenCTM());return {x:point.x,y:point.y};},position);
+ await page.mouse.click(radarPoint.x,radarPoint.y);assert.match(await main.getAttribute('class'),/map-close/);
+ await target.locator('.map-city-scene [data-city-building="commerce"] .city-district-hit').click();assert.equal(await page.locator('.city-building-card').count(),0);assert.match(await page.locator('.map-point-menu').innerText(),/陈留/);await page.locator('[data-action="campaign-command-cancel"]').first().click();
+ await page.evaluate(async()=>{await Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>setTimeout(()=>reject(Error('Offline worker did not install within 15 seconds')),15000))]);for(const src of ['./town-art.mjs','./assets/town/han-town-background.png','./assets/town/han-buildings-transparent.png','./assets/town/han-construction.png'])if(!(await caches.match(src)))throw Error('Missing offline town asset: '+src);});
+ await page.context().setOffline(true);
+ await page.evaluate(async()=>{for(const src of ['./town-art.mjs','./assets/town/han-town-background.png','./assets/town/han-buildings-transparent.png','./assets/town/han-construction.png']){const response=await fetch(src,{cache:'no-store'});if(!response.ok||(src.endsWith('.png')&&!response.headers.get('content-type').includes('image/png')))throw Error('Offline asset failed: '+src);}});
+ await page.context().setOffline(false);
+ assert.deepEqual(errors,[]);writeFileSync(out+'/result.json',JSON.stringify({passed:true,errors,checks:['real project and completion','nine live facilities','all nine clickable at levels 3 and 5','transparent artwork loading','click and keyboard details','no state change on inspection','menu entry','continuous zoom below 150','radar synchronization','season rerender','mobile layout','city scale route selection','offline town assets']},null,2));console.log('PASS town art, all nine facilities, real construction and growth, interior zoom, detail cards, mobile, route selection and offline loading');
+}catch(e){if(browser){const page=browser.contexts()[0]?.pages()[0];if(page){await page.screenshot({path:out+'/failure.png'});console.log((await page.locator('body').innerText()).slice(0,1600));}}throw e;}finally{await browser?.close();server.kill();}

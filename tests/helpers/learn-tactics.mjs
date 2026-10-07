@@ -18,7 +18,7 @@ export function syncFixtureLearning(state){
   const live=state.battle?.sides.flatMap(s=>s.units).find(u=>u.id===source.id);
   if(live){
    advanceTacticLearning(live);
-   source.level=live.level;source.merit=live.merit;source.type=live.type;source.tacticLearning=structuredClone(live.tacticLearning);source.tactics=[...live.tactics];
+   source.level=live.level;source.merit=live.merit;source.type=live.type;source.tacticLearning=structuredClone(live.tacticLearning);source.equipment=structuredClone(live.equipment);source.tactics=learnedTacticIds({...source,formType:null});
   }else advanceTacticLearning(source);
  }
  return state;

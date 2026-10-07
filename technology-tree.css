@@ -1,0 +1,32 @@
+.technology-tree { margin-top: 16px; }
+.technology-profile,.technology-help { color: var(--muted,#b5b9bb); font-size: 13px; line-height: 1.6; }
+.technology-branches { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,340px),1fr)); gap: 14px; }
+.technology-branch { min-width: 0; padding: 12px; border: 1px solid #5b5446; border-radius: 8px; background: #171d22; }
+.technology-branch h4 { margin: 0 0 10px; color: #edcc90; }
+.technology-levels { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.25fr); gap: 16px; }
+.technology-level { min-width: 0; }
+.technology-level>small { display: block; margin-bottom: 7px; color: #9b9e9e; }
+.technology-node { position: relative; margin-bottom: 8px; padding: 10px; border: 1px solid #555e62; border-radius: 6px; background: #242b30; overflow-wrap: anywhere; }
+.technology-level[data-technology-tier="2"] .technology-node:before { content: ''; position: absolute; left: -17px; top: 21px; width: 16px; border-top: 1px solid #727b80; }
+.technology-node-title { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; }
+.technology-node-title span { margin-left: auto; font-size: 11px; color: #bac0c1; }
+.technology-node p { margin: 6px 0; font-size: 12px; line-height: 1.6; }
+.technology-node small { display: block; font-size: 11px; line-height: 1.6; color: #b1b8ba; }
+.technology-node details { margin-top: 7px; font-size: 12px; }
+.technology-node summary,.technology-other>summary { cursor: pointer; }
+.technology-node.is-ready { border-color: #c5a367; }
+.technology-node.is-complete { border-color: #5f9275; background: #22332d; }
+.technology-node.is-complete .technology-node-title span { color: #b0ddba; }
+.technology-node.is-researching { border-color: #e1bf79; background: #3c3527; }
+.technology-node.is-foreign { opacity: .65; }
+.technology-missing { color: #d5b0a0; }
+.technology-parent { color: #dabf8d !important; }
+.technology-progress { display: grid; gap: 7px; margin: 14px 0; padding: 14px; background: #302d24; border: 1px solid #c5a367; border-radius: 6px; }
+.technology-progress progress { width: 100%; accent-color: #dab56e; }
+.technology-progress small { color: #c0beb6; line-height: 1.5; }
+.technology-tower { color: #b0ddba; }
+.technology-other { margin-top: 16px; }
+.technology-other-nodes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin-top: 12px; }
+.technology-empty { font-size: 12px; color: #999; }
+@media(max-width:900px) { .technology-branches { grid-template-columns: 1fr; } .technology-other-nodes { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:440px) { .technology-levels { grid-template-columns: 1fr; gap: 6px; } .technology-level[data-technology-tier="2"] { padding-left: 15px; border-left: 1px solid #727b80; } .technology-other-nodes { grid-template-columns: 1fr; } }

@@ -131,7 +131,7 @@ test('unified retreat destination accepts only a reachable friendly formation si
  const {s,b}=campaignEncounter(),options=retreatDestinations(s,b);assert.ok(options.length);
  assert.ok(options.every(c=>s.cities.some(x=>x.id===c.id&&x.owner===b.sides[0].faction)));
  const before=b.sides[0].retreatDestination;
- for(const id of ['unknown','guandu']){assert.match(configureRetreatDestination(s,b,id),/己方据点/);assert.equal(b.sides[0].retreatDestination,before);}
+ for(const id of ['unknown','guandu']){assert.match(configureRetreatDestination(s,b,id),/安全的撤离节点/);assert.equal(b.sides[0].retreatDestination,before);}
  assert.equal(configureRetreatDestination(s,b,options.at(-1).id),null);lockDeployment(b);
  assert.match(configureRetreatDestination(s,b,options[0].id),/战前/);
 });
@@ -170,6 +170,7 @@ test('destination loss reroutes at the actual position; no legal city leaves a v
  const {s,b}=campaignEncounter(),u=b.sides[0].units[0];lockDeployment(b);quiet(b);Object.assign(u,{x:0,y:0,retreatAt:u.hp});advanceCampaignStep(s);
  const o=s.campaign.idle.find(o=>o.unit.id===u.id),old=o.destination,traffic=[{faction:o.faction,location:o.location}];
  s.cities.find(c=>c.id===old).owner=b.sides[1].faction;
+ s.cities.find(c=>c.id===o.location).owner=o.faction;
  advancePersonnel(s,o,traffic,1/24);
  assert.notEqual(o.destination,old);assert.equal(s.cities.find(c=>c.id===o.destination).owner,o.faction);validatePersonnelJourney(s,o);
  for(const c of s.cities)c.owner=b.sides[1].faction;

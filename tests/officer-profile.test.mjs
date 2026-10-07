@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {OFFICER_CATALOG,OFFICER_BY_ID,PROFILE_FIELDS,officerProfile,PERSONALITY_NAMES,RIGHTEOUSNESS_NAMES} from '../officer-catalog.mjs';
 import {makeOfficer,validateSave,stepBattle} from '../engine.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {officerProfileMarkup} from '../officer-roster.mjs';
 
 test('effective scenario character traits are formal catalogue and runtime fields, preserving numeric zero',()=>{

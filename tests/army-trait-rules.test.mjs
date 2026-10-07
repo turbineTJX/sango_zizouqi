@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateBattle} from '../battle-generator.mjs';
@@ -46,7 +47,7 @@ test('Qingnang enables actual clinic-free treatment but preserves grain and real
  const s=newCampaign(91),c=s.cities.find(c=>c.id==='xuchang'),id='person-705';
  s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);
  s.campaign.idle.push({unit:{...makeOfficer(id,0),homeCity:c.id},faction:c.owner,location:c.id,destination:null,remainingDays:0});
- c.clinic=0;c.grain=10000;s.gold=20000;
+ c.clinic=0;c.grain=10000;fundCities(s,20000);
  const patient=c.units[0];patient.troops-=500;patient.wounded=500;
  assert.equal(assignDomestic(s,c.id,'technology',id),null);
  const a=assignmentFor(s,id);assert.ok(actionCandidates(s,a).some(p=>p.key==='heal'));

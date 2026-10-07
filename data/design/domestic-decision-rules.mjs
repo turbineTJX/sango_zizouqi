@@ -1,4 +1,3 @@
-// 可编辑设计底稿；不自动从引擎覆盖。接入状态见 integration。
 export default {
   "schemaVersion": 1,
   "id": "domestic-decision-rules",
@@ -334,20 +333,6 @@ export default {
       "parameters": {
         "actionId": "imitate",
         "handler": "research",
-        "conditions": null,
-        "score": null,
-        "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
-      },
-      "source": "domestic.mjs",
-      "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
-    },
-    {
-      "id": "trial",
-      "name": "试制验证",
-      "parameters": {
-        "actionId": "trial",
-        "handler": "trial",
         "conditions": null,
         "score": null,
         "successFormula": null,

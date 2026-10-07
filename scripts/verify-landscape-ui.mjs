@@ -1,0 +1,36 @@
+import {spawn} from 'node:child_process';
+import {mkdirSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {fieldFromCity} from '../tests/helpers/field-campaign.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const s=newCampaign(217,'guandu-200'),army=fieldFromCity(s,'xuchang');
+const nodes=['gate','port'].map(kind=>s.junctions.find(n=>n.kind===kind));
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4203',SANGO_ART:'off'},stdio:'pipe',windowsHide:true});let browser;
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('server '+code)));});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(save=>localStorage.setItem('sango-sovereign-v2',save),serializeCampaign(s));
+ await page.goto('http://127.0.0.1:4203/#strategy');await page.locator('.national-world').waitFor();
+ assert.equal(await page.locator('.national-world [data-city]').count(),76);
+ assert.equal(await page.locator('.national-world [data-junction]').count(),70);
+ mkdirSync('outputs/landscape-art',{recursive:true});
+ await page.screenshot({path:'outputs/landscape-art/local-desktop.png',fullPage:true});
+ assert.equal(await page.locator('.map-city-model').count(),76);
+ await page.locator('[data-map-view="national"]').click();
+ await page.screenshot({path:'outputs/landscape-art/national-desktop.png',fullPage:true});
+ await page.locator('#map-season').selectOption('winter');
+ assert.equal(await page.locator('.drawn-terrain').getAttribute('data-season'),'winter');
+ await page.screenshot({path:'outputs/landscape-art/winter-desktop.png',fullPage:true});
+ await page.locator('#map-season').selectOption('summer');
+ await page.locator('#national-city-search').selectOption('xuchang');
+ await page.locator('[data-map-view="selected"]').click();
+ assert.match(await page.locator('.strategy-panel').innerText(),/许昌/);
+ await page.setViewportSize({width:390,height:844});
+ await page.screenshot({path:'outputs/landscape-art/local-mobile.png',fullPage:true});
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);
+ assert.deepEqual(errors,[]);
+ console.log('PASS landscape: 76 city models, 70 nodes, national/local views, season switch, city selection, mobile fit, no runtime errors');
+}finally{await browser?.close();server.kill();}

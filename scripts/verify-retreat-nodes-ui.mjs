@@ -1,0 +1,36 @@
+import {spawn} from 'node:child_process';
+import {mkdirSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {newCampaign,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {fieldFromCity} from '../tests/helpers/field-campaign.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const s=newCampaign(117,'guandu-200'),a=fieldFromCity(s,'xuchang'),node=s.junctions.find(n=>n.kind==='gate');
+a.location=node.id;a.task='撤退整队';a.detached=true;
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4204',SANGO_ART:'off'},stdio:'pipe',windowsHide:true});let browser;
+mkdirSync('outputs/retreat-nodes',{recursive:true});
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('server '+code)));});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ await page.addInitScript(save=>{if(!sessionStorage.getItem('retreat-node-fixture')){localStorage.setItem('sango-sovereign-v2',save);sessionStorage.setItem('retreat-node-fixture','1');}},serializeCampaign(s));
+ await page.goto('http://127.0.0.1:4204/#strategy');await page.locator('.national-world').waitFor();
+ await page.locator('#national-city-search').selectOption(node.id);
+ const marker=page.locator(`[data-campaign-army="${a.id}"]`).first();await marker.focus();await marker.press('Enter');
+ await action('map-object-manage').click();
+ assert.equal(await action('recruit').count(),0);
+ await action('army').click();assert.equal(await page.locator('[data-kind="recruit"]').count(),0);
+ await page.locator('[data-kind="adjust"]').click();assert.equal(await page.locator('[data-military-type]').count(),0);
+ const before=await saved();await action('military-next').click();await action('military-next').click();
+ await page.locator(`[data-military-role="leader"][value="${a.units[1].id}"]`).check();await action('military-next').click();
+ await page.screenshot({path:'outputs/retreat-nodes/reorganization-desktop.png',fullPage:true});assert.deepEqual(await saved(),before);
+ await action('military-confirm').click();assert.equal((await saved()).armies.find(b=>b.id===a.id).leader,a.units[1].id);
+ await action('army').click();await page.locator('[data-kind="split"]').click();await page.locator(`[data-military-unit="${a.units[0].id}"]`).check();
+ for(let i=0;i<4;i++)await action('military-next').click();await action('military-confirm').click();assert.equal((await saved()).armies.length,2);
+ await action('army').click();await page.locator('[data-kind="merge"]').click();await page.locator('[data-military-target]').first().check();await action('military-next').click();await action('military-confirm').click();assert.equal((await saved()).armies.length,1);
+ await page.setViewportSize({width:390,height:844});await action('army').click();await page.locator('[data-kind="adjust"]').click();
+ await page.screenshot({path:'outputs/retreat-nodes/reorganization-mobile.png',fullPage:true});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await action('military-cancel').click();
+ const final=await saved();validateCampaign(final);await page.reload();assert.deepEqual(await saved(),final);assert.deepEqual(errors,[]);
+ console.log('PASS node reorganization: commander changes, split/merge, no recruitment or troop conversion, mobile layout, save reload.');
+}finally{await browser?.close();server.kill();}

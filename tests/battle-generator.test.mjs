@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {SCENARIOS,createScenario,scenarioDraft} from '../scenarios.mjs';
+import {SCENARIOS,createScenario,scenarioDraft} from './helpers/scenarios.mjs';
 import {generateBattle} from '../battle-generator.mjs';
 import {validateCustomBattle,defaultCustomBattle} from '../custom-battle.mjs';
 import {validateSave,lockDeployment,stepBattle} from '../engine.mjs';

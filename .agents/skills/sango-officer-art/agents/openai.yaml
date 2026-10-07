@@ -1,0 +1,4 @@
+interface:
+  display_name: "三国武将素材生产"
+  short_description: "按三国志系列的克制风格分批生成并审阅同一武将的多场景原创素材"
+  default_prompt: "使用 $sango-officer-art 接续全人物素材队列，生成、审阅并接入下一批人物素材。"

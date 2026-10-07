@@ -1,5 +1,7 @@
-// Authoritative design data. Edit here; no generated overview edits.
+// Authoritative design data. Runtime imports this table.
 export const MOVEMENT_RULES = {
+  "scouting": {"speed":105,"minimumDays":1,"baseMaximumDays":2,"intellectExtension":4,"randomSpread":2},
+  "vision": {"city":22,"army":20,"scout":36,"unknownDefense":6000,"unknownGateHp":15000},
   "distance": {
     "minimum": 30,
     "coordinateScale": 0.5
@@ -21,15 +23,26 @@ export const MOVEMENT_RULES = {
   },
   "army": {
     "speedByTroop": {
-      "spear": 28,
-      "halberd": 24,
-      "cavalry": 42,
-      "archer": 28,
-      "crossbow": 28,
-      "siege": 16,
-      "ram": 16,
-      "tower": 16,
-      "ship": 24
+      "spear": 7,
+      "halberd": 6,
+      "cavalry": 10.5,
+      "archer": 7,
+      "crossbow": 7,
+      "siege": 4,
+      "ram": 4,
+      "tower": 4,
+      "ship": 6,
+      "qingzhou": 7,
+      "baier": 7,
+      "rattan": 6,
+      "greatHalberd": 6,
+      "tigerCavalry": 10.5,
+      "whiteHorse": 10.5,
+      "longbow": 7,
+      "heavyRam": 4,
+      "mengchong": 6,
+      "louShip": 6,
+      "fightingShip": 6
     },
     "command": {
       "base": 0.85,

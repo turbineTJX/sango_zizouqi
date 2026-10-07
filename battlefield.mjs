@@ -1,4 +1,6 @@
+import {combatFamily} from './troop-equipment.mjs';
 import {battleBuildings} from './building-rules.mjs';
+import {BATTLE_MAPS} from './data/design/battle-maps.mjs';
 export const BATTLE_TERRAINS = Object.freeze({land:'平原',forest:'林地',hill:'丘陵',marsh:'湿地',river:'河流'});
 export const TERRAIN_NAMES = Object.freeze({land:'平地',forest:'林地',hill:'高地',marsh:'湿地',water:'水面',bridge:'桥梁'});
 export const TERRAIN_HELP = Object.freeze({
@@ -10,6 +12,7 @@ export const TERRAIN_HELP = Object.freeze({
 });
 // Fixed, mirrored layouts are derived from the saved preset; no extra RNG draws.
 export function terrainAt(b,x,y){
+  if(b.mapId&&BATTLE_MAPS[b.mapId]?.tiles[y]?.[x])return BATTLE_MAPS[b.mapId].tiles[y][x];
   if(b.terrain==='river'&&[3,4].includes(y))return [6,7].includes(x)?'bridge':'water';
   if(b.terrain==='forest'&&x>=2&&x<=11&&[1,2,5,6].includes(y))return 'forest';
   if(b.terrain==='hill'&&[2,3,4,9,10,11].includes(x)&&y>=1&&y<=6)return 'hill';
@@ -18,20 +21,20 @@ export function terrainAt(b,x,y){
 }
 export function unitTerrain(b,u){
   const ground=terrainAt(b,u.x,u.y);
-  return ground==='bridge'&&u.type==='ship'?'water':ground;
+  return ground==='bridge'&&combatFamily(u)==='ship'?'water':ground;
 }
 export function terrainMoveFactor(b,u){
   const ground=unitTerrain(b,u);
-  if(ground==='forest')return u.type==='cavalry'?.65:['siege','ram','tower'].includes(u.type)?.75:.9;
+  if(ground==='forest')return combatFamily(u)==='cavalry'?.65:combatFamily(u)==='siege'?.75:.9;
   if(ground==='hill')return .85;
   if(ground==='marsh')return .6;
-  if(ground==='bridge'&&u.type==='cavalry')return .8;
+  if(ground==='bridge'&&combatFamily(u)==='cavalry')return .8;
   return 1;
 }
 export function canOccupy(b,u,x,y){
   if(x<0||x>=14||y<0||y>=8||blockedTerrain(b,x,y))return false;
   const ground=terrainAt(b,x,y);
-  return u.type==='ship'?['water','bridge'].includes(ground):ground!=='water';
+  return ground!=='water'||!!u.equipment?.ship;
 }
 // Buildings occupy cells independently of the six troop slots.
 export function blockedTerrain(b, x, y) {
@@ -47,7 +50,7 @@ export function waveSummary(b, side) {
   const groups = new Map();
   for (const u of b.sides[side].units) {
     if (!u.wave) continue;
-    if (!groups.has(u.wave)) groups.set(u.wave, { wave: u.wave, arrivalTick: u.arrivalTick, total: 0, waiting: 0, active: 0 });
+    if (!groups.has(u.wave)) groups.set(u.wave, { wave: u.wave, armyId:u.armyId, arrivalTick: u.arrivalTick, ...(u.arrivalCondition?{arrivalCondition:u.arrivalCondition}:{}), arrived:(u.arrivalTick||0)<=b.tick&&u.arrivalConfirmed!==false, total: 0, waiting: 0, active: 0 });
     const group = groups.get(u.wave);
     group.total++;
     if (u.status === 'reserve') group.waiting++;

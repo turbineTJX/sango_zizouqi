@@ -1,3 +1,4 @@
+import {fundCities} from './resource-fixtures.mjs';
 import {roadCost} from '../strategic-movement.mjs';
 import {PERSONNEL_SPEED} from '../personnel-movement.mjs';
 import {fieldFromCity,peacefulCities} from './helpers/field-campaign.mjs';
@@ -13,7 +14,7 @@ import {readyTalent} from './helpers/talent.mjs';
 import {strategicView} from '../strategic-view.mjs';
 
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
-function scene(seed=15){const s=newCampaign(seed);peacefulCities(s);s.gold=100000;return s;}
+function scene(seed=15){const s=newCampaign(seed);peacefulCities(s);fundCities(s,100000);return s;}
 function advance(s,target){for(let guard=0;guard<5000&&s.campaign.day<target;guard++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,target);}
 function only(s,key,cityId='xuchang'){
  const c=s.cities.find(c=>c.id===cityId);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='talent'&&k!==key)c.domestic.cooldowns[k]=100000;
@@ -107,8 +108,8 @@ test('new version persists projects, phases and RNG, UI reads do not mutate save
  for(const mutate of [x=>x.campaign.version=6,x=>x.campaign.talent.seed=-1,x=>x.campaign.talent.records[p.id].idleTurns=-1,x=>x.campaign.domestic.people.push(structuredClone(x.campaign.domestic.people[0])),x=>x.campaign.domestic.people.pop()]){const bad=JSON.parse(serializeCampaign(s));mutate(bad);assert.throws(()=>validateCampaign(bad));}
 });
 test('enemy talent actions use their own treasury and preserve player funds',()=>{
- const s=newCampaign(2,'heroes-251');s.armies.forEach(a=>a.stationary=true);const before=s.gold,enemyBefore={...s.campaign.ai.treasuries};beginExecution(s);assert.equal(s.gold,before);
- const enemy=s.campaign.domestic.assignments.filter(a=>s.cities.find(c=>c.id===a.cityId).owner!=='cao'&&a.action);assert.ok(enemy.length>0);assert.ok(Object.entries(enemyBefore).some(([f,n])=>s.campaign.ai.treasuries[f]<n));restore(s);
+ const s=newCampaign(2,'heroes-251');s.armies.forEach(a=>a.stationary=true);const before=s.gold,enemyBefore=Object.fromEntries(Object.keys(s.campaign.ai.factions).map(f=>[f,s.cities.filter(c=>c.owner===f).reduce((n,c)=>n+c.gold,0)]));beginExecution(s);assert.equal(s.gold,before);
+ const enemy=s.campaign.domestic.assignments.filter(a=>s.cities.find(c=>c.id===a.cityId).owner!=='cao'&&a.action);assert.ok(enemy.length>0);assert.ok(Object.entries(enemyBefore).some(([f,n])=>s.cities.filter(c=>c.owner===f).reduce((v,c)=>v+c.gold,0)<n));restore(s);
 });
 test('cooldown is per faction; ordinary success has no extra wait and failures cannot wear down loyalty',()=>{
  const s=scene(),p=readyTalent(s),one=project(s,p.id);s.campaign.day=10;const result=completeTalentProject(s,one.a,one.c,.45);assert.equal(result.actual,6);assert.equal(one.p.nextAttemptDay,31);

@@ -6,7 +6,7 @@ import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.m
 import {RULES_VERSION} from '../combat-rules.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario,SCENARIOS} from '../scenarios.mjs';
+import {createScenario,SCENARIOS} from './helpers/scenarios.mjs';
 import {COMBAT,activeUnits,battleStratagems,issueCommand,lockDeployment,stepBattle,unitAttributes,validateSave} from '../engine.mjs';
 import {TACTICS_BOOK,configureTactics,hasStatus,readyTactic,unitTactics} from '../tactics.mjs';
 import {hexDistance} from '../hex-grid.mjs';

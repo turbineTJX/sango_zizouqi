@@ -1,10 +1,12 @@
+import {currentBattle} from './helpers/current-battle.mjs';
+import {TROOPS} from '../unit-stats.mjs';
 import {chooseStratagemPoint} from '../stratagem-area.mjs';
 import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {makeOfficer,unitAttributes,lockDeployment,stepBattle,issueCommand,COMMAND_RESOURCE} from '../engine.mjs';
-import {createScenario} from '../scenarios.mjs';
+import {makeOfficer,unitAttributes,lockDeployment,stepBattle,issueCommand,COMMAND_RESOURCE,syncCombatForm} from '../engine.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {unitTactics} from '../tactics.mjs';
 import {learnedTacticIds} from '../tactic-learning.mjs';
 
@@ -21,8 +23,8 @@ test('panel offense sums current soldiers, while defensive attributes do not shr
 });
 
 function remnant(id,type,skill,hp=100){
- const b=createScenario('officer-lab',771,20,[id]).battle,u=b.sides[0].units[0];
- Object.assign(u,{type,hp,retreatAt:null,battleDamage:u.initial-hp,x:4,y:3,intent:0,cooldown:0});
+ const equipment=TROOPS[type].category==='equipment';const x=equipment?currentBattle(skill,type,{requireS:true}):null,b=x?.b??createScenario('officer-lab',771,20,[id]).battle,u=x?.u??b.sides[0].units[0];
+ Object.assign(u,{type:equipment?u.type:type,hp,retreatAt:null,battleDamage:u.initial-hp,x:equipment?u.x:4,y:3,intent:0,cooldown:0});
  const fixed=learnedTacticIds(u);
  if(skill)assert.ok(fixed.includes(skill),`${id}/${type} must own ${skill}`);
  const loadout=[...new Set([...(skill?[skill]:[]),...fixed])];
@@ -30,8 +32,8 @@ function remnant(id,type,skill,hp=100){
  u.skillReady=Object.fromEntries(loadout.map(s=>[s,s===skill?0:9999]));
  // Stationary targets isolate the attack under test; intent still comes from real basic attacks.
  b.sides[1].units.forEach((d,i)=>{
-  Object.assign(d,{hp:8000,maxHp:8000,initial:8000,level:1,x:5+i%2,y:2+Math.floor(i/2),cooldown:9999,intent:0});
-  d.skillReady=Object.fromEntries(unitTactics(d).map(s=>[s.id,9999]));d.statuses.phalanx={until:9999};
+  Object.assign(d,{hp:8000,maxHp:8000,initial:8000,level:1,x:(equipment?u.x+2:5)+i%2,y:equipment?3:2+Math.floor(i/2),cooldown:9999,intent:0});
+  d.skillReady=Object.fromEntries(unitTactics(d).map(s=>[s.id,9999]));d.statuses.phalanx={until:9999};if(equipment)syncCombatForm(b,d);
  });
  lockDeployment(b);return {b,u};
 }

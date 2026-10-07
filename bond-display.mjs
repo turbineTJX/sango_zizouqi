@@ -1,16 +1,19 @@
-import {equipmentText} from './bond-equipment.mjs';
+import {bondReference,bondGradeLabel} from './bond-reference.mjs';
+import {armyFrontlineCapacity} from './army-trait-rules.mjs';
 import {formationBoost} from './bond-battlefield.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
-import {bondCaps,bondLevels,sideBonds,bondOnField,activeBonds} from './bonds.mjs';
+import {bondCaps,bondLevels,sideBonds,bondOnField,activeBonds,adjacentBondAlly,bondSwiftEffect} from './bonds.mjs';
+import {hidden} from './battle-status-rules.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const statNames={attack:'攻击',defense:'防御',move:'移速',attackSpeed:'攻速',siege:'攻城威力',martialPower:'武技威力',strategyPower:'谋略威力',discipline:'军纪'};
-const baseEffectText=d=>d.special==='formationTiles'?`阵位入场攻击与双威力 +${Math.round(d.values[d.tier-1]*100)}% · 持有者翻倍`:d.special==='routMomentum'?`击溃积累 ${d.progress||0}／${d.killGoal}${d.burstLeft?' · 乘胜余'+d.burstLeft+'回合':''}`:d.special==='swornLink'?`${d.points>=2?'平均分担':'联结暂停'} · 已溃败${d.fallen||0}队${d.triple?' · 三人结义已记录':''}`:d.special==='reserveEntry'?`后备强化余${d.remaining??d.slots[d.tier-1]??0}队 · 战意 +${d.intent} · ${d.entrySteps}回合疾行、速攻${d.remaining!==0&&d.nextReserve?' · 下一队：'+d.nextReserve:''}`:d.special==='valorRamp'?`有效普攻叠攻速 ${Math.round(d.stackRates[d.tier-1]*100)}%×${d.maxStacks}层`:d.special==='beautyHit'?`命中削弱双威力 ${Math.round(d.specialValue*100)}% · ${d.hitDuration[d.tier-1]}回合`:d.special==='command'?`军略积累 ×${d.commandRate[d.tier-1]}`:d.special==='entryIntent'?`初始战意 +${d.entryIntent[d.tier-1]}（仅首次）`:d.special==='entryZoc'?`入场无视ZOC ${d.entryDuration[d.tier-1]}回合`:d.special==='entryPower'?`首次入场武技 +${Math.round(d.values[d.tier-1]*100)}% · ${d.entryDuration[d.tier-1]}回合`:d.special==='commandStrength'?`普通军略数值 +${Math.round(d.strengthBonus[d.tier-1]*100)}%`:d.special==='escort'?`邻队减伤 ${Math.round((d.tier===d.thresholds.length?d.specialValue:d.protection[d.tier-1])*100)}%`:`${statNames[d.stat]} +${Math.round(d.values[d.tier-1]*100)}%`;
-const effectText=d=>baseEffectText(d)+(d.entryEquipment?' · '+equipmentText({...d,entryEquipment:{...d.entryEquipment,charges:[d.entryEquipment.charges[d.tier-1]]}}):'');
-const link=(id,label)=>`<button class="unit-trait-name" data-action="ability-reference" data-kind="bond" data-id="${esc(id)}">${esc(label)}</button>`;
+const link=(id,label)=>`<button class="unit-trait-name bond-grade-${BOND_DESIGNS[id].grade}" aria-label="${esc(label)}，${bondGradeLabel(BOND_DESIGNS[id])}，查看详情" data-action="ability-reference" data-kind="bond" data-id="${esc(id)}">${esc(label)}</button>`;
 export function personalBondsMarkup(u,b=null){
  const levels=bondLevels(u),active=new Set(activeBonds(b,u).filter(d=>d.special!=='entryPower'||(u.bondEntry?.powerUntil||0)>(b?.tick||0)).map(d=>d.id));
+ if((u.hp??Infinity)>(u.maxHp??0)*(BOND_DESIGNS.bondLastStand.hpThreshold))active.delete('bondLastStand');
+ if(!adjacentBondAlly(b,u))active.delete('bondMuster');
+ if(!bondSwiftEffect(b,u))active.delete('bondSwift');
+ if(adjacentBondAlly(b,u))active.delete('bondSpread');
  active.delete('bondGuard');if(formationBoost(b||{},u))active.add('bondGuard');if((u.statuses?.peachFury?.until||0)>(b?.tick??Infinity))active.add('bondPeach');
- return `<section class="personal-bonds"><h4>羁绊 <small>当前 / 上限 · 合计 ${Object.values(levels).reduce((n,v)=>n+v,0)} / ${Object.values(bondCaps(u)).reduce((n,v)=>n+v,0)} 点</small> <button class="text-button" data-action="bond-overview">一览</button></h4>${Object.entries(bondCaps(u)).map(([id,cap])=>`<span class="bond-personal ${(levels[id]||0)>0?'learned':''}">${link(id,`${BOND_DESIGNS[id].name} ${levels[id]||0} / ${cap}${active.has(id)?' · 生效':''}`)}</span>`).join('')}</section>`;
+ return `<section class="personal-bonds"><h4>羁绊 <small>合计 ${Object.values(levels).reduce((n,v)=>n+v,0)} 点</small> <button class="text-button" data-action="bond-overview">一览</button></h4>${Object.keys(bondCaps(u)).map(id=>`<span class="bond-personal ${(levels[id]||0)>0?'learned':''}">${link(id,`${BOND_DESIGNS[id].name}${levels[id]||0}${active.has(id)?' · 生效':''}`)}</span>`).join('')}</section>`;
 }
 export function bondSummary(units,b=null,side=0){
  const eligible=b?(b.sides[side]?.units||[]).filter(bondOnField):units.filter(u=>(u.hp??u.troops)>0&&!u.isDecoy);
@@ -18,10 +21,22 @@ export function bondSummary(units,b=null,side=0){
  if(!b)for(const u of eligible)for(const [id,n] of Object.entries(bondLevels(u))){if(!BOND_DESIGNS[id])continue;(sums[id]||={points:0}).points+=n;}
  if(b?.sides[side]?.bondReserve?.tier&&!sums.bondReserve)sums.bondReserve={points:0};
  if(b?.sides[side]?.bondPeach?.members.length&&!sums.bondPeach)sums.bondPeach={points:0};
- return Object.entries(sums).filter(([id,s])=>s.points>0||id==='bondReserve'&&b?.sides[side]?.bondReserve?.tier||id==='bondPeach'&&b?.sides[side]?.bondPeach?.members.length).map(([id,s])=>{const d=BOND_DESIGNS[id],tier=d.thresholds.filter(n=>s.points>=n).length;return {id,...d,...(id==='bondReserve'&&b?.sides[side]?.bondReserve?{lockedTier:b.sides[side].bondReserve.tier,remaining:Math.max(0,(d.slots[b.sides[side].bondReserve.tier-1]||0)-b.sides[side].bondReserve.awarded.length),nextReserve:side===0?b.sides[side].units.find(u=>u.status==='reserve'&&u.hp>0&&(u.arrivalTick||0)<=b.tick)?.name:null}:{}),...(id==='bondPeach'?{fallen:b?.sides[side]?.bondPeach?.defeated.length||0,triple:b?.sides[side]?.bondPeach?.triple||false}:{}),...(d.special==='routMomentum'?{progress:b?.sides[side]?.bondRout?.targets.length||0,burstLeft:Math.max(0,(b?.sides[side]?.bondRout?.burstAt??-10000)+d.burstDuration+1-(b?.tick||0))}:{}),points:s.points,tier,next:d.thresholds[tier]??null,members:eligible.filter(u=>bondLevels(u)[id]>0).map(u=>`${u.name} +${bondLevels(u)[id]}`)};}).sort((a,b)=>b.tier-a.tier||b.points-a.points||a.id.localeCompare(b.id));
+ return Object.entries(sums).filter(([id,s])=>s.points>0||id==='bondReserve'&&b?.sides[side]?.bondReserve?.tier||id==='bondPeach'&&b?.sides[side]?.bondPeach?.members.length).map(([id,s])=>{const d=BOND_DESIGNS[id],tier=d.thresholds.filter(n=>s.points>=n).length;return {id,...d,...(d.special==='lastStand'?{triggeredMembers:eligible.filter(u=>bondLevels(u)[id]>0&&u.hp<=u.maxHp*d.hpThreshold).map(u=>u.name)}:{}),...(id==='bondReserve'&&b?.sides[side]?.bondReserve?{lockedTier:b.sides[side].bondReserve.tier,remaining:Math.max(0,(d.slots[b.sides[side].bondReserve.tier-1]||0)-b.sides[side].bondReserve.awarded.length),nextReserve:side===0?b.sides[side].units.find(u=>u.status==='reserve'&&u.hp>0&&(u.arrivalTick||0)<=b.tick)?.name:null}:{}),...(id==='bondPeach'?{fallen:b?.sides[side]?.bondPeach?.defeated.length||0,triple:b?.sides[side]?.bondPeach?.triple||false}:{}),...(d.special==='routMomentum'?{progress:b?.sides[side]?.bondRout?.targets.length||0,burstLeft:Math.max(0,(b?.sides[side]?.bondRout?.burstAt??-10000)+d.burstDuration+1-(b?.tick||0))}:{}),points:s.points,tier,next:d.thresholds[tier]??null,members:eligible.filter(u=>bondLevels(u)[id]>0).map(u=>`${u.name} +${bondLevels(u)[id]}`)};}).sort((a,b)=>b.tier-a.tier||b.points-a.points||a.id.localeCompare(b.id));
 }
-export function bondsMarkup(units,{battle=null,side=0,title='羁绊潜力'}={}){
- const rows=bondSummary(units,battle,side);
- return `<section class="bond-panel" aria-label="${esc(title)}"><h4>${esc(title)} <button class="text-button" data-action="bond-overview">一览</button></h4>${battle?'':'<p class="muted">编制合计；实际效果以战场在场部队为准。</p>'}<div class="bond-list">${rows.map(d=>`<article class="bond-row ${d.tier?'bond-lit':''}" data-bond="${d.id}"><div class="bond-heading">${link(d.id,d.name)}<b>${d.points}<small> 点</small></b><span>${d.next?`距 ${d.next} 点差 ${d.next-d.points}`:'最高档'}</span></div><div class="bond-thresholds" aria-label="${esc(d.name)}档位">${d.thresholds.map(n=>`<span class="${d.points>=n?'reached':''}">${n}</span>`).join('')}</div><small class="bond-effect">${d.tier||d.lockedTier||d.fallen?`${esc(effectText(d))}${d.tier===d.thresholds.length?' · 最高档已开启':''}`:'未达首档'}</small><small class="bond-members" title="${esc(d.members.join(' · '))}">${esc(d.members.join(' · '))}</small></article>`).join('')||'<p class="muted">暂无羁绊点数</p>'}</div></section>`;
+export function openingBondUnits(units,army={}){
+ return units.filter(u=>(u.hp??u.troops)>0&&!u.isDecoy&&!(u.arrivalTick>0)).map((u,i)=>({u,i})).sort((a,b)=>Number(!!b.u.first)-Number(!!a.u.first)||a.i-b.i).slice(0,armyFrontlineCapacity(army)).map(({u})=>u);
 }
-export const battleBondsMarkup=b=>[0,1].map(side=>bondsMarkup([],{battle:b,side,title:side?'敌军羁绊':'我军羁绊'})).join('');
+export function bondDetail(d){
+ const data=bondReference(d.id);
+ data.groups[0].rows=data.groups[0].rows.map(row=>row[0]===`${d.thresholds[d.tier-1]} 点`?[row[0]+' · 当前','',row[2]]:row);
+ return data;
+}
+export function bondsMarkup(units,{battle=null,side=0,title=battle?'在场羁绊':'首发羁绊',army={}}={}){
+ const opening=battle?units:openingBondUnits(units,army),rows=bondSummary(opening,battle,side);
+ return `<section class="bond-panel" aria-label="${esc(title)}"><h4>${esc(title)}</h4><div class="bond-list">${rows.map(d=>{const progress=`${d.points}/${d.next??d.thresholds.at(-1)}`;return `<button class="bond-row bond-chip bond-grade-${d.grade} ${d.tier?'bond-lit':''}" data-bond="${d.id}" data-bond-name="${esc(d.name)}" data-bond-hover-key="${esc(title+':'+side+':'+d.id)}" data-bond-contributors="${esc(JSON.stringify(bondContributors(opening,battle,side,d.id)))}" data-action="ability-reference" data-kind="bond" data-id="${d.id}" data-details="${esc(JSON.stringify(bondDetail(d)))}" aria-label="${esc(d.name)}，${progress}点${d.next?'，下一档'+d.next+'点':'，最高档'}，悬停查看贡献部队，点击查看详情"><span class="bond-heading"><span>${esc(d.name)}</span><small class="bond-progress">${progress}</small></span></button>`;}).join('')||'<span class="muted">暂无羁绊</span>'}</div></section>`;
+}
+export function bondContributors(units,b,side,id){
+ const eligible=b?(b.sides[side]?.units||[]).filter(bondOnField):units.filter(u=>(u.hp??u.troops)>0&&!u.isDecoy);
+ return eligible.filter(u=>(bondLevels(u)[id]||0)>0).map(u=>b&&side===1&&hidden(b,u)?{id:null,name:'未侦察部队',points:bondLevels(u)[id]}:{id:u.id,name:u.name,points:bondLevels(u)[id]});
+}
+export const battleBondsMarkup=(b,side=null)=>(side===null?[0,1]:[side]).map(side=>bondsMarkup([],{battle:b,side,title:side?'敌军羁绊':'我军羁绊'})).join('');

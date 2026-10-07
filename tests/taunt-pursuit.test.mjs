@@ -4,7 +4,7 @@ import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScenario} from '../scenarios.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
 import {unitTactics,roleTacticIds,hasStatus,tauntTarget,pursuitTarget,TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
 import {hexDistance} from '../hex-grid.mjs';

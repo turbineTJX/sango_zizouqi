@@ -1,0 +1,42 @@
+import {spawn} from 'node:child_process';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
+import {assignDomestic,ACTIONS} from '../domestic.mjs';
+import {cityStaffStatus,acknowledgeDomesticAlerts,pendingDomesticAlerts} from '../domestic-feedback.mjs';
+import {officerActivities,recordOfficerActivities} from '../officer-activity.mjs';
+import {peacefulCities} from '../tests/helpers/field-campaign.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const s=peacefulCities(newCampaign(81,'guandu-200')),c=s.cities.find(c=>c.id==='xuchang');s.cities.forEach(c=>c.gold=40000);s.gold=s.cities.filter(c=>c.owner===s.campaign.playerFaction).reduce((n,c)=>n+c.gold,0);
+for(const [key,def] of Object.entries(ACTIONS))if(def.direction==='commerce'&&!['build_commerce','fair'].includes(key))c.domestic.cooldowns[key]=1000;
+for(const o of cityStaffStatus(s,c).idle.slice(0,5))assert.equal(assignDomestic(s,c.id,'commerce',o.unit.id),null);
+beginExecution(s);advanceCampaignDay(s);recordOfficerActivities(s);
+acknowledgeDomesticAlerts(s,pendingDomesticAlerts(s).map(e=>e.id));
+const workers=[...officerActivities(s).values()].filter(o=>o.siteId===c.id&&o.buildingKey==='commerce');assert.ok(workers.length>=4);
+const save=serializeCampaign(s),port='4218',out='outputs/officer-activity-ui';mkdirSync(out,{recursive:true});
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'on'},stdio:'pipe',windowsHide:true});let browser;
+try{
+ await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});
+ browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(save=>{localStorage.setItem('sango-sovereign-v2',sessionStorage.getItem('officer-activity-fixture')||save);},save);
+ await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();await page.locator('[data-map-view="city"]').click();
+ const city=page.locator('.national-world [data-city="xuchang"]');assert.equal(await city.locator('[data-city-officer]').count(),3);assert.equal(await city.locator('.town-officer-overflow').count(),1);
+ const portrait=city.locator('[data-city-officer]').first();await portrait.locator('img').waitFor();await portrait.locator('img').evaluate(img=>img.decode());
+ const before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
+ await page.screenshot({path:out+'/building-portraits.png'});
+ await portrait.click();await page.locator('[data-info-section="activity"]').waitFor();assert.equal(await page.locator('[data-activity-day]').count(),2);assert.match(await page.locator('.officer-activity-ledger').innerText(),/市场|建设市场/);
+ assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),before);await page.screenshot({path:out+'/daily-record.png'});
+ await page.locator('.modal-header [data-action="close"]').click();
+ await city.locator('[data-city-building="commerce"] .city-district-hit').click();assert.equal(await page.locator('.city-building-staff button').count(),workers.length);await page.screenshot({path:out+'/building-staff.png'});
+ await page.locator('[data-city-card-close]').click();await page.setViewportSize({width:390,height:844});await page.locator('[data-map-view="city"]').click();
+ await city.locator('[data-city-officer]').first().focus();await page.keyboard.press('Enter');await page.locator('[data-info-section="activity"]').waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await page.screenshot({path:out+'/mobile-record.png'});
+ // Pager-only fixture: a long unchanged interval, separate from real progression above.
+ await page.locator('.modal-header [data-action="close"]').click();const long=structuredClone(s);long.campaign.day=61;long.campaign.phase='planning';long.campaign.dayPrepared=false;long.campaign.stepInDay=0;long.turn=7;
+ for(const history of Object.values(long.campaign.activity.records))history.at(-1).toDay=61;
+ long.campaign.domestic.lastFinishedDay=60;long.campaign.talent.lastDay=60;
+ validateCampaign(JSON.parse(serializeCampaign(long)));await page.evaluate(save=>sessionStorage.setItem('officer-activity-fixture',save),serializeCampaign(long));
+ await page.reload();await page.locator('.national-world').waitFor();await page.locator('[data-map-view="city"]').click();await page.locator('[data-city="xuchang"] [data-city-officer]').first().click();await page.locator('[data-activity-day="61"]').waitFor();assert.equal(await page.locator('[data-activity-day]').count(),30);
+ await page.getByRole('button',{name:'较早30天'}).click();await page.locator('[data-activity-day="31"]').waitFor();await page.getByRole('button',{name:'较早30天'}).click();assert.equal(await page.locator('[data-activity-day]').count(),1);await page.getByRole('button',{name:'较近30天'}).click();await page.locator('[data-activity-day="31"]').waitFor();
+ assert.deepEqual(errors,[]);writeFileSync(out+'/result.json',JSON.stringify({passed:true,workers:workers.map(o=>o.name),checks:['real worker portraits','existing portrait images decoded','overflow and complete staff list','portrait click opens daily record','keyboard and mobile','read-only inspection','history pagination'],errors},null,2));console.log('PASS real building portraits, daily records, read-only details, overflow, history pagination and mobile');
+}catch(e){if(browser){const page=browser.contexts()[0]?.pages()[0];if(page){await page.screenshot({path:out+'/failure.png'});console.log((await page.locator('body').innerText()).slice(0,1200));}}throw e;}finally{await browser?.close();server.kill();}
