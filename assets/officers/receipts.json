@@ -14300,6 +14300,327 @@
         "手部、五官与装备结构正确，无文字水印与其他主体人物",
         "原图和界面显示均不以裁切伪造构图差异"
       ]
+    },
+    "detail": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "e3d4639c91038fcc332993ef8ac1e3a9680d64aee9098809f22cea3521dbabe9",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 793,
+      "height": 1983,
+      "transparentFraction": 0.4166874931240894,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：FULL BODY clear RIGHT three-quarter view, comfortably stable weight, BOTH empty arms naturally LOWERED at sides. Civil official robe, small CLOSED leather document wallet secured to sash only. Entire low cap, full hands, hem and complete shoes/heels/toes inside real transparent canvas with generous margin; no armor or weapon.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\nGenuine ALPHA TRANSPARENT background, no opaque checkerboard or ground panel. Isolated complete full-body standee, normal proportions. ENTIRE headwear, complete hands/robe hem and BOTH shoes with toes and heels inside image; ample transparent space above/below/left/right (about8% vertical margin), never clipped tips. Any one sword sheath entirely in frame.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "domestic": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "63df29dbf7daa374b7edf5415d830a5ed47a8e0361a1e0a0e3de3d6ca2044558",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1086,
+      "height": 1448,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。依实际职能读写账册、编纂、审阅公文或处理城务。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle LEFT three-quarter HALF BODY at modest court administration desk. ONE empty hand gently rests beside ONE SINGLE FLAT closed thin official record, OTHER empty palm flat on table edge. Ordinary court institution review, no brush, held scroll or book stack.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "inspection": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "2e6160c0c25ce1b269faeaa0327cdb8ef03377cd88d4ce1d35daf7616b82d823",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。巡视民政设施、档案、仓储或水利现场。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide civil reception courtyard, near-FRONTAL view, ONE empty hand rests gently LOW on simple stone parapet, OTHER arm naturally lowered. Observe empty public administrative buildings and storage arrangement RIGHT, no sermon or book pose.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "training": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "300d4bdbaa153cab1509a6a2818264914d9a200bccb93b7573837380b6ec2304",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。在训练场旁处理名册、军需或记录，不持战斗兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED at LEFT of wide quiet training-records shelter, gentle RIGHT three-quarter view on a plain chair. ONE hand gently touches a CLOSED small seal case sitting on a LOW crate, OTHER palm flat on OWN THIGH. Civil muster-record assistance, no martial drill, empty practice ground RIGHT.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "diplomacy": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "411c9675dcf29b5b3289ff5264515e4105651d9558ad78e9aaae3de4b10005e8",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1122,
+      "height": 1402,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以文臣或使者身份平静接洽，坐姿或站姿因人物而异。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING gentle LEFT three-quarter HALF BODY, BOTH EMPTY arms comfortably BEHIND LOWER BACK. Gaze RIGHT at entirely OFF-FRAME visitor in ordinary reception hall, natural civil listening, no held book, salute or folded sleeve presentation.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "command": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "e547bcd28181a210198129f58b9042e873ba4b70ef624fb45b29ced1b35ef555",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在军务场所办理文书、补给或联络，表现辅助职责。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED at LEFT of wide quiet rear advice table, near-FRONTAL view. BOTH EMPTY palms rest separately FLAT on LOW table beside a SINGLE flat route map. Calm court adviser checking proposed movement, no pointing, weapon or armor; entirely unoccupied shelter and terrain RIGHT.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "travel": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "061c65947e641595a27628f4f96daa5e427dabc15b656d5ed1005b0c7949744d",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 948,
+      "height": 1660,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：TRUE SIDE PROFILE facing LEFT, normal SHORT walking step. ONE hand lightly holds a SMALL CLOSED flat dispatch wallet LOW beside outer thigh, OTHER empty arm comfortably lowered. Complete cap, full hem, BOTH full shoes/toes/heels and visible ground gap; no armor or weapon.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\nTall transit frame must be TRUE SIDE walking profile with short natural step; ENTIRE cap/helmet, full hem, BOTH complete shoes/boots with toes and heels and visible ground below, no crop or giant stride.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "report": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "f0ed571700da7c7ec6f11b35a11196d73baca75b62e0fa9b3f8d8fd101adfd08",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1448,
+      "height": 1086,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING clear RIGHT three-quarter HALF BODY beside simple hall table. ONE relaxed empty hand rests LOW against cloth sash, OTHER empty arm lowered. Gaze LEFT at entirely OFF-FRAME listener, naturally CLOSED mouth and composed positive oral report; no scroll or smile performance.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Su primary civil court scholar and officer, secondary rear military advice. Retain civilian robe in all scenes, including battle which is rear administration/advice. No armor, sword, feather fan or all-scenes book pose; show varied oral reception, administration and observation. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "report-concern": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "e1c5883c994acf8d17dc3f9cbaef16f06bbd22a192a4538104b3fcf7be15ca98",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1086,
+      "height": 1448,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle LEFT three-quarter close HALF BODY on ordinary civil reception chair. BOTH EMPTY hands rest separately on chair ARMS. Listen toward RIGHT with level head, resting eyebrows and gently CLOSED lips; no fear, scowl or grief, no held prop.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "battle": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "bfb29b102641ea008ac4e5b2fc0e4d1985efc673a4ffb5d6dfb6d8bf7352bddb",
+      "masterSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide QUIET REAR administrative shelter, gentle RIGHT three-quarter view, BOTH EMPTY hands comfortably BEHIND LOWER BACK. Calm civil adviser observing defense information organization, no armor, weapon or frontline action; entirely empty camp structures RIGHT.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。",
+        "bearing": "成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。",
+        "propExceptions": "经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
     }
   },
   "person-38": {
@@ -14334,6 +14655,327 @@
         "手部、五官与装备结构正确，无文字水印与其他主体人物",
         "原图和界面显示均不以裁切伪造构图差异"
       ]
+    },
+    "detail": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "4f6be22cace4228ea5676de8cdf9b21a629b1a8556507ab9747b82d64e01f4fb",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 793,
+      "height": 1983,
+      "transparentFraction": 0.46720834533636796,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：FULL BODY near-FRONTAL view, stable natural weight. ONE empty hand lightly rests LOW at belt beside single sheathed sword, OTHER EMPTY arm naturally lowered. Complete plain helmet, both hands, hem, boots/toes/heels and sword sheath tip inside real alpha canvas with ample margin; no blade drawn.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\nGenuine ALPHA TRANSPARENT background, no opaque checkerboard or ground panel. Isolated complete full-body standee, normal proportions. ENTIRE headwear, complete hands/robe hem and BOTH shoes with toes and heels inside image; ample transparent space above/below/left/right (about8% vertical margin), never clipped tips. Any one sword sheath entirely in frame.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "domestic": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "435566d5124f20173eb813d1b5a896383060b4fc1a08509a6ff1085b7d0fcb49",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1086,
+      "height": 1448,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军需调配或城防事务，呈现组织军务的职责。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle RIGHT three-quarter HALF BODY at ordinary dock supply-check table. ONE palm flat LOW on table beside a CLOSED small stores seal case, OTHER hand rests on OWN KNEE. Practical military transport supplies oversight, maintain armor and wrist guards, no writing or held book.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "inspection": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "b4ed4aac9e620a4f1e80a13d3a0f9dc9cc40376ecdb5a7a7fd8f7d02d51db80d",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。巡视营地、工程或运输线路。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide unoccupied river naval dock, clear LEFT three-quarter view, BOTH empty arms comfortably BEHIND LOWER BACK. Look across moored empty vessels, wooden hull structures and tied ropes RIGHT. Calm military fleet inspection, not civil literary sleeve pose.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "training": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "14f2e959e55c6b227d725b4d971c3f577e252ab2249b72135cc14991d32e3041",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。监督队列或检查训练准备，不反复改成坐读名册。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide empty shipyard readiness yard, near-FRONTAL view. ONE empty hand rests naturally LOW on a coiled thick mooring rope on waist-low crate, OTHER empty arm lowered. Practical readiness inspection with light armor, entirely empty vessel stores RIGHT; no swinging weapon.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "diplomacy": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "795aae4a88f161c4f03c1bfbcd311c07ce7c55d7b77ca3add6e140bc13d3add1",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1122,
+      "height": 1402,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以统帅身份听取使者意见，沉稳军职仪态。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED clear LEFT three-quarter HALF BODY on plain military reception bench. BOTH EMPTY palms flat on OWN THIGHS, gaze RIGHT to entirely OFF-FRAME visitor. Calm military commander receiving information, no book, sleeve clasp or salute.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "command": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "835afabe2ffd536fa14df4965f146af05490207f53bb3710ff4105a7027e653e",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在路线图、阵位图或营地前研判，近处轻触图筹即可。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide fleet planning table, gentle RIGHT three-quarter view. ONE empty palm rests FLAT beside SINGLE flat river route map, OTHER arm comfortably BEHIND LOWER BACK. Ordinary navy transport/deployment judgment, no pointing or blade, entirely empty sheltered dock RIGHT.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "travel": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "e7fab23f2c99cab6cc71d3c33aa898d0a09e27027b8ef18a7052fef35104a2c7",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 948,
+      "height": 1659,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：TRUE SIDE PROFILE facing RIGHT, natural SHORT walking step, BOTH EMPTY arms comfortably lowered with slight modest motion. ONE fully sheathed sword secured at belt, sheath near body, never drawn. Complete helmet, full hem, both complete boots/toes/heels and visible ground below.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\nTall transit frame must be TRUE SIDE walking profile with short natural step; ENTIRE cap/helmet, full hem, BOTH complete shoes/boots with toes and heels and visible ground below, no crop or giant stride.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "report": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "8b755edeb4c58577655accff70e7b0e26c657983fc7bb927039eb04912682500",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1448,
+      "height": 1086,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。简洁汇报部署或战果，允许单份军情记录但不必捧卷。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED near-FRONTAL HALF BODY on plain naval camp chair, ONE hand rests on CHAIR ARM, OTHER palm on OWN KNEE. Calm positive oral report toward LEFT, closed loose lips and resting brows, no smile display or scroll.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Jun is a fleet/military commander with secondary civil administration. Maintain practical MILITARY bearing and own light armor, simple helmet and wrist guards in domestic, reception and reports too. Supply and vessels are logistics context, not scholar brush-writing. No roaring, academic sleeve pose or dispute-based sneer. CLEAN chin/jaw must remain no goatee. At most ONE fully sheathed sword at belt, never drawn or blade in hand. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "report-concern": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "800352fee96a12cc20de468904c33b04c724d0f18af90347fa7981d9890fb330",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1086,
+      "height": 1448,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取紧急军情或判断现场状况，保持统帅镇定。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING gentle LEFT three-quarter close HALF BODY at dock courier reception post. ONE empty palm flat LOW on a wooden railing, OTHER empty arm lowered. Listen RIGHT toward entirely OFF-FRAME messenger, level head and closed relaxed lips, no anxiety/scowl or academic pose.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "battle": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "ae123eb425d2514a173f2e1b0d8d135a5bc5ec60c9d958e33fb310e24fc78081",
+      "masterSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。表现沉稳临阵指挥；兵器、指挥物和护甲遵从个人设定。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED at LEFT of wide quiet FLEET READINESS overlook on simple low stool, clear RIGHT three-quarter view. BOTH EMPTY hands rest separately on OWN KNEES. Armored military commander monitoring river approach, no weapon action or heroic roaring; moored empty vessels and unoccupied shore RIGHT.\n",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。",
+        "bearing": "成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。",
+        "propExceptions": "军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
     }
   },
   "person-39": {
@@ -14347,6 +14989,307 @@
       "width": 1254,
       "height": 1254,
       "prompt": "Edit the attached OWN ORIGINAL 王祥 / person-39 square identity portrait with precise corrections. Keep this exact officer's facial BONE GEOMETRY, eye spacing, nose, jaw/chin, hair, facial hair, original robe/armor colors, hand-painted semi-realistic illustration style and quiet background. Main defect: inner eyebrows still squeezed with frown wrinkles; completely RELEASE both brows into a natural resting position. Smooth relaxed glabella without V crease or furrow, ordinary relaxed eyelids and normal eyes. Mouth softly CLOSED with LEVEL loose corners, no pursing, smirk, grin or stern look. Head LEVEL, neck/shoulders comfortable. Headwear repair: REMOVE the winged or flared TOP of his large old-style high hat. Replace with an ORIGINAL LOW SINGLE-LEVEL small WARM BROWN rectangular cloth cap with a thin dull sand band, about HALF existing height, plain and practical, no gold ornament or jewel. Preserve his wide short rounded trapezoid cheeks/jaw, low broad short nose, wide eye spacing, short trimmed greying beard and warm-sand civil robe/grey-violet vest. Ordinary senior court civil official, subtle age lines only, no armor or smile. ENTIRE headwear well inside square canvas with generous visible background ABOVE it (at least6% image height) and on both sides. Exactly one person, head-and-shoulders only, no hand or weapon, no text/watermark/frame/collage. Preserve recognisable facial proportions, do not substitute another face or homogenize.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "detail": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "d290dd1dedc3b4eb1aa7dcfeb885eb8cba1cb02c1cb150a4851b8d536656d079",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 793,
+      "height": 1983,
+      "transparentFraction": 0.4172604591741022,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×2560，全身立绘，真实透明背景。\n场景含义：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：FULL BODY gentle LEFT three-quarter view, comfortable stable weight. ONE hand holds a small CLOSED flat leather document pouch LOW at outer thigh, OTHER empty arm comfortably lowered. Civil robe only, entire cap, full hands, hem and BOTH complete shoes/toes/heels with generous alpha margin; no armor or weapon.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Xiang is a senior CIVIL court officer; retain sand robe and grey-violet cloth vest, low brown cloth cap. No automatic armor/weapon from Taiwei title or military interface, no ice, fish, filial-story stage pose, crying or theatrical kindly grin. Military scenes are rear civil administration/observations. Keep requested scene aspect and framing.\nGenuine ALPHA TRANSPARENT background, no opaque checkerboard or ground panel. Isolated complete full-body standee, normal proportions. ENTIRE headwear, complete hands/robe hem and BOTH shoes with toes and heels inside image; ample transparent space above/below/left/right (about8% vertical margin), never clipped tips. Any one sword sheath entirely in frame.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "domestic": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "359a4591ccd7bb27c73ec29d0d9f771410111e6362ab40c7b478ef93afbe89b0",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1086,
+      "height": 1448,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，半身像，有场景背景。\n场景含义：办理城务、补给或研究等内政事务；依人物职责选择实际工作。依实际职能读写账册、编纂、审阅公文或处理城务。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED near-FRONTAL HALF BODY at a court administrative desk. ONE palm flat LOW beside a CLOSED simple seal case, OTHER hand rests on OWN KNEE; SINGLE unopened packet on table. Quiet routine court administrative work, no writing, reading performance or held book.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Xiang is a senior CIVIL court officer; retain sand robe and grey-violet cloth vest, low brown cloth cap. No automatic armor/weapon from Taiwei title or military interface, no ice, fish, filial-story stage pose, crying or theatrical kindly grin. Military scenes are rear civil administration/observations. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "inspection": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "f8fa9d20e741bfe384ebbdb9a931966adead6b91f9ad45758115d6caa27797b2",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1024，横向场景，有场景背景。\n场景含义：到现场巡视工程、仓储、田地或设施。巡视民政设施、档案、仓储或水利现场。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide public granary courtyard, clear RIGHT three-quarter view. BOTH empty hands naturally BEHIND LOWER BACK. Calm elderly civil officer checking office supplies and public facilities, empty buildings and trees RIGHT; no ice/fish prop.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Xiang is a senior CIVIL court officer; retain sand robe and grey-violet cloth vest, low brown cloth cap. No automatic armor/weapon from Taiwei title or military interface, no ice, fish, filial-story stage pose, crying or theatrical kindly grin. Military scenes are rear civil administration/observations. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "training": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "dab7dec0057d6a1ab57acd5c82e23fc373276506a49be63680224e975f86c7c7",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1792×1008，宽幅场景，有场景背景。\n场景含义：整军、训练监督或军务辅助。在训练场旁处理名册、军需或记录，不持战斗兵器。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED at LEFT of wide quiet muster-administration pavilion, clear LEFT three-quarter view on a plain bench. BOTH EMPTY hands rest separately on OWN THIGHS, SINGLE closed roster rests on LOW side crate. Civil administrative observation, no armor or martial drill, empty practice yard RIGHT.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Xiang is a senior CIVIL court officer; retain sand robe and grey-violet cloth vest, low brown cloth cap. No automatic armor/weapon from Taiwei title or military interface, no ice, fish, filial-story stage pose, crying or theatrical kindly grin. Military scenes are rear civil administration/observations. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "diplomacy": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "e6b1486e703270fbfa409f0b4f7449e44d591589e51f520904b3c1c4d4f83b48",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1122,
+      "height": 1402,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1280，半身像，有场景背景。\n场景含义：接洽来访者或使者，平静听取意见。以文臣或使者身份平静接洽，坐姿或站姿因人物而异。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING near-FRONTAL HALF BODY in modest reception hall. ONE empty hand rests gently LOW on table edge, OTHER arm naturally lowered. Gaze slightly RIGHT toward entirely OFF-FRAME visitor, comfortable official listening, no sleeve clasp or giant salute.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Xiang is a senior CIVIL court officer; retain sand robe and grey-violet cloth vest, low brown cloth cap. No automatic armor/weapon from Taiwei title or military interface, no ice, fish, filial-story stage pose, crying or theatrical kindly grin. Military scenes are rear civil administration/observations. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "command": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "58d3eb7eb762b25235fb8f0a9db7eb2e418e2014b85cff1bb63c0c16149e255b",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1672,
+      "height": 940,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×864，宽幅场景，有场景背景。\n场景含义：参与军团部署，表现本人实际指挥或辅助职责。在军务场所办理文书、补给或联络，表现辅助职责。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED at LEFT of wide quiet rear administration shelter, gentle RIGHT three-quarter view. ONE empty hand rests on CHAIR ARM, OTHER palm FLAT on LOW table beside SINGLE closed dispatch wallet. Court civil officer checking arrangements, no armor, weapon or battlefield heroics; empty camp structures RIGHT.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Xiang is a senior CIVIL court officer; retain sand robe and grey-violet cloth vest, low brown cloth cap. No automatic armor/weapon from Taiwei title or military interface, no ice, fish, filial-story stage pose, crying or theatrical kindly grin. Military scenes are rear civil administration/observations. Keep requested scene aspect and framing.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "travel": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "9c6d9f6948110e12f94cda588d2172b6f6bf886f0e4a4ff7e89588b050aba48f",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 948,
+      "height": 1659,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1024×1792，行旅全身像，有场景背景。\n场景含义：普通小步行旅或运输，完整头饰和双脚，持物贴近身体。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：TRUE SIDE PROFILE facing LEFT, modest natural SHORT walking step, BOTH EMPTY arms lowered comfortably close to body. Small CLOSED flat dispatch pouch fastened to sash only. Complete cap, full hem, BOTH complete shoes/heels/toes and visible ground margin; no walking staff or exaggerated frailty.\nFINAL PERSON-SPECIFIC REQUIREMENTS: The attached file is this exact officer's reviewed ORIGINAL identity, preserve his exact facial bone structure, eye spacing, nose, jaw/chin, facial hair, visual age and original cap/helmet and clothing. Preserve LOW COMPACT headwear as in approved image, no old tall crown or chin ribbons. All faces in every scene are ordinary calm at REST: SMOOTH RELAXED glabella and relaxed inner brows, no V furrow, scowl, raised worry brows, staring eyes, smirk or dramatic grimace. Lips naturally CLOSED with loose equal LEVEL corners, head level and comfortable shoulders, ordinary proportions. The INDIVIDUAL action above takes precedence over generic acting: independently design a new composition, do not crop the reference or paste its head, recolor or change a background to fake variety. Exactly ONE human in the entire image; no other soldiers, visitors, tiny silhouettes, foreground shoulder, statues or reflections, every implied interlocutor entirely off-frame. Hands comfortable with natural complete fingers and believable connections to sleeve/props; no text, watermark, collage or border. ROLE FIRST: Wang Xiang is a senior CIVIL court officer; retain sand robe and grey-violet cloth vest, low brown cloth cap. No automatic armor/weapon from Taiwei title or military interface, no ice, fish, filial-story stage pose, crying or theatrical kindly grin. Military scenes are rear civil administration/observations. Keep requested scene aspect and framing.\nTall transit frame must be TRUE SIDE walking profile with short natural step; ENTIRE cap/helmet, full hem, BOTH complete shoes/boots with toes and heels and visible ground below, no crop or giant stride.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "report": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "5292a7ced4bbf2448d8cd3232cc0a5cb47802339a76a6dc5fdeb66148b398ead",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1448,
+      "height": 1086,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle LEFT three-quarter HALF BODY in ordinary court reception chair. BOTH EMPTY palms rest separately on chair ARMS, gaze RIGHT. Calm positive oral report, gently CLOSED lips, no staged kindly smile, scroll or ceremonial sleeve pose.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "report-concern": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "317fbf742fe7a938a63b83e7921962ce35e8ca9dc92f139e826f6f3ea2975032",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1086,
+      "height": 1448,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING clear RIGHT three-quarter close HALF BODY beside simple courier reception table, BOTH EMPTY arms naturally lowered. Gaze LEFT, head level, relaxed attentive eyes and naturally CLOSED lips. No grief, frightened look, brow tension or held book.\n",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。",
+        "bearing": "年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。",
+        "propExceptions": "朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。"
+      },
+      "qa": [
+        "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
+        "脸型、年龄、胡须、头饰、主色与身份参考一致",
+        "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
+        "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
+        "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
+        "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
+        "头像、透明全身立绘、半身与横幅各自独立构图",
+        "立绘完整头饰至双脚并具备真实透明背景",
+        "手部、五官与装备结构正确，无文字水印与其他主体人物",
+        "原图和界面显示均不以裁切伪造构图差异"
+      ]
+    },
+    "battle": {
+      "approved": true,
+      "tool": "built-in-imagegen",
+      "styleVersion": "han-neutral-v2",
+      "formatVersion": "scene-neutral-v3",
+      "sha256": "509639dca00fd463556340cbd43d48afdd02ef9c8fedb4a3271a89ddfd3e59e3",
+      "masterSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+      "width": 1672,
+      "height": 941,
+      "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide QUIET REAR civil campaign supply shelter, near-FRONTAL view. ONE empty hand rests gently LOW on plain closed supply crate, OTHER arm comfortably BEHIND LOWER BACK. Senior civil official observing administrative readiness, no armor or weapon; entirely empty depot structures RIGHT.\n",
       "role": {
         "primary": "civil",
         "secondary": [],

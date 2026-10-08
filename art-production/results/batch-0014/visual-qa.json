@@ -1,0 +1,16 @@
+{
+  "batch": "batch-0014",
+  "reviewedOfficers": [
+    "person-37",
+    "person-38",
+    "person-39"
+  ],
+  "reviewedExistingCandidates": 23,
+  "newIndependentImages": 7,
+  "roleIdentityExpressionHandsFramingReviewed": true,
+  "referenceMappings": 713,
+  "uniqueReferenceFiles": 712,
+  "referenceHashErrors": 0,
+  "staleIdentityCandidates": 0,
+  "notes": "Civil roles retained for Wang Su and Wang Xiang; naval commander role retained for Wang Jun. Original reviewed identities retained. Each new scene generated independently with its own identity input."
+}

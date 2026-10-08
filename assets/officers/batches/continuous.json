@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "automationId": null,
+  "automationId": "automation-2",
   "kind": "heartbeat",
   "destination": "thread",
-  "name": "三国武将素材持续生成",
-  "status": "PAUSED",
+  "name": "云端三国武将素材持续生成",
+  "status": "ACTIVE",
   "intervalMinutes": 60,
   "createdAt": "2026-10-07 13:19:29 UTC",
   "projectRoot": ".",
@@ -20,29 +20,25 @@
     "images": 99,
     "remainingImages": 9053
   },
-  "lastCompletedBatch": "batch-0013",
+  "lastCompletedBatch": "batch-0014",
   "policy": "每批默认3人；先读名册身份与传记记录美术主次类型，不能按兵种或能力值推断；优先处理显式角色返修；头像按本人稳定ID解析面部结构；自行完成视觉QA；全库和所有返修完成后停止；仅全库完成、真实失败或必要决策时通知。",
   "cadenceNote": "实际生成一批超过15分钟；按小时续跑，减少重入导致的在途生成中断，已有结果和全库范围保留。",
   "lastProgress": {
-    "officers": 45,
-    "images": 498,
-    "remainingImages": 8654,
-    "checkedAt": "2026-10-08T06:03:36.974Z"
+    "officers": 48,
+    "images": 528,
+    "remainingImages": 8624,
+    "checkedAt": "2026-10-08T12:22:01.422216+00:00"
   },
   "nextPreparedOfficers": [],
   "lastVerification": {
-    "assetTests": 19,
-    "uiImages": 495,
+    "assetTests": "4 test files passed",
+    "uiImages": 528,
     "uiDecodedSamples": 66,
     "desktopAndMobile": true,
     "fallbackAndReadOnly": true,
     "docsCheck": "passed"
   },
-  "nextPendingOfficers": [
-    "person-37",
-    "person-38",
-    "person-39"
-  ],
+  "nextPendingOfficers": [],
   "lastRoleRework": {
     "officerId": "person-1",
     "scenes": [
@@ -57,17 +53,18 @@
     "identityChanged": false,
     "sourceRecord": ".local/officer-art-results/role-rework-person-1/plan.json"
   },
-  "lastVisualQA": ".local/officer-art-results/batch-0013/visual-qa.json",
-  "lastOfflineCache": "sango-scout-frequency-178",
+  "lastVisualQA": "art-production/results/batch-0014/visual-qa.json",
+  "lastOfflineCache": "sango-officer-art-batch-0014-180",
   "pausedAt": "2026-10-08T06:03:36.974Z",
   "pauseReason": "用户明确要求先暂停该工作，不要定时启动",
-  "resumeRequiresExplicitUserRequest": true,
-  "activeBatch": "batch-0014",
+  "resumeRequiresExplicitUserRequest": false,
+  "activeBatch": null,
   "lastPauseRecord": ".local/officer-art-results/batch-0014/pause-state.json",
   "cloudMigration": {
     "source": "local-art-production",
     "targetThreadId": "01a11b4a-7ccd-7461-884e-799518a80031",
     "sourceAutomationRemainsPaused": true,
-    "awaitingCloudStart": true
+    "awaitingCloudStart": false,
+    "productionBranch": "codex/cloud-officer-art-20261008"
   }
 }

@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "originalImages": 528,
+  "decodedSampleImages": 66,
+  "sampleIds": [
+    "cao",
+    "person-99",
+    "person-290",
+    "person-37",
+    "person-38",
+    "person-39"
+  ],
+  "scenes": [
+    "portrait",
+    "detail",
+    "domestic",
+    "inspection",
+    "training",
+    "diplomacy",
+    "command",
+    "travel",
+    "report",
+    "report-concern",
+    "battle"
+  ],
+  "actualActivityScene": "detail",
+  "checks": [
+    "independent portrait thumbnails",
+    "full standee aspect and contain",
+    "real detail and current activity selection",
+    "desktop and mobile",
+    "current batch and original smoke sample decode",
+    "wide report and battle render",
+    "failed scene preserves original identity",
+    "switch removes old image",
+    "viewing preserves campaign save"
+  ],
+  "errors": []
+}

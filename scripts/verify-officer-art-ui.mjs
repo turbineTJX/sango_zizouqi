@@ -14,8 +14,8 @@ const s=newCampaign(81,'guandu-200'),save=serializeCampaign(s),activityScene=act
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'off'},stdio:'pipe',windowsHide:true});let browser;
 try{
  await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',c=>no(Error('server '+c)));});
- browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.addInitScript(save=>localStorage.setItem('sango-sovereign-v2',save),save);
+ browser=await chromium.launch({...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{channel:'msedge'}),headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(save=>{localStorage.setItem('sango-sovereign-v2',save);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},save);
  await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();
  await page.locator('.sovereign-portrait img').evaluate(img=>img.decode());assert.match(await page.locator('.sovereign-portrait img').getAttribute('src'),/assets\/officers\/generated\/v3\/cao\/portrait.png$/);
  // Current campaigns may immediately present existing strategic alerts. Dismiss

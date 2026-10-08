@@ -1,7 +1,7 @@
 {
   "version": 1,
   "id": "batch-0014",
-  "status": "active",
+  "status": "complete",
   "formatVersion": "scene-neutral-v3",
   "styleVersion": "han-neutral-v2",
   "officerIds": [
@@ -37,7 +37,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-37",
-        "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\art-production\\face-references\\files\\bbdbdd987c2b5fa96ae561f8122b271538d5124206970261ea21cb51b7d97011.jpg",
+        "file": "art-production/face-references/files/bbdbdd987c2b5fa96ae561f8122b271538d5124206970261ea21cb51b7d97011.jpg",
         "sha256": "bbdbdd987c2b5fa96ae561f8122b271538d5124206970261ea21cb51b7d97011",
         "source": "git-synced-existing-officer-portrait",
         "productionOnly": true,
@@ -67,8 +67,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/portrait-02.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\portrait.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/portrait.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:detail",
@@ -85,7 +85,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -118,8 +118,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/detail-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\detail.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/detail.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:domestic",
@@ -136,7 +136,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -168,8 +168,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/domestic-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\domestic.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/domestic.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:inspection",
@@ -186,7 +186,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -218,8 +218,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/inspection-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\inspection.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/inspection.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:training",
@@ -236,7 +236,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -268,8 +268,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/training-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\training.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/training.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:diplomacy",
@@ -286,7 +286,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -318,8 +318,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/diplomacy-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\diplomacy.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/diplomacy.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:command",
@@ -336,7 +336,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -368,8 +368,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/command-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\command.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/command.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:travel",
@@ -386,7 +386,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -418,8 +418,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/travel-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\travel.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/travel.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:report",
@@ -436,7 +436,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -468,8 +468,8 @@
           "file": "assets/officers/candidates/batch-0014/person-37/report-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\report.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "outputFile": "assets/officers/generated/v3/person-37/report.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:report-concern",
@@ -486,7 +486,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "pending",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -503,10 +503,23 @@
       "reference": "assets/officers/identity/person-37.png",
       "referenceSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
       "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle LEFT three-quarter close HALF BODY on ordinary civil reception chair. BOTH EMPTY hands rest separately on chair ARMS. Listen toward RIGHT with level head, resting eyebrows and gently CLOSED lips; no fear, scowl or grief, no held prop.",
-      "candidate": null,
-      "attempts": [],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\report-concern.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0014/person-37/report-concern-01.png",
+        "sha256": "e1c5883c994acf8d17dc3f9cbaef16f06bbd22a192a4538104b3fcf7be15ca98",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle LEFT three-quarter close HALF BODY on ordinary civil reception chair. BOTH EMPTY hands rest separately on chair ARMS. Listen toward RIGHT with level head, resting eyebrows and gently CLOSED lips; no fear, scowl or grief, no held prop.",
+        "referenceSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "e1c5883c994acf8d17dc3f9cbaef16f06bbd22a192a4538104b3fcf7be15ca98",
+          "file": "assets/officers/candidates/batch-0014/person-37/report-concern-01.png"
+        }
+      ],
+      "outputFile": "assets/officers/generated/v3/person-37/report-concern.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-37:battle",
@@ -523,7 +536,7 @@
       "dependsOn": [
         "person-37:portrait"
       ],
-      "status": "pending",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [
@@ -540,10 +553,23 @@
       "reference": "assets/officers/identity/person-37.png",
       "referenceSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
       "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide QUIET REAR administrative shelter, gentle RIGHT three-quarter view, BOTH EMPTY hands comfortably BEHIND LOWER BACK. Calm civil adviser observing defense information organization, no armor, weapon or frontline action; entirely empty camp structures RIGHT.",
-      "candidate": null,
-      "attempts": [],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-37\\battle.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-37.png"
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0014/person-37/battle-01.png",
+        "sha256": "bfb29b102641ea008ac4e5b2fc0e4d1985efc673a4ffb5d6dfb6d8bf7352bddb",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：王肃 / person-37\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：谋士军师。依据：稳定ID person-37 王肃，名册为王朗之子、魏黄门侍郎。史条目记从宋忠学太玄经、历广平太守侍中太常及经学注解；演义记劝退雨中伐蜀、建议善待反叛军家属等军政进言。按经学、朝廷与地方文职为主，兼有演义中军事建议职责，明确区分史与演义，不从兵种、能力、性别或阵营推断。。人物仪态：成熟经学与朝廷文务官员，整齐实用官袍、舒适自然坐立；办理内政和仪礼文务，接见和奏报口头进行。军事界面只作阵后文务或建议、布置核对，不自动着甲持兵器。经学身份不变成全套捧卷拢袖；不把名字肃或小说进言画成皱眉严厉脸。。个人道具例外：经学和太常、侍中职责可在一张内政场景低位核对平放制度记录或单份薄册，军事建议可使用一张平放地图，不每张持书或执笔。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age48, ordinary mature court scholar and civil official, normal healthy build with level head and comfortable upright shoulders. Medium-LONG rather ANGULAR OVAL-PENTAGON face, medium-broad HIGH forehead, clearly defined HIGH mid-cheekbones, slightly FLAT lower cheeks, gently tapering angular jaw and small FLAT-ROUNDED chin. Medium-WIDE-spaced ordinary horizontal almond eyes with gently deeper upper lids, thick nearly STRAIGHT eyebrows with slight natural outer rise, INNER brows completely at REST. HIGH medium-long moderately SLENDER STRAIGHT nose with compact rounded tip, medium-width thin CLOSED lips with LEVEL loose corners. A short THIN horizontal moustache with slightly downturned ends, narrow SHORT pointed chin goatee and very sparse jaw stubble, no lush full beard. Preserve his own legacy angular face and slender nose; remove stern brows and the old very tall jeweled crown. DISTINCT from Wang Rong long much narrower tapered lower jaw/wide eyes and Wang Xiu broad rectangular jaw/substantial wide nose. ORIGINAL LOW SINGLE-LEVEL CHARCOAL rectangular cloth cap, plain WARM GREY band, no crown gems or chin ribbons. Dark muted WINE-BROWN cross-collar long civil robe with ASH-GREY inner collar and narrow graphite cloth sash, plain grey-brown shoes. No armor, helmet, sword, gauntlets or feather fan. Mature scholar and court adviser but no stern name-based acting or universal scroll pose. 中长棱角椭五角脸、高颧渐收颌及小平圆颏，中等偏宽眼距、高细直鼻、薄短髭和窄短颏须；低炭色单层布冠、酒褐官袍与灰领。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide QUIET REAR administrative shelter, gentle RIGHT three-quarter view, BOTH EMPTY hands comfortably BEHIND LOWER BACK. Calm civil adviser observing defense information organization, no armor, weapon or frontline action; entirely empty camp structures RIGHT.",
+        "referenceSha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "bfb29b102641ea008ac4e5b2fc0e4d1985efc673a4ffb5d6dfb6d8bf7352bddb",
+          "file": "assets/officers/candidates/batch-0014/person-37/battle-01.png"
+        }
+      ],
+      "outputFile": "assets/officers/generated/v3/person-37/battle.png",
+      "referenceFile": "assets/officers/identity/person-37.png"
     },
     {
       "id": "person-38:portrait",
@@ -572,7 +598,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-38",
-        "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\art-production\\face-references\\files\\68e1a105e70355043c871f302e1b4942e3e4caf54b94ad6f1760bdb21a5a79ef.jpg",
+        "file": "art-production/face-references/files/68e1a105e70355043c871f302e1b4942e3e4caf54b94ad6f1760bdb21a5a79ef.jpg",
         "sha256": "68e1a105e70355043c871f302e1b4942e3e4caf54b94ad6f1760bdb21a5a79ef",
         "source": "git-synced-existing-officer-portrait",
         "productionOnly": true,
@@ -602,8 +628,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/portrait-02.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\portrait.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/portrait.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:detail",
@@ -620,7 +646,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -653,8 +679,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/detail-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\detail.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/detail.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:domestic",
@@ -671,7 +697,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -703,8 +729,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/domestic-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\domestic.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/domestic.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:inspection",
@@ -721,7 +747,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -753,8 +779,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/inspection-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\inspection.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/inspection.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:training",
@@ -771,7 +797,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -803,8 +829,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/training-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\training.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/training.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:diplomacy",
@@ -821,7 +847,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -853,8 +879,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/diplomacy-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\diplomacy.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/diplomacy.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:command",
@@ -871,7 +897,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -903,8 +929,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/command-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\command.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/command.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:travel",
@@ -921,7 +947,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -953,8 +979,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/travel-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\travel.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/travel.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:report",
@@ -971,7 +997,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -1003,8 +1029,8 @@
           "file": "assets/officers/candidates/batch-0014/person-38/report-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\report.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "outputFile": "assets/officers/generated/v3/person-38/report.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:report-concern",
@@ -1021,7 +1047,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "pending",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -1038,10 +1064,23 @@
       "reference": "assets/officers/identity/person-38.png",
       "referenceSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
       "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取紧急军情或判断现场状况，保持统帅镇定。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING gentle LEFT three-quarter close HALF BODY at dock courier reception post. ONE empty palm flat LOW on a wooden railing, OTHER empty arm lowered. Listen RIGHT toward entirely OFF-FRAME messenger, level head and closed relaxed lips, no anxiety/scowl or academic pose.",
-      "candidate": null,
-      "attempts": [],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\report-concern.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0014/person-38/report-concern-01.png",
+        "sha256": "800352fee96a12cc20de468904c33b04c724d0f18af90347fa7981d9890fb330",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取紧急军情或判断现场状况，保持统帅镇定。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING gentle LEFT three-quarter close HALF BODY at dock courier reception post. ONE empty palm flat LOW on a wooden railing, OTHER empty arm lowered. Listen RIGHT toward entirely OFF-FRAME messenger, level head and closed relaxed lips, no anxiety/scowl or academic pose.",
+        "referenceSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "800352fee96a12cc20de468904c33b04c724d0f18af90347fa7981d9890fb330",
+          "file": "assets/officers/candidates/batch-0014/person-38/report-concern-01.png"
+        }
+      ],
+      "outputFile": "assets/officers/generated/v3/person-38/report-concern.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-38:battle",
@@ -1058,7 +1097,7 @@
       "dependsOn": [
         "person-38:portrait"
       ],
-      "status": "pending",
+      "status": "complete",
       "role": {
         "primary": "commander",
         "secondary": [
@@ -1075,10 +1114,23 @@
       "reference": "assets/officers/identity/person-38.png",
       "referenceSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
       "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。表现沉稳临阵指挥；兵器、指挥物和护甲遵从个人设定。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED at LEFT of wide quiet FLEET READINESS overlook on simple low stool, clear RIGHT three-quarter view. BOTH EMPTY hands rest separately on OWN KNEES. Armored military commander monitoring river approach, no weapon action or heroic roaring; moored empty vessels and unoccupied shore RIGHT.",
-      "candidate": null,
-      "attempts": [],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-38\\battle.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-38.png"
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0014/person-38/battle-01.png",
+        "sha256": "ae123eb425d2514a173f2e1b0d8d135a5bc5ec60c9d958e33fb310e24fc78081",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：王濬 / person-38\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：文臣学士。依据：稳定ID person-38 王濬（别名王浚），名册为晋益州刺史。演义记龙骧将军、沿江统领舰队伐吴、受封辅国大将军，史条目记吴战期间与王浑争功。依据军队、舰队进军组织及地方刺史职责，分类战场统帅兼地方政务；不从兵种、能力或攻城特长推断，也不把演义筏子破障情节全当史实。。人物仪态：成熟舰队及进军组织型统帅，简洁实用轻甲、贴身袖与军官头盔，内政检查军需与船运补给，整军巡检器械和码头组织，接待与奏报都保留军职体态。以平常观察部署和口头汇报表现指挥，不挥击冲锋、读书拢袖或因争功叙述画狡黠奸笑。。个人道具例外：军政和舰队组织可在适当指挥场景平放单份航路图，其他场景以船运结构、码头系缆与军需设施作环境，道具不主导整套；只配一把完整入鞘佩剑且不拔出。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age58, ordinary mature naval expedition commander with normal strong but not exaggerated shoulders. LONG NARROW OBLONG face, medium broad upper forehead, HIGH fairly FLAT cheekbones, LONG slightly HOLLOW lower cheeks, gently angular narrow jaw and a small pronounced ROUNDED chin. Slightly CLOSE-set ordinary LONG horizontal almond eyes under relaxed upper lids, dense fine nearly straight eyebrows with a small outer curve but no pressed inner brows. HIGH fairly LONG SLENDER STRAIGHT nose with a narrow rounded tip, long upper lip and medium narrow thin CLOSED mouth with LEVEL relaxed corners. Thin dark-grey HORIZONTAL moustache extending slightly down at ends, CLEAN-SHAVEN chin and jaw with short sideburns; NO goatee or beard. Natural mature fine eye/cheek lines, no grimace or sly face. Own legacy long hollow-cheek/slim nose geometry retained, not the dramatic sideways glare. Distinct from Wang Kan much SHORTER broad upper face and short wide blunt nose, Wang Hun curved high cheeks and pointed lower chin/goatee, Wang Wei concave hexagonal broad-cheek/narrow-chin shape. Original LOW simple DULL IRON rounded military helmet with flat dull-bronze brow band and short practical cheek plates, fully visible; NO plume, crest, gold ornament, horns, gems or leaf motifs. Dark muted NAVY military tunic, plain worn IRON and dull-bronze compact lamellar cuirass and small close shoulder armor, grey inner collar, brown wrist guards and charcoal sash, plain dark boots. ONE simple fully sheathed sword secured at belt only when full-body task asks; never drawn, never blade gestures. Fleet and logistical commander bearing, no disputes-based grimacing. 长窄椭长脸、高平颧与微凹长下颊，小圆颏、较近横眼和高长细鼻；细横髭无颏须。低素铁盔、藏蓝军装与铁铜轻甲。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。表现沉稳临阵指挥；兵器、指挥物和护甲遵从个人设定。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED at LEFT of wide quiet FLEET READINESS overlook on simple low stool, clear RIGHT three-quarter view. BOTH EMPTY hands rest separately on OWN KNEES. Armored military commander monitoring river approach, no weapon action or heroic roaring; moored empty vessels and unoccupied shore RIGHT.",
+        "referenceSha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "ae123eb425d2514a173f2e1b0d8d135a5bc5ec60c9d958e33fb310e24fc78081",
+          "file": "assets/officers/candidates/batch-0014/person-38/battle-01.png"
+        }
+      ],
+      "outputFile": "assets/officers/generated/v3/person-38/battle.png",
+      "referenceFile": "assets/officers/identity/person-38.png"
     },
     {
       "id": "person-39:portrait",
@@ -1105,7 +1157,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-39",
-        "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\art-production\\face-references\\files\\fb70b08cfe6fac1668a439262353859b4f34b85ab4d193cfede58615d8b73aab.jpg",
+        "file": "art-production/face-references/files/fb70b08cfe6fac1668a439262353859b4f34b85ab4d193cfede58615d8b73aab.jpg",
         "sha256": "fb70b08cfe6fac1668a439262353859b4f34b85ab4d193cfede58615d8b73aab",
         "source": "git-synced-existing-officer-portrait",
         "productionOnly": true,
@@ -1135,8 +1187,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/portrait-02.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\portrait.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/portrait.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:detail",
@@ -1153,7 +1205,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1184,8 +1236,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/detail-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\detail.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/detail.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:domestic",
@@ -1202,7 +1254,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1232,8 +1284,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/domestic-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\domestic.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/domestic.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:inspection",
@@ -1250,7 +1302,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1280,8 +1332,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/inspection-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\inspection.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/inspection.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:training",
@@ -1298,7 +1350,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1328,8 +1380,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/training-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\training.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/training.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:diplomacy",
@@ -1346,7 +1398,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1376,8 +1428,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/diplomacy-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\diplomacy.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/diplomacy.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:command",
@@ -1394,7 +1446,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1424,8 +1476,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/command-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\command.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/command.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:travel",
@@ -1442,7 +1494,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "candidate",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1472,8 +1524,8 @@
           "file": "assets/officers/candidates/batch-0014/person-39/travel-01.png"
         }
       ],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\travel.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "outputFile": "assets/officers/generated/v3/person-39/travel.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:report",
@@ -1490,7 +1542,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "pending",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1505,10 +1557,23 @@
       "reference": "assets/officers/identity/person-39.png",
       "referenceSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
       "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle LEFT three-quarter HALF BODY in ordinary court reception chair. BOTH EMPTY palms rest separately on chair ARMS, gaze RIGHT. Calm positive oral report, gently CLOSED lips, no staged kindly smile, scroll or ceremonial sleeve pose.",
-      "candidate": null,
-      "attempts": [],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\report.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0014/person-39/report-01.png",
+        "sha256": "5292a7ced4bbf2448d8cd3232cc0a5cb47802339a76a6dc5fdeb66148b398ead",
+        "width": 1448,
+        "height": 1086,
+        "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×1152，横向半身像，有场景背景。\n场景含义：汇报已完成事项，克制满意，嘴唇闭合。呈报公文或口头汇报，不让每个场景都捧同一卷书。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：SEATED gentle LEFT three-quarter HALF BODY in ordinary court reception chair. BOTH EMPTY palms rest separately on chair ARMS, gaze RIGHT. Calm positive oral report, gently CLOSED lips, no staged kindly smile, scroll or ceremonial sleeve pose.",
+        "referenceSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "5292a7ced4bbf2448d8cd3232cc0a5cb47802339a76a6dc5fdeb66148b398ead",
+          "file": "assets/officers/candidates/batch-0014/person-39/report-01.png"
+        }
+      ],
+      "outputFile": "assets/officers/generated/v3/person-39/report.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:report-concern",
@@ -1525,7 +1590,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "pending",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1540,10 +1605,23 @@
       "reference": "assets/officers/identity/person-39.png",
       "referenceSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
       "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING clear RIGHT three-quarter close HALF BODY beside simple courier reception table, BOTH EMPTY arms naturally lowered. Gaze LEFT, head level, relaxed attentive eyes and naturally CLOSED lips. No grief, frightened look, brow tension or held book.",
-      "candidate": null,
-      "attempts": [],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\report-concern.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0014/person-39/report-concern-01.png",
+        "sha256": "317fbf742fe7a938a63b83e7921962ce35e8ca9dc92f139e826f6f3ea2975032",
+        "width": 1086,
+        "height": 1448,
+        "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1152×1536，近景半身像，有场景背景。\n场景含义：接收或汇报告急消息，沉着凝神，不惊慌。听取消息或审阅一份公文，保持自然中性。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING clear RIGHT three-quarter close HALF BODY beside simple courier reception table, BOTH EMPTY arms naturally lowered. Gaze LEFT, head level, relaxed attentive eyes and naturally CLOSED lips. No grief, frightened look, brow tension or held book.",
+        "referenceSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "317fbf742fe7a938a63b83e7921962ce35e8ca9dc92f139e826f6f3ea2975032",
+          "file": "assets/officers/candidates/batch-0014/person-39/report-concern-01.png"
+        }
+      ],
+      "outputFile": "assets/officers/generated/v3/person-39/report-concern.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     },
     {
       "id": "person-39:battle",
@@ -1560,7 +1638,7 @@
       "dependsOn": [
         "person-39:portrait"
       ],
-      "status": "pending",
+      "status": "complete",
       "role": {
         "primary": "civil",
         "secondary": [],
@@ -1575,10 +1653,23 @@
       "reference": "assets/officers/identity/person-39.png",
       "referenceSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
       "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide QUIET REAR civil campaign supply shelter, near-FRONTAL view. ONE empty hand rests gently LOW on plain closed supply crate, OTHER arm comfortably BEHIND LOWER BACK. Senior civil official observing administrative readiness, no armor or weapon; entirely empty depot structures RIGHT.",
-      "candidate": null,
-      "attempts": [],
-      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\generated\\v3\\person-39\\battle.png",
-      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\cloud-officer-art-sync\\assets\\officers\\identity\\person-39.png"
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0014/person-39/battle-01.png",
+        "sha256": "509639dca00fd463556340cbd43d48afdd02ef9c8fedb4a3271a89ddfd3e59e3",
+        "width": 1672,
+        "height": 941,
+        "prompt": "Use case: identity-preserve\n人物：王祥 / person-39\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：文臣学士；次类型：无。依据：稳定ID person-39 王祥，名册为魏太尉及二十四孝人物。史条目记避乱隐居、受吕虔邀请出仕，历光禄勋司空太常及晋太保；演义含军出发送行和继承次序进言。按长期朝廷文职、高官仪礼与政务分类文臣，不单因太尉称号或兵种判断为冲锋武人；孝行故事不当作本次十一场景的实际动作，也区分演义与史条目。。人物仪态：年长朝廷官员，普通健康自然面部和舒适挺立坐姿，简洁官袍、低冠。内政、接洽和奏报以日常公务，军务界面以阵后行政检查或随军政务观察保持文职身份，无自动甲胄和武器。避免卧冰、哀泣、跪伏或过度慈祥笑脸的典故表演，不能所有图都双手捧书。。个人道具例外：朝廷文务与仪礼职责可用一张平放待办单、闭合印匣或单个公文封套；小道具各场景有节制，不持鱼、酒杯或羽扇。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age64, ordinary healthy elderly court civil official with comfortably broad shoulders, upright head and natural mild age texture. SHORT-MEDIUM BROAD rounded TRAPEZOID face, broad medium-height forehead, LOW broad softly rounded cheekbones, FULL lower cheeks, WIDE rather SQUARE-ROUND lower jaw and substantial BROAD FLAT-ROUNDED chin. Rather WIDE-spaced modest ordinary horizontal almond eyes with comfortable slightly full upper lids, softly curved nearly flat grey-black eyebrows completely at rest. Medium-SHORT moderately BROAD nose with rather LOW straight bridge, broad rounded blunt tip and normal nostrils; wide medium-thin naturally CLOSED mouth with LEVEL resting corners. Short moderately THICK charcoal-grey horizontal moustache, SMALL ROUND-TRIMMED chin beard and neat short jaw stubble, not long goatee. Soft natural fine age lines and grey temples, no exaggerated wrinkles, sickliness, worried look or sentimental grin. Retain own legacy short broad lower face and low wider nose, clearly distinct from Wang Su long angular tapering jaw/high fine nose and Yuan Shu longer narrow lower face/high longer nose. Original LOW simple WARM BROWN rectangular cloth cap with plain dull-sand band, no high winged top, jewels or ribbons. Muted WARM SAND cross-collar long civil robe with plain GREY-VIOLET short cloth overvest and ash-grey inner collar, dark brown cloth sash and simple brown shoes. NO armor, weapon, helmet, feather fan, wine cup, fish or filial-story prop. Mature ordinary court administrative bearing, not a theatrical ice-fishing sage or a warrior despite title Taiwei. 中短宽圆梯形脸、丰下颊宽方圆颌与宽平圆颏，宽眼距、低短阔钝鼻；短厚灰髭与圆修短颏须。低暖褐布冠、砂色官袍和灰紫短褂。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：2048×1152，宽幅人物像，有场景背景。\n场景含义：战斗切入宽幅人物，位于左半幅，表现本人军事职责，动作克制。阵后军务、记录或联络场景，保持文职衣装，不强加护甲或冲锋动作。\n该人物独立表演（符合人物类型，并优先于通用示例手势）：STANDING at LEFT of wide QUIET REAR civil campaign supply shelter, near-FRONTAL view. ONE empty hand rests gently LOW on plain closed supply crate, OTHER arm comfortably BEHIND LOWER BACK. Senior civil official observing administrative readiness, no armor or weapon; entirely empty depot structures RIGHT.",
+        "referenceSha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "509639dca00fd463556340cbd43d48afdd02ef9c8fedb4a3271a89ddfd3e59e3",
+          "file": "assets/officers/candidates/batch-0014/person-39/battle-01.png"
+        }
+      ],
+      "outputFile": "assets/officers/generated/v3/person-39/battle.png",
+      "referenceFile": "assets/officers/identity/person-39.png"
     }
   ]
 }

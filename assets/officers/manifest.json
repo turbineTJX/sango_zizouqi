@@ -5054,6 +5054,106 @@
         "sha256": "a6ecff69643e4ffb8effbd2acfefb1d89a191fa15faf8527db861a3f5136e75c",
         "width": 1254,
         "height": 1254
+      },
+      "detail": {
+        "url": "./assets/officers/generated/v3/person-37/detail.png",
+        "format": "全身立绘",
+        "fit": "contain",
+        "focus": "50% 50%",
+        "transparent": true,
+        "sha256": "e3d4639c91038fcc332993ef8ac1e3a9680d64aee9098809f22cea3521dbabe9",
+        "width": 793,
+        "height": 1983
+      },
+      "domestic": {
+        "url": "./assets/officers/generated/v3/person-37/domestic.png",
+        "format": "半身像",
+        "fit": "contain",
+        "focus": "50% 45%",
+        "transparent": false,
+        "sha256": "63df29dbf7daa374b7edf5415d830a5ed47a8e0361a1e0a0e3de3d6ca2044558",
+        "width": 1086,
+        "height": 1448
+      },
+      "inspection": {
+        "url": "./assets/officers/generated/v3/person-37/inspection.png",
+        "format": "横向场景",
+        "fit": "contain",
+        "focus": "32% 42%",
+        "transparent": false,
+        "sha256": "2e6160c0c25ce1b269faeaa0327cdb8ef03377cd88d4ce1d35daf7616b82d823",
+        "width": 1536,
+        "height": 1024
+      },
+      "training": {
+        "url": "./assets/officers/generated/v3/person-37/training.png",
+        "format": "宽幅场景",
+        "fit": "contain",
+        "focus": "40% 42%",
+        "transparent": false,
+        "sha256": "300d4bdbaa153cab1509a6a2818264914d9a200bccb93b7573837380b6ec2304",
+        "width": 1672,
+        "height": 941
+      },
+      "diplomacy": {
+        "url": "./assets/officers/generated/v3/person-37/diplomacy.png",
+        "format": "半身像",
+        "fit": "contain",
+        "focus": "50% 42%",
+        "transparent": false,
+        "sha256": "411c9675dcf29b5b3289ff5264515e4105651d9558ad78e9aaae3de4b10005e8",
+        "width": 1122,
+        "height": 1402
+      },
+      "command": {
+        "url": "./assets/officers/generated/v3/person-37/command.png",
+        "format": "宽幅场景",
+        "fit": "contain",
+        "focus": "62% 40%",
+        "transparent": false,
+        "sha256": "e547bcd28181a210198129f58b9042e873ba4b70ef624fb45b29ced1b35ef555",
+        "width": 1672,
+        "height": 941
+      },
+      "travel": {
+        "url": "./assets/officers/generated/v3/person-37/travel.png",
+        "format": "行旅全身像",
+        "fit": "contain",
+        "focus": "50% 50%",
+        "transparent": false,
+        "sha256": "061c65947e641595a27628f4f96daa5e427dabc15b656d5ed1005b0c7949744d",
+        "width": 948,
+        "height": 1660
+      },
+      "report": {
+        "url": "./assets/officers/generated/v3/person-37/report.png",
+        "format": "横向半身像",
+        "fit": "contain",
+        "focus": "50% 42%",
+        "transparent": false,
+        "sha256": "f0ed571700da7c7ec6f11b35a11196d73baca75b62e0fa9b3f8d8fd101adfd08",
+        "width": 1448,
+        "height": 1086
+      },
+      "report-concern": {
+        "url": "./assets/officers/generated/v3/person-37/report-concern.png",
+        "format": "近景半身像",
+        "fit": "contain",
+        "focus": "50% 40%",
+        "transparent": false,
+        "sha256": "e1c5883c994acf8d17dc3f9cbaef16f06bbd22a192a4538104b3fcf7be15ca98",
+        "width": 1086,
+        "height": 1448
+      },
+      "battle": {
+        "url": "./assets/officers/generated/v3/person-37/battle.png",
+        "format": "宽幅人物像",
+        "fit": "contain",
+        "focus": "27% 43%",
+        "transparent": false,
+        "sha256": "bfb29b102641ea008ac4e5b2fc0e4d1985efc673a4ffb5d6dfb6d8bf7352bddb",
+        "width": 1672,
+        "height": 941
       }
     },
     "person-38": {
@@ -5066,6 +5166,106 @@
         "sha256": "087eb9278064157a46fdbc62f1c1b65c32f690a093f65b61477e2f25f1af72ef",
         "width": 1254,
         "height": 1254
+      },
+      "detail": {
+        "url": "./assets/officers/generated/v3/person-38/detail.png",
+        "format": "全身立绘",
+        "fit": "contain",
+        "focus": "50% 50%",
+        "transparent": true,
+        "sha256": "4f6be22cace4228ea5676de8cdf9b21a629b1a8556507ab9747b82d64e01f4fb",
+        "width": 793,
+        "height": 1983
+      },
+      "domestic": {
+        "url": "./assets/officers/generated/v3/person-38/domestic.png",
+        "format": "半身像",
+        "fit": "contain",
+        "focus": "50% 45%",
+        "transparent": false,
+        "sha256": "435566d5124f20173eb813d1b5a896383060b4fc1a08509a6ff1085b7d0fcb49",
+        "width": 1086,
+        "height": 1448
+      },
+      "inspection": {
+        "url": "./assets/officers/generated/v3/person-38/inspection.png",
+        "format": "横向场景",
+        "fit": "contain",
+        "focus": "32% 42%",
+        "transparent": false,
+        "sha256": "b4ed4aac9e620a4f1e80a13d3a0f9dc9cc40376ecdb5a7a7fd8f7d02d51db80d",
+        "width": 1536,
+        "height": 1024
+      },
+      "training": {
+        "url": "./assets/officers/generated/v3/person-38/training.png",
+        "format": "宽幅场景",
+        "fit": "contain",
+        "focus": "40% 42%",
+        "transparent": false,
+        "sha256": "14f2e959e55c6b227d725b4d971c3f577e252ab2249b72135cc14991d32e3041",
+        "width": 1672,
+        "height": 941
+      },
+      "diplomacy": {
+        "url": "./assets/officers/generated/v3/person-38/diplomacy.png",
+        "format": "半身像",
+        "fit": "contain",
+        "focus": "50% 42%",
+        "transparent": false,
+        "sha256": "795aae4a88f161c4f03c1bfbcd311c07ce7c55d7b77ca3add6e140bc13d3add1",
+        "width": 1122,
+        "height": 1402
+      },
+      "command": {
+        "url": "./assets/officers/generated/v3/person-38/command.png",
+        "format": "宽幅场景",
+        "fit": "contain",
+        "focus": "62% 40%",
+        "transparent": false,
+        "sha256": "835afabe2ffd536fa14df4965f146af05490207f53bb3710ff4105a7027e653e",
+        "width": 1672,
+        "height": 941
+      },
+      "travel": {
+        "url": "./assets/officers/generated/v3/person-38/travel.png",
+        "format": "行旅全身像",
+        "fit": "contain",
+        "focus": "50% 50%",
+        "transparent": false,
+        "sha256": "e7fab23f2c99cab6cc71d3c33aa898d0a09e27027b8ef18a7052fef35104a2c7",
+        "width": 948,
+        "height": 1659
+      },
+      "report": {
+        "url": "./assets/officers/generated/v3/person-38/report.png",
+        "format": "横向半身像",
+        "fit": "contain",
+        "focus": "50% 42%",
+        "transparent": false,
+        "sha256": "8b755edeb4c58577655accff70e7b0e26c657983fc7bb927039eb04912682500",
+        "width": 1448,
+        "height": 1086
+      },
+      "report-concern": {
+        "url": "./assets/officers/generated/v3/person-38/report-concern.png",
+        "format": "近景半身像",
+        "fit": "contain",
+        "focus": "50% 40%",
+        "transparent": false,
+        "sha256": "800352fee96a12cc20de468904c33b04c724d0f18af90347fa7981d9890fb330",
+        "width": 1086,
+        "height": 1448
+      },
+      "battle": {
+        "url": "./assets/officers/generated/v3/person-38/battle.png",
+        "format": "宽幅人物像",
+        "fit": "contain",
+        "focus": "27% 43%",
+        "transparent": false,
+        "sha256": "ae123eb425d2514a173f2e1b0d8d135a5bc5ec60c9d958e33fb310e24fc78081",
+        "width": 1672,
+        "height": 941
       }
     },
     "person-39": {
@@ -5078,6 +5278,106 @@
         "sha256": "2f14208ec832c31c18c0cbd70170dd3e25b85eccc00f03606c4857cb7e854d5a",
         "width": 1254,
         "height": 1254
+      },
+      "detail": {
+        "url": "./assets/officers/generated/v3/person-39/detail.png",
+        "format": "全身立绘",
+        "fit": "contain",
+        "focus": "50% 50%",
+        "transparent": true,
+        "sha256": "d290dd1dedc3b4eb1aa7dcfeb885eb8cba1cb02c1cb150a4851b8d536656d079",
+        "width": 793,
+        "height": 1983
+      },
+      "domestic": {
+        "url": "./assets/officers/generated/v3/person-39/domestic.png",
+        "format": "半身像",
+        "fit": "contain",
+        "focus": "50% 45%",
+        "transparent": false,
+        "sha256": "359a4591ccd7bb27c73ec29d0d9f771410111e6362ab40c7b478ef93afbe89b0",
+        "width": 1086,
+        "height": 1448
+      },
+      "inspection": {
+        "url": "./assets/officers/generated/v3/person-39/inspection.png",
+        "format": "横向场景",
+        "fit": "contain",
+        "focus": "32% 42%",
+        "transparent": false,
+        "sha256": "f8fa9d20e741bfe384ebbdb9a931966adead6b91f9ad45758115d6caa27797b2",
+        "width": 1536,
+        "height": 1024
+      },
+      "training": {
+        "url": "./assets/officers/generated/v3/person-39/training.png",
+        "format": "宽幅场景",
+        "fit": "contain",
+        "focus": "40% 42%",
+        "transparent": false,
+        "sha256": "dab7dec0057d6a1ab57acd5c82e23fc373276506a49be63680224e975f86c7c7",
+        "width": 1672,
+        "height": 941
+      },
+      "diplomacy": {
+        "url": "./assets/officers/generated/v3/person-39/diplomacy.png",
+        "format": "半身像",
+        "fit": "contain",
+        "focus": "50% 42%",
+        "transparent": false,
+        "sha256": "e6b1486e703270fbfa409f0b4f7449e44d591589e51f520904b3c1c4d4f83b48",
+        "width": 1122,
+        "height": 1402
+      },
+      "command": {
+        "url": "./assets/officers/generated/v3/person-39/command.png",
+        "format": "宽幅场景",
+        "fit": "contain",
+        "focus": "62% 40%",
+        "transparent": false,
+        "sha256": "58d3eb7eb762b25235fb8f0a9db7eb2e418e2014b85cff1bb63c0c16149e255b",
+        "width": 1672,
+        "height": 940
+      },
+      "travel": {
+        "url": "./assets/officers/generated/v3/person-39/travel.png",
+        "format": "行旅全身像",
+        "fit": "contain",
+        "focus": "50% 50%",
+        "transparent": false,
+        "sha256": "9c6d9f6948110e12f94cda588d2172b6f6bf886f0e4a4ff7e89588b050aba48f",
+        "width": 948,
+        "height": 1659
+      },
+      "report": {
+        "url": "./assets/officers/generated/v3/person-39/report.png",
+        "format": "横向半身像",
+        "fit": "contain",
+        "focus": "50% 42%",
+        "transparent": false,
+        "sha256": "5292a7ced4bbf2448d8cd3232cc0a5cb47802339a76a6dc5fdeb66148b398ead",
+        "width": 1448,
+        "height": 1086
+      },
+      "report-concern": {
+        "url": "./assets/officers/generated/v3/person-39/report-concern.png",
+        "format": "近景半身像",
+        "fit": "contain",
+        "focus": "50% 40%",
+        "transparent": false,
+        "sha256": "317fbf742fe7a938a63b83e7921962ce35e8ca9dc92f139e826f6f3ea2975032",
+        "width": 1086,
+        "height": 1448
+      },
+      "battle": {
+        "url": "./assets/officers/generated/v3/person-39/battle.png",
+        "format": "宽幅人物像",
+        "fit": "contain",
+        "focus": "27% 43%",
+        "transparent": false,
+        "sha256": "509639dca00fd463556340cbd43d48afdd02ef9c8fedb4a3271a89ddfd3e59e3",
+        "width": 1672,
+        "height": 941
       }
     }
   }
