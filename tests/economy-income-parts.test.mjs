@@ -1,7 +1,7 @@
 import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,cityIncome,settleCityEconomy,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
+import {newCampaign,cityIncome,settleCityEconomy,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from './helpers/auto-domestic-campaign.mjs';
 import {cityBaseIncome,cityIncomeBreakdown} from '../economy.mjs';
 import {assignDomestic,ACTIONS,finishDomesticDay} from '../domestic.mjs';
 import {compareConstruction} from '../scripts/economy-balance-lib.mjs';
@@ -47,7 +47,7 @@ test('economic construction efficiency includes actual delays, labor, net cost a
  assert.ok(result[2].commands[0].meanValuePerOfficerDay>result[0].commands[0].meanValuePerOfficerDay);
 });
 
-test('all nine building types have comparable engineering speed under equal relevant ability and real demand',()=>{
+test('all twelve building types have comparable engineering speed under equal relevant ability and real demand',()=>{
  const seeds=[...Array.from({length:16},(_,i)=>417+i*83),...Array.from({length:32},(_,i)=>9001+i*137)],result=compareConstruction(seeds,{allBuildings:true});
- for(const row of result){assert.equal(row.commands.length,9);assert.ok(row.engineeringSpread<.1,JSON.stringify(row));}
+ for(const row of result){assert.equal(row.commands.length,12);assert.ok(row.engineeringSpread<.1,JSON.stringify(row));}
 });

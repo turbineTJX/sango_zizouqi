@@ -1,0 +1,39 @@
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (28.9303ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (4.4416ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (991.3507ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (5.1598ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (915.3727ms)
+✔ tower: repair uses earned intent, reports durability and resumes exactly (861.7233ms)
+✔ supply-depot: repair uses earned intent, reports durability and resumes exactly (1181.4561ms)
+✔ future-building: repair uses earned intent, reports durability and resumes exactly (1271.4403ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (683.9409ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (42.1755ms)
+✔ appointment traits affect only the appointed role and its own army while the commander is present (18.8111ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (2.8366ms)
+✔ appointment UI displays the matching trait effect and recommendation uses it (2.3119ms)
+✔ current save preserves command eligibility and deterministic continuation (89.7ms)
+✔ 荀彧获得额外专属，持有固定内政特性和普通学习名额 (1.5427ms)
+✔ 条件加成只读取施放前已有状态和战意，不把本次破甲或受击收益算作铺垫 (0.1822ms)
+✔ 曹操：合法自定义战役自然发动专属，遵守消耗、目标与续战 (163.7761ms)
+✔ 郭嘉：合法自定义战役自然发动专属，遵守消耗、目标与续战 (68.8062ms)
+✔ 荀彧：合法自定义战役自然发动专属，遵守消耗、目标与续战 (65.8206ms)
+✔ 诸葛亮：合法自定义战役自然发动专属，遵守消耗、目标与续战 (63.404ms)
+✔ 夏侯惇：合法自定义战役自然发动专属，遵守消耗、目标与续战 (75.6851ms)
+✔ 夏侯渊：合法自定义战役自然发动专属，遵守消耗、目标与续战 (55.9369ms)
+✔ 典韦：合法自定义战役自然发动专属，遵守消耗、目标与续战 (75.1283ms)
+✔ 刘备：合法自定义战役自然发动专属，遵守消耗、目标与续战 (68.3375ms)
+✔ 关羽：合法自定义战役自然发动专属，遵守消耗、目标与续战 (63.4733ms)
+✔ 张飞：合法自定义战役自然发动专属，遵守消耗、目标与续战 (76.8635ms)
+✔ 吕布：合法自定义战役自然发动专属，遵守消耗、目标与续战 (68.1231ms)
+✔ 周瑜：合法自定义战役自然发动专属，遵守消耗、目标与续战 (70.4641ms)
+✔ 孙策：合法自定义战役自然发动专属，遵守消耗、目标与续战 (73.6798ms)
+✔ 孙权：合法自定义战役自然发动专属，遵守消耗、目标与续战 (55.6912ms)
+✔ 司马懿：合法自定义战役自然发动专属，遵守消耗、目标与续战 (68.998ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6137.1772

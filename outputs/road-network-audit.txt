@@ -1,0 +1,53 @@
+day31 [
+  [ '寿春攻守战', [ 'cao', 'sunce' ] ],
+  [ '濮阳攻守战', [ 'cao', 'yuan' ] ],
+  [ '下邳攻守战', [ 'cao', 'sunce' ] ]
+] 0
+first 46 [ '汝南攻守战' ]
+finished 51 true [
+  {
+    day: 47,
+    armyId: 'a86',
+    faction: 'force-7',
+    name: '汝南守城军',
+    kind: 'retreat',
+    target: 'runan',
+    reason: '战损过重或断粮，保存残部'
+  },
+  {
+    day: 44,
+    armyId: 'city-force:runan',
+    faction: 'force-7',
+    name: '汝南',
+    kind: 'hold',
+    target: 'runan',
+    reason: '敌军逼近，守备仍有缺口'
+  },
+  {
+    day: 44,
+    armyId: 'city-force:town-19',
+    faction: 'force-7',
+    name: '上庸',
+    kind: 'hold',
+    target: 'town-37',
+    reason: '汝南守备告急，优先保境'
+  },
+  {
+    day: 43,
+    armyId: 'a85',
+    faction: 'sunce',
+    name: '周瑜军',
+    kind: 'attack',
+    target: 'runan',
+    reason: '兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务'
+  },
+  {
+    day: 43,
+    armyId: 'city-force:runan',
+    faction: 'force-7',
+    name: '汝南',
+    kind: 'transport',
+    target: 'town-19',
+    reason: '调运0粮、1170预备兵支援上庸，实际沿路运输'
+  }
+]

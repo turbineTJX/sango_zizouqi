@@ -1,0 +1,37 @@
+✔ close same-work officers gain a strong, saved joint effect on both real operations (433.5274ms)
+✔ hostile same-work officers can obstruct both participants without new fees (82.4823ms)
+✔ the concrete Xun Yu and Xiahou Dun market story loses real reserves and lowers their friendship (65.2817ms)
+✔ one commercial officer encounters good and bad farming and training stories with real colleagues (6585.1799ms)
+✔ cross-domain incidents can help another existing approved research project (2454.3183ms)
+✔ same research slot has one actual project and a waiting colleague can aid its progress (110.8575ms)
+✔ departure breaks the joint effect, and different tasks never produce social incidents (510.0209ms)
+✔ positive stories improve friendship and saved settlement never rerolls or pays twice (563.2346ms)
+✔ unapproved work and nonresident characters never generate a story (470.8229ms)
+✔ one city receives at most two incidents per turn; saved source and effect tampering is rejected (6114.7314ms)
+✖ a harmful reserve story clips to real unreserved soldiers and keeps the paid recruitment intact (190.3101ms)
+✔ positive stories share the real production allowance and enter the harvest exactly once (865.6285ms)
+✔ story relationships respect tier boundaries and do not rewrite an existing battle snapshot (8143.347ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 26872.8503
+
+✖ failing tests:
+
+test at tests\domestic-incidents.test.mjs:107:1
+✖ a harmful reserve story clips to real unreserved soldiers and keeps the paid recruitment intact (190.3101ms)
+  Error: 战略存档数据无效
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:702:53)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:731:148)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-incidents.test.mjs:18:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-incidents.test.mjs:111:177)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

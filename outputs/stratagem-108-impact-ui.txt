@@ -1,0 +1,1 @@
+Invulnerability and stun UI: natural charging, preview, cancellation, confirmation, mobile and reload passed.

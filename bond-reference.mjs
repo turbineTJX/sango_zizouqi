@@ -7,7 +7,7 @@ export const BOND_STAT_NAMES={attack:'攻击',defense:'防御',move:'移速',att
 export const bondGradeLabel=d=>d.grade==='advanced'?'高级羁绊':'低级羁绊';
 export const bondRecipients=d=>d.special==='reserveEntry'?'锁定名额内后续首次补入的己方预备队，无需持有蓄锐':d.special==='formationTiles'?'首次入场时站在阵位的己方部队，持有者翻倍':d.special==='escort'?'护卫持有者相邻的其他友军':'本方实际在场且已获得该羁绊的部队';
 const pct=n=>Number((n*100).toFixed(2));
-export function bondTierText(d,i){
+function bondEffectText(d,i){
  const top=i===d.thresholds.length-1;
  switch(d.special){
  case 'attackPower':case 'defenseArmor':case 'rapidAttack':return BOND_STAT_NAMES[d.stat]+' +'+pct(d.values[i])+'%'+(d.special==='rapidAttack'?'，实际缩短普攻间隔，不影响战法冷却与调息':'');
@@ -42,6 +42,7 @@ export function bondTierText(d,i){
  default:throw new Error('Unknown bond handler: '+d.special);
  }
 }
+export const bondTierText=(d,i)=>bondEffectText(d,i)+(d.grade==='basic'?'；至少'+[1,3,6][i]+'名真实在场持有者，宝物不能替代人数':'');
 export function bondReference(id){
  const d=BOND_DESIGNS[id];if(!d)return null;
  return {title:d.name+' · 羁绊说明',groups:[{name:d.name,rows:d.thresholds.map((n,i)=>[n+' 点','',bondTierText(d,i)])}]};

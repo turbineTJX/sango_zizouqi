@@ -1,0 +1,341 @@
+// Authoritative design data. Edit here; runtime imports this table.
+export const STRATAGEM_DESIGNS = {
+  "basic-guard": {
+    "name": "整队守备",
+    "group": "support",
+    "cost": 1,
+    "duration": 10,
+    "description": "基础号令：防御、军纪基准 +8%，持续10日；按提供者统率与智力折算",
+    "side": 0,
+    "field": "fortifyUntil",
+    "effect": "fortify",
+    "baseStrength": 0.08,
+    "icon": "home",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "heal": {
+    "effect": "heal",
+    "name": "三军救疗",
+    "group": "support",
+    "cost": 1,
+    "duration": 0,
+    "description": "圆形半径2格；救治选区内在场友军本场伤兵，每队最多恢复兵力上限8%；不复活溃败部队",
+    "side": 0,
+    "icon": "home",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "circle",
+      "radius": 2
+    }
+  },
+  "regenerate": {
+    "name": "休养生息",
+    "group": "support",
+    "cost": 1,
+    "duration": 12,
+    "description": "在场各队每日救治兵力上限 1% 的本场伤兵",
+    "side": 0,
+    "field": "recoveryUntil",
+    "icon": "home",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "range": {
+    "name": "引弦远射",
+    "group": "offense",
+    "cost": 1,
+    "duration": 16,
+    "description": "我军弓弩普攻及武力射击战法射程 +2 格，智力战法范围不变",
+    "side": 0,
+    "field": "rangeUntil",
+    "icon": "sword",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "firestorm": {
+    "effect": "firestorm",
+    "name": "火攻连营",
+    "group": "control",
+    "cost": 1,
+    "duration": 12,
+    "description": "矩形4×3格，可旋转；按我军在场谋略威力生成总火势，以全部合法在场敌军数分摊，仅点燃选区内敌军，持续12日；可扑火解除、护盾吸收，不产生战意",
+    "side": 1,
+    "icon": "wind",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "rectangle",
+      "width": 4,
+      "height": 3
+    }
+  },
+  "assault": {
+    "name": "全军猛攻",
+    "group": "offense",
+    "cost": 1,
+    "duration": 18,
+    "description": "我军全体攻击 +25%",
+    "side": 0,
+    "field": "assaultUntil",
+    "icon": "sword",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "fortify": {
+    "name": "坚壁之策",
+    "group": "support",
+    "cost": 1,
+    "duration": 18,
+    "description": "我军全体防御、军纪 +20%；持续期间后续入场者同样受益",
+    "side": 0,
+    "field": "fortifyUntil",
+    "icon": "home",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "inspire": {
+    "name": "鼓舞三军",
+    "group": "support",
+    "cost": 1,
+    "duration": 0,
+    "description": "我军全体战意 +35",
+    "side": 0,
+    "icon": "crown",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "disrupt": {
+    "name": "虚实之策",
+    "group": "control",
+    "cost": 1,
+    "duration": 16,
+    "description": "敌军全体攻击、防御、军纪 −15%；持续期间后续入场者同样受益",
+    "side": 1,
+    "field": "disruptUntil",
+    "icon": "wind",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "demoralize": {
+    "effect": "demoralize",
+    "name": "攻心夺气",
+    "group": "control",
+    "cost": 1,
+    "duration": 0,
+    "description": "圆形半径2格；选区内在场敌军战意−45（最低为0），不打断施法",
+    "side": 1,
+    "icon": "wind",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "circle",
+      "radius": 2
+    }
+  },
+  "cleanse": {
+    "name": "镇静全军",
+    "group": "support",
+    "cost": 1,
+    "duration": 0,
+    "description": "解除我军混乱、嘲讽、丧志与抑气，并获得 3 日控制保护",
+    "side": 0,
+    "icon": "flag",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "haste": {
+    "name": "疾行赴援",
+    "group": "offense",
+    "cost": 1,
+    "duration": 10,
+    "description": "我军移动力 +1，预备队入场时同样受益",
+    "side": 0,
+    "field": "hasteUntil",
+    "icon": "wind",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "cycle": {
+    "name": "轮替整备",
+    "group": "offense",
+    "cost": 1,
+    "duration": 0,
+    "description": "我军全体战意 +15，正在冷却的战法缩短 4 日；包括预备队，仍须满足个人战意门槛",
+    "side": 0,
+    "icon": "sword",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "army"
+    }
+  },
+  "blockade": {
+    "name": "断敌援路",
+    "group": "control",
+    "cost": 1,
+    "duration": 10,
+    "description": "延迟敌方预备队补入战场 10 日，不移除敌军",
+    "side": 1,
+    "field": "blockadeUntil",
+    "icon": "flag",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "reserve"
+    }
+  },
+  "relief": {
+    "name": "后军固阵",
+    "group": "support",
+    "cost": 1,
+    "duration": 16,
+    "description": "预备队入场获 15% 护盾；期间主动轮换门槛放宽到 85%",
+    "side": 0,
+    "field": "reliefUntil",
+    "icon": "home",
+    "pool": "ordinary",
+    "owner": null,
+    "scope": {
+      "shape": "reserve"
+    }
+  },
+  "cao-wuchao": {
+    "name": "魏武挥鞭",
+    "group": "defense",
+    "cost": 1,
+    "duration": 0,
+    "description": "我军在场各队获得魔免：解除并免疫所有战斗异常，仅承受物理普攻伤害；免疫战法、谋略普攻及持续与传导伤害。持续回合＝4＋⌊施放时自身军纪÷25⌋，最多12回合；不影响缺粮与主动代价",
+    "side": 0,
+    "icon": "wind",
+    "effect": "magicImmunity",
+    "history": "名称取曹操统军意象；按部队军纪持续的全军防护为玩法机制，不对应史实中的超自然能力。",
+    "source": "https://zh.wikisource.org/zh/三國志/卷01",
+    "pool": "exclusive",
+    "owner": "cao",
+    "scope": {
+      "shape": "army"
+    },
+    "disciplineDuration": {
+      "base": 4,
+      "per": 25,
+      "max": 12
+    }
+  },
+  "zhou-redcliffs": {
+    "name": "赤壁火攻",
+    "group": "control",
+    "cost": 1,
+    "duration": 12,
+    "description": "矩形4×3格，可旋转；按我军在场谋略威力生成总火势，以全部合法在场敌军数分摊，仅点燃选区内敌军，持续12日；对舰船火势提高25%；可扑火解除、护盾吸收，不产生战意",
+    "side": 1,
+    "icon": "wind",
+    "effect": "firestorm",
+    "shipFireBonus": 0.25,
+    "history": "《三国志·周瑜传》：采纳黄盖火攻之议，组织赤壁水战；并非诸葛亮借东风。",
+    "source": "https://zh.wikisource.org/zh/三國志/卷54",
+    "pool": "exclusive",
+    "owner": "person-246",
+    "scope": {
+      "shape": "rectangle",
+      "width": 4,
+      "height": 3
+    }
+  },
+  "jia-speed": {
+    "name": "兵贵神速",
+    "group": "offense",
+    "cost": 1,
+    "duration": 24,
+    "description": "选择一支在场友军，移动力 +1、攻击间隔缩短25%（攻速提高约33%）、无视ZOC，持续24回合；不穿越部队或不可通行地形",
+    "side": 0,
+    "icon": "wind",
+    "effect": "rapidAdvance",
+    "history": "《三国志·郭嘉传》：北征乌丸时建议留下辎重、轻兵兼道，出其不意。",
+    "source": "https://zh.wikisource.org/zh/三國志/卷14",
+    "pool": "exclusive",
+    "owner": "jia",
+    "scope": {
+      "shape": "unit"
+    }
+  },
+  "sima-isolate": {
+    "name": "围城阻援",
+    "group": "control",
+    "cost": 1,
+    "duration": 14,
+    "description": "延迟敌方预备队补入战场14日，不移除敌军，也不推迟剧情援军到达时间",
+    "side": 1,
+    "field": "blockadeUntil",
+    "icon": "flag",
+    "effect": "blockade",
+    "history": "《晋书·宣帝纪》：讨孟达时分兵阻挡吴蜀救援，再集中攻城；军略名为玩法概括。",
+    "source": "https://zh.wikisource.org/zh/晉書/卷001",
+    "pool": "exclusive",
+    "owner": "person-226",
+    "scope": {
+      "shape": "reserve"
+    }
+  },
+  "zhuge-eight": {
+    "name": "八阵困敌",
+    "group": "control",
+    "cost": 1,
+    "duration": 18,
+    "description": "每场限一次；在选定位置布置半径2格的八阵，持续18回合。每回合行动前，范围内敌军各有100÷（100＋自身当前军纪）的概率陷入一种随机异常，概率最低10%、最高60%。异常为混乱、封技、失阵、迟滞、疲弱或破甲，持续2回合；遵守免疫和控制保护，不重复附加已有异常。可提前布置在空地。",
+    "side": 1,
+    "icon": "wind",
+    "effect": "eightFormation",
+    "history": "《三国志·诸葛亮传》记载推演兵法、作八阵图；区域迷阵与随机异常为玩法演绎，不作为史实能力。",
+    "source": "https://zh.wikisource.org/zh/三國志/卷35",
+    "pool": "exclusive",
+    "owner": "person-290",
+    "scope": {
+      "shape": "circle",
+      "radius": 2
+    },
+    "maxUses": 1,
+    "zone": {
+      "statusSteps": 2,
+      "chanceScale": 100,
+      "minChance": 0.1,
+      "maxChance": 0.6,
+      "statuses": [
+        "confuse",
+        "seal",
+        "disrupted",
+        "slow",
+        "weaken",
+        "armorBreak"
+      ]
+    }
+  }
+};

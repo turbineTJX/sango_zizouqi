@@ -1,0 +1,25 @@
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (83.8819ms)
+✔ matrix keeps candidate rows while selections add and remove columns (38.2029ms)
+✔ appointment traits affect only the appointed role and its own army while the commander is present (17.5781ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (3.3471ms)
+✔ appointment UI displays the matching trait effect and recommendation uses it (3.9212ms)
+✔ current save preserves command eligibility and deterministic continuation (87.6842ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (85.5222ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (72.0841ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1001.0546ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (19.6552ms)
+✔ AI fills a vacant governorship using the same governor recommendation (696.8161ms)
+✔ all 835 identities have fixed positive traits, independent of level, troop and learned tactics (56.7743ms)
+✔ actor administration works without a governor and matching governor does not double the discount (68.3833ms)
+✔ research, farming, repairs, medicine and preparation traits change real paid task outcomes (232.8469ms)
+✔ recruitment discounts charge actual recruits at the saved rate without creating free people (43.5941ms)
+✔ talent traits improve only the corresponding real action chance; mediator does not stack (2.452ms)
+✔ transport speed applies to actual travel and saves resume; light travel has separate eligibility (43.2048ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2053.3948

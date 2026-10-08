@@ -18,10 +18,10 @@ function scene(){
  Object.assign(a,{x:3,y:3});Object.assign(c,{x:2,y:2});Object.assign(d,{x:4,y:3,type:'spear'});Object.assign(e,{x:7,y:3,type:'archer'});
  return {state,b,a,c,d,e};
 }
-test('status catalog has unique names and rejects removed status identities',()=>{
+test('status catalog has unique names, supports current stun and rejects removed status identities',()=>{
  assert.equal(new Set(Object.values(STATUS_DEFINITIONS).map(v=>v.name)).size,Object.keys(STATUS_DEFINITIONS).length);
- for(const k of ['stun','shaken','blight','scorch','curse','illusion'])assert.equal(STATUS_DEFINITIONS[k],undefined);
- const {b,a}=scene();setStatus(b,a,'stun',4);assert.equal(a.statuses.stun,undefined);
+ for(const k of ['shaken','blight','scorch','curse','illusion'])assert.equal(STATUS_DEFINITIONS[k],undefined);
+ const {b,a}=scene();setStatus(b,a,'stun',4);assert.ok(hasStatus(b,a,'stun'));delete a.statuses.stun;setStatus(b,a,'resolve',4);setStatus(b,a,'stun',4);assert.equal(a.statuses.stun,undefined);
 });
 test('continuous intent loss is bounded, and calm does not extinguish fire or restore formation',()=>{
  const {b,a,d}=scene();a.intent=12;setStatus(b,a,'despair',4);setStatus(b,a,'burn',4,{sourceId:d.id,amount:1});setStatus(b,a,'disrupted',4);

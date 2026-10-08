@@ -1,0 +1,13 @@
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (332.3766ms)
+✔ 自由对战：无效配置被拒绝 (2.4269ms)
+✔ real battle contributions survive reload and settle by actual work exactly once (416.5423ms)
+✔ current saves reject missing or forged contribution counters and old rules (13.6101ms)
+✔ battle awards are reduced and marginal upgrade costs accelerate (0.28ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 619.6005

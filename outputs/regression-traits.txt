@@ -1,0 +1,39 @@
+✔ current independent battle mechanics all require explicit appointments (0.9537ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/leader (31.2945ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/advisor (11.7745ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/leader (8.7411ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/advisor (8.6314ms)
+✔ Ji Jun does not activate without appointment, while withdrawing or for another army (7.5485ms)
+✔ Bi Yan triggers from a real legal command and saves its interval (10.3419ms)
+✖ Yin Ren refunds only its own gauge after an actual enemy command (2.4141ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 240.2754
+
+✖ failing tests:
+
+test at tests\trait-mechanics.test.mjs:33:1
+✖ Yin Ren refunds only its own gauge after an actual enemy command (2.4141ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '军略尚未蓄满' !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/trait-mechanics.test.mjs:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '军略尚未蓄满',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

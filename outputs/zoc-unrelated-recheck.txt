@@ -1,0 +1,61 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: cao missing fields
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/game-officer-table.mjs:103:9
+    at Array.map (<anonymous>)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/game-officer-table.mjs:82:50
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+✖ tests\officer-source.test.mjs (268.7612ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (85.5027ms)
+✔ superior defenses produce no attack plan or resource debit (20.8521ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (22.901ms)
+✔ a serious incoming attack retains the home defense instead of expanding (19.0334ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (42.2361ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (20.9363ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (22.5574ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (47.5695ms)
+✔ local plan reservation lets current work finish and blocks starting another task (23.7328ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (21.3683ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (18.844ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (17.298ms)
+✔ AI save rejects duplicated commitments and old planner versions (27.5162ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (27.4309ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (25.4485ms)
+✔ waiting transport earmarks cargo without a debit and replenishment preserves plan food (22.2769ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (20.4406ms)
+✔ cancelling an assault before its first movement actually clears the outgoing route (19.9954ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (18.8298ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (18.7131ms)
+✔ departure checks real presence before considering work or interruption history (21.5357ms)
+✔ ordinary ready offensives interrupt lengthy work through the real command and record the loss (19.7324ms)
+✔ recent real interruption protects the next task across reload except when rescue would be missed (28.5268ms)
+✔ an expensive real construction near completion is protected even with more than two days left (22.1345ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (6889.4675ms)
+✔ offensive composition leaves busy officers working when idle troops suffice (25.3866ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 26
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7794.5228
+
+✖ failing tests:
+
+test at tests\officer-source.test.mjs:1:1
+✖ tests\officer-source.test.mjs (268.7612ms)
+  'test failed'

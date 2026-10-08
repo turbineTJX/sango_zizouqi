@@ -1,6 +1,6 @@
 import {TRAIT_DESIGNS} from './data/design/traits.mjs';
 import {OFFICER_ASSIGNMENTS} from './data/design/assignments.mjs';
-export const STRATEGIC_TRAIT_EFFECTS=['reserveGrain','provision','healRemainder','referral','chain','handoff','farmTroops','receiveGrain','resupplyStop','relayCargo','lightMarch','forcedMarch','crossCooperate','cycleCargo'];
+export const STRATEGIC_TRAIT_EFFECTS=['reserveGrain','provision','healRemainder','referral','chain','handoff','farmTroops','receiveGrain','resupplyStop','relayCargo','lightMarch','forcedMarch','crossCooperate','cycleCargo','treasureDiscovery','treasureCapture'];
 export const strategicTraits=(u,effect)=> (OFFICER_ASSIGNMENTS[u?.id]?.traits||[]).map(id=>({id,...TRAIT_DESIGNS[id]})).filter(t=>t.strategic&&(!effect||t.strategic.effect===effect));
 export const hasStrategicTrait=(u,effect)=>strategicTraits(u,effect).length>0;
 export const armyStrategicTrait=(a,effect)=>strategicTraits(a?.units.find(u=>u.id===a.leader&&u.troops>0),effect)[0];

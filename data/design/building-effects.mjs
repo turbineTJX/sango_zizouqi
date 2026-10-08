@@ -1,4 +1,4 @@
-// 可编辑设计底稿；不自动从引擎覆盖。接入状态见 integration。
+// 可编辑效果说明底稿；运行参数取 buildings.mjs。
 export default {
   "schemaVersion": 1,
   "id": "building-effects",
@@ -95,6 +95,36 @@ export default {
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
+    },
+    {
+      "id": "arrowTower",
+      "name": "箭塔",
+      "parameters": {
+        "description": "原址4格射击，威力180，每级追加60，每4回合一次",
+        "maximumLevel": 3
+      },
+      "source": "building-rules.mjs",
+      "todo": "战场参数已接入建筑设计表；此处仅保留效果说明底稿"
+    },
+    {
+      "id": "musicStage",
+      "name": "军乐台",
+      "parameters": {
+        "description": "原址3格鼓舞，每6回合每级2战意，同类不叠加",
+        "maximumLevel": 3
+      },
+      "source": "building-rules.mjs",
+      "todo": "战场参数已接入建筑设计表；此处仅保留效果说明底稿"
+    },
+    {
+      "id": "aidCamp",
+      "name": "救护营",
+      "parameters": {
+        "description": "原址3格真实伤兵救治，每8回合每级初始兵力0.4%，同类不叠加",
+        "maximumLevel": 3
+      },
+      "source": "building-rules.mjs",
+      "todo": "战场参数已接入建筑设计表；此处仅保留效果说明底稿"
     }
   ]
 };

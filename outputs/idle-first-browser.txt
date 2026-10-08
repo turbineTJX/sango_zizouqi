@@ -1,0 +1,16 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.getAttribute: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('[data-personnel-choice]:not(:disabled)').first()
+
+    at C:\Users\TJX\Documents\ChatGPT\sango\scripts\verify-command-flow-ui.mjs:33:103 {
+  log: [
+    "  - waiting for locator('[data-personnel-choice]:not(:disabled)').first()"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.15.0

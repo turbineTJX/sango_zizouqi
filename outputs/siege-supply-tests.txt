@@ -1,0 +1,12 @@
+✔ a real siege receives daily grain outside the enemy city and resumes deterministically (456.2182ms)
+✔ siege supplies reroute around interception and stop when both roads are cut (134.6496ms)
+✔ hostile cities are not supply transit depots and distance still limits siege delivery (7.1493ms)
+✔ three real siege columns share depot and road capacity instead of multiplying supply (136.0686ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 929.2239

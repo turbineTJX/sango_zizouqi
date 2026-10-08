@@ -1,0 +1,73 @@
+✔ each troop has exactly six tools and exclusive tactics remain optional (0.6527ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (24.7474ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (18.9636ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (6.1789ms)
+✔ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (15.4648ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (3.9495ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (6.4292ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (32.2226ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (312.093ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (210.8603ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (259.1958ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (592.4128ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (303.4961ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (349.1724ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (154.4602ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (147.265ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (104.3934ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1367.4202ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (216.8549ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (274.4051ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (335.6051ms)
+✔ river: complete battle, reserves, save recovery and settlement (386.7723ms)
+✔ breach: complete battle, reserves, save recovery and settlement (108.1918ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (139.3463ms)
+✔ field: complete battle, reserves, save recovery and settlement (373.8688ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (224.0302ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (695.0354ms)
+✔ siege: complete battle, reserves, save recovery and settlement (471.9219ms)
+✔ defense: complete battle, reserves, save recovery and settlement (3166.3769ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (565.1193ms)
+✖ unarrived waves prevent early victory, arrive on schedule and obey blockade (20.1064ms)
+✔ sieges add an independent gate and shields only to defending starters (32.0443ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (6.0619ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (17.3935ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (31.4693ms)
+✔ fixture and seed validation rejects malformed test state (12.3175ms)
+✔ 835人遵守1/2/3军略名额，专属计入总数，只有诸葛亮三项 (1.7159ms)
+✔ 军团长提供、低智军师不提供，70智力边界及任职交换 (16.4218ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (60.6182ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (41.4577ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (39.1949ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (34.8442ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 41
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10725.6204
+
+✖ failing tests:
+
+test at tests\scenarios.test.mjs:35:1
+✖ unarrived waves prevent early victory, arrive on schedule and obey blockade (20.1064ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 4
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/scenarios.test.mjs:51:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

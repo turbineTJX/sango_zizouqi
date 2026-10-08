@@ -5,6 +5,8 @@ import {OBJLoader} from './vendor/three/loaders/OBJLoader.js';
 import {hexCenter} from './hex-grid.mjs';
 import {terrainAt} from './battlefield.mjs';
 import {sampleCurve} from './art-assets.mjs';
+import {unitModelKey} from './unit-appearance.mjs';
+import {createSiegeModel} from './art-siege-models.mjs';
 
 export class ModelLayer {
  constructor(board,pack){
@@ -16,6 +18,7 @@ export class ModelLayer {
  }
  async load(key){
   if(!this.cache.has(key))this.cache.set(key,(async()=>{
+   if(key.startsWith('builtin:'))return createSiegeModel(key.slice(8));
    const def=this.pack.models[key];if(!def)return null;let obj;
    if(def.format==='glb')obj=(await new GLTFLoader().loadAsync(def.url)).scene;
    else{
@@ -27,10 +30,10 @@ export class ModelLayer {
  }
  update(snapshot){
   if(!snapshot||this.dead||this.failed)return;this.snapshot=snapshot;
-  const wanted=new Map(),add=(id,key,x,y,size=1)=>{if(this.pack.models[key])wanted.set(id,{key,x,y,size});};
+  const wanted=new Map(),add=(id,key,x,y,size=1)=>{if(key&&(key.startsWith('builtin:')||this.pack.models[key]))wanted.set(id,{key,x,y,size});};
   const gate=snapshot.gate;if(gate&&gate.hp>0)add('gate',gate.hp<gate.maxHp*.5?'gateDamaged':'gate',gate.x,gate.y,1.4);
   for(let y=0;y<8;y++)for(let x=0;x<14;x++){const ground=terrainAt(snapshot,x,y);if(ground==='bridge'&&y===3)add(`ground-${x}-${y}`,'bridge',x,y,1.1);else if(['forest','hill'].includes(ground)&&(x+y)%3===0)add(`ground-${x}-${y}`,ground,x,y,.65);}
-  for(const u of snapshot.units)if(['ship','siege'].includes(combatFamily(u))){add('unit-'+u.id,combatFamily(u),u.x,u.y,.8);const d=wanted.get('unit-'+u.id);if(d)d.unit=u;}
+  for(const u of snapshot.units){add('unit-'+u.id,unitModelKey(this.pack,u),u.x,u.y,.8);const d=wanted.get('unit-'+u.id);if(d)d.unit=u;}
   this.wanted=wanted;
   for(const [id,o]of this.objects)if(!wanted.has(id)||wanted.get(id).key!==o.key){this.scene.remove(o.root);this.objects.delete(id);}
   for(const [id,def]of wanted){if(this.objects.has(id))continue;this.load(def.key).then(source=>{
@@ -48,6 +51,7 @@ export class ModelLayer {
   for(const [id,obj]of this.objects){const d=this.wanted.get(id);if(!d)continue;let p=hexCenter(d.x,d.y);const u=d.unit,moving=u?.moveAt!==undefined&&clock-u.moveAt<.24;
    if(moving&&u.from&&!reduced){const t=Math.max(0,Math.min(1,(clock-u.moveAt)/.24));p={x:u.from.x+(p.x-u.from.x)*t,y:u.from.y+(p.y-u.from.y)*t};}
    const scale=Math.min(w/14.5/obj.width,h/6.25/obj.height)*d.size;obj.root.scale.setScalar(scale);obj.root.position.set(p.x*w,h-p.y*h+h/6.25*.12,0);
+   if(u&&d.key.startsWith('builtin:'))obj.tilt.rotation.y=(u.target?u.target.x<p.x:u.side===1)?Math.PI:0;
    const curve=this.pack.animations?.move;obj.root.rotation.z=0;
    if(moving&&curve&&!reduced)obj.root.position.y+=sampleCurve(curve.keys,clock%curve.duration)*h/6.25*.4;
    if(u?.attackAt!==undefined&&clock-u.attackAt<.65&&!reduced)obj.root.rotation.z=Math.sin((clock-u.attackAt)/.65*Math.PI)*.09;

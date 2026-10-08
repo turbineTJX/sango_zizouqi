@@ -1,0 +1,23 @@
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (47.419ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (80.9588ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (76.7824ms)
+✔ waiting departure prevents idle members from picking new work across turns (26.5533ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (29.5895ms)
+✔ forged pending action references and duplicate officers are rejected (60.5175ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (44.3279ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (71.2628ms)
+✔ a queued garrison defends an actual siege and does not depart while its work is paused (301.2991ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (26.5474ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (44.4873ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (66.0304ms)
+✔ appointed prepared units actually defend the city, pause work under siege and resume after defense (320.1749ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (143.556ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (75.8745ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 885.5704

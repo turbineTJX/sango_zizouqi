@@ -16,7 +16,7 @@ const fmt=n=>Math.ceil(n).toLocaleString('zh-CN');
 export function cityGoldCommitment(s,c,{includeWork=false}={}){
  const days=ECONOMY_RULES.budget.days,toHarvest=10-(s.campaign.day-1)%10;
  const assignments=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id);
- const work=includeWork?assignments.filter(a=>!a.action).reduce((n,a)=>n+(actionCandidates(s,a,{ignoreFunds:true})[0]?.cost||0),0):0;
+ const work=includeWork?assignments.filter(a=>!a.action).reduce((n,a)=>n+(a.proposal?.expenses.gold??actionCandidates(s,a,{ignoreFunds:true})[0]?.cost??0),0):0;
  const diplomacy=s.campaign.diplomacy,appointments=(diplomacy?.assignments||[]).filter(a=>a.faction===c.owner&&a.homeCity===c.id&&!a.projectId&&!a.dismissed);
  const farePerDay=[...c.units,...s.campaign.idle.filter(o=>o.location===c.id).map(o=>o.unit)].filter(u=>u.mission?.type==='diplomacy'&&u.mission.homeCity===c.id).length*DIPLOMACY_RULES.dailyFare;
  const contactFees=appointments.reduce((n,a)=>n+DIPLOMACY_DIRECTIONS[a.direction].fee,0),fees=contactFees+farePerDay*days;

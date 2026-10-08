@@ -1,0 +1,34 @@
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (41.8561ms)
+✔ council changes strategy and starters, respects arrivals, locks after battle and resumes deterministically (66.5649ms)
+✔ inspection during real combat is read-only and preserves deterministic continuation (160.4491ms)
+✔ deployment and reserve inspection never claims a live grid position or cast readiness (2.6823ms)
+✔ all campaign information is read only and city units are not armies (164.2742ms)
+✔ expedition information follows real city-unit departure without duplication (20.7521ms)
+✔ current status follows actual marching and transfer progress (397.8487ms)
+✔ siege status includes the live battlefield state of a real defending unit (585.7485ms)
+✔ prepared troops show active domestic work and deferred orders separately (13.2834ms)
+✔ military adjustments are isolated drafts and validate before committing (280.9817ms)
+✔ recruitment affects only selected units and previews the actual cost (204.6676ms)
+✔ split and merge previews preserve officers, learning and supplies (383.9148ms)
+✔ a moved army invalidates a draft without partial changes (22.0551ms)
+✔ named snapshots survive automatic saves, new games and independent loads (3216.333ms)
+✔ overwrite and deletion affect only the selected manual slot (953.4725ms)
+✔ storage quota failure and invalid input preserve an existing slot (354.6699ms)
+✔ corrupt and incompatible entries remain listed without hiding valid saves (357.7398ms)
+✔ names are escaped in the archive interface (351.3987ms)
+✔ a manual battle snapshot resumes the current real engine deterministically (109.3097ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (17.1011ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (151.0873ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (109.0635ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (4.8941ms)
+✔ formation selects officers in place, army selects only compiled units (0.7882ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.3464ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.5333ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5572.0406

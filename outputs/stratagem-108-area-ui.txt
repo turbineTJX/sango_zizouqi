@@ -1,0 +1,1 @@
+Area UI: preview, rotate, cancel, circle, confirm, resources, mobile and no JS errors passed

@@ -1,0 +1,152 @@
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (32.6569ms)
+✔ only the current rule version loads, and intent is validated without normalization (37.0029ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (10.2849ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (6.9656ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (24.8552ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (187.9401ms)
+✔ siege defenders hold their rear line before enemies approach (278.9606ms)
+✔ command scoring reads the requested side attributes and cooldowns without swapping units (27.1092ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (232.3035ms)
+✔ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (121.643ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (190.6907ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (18.5399ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (72.0178ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (84.7266ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (7.2027ms)
+✔ AI prioritizes cleanse for control and DOT, holds useless commands, and does not refresh active buffs (12.4773ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (256.6925ms)
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (7.1095ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (15.0018ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (5.7458ms)
+✔ fame adds city manpower rather than free troops (3.8919ms)
+✔ governors gain merit at actual turn settlement and loaded campaigns remain deterministic (942.9011ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (31.9236ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (0.7109ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (318.6252ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (14.9526ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (4.9679ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (2.3801ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (299.3825ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (585.4182ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (13.7474ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (11.1886ms)
+✔ retreat terminates and sends the attacker back without taking the city (15.9802ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (1.2868ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (1.4501ms)
+✔ enemy launches an attack and city garrison participates in defense (133.4012ms)
+✔ garrison alone can defend a city when player army is elsewhere (38.4902ms)
+✔ multiple same-side armies share the same six battlefield slots (136.2232ms)
+✔ invalid saves are rejected before replacing game state (3.6829ms)
+✔ different seeds finish without deadlocks or overlapping units (590.6365ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (83.6742ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (6.908ms)
+✔ left and right formations deploy on opposite flanks (4.8202ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (10.6169ms)
+✔ capturing the final city completes the scenario (23.769ms)
+✔ losing the final friendly city ends the scenario (19.8333ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (267.0804ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (4.3165ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (71.6697ms)
+✔ pending casts from the removed windup format are rejected (5.3947ms)
+✔ a defeated unit cannot use a ready skill (15.867ms)
+✔ retreat stops subsequent friendly skills immediately (46.3349ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (88.065ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (3.2409ms)
+✔ a ready tactic casts with fixed intent expenditure, regardless of morale or attack cooldown (2.631ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (5.6735ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (3.2426ms)
+✔ deployment can move, swap, reset and persist without advancing time (4.2385ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (4.7454ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (17.5768ms)
+✔ missing deployment and command state is rejected instead of reconstructed (29.4881ms)
+✔ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (25.1232ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (247.4255ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (6.696ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (21.0371ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (16.857ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (12.4378ms)
+✔ personal traits affect troop panels from level one, remain independent of tactics, and respect conditions (15.4673ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (94.542ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (65.3331ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (15.5546ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (4.7925ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (25.9217ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (920.2364ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (79.0852ms)
+✔ interdict is fixed from level one and prevents the entire normal hit award, including endurance (12.3119ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (26.0141ms)
+✔ suppression traits remain with their fixed holders after troop changes (0.9496ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (15.5242ms)
+✔ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (67.1689ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (418.526ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: person-290
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/game-officer-table.mjs:101:9
+    at Array.map (<anonymous>)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/game-officer-table.mjs:82:50
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+✖ tests\officer-source.test.mjs (373.3057ms)
+✔ fixed identity traits are available at every level and never equipped (15.4703ms)
+✔ fixed martial and movement traits modify only intended attributes (1.3514ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (1.3475ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (24.7964ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (13.2928ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (9.0878ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (7.0841ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (9.9818ms)
+✔ isolated and joint evaluate neighbors on the correct side (12.1897ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (42.7206ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (6.0622ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (38.5858ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (15.5896ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.3431ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.297ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (22.3831ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (33.8415ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (17.3311ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (10.8906ms)
+✔ merit advances learned tactics and capacity without unlocking or rerolling traits (2.1666ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (21.0548ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (880.409ms)
+✔ invalid levels, merit, counters, durations and fractional cooldowns are rejected; missing required state is rejected (41.7981ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (5.5612ms)
+✔ instant skills spend shared intent and recovery separates learned casts (41.3023ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (15.8841ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (11.8501ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (22.4977ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (17.3737ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (28.4165ms)
+✔ blocked displacement never overlaps units or crosses board limits (14.2657ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (14.0366ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (23.1643ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (19.7522ms)
+✔ prepaid casts and previous save formats are rejected (16.6942ms)
+✔ new saves distinguish bows and crossbows and require current rules (19.4906ms)
+ℹ tests 118
+ℹ suites 0
+ℹ pass 117
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2816.5049
+
+✖ failing tests:
+
+test at tests\officer-source.test.mjs:1:1
+✖ tests\officer-source.test.mjs (373.3057ms)
+  'test failed'

@@ -1,0 +1,287 @@
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营0 (47.1604ms)
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营1 (5.5329ms)
+✔ 军略不检查接敌距离，远近均按固定条件施放 (11.9554ms)
+✔ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (35.0825ms)
+✔ field：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (1131.5947ms)
+✔ terrain：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (585.2318ms)
+✔ river：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (432.3506ms)
+✔ circle and rotated rectangle use rendered geometry, inclusive boundary (1.4895ms)
+✔ missing, malformed and empty selection leave resources and effects unchanged (50.8731ms)
+✔ fire only applies inside rectangle and does not concentrate excluded target budget (266.9606ms)
+✔ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (6.0237ms)
+✔ enemy uses identical selected geometry (6.0219ms)
+✔ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (6.3505ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (32.3382ms)
+✔ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (225.2679ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (195.3965ms)
+✖ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (74.1491ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (133.1685ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (139.6188ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (190.4837ms)
+✖ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (99.8964ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (115.7542ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.7323ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (1.004ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (205.8961ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (25.7274ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (448.4536ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (9.1453ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (68.8334ms)
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (9.308ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (117.7297ms)
+✔ departed commander stops providing stratagems: defeated side 0 (3.443ms)
+✔ departed commander stops providing stratagems: defeated side 1 (34.0067ms)
+✔ departed commander stops providing stratagems: withdrawn side 0 (3.5885ms)
+✔ departed commander stops providing stratagems: withdrawn side 1 (4.4374ms)
+✔ same-name stratagem uses remaining holder after stronger provider leaves (7.0269ms)
+✔ real combat removes defeated providers from both command lists (525.5479ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 34
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2565.8906
+
+✖ failing tests:
+
+test at tests\stratagem-pools.test.mjs:37:60
+✖ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (74.1491ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '请选择战场内的军略落点'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:47:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '请选择战场内的军略落点',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:55:1
+✖ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (99.8964ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  20 !== 11
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:64:32)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 20,
+    expected: 11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:60:1
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (9.308ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   action: '列阵',
+  -   advisorBonus: 0.09,
+  -   armyId: 'a2',
+  -   attackCarry: 0,
+  -   battleDamage: 0,
+  -   birthYear: 154,
+  -   cast: null,
+  -   charm: 90,
+  -   commandBonus: 0.081,
+  -   compatibility: 101,
+  -   contribution: {
+  -     control: 0,
+  -     damage: 0,
+  -     healing: 0,
+  -     siege: 0,
+  -     support: 0,
+  -     taken: 0
+  -   },
+  -   cooldown: 999,
+  -   courtesy: '本初',
+  -   deathYear: 202,
+  -   deputyBonus: 0.0465,
+  -   disengage: null,
+  -   effect: null,
+  -   entryStatusesApplied: true,
+  -   first: true,
+  -   force: 69,
+  -   formation: 'front',
+  -   healed: 0,
+  -   hp: 2500,
+  -   id: 'shao',
+  -   initial: 2500,
+  -   intellect: 70,
+  -   intent: 0,
+  -   leadership: 81,
+  -   level: 1,
+  -   loyalty: 100,
+  -   maxHp: 2500,
+  -   merit: 0,
+  -   morale: 77,
+  -   moveProgress: 0,
+  -   name: '袁绍',
+  -   participated: false,
+  -   passiveState: {
+  -     entryUntil: 0,
+  -     lastMoveTick: 0,
+  -     moveCount: 0,
+  -     reserveEntered: false,
+  -     shotType: null,
+  -     shots: 0,
+  -     targetId: null
+  -   },
+  -   personality: 3,
+  -   politics: 73,
+  -   relations: {
+  -     dislikedIds: [
+  -       'person-17',
+  -       'person-494'
+  -     ],
+  -     fatherId: null,
+  -     likedIds: [
+  -       'person-18'
+  -     ],
+  -     motherId: null,
+  -     spouseIds: [
+  -       'person-623'
+  -     ],
+  -     swornSiblingIds: []
+  -   },
+  -   retreatAt: null,
+  -   righteousness: 2,
+  -   sex: 0,
+  -   side: 1,
+  -   skill: '名门号令',
+  -   skillCasts: 0,
+  -   skillReady: {
+  -     thrust: 999,
+  -     ward: 999
+  -   },
+  -   skillRouteType: 'spear',
+  -   status: 'active',
+  -   statuses: {
+  -     phalanx: {
+  -       until: 999
+  -     }
+  -   },
+  -   tacticCasts: {},
+  -   tacticLearning: {
+  -     byTroop: {
+  -       archer: {
+  -         high: [
+  -           'scatter'
+  -         ],
+  -         low: [
+  -           'rally'
+  -         ]
+  -       },
+  -       cavalry: {
+  -         high: [],
+  -         low: [
+  -           'harass'
+  -         ]
+  -       },
+  -       crossbow: {
+  -         high: [
+  -           'repeat'
+  -         ],
+  -         low: [
+  -           'screen'
+  -         ]
+  -       },
+  -       halberd: {
+  -         high: [],
+  -         low: [
+  -           'curse'
+  -         ]
+  -       },
+  -       ram: {
+  -         high: [
+  -           'ram'
+  -         ],
+  -         low: [
+  -           'bulwark',
+  -           'tremor'
+  -         ]
+  -       },
+  -       ship: {
+  -         high: [],
+  -         low: [
+  -           'boarding'
+  -         ]
+  -       },
+  -       siege: {
+  -         high: [
+  -           'bombard'
+  -         ],
+  -         low: [
+  -           'emplace',
+  -           'tremor'
+  -         ]
+  -       },
+  -       spear: {
+  -         high: [
+  -           'thrust'
+  -         ],
+  -         low: [
+  -           'ward'
+  -         ]
+  -       },
+  -       tower: {
+  -         high: [
+  -           'repeat'
+  -         ],
+  -         low: [
+  -           'emplace',
+  -           'nexus'
+  -         ]
+  -       }
+  -     },
+  -     special: false
+  -   },
+  -   tacticRecoveryUntil: 0,
+  -   tacticRestored: {},
+  -   tacticUseBonus: {},
+  -   tactics: [
+  -     'ward',
+  -     'thrust'
+  -   ],
+  -   trait: '名门雄主',
+  -   traitState: {},
+  -   troops: 2500,
+  -   type: 'spear',
+  -   withdrawing: false,
+  -   wounded: 0,
+  -   x: 7,
+  -   y: 3
+  - }
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:64:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { personality: 3, righteousness: 2, compatibility: 101, sex: 0, birthYear: 154, deathYear: 202, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'shao', name: '袁绍', courtesy: '本初', leadership: 81, force: 69, intellect: 70, politics: 73, charm: 90, skill: '名门号令', type: 'spear', formation: 'front', trait: '名门雄主', troops: 2500, wounded: 0, first: true, loyalty: 100, level: 1, merit: 0, tacticLearning: { byTroop: [Object], special: false }, tactics: [ 'ward', 'thrust' ], skillRouteType: 'spear', passiveState: { lastMoveTick: 0, moveCount: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, traitState: {}, participated: false, contribution: { damage: 0, taken: 0, healing: 0, siege: 0, support: 0, control: 0 }, attackCarry: 0, armyId: 'a2', side: 1, retreatAt: null, withdrawing: false, disengage: null, hp: 2500, maxHp: 2500, initial: 2500, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 7, y: 3, morale: 77, cooldown: 999, intent: 0, tacticRecoveryUntil: 0, cast: null, skillReady: { ward: 999, thrust: 999 }, tacticCasts: {}, tacticRestored: {}, tacticUseBonus: {}, statuses: { phalanx: [Object] }, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.081, deputyBonus: 0.0465, advisorBonus: 0.09, entryStatusesApplied: true },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

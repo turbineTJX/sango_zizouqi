@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "individual",
+    "selected batch",
+    "all",
+    "formation cancel",
+    "reload",
+    "mobile",
+    "battle lock",
+    "legal campaign destinations",
+    "destination reload"
+  ],
+  "errors": []
+}

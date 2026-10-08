@@ -1,0 +1,24 @@
+
+> sango-sovereign@0.3.0 verify:stratagems-ui
+> node scripts/verify-stratagem-picker-ui.mjs && node scripts/verify-stratagem-area-ui.mjs && node scripts/verify-command-specials-ui.mjs && node scripts/verify-stratagem-impact-ui.mjs
+
+Stratagem picker desktop/mobile, cancellation, one-click cast and reload passed.
+Area UI: preview, rotate, cancel, circle, confirm, resources, mobile and no JS errors passed
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /半径2.*神速12/s. Input:
+
+'奇兵疾进\n郭嘉（统51／智98） · 圆形半径2格 · 神速，移动力+1、攻击间隔缩短25%、无视ZOC · 14 回合 · 冷却 56 回合\n满条'
+
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/verify-command-specials-ui.mjs:15:173 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '奇兵疾进\n郭嘉（统51／智98） · 圆形半径2格 · 神速，移动力+1、攻击间隔缩短25%、无视ZOC · 14 回合 · 冷却 56 回合\n满条',
+  expected: /半径2.*神速12/s,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

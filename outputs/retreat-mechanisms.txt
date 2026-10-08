@@ -1,0 +1,17 @@
+✔ council changes one, selected or all troops atomically; policies survive custom validation and saves (20.6ms)
+✔ thresholds are based on each unit initial strength, identical for both sides and irreversible after healing (7.4657ms)
+✔ actual damage triggers withdrawal; unit remains targetable but stops attacks, commands and ZOC (7.8742ms)
+✔ retreat walks to the exit before a reserve enters and never heals, resets uses or reenters (29.7344ms)
+✔ occupied escape route blocks withdrawal; no instantaneous removal or early replacement (7.4138ms)
+✔ defenders leaving the battlefield lose even while the gate remains intact (5.5641ms)
+✔ a freed slot waits for actual reserve arrival and a withdrawing force cannot supply commands (14.4269ms)
+✔ ordinary campaign retains withdrawn soldiers and wounded without drawing a destroyed-officer fate (205.4179ms)
+✔ malformed and old saves are rejected rather than repaired (7.3957ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 497.3611

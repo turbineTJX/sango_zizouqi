@@ -1,4 +1,5 @@
 import {mapNode} from './map-node-data.mjs';
+import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
 import {cityVisionRadius} from './city-technology.mjs';
 import {roadDistance,roadCost} from './road-metrics.mjs';
 import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
@@ -92,7 +93,7 @@ export function armyIntelligence(s,id,faction=playerFaction(s)){
 }
 function unknownCity(c,owner){
  const data={...c,owner,units:[],governor:null,project:null,domestic:null,buildings:null};
- for(const key of ['gold','grain','manpower','walls','granary','farm','commerce','barracks','order','hunger','garrison'])data[key]=null;
+ for(const key of ['gold','grain','manpower',...Object.keys(BUILDING_DESIGNS),'order','hunger','garrison'])data[key]=null;
  return data;
 }
 function observedBattle(s,r,faction){

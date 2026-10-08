@@ -2,7 +2,7 @@ import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,beginExecution,advanceCampaignDay,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,beginExecution,advanceCampaignDay,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,cancelDomestic,ACTIONS} from '../domestic.mjs';
 import {cityStaffStatus,acknowledgeDomesticAlerts,pendingDomesticAlerts} from '../domestic-feedback.mjs';
 import {mapNode} from '../road-network.mjs';

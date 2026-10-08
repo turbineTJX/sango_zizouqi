@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {scoutingMarkup,scoutingReportMarkup} from '../scouting-view.mjs';
 import {residentOfficer} from '../city-personnel.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';

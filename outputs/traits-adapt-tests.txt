@@ -1,0 +1,134 @@
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (5.7883ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (13.1393ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (4.5275ms)
+✔ fame adds city manpower rather than free troops (2.2879ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (410.2096ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (22.5996ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (0.4446ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (218.2497ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (11.5512ms)
+✔ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (19.6867ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (155.1308ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (4.2731ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (5.1019ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (7.7159ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (8.1082ms)
+✔ personal traits affect troop panels from level one, remain independent of tactics, and respect conditions (6.7778ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (56.9748ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (30.9847ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (3.3255ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (2.7288ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (8.887ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (552.2158ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (60.5569ms)
+✔ interdict is fixed from level one and prevents the entire normal hit award, including endurance (7.6583ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (2.6682ms)
+✔ suppression traits remain with their fixed holders after troop changes (0.5968ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (9.439ms)
+✔ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (46.0494ms)
+✖ current suppression routes and troop incomes survive deterministic battle continuation (0.5246ms)
+✔ scenario profiles correct the public-library traits in runtime and exported rows (1.5133ms)
+✔ scenario relation IDs replace truncated library IDs without inventing genealogy officers (2.8912ms)
+✔ profile import uses array base values and never adopts live scenario state or colliding custom IDs (0.9522ms)
+✔ all 835 identities have fixed positive traits, independent of level, troop and learned tactics (57.3745ms)
+✔ actor administration works without a governor and matching governor does not double the discount (85.9272ms)
+✔ research, farming, repairs, medicine and preparation traits change real paid task outcomes (289.6219ms)
+✔ recruitment discounts charge actual recruits at the saved rate without creating free people (43.1967ms)
+✔ talent traits improve only the corresponding real action chance; mediator does not stack (3.3986ms)
+✔ transport speed applies to actual travel and saves resume; light travel has separate eligibility (44.5317ms)
+✖ ordinary officers retain their fixed positive traits at every level (2.0229ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (4.9887ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (208.8134ms)
+✔ fixed identity traits are available at every level and never equipped (13.2086ms)
+✔ fixed martial and movement traits modify only intended attributes (1.5729ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (1.4906ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (17.9345ms)
+✖ spear formation, stationary defense and movement resets respect exact conditions (8.3399ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (7.4619ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (4.7442ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.255ms)
+✔ isolated and joint evaluate neighbors on the correct side (7.2158ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (30.1553ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (4.2085ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (21.7148ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (10.6594ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.2584ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.1872ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (14.1854ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (12.4061ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (5.425ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (7.7743ms)
+✔ experience advances learned tactics and capacity without unlocking or rerolling traits (0.7747ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (12.4448ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (491.3863ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (37.1797ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 60
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1025.6694
+
+✖ failing tests:
+
+test at tests\intent-roles.test.mjs:40:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (2.6682ms)
+  AssertionError [ERR_ASSERTION]: jia/crossbow: B/C aptitude cannot learn repeat
+      at learnFixtureTactics (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:42:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:70:1
+✖ current suppression routes and troop incomes survive deterministic battle continuation (0.5246ms)
+  Error: 试炼阵容须为 1～6 名不同武将
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:22:168)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:71:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\ordinary-growth.test.mjs:11:1
+✖ ordinary officers retain their fixed positive traits at every level (2.0229ms)
+  TypeError: skills.filter(...).length.filter is not a function
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ordinary-growth.test.mjs:14:126)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\passives.test.mjs:62:1
+✖ spear formation, stationary defense and movement resets respect exact conditions (8.3399ms)
+  AssertionError [ERR_ASSERTION]: 1.15 ≠ 1.1363636363636362
+      at near (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/passives.test.mjs:13:39)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/passives.test.mjs:67:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

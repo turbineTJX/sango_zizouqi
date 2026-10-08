@@ -1,0 +1,31 @@
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (91.1099ms)
+✔ matrix keeps candidate rows while selections add and remove columns (42.3269ms)
+✔ appointment traits affect only the appointed role and its own army while the commander is present (22.8965ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (4.2905ms)
+✔ appointment UI displays the matching trait effect and recommendation uses it (3.3015ms)
+✔ current save preserves command eligibility and deterministic continuation (98.1547ms)
+✔ 自定义军团长与军师独立于队列，军略按指定人选带入并保存 (17.8918ms)
+✔ military adjustments are isolated drafts and validate before committing (266.3432ms)
+✔ recruitment affects only selected units and previews the actual cost (193.8973ms)
+✔ split and merge previews preserve officers, learning and supplies (341.8272ms)
+✔ a moved army invalidates a draft without partial changes (19.3461ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (90.6555ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (76.8152ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1042.4958ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (20.9836ms)
+✔ AI fills a vacant governorship using the same governor recommendation (686.9399ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (15.427ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (154.7155ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (123.1549ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (4.1872ms)
+✔ formation selects officers in place, army selects only compiled units (0.8002ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.3597ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.5368ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2140.8604

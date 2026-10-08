@@ -1,0 +1,34 @@
+✔ both current national scenarios store units in cities with no standing map armies (878.4178ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (179.0859ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (21.4446ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (593.2714ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (80.4944ms)
+✔ real sieges build temporary defense from city units and resume deterministically (4152.0472ms)
+✔ departure can prepare an idle officer atomically and invalid departure spends nothing (212.7935ms)
+✔ awaiting siege permits real idle-officer preparation without starting battle or changing source (5697.6707ms)
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (63.898ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (116.4522ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (148.1587ms)
+✔ waiting departure prevents idle members from picking new work across turns (52.9652ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (34.3925ms)
+✔ forged pending action references and duplicate officers are rejected (137.5586ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (70.3093ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1254.8171ms)
+✔ a queued garrison defends an actual siege and does not depart while its work is paused (399.5744ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (54.6451ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (86.2599ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (93.7992ms)
+✔ appointed prepared units actually defend the city, pause work under siege and resume after defense (342.8755ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (266.2398ms)
+✔ a changed officer state blocks final formation without partial changes (29.7089ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (17.1583ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (248.6041ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (76.1556ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11993.1035

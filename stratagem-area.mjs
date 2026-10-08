@@ -1,7 +1,9 @@
 import {HEX_GRID,hexCenter,insideHexGrid} from './hex-grid.mjs';
 import {isTargetable} from './engagement.mjs';
-import {CONTROL_STATUSES,statusOn} from './battle-status-rules.mjs';
+import {CONTROL_STATUSES,STATUS_DEFINITIONS,statusOn} from './battle-status-rules.mjs';
 import {traitImmune} from './trait-mechanics.mjs';
+import {bondBlocksEffect} from './bonds.mjs';
+import {STRATAGEMS,availableBattleCommanders,selectStratagemSource} from './stratagems.mjs';
 
 export const AREA_HEIGHT=HEX_GRID.height*2/Math.sqrt(3);
 export const areaPosition=u=>{const p=hexCenter(u.x,u.y);return {x:p.x*HEX_GRID.width,y:p.y*AREA_HEIGHT};};
@@ -18,19 +20,24 @@ export function stratagemScopeText(s){
  if(r?.shape==='unit')return '单支友军';
  if(r?.shape==='circle')return `圆形半径${r.radius}格`;
  if(r?.shape==='rectangle')return `矩形${r.width}×${r.height}格，可旋转`;
- return r?.shape==='reserve'?'预备队效果':'全军效果';
+ return r?.shape==='battlefield'?'全战场 · 不分敌我':r?.shape==='reserve'?'已抵达后备部队':'全军效果';
 }
 export function stratagemAreaTargets(b,s,point,side=0){
  if(!validStratagemPoint(point))return [];
- return b.sides[s.side===1?1-side:side].units.filter(u=>u.status==='active'&&u.hp>0&&isTargetable(b,u)&&stratagemAreaContains(s,point,u));
+ return b.sides[s.side===1?1-side:side].units.filter(u=>u.status==='active'&&u.hp>0&&!statusOn(b,u,'stasis')&&(s.side!==1||isTargetable(b,u))&&stratagemAreaContains(s,point,u));
 }
 export function stratagemHasEffect(b,s,u){
  if(s.effect==='rapidAdvance')return !statusOn(b,u,'rapidAdvance');
  if(s.effect==='magicImmunity')return !statusOn(b,u,'magicImmune');
+ if(s.effect==='invincible')return !statusOn(b,u,'commandInvincible');
+ if(s.effect==='ambush')return !statusOn(b,u,'stealth');
+ if(s.effect==='shield')return (u.statuses?.shield?.layers||[]).filter(l=>l.until>b.tick&&l.amount>0).reduce((n,l)=>n+l.amount,0)<u.maxHp;
+ if(s.effect==='cleanse')return Object.keys(STATUS_DEFINITIONS).some(k=>k!=='hunger'&&['debuff','control','damage'].includes(STATUS_DEFINITIONS[k].tone)&&statusOn(b,u,k));
  if(s.side===1&&statusOn(b,u,'magicImmune'))return false;
+ if(s.side===1){const key=Object.keys(STRATAGEMS).find(k=>STRATAGEMS[k].name===s.name),source=selectStratagemSource(availableBattleCommanders(b.sides[1-u.side],b.tick),key);if(source&&bondBlocksEffect(b,u,source))return false;}
+ if(s.effect==='stun')return !statusOn(b,u,'stun')&&!statusOn(b,u,'resolve')&&!traitImmune(u,'stun');
  if(s.zone)return zoneStatusChoices(b,s,u).length>0;
  if(s.effect==='heal')return u.hp<u.maxHp&&Math.floor(((u.battleDamage??u.initial-u.hp)-(u.battleDeserted||0))*.35)>(u.healed||0);
- if(s.effect==='demoralize')return u.intent>0;
  return true;
 }
 export function zoneStatusChoices(b,s,u){
@@ -42,7 +49,7 @@ export function zoneStatusChoices(b,s,u){
 export function chooseStratagemPoint(b,s,side){
  if(!isAreaStratagem(s))return null;
  const units=b.sides[s.side===1?1-side:side].units;
- const useful=units.filter(u=>u.status==='active'&&u.hp>0&&insideHexGrid(u.x,u.y)&&isTargetable(b,u)&&stratagemHasEffect(b,s,u)&&
+ const useful=units.filter(u=>u.status==='active'&&u.hp>0&&insideHexGrid(u.x,u.y)&&!statusOn(b,u,'stasis')&&(s.side!==1||isTargetable(b,u))&&stratagemHasEffect(b,s,u)&&
    (s.effect!=='firestorm'||!((u.statuses?.burn?.until||0)>b.tick)));
  if(!useful.length)return null;
  const centers=useful.map(u=>({x:u.x,y:u.y}));
@@ -54,3 +61,4 @@ export function chooseStratagemPoint(b,s,side){
  }
  return best;
 }
+

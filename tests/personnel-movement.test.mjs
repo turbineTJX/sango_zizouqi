@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,transferOfficer,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,armyActionPoints,activeBattles,chooseEncounter} from '../strategic-campaign.mjs';
+import {newCampaign,transferOfficer,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,armyActionPoints,activeBattles,chooseEncounter} from './helpers/auto-domestic-campaign.mjs';
 import {advancePersonnel,personnelSpeed,PERSONNEL_SPEED,TRANSPORT_SPEED,isTransport} from '../personnel-movement.mjs';
 import {armyMapMarkers} from '../strategic-army-markers.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';

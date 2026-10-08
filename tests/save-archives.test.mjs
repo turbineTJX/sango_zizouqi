@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ARCHIVE_PREFIX,AUTOMATIC_SAVES,writeArchive,readArchive,listArchives,deleteArchive,archivesMarkup} from '../save-archives.mjs';
-import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from './helpers/auto-domestic-campaign.mjs';
 import {createScenario} from './helpers/scenarios.mjs';
 import {validateSave,lockDeployment,stepBattle} from '../engine.mjs';
 function memory(){const data=new Map();return {get length(){return data.size;},key:i=>[...data.keys()][i],getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};}

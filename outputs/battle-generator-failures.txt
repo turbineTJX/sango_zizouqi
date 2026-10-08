@@ -1,0 +1,174 @@
+✖ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (1.8794ms)
+✖ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (0.562ms)
+✔ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (11.1411ms)
+✔ 单队休养以实际伤兵触发，救疗按固定顺序优先 (17.1798ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (94.4025ms)
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (29.2573ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (6.5937ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (1297.7981ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (4.0871ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (1015.591ms)
+✔ tower: repair uses earned intent, reports durability and resumes exactly (989.3183ms)
+✔ supply-depot: repair uses earned intent, reports durability and resumes exactly (945.4799ms)
+✔ future-building: repair uses earned intent, reports durability and resumes exactly (943.9044ms)
+✖ recovery pulses restore real wounds and intent without casts, combos or overhealing (563.649ms)
+✖ generic building records reject corrupt kinds, ownership, durability and duplicate positions (7.9643ms)
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (5.0592ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.7968ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.4426ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.5143ms)
+✔ legacy windup events never display a preparation animation or log row (0.4139ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (1.0972ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (3.9332ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.4947ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (6.9691ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.9493ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.3347ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (2.3804ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.5058ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.5431ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.4997ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.348ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (1.0175ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (3.9894ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (5.6956ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.72ms)
+✔ reduced motion uses static focus and finishes without impact particles (1.7162ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (3.9333ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (1.4264ms)
+✔ minor tactics including criticals stay local in both effect modes (0.9428ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (6.7835ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (1026.3867ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (27.5639ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (5.464ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (6.0165ms)
+✔ signals render finite coordinates without changing battle data through real combat (150.1204ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (349.2434ms)
+✖ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (1.0516ms)
+✖ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (0.4903ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (124.834ms)
+✖ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (32.6416ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (7.0799ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (14.7468ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (4.1592ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (499.9693ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 47
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6011.7399
+
+✖ failing tests:
+
+test at tests\ai-target-command.test.mjs:11:33
+✖ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (1.8794ms)
+  Error: 军团长和军师必须来自本方阵容
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:36:178)
+      at scenarioDraft (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:19:9)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:23:58)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ai-target-command.test.mjs:15:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\ai-target-command.test.mjs:11:33
+✖ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (0.562ms)
+  Error: 军团长和军师必须来自本方阵容
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:36:178)
+      at scenarioDraft (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:19:9)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:23:58)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ai-target-command.test.mjs:15:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\auxiliary.test.mjs:101:1
+✖ recovery pulses restore real wounds and intent without casts, combos or overhealing (563.649ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(pulses>0&&healed>0&&charged>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:114:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:117:1
+✖ generic building records reject corrupt kinds, ownership, durability and duplicate positions (7.9643ms)
+  Error: 战场位置无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1031:78)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1210:38
+      at Array.forEach (<anonymous>)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1134:13)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:120:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\engine-command-phase.test.mjs:23:34
+✖ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (1.0516ms)
+  Error: 军团长和军师必须来自本方阵容
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:36:178)
+      at scenarioDraft (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:19:9)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:23:58)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine-command-phase.test.mjs:30:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\engine-command-phase.test.mjs:23:34
+✖ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (0.4903ms)
+  Error: 军团长和军师必须来自本方阵容
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:36:178)
+      at scenarioDraft (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:19:9)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:23:58)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine-command-phase.test.mjs:30:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\engine-foundations.test.mjs:16:1
+✖ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (32.6416ms)
+  AssertionError [ERR_ASSERTION]: 历史/战略场景的姿态保持原设定
+  + actual - expected
+  
+  + 'balanced'
+  - 'aggressive'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine-foundations.test.mjs:29:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'balanced',
+    expected: 'aggressive',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

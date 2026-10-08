@@ -1,0 +1,88 @@
+✔ real battle contributions survive reload and settle by actual work exactly once (272.3412ms)
+✔ current saves reject missing or forged contribution counters and old rules (15.2734ms)
+✔ fixed identity traits are available at every level and never equipped (10.2297ms)
+✔ fixed martial and movement traits modify only intended attributes (0.8451ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (1.2576ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (14.9115ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (7.4169ms)
+✖ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (7.2064ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (4.3334ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (4.3746ms)
+✔ isolated and joint evaluate neighbors on the correct side (6.6513ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (25.0713ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (5.1533ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (18.5747ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (10.504ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.2869ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.2199ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (11.9263ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (12.4184ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (7.3548ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (5.3428ms)
+✔ merit advances learned tactics and capacity without unlocking or rerolling traits (0.7609ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (8.4461ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (510.2784ms)
+✔ invalid levels, merit, counters, durations and fractional cooldowns are rejected; missing required state is rejected (37.7902ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (194.0843ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (373.9102ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (711.0149ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (377.1134ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (348.3327ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (108.9234ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (167.428ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (122.5774ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1410.3114ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (283.5351ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (461.3057ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (634.3411ms)
+✔ river: complete battle, reserves, save recovery and settlement (596.0233ms)
+✔ breach: complete battle, reserves, save recovery and settlement (271.4231ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (239.436ms)
+✔ field: complete battle, reserves, save recovery and settlement (533.5421ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (449.9376ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (903.3527ms)
+✔ siege: complete battle, reserves, save recovery and settlement (624.1601ms)
+✔ defense: complete battle, reserves, save recovery and settlement (2686.2683ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (556.3406ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (18.0937ms)
+✔ sieges add an independent gate and shields only to defending starters (41.8315ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (6.4837ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (28.6658ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (46.0454ms)
+✔ fixture and seed validation rejects malformed test state (14.3391ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (69.8325ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (7.63ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (135.707ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (4.4254ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (23.7809ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (5.9575ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (23.3993ms)
+ℹ tests 59
+ℹ suites 0
+ℹ pass 58
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12377.5092
+
+✖ failing tests:
+
+test at tests\passives.test.mjs:69:1
+✖ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (7.2064ms)
+  AssertionError [ERR_ASSERTION]: 1.1363636363636362 ≠ 1.15
+      at near (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/passives.test.mjs:13:39)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/passives.test.mjs:72:129)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

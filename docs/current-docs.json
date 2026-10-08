@@ -1,12 +1,14 @@
 {
-  "rulesVersion": 107,
+  "rulesVersion": 114,
   "files": [
     "docs/战争迷雾与武将侦察.md",
     "docs/当前剧本经济运营验证.md",
     "docs/README.md",
+    "docs/游戏内页面指引.md",
     "docs/多战役玩家操作空间实测.md",
     "docs/ZOC突破与远程优先-规则57.md",
     "docs/design-tables/README.md",
+    "docs/design-tables/宝物一览表.md",
     "docs/design-tables/人员战后去向与俘虏一览表.md",
     "docs/design-tables/人才招揽与任职一览表.md",
     "docs/design-tables/关系相性与协作一览表.md",
@@ -104,6 +106,8 @@
     "docs/羁绊门槛与混搭-2026-10-05.md",
     "docs/玩家布阵与羁绊强度-下邳.md",
     "docs/武将多场景美术流程.md",
-    "docs/城市钱粮与预算.md"
+    "docs/城市钱粮与预算.md",
+    "docs/宝物系统设计稿.md",
+    "docs/内政战场建筑.md"
   ]
 }

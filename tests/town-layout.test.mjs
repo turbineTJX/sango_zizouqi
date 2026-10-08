@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {citySceneState,citySceneMarkup,cityCompactMarkup,sceneDistricts} from '../city-scene.mjs';
 import {townLayout} from '../town-layout.mjs';
 import {mapDetailBlend} from '../map-detail-level.mjs';

@@ -1,0 +1,34 @@
+✔ 自定义军团长与军师独立于队列，军略按指定人选带入并保存 (12.2103ms)
+✔ 835人遵守1/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.4172ms)
+✔ 军团长提供、低智军师不提供，70智力边界及任职交换 (19.1079ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (62.5504ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (41.465ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (40.9432ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (39.9978ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (36.5007ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (22.0856ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:4
+import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,stepBattle,issueCommand,validateSave,settleBattle,armyCommanders,armyStratagems,battleStratagems,commandIntellect,COMMAND_RESOURCE,selectStratagemSource,attackRange,battleWounded,activeUnits} from '../engine.mjs';
+                                                                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: The requested module '../engine.mjs' does not provide an export named 'selectStratagemSource'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:326:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:429:5)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\stratagems.test.mjs (105.3891ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 420.6888
+
+✖ failing tests:
+
+test at tests\stratagems.test.mjs:1:1
+✖ tests\stratagems.test.mjs (105.3891ms)
+  'test failed'

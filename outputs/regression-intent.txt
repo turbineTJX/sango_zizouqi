@@ -1,0 +1,57 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (25.1231ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (3.6258ms)
+✔ sealing the actual harasser prevents opening the blocking line (3.2172ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (6.38ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (2.2351ms)
+✔ zero-intent generator trial uses natural learned tactics and resumes deterministically (135.9281ms)
+✔ removed personal denial traits do not override shared troop income (2.602ms)
+✔ actual fixed Guo Jia exclusive drains stored intent and saves suppression without a passive denial bonus (33.9056ms)
+✔ real curse orb applies bounded despair through an actual basic hit (16.9209ms)
+✔ current fire snapshots troop-scaled burn and ticks do not generate intent (46.1544ms)
+✔ retired foresight never gives Guo Jia an unconditional damage or intent-drain multiplier (0.2846ms)
+✖ gallop requires actual intent and grants current movement and ZOC statuses (6.9903ms)
+✔ former support officers keep generated fixed tactics without removed identities (0.4446ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (2.3915ms)
+✔ instant skills spend shared intent and recovery separates learned casts (27.1446ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (15.4705ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (19.1217ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (15.0319ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (8.91ms)
+✔ formation and gallop grant real statuses; rush needs a legal path (11.9357ms)
+✔ blocked displacement never overlaps units or crosses board limits (4.8437ms)
+✔ current rare tactical control requires its actual exclusive holder (13.061ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (17.4061ms)
+✔ formation mitigates actual damage and shields absorb before soldiers (9.5924ms)
+✔ prepaid casts and previous save formats are rejected (4.6381ms)
+✔ new saves distinguish bows and crossbows and require current rules (2.9598ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 25
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 367.0708
+
+✖ failing tests:
+
+test at tests\skill-adjustment.test.mjs:5:1
+✖ gallop requires actual intent and grants current movement and ZOC statuses (6.9903ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/skill-adjustment.test.mjs:5:202)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

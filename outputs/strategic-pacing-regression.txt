@@ -1,0 +1,157 @@
+
+> sango-sovereign@0.3.0 test:faction-ai
+> node --test tests/strategic-ai.test.mjs tests/national-campaign.test.mjs tests/domestic-orders.test.mjs tests/city-expedition.test.mjs tests/officer-mobility.test.mjs tests/personnel-movement.test.mjs tests/officer-recommendation.test.mjs tests/talent.test.mjs
+
+✔ both current national scenarios store units in cities with no standing map armies (742.296ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (189.4291ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (22.0638ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (2338.4215ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (129.0474ms)
+✔ real sieges build temporary defense from city units and resume deterministically (3554.8534ms)
+✔ departure can prepare an idle officer atomically and invalid departure spends nothing (145.5124ms)
+✔ awaiting siege permits real idle-officer preparation without starting battle or changing source (67.4905ms)
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (68.1746ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (121.1314ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (144.8742ms)
+✔ waiting departure prevents idle members from picking new work across turns (43.2987ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (32.0006ms)
+✔ forged pending action references and duplicate officers are rejected (161.7699ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (66.9058ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (4145.9864ms)
+✔ a queued garrison defends an actual siege and interrupts work and cancels its deferred departure (642.1366ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (710.1273ms)
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (11826.0052ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (778.294ms)
+✖ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (17654.652ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (95.6976ms)
+✔ scenario identity, topology, and town coordinates are validated (89.4465ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.146ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (8400.2267ms)
+✔ national victory and defeat depend on ownership of the complete map (1469.5446ms)
+✔ talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact (460.3503ms)
+✔ an immediate new order recalls the recruiter physically before execution (445.5579ms)
+✔ express transports outrun armies but swept enemy crossings cause total loss without a battle (245.8883ms)
+✔ death, captivity and escape preserve exactly one person; ransom is paid once and return takes time (204.3567ms)
+✔ real battles assign fates to annihilated units and saves preserve their learned abilities (668.1648ms)
+✔ surviving withdrawn officers leave their army and return as unique transport personnel (148.477ms)
+✔ a prepared commander visiting talent cannot also defend or depart before returning (609.5878ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (55.5776ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (115.0376ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (2904.5445ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (20.1262ms)
+✔ AI fills a vacant governorship using the same governor recommendation (1873.8465ms)
+✔ expedition recommendations place idle officers before busy officers regardless of ability score (1440.37ms)
+✔ trainer offsets twenty force points on exercise and remains visible in standby ranking (21.5902ms)
+✔ light personnel are faster than cavalry, invisible on map, and unavailable while moving (363.8513ms)
+✔ transport carries prepared troops and cargo once, projects position, then hands them to the destination (528.8916ms)
+✔ cargo-only convoys are visible and full warehouses retain cargo (741.1538ms)
+✔ deferred transport preserves cargo instructions without deducting resources or moving its officer (196.6041ms)
+✔ real daily execution resumes a transport deterministically and rejects corrupt journey cargo (2810.8997ms)
+✔ AI occupies an undefended objective regardless of wall durability (60.6784ms)
+✔ opening development blocks voluntary war until the faction is ready (33.0655ms)
+✔ cancelled offensives rest across turns and reload instead of trying every turn (52.3221ms)
+✔ heavily wounded troops recover at home before a voluntary offensive (25.166ms)
+✔ offensive grain reservations include home rations and wait for actual supplies (22.1512ms)
+✔ an ongoing real battle blocks opening an unrelated offensive (46.3069ms)
+✔ siege budgeting exposes an archer column outlasting its food and caps simultaneous attackers (19.887ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (27.8246ms)
+✔ superior defenses produce no attack plan or resource debit (16.1729ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (23.9268ms)
+✔ a serious incoming attack retains the home defense instead of expanding (18.9383ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (43.3024ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (19.5591ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (26.2602ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (61.8231ms)
+✔ local plan reservation lets current work finish and blocks starting another task (27.7692ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (22.3029ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (18.8766ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (20.3498ms)
+✔ AI save rejects duplicated commitments and old planner versions (36.8853ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (35.8201ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (35.1431ms)
+✔ waiting transport earmarks cargo without a debit and replenishment preserves plan food (29.4423ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (40.1623ms)
+✔ cancelling an assault before its first movement actually clears the outgoing route (21.8366ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (20.685ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (15.2807ms)
+✔ departure checks real presence before considering work or interruption history (27.0386ms)
+✔ ordinary ready offensives interrupt lengthy work through the real command and record the loss (32.5254ms)
+✔ recent real interruption protects the next task across reload except when rescue would be missed (34.9803ms)
+✔ an expensive real construction near completion is protected even with more than two days left (27.1342ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (5936.8952ms)
+✔ offensive composition leaves busy officers working when idle troops suffice (21.6612ms)
+✔ a staging city with an existing defense shortfall cannot reserve an impossible offensive (12.3368ms)
+✔ deferred AI departure rechecks the home guard when the original work finishes (17.1756ms)
+✔ all catalogue people exist once, historical debut dates and timeless heroes differ (796.87ms)
+✔ historical righteousness maps the actual 1..5 range and treats unspecified values as neutral (0.3598ms)
+✔ need counts only cities, has an independent standard, and splitting does not create troops (26.8114ms)
+✔ W below 60 never schedules paid hire during 100 real turns (836.9029ms)
+✔ Q90 requires ten ordinary successes; effects are progress, never immediate recruitment (450.1187ms)
+✔ same faction locks one paid target, replacing an executor preserves progress and same-turn lock (409.0432ms)
+✔ full projects sign without further payment, signed travellers count immediately, no duplicate callbacks (393.1105ms)
+✔ full unwilling project pauses without another charge and resumes when conditions improve (279.5589ms)
+✔ competition is independent of project iteration order and chooses at most one owner (367.5892ms)
+✔ signing multiple offers rechecks N so willingness can stop subsequent offers (31.8386ms)
+✔ paid target movement invalidates progress and preserves paid cost (317.1113ms)
+✔ project decay begins after 90 idle days plus a 30-day interval and is idempotent (248.0472ms)
+✔ loyal foreign officers and reigning lords cannot be persuaded (3.8736ms)
+✔ continuous employment prevents losses; idle warnings require 30 actual days to cancel (8.8934ms)
+✔ one-day boundary appointments do not erase idle history; resignation preserves learned officer (10.3895ms)
+✔ no-benefit reassurance is not charged and cannot delete a warning (6.5441ms)
+✔ defeat waits for effective armies, preserves people, and processes each event once (4.7403ms)
+✔ new version persists projects, phases and RNG, UI reads do not mutate saves (549.1573ms)
+✔ enemy talent actions use their own treasury and preserve player funds (2181.5814ms)
+✔ cooldown is per faction; ordinary success has no extra wait and failures cannot wear down loyalty (198.682ms)
+✔ Q90 contact project requires ten controlled ordinary outcomes, not ten random join rolls (3.6625ms)
+✔ project cost records actual payments when persuasion changes to hiring (187.2897ms)
+✔ a free person migrates along real edges and other factions retain only stale location (183.5154ms)
+✔ initial SEEK lasts exactly eighteen turns and dead or captive people are never recruited (209.3525ms)
+✔ reigning lord is excluded even as a local idle officer with zero loyalty (2.6665ms)
+✔ arrival grace on a non-boundary day neither leaks loyalty nor avoids later idle penalties (49.5614ms)
+✔ an empty army does not protect an idle officer from a due resignation (2.23ms)
+ℹ tests 107
+ℹ suites 0
+ℹ pass 105
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 41322.1445
+
+✖ failing tests:
+
+test at tests\national-campaign.test.mjs:16:2
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (11826.0052ms)
+  AssertionError [ERR_ASSERTION]: AI forces fight each other
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/national-campaign.test.mjs:20:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\national-campaign.test.mjs:16:2
+✖ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (17654.652ms)
+  AssertionError [ERR_ASSERTION]: AI forces fight each other
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/national-campaign.test.mjs:20:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

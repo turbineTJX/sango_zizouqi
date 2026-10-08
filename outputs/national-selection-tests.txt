@@ -1,0 +1,18 @@
+✔ guandu-200: control and persistence for cao (1507.804ms)
+✔ guandu-200: control and persistence for yuan (1554.8129ms)
+✔ guandu-200: control and persistence for force-7 (2097.167ms)
+✔ guandu-200: control and persistence for sunce (2259.7514ms)
+✔ heroes-251: control and persistence for cao (5408.5572ms)
+✔ heroes-251: control and persistence for yuan (5298.9525ms)
+✔ heroes-251: control and persistence for force-2 (4815.9935ms)
+✔ heroes-251: control and persistence for sunce (3539.9966ms)
+✔ lobby requires scenario then faction and invalid faction cannot start (26.7846ms)
+✔ Yuan expedition uses the real march and battle flow with the player on side zero (2100.7225ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 28783.356

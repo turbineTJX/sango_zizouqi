@@ -1,0 +1,1 @@
+{"none":{"runs":8,"wins":2,"meanRemaining":673},"fixed":{"runs":8,"wins":3,"meanRemaining":2323},"manual":{"runs":8,"wins":3,"meanRemaining":2367}}

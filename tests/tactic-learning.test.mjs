@@ -7,7 +7,7 @@ import {LEARNING_TROOPS,tacticPools,troopAptitude,tacticLearningLimits,learnedTa
 import {SPECIAL_TACTICS,TACTICS_BOOK,unitTactics,validLoadout} from '../tactics.mjs';
 import {createScenario,SCENARIOS} from '../scenarios.mjs';
 import {planEnemyArmy} from '../battle-ai.mjs';
-import {newCampaign,validateCampaign,serializeCampaign,changeCityTroop} from '../strategic-campaign.mjs';
+import {newCampaign,validateCampaign,serializeCampaign,changeCityTroop} from './helpers/auto-domestic-campaign.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
 
 test('每兵种固定武技小战法、谋略小战法和大战法各一项',()=>{

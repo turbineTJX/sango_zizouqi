@@ -1,0 +1,13 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+const edit=(f,fn)=>writeFileSync(f,fn(readFileSync(f,'utf8')));
+edit('docs/宝物系统设计稿.md',s=>{s=s.replace('# 宝物系统设计稿','# 宝物系统').replace('设计日期：2026年10月8日。接入状态：待讨论、待接入。本文的目录、数值、开局归属、授予操作及两项宝物特技均为当前提案，不替代当前已实现规则。','接入日期：2026年10月8日。当前战斗规则114、战略存档49、宝物登记1。本文记载当前已实现规则，目录及参数以正式设计源为准。').replace('初始归属提案','初始归属').replace('建议初装','开局初装').replaceAll('概率拟为','概率为').replace('候选持有者','固定持有者').replace('候选均从现有公共人物库取用，属于玩法分配提案，不声称存在相应史实特技。正式接入时按稳定人物ID固定分配，保留已有特性，禁止在运行时按五维自动扩发；稀缺资格不随转仕变化。','持有者均为现有公共人物库的玩法分配，按稳定ID固定，保留已有特性，不声称存在相应史实特技；不在运行时按五维扩发，转仕不改变资格。').replace('本版设计稿不直接改动六张历史阵容','本版保持六张历史阵容').replace('以上点数、时长和概率是待验证初值。先验证机制，再评价强弱；','以上参数受机制回归验证；完整胜率与强度对照仍是后续平衡工作的依据。').replace('本提案的31种羁绊','本系统的31种羁绊');
+ const a=s.indexOf('实施时按顺序接入：'),b=s.indexOf('\n## ',a);if(a<0||b<0)throw Error('Implementation block');s=s.slice(0,a)+`正式数据源：[宝物目录与概率](../data/design/treasures.mjs)、[历史归属](../data/design/national-scenarios.mjs)、[特技](../data/design/traits.mjs)、[人物固定分配](../data/design/assignments.mjs)。运行时使用 [唯一登记与获取](../treasures.mjs)、[首次入场](../treasure-battle.mjs)、[状态来源与额度](../treasure-statuses.mjs)，界面为地图“宝物”、武将详情和自定义编辑器配装。
+
+机制回归：\`npm run test:treasures\`；界面验收：\`npm run verify:treasures-ui\`。覆盖唯一登记、出征锁定、同城授予、跨城运输及接收人变化、个人及人数上限、16种真实入场状态、同名来源期限、真实伤兵与累计额度、固定特技、单次结算及确定性读档。界面同时检查桌面与390像素宽移动布局、装备替换核阅、取消与存档恢复。生成一览表使用 \`npm run design:export\`，设计约束使用 \`npm run design:check\` 和 \`npm run design:verify\`。
+
+宝物实体、位置、运输、装备、内政来源、战后候选及伤害贡献、随机阈值与结果、已结算标记均存入当前结构；旧版本提示重新开始，不增加迁移或旧结算分支。机制通过不等于所有宝物已经完成胜率平衡，未改变名将技能倍率或六张历史战役预算。
+`+s.slice(b);return s;});
+edit('docs/README.md',s=>s.replace('- [宝物系统设计稿](宝物系统设计稿.md)：24件宝物提案，包含羁绊加点、首次入场BUFF、历史开局、授予及随军锁定、低概率获取、眼力与夺宝特技、唯一性及强度验收；待讨论、待接入。','- [宝物系统](宝物系统设计稿.md)：已接入24件唯一宝物、授予与真实运输、出征锁定、羁绊加点、首次入场增益、低概率发现／缴获及眼力／夺宝；[宝物一览表](design-tables/宝物一览表.md)由正式源生成。'));
+edit('docs/design-tables/README.md',s=>s+'\n- [宝物一览表](宝物一览表.md)：24件宝物及获取概率，正式源 `data/design/treasures.mjs`；开局持有读取剧本源，眼力与夺宝读取特技和固定人物分配。\n');
+edit('docs/current-docs.json',s=>{const m=JSON.parse(s);m.rulesVersion=114;m.files=[...new Set([...m.files,'docs/design-tables/宝物一览表.md'])];return JSON.stringify(m,null,2)+'\n';});
+edit('AGENTS.md',s=>s.replace(/当前战略存档版本\d+/,'当前战略存档版本49')+'\n## 宝物系统（用户已确认）\n\n- 24件宝物在新局全世界各仅一件，武将可收藏多件、仅装备一件。8件只增加原生已获得的低级羁绊1点，不突破个人3点／总6点及第二档3人、最高档6人要求；16件在真实首次上场给一种短时公共增益，不改变名将本体和战法军略次数。\n- 地图宝物与武将详情共用授予、收回、装备和卸下。出征及外出武将的全部随身宝物锁定，城内预编不锁定；跨城须由空闲武将实际运输，接收人变化则抵达目的城保管，运输遭遇敌军遗失原ID。\n- 发现每势力每旬最多一次普通2%、眼力4%，内政与战场旧藏共用30日间隔；缴获原物普通5%、夺宝10%，每场两类合计最多1件。眼力只认本人合法事务或真实参战贡献；夺宝须对候选原持有者造成至少10%初始兵力真实伤害并存活未被俘。固定资格及唯一性双方共用，AI不为宝物凑羁绊、挑目标或更改事务。\n- 正式源 `data/design/treasures.mjs`、`national-scenarios.mjs`、`traits.mjs`、`assignments.mjs`。当前规则及验收见 `docs/宝物系统设计稿.md`，回归 `npm run test:treasures`，界面 `npm run verify:treasures-ui`。旧档直接失效，不迁移。\n');

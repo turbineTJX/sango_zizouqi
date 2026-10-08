@@ -1,6 +1,6 @@
 
 import test from 'node:test';import assert from 'node:assert/strict';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {factionDirectoryRows,factionDirectoryMarkup,FACTION_DIRECTORIES} from '../faction-directory.mjs';
 import {campaignOfficers} from '../strategic-roster.mjs';
 import {strategicView} from '../strategic-view.mjs';

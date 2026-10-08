@@ -2,7 +2,7 @@ import {setBuildingLevel} from './building-fixtures.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,beginDomesticTurn,finishDomesticDay,cancelDomestic,reconcileDomestic,ACTIONS} from '../domestic.mjs';
 import {metropolitanCenter,metropolitanMembers,availableConstructionSites,chooseConstructionSite,localBuildingLevel,constructionSiteAvailable} from '../metropolitan-areas.mjs';
 import {citySceneState,citySceneMarkup,cityBuildingInfo} from '../city-scene.mjs';

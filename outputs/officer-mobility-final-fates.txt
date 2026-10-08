@@ -1,0 +1,27 @@
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (57.4978ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (96.3888ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (123.292ms)
+✔ waiting departure prevents idle members from picking new work across turns (37.5861ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (33.4885ms)
+✔ forged pending action references and duplicate officers are rejected (130.2376ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (66.7367ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1228.2053ms)
+✔ a queued garrison defends an actual siege and does not depart while its work is paused (368.6842ms)
+✔ talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact (319.3322ms)
+✔ an immediate new order recalls the recruiter physically before execution (283.2114ms)
+✔ express transports outrun armies but swept enemy crossings cause total loss without a battle (193.5102ms)
+✔ death, captivity and escape preserve exactly one person; ransom is paid once and return takes time (132.7613ms)
+✔ real battles assign fates to annihilated units and saves preserve their learned abilities (189.9743ms)
+✔ surviving retreating officers stay with their army and reverse the actual road position (51.2856ms)
+✔ a prepared commander visiting talent cannot also defend or depart before returning (307.0227ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (226.7305ms)
+✔ a changed officer state blocks final formation without partial changes (26.508ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (16.0254ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2318.735

@@ -27,5 +27,5 @@ export function finishHarvestTurn(s,cities){
  const stocks=harvestStocks(s),net=start?Object.fromEntries(RESOURCE_KEYS.map(k=>[k,stocks[k]-start.result.stocks[k]])):null;
  const gains=nodes.filter(n=>n.result?.reward||n.category==='talent'&&n.phase==='signed');
  const counts={officers:gains.filter(n=>n.category==='talent'&&n.phase==='signed').length,buildings:gains.filter(n=>n.result?.reward?.kind==='building').length,technologies:gains.filter(n=>n.result?.reward?.kind==='technology').length};
- return appendActivityNode(s,{sourceId:`harvest:${s.turn}:${faction}`,category:'domestic',phase:'harvest',faction,text:`第${s.turn}旬收获：城市产出与直接运营已入库${recurring.gold+work.gold}金、${recurring.grain+work.grain}粮、${recurring.manpower+work.manpower}预备兵；新入麾下${counts.officers}人，完成设施${counts.buildings}处，掌握技术${counts.technologies}项。`,result:{turn:s.turn,recurring,work,stocks,net,cities:rows,counts,nodeIds:gains.map(n=>n.id)}});
+ return appendActivityNode(s,{sourceId:`harvest:${s.turn}:${faction}`,category:'domestic',phase:'harvest',faction,text:`第${s.turn}旬收获：城市产出、经营与纪事所得已入库${recurring.gold+work.gold}金、${recurring.grain+work.grain}粮、${recurring.manpower+work.manpower}预备兵；新入麾下${counts.officers}人，完成设施${counts.buildings}处，掌握技术${counts.technologies}项。`,result:{turn:s.turn,recurring,work,stocks,net,cities:rows,counts,nodeIds:gains.map(n=>n.id)}});
 }

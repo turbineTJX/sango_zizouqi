@@ -1,0 +1,21 @@
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (70.3174ms)
+✔ matrix keeps candidate rows while selections add and remove columns (32.8413ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (14.6273ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (128.2826ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (104.8103ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (3.2424ms)
+✔ formation selects officers in place, army selects only compiled units (0.7548ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.3307ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.5024ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (246.0602ms)
+✔ a changed officer state blocks final formation without partial changes (26.8428ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (17.9465ms)
+✔ ordinary formation owns officer selection and army selection lists compiled units (45.6651ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 507.1974

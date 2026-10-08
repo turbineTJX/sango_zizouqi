@@ -1,0 +1,24 @@
+✔ guandu-200: control and persistence for cao (1374.664ms)
+✔ guandu-200: control and persistence for yuan (1552.7356ms)
+✔ guandu-200: control and persistence for force-7 (1360.5652ms)
+✔ guandu-200: control and persistence for sunce (1404.613ms)
+✔ heroes-251: control and persistence for cao (3604.7298ms)
+✔ heroes-251: control and persistence for yuan (3949.4125ms)
+✔ heroes-251: control and persistence for force-2 (3465.6787ms)
+✔ heroes-251: control and persistence for sunce (2474.4231ms)
+✔ lobby requires scenario then faction and invalid faction cannot start (24.5845ms)
+✔ Yuan expedition uses the real march and battle flow with the player on side zero (1587.5021ms)
+✔ named snapshots survive automatic saves, new games and independent loads (3195.7599ms)
+✔ overwrite and deletion affect only the selected manual slot (929.67ms)
+✔ storage quota failure and invalid input preserve an existing slot (347.8747ms)
+✔ corrupt and incompatible entries remain listed without hiding valid saves (349.2349ms)
+✔ names are escaped in the archive interface (338.4484ms)
+✔ a manual battle snapshot resumes the current real engine deterministically (107.2007ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20956.5335

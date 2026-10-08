@@ -1,0 +1,329 @@
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营0 (19.3873ms)
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营1 (5.4698ms)
+✔ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (588.1663ms)
+✔ strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values (134.026ms)
+✔ edited action/building/road/movement records drive real autonomous work, routing and saves (1957.4155ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63
+ for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}
+                                                                                                                                                                                     ^
+
+Error: 一览表未同步：特技一览表.md；运行 npm run design:export
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63:182
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (267.8486ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (303.0733ms)
+✖ generated overview tables stay synchronized with the authoritative records (251.006ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (4.2416ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (2.2405ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (284.1324ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (537.2264ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (21.8745ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (5.4067ms)
+✔ retreat terminates and sends the attacker back without taking the city (25.3135ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (0.9206ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (1.1189ms)
+✔ enemy launches an attack and city garrison participates in defense (181.4381ms)
+✔ garrison alone can defend a city when player army is elsewhere (42.7235ms)
+✔ multiple same-side armies share the same six battlefield slots (186.525ms)
+✔ invalid saves are rejected before replacing game state (2.614ms)
+✔ different seeds finish without deadlocks or overlapping units (957.8848ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (205.7055ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (10.5399ms)
+✔ left and right formations deploy on opposite flanks (5.1901ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (13.1454ms)
+✔ capturing the final city completes the scenario (56.4409ms)
+✔ losing the final friendly city ends the scenario (44.4174ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (439.7386ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (5.8145ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (114.9471ms)
+✔ pending casts from the removed windup format are rejected (4.6898ms)
+✔ a defeated unit cannot use a ready skill (34.8512ms)
+✔ retreat stops subsequent friendly skills immediately (79.1335ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (174.3014ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (8.8426ms)
+✔ a ready tactic casts with fixed intent expenditure, regardless of morale or attack cooldown (6.5028ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (5.7211ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (3.443ms)
+✔ deployment can move, swap, reset and persist without advancing time (5.7241ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (4.3793ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (22.6766ms)
+✔ missing deployment and command state is rejected instead of reconstructed (53.4198ms)
+✖ real gallop bypasses live ZOC without removing enemy coverage and expires (18.6021ms)
+✖ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (33.913ms)
+✖ overlapping interception remains after harass disables one owner (3.881ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (4.8404ms)
+✔ out-of-range rear does not displace an attackable front (6.214ms)
+✖ real cleanse restores interception without waiting for disruption expiry (4.6992ms)
+✖ focus command overrides ranged priority and ordinary melee remains pinned (6.2556ms)
+✔ nearby wounded front takes priority over a healthy ranged target (4.678ms)
+✖ real mirage protects a wounded ally, forces retarget, blocks DOT, and resumes deterministically (10.8708ms)
+✖ mirage cannot chain invulnerability during the shared lock (4.7144ms)
+✖ enemy side uses the same finisher priority and excludes protected targets (3.4441ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 43
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3805.4911
+
+✖ failing tests:
+
+test at tests\cleanse-ai.test.mjs:7:25
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营0 (19.3873ms)
+  AssertionError [ERR_ASSERTION]: 有可清除状态即满足条件
+  
+  null !== 'cleanse'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/cleanse-ai.test.mjs:17:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'cleanse',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\cleanse-ai.test.mjs:7:25
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营1 (5.4698ms)
+  AssertionError [ERR_ASSERTION]: 有可清除状态即满足条件
+  
+  null !== 'cleanse'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/cleanse-ai.test.mjs:17:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'cleanse',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\design-tables.test.mjs:57:1
+✖ generated overview tables stay synchronized with the authoritative records (251.006ms)
+  Error: Command failed: C:\Program Files\nodejs\node.exe scripts/design-tables.mjs verify
+  file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63
+   for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}
+                                                                                                                                                                                       ^
+  
+  Error: 一览表未同步：特技一览表.md；运行 npm run design:export
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63:182
+      at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+      at async node:internal/modules/esm/loader:639:26
+      at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+  
+  Node.js v24.15.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-tables.test.mjs:58:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', "file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63\r\n for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}\r\n                                                                                                                                                                                     ^\r\n\r\nError: 一览表未同步：特技一览表.md；运行 npm run design:export\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63:182\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v24.15.0\r\n" ],
+    pid: 28864,
+    stdout: '',
+    stderr: "file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63\r\n for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}\r\n                                                                                                                                                                                     ^\r\n\r\nError: 一览表未同步：特技一览表.md；运行 npm run design:export\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:63:182\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v24.15.0\r\n"
+  }
+
+test at tests\zoc-counterplay.test.mjs:24:1
+✖ real gallop bypasses live ZOC without removing enemy coverage and expires (18.6021ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + [
+  +   {
+  +     x: 5,
+  +     y: 2
+  +   },
+  +   {
+  +     x: 6,
+  +     y: 2
+  +   },
+  +   {
+  +     x: 7,
+  +     y: 2
+  +   }
+  + ]
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:26:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 5, y: 2 }, { x: 6, y: 2 }, { x: 7, y: 2 } ],
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:34:1
+✖ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (33.913ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(interceptorsAt(b,charger).length)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:45:42)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:50:1
+✖ overlapping interception remains after harass disables one owner (3.881ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:53:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:68:1
+✖ real cleanse restores interception without waiting for disruption expiry (4.6992ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:72:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:76:1
+✖ focus command overrides ranged priority and ordinary melee remains pinned (6.2556ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(b.effects.some(e=>e.from===charger.id&&e.to===front.id&&!e.skill&&e.damage>0))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:85:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:94:1
+✖ real mirage protects a wounded ally, forces retarget, blocks DOT, and resumes deterministically (10.8708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(hasStatus(b,charger,'stasis'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:98:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:108:1
+✖ mirage cannot chain invulnerability during the shared lock (4.7144ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(hasStatus(b,charger,'illusion'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:110:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:113:1
+✖ enemy side uses the same finisher priority and excludes protected targets (3.4441ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(b.effects.some(e=>e.from===rear.id&&e.to===(protectedTarget?support.id:charger.id)&&e.damage>0))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:117:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

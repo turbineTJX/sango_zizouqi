@@ -1,0 +1,20 @@
+{
+  "all": {
+    "n": 50,
+    "min": 574,
+    "p25": 5000,
+    "median": 10400,
+    "p75": 14500,
+    "max": 24800,
+    "teamsMedian": 3
+  },
+  "threeOrMoreTeams": {
+    "n": 26,
+    "min": 6982,
+    "p25": 12600,
+    "median": 14500,
+    "p75": 17100,
+    "max": 24800,
+    "teamsMedian": 5
+  }
+}

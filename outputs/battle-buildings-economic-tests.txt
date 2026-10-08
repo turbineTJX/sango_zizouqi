@@ -1,0 +1,24 @@
+✔ new facilities require local research and the common automatic construction action (294.9306ms)
+✔ each new facility is built with paid daily work, saved durability and visible original artwork (6485.25ms)
+✔ arrow towers shoot within range, grow with completed local levels and use saved intervals on either side (172.6445ms)
+✔ arrow towers respect visibility, range, shields and actual invulnerability (34.8932ms)
+✔ music stages grant capped fixed intent only to nearby present allies on either side (21.0707ms)
+✔ overlapping music and medical support use the strongest local facility once (14.0528ms)
+✔ medical camps heal only real battle wounded, honor plague and stop at that budget (22.8164ms)
+✔ construction, destroyed buildings, stasis and withdrawing owners cannot provide support (47.2193ms)
+✔ building action history survives repairs and save validation rejects forged state (21.293ms)
+✔ inherited facilities can be repaired without granting local expansion research (411.334ms)
+✔ ports and passes use only their actual local facilities and keep distinct physical source cells (474.5691ms)
+✔ real sieges load and save the new original-site facilities and continue deterministically (744.4518ms)
+✔ built facilities retain their base production while a governor only adds operating income (36.2516ms)
+✔ actual operation is accounted separately and monthly settlement never pays its result twice (711.2401ms)
+✔ economic construction efficiency includes actual delays, labor, net cost and permanent base gain (4819.5871ms)
+✔ all nine building types have comparable engineering speed under equal relevant ability and real demand (25836.8379ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 32265.9546

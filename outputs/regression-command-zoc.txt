@@ -1,0 +1,47 @@
+✔ Jianxiong appointment changes slots without restoring retired army stat multipliers (15.6456ms)
+✔ current appointment eligibility is defined per mechanism, not generic role stats (3.1784ms)
+✔ appointment UI displays the matching trait effect and recommendation uses it (2.7626ms)
+✔ current save preserves command eligibility and deterministic continuation (113.4229ms)
+✔ legacy numerical command traits are empty; stats never grant appointment mechanics (0.2196ms)
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (12.5088ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (20.0464ms)
+✔ overlapping interception remains after harass disables one owner (8.8085ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (3.4242ms)
+✔ out-of-range rear does not displace an attackable front (3.2081ms)
+✖ real rally restores interception without waiting for disruption expiry (3.5725ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (3.3912ms)
+✔ nearby wounded front takes priority over a healthy ranged target (1.7716ms)
+✔ 疑兵战法为残血部队额外避战两回合并保持确定性续战 (6.267ms)
+✔ 疑兵战法不能绕过共用避战间隔 (2.4453ms)
+✔ enemy side uses the same finisher priority and excludes protected targets (3.7201ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 326.4882
+
+✖ failing tests:
+
+test at tests\zoc-counterplay.test.mjs:67:1
+✖ real rally restores interception without waiting for disruption expiry (3.5725ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:69:88)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

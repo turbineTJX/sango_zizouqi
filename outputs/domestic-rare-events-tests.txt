@@ -1,0 +1,21 @@
+✔ close same-work officers gain a strong, saved joint effect on both real operations (514.4167ms)
+✔ hostile same-work officers can obstruct both participants without new fees (90.4205ms)
+✔ the concrete Xun Yu and Xiahou Dun market story loses real reserves and lowers their friendship (67.2143ms)
+✔ one commercial officer encounters good and bad farming and training stories with real colleagues (847.5346ms)
+✔ cross-domain incidents can help another existing approved research project (2537.0036ms)
+✔ same research slot has one actual project and a waiting colleague can aid its progress (107.4639ms)
+✔ departure breaks the joint effect, and different tasks never produce social incidents (523.991ms)
+✔ positive stories improve friendship and saved settlement never rerolls or pays twice (573.4914ms)
+✔ unapproved work and nonresident characters never generate a story (444.6777ms)
+✔ one city receives at most two incidents per turn; saved source and effect tampering is rejected (5065.7796ms)
+✔ a harmful reserve story clips to real unreserved soldiers and keeps the paid recruitment intact (1476.8404ms)
+✔ positive stories share the real production allowance and enter the harvest exactly once (873.7444ms)
+✔ story relationships respect tier boundaries and siege participation pauses incident checks (834.5003ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14274.4924

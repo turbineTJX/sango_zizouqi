@@ -6,11 +6,11 @@ import {STRATAGEMS} from './engine.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const THEMES={offense:['#ffdc80','#dc9a3f'],support:['#9cebcf','#45baaa'],control:['#e9b4ff','#ae69d3']};
-const GLYPHS={swiftRush:'疾',guardInvincible:'护',formationAura:'协',confuse:'乱',burn:'焚',plague:'疫',seal:'禁',taunt:'嘲',slow:'缓',armorBreak:'破',weaken:'弱',attackSlow:'缓',attackHaste:'速',despair:'志',intentSuppression:'抑',stealth:'伏',decoy:'疑',insight:'察',root:'缚',disarm:'卸',disrupted:'散',shortRange:'短',longRange:'射',guard:'护',link:'连',shield:'盾',resolve:'定',phalanx:'阵',ward:'御',illusion:'幻',regrowth:'愈',phase:'遁',pursuit:'追',bulwark:'壁',riposte:'反',camp:'垒',nexus:'枢',anchored:'锚',emplaced:'架',burningAttack:'焰',attackOrb:'刃',strategyAttack:'谋',haste:'速',valor:'攻',hunger:'粮',assaultUntil:'攻',fortifyUntil:'防',disruptUntil:'弱',hasteUntil:'速',rangeUntil:'射',recoveryUntil:'愈'};
+const GLYPHS={stun:'晕',commandInvincible:'御',swiftRush:'疾',guardInvincible:'护',formationAura:'协',confuse:'乱',burn:'焚',plague:'疫',seal:'禁',taunt:'嘲',slow:'缓',armorBreak:'破',weaken:'弱',attackSlow:'缓',attackHaste:'速',despair:'志',intentSuppression:'抑',stealth:'伏',decoy:'疑',insight:'察',root:'缚',disarm:'卸',disrupted:'散',shortRange:'短',longRange:'射',guard:'护',link:'连',shield:'盾',resolve:'定',phalanx:'阵',ward:'御',illusion:'幻',regrowth:'愈',phase:'遁',pursuit:'追',bulwark:'壁',riposte:'反',camp:'垒',nexus:'枢',anchored:'锚',emplaced:'架',burningAttack:'焰',attackOrb:'刃',strategyAttack:'谋',haste:'速',valor:'攻',hunger:'粮'};
 const TONES={control:'#e5b2ff',damage:'#ffb078',debuff:'#ffa5ab',buff:'#a2ecd2'};
 const rank=s=>s.priority??(s.tone==='debuff'?10:22);
 export function battlefieldStatuses(b,u){
- return inspectionStatuses(b,u).filter(s=>s.tone!=='neutral'&&!['blockadeUntil','reliefUntil'].includes(s.key)&&(s.key!=='rangeUntil'||['archer','crossbow'].includes(u.type))).sort((a,b)=>rank(a)-rank(b));
+ return inspectionStatuses(b,u).filter(s=>s.tone!=='neutral'&&!['blockadeUntil'].includes(s.key)).sort((a,b)=>rank(a)-rank(b));
 }
 // A separate presentation channel: military orders never enter the tactic queue.
 export class BattleSignals {
@@ -25,8 +25,9 @@ export class BattleSignals {
   for(const side of [0,1]){
    const resource=side?b.enemyCommand:b,last=resource?.lastCommand,serial=resource?.commandSerial||0;
    if(!fresh&&last&&serial!==this.serials[side]&&STRATAGEMS[last.key]){
-    const definition=STRATAGEMS[last.key],targetSide=definition.side===0?side:1-side;
-    const targets=this.units.filter(u=>u.side===targetSide&&(!isAreaStratagem(definition)||stratagemAreaContains(definition,last.target,u))&&(last.key!=='range'||['archer','crossbow'].includes(u.type))).map(u=>({id:u.id,x:u.x,y:u.y}));
+    const definition=STRATAGEMS[last.key],targetSide=definition.side===2?2:definition.side===0?side:1-side;
+    const event=b.sides[side].stratagemEvents?.find(e=>e.key===last.key&&e.castTick===last.tick),ids=event?.key==='reinforce'?event.units:event?.key==='storm'?event.strikes.flatMap(s=>s.hits.map(h=>h.id)):null;
+    const targets=this.units.filter(u=>(targetSide===2||u.side===targetSide)&&(!ids||ids.includes(u.id))&&(!isAreaStratagem(definition)||stratagemAreaContains(definition,last.target,u))).map(u=>({id:u.id,x:u.x,y:u.y}));
     this.orders.push({key:last.key,side,targetSide,name:definition.name,group:definition.group,targets,start:clock,duration:1800,serial});
    }
    this.serials[side]=serial;
@@ -52,7 +53,7 @@ export class BattleSignals {
   const c=fx.ctx,keys=new Set(u.statuses.map(s=>s.key)),has=(...ids)=>ids.some(id=>keys.has(id));
   const x=p.x,y=p.y,top=Math.max(22,y-cell*.65),r=cell*.4;
   if(fx.mode==='clear'||fx.reduced){
-   const urgent=u.statuses.find(s=>['confuse','confuse','seal','burn','burn'].includes(s.key));
+   const urgent=u.statuses.find(s=>['stun','confuse','seal','burn'].includes(s.key));
    if(urgent){
     c.save();c.font='bold 11px "Microsoft YaHei",sans-serif';c.textAlign='center';c.textBaseline='middle';
     c.fillStyle='#172321';c.fillRect(x-10,top-9,20,18);c.fillStyle=TONES[urgent.tone]||'#efd29e';c.fillText(GLYPHS[urgent.key],x,top);c.restore();
@@ -61,7 +62,7 @@ export class BattleSignals {
   }
   c.save();c.lineWidth=2;
   // Protective shell stays on the body; damage and control remain visible above it.
-  if(has('shield','ward','resolve','phalanx','bulwark','fortifyUntil','illusion','camp')){
+  if(has('commandInvincible','shield','ward','resolve','phalanx','bulwark','illusion','camp')){
    c.fillStyle='#72cfff16';c.strokeStyle='#a5e9ff';c.globalAlpha=.6+(fx.reduced?0:Math.sin(t*2)*.12);
    c.beginPath();c.ellipse(x,y-cell*.22,cell*.43,cell*.5,0,0,Math.PI*2);c.fill();c.stroke();
    for(const dir of [-1,1]){c.beginPath();c.moveTo(x+dir*r*.85,y-cell*.45);c.lineTo(x+dir*r*.85,y-cell*.05);c.stroke();}
@@ -73,21 +74,21 @@ export class BattleSignals {
     c.fillStyle=i%2?'#ffd47a':'#ff793f';c.beginPath();c.moveTo(x+ox-cell*.06,y+cell*.08);c.quadraticCurveTo(x+ox-cell*.1,y-h*.5,x+ox+Math.sin(t*5+i)*cell*.04,y-h);c.quadraticCurveTo(x+ox+cell*.13,y-h*.3,x+ox+cell*.06,y+cell*.08);c.fill();
    }
   }
-  if(has('plague','blight','curse','weaken','disruptUntil','armorBreak','slow','attackSlow','hunger')){
+  if(has('plague','blight','curse','weaken','armorBreak','slow','attackSlow','hunger')){
    c.globalAlpha=.75;c.strokeStyle=has('plague','blight')?'#c2d16b':'#d991ce';
    c.setLineDash([4,4]);c.beginPath();c.ellipse(x,y+cell*.1,cell*.47,cell*.19,0,0,Math.PI*2);c.stroke();c.setLineDash([]);
    for(let i=0;i<3;i++){const ox=(i-1)*cell*.26,yy=y+cell*.14+((t*.5+i*.3)%1)*cell*.16;c.beginPath();c.moveTo(x+ox-cell*.045,yy-cell*.08);c.lineTo(x+ox,yy);c.lineTo(x+ox+cell*.045,yy-cell*.08);c.stroke();}
   }
-  if(has('regrowth','recoveryUntil')){
+  if(has('regrowth')){
    c.strokeStyle='#8affb8';c.lineWidth=2.5;c.globalAlpha=.85;
    for(let i=0;i<3;i++){const yy=y-cell*((t*.5+i*.3)%1)*.7,xx=x+(i-1)*cell*.28;c.beginPath();c.moveTo(xx-4,yy);c.lineTo(xx+4,yy);c.moveTo(xx,yy-4);c.lineTo(xx,yy+4);c.stroke();}
   }
-  if(has('valor','assaultUntil','haste','hasteUntil','pursuit','attackOrb','strategyAttack','burningAttack','rangeUntil','phase','nexus','riposte')){
-   const color=has('valor','assaultUntil','attackOrb','burningAttack')?'#ffdc81':'#99eddd';c.strokeStyle=color;c.globalAlpha=.7;
+  if(has('valor','haste','pursuit','attackOrb','strategyAttack','burningAttack','phase','nexus','riposte')){
+   const color=has('valor','attackOrb','burningAttack')?'#ffdc81':'#99eddd';c.strokeStyle=color;c.globalAlpha=.7;
    c.beginPath();c.ellipse(x,y+cell*.06,cell*.42,cell*.15,0,0,Math.PI*2);c.stroke();
    for(let i=0;i<2;i++){const xx=x+(i?1:-1)*cell*.43,yy=y-cell*.08-((t*.6+i*.5)%1)*cell*.26;c.beginPath();c.moveTo(xx-3,yy+4);c.lineTo(xx,yy);c.lineTo(xx+3,yy+4);c.stroke();}
   }
-  if(has('confuse')){
+  if(has('stun','confuse')){
    c.strokeStyle='#dfa7ff';c.globalAlpha=.95;c.lineWidth=2.5;c.beginPath();
    for(let i=0;i<=42;i++){const a=i*.25+t*2,rr=cell*.24*i/42,xx=x+Math.cos(a)*rr,yy=top+Math.sin(a)*rr*.45;i?c.lineTo(xx,yy):c.moveTo(xx,yy);}c.stroke();
   }

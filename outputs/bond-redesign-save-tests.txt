@@ -1,0 +1,15 @@
+✔ rare bonds have curated shared holders, different thresholds and require multiple officers at the top (1.2892ms)
+✔ master boosts army command accumulation without multiplying Wolong and stops when providers withdraw (14.5269ms)
+✔ escort protects adjacent other units with strongest-source merging, blocked by control or departure (2.1052ms)
+✔ actual full battles heal only real casualties, attribute rare effects and resume deterministically (216.3224ms)
+✔ support plans have one source and one recipient per pulse and no empty-wound healing (2.1812ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (334.0697ms)
+✔ 自由对战：无效配置被拒绝 (2.4032ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 514.2029

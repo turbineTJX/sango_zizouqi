@@ -1,0 +1,50 @@
+
+> sango-sovereign@0.3.0 test:war-fog
+> node --test tests/scouting-routes.test.mjs tests/strategic-vision.test.mjs tests/strategic-ai-scouting.test.mjs
+
+✔ neighboring cities are endpoints and cannot be used as transit (8.5783ms)
+✔ a legal local route is chosen even when the cheapest route crosses another city (0.3126ms)
+✔ continuous ports stay within local and neighboring road districts (0.3395ms)
+✔ scope and paths use public geography without consulting hidden ownership or forces (0.1826ms)
+✔ AI assigns at most two unique scout targets and uses eligible officers in intelligence order (84.0268ms)
+✔ a main offensive objective takes priority over other unknown frontier cities (50.3917ms)
+✔ a planned distant objective cannot make the AI scout through an intervening city (43.9234ms)
+✔ completed frontier scouting is reassigned to a more important main offensive (53.9404ms)
+✔ ordinary scouting covers another unknown border after two observed days without daily reshuffling (65.4956ms)
+✔ completed scouting refreshes a stale border even without an offensive plan (53.9073ms)
+✔ higher scouting priority can release waiting optional work while preserving paid work and food/cash staff (46.1897ms)
+✔ AI never releases the only food and cash workers to obtain more scouting (36.8967ms)
+✔ player and AI scouts travel 105 road points per day and cover a 210-point route in two days (58.1053ms)
+✔ frequent scouting does not abandon an outbound scout to rotate toward another target (43.5381ms)
+✔ reassignment releases an officer in the actual departure city rather than stopping an unrelated scout (45.201ms)
+✔ scouts remain watching hostile targets, and stop when friendly armies provide direct vision (48.8567ms)
+✔ scouting is not assigned to besieged cities or officers with existing work (37.231ms)
+✔ natural AI domestic appointments never make a scouting officer governor or assign another job (20563.538ms)
+✔ two-officer AI cities retain a domestic worker and release an overcommitted scout (19325.2284ms)
+✔ AI waits for its actual scout to observe the target and sees exactly the player projection (52.499ms)
+✔ unobserved city ownership, resources, defenders and hidden armies cannot change offensive estimates (66.8297ms)
+✔ expired vision preserves the last city report without silently following hidden changes (80.3134ms)
+✔ private enemy destinations, routes and future orders never affect observed threat (41.5655ms)
+✔ scouting priorities do not follow unseen political changes and resume from identical saved state (78.8845ms)
+✔ daily AI planning dispatches scouts and holds an unobserved offensive without consuming troops or grain (86.0093ms)
+✔ the complete military planner makes identical faction decisions when only hidden enemy state changes (140.9847ms)
+✔ national geography is explored while enemy city contents, armies and rosters obey visibility (210.8539ms)
+✔ responsible officer stays working in the city while a simulated scout travels and reveals immediately (257.3356ms)
+✔ intellect controls randomized illumination duration, without an intelligence acquisition wait (38.0656ms)
+✔ scouting a fractional-distance road endpoint retains a valid, deterministic save (501.0888ms)
+✔ a civilian scouting officer has real employment and can clear an idle resignation warning (246.8505ms)
+✔ a prepared city officer can work and encountered armies have usable, dated intelligence reports (231.6065ms)
+✔ AI threats ignore hidden armies and secret orders but respond to observed approaching forces (60.6113ms)
+✔ foreign battle observations do not disclose unseen history or later outcomes (65.7971ms)
+✔ save validation rejects missing work, future sight expiry and invalid scout routes (155.1535ms)
+✔ scouting selects a city, its resident officer and only a nearby endpoint in order (9.592ms)
+✔ scouts can stop at neighboring cities but cannot cross them or follow a distant port chain (43.6903ms)
+✔ saved scouts cannot bypass nearby limits or pass through a city on their remaining route (83.4091ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 41378.4119

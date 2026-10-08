@@ -1,0 +1,40 @@
+✔ 自定义军团长与军师独立于队列，军略按指定人选带入并保存 (12.8831ms)
+✔ each troop has two fixed small actions and one large action; only listed owners have exclusives (0.9979ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (32.3557ms)
+✔ force and intellect fixed actions use distinct authored power channels (66.5803ms)
+✔ confusion and seal block an actual fixed tactic while seal still permits basic attacks (13.5243ms)
+✔ current rally restores actual intent and ward taunts a legal nearby enemy (33.7722ms)
+✔ current cavalry harassment suppresses the real target without granting retired lure (16.813ms)
+✔ area dispel and speed preserve real tactic cooldowns and persist across current saves (13.9752ms)
+✔ ordinary blockade delays replacement until its actual saved expiry (169.3959ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (511.0993ms)
+✔ ten basics and three exclusives use finite rosters; intellect and level never grant repertoire (7.0454ms)
+✔ validator rejects expansion by attribute, wrong exclusive ownership and short cooldown (72.3762ms)
+✔ every basic has holders in multiple actual heroes opening factions; recruitment preserves personal commands (4.9398ms)
+✔ same name chooses one eligible source and only leadership and intellect scale it (8.1039ms)
+✔ single gauge starts empty, uses active intellect, holds one charge and resets only on success (150.7518ms)
+✔ leader and advisor union is sparse, duplicates collapse, unassigned officers unlock nothing (10.9224ms)
+✔ healing uses wounded budget, never heals dead or reserves, and settlement does not duplicate it (7.8238ms)
+✔ a legitimate reserve advisor can heal active troops without invalid off-board visual origins in saves (15.7261ms)
+✔ fire uses declared ticks, shields absorb loss, no intent income, and broad dispel clears it (62.2201ms)
+✔ departed commander loses only their repertoire: defeated side 0 (4.2427ms)
+✔ departed commander loses only their repertoire: defeated side 1 (2.9911ms)
+✔ departed commander loses only their repertoire: withdrawn side 0 (4.2382ms)
+✔ departed commander loses only their repertoire: withdrawn side 1 (3.5172ms)
+✔ same-name falls back to remaining eligible source, saves resume and old rules are rejected (57.9897ms)
+✔ current independent battle mechanics all require explicit appointments (1.1254ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/leader (60.9687ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/advisor (26.5027ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/leader (21.0142ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/advisor (18.2955ms)
+✔ Ji Jun does not activate without appointment, while withdrawing or for another army (11.7321ms)
+✔ Bi Yan triggers from a real legal command and saves its interval (44.3952ms)
+✔ Yin Ren refunds only its own gauge after an actual enemy command (26.2352ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1081.016

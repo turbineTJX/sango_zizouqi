@@ -1,0 +1,346 @@
+[
+  {
+    "scenario": "guandu-200",
+    "seed": 417,
+    "player": "cao",
+    "day": 11,
+    "finished": null,
+    "issues": [],
+    "findings": [],
+    "metrics": {
+      "yuan": {
+        "name": "袁绍",
+        "startCities": 10,
+        "completed": 16,
+        "failed": 3,
+        "interrupted": 0,
+        "assignments": 34,
+        "decisions": {
+          "stage": 4,
+          "attack": 1
+        },
+        "captures": 1,
+        "losses": 0,
+        "battles": 1,
+        "wins": 1,
+        "defeats": 0,
+        "plans": 1,
+        "hungryArmyDays": 0,
+        "hungryCityDays": 0,
+        "endCities": 11,
+        "gold": 6312,
+        "activeAssignments": 34
+      },
+      "force-7": {
+        "name": "刘表",
+        "startCities": 19,
+        "completed": 13,
+        "failed": 4,
+        "interrupted": 0,
+        "assignments": 31,
+        "decisions": {
+          "attack": 1,
+          "transfer": 3,
+          "stage": 1
+        },
+        "captures": 1,
+        "losses": 0,
+        "battles": 1,
+        "wins": 1,
+        "defeats": 0,
+        "plans": 1,
+        "hungryArmyDays": 0,
+        "hungryCityDays": 0,
+        "endCities": 20,
+        "gold": 9143,
+        "activeAssignments": 31
+      },
+      "sunce": {
+        "name": "孙策",
+        "startCities": 14,
+        "completed": 12,
+        "failed": 7,
+        "interrupted": 0,
+        "assignments": 33,
+        "decisions": {
+          "stage": 3,
+          "transport": 1,
+          "attack": 1
+        },
+        "captures": 1,
+        "losses": 0,
+        "battles": 1,
+        "wins": 1,
+        "defeats": 0,
+        "plans": 1,
+        "hungryArmyDays": 0,
+        "hungryCityDays": 0,
+        "endCities": 15,
+        "gold": 6885,
+        "activeAssignments": 33
+      }
+    },
+    "shortages": [],
+    "plans": [
+      {
+        "id": 1,
+        "faction": "yuan",
+        "phase": "consolidate",
+        "target": "town-12",
+        "staging": "town-5",
+        "officerIds": [
+          "person-14",
+          "person-165",
+          "person-169",
+          "person-72",
+          "person-306",
+          "person-645"
+        ],
+        "origins": [
+          {
+            "cityId": "town-5",
+            "officerIds": [
+              "person-14"
+            ],
+            "grain": 900
+          },
+          {
+            "cityId": "town-4",
+            "officerIds": [
+              "person-165",
+              "person-169",
+              "person-72"
+            ],
+            "grain": 2700
+          },
+          {
+            "cityId": "ye",
+            "officerIds": [
+              "person-306"
+            ],
+            "grain": 900
+          },
+          {
+            "cityId": "town-54",
+            "officerIds": [
+              "person-645"
+            ],
+            "grain": 900
+          }
+        ],
+        "reserves": {},
+        "createdDay": 1,
+        "updatedDay": 10,
+        "deadline": 41,
+        "reason": "目标已占领，恢复守备与粮道"
+      },
+      {
+        "id": 2,
+        "faction": "force-7",
+        "phase": "consolidate",
+        "target": "runan",
+        "staging": "town-29",
+        "officerIds": [
+          "person-24",
+          "person-100"
+        ],
+        "origins": [
+          {
+            "cityId": "town-29",
+            "officerIds": [
+              "person-24",
+              "person-100"
+            ],
+            "grain": 1800
+          }
+        ],
+        "reserves": {},
+        "createdDay": 1,
+        "updatedDay": 10,
+        "deadline": 41,
+        "reason": "目标已占领，恢复守备与粮道"
+      },
+      {
+        "id": 3,
+        "faction": "sunce",
+        "phase": "attack",
+        "target": "town-11",
+        "staging": "town-23",
+        "officerIds": [
+          "person-246",
+          "person-371",
+          "person-164",
+          "person-158",
+          "person-243"
+        ],
+        "origins": [
+          {
+            "cityId": "town-23",
+            "officerIds": [
+              "person-246",
+              "person-371",
+              "person-164"
+            ],
+            "grain": 2700
+          },
+          {
+            "cityId": "town-70",
+            "officerIds": [
+              "person-158"
+            ],
+            "grain": 900
+          },
+          {
+            "cityId": "town-24",
+            "officerIds": [
+              "person-243"
+            ],
+            "grain": 900
+          }
+        ],
+        "reserves": {},
+        "createdDay": 1,
+        "updatedDay": 3,
+        "deadline": 31,
+        "reason": "兵粮集结完成，诸军按共同目标进攻"
+      }
+    ],
+    "decisions": [
+      {
+        "day": 3,
+        "armyId": "a63",
+        "faction": "sunce",
+        "name": "周瑜军",
+        "kind": "attack",
+        "target": "town-11",
+        "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 3,
+        "armyId": "a62",
+        "faction": "yuan",
+        "name": "高干军",
+        "kind": "attack",
+        "target": "town-12",
+        "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 1,
+        "armyId": "a61",
+        "faction": "sunce",
+        "name": "周泰军",
+        "kind": "stage",
+        "target": "town-23",
+        "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 1,
+        "armyId": "a60",
+        "faction": "sunce",
+        "name": "严畯军",
+        "kind": "stage",
+        "target": "town-23",
+        "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 1,
+        "armyId": "city-force:town-23",
+        "faction": "sunce",
+        "name": "建业",
+        "kind": "transport",
+        "target": "town-69",
+        "reason": "调运0粮、1666预备兵支援芜湖港，实际沿路运输"
+      },
+      {
+        "day": 1,
+        "armyId": "city-force:town-23",
+        "faction": "sunce",
+        "name": "建业",
+        "kind": "stage",
+        "target": "town-11",
+        "reason": "集中兵力与粮草，完成集结后出征"
+      },
+      {
+        "day": 1,
+        "armyId": "a59",
+        "faction": "force-7",
+        "name": "王威军",
+        "kind": "attack",
+        "target": "runan",
+        "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 1,
+        "armyId": "city-force:town-29",
+        "faction": "force-7",
+        "name": "新野",
+        "kind": "transfer",
+        "target": "town-35",
+        "reason": "调任傅巽补充当地内政人才"
+      },
+      {
+        "day": 1,
+        "armyId": "city-force:town-32",
+        "faction": "force-7",
+        "name": "长沙",
+        "kind": "transfer",
+        "target": "town-34",
+        "reason": "调任刘磐补充当地内政人才"
+      },
+      {
+        "day": 1,
+        "armyId": "city-force:town-31",
+        "faction": "force-7",
+        "name": "江陵",
+        "kind": "transfer",
+        "target": "town-33",
+        "reason": "调任邢道荣补充当地内政人才"
+      },
+      {
+        "day": 1,
+        "armyId": "city-force:town-29",
+        "faction": "force-7",
+        "name": "新野",
+        "kind": "stage",
+        "target": "runan",
+        "reason": "集中兵力与粮草，完成集结后出征"
+      },
+      {
+        "day": 1,
+        "armyId": "a58",
+        "faction": "yuan",
+        "name": "吕威璜军",
+        "kind": "stage",
+        "target": "town-5",
+        "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 1,
+        "armyId": "a57",
+        "faction": "yuan",
+        "name": "辛评军",
+        "kind": "stage",
+        "target": "town-5",
+        "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 1,
+        "armyId": "a56",
+        "faction": "yuan",
+        "name": "高干军",
+        "kind": "stage",
+        "target": "town-5",
+        "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+      },
+      {
+        "day": 1,
+        "armyId": "city-force:town-5",
+        "faction": "yuan",
+        "name": "平原",
+        "kind": "stage",
+        "target": "town-12",
+        "reason": "集中兵力与粮草，完成集结后出征"
+      }
+    ]
+  }
+]

@@ -1,0 +1,23 @@
+✔ commerce and agriculture match actor traits rather than governor-only income skills (69.4054ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (59.9174ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1005.7186ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (20.9073ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (67.9656ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (20.6996ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (23.3449ms)
+✔ a hostile column approaching home takes priority over expansion (19.1678ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (21.2877ms)
+✔ columns sharing an AI route consume independent paths before and after JSON reload (27.3282ms)
+✔ a hungry army reverses its actual road progress without teleporting home (16.9385ms)
+✔ a starving merged army splits its retreat into legal marching columns (19.7923ms)
+✔ a merged wounded roster sends only its live companies as reinforcements (20.5097ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (21.6451ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (7153.8875ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7579.5256

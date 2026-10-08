@@ -1,0 +1,36 @@
+✔ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (43.1225ms)
+✔ discipline directly reduces probability; duration and odds do not use unrelated officer attributes (4.0075ms)
+✔ each round checks actual occupants, never allies, reserves or protected targets; expiry stops checking (2.9424ms)
+✔ live formation causes real random statuses, survives reload, and expires after eighteen rounds (63.8177ms)
+✔ area saves reject forged location, duration, source, duplicate zones and missing new state (11.3097ms)
+✔ enemy formation uses the same target side and probability rules (2.9708ms)
+✔ circle and rotated rectangle use rendered geometry, inclusive boundary (1.0071ms)
+✔ missing, malformed and empty selection leave resources and effects unchanged (19.3229ms)
+✔ fire only applies inside rectangle and does not concentrate excluded target budget (116.4372ms)
+✔ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (3.3481ms)
+✔ enemy uses identical selected geometry (3.4315ms)
+✔ demoralize affects only selected active enemies and AI chooses effective coverage (3.0102ms)
+✔ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (3.7203ms)
+✔ AI excludes burning, untargetable and reserve units, and skips unusable area commands (0.2242ms)
+✔ heal highlights only real wounded and confirmation is disabled without useful targets (0.3601ms)
+✔ zero-intent troops are not scored or highlighted for demoralize; both sides share placement (0.4322ms)
+✔ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.374ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (14.3135ms)
+✔ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (89.6066ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (66.1005ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (57.9ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (60.2368ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (54.8604ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (46.027ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (44.059ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (36.2769ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.3636ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.3797ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 682.6933

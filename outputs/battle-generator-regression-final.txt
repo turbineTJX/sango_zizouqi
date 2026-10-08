@@ -1,0 +1,29 @@
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+movement.army.speedByTroop.ram：兵种行军速度须大于0
+movement.army.speedByTroop.tower：兵种行军速度须大于0
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\battle-generator.test.mjs (148.4407ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 153.5166
+
+✖ failing tests:
+
+test at tests\battle-generator.test.mjs:1:1
+✖ tests\battle-generator.test.mjs (148.4407ms)
+  'test failed'

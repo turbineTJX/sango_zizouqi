@@ -1,0 +1,28 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-08",
+  "transparent_background": true,
+  "common_prompt": "Use case: stylized-concept. Production game town building sprite for an original historical Han Chinese Three Kingdoms strategy game. Richly detailed hand-painted / late-1990s prerendered strategy town architecture, tactile weathered timber, mossy stone steps, jade tile roofs, warm amber sunlight from upper left, elevated oblique three-quarter camera, restrained natural palette. Entire building and props inside square frame with generous 12 percent genuinely transparent margin, ground baseline at 84 percent height. Small natural footprint and cast shadow only. No large diamond platform, scenery, sky, labels, lettering, watermark, logos, borders, European fantasy architecture, flat vector shapes or low poly. Actual alpha transparency, no checkerboard drawing. One facility only.",
+  "assets": [
+    {
+      "kind": "arrowTower",
+      "path": "han-arrowTower-v2.png",
+      "subject_prompt": "A fortified Han Chinese ARCHERY TOWER: tall square timber and stone tower with intricate tiled overhanging roof, two levels of narrow arrow slits, wooden parapets, a few tiny crossbows and quivers on the firing platform, short wooden stairs, subtle crimson military pennant, stone base with moss and grass. Clearly a defensive projectile tower, detailed painterly construction, suitable for a town-screen sprite.",
+      "edit_prompt": "Edit the supplied archery tower sprite. Preserve the same detailed Han Chinese building, materials, colors, camera angle, crossbows, staircase and flags. Reframe the entire tower 20 percent smaller within the same square image, with a genuinely transparent margin of at least 10 percent on EVERY side. Restore the complete roof apex finial at the top so nothing is clipped. Keep the whole natural footprint and complete staircase. No new architecture, no backdrop, no text. Production game sprite on actual alpha transparency.",
+      "edit_source": "han-arrowTower-v1.png",
+      "qa": "Reviewed roof apex, complete stairs, material style and true RGBA alpha; v2 is the active asset."
+    },
+    {
+      "kind": "musicStage",
+      "path": "han-musicStage-v1.png",
+      "subject_prompt": "A Han Chinese MILITARY MUSIC PLATFORM: a raised carved timber pavilion on weathered stone steps, jade tiled canopy on red brown pillars, a large traditional cylindrical war drum with brass studs on its carved stand, racks of bronze bells, two restrained crimson pennants, drumsticks and instruments, tiny drum attendants without readable faces. Architectural vignette rather than character portrait, detailed painterly town-screen sprite.",
+      "qa": "Reviewed instruments, complete architectural silhouette, material style and true RGBA alpha."
+    },
+    {
+      "kind": "aidCamp",
+      "path": "han-aidCamp-v1.png",
+      "subject_prompt": "A Han Chinese FIELD MEDICAL CAMP: an open-front earth-colored canvas treatment tent next to a small tiled timber herb shelter, stretchers, folded linen, clay medicine pots, wooden chest, bundles of drying medicinal herbs, a water basin and tiny attending healer in plain ancient robe. Low natural medical camp composition with sheltered beds, no modern red cross, no writing, restrained detailed painterly town-screen sprite.",
+      "qa": "Reviewed canvas camp, genuine treatment props, period clothing and true RGBA alpha."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+✔ all campaign information is read only and city units are not armies (105.8007ms)
+✔ expedition information follows real city-unit departure without duplication (20.065ms)
+✔ current status follows actual marching and transfer progress (216.0191ms)
+✔ siege status includes the live battlefield state of a real defending unit (413.1089ms)
+✔ prepared troops show active domestic work and deferred orders separately (14.3328ms)
+✔ talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact (361.5965ms)
+✔ an immediate new order recalls the recruiter physically before execution (307.1212ms)
+✔ express transports outrun armies but swept enemy crossings cause total loss without a battle (251.9562ms)
+✔ death, captivity and escape preserve exactly one person; ransom is paid once and return takes time (128.1647ms)
+✔ real battles assign fates to annihilated units and saves preserve their learned abilities (191.6283ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (255.6152ms)
+✔ a changed officer state blocks final formation without partial changes (26.9696ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (15.7582ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1424.5878

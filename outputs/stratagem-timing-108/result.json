@@ -1,0 +1,553 @@
+{
+  "rules": 108,
+  "scope": "diagnostic only; equal 18000 soldiers, same level, kits, formations and opponents; compare command timing without stat/resource privilege",
+  "seeds": {
+    "development": [
+      10811,
+      10817
+    ],
+    "validation": [
+      10831,
+      10847
+    ]
+  },
+  "summary": {
+    "none": {
+      "runs": 8,
+      "wins": 2,
+      "meanRemaining": 673
+    },
+    "fixed": {
+      "runs": 8,
+      "wins": 3,
+      "meanRemaining": 2323
+    },
+    "manual": {
+      "runs": 8,
+      "wins": 3,
+      "meanRemaining": 2367
+    }
+  },
+  "rows": [
+    {
+      "group": "development",
+      "seed": 10811,
+      "side": 0,
+      "controller": "none",
+      "winner": 1,
+      "won": false,
+      "tick": 107,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 0,
+      "enemyRemaining": 9500
+    },
+    {
+      "group": "development",
+      "seed": 10811,
+      "side": 0,
+      "controller": "fixed",
+      "winner": 1,
+      "won": false,
+      "tick": 129,
+      "casts": [],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8388
+    },
+    {
+      "group": "development",
+      "seed": 10811,
+      "side": 0,
+      "controller": "manual",
+      "winner": 1,
+      "won": false,
+      "tick": 129,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "heal",
+          "point": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "tick": 62,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 4
+          }
+        }
+      ],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8404
+    },
+    {
+      "group": "development",
+      "seed": 10811,
+      "side": 1,
+      "controller": "none",
+      "winner": 1,
+      "won": true,
+      "tick": 224,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 2878,
+      "enemyRemaining": 0
+    },
+    {
+      "group": "development",
+      "seed": 10811,
+      "side": 1,
+      "controller": "fixed",
+      "winner": 1,
+      "won": true,
+      "tick": 169,
+      "casts": [],
+      "serial": 4,
+      "ownRemaining": 6282,
+      "enemyRemaining": 0
+    },
+    {
+      "group": "development",
+      "seed": 10811,
+      "side": 1,
+      "controller": "manual",
+      "winner": 1,
+      "won": true,
+      "tick": 166,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "invincible",
+          "point": {
+            "x": 9,
+            "y": 2
+          }
+        },
+        {
+          "tick": 52,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "tick": 88,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "tick": 121,
+          "key": "invincible",
+          "point": {
+            "x": 6,
+            "y": 5
+          }
+        }
+      ],
+      "serial": 4,
+      "ownRemaining": 6298,
+      "enemyRemaining": 0
+    },
+    {
+      "group": "development",
+      "seed": 10817,
+      "side": 0,
+      "controller": "none",
+      "winner": 1,
+      "won": false,
+      "tick": 106,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 0,
+      "enemyRemaining": 9777
+    },
+    {
+      "group": "development",
+      "seed": 10817,
+      "side": 0,
+      "controller": "fixed",
+      "winner": 1,
+      "won": false,
+      "tick": 127,
+      "casts": [],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8683
+    },
+    {
+      "group": "development",
+      "seed": 10817,
+      "side": 0,
+      "controller": "manual",
+      "winner": 1,
+      "won": false,
+      "tick": 127,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "heal",
+          "point": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "tick": 62,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 4
+          }
+        }
+      ],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8746
+    },
+    {
+      "group": "development",
+      "seed": 10817,
+      "side": 1,
+      "controller": "none",
+      "winner": 0,
+      "won": false,
+      "tick": 173,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 0,
+      "enemyRemaining": 4512
+    },
+    {
+      "group": "development",
+      "seed": 10817,
+      "side": 1,
+      "controller": "fixed",
+      "winner": 0,
+      "won": false,
+      "tick": 224,
+      "casts": [],
+      "serial": 4,
+      "ownRemaining": 0,
+      "enemyRemaining": 2932
+    },
+    {
+      "group": "development",
+      "seed": 10817,
+      "side": 1,
+      "controller": "manual",
+      "winner": 0,
+      "won": false,
+      "tick": 236,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "invincible",
+          "point": {
+            "x": 9,
+            "y": 2
+          }
+        },
+        {
+          "tick": 57,
+          "key": "heal",
+          "point": {
+            "x": 8,
+            "y": 2
+          }
+        },
+        {
+          "tick": 99,
+          "key": "heal",
+          "point": {
+            "x": 9,
+            "y": 4
+          }
+        },
+        {
+          "tick": 157,
+          "key": "heal",
+          "point": {
+            "x": 9,
+            "y": 2
+          }
+        }
+      ],
+      "serial": 4,
+      "ownRemaining": 0,
+      "enemyRemaining": 2735
+    },
+    {
+      "group": "validation",
+      "seed": 10831,
+      "side": 0,
+      "controller": "none",
+      "winner": 1,
+      "won": false,
+      "tick": 109,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 0,
+      "enemyRemaining": 9443
+    },
+    {
+      "group": "validation",
+      "seed": 10831,
+      "side": 0,
+      "controller": "fixed",
+      "winner": 1,
+      "won": false,
+      "tick": 128,
+      "casts": [],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8428
+    },
+    {
+      "group": "validation",
+      "seed": 10831,
+      "side": 0,
+      "controller": "manual",
+      "winner": 1,
+      "won": false,
+      "tick": 128,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "heal",
+          "point": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "tick": 62,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 4
+          }
+        }
+      ],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8488
+    },
+    {
+      "group": "validation",
+      "seed": 10831,
+      "side": 1,
+      "controller": "none",
+      "winner": 0,
+      "won": false,
+      "tick": 292,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 0,
+      "enemyRemaining": 1124
+    },
+    {
+      "group": "validation",
+      "seed": 10831,
+      "side": 1,
+      "controller": "fixed",
+      "winner": 1,
+      "won": true,
+      "tick": 171,
+      "casts": [],
+      "serial": 4,
+      "ownRemaining": 6132,
+      "enemyRemaining": 0
+    },
+    {
+      "group": "validation",
+      "seed": 10831,
+      "side": 1,
+      "controller": "manual",
+      "winner": 1,
+      "won": true,
+      "tick": 186,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "invincible",
+          "point": {
+            "x": 9,
+            "y": 2
+          }
+        },
+        {
+          "tick": 52,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "tick": 97,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 4
+          }
+        },
+        {
+          "tick": 147,
+          "key": "heal",
+          "point": {
+            "x": 8,
+            "y": 4
+          }
+        }
+      ],
+      "serial": 4,
+      "ownRemaining": 5178,
+      "enemyRemaining": 0
+    },
+    {
+      "group": "validation",
+      "seed": 10847,
+      "side": 0,
+      "controller": "none",
+      "winner": 1,
+      "won": false,
+      "tick": 109,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 0,
+      "enemyRemaining": 9366
+    },
+    {
+      "group": "validation",
+      "seed": 10847,
+      "side": 0,
+      "controller": "fixed",
+      "winner": 1,
+      "won": false,
+      "tick": 132,
+      "casts": [],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8195
+    },
+    {
+      "group": "validation",
+      "seed": 10847,
+      "side": 0,
+      "controller": "manual",
+      "winner": 1,
+      "won": false,
+      "tick": 133,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "heal",
+          "point": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "tick": 62,
+          "key": "heal",
+          "point": {
+            "x": 6,
+            "y": 4
+          }
+        }
+      ],
+      "serial": 2,
+      "ownRemaining": 0,
+      "enemyRemaining": 8227
+    },
+    {
+      "group": "validation",
+      "seed": 10847,
+      "side": 1,
+      "controller": "none",
+      "winner": 1,
+      "won": true,
+      "tick": 233,
+      "casts": [],
+      "serial": 0,
+      "ownRemaining": 2502,
+      "enemyRemaining": 0
+    },
+    {
+      "group": "validation",
+      "seed": 10847,
+      "side": 1,
+      "controller": "fixed",
+      "winner": 1,
+      "won": true,
+      "tick": 171,
+      "casts": [],
+      "serial": 4,
+      "ownRemaining": 6167,
+      "enemyRemaining": 0
+    },
+    {
+      "group": "validation",
+      "seed": 10847,
+      "side": 1,
+      "controller": "manual",
+      "winner": 1,
+      "won": true,
+      "tick": 165,
+      "casts": [
+        {
+          "tick": 26,
+          "key": "invincible",
+          "point": {
+            "x": 9,
+            "y": 2
+          }
+        },
+        {
+          "tick": 52,
+          "key": "heal",
+          "point": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "tick": 88,
+          "key": "heal",
+          "point": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "tick": 126,
+          "key": "heal",
+          "point": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "tick": 164,
+          "key": "heal",
+          "point": {
+            "x": 8,
+            "y": 2
+          }
+        }
+      ],
+      "serial": 5,
+      "ownRemaining": 7458,
+      "enemyRemaining": 0
+    }
+  ]
+}

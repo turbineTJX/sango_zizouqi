@@ -1,0 +1,16 @@
+✔ charm remains available for personnel while four stats affect separate battle attributes (4.3553ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (81.4855ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (2.088ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (19.0875ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (7.4771ms)
+✔ discipline controls duration with an actual current physical control source (11.4319ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (8.4845ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (24.4244ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 352.1536

@@ -1,0 +1,262 @@
+✔ spear: gate attacks use derived siege power once, including casualties and attack buffs (33.1062ms)
+✔ halberd: gate attacks use derived siege power once, including casualties and attack buffs (14.2384ms)
+✔ cavalry: gate attacks use derived siege power once, including casualties and attack buffs (11.8603ms)
+✔ archer: gate attacks use derived siege power once, including casualties and attack buffs (11.1946ms)
+✔ crossbow: gate attacks use derived siege power once, including casualties and attack buffs (10.7683ms)
+✔ siege: gate attacks use derived siege power once, including casualties and attack buffs (10.0971ms)
+✔ ship: gate attacks use derived siege power once, including casualties and attack buffs (10.0938ms)
+✔ ram: gate attacks use derived siege power once, including casualties and attack buffs (10.6493ms)
+✔ tower: gate attacks use derived siege power once, including casualties and attack buffs (9.6033ms)
+✖ advantageous attack retains threat-sized city defense and conserves actual men and grain (80.7604ms)
+✖ superior defenses produce no attack plan or resource debit (25.8728ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (22.2839ms)
+✔ a serious incoming attack retains the home defense instead of expanding (19.7275ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (42.0501ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (20.2044ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (22.1682ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (48.098ms)
+✖ local plan reservation lets current work finish and blocks starting another task (29.1338ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (21.0515ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (21.2489ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (18.1081ms)
+✔ AI save rejects duplicated commitments and old planner versions (29.2186ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (29.5701ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (26.6118ms)
+✖ waiting transport earmarks cargo without a debit and replenishment preserves plan food (25.5875ms)
+✖ captured objective stays in consolidation until guard and food conditions recover (19.3665ms)
+✖ cancelling an assault before its first movement actually clears the outgoing route (19.304ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (19.548ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (17.1067ms)
+✔ departure checks real presence before considering work or interruption history (22.0099ms)
+✖ ordinary ready offensives interrupt lengthy work through the real command and record the loss (19.7333ms)
+✔ recent real interruption protects the next task across reload except when rescue would be missed (27.7711ms)
+✔ an expensive real construction near completion is protected even with more than two days left (23.6678ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (12147.0689ms)
+✔ offensive composition leaves busy officers working when idle troops suffice (103.7355ms)
+✔ a staging city with an existing defense shortfall cannot reserve an impossible offensive (35.5935ms)
+✔ deferred AI departure rechecks the home guard when the original work finishes (41.5549ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (38.0214ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (278.5138ms)
+✔ armies move visibly along road interiors before arriving (23.309ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (31.4158ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (29.7821ms)
+✔ head-on marching armies meet on the road without passing through each other (30.3364ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (151.054ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (438.3125ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (850.877ms)
+✖ multiple battles and their snapshots share the same global day (564.4022ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (306.2791ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (2476.5343ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (366.2489ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (542.3429ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (68.513ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (159.2211ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (6.8912ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (107.6038ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (7.255ms)
+✔ five days without food disband armies and preserve officers for their return (73.8967ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (431.1553ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (1376.8694ms)
+✖ city capture settles once and can be saved immediately within a day (256.3685ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (284.4849ms)
+ℹ tests 61
+ℹ suites 0
+ℹ pass 52
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13262.3212
+
+✖ failing tests:
+
+test at tests\strategic-ai.test.mjs:38:1
+✖ advantageous attack retains threat-sized city defense and conserves actual men and grain (80.7604ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'town-8' !== 'town-5'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:40:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'town-8',
+    expected: 'town-5',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:44:1
+✖ superior defenses produce no attack plan or resource debit (25.8728ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:46:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:87:1
+✖ local plan reservation lets current work finish and blocks starting another task (29.1338ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(plannedOfficer(s,'ju'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:89:53)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:125:1
+✖ waiting transport earmarks cargo without a debit and replenishment preserves plan food (25.5875ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reserved)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:126:471)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:132:1
+✖ captured objective stays in consolidation until guard and food conditions recover (19.3665ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'attack'
+  - 'consolidate'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:133:156)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'attack',
+    expected: 'consolidate',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:136:1
+✖ cancelling an assault before its first movement actually clears the outgoing route (19.304ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'attack'
+  - 'cancelled'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:138:39)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'attack',
+    expected: 'cancelled',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:155:1
+✖ ordinary ready offensives interrupt lengthy work through the real command and record the loss (19.7333ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.units.some(u=>u.id==='ju')))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:158:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:77:1
+✖ multiple battles and their snapshots share the same global day (564.4022ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battles.length>=2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:80:41)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:148:1
+✖ city capture settles once and can be saved immediately within a day (256.3685ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(r)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:150:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

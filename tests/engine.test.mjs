@@ -267,7 +267,7 @@ test('each skill has its own threshold, and intent below threshold cannot cast',
 });
 test('deployment can move, swap, reset and persist without advancing time', () => {
   const s=newGame();orderArmy(s,'a1','guandu');advanceTurn(s);startBattle(s);const b=s.battle;
-  assert.equal(isDeploying(b),true);assert.ok(issueCommand(b,'assault'));
+  assert.equal(isDeploying(b),true);assert.ok(issueCommand(b,'cao-wuchao'));
   const [a,d]=activeUnits(b,0),oldD={x:d.x,y:d.y};
   assert.equal(deployUnit(b,a.id,0,0),null);assert.equal(a.x,0);assert.equal(a.y,0);
   assert.equal(deployUnit(b,a.id,d.x,d.y),null);assert.equal(d.x,0);assert.equal(d.y,0);assert.equal(a.x,oldD.x);
@@ -276,30 +276,12 @@ test('deployment can move, swap, reset and persist without advancing time', () =
   assert.equal(resetDeployment(b),null);assert.equal(activeUnits(b,0).length,frontlineCapacity(b,0));
   assert.equal(lockDeployment(b),null);assert.ok(deployUnit(b,a.id,0,0));
 });
-test('paused stratagem consumes a full gauge, preserves time and includes reserves', () => {
-  const s=encounter(521200,'person-246'),b=s.battle;b.commandProgress=12000;
-  assert.equal(issueCommand(b,'inspire'),null);
-  assert.equal(b.tick,0);assert.equal(b.commandProgress,0);
-  assert.ok(b.sides[0].units.every(u=>u.intent===Math.round(b.lastCommand.source.strength)));
-  assert.ok(issueCommand(b,'inspire'));assert.ok(issueCommand(b,'fortify'));
-  validateSave(JSON.parse(JSON.stringify(s)));
+test('paused command consumes full gauge, preserves time and covers active troops only',()=>{
+ const s=encounter(521200,'cao'),b=s.battle;b.commandProgress=12000;assert.equal(issueCommand(b,'cao-wuchao'),null);
+ assert.equal(b.tick,0);assert.equal(b.commandProgress,0);for(const u of b.sides[0].units)assert.equal(!!u.statuses.magicImmune,u.status==='active');
+ assert.ok(issueCommand(b,'cao-wuchao'));validateSave(JSON.parse(JSON.stringify(s)));
 });
-test('attack and defense stratagems change actual damage and stop at expiration', () => {
-  function hit(command, expired=false){
-    const s=duel(),b=s.battle;
-    b.sides[1].units[0].cooldown=0;
-    if(command){b.commandProgress=12000;if(command==='disrupt'||command==='fortify')appointBattleTestCommander(b,command==='disrupt'?'tian':'jin');assert.equal(issueCommand(b,command),null);}
-    if(expired)b.tick=STRATAGEMS[command].duration;
-    stepBattle(b);return b.effects;
-  }
-  const base=hit(),attack=hit('assault'),defense=hit('fortify'),disrupt=hit('disrupt');
-  const own=e=>e.find(e=>e.side===0).damage,enemy=e=>e.find(e=>e.side===1).damage;
-  assert.ok(own(attack)>own(base));assert.ok(enemy(defense)<enemy(base));
-  assert.ok(own(disrupt)>own(base));assert.ok(enemy(disrupt)<enemy(base));
-  // Compare an expired buff to an equally advanced control, with matching initiative.
-  const s=duel();s.battle.sides[1].units[0].cooldown=0;s.battle.tick=18;stepBattle(s.battle);
-  assert.equal(own(hit('assault',true)),own(s.battle.effects));
-});
+
 test('missing deployment and command state is rejected instead of reconstructed', () => {
   for(const field of ['deploymentLocked','commandReady','commandSerial']){
     const s=encounter();stepBattle(s.battle);delete s.battle[field];

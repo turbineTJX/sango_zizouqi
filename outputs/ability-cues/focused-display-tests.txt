@@ -1,0 +1,66 @@
+
+> sango-sovereign@0.3.0 test:ability-cues
+> node --test tests/ability-cues.test.mjs tests/battle-effects.test.mjs tests/battle-signals.test.mjs tests/trait-mechanics.test.mjs
+
+✔ cues keep both sides visible, bound backlog and merge rapid repeated triggers (1.5983ms)
+✔ ordinary traits and small tactics have no special cue; unique abilities and big tactics do (0.2429ms)
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (3.5586ms)
+✔ trait outcomes get attributed cards and logs without pausing or replaying damage (1.1167ms)
+✔ ordinary abilities keep logs and damage but do not replace featured results or display named cues (0.5573ms)
+✔ failed trait rolls are logged honestly without a success card; hidden enemy traits are not revealed (0.5004ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.4686ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.3742ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.4094ms)
+✔ legacy windup events never display a preparation animation or log row (0.2528ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.504ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (2.5938ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.6893ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (6.2295ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.4542ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.3428ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (1.6404ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.2788ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.084ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.2934ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.2707ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.6185ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (2.0008ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (2.4773ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.2678ms)
+✔ reduced motion uses static focus and finishes without impact particles (0.9413ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (2.7223ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.4466ms)
+✔ minor tactics including criticals stay local in both effect modes (0.6953ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (3.0498ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (1023.4624ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (17.4796ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (3.678ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (3.82ms)
+✔ signals render finite coordinates without changing battle data through real combat (104.7535ms)
+✔ 27 unique mechanics replace old personal stat multipliers and describe their conditions (13.1153ms)
+✔ Flying General ignores ZOC for real route searches, but cannot pass occupied cells (2.666ms)
+✔ Flying General sweep uses seeded chance and finite non-recursive extra hits on both sides (90.8425ms)
+✔ Wolong doubles only appointed army recovery, including reserves; no zero-hp or withdrawing source (1.1064ms)
+✔ Jianxiong intelligence difference is bounded and confusion respects resolve and immunity (31.3011ms)
+✔ rescue and guard trigger on actual allies (3.3126ms)
+✔ ambush entry is one-use, wrong troops do not activate, and stationary range ends on movement (5.5577ms)
+✔ on-hit troop mechanics produce control and extra attacks through real basics (43.943ms)
+✔ kill reward shortens cooldown but never replenishes charges or recovery (1.9733ms)
+✔ fixed tactic casts activate ally shield and movement release (5.0512ms)
+✔ real battle save resumes all random trait rolls and rejects forged trigger records (85.1694ms)
+✔ Pang Tong links real tactic targets, Lu Xun spreads fire and Zhang Jiao adds bounded thunder (6.7364ms)
+✔ Lu Su cleanses his own army (2.2377ms)
+✔ Sun Quan and Sima Yi react to actual paid stratagems without extra casts or free loops (56.0123ms)
+✔ army role recommendations include mechanical benefits using the shared candidate scorer (21.2069ms)
+✔ Dian Wei guard transfers actual damage once; withdrawing sources stop new effects (4.6934ms)
+✔ Diao Chan basics weaken both tactic powers, refresh without stacking and can be cleansed (12.2884ms)
+✔ Huang Gai wounded basics debuff the actual enemy; health and troop restrictions apply (5.4546ms)
+✔ frequent debuffs expire promptly and cannot refresh stronger limited effects (5.3467ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 54
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1247.1276

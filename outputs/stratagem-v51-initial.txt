@@ -1,0 +1,123 @@
+✔ commerce and agriculture match actor traits rather than governor-only income skills (72.5182ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (66.0448ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1001.5694ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (19.3609ms)
+✔ AI fills a vacant governorship using the same governor recommendation (680.4407ms)
+✔ 普通武将默认兵种采用真实最高适性，枪戟分别计算 (2.0659ms)
+✔ 兵种强化特性匹配至少A适性，普通弱将则匹配自身最高适性 (2.8296ms)
+✔ 全部专属跨八兵种携带，换兵种保留同一学习记录 (11.8557ms)
+✖ 突击和补位指挥官的军略配合本职 (1.1152ms)
+✖ 835人遵守1/2/3军略名额，专属计入总数，只有诸葛亮三项 (1.4652ms)
+✔ 军团长提供、低智军师不提供，70智力边界及任职交换 (19.2368ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (61.7089ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (39.9491ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (44.2411ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (37.9119ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (35.9313ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (22.078ms)
+✖ 曹操与典韦的军略差距进入真实结算，并保存提供者与效果 (54.8408ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.4109ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.4316ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (49.426ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (4.9285ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (100.4756ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (4.0064ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (16.2907ms)
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (3.7945ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (14.1351ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 23
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1987.8371
+
+✖ failing tests:
+
+test at tests\officer-synergy.test.mjs:38:1
+✖ 突击和补位指挥官的军略配合本职 (1.1152ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'relief'
+  - ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/officer-synergy.test.mjs:40:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'relief' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:11:1
+✖ 835人遵守1/2/3军略名额，专属计入总数，只有诸葛亮三项 (1.4652ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:12:91)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:52:1
+✖ 曹操与典韦的军略差距进入真实结算，并保存提供者与效果 (54.8408ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:59:10)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:56:1
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (3.7945ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:59:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

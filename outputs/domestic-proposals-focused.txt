@@ -1,0 +1,67 @@
+
+> sango-sovereign@0.3.0 test:domestic-proposals
+> node --test tests/domestic-proposals.test.mjs tests/domestic.test.mjs tests/domestic-single-stat.test.mjs tests/domestic-orders.test.mjs tests/city-technology.test.mjs tests/domestic-feedback.test.mjs
+
+✔ all cities have fixed partial technology trees; buildings cannot create new affinities (78.0912ms)
+✔ military research uses governance and different basic facilities, never barracks level (47.2682ms)
+✔ research spends city funds once, progresses on real days and reloads deterministically (419.1624ms)
+✔ cancelling and resuming retains paid research and accepts changed dynamic conditions (131.6804ms)
+✔ one city research project is exclusive and a second scientist can cooperate (57.6666ms)
+✔ tech income bonuses add to 25 percent and increase the actual shared production allowance (34.139ms)
+✔ technology increases completed real resource operations without a second harvest payout (1063.7552ms)
+✔ an actual siege pauses daily research without losing the project or its payment (327.0627ms)
+✔ military and construction discounts affect paid city actions and preview calculations (34.8227ms)
+✔ umbrella gear technologies unlock their three local forms, with a real water condition (21.6729ms)
+✔ watchtowers are persistent sight sources and transfer with the city, without revealing remote points (8.168ms)
+✔ save validation rejects foreign-city technology and impossible research progress (207.6435ms)
+✔ staff counts prepared residents, distinct directions, and excludes actual duties and travel (17.1393ms)
+✔ real domestic completion produces a persistent report, acknowledgement prevents replay (365.732ms)
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (366.3955ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (1730.0403ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (1648.3745ms)
+✔ waiting departure prevents idle members from picking new work across turns (184.0795ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (150.3225ms)
+✔ forged pending action references and duplicate officers are rejected (251.0372ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (790.715ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1374.3474ms)
+✔ a queued garrison defends an actual siege and interrupts work and cancels its deferred departure (2325.4157ms)
+✔ paid work presents a fixed proposal before any payment, research or construction; reload is read-only (283.328ms)
+✔ approval is exactly once and denial preserves assignment, spends nothing and does not repropose this turn (70.8149ms)
+✔ automatic approval applies to pending and future work and is saved; free operations need no proposal (76.4716ms)
+✔ approval rechecks city gold and sites without charging or substituting the original proposal (39.2651ms)
+✔ unpaid proposals occupy the research slot and their actual cost enters the budget once (46.1783ms)
+✔ recalling or transferring the author withdraws the unpaid proposal (41.4104ms)
+✔ every domestic action and research depends on its executor primary ability, without guaranteed success (4.9454ms)
+✔ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (384.5264ms)
+✔ proposal save rejects tampered costs, duplicate ids and simultaneous action/proposal states (93.9337ms)
+✔ every work action uses exactly its one primary stat, including zero (17.2328ms)
+✔ helper effectiveness and recommendation ignore secondary stats for all five jobs (77.9064ms)
+✔ domestic picker displays only its relevant primary stat in the appointment table (159.779ms)
+✔ six independent appointment directions each have exactly one stat (0.3699ms)
+✔ all six directions have independent work and a single stat; no city morale multiplier (14.7746ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (1667.7968ms)
+✔ random results vary across seeds while identical seed is reproducible (3259.6921ms)
+✔ no reserves permits source recruitment; stocked full units need no replenishment (3.9564ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (176.1915ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (179.9065ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (81.8561ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (161.6658ms)
+✔ research progresses for actual work days and directly unlocks the local troop (1051.1073ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (1353.7443ms)
+✔ healing conserves personnel and does not require local troop technology (96.8244ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (133.0789ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (142.0521ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (725.4903ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (62.7108ms)
+✔ actual siege pauses construction without charging again or completing in the background (252.8065ms)
+✔ defending city troops leave as real retreat transports without duplicating personnel (318.5656ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (1812.2286ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (11192.3854ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 55
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23033.2984

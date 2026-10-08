@@ -1,0 +1,38 @@
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (42.9668ms)
+✔ interdict is fixed from level one and prevents the entire normal hit award, including endurance (11.0877ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (15.9695ms)
+✔ suppression traits remain with their fixed holders after troop changes (0.4581ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (5.3255ms)
+✔ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (45.5697ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (135.1974ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 419.3269
+
+✖ failing tests:
+
+test at tests\intent-roles.test.mjs:40:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (15.9695ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(d.statuses.burn||other.statuses.burn)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:48:115)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

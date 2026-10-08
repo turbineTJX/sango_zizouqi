@@ -38,13 +38,12 @@ test('real battles retain skill provenance through stacking, refresh, shields an
 test('stacked attribute losses, army effects and non-stacking haste show marginal actual values',()=>{
   const state=createScenario('field'),b=state.battle,u=b.sides[0].units[0];
   // Attribute calculations are tested separately from application/targeting above.
-  u.statuses={armorBreak:{until:20,potency:1},bulwark:{until:20,potency:1},haste:{until:20}};
-  b.sides[0].fortifyUntil=20;b.sides[0].hasteUntil=20;
+  u.statuses={armorBreak:{until:20,potency:1},bulwark:{until:20,potency:1},haste:{until:20},rapidAdvance:{until:20}};
   const statuses=inspectionStatuses(b,u),row=statusAttributeChanges(b,u,statuses.find(s=>s.key==='armorBreak')).find(r=>r.key==='defense');
   assert.ok(Math.abs(row.delta+row.before*.2)<1e-9);
   assert.equal(statusAttributeChanges(b,u,statuses.find(s=>s.key==='haste')).length,0);
-  assert.equal(statusAttributeChanges(b,u,statuses.find(s=>s.key==='hasteUntil')).length,0);
-  assert.ok(statusAttributeChanges(b,u,statuses.find(s=>s.key==='fortifyUntil')).some(r=>r.delta>0));
+  assert.ok(statusAttributeChanges(b,u,statuses.find(s=>s.key==='rapidAdvance')).some(r=>r.delta>0));
+  assert.ok(statusAttributeChanges(b,u,statuses.find(s=>s.key==='bulwark')).some(r=>r.delta>0));
 });
 
 test('current DOT details apply terrain and passive mitigation, before shields',()=>{

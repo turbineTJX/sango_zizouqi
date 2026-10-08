@@ -1,0 +1,32 @@
+✔ 16 current owners carry their exclusive outside ordinary slots and expose actual descriptions (5.0992ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (157.7468ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (11.7114ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (18.4098ms)
+✔ Liu Bei support waits for recoverable wounds instead of casting on an empty need (12.5087ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (21.1222ms)
+✔ exclusive tactics and independent traits remain fixed across level and troop changes (1.9209ms)
+✔ Liu Bei support stays local and excludes reserves (12.0463ms)
+✔ Liu Bei regrowth consumes only actual wounded and never revives defeated units (15.1132ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (6.1092ms)
+✔ retired self-cost exclusives cannot be acquired by Huang Gai or Zhou Tai (0.3008ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 16 holders (482.5578ms)
+✔ 荀彧保留内政特性，专属资格严格按当前16人表 (1.1962ms)
+✔ 条件加成只读取施放前已有状态和战意，不把本次破甲或受击收益算作铺垫 (0.1652ms)
+✔ 曹操：合法自定义战役自然发动专属，遵守消耗、目标与续战 (138.5163ms)
+✔ 郭嘉：合法自定义战役自然发动专属，遵守消耗、目标与续战 (98.0552ms)
+✔ 诸葛亮：合法自定义战役自然发动专属，遵守消耗、目标与续战 (116.48ms)
+✔ 刘备：合法自定义战役自然发动专属，遵守消耗、目标与续战 (86.1524ms)
+✔ 关羽：合法自定义战役自然发动专属，遵守消耗、目标与续战 (110.7022ms)
+✔ 张飞：合法自定义战役自然发动专属，遵守消耗、目标与续战 (78.041ms)
+✔ 吕布：合法自定义战役自然发动专属，遵守消耗、目标与续战 (98.7764ms)
+✔ 周瑜：合法自定义战役自然发动专属，遵守消耗、目标与续战 (90.633ms)
+✔ 孙策：合法自定义战役自然发动专属，遵守消耗、目标与续战 (77.9781ms)
+✔ 司马懿：合法自定义战役自然发动专属，遵守消耗、目标与续战 (103.0529ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1180.3638

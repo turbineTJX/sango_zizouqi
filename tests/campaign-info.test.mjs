@@ -3,7 +3,7 @@ import {busyFixture} from './helpers/domestic-orders.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,transferOfficer} from '../strategic-campaign.mjs';
+import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,transferOfficer} from './helpers/auto-domestic-campaign.mjs';
 import {campaignInfoIndex,campaignInfoDetail,campaignInfoSections,campaignInfoMarkup} from '../campaign-info.mjs';
 test('all campaign information is read only and city units are not armies',()=>{
  const s=newCampaign(203,'guandu-200'),before=JSON.stringify(s),ix=campaignInfoIndex(s);

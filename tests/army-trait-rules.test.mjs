@@ -5,7 +5,7 @@ import {generateBattle} from '../battle-generator.mjs';
 import {makeOfficer,activeUnits,lockDeployment,fillSlots,validateSave,stepBattle} from '../engine.mjs';
 import {frontlineCapacity,validFrontline,armyMarchMultiplier} from '../army-trait-rules.mjs';
 import {movementPoints} from '../strategic-movement.mjs';
-import {newCampaign,launchExpedition,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
+import {newCampaign,launchExpedition,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,actionCandidates,ACTIONS} from '../domestic.mjs';
 
 const entry=id=>({id,type:'spear',troops:2000,level:1,retreatAt:null});

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "guides": 43,
+  "checks": [
+    "first visit, reopen, reload, per-page memory, F1, catalogue, disable, reset, mobile and focus",
+    "muster draft retained and not submitted by help",
+    "full-screen route guide leaves destination and unsubmitted military order intact",
+    "help close and reload leave unpaid proposal pending",
+    "deployment/combat guide, battle clock pause/resume, shortcut isolation and stratagem selection retained"
+  ],
+  "errors": []
+}

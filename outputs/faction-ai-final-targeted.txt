@@ -1,0 +1,41 @@
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (623.7337ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (7944.0806ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (1332.1052ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (14753.9692ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (186.8466ms)
+✔ scenario identity, topology, and town coordinates are validated (128.9801ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.193ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (11683.2851ms)
+✔ national victory and defeat depend on ownership of the complete map (447.7559ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (108.3207ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (70.4672ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1297.4781ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (22.1926ms)
+✔ AI fills a vacant governorship using the same governor recommendation (950.5832ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (107.0982ms)
+✔ superior defenses produce no attack plan or resource debit (23.1154ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (22.5547ms)
+✔ a serious incoming attack retains the home defense instead of expanding (18.3923ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (44.2654ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (19.6257ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (26.1196ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (45.3486ms)
+✔ local plan reservation lets current work finish and blocks starting another task (25.1814ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (21.9901ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (20.2101ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (22.7563ms)
+✔ AI save rejects duplicated commitments and old planner versions (26.0792ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (32.2227ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (31.069ms)
+✔ waiting transport earmarks cargo without a debit and replenishment preserves plan food (24.3473ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (23.7134ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (18.4675ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (6250.5843ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37328.0293

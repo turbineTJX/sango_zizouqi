@@ -14,18 +14,18 @@ const make=(ownTeam,enemyTeam,terrain='land',seed=123)=>createScenario('custom-b
 const ordinary=[unit('person-46','spear'),unit('person-439','archer'),unit('person-408','crossbow')];
 
 test('自定义战役双方使用相同战略姿态，自动军师补充已有军略',()=>{
- const team=[unit('person-99','cavalry',6000),unit('person-512','crossbow',1500),unit('liao','spear',1500)];
+ const team=[unit('person-368','cavalry',6000),unit('person-512','crossbow',1500),unit('person-366','spear',1500)];
  const s=make(team,ordinary),b=s.battle,reverse=make(ordinary,team);
  for(const [state,i] of [[s,0],[reverse,1]]){
   const army=state.armies[i];
   assert.ok(state.armies.every(a=>a.tactic==='balanced'));assert.ok(state.battle.sides.every(a=>a.tactic==='balanced'));
-  assert.equal(army.advisor,'person-512');assert.deepEqual(battleStratagems(state.battle,i),['assault','inspire','disrupt','cleanse']);
+  assert.equal(army.advisor,'person-366');assert.deepEqual(battleStratagems(state.battle,i),['fortify','swift']);
  }
  const a=unitAttributes(b.sides[0].units[0],b),z=unitAttributes(reverse.battle.sides[1].units[0],reverse.battle);
  assert.equal(a.attack,z.attack);assert.equal(a.defense,z.defense);
- const snapshot=structuredClone(s.armies[0]);assert.equal(chooseArmyAdvisor(s.armies[0]),'person-512');assert.deepEqual(s.armies[0],snapshot);
- const noCommands=make([unit('person-99','cavalry'),unit('person-512','crossbow')],ordinary);
- assert.equal(noCommands.armies[0].advisor,'person-512');assert.deepEqual(battleStratagems(noCommands.battle),['assault','inspire','disrupt','cleanse']);
+ const snapshot=structuredClone(s.armies[0]);assert.equal(chooseArmyAdvisor(s.armies[0]),'person-366');assert.deepEqual(s.armies[0],snapshot);
+ const noCommands=make([unit('person-368','cavalry'),unit('person-512','crossbow')],ordinary);
+ assert.equal(noCommands.armies[0].advisor,'person-512');assert.deepEqual(battleStratagems(noCommands.battle),['fortify']);
  assert.equal(createScenario('field',123).battle.sides[1].tactic,'balanced','预设也使用生成器中明确指定的战略姿态');
 });
 

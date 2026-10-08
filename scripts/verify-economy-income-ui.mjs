@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {assignDomestic,ACTIONS} from '../domestic.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';
 import {cityIncomeBreakdown} from '../economy.mjs';

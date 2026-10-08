@@ -1,0 +1,49 @@
+✔ 自由对战的所有名将专属均进入玩家初始配装，不依赖战法 ID 前缀 (54.9628ms)
+✔ 名将骑兵按所学战法作战，专属额外携带且存读档不分歧 (220.9231ms)
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (5.5275ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (10.7499ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (2.7551ms)
+✔ fame adds city manpower rather than free troops (2.5502ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (423.4608ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (17.7201ms)
+✖ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (1.0832ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (218.7498ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (8.8504ms)
+✔ 普通武将默认兵种采用真实最高适性，枪戟分别计算 (2.0995ms)
+✔ 兵种强化特性匹配至少A适性，普通弱将则匹配自身最高适性 (3.2535ms)
+✔ 全部专属跨八兵种携带，换兵种保留同一学习记录 (12.0767ms)
+✔ 突击和补位指挥官的军略配合本职 (0.3912ms)
+✔ ordinary officers retain their fixed positive traits at every level (58.9137ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (4.1791ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (166.5628ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 869.6022
+
+✖ failing tests:
+
+test at tests\civil-skills.test.mjs:63:1
+✖ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (1.0832ms)
+  AssertionError [ERR_ASSERTION]: archer
+  
+  1 !== 1.2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/civil-skills.test.mjs:66:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 1.2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

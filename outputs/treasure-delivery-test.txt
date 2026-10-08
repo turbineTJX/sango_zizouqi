@@ -1,0 +1,28 @@
+
+> sango-sovereign@0.3.0 test:treasures
+> node --test tests/treasures.test.mjs
+
+✔ catalogue is bounded and seven new worlds have one physical record per treasure (1710.9362ms)
+✔ fixed ordinary traits preserve assignments and have separate eligibility (0.2324ms)
+✔ grant, single equipment slot and collection recall obey resident vs deployed officers (60.9436ms)
+✔ officer and troop dossiers expose the common treasure manager without revealing hidden items (15.5953ms)
+✔ cross-city treasure uses a visible real courier, deterministic transit and arrival storage fallback (123.5486ms)
+✔ treasure bond never grants an unlearned level or bypasses the individual and holder caps (0.9395ms)
+✔ first real entry grants each status once; preview, reserves and save reload cannot refresh it (149.8278ms)
+✔ stronger ordinary status expires independently and withdrawal preserves other sources (1.3173ms)
+✔ regrowth uses only real wounds and a saved total budget; treasure shield is independent (12.7699ms)
+✔ custom uniqueness spans both sides and reinforcements; malformed entry sources are rejected (32.0975ms)
+✔ domestic discovery commits the one turn roll and shared 30 day interval without rerolls (4.7257ms)
+✔ plunder requires real damage to the selected original holder and never creates an item (5.9143ms)
+✔ captivity seals original collections, release returns them, and death hides the same IDs (91.5985ms)
+✔ interception loses the original treasure at the route instead of creating a battle drop (32.5382ms)
+✔ Eye applies only to the actual completed eligible primary actor and records its source (4.0981ms)
+✔ real normal-mode encounter settles physical treasures once and resumes from the same snapshot (471.4133ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2976.5493

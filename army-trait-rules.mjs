@@ -6,9 +6,10 @@ export function armyFrontlineCapacity(army){return 6+(mechanicEntries({id:army.l
 export function extraFrontlineArmies(side){
  return new Set((side.commanders||[]).filter(c=>side.units.some(u=>u.armyId===c.armyId&&u.arrivalConfirmed!==false)&&mechanicEntries(c,'passive').some(({rule})=>rule.effect==='frontline'&&rule.roles.includes(c.role))).map(c=>c.armyId));
 }
-export function frontlineCapacity(b,side){return 6+(extraFrontlineArmies(b.sides[side]).size?1:0);}
+export const commandEntrants=side=>new Set((side.stratagemEvents||[]).filter(e=>e.key==='reinforce').flatMap(e=>e.units));
+export function frontlineCapacity(b,side){const s=b.sides[side],ids=commandEntrants(s);return 6+(extraFrontlineArmies(s).size?1:0)+s.units.filter(u=>ids.has(u.id)&&u.status==='active'&&u.hp>0).length;}
 export function validFrontline(b,side,units=b.sides[side].units.filter(u=>u.status==='active'&&u.hp>0)){
- const extra=extraFrontlineArmies(b.sides[side]);
- return units.length<=frontlineCapacity(b,side)&&units.filter(u=>!extra.has(u.armyId)).length<=6;
+ const s=b.sides[side],extra=extraFrontlineArmies(s),entrants=commandEntrants(s),normal=units.filter(u=>!entrants.has(u.id));
+ return normal.length<=6+(extra.size?1:0)&&normal.filter(u=>!extra.has(u.armyId)).length<=6;
 }
 export const armyMarchMultiplier=()=>1;

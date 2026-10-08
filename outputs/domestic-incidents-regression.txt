@@ -1,0 +1,35 @@
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (142.9499ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (9.3457ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (3224.0363ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (2700.9958ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (2723.1515ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (917.9716ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (497.4033ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (479.3232ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (2914.9392ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (3596.5725ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (1003.4399ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (87.0948ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (395.2469ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (72.8838ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (3136.0112ms)
+✔ paid work presents a fixed proposal before any payment, research or construction; reload is read-only (230.7577ms)
+✔ approval is exactly once and denial preserves assignment, spends nothing and does not repropose this turn (67.1729ms)
+✔ automatic approval applies to pending and future work and is saved; free operations need no proposal (69.9454ms)
+✔ approval rechecks city gold and sites without charging or substituting the original proposal (42.749ms)
+✔ unpaid proposals occupy the research slot and their actual cost enters the budget once (51.1289ms)
+✔ recalling or transferring the author withdraws the unpaid proposal (42.8753ms)
+✔ every domestic action and research depends on its executor primary ability, without guaranteed success (4.6776ms)
+✔ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (446.0688ms)
+✔ proposal save rejects tampered costs, duplicate ids and simultaneous action/proposal states (111.4365ms)
+✔ actual free domestic operations fail as well; higher executor ability succeeds more often with matched seeds (4368.8979ms)
+✔ national city approvals use local funds and preserve the chosen construction site across reload (2664.1661ms)
+✔ replacing a construction executor updates their own chance without a new proposal or payment (42.3666ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22181.2539

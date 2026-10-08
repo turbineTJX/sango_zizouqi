@@ -1,0 +1,1 @@
+Recommendation UI passed: actual shared ranking, agriculture traits, detail return, sorting override, mobile and read-only save.

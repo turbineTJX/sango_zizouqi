@@ -1,0 +1,25 @@
+✔ 835人遵守1/2/3军略名额，专属计入总数，只有诸葛亮三项 (1.8208ms)
+✔ 军团长提供、低智军师不提供，70智力边界及任职交换 (17.6262ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (63.6745ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (38.7267ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (39.8355ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (38.065ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (34.9441ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (22.9104ms)
+✔ 曹操与典韦的军略差距进入真实结算，并保存提供者与效果 (53.7985ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.4235ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (41.1958ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (5.6278ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (77.6087ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (2.9239ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (11.7045ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (4.5924ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (10.7279ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 453.8081

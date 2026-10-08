@@ -1,0 +1,17 @@
+✔ 40 work traits have real holders, matching command snapshots and no new commands (55.5768ms)
+✔ real automatic commands apply output, temporary duration, discounts and repair (42.784ms)
+✔ single-roll floors, recruitment budgets and healing conserve actual resources (32.7671ms)
+✔ siege trial chance only affects the actual three siege technologies (1.8325ms)
+✔ mid-command JSON roundtrip completes identically and mismatched work snapshot is rejected (57.6054ms)
+✔ construction setbacks and great-success refunds use the original paid project (68.6939ms)
+✔ Liu Bei reassures at most two additional real local targets with half primary gain (3.405ms)
+✔ Zhuge Liang doubles only a successful real research cooperation contribution (18.7146ms)
+✔ capacity, invalidated target and cancellation never create extra proceeds (5.0469ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 510.0612

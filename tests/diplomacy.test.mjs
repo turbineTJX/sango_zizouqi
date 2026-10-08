@@ -1,7 +1,7 @@
 import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,chooseEncounter,validateCampaign,serializeCampaign,launchExpedition} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,chooseEncounter,validateCampaign,serializeCampaign,launchExpedition} from './helpers/auto-domestic-campaign.mjs';
 import {assignDiplomat,setDiplomaticGoal,diplomaticOfficerCandidates,diplomaticCandidates,approveDiplomaticProposal,decideDiplomaticProposal,lordCity,evaluateDiplomaticProposal} from '../diplomacy.mjs';
 import {factionsHostile} from '../diplomacy-relations.mjs';
 import {pendingActivityReports,acknowledgeActivityReports} from '../activity-nodes.mjs';
@@ -28,7 +28,10 @@ test('envoy walks actual roads; final offer and read acknowledgement never sign 
 });
 test('approved trade escrows real assets then unloads at the confirmed ruler city exactly once',()=>{
  const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id),gold=p.clauses.find(c=>c.kind==='gold'),grain=p.clauses.find(c=>c.kind==='grain');assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);assert.match(approveDiplomaticProposal(s,p.id,p.version),/失效/);
- waitFor(s,()=>s.campaign.diplomacy.contracts.some(c=>c.id===p.id));assert.equal(p.status,'signed');assert.equal(p.escrow.find(e=>e.kind==='gold').amount,gold.amount);assert.equal(gold.delivered,0);assert.equal(p.sites.cao,lordCity(s,'cao').id);waitFor(s,()=>grain.status==='done',130);assert.equal(grain.delivered,grain.amount);assert.equal(gold.delivered,gold.amount);assert.equal(p.escrow.find(e=>e.kind==='gold').amount,0);const count=s.campaign.activity.nodes.filter(n=>n.sourceId.includes(`diplomacy:${p.id}:delivery:cao`)&&n.result.clauseId===grain.id).length;nextDay(s);assert.equal(s.campaign.activity.nodes.filter(n=>n.sourceId.includes(`diplomacy:${p.id}:delivery:cao`)&&n.result.clauseId===grain.id).length,count);
+ waitFor(s,()=>s.campaign.diplomacy.contracts.some(c=>c.id===p.id));assert.equal(p.status,'signed');assert.equal(p.escrow.find(e=>e.kind==='gold').amount,gold.amount);assert.equal(gold.delivered,0);assert.equal(p.sites.cao,lordCity(s,'cao').id);waitFor(s,()=>grain.status==='done',130);assert.equal(grain.delivered,grain.amount);assert.equal(gold.delivered,gold.amount);assert.equal(p.escrow.find(e=>e.kind==='gold').amount,0);const count=s.campaign.activity.nodes.filter(n=>n.sourceId.includes(`diplomacy:${p.id}:delivery:cao`)&&n.result.clauseId===grain.id).length;
+ const meritNodes=()=>s.campaign.activity.nodes.filter(n=>n.officerId===o.unit.id&&[`merit:diplomacy-effective:${p.id}:${o.unit.id}`,`merit:diplomacy-fulfilled:${p.id}:${o.unit.id}`].includes(n.sourceId));
+ assert.deepEqual(meritNodes().map(n=>n.result.growth.gained),[30,60]);
+ nextDay(s);assert.equal(s.campaign.activity.nodes.filter(n=>n.sourceId.includes(`diplomacy:${p.id}:delivery:cao`)&&n.result.clauseId===grain.id).length,count);assert.equal(meritNodes().length,2);
 });
 test('returning a final offer invalidates approval version and denial does not count as breach',()=>{
  const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id),version=p.version;assert.equal(decideDiplomaticProposal(s,p.id,'renegotiate'),null);assert.match(approveDiplomaticProposal(s,p.id,version),/失效/);waitFor(s,()=>p.status==='pending');const credit=JSON.stringify(s.campaign.diplomacy.credit);assert.equal(decideDiplomaticProposal(s,p.id,'reject'),null);assert.equal(JSON.stringify(s.campaign.diplomacy.credit),credit);assert.equal(p.status,'rejected');assert.equal(o.unit.mission.phase,'return');

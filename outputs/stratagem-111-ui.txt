@@ -1,0 +1,18 @@
+
+> sango-sovereign@0.3.0 verify:stratagems-ui
+> node scripts/verify-stratagem-picker-ui.mjs && node scripts/verify-stratagem-area-ui.mjs && node scripts/verify-command-specials-ui.mjs && node scripts/verify-stratagem-impact-ui.mjs
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('#command-cue')
+
+    at C:\Users\TJX\Documents\ChatGPT\sango\scripts\verify-stratagem-picker-ui.mjs:22:37 {
+  log: [ "  - waiting for locator('#command-cue')" ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.15.0

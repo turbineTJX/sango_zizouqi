@@ -1,0 +1,49 @@
+✔ paid work presents a fixed proposal before any payment, research or construction; reload is read-only (241.9387ms)
+✔ approval is exactly once and denial preserves assignment, spends nothing and does not repropose this turn (71.5532ms)
+✔ automatic approval applies to pending and future work and is saved; free operations need no proposal (81.8594ms)
+✔ approval rechecks city gold and sites without charging or substituting the original proposal (46.9737ms)
+✔ unpaid proposals occupy the research slot and their actual cost enters the budget once (64.617ms)
+✔ recalling or transferring the author withdraws the unpaid proposal (46.4533ms)
+✔ every domestic action and research depends on its executor primary ability, without guaranteed success (4.5272ms)
+✔ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (499.562ms)
+✔ proposal save rejects tampered costs, duplicate ids and simultaneous action/proposal states (118.9277ms)
+✔ equal-ability commercial, agricultural and source recruitment returns remain within 10% over independent seeds (2056.2468ms)
+✔ equal-cost economic buildings add equal resource value per turn (0.1796ms)
+✔ medical net savings stay near equal-ability commerce with sufficient actual wounds (2228.0634ms)
+✔ an empty treasury and undeveloped economy still allow real recovery work (31.1137ms)
+✔ source recruitment adds only reserves without consuming food or changing existing troop formations (7.5172ms)
+✔ parallel source recruitment clips to shared storage and cannot double charge or double settle (32.8932ms)
+✖ source recruitment and its current version save continue deterministically (72.3006ms)
+✔ military maintenance follows actual soldiers once across city, expedition and transit (6.6114ms)
+✔ shared income settlement preserves reserve stock and never charges it food or rotation (20.7622ms)
+✔ player formation spends money and reserve manpower, including with zero grain; only actual soldiers eat (10.8532ms)
+✔ safe-city source work prefers the routine order instead of a random emergency surcharge (5.9054ms)
+✔ one medical assignment has one shared wound budget regardless of number of units (6.5364ms)
+✔ built facilities retain their base production while a governor only adds operating income (14.6771ms)
+✔ actual operation is accounted separately and monthly settlement never pays its result twice (303.0455ms)
+✔ economic construction efficiency includes actual delays, labor, net cost and permanent base gain (2284.1936ms)
+✔ all twelve building types have comparable engineering speed under equal relevant ability and real demand (17600.6445ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 24
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20513.1091
+
+✖ failing tests:
+
+test at tests\economy-balance.test.mjs:58:1
+✖ source recruitment and its current version save continue deterministically (72.3006ms)
+  Error: 建筑耐久或建设上限无效
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:483:46)
+      at validateBuildingDurability (file:///C:/Users/TJX/Documents/ChatGPT/sango/building-durability.mjs:110:5)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:485:2)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:754:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/economy-balance.test.mjs:60:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)

@@ -1,0 +1,6 @@
+
+> sango-sovereign@0.3.0 docs:famous
+> node scripts/famous-design-doc.mjs
+
+Exported game officer CSV: 835 officers, 145 fields, rules 49.
+Updated fixed traits for 835 officers; 76 allocated traits.

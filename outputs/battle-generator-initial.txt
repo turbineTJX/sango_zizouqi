@@ -1,0 +1,130 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (28.0628ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (4.7787ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (10.1729ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (7.1048ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (2.6525ms)
+✖ zero-intent playable trial shows control then rear penetration while the front lives (153.7348ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (332.9171ms)
+✔ 自由对战：无效配置被拒绝 (3.6458ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (260.8844ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (269.4819ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (700.3965ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (147.3831ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (83.0163ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (17.0579ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (179.5976ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (149.8309ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (6.2457ms)
+✔ formation selects officers in place, army selects only compiled units (1.8913ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.6087ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.8895ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (252.666ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (391.3102ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (820.1137ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (1784.7733ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (368.9793ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (150.9782ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (217.4253ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (156.3996ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1795.1023ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (310.5065ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (650.6039ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (671.3651ms)
+✔ river: complete battle, reserves, save recovery and settlement (639.0604ms)
+✔ breach: complete battle, reserves, save recovery and settlement (200.5431ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (272.9649ms)
+✔ field: complete battle, reserves, save recovery and settlement (503.9663ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (311.6695ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (345.6723ms)
+✔ siege: complete battle, reserves, save recovery and settlement (560.567ms)
+✔ defense: complete battle, reserves, save recovery and settlement (736.6641ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (514.01ms)
+✖ unarrived waves prevent early victory, arrive on schedule and obey blockade (26.9375ms)
+✔ sieges add an independent gate and shields only to defending starters (52.4106ms)
+✖ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (3.5659ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (28.7368ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (44.8935ms)
+✔ fixture and seed validation rejects malformed test state (13.9243ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (97.9951ms)
+✔ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (604.3617ms)
+✔ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (679.2932ms)
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (38.7779ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (42.8354ms)
+✔ overlapping interception remains after harass disables one owner (5.6727ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (5.2592ms)
+✔ out-of-range rear does not displace an attackable front (4.1912ms)
+✔ real cleanse restores interception without waiting for disruption expiry (6.4241ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (4.6683ms)
+ℹ tests 57
+ℹ suites 0
+ℹ pass 54
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12062.5773
+
+✖ failing tests:
+
+test at tests\breakthrough.test.mjs:75:1
+✖ zero-intent playable trial shows control then rear penetration while the front lives (153.7348ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(openingTick!==null&&breakTick!==null&&openingTick<breakTick)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/breakthrough.test.mjs:86:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\scenarios.test.mjs:35:1
+✖ unarrived waves prevent early victory, arrive on schedule and obey blockade (26.9375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 4
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/scenarios.test.mjs:49:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\scenarios.test.mjs:76:1
+✖ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (3.5659ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  10 !== 12
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/scenarios.test.mjs:82:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

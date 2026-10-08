@@ -1,0 +1,17 @@
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (641.4038ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (8126.3789ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (1431.6475ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (13646.5235ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (196.2997ms)
+✔ scenario identity, topology, and town coordinates are validated (129.145ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.258ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (11545.8972ms)
+✔ national victory and defeat depend on ownership of the complete map (1316.4623ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37259.1531

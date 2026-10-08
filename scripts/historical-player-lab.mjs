@@ -148,15 +148,11 @@ export function humanOrder(b,plan){
  const checks={cleanse:()=>afflicted.length>=2||afflicted.some(u=>cores.includes(u.id)),
   magicImmunity:()=>near&&(foes.some(u=>u.intent>=30)||own.some(u=>statusOn(b,u,'burn'))),
   heal:()=>hurt.length>=2||hurt.some(u=>cores.includes(u.id)&&u.hp<u.initial*.5),
-  regenerate:()=>hurt.length>=2,fortify:()=>contact,
+  shield:()=>contact,invincible:()=>contact&&hurt.length>0,stun:()=>contact&&foes.some(u=>u.intent>=50),ambush:()=>near&&!contact,
   eightFormation:()=>contact&&foes.some(u=>u.intent>=20),firestorm:()=>contact,
-  assault:()=>contact,disrupt:()=>contact,inspire:()=>contact&&own.filter(u=>u.intent<65).length>=2,
-  cycle:()=>contact&&own.some(u=>u.intent<75||Object.values(u.skillReady).some(t=>t>b.tick)),haste:()=>near,
-  demoralize:()=>contact&&foes.some(u=>u.intent>=50),range:()=>contact,
-  rapidAdvance:()=>near,blockade:()=>contact,relief:()=>hurt.length>=2};
- const priorities=plan.policy==='sustain'?['magicImmunity','cleanse','heal','regenerate','fortify','eightFormation','disrupt','inspire','assault','cycle','haste']:
-  plan.policy==='attack'?['cleanse','heal','magicImmunity','eightFormation','firestorm','assault','inspire','disrupt','fortify','cycle','regenerate','haste']:
-  ['cleanse','magicImmunity','eightFormation','disrupt','heal','inspire','fortify','firestorm','assault','cycle','regenerate','haste'];
+  rapidAdvance:()=>near,blockade:()=>contact};
+ const priorities=plan.policy==='sustain'?['cleanse','heal','invincible','magicImmunity','shield','stun','eightFormation','firestorm','ambush','rapidAdvance','blockade']:
+  ['cleanse','invincible','stun','magicImmunity','eightFormation','heal','firestorm','ambush','rapidAdvance','shield','blockade'];
  const available=battleStratagems(b);
  for(const effect of priorities)for(const key of available){
   const s=STRATAGEMS[key];if((s.effect||key)!==effect||!checks[effect]?.()||(b.commandReady[key]||0)>b.tick)continue;

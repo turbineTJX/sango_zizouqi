@@ -1,0 +1,38 @@
+✔ AI retains basic deployment and can use an already active formation without changing its selected troops (89.3834ms)
+✔ AI fills a missing role without chasing maximum Beauty; a legal player choice can complete it (28.1019ms)
+✔ display uses the engine in-field sums and updates after substitution (3.9981ms)
+✔ draft preview excludes zero troops and decoys and shows opening levels (1.5273ms)
+✔ opening preview follows first flags and shared commander capacity; reserves cannot inflate tier (1.758ms)
+✔ contributor portraits use the same actual holders and points as the battle summary, including inactive tiers (0.4756ms)
+✔ opening portraits exclude the bench and unreached reinforcements, while hidden enemies use unknown portraits (0.6343ms)
+✔ overview and details track every design and variable threshold count (11.3941ms)
+✔ all basic top tiers require at least six people and high caps are exceptionally scarce (76.769ms)
+✔ advanced Valor activates immediately and follows live tiers without stack counters (55.9116ms)
+✔ basic Valor has no accumulating or once-only attack records in real combat (660.0873ms)
+✔ specified advanced cores carry two points while companions carry one, with exact three example thresholds (1.4727ms)
+✔ Beauty requires all four named women; removal, reserve and portrait points follow actual qualification (223.1949ms)
+✔ Valor needs its core and four strong companions; ordinary recruits cannot substitute for missing points (42.268ms)
+✔ advanced validation rejects point inflation and weak fillers even when the declared roster is forged to match (85.6469ms)
+✔ one Peach member has a real first-tier discipline benefit and no damage-sharing partners (32.3083ms)
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (1119.7862ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (558.8658ms)
+✔ generated overview tables stay synchronized with the authoritative records (451.643ms)
+✔ catalogue is bounded and seven new worlds have one physical record per treasure (2618.9457ms)
+✔ fixed ordinary traits preserve assignments and have separate eligibility (0.4659ms)
+✔ grant, single equipment slot and collection recall obey resident vs deployed officers (122.5671ms)
+✔ cross-city treasure uses a visible real courier, deterministic transit and arrival storage fallback (217.3488ms)
+✔ treasure bond never grants an unlearned level or bypasses the individual and holder caps (1.4998ms)
+✔ first real entry grants each status once; preview, reserves and save reload cannot refresh it (299.2452ms)
+✔ stronger ordinary status expires independently and withdrawal preserves other sources (2.5845ms)
+✔ regrowth uses only real wounds and a saved total budget; treasure shield is independent (27.1363ms)
+✔ custom uniqueness spans both sides and reinforcements; malformed entry sources are rejected (59.8259ms)
+✔ domestic discovery commits the one turn roll and shared 30 day interval without rerolls (8.9394ms)
+✔ plunder requires real damage to the selected original holder and never creates an item (16.1969ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3905.2584

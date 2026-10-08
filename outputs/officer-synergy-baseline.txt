@@ -1,0 +1,47 @@
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (184.2578ms)
+✔ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (118.6465ms)
+✔ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (98.602ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (63.6512ms)
+✔ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (29.1749ms)
+✖ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (0.2339ms)
+✖ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (0.1174ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (3.6673ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (339.6017ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 7
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 616.562
+
+✖ failing tests:
+
+test at tests\engine-foundations.test.mjs:32:1
+✖ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (0.2339ms)
+  Error: 廖化兵力须为 1000～7400
+      at validateCustomBattle (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/custom-battle.mjs:24:73)
+      at createScenario (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/scenarios.mjs:14:37)
+      at make (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/tests/engine-foundations.test.mjs:13:57)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/tests/engine-foundations.test.mjs:34:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\engine-foundations.test.mjs:38:1
+✖ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (0.1174ms)
+  Error: 刘封兵力须为 1000～7500
+      at validateCustomBattle (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/custom-battle.mjs:24:73)
+      at createScenario (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/scenarios.mjs:14:37)
+      at make (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/tests/engine-foundations.test.mjs:13:57)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-synergy-baseline-396lOb/tests/engine-foundations.test.mjs:39:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

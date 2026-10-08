@@ -1,0 +1,72 @@
+✖ cleave charges each victim once without charging the caster (32.2696ms)
+✔ expanded catalogue cannot grant removed actions outside current fixed pools (0.2255ms)
+✔ 挫志普攻施加丧志，不叠层，镇静解除 (7.111ms)
+✔ plague treatment only removes its authored status, preserving other ailments (2.9524ms)
+✖ 疑兵有独立耐久且不抵挡本体持续伤害、不增加部队 (4.5963ms)
+✔ no fixed ordinary loadout silently grants the retired riposte action (0.2463ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (294.2015ms)
+✖ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (4.5248ms)
+✔ two real ram casts can link against the gate and increase the second hit (8.9735ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (515.7987ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (117.4054ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 8
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1187.8541
+
+✖ failing tests:
+
+test at tests\expanded-troops.test.mjs:21:1
+✖ cleave charges each victim once without charging the caster (32.2696ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(x.b.sides[1].units.every(u=>u.intent===7))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/expanded-troops.test.mjs:26:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:39:1
+✖ 疑兵有独立耐久且不抵挡本体持续伤害、不增加部队 (4.5963ms)
+  TypeError: Cannot read properties of undefined (reading 'hp')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/expanded-troops.test.mjs:40:110)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\expanded-troops.test.mjs:57:1
+✖ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (4.5248ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(x.u.moveProgress>0||x.u.x!==4||x.u.y!==2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/expanded-troops.test.mjs:59:69)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

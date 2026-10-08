@@ -27,11 +27,11 @@ test('Ji Jun does not activate without appointment, while withdrawing or for ano
  for(const mode of ['unappointed','withdrawing','other-army']){const x=scene('person-668',mode==='unappointed'?'none':'leader');if(mode==='withdrawing')x.u.withdrawing=true;if(mode==='other-army')x.ally.armyId='other';setStatus(x.b,x.ally,'despair',40);stepBattle(x.b);assert.ok(hasStatus(x.b,x.ally,'despair'));}
 });
 test('Bi Yan triggers from a real legal command and saves its interval',()=>{
- const x=scene('person-368');setStatus(x.b,x.ally,'despair',40);x.b.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(x.b,'inspire'),null);
+ const x=scene('person-368');setStatus(x.b,x.ally,'despair',40);x.b.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(x.b,'fortify',{x:x.ally.x,y:x.ally.y}),null);
  assert.equal(hasStatus(x.b,x.ally,'despair'),false);assert.ok(hasStatus(x.b,x.ally,'resolve'));assert.equal(x.u.traitState['hero-person-368:0'].uses,1);resume(x);
 });
 test('Yin Ren refunds only its own gauge after an actual enemy command',()=>{
  const x=scene('person-226');x.b.commandProgress=0;x.b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;
- assert.equal(issueCommand(x.b,'assault',null,1),null);assert.equal(x.b.commandProgress,COMMAND_RESOURCE.capacity*.15);assert.equal(x.b.enemyCommand.commandProgress,0);
- x.b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(x.b,'inspire',null,1),null);assert.equal(x.b.commandProgress,COMMAND_RESOURCE.capacity*.15);resume(x);
+ assert.equal(issueCommand(x.b,'fortify',{x:x.b.sides[1].units[0].x,y:x.b.sides[1].units[0].y},1),null);assert.equal(x.b.commandProgress,COMMAND_RESOURCE.capacity*.15);assert.equal(x.b.enemyCommand.commandProgress,0);
+ x.b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(x.b,'disrupt',{x:x.ally.x,y:x.ally.y},1),null);assert.equal(x.b.commandProgress,COMMAND_RESOURCE.capacity*.15);resume(x);
 });

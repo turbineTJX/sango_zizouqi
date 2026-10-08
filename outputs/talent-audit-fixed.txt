@@ -1,0 +1,6 @@
+small-map 23 361 hires 1 resignations 2
+small-map 71 361 hires 1 resignations 2
+guandu-200 23 361 hires 30 resignations 7
+guandu-200 71 361 hires 28 resignations 7
+heroes-251 23 361 hires 0 resignations 39
+heroes-251 71 361 hires 0 resignations 38

@@ -54,17 +54,12 @@ export function visibleStatuses(b,u){
   return statuses.sort((a,c)=>a.priority-c.priority);
 }
 
-export const ARMY_STATUS_DISPLAY={
-  assaultUntil:['全军猛攻','攻击提高 25%'],fortifyUntil:['坚壁之策','防御、军纪提高 20%'],
-  disruptUntil:['虚实之策','攻击、防御、军纪降低 15%'],hasteUntil:['疾行赴援','移速 +1，与个人疾行不叠加'],
-  rangeUntil:['引弦远射','弓弩射程 +2'],recoveryUntil:['休养生息','在场各队每回合救治初始兵力 1% 的本场伤兵'],
-  blockadeUntil:['断敌援路','暂停敌方预备队入场'],reliefUntil:['后军固阵','预备队入场时获得 15% 护盾，放宽轮换条件'],
-};
+export const ARMY_STATUS_DISPLAY={blockadeUntil:['截断援路','暂停敌方预备队入场']};
 export function statusSources(b,s){
   if(s.key==='hunger'&&s.state.sourceEvent===undefined)return ['军团补给 · 缺粮'];
   if(s.army)return ['军团军略 · '+s.name];
   if(s.key==='shield')return (s.state.layers||[]).filter(l=>l.until>b.tick&&l.amount>0).map(l=>l.label);
-  const origins=s.state.origins?.length?s.state.origins:[s.state];
+  const origins=s.state.sources?.length?s.state.sources:s.state.origins?.length?s.state.origins:[s.state];
   return [...new Set(origins.map(o=>{
     const actor=o.sourceName||b.sides?.flatMap(side=>side.units||[]).find(u=>u.id===o.sourceId)?.name;
     return [actor,o.sourceSkillName,s.state.sourceNote].filter(Boolean).join(' · ')||'未记录来源';
@@ -72,7 +67,7 @@ export function statusSources(b,s){
 }
 export function inspectionStatuses(b,u){
   const personal=visibleStatuses(b,u);
-  const army=Object.entries(ARMY_STATUS_DISPLAY).filter(([key])=>b.sides?.[u.side]?.[key]>b.tick&&!(['disruptUntil','blockadeUntil'].includes(key)&&bondBlocksEffect(b,u,b.sides[u.side].stratagemEffects?.[key]))).map(([key,[name,description]])=>({key,name:b.sides[u.side].stratagemEffects?.[key]?STRATAGEMS[b.sides[u.side].stratagemEffects[key].key].name:name,description:b.sides[u.side].stratagemEffects?.[key]?stratagemEffectText(b.sides[u.side].stratagemEffects[key]):description,army:true,tone:['disruptUntil','blockadeUntil'].includes(key)?'debuff':'buff',state:{until:b.sides[u.side][key]},remaining:statusRemaining(b.sides[u.side][key],b.tick),time:statusTimeLabel(b.sides[u.side][key],b.tick)}));
+  const army=Object.entries(ARMY_STATUS_DISPLAY).filter(([key])=>b.sides?.[u.side]?.[key]>b.tick&&!(['blockadeUntil'].includes(key)&&bondBlocksEffect(b,u,b.sides[u.side].stratagemEffects?.[key]))).map(([key,[name,description]])=>({key,name:b.sides[u.side].stratagemEffects?.[key]?STRATAGEMS[b.sides[u.side].stratagemEffects[key].key].name:name,description:b.sides[u.side].stratagemEffects?.[key]?stratagemEffectText(b.sides[u.side].stratagemEffects[key]):description,army:true,tone:['blockadeUntil'].includes(key)?'debuff':'buff',state:{until:b.sides[u.side][key]},remaining:statusRemaining(b.sides[u.side][key],b.tick),time:statusTimeLabel(b.sides[u.side][key],b.tick)}));
   return [...personal,...army].map(s=>({...s,sources:statusSources(b,s)}));
 }
 // Compare derived values while holding troops, terrain and all other effects constant.
@@ -104,7 +99,6 @@ export function statusAmounts(b,u,s){
     rows.push(['单次伤害',`${amount} 人（护盾吸收前）`]);
   }
   if(s.key==='regrowth')rows.push(['单次救治上限',`${Math.round(v.amount*(hasStatus(b,u,'plague')?1-.5*(u.statuses.plague.potency??1):1))} 人（受现有伤兵限制）`]);
-  if(s.key==='recoveryUntil')rows.push(['单次救治上限',`${Math.round(u.maxHp*.01*(hasStatus(b,u,'plague')?1-.5*(u.statuses.plague.potency??1):1))} 人（受现有伤兵限制）`]);
   if(v.stacks!==undefined)rows.push(['叠层',`${v.stacks} / 3`]);
   if(v.hits!==undefined)rows.push(['剩余抵挡次数',`${v.hits} 次`]);
   if(s.key==='shield')for(const l of v.layers||[])if(l.until>b.tick&&l.amount>0)rows.push([l.label,`${l.amount} · ${statusTimeLabel(l.until,b.tick)}`]);

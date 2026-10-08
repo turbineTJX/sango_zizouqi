@@ -32,7 +32,10 @@ export function terrainMoveFactor(b,u){
   return 1;
 }
 export function canOccupy(b,u,x,y){
-  if(x<0||x>=14||y<0||y>=8||blockedTerrain(b,x,y))return false;
+  return canTraverseTerrain(b,u,x,y)&&!blockedTerrain(b,x,y);
+}
+export function canTraverseTerrain(b,u,x,y){
+  if(x<0||x>=14||y<0||y>=8)return false;
   const ground=terrainAt(b,x,y);
   return ground!=='water'||!!u.equipment?.ship;
 }

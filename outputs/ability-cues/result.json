@@ -1,0 +1,19 @@
+{
+  "boxes": [
+    {
+      "width": 181,
+      "scroll": 181,
+      "top": 105,
+      "bottom": 245
+    },
+    {
+      "width": 181,
+      "scroll": 181,
+      "top": 105,
+      "bottom": 245
+    }
+  ],
+  "errors": [],
+  "realBattle": true,
+  "records": true
+}

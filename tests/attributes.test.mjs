@@ -24,10 +24,10 @@ test('basic, martial and intellect damage use distinct offense and resistance pa
  assert.ok(damage(x=>x.a.intellect=10,'tremor')<intellect);assert.equal(damage(x=>x.a.force=10,'tremor'),intellect);
  assert.ok(damage(x=>x.d.leadership=10)>basic);assert.ok(damage(x=>x.d.leadership=10,'repeat')>martial);assert.equal(damage(x=>x.d.leadership=10,'tremor'),intellect);
  assert.ok(damage(x=>x.d.politics=0,'tremor')>intellect);assert.equal(damage(x=>x.d.politics=0),basic);assert.equal(damage(x=>x.d.politics=0,'repeat'),martial);
- assert.equal(damage(x=>x.b.sides[0].assaultUntil=99,'tremor'),intellect);assert.ok(damage(x=>x.b.sides[0].assaultUntil=99)>basic);
+ assert.equal(damage(x=>setStatus(x.b,x.a,'valor',99),'tremor'),intellect);assert.ok(damage(x=>setStatus(x.b,x.a,'valor',99))>basic);
 });
 test('attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers',()=>{
- const {a,b}=scene();b.sides[0].assaultUntil=2;b.sides[0].rangeUntil=2;setStatus(b,a,'slow',3);setStatus(b,a,'weaken',3);
+ const {a,b}=scene();setStatus(b,a,'valor',1);setStatus(b,a,'longRange',1,{amount:2});setStatus(b,a,'slow',3);setStatus(b,a,'weaken',3);
  const s=unitAttributes(a,b);for(const [key,d] of Object.entries(s.breakdown)){let value=d.base+d.officer;for(const m of d.modifiers)value=m.add===undefined?value*m.factor:value+m.add;assert.equal(value,s[key]);}
  assert.equal(s.range,6);assert.equal(s.move,.5);b.tick=2;assert.equal(unitAttributes(a,b).range,4);assert.ok(unitAttributes(a,b).attack<s.attack);
  a.id='person-533';for(const key of ['attack','martialPower','strategyPower','siege']){assert.equal(unitAttributes({...a,hp:a.maxHp/4},b)[key],unitAttributes(a,b)[key]/4);assert.equal(unitAttributes({...a,hp:0},b)[key],0);}

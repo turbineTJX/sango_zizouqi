@@ -1,0 +1,3576 @@
+✔ 守军 0 不追界外近战，转向可达的攻城兵器并确定性续战 (1268.4067ms)
+✔ 守军 1 不追界外近战，转向可达的攻城兵器并确定性续战 (2079.9338ms)
+✔ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (3.3392ms)
+✔ 单队休养以实际伤兵触发，救疗按固定顺序优先 (11.378ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (411.7225ms)
+✖ fire: three real basics consume exactly three charges, with normal intent and no links (30.091ms)
+✖ suppress: three real basics consume exactly three charges, with normal intent and no links (5.5132ms)
+✖ pierce: three real basics consume exactly three charges, with normal intent and no links (88.8759ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (88.0127ms)
+✖ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (6.3779ms)
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (19.1181ms)
+✖ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (4.9815ms)
+✖ gate attacks do not spend troop enchantments (9.6532ms)
+✖ remaining charges/source survive save and resume; forged or obsolete state is rejected (5.3842ms)
+✖ four officer stats affect separate derived attributes, with no charm dimension (6.4335ms)
+✖ basic, martial and intellect damage use distinct offense and resistance paths (134.629ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (6.885ms)
+✖ troop attack speed changes actual basic attack cadence but not tactic cooldown (57.3288ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (15.2224ms)
+✖ politics reduces actual confusion duration but physical confuse remains independent (35.8068ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (5.1296ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (62.231ms)
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (204.5523ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (66.082ms)
+✔ trait holders earn intent through melee, run their aura without consuming casts, and resume deterministically (6431.3999ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (11.0795ms)
+✖ gate: repair uses earned intent, reports durability and resumes exactly (848.5393ms)
+✖ tower: repair uses earned intent, reports durability and resumes exactly (737.9696ms)
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (656.3355ms)
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (583.1612ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (3348.4354ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (83.8896ms)
+✖ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (42.991ms)
+✔ only the current rule version loads, and intent is validated without normalization (69.1919ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (15.7563ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (38.4602ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (34.5994ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (256.6132ms)
+✔ siege defenders hold their rear line before enemies approach (628.9885ms)
+✔ command triggers ignore range and read only the requested side cooldowns (38.5589ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (888.0598ms)
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (304.6806ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (517.9189ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (31.4539ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (121.6968ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (219.6889ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (6.5416ms)
+✔ AI follows fixed command order, holds ineligible commands, and does not refresh active buffs (6.0031ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (1373.345ms)
+✖ a real control cast opens ZOC and the next allied charge exploits it (80.0506ms)
+✖ overlapping ZOC still stops a charge after only one front is controlled (4.7467ms)
+✖ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (3.9513ms)
+✖ control protection, silence and restored ZOC cannot be bypassed (3.3607ms)
+✖ ZOC coverage uses live interceptors and respects boundaries and both sides (3.1927ms)
+✔ zero-intent generator trial uses natural learned tactics and resumes deterministically (696.1808ms)
+✖ person-661: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (482.9305ms)
+✖ person-396: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (184.4686ms)
+✖ person-99: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (28.6942ms)
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (7.0719ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (46.7939ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (4.9539ms)
+✔ fame adds city manpower rather than free troops (4.3327ms)
+✔ governors gain merit at actual turn settlement and loaded campaigns remain deterministic (2168.4955ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (39.5138ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (1.1434ms)
+✖ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (591.2708ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (24.4263ms)
+✔ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (3311.092ms)
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (64.2109ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (329.5034ms)
+✖ a stunned unit and pure self buffs do not prime a combo (11.3715ms)
+✖ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (16.454ms)
+✖ support combos really strengthen shields and do not include unrelated primary targets (24.8537ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (2705.1376ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (146.3484ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (84.8424ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (8.7326ms)
+✔ appointment traits affect only the appointed role and its own army independent of personal deployment (84.1145ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (8.4616ms)
+✖ appointment UI displays the matching trait effect and recommendation uses it (12.9396ms)
+✔ current save preserves command eligibility and deterministic continuation (612.95ms)
+✔ army traits are rare fixed identity assignments, never awarded by stat thresholds (0.9706ms)
+✔ two, three and six adjacent enemies share one normal attack budget (165.8713ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (66.7747ms)
+✔ minimum damage is shared rather than multiplied once per enemy (133.2356ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (43.0088ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (13.3045ms)
+✖ an enchanted contact attack consumes one charge and divides extra fire damage (6.4947ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (19.0152ms)
+✔ current combat saves resume with exactly the same shared attacks (1147.6344ms)
+✔ first six favor real troop strength over roster order without changing learned skills, player or RNG (206.2576ms)
+✔ same candidates prioritize a missing front line over another rear and react to visible cavalry (5.6903ms)
+✖ learned support is useful beside a core but a tiny helper does not displace full-strength troops (33.7626ms)
+✔ siege context is available when choosing starters and favors a viable siege reserve (108.1113ms)
+✔ future arrivals, blockade and retreat never admit a stronger reserve early (68.6668ms)
+✔ unplaceable ships do not block land reserves; river deployment is legal and unique (6.7619ms)
+✔ replacement choices and combat remain deterministic after save/resume, without changing initiative order (2202.885ms)
+✔ player replacement order is preserved (5.2312ms)
+✔ every work action uses exactly its one primary stat, including zero (49.3255ms)
+✔ helper effectiveness and recommendation ignore secondary stats for all five jobs (281.2778ms)
+✖ picker explains the single primary stat instead of a mixed ability (339.4911ms)
+✔ six independent appointment directions each have exactly one stat (0.4639ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (157.4357ms)
+✖ nearby front takes priority before contact; fast movement stops on contact (80.1982ms)
+✔ rush cannot escape an engagement or charge through a blocking line (8.5674ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (13.2327ms)
+✔ an unreachable rear focus advances into the blocking line instead of stalling (43.069ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (69.608ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (14.066ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (8.4215ms)
+✔ a real retreat can leave contact (4.9766ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (1781.5451ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (1808.1767ms)
+✔ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (617.2429ms)
+✖ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (788.6905ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (443.3717ms)
+✔ cleave charges each victim once without charging the caster (44.2366ms)
+✖ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (311.0978ms)
+✔ 挫志普攻施加丧志，不叠层，镇静解除 (89.3156ms)
+✖ 疫伤降低持续救治，救护先解除疫伤再救治 (7.0748ms)
+✖ 疑兵有独立耐久且不抵挡本体持续伤害、不增加部队 (5.8912ms)
+✖ riposte is one direct reaction per step, without a counter chain or extra intent (9.0193ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (1556.1674ms)
+✖ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (13.3686ms)
+✖ two real ram casts can link against the gate and increase the second hit (7.8522ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (1984.8254ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (401.356ms)
+✖ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (3.978ms)
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (46.7369ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (10.0159ms)
+✖ multi-hit and multi-target exclusive attacks do not charge the caster (4.8252ms)
+✖ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (5.0599ms)
+✖ exclusive control respects resolve and discipline; deaths do not acquire new statuses (11.9022ms)
+✔ personal traits affect troop panels from level one, remain independent of tactics, and respect conditions (21.6294ms)
+✖ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (370.2221ms)
+✖ exclusive support stays local and capped while army healing reaches distant active units (38.247ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (6.3181ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (6.05ms)
+✖ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (6.6679ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (4955.613ms)
+✔ Cao loses his unit in real combat but a victorious army keeps him, his command and learned abilities (2386.5028ms)
+✔ an escaped commander accompanies surviving retreating troops from the actual road position (261.8499ms)
+✔ previous followers return physically when their remaining escort is annihilated, without another fate roll (359.0452ms)
+✔ death and captivity still remove a commander; only escape keeps a living army appointment (185.4763ms)
+✖ 荀彧获得额外专属，持有固定内政特性和普通学习名额 (2.8878ms)
+✔ 条件加成只读取施放前已有状态和战意，不把本次破甲或受击收益算作铺垫 (0.558ms)
+✔ 曹操：合法自定义战役自然发动专属，遵守消耗、目标与续战 (1269.97ms)
+✔ 郭嘉：合法自定义战役自然发动专属，遵守消耗、目标与续战 (896.2856ms)
+✖ 荀彧：合法自定义战役自然发动专属，遵守消耗、目标与续战 (5.881ms)
+✔ 诸葛亮：合法自定义战役自然发动专属，遵守消耗、目标与续战 (628.3648ms)
+✖ 夏侯惇：合法自定义战役自然发动专属，遵守消耗、目标与续战 (2.8711ms)
+✖ 夏侯渊：合法自定义战役自然发动专属，遵守消耗、目标与续战 (3.3364ms)
+✖ 典韦：合法自定义战役自然发动专属，遵守消耗、目标与续战 (3.1077ms)
+✔ 刘备：合法自定义战役自然发动专属，遵守消耗、目标与续战 (338.4757ms)
+✔ 关羽：合法自定义战役自然发动专属，遵守消耗、目标与续战 (405.4723ms)
+✔ 张飞：合法自定义战役自然发动专属，遵守消耗、目标与续战 (477.1576ms)
+✔ 吕布：合法自定义战役自然发动专属，遵守消耗、目标与续战 (825.7298ms)
+✔ 周瑜：合法自定义战役自然发动专属，遵守消耗、目标与续战 (411.5687ms)
+✔ 孙策：合法自定义战役自然发动专属，遵守消耗、目标与续战 (379.5023ms)
+✖ 孙权：合法自定义战役自然发动专属，遵守消耗、目标与续战 (6.3952ms)
+✔ 司马懿：合法自定义战役自然发动专属，遵守消耗、目标与续战 (561.1802ms)
+✔ each offset-row neighbor is reciprocal, one step away, and equally spaced on screen (3.623ms)
+✖ hex paths use six neighbors and cannot cross a gate or an occupied ring (0.8145ms)
+✔ diagonal spear thrust hits the next hex on the same axial line (66.4934ms)
+✖ diagonal protection knockback follows the hex line and stops before an occupied cell (110.83ms)
+✔ missing grid type is rejected instead of upgrading a pre-hex battle (13.6808ms)
+✔ all current troops use their actual basic and surviving-hit income, with no timed regeneration (172.1684ms)
+✔ interdict is fixed from level one and prevents the entire normal hit award, including endurance (43.9866ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (5.4368ms)
+✔ suppression traits remain with their fixed holders after troop changes (1.0935ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (14.3297ms)
+✖ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (218.3973ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (1330.9309ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (197.9363ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (12.9571ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (7.5589ms)
+✖ damage tactics against a gate do not charge the caster, basic siege attacks do (9.973ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (1943.4906ms)
+✖ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (1559.0283ms)
+✖ each troop has a valid shared pool and exclusive tactics remain optional (2.6212ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (159.2116ms)
+✖ force and intellect damage scale with their own attribute, not troop weapon type (45.2604ms)
+✖ confusion and seal prevent immediate skills while seal still permits basic attacks (21.2179ms)
+✖ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (42.7776ms)
+✖ cavalry schemes induce real movement and suppress intent immediately (10.8265ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (37.0832ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (239.9153ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (2019.7739ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (281.5624ms)
+✖ front support heals one other ally, never itself, and has a real range limit (40.7719ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (9.5018ms)
+✖ doubt deals strategy damage through control protection without bypassing that protection (49.1522ms)
+✖ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (80.8727ms)
+✖ real zero-intent battles trigger both medical roles and resume deterministically (651.1329ms)
+✖ fire builds three layers through actual follow-up attacks, loses stacks to firefighting, and expires after disengagement (37.508ms)
+✔ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (58.065ms)
+✖ medical casting spends the next basic attack interval rather than adding free healing between shots (9.775ms)
+✖ only equipped chargers select legal short flanks, and live interception cancels that preference (7.7002ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (1826.8421ms)
+✔ all 832 library records survive normalization without merging names or source fields (20.0466ms)
+✖ every officer has fixed positive traits; ordinary officers have no exclusive tactics and bounded ordinary commander stratagems (48.4535ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (42.7538ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (1621.0433ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (4738.5163ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (172.1478ms)
+✔ old officer data versions are rejected without changing saved progress (31.4383ms)
+✖ ordinary officers retain their fixed positive traits at every level (9.8144ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (8.6512ms)
+✖ ordinary officers use legal support and damage builds in real combat and resume deterministically (29.0093ms)
+✔ fixed identity traits are available at every level and never equipped (48.225ms)
+✔ fixed martial and movement traits modify only intended attributes (1.9525ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (2.9748ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (59.9781ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (7.7951ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (5.7416ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (8.617ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (49.6066ms)
+✔ isolated and joint evaluate neighbors on the correct side (12.336ms)
+✖ foresight enhances actual intellect damage at its strict intent boundary (11.4109ms)
+✖ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (8.2095ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (55.8839ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (15.6339ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.5686ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.4184ms)
+✖ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (23.6403ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (51.6642ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (61.5906ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (12.7876ms)
+✔ merit advances learned tactics and capacity without unlocking or rerolling traits (2.8342ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (81.5186ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (4062.8291ms)
+✔ invalid levels, merit, counters, durations and fractional cooldowns are rejected; missing required state is rejected (126.3237ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (809.2967ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (1160.701ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (2062.8909ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (1154.7865ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (1701.8606ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (341.0342ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (1055.0454ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (677.3143ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (6024.2713ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (1735.4098ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (1454.1628ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (1314.0465ms)
+✔ river: complete battle, reserves, save recovery and settlement (970.8604ms)
+✔ breach: complete battle, reserves, save recovery and settlement (141.9248ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (274.5875ms)
+✔ field: complete battle, reserves, save recovery and settlement (619.2825ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (501.9645ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (584.4908ms)
+✔ siege: complete battle, reserves, save recovery and settlement (786.9047ms)
+✔ defense: complete battle, reserves, save recovery and settlement (481.8125ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (646.3632ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (27.4256ms)
+✔ sieges add an independent gate and shields only to defending starters (54.1018ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (6.2381ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (36.0671ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (50.1269ms)
+✔ fixture and seed validation rejects malformed test state (11.1654ms)
+✔ spear: gate attacks use derived siege power once, including casualties and attack buffs (149.2303ms)
+✔ halberd: gate attacks use derived siege power once, including casualties and attack buffs (60.9673ms)
+✔ cavalry: gate attacks use derived siege power once, including casualties and attack buffs (105.5839ms)
+✔ archer: gate attacks use derived siege power once, including casualties and attack buffs (25.4185ms)
+✔ crossbow: gate attacks use derived siege power once, including casualties and attack buffs (16.9655ms)
+✔ siege: gate attacks use derived siege power once, including casualties and attack buffs (16.7596ms)
+✔ ship: gate attacks use derived siege power once, including casualties and attack buffs (20.0807ms)
+✔ ram: gate attacks use derived siege power once, including casualties and attack buffs (100.7162ms)
+✔ tower: gate attacks use derived siege power once, including casualties and attack buffs (21.9215ms)
+✖ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (73.9403ms)
+✔ screen has a useful baseline and scales with support passives (60.8424ms)
+✔ foresight no longer depends on enemy loadout and respects its strict boundary and damage kind (0.8333ms)
+✖ gallop provides travel speed before contact and mitigation while adjacent (47.4976ms)
+✖ new officer defaults activate the intended bow and support routes without removing troop choice (7.4631ms)
+✔ current campaigns and ongoing battles preserve player loadouts and DOT snapshots (741.0994ms)
+✔ status catalog has unique names and rejects removed status identities (53.6852ms)
+✔ continuous intent loss is bounded, and calm does not extinguish fire or restore formation (14.5548ms)
+✔ attack cadence and range use real derived attributes without changing minimum range or skill cooldown (104.4419ms)
+✔ loss of ZOC, root and disarm have independent effects; resolve covers all controls (6.0279ms)
+✖ personal range changes do not increase weapon tactic range (7.2228ms)
+✖ learned opening ambush is first-entry only, respects ZOC, and is serialized with the current rules (4.1185ms)
+✔ ambush chooses reachable rear, waits to cast, and first strike confuses for one step (15.8965ms)
+✔ insight exposes hidden units without changing contact; damage breaks stealth and cancels surprise (10.3022ms)
+✖ single-target learned decoy creates a real target, not a seventh troop or damage shield (3.5379ms)
+✔ prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage (9.9416ms)
+✔ new state saves reject malformed decoys and retired rules (66.4079ms)
+✔ stealth attacks an adjacent ZOC owner instead of chasing the rear (6.7618ms)
+✔ stealth movement stops at first ZOC contact and attacks in the same step (4.8005ms)
+✔ contact reveals stealth without granting a free attack during cooldown (4.7349ms)
+✔ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (38.6255ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (39.2515ms)
+✔ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (411.0819ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (228.8854ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (236.665ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (279.2736ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (201.9948ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (313.6145ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (177.9875ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (103.8412ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.7089ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.8832ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (324.1338ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (11.7662ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (875.1133ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (9.5821ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (81.0599ms)
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (10.7256ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (133.2122ms)
+✔ departed commander stops providing stratagems: defeated side 0 (9.523ms)
+✔ departed commander stops providing stratagems: defeated side 1 (3.7056ms)
+✔ departed commander stops providing stratagems: withdrawn side 0 (16.964ms)
+✔ departed commander stops providing stratagems: withdrawn side 1 (3.5149ms)
+✔ same-name stratagem uses remaining holder after stronger provider leaves (4.6386ms)
+✔ real combat removes defeated providers from both command lists (710.2952ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (94.0941ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (1289.5022ms)
+✔ armies move visibly along road interiors before arriving (82.2122ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (199.5228ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (48.2963ms)
+✔ head-on marching armies meet on the road without passing through each other (61.2253ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (776.257ms)
+✖ manual battle suspends at the next planning phase and resumes the same battle (22.3285ms)
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (11.5792ms)
+✔ multiple battles and their snapshots share the same global day (1023.0767ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (418.2966ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (3559.6069ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (607.3618ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (702.2079ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (36.128ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (58.8995ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (5.4391ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (49.016ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (5.9967ms)
+✔ five days without food disband armies and preserve officers for their return (53.4618ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (387.335ms)
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (6.6384ms)
+✔ city capture settles once and can be saved immediately within a day (642.8447ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (248.1323ms)
+✖ multi-hit results equal actual casualties and shield absorption, with no double counting (36.4679ms)
+✖ remaining shield after a hit is not misreported as a newly granted shield (7.5979ms)
+✖ mixed damage and control report actual duration; resisted control is not claimed (29.0518ms)
+✔ healing results use wounded budget and show actual shield separately (11.7885ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (2640.3839ms)
+✔ every tactic declares its actual power, chance effects and critical policy (1.8017ms)
+✔ defensive status magnitude snapshots martial power and ignores intellect (187.6435ms)
+✖ control succeeds and fails through real casts, pays cooldown, and reports actual chance (6.161ms)
+✖ resolve blocks control and outcome never claims an applied status (44.695ms)
+✖ multi-hit burst shares one power-dependent critical roll per target (7.1193ms)
+✔ control duration grows with power and potency remains bounded (11.8147ms)
+✔ current saves resume identical probability rolls and reject malformed event probabilities (2340.9903ms)
+✖ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (40.9702ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (2164.1358ms)
+✔ limited stock covers every learned tier and only one authored burst spends intent (2.8609ms)
+✖ real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly (852.8935ms)
+✔ army restoration is useful, once per battle, does not reset cooldown or restore specials (1016.5651ms)
+✔ recovery supports do not cast on full stock, themselves, or each other to form a loop (5.9939ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (463.8618ms)
+✖ tactical-control-lv: generated roster uses natural learned tactics across fixed seeds (2483.3415ms)
+✖ tactical-control-zhang: generated roster uses natural learned tactics across fixed seeds (3533.8825ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (8.1428ms)
+✔ instant skills spend shared intent and recovery separates learned casts (237.6822ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (15.1772ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (19.3665ms)
+✖ fire burns without intent feedback and ranged skills have distinct real effects (6.8977ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (12.9389ms)
+✖ formation and valor grant real statuses; gallop needs a path and rush changes position (11.2937ms)
+✔ blocked displacement never overlaps units or crosses board limits (38.534ms)
+✖ rare skills confuse, protect and reduce intent without being universal damage attacks (18.0157ms)
+✖ independent cooldowns, statuses and active casts survive save and resume identically (32.5118ms)
+✖ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (25.2421ms)
+✔ prepaid casts and previous save formats are rejected (20.4505ms)
+✔ new saves distinguish bows and crossbows and require current rules (8.755ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (81.4921ms)
+✔ taunt cannot reach six hexes or override control protection (19.0457ms)
+✖ taunted ranged offensive skills wait for range, then attack the taunter (9.0526ms)
+✖ cleanse removes a real taunt; its source dying or retreating immediately releases the target (7.5764ms)
+✔ taunt never drags melee out through another active ZOC (6.327ms)
+✖ a real charge follows a real retreat shot instead of switching back to a disabled front (6.2668ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (9.0158ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (51.3951ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (599.2119ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (551.9553ms)
+✔ all presets have symmetric cells; ships never occupy forests, hills or marshes (2.0888ms)
+✔ terrain changes only during deployment, resets both sides legally and preserves intent and seed (196.8026ms)
+✖ fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs (6.622ms)
+✖ area fire resolves each target terrain separately (46.7596ms)
+✖ burn recalculates terrain after moving, without compounding its stored stack strength (6.7874ms)
+✔ high ground boosts shooting, woodland shields ranged targets and neutral skills remain neutral (98.2778ms)
+✔ charge damage remembers the starting high ground and the worst traversed wetland (103.9114ms)
+✖ ambush and fortifications change duration, while terrain slow is visible in derived movement (8.5816ms)
+✖ water tactics and fire distinguish a ship under the bridge from troops on it (7.4963ms)
+✔ famous fire tactics share terrain effects and all tactics explain their terrain rules (33.8296ms)
+✔ all terrain saves resume deterministically to real battle completion and old rules are rejected (7508.8357ms)
+✔ troop pools retain valid learning candidates, but arbitrary role templates cannot grant skills (62.5327ms)
+✖ positioning targets real columns and clustered enemies and always includes the anchor (61.9935ms)
+✖ allied slow enables a real spear finisher, with no intent or target bypass (8.3754ms)
+✖ fire preparation increases wildfire direct hits without replacing a stronger burn (9.5419ms)
+✖ low-intellect guards retain mitigation and suppression; their support casts deal no damage (25.9133ms)
+✖ cavalry offensive stance increases basic attack at the cost of real defense (9.5353ms)
+✖ screen protects threatened healthy allies, respects its own layer and caps at one recipient (7.0181ms)
+✖ seal exchanges all damage for silence; ambush waits for close range (7.6622ms)
+✖ each role completes a battle and preserves deterministic continuation under current rules (1624.7485ms)
+✔ all 832 officers use family aptitude for subtypes (4.7324ms)
+✔ siege variants have distinct implemented range and gate damage (2.2561ms)
+✔ city technology, faction funds, failed atomic drafts and conversion costs (712.9494ms)
+✔ city form shows local unlocks, family and differentiated costs (176.6058ms)
+✔ all siege variants damage a real gate from zero intent and resume deterministically (587.1144ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (4.3457ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (53.2206ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (404.704ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (263.2942ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (147.0402ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (350.3544ms)
+✔ 100 survivors: scatter earns intent and cannot destroy a 48,000-soldier army (199.5061ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (123.2136ms)
+✔ 100 survivors: tremor earns intent and cannot destroy a 48,000-soldier army (168.8275ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (152.7583ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (88.7386ms)
+✔ firestorm is bounded by friendly power, not enemy army size (701.926ms)
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (41.0814ms)
+✖ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (7.4453ms)
+✖ overlapping interception remains after harass disables one owner (7.6881ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (9.1315ms)
+✔ out-of-range rear does not displace an attackable front (7.6579ms)
+✖ real cleanse restores interception without waiting for disruption expiry (3.6327ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (9.792ms)
+✔ nearby wounded front takes priority over a healthy ranged target (7.3364ms)
+✖ 疑兵战法为残血部队额外避战两日并保持确定性续战 (31.6456ms)
+✖ 疑兵战法不能绕过共用避战间隔 (3.3938ms)
+✔ enemy side uses the same finisher priority and excludes protected targets (9.832ms)
+ℹ tests 429
+ℹ suites 0
+ℹ pass 303
+ℹ fail 126
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 40059.4919
+
+✖ failing tests:
+
+test at tests\attack-orbs.test.mjs:29:42
+✖ fire: three real basics consume exactly three charges, with normal intent and no links (30.091ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:29:42
+✖ suppress: three real basics consume exactly three charges, with normal intent and no links (5.5132ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:29:42
+✖ pierce: three real basics consume exactly three charges, with normal intent and no links (88.8759ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:43:1
+✖ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (6.3779ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:44:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:52:1
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (19.1181ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:53:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:63:1
+✖ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (4.9815ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:64:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:69:1
+✖ gate attacks do not spend troop enchantments (9.6532ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:70:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:77:1
+✖ remaining charges/source survive save and resume; forged or obsolete state is rejected (5.3842ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attack-orbs.test.mjs:78:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attributes.test.mjs:18:1
+✖ four officer stats affect separate derived attributes, with no charm dimension (6.4335ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  96 !== undefined
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attributes.test.mjs:19:69)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 96,
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attributes.test.mjs:25:1
+✖ basic, martial and intellect damage use distinct offense and resistance paths (134.629ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip ambush
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at damage (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attributes.test.mjs:17:79)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attributes.test.mjs:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\attributes.test.mjs:40:1
+✖ troop attack speed changes actual basic attack cadence but not tactic cooldown (57.3288ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 23
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attributes.test.mjs:42:120)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 23,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attributes.test.mjs:49:1
+✖ politics reduces actual confusion duration but physical confuse remains independent (35.8068ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip smoke
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at confuse (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attributes.test.mjs:50:87)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/attributes.test.mjs:51:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:78:69
+✖ gate: repair uses earned intent, reports durability and resumes exactly (848.5393ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:78:69
+✖ tower: repair uses earned intent, reports durability and resumes exactly (737.9696ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:78:69
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (656.3355ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:78:69
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (583.1612ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\balance.test.mjs:20:1
+✖ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (42.991ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'ward' !== 'strike'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/balance.test.mjs:25:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ward',
+    expected: 'strike',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\battle-ai.test.mjs:44:66
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (304.6806ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/battle-ai.test.mjs:55:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:24:1
+✖ a real control cast opens ZOC and the next allied charge exploits it (80.0506ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip smoke
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at line (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:25:40)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:34:1
+✖ overlapping ZOC still stops a charge after only one front is controlled (4.7467ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip smoke
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at line (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:35:32)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:43:1
+✖ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (3.9513ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip smoke
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at line (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:45:37)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:55:1
+✖ control protection, silence and restored ZOC cannot be bypassed (3.3607ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip smoke
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at line (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:57:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\breakthrough.test.mjs:64:1
+✖ ZOC coverage uses live interceptors and respects boundaries and both sides (3.1927ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip smoke
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at line (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:20:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/breakthrough.test.mjs:65:27)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\cavalry-support-intent.test.mjs:9:57
+✖ person-661: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (482.9305ms)
+  AssertionError [ERR_ASSERTION]: 已学纯医辅组合仍可跟随前排
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/cavalry-support-intent.test.mjs:23:160)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\cavalry-support-intent.test.mjs:9:57
+✖ person-396: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (184.4686ms)
+  AssertionError [ERR_ASSERTION]: 已学纯医辅组合仍可跟随前排
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/cavalry-support-intent.test.mjs:23:160)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\cavalry-support-intent.test.mjs:9:57
+✖ person-99: 攻击骑兵携带策应仍接敌，零战意实战与续战一致 (28.6942ms)
+  AssertionError [ERR_ASSERTION]: 已学纯医辅组合仍可跟随前排
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/cavalry-support-intent.test.mjs:23:160)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\civil-skills.test.mjs:76:1
+✖ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (591.2708ms)
+  TypeError: Cannot read properties of undefined (reading 'name')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/civil-skills.test.mjs:81:37)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\combos.test.mjs:38:1
+✖ a stunned unit and pure self buffs do not prime a combo (11.3715ms)
+  AssertionError [ERR_ASSERTION]: ju cannot equip valor
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/combos.test.mjs:20:349)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/combos.test.mjs:40:41)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:42:1
+✖ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (16.454ms)
+  AssertionError [ERR_ASSERTION]: ju cannot equip wildfire
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/combos.test.mjs:20:349)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/combos.test.mjs:43:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\combos.test.mjs:48:1
+✖ support combos really strengthen shields and do not include unrelated primary targets (24.8537ms)
+  AssertionError [ERR_ASSERTION]: chu cannot equip protect
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/combos.test.mjs:20:349)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/combos.test.mjs:52:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\command-traits.test.mjs:26:1
+✖ appointment UI displays the matching trait effect and recommendation uses it (12.9396ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(html.includes(t.description))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/command-traits.test.mjs:29:193)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\contact-damage.test.mjs:68:1
+✖ an enchanted contact attack consumes one charge and divides extra fire damage (6.4947ms)
+  TypeError: Cannot read properties of undefined (reading 'charges')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/contact-damage.test.mjs:72:57)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\deployment-order.test.mjs:51:1
+✖ learned support is useful beside a core but a tiny helper does not displace full-strength troops (33.7626ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/deployment-order.test.mjs:53:43)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\domestic-single-stat.test.mjs:40:1
+✖ picker explains the single primary stat instead of a mixed ability (339.4911ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(html.includes(label))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/domestic-single-stat.test.mjs:44:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\engagement.test.mjs:39:1
+✖ nearby front takes priority before contact; fast movement stops on contact (80.1982ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/engagement.test.mjs:44:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\engine-command-phase.test.mjs:23:34
+✖ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (788.6905ms)
+  AssertionError [ERR_ASSERTION]: 基础救护不依赖敌方活部队
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/engine-command-phase.test.mjs:42:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:35:1
+✖ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (311.0978ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip riposte
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:41:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:53:1
+✖ 疫伤降低持续救治，救护先解除疫伤再救治 (7.0748ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip bandage
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at run (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:54:130)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:55:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:58:1
+✖ 疑兵有独立耐久且不抵挡本体持续伤害、不增加部队 (5.8912ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip mirage
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:59:29)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:64:1
+✖ riposte is one direct reaction per step, without a counter chain or extra intent (9.0193ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip riposte
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:65:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:81:1
+✖ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (13.3686ms)
+  AssertionError [ERR_ASSERTION]: shao cannot equip ram
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:85:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:88:1
+✖ two real ram casts can link against the gate and increase the second hit (7.8522ms)
+  AssertionError [ERR_ASSERTION]: shao cannot equip ram
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at run (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:92:102)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/expanded-troops.test.mjs:96:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:32:1
+✖ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (3.978ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  16 !== 42
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:34:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 16,
+    expected: 42,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:45:1
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (46.7369ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:21:59)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:47:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\famous-officers.test.mjs:72:1
+✖ multi-hit and multi-target exclusive attacks do not charge the caster (4.8252ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:21:59)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:74:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\famous-officers.test.mjs:80:1
+✖ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (5.0599ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:21:59)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:81:23)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\famous-officers.test.mjs:92:1
+✖ exclusive control respects resolve and discipline; deaths do not acquire new statuses (11.9022ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:21:59)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:95:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\famous-officers.test.mjs:118:1
+✖ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (370.2221ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:21:59)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:121:29)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\famous-officers.test.mjs:140:1
+✖ exclusive support stays local and capped while army healing reaches distant active units (38.247ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:21:59)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:142:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\famous-officers.test.mjs:180:1
+✖ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (6.6679ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:21:59)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/famous-officers.test.mjs:182:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\hero-redesign.test.mjs:10:1
+✖ 荀彧获得额外专属，持有固定内政特性和普通学习名额 (2.8878ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'unique-person-255'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hero-redesign.test.mjs:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'unique-person-255',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\hero-redesign.test.mjs:29:40
+✖ 荀彧：合法自定义战役自然发动专属，遵守消耗、目标与续战 (5.881ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hero-redesign.test.mjs:33:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\hero-redesign.test.mjs:29:40
+✖ 夏侯惇：合法自定义战役自然发动专属，遵守消耗、目标与续战 (2.8711ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hero-redesign.test.mjs:33:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\hero-redesign.test.mjs:29:40
+✖ 夏侯渊：合法自定义战役自然发动专属，遵守消耗、目标与续战 (3.3364ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hero-redesign.test.mjs:33:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\hero-redesign.test.mjs:29:40
+✖ 典韦：合法自定义战役自然发动专属，遵守消耗、目标与续战 (3.1077ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hero-redesign.test.mjs:33:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\hero-redesign.test.mjs:29:40
+✖ 孙权：合法自定义战役自然发动专属，遵守消耗、目标与续战 (6.3952ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hero-redesign.test.mjs:33:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\hex-grid.test.mjs:25:1
+✖ hex paths use six neighbors and cannot cross a gate or an occupied ring (0.8145ms)
+  TypeError: Cannot read properties of null (reading 'length')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hex-grid.test.mjs:29:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\hex-grid.test.mjs:62:1
+✖ diagonal protection knockback follows the hex line and stops before an occupied cell (110.83ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at complete (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hex-grid.test.mjs:51:83)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/hex-grid.test.mjs:70:5)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:41:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (5.4368ms)
+  AssertionError [ERR_ASSERTION]: jia cannot equip ambush
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/intent-roles.test.mjs:43:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:62:1
+✖ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (218.3973ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(b.sides[0].units.find(u=>u.id==='person-119').tacticCasts['unique-person-119']>=2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/intent-roles.test.mjs:67:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-tempo.test.mjs:41:1
+✖ damage tactics against a gate do not charge the caster, basic siege attacks do (9.973ms)
+  AssertionError [ERR_ASSERTION]: shao cannot equip ram
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/intent-tempo.test.mjs:45:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-tiers.test.mjs:8:1
+✖ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (1559.0283ms)
+  TypeError: Cannot read properties of undefined (reading 'threshold')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/intent-tiers.test.mjs:24:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\loadouts.test.mjs:20:1
+✖ each troop has a valid shared pool and exclusive tactics remain optional (2.6212ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 3
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:24:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:39:1
+✖ force and intellect damage scale with their own attribute, not troop weapon type (45.2604ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at complete (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:17:118)
+      at damage (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:40:125)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:41:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:44:1
+✖ confusion and seal prevent immediate skills while seal still permits basic attacks (21.2179ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(hasStatus(x.b,x.d,'confuse'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:46:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:53:1
+✖ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (42.7776ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at complete (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:17:118)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:56:81)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:60:1
+✖ cavalry schemes induce real movement and suppress intent immediately (10.8265ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at complete (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:17:118)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/loadouts.test.mjs:61:38)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:35:1
+✖ front support heals one other ally, never itself, and has a real range limit (40.7719ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip relay
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/medical-roles.test.mjs:38:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:50:1
+✖ doubt deals strategy damage through control protection without bypassing that protection (49.1522ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip doubt
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/medical-roles.test.mjs:51:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:55:1
+✖ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (80.8727ms)
+  AssertionError [ERR_ASSERTION]: 就绪策应可缩短队友冷却
+  + actual - expected
+  
+  + null
+  - {
+  -   action: '列阵',
+  -   advisorBonus: 0.098,
+  -   armyId: 'a1',
+  -   attackCarry: 0,
+  -   battleDamage: 0,
+  -   birthYear: 155,
+  -   cast: null,
+  -   charm: 96,
+  -   commandBonus: 0.096,
+  -   compatibility: 25,
+  -   contribution: {
+  -     control: 0,
+  -     damage: 0,
+  -     healing: 0,
+  -     siege: 0,
+  -     support: 0,
+  -     taken: 0
+  -   },
+  -   cooldown: 999,
+  -   courtesy: '孟德',
+  -   deathYear: 220,
+  -   deputyBonus: 0,
+  -   effect: null,
+  -   entryStatusesApplied: true,
+  -   first: true,
+  -   force: 72,
+  -   formation: 'front',
+  -   healed: 0,
+  -   hp: 3000,
+  -   id: 'patient',
+  -   initial: 3000,
+  -   intellect: 91,
+  -   intent: 0,
+  -   leadership: 96,
+  -   level: 1,
+  -   loyalty: 100,
+  -   maxHp: 3000,
+  -   merit: 0,
+  -   morale: 80,
+  -   moveProgress: 0,
+  -   name: '曹操',
+  -   participated: false,
+  -   passiveState: {
+  -     entryUntil: 0,
+  -     lastMoveTick: 0,
+  -     reserveEntered: false,
+  -     shotType: null,
+  -     shots: 0,
+  -     targetId: null
+  -   },
+  -   personality: 2,
+  -   politics: 94,
+  -   relations: {
+  -     dislikedIds: [
+  -       'person-191',
+  -       'person-254',
+  -       'person-494',
+  -       'person-583',
+  -       'person-708'
+  -     ],
+  -     fatherId: null,
+  -     likedIds: [
+  -       'jia',
+  -       'yuanxia',
+  -       'dun',
+  -       'person-255',
+  -       'person-472'
+  -     ],
+  -     motherId: null,
+  -     spouseIds: [
+  -       'person-549'
+  -     ],
+  -     swornSiblingIds: []
+  -   },
+  -   retreatPolicy: 'normal',
+  -   righteousness: 2,
+  -   sex: 0,
+  -   side: 0,
+  -   skill: '魏武之强',
+  -   skillCasts: 0,
+  -   skillReady: {
+  -     ward: 999
+  -   },
+  -   skillRouteType: 'spear',
+  -   status: 'active',
+  -   statuses: {},
+  -   tacticCasts: {},
+  -   tacticLearning: {
+  -     byTroop: {
+  -       archer: {
+  -         high: [],
+  -         low: [
+  -           'rally'
+  -         ]
+  -       },
+  -       cavalry: {
+  -         high: [],
+  -         low: [
+  -           'harass'
+  -         ]
+  -       },
+  -       crossbow: {
+  -         high: [],
+  -         low: [
+  -           'screen'
+  -         ]
+  -       },
+  -       halberd: {
+  -         high: [],
+  -         low: [
+  -           'curse'
+  -         ]
+  -       },
+  -       ram: {
+  -         high: [],
+  -         low: [
+  -           'tremor'
+  -         ]
+  -       },
+  -       ship: {
+  -         high: [],
+  -         low: [
+  -           'boarding'
+  -         ]
+  -       },
+  -       siege: {
+  -         high: [],
+  -         low: [
+  -           'tremor'
+  -         ]
+  -       },
+  -       spear: {
+  -         high: [],
+  -         low: [
+  -           'ward'
+  -         ]
+  -       },
+  -       tower: {
+  -         high: [],
+  -         low: [
+  -           'nexus'
+  -         ]
+  -       }
+  -     },
+  -     special: false
+  -   },
+  -   tacticRecoveryUntil: 0,
+  -   tacticRestored: {},
+  -   tacticUseBonus: {},
+  -   tactics: [
+  -     'ward'
+  -   ],
+  -   trait: '雄才大略',
+  -   troops: 2600,
+  -   type: 'spear',
+  -   withdrawing: false,
+  -   wounded: 0,
+  -   x: 5,
+  -   y: 3
+  - }
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/medical-roles.test.mjs:58:32)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { personality: 2, righteousness: 2, compatibility: 25, sex: 0, birthYear: 155, deathYear: 220, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'patient', name: '曹操', courtesy: '孟德', leadership: 96, force: 72, intellect: 91, politics: 94, charm: 96, skill: '魏武之强', type: 'spear', formation: 'front', trait: '雄才大略', troops: 2600, wounded: 0, first: true, loyalty: 100, level: 1, merit: 0, tacticLearning: { byTroop: [Object], special: false }, tactics: [ 'ward' ], retreatPolicy: 'normal', skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, contribution: { damage: 0, taken: 0, healing: 0, siege: 0, support: 0, control: 0 }, attackCarry: 0, armyId: 'a1', side: 0, withdrawing: false, hp: 3000, maxHp: 3000, initial: 3000, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 5, y: 3, morale: 80, cooldown: 999, intent: 0, tacticRecoveryUntil: 0, cast: null, skillReady: { ward: 999 }, tacticCasts: {}, tacticRestored: {}, tacticUseBonus: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.096, deputyBonus: 0, advisorBonus: 0.098, entryStatusesApplied: true },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:65:1
+✖ real zero-intent battles trigger both medical roles and resume deterministically (651.1329ms)
+  AssertionError [ERR_ASSERTION]: cavalry must heal in the normal intent-driven flow
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/medical-roles.test.mjs:70:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:75:1
+✖ fire builds three layers through actual follow-up attacks, loses stacks to firefighting, and expires after disengagement (37.508ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/medical-roles.test.mjs:77:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:103:1
+✖ medical casting spends the next basic attack interval rather than adding free healing between shots (9.775ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip relay
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/medical-roles.test.mjs:105:85)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:110:1
+✖ only equipped chargers select legal short flanks, and live interception cancels that preference (7.7002ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   action: '列阵',
+  +   advisorBonus: 0.093,
+  +   armyId: 'a2',
+  +   attackCarry: 0,
+  +   battleDamage: 0,
+  +   birthYear: 154,
+  +   cast: null,
+  +   charm: 90,
+  +   commandBonus: 0.081,
+  +   compatibility: 101,
+  +   contribution: {
+  +     control: 0,
+  +     damage: 0,
+  +     healing: 0,
+  +     siege: 0,
+  +     support: 0,
+  +     taken: 0
+  +   },
+  +   cooldown: 999,
+  +   courtesy: '本初',
+  +   deathYear: 202,
+  +   deputyBonus: 0,
+  +   effect: null,
+  +   entryStatusesApplied: true,
+  +   first: true,
+  +   force: 69,
+  +   formation: 'front',
+  +   healed: 0,
+  +   hp: 2500,
+  +   id: 'shao',
+  +   initial: 2500,
+  +   intellect: 70,
+  +   intent: 0,
+  +   leadership: 81,
+  +   level: 3,
+  +   loyalty: 100,
+  +   maxHp: 2500,
+  +   merit: 0,
+  +   morale: 80,
+  +   moveProgress: 0,
+  +   name: '袁绍',
+  +   participated: false,
+  +   passiveState: {
+  +     entryUntil: 0,
+  +     lastMoveTick: 0,
+  +     reserveEntered: false,
+  +     shotType: null,
+  +     shots: 0,
+  +     targetId: null
+  +   },
+  +   personality: 3,
+  +   politics: 73,
+  +   relations: {
+  +     dislikedIds: [
+  +       'person-17',
+  +       'person-494'
+  +     ],
+  +     fatherId: null,
+  +     likedIds: [
+  +       'person-18'
+  +     ],
+  +     motherId: null,
+  +     spouseIds: [
+  +       'person-623'
+  +     ],
+  +     swornSiblingIds: []
+  +   },
+  +   retreatPolicy: 'normal',
+  +   righteousness: 2,
+  +   sex: 0,
+  +   side: 1,
+  +   skill: '名门号令',
+  +   skillCasts: 0,
+  +   skillReady: {
+  +     thrust: 999,
+  +     ward: 999
+  +   },
+  +   skillRouteType: 'spear',
+  +   status: 'active',
+  +   statuses: {},
+  +   tacticCasts: {},
+  +   tacticLearning: {
+  +     byTroop: {
+  +       archer: {
+  +         high: [
+  +           'scatter'
+  +         ],
+  +         low: [
+  +           'rally'
+  +         ]
+  +       },
+  +       cavalry: {
+  +         high: [],
+  +         low: [
+  +           'harass'
+  +         ]
+  +       },
+  +       crossbow: {
+  +         high: [
+  +           'repeat'
+  +         ],
+  +         low: [
+  +           'screen'
+  +         ]
+  +       },
+  +       halberd: {
+  +         high: [],
+  +         low: [
+  +           'curse'
+  +         ]
+  +       },
+  +       ram: {
+  +         high: [
+  +           'ram'
+  +         ],
+  +         low: [
+  +           'bulwark',
+  +           'tremor'
+  +         ]
+  +       },
+  +       ship: {
+  +         high: [],
+  +         low: [
+  +           'boarding'
+  +         ]
+  +       },
+  +       siege: {
+  +         high: [
+  +           'bombard'
+  +         ],
+  +         low: [
+  +           'emplace',
+  +           'tremor'
+  +         ]
+  +       },
+  +       spear: {
+  +         high: [
+  +           'thrust'
+  +         ],
+  +         low: [
+  +           'ward'
+  +         ]
+  +       },
+  +       tower: {
+  +         high: [
+  +           'repeat'
+  +         ],
+  +         low: [
+  +           'emplace',
+  +           'nexus'
+  +         ]
+  +       }
+  +     },
+  +     special: false
+  +   },
+  +   tacticRecoveryUntil: 0,
+  +   tacticRestored: {},
+  +   tacticUseBonus: {},
+  +   tactics: [
+  +     'ward',
+  +     'thrust'
+  +   ],
+  +   trait: '名门雄主',
+  +   troops: 2500,
+  +   type: 'crossbow',
+  +   withdrawing: false,
+  +   wounded: 0,
+  +   x: 7,
+  +   y: 3
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/medical-roles.test.mjs:117:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { personality: 3, righteousness: 2, compatibility: 101, sex: 0, birthYear: 154, deathYear: 202, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'shao', name: '袁绍', courtesy: '本初', leadership: 81, force: 69, intellect: 70, politics: 73, charm: 90, skill: '名门号令', type: 'crossbow', formation: 'front', trait: '名门雄主', troops: 2500, wounded: 0, first: true, loyalty: 100, level: 3, merit: 0, tacticLearning: { byTroop: [Object], special: false }, tactics: [ 'ward', 'thrust' ], retreatPolicy: 'normal', skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, contribution: { damage: 0, taken: 0, healing: 0, siege: 0, support: 0, control: 0 }, attackCarry: 0, armyId: 'a2', side: 1, withdrawing: false, hp: 2500, maxHp: 2500, initial: 2500, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 7, y: 3, morale: 80, cooldown: 999, intent: 0, tacticRecoveryUntil: 0, cast: null, skillReady: { ward: 999, thrust: 999 }, tacticCasts: {}, tacticRestored: {}, tacticUseBonus: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.081, deputyBonus: 0, advisorBonus: 0.093, entryStatusesApplied: true },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\officer-catalog.test.mjs:29:1
+✖ every officer has fixed positive traits; ordinary officers have no exclusive tactics and bounded ordinary commander stratagems (48.4535ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(unitTactics(u).length<=3)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/officer-catalog.test.mjs:35:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\ordinary-growth.test.mjs:11:1
+✖ ordinary officers retain their fixed positive traits at every level (9.8144ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(availableTactics(u).filter(s=>!s.special).length>=6)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/ordinary-growth.test.mjs:15:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\ordinary-growth.test.mjs:29:1
+✖ ordinary officers use legal support and damage builds in real combat and resume deterministically (29.0093ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/ordinary-growth.test.mjs:33:112
+      at Array.forEach (<anonymous>)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/ordinary-growth.test.mjs:33:68)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:96:1
+✖ foresight enhances actual intellect damage at its strict intent boundary (11.4109ms)
+  AssertionError [ERR_ASSERTION]: jia cannot equip ambush
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/passives.test.mjs:30:17)
+      at hit (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/passives.test.mjs:97:75)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/passives.test.mjs:97:98)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:100:1
+✖ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (8.2095ms)
+  AssertionError [ERR_ASSERTION]: custom cannot equip ambush
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/passives.test.mjs:30:17)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/passives.test.mjs:104:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\passives.test.mjs:131:1
+✖ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (23.6403ms)
+  AssertionError [ERR_ASSERTION]: yu cannot equip relay
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/passives.test.mjs:30:17)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/passives.test.mjs:138:146)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\skill-adjustment.test.mjs:24:1
+✖ fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks (73.9403ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/skill-adjustment.test.mjs:19:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/skill-adjustment.test.mjs:27:21)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/skill-adjustment.test.mjs:38:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\skill-adjustment.test.mjs:69:1
+✖ gallop provides travel speed before contact and mitigation while adjacent (47.4976ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/skill-adjustment.test.mjs:19:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/skill-adjustment.test.mjs:70:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\skill-adjustment.test.mjs:77:1
+✖ new officer defaults activate the intended bow and support routes without removing troop choice (7.4631ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(unitTactics(ju).some(s=>s.id==='unique-ju'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/skill-adjustment.test.mjs:81:77)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\status-rules62.test.mjs:44:1
+✖ personal range changes do not increase weapon tactic range (7.2228ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   action: '列阵',
+  +   advisorBonus: 0.07,
+  +   armyId: 'a2',
+  +   attackCarry: 0,
+  +   battleDamage: 0,
+  +   birthYear: 154,
+  +   cast: null,
+  +   charm: 90,
+  +   commandBonus: 0.081,
+  +   compatibility: 101,
+  +   contribution: {
+  +     control: 0,
+  +     damage: 0,
+  +     healing: 0,
+  +     siege: 0,
+  +     support: 0,
+  +     taken: 0
+  +   },
+  +   cooldown: 999,
+  +   courtesy: '本初',
+  +   deathYear: 202,
+  +   deputyBonus: 0,
+  +   effect: null,
+  +   entryStatusesApplied: true,
+  +   first: true,
+  +   force: 69,
+  +   formation: 'front',
+  +   healed: 0,
+  +   hp: 3000,
+  +   id: 'shao',
+  +   initial: 3000,
+  +   intellect: 70,
+  +   intent: 0,
+  +   leadership: 81,
+  +   level: 10,
+  +   loyalty: 100,
+  +   maxHp: 3000,
+  +   merit: 0,
+  +   morale: 80,
+  +   moveProgress: 0,
+  +   name: '袁绍',
+  +   participated: false,
+  +   passiveState: {
+  +     entryUntil: 0,
+  +     lastMoveTick: 0,
+  +     reserveEntered: false,
+  +     shotType: null,
+  +     shots: 0,
+  +     targetId: null
+  +   },
+  +   personality: 3,
+  +   politics: 73,
+  +   relations: {
+  +     dislikedIds: [
+  +       'person-17',
+  +       'person-494'
+  +     ],
+  +     fatherId: null,
+  +     likedIds: [
+  +       'person-18'
+  +     ],
+  +     motherId: null,
+  +     spouseIds: [
+  +       'person-623'
+  +     ],
+  +     swornSiblingIds: []
+  +   },
+  +   retreatPolicy: 'normal',
+  +   righteousness: 2,
+  +   sex: 0,
+  +   side: 1,
+  +   skill: '名门号令',
+  +   skillCasts: 0,
+  +   skillReady: {},
+  +   skillRouteType: 'spear',
+  +   status: 'active',
+  +   statuses: {},
+  +   tacticCasts: {},
+  +   tacticLearning: {
+  +     byTroop: {
+  +       archer: {
+  +         high: [
+  +           'scatter'
+  +         ],
+  +         low: [
+  +           'rally'
+  +         ]
+  +       },
+  +       cavalry: {
+  +         high: [],
+  +         low: [
+  +           'harass'
+  +         ]
+  +       },
+  +       crossbow: {
+  +         high: [
+  +           'repeat'
+  +         ],
+  +         low: [
+  +           'screen'
+  +         ]
+  +       },
+  +       halberd: {
+  +         high: [],
+  +         low: [
+  +           'curse'
+  +         ]
+  +       },
+  +       ram: {
+  +         high: [
+  +           'ram'
+  +         ],
+  +         low: [
+  +           'bulwark',
+  +           'tremor'
+  +         ]
+  +       },
+  +       ship: {
+  +         high: [],
+  +         low: [
+  +           'boarding'
+  +         ]
+  +       },
+  +       siege: {
+  +         high: [
+  +           'bombard'
+  +         ],
+  +         low: [
+  +           'emplace',
+  +           'tremor'
+  +         ]
+  +       },
+  +       spear: {
+  +         high: [
+  +           'thrust'
+  +         ],
+  +         low: [
+  +           'ward'
+  +         ]
+  +       },
+  +       tower: {
+  +         high: [
+  +           'repeat'
+  +         ],
+  +         low: [
+  +           'emplace',
+  +           'nexus'
+  +         ]
+  +       }
+  +     },
+  +     special: false
+  +   },
+  +   tacticRecoveryUntil: 999,
+  +   tacticRestored: {},
+  +   tacticUseBonus: {},
+  +   tactics: [
+  +     'ward',
+  +     'thrust'
+  +   ],
+  +   trait: '名门雄主',
+  +   troops: 3000,
+  +   type: 'spear',
+  +   withdrawing: false,
+  +   wounded: 0,
+  +   x: 8,
+  +   y: 3
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/status-rules62.test.mjs:46:51)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { personality: 3, righteousness: 2, compatibility: 101, sex: 0, birthYear: 154, deathYear: 202, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'shao', name: '袁绍', courtesy: '本初', leadership: 81, force: 69, intellect: 70, politics: 73, charm: 90, skill: '名门号令', type: 'spear', formation: 'front', trait: '名门雄主', troops: 3000, wounded: 0, first: true, loyalty: 100, level: 10, merit: 0, tacticLearning: { byTroop: [Object], special: false }, tactics: [ 'ward', 'thrust' ], retreatPolicy: 'normal', skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, contribution: { damage: 0, taken: 0, healing: 0, siege: 0, support: 0, control: 0 }, attackCarry: 0, armyId: 'a2', side: 1, withdrawing: false, hp: 3000, maxHp: 3000, initial: 3000, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 8, y: 3, morale: 80, cooldown: 999, intent: 0, tacticRecoveryUntil: 999, cast: null, skillReady: {}, tacticCasts: {}, tacticRestored: {}, tacticUseBonus: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.081, deputyBonus: 0, advisorBonus: 0.07, entryStatusesApplied: true },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\status-rules62.test.mjs:48:1
+✖ learned opening ambush is first-entry only, respects ZOC, and is serialized with the current rules (4.1185ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/status-rules62.test.mjs:49:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\status-rules62.test.mjs:66:1
+✖ single-target learned decoy creates a real target, not a seventh troop or damage shield (3.5379ms)
+  AssertionError [ERR_ASSERTION]: person-433 cannot equip mirage
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/status-rules62.test.mjs:67:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:58:1
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (10.7256ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   action: '列阵',
+  -   advisorBonus: 0.09,
+  -   armyId: 'a2',
+  -   attackCarry: 0,
+  -   battleDamage: 0,
+  -   birthYear: 154,
+  -   cast: null,
+  -   charm: 90,
+  -   commandBonus: 0.081,
+  -   compatibility: 101,
+  -   contribution: {
+  -     control: 0,
+  -     damage: 0,
+  -     healing: 0,
+  -     siege: 0,
+  -     support: 0,
+  -     taken: 0
+  -   },
+  -   cooldown: 999,
+  -   courtesy: '本初',
+  -   deathYear: 202,
+  -   deputyBonus: 0.0465,
+  -   effect: null,
+  -   entryStatusesApplied: true,
+  -   first: true,
+  -   force: 69,
+  -   formation: 'front',
+  -   healed: 0,
+  -   hp: 2500,
+  -   id: 'shao',
+  -   initial: 2500,
+  -   intellect: 70,
+  -   intent: 0,
+  -   leadership: 81,
+  -   level: 1,
+  -   loyalty: 100,
+  -   maxHp: 2500,
+  -   merit: 0,
+  -   morale: 77,
+  -   moveProgress: 0,
+  -   name: '袁绍',
+  -   participated: false,
+  -   passiveState: {
+  -     entryUntil: 0,
+  -     lastMoveTick: 0,
+  -     reserveEntered: false,
+  -     shotType: null,
+  -     shots: 0,
+  -     targetId: null
+  -   },
+  -   personality: 3,
+  -   politics: 73,
+  -   relations: {
+  -     dislikedIds: [
+  -       'person-17',
+  -       'person-494'
+  -     ],
+  -     fatherId: null,
+  -     likedIds: [
+  -       'person-18'
+  -     ],
+  -     motherId: null,
+  -     spouseIds: [
+  -       'person-623'
+  -     ],
+  -     swornSiblingIds: []
+  -   },
+  -   retreatPolicy: 'normal',
+  -   righteousness: 2,
+  -   sex: 0,
+  -   side: 1,
+  -   skill: '名门号令',
+  -   skillCasts: 0,
+  -   skillReady: {
+  -     thrust: 999,
+  -     ward: 999
+  -   },
+  -   skillRouteType: 'spear',
+  -   status: 'active',
+  -   statuses: {
+  -     phalanx: {
+  -       until: 999
+  -     }
+  -   },
+  -   tacticCasts: {},
+  -   tacticLearning: {
+  -     byTroop: {
+  -       archer: {
+  -         high: [
+  -           'scatter'
+  -         ],
+  -         low: [
+  -           'rally'
+  -         ]
+  -       },
+  -       cavalry: {
+  -         high: [],
+  -         low: [
+  -           'harass'
+  -         ]
+  -       },
+  -       crossbow: {
+  -         high: [
+  -           'repeat'
+  -         ],
+  -         low: [
+  -           'screen'
+  -         ]
+  -       },
+  -       halberd: {
+  -         high: [],
+  -         low: [
+  -           'curse'
+  -         ]
+  -       },
+  -       ram: {
+  -         high: [
+  -           'ram'
+  -         ],
+  -         low: [
+  -           'bulwark',
+  -           'tremor'
+  -         ]
+  -       },
+  -       ship: {
+  -         high: [],
+  -         low: [
+  -           'boarding'
+  -         ]
+  -       },
+  -       siege: {
+  -         high: [
+  -           'bombard'
+  -         ],
+  -         low: [
+  -           'emplace',
+  -           'tremor'
+  -         ]
+  -       },
+  -       spear: {
+  -         high: [
+  -           'thrust'
+  -         ],
+  -         low: [
+  -           'ward'
+  -         ]
+  -       },
+  -       tower: {
+  -         high: [
+  -           'repeat'
+  -         ],
+  -         low: [
+  -           'emplace',
+  -           'nexus'
+  -         ]
+  -       }
+  -     },
+  -     special: false
+  -   },
+  -   tacticRecoveryUntil: 0,
+  -   tacticRestored: {},
+  -   tacticUseBonus: {},
+  -   tactics: [
+  -     'ward',
+  -     'thrust'
+  -   ],
+  -   trait: '名门雄主',
+  -   troops: 2500,
+  -   type: 'spear',
+  -   withdrawing: false,
+  -   wounded: 0,
+  -   x: 7,
+  -   y: 3
+  - }
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/stratagems.test.mjs:62:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { personality: 3, righteousness: 2, compatibility: 101, sex: 0, birthYear: 154, deathYear: 202, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'shao', name: '袁绍', courtesy: '本初', leadership: 81, force: 69, intellect: 70, politics: 73, charm: 90, skill: '名门号令', type: 'spear', formation: 'front', trait: '名门雄主', troops: 2500, wounded: 0, first: true, loyalty: 100, level: 1, merit: 0, tacticLearning: { byTroop: [Object], special: false }, tactics: [ 'ward', 'thrust' ], skillRouteType: 'spear', passiveState: { lastMoveTick: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, participated: false, contribution: { damage: 0, taken: 0, healing: 0, siege: 0, support: 0, control: 0 }, attackCarry: 0, armyId: 'a2', side: 1, retreatPolicy: 'normal', withdrawing: false, hp: 2500, maxHp: 2500, initial: 2500, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 7, y: 3, morale: 77, cooldown: 999, intent: 0, tacticRecoveryUntil: 0, cast: null, skillReady: { ward: 999, thrust: 999 }, tacticCasts: {}, tacticRestored: {}, tacticUseBonus: {}, statuses: { phalanx: [Object] }, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.081, deputyBonus: 0.0465, advisorBonus: 0.09, entryStatusesApplied: true },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:58:1
+✖ manual battle suspends at the next planning phase and resumes the same battle (22.3285ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:59:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:64:1
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (11.5792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:65:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:133:1
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (6.6384ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/strategic-campaign.test.mjs:134:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tactic-outcomes.test.mjs:18:1
+✖ multi-hit results equal actual casualties and shield absorption, with no double counting (36.4679ms)
+  TypeError: Cannot read properties of undefined (reading 'outcome')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-outcomes.test.mjs:21:93)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\tactic-outcomes.test.mjs:27:1
+✖ remaining shield after a hit is not misreported as a newly granted shield (7.5979ms)
+  TypeError: Cannot read properties of undefined (reading 'outcome')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-outcomes.test.mjs:30:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\tactic-outcomes.test.mjs:34:1
+✖ mixed damage and control report actual duration; resisted control is not claimed (29.0518ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip doubt
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-outcomes.test.mjs:38:5)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactic-power.test.mjs:37:1
+✖ control succeeds and fails through real casts, pays cooldown, and reports actual chance (6.161ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip smoke
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-power.test.mjs:17:20)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-power.test.mjs:40:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactic-power.test.mjs:52:1
+✖ resolve blocks control and outcome never claims an applied status (44.695ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip doubt
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-power.test.mjs:17:20)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-power.test.mjs:53:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactic-power.test.mjs:58:1
+✖ multi-hit burst shares one power-dependent critical roll per target (7.1193ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-power.test.mjs:63:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tactic-tempo.test.mjs:9:1
+✖ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (40.9702ms)
+  TypeError: Cannot read properties of undefined (reading 'tempoRole')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-tempo.test.mjs:16:37)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\tactic-uses.test.mjs:23:1
+✖ real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly (852.8935ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(expanded>0&&restored>0&&exhausted>0&&ordinary>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactic-uses.test.mjs:47:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactical-campaigns.test.mjs:23:3
+✖ tactical-control-lv: generated roster uses natural learned tactics across fixed seeds (2483.3415ms)
+  AssertionError [ERR_ASSERTION]: limited learned control can affect the enemy on the fixed seed grid
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactical-campaigns.test.mjs:41:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactical-campaigns.test.mjs:23:3
+✖ tactical-control-zhang: generated roster uses natural learned tactics across fixed seeds (3533.8825ms)
+  AssertionError [ERR_ASSERTION]: limited learned control can affect the enemy on the fixed seed grid
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactical-campaigns.test.mjs:41:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:58:1
+✖ fire burns without intent feedback and ranged skills have distinct real effects (6.8977ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at allowOnly (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:25:27)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:59:33)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:74:1
+✖ formation and valor grant real statuses; gallop needs a path and rush changes position (11.2937ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip valor
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at allowOnly (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:25:27)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:77:5)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:90:1
+✖ rare skills confuse, protect and reduce intent without being universal damage attacks (18.0157ms)
+  AssertionError [ERR_ASSERTION]: chu cannot equip protect
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at allowOnly (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:25:27)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:95:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:97:1
+✖ independent cooldowns, statuses and active casts survive save and resume identically (32.5118ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at allowOnly (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:25:27)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:98:37)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:106:1
+✖ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (25.2421ms)
+  AssertionError [ERR_ASSERTION]: chu cannot equip protect
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at allowOnly (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:25:27)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/tactics.test.mjs:111:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\taunt-pursuit.test.mjs:31:1
+✖ taunted ranged offensive skills wait for range, then attack the taunter (9.0526ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== undefined
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/taunt-pursuit.test.mjs:33:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\taunt-pursuit.test.mjs:37:1
+✖ cleanse removes a real taunt; its source dying or retreating immediately releases the target (7.5764ms)
+  AssertionError [ERR_ASSERTION]: shao cannot equip cleanse
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/taunt-pursuit.test.mjs:38:56)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\taunt-pursuit.test.mjs:60:1
+✖ a real charge follows a real retreat shot instead of switching back to a disabled front (6.2668ms)
+  AssertionError [ERR_ASSERTION]: ju cannot equip retreatShot
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/taunt-pursuit.test.mjs:62:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:58:1
+✖ fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs (6.622ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:25:46)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:59:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:67:1
+✖ area fire resolves each target terrain separately (46.7596ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip wildfire
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:69:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:77:1
+✖ burn recalculates terrain after moving, without compounding its stored stack strength (6.7874ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:25:46)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:78:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:106:1
+✖ ambush and fortifications change duration, while terrain slow is visible in derived movement (8.5816ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip ambush
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at cast (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:25:46)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:107:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\terrain.test.mjs:117:1
+✖ water tactics and fire distinguish a ship under the bridge from troops on it (7.4963ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/terrain.test.mjs:120:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:28:1
+✖ positioning targets real columns and clustered enemies and always includes the anchor (61.9935ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip wildfire
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:33:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:38:1
+✖ allied slow enables a real spear finisher, with no intent or target bypass (8.3754ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip strike
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at run (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:39:74)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:40:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:43:1
+✖ fire preparation increases wildfire direct hits without replacing a stronger burn (9.5419ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip wildfire
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at run (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:44:138)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:45:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:48:1
+✖ low-intellect guards retain mitigation and suppression; their support casts deal no damage (25.9133ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:53:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:57:1
+✖ cavalry offensive stance increases basic attack at the cost of real defense (9.5353ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip valor
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:58:59)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:64:1
+✖ screen protects threatened healthy allies, respects its own layer and caps at one recipient (7.0181ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:67:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:75:1
+✖ seal exchanges all damage for silence; ambush waits for close range (7.6622ms)
+  AssertionError [ERR_ASSERTION]: cao cannot equip seal
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:76:29)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:82:1
+✖ each role completes a battle and preserves deterministic continuation under current rules (1624.7485ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/toolbox.test.mjs:85:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:34:1
+✖ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (7.4453ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/zoc-counterplay.test.mjs:36:74)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:50:1
+✖ overlapping interception remains after harass disables one owner (7.6881ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/zoc-counterplay.test.mjs:51:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:68:1
+✖ real cleanse restores interception without waiting for disruption expiry (3.6327ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:10:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/zoc-counterplay.test.mjs:69:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:94:1
+✖ 疑兵战法为残血部队额外避战两日并保持确定性续战 (31.6456ms)
+  AssertionError [ERR_ASSERTION]: person-433 cannot equip mirage
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/zoc-counterplay.test.mjs:95:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:103:1
+✖ 疑兵战法不能绕过共用避战间隔 (3.3938ms)
+  AssertionError [ERR_ASSERTION]: person-433 cannot equip mirage
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/retreat-control/tests/zoc-counterplay.test.mjs:104:59)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

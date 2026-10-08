@@ -2,7 +2,7 @@ import {fieldFromCity} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NATIONAL_MAP_COUNTS,NATIONAL_SCENARIOS,nationalWorld,nationalRoster} from '../national-scenarios.mjs';
-import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,orderCampaignArmy,splitCampaignArmy,assignDomestic,launchExpedition} from '../strategic-campaign.mjs';
+import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,orderCampaignArmy,splitCampaignArmy,assignDomestic,launchExpedition} from './helpers/auto-domestic-campaign.mjs';
 const restored=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function startTestSiege(s){
  const ids=s.cities.find(c=>c.id==='chenliu').units.slice(0,6).map(u=>u.id);

@@ -1,0 +1,28 @@
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (253.6988ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (271.6252ms)
+✔ generated overview tables stay synchronized with the authoritative records (192.6585ms)
+✔ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (17.04ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (154.2511ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (4.849ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (5.1963ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (6.4724ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (8.2296ms)
+✔ personal traits affect troop panels from level one, remain independent of tactics, and respect conditions (8.7408ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (65.6114ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (29.5463ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (2.4249ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (1.6171ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (12.9529ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (704.2701ms)
+✔ officer exports include every assigned trait and its domain without a five-trait limit (15.538ms)
+✔ scenario profiles correct the public-library traits in runtime and exported rows (0.4303ms)
+✔ scenario relation IDs replace truncated library IDs without inventing genealogy officers (1.9801ms)
+✔ profile import uses array base values and never adopts live scenario state or colliding custom IDs (1.8448ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1207.6357

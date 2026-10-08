@@ -4,7 +4,7 @@ import {PERSONNEL_SPEED} from '../personnel-movement.mjs';
 import {fieldFromCity,peacefulCities} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,actionCandidates,ACTIONS,cancelDomestic,finishDomesticDay} from '../domestic.mjs';
 import {willingness,talentEligibility,talentKey,talentContext,projectNeed,progressFor,refreshTalentDemand,servingPeople,reassuranceCap,righteousness,isLord,affinityFit} from '../talent-core.mjs';
 import {discoverTalent,initializeTalent,finishTalentDay,resolveTalentOffers,startTalentProject,completeTalentProject,noteTalentCityCapture,processTalentDefeats,refreshTalentProjects,validateTalent} from '../talent-lifecycle.mjs';

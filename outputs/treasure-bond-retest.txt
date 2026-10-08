@@ -1,0 +1,15 @@
+✔ AI retains basic deployment and can use an already active formation without changing its selected troops (147.9731ms)
+✔ AI fills a missing role without chasing maximum Beauty; a legal player choice can complete it (36.8394ms)
+✔ display uses the engine in-field sums and updates after substitution (5.1169ms)
+✔ draft preview excludes zero troops and decoys and shows opening levels (1.6367ms)
+✔ opening preview follows first flags and shared commander capacity; reserves cannot inflate tier (1.9177ms)
+✔ contributor portraits use the same actual holders and points as the battle summary, including inactive tiers (0.6423ms)
+✔ opening portraits exclude the bench and unreached reinforcements, while hidden enemies use unknown portraits (0.8558ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1059.7104

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,armyPosition} from '../strategic-campaign.mjs';
+import {newCampaign,armyPosition} from './helpers/auto-domestic-campaign.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {operationMapView,centeredMapView,clampMapView,LOCAL_MAP_SIZE,mapDetailLevel,metropolitanMemberView,metropolitanOverviewView} from '../strategic-map-camera.mjs';
 import {metropolitanMembers} from '../metropolitan-areas.mjs';

@@ -1,0 +1,45 @@
+{
+  "sourceProject": "sango_infinity-main",
+  "counts": {
+    "common": 832,
+    "custom": 0,
+    "total": 832
+  },
+  "profileSource": "common records use Scenario.personSet character fields; custom edit records are excluded",
+  "profileOverrideCounts": {
+    "personality": 604,
+    "argumentation": 620,
+    "LikePersonList": 30,
+    "nickName": 17,
+    "Father": 116,
+    "Name": 23,
+    "giveName": 47,
+    "HatePersonList": 6,
+    "familyName": 8,
+    "SpouseList": 3,
+    "Mother": 1,
+    "sex": 67
+  },
+  "sources": {
+    "common": {
+      "path": "Build/Content/Data/Common/PersonLibrary.json",
+      "sha256": "e34903d7d02f8676782a733be706e8c32ef6559a5e8b8da1d54f9bd8a56aae2a"
+    },
+    "biographies": {
+      "path": "Build/Content/Language/PersonDescription.json",
+      "sha256": "4d42b3190d6bb67df0c947a2b324e9cd14a48001cd1dfc19370ad11b8194e1c7"
+    },
+    "personalities": {
+      "path": "Build/Content/Data/Common/Personalities.json",
+      "sha256": "2887dbd370d9a666bfc397bbdb9940cbb4e63d642144abda2337bf92ba17745b"
+    },
+    "righteousness": {
+      "path": "Build/Content/Data/Common/Argumentations.json",
+      "sha256": "3974107229c2c703106a134ad06714833bb73966e3cdafa7883759a4f8a70881"
+    },
+    "scenario": {
+      "path": "Build/Content/Scenario/Scenario.json",
+      "sha256": "c0eb75d9c9a47f053fddb8f7d7f30ab05db9c561e4afec8b28761a39d096762b"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+✔ Jianxiong permits seven on either side, reserves refill and saves resume deterministically (60.2464ms)
+✔ advisor does not add a slot; an eighth unit or another army cannot occupy the extra slot (2.8483ms)
+✔ seven starters do not accelerate eighth and ninth reinforcement arrivals (2.7513ms)
+✔ Rapid March changes shared route speed only with a living appointed leader (0.6064ms)
+✖ Qingnang enables actual clinic-free treatment but preserves grain and real-wound limits (47.6843ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 324.5141
+
+✖ failing tests:
+
+test at tests\army-trait-rules.test.mjs:45:1
+✖ Qingnang enables actual clinic-free treatment but preserves grain and real-wound limits (47.6843ms)
+  Error: 粮仓汇总不一致
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:594:53)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:644:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/army-trait-rules.test.mjs:59:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

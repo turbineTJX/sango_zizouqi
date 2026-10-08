@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,activeBattles,chooseEncounter,advanceCampaignStep} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,activeBattles,chooseEncounter,advanceCampaignStep} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,cancelDomestic,ACTIONS,completeBattleBuildingWork} from '../domestic.mjs';
 import {buildingDurability,gateDurability,campaignBattleBuildings,writeBattleBuildingDamage,completeTechnologyBuilding} from '../building-durability.mjs';
 import {citySceneState,cityBuildingInfo} from '../city-scene.mjs';
@@ -8,6 +8,8 @@ import {productiveBuildingLevel} from '../metropolitan-areas.mjs';
 import {cityVisionRadius} from '../city-technology.mjs';
 import {cityIntelligence} from '../strategic-vision.mjs';
 import {canOccupy} from '../battlefield.mjs';
+import {hexNeighbors} from '../hex-grid.mjs';
+import {canStrikeFrom} from '../engagement.mjs';
 import {lockDeployment,stepBattle,issueCommand} from '../engine.mjs';
 import {peacefulCities,invadeFromGuandu} from './helpers/field-campaign.mjs';
 import {setBuildingLevel} from './building-fixtures.mjs';
@@ -22,7 +24,7 @@ function fixture({level=0,hp=null,key='workshop',seed=81}={}){
 function days(s,n){for(let i=0;i<n;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}}
 
 test('all current facilities and gates save actual current and maximum durability',()=>{
- for(const scenario of [null,'guandu-200']){const s=newCampaign(81,scenario);for(const c of s.cities){assert.equal(Object.keys(c.buildings).length,10);assert.equal(gateDurability(c).maxHp,12000+c.walls*3000);assert.equal(buildingDurability(c,'commerce').hp,1000);assert.equal(Object.hasOwn(c,'gateHp'),false);}restore(s);}
+ for(const scenario of [null,'guandu-200']){const s=newCampaign(81,scenario);for(const c of s.cities){assert.equal(Object.keys(c.buildings).length,13);assert.equal(gateDurability(c).maxHp,12000+c.walls*3000);assert.equal(buildingDurability(c,'commerce').hp,1000);assert.equal(Object.hasOwn(c,'gateHp'),false);}restore(s);}
 });
 test('new construction advances actual durability daily and inspection cannot advance it',()=>{
  const {s,c}=fixture();beginExecution(s);assert.deepEqual(buildingDurability(c,'workshop'),{hp:0,maxHp:1000});days(s,8);
@@ -60,7 +62,7 @@ test('destroyed facilities cease production and become operational after actual 
 });
 test('construction and gate durability cannot be forged in saves',()=>{
  const {s,c}=fixture();beginExecution(s);days(s,2);
- for(const mutate of [v=>v.cities.find(n=>n.id===c.id).buildings.workshop[c.id].hp=1001,v=>v.cities.find(n=>n.id===c.id).buildings.walls[c.id].maxHp=16000,v=>v.cities.find(n=>n.id===c.id).project.hpPerDay=0,v=>v.campaign.version=42]){const bad=JSON.parse(serializeCampaign(s));mutate(bad);assert.throws(()=>validateCampaign(bad));}
+ for(const mutate of [v=>v.cities.find(n=>n.id===c.id).buildings.workshop[c.id].hp=1001,v=>v.cities.find(n=>n.id===c.id).buildings.walls[c.id].maxHp=16000,v=>v.cities.find(n=>n.id===c.id).project.hpPerDay=0,v=>v.campaign.version=43]){const bad=JSON.parse(serializeCampaign(s));mutate(bad);assert.throws(()=>validateCampaign(bad));}
 });
 test('battle buildings preserve real damage and map repairs back to the same physical facilities',()=>{
  const s=newCampaign(81),c=s.cities.find(c=>c.id==='xuchang');setBuildingLevel(c,'commerce',1,c.id,{hp:400});
@@ -68,13 +70,14 @@ test('battle buildings preserve real damage and map repairs back to the same phy
  const changes=writeBattleBuildingDamage(s,{buildings});assert.equal(changes[0].hp,250);assert.equal(buildingDurability(c,'commerce').hp,250);assert.equal(campaignBattleBuildings(s,c.id,0).find(a=>a.kind==='commerce').hp,250);
  const next=campaignBattleBuildings(s,c.id,0);next.find(a=>a.kind==='commerce').hp=300;writeBattleBuildingDamage(s,{buildings:next});assert.equal(buildingDurability(c,'commerce').hp,300);restore(s);
 });
-test('actual siege loads damaged gate and facilities and returns gate damage after retreat',()=>{
- const s=newCampaign(81),c=s.cities.find(c=>c.id==='xuchang');setBuildingLevel(c,'commerce',1,c.id,{hp:400});gateDurability(c).hp=8000;invadeFromGuandu(s);beginExecution(s);let r;
+test('actual siege attacks a functioning tower, preserves civilian works and returns physical damage after retreat',()=>{
+ const s=newCampaign(81),c=s.cities.find(c=>c.id==='xuchang');setBuildingLevel(c,'commerce',1,c.id,{hp:400});setBuildingLevel(c,'arrowTower',1,c.id,{hp:400});gateDurability(c).hp=8000;invadeFromGuandu(s);beginExecution(s);let r;
  for(let i=0;i<8&&!r;i++){advanceCampaignDay(s);r=activeBattles(s).find(r=>r.cityId===c.id&&r.kind==='siege');}
  assert.ok(r);assert.equal(r.battle.siege.gate.hp,8000);assert.equal(r.battle.buildings.find(a=>a.kind==='commerce').hp,400);chooseEncounter(s,r.id,true);lockDeployment(r.battle);restore(s);
  const b=r.battle,units=b.sides.flatMap(side=>side.units),attacker=b.sides[r.attackSide].units.find(u=>u.status==='active'&&u.type==='archer')||b.sides[r.attackSide].units.find(u=>u.status==='active'),occupied=new Set(units.filter(u=>u.status==='active'&&u.side===r.attackSide&&u!==attacker).map(u=>u.x+':'+u.y));
  for(const u of b.sides[1-r.attackSide].units.filter(u=>u.status==='active')){const cell=Array.from({length:112},(_,i)=>({x:i%14,y:Math.floor(i/14)})).find(p=>p.x>=5&&p.x<=8&&!occupied.has(p.x+':'+p.y)&&canOccupy(b,u,p.x,p.y));assert.ok(cell);Object.assign(u,cell);occupied.add(cell.x+':'+cell.y);u.cooldown=100;u.intent=0;}
- assert.ok(canOccupy(b,attacker,1,0));Object.assign(attacker,{x:1,y:0,cooldown:0,intent:0});advanceCampaignStep(s);restore(s);assert.ok(b.buildings.some(a=>a.hp<a.initialHp));
+ const tower=b.buildings.find(a=>a.kind==='arrowTower'),contact=hexNeighbors(tower).map(([x,y])=>({x,y})).find(p=>canOccupy(b,attacker,p.x,p.y)&&!units.some(u=>u!==attacker&&u.status==='active'&&u.x===p.x&&u.y===p.y)&&canStrikeFrom(b,attacker,tower,p));assert.ok(contact);
+ Object.assign(attacker,{...contact,cooldown:0,intent:0});advanceCampaignStep(s);restore(s);assert.ok(tower.hp<400);assert.equal(b.buildings.find(a=>a.kind==='commerce').hp,400);
  if(!r.battle.result)issueCommand(r.battle,'retreat',null,r.attackSide);chooseEncounter(s,r.id,false);
  for(let i=0;i<400&&!r.settled;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignStep(s);}
  assert.ok(r.settled);assert.equal(gateDurability(c).hp,r.battle.siege.gate.hp);assert.ok(r.report.buildings.length>0);restore(s);

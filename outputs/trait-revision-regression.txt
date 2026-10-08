@@ -1,0 +1,171 @@
+✔ cues keep both sides visible, bound backlog and merge rapid repeated triggers (1.454ms)
+✔ ordinary traits and small tactics have no special cue; unique abilities and big tactics do (0.2377ms)
+✔ Jianxiong permits seven on either side, reserves refill and saves resume deterministically (99.3771ms)
+✔ advisor does not add a slot; an eighth unit or another army cannot occupy the extra slot (3.5567ms)
+✔ seven starters do not accelerate eighth and ninth reinforcement arrivals (6.2625ms)
+✔ Rapid March changes shared route speed only with a living appointed leader (0.8072ms)
+✖ Qingnang enables actual clinic-free treatment but preserves grain and real-wound limits (75.6926ms)
+✔ command triggers ignore range and read only the requested side cooldowns (28.8648ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (246.0693ms)
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (56.42ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (206.2209ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (6.1979ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (33.8604ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (124.6535ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (10.0529ms)
+✔ AI follows fixed command order, holds ineligible commands, and does not refresh active buffs (6.246ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (422.2627ms)
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (5.8329ms)
+✔ trait outcomes get attributed cards and logs without pausing or replaying damage (0.9462ms)
+✔ ordinary abilities keep logs and damage but do not replace featured results or display named cues (0.7466ms)
+✔ failed trait rolls are logged honestly without a success card; hidden enemy traits are not revealed (0.8739ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.713ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.6141ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.8153ms)
+✔ legacy windup events never display a preparation animation or log row (0.5997ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.874ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (4.7543ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.681ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (11.7449ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.7285ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.5731ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (3.5614ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.628ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (2.4435ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.6034ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.5553ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (1.2957ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (4.4074ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (5.9308ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.6156ms)
+✔ reduced motion uses static focus and finishes without impact particles (2.0892ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (5.3148ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.6809ms)
+✔ minor tactics including criticals stay local in both effect modes (1.2486ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (8.3782ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (1821.1744ms)
+✔ real ordinary attack and trait results enter saved journal once and retain sources (37.7352ms)
+✔ journal bounds are shared by routine battle messages and structured results (0.5409ms)
+✔ hidden enemy trait is not disclosed in persistent journal (2.7041ms)
+✔ two, three and six adjacent enemies share one normal attack budget (52.514ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (5.4751ms)
+✔ minimum damage is shared rather than multiplied once per enemy (9.582ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (14.8345ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (7.8477ms)
+✔ an enchanted contact attack consumes one charge and divides extra fire damage (13.641ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (7.579ms)
+✔ current combat saves resume with exactly the same shared attacks (310.4423ms)
+✔ all six directions have independent work and a single stat; no city morale multiplier (15.5994ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (208.0091ms)
+✔ random results vary across seeds while identical seed is reproducible (111.537ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (4.5985ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (65.2837ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (47.2845ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (64.4435ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (44.0687ms)
+✔ research unlocks a local troop only after a successful trial (56.5642ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (126.6866ms)
+✔ healing conserves personnel and does not require local troop technology (31.2359ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (216.6216ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (108.413ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (75.973ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (43.7679ms)
+✔ actual siege pauses construction without charging again or completing in the background (137.3565ms)
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (47.7111ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (43.8335ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (542.4549ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (360.3056ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (502.5622ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (332.761ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (291.135ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (146.0653ms)
+✔ 28 unique mechanics replace old personal stat multipliers and describe their conditions (25.4157ms)
+✔ Flying General ignores ZOC for real route searches, but cannot pass occupied cells (3.2074ms)
+✔ Flying General converts one basic attack into seeded area hits on both sides (179.8204ms)
+✔ Wolong doubles only appointed army recovery, including reserves; no zero-hp or withdrawing source (2.339ms)
+✔ Jianxiong intelligence difference is bounded and confusion respects resolve and immunity (4.5139ms)
+✔ rescue and guard trigger on actual allies (7.9547ms)
+✔ ambush entry is one-use, wrong troops do not activate, and stationary range ends on movement (12.2984ms)
+✔ on-hit troop mechanics produce control and extra attacks through real basics (72.4582ms)
+✔ kill reward shortens cooldown but never replenishes charges or recovery (3.5958ms)
+✔ fixed tactic casts activate ally shield and movement release (9.7112ms)
+✔ real battle save resumes all random trait rolls and rejects forged trigger records (149.7969ms)
+✔ Pang Tong links real tactic targets, Lu Xun spreads fire and Zhang Jiao adds bounded thunder (8.5298ms)
+✔ Lu Su cleanses his own army (2.3735ms)
+✔ Sun Quan and Sima Yi react to actual paid stratagems without extra casts or free loops (105.2281ms)
+✔ army role recommendations include mechanical benefits using the shared candidate scorer (30.0659ms)
+✔ Dian Wei guard transfers actual damage once; withdrawing sources stop new effects (6.2957ms)
+✔ Diao Chan basics weaken both tactic powers, refresh without stacking and can be cleansed (23.2064ms)
+✔ Huang Gai wounded basics debuff the actual enemy; health and troop restrictions apply (9.9971ms)
+✔ frequent debuffs expire promptly and cannot refresh stronger limited effects (7.9465ms)
+ℹ tests 100
+ℹ suites 0
+ℹ pass 97
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2333.0148
+
+✖ failing tests:
+
+test at tests\army-trait-rules.test.mjs:45:1
+✖ Qingnang enables actual clinic-free treatment but preserves grain and real-wound limits (75.6926ms)
+  Error: 内政日期或随机状态无效
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:321:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:323:69)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:645:3)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/army-trait-rules.test.mjs:59:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\battle-ai.test.mjs:46:66
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (56.42ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   reason: '击溃',
+  +   winner: 1
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-ai.test.mjs:52:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { winner: 1, reason: '击溃' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\domestic.test.mjs:91:1
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (47.7111ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(returned.length>=2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:97:106)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

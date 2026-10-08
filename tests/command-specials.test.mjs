@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,issueCommand,COMMAND_RESOURCE,validateSave,unitAttributes} from '../engine.mjs';
 import {setStatus,hasStatus,NEGATIVE_STATUSES,readyTactic} from '../tactics.mjs';
-import {STRATAGEMS} from '../stratagems.mjs';
+import {STRATAGEMS,selectStratagemSource} from '../stratagems.mjs';
 import {chooseStratagemPoint,stratagemAreaTargets,zoneStatusChoices} from '../stratagem-area.mjs';
 import {areaPreview} from '../stratagem-area-view.mjs';
 import {interceptorsAt,meleeTargetPool} from '../engagement.mjs';
@@ -15,21 +15,22 @@ function charged(seed=7311,early=false){
  const entry=id=>({id,type:'spear',level:10,troops:5000});
  // The immunity probe needs incoming spells: omit Guo Jia's group suppression
  // from that fixture so it does not prevent the event under test from occurring.
- const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:['cao',early?'jin':'jia','yu',early?'person-290':'jin','liao','dun','chu'].map(entry),enemyTeam:['shao','wen','yan','tian','gao','person-246',early?'person-226':'person-290'].map(id=>({...entry(id),type:['wen','yan'].includes(id)?'cavalry':'spear'})),ownTeamRoles:{leader:'cao',advisor:early?'person-290':'jia'}});
+ const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:['cao',early?'jin':'person-366','yu',early?'person-290':'jin','liao','dun','chu'].map(entry),enemyTeam:['shao','wen','yan','tian','gao','person-246',early?'person-226':'person-290'].map(id=>({...entry(id),type:['wen','yan'].includes(id)?'cavalry':'spear'})),ownTeamRoles:{leader:'cao',advisor:early?'person-290':'person-366'}});
  for(const u of state.battle.sides.flatMap(s=>s.units))u.retreatAt=null;
  lockDeployment(state.battle);
  while(!state.battle.result&&state.battle.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(state.battle);
  assert.equal(state.battle.result,null);assert.equal(state.battle.commandProgress,COMMAND_RESOURCE.capacity);
  return state;
 }
-test('魏武挥鞭由真实充能施放，逐队军纪决定时长，仅覆盖在场部队',()=>{
+test('号令如山由真实充能施放，逐队军纪决定时长，仅覆盖在场部队',()=>{
  const state=charged(),b=state.battle,active=b.sides[0].units.filter(u=>u.status==='active');
- const durations=new Map(active.map(u=>[u.id,commandProtectionDuration(unitAttributes(u,b).discipline)]));
+ const power=selectStratagemSource(b.sides[0].commanders,'cao-wuchao').power;
+ const durations=new Map(active.map(u=>[u.id,commandProtectionDuration(unitAttributes(u,b).discipline,power)]));
  assert.equal(issueCommand(b,'cao-wuchao'),null);assert.equal(b.commandProgress,0);
  for(const u of active){assert.equal(u.statuses.magicImmune.until,b.tick+durations.get(u.id)+1);assert.ok(!NEGATIVE_STATUSES.some(k=>k!=='hunger'&&hasStatus(b,u,k)));}
  assert.ok(b.sides[0].units.filter(u=>u.status==='reserve').every(u=>!u.statuses.magicImmune));
- assert.equal(b.sides[1].disruptUntil,0);assert.equal(chooseEnemyCommand(b,['cao-wuchao'],STRATAGEMS,0),null);
- const copy=validateSave(structuredClone(state));for(let n=0;n<14;n++){stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);}
+ assert.equal(b.sides[1].disruptUntil,undefined);assert.equal(chooseEnemyCommand(b,['cao-wuchao'],STRATAGEMS,0),null);
+ const copy=validateSave(structuredClone(state));for(let n=0;n<Math.max(...durations.values())+1;n++){stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);}
  assert.ok(active.every(u=>!hasStatus(b,u,'magicImmune')));
 });
 test('魔免阻止全部异常与八阵；只让物理普攻伤害通过，到期恢复',()=>{
@@ -39,7 +40,7 @@ test('魔免阻止全部异常与八阵；只让物理普攻伤害通过，到�
  for(const spec of [{skill:true},{intellectual:true},{secondary:true},{skill:true,intellectual:true}])assert.ok(commandBlocksDamage(b,u,spec));
  assert.equal(commandBlocksDamage(b,u,{}),false);
  b.tick=u.statuses.magicImmune.until;assert.equal(commandBlocksDamage(b,u,{skill:true}),false);assert.notEqual(setStatus(b,u,'slow',3),false);assert.ok(hasStatus(b,u,'slow'));
- assert.deepEqual([0,50,100,150,300].map(commandProtectionDuration),[4,6,8,10,12]);
+ assert.deepEqual([0,50,100,150,300].map(n=>commandProtectionDuration(n)),[4,6,8,10,12]);
 });
 test('真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵，确定性续战一致',()=>{
  let basic=0,blocked=0;
@@ -59,13 +60,12 @@ test('真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵�
  }
  assert.ok(basic>0);assert.ok(blocked>0);
 });
-test('兵贵神速只选一队，空地敌军与重复目标不消费，预览高亮与AI一致',()=>{
- const state=charged(),b=state.battle,s=STRATAGEMS['jia-speed'],point=chooseStratagemPoint(b,s,0),target=stratagemAreaTargets(b,s,point,0)[0];
- remedy(b,target,'breakFormation');delete target.statuses.root;const before=unitAttributes(target,b);assert.ok(issueCommand(b,'jia-speed',{x:0,y:0}));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
- assert.ok(issueCommand(b,'jia-speed',b.sides[1].units.find(u=>u.status==='active')));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
- assert.deepEqual(areaPreview(b,s,{point}).targetIds,[target.id]);assert.equal(issueCommand(b,'jia-speed',point),null);
- assert.equal(b.sides[0].units.filter(u=>hasStatus(b,u,'rapidAdvance')).length,1);assert.equal(target.statuses.rapidAdvance.until,b.tick+25);
- assert.equal(b.sides[0].hasteUntil,0);const after=unitAttributes(target,b);assert.equal(after.move,before.move+1);assert.equal(after.attackInterval,before.attackInterval*.75);
+test('疾风迅雷覆盖范围友军，空范围不消费，预览高亮与AI一致',()=>{
+ const state=charged(),b=state.battle,s=STRATAGEMS['swift'],point=chooseStratagemPoint(b,s,0),target=stratagemAreaTargets(b,s,point,0)[0];
+ remedy(b,target,'breakFormation');delete target.statuses.root;const before=unitAttributes(target,b);assert.ok(issueCommand(b,'swift',{x:0,y:0}));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
+ assert.ok(areaPreview(b,s,{point}).targetIds.includes(target.id));assert.equal(issueCommand(b,'swift',point),null);
+ assert.ok(b.sides[0].units.filter(u=>hasStatus(b,u,'rapidAdvance')).length>=1);assert.equal(target.statuses.rapidAdvance.until,b.tick+b.lastCommand.source.duration+1);
+ assert.equal(b.sides[0].hasteUntil,undefined);const after=unitAttributes(target,b);assert.equal(after.move,before.move+1);assert.equal(after.attackInterval,before.attackInterval*.75);
  assert.notDeepEqual(chooseStratagemPoint(b,s,0),point);
  const copy=validateSave(structuredClone(state));for(let n=0;n<26&&!b.result;n++){stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);}
 });
@@ -76,14 +76,14 @@ test('神速无视ZOC但保留目标合法性；攻速及移速同类取高不�
  assert.deepEqual(interceptorsAt(b,u),[]);assert.deepEqual(meleeTargetPool(b,u,[enemy]),[enemy]);
  setStatus(b,u,'haste',4);setStatus(b,u,'attackHaste',4,{fraction:.2});const buff=unitAttributes(u,b);assert.equal(buff.move,stats.move+1);assert.equal(buff.attackInterval,stats.attackInterval*.75);
 });
-test('敌方自然充能使用同一魔免及单队神速规则，固定优先序不变成收益评分',()=>{
+test('敌方自然充能使用同一魔免及范围神速规则，固定优先序不变成收益评分',()=>{
  const entry=id=>({id,type:'spear',level:10,troops:5000});
- for(const [leader,key,status] of [['cao','cao-wuchao','magicImmune'],['jia','jia-speed','rapidAdvance']]){
+ for(const [leader,key,status] of [['cao','cao-wuchao','magicImmune'],['person-366','swift','rapidAdvance']]){
   const state=createScenario('custom-battle',7331,20,null,{seed:7331,terrain:'land',ownTeam:['shao','wen','yan'].map(entry),enemyTeam:[leader,'yu','liao'].map(entry),enemyTeamRoles:{leader,advisor:leader}}),b=state.battle;
   for(const u of b.sides.flatMap(s=>s.units))u.retreatAt=null;lockDeployment(b);
   while(!b.result&&!b.enemyCommand.lastCommand)stepBattle(b);
   assert.equal(b.enemyCommand.lastCommand?.key,key);assert.equal(b.enemyCommand.commandProgress,0);
-  const affected=b.sides[1].units.filter(u=>hasStatus(b,u,status));assert.equal(affected.length,status==='rapidAdvance'?1:b.sides[1].units.filter(u=>u.status==='active').length);
+  const affected=b.sides[1].units.filter(u=>hasStatus(b,u,status));assert.equal(affected.length,status==='rapidAdvance'?stratagemAreaTargets(b,STRATAGEMS.swift,b.enemyCommand.lastCommand.target,1).length:b.sides[1].units.filter(u=>u.status==='active').length);
   assert.ok(b.sides[0].units.every(u=>!hasStatus(b,u,status)));validateSave(state);
  }
 });

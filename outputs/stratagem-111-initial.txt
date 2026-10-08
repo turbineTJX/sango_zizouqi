@@ -1,0 +1,1004 @@
+
+> sango-sovereign@0.3.0 test:stratagems
+> node --test tests/stratagem-impact.test.mjs tests/stratagems.test.mjs tests/stratagem-pools.test.mjs tests/stratagem-area.test.mjs tests/stratagem-placement-ai.test.mjs tests/command-specials.test.mjs tests/eight-formation.test.mjs tests/proactive-command-ai.test.mjs tests/cleanse-ai.test.mjs tests/engine-command-phase.test.mjs tests/battle-ai.test.mjs tests/battle-signals.test.mjs tests/bond-valor.test.mjs tests/trait-mechanics.test.mjs tests/ai-logic.test.mjs tests/ai-target-command.test.mjs tests/attributes.test.mjs tests/balance.test.mjs tests/engine.test.mjs tests/engine-foundations.test.mjs tests/loadouts.test.mjs tests/scenarios.test.mjs tests/officer-catalog.test.mjs tests/siege-power.test.mjs tests/tactics.test.mjs tests/inspection.test.mjs tests/design-tables.test.mjs tests/stratagem-attributes.test.mjs
+
+✔ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (963.6985ms)
+✔ 单人和远程阵容仍携带已学战法，AI不会替换学习结果 (26.0358ms)
+✔ 预备队状态和开场满血不改变所学战法 (9.8531ms)
+✔ 单舰对陆军不会把无友舰的接舷替换成无敌舰的艨冲 (5.9279ms)
+✔ 支援路径允许在接敌格施法，但不允许穿越有效拦截线 (9.5813ms)
+✔ 守军 0 不追界外近战，转向可达的攻城兵器并确定性续战 (2115.9118ms)
+✔ 守军 1 不追界外近战，转向可达的攻城兵器并确定性续战 (2019.476ms)
+✖ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (29.8645ms)
+✔ 单队休养以实际伤兵触发，救疗按固定顺序优先 (75.9623ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (497.5996ms)
+✔ charm remains available for personnel while four stats affect separate battle attributes (6.3151ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (291.6848ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (24.4951ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (80.6572ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (73.7777ms)
+✔ discipline controls duration with an actual current physical control source (51.0518ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (8.664ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (102.3628ms)
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after real intent loss (87.0386ms)
+✔ only the current rule version loads, and intent is validated without normalization (142.2916ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (45.5003ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (18.8799ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (89.3865ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (441.8112ms)
+✔ siege defenders hold their rear line before enemies approach (567.4116ms)
+✖ command triggers ignore range and read only the requested side cooldowns (49.377ms)
+✔ AI can protect active siege attackers but never treats a gate as a hostile troop (1022.8776ms)
+✔ enemy preserves fixed tactics and bonds while arranging legal deployment without changing player troops or RNG (45.4688ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (190.6656ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (628.6857ms)
+✖ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (17.7321ms)
+✔ AI follows fixed command order, holds ineligible commands, and does not refresh active buffs (13.0811ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (3059.4459ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (45.544ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (25.8309ms)
+✖ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (18.1095ms)
+✔ signals render finite coordinates without changing battle data through real combat (699.406ms)
+✔ Valor tiers compare live intent strictly and replace passive power and speed bonuses (178.1755ms)
+✔ lower Valor tiers both resist and receive real basic damage with deterministic RNG (1251.6269ms)
+✔ full Valor blocks real attacks on both sides only when source intent is strictly lower (219.7038ms)
+✔ Valor damage amplification affects actual basic and ongoing damage without increasing unit stats (240.532ms)
+✔ full Valor suppresses existing harmful statuses and ongoing damage while retaining shields (75.3934ms)
+✔ full Valor rejects low-source harmful effects but preserves all beneficial, self and source-free effects (17.7561ms)
+✔ full Valor blocks actual hostile tactics and their secondary effects without refunding casts (122.5879ms)
+✔ full Valor retains real friendly treatment and buffs at both lower and equal intent (73.864ms)
+✔ full Valor checks actual source intent for hostile area commands and can admit it at equal intent (27.7134ms)
+✔ Valor immunity rolls and preserved low-intent buffs resume identically from current saves (1148.6935ms)
+✔ full Valor blocks low-intent retaliation; six slots cannot also fit full Peach (95.1332ms)
+✔ lower Valor tiers immunize damage without also blocking the attack orb status (38.0292ms)
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营0 (72.0983ms)
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营1 (16.8889ms)
+✔ 魏武挥鞭由真实充能施放，逐队军纪决定时长，仅覆盖在场部队 (1600.1468ms)
+✔ 魔免阻止全部异常与八阵；只让物理普攻伤害通过，到期恢复 (615.0788ms)
+✔ 真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵，确定性续战一致 (3430.353ms)
+✖ 奇兵疾进覆盖范围友军，空范围不消费，预览高亮与AI一致 (414.4403ms)
+✔ 神速无视ZOC但保留目标合法性；攻速及移速同类取高不叠加 (376.1374ms)
+✖ 敌方自然充能使用同一魔免及范围神速规则，固定优先序不变成收益评分 (1061.0812ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99
+ for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}
+                                                                                                                                                                                     ^
+
+Error: 一览表未同步：军略一览表.md；运行 npm run design:export
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99:182
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ design validation rejects invalid references, unsupported effects and misspelled fields (1507.6717ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (1307.2913ms)
+✖ generated overview tables stay synchronized with the authoritative records (755.4801ms)
+✖ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (75.5076ms)
+✔ discipline directly reduces probability; duration and odds do not use unrelated officer attributes (14.5106ms)
+✔ each round checks actual occupants, never allies, reserves or protected targets; expiry stops checking (10.9012ms)
+✖ live formation causes real random statuses, survives reload, and expires after the declared duration (788.3638ms)
+✔ area saves reject forged location, duration, source, duplicate zones and missing new state (73.3371ms)
+✔ enemy formation uses the same target side and probability rules (11.3647ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (2796.6295ms)
+✔ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (1920.1871ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (739.5204ms)
+✖ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (42.4522ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (42.2753ms)
+✔ 固定阵容自动布阵可重复执行，不凭空改变战意或随机数 (22.8736ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (18.9389ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (3627.0735ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (4.3128ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (3.2155ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (1182.8322ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (2942.17ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (30.5367ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (35.9287ms)
+✔ retreat terminates and sends the attacker back without taking the city (120.4184ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (5.7728ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (2.3823ms)
+✔ enemy launches an attack and city garrison participates in defense (826.3052ms)
+✔ garrison alone can defend a city when player army is elsewhere (124.0995ms)
+✔ multiple armies share six normal slots and only Jianxiong grants its own seventh (568.8412ms)
+✔ invalid saves are rejected before replacing game state (5.1291ms)
+✔ different seeds finish without deadlocks or overlapping units (3066.1684ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (441.1565ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (12.341ms)
+✔ left and right formations deploy on opposite flanks (13.2842ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (21.761ms)
+✔ capturing the final city completes the scenario (67.7004ms)
+✔ losing the final friendly city ends the scenario (64.108ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (1359.6087ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (7.3768ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (346.8976ms)
+✔ pending casts from the removed windup format are rejected (17.4044ms)
+✔ a defeated unit cannot use a ready skill (51.8838ms)
+✔ retreat stops subsequent friendly skills immediately (428.8389ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (436.5406ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (10.1666ms)
+✔ a ready tactic casts with fixed intent expenditure, regardless of morale or attack cooldown (7.5181ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (10.322ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (7.1284ms)
+✔ deployment can move, swap, reset and persist without advancing time (9.8572ms)
+✔ paused command consumes full gauge, preserves time and covers active troops only (12.0686ms)
+✔ missing deployment and command state is rejected instead of reconstructed (59.9565ms)
+✔ real battles retain skill provenance through stacking, refresh, shields and deterministic saves (34773.7602ms)
+✔ stacked attribute losses, army effects and non-stacking haste show marginal actual values (13.0677ms)
+✔ current DOT details apply terrain and passive mitigation, before shields (11.4666ms)
+✔ each troop has two fixed small actions and one large action; only listed owners have exclusives (1.406ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (159.0515ms)
+✔ force and intellect fixed actions use distinct authored power channels (128.3916ms)
+✔ confusion and seal block an actual fixed tactic while seal still permits basic attacks (50.6548ms)
+✔ current rally restores actual intent and ward taunts a legal nearby enemy (62.8645ms)
+✔ current cavalry harassment suppresses the real target without granting retired lure (32.6728ms)
+✖ area dispel and speed preserve real tactic cooldowns and persist across current saves (16.2777ms)
+✔ ordinary blockade delays replacement until its actual saved expiry (722.408ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (1698.4366ms)
+✔ all 832 library records survive normalization without merging names or source fields (14.0126ms)
+✔ every officer has fixed positive traits; ordinary officers have no exclusive tactics and bounded ordinary commander stratagems (93.896ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (28.2972ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (3737.45ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (5093.5958ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (38.1885ms)
+✔ old officer data versions are rejected without changing saved progress (44.5229ms)
+✔ 军略不检查接敌距离，远近均按固定条件施放 (20.5114ms)
+✔ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (36.2136ms)
+✔ field：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (2647.728ms)
+✔ terrain：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (2023.5004ms)
+✔ river：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (2624.7519ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (723.5162ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (1571.7091ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (2840.6972ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (1214.8232ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (1470.6431ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (591.9701ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (727.0593ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (720.697ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (4382.2577ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (2877.3318ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (2389.4277ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (2845.4967ms)
+✔ river: complete battle, reserves, save recovery and settlement (3482.0744ms)
+✔ breach: complete battle, reserves, save recovery and settlement (788.391ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (1369.8412ms)
+✔ field: complete battle, reserves, save recovery and settlement (2248.7392ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (1040.6036ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (1552.0785ms)
+✔ siege: complete battle, reserves, save recovery and settlement (2320.3923ms)
+✔ defense: complete battle, reserves, save recovery and settlement (1340.989ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (2178.6171ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (99.3451ms)
+✔ sieges add an independent gate and shields only to defending starters (133.6394ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (19.5306ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (129.9898ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (117.8733ms)
+✔ fixture and seed validation rejects malformed test state (32.4333ms)
+✔ spear: gate attacks use derived siege power once, including casualties and attack buffs (119.5886ms)
+✔ halberd: gate attacks use derived siege power once, including casualties and attack buffs (63.8416ms)
+✔ cavalry: gate attacks use derived siege power once, including casualties and attack buffs (66.6947ms)
+✔ archer: gate attacks use derived siege power once, including casualties and attack buffs (53.0035ms)
+✔ qingzhou: gate attacks use derived siege power once, including casualties and attack buffs (38.4354ms)
+✔ baier: gate attacks use derived siege power once, including casualties and attack buffs (57.8567ms)
+✔ rattan: gate attacks use derived siege power once, including casualties and attack buffs (39.2542ms)
+✔ greatHalberd: gate attacks use derived siege power once, including casualties and attack buffs (85.4468ms)
+✔ tigerCavalry: gate attacks use derived siege power once, including casualties and attack buffs (107.7304ms)
+✔ whiteHorse: gate attacks use derived siege power once, including casualties and attack buffs (36.9208ms)
+✔ crossbow: gate attacks use derived siege power once, including casualties and attack buffs (96.945ms)
+✔ longbow: gate attacks use derived siege power once, including casualties and attack buffs (41.3478ms)
+✔ ram: gate attacks use derived siege power once, including casualties and attack buffs (51.754ms)
+✔ siege: gate attacks use derived siege power once, including casualties and attack buffs (57.9492ms)
+✔ tower: gate attacks use derived siege power once, including casualties and attack buffs (36.0594ms)
+✔ ship: gate attacks use derived siege power once, including casualties and attack buffs (35.6236ms)
+✔ heavyRam: gate attacks use derived siege power once, including casualties and attack buffs (36.4005ms)
+✔ mengchong: gate attacks use derived siege power once, including casualties and attack buffs (49.7078ms)
+✔ louShip: gate attacks use derived siege power once, including casualties and attack buffs (55.3716ms)
+✔ fightingShip: gate attacks use derived siege power once, including casualties and attack buffs (60.2702ms)
+✖ circle and rotated rectangle use rendered geometry, inclusive boundary (6.7571ms)
+✔ missing, malformed and empty selection leave resources and effects unchanged (66.2201ms)
+✔ fire only applies inside rectangle and does not concentrate excluded target budget (424.5412ms)
+✔ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (12.2808ms)
+✔ enemy uses identical selected geometry (10.2603ms)
+✔ disrupt affects only selected active enemies and AI chooses effective coverage (63.2168ms)
+✖ fortify uses real different holders in the identical army, side 0 (594.9458ms)
+✖ fortify uses real different holders in the identical army, side 1 (518.6218ms)
+✖ heal uses real different holders in the identical army, side 0 (515.6823ms)
+✖ heal uses real different holders in the identical army, side 1 (452.5697ms)
+✔ cleanse uses real different holders in the identical army, side 0 (1031.0106ms)
+✔ cleanse uses real different holders in the identical army, side 1 (910.4274ms)
+✔ invincible uses real different holders in the identical army, side 0 (1183.9206ms)
+✔ invincible uses real different holders in the identical army, side 1 (1043.1471ms)
+✖ ambush uses real different holders in the identical army, side 0 (341.0827ms)
+✖ ambush uses real different holders in the identical army, side 1 (311.5649ms)
+✔ disrupt uses real different holders in the identical army, side 0 (997.9203ms)
+✔ disrupt uses real different holders in the identical army, side 1 (867.3394ms)
+✔ ward uses real different holders in the identical army, side 0 (1241.912ms)
+✔ ward uses real different holders in the identical army, side 1 (1081.8373ms)
+✔ swift uses real different holders in the identical army, side 0 (1533.3682ms)
+✔ swift uses real different holders in the identical army, side 1 (1373.7672ms)
+✔ blockade uses real different holders in the identical army, side 0 (2093.7201ms)
+✔ blockade uses real different holders in the identical army, side 1 (1963.9263ms)
+✖ firestorm uses real different holders in the identical army, side 0 (261.548ms)
+✖ firestorm uses real different holders in the identical army, side 1 (312.0831ms)
+✔ all 13 primary effects respond to caster attributes; 20 points double the main effect, unrelated attributes do nothing (1.3338ms)
+✔ same command selects the stronger actual advisor, while already cast effects retain their source and duration (311.5511ms)
+✔ exclusive magic immunity snapshots target discipline and caster strength, and rejects forged duration (341.7237ms)
+✔ design validation rejects missing caster scaling, unrelated weights, an inert primary effect, and cooldown shorter than the strongest effect (148.7102ms)
+✖ fortify side 0: real charging, exact targets, independent cooldown and deterministic continuation (3.0382ms)
+✖ fortify side 1: real charging, exact targets, independent cooldown and deterministic continuation (0.4408ms)
+✔ heal side 0: real charging, exact targets, independent cooldown and deterministic continuation (1081.2001ms)
+✔ heal side 1: real charging, exact targets, independent cooldown and deterministic continuation (830.9943ms)
+✔ cleanse side 0: real charging, exact targets, independent cooldown and deterministic continuation (593.858ms)
+✔ cleanse side 1: real charging, exact targets, independent cooldown and deterministic continuation (757.2157ms)
+✔ invincible side 0: real charging, exact targets, independent cooldown and deterministic continuation (745.4198ms)
+✔ invincible side 1: real charging, exact targets, independent cooldown and deterministic continuation (683.962ms)
+✔ ambush side 0: real charging, exact targets, independent cooldown and deterministic continuation (4507.7115ms)
+✔ ambush side 1: real charging, exact targets, independent cooldown and deterministic continuation (4875.7554ms)
+✔ disrupt side 0: real charging, exact targets, independent cooldown and deterministic continuation (624.1981ms)
+✔ disrupt side 1: real charging, exact targets, independent cooldown and deterministic continuation (508.0891ms)
+✔ ward side 0: real charging, exact targets, independent cooldown and deterministic continuation (602.5222ms)
+✔ ward side 1: real charging, exact targets, independent cooldown and deterministic continuation (573.614ms)
+✔ cao-wuchao side 0: real charging, exact targets, independent cooldown and deterministic continuation (777.5956ms)
+✔ cao-wuchao side 1: real charging, exact targets, independent cooldown and deterministic continuation (560.4205ms)
+✔ zhou-redcliffs side 0: real charging, exact targets, independent cooldown and deterministic continuation (701.4626ms)
+✔ zhou-redcliffs side 1: real charging, exact targets, independent cooldown and deterministic continuation (816.4198ms)
+✔ zhuge-eight side 0: real charging, exact targets, independent cooldown and deterministic continuation (1023.3959ms)
+✔ zhuge-eight side 1: real charging, exact targets, independent cooldown and deterministic continuation (996.708ms)
+✔ reinforce side 0: real charging, exact targets, independent cooldown and deterministic continuation (696.339ms)
+✔ reinforce side 1: real charging, exact targets, independent cooldown and deterministic continuation (675.9191ms)
+✖ refresh side 0: real charging, exact targets, independent cooldown and deterministic continuation (400.9236ms)
+✖ refresh side 1: real charging, exact targets, independent cooldown and deterministic continuation (365.9107ms)
+✔ storm side 0: real charging, exact targets, independent cooldown and deterministic continuation (640.9271ms)
+✔ storm side 1: real charging, exact targets, independent cooldown and deterministic continuation (567.4001ms)
+✔ swift side 0: real charging, exact targets, independent cooldown and deterministic continuation (804.4594ms)
+✔ swift side 1: real charging, exact targets, independent cooldown and deterministic continuation (746.3304ms)
+✔ blockade side 0: real charging, exact targets, independent cooldown and deterministic continuation (921.6626ms)
+✔ blockade side 1: real charging, exact targets, independent cooldown and deterministic continuation (840.5035ms)
+✔ range stun cancels action, attack, tactics and ZOC; protected troops are excluded from preview and consume nothing (427.8553ms)
+✔ broad dispel clears control, fire, disease and debuffs, preserves food shortage and longer existing protection (351.3748ms)
+✖ shield is substantial, affects selected troops only, saves its source and rejects forged layers (0.465ms)
+✔ manual invulnerability blocks incoming damage while units still perform real legal actions; later damage resumes (542.0595ms)
+✖ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (3.0101ms)
+✔ AI excludes burning, untargetable and reserve units, and skips unusable area commands (1.9334ms)
+✔ heal highlights only real wounded and confirmation is disabled without useful targets (4.6092ms)
+✔ protected troops are not scored or highlighted for disrupt; both sides share placement (2.1258ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:4
+import {STRATAGEMS,officerStratagems,stratagemEligible,stratagemLimit,commanderStratagems,EXCLUSIVE_STRATAGEMS,ORDINARY_STRATAGEM_POOL,selectStratagemSource,stratagemProfile} from '../stratagems.mjs';
+                                                                                          ^^^^^^^^^^^^^^^^^^^^
+SyntaxError: The requested module '../stratagems.mjs' does not provide an export named 'EXCLUSIVE_STRATAGEMS'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:326:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:429:5)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\stratagem-pools.test.mjs (356.5354ms)
+✔ single gauge starts empty, uses active intellect, holds one charge and resets only on success (308.0276ms)
+✖ leader and advisor union is sparse, duplicates collapse, unassigned officers unlock nothing (13.5326ms)
+✔ healing uses wounded budget, never heals dead or reserves, and settlement does not duplicate it (23.7575ms)
+✔ a legitimate reserve advisor can heal active troops without invalid off-board visual origins in saves (60.3767ms)
+✖ fire uses declared ticks, shields absorb loss, no intent income, and broad dispel clears it (141.6638ms)
+✖ departed commander loses only their repertoire: defeated side 0 (10.4438ms)
+✖ departed commander loses only their repertoire: defeated side 1 (15.943ms)
+✖ departed commander loses only their repertoire: withdrawn side 0 (8.5103ms)
+✖ departed commander loses only their repertoire: withdrawn side 1 (8.9846ms)
+✖ same-name falls back to remaining eligible source, saves resume and old rules are rejected (12.9667ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (5.7469ms)
+✔ instant skills spend shared intent and recovery separates learned casts (91.7299ms)
+✔ real intent loss clamps at zero and does not affect reserves (16.5683ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (76.7234ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (37.0456ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (24.9023ms)
+✔ formation and gallop grant real statuses; rush needs a legal path (32.8464ms)
+✔ blocked displacement never overlaps units or crosses board limits (19.809ms)
+✔ current rare tactical control requires its actual exclusive holder (47.5556ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (88.9728ms)
+✔ formation mitigates actual damage and shields absorb before soldiers (44.4667ms)
+✔ prepaid casts and previous save formats are rejected (13.8421ms)
+✔ new saves distinguish bows and crossbows and require current rules (11.695ms)
+✔ current independent battle mechanics all require explicit appointments (2.3794ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/leader (165.0688ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/advisor (56.5571ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/leader (50.0097ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/advisor (46.6564ms)
+✔ Ji Jun does not activate without appointment, while withdrawing or for another army (22.9038ms)
+✔ Bi Yan triggers from a real legal command and saves its interval (96.0799ms)
+✔ Yin Ren refunds only its own gauge after an actual enemy command (53.0075ms)
+ℹ tests 279
+ℹ suites 0
+ℹ pass 244
+ℹ fail 35
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 41388.5215
+
+✖ failing tests:
+
+test at tests\ai-target-command.test.mjs:35:1
+✖ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (29.8645ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚未蓄满/. Input:
+  
+  '主将与军师未掌握此军略'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ai-target-command.test.mjs:38:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: /尚未蓄满/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\battle-ai.test.mjs:13:1
+✖ command triggers ignore range and read only the requested side cooldowns (49.377ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'firestorm'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-ai.test.mjs:20:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'firestorm',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\battle-ai.test.mjs:76:1
+✖ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (17.7321ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未掌握/. Input:
+  
+  '未知军令'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-ai.test.mjs:81:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '未知军令',
+    expected: /未掌握/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\battle-signals.test.mjs:28:1
+✖ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (18.1095ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-signals.test.mjs:34:88)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-specials.test.mjs:63:1
+✖ 奇兵疾进覆盖范围友军，空范围不消费，预览高亮与AI一致 (414.4403ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/command-specials.test.mjs:66:75)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-specials.test.mjs:79:1
+✖ 敌方自然充能使用同一魔免及范围神速规则，固定优先序不变成收益评分 (1061.0812ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'swift'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/command-specials.test.mjs:85:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'swift',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\design-tables.test.mjs:7:1
+✖ design validation rejects invalid references, unsupported effects and misspelled fields (1507.6717ms)
+  AssertionError [ERR_ASSERTION]: 专属军略归属不符
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-tables.test.mjs:33:59)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\design-tables.test.mjs:68:1
+✖ generated overview tables stay synchronized with the authoritative records (755.4801ms)
+  Error: Command failed: C:\Program Files\nodejs\node.exe scripts/design-tables.mjs verify
+  file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99
+   for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}
+                                                                                                                                                                                       ^
+  
+  Error: 一览表未同步：军略一览表.md；运行 npm run design:export
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99:182
+      at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+      at async node:internal/modules/esm/loader:639:26
+      at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+  
+  Node.js v24.15.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-tables.test.mjs:69:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', "file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99\r\n for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}\r\n                                                                                                                                                                                     ^\r\n\r\nError: 一览表未同步：军略一览表.md；运行 npm run design:export\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99:182\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v24.15.0\r\n" ],
+    pid: 13112,
+    stdout: '',
+    stderr: "file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99\r\n for(const [name,content] of Object.entries(pages)){const path=resolve(folder,name);if(mode==='export')writeFileSync(path,content);else if(readFileSync(path,'utf8')!==content)throw new Error('一览表未同步：'+name+'；运行 npm run design:export');}\r\n                                                                                                                                                                                     ^\r\n\r\nError: 一览表未同步：军略一览表.md；运行 npm run design:export\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/design-tables.mjs:99:182\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v24.15.0\r\n"
+  }
+
+test at tests\eight-formation.test.mjs:16:1
+✖ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (75.5076ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /八阵困敌/. Input:
+  
+  '<svg viewBox="0 0 14.5 7.216878364870323" preserveAspectRatio="none" aria-label="持续军略区域"><g class="stratagem-zone zone-side-0" data-zone="0-zhuge-eight"><title>我方八阵奇门：诸葛亮（统92／智100） · 圆形半径2格 · 八阵每场一次，按目标军纪判定异常（10%～60%），异常持续 3 回合 · 44 回合 · 冷却 96 回合 · 每场1次</title><circle cx="0.5" cy="0.5773502691896258" r="2"/><circle class="zone-inner" cx="0.5" cy="0.5773502691896258" r="0.9"/><line x1="1.4" y1="0.5773502691896258" x2="2.5" y2="0.5773502691896258"/><line x1="1.1363961030678928" y1="1.2137463722575186" x2="1.9142135623730951" y2="1.9915638315627207"/><line x1="0.5" y1="1.4773502691896259" x2="0.5000000000000001" y2="2.5773502691896257"/><line x1="-0.13639610306789274" y1="1.2137463722575186" x2="-0.9142135623730949" y2="1.991563831562721"/><line x1="-0.4" y1="0.577350269189626" x2="-1.5" y2="0.5773502691896261"/><line x1="-0.13639610306789296" y1="-0.059045833878266896" x2="-0.9142135623730954" y2="-0.8368632931834691"/><line x1="0.49999999999999983" y1="-0.3226497308103742" x2="0.4999999999999996" y2="-1.4226497308103743"/><line x1="1.1363961030678926" y1="-0.05904583387826712" x2="1.9142135623730947" y2="-0.8368632931834695"/><text x="0.5" y="-1.1226497308103742" text-anchor="middle">八阵奇门 · 余44回合</text></g></svg>'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/eight-formation.test.mjs:23:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '<svg viewBox="0 0 14.5 7.216878364870323" preserveAspectRatio="none" aria-label="持续军略区域"><g class="stratagem-zone zone-side-0" data-zone="0-zhuge-eight"><title>我方八阵奇门：诸葛亮（统92／智100） · 圆形半径2格 · 八阵每场一次，按目标军纪判定异常（10%～60%），异常持续 3 回合 · 44 回合 · 冷却 96 回合 · 每场1次</title><circle cx="0.5" cy="0.5773502691896258" r="2"/><circle class="zone-inner" cx="0.5" cy="0.5773502691896258" r="0.9"/><line x1="1.4" y1="0.5773502691896258" x2="2.5" y2="0.5773502691896258"/><line x1="1.1363961030678928" y1="1.2137463722575186" x2="1.9142135623730951" y2="1.9915638315627207"/><line x1="0.5" y1="1.4773502691896259" x2="0.5000000000000001" y2="2.5773502691896257"/><line x1="-0.13639610306789274" y1="1.2137463722575186" x2="-0.9142135623730949" y2="1.991563831562721"/><line x1="-0.4" y1="0.577350269189626" x2="-1.5" y2="0.5773502691896261"/><line x1="-0.13639610306789296" y1="-0.059045833878266896" x2="-0.9142135623730954" y2="-0.8368632931834691"/><line x1="0.49999999999999983" y1="-0.3226497308103742" x2="0.4999999999999996" y2="-1.4226497308103743"/><line x1="1.1363961030678926" y1="-0.05904583387826712" x2="1.9142135623730947" y2="-0.8368632931834695"/><text x="0.5" y="-1.1226497308103742" text-anchor="middle">八阵奇门 · 余44回合</text></g></svg>',
+    expected: /八阵困敌/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\eight-formation.test.mjs:46:1
+✖ live formation causes real random statuses, survives reload, and expires after the declared duration (788.3638ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(v.until<=b.tick+s.zone.statusSteps)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/eight-formation.test.mjs:51:155)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\engine-foundations.test.mjs:16:1
+✖ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (42.4522ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'person-512'
+  - 'liao'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine-foundations.test.mjs:22:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'person-512',
+    expected: 'liao',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:39:1
+✖ area dispel and speed preserve real tactic cooldowns and persist across current saves (16.2777ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:43:33)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-area.test.mjs:10:1
+✖ circle and rotated rectangle use rendered geometry, inclusive boundary (6.7571ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(stratagemAreaContains(rect,p,{x:6,y:2}))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-area.test.mjs:14:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ fortify uses real different holders in the identical army, side 0 (594.9458ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(preview.controls.includes(stratagemEffectText(selectStratagemSource(b.sides[side].commanders,key))))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:28:64)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ fortify uses real different holders in the identical army, side 1 (518.6218ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(preview.controls.includes(stratagemEffectText(selectStratagemSource(b.sides[side].commanders,key))))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:28:64)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ heal uses real different holders in the identical army, side 0 (515.6823ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(preview.controls.includes(stratagemEffectText(selectStratagemSource(b.sides[side].commanders,key))))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:28:64)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ heal uses real different holders in the identical army, side 1 (452.5697ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(preview.controls.includes(stratagemEffectText(selectStratagemSource(b.sides[side].commanders,key))))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:28:64)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ ambush uses real different holders in the identical army, side 0 (341.0827ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(preview.controls.includes(stratagemEffectText(selectStratagemSource(b.sides[side].commanders,key))))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:28:64)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ ambush uses real different holders in the identical army, side 1 (311.5649ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(preview.controls.includes(stratagemEffectText(selectStratagemSource(b.sides[side].commanders,key))))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:28:64)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ firestorm uses real different holders in the identical army, side 0 (261.548ms)
+  TypeError: Cannot read properties of undefined (reading 'effect')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:25:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\stratagem-attributes.test.mjs:21:70
+✖ firestorm uses real different holders in the identical army, side 1 (312.0831ms)
+  TypeError: Cannot read properties of undefined (reading 'effect')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-attributes.test.mjs:25:8)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\stratagem-impact.test.mjs:19:66
+✖ fortify side 0: real charging, exact targets, independent cooldown and deterministic continuation (3.0382ms)
+  Error: 同一武将不能重复加入军团或双方，请更换重复武将
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:83:42)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:10:26)
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:14:14)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:20:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\stratagem-impact.test.mjs:19:66
+✖ fortify side 1: real charging, exact targets, independent cooldown and deterministic continuation (0.4408ms)
+  Error: 同一武将不能重复加入军团或双方，请更换重复武将
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:83:42)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:10:26)
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:14:14)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:20:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\stratagem-impact.test.mjs:19:66
+✖ refresh side 0: real charging, exact targets, independent cooldown and deterministic continuation (400.9236ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '己方战法次数尚未消耗'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:24:74)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '己方战法次数尚未消耗',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-impact.test.mjs:19:66
+✖ refresh side 1: real charging, exact targets, independent cooldown and deterministic continuation (365.9107ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '己方战法次数尚未消耗'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:24:74)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '己方战法次数尚未消耗',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-impact.test.mjs:53:1
+✖ shield is substantial, affects selected troops only, saves its source and rejects forged layers (0.465ms)
+  Error: 同一武将不能重复加入军团或双方，请更换重复武将
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:83:42)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:10:26)
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:14:14)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-impact.test.mjs:54:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\stratagem-placement-ai.test.mjs:10:1
+✖ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (3.0101ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   rotation: 90,
+  -   x: 4,
+  -   y: 2
+  - }
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-placement-ai.test.mjs:13:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { x: 4, y: 2, rotation: 90 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:1:1
+✖ tests\stratagem-pools.test.mjs (356.5354ms)
+  'test failed'
+
+test at tests\stratagems.test.mjs:22:1
+✖ leader and advisor union is sparse, duplicates collapse, unassigned officers unlock nothing (13.5326ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'refresh'
+  -   'cleanse'
+    ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:25:38)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'refresh' ],
+    expected: [ 'cleanse' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:43:1
+✖ fire uses declared ticks, shields absorb loss, no intent income, and broad dispel clears it (141.6638ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:49:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:51:70
+✖ departed commander loses only their repertoire: defeated side 0 (10.4438ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battleStratagems(b,side).includes('swift'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:55:103)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:51:70
+✖ departed commander loses only their repertoire: defeated side 1 (15.943ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battleStratagems(b,side).includes('swift'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:55:103)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:51:70
+✖ departed commander loses only their repertoire: withdrawn side 0 (8.5103ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battleStratagems(b,side).includes('swift'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:55:103)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:51:70
+✖ departed commander loses only their repertoire: withdrawn side 1 (8.9846ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battleStratagems(b,side).includes('swift'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:55:103)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:57:1
+✖ same-name falls back to remaining eligible source, saves resume and old rules are rejected (12.9667ms)
+  TypeError: Cannot read properties of null (reading 'id')
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:59:41
+      at Array.find (<anonymous>)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:59:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

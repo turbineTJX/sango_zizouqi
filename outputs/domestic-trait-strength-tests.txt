@@ -1,0 +1,78 @@
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (94.7595ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (4.4183ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (67.2548ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (29.4358ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (193.0763ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (94.4891ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (32.73ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (260.5813ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (55.9947ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (63.5799ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (561.9024ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (40.3636ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (47.8503ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (40.3736ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (244.4101ms)
+✔ all six directions have independent work and a single stat; no city morale multiplier (10.0428ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (136.7618ms)
+✔ random results vary across seeds while identical seed is reproducible (78.5952ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.0501ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (39.4692ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (28.2105ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (55.3877ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (27.0172ms)
+✔ research unlocks a local troop only after a successful trial (32.024ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (81.9534ms)
+✔ healing conserves personnel and does not require local troop technology (19.8485ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (156.8983ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (85.8969ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (60.9885ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (43.0562ms)
+✔ actual siege pauses construction without charging again or completing in the background (123.2129ms)
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (38.1333ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (42.6341ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (371.3947ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (37.4916ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (75.3349ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1315.1392ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (14.7564ms)
+✔ AI fills a vacant governorship using the same governor recommendation (1016.426ms)
+✔ expedition recommendations place idle officers before busy officers regardless of ability score (1184.9755ms)
+✔ trainer offsets twenty force points on exercise and remains visible in standby ranking (21.558ms)
+✔ all 832 identities have fixed positive traits, independent of level, troop and learned tactics (25.6583ms)
+✔ actor administration works without a governor and matching governor does not double the discount (51.3325ms)
+✔ research, farming, repairs, medicine and preparation traits change real paid task outcomes (174.9865ms)
+✔ recruitment discounts charge actual recruits at the saved rate without creating free people (31.6007ms)
+✔ talent traits improve only the corresponding real action chance; mediator does not stack (2.7751ms)
+✔ transport speed applies to actual travel and saves resume; light travel has separate eligibility (34.7391ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 46
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3954.8301
+
+✖ failing tests:
+
+test at tests\domestic.test.mjs:91:1
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (38.1333ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(returned.length>=2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:97:106)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

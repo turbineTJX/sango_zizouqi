@@ -1,0 +1,485 @@
+✔ fire: three real basics consume exactly three charges, with normal intent and no links (48.0065ms)
+✔ suppress: three real basics consume exactly three charges, with normal intent and no links (8.99ms)
+✔ pierce: three real basics consume exactly three charges, with normal intent and no links (11.1638ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (8.3108ms)
+✔ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (12.0916ms)
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (12.4764ms)
+✔ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (11.8948ms)
+✔ gate attacks do not spend troop enchantments (16.0522ms)
+✔ remaining charges/source survive save and resume; forged or obsolete state is rejected (44.9058ms)
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (48.3194ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (10.5876ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (1867.9179ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (3.9501ms)
+✖ gate: repair uses earned intent, reports durability and resumes exactly (72.102ms)
+✖ tower: repair uses earned intent, reports durability and resumes exactly (68.3846ms)
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (70.2786ms)
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (61.3624ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (486.1259ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (25.0409ms)
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (10.8947ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (20.4608ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (6.1913ms)
+✔ fame adds city manpower rather than free troops (6.6741ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (811.2471ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (34.644ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.8606ms)
+✖ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (240.4041ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (13.6566ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (6.7671ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (2.5777ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (338.8397ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (717.2795ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (13.0646ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (8.9173ms)
+✔ retreat terminates and sends the attacker back without taking the city (16.3573ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (1.5227ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (1.9846ms)
+✔ enemy launches an attack and city garrison participates in defense (153.9781ms)
+✔ garrison alone can defend a city when player army is elsewhere (52.6748ms)
+✔ multiple same-side armies share the same six battlefield slots (142.0776ms)
+✔ invalid saves are rejected before replacing game state (4.9208ms)
+✔ different seeds finish without deadlocks or overlapping units (460.0389ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (74.0869ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (6.9058ms)
+✔ left and right formations deploy on opposite flanks (4.2812ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (7.0144ms)
+✔ capturing the final city completes the scenario (17.3817ms)
+✔ losing the final friendly city ends the scenario (15.4483ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (193.3141ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (3.8501ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (47.1406ms)
+✔ pending casts from the removed windup format are rejected (4.3224ms)
+✔ a defeated unit cannot use a ready skill (10.9318ms)
+✔ retreat stops subsequent friendly skills immediately (28.1892ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (66.4582ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (2.8954ms)
+✖ a ready tactic casts without spending intent, regardless of morale or attack cooldown (4.0385ms)
+✖ no valid target preserves intent and leaving range cannot duplicate an instant hit (4.2465ms)
+✖ each skill has its own threshold, and intent below threshold cannot cast (2.9403ms)
+✔ deployment can move, swap, reset and persist without advancing time (4.4038ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (3.4683ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (15.8417ms)
+✔ missing deployment and command state is rejected instead of reconstructed (21.7815ms)
+✖ cleave charges each victim once without charging the caster (50.6712ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (246.1776ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (21.3719ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (58.789ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (12.9231ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (8.3546ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (413.6241ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (20.7822ms)
+✔ two real ram casts can link against the gate and increase the second hit (25.2052ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (513.3409ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (99.2897ms)
+✔ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (27.0013ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (314.7053ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (5.6737ms)
+✖ multi-hit and multi-target exclusive attacks do not charge the caster (14.2239ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (15.8686ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (13.487ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (15.7142ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (156.5446ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (45.3711ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (4.3401ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (3.0367ms)
+✖ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (5.4296ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 41 officers (1081.2045ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (106.5591ms)
+✔ interdict unlocks at eight and prevents the entire normal hit award, including endurance (28.5007ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (10.3239ms)
+✔ ordinary routes gain suppression and retain it after troop changes; named officers trade an existing node (4.3388ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (11.0494ms)
+✖ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (700.244ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (455.2554ms)
+✖ repeating shots grant one surviving-hit award and no caster recharge (58.3931ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (22.1027ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (6.9115ms)
+✖ damage tactics against a gate do not charge the caster, basic siege attacks do (17.782ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (521.7153ms)
+✔ each troop has exactly six tools and exclusive tactics remain optional (1.335ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (58.8834ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (39.3602ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (13.3395ms)
+✖ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (10.0594ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (11.8764ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (47.0549ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (81.3039ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (800.0581ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (75.6471ms)
+✖ front support heals at most two other allies, never itself, and has a real range limit (21.3896ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (9.5589ms)
+✔ doubt deals strategy damage through control protection without bypassing that protection (19.1062ms)
+✔ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (17.9785ms)
+✔ real zero-intent battles trigger both medical roles and resume deterministically (642.2901ms)
+✔ fire builds three layers through actual follow-up attacks, loses stacks to cleanse, and expires after disengagement (16.0004ms)
+✔ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (55.1935ms)
+✔ medical casting spends the next basic attack interval rather than adding free healing between shots (9.8196ms)
+✔ only equipped chargers select legal short flanks, and live interception cancels that preference (6.5652ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (236.3283ms)
+✔ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (1.4257ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (536.9841ms)
+ℹ tests 121
+ℹ suites 0
+ℹ pass 103
+ℹ fail 18
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2906.5577
+
+✖ failing tests:
+
+test at tests\attack-orbs.test.mjs:52:1
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (12.4764ms)
+  TypeError: Cannot read properties of undefined (reading 'stacks')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/attack-orbs.test.mjs:55:97)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\auxiliary.test.mjs:72:69
+✖ gate: repair uses earned intent, reports durability and resumes exactly (72.102ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:90:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:72:69
+✖ tower: repair uses earned intent, reports durability and resumes exactly (68.3846ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:90:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:72:69
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (70.2786ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:90:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:72:69
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (61.3624ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:90:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\civil-skills.test.mjs:74:1
+✖ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (240.4041ms)
+  AssertionError [ERR_ASSERTION]: 神火计 applies its designed status
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/civil-skills.test.mjs:79:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\engine.test.mjs:242:1
+✖ a ready tactic casts without spending intent, regardless of morale or attack cooldown (4.0385ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  37 !== 62
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine.test.mjs:247:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 37,
+    expected: 62,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\engine.test.mjs:249:1
+✖ no valid target preserves intent and leaving range cannot duplicate an instant hit (4.2465ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  22 !== 25
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine.test.mjs:256:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 22,
+    expected: 25,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\engine.test.mjs:258:1
+✖ each skill has its own threshold, and intent below threshold cannot cast (2.9403ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  55 !== 100
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine.test.mjs:261:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 55,
+    expected: 100,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:26:1
+✖ cleave charges each victim once without charging the caster (50.6712ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  25 !== 50
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/expanded-troops.test.mjs:30:83)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 25,
+    expected: 50,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:64:1
+✖ multi-hit and multi-target exclusive attacks do not charge the caster (14.2239ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  40 !== 65
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:68:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 40,
+    expected: 65,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:172:1
+✖ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (5.4296ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  35 !== 60
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:179:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 35,
+    expected: 60,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:40:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (10.3239ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  30 !== 55
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:43:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 30,
+    expected: 55,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:68:1
+✖ repeated suppression denies heavy attacks while cheap defensive tactics can escape the lock (700.244ms)
+  AssertionError [ERR_ASSERTION]: repeated real suppressing tactics, not an injected lock
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:78:10)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-tempo.test.mjs:20:1
+✖ repeating shots grant one surviving-hit award and no caster recharge (58.3931ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  30 !== 55
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-tempo.test.mjs:23:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 30,
+    expected: 55,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\intent-tempo.test.mjs:41:1
+✖ damage tactics against a gate do not charge the caster, basic siege attacks do (17.782ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  40 !== 65
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-tempo.test.mjs:45:79)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 40,
+    expected: 65,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:52:1
+✖ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (10.0594ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  95 !== 100
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:53:91)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 95,
+    expected: 100,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\medical-roles.test.mjs:35:1
+✖ front support heals at most two other allies, never itself, and has a real range limit (21.3896ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(x.a.hp>1000)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/medical-roles.test.mjs:39:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

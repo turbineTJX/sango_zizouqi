@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+const edit=(p,f)=>fs.writeFileSync(p,f(fs.readFileSync(p,'utf8')));
+const rules={income:{gold:{base:320,perCommerce:320},grain:{base:1800,perFarm:1400},manpower:{base:800,perBarracks:800},governorPoliticsDivisor:500},capacity:{grainBase:10000,grainPerGranary:10000,manpowerMax:30000,recruitmentBase:2000,recruitmentPerBarracks:1000},ai:{foodReserveDays:20,recruitReserveDays:10,economicWorkersPerDirection:3}};
+fs.writeFileSync('data/design/economy-rules.mjs','// Authoritative shared economy; players and AI use the same income and costs.\nexport const ECONOMY_RULES = '+JSON.stringify(rules,null,2)+';\n');
+edit('data/design/pending-tables.mjs',s=>s.replace("import t3 from './economy-rules.mjs';",'').replace('t2,t3,t4','t2,t4'));
+edit('design-catalog.mjs',s=>"import {ECONOMY_RULES} from './data/design/economy-rules.mjs';\n"+s.replace('DESIGN_TABLES={','DESIGN_TABLES={economy:ECONOMY_RULES,'));
+edit('design-strategy-validation.mjs',s=>s.replace(' const modes=',` const economy=t.economy;
+ for(const [group,keys] of Object.entries({income:['gold','grain','manpower','governorPoliticsDivisor'],capacity:['grainBase','grainPerGranary','manpowerMax','recruitmentBase','recruitmentPerBarracks'],ai:['foodReserveDays','recruitReserveDays','economicWorkersPerDirection']})){
+  const row=economy?.[group];if(!fields(row,keys,'economy.'+group))continue;
+  for(const key of keys){const value=row[key];if(group==='income'&&key!=='governorPoliticsDivisor'){const subKeys={gold:['base','perCommerce'],grain:['base','perFarm'],manpower:['base','perBarracks']}[key];if(fields(value,subKeys,'economy.income.'+key))for(const sub of subKeys)check(num(value[sub],1),'economy.income.'+key+'.'+sub,'须为正数');}else check(Number.isSafeInteger(value)&&value>0,'economy.'+group+'.'+key,'须为正整数');}
+ }
+ const modes=`));
+edit('strategic-campaign.mjs',s=>"import {ECONOMY_RULES} from './data/design/economy-rules.mjs';\n"+s.replace('version:16, daysPerTurn','version:17, daysPerTurn').replace('const factor=1+(governor?.unit.politics||0)/500;','const p=ECONOMY_RULES.income,factor=1+(governor?.unit.politics||0)/p.governorPoliticsDivisor;').replace('(160+c.commerce*160)','(p.gold.base+c.commerce*p.gold.perCommerce)').replace('(600+c.farm*600)','(p.grain.base+c.farm*p.grain.perFarm)').replace('(500+c.barracks*500)','(p.manpower.base+c.barracks*p.manpower.perBarracks)').replace('Math.min(30000,c.manpower+income.manpower)','Math.min(ECONOMY_RULES.capacity.manpowerMax,c.manpower+income.manpower)'));
+edit('domestic.mjs',s=>"import {ECONOMY_RULES} from './data/design/economy-rules.mjs';\n"+s.replace('grainCapacity=c=>10000+c.granary*10000','grainCapacity=c=>ECONOMY_RULES.capacity.grainBase+c.granary*ECONOMY_RULES.capacity.grainPerGranary').replace('recruitmentLimit=c=>2000+c.barracks*1000','recruitmentLimit=c=>ECONOMY_RULES.capacity.recruitmentBase+c.barracks*ECONOMY_RULES.capacity.recruitmentPerBarracks'));
+edit('data/design/buildings.mjs',s=>s.replaceAll('160','320').replaceAll('增加600粮','增加1400粮').replaceAll('增加 600 粮','增加 1400 粮').replaceAll('收入+500','收入+800').replaceAll('增加 500 兵源','增加 800 兵源'));
+edit('data/design/domestic-actions.mjs',s=>s.replace('"value": 700,','"value": 1400,').replace('"value": 460,','"value": 800,'));
+edit('scripts/design-tables.mjs',s=>s.replace("for(const t of PENDING_DESIGN_TABLES){",`pages['经济规则一览表.md']='# 经济规则一览表\\n\\n正式来源：data/design/economy-rules.mjs，已接入共享引擎。每旬10天；太守政治、适用任职特性和有效临时效果在基础收入之后计算。\\n\\n'+table(['分组','参数','值'],Object.entries(d.economy).flatMap(([group,row])=>Object.entries(row).map(([key,value])=>[group,key,typeof value==='object'?JSON.stringify(value):value])));
+for(const t of PENDING_DESIGN_TABLES){`).replace('这19张表已建立','这些表已建立'));

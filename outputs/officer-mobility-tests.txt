@@ -1,0 +1,18 @@
+✔ talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact (313.6255ms)
+✔ an immediate new order recalls the recruiter physically before execution (288.3535ms)
+✔ express transports outrun armies but swept enemy crossings cause total loss without a battle (241.1793ms)
+✔ death, captivity and escape preserve exactly one person; ransom is paid once and return takes time (125.3629ms)
+✔ real battles assign fates to annihilated units and saves preserve their learned abilities (180.8518ms)
+✔ light personnel are faster than cavalry, invisible on map, and unavailable while moving (372.489ms)
+✔ transport carries prepared troops and cargo once, projects position, then hands them to the destination (493.1858ms)
+✔ cargo-only convoys are visible and full warehouses retain cargo (479.0205ms)
+✔ deferred transport preserves cargo instructions without deducting resources or moving its officer (112.297ms)
+✔ real daily execution resumes a transport deterministically and rejects corrupt journey cargo (1558.2694ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3182.7883

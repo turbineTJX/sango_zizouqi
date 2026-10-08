@@ -1,0 +1,14 @@
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (745.5033ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (331.893ms)
+✔ generated overview tables stay synchronized with the authoritative records (354.6473ms)
+✔ all 832 assignments allow no independent trait and preserve only genuine mechanisms (31.7756ms)
+✔ deleted traits supply no task, governor, transport or personnel multiplier (0.8246ms)
+✔ design rejects numerical traits and accepts ordinary or exclusive mechanism categories (45.4817ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1585.257

@@ -1,0 +1,28 @@
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (93.2237ms)
+✔ matrix keeps candidate rows while selections add and remove columns (43.4651ms)
+✔ appointment traits affect only the appointed role and its own army independent of personal deployment (20.6745ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (3.4858ms)
+✔ appointment UI displays the matching trait effect and recommendation uses it (2.7902ms)
+✔ current save preserves command eligibility and deterministic continuation (90.6342ms)
+✔ army traits are rare fixed identity assignments, never awarded by stat thresholds (1.3209ms)
+✔ 自定义军团长与军师独立于队列，军略按指定人选带入并保存 (18.6242ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (88.392ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (85.7368ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1104.9543ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (21.1052ms)
+✔ AI fills a vacant governorship using the same governor recommendation (690.2724ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (16.3461ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (159.359ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (161.2354ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (4.7112ms)
+✔ formation selects officers in place, army selects only compiled units (0.8925ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.541ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.6439ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2194.8983

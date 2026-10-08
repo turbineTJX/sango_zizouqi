@@ -1,0 +1,87 @@
+✖ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (3.0646ms)
+✔ only the current rule version loads, and intent is validated without normalization (33.8283ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (8.4803ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (4.3316ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (13.114ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (59.0678ms)
+✔ siege defenders hold their rear line before enemies approach (97.7645ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (37.4296ms)
+✖ nearby front takes priority before contact; fast movement stops on contact (6.33ms)
+✔ rush cannot escape an engagement or charge through a blocking line (4.0804ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (5.1612ms)
+✖ an unreachable rear focus advances into the blocking line instead of stalling (16.0013ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (15.6969ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (6.5903ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (1.7731ms)
+✔ a real retreat can leave contact (2.2968ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (336.9759ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 14
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 615.8679
+
+✖ failing tests:
+
+test at tests\balance.test.mjs:23:1
+✖ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (3.0646ms)
+  AssertionError [ERR_ASSERTION]: spear has no legal holder of strike
+      at tacticHolder (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/current-battle.mjs:15:9)
+      at currentBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/current-battle.mjs:18:11)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/balance.test.mjs:26:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\engagement.test.mjs:29:1
+✖ nearby front takes priority before contact; fast movement stops on contact (6.33ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engagement.test.mjs:34:68)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\engagement.test.mjs:58:1
+✖ an unreachable rear focus advances into the blocking line instead of stalling (16.0013ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(attacks(b,a).some(e=>wall.some(w=>w.id===e.to)))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engagement.test.mjs:64:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

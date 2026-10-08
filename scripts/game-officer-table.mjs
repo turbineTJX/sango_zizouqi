@@ -11,6 +11,7 @@ import {troopCapacity} from '../troop-capacity.mjs';
 import {RULES_VERSION,COMBAT} from '../combat-rules.mjs';
 import {HISTORICAL_CAMPAIGNS} from '../historical-campaigns.mjs';
 import {newCampaign} from '../strategic-campaign.mjs';
+import {stratagemProfile,stratagemEffectText} from '../stratagems.mjs';
 
 // Export the implemented game model, not a speculative replacement for source data.
 const omit=new Set(['campaign','available','spearLv','halberdLv','crossbowLv','rideLv','machineLv','waterLv','features']);
@@ -19,7 +20,7 @@ const notes={
  status:'特色特性=固定名将路线；治政人才特性=按人物身份配置的混合路线；共享特性=按来源人物能力和默认兵种确定。外交预留以技能状态列为准。',
  role:'名将取正式战术定位，其他武将取通用特性配置名称。不是玩家必须选择的配装。',
  charm:'本游戏名录保留的魅力值，参与人才方向内政和推荐，不参与战斗威力公式。',
- stratagem:'仅基础智力≥70的军团长或军师提供；无配置者写“无个人军略”，不推测未实现技能。',
+ stratagem:'仅明确人物名单内的军团长或军师提供，取消统一智力门槛；无配置者写“无个人军略”，不推测未实现技能。',
  special:'无个人专属是当前有效配置，仍能使用兵种通用战法，不属于漏填。',
  personality:'武将库人物采用来源 Scenario.personSet 的性格覆盖值。未作为战斗AI性格参数。',
  righteousness:'武将库人物采用来源 Scenario.personSet 的义理覆盖值。未执行原库的背叛概率，也不是当前忠诚。',
@@ -67,7 +68,7 @@ add('specialTerrain','专属地形影响','战法','当前战法的地形规则�
 for(let i=0;i<4;i++)for(const [part,label] of [['id','编号'],['category','类别'],['threshold','战意门槛'],['cooldown','冷却（步）'],['description','基础效果'],['powerDescription','威力与概率'],['terrainDescription','地形影响']])
  add(`equipped${i}-${part}`,`默认槽${i+1}${label}`,'战法','对应默认战法的当前运行定义；效果随实际兵力、威力、抗性和地形变化。');
 add('stratagemIds','个人军略编号','军略','与主将/军师解锁军略列对应。未配置为空。');
-add('stratagemEffects','个人军略效果','军略','按当前 STRATAGEMS 读取，不把专属自动战法等同于军略。');
+add('stratagemEffects','个人军略效果','军略','按本人当前统率与智力折算的实际军略效果，不把专属自动战法等同于军略。');
 add('campaignPlacement','默认战役开局位置','战役','按 newCampaign 初始化结果读取在编或待命、势力和城池；未出现不等于已招募。');
 add('historicalPlacement','历史战役出场','战役','按现有历史战役配置逐一列出阵营与兵种覆盖；不据史实推测归属。');
 
@@ -94,7 +95,7 @@ export const GAME_RECORDS=OFFICER_MASTER_RECORDS.map(base=>{
  for(let i=0;i<4;i++)for(const part of ['id','category','threshold','cooldown','description','powerDescription','terrainDescription'])r[`equipped${i}-${part}`]='未学会';
  unitTactics(u).forEach((s,i)=>{for(const part of ['id','category','threshold','cooldown','description','powerDescription','terrainDescription'])r[`equipped${i}-${part}`]=part==='category'?(s.category==='force'?'武力':'智力'):(s[part]??'无额外地形规则');});
  for(const role of TACTIC_ROLES[u.type])r[`role-${role.id}`]=`${role.name}：${role.ids.map(k=>TACTICS_BOOK[k].name).join(' → ')}；${role.position}；代价：${role.cost}`;
- const stratagems=officerStratagems(u.id);r.stratagemIds=stratagems.join('、');r.stratagemEffects=stratagems.map(k=>`${STRATAGEMS[k].name}：${STRATAGEMS[k].description}`).join('；')||'无个人军略';
+ const stratagems=officerStratagems(u.id);r.stratagemIds=stratagems.join('、');r.stratagemEffects=stratagems.map(k=>`${STRATAGEMS[k].name}：${stratagemEffectText(stratagemProfile(k,u))}`).join('；')||'无个人军略';
  r.campaignPlacement=placements.get(u.id)||'未编入默认战役';
  r.historicalPlacement=HISTORICAL_CAMPAIGNS.flatMap(s=>['own','enemy'].flatMap(side=>s[side+'Team'].filter(t=>t.id===u.id).map(t=>`${s.name}／${s[side+'Name']}／${TROOPS[t.type].name}`))).join('；')||'未配置历史战役出场';
  assert.ok(route.length<=OFFICER_TRAIT_SLOTS,u.id);assert.ok(route.every(k=>PASSIVES[k]),u.id);
@@ -119,7 +120,7 @@ export function exportGameOfficerTable(){
  '- 兵力影响攻击、武技、谋略和攻城面板，不能把3000兵的数值当作满编队伍数值。无军团、地形、战斗状态修正；条件被动仍需按说明在战场判定。',
  '- 默认兵种与默认阵位取 makeOfficer；战役临时兵种覆盖单列。当前兵种在编制界面选择，普通模式受所在据点科技约束，战法自动携带。',
  '- 新建默认与固定配置的战法分别列出。门槛和冷却是战法基础数据，实际效果需看附带的威力/概率/地形规则。',
- '- 仅基础智力至少70的武将，在任命为军团长或军师时提供本人军略；普通战法固定：S两小一大，A一小一大，B/C一小，专属额外携带，各有独立冷却。',
+ '- 仅指定统帅、谋士与宗教领袖名单内的武将，在任命为军团长或军师时提供本人军略；普通战法固定：S两小一大，A一小一大，B/C一小，专属额外携带，各有独立冷却。',
  '- 默认战役位置取当前战略开局；历史战役出场取实际预设。没有将原始资料的势力/城池编号当作游戏归属。',
  '- 人物姓名、字、四维、魅力、性格、义理、相性、年份、关系和生平保留本游戏名录字段；魅力、性格、义理和年份不因此获得额外战斗机制。关系列是初始资料，不是当前玩家存档修改后的关系。',
  '- 人物字段已按来源项目的“公共库加载后再读剧本”顺序核对。832条公共库记录采用 Scenario.personSet 人物资料，误导入的3条自建记录已删除，导入时排除自建库；剧本势力、官职、忠诚和当前状态不作为本游戏开局。正式属性和分配见 [武将一览表](design-tables/武将一览表.md)。',
@@ -133,3 +134,4 @@ export function exportGameOfficerTable(){
  return {rows,columns:GAME_COLUMNS,records:GAME_RECORDS};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url))exportGameOfficerTable();
+

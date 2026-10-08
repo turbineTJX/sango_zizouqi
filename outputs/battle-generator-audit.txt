@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 audit:battle-generator
+> node scripts/audit-battle-generator.mjs
+
+96 battles validated: outputs/battle-generator/report.md

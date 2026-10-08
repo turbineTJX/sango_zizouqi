@@ -35,7 +35,7 @@ for (const config of SCENARIOS) {
 
 test('unarrived waves prevent early victory, arrive on schedule and obey blockade', () => {
   const state = createScenario('reinforcements'),original=state.battle;
-  appointTestCommanders(state,'person-226','jia');state.pending={...original.context};state.battle=null;startBattle(state);
+  appointTestCommanders(state,'person-264','jia');state.pending={...original.context};state.battle=null;startBattle(state);
   const b=state.battle;b.maxTicks=original.maxTicks;
   for(const u of b.sides[1].units){const prior=original.sides[1].units.find(x=>x.id===u.id);u.wave=prior.wave;u.arrivalTick=prior.arrivalTick;u.status=prior.status;u.x=prior.x;u.y=prior.y;}
   lockDeployment(b);
@@ -43,7 +43,7 @@ test('unarrived waves prevent early victory, arrive on schedule and obey blockad
   for (let i=0;i<24;i++) stepBattle(b);
   assert.equal(b.result,null); assert.equal(activeUnits(b,1).length,0);
   b.commandProgress=12000;
-  assert.equal(issueCommand(b,'sima-isolate'),null);
+  assert.equal(issueCommand(b,'blockade'),null);
   stepBattle(b);
   assert.equal(activeUnits(b,1).length,0);
   while (b.tick < b.sides[1].blockadeUntil) stepBattle(b);

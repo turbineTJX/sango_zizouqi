@@ -1,0 +1,11 @@
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (636.5086ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (314.0448ms)
+✔ generated overview tables stay synchronized with the authoritative records (300.2864ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1396.1871

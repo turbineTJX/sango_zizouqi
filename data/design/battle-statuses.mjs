@@ -1,5 +1,7 @@
 // Authoritative shared status definitions. Runtime and exported tables read this file.
 export const STATUS_DEFINITIONS = {
+  "commandInvincible": {"name":"军阵无敌","icon":"shield","tone":"buff","priority":0,"description":"军略赋予短暂伤害免疫，仍可行动；不驱散控制，不免除缺粮或主动代价"},
+  "stun": {"name":"眩晕","icon":"confuse","tone":"control","priority":1,"description":"停止移动、普攻、反击与战法，不产生ZOC；打断待结算战法，可驱散，遵守魔免、坚定和控制保护"},
   "swiftRush": {"name":"突进","icon":"move","tone":"buff","priority":2,"description":"疾驰窗口内移动力提高、无视ZOC并优先合法后排；仍须实际在场、具有激活羁绊且可以行动，受占位、地形和定身约束"},
   "guardInvincible": {"name":"护卫免伤","icon":"shield","tone":"buff","priority":0,"description":"护卫护盾破裂后短暂免疫直接、持续、分担及传导伤害，可以正常行动；每队每场一次，不回滚同批致命伤害"},
   "magicImmune": {"name":"魔免","icon":"shield","tone":"buff","priority":0,"description":"解除并免疫战斗异常，仅承受物理普攻伤害；不免除缺粮或主动代价"},
@@ -109,7 +111,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "shield",
     "tone": "buff",
     "priority": 14,
-    "description": "暂时免疫混乱、定身、缴械、封技、嘲讽和失阵"
+    "description": "暂时免疫眩晕、混乱、定身、缴械、封技、嘲讽和失阵"
   },
   "phalanx": {
     "name": "方阵",
@@ -294,7 +296,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "shield",
     "tone": "buff",
     "priority": 5,
-    "description": "首次入场潜行，最多12回合；接触敌方ZOC即攻击拦截部队并显形，首击并使目标混乱1回合；受伤提前破隐",
+    "description": "获得后潜行，最多12回合；接触敌方ZOC即攻击拦截部队并显形，首击并使目标混乱1回合；攻击、施法或受伤提前显形",
     "duration": 12,
     "confuseDays": 1
   },
@@ -338,6 +340,7 @@ STATUS_DEFINITIONS.plague.priority=4;
 for(const id of ['attackHaste','longRange','stealth','insight','decoy','guard'])STATUS_DEFINITIONS[id].priority=15;
 export const REMEDIES = {
   "calm": [
+    "stun",
     "confuse",
     "taunt",
     "despair",
@@ -380,5 +383,5 @@ export const REMEDIES = {
     "regrowth"
   ]
 };
-export const CONTROL_STATUSES = ['confuse','root','disarm','seal','taunt','disrupted'];
+export const CONTROL_STATUSES = ['stun','confuse','root','disarm','seal','taunt','disrupted'];
 export default {schemaVersion:1,id:'battle-statuses',name:'战斗状态与效果一览表',integration:'integrated',records:Object.entries(STATUS_DEFINITIONS).map(([id,parameters])=>({id,name:parameters.name,parameters,source:'data/design/battle-statuses.mjs',todo:''}))};

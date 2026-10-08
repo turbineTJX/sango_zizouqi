@@ -1,0 +1,6 @@
+import fs from 'node:fs';
+const rows=JSON.parse(fs.readFileSync('outputs/normal-ai-scale-baseline/summary.json'));
+const samples=rows.flatMap(r=>r.expeditions.map(x=>({...x,scenario:r.scenario,player:r.player}))),quantile=(a,q)=>[...a].sort((a,b)=>a-b)[Math.floor((a.length-1)*q)];
+const large=samples.filter(x=>x.units>=3),stats=a=>({n:a.length,min:Math.min(...a.map(x=>x.men)),p25:quantile(a.map(x=>x.men),.25),median:quantile(a.map(x=>x.men),.5),p75:quantile(a.map(x=>x.men),.75),max:Math.max(...a.map(x=>x.men)),teamsMedian:quantile(a.map(x=>x.units),.5)});
+const out={all:stats(samples),threeOrMoreTeams:stats(large)};fs.writeFileSync('outputs/normal-ai-scale-baseline/scale.json',JSON.stringify(out,null,2));console.log(JSON.stringify(out));
+const p='docs/普通模式AI行为审计-2026-09-22.md';let s=fs.readFileSync(p,'utf8');s+=`\n## AI实际出征规模抽样\n\n用种子417重跑上述4个剧本/玩家组合，增加逐日出征军团抽样；这4局是同种子复测，不计作新的独立种子。共观察到${out.all.n}支进攻军团，兵力中位数${out.all.median}，四分位范围${out.all.p25}–${out.all.p75}，最小${out.all.min}、最大${out.all.max}。其中至少3队的${out.threeOrMoreTeams.n}支军团，兵力中位数${out.threeOrMoreTeams.median}，四分位范围${out.threeOrMoreTeams.p25}–${out.threeOrMoreTeams.p75}。\n\n后续单城承载对照应同时采用整体和较大军团的分布；不能用一队攻空城的低值取代主要作战需求。采样为真实逐日推进中的首次可见进攻状态，同一天完成且消失的军团可能未捕获，因此是观察样本而非宣称全部出征精确清单。\n\n数据：outputs/normal-ai-scale-baseline/summary.json、scale.json。审计脚本因缺粮发现返回非零状态，这是合理性未通过，不是模拟崩溃。\n`;fs.writeFileSync(p,s);

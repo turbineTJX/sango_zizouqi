@@ -1,0 +1,38 @@
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (4.3837ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.6605ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.3823ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.4862ms)
+✔ legacy windup events never display a preparation animation or log row (0.3674ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.6669ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (3.067ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.4634ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (5.9703ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.7963ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.4444ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (2.72ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.2657ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (0.853ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.2683ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.2377ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.6036ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (2.0686ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (3.3449ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.5403ms)
+✔ reduced motion uses static focus and finishes without impact particles (1.1001ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (2.5404ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.2549ms)
+✔ minor tactics including criticals stay local in both effect modes (0.4361ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (2.9524ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (854.7542ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (21.0165ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (3.1245ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (4.8463ms)
+✔ signals render finite coordinates without changing battle data through real combat (94.5345ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1082.9771

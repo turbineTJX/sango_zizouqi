@@ -1,0 +1,18 @@
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (12.6721ms)
+✔ taunt cannot reach six hexes or override control protection (3.2857ms)
+✔ current five-range repeat attacks the taunter instead of a closer ally (1.8518ms)
+✔ calm removes a real taunt; its source dying or retreating immediately releases the target (5.5685ms)
+✔ taunt never drags melee out through another active ZOC (1.5847ms)
+✔ a real charge follows a withdrawing rear through the current disengagement cycle (3.0684ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (2.2086ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (12.6313ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (112.2037ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (96.7733ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 415.2709

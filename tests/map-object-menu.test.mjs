@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {mapObjectMenu} from '../map-object-menu.mjs';
 import {newCommand,commandMarkup,changeCommandUnit,prepareCommandFormation} from '../strategic-command.mjs';
 import {cityVisible} from '../strategic-vision.mjs';

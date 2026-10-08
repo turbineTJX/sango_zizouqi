@@ -1,0 +1,45 @@
+✔ all 832 personal growth ceilings complete at ten without exceeding caps (39.538ms)
+✔ random progression survives save, bulk upgrades and changes of troop (2.2109ms)
+✔ only live field units sum levels; reserve arrival and retreat immediately update tiers (0.7566ms)
+✔ independent commander traits remain and replaced battle traits no longer activate (0.6154ms)
+✔ real combat and save validation preserve bond growth (197.2567ms)
+✔ retired troop synergies grant no cavalry damage or defense bonuses (0.4759ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (551.6411ms)
+✔ 自由对战：无效配置被拒绝 (2.0058ms)
+✔ light personnel are faster than cavalry, invisible on map, and unavailable while moving (467.3091ms)
+✔ transport carries prepared troops and cargo once, projects position, then hands them to the destination (480.0674ms)
+✔ cargo-only convoys are visible and full warehouses retain cargo (467.4827ms)
+✔ deferred transport preserves cargo instructions without deducting resources or moving its officer (2289.9219ms)
+✔ real daily execution resumes a transport deterministically and rejects corrupt journey cargo (152555.6058ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (71.4287ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (232.7064ms)
+✔ armies move visibly along road interiors before arriving (64.0195ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (201.1454ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (194.0705ms)
+✔ head-on marching armies meet on the road without passing through each other (127.9163ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (619.7899ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (244.9613ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (1336.8202ms)
+✔ multiple battles and their snapshots share the same global day (868.3387ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (639.2059ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (2008.4372ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (1237.3197ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (263.6685ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (40.145ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (228.0336ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (7.9801ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (32.4381ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (5.4781ms)
+✔ five days without food disband armies and preserve officers for their return (135.603ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (804.1484ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (918.4765ms)
+✔ city capture settles once and can be saved immediately within a day (1249.3884ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (694.9671ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 156563.5426

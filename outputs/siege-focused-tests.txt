@@ -1,0 +1,27 @@
+✔ cleave charges each victim once without charging the caster (24.5899ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (80.9942ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (6.4769ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (22.713ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (4.4981ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (3.4976ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (179.9042ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (7.5093ms)
+✔ two real ram casts can link against the gate and increase the second hit (11.8551ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (262.6974ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (63.9306ms)
+✔ spear: gate attacks use derived siege power once, including casualties and attack buffs (32.5813ms)
+✔ halberd: gate attacks use derived siege power once, including casualties and attack buffs (11.9922ms)
+✔ cavalry: gate attacks use derived siege power once, including casualties and attack buffs (10.0187ms)
+✔ archer: gate attacks use derived siege power once, including casualties and attack buffs (10.7514ms)
+✔ crossbow: gate attacks use derived siege power once, including casualties and attack buffs (9.5252ms)
+✔ logistics: gate attacks use derived siege power once, including casualties and attack buffs (8.2517ms)
+✔ siege: gate attacks use derived siege power once, including casualties and attack buffs (8.3372ms)
+✔ ship: gate attacks use derived siege power once, including casualties and attack buffs (8.6715ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 798.3246

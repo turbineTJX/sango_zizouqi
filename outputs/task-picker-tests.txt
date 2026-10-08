@@ -1,0 +1,18 @@
+✔ commerce and agriculture match actor traits rather than governor-only income skills (65.4273ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (60.0708ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1019.2466ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (17.0811ms)
+✔ AI fills a vacant governorship using the same governor recommendation (650.6875ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (222.4302ms)
+✔ a changed officer state blocks final formation without partial changes (29.19ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (15.3217ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (204.7693ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (54.7451ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1955.9339

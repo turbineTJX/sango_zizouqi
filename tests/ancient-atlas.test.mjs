@@ -5,7 +5,7 @@ import {CITY_DESIGNS} from '../data/design/cities.mjs';
 import {NATIONAL_MAP} from '../data/national-map.mjs';
 import {ROAD_NETWORK_DESIGN} from '../data/design/road-network.mjs';
 import {ROAD_DISTANCE_DESIGNS} from '../data/design/road-distances.mjs';
-import {newCampaign,validateCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,validateCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {nationalArtMap,nationalTerrain} from '../national-map-view.mjs';
 import {roadDistance} from '../strategic-movement.mjs';
 import {edgeKey} from '../road-network.mjs';

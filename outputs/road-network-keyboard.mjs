@@ -1,0 +1,2 @@
+import fs from 'node:fs';
+let p='scripts/verify-road-network-ui.mjs',s=fs.readFileSync(p,'utf8');s=s.replace("assert.ok(await page.locator('[data-command-city=\"'+fixture.target+'\"]').count());", "const marker=page.locator('[data-command-city=\"'+fixture.target+'\"]');assert.equal(await marker.getAttribute('aria-pressed'),'true');await marker.focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#command-destination').inputValue(),fixture.target);");fs.writeFileSync(p,s);

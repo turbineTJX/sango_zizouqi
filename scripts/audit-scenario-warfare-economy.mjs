@@ -3,7 +3,7 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {performance} from 'node:perf_hooks';
 import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
-import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,recruitLocalUnits,prepareCityUnits,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,recruitLocalUnits,prepareCityUnits,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {fillFactionAppointments} from '../faction-affairs.mjs';
 import {cityFoodReserve,canTrain} from '../domestic.mjs';

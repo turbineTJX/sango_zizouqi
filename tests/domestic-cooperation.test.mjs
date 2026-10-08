@@ -4,7 +4,7 @@ import {invadeFromGuandu,fieldFromCity,peacefulCities} from './helpers/field-cam
 import {readyTalent} from './helpers/talent.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,transferOfficer,orderCampaignArmy} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,transferOfficer,orderCampaignArmy} from './helpers/auto-domestic-campaign.mjs';
 import {ACTIONS,assignDomestic,dismissDomestic,assignmentFor,actionCandidates,finishDomesticDay,cityMilitary} from '../domestic.mjs';
 import {compatibilityInfo,cooperationProfile,growCooperationRelationship} from '../domestic-cooperation.mjs';
 import {relationshipInfo,setRelationshipType} from '../relationships.mjs';

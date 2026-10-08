@@ -17,6 +17,9 @@ export default {
   node('shipbuilding','战船营造','craft',2,'本城可配备艨艟、楼船和斗舰。',{prerequisites:['efficientConstruction'],buildings:{workshop:2},affinity:'water',waterRequired:true,unlocks:['mengchong','louShip','fightingShip']}),
   node('watchtower','烽堠法','defense',1,'完成后建成瞭望塔，持续获取本城周围视野，半径32。',{cost:400,buildings:{walls:1},visionRadius:32}),
   node('beaconNetwork','连烽法','defense',2,'本城瞭望塔的持续视野半径扩大至38。',{prerequisites:['watchtower'],buildings:{walls:2},order:70,affinity:'frontier',visionRadius:38}),
+  node('towerDefense','守备箭术','defense',2,'解锁箭塔建设与扩建，在原址战场射击敌军。',{prerequisites:['watchtower'],buildings:{workshop:1},order:60}),
+  node('militaryMusic','军乐鼓吹','defense',2,'解锁军乐台建设与扩建，在原址战场鼓舞附近友军战意。',{prerequisites:['watchtower'],buildings:{drill:1},order:60}),
+  node('battlefieldMedicine','战地救护','defense',2,'解锁救护营建设与扩建，在原址战场救治附近友军真实伤兵。',{prerequisites:['watchtower'],buildings:{clinic:1},order:60}),
   ...[
    ['qingzhou','青州兵',{order:70}],['baier','白毦兵',{buildings:{granary:1}}],
    ['rattan','藤甲兵',{buildings:{workshop:1}}],['greatHalberd','大戟士',{buildings:{drill:1}}],

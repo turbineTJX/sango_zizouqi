@@ -1,0 +1,1 @@
+import fs from 'node:fs';const p='strategic-ai.mjs';let s=fs.readFileSync(p,'utf8');s=s.replace('reservedMen,cityFoodReserve,DIRECTIONS','reservedMen,cityFoodReserve,recruitmentLimit,DIRECTIONS').replace('cityFoodReserve(s,c)+300','cityFoodReserve(s,c)+Math.ceil(recruitmentLimit(c)*ECONOMY_RULES.ai.recruitReserveDays/100)');fs.writeFileSync(p,s);

@@ -3,7 +3,7 @@ import {cityForce} from '../city-units.mjs';
 import {peacefulCities,invadeFromGuandu,expeditionFrom} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {recruitCityUnits,launchExpedition,newCampaign,appointGovernor,cityGovernor,cityIncome,createCampaignArmy,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,orderCampaignArmy,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {recruitCityUnits,launchExpedition,newCampaign,appointGovernor,cityGovernor,cityIncome,createCampaignArmy,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,orderCampaignArmy,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {DIRECTIONS,ACTIONS,assignDomestic,assignmentFor} from '../domestic.mjs';
 import {residentOfficer,cityPersonnel} from '../city-personnel.mjs';
 import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';

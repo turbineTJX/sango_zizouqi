@@ -1,0 +1,240 @@
+
+> sango-sovereign@0.3.0 test:design
+> node --test tests/design-tables.test.mjs tests/design-strategy.test.mjs
+
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+movement.army.speedByTroop.ram：兵种行军速度须大于0
+movement.army.speedByTroop.tower：兵种行军速度须大于0
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10
+
+Node.js v24.15.0
+✔ strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values (108.3143ms)
+✖ edited action/building/road/movement records drive real autonomous work, routing and saves (154.3583ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+movement.army.speedByTroop.ram：兵种行军速度须大于0
+movement.army.speedByTroop.tower：兵种行军速度须大于0
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:18:10
+
+Node.js v24.15.0
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+movement.army.speedByTroop.ram：兵种行军速度须大于0
+movement.army.speedByTroop.tower：兵种行军速度须大于0
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ design validation rejects invalid references, unsupported effects and misspelled fields (10.8665ms)
+✖ editing design records drives real unit creation, learning, army attributes, commands and cities (141.129ms)
+✖ generated overview tables stay synchronized with the authoritative records (150.9605ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 404.0442
+
+✖ failing tests:
+
+test at tests\design-strategy.test.mjs:20:1
+✖ edited action/building/road/movement records drive real autonomous work, routing and saves (154.3583ms)
+  Error: Command failed: C:\Program Files\nodejs\node.exe --input-type=module -e 
+   import assert from 'node:assert/strict';
+   import {DOMESTIC_ACTION_DESIGNS as A} from './data/design/domestic-actions.mjs';
+   import {BUILDING_DESIGNS as B} from './data/design/buildings.mjs';
+   import {NATIONAL_ROAD_DESIGNS as R} from './data/design/roads.mjs';
+   import {MOVEMENT_RULES as M} from './data/design/movement-rules.mjs';
+   A.fair.cost=321;A.fair.days=7;B.commerce.cost=777;B.commerce.days=17;
+   R.push(['town-1','town-42']);M.roadVariants.main.costFactors.land=2;M.roadVariants.side.costFactors.land=3;M.army.speedByTroop.cavalry=60;M.personnel.light=90;M.personnel.transport=130;
+   const e=await import('./strategic-campaign.mjs'),w=await import('./domestic.mjs'),m=await import('./strategic-movement.mjs'),p=await import('./personnel-movement.mjs');
+   assert.equal(w.ACTIONS.build_commerce.cost,777);assert.equal(w.ACTIONS.build_commerce.days,17);assert.equal(e.PROJECTS.commerce.cost,777);assert.equal(e.PROJECTS.commerce.turns,1.7);
+   const s=e.newCampaign(42,'heroes-251');assert.deepEqual(e.findCampaignRoute(s,'town-1','town-42'),['town-42']);
+   assert.equal(m.roadCost(s,'town-1','town-42','main'),m.roadDistance(s,'town-1','town-42')*2);
+   assert.equal(m.movementPoints({leader:'u',morale:80,hunger:0,units:[{id:'u',troops:1000,type:'cavalry',leadership:80}]}),65.4);
+   assert.equal(p.lightPersonnelSpeed({id:'dun'}),90);assert.equal(p.personnelSpeed({destination:'ye',unit:{id:'dun',troops:1000}}),130);
+   const c=s.cities.find(c=>c.id==='xuchang');c.commerce=1;s.gold=20000;
+   for(const [id,a] of Object.entries(w.ACTIONS))if(a.direction==='commerce'&&id!=='fair')c.domestic.cooldowns[id]=1000;
+   assert.equal(w.assignDomestic(s,c.id,'commerce','cao'),null);w.beginDomesticTurn(s);
+   const action=w.assignmentFor(s,'cao').action;assert.equal(action.key,'fair');assert.equal(action.cost,321);assert.equal(action.remaining,7);assert.equal(w.ACTIONS.fair.stat,'politics');
+   const restored=e.validateCampaign(JSON.parse(e.serializeCampaign(s)));assert.equal(e.serializeCampaign(restored),e.serializeCampaign(s));
+   console.log('strategic design edits verified');
+   
+  file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77
+  export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                            ^
+  
+  Error: 设计表校验失败：
+  movement.army.speedByTroop.ram：兵种行军速度须大于0
+  movement.army.speedByTroop.tower：兵种行军速度须大于0
+      at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1
+      at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+      at async node:internal/modules/esm/loader:639:26
+      at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10
+  
+  Node.js v24.15.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-strategy.test.mjs:42:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\nmovement.army.speedByTroop.ram：兵种行军速度须大于0\r\nmovement.army.speedByTroop.tower：兵种行军速度须大于0\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10\r\n\r\nNode.js v24.15.0\r\n" ],
+    pid: 2252,
+    stdout: '',
+    stderr: "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\nmovement.army.speedByTroop.ram：兵种行军速度须大于0\r\nmovement.army.speedByTroop.tower：兵种行军速度须大于0\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10\r\n\r\nNode.js v24.15.0\r\n"
+  }
+
+test at tests\design-tables.test.mjs:7:1
+✖ design validation rejects invalid references, unsupported effects and misspelled fields (10.8665ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'movement.army.speedByTroop.ram：兵种行军速度须大于0',
+  +   'movement.army.speedByTroop.tower：兵种行军速度须大于0'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-tables.test.mjs:8:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'movement.army.speedByTroop.ram：兵种行军速度须大于0', 'movement.army.speedByTroop.tower：兵种行军速度须大于0' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\design-tables.test.mjs:24:1
+✖ editing design records drives real unit creation, learning, army attributes, commands and cities (141.129ms)
+  Error: Command failed: C:\Program Files\nodejs\node.exe --input-type=module -e 
+   import assert from 'node:assert/strict';
+   import {TROOP_DESIGNS} from './data/design/troops.mjs';
+   import {OFFICER_DESIGNS} from './data/design/officers.mjs';
+   import {TRAIT_DESIGNS} from './data/design/traits.mjs';
+   import {TACTIC_DESIGNS} from './data/design/tactics.mjs';
+   import {STRATAGEM_DESIGNS} from './data/design/stratagems.mjs';
+   import {CITY_DESIGNS,DEMO_CITY_DESIGNS} from './data/design/cities.mjs';
+   import {OFFICER_ASSIGNMENTS} from './data/design/assignments.mjs';
+   TROOP_DESIGNS.spear.attack=123;
+   OFFICER_DESIGNS.cao.leadership=95;OFFICER_DESIGNS.cao.aptitudes.spear=3;
+   OFFICER_DESIGNS.cao.formation='middle';
+   TRAIT_DESIGNS.armyDiscipline.stats.discipline=.2;
+   TACTIC_DESIGNS.thrust.cooldown=77;
+   STRATAGEM_DESIGNS.assault.duration=33;
+   CITY_DESIGNS[0].name='设计验证据点';DEMO_CITY_DESIGNS[0].name='设计验证入门';
+   OFFICER_ASSIGNMENTS.cao.traits=['armyDiscipline'];
+   const e=await import('./engine.mjs'),{passiveAttributes}=await import('./passives.mjs'),{troopAptitude}=await import('./tactic-learning.mjs'),{nationalWorld}=await import('./national-scenarios.mjs');
+   const u=e.makeOfficer('cao');assert.equal(u.leadership,95);assert.equal(u.formation,'middle');assert.equal(troopAptitude(u,'spear'),3);
+   assert.equal(e.unitAttributes(u).breakdown.attack.base,123);
+   assert.equal(e.TACTICS_BOOK.thrust.cooldown,77);assert.equal(e.STRATAGEMS.assault.duration,33);
+   assert.equal(nationalWorld('heroes-251').cities[0].name,'设计验证据点');
+   const s=e.newGame(99);assert.equal(s.cities[0].name,'设计验证入门');
+   e.orderArmy(s,'a1','guandu');e.advanceTurn(s);assert.equal(e.startBattle(s),null);e.lockDeployment(s.battle);
+   const ally=s.battle.sides[0].units.find(u=>u.id==='dun');assert.ok(passiveAttributes(s.battle,ally).discipline.some(m=>m.label.includes('治军 +20%')));
+   const copy=e.validateSave(JSON.parse(JSON.stringify(s)));for(let i=0;i<10;i++){e.stepBattle(s.battle);e.stepBattle(copy.battle);}assert.deepEqual(copy.battle,s.battle);
+   console.log('runtime table edits verified');
+   
+  file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77
+  export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                            ^
+  
+  Error: 设计表校验失败：
+  movement.army.speedByTroop.ram：兵种行军速度须大于0
+  movement.army.speedByTroop.tower：兵种行军速度须大于0
+      at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1
+      at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+      at async node:internal/modules/esm/loader:639:26
+      at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:18:10
+  
+  Node.js v24.15.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-tables.test.mjs:55:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\nmovement.army.speedByTroop.ram：兵种行军速度须大于0\r\nmovement.army.speedByTroop.tower：兵种行军速度须大于0\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:18:10\r\n\r\nNode.js v24.15.0\r\n" ],
+    pid: 21988,
+    stdout: '',
+    stderr: "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\nmovement.army.speedByTroop.ram：兵种行军速度须大于0\r\nmovement.army.speedByTroop.tower：兵种行军速度须大于0\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:18:10\r\n\r\nNode.js v24.15.0\r\n"
+  }
+
+test at tests\design-tables.test.mjs:57:1
+✖ generated overview tables stay synchronized with the authoritative records (150.9605ms)
+  Error: Command failed: C:\Program Files\nodejs\node.exe scripts/design-tables.mjs verify
+  file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77
+  export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                            ^
+  
+  Error: 设计表校验失败：
+  movement.army.speedByTroop.ram：兵种行军速度须大于0
+  movement.army.speedByTroop.tower：兵种行军速度须大于0
+      at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1
+      at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+      at async node:internal/modules/esm/loader:639:26
+      at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+  
+  Node.js v24.15.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-tables.test.mjs:58:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\nmovement.army.speedByTroop.ram：兵种行军速度须大于0\r\nmovement.army.speedByTroop.tower：兵种行军速度须大于0\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v24.15.0\r\n" ],
+    pid: 28560,
+    stdout: '',
+    stderr: "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\nmovement.army.speedByTroop.ram：兵种行军速度须大于0\r\nmovement.army.speedByTroop.tower：兵种行军速度须大于0\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:77:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:34:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v24.15.0\r\n"
+  }

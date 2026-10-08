@@ -1,0 +1,1 @@
+Military UI passed: draft cancel/detail return, selected recruitment, split, merge, mobile and reload.

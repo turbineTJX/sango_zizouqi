@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,validateCampaign,transferOfficer} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign,transferOfficer} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,cancelDomestic} from '../domestic.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';
 import {factionDirectoryRows,factionDirectoryMarkup,mapQuickDirectory} from '../faction-directory.mjs';

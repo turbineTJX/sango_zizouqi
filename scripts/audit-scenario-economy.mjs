@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {performance} from 'node:perf_hooks';
-import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {NATIONAL_SCENARIOS,NATIONAL_FACTIONS} from '../national-scenarios.mjs';
 import {fillFactionAppointments} from '../faction-affairs.mjs';
 import {factionGold,servingPeople} from '../talent-core.mjs';

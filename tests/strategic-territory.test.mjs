@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {cityRegion,territoryRegions} from '../strategic-territory.mjs';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {nationalArtMap} from '../national-map-view.mjs';
 
 test('display regions remain inside the map and nearest-city half planes',()=>{

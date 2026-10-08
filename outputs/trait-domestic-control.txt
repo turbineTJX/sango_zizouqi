@@ -1,0 +1,50 @@
+✔ all six directions have independent work and a single stat; no city morale multiplier (5.9911ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (121.587ms)
+✔ random results vary across seeds while identical seed is reproducible (69.0912ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (1.8125ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (40.6426ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (26.0102ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (49.913ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (23.4909ms)
+✔ research unlocks a local troop only after a successful trial (28.6258ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (81.5642ms)
+✔ healing conserves personnel and does not require local troop technology (19.1211ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (156.8008ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (83.6112ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (53.7152ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (36.5622ms)
+✔ actual siege pauses construction without charging again or completing in the background (98.4833ms)
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (37.2657ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (39.7325ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (342.3981ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 18
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1327.0657
+
+✖ failing tests:
+
+test at tests\domestic.test.mjs:91:1
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (37.2657ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(returned.length>=2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:97:106)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

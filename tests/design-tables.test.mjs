@@ -7,8 +7,15 @@ const cwd=fileURLToPath(new URL('..',import.meta.url));
 test('design validation rejects invalid references, unsupported effects and misspelled fields',()=>{
  assert.deepEqual(validateDesignTables(),[]);
  for(const [edit,needle] of [
+  [d=>d.treasures.skyHalberd.steps=30,'持续时间未接入'],
+  [d=>d.treasures.artOfWar.bondId='bondBeauty','只可为低级羁绊'],
+  [d=>d.treasureRules.discoveryChance=.2,'获取概率'],
+  [d=>d.treasures.brightArmor.cap=4000,'护盾额度'],
   [d=>d.assignments.cao.traits.push('missing-trait'),'assignments.cao.traits'],
   [d=>d.domesticActions.exercise.stat='politics','同方向全部事务必须使用该方向唯一主属性'],
+  [d=>d.domesticIncidents.events.marketAbuse.story.amount=-10001,'故事资源效果无效'],
+  [d=>d.domesticIncidents.events.unity.chance=1,'事务效果超出范围'],
+  [d=>d.domesticIncidents.events.insight.sourceDirections=['commerce'],'未接入字段 sourceDirections'],
   [d=>d.traits.fieldMedicine.name='善经营','特性名称须为两个汉字'],
   [d=>d.traits['hero-cao'].mechanics[0].effect='not-implemented','未实现的机制事件或处理器'],
   [d=>d.traits['hero-cao'].mechanics[0].chance=2,'机制比例须在0至1之间'],
@@ -19,7 +26,7 @@ test('design validation rejects invalid references, unsupported effects and miss
   [d=>d.bonds.bondValor.immunityChance=[.2,.35,.9],'勇武免疫参数无效'],
   [d=>d.bonds.bondValor.immunityChance=[-.1,.35,1],'勇武免疫参数无效'],
   [d=>d.tactics.thrust.name='突刺术','战法名称须为两个或四个汉字'],
-  [d=>d.stratagems.assault.name='进攻','军略名称须为四个汉字'],
+  [d=>d.stratagems.fortify.name='进攻','军略名称须为四个汉字'],
   [d=>d.tactics.cutRange.description='使敌军射程降低','须使用正式状态名称'],
   [d=>d.tactics['unique-person-371'].selfStatusSteps=0,'自身状态或时长无效'],
   [d=>d.tactics['unique-person-636'].regrowthFraction=2,'休整参数无效'],
@@ -29,7 +36,7 @@ test('design validation rejects invalid references, unsupported effects and miss
   [d=>d.officers.cao.aptitudes.spear=4,'officers.cao.aptitudes.spear'],
   [d=>d.cities.push({...d.cities[0]}),'重复据点ID'],
   [d=>d.cities.shift(),'道路引用不存在的据点'],
-  [d=>d.assignments.dun.stratagems=['cao-wuchao'],'专属军略归属不符'],
+  [d=>d.assignments.dun.stratagems=['cao-wuchao'],'不在军略指定人物名单'],
  ]){const d=structuredClone(DESIGN_TABLES);edit(d);assert.ok(validateDesignTables(d).some(s=>s.includes(needle)),needle);assert.throws(()=>assertDesignTables(d),/设计表校验失败/);}
 });
 test('editing design records drives real unit creation, learning, army attributes, commands and cities',()=>{
@@ -49,13 +56,13 @@ test('editing design records drives real unit creation, learning, army attribute
  OFFICER_DESIGNS.cao.formation='middle';
  TRAIT_DESIGNS.fieldMedicine.tier='普通';
  TACTIC_DESIGNS.thrust.cooldown=77;
- STRATAGEM_DESIGNS.assault.duration=33;
+ STRATAGEM_DESIGNS.fortify.duration=33;
  CITY_DESIGNS[0].name='设计验证据点';DEMO_CITY_DESIGNS[0].name='设计验证入门';
  OFFICER_ASSIGNMENTS.cao.traits=['fieldMedicine'];
  const e=await import('./engine.mjs'),{passiveAttributes}=await import('./passives.mjs'),{troopAptitude}=await import('./tactic-learning.mjs'),{nationalWorld}=await import('./national-scenarios.mjs');
  const u=e.makeOfficer('cao');assert.equal(u.leadership,95);assert.equal(u.formation,'middle');assert.equal(troopAptitude(u,'spear'),3);
  assert.equal(e.unitAttributes(u).breakdown.attack.base,123);
- assert.equal(e.TACTICS_BOOK.thrust.cooldown,77);assert.equal(e.STRATAGEMS.assault.duration,33);
+ assert.equal(e.TACTICS_BOOK.thrust.cooldown,77);assert.equal(e.STRATAGEMS.fortify.duration,33);
  assert.equal(nationalWorld('heroes-251').cities[0].name,'设计验证据点');
  const s=e.newGame(99);assert.equal(s.cities[0].name,'设计验证入门');
  e.orderArmy(s,'a1','guandu');e.advanceTurn(s);assert.equal(e.startBattle(s),null);e.lockDeployment(s.battle);

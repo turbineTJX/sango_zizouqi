@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {makeOfficer} from '../engine.mjs';
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {domesticAbility} from '../domestic-cooperation.mjs';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {campaignRosterMarkup} from '../strategic-roster.mjs';
 test('all officers carry source charm into talent domestic calculations',()=>{
  for(const source of Object.values(OFFICER_BY_ID)){

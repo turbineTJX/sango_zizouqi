@@ -98,6 +98,7 @@ export function cityBuildingInfo(model,key){
  const d=model.districts.find(d=>d.key===key);if(!d)return null;
  const rows=[['等级',d.level+' / '+d.limit],['方向',DIRECTIONS[d.direction]],['地点',model.name],['都市圈',model.metropolis.name]];
  if(d.administrators.length)rows.push(['所属',d.administrators.map(source=>source.name+' '+source.level+'级').join('、')]);
+ if(d.technology){const tech=TECHNOLOGIES.records.find(t=>t.id===d.technology);rows.push(['解锁技术',tech.name+(model.techs.includes(d.technology)?' · 已掌握':' · 尚未掌握')]);}
  if(d.project)rows.push(['工程',`${d.project.paused?'停工':'施工中'} · ${num(d.hp)} / ${num(d.maxHp)} · ${Math.floor(d.project.progress*100)}% · ${d.project.mode==='repair'?'修复后':'建成后'}${d.project.targetLevel}级`]);
  if(d.project)rows.push(['建设城市',d.project.cityName]);
  if(key==='granary')rows.push(['库存',`${num(model.grain)} / ${num(model.capacity)}`]);

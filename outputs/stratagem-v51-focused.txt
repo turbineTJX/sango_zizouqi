@@ -1,0 +1,64 @@
+✔ commerce and agriculture match actor traits rather than governor-only income skills (83.7806ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (83.9249ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1052.48ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (22.616ms)
+✔ AI fills a vacant governorship using the same governor recommendation (671.4981ms)
+✔ 普通武将默认兵种采用真实最高适性，枪戟分别计算 (2.1384ms)
+✔ 兵种强化特性匹配至少A适性，普通弱将则匹配自身最高适性 (2.7386ms)
+✔ 全部专属跨八兵种携带，换兵种保留同一学习记录 (13.2874ms)
+✔ 合资格指挥官军略配合本职，张郃按规则51不再持有军略 (0.2779ms)
+✔ 835人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (1.7896ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (21.1635ms)
+✖ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (45.3867ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (51.6249ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (48.5435ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (50.4395ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (55.8001ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (42.9067ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (27.5446ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (35.4197ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.3164ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.3884ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (57.7112ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (5.9383ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (121.209ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (3.3016ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (22.4292ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (7.0194ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (17.9079ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2078.0129
+
+✖ failing tests:
+
+test at tests\stratagem-pools.test.mjs:21:1
+✖ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (45.3867ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   reason: '击溃',
+  +   winner: 1
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:25:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { winner: 1, reason: '击溃' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

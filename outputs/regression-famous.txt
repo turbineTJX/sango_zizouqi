@@ -1,0 +1,64 @@
+✔ 16 current owners carry their exclusive outside ordinary slots and expose actual descriptions (4.8907ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (176.0677ms)
+✖ area AI selects the larger cluster and includes the anchor despite enemy array order (12.348ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (18.5869ms)
+✔ Liu Bei support waits for recoverable wounds instead of casting on an empty need (13.2724ms)
+✖ exclusive control respects resolve and discipline; deaths do not acquire new statuses (19.7564ms)
+✔ exclusive tactics and independent traits remain fixed across level and troop changes (1.5936ms)
+✔ Liu Bei support stays local and excludes reserves (14.864ms)
+✔ Liu Bei regrowth consumes only actual wounded and never revives defeated units (15.2901ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (7.5275ms)
+✔ retired self-cost exclusives cannot be acquired by Huang Gai or Zhou Tai (0.3241ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 16 holders (493.2868ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 10
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 961.5382
+
+✖ failing tests:
+
+test at tests\famous-officers.test.mjs:48:1
+✖ area AI selects the larger cluster and includes the anchor despite enemy array order (12.348ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:54:85)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:69:1
+✖ exclusive control respects resolve and discipline; deaths do not acquire new statuses (19.7564ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(hasStatus(y.b,y.d,'confuse'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:73:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

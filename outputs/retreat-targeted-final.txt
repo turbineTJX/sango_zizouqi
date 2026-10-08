@@ -1,0 +1,204 @@
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (142.5458ms)
+✔ council rejects posture changes, changes starters, respects arrivals and resumes deterministically (245.1627ms)
+✔ reserve bench supports swaps, ordering, overflow validation and saved deployment (10.1542ms)
+✔ removed postures do not change attributes or field intent (39.5792ms)
+✔ inspection during real combat is read-only and preserves deterministic continuation (375.8614ms)
+✔ deployment and reserve inspection never claims a live grid position or cast readiness (5.6342ms)
+✔ council changes one, selected or all troops atomically; policies survive custom validation and saves (35.1428ms)
+✔ thresholds are based on each unit initial strength, identical for both sides and irreversible after healing (15.4359ms)
+✔ actual damage triggers withdrawal; unit remains targetable but stops attacks, commands and ZOC (13.7293ms)
+✔ retreat walks to the exit before a reserve enters and never heals, resets uses or reenters (99.1005ms)
+✔ occupied escape route blocks withdrawal; no instantaneous removal or early replacement (41.6552ms)
+✔ defenders leaving the battlefield lose even while the gate remains intact (5.6348ms)
+✔ malformed and old saves are rejected rather than repaired (10.3648ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (1334.6032ms)
+✔ 自由对战：无效配置被拒绝 (2.3815ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (3.494ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (3.3271ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (950.3408ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (1482.5529ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (18.2499ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (10.1996ms)
+✔ retreat terminates and sends the attacker back without taking the city (77.56ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (1.7576ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (3.9078ms)
+✔ enemy launches an attack and city garrison participates in defense (537.5763ms)
+✔ garrison alone can defend a city when player army is elsewhere (182.9006ms)
+✔ multiple same-side armies share the same six battlefield slots (490.514ms)
+✔ invalid saves are rejected before replacing game state (4.7621ms)
+✔ different seeds finish without deadlocks or overlapping units (3509.1122ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (446.3496ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (19.6274ms)
+✔ left and right formations deploy on opposite flanks (13.5128ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (110.9472ms)
+✔ capturing the final city completes the scenario (169.1285ms)
+✔ losing the final friendly city ends the scenario (292.6222ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (1621.6006ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (59.1231ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (379.9716ms)
+✔ pending casts from the removed windup format are rejected (8.3902ms)
+✔ a defeated unit cannot use a ready skill (47.5257ms)
+✔ retreat stops subsequent friendly skills immediately (305.3782ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (597.0882ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (6.204ms)
+✔ a ready tactic casts with fixed intent expenditure, regardless of morale or attack cooldown (4.4056ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (11.9594ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (48.1499ms)
+✔ deployment can move, swap, reset and persist without advancing time (11.5633ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (41.0042ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (29.0634ms)
+✔ missing deployment and command state is rejected instead of reconstructed (93.9242ms)
+✔ Cao loses his unit in real combat but a victorious army keeps him, his command and learned abilities (1921.9312ms)
+✔ an escaped commander accompanies surviving retreating troops from the actual road position (304.4758ms)
+✔ previous followers return physically when their remaining escort is annihilated, without another fate roll (334.8094ms)
+✔ death and captivity still remove a commander; only escape keeps a living army appointment (171.9793ms)
+✔ talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact (1172.1148ms)
+✔ an immediate new order recalls the recruiter physically before execution (862.9336ms)
+✔ express transports outrun armies but swept enemy crossings cause total loss without a battle (280.6635ms)
+✔ death, captivity and escape preserve exactly one person; ransom is paid once and return takes time (365.928ms)
+✔ real battles assign fates to annihilated units and saves preserve their learned abilities (549.7652ms)
+✔ surviving retreating officers stay with their army and reverse the actual road position (158.2899ms)
+✔ a prepared commander visiting talent cannot also defend or depart before returning (942.8869ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (17.1672ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (161.5482ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (522.1336ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (7.2975ms)
+✔ formation selects officers in place, army selects only compiled units (2.1362ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.6715ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (1.2596ms)
+✔ custom unit management exposes disband and unlimited reserves, preset participants stay fixed (2.3689ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (130.9089ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (1205.1344ms)
+✔ armies move visibly along road interiors before arriving (32.4453ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (69.1473ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (42.3365ms)
+✔ head-on marching armies meet on the road without passing through each other (220.4834ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (460.612ms)
+✖ manual battle suspends at the next planning phase and resumes the same battle (11.805ms)
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (11.7573ms)
+✔ multiple battles and their snapshots share the same global day (679.6376ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (214.9527ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (3047.1572ms)
+✖ troops arriving on the map reinforce an existing battle, sharing six slots (354.2959ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (605.6288ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (33.879ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (131.1006ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (5.4294ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (28.573ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (4.1246ms)
+✔ five days without food disband armies and preserve officers for their return (43.0975ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (424.0247ms)
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (5.6028ms)
+✔ city capture settles once and can be saved immediately within a day (746.863ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (219.4467ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (3.6426ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (81.0609ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (125.6352ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (100.1213ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (92.6476ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (225.1581ms)
+✔ 100 survivors: scatter earns intent and cannot destroy a 48,000-soldier army (111.4788ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (36.7384ms)
+✔ 100 survivors: tremor earns intent and cannot destroy a 48,000-soldier army (152.7136ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (50.3416ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (96.4525ms)
+✔ firestorm is bounded by friendly power, not enemy army size (401.9353ms)
+ℹ tests 105
+ℹ suites 0
+ℹ pass 101
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13134.7353
+
+✖ failing tests:
+
+test at tests\strategic-campaign.test.mjs:58:1
+✖ manual battle suspends at the next planning phase and resumes the same battle (11.805ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:59:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:64:1
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (11.7573ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:65:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:93:1
+✖ troops arriving on the map reinforce an existing battle, sharing six slots (354.2959ms)
+  TypeError: Cannot read properties of undefined (reading 'armyIds')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:94:94)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\strategic-campaign.test.mjs:133:1
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (5.6028ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:134:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

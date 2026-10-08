@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,orderCampaignArmy,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,commissionProject,appointGovernor,assignDomestic,consolidateCityArmies,supplyConnection,transferOfficer} from '../strategic-campaign.mjs';
+import {newCampaign,orderCampaignArmy,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,commissionProject,appointGovernor,assignDomestic,consolidateCityArmies,supplyConnection,transferOfficer} from './helpers/auto-domestic-campaign.mjs';
 import {fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
 import {mapNode,isJunction,cityRoads,adjacentCityPath,renderJunctions} from '../road-network.mjs';
 import {strategicTravelDays} from '../strategic-ai.mjs';

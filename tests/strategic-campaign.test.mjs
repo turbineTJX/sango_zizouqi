@@ -5,7 +5,7 @@ import {initializeTalent} from '../talent-lifecycle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {beginExecution,advanceCampaignDay,advanceCampaignStep,chooseEncounter,activeBattles,calendar,orderCampaignArmy,takeOverBattle,viewCampaignMap,readDailySnapshot,serializeCampaign,validateCampaign,commissionProject,relieveCity,appointGovernor,createCampaignArmy,transferOfficer,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,supplyConnection,armyPosition,CAMPAIGN,canEditArmy} from '../strategic-campaign.mjs';
+import {beginExecution,advanceCampaignDay,advanceCampaignStep,chooseEncounter,activeBattles,calendar,orderCampaignArmy,takeOverBattle,viewCampaignMap,readDailySnapshot,serializeCampaign,validateCampaign,commissionProject,relieveCity,appointGovernor,createCampaignArmy,transferOfficer,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,supplyConnection,armyPosition,CAMPAIGN,canEditArmy} from './helpers/auto-domestic-campaign.mjs';
 import {lockDeployment,configureUnitTactics,deployUnit,activeUnits,armyTroops,battleWounded} from '../engine.mjs';
 import {recoverableWounded,configureTactics} from '../tactics.mjs';
 import {visibleStatuses} from '../status-display.mjs';

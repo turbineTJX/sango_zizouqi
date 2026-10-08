@@ -1,0 +1,1 @@
+Extreme military strategies UI passed: mobile and desktop, unified labels, friendly-fire warning, actual effects, once-only stock and reload.

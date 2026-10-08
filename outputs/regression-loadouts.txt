@@ -1,0 +1,22 @@
+✔ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (266.4416ms)
+✔ each troop has two fixed small actions and one large action; only listed owners have exclusives (1.0807ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (25.3103ms)
+✔ force and intellect fixed actions use distinct authored power channels (41.5983ms)
+✔ confusion and seal block an actual fixed tactic while seal still permits basic attacks (10.164ms)
+✔ current rally restores actual intent and ward taunts a legal nearby enemy (24.0202ms)
+✔ current cavalry harassment suppresses the real target without granting retired lure (9.5356ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (10.0506ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (65.7837ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (283.399ms)
+✔ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (0.7691ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (339.8169ms)
+✔ role suggestions never grant a tactic outside a real fixed kit or mutate rejected kits (4.8422ms)
+✔ all ordinary fixed actions retain their authored role and tradeoff descriptions (104.3657ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 666.7447

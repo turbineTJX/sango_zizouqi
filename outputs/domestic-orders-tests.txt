@@ -1,0 +1,17 @@
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (48.2034ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (77.1237ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (74.0727ms)
+✔ waiting departure prevents idle members from picking new work across turns (14.8458ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (18.2724ms)
+✔ forged pending action references and duplicate officers are rejected (58.5801ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (45.8036ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (73.1449ms)
+✔ a queued garrison defends an actual siege and does not depart while its work is paused (302.2453ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 853.4286

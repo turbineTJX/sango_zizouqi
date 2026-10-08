@@ -10,7 +10,7 @@ import {workProfile,workFactor,workChance} from '../work-traits.mjs';
 import {ACTIONS,TECHS,assignDomestic,assignmentFor,beginDomesticTurn,finishDomesticDay,actionChance,actionCandidates,researchDailyRate} from '../domestic.mjs';
 import {taskTraits} from '../officer-traits.mjs';
 import {makeOfficer} from '../engine.mjs';
-import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from './helpers/auto-domestic-campaign.mjs';
 import {peacefulCities} from './helpers/field-campaign.mjs';
 import {traitExpansionMarkdown} from '../scripts/trait-expansion-report.mjs';
 const holders=id=>Object.keys(assignments).filter(k=>assignments[k].traits.includes(id));

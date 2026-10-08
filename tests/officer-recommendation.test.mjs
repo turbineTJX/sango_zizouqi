@@ -2,7 +2,7 @@ import {fundCities} from './resource-fixtures.mjs';
 import {assignDomestic,beginDomesticTurn,assignmentFor} from '../domestic.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {rankOfficerCandidates,officerRecommendation} from '../officer-recommendation.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';
 import {prepareEnemyDomestic} from '../talent-lifecycle.mjs';

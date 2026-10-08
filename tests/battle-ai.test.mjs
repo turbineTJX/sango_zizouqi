@@ -16,62 +16,21 @@ test('command triggers ignore range and read only the requested side cooldowns',
   for(const side of b.sides)for(const u of side.units)if(u!==archer&&u!==target){u.hp=0;u.status='defeated';}
   Object.assign(archer,{type:'archer',x:3,y:3});Object.assign(target,{x:10,y:3});
   // Army commands have no proximity or weapon range requirement.
-  b.sides[0].rangeUntil=16;
-  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),'firestorm');
-  b.commandReady.firestorm=8;
-  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),null);
-  b.commandReady.firestorm=0;b.enemyCommand.commandReady.firestorm=8;
-  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),'firestorm','enemy cooldown must not block player orders');
-  b.sides[0].rangeUntil=0;b.sides[1].rangeUntil=16;
-  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),'firestorm','neither side range bonus changes army command eligibility');
+  setStatus(b,archer,'longRange',16);
+  assert.equal(chooseEnemyCommand(b,['zhou-redcliffs'],STRATAGEMS,0),'zhou-redcliffs');
+  b.commandReady['zhou-redcliffs']=8;
+  assert.equal(chooseEnemyCommand(b,['zhou-redcliffs'],STRATAGEMS,0),null);
+  b.commandReady['zhou-redcliffs']=0;b.enemyCommand.commandReady['zhou-redcliffs']=8;
+  assert.equal(chooseEnemyCommand(b,['zhou-redcliffs'],STRATAGEMS,0),'zhou-redcliffs','enemy cooldown must not block player orders');
+  delete archer.statuses.longRange;setStatus(b,target,'longRange',16);
+  assert.equal(chooseEnemyCommand(b,['zhou-redcliffs'],STRATAGEMS,0),'zhou-redcliffs','neither side range bonus changes army command eligibility');
 });
 
-test('AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs',()=>{
-  const b=createScenario('siege',2700000).battle;lockDeployment(b);
-  while(b.commandProgress<COMMAND_RESOURCE.capacity&&!b.result)stepBattle(b);
-  assert.equal(b.result,null);
-  const gate=b.siege.gate;
-  for(const u of b.sides[1].units){u.hp=0;u.status='defeated';}
-  // Reachable late-siege state with a living gate and a naturally earned order.
-  Object.assign(b.sides[0].units.find(u=>u.status==='active'),{x:gate.x-1,y:gate.y});
-  assert.equal(chooseEnemyCommand(b,['firestorm','demoralize','disrupt','fortify'],STRATAGEMS,0),null);
-  assert.equal(chooseEnemyCommand(b,['assault'],STRATAGEMS,0),'assault');
-  assert.equal(issueCommand(b,'assault'),null);assert.equal(b.commandProgress,0);
-  assert.ok(b.sides[0].assaultUntil>b.tick);
-  assert.equal(chooseEnemyCommand(b,['assault'],STRATAGEMS,0),null);
-  gate.hp=0;
-  assert.equal(chooseEnemyCommand(b,['haste','inspire'],STRATAGEMS,0),null);
-});
-
-for(const id of ['tactical-control-lv','tactical-control-zhang'])test(`${id}: single-target commands spend naturally earned gauge and resume deterministically`,()=>{
-  const state=createScenario(id,2700000),b=state.battle;
-  // Isolate command recovery from battle lethality; still earn the gauge through real steps.
-  for(const u of b.sides.flatMap(s=>s.units)){u.cooldown=30;u.skillReady=Object.fromEntries(unitTactics(u).map(t=>[t.id,999]));}
-
-  lockDeployment(b);
-  assert.equal(chooseEnemyCommand(b,['firestorm','demoralize','blockade'],STRATAGEMS,0),'firestorm','army commands do not wait for contact');
-  while(b.commandProgress<COMMAND_RESOURCE.capacity&&!b.result)stepBattle(b);
-  assert.equal(b.result,null);assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
-  assert.equal(chooseEnemyCommand(b,['firestorm'],STRATAGEMS,0),'firestorm');
-  assert.equal(chooseEnemyCommand(b,['demoralize'],STRATAGEMS,0),'demoralize');
-  assert.equal(chooseEnemyCommand(b,['blockade'],STRATAGEMS,0),null);
-  const reduced=structuredClone(b),enemy=reduced.sides[1].units[0],intent=enemy.intent;
-  assert.equal(issueCommand(reduced,'demoralize',chooseStratagemPoint(reduced,AREA_DESIGNS['demoralize'],0)),null);
-  assert.equal(enemy.intent,Math.max(0,intent-Math.round(reduced.lastCommand.source.strength)));assert.equal(reduced.commandProgress,0);
-  assert.equal(chooseEnemyCommand(reduced,['demoralize'],STRATAGEMS,0),null,'cooldown blocks repeated orders');
-  const key=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
-  assert.equal(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),null);assert.equal(b.commandProgress,0);
-  assert.ok(battleStratagems(b).includes(key));assert.equal(b.lastCommand.key,key);
-  assert.ok(issueCommand(b,key,chooseStratagemPoint(b,AREA_DESIGNS[key],0)),'resource and cooldown remain enforced');
-  const resumed=validateSave(JSON.parse(JSON.stringify(state)));
-  while(!b.result){
-    if(b.commandProgress>=COMMAND_RESOURCE.capacity){
-      const command=chooseEnemyCommand(b,battleStratagems(b),STRATAGEMS,0);
-      if(command){assert.equal(issueCommand(b,command,chooseStratagemPoint(b,AREA_DESIGNS[command],0)),null);assert.equal(issueCommand(resumed.battle,command,chooseStratagemPoint(resumed.battle,AREA_DESIGNS[command],0)),null);}
-    }
-    stepBattle(b);stepBattle(resumed.battle);
-  }
-  assert.ok(b.commandSerial>0);assert.deepEqual(resumed.battle,b);
+test('AI can protect active siege attackers but never treats a gate as a hostile troop',()=>{
+ const b=createScenario('siege',2700000).battle;lockDeployment(b);while(b.commandProgress<COMMAND_RESOURCE.capacity&&!b.result)stepBattle(b);assert.equal(b.result,null);
+ for(const u of b.sides[1].units){u.hp=0;u.status='defeated';}
+ assert.equal(chooseEnemyCommand(b,['zhou-redcliffs','disrupt'],STRATAGEMS,0),null);assert.equal(chooseEnemyCommand(b,['cao-wuchao'],STRATAGEMS,0),'cao-wuchao');
+ assert.equal(issueCommand(b,'cao-wuchao'),null);assert.equal(b.commandProgress,0);b.siege.gate.hp=0;assert.equal(chooseEnemyCommand(b,['fortify'],STRATAGEMS,0),null);
 });
 
 test('enemy preserves fixed tactics and bonds while arranging legal deployment without changing player troops or RNG',()=>{
@@ -104,7 +63,7 @@ test('enemy re-plans with terrain, keeps ships afloat and preserves learned arch
 
 test('enemy earns its own gauge and automatically casts only learned commands after enough active intellect',()=>{
   const b=createScenario('field').battle,known=battleStratagems(b,1);lockDeployment(b);
-  assert.equal(b.enemyCommand.commandProgress,0);assert.ok(issueCommand(b,'assault',null,1));
+  assert.equal(b.enemyCommand.commandProgress,0);assert.ok(issueCommand(b,'fortify',chooseStratagemPoint(b,STRATAGEMS.fortify,1),1));
   const first=commandIntellect(b,1);stepBattle(b);assert.equal(b.enemyCommand.commandProgress,first);
   let earned=first;
   while(!b.enemyCommand.commandSerial&&!b.result){earned+=commandIntellect(b,1);stepBattle(b);if(earned<COMMAND_RESOURCE.capacity)assert.equal(b.enemyCommand.commandSerial,0);}
@@ -116,26 +75,26 @@ test('enemy earns its own gauge and automatically casts only learned commands af
 
 test('enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact',()=>{
   const b=createScenario('field').battle;lockDeployment(b);b.commandProgress=731;
-  b.enemyCommand.commandProgress=12000;assert.equal(issueCommand(b,'assault',null,1),null);
-  assert.ok(b.sides[1].assaultUntil>b.tick);assert.equal(b.sides[0].assaultUntil,0);assert.equal(b.commandProgress,731);
-  b.enemyCommand.commandProgress=12000;assert.match(issueCommand(b,'assault',null,1),/冷却/);assert.equal(b.enemyCommand.commandProgress,12000);
-  assert.match(issueCommand(b,'firestorm',chooseStratagemPoint(b,AREA_DESIGNS['firestorm'],1),1),/未掌握/);
+  b.enemyCommand.commandProgress=12000;assert.equal(issueCommand(b,'fortify',chooseStratagemPoint(b,STRATAGEMS.fortify,1),1),null);
+  assert.ok(b.sides[1].units.some(u=>hasStatus(b,u,'shield')));assert.ok(b.sides[0].units.every(u=>!hasStatus(b,u,'shield')));assert.equal(b.commandProgress,731);
+  b.enemyCommand.commandProgress=12000;assert.match(issueCommand(b,'fortify',chooseStratagemPoint(b,STRATAGEMS.fortify,1),1),/冷却/);assert.equal(b.enemyCommand.commandProgress,12000);
+  assert.match(issueCommand(b,'zhou-redcliffs',chooseStratagemPoint(b,AREA_DESIGNS['zhou-redcliffs'],1),1),/未掌握/);
   // Appointed enemy officers define the repertoire; no unlearned skill is granted.
-  b.sides[1].commanders=[];appointBattleTestCommander(b,'person-246','advisor',1);appointBattleTestCommander(b,'yu','leader',1);
+  b.sides[1].commanders=[];appointBattleTestCommander(b,'person-246','advisor',1);appointBattleTestCommander(b,'person-668','leader',1);
   assert.equal(issueCommand(b,'zhou-redcliffs',chooseStratagemPoint(b,AREA_DESIGNS['zhou-redcliffs'],1),1),null);
   for(const u of b.sides[0].units.filter(u=>u.status==='active'))assert.equal(hasStatus(b,u,'burn'),stratagemAreaContains(AREA_DESIGNS['zhou-redcliffs'],b.enemyCommand.lastCommand.target,u));
   assert.ok(b.sides[1].units.every(u=>!hasStatus(b,u,'burn')));
   const ally=b.sides[1].units[0];ally.hp-=1000;ally.battleDamage+=1000;
-  b.enemyCommand.commandProgress=12000;assert.equal(issueCommand(b,'heal',chooseStratagemPoint(b,AREA_DESIGNS['heal'],1),1),null);assert.equal(ally.healed,Math.floor(ally.maxHp*b.enemyCommand.lastCommand.source.strength));
+  b.enemyCommand.commandProgress=12000;assert.equal(issueCommand(b,'heal',chooseStratagemPoint(b,AREA_DESIGNS['heal'],1),1),null);assert.equal(ally.healed,350);
   setStatus(b,ally,'confuse',3);setStatus(b,ally,'burn',6,{amount:20,sourceId:b.sides[0].units[0].id});
-  b.enemyCommand.commandProgress=12000;assert.equal(issueCommand(b,'cleanse',null,1),null);
-  assert.equal(hasStatus(b,ally,'confuse'),false);assert.equal(hasStatus(b,ally,'burn'),true);assert.equal(b.commandProgress,731);
+  appointBattleTestCommander(b,'person-462','advisor',1);b.enemyCommand.commandProgress=12000;assert.equal(issueCommand(b,'cleanse',{x:ally.x,y:ally.y},1),null);
+  assert.equal(hasStatus(b,ally,'confuse'),false);assert.equal(hasStatus(b,ally,'burn'),false);assert.equal(b.commandProgress,731);
 });
 
 test('AI follows fixed command order, holds ineligible commands, and does not refresh active buffs',()=>{
   const b=createScenario('field').battle;lockDeployment(b);
   for(const ally of b.sides[1].units.filter(u=>u.status==='active')){setStatus(b,ally,'confuse',3);setStatus(b,ally,'burn',6,{amount:20,sourceId:b.sides[0].units[0].id});}
-  assert.equal(chooseEnemyCommand(b,['cleanse','assault','inspire'],STRATAGEMS),'assault');
+  assert.equal(chooseEnemyCommand(b,['cleanse','fortify'],STRATAGEMS),'cleanse');
   b.sides[1].units.forEach(u=>u.statuses={});
   b.sides[1].units.forEach(u=>u.intent=100);
   assert.equal(chooseEnemyCommand(b,['cleanse','heal','cycle','blockade'],STRATAGEMS),null);

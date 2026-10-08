@@ -1,0 +1,6 @@
+
+> sango-sovereign@0.3.0 verify:military-ui
+> node scripts/verify-military-flow-ui.mjs && node scripts/verify-siege-preparation-ui.mjs
+
+Military UI passed: draft cancel/detail return, selected recruitment, split, merge, mobile and reload.
+Siege preparation UI passed: idle selection, reinforcement, cancel, commit, valid pending battle save.

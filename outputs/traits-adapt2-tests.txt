@@ -1,0 +1,75 @@
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (46.6381ms)
+✔ interdict is fixed from level one and prevents the entire normal hit award, including endurance (5.9611ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (10.8981ms)
+✔ suppression traits remain with their fixed holders after troop changes (0.7555ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (7.0772ms)
+✔ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (30.8218ms)
+✖ current suppression routes and troop incomes survive deterministic battle continuation (0.2297ms)
+✔ ordinary officers retain their fixed positive traits at every level (52.59ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (4.6302ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (152.6222ms)
+✔ fixed identity traits are available at every level and never equipped (10.9465ms)
+✔ fixed martial and movement traits modify only intended attributes (1.1413ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (0.8807ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (13.5634ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (5.3843ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (4.4499ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (3.2204ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.3032ms)
+✔ isolated and joint evaluate neighbors on the correct side (4.4484ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (20.3647ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (2.8609ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (16.4971ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (8.2713ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.2781ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.2179ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (10.6768ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (10.6823ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (6.3869ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (5.0706ms)
+✔ experience advances learned tactics and capacity without unlocking or rerolling traits (0.6612ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (8.9181ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (487.9047ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (36.9701ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 31
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 822.5526
+
+✖ failing tests:
+
+test at tests\intent-roles.test.mjs:40:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (10.8981ms)
+  AssertionError [ERR_ASSERTION]: jia/archer: B/C aptitude cannot learn scatter
+      at learnFixtureTactics (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/learn-tactics.mjs:12:9)
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/prime-tactic.mjs:9:16)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:48:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:70:1
+✖ current suppression routes and troop incomes survive deterministic battle continuation (0.2297ms)
+  Error: 试炼阵容须为 1～6 名不同武将
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:22:168)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:71:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

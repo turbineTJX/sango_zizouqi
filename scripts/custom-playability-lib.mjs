@@ -86,7 +86,7 @@ export function playerOrder(b){
  const engaged=allies.some(u=>foes.some(e=>hexDistance(u,e)<=4));
  const hurt=allies.some(u=>u.battleDamage*.35-u.healed>u.initial*.05);
  const impaired=allies.some(u=>['stun','confuse','seal','burn','scorch','plague'].some(k=>hasStatus(b,u,k)));
- const priorities=[...(impaired?['cleanse']:[]),...(hurt?['heal','regenerate']:[]),...(foes.some(u=>u.intent>=65)?['demoralize']:[]),...(engaged?['firestorm','assault','disrupt','fortify','range']:[]),...(allies.some(u=>u.intent<65)?['inspire','cycle']:[])];
+ const priorities=[...(impaired?['cleanse']:[]),...(hurt?['heal']:[]),...(engaged?['invincible','ward','disrupt','zhuge-eight','zhou-redcliffs','firestorm','fortify','swift']:['ambush'])];
  const available=battleStratagems(b);
  for(const key of priorities){
   const s=STRATAGEMS[key],target=b.sides[s.side];

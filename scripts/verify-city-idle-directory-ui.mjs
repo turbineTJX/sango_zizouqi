@@ -2,7 +2,7 @@ import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {assignDomestic} from '../domestic.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';
 import {factionDirectoryRows} from '../faction-directory.mjs';

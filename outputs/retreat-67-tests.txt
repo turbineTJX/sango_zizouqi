@@ -1,0 +1,40 @@
+✔ council accepts exact counts and null atomically; custom configs and saves retain them (97.3897ms)
+✔ exact current soldiers trigger either side, wounds are excluded, healing never cancels withdrawal (25.5851ms)
+✔ actual damage triggers withdrawal; unit remains targetable but stops attacks, commands and ZOC (15.2707ms)
+✔ retreat walks to the exit before a reserve enters and never heals, resets uses or reenters (74.6182ms)
+✔ occupied escape route blocks withdrawal; no instantaneous removal or early replacement (19.6547ms)
+✔ defenders leaving the battlefield lose even while the gate remains intact (10.1124ms)
+✔ a freed slot waits for actual reserve arrival and a withdrawing force cannot supply commands (100.0497ms)
+✖ ordinary campaign retains withdrawn soldiers and wounded without drawing a destroyed-officer fate (909.363ms)
+✔ malformed and old saves are rejected rather than repaired (9.1957ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2137.9396
+
+✖ failing tests:
+
+test at tests\battle-retreat.test.mjs:84:1
+✖ ordinary campaign retains withdrawn soldiers and wounded without drawing a destroyed-officer fate (909.363ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  350 !== 302
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-retreat.test.mjs:95:162)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 350,
+    expected: 302,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

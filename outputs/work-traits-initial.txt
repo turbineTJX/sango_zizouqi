@@ -1,0 +1,83 @@
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (95.7636ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (5.2301ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (155.3969ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (94.5568ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (239.7089ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (125.6861ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (44.652ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (312.4302ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (134.7936ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (180.6205ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (597.0966ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (42.4339ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (55.8172ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (43.8052ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (269.6127ms)
+✔ all six directions have independent work and a single stat; no city morale multiplier (9.7317ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (182.3614ms)
+✔ random results vary across seeds while identical seed is reproducible (97.6289ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.7954ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (51.407ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (34.2845ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (76.6452ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (40.3116ms)
+✔ research unlocks a local troop only after a successful trial (46.5014ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (140.1054ms)
+✔ healing conserves personnel and does not require local troop technology (26.6858ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (156.1467ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (97.8034ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (74.6284ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (46.8034ms)
+✔ actual siege pauses construction without charging again or completing in the background (103.3781ms)
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (43.1429ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (51.2469ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (428.7417ms)
+✔ commerce and agriculture no longer recommend deleted numerical traits (43.4212ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (94.094ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1736.2253ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (16.6902ms)
+✔ AI fills a vacant governorship using the same governor recommendation (1190.7988ms)
+✔ expedition recommendations place idle officers before busy officers regardless of ability score (1206.797ms)
+✔ removed numerical traits do not offset ability in task or standby ranking (16.7462ms)
+✔ Diao Chan alone starts Qingguo and cap budget is preserved; real hits and saves use common statuses (100.4199ms)
+✔ real paid work can hand off exactly once without double fees and resumes deterministically (57.5818ms)
+✔ military farming counts only actual available troops and produces bounded progress (68.9211ms)
+✔ cross-direction cooperation uses actual resident Zhang Zhao and common daily settlement (38.4077ms)
+✔ march choices exchange actual grain and pay morale on real movement; save and cancel are safe (51.6514ms)
+✔ relay cargo retains real stocks at the waypoint and moves to final destination after a stop (79.8214ms)
+✔ referral finds a real relationship candidate without recruiting or relocating the person (67.3755ms)
+✔ continuous convoys reload each batch from real source stock and cannot duplicate troops (58.72ms)
+✔ healing remainder reaches only real new wounded and never creates soldiers (30.4955ms)
+✔ crafting continuation starts a new fully paid timed trial and pending orders suppress chains (41.1547ms)
+✔ shared task ranking values farming only while the required troops are actually present (3.9321ms)
+ℹ tests 52
+ℹ suites 0
+ℹ pass 51
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4579.2085
+
+✖ failing tests:
+
+test at tests\domestic.test.mjs:91:1
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (43.1429ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(returned.length>=2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:97:106)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

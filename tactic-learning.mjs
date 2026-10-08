@@ -34,6 +34,7 @@ export function createTacticLearning(u){
  })),special:!!SPECIAL_TACTICS[u.id]};
 }
 export function learnedTacticIds(u){
+ if(!u.tacticLearning)return [];
  const record=u.tacticLearning,type=combatType(u),p=tacticPools(type),limits=tacticLearningLimits(u,type);
  const pool=TROOP_DESIGNS[type]?.category==='equipment'?{low:limits.low===2?p.low:p.low.filter(id=>TACTICS_BOOK[id].category===smallTacticCategory(u)),high:limits.high?p.high:[]}:record?.byTroop[type];
  if(!pool)return [];

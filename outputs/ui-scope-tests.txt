@@ -1,0 +1,24 @@
+✔ all campaign information is read only and city units are not armies (128.284ms)
+✔ expedition information follows real city-unit departure without duplication (25.6522ms)
+✔ current status follows actual marching and transfer progress (1326.4424ms)
+✔ siege status includes the live battlefield state of a real defending unit (1933.3942ms)
+✔ prepared troops show active domestic work and deferred orders separately (9.0348ms)
+✔ object details reuse dossier format without opening a faction directory (18.3344ms)
+✔ map menu restricts orders to owned objects and renders without state changes (31.9522ms)
+✔ workbench previews officer data and editing cost without committing the draft (54.5255ms)
+✔ military adjustments are isolated drafts and validate before committing (170.6159ms)
+✔ recruitment affects only selected units and previews the actual cost (136.8221ms)
+✔ split and merge previews preserve officers, learning and supplies (210.0771ms)
+✔ a moved army invalidates a draft without partial changes (19.3474ms)
+✔ army compilation does not require choosing initial deployment before the council (104.9779ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (163.9374ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (26.1927ms)
+✔ city roster has a fixed local population and independent city context (13.0156ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3661.8034

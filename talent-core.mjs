@@ -7,7 +7,7 @@ import {relationshipInfo} from './relationships.mjs';
 import {compatibilityInfo} from './domestic-cooperation.mjs';
 import {diplomaticFeeReserve,diplomaticAssetReserve} from './diplomacy-relations.mjs';
 
-export const TALENT_RULES=Object.freeze({version:1,standardSoldiers:6000,adultAge:16,seekDays:180,graceDays:90});
+export const TALENT_RULES=Object.freeze({version:2,standardSoldiers:6000,adultAge:16,seekDays:180,graceDays:90});
 export const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 export const talentTurn=s=>Math.floor((s.campaign.day-1)/10);
 export const talentKey=(id,faction)=>`${id}:${faction}`;

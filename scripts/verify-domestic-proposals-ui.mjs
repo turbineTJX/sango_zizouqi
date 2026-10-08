@@ -1,0 +1,48 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import {mkdir,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {assignDomestic,ACTIONS} from '../domestic.mjs';
+import {peacefulCities} from '../tests/helpers/field-campaign.mjs';
+import {fundCities} from '../tests/resource-fixtures.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const port=4192,base='http://127.0.0.1:'+port,out='outputs/domestic-proposals-ui';
+await mkdir(out,{recursive:true});
+const server=spawn(process.execPath,['server.mjs'],{cwd:new URL('..',import.meta.url),env:{...process.env,PORT:String(port),SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
+let serverError='';server.stderr.on('data',b=>serverError+=b);
+const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
+const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'}),page=await context.newPage(),errors=[];
+page.on('pageerror',e=>errors.push(e.message));
+const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2'))),action=k=>page.locator('[data-action="'+k+'"]');
+try{
+ for(let i=0;i<100;i++){try{if((await fetch(base)).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
+ assert.equal(serverError,'');
+ const s=peacefulCities(newCampaign(7));fundCities(s,40000);
+ const c=s.cities.find(c=>c.id==='xuchang'),officers=s.campaign.idle.filter(o=>o.location===c.id);
+ for(const [key,def]of Object.entries(ACTIONS))if(['technology','commerce'].includes(def.direction)&&!['research','build_commerce'].includes(key))c.domestic.cooldowns[key]=10000;
+ assignDomestic(s,c.id,'technology',officers[0].unit.id);assignDomestic(s,c.id,'commerce',officers[1].unit.id);
+ await context.addInitScript(raw=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},serializeCampaign(s));
+ await page.goto(base+'/#strategy');await page.locator('.sovereign-hud').waitFor();
+ await action('campaign-begin').click();await page.locator('.domestic-proposal').first().waitFor();
+ let state=await saved();assert.equal(state.cities.find(c=>c.id==='xuchang').gold,40000);assert.equal(state.campaign.day,1);
+ assert.equal(await page.locator('.domestic-proposal').count(),2);assert.doesNotMatch(await page.locator('.domestic-proposals').innerText(),/%|成功率|概率/);
+ await page.screenshot({path:out+'/desktop.png',fullPage:true});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/mobile.png',fullPage:true});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ const first=state.campaign.domestic.assignments.find(a=>a.proposal).proposal;
+ await page.reload();await page.locator('.domestic-proposal').first().waitFor();state=await saved();
+ assert.deepEqual(state.campaign.domestic.assignments.find(a=>a.proposal).proposal,first);
+ await action('close').last().click();assert.equal((await saved()).campaign.day,1);
+ for(let i=0;i<3&&await page.locator('#overlay-root .modal-backdrop').count();i++)await action('close').last().click();
+ await action('domestic-proposals').first().click();assert.equal(await page.locator('.domestic-proposal').count(),2);
+ await action('domestic-proposal-reject').first().click();assert.equal((await saved()).cities.find(c=>c.id==='xuchang').gold,40000);
+ state=await saved();const approved=state.campaign.domestic.assignments.find(a=>a.proposal).proposal;
+ await action('domestic-proposal-approve').first().click();state=await saved();
+ assert.equal(state.cities.find(c=>c.id==='xuchang').gold,40000-approved.pick.cost);assert.ok(state.campaign.domestic.assignments.some(a=>a.action));
+ await action('domestic-auto-approve').first().click();assert.equal((await saved()).campaign.domestic.autoApprove,true);
+ await page.screenshot({path:out+'/decided-mobile.png',fullPage:true});
+ await action('close').last().click();await page.reload();await page.locator('.sovereign-hud').waitFor();assert.equal((await saved()).campaign.domestic.autoApprove,true);
+ assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,pending:2,approved:approved.pick.key,expenses:approved.expenses,desktop:[1440,1000],mobile:[390,844],errors},null,2));
+ console.log('Domestic proposals UI passed: unpaid review, deny/approve, close/reopen, reload, auto approval and mobile layout.');
+}catch(e){await page.screenshot({path:out+'/failure.png',fullPage:true});console.error(errors);throw e;}finally{await browser.close();server.kill();}

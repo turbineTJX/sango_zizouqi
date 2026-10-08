@@ -1,0 +1,54 @@
+
+> sango-sovereign@0.3.0 test:battle-buildings
+> node --test tests/battle-buildings.test.mjs tests/building-durability.test.mjs tests/city-technology.test.mjs tests/city-scene.test.mjs
+
+✔ new facilities require local research and the common automatic construction action (107.797ms)
+✔ each new facility is built with paid daily work, saved durability and visible original artwork (3214.1076ms)
+✔ arrow towers shoot within range, grow with completed local levels and use saved intervals on either side (40.7493ms)
+✔ arrow towers respect visibility, range, shields and actual invulnerability (16.8763ms)
+✔ a real tower rout uses the shared defeat intent shock without awarding a fictitious officer (6.1172ms)
+✔ music stages grant capped fixed intent only to nearby present allies on either side (8.9535ms)
+✔ overlapping music and medical support use the strongest local facility once (7.2254ms)
+✔ medical camps heal only real battle wounded, honor plague and stop at that budget (10.0116ms)
+✔ construction, destroyed buildings, stasis and withdrawing owners cannot provide support (21.4014ms)
+✔ building action history survives repairs and save validation rejects forged state (9.9413ms)
+✔ inherited facilities can be repaired without granting local expansion research (156.7666ms)
+✔ ports and passes use only their actual local facilities and keep distinct physical source cells (168.0508ms)
+✔ hidden new facilities never leak current levels and dated intelligence remains unchanged (37.5313ms)
+✔ real sieges load and save the new original-site facilities and continue deterministically (246.5826ms)
+✔ all current facilities and gates save actual current and maximum durability (307.005ms)
+✔ new construction advances actual durability daily and inspection cannot advance it (254.4083ms)
+✔ damaged facilities use the same construction progress, pay less and retain their level (684.5993ms)
+✔ interruption preserves paid work, durability and the saved construction site (180.2234ms)
+✔ expansion raises maximum durability without instantly supplying the new durability (106.5189ms)
+✔ damage to a half-built facility extends remaining work without resetting or charging again (246.6709ms)
+✔ battle repairs that finish construction activate the facility and settle its original job once (181.2296ms)
+✔ a destroyed watchtower stops its sight until genuine military repairs restore durability (386.0643ms)
+✔ destroyed facilities cease production and become operational after actual repair (59.5434ms)
+✔ construction and gate durability cannot be forged in saves (161.3411ms)
+✔ battle buildings preserve real damage and map repairs back to the same physical facilities (55.6763ms)
+✔ actual siege loads damaged gate and facilities and returns gate damage after retreat (311.6915ms)
+✔ a real domestic project appears as construction, completes as an expanded city, and survives saving (451.3307ms)
+✔ interrupted construction keeps its real progress and never looks completed (60.89ms)
+✔ all twelve facilities reflect real levels, stocks, gate damage and active income effects without modifying state (41.273ms)
+✔ national camera reaches building scale and retains it on rerender, while every city has a live scene source (165.8173ms)
+✔ all cities have fixed partial technology trees; buildings cannot create new affinities (72.5092ms)
+✔ military research uses governance and different basic facilities, never barracks level (32.4886ms)
+✔ research spends city funds once, progresses on real days and reloads deterministically (377.7974ms)
+✔ cancelling and resuming retains paid research and accepts changed dynamic conditions (141.613ms)
+✔ one city research project is exclusive and a second scientist can cooperate (73.3747ms)
+✔ tech income bonuses add to 25 percent and increase the actual shared production allowance (56.9097ms)
+✔ technology increases completed real resource operations without a second harvest payout (1528.6073ms)
+✔ an actual siege pauses daily research without losing the project or its payment (325.9984ms)
+✔ military and construction discounts affect paid city actions and preview calculations (73.862ms)
+✔ umbrella gear technologies unlock their three local forms, with a real water condition (26.1996ms)
+✔ watchtowers are persistent sight sources and transfer with the city, without revealing remote points (12.5541ms)
+✔ save validation rejects foreign-city technology and impossible research progress (284.5759ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 42
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4346.7103

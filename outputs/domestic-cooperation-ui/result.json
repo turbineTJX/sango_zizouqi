@@ -10,7 +10,7 @@
       "direction": "commerce",
       "actionId": 8,
       "actionKey": "fair",
-      "officerId": "person-462",
+      "officerId": "cao",
       "helperId": "person-255",
       "chance": 0.44,
       "gain": 0.247,
@@ -19,9 +19,9 @@
       "affinity": "很合拍",
       "success": true,
       "mode": "quantity",
-      "before": 254,
-      "after": 317,
-      "actual": 63,
+      "before": 275,
+      "after": 343,
+      "actual": 68,
       "relationGain": 3,
       "applied": true
     }

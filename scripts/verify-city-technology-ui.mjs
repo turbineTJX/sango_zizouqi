@@ -3,7 +3,7 @@ import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {ACTIONS,assignDomestic} from '../domestic.mjs';
 import {fundCities} from '../tests/resource-fixtures.mjs';
 import {peacefulCities} from '../tests/helpers/field-campaign.mjs';
@@ -19,11 +19,11 @@ try{
  await page.addInitScript(save=>localStorage.setItem('sango-sovereign-v2',save),save);await page.goto('http://127.0.0.1:4238/#strategy');
  if(await page.locator('.modal [data-action="close"]').count())await page.locator('.modal [data-action="close"]').first().click();
  await page.locator('.faction-navigation [data-kind="city"]').click();await page.locator('.city-directory-item[data-id="xuchang"]').click();await page.locator('[data-action="map-quick-manage"][data-id="xuchang"]').click();
- const tree=page.locator('[data-city-technology="xuchang"]');await tree.waitFor();assert.match(await tree.innerText(),/本城开放10项/);assert.equal(await tree.locator('[data-technology-state="researching"]').count(),1);assert.equal(await tree.locator('progress').getAttribute('value'),String(progress));assert.match(await tree.locator('.technology-progress').innerText(),/已研究3个工作日/);
+ const tree=page.locator('[data-city-technology="xuchang"]');await tree.waitFor();assert.match(await tree.innerText(),/本城开放13项/);assert.equal(await tree.locator('[data-technology-state="researching"]').count(),1);assert.equal(await tree.locator('progress').getAttribute('value'),String(progress));assert.match(await tree.locator('.technology-progress').innerText(),/已研究3个工作日/);
  assert.equal(await tree.locator('[data-technology="watchtower"]').getAttribute('data-technology-state'),'complete');assert.match(await tree.locator('.technology-tower').innerText(),/32/);
  await tree.locator('.technology-progress').scrollIntoViewIfNeeded();await page.screenshot({path:out+'/desktop.png'});
  await tree.locator('.technology-other>summary').focus();assert.equal(await page.evaluate(()=>document.activeElement?.tagName),'SUMMARY');await page.keyboard.press('Enter');assert.equal(await tree.locator('[data-technology="longbow"]').getAttribute('data-technology-state'),'foreign');await tree.locator('[data-technology="longbow"] summary').click();assert.match(await tree.locator('[data-technology="longbow"]').innerText(),/没有长弓兵资质/);
  await page.setViewportSize({width:390,height:844});await tree.locator('.technology-progress').scrollIntoViewIfNeeded();await page.screenshot({path:out+'/mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.equal(await tree.evaluate(el=>el.scrollWidth>el.clientWidth),false);
  const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));validateCampaign(stored);assert.equal(stored.cities.find(c=>c.id==='xuchang').domestic.research.progress,progress);assert.deepEqual(errors,[]);
- writeFileSync(out+'/summary.json',JSON.stringify({progress,workedDays:3,localNodes:10,allNodes:20,visionRadius:32,errors},null,2));console.log('PASS city technology tree: real saved progress, conditions, persistent watchtower, keyboard and desktop/mobile layout');
+ writeFileSync(out+'/summary.json',JSON.stringify({progress,workedDays:3,localNodes:13,allNodes:23,visionRadius:32,errors},null,2));console.log('PASS city technology tree: real saved progress, conditions, persistent watchtower, keyboard and desktop/mobile layout');
 }catch(error){if(page){await page.screenshot({path:out+'/failure.png',fullPage:true});console.log((await page.locator('body').innerText()).slice(-5000));}throw error;}finally{await browser?.close();server.kill();}

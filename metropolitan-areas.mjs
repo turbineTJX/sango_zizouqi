@@ -1,6 +1,7 @@
 import {buildingDurability,buildingWorkMode} from './building-durability.mjs';
 import {METROPOLITAN_RULES as RULES} from './data/design/metropolitan-areas.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
+import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
 
 const topologyCache=new WeakMap();
 const nodes=s=>[...s.cities,...(s.junctions||[])];
@@ -39,6 +40,7 @@ export function localBuildingLevel(c,key,siteId){
 }
 export function localBuildingLimit(s,c,key,siteId=c.id){
  const p=ECONOMY_RULES.development;
+ if(BUILDING_DESIGNS[key]?.maximumLevel)return Math.min(BUILDING_DESIGNS[key].maximumLevel,siteId===c.id?p.localLevels.infrastructure:p.externalLevels[topology(s).byId.get(siteId)?.kind]?.other||0);
  if(key==='walls')return siteId===c.id?p.localLevels.infrastructure:0;
  if(siteId===c.id)return p.economicBuildings.includes(key)?p.localLevels[p.richCities.includes(c.id)?'rich':c.citySize==='small'?'small':'large']:p.localLevels.infrastructure;
  const n=topology(s).byId.get(siteId),levels=p.externalLevels[n?.kind];

@@ -1,0 +1,3462 @@
+{
+  "rulesVersion": 112,
+  "scope": "Behavior only; no balance or historical win-rate conclusion.",
+  "cases": [
+    {
+      "seed": 11173,
+      "terrain": "land",
+      "kind": "field",
+      "facilitySide": 0,
+      "tick": 171,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 0,
+      "buildingHits": 0,
+      "healing": 78,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "person-46"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3712,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 1676,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "ju"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 48,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "ju"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 11173,
+      "terrain": "land",
+      "kind": "field",
+      "facilitySide": 1,
+      "tick": 233,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 7,
+      "buildingHits": 0,
+      "healing": 527,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3868,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 296,
+            "status": "active",
+            "target": "person-46"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yuanxia"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yuanxia"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yuanxia"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 11173,
+      "terrain": "land",
+      "kind": "siege",
+      "facilitySide": 0,
+      "tick": 141,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 24,
+      "buildingHits": 0,
+      "healing": 412,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2928,
+            "status": "active",
+            "target": "gao"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3591,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1528,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1411,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 64,
+            "status": "active",
+            "target": "he"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "gao"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "liao"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 11173,
+      "terrain": "land",
+      "kind": "siege",
+      "facilitySide": 1,
+      "tick": 134,
+      "result": {
+        "winner": 1,
+        "reason": "击溃"
+      },
+      "towerShots": 16,
+      "buildingHits": 0,
+      "healing": 464,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "tian"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "ju"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "ju"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2555,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 1488,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3940,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1342,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "yuanxia"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 11173,
+      "terrain": "hill",
+      "kind": "field",
+      "facilitySide": 0,
+      "tick": 392,
+      "result": {
+        "winner": 1,
+        "reason": "击溃"
+      },
+      "towerShots": 6,
+      "buildingHits": 0,
+      "healing": 182,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "ju"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "person-46"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 367,
+            "status": "active",
+            "target": "chu"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yuanxia"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 11173,
+      "terrain": "hill",
+      "kind": "field",
+      "facilitySide": 1,
+      "tick": 165,
+      "result": {
+        "winner": 1,
+        "reason": "击溃"
+      },
+      "towerShots": 8,
+      "buildingHits": 0,
+      "healing": 0,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yuanxia"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 1833,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3650,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 947,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1898,
+            "status": "active",
+            "target": "yuanxia"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 11173,
+      "terrain": "hill",
+      "kind": "siege",
+      "facilitySide": 0,
+      "tick": 147,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 21,
+      "buildingHits": 0,
+      "healing": 519,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2281,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3488,
+            "status": "active",
+            "target": "he"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3821,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1670,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 362,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 141,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "person-46"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 11173,
+      "terrain": "hill",
+      "kind": "siege",
+      "facilitySide": 1,
+      "tick": 135,
+      "result": {
+        "winner": 1,
+        "reason": "击溃"
+      },
+      "towerShots": 26,
+      "buildingHits": 0,
+      "healing": 466,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "wen"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "tian"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 1881,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 815,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 4000,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1751,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1395,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1799,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "land",
+      "kind": "field",
+      "facilitySide": 0,
+      "tick": 159,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 0,
+      "buildingHits": 0,
+      "healing": 81,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3404,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2275,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 250,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 309,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "person-46"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "land",
+      "kind": "field",
+      "facilitySide": 1,
+      "tick": 221,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 15,
+      "buildingHits": 1,
+      "healing": 661,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 4,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3861,
+            "status": "active",
+            "target": "he"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "facility-musicStage"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yuanxia"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "land",
+      "kind": "siege",
+      "facilitySide": 0,
+      "tick": 141,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 24,
+      "buildingHits": 0,
+      "healing": 385,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 210,
+            "status": "active",
+            "target": "shao"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3122,
+            "status": "active",
+            "target": "gao"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3634,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1787,
+            "status": "active",
+            "target": "he"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1251,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 208,
+            "status": "active",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "ju"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jia"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "liao"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "land",
+      "kind": "siege",
+      "facilitySide": 1,
+      "tick": 134,
+      "result": {
+        "winner": 1,
+        "reason": "击溃"
+      },
+      "towerShots": 17,
+      "buildingHits": 0,
+      "healing": 445,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "wen"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "ju"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 546,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2845,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 4000,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1469,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 448,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "yuanxia"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "hill",
+      "kind": "field",
+      "facilitySide": 0,
+      "tick": 171,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 5,
+      "buildingHits": 0,
+      "healing": 180,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2406,
+            "status": "active",
+            "target": "he"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2641,
+            "status": "active",
+            "target": "he"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "person-46"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "he"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "he"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "hill",
+      "kind": "field",
+      "facilitySide": 1,
+      "tick": 159,
+      "result": {
+        "winner": 1,
+        "reason": "击溃"
+      },
+      "towerShots": 11,
+      "buildingHits": 0,
+      "healing": 88,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "ju"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "person-46"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "ju"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 1734,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 1597,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3230,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 679,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1835,
+            "status": "active",
+            "target": "yuanxia"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "hill",
+      "kind": "siege",
+      "facilitySide": 0,
+      "tick": 145,
+      "result": {
+        "winner": 0,
+        "reason": "击溃"
+      },
+      "towerShots": 21,
+      "buildingHits": 0,
+      "healing": 527,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 2455,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3458,
+            "status": "active",
+            "target": "he"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "gao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 3814,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1635,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 391,
+            "status": "active",
+            "target": "ju"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 202,
+            "status": "active",
+            "target": "person-46"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 2000,
+            "status": "active",
+            "target": "person-46"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "jin"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "dun"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "cao"
+          }
+        ]
+      ]
+    },
+    {
+      "seed": 90419,
+      "terrain": "hill",
+      "kind": "siege",
+      "facilitySide": 1,
+      "tick": 142,
+      "result": {
+        "winner": 1,
+        "reason": "击溃"
+      },
+      "towerShots": 26,
+      "buildingHits": 0,
+      "healing": 746,
+      "intent": 0,
+      "maxPreparation": 0,
+      "maxExpansion": 0,
+      "deterministic": true,
+      "units": [
+        [
+          {
+            "id": "cao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "dun",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "liao",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "chu",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "jia",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "shao"
+          },
+          {
+            "id": "yu",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "tian"
+          },
+          {
+            "id": "jin",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          },
+          {
+            "id": "yuanxia",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yan"
+          }
+        ],
+        [
+          {
+            "id": "shao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 1826,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "yan",
+            "type": "halberd",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 156,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "wen",
+            "type": "cavalry",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "yu"
+          },
+          {
+            "id": "he",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 4000,
+            "hp": 4000,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "ju",
+            "type": "halberd",
+            "equipment": {
+              "siege": "tower",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1846,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "tian",
+            "type": "halberd",
+            "equipment": {
+              "siege": "ram",
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1601,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "gao",
+            "type": "spear",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 1908,
+            "status": "active",
+            "target": "yuanxia"
+          },
+          {
+            "id": "person-46",
+            "type": "archer",
+            "equipment": {
+              "siege": null,
+              "ship": null
+            },
+            "initial": 2000,
+            "hp": 0,
+            "status": "defeated",
+            "target": "chu"
+          }
+        ]
+      ]
+    }
+  ]
+}

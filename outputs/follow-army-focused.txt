@@ -1,0 +1,40 @@
+✔ all campaign information is read only and city units are not armies (131.9746ms)
+✔ expedition information follows real city-unit departure without duplication (24.5552ms)
+✔ current status follows actual marching and transfer progress (606.8414ms)
+✔ siege status includes the live battlefield state of a real defending unit (763.704ms)
+✔ prepared troops show active domestic work and deferred orders separately (12.7837ms)
+✔ talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact (354.3258ms)
+✔ an immediate new order recalls the recruiter physically before execution (288.8592ms)
+✔ express transports outrun armies but swept enemy crossings cause total loss without a battle (204.7854ms)
+✔ death, captivity and escape preserve exactly one person; ransom is paid once and return takes time (152.2117ms)
+✔ real battles assign fates to annihilated units and saves preserve their learned abilities (155.5147ms)
+✔ surviving retreating officers stay with their army and reverse the actual road position (47.5922ms)
+✔ a prepared commander visiting talent cannot also defend or depart before returning (313.9403ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (61.8851ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (7.3654ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (121.8478ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (4.5482ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (18.7192ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (6.049ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (16.2071ms)
+✔ departed commander stops providing stratagems: defeated side 0 (2.6608ms)
+✔ departed commander stops providing stratagems: defeated side 1 (1.8188ms)
+✔ departed commander stops providing stratagems: withdrawn side 0 (2.3835ms)
+✔ departed commander stops providing stratagems: withdrawn side 1 (1.9916ms)
+✔ same-name stratagem uses remaining holder after stronger provider leaves (2.4792ms)
+✔ real combat removes defeated providers from both command lists (106.8272ms)
+✔ each connection offers two distinct, bidirectional roads with terrain costs (39.286ms)
+✔ movement budget reflects active troops, commander, morale and hunger (0.2871ms)
+✔ real daily marching spends action points at the selected road cost (19.0527ms)
+✔ opposing armies on different roads pass without a field encounter (10.2057ms)
+✔ a side-road journey survives validation and resumes deterministically (41.9298ms)
+✔ both directions of a road have identical positions and distinct roads diverge (0.1957ms)
+✔ a detour beyond supply range does not provide free supplies (3.0802ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1737.1834

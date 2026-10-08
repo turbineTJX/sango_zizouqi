@@ -34,11 +34,11 @@ try{
  const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
  assert.deepEqual((await read()).battle,state.battle);
  await page.locator('#command-cue').click();
- await dialog.locator('[data-command="assault"]').click();
+ await dialog.locator('[data-command="cao-wuchao"]').click();
  await dialog.waitFor({state:'detached'});
- const saved=await read();assert.equal(saved.battle.commandProgress,0);assert.equal(saved.battle.tick,state.battle.tick);assert.equal(saved.battle.lastCommand.key,'assault');validateSave(saved);
+ const saved=await read();assert.equal(saved.battle.commandProgress,0);assert.equal(saved.battle.tick,state.battle.tick);assert.equal(saved.battle.lastCommand.key,'cao-wuchao');validateSave(saved);
  await page.reload();await page.locator('#command-cue').click();
- assert.ok(await dialog.locator('[data-command="assault"]').isDisabled());
+ assert.ok(await dialog.locator('[data-command="cao-wuchao"]').isDisabled());
  assert.deepEqual((await read()).battle,saved.battle);
  const emptyState=createScenario('custom-battle',4511,20,null,{seed:4511,terrain:'land',ownTeam:[unit('person-472'),unit('chu')],enemyTeam:[unit('shao')],ownTeamRoles:{leader:'person-472',advisor:'chu'}});
  const emptyPage=await browser.newPage({viewport:{width:390,height:844}});emptyPage.on('pageerror',e=>errors.push(e.message));

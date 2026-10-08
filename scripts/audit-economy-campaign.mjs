@@ -1,5 +1,5 @@
 import {mkdir,writeFile} from 'node:fs/promises';
-import {newCampaign,findCampaignRoute,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,findCampaignRoute,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {fillFactionAppointments} from '../faction-affairs.mjs';
 
 const results=[];await mkdir('outputs/economy-campaign',{recursive:true});

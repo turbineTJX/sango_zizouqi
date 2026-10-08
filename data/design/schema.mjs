@@ -1,6 +1,7 @@
 // Supported fields and implemented effect handlers; extend together with the engine.
 export const DESIGN_SCHEMA_VERSION=1;
 export const DESIGN_FIELDS={
+  treasures:['name','kind','bondId','bonus','category','description','status','steps','fraction','cap','totalFraction','totalCap'],
   "traits": [
     "work",
     "strategic",
@@ -82,6 +83,9 @@ export const DESIGN_FIELDS={
     "ward"
   ],
   "stratagems": [
+    "ai",
+    "roster",
+    "cooldown",
     "scope",
     "disciplineDuration",
     "baseStrength",
@@ -95,15 +99,14 @@ export const DESIGN_FIELDS={
     "icon",
     "intentDrain",
     "name",
-    "owner",
-    "pool",
     "resolve",
     "maxUses",
     "zone",
     "shipFireBonus",
     "side",
     "source",
-    "weights"
+    "weights",
+    "scaling", "baseCount", "strikes", "strikeRadius", "randomDamage"
   ],
   "troops": ["category", "tier", "technology", "equipmentSlot",
     "family",
@@ -216,23 +219,20 @@ export const DESIGN_EFFECTS={
     "wildfire"
   ],
   "stratagems": [
+    "forceReserve",
+    "tacticRefresh",
+    "catastrophe",
     "eightFormation",
     "magicImmunity",
     "rapidAdvance",
-    "assault",
+    "shield",
+    "invincible",
+    "ambush",
+    "stun",
     "blockade",
     "cleanse",
-    "cycle",
-    "demoralize",
-    "disrupt",
     "firestorm",
-    "fortify",
-    "haste",
     "heal",
-    "inspire",
-    "range",
-    "regenerate",
-    "relief"
   ]
 };
 

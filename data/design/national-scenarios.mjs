@@ -47,3 +47,19 @@ export const NATIONAL_SCENARIO_SOURCES = [
  ['刘备与汉中背景','https://www.quanxue.cn/ls_zhengshi/sanguozhi/sanguozhi32.html'],
  ['孙权与江东背景','https://www.quanxue.cn/ls_zhengshi/sanguozhi/sanguozhi47.html'],
 ];
+// Gameplay chronology; legendary weapons follow the documented literary setup.
+export const TREASURE_INITIAL_HOLDERS={
+ skyHalberd:{early:'person-661',fictional:'person-661'},
+ greenDragon:{all:'person-99'},serpentSpear:{all:'person-433'},
+ blueSteel:{190:'cao',194:'cao',200:'cao',208:'cao',219:'person-396',fictional:'person-396'},
+ heavenSword:{all:'cao'},
+ ancientBlade:{190:'person-366',194:'person-371',200:'person-371',208:'person-368',219:'person-368',fictional:'person-366'},
+ twinSwords:{all:'person-636'},
+ redHare:{early:'person-661',late:'person-99',fictional:'person-661'},
+ dillu:{208:'person-636',219:'person-636',fictional:'person-636'},
+ shadow:{early:'cao',fictional:'cao',absentAfter:197},
+ yellowLightning:{all:'cao'},
+ medicineBook:{190:'person-705',194:'person-705',200:'person-705',fictional:'person-705'},
+ mengde:{late:'cao',fictional:'cao',absentBefore:200},
+ peaceBook:{fictional:'person-404'}
+};

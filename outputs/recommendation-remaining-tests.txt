@@ -1,0 +1,25 @@
+✔ both current national scenarios store units in cities with no standing map armies (799.8825ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (185.7098ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (16.2436ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (705.9361ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (92.3938ms)
+✔ real sieges build temporary defense from city units and resume deterministically (3001.7781ms)
+✔ departure can prepare an idle officer atomically and invalid departure spends nothing (188.5034ms)
+✔ awaiting siege permits real idle-officer preparation without starting battle or changing source (75.1374ms)
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (3.7276ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (11.756ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (3.1376ms)
+✔ fame adds city manpower rather than free troops (1.976ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (357.6629ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (20.6303ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (0.4751ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (225.9522ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (9.5109ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5228.1438

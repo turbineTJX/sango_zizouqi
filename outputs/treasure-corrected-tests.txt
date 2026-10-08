@@ -1,0 +1,34 @@
+✔ all campaign information is read only and city units are not armies (3235.6506ms)
+✔ expedition information follows real city-unit departure without duplication (135.938ms)
+✔ current status follows actual marching and transfer progress (135333.4849ms)
+✔ siege status includes the live battlefield state of a real defending unit (278.5363ms)
+✔ prepared troops show active domestic work and deferred orders separately (139.8058ms)
+✔ object details reuse dossier format without opening a faction directory (230.634ms)
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (736.114ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (346.453ms)
+✔ generated overview tables stay synchronized with the authoritative records (324.4619ms)
+✔ all 832 assignments allow no independent trait and preserve only genuine mechanisms (33.207ms)
+✔ deleted traits supply no task, governor, transport or personnel multiplier (0.7233ms)
+✔ design rejects numerical traits and accepts ordinary or exclusive mechanism categories (41.1992ms)
+✔ status catalog has unique names, supports current stun and rejects removed status identities (21.3ms)
+✔ continuous intent loss is bounded, and calm does not extinguish fire or restore formation (17.2948ms)
+✔ attack cadence and range use real derived attributes without changing minimum range or skill cooldown (6.1288ms)
+✔ loss of ZOC, root and disarm have independent effects; resolve covers all controls (7.4829ms)
+✔ personal range changes do not increase weapon tactic range (5.7181ms)
+✔ removed opening ambush cannot be equipped or generate an entry status (12.1629ms)
+✔ ambush chooses reachable rear, waits to cast, and first strike confuses for one step (16.6403ms)
+✔ insight exposes hidden units without changing contact; damage breaks stealth and cancels surprise (15.2143ms)
+✔ authored decoy status creates a real target, not a seventh troop or damage shield (10.3142ms)
+✔ prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage (13.2107ms)
+✔ new state saves reject malformed decoys and retired rules (8.4632ms)
+✔ stealth attacks an adjacent ZOC owner instead of chasing the rear (6.089ms)
+✔ stealth movement stops at first ZOC contact and attacks in the same step (5.1936ms)
+✔ contact reveals stealth without granting a free attack during cooldown (5.6843ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 139622.3144

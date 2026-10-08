@@ -1,0 +1,44 @@
+{
+  "mechanisms": 9,
+  "ui": {
+    "passed": true,
+    "checks": [
+      "individual",
+      "selected batch",
+      "all",
+      "formation cancel",
+      "reload",
+      "mobile",
+      "battle lock"
+    ],
+    "errors": []
+  },
+  "verifiedSummary": [
+    "ℹ tests 115\r",
+    "ℹ suites 0\r",
+    "ℹ pass 115\r",
+    "ℹ fail 0\r",
+    "ℹ cancelled 0\r",
+    "ℹ skipped 0\r",
+    "ℹ todo 0\r",
+    "ℹ duration_ms 3708.7525\r"
+  ],
+  "controlFailures": 126,
+  "note": "关闭自动撤离的独立副本仍复现126项失败；本轮新增差异由选择死守的机制用例修正。广泛回归日志见retreat-full-final.txt；本轮相关验证见retreat-verified.txt。",
+  "finalFullRun": {
+    "log": "outputs/retreat-full-current.txt",
+    "status": "blocked at design validation",
+    "errors": [
+      "traits.hero-person-636：未接入字段 mechanics\r",
+      "traits.hero-person-99：未接入字段 mechanics\r",
+      "traits.hero-person-433：未接入字段 mechanics\r",
+      "traits.hero-person-396：未接入字段 mechanics\r",
+      "traits.hero-person-516：未接入字段 mechanics\r",
+      "traits.hero-person-186：未接入字段 mechanics\r",
+      "traits.hero-person-290：未接入字段 mechanics\r",
+      "traits.hero-person-558：未接入字段 mechanics\r"
+    ],
+    "note": "相关115项测试、机制9项与界面验证通过后，工作区出现新增特性mechanics字段但校验器尚未接入，阻止最终整库复核。"
+  },
+  "cleanup": "临时对照目录outputs/retreat-control的清理被自动审批以blocked by policy拒绝，保留目录。"
+}

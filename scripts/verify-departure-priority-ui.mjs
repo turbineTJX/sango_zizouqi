@@ -1,7 +1,7 @@
 import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign} from './automatic-domestic-campaign.mjs';
 import {assignDomestic,beginDomesticTurn,assignmentFor} from '../domestic.mjs';
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),u=c.units[0];

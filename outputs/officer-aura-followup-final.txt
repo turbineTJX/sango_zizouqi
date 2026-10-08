@@ -1,0 +1,46 @@
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (56.8976ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (38.8678ms)
+✔ a stunned unit and pure self buffs do not prime a combo (9.4793ms)
+✔ combo enhances damage-over-time, intent reduction and control duration while respecting immunity (32.1931ms)
+✔ support combos really strengthen shields and do not include unrelated primary targets (7.6978ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (398.868ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (9.7054ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (28.592ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (6.585ms)
+✔ removed auxiliaries cannot be trained or learned; recovery is an identity trait (2.1789ms)
+✔ aura needs its fixed holder, works with every weapon and scales with politics alone (0.8787ms)
+✔ same aura selects one strongest living source, never stacks or helps its own source (0.3833ms)
+✔ camp care political defense and discipline apply across weapons without boosting attack (1.7181ms)
+✔ ordinary officers retain their fixed positive traits at every level (79.0517ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (6.8716ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (282.4817ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (17.9986ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (182.3427ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (148.8582ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (4.4646ms)
+✔ formation selects officers in place, army selects only compiled units (0.9246ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.3537ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.5374ms)
+✔ 当前各兵种都有至少三个低级候选和一个高级候选，所有战法进入唯一池 (1.3876ms)
+✔ S在5级两低一高，A在8级两低一高，B在8级三低，C无保底 (671.335ms)
+✔ 1级专属有获得和未获得结果，5级全部必得，普通将没有专属 (132.1496ms)
+✔ 保底能一次补齐多个缺额，而不是只多抽一次 (1066.6815ms)
+✔ 同种子身份等级结果相同，不同种子随机；换兵种不重抽，玩家只能重排 (10.8459ms)
+✔ AI不替换所学战法，专属不挤掉三普通，四槽能自动施放并确定性续战 (93.5566ms)
+✔ 跨多级与逐级学习一致，升级存档与战略换兵种保持记录 (43.1813ms)
+✔ 所有预设战役生成合法学习记录，旧人工配装不绕过学习 (105.9255ms)
+✔ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (1.1485ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (280.0432ms)
+✔ all 832 officers use family aptitude for subtypes (3.1931ms)
+✔ siege variants have distinct implemented range and gate damage (1.9212ms)
+✔ city technology, faction funds, failed atomic drafts and conversion costs (348.0433ms)
+✔ city form shows local unlocks, family and differentiated costs (33.6957ms)
+✔ all siege variants damage a real gate from zero intent and resume deterministically (136.2315ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2400.6374

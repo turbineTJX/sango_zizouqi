@@ -14,7 +14,7 @@ const slotEntries=(u,map,s)=>Object.entries(u[map]||{}).filter(([id])=>TACTIC_DE
 export const tacticSlotTotal=(u,map,s)=>slotEntries(u,map,s).reduce((n,[,v])=>n+v,0);
 export const tacticReadyAt=(u,s)=>Math.max(0,...slotEntries(u,'skillReady',s).map(([,n])=>n));
 export const tacticUseLimit=(u,s)=>s.maxUses+tacticSlotTotal(u,'tacticUseBonus',s);
-export const tacticUsesLeft=(u,s)=>s.passive?0:Math.max(0,tacticUseLimit(u,s)+tacticSlotTotal(u,'tacticRestored',s)-tacticSlotTotal(u,'tacticCasts',s));
+export const tacticUsesLeft=(u,s)=>s.passive?0:Math.max(0,tacticUseLimit(u,s)+tacticSlotTotal(u,'tacticRestored',s)+tacticSlotTotal(u,'tacticCommandRestored',s)-tacticSlotTotal(u,'tacticCasts',s));
 export const canRestoreTactic=s=>!s.passive&&!s.special&&!s.useEffect;
 export function useRecoveryTargets(u,skills,mode='restore'){
   return skills.filter(s=>canRestoreTactic(s)&&tacticUsesLeft(u,s)<tacticUseLimit(u,s)&&(mode!=='expand'||!tacticSlotTotal(u,'tacticUseBonus',s)));

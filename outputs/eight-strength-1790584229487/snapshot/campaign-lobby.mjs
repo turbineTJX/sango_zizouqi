@@ -1,0 +1,35 @@
+import { HISTORICAL_CAMPAIGNS } from './historical-campaigns.mjs';
+import { TACTICAL_CAMPAIGNS,scenarioTroops } from './tactical-campaigns.mjs';
+import {troopCapacity} from './troop-capacity.mjs';
+import { OFFICER_BY_ID } from './officer-catalog.mjs';
+import { TROOPS } from './unit-stats.mjs';
+import {customBattleMarkup,defaultCustomBattle} from './custom-battle.mjs';
+
+export function modeLobby() {
+  return `<main class="campaign-lobby mode-lobby">
+    <header class="lobby-nav"><a class="lobby-brand" href="#" data-action="lobby"><span>君</span>三国 · 君临</a><span class="lobby-edition">选择模式</span><button class="text-button" data-action="settings">存档与设置</button></header>
+    <section class="lobby-hero"><div class="lobby-hero-copy"><div class="eyebrow">汉末风云 · 君临天下</div><h1>逐鹿天下<br><em>从此启程</em></h1><p>经营一方势力，或亲历一场名战。<br>选择你的征途。</p></div><div class="lobby-art" aria-hidden="true"><div class="lobby-moon"></div><div class="lobby-mountain mountain-back"></div><div class="lobby-mountain mountain-front"></div><div class="war-banner banner-one">魏</div><div class="war-banner banner-two">蜀</div><div class="war-banner banner-three">吴</div><span class="art-caption">江山如画 · 群雄逐鹿</span></div></section>
+    <section class="mode-selection" aria-label="选择游戏模式">
+      <button class="mode-card" data-action="strategy"><span class="eyebrow">经营 · 行军 · 征战</span><h2>普通模式</h2><p>从天下大地图出发，治理城池、编练军团，逐日行军并指挥战斗。</p><span class="mode-enter">选择天下剧本 →</span><small>87 处据点 · 官渡风云 / 英雄集结</small></button>
+      <button class="mode-card" data-action="campaign-lobby"><span class="eyebrow">历史名战 · 演义推演</span><h2>战役模式</h2><p>选择独立战役，部署诸将与战法，在一场交锋中决定胜负。</p><span class="mode-enter">选择战役 →</span><small>九场战役可选，可继续已有战役</small></button>
+    </section><footer class="lobby-footer"><div><button class="button primary" data-action="load">读取存档</button><button class="text-button" data-action="scenarios">演武试炼</button></div></footer>
+  </main>`;
+}
+
+export function campaignLobby(selectedId, resume, customDraft=defaultCustomBattle(), customOnly=false) {
+  if(customOnly)return `<main class="campaign-lobby custom-workspace"><header class="lobby-nav"><a class="lobby-brand" href="#" data-action="lobby"><span>君</span>三国 · 君临</a><button class="button secondary" data-action="campaign-lobby">返回战役列表</button></header>${customBattleMarkup(customDraft)}</main>`;
+  const s=[...HISTORICAL_CAMPAIGNS,...TACTICAL_CAMPAIGNS].find(s=>s.id===selectedId)||HISTORICAL_CAMPAIGNS[0];
+  const catalogue=s.historical?HISTORICAL_CAMPAIGNS:TACTICAL_CAMPAIGNS;
+  const era=c=>c.year?`公元 ${c.year} 年`:c.era;
+  const roster=(entries,side)=>entries.map((u,i)=>`<span title="${i>=6?'预备队 · ':''}统率与等级决定带兵上限"><b>${OFFICER_BY_ID[u.id].name}</b><small>${TROOPS[u.type].name}${i>=6?' · 备':''}</small><strong>${(u.troops??(side?s.enemyTroops:s.ownTroops)).toLocaleString('zh-CN')}</strong><small>上限 ${troopCapacity({...OFFICER_BY_ID[u.id],level:u.level??(side?s.enemyLevel:s.level)}).toLocaleString('zh-CN')}</small></span>`).join('');
+  return `<main class="campaign-lobby">
+    <header class="lobby-nav"><a class="lobby-brand" href="#" data-action="lobby"><span>君</span>三国 · 君临</a><span class="lobby-edition">战役模式</span><button class="text-button" data-action="lobby">返回模式选择</button></header>
+    <section class="lobby-hero"><div class="lobby-hero-copy"><div class="eyebrow">三国战纪 · 群英列阵</div><h1>置身名战<br><em>由你指挥</em></h1><p>重返历史名战，推演群英之间的攻守。<br>选择一场战役，部署诸将，亲自决定进退。</p><div class="lobby-pills"><span>各将独立带兵</span><span>布阵与查看战法</span><span>随时暂停下令</span></div></div><div class="lobby-art" aria-hidden="true"><div class="lobby-moon"></div><div class="lobby-mountain mountain-back"></div><div class="lobby-mountain mountain-front"></div><div class="war-banner banner-one">魏</div><div class="war-banner banner-two">蜀</div><div class="war-banner banner-three">吴</div><span class="art-caption">一役之间，风云再起</span></div></section>
+    ${resume?`<section class="lobby-resume"><div><span class="live-dot"></span><b>${resume.name}</b><span>${resume.stage}</span></div><button class="button secondary" data-action="continue-history" ${resume.invalid?'disabled':''}>${resume.invalid?'请重新开始':resume.finished?'查看战报':'继续战役'} →</button></section>`:''}
+    <section class="lobby-selection" aria-labelledby="battle-selection-title"><div class="lobby-section-title"><h2 id="battle-selection-title">选择战役</h2><span>九场独立战役 · 全部开放</span><button class="button secondary" data-action="custom-setup">自定义战役 · 编制双方军团</button></div><div class="campaign-tabs" aria-label="战役类别"><button data-action="campaign-category" data-category="historical" class="${s.historical?'active':''}" aria-pressed="${s.historical}">历史战役 <small>4</small></button><button data-action="campaign-category" data-category="tactical" class="${!s.historical?'active':''}" aria-pressed="${!s.historical}">演义推演 <small>5</small></button></div><div class="lobby-battles"><div class="historical-list">${catalogue.map(c=>`<button class="historical-card ${c.id===s.id?'selected':''}" data-action="select-history" data-scenario="${c.id}" aria-pressed="${c.id===s.id}"><span class="chapter">${c.chapter}</span><span class="historical-card-copy"><small>${era(c)} · ${c.kind}</small><strong>${c.name}</strong><span>${c.subtitle}</span></span><span class="history-difficulty">${c.difficulty}<small>${c.feature}</small></span></button>`).join('')}</div>
+    <article class="historical-detail" aria-label="${s.name}战役简报"><div class="eyebrow">${s.kind} · ${s.feature}</div><h2>${s.name}<small>${era(s)}</small></h2><p class="historical-intro">${s.description}</p><div class="historical-armies"><section><h3>你将指挥 · ${s.ownName}<small>${scenarioTroops(s,0).toLocaleString('zh-CN')} 人 · Lv.${s.level}</small></h3><div class="historical-roster">${roster(s.ownTeam,0)}</div></section><section><h3>对阵 · ${s.enemyName}<small>${scenarioTroops(s,1).toLocaleString('zh-CN')} 人 · Lv.${s.enemyLevel}</small></h3><div class="historical-roster">${roster(s.enemyTeam,1)}</div></section></div>${s.waves.length?`<p class="history-waves">敌军首发 ${Math.min(6,s.enemy)} 队；${s.waves.map(w=>`${w.tick} 日：${w.count} 队增援`).join('；')}。</p>`:''}<div class="historical-objective"><b>本役目标</b><p>${s.goal}</p></div><details class="historical-briefing"><summary>指挥提示与场景说明</summary><p>${s.briefing}</p><p>${s.history}</p></details><button class="button primary full history-launch" data-action="launch-history" data-scenario="${s.id}">出战 · 前往布阵 <span>→</span></button><button class="button secondary full" data-action="preset-edit" data-scenario="${s.id}">载入自定义战役 · 修改后对照</button><small class="history-save-note">${resume?'开始新战役将替换当前战役进度。':'自动保存本场进度，随时回来继续。'}</small></article></div></section>
+
+    <section class="lobby-howto"><span><b>01</b> 选择战役</span><i>→</i><span><b>02</b> 布阵 · 核阅战法</span><i>→</i><span><b>03</b> 开战 · 暂停下令</span><i>→</i><span><b>04</b> 战报 · 重试</span></section>
+    <footer class="lobby-footer"><p>历史战役经过玩法缩编；演义推演为虚构对局。每将显示实际兵力与带兵上限，胜负由实战决定。</p><div><button class="text-button" data-action="scenarios">演武试炼</button><button class="text-button" data-action="strategy">天下战略 <small>内政 · 行军 · 战役</small></button></div></footer>
+  </main>`;
+}

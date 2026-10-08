@@ -1,0 +1,42 @@
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营0 (19.2201ms)
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营1 (3.7188ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (243.9578ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (282.5399ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (244.8687ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (226.9121ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (95.1413ms)
+✔ 军略不检查接敌距离，远近均按固定条件施放 (5.9867ms)
+✔ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (11.8796ms)
+✔ field：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (391.6557ms)
+✔ terrain：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (322.9401ms)
+✔ river：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (306.7785ms)
+✔ circle and rotated rectangle use rendered geometry, inclusive boundary (0.7635ms)
+✔ missing, malformed and empty selection leave resources and effects unchanged (22.7564ms)
+✔ fire only applies inside rectangle and does not concentrate excluded target budget (124.7303ms)
+✔ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (3.3589ms)
+✔ enemy uses identical selected geometry (2.9668ms)
+✔ demoralize affects only selected active enemies and AI chooses effective coverage (3.9057ms)
+✔ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (3.7876ms)
+✔ AI excludes burning, untargetable and reserve units, and skips unusable area commands (0.2935ms)
+✔ heal highlights only real wounded and confirmation is disabled without useful targets (0.5124ms)
+✔ zero-intent troops are not scored or highlighted for demoralize; both sides share placement (0.5017ms)
+✔ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (1.8378ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (17.4715ms)
+✔ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (83.2861ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (71.1565ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (55.9544ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (54.6424ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (47.9561ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (39.8886ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (31.5979ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (34.8605ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.353ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.7522ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1289.6645

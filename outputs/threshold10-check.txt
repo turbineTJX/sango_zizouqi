@@ -1,0 +1,51 @@
+
+> sango-sovereign@0.3.0 design:export
+> node scripts/design-tables.mjs export
+
+设计表导出通过：{"战役预设":20,"待接入表":18,"内政动作":41,"建筑":9,"全国道路":151,"入门道路":16,"特技":94,"战法":89,"军略":20,"兵种":9,"武将":832,"全国据点":87,"入门据点":9}
+
+> sango-sovereign@0.3.0 design:check
+> node scripts/design-tables.mjs check
+
+设计表校验通过：{"战役预设":20,"待接入表":18,"内政动作":41,"建筑":9,"全国道路":151,"入门道路":16,"特技":94,"战法":89,"军略":20,"兵种":9,"武将":832,"全国据点":87,"入门据点":9}
+
+> sango-sovereign@0.3.0 design:verify
+> node scripts/design-tables.mjs verify
+
+设计表同步检查通过：{"战役预设":20,"待接入表":18,"内政动作":41,"建筑":9,"全国道路":151,"入门道路":16,"特技":94,"战法":89,"军略":20,"兵种":9,"武将":832,"全国据点":87,"入门据点":9}
+
+> sango-sovereign@0.3.0 test:design
+> node --test tests/design-tables.test.mjs tests/design-strategy.test.mjs
+
+✔ strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values (130.862ms)
+✔ edited action/building/road/movement records drive real autonomous work, routing and saves (1748.1125ms)
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (216.9653ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (250.6376ms)
+✔ generated overview tables stay synchronized with the authoritative records (229.1193ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1984.3208
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (22.3328ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (35.8576ms)
+✔ overlapping interception remains after harass disables one owner (4.3903ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (3.5251ms)
+✔ out-of-range rear does not displace an attackable front (3.7583ms)
+✔ real cleanse restores interception without waiting for disruption expiry (2.5954ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (4.5598ms)
+✔ nearby wounded front takes priority over a healthy ranged target (3.7483ms)
+✔ real mirage protects a wounded ally, forces retarget, blocks DOT, and resumes deterministically (12.2727ms)
+✔ mirage cannot chain invulnerability during the shared lock (2.969ms)
+✔ enemy side uses the same finisher priority and excludes protected targets (3.9748ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 280.8985

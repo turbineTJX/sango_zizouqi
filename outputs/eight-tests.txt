@@ -1,0 +1,14 @@
+✔ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (47.4356ms)
+✔ discipline directly reduces probability; duration and odds do not use unrelated officer attributes (4.9218ms)
+✔ each round checks actual occupants, never allies, reserves or protected targets; expiry stops checking (3.8454ms)
+✔ live formation causes real random statuses, survives reload, and expires after eighteen rounds (76.3849ms)
+✔ area saves reject forged location, duration, source, duplicate zones and missing new state (9.1944ms)
+✔ enemy formation uses the same target side and probability rules (1.7448ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 326.2758

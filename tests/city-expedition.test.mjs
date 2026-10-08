@@ -2,7 +2,7 @@ import {fundCities} from './resource-fixtures.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,prepareSiegeUnits,launchExpedition,prepareCityUnits,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,assignDomestic} from '../strategic-campaign.mjs';
+import {newCampaign,prepareSiegeUnits,launchExpedition,prepareCityUnits,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,assignDomestic} from './helpers/auto-domestic-campaign.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {ACTIONS,assignmentFor} from '../domestic.mjs';
 import {campaignOfficers} from '../strategic-roster.mjs';

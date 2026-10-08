@@ -1,0 +1,9 @@
+{"scenario":"heroes-251","player":"yuan","day":31}
+{"scenario":"heroes-251","player":"yuan","day":61}
+{"scenario":"heroes-251","player":"yuan","day":91}
+{"scenario":"heroes-251","player":"yuan","day":121}
+{"scenario":"heroes-251","player":"yuan","day":151}
+{"scenario":"heroes-251","player":"yuan","day":181}
+{"scenario":"heroes-251","player":"yuan","day":211}
+{"scenario":"heroes-251","player":"yuan","day":241}
+{"scenario":"heroes-251","seed":8123,"player":"yuan","day":241,"finished":null,"issues":[],"findings":[],"metrics":{"cao":{"name":"曹操","startCities":22,"completed":1459,"failed":504,"interrupted":21,"assignments":33,"decisions":{"stage":33,"attack":13,"transport":28,"retreat":4,"hold":8,"reinforce":4,"transfer":6},"captures":12,"losses":3,"battles":16,"wins":13,"defeats":3,"plans":13,"hungryArmyDays":0,"hungryCityDays":0,"endCities":31,"gold":346582,"activeAssignments":134},"force-2":{"name":"刘备","startCities":23,"completed":1142,"failed":404,"interrupted":16,"assignments":109,"decisions":{"attack":13,"stage":42,"retreat":23,"hold":18,"transport":55,"transfer":6,"reinforce":1},"captures":3,"losses":5,"battles":11,"wins":3,"defeats":8,"plans":17,"hungryArmyDays":0,"hungryCityDays":0,"endCities":21,"gold":358748,"activeAssignments":70},"sunce":{"name":"孙策","startCities":27,"completed":1335,"failed":482,"interrupted":25,"assignments":96,"decisions":{"stage":34,"hold":17,"reinforce":6,"retreat":10,"attack":13,"transport":16,"transfer":5},"captures":10,"losses":6,"battles":20,"wins":13,"defeats":7,"plans":14,"hungryArmyDays":0,"hungryCityDays":0,"endCities":31,"gold":507581,"activeAssignments":118}}}

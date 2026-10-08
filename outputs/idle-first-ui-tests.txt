@@ -1,0 +1,22 @@
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (97.2679ms)
+✔ matrix keeps candidate rows while selections add and remove columns (38.9636ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (65.602ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (104.1201ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (128.0465ms)
+✔ appointed prepared units actually defend the city, interrupt work under siege and retain civil appointments (503.515ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (342.3653ms)
+✔ a changed officer state blocks final formation without partial changes (32.1614ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (24.0677ms)
+✔ ordinary formation owns officer selection and army selection lists compiled units (53.5085ms)
+✔ domestic appointment exposes six simple directions and keeps commerce and agriculture separate (10.1215ms)
+✔ army composition displays current work and puts idle units first without changing their jobs (289.126ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (309.6997ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (76.5519ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1050.2077

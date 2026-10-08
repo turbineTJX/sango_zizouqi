@@ -1,0 +1,69 @@
+✖ a real control cast opens ZOC and the next allied charge exploits it (25.0888ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (3.2511ms)
+✔ sealing the actual harasser prevents opening the blocking line (2.4774ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (4.8892ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (1.694ms)
+✔ zero-intent generator trial uses natural learned tactics and resumes deterministically (146.5795ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (2.2806ms)
+✖ instant skills spend shared intent and recovery separates learned casts (15.0904ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (14.7977ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (19.2686ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (16.9998ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (8.438ms)
+✔ formation and gallop grant real statuses; rush needs a legal path (12.2135ms)
+✔ blocked displacement never overlaps units or crosses board limits (4.8004ms)
+✔ current rare tactical control requires its actual exclusive holder (13.5605ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (19.4403ms)
+✔ formation mitigates actual damage and shields absorb before soldiers (10.2131ms)
+✔ prepaid casts and previous save formats are rejected (5.0482ms)
+✔ new saves distinguish bows and crossbows and require current rules (3.0347ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 17
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 372.2087
+
+✖ failing tests:
+
+test at tests\breakthrough.test.mjs:13:1
+✖ a real control cast opens ZOC and the next allied charge exploits it (25.0888ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(b.effects.some(e=>e.text==='拦截中断'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/breakthrough.test.mjs:20:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:30:1
+✖ instant skills spend shared intent and recovery separates learned casts (15.0904ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactics.test.mjs:32:23)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

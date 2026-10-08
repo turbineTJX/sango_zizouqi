@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,orderCampaignArmy,beginExecution,advanceCampaignDay,advanceCampaignStep,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,orderCampaignArmy,beginExecution,advanceCampaignDay,advanceCampaignStep,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {movementPoints,marchItinerary} from '../strategic-movement.mjs';
 import {strategicTravelDays} from '../strategic-ai.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';

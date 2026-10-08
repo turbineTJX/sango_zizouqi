@@ -1,5 +1,5 @@
 // Viewing an object leaves its source list available for the next selection.
-export const isObjectDetail=view=>!!view.textDetails||['unit-stats','unit-officer','tactic-detail','gate','catalog-detail','scenario-army-info','campaign-history','campaign-archive','campaign-replay'].includes(view.modal)||view.modal==='campaign-info'&&!!view.infoView?.id;
+export const isObjectDetail=view=>!!view.textDetails||['unit-stats','unit-officer','tactic-detail','gate','battle-building','catalog-detail','scenario-army-info','campaign-history','campaign-archive','campaign-replay'].includes(view.modal)||view.modal==='campaign-info'&&!!view.infoView?.id;
 
 export function createDetailPanels(root){
  const sourceRoot=document.createElement('div'),panelRoot=document.createElement('div');

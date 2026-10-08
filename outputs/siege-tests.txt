@@ -1,0 +1,97 @@
+✔ four officer stats affect separate derived attributes, with no charm dimension (5.4928ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (81.2461ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (4.3063ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (14.3322ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (6.414ms)
+✔ politics reduces actual confusion duration but physical stun remains independent (17.8944ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (2.559ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (25.0262ms)
+✔ cleave charges each victim once without charging the caster (27.9036ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (108.5272ms)
+✔ curse stacks through normal attacks, caps at three, lowers separate stats, and purify clears it (7.391ms)
+✔ blight reduces immediate and periodic healing, while purify removes it before healing (29.1649ms)
+✔ phantoms absorb bounded direct hits, ignore DOT, and never create a seventh unit or ZOC (6.3075ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (3.737ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (200.627ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (6.3862ms)
+✖ two real ram casts can link against the gate and increase the second hit (17.4763ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (280.7575ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (61.2801ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (270.4ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (307.1167ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (759.6105ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (489.0102ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (416.7867ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (153.4103ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (127.1004ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (89.6674ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1509.4049ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (192.2074ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (341.7188ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (361.3887ms)
+✔ river: complete battle, reserves, save recovery and settlement (399.6208ms)
+✔ breach: complete battle, reserves, save recovery and settlement (126.3726ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (151.5579ms)
+✔ field: complete battle, reserves, save recovery and settlement (328.5152ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (268.5966ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (651.5157ms)
+✔ siege: complete battle, reserves, save recovery and settlement (542.2915ms)
+✔ defense: complete battle, reserves, save recovery and settlement (3422.5907ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (591.9918ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (10.401ms)
+✔ sieges add an independent gate and shields only to defending starters (34.7308ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (5.9803ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (17.5522ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (37.2836ms)
+✔ fixture and seed validation rejects malformed test state (14.7496ms)
+✔ spear: gate attacks use derived siege power once, including casualties and attack buffs (40.8071ms)
+✔ halberd: gate attacks use derived siege power once, including casualties and attack buffs (18.5194ms)
+✔ cavalry: gate attacks use derived siege power once, including casualties and attack buffs (15.8554ms)
+✔ archer: gate attacks use derived siege power once, including casualties and attack buffs (15.4823ms)
+✔ crossbow: gate attacks use derived siege power once, including casualties and attack buffs (14.8148ms)
+✔ logistics: gate attacks use derived siege power once, including casualties and attack buffs (10.8898ms)
+✔ siege: gate attacks use derived siege power once, including casualties and attack buffs (15.6807ms)
+✔ ship: gate attacks use derived siege power once, including casualties and attack buffs (11.3933ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (4.1195ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (24.5077ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (50.3732ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (30.6ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (30.009ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (32.765ms)
+✔ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (25.8929ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (9.9996ms)
+✔ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (23.7663ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (22.0583ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (13.02ms)
+✔ firestorm is bounded by friendly power, not enemy army size (90.9565ms)
+ℹ tests 66
+ℹ suites 0
+ℹ pass 65
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11787.2566
+
+✖ failing tests:
+
+test at tests\expanded-troops.test.mjs:99:1
+✖ two real ram casts can link against the gate and increase the second hit (17.4763ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(Math.abs(linked.damage/solo.damage-1.25)<.01)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/expanded-troops.test.mjs:106:101)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

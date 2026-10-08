@@ -1,0 +1,1 @@
+Retreat UI passed: individual, selected/all, details return, reload, mobile, lock.

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "downgrade": {
+    "id": "cao",
+    "before": 3,
+    "after": 2,
+    "gained": -111
+  },
+  "maxLevelBalance": 777,
+  "errors": []
+}

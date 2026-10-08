@@ -1,0 +1,630 @@
+Statistical profiling result from C:\Users\TJX\Documents\ChatGPT\sango\outputs\isolate-0000025E45254000-27152-national-building-profile.log, (4041 ticks, 17 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   2981   73.8%          C:\Program Files\nodejs\node.exe
+     20    0.5%          C:\WINDOWS\SYSTEM32\ntdll.dll
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+    149    3.7%   14.3%  Builtin: LoadIC
+    147    3.6%   14.1%  JS: *campaignRoads file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:5:30
+     93    2.3%    8.9%  Builtin: ArrayTimSort
+     63    1.6%    6.1%  JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     62    1.5%    6.0%  JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+     54    1.3%    5.2%  Builtin: ArrayPrototypeJoin
+     46    1.1%    4.4%  Builtin: StringEqual
+     40    1.0%    3.8%  Builtin: KeyedLoadIC_Megamorphic
+     38    0.9%    3.7%  Builtin: FindOrderedHashMapEntry
+     37    0.9%    3.6%  Builtin: ArrayPrototypeSort
+     18    0.4%    1.7%  JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+     18    0.4%    1.7%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     17    0.4%    1.6%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:240:49
+     12    0.3%    1.2%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:6:19
+     12    0.3%    1.2%  Builtin: CloneObjectIC_Slow
+     11    0.3%    1.1%  JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+     11    0.3%    1.1%  Builtin: RecordWriteSaveFP
+     10    0.2%    1.0%  JS: *adjacentCityPath file:///C:/Users/TJX/Documents/ChatGPT/sango/road-network.mjs:36:33
+      9    0.2%    0.9%  Builtin: KeyedStoreIC_Megamorphic
+      9    0.2%    0.9%  Builtin: CloneObjectIC
+      9    0.2%    0.9%  Builtin: CallFunction_ReceiverIsNullOrUndefined
+      8    0.2%    0.8%  Builtin: ToObject
+      8    0.2%    0.8%  Builtin: Store_FastObjectElements_0
+      8    0.2%    0.8%  Builtin: MathHypot
+      7    0.2%    0.7%  Builtin: LoadICTrampoline
+      6    0.1%    0.6%  Builtin: Load_FastObjectElements_0
+      6    0.1%    0.6%  Builtin: LoadJoinElement_FastSmiOrObjectElements_0
+      6    0.1%    0.6%  Builtin: FindOrderedHashSetEntry
+      6    0.1%    0.6%  Builtin: ArrayFilter
+      5    0.1%    0.5%  Builtin: StringCompare
+      5    0.1%    0.5%  Builtin: StrictEqual
+      5    0.1%    0.5%  Builtin: ObjectEntries
+      5    0.1%    0.5%  Builtin: GrowFastSmiOrObjectElements
+      4    0.1%    0.4%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:120:154
+      4    0.1%    0.4%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:9:48
+      4    0.1%    0.4%  Builtin: CallFunction_ReceiverIsAny
+      4    0.1%    0.4%  Builtin: ArrayMap
+      3    0.1%    0.3%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:38:55
+      3    0.1%    0.3%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:119:221
+      3    0.1%    0.3%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:109:28
+      3    0.1%    0.3%  Builtin: FastNewClosure
+      2    0.0%    0.2%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:52:18
+      2    0.0%    0.2%  Builtin: MergeAt
+      2    0.0%    0.2%  Builtin: FlattenIntoArrayWithoutMapFn
+      2    0.0%    0.2%  Builtin: CreateShallowObjectLiteral
+      2    0.0%    0.2%  Builtin: Copy
+      2    0.0%    0.2%  Builtin: Call_ReceiverIsNullOrUndefined
+      2    0.0%    0.2%  Builtin: Call_ReceiverIsNotNullOrUndefined_Baseline_Compact
+      2    0.0%    0.2%  Builtin: Add_Baseline
+      1    0.0%    0.1%  JS: ^technologyRequirements file:///C:/Users/TJX/Documents/ChatGPT/sango/city-technology.mjs:13:39
+      1    0.0%    0.1%  JS: ^supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+      1    0.0%    0.1%  JS: ^cityIncomeBreakdown file:///C:/Users/TJX/Documents/ChatGPT/sango/economy.mjs:20:36
+      1    0.0%    0.1%  JS: +visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      1    0.0%    0.1%  JS: +troopAptitude file:///C:/Users/TJX/Documents/ChatGPT/sango/tactic-learning.mjs:10:30
+      1    0.0%    0.1%  JS: +clear file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:61:14
+      1    0.0%    0.1%  JS: +cityForce file:///C:/Users/TJX/Documents/ChatGPT/sango/city-units.mjs:5:26
+      1    0.0%    0.1%  JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      1    0.0%    0.1%  JS: +actionCandidates file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:110:33
+      1    0.0%    0.1%  JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:162
+      1    0.0%    0.1%  JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:38:55
+      1    0.0%    0.1%  JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:62:65
+      1    0.0%    0.1%  JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      1    0.0%    0.1%  JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:9:48
+      1    0.0%    0.1%  JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:76:36
+      1    0.0%    0.1%  JS: *on file:///C:/Users/TJX/Documents/ChatGPT/sango/unit-stats.mjs:16:11
+      1    0.0%    0.1%  JS: *mapNode file:///C:/Users/TJX/Documents/ChatGPT/sango/map-node-data.mjs:2:24
+      1    0.0%    0.1%  JS: *diplomaticPassage file:///C:/Users/TJX/Documents/ChatGPT/sango/diplomacy-relations.mjs:16:34
+      1    0.0%    0.1%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:119:152
+      1    0.0%    0.1%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:114:36
+      1    0.0%    0.1%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:374:36
+      1    0.0%    0.1%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:59:25
+      1    0.0%    0.1%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:18:33
+      1    0.0%    0.1%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-units.mjs:3:57
+      1    0.0%    0.1%  JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/activity-nodes.mjs:10:35
+      1    0.0%    0.1%  Builtin: SortCompareDefault
+      1    0.0%    0.1%  Builtin: SetOrSetIteratorToList
+      1    0.0%    0.1%  Builtin: MapPrototypeSet
+      1    0.0%    0.1%  Builtin: KeyedStoreIC
+      1    0.0%    0.1%  Builtin: GallopLeft
+      1    0.0%    0.1%  Builtin: DefineNamedOwnIC
+      1    0.0%    0.1%  Builtin: CloneFastJSArrayFillingHoles
+      1    0.0%    0.1%  Builtin: CanUseSameAccessor_FastObjectElements_0
+      1    0.0%    0.1%  Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+      1    0.0%    0.1%  Builtin: CEntry_Return1_ArgvOnStack_BuiltinExit
+      1    0.0%    0.1%  Builtin: ArraySome
+      1    0.0%    0.1%  Builtin: ArrayPrototypePush
+      1    0.0%    0.1%  Builtin: ArrayPrototypeFlatMap
+      1    0.0%    0.1%  Builtin: ArrayIteratorPrototypeNext
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+   1023   25.3%   98.4%  JavaScript
+      0    0.0%    0.0%  C++
+     69    1.7%    6.6%  GC
+   3001   74.3%          Shared libraries
+     17    0.4%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   2981   73.8%  C:\Program Files\nodejs\node.exe
+   2836   95.1%    C:\Program Files\nodejs\node.exe
+   2259   79.7%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+   2174   96.2%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+   2174  100.0%          Builtin: ArrayFilter
+   1912   87.9%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+    262   12.1%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     69    3.1%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     69  100.0%          Builtin: ArrayFilter
+     69  100.0%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+    217    7.7%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:240:49
+    217  100.0%        Builtin: ArrayPrototypeSort
+    213   98.2%          JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+    141   66.2%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     33   15.5%            JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+     28   13.1%            JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      5    2.3%            JS: +perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      3    1.4%            JS: ^transferOfficer file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:285:32
+      3    1.4%          JS: ^findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+      3  100.0%            JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+    190    6.7%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:109:28
+    190  100.0%        Builtin: ArrayMap
+    171   90.0%          JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     83   48.5%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     52   30.4%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     14    8.2%            JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      8    4.7%            JS: ^observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      6    3.5%            JS: ^observedCity file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:53:22
+      4    2.3%            JS: +perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      2    1.2%            JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+     19   10.0%          JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     12   63.2%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      5   26.3%            JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      2   10.5%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     83    2.9%      Builtin: ObjectEntries
+     72   86.7%        JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     27   37.5%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     27  100.0%            Builtin: ArrayMap
+     26   36.1%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     26  100.0%            Builtin: ArrayMap
+      5    6.9%          JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      5  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      5    6.9%          JS: ^observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      3   60.0%            JS: ^refreshCityIntents file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:234:28
+      2   40.0%            JS: ^reserveNeed file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:161:21
+      4    5.6%          JS: ^observedCity file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:53:22
+      2   50.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1   25.0%            JS: ^evaluateOffensive file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:74:34
+      1   25.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:237:73
+      3    4.2%          JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      3  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:385:51
+      1    1.4%          JS: ^evaluateOffensive file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:74:34
+      1  100.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1    1.4%          JS: ^cityDefense file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:150:21
+      1  100.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+     11   13.3%        JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      5   45.5%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      5  100.0%            Builtin: ArrayMap
+      3   27.3%          JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      3  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      2   18.2%          JS: ^observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      1   50.0%            JS: ~refreshCityIntents file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:234:28
+      1   50.0%            JS: ^emergencyOrders file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:257:25
+      1    9.1%          JS: ~observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      1  100.0%            JS: ~emergencyOrders file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:257:25
+     30    1.1%      JS: +visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     17   56.7%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     17  100.0%          Builtin: ArrayFilter
+     17  100.0%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      8   26.7%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      8  100.0%          Builtin: ArrayFilter
+      8  100.0%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      3   10.0%        JS: +cityVisible file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:41:28
+      3  100.0%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      3  100.0%            Builtin: ArrayFilter
+      2    6.7%        JS: ^pointVisible file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:34:29
+      2  100.0%          JS: ^cityVisible file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:41:28
+      2  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+
+    149    3.7%  Builtin: LoadIC
+     33   22.1%    JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     31   93.9%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     31  100.0%        Builtin: ArrayFilter
+     25   80.6%          JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      9   36.0%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      8   32.0%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      2    8.0%            JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      2    8.0%            JS: ^cityDefense file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:150:21
+      1    4.0%            JS: ~evaluateOffensive file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:74:34
+      1    4.0%            JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      1    4.0%            JS: ^observedCity file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:53:22
+      1    4.0%            JS: ^observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      6   19.4%          JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      4   66.7%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      2   33.3%            JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      2    6.1%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      2  100.0%        Builtin: ArrayFilter
+      2  100.0%          JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1   50.0%            JS: ~perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      1   50.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     32   21.5%    JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     32  100.0%      Builtin: ArrayFilter
+     29   90.6%        JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     12   41.4%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     12  100.0%            Builtin: ArrayMap
+     12   41.4%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     12  100.0%            Builtin: ArrayMap
+      2    6.9%          JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      2  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:385:51
+      2    6.9%          JS: ^observedCity file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:53:22
+      1   50.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1   50.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:237:73
+      1    3.4%          JS: ^observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      1  100.0%            JS: ^reserveNeed file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:161:21
+      3    9.4%        JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      2   66.7%          JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      2  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      1   33.3%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%            Builtin: ArrayMap
+     27   18.1%    JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+     27  100.0%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     27  100.0%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     27  100.0%          Builtin: ArrayFilter
+     26   96.3%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1    3.7%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     19   12.8%    JS: *campaignRoads file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:5:30
+     18   94.7%      JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+     18  100.0%        JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     18  100.0%          JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     18  100.0%            Builtin: ArrayFilter
+      1    5.3%      JS: +roadCost file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:12:23
+      1  100.0%        JS: ^findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+      1  100.0%          JS: +perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      1  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     10    6.7%    JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+      8   80.0%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      8  100.0%        Builtin: ArrayMap
+      3   37.5%          JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      3  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      3   37.5%          JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      3  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+      2   25.0%          JS: +citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      2  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      2   20.0%      JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      2  100.0%        Builtin: ArrayMap
+      2  100.0%          JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      2  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      6    4.0%    JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+      5   83.3%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      5  100.0%        Builtin: ArrayMap
+      5  100.0%          JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      5  100.0%            JS: ~planStrategicAI file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:436:32
+      1   16.7%      JS: +perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      1  100.0%        JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      1  100.0%          Builtin: ArrayMap
+      1  100.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      5    3.4%    Builtin: ArrayFilter
+      4   80.0%      JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      3   75.0%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      3  100.0%          Builtin: ArrayMap
+      3  100.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1   25.0%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%          Builtin: ArrayMap
+      1  100.0%            JS: +citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      1   20.0%      JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1  100.0%        JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%          Builtin: ArrayMap
+      1  100.0%            JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      3    2.0%    JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      3  100.0%      Builtin: ArrayMap
+      2   66.7%        JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      2  100.0%          JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+      1   50.0%            JS: +technologyPriority file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:108:28
+      1   50.0%            JS: +actionCandidates file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:110:33
+      1   33.3%        JS: +citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      1  100.0%          JS: ^cityNeedsAgriculture file:///C:/Users/TJX/Documents/ChatGPT/sango/economy.mjs:83:37
+      1  100.0%            JS: ^prepareEnemyDomestic file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:232:37
+      2    1.3%    JS: *visionPosition file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:16:31
+      2  100.0%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      2  100.0%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      2  100.0%          Builtin: ArrayFilter
+      2  100.0%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      2    1.3%    JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:52:18
+      2  100.0%      Builtin: ArrayReduce
+      2  100.0%        JS: +canExpandBuilding file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:50:32
+      2  100.0%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/metropolitan-areas.mjs:77:11
+      2  100.0%            Builtin: ArrayFilter
+      2    1.3%    Builtin: ArrayPrototypeFind
+      1   50.0%      JS: +mapNode file:///C:/Users/TJX/Documents/ChatGPT/sango/map-node-data.mjs:2:24
+      1  100.0%        JS: ^campaignRoads file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:5:30
+      1  100.0%          JS: +roadCost file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:12:23
+      1  100.0%            JS: ^diplomaticRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/diplomacy.mjs:36:32
+      1   50.0%      JS: +cityIntelligence file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:80:33
+      1  100.0%        JS: ^waitingForStrategicScout file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-scouting-ai.mjs:81:41
+      1  100.0%          JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1  100.0%            JS: ~planStrategicAI file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:436:32
+
+    147    3.6%  JS: *campaignRoads file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:5:30
+     75   51.0%    JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+     75  100.0%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     74   98.7%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     74  100.0%          Builtin: ArrayFilter
+     63   85.1%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     11   14.9%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1    1.3%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      1  100.0%          Builtin: ArrayFilter
+      1  100.0%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     53   36.1%    JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+     39   73.6%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     39  100.0%        Builtin: ArrayMap
+     24   61.5%          JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+     24  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+     13   33.3%          JS: +citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+     11   84.6%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      2   15.4%            JS: ^cityNeedsAgriculture file:///C:/Users/TJX/Documents/ChatGPT/sango/economy.mjs:83:37
+      2    5.1%          JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      2  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+     14   26.4%      JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     14  100.0%        Builtin: ArrayMap
+     14  100.0%          JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+     14  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+     15   10.2%    JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+     10   66.7%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     10  100.0%        Builtin: ArrayMap
+     10  100.0%          JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+     10  100.0%            JS: ~planStrategicAI file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:436:32
+      4   26.7%      JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      4  100.0%        JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:385:51
+      4  100.0%          Builtin: ArrayMap
+      4  100.0%            JS: ^logistics file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:376:19
+      1    6.7%      JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      1  100.0%        JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      1  100.0%          Builtin: ArrayMap
+      1  100.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+
+     93    2.3%  Builtin: ArrayTimSort
+     77   82.8%    Builtin: ArrayPrototypeSort
+     34   44.2%      JS: *adjacentCityPath file:///C:/Users/TJX/Documents/ChatGPT/sango/road-network.mjs:36:33
+     17   50.0%        JS: +localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+     10   58.8%          JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+     10  100.0%            Builtin: ArrayFilter
+      6   35.3%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      6  100.0%            Builtin: ArrayFilter
+      1    5.9%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      1  100.0%            Builtin: ArrayFilter
+     17   50.0%        JS: *localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+     17  100.0%          JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+     17  100.0%            Builtin: ArrayFilter
+     16   20.8%      JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+     10   62.5%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     10  100.0%          Builtin: ArrayMap
+     10  100.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      4   25.0%        JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      4  100.0%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:385:51
+      4  100.0%            Builtin: ArrayMap
+      1    6.3%        JS: ~safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      1  100.0%          JS: ~<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:385:51
+      1  100.0%            Builtin: ArrayMap
+      1    6.3%        JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      1  100.0%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      1  100.0%            Builtin: ArrayMap
+     14   18.2%      JS: *campaignRoads file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:5:30
+      8   57.1%        JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+      8  100.0%          JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      8  100.0%            JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      6   42.9%        JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+      4   66.7%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      4  100.0%            Builtin: ArrayMap
+      2   33.3%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      2  100.0%            Builtin: ArrayMap
+      6    7.8%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      5   83.3%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      5  100.0%          Builtin: ArrayFilter
+      5  100.0%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1   16.7%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      1  100.0%          Builtin: ArrayFilter
+      1  100.0%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      3    3.9%      JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+      2   66.7%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      2  100.0%          Builtin: ArrayMap
+      2  100.0%            JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      1   33.3%        JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%          Builtin: ArrayMap
+      1  100.0%            JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      3    3.9%      JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+      3  100.0%        JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      3  100.0%          JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      3  100.0%            Builtin: ArrayFilter
+      1    1.3%      JS: *roadDistance file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:4:27
+      1  100.0%        JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+      1  100.0%          JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      1  100.0%            JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      7    7.5%    JS: *adjacentCityPath file:///C:/Users/TJX/Documents/ChatGPT/sango/road-network.mjs:36:33
+      4   57.1%      JS: *localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      4  100.0%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      4  100.0%          Builtin: ArrayFilter
+      4  100.0%            JS: ^unknownTalent file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:30
+      2   28.6%      JS: +localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      2  100.0%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      2  100.0%          Builtin: ArrayFilter
+      2  100.0%            JS: ^unknownTalent file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:30
+      1   14.3%      JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:85
+      1  100.0%        JS: ^localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      1  100.0%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      1  100.0%            Builtin: ArrayFilter
+      3    3.2%    JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+      3  100.0%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      3  100.0%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      3  100.0%          Builtin: ArrayFilter
+      2   66.7%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1   33.3%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      2    2.2%    JS: *campaignRoads file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:5:30
+      2  100.0%      JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+      2  100.0%        JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      2  100.0%          JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      2  100.0%            Builtin: ArrayFilter
+      1    1.1%    JS: +findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+      1  100.0%      JS: ~transferOfficer file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:285:32
+      1  100.0%        JS: ~apply file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-orders.mjs:73:15
+      1  100.0%          JS: ~requestFactionOrder file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-orders.mjs:86:36
+      1  100.0%            JS: ^personnel file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:396:19
+      1    1.1%    JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      1  100.0%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      1  100.0%        Builtin: ArrayFilter
+      1  100.0%          JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1  100.0%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1    1.1%    JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+      1  100.0%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%        Builtin: ArrayMap
+      1  100.0%          JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      1  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      1    1.1%    JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+      1  100.0%      JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      1  100.0%        JS: ^personnel file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:396:19
+      1  100.0%          JS: ~planStrategicAI file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:436:32
+      1  100.0%            JS: ~beginExecution file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:427:31
+
+     63    1.6%  JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     62   98.4%    JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     62  100.0%      Builtin: ArrayFilter
+     51   82.3%        JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+     20   39.2%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     20  100.0%            Builtin: ArrayMap
+     19   37.3%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     19  100.0%            Builtin: ArrayMap
+      6   11.8%          JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      5   83.3%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:385:51
+      1   16.7%            JS: ^personnel file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:396:19
+      3    5.9%          JS: ^observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      2   66.7%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1   33.3%            JS: ^refreshCityIntents file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:234:28
+      2    3.9%          JS: ^observedCity file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:53:22
+      1   50.0%            JS: ~evaluateOffensive file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:74:34
+      1   50.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1    2.0%          JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      1  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+     11   17.7%        JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      7   63.6%          JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      7  100.0%            Builtin: ArrayMap
+      3   27.3%          JS: ^perceivedRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:59:22
+      3  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      1    9.1%          JS: ^observedCity file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:53:22
+      1  100.0%            JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1    1.6%    JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      1  100.0%      Builtin: ArrayFilter
+      1  100.0%        JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1  100.0%          JS: ^observeStrategicThreat file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:155:39
+      1  100.0%            JS: ~emergencyOrders file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:257:25
+
+     62    1.5%  JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+     50   80.6%    JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     50  100.0%      Builtin: ArrayMap
+     21   42.0%        JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+     21  100.0%          JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+     11   52.4%            JS: +actionCandidates file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:110:33
+      7   33.3%            JS: +technologyPriority file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:108:28
+      3   14.3%            JS: ^grainReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:93:20
+     18   36.0%        JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+     18  100.0%          JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+     18  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+     11   22.0%        JS: +citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+     11  100.0%          JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+     11  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+     12   19.4%    JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+     12  100.0%      Builtin: ArrayMap
+     12  100.0%        JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+     11   91.7%          JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+     11  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+      1    8.3%          JS: ~cityNeedsAgriculture file:///C:/Users/TJX/Documents/ChatGPT/sango/economy.mjs:83:37
+      1  100.0%            JS: ~prepareEnemyDomestic file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:232:37
+
+     54    1.3%  Builtin: ArrayPrototypeJoin
+     30   55.6%    JS: *adjacentCityPath file:///C:/Users/TJX/Documents/ChatGPT/sango/road-network.mjs:36:33
+     18   60.0%      JS: *localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+     18  100.0%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+     18  100.0%          Builtin: ArrayFilter
+     18  100.0%            JS: ^unknownTalent file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:30
+     11   36.7%      JS: +localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      6   54.5%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      6  100.0%          Builtin: ArrayFilter
+      6  100.0%            JS: ^unknownTalent file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:30
+      5   45.5%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      5  100.0%          Builtin: ArrayFilter
+      5  100.0%            JS: ^unknownTalent file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:30
+      1    3.3%      JS: ~<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:85
+      1  100.0%        JS: ~localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      1  100.0%          JS: ~<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      1  100.0%            Builtin: ArrayFilter
+     18   33.3%    JS: *campaignRoads file:///C:/Users/TJX/Documents/ChatGPT/sango/road-metrics.mjs:5:30
+     16   88.9%      JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+     16  100.0%        JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     16  100.0%          JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     16  100.0%            Builtin: ArrayFilter
+      2   11.1%      JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+      1   50.0%        JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%          Builtin: ArrayMap
+      1  100.0%            JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      1   50.0%        JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%          Builtin: ArrayMap
+      1  100.0%            JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      3    5.6%    JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      3  100.0%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      3  100.0%        Builtin: ArrayFilter
+      2   66.7%          JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1   50.0%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      1   50.0%            JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1   33.3%          JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      2    3.7%    JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+      2  100.0%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      2  100.0%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      2  100.0%          Builtin: ArrayFilter
+      2  100.0%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1    1.9%    Builtin: ArrayPrototypeJoin
+      1  100.0%      JS: *adjacentCityPath file:///C:/Users/TJX/Documents/ChatGPT/sango/road-network.mjs:36:33
+      1  100.0%        JS: *localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      1  100.0%          JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      1  100.0%            Builtin: ArrayFilter
+
+     46    1.1%  Builtin: StringEqual
+     15   32.6%    JS: *scoutVisionProxy file:///C:/Users/TJX/Documents/ChatGPT/sango/scouting-state.mjs:11:33
+     15  100.0%      JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+     15  100.0%        JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+     15  100.0%          Builtin: ArrayFilter
+     14   93.3%            JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1    6.7%            JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      8   17.4%    JS: *supplyConnection file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:367:33
+      5   62.5%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      5  100.0%        Builtin: ArrayMap
+      2   40.0%          JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      2  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      2   40.0%          JS: +citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      2  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      1   20.0%          JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      1  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+      3   37.5%      JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      3  100.0%        Builtin: ArrayMap
+      3  100.0%          JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      3  100.0%            JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      7   15.2%    JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:240:49
+      7  100.0%      Builtin: ArrayPrototypeSort
+      7  100.0%        JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+      6   85.7%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      6  100.0%            Builtin: ArrayMap
+      1   14.3%          JS: ^safeStrategicTransportRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:372:44
+      1  100.0%            JS: ^personnel file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:396:19
+      6   13.0%    JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      6  100.0%      Builtin: ArrayMap
+      4   66.7%        JS: +cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      4  100.0%          JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+      2   50.0%            JS: ^grainReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:93:20
+      2   50.0%            JS: +technologyPriority file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:108:28
+      2   33.3%        JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      2  100.0%          JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      2  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+      3    6.5%    JS: *findCampaignRoute file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:236:34
+      3  100.0%      JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      3  100.0%        Builtin: ArrayMap
+      3  100.0%          JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      3  100.0%            JS: ~planStrategicAI file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:436:32
+      2    4.3%    JS: *localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      2  100.0%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      2  100.0%        Builtin: ArrayFilter
+      2  100.0%          JS: ^unknownTalent file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:30
+      1   50.0%            JS: ^actionCandidates file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:110:33
+      1   50.0%            JS: +actionCandidates file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:110:33
+      1    2.2%    JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1  100.0%      Builtin: ArrayMap
+      1  100.0%        JS: ^citySupplyBudgets file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:8:34
+      1  100.0%          JS: ^cityFoodRequirement file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:37:36
+      1  100.0%            JS: +cityFoodReserve file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:47:30
+      1    2.2%    JS: +strategicTravelDays file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:132:36
+      1  100.0%      JS: ^createPlan file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:291:20
+      1  100.0%        JS: ~planStrategicAI file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:436:32
+      1  100.0%          JS: ~beginExecution file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:427:31
+      1  100.0%            Script: ~<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/outputs/probe-national-buildings.mjs:1:1
+      1    2.2%    JS: +localContact file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-core.mjs:42:27
+      1  100.0%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:90
+      1  100.0%        Builtin: ArrayFilter
+      1  100.0%          JS: ^unknownTalent file:///C:/Users/TJX/Documents/ChatGPT/sango/talent-lifecycle.mjs:59:30
+      1  100.0%            JS: ^actionCandidates file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:110:33
+      1    2.2%    JS: *visionSources file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:26:30
+      1  100.0%      JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      1  100.0%        Builtin: ArrayFilter
+      1  100.0%          JS: ^intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1  100.0%            JS: ^<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/city-logistics.mjs:11:46
+      1    2.2%    JS: *<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:108:104
+      1  100.0%      Builtin: ArrayFilter
+      1  100.0%        JS: +intelligenceWorld file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-vision.mjs:106:34
+      1  100.0%          JS: +<anonymous> file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-ai.mjs:300:28
+      1  100.0%            Builtin: ArrayMap
+

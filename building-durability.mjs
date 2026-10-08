@@ -1,4 +1,5 @@
 import {BUILDING_DESIGNS,AUXILIARY_BUILDINGS} from './data/design/buildings.mjs';
+import {buildingCombatState} from './building-rules.mjs';
 
 export const DURABLE_BUILDINGS={...BUILDING_DESIGNS,...AUXILIARY_BUILDINGS};
 export const buildingUnitHp=key=>DURABLE_BUILDINGS[key].durability;
@@ -27,11 +28,12 @@ export function buildingWorkQuote(c,key,siteId,cost,days){
  return {mode,cost:mode==='resume'?0:mode==='repair'?Math.ceil(cost*missing/unit*.5):cost,days:Math.max(1,Math.ceil(missing/unit*days)),hpPerDay:unit/days};
 }
 export function beginBuildingWork(c,key,siteId,quote,extra={}){
+ const prior=c.project?.key===key&&c.project.siteId===siteId?c.project:null;
  const a=c.buildings[key][siteId]||{hp:0,maxHp:0};
  if(quote.mode==='build')a.maxHp+=buildingUnitHp(key);
  c.buildings[key][siteId]=a;
  const mode=a.maxHp>completedBuildingHp(c,key,siteId)?'build':'repair';
- c.project={key,siteId,mode,startedHp:a.hp,hpPerDay:quote.hpPerDay,remaining:quote.days/10,...extra};
+ c.project={key,siteId,mode,startedHp:prior?.startedHp??a.hp,hpPerDay:quote.hpPerDay,remaining:quote.days/10,...extra,...(prior?.merit?{merit:prior.merit,meritOriginHp:prior.meritOriginHp}:{})};
  return c.project;
 }
 export function restoreBuilding(c,key,siteId,amount,{finish=true}={}){
@@ -56,13 +58,14 @@ export function campaignBattleBuildings(s,siteId,side,factions=null){
  for(const c of s.cities)for(const key of Object.keys(DURABLE_BUILDINGS)){
   const a=c.buildings[key][siteId];if(!a||key==='walls')continue;
   const ownerSide=factions?factions.indexOf(c.owner):side;if(ownerSide<0)continue;
-  result.push({id:'city-building-'+result.length,name:DURABLE_BUILDINGS[key].name,type:'building',kind:key,side:ownerSide,x:0,y:0,hp:a.hp,maxHp:a.maxHp,source:{cityId:c.id,siteId,key},initialHp:a.hp});
+  result.push({id:'city-building-'+result.length,name:DURABLE_BUILDINGS[key].name,type:'building',kind:key,side:ownerSide,x:0,y:0,hp:a.hp,maxHp:a.maxHp,...buildingCombatState(key,completedLevel(c,key,siteId)),source:{cityId:c.id,siteId,key},initialHp:a.hp});
  }
  // Rear cells keep buildings outside initial troop deployment and the gate lane.
  for(const ownerSide of [0,1]){
-  const cells=[0,1,2].flatMap(dx=>[0,1,2,3,5,6,7].map(y=>({x:ownerSide===0?dx:13-dx,y}))),own=result.filter(a=>a.side===ownerSide);
-  if(own.length>cells.length)throw new Error('战场建筑超过实际可用位置');
-  for(let i=0;i<own.length;i++)Object.assign(own[i],cells[i]);
+  const placements={arrowTower:{x:ownerSide===0?2:11,y:1},musicStage:{x:ownerSide===0?2:11,y:2},aidCamp:{x:ownerSide===0?2:11,y:6}},own=result.filter(a=>a.side===ownerSide),preferred=new Map(Object.keys(placements).map(key=>[key,own.find(a=>a.kind===key)?.id])),reserved=[...preferred].filter(([,id])=>id).map(([key])=>placements[key]);
+  const cells=[0,1,2,3].flatMap(dx=>[0,1,2,3,5,6,7].map(y=>({x:ownerSide===0?dx:13-dx,y}))).filter(p=>!reserved.some(q=>q.x===p.x&&q.y===p.y));
+  if(own.length>cells.length+reserved.length)throw new Error('战场建筑超过实际可用位置');
+  let index=0;for(const a of own)Object.assign(a,preferred.get(a.kind)===a.id?placements[a.kind]:cells[index++]);
  }
  return result;
 }
@@ -82,6 +85,7 @@ export function validateBattleBuildingSources(s,r,fail){
  for(const a of [...(b.siege?.gate?[b.siege.gate]:[]),...(b.buildings||[])]){
   const p=a.source,c=s.cities.find(c=>c.id===p?.cityId),record=c?.buildings?.[p?.key]?.[p?.siteId],id=p?.cityId+':'+p?.siteId+':'+p?.key;
   fail(p&&p.siteId===r.cityId&&DURABLE_BUILDINGS[p.key]&&a.type===(p.key==='walls'?'gate':'building')&&(a.type==='gate'||a.kind===p.key)&&!seen.has(id),'战场建筑来源无效或重复');seen.add(id);
+  if(!r.settled&&BUILDING_DESIGNS[p.key]?.combat)fail(a.level===completedLevel(c,p.key,p.siteId),'战场建筑等级与原址不一致');
   if(!r.settled)fail(record&&a.initialHp===record.hp&&a.maxHp===record.maxHp,'战场建筑与原址耐久不一致');
  }
  fail(b.buildingSiteId===null||b.buildingSiteId===r.cityId,'战场建筑地点无效');

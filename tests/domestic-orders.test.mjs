@@ -2,7 +2,7 @@ import {expeditionFrom,invadeFromGuandu} from './helpers/field-campaign.mjs';
 import {busyFixture} from './helpers/domestic-orders.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,splitCampaignArmy,mergeCampaignArmies} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,splitCampaignArmy,mergeCampaignArmies} from './helpers/auto-domestic-campaign.mjs';
 import {issueCommand} from '../engine.mjs';
 import {ACTIONS,assignDomestic,assignmentFor,cancelDomestic,removeDomesticOrder,beginDomesticTurn} from '../domestic.mjs';
 import {requestStrategicOrder,resolveStrategicOrders} from '../strategic-orders.mjs';

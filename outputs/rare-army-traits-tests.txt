@@ -1,0 +1,36 @@
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (523.1129ms)
+✔ matrix keeps candidate rows while selections add and remove columns (77.1305ms)
+✔ appointment traits affect only the appointed role and its own army independent of personal deployment (78.5739ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (5.5888ms)
+✔ appointment UI displays the matching trait effect and recommendation uses it (4.2096ms)
+✔ current save preserves command eligibility and deterministic continuation (257.9897ms)
+✔ 荀彧获得额外专属，持有固定内政特性和普通学习名额 (2.7595ms)
+✔ 条件加成只读取施放前已有状态和战意，不把本次破甲或受击收益算作铺垫 (0.3336ms)
+✔ 曹操：合法自定义战役自然发动专属，遵守消耗、目标与续战 (587.9094ms)
+✔ 郭嘉：合法自定义战役自然发动专属，遵守消耗、目标与续战 (218.9917ms)
+✔ 荀彧：合法自定义战役自然发动专属，遵守消耗、目标与续战 (189.396ms)
+✔ 诸葛亮：合法自定义战役自然发动专属，遵守消耗、目标与续战 (163.087ms)
+✔ 夏侯惇：合法自定义战役自然发动专属，遵守消耗、目标与续战 (174.6845ms)
+✔ 夏侯渊：合法自定义战役自然发动专属，遵守消耗、目标与续战 (199.0636ms)
+✔ 典韦：合法自定义战役自然发动专属，遵守消耗、目标与续战 (197.4256ms)
+✔ 刘备：合法自定义战役自然发动专属，遵守消耗、目标与续战 (280.9019ms)
+✔ 关羽：合法自定义战役自然发动专属，遵守消耗、目标与续战 (137.2605ms)
+✔ 张飞：合法自定义战役自然发动专属，遵守消耗、目标与续战 (193.4234ms)
+✔ 吕布：合法自定义战役自然发动专属，遵守消耗、目标与续战 (256.1669ms)
+✔ 周瑜：合法自定义战役自然发动专属，遵守消耗、目标与续战 (226.5613ms)
+✔ 孙策：合法自定义战役自然发动专属，遵守消耗、目标与续战 (362.9388ms)
+✔ 孙权：合法自定义战役自然发动专属，遵守消耗、目标与续战 (177.9073ms)
+✔ 司马懿：合法自定义战役自然发动专属，遵守消耗、目标与续战 (176.8882ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (258.4753ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (249.5705ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (3344.3579ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (52.3895ms)
+✔ AI fills a vacant governorship using the same governor recommendation (1726.9038ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6736.9949

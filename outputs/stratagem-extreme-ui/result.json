@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "key": "reinforce",
+      "desktop": true,
+      "mobile": true,
+      "actualEffect": true,
+      "reload": true,
+      "limitedOnce": true
+    },
+    {
+      "key": "refresh",
+      "desktop": true,
+      "mobile": true,
+      "actualEffect": true,
+      "reload": true,
+      "limitedOnce": true
+    },
+    {
+      "key": "storm",
+      "desktop": true,
+      "mobile": true,
+      "actualEffect": true,
+      "reload": true,
+      "limitedOnce": true
+    }
+  ],
+  "errors": []
+}

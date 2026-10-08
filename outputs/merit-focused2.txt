@@ -1,0 +1,80 @@
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (10.2102ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (153.983ms)
+✔ random results vary across seeds while identical seed is reproducible (128.1823ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.5617ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (88.556ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (52.6932ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (114.0199ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (46.37ms)
+✔ research unlocks a local troop only after a successful trial (51.7022ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (87.3378ms)
+✔ healing conserves personnel and does not require local troop technology (44.5603ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (84.1265ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (170.8505ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (101.5987ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (62.3419ms)
+✔ actual siege pauses construction without charging again or completing in the background (111.0171ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (59.72ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (54.2721ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (241.5439ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (343.9573ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (274.3946ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (169.019ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (104.1607ms)
+✖ real battle contributions survive reload and settle by actual work exactly once (0.9618ms)
+✖ current saves reject missing or forged contribution counters and old rules (0.1638ms)
+✔ fixed identity traits are available at every level and never equipped (11.2255ms)
+✔ fixed martial and movement traits modify only intended attributes (0.931ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (0.9172ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (18.0993ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (6.6717ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (5.3886ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (3.8805ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.2285ms)
+✔ isolated and joint evaluate neighbors on the correct side (5.2449ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (28.1946ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (4.3852ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (24.3814ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (10.5462ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.5231ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.3331ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (14.5643ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (12.4154ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (10.8511ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (5.2865ms)
+✔ merit advances learned tactics and capacity without unlocking or rerolling traits (0.9076ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (10.3676ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (646.6808ms)
+✔ invalid levels, merit, counters, durations and fractional cooldowns are rejected; missing required state is rejected (51.4348ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 46
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1591.8567
+
+✖ failing tests:
+
+test at tests\merit.test.mjs:7:1
+✖ real battle contributions survive reload and settle by actual work exactly once (0.9618ms)
+  Error: 未知测试战役
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:13:22)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/merit.test.mjs:8:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\merit.test.mjs:22:1
+✖ current saves reject missing or forged contribution counters and old rules (0.1638ms)
+  Error: 未知测试战役
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:13:22)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/merit.test.mjs:23:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)

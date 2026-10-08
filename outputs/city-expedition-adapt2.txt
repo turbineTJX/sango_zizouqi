@@ -1,0 +1,49 @@
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (114.2939ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (2.8675ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (159.9736ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (72.9956ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (233.4426ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (132.7916ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (45.8001ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (332.3415ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (138.7489ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (152.2744ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (582.6165ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (60.2462ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (74.1114ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (45.3881ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (299.5434ms)
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (57.404ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (97.4083ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (123.9111ms)
+✔ waiting departure prevents idle members from picking new work across turns (33.4958ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (32.4967ms)
+✔ forged pending action references and duplicate officers are rejected (130.7413ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (69.931ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1223.1962ms)
+✔ a queued garrison defends an actual siege and does not depart while its work is paused (392.6551ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (48.3888ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (73.0441ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (84.615ms)
+✖ appointed prepared units actually defend the city, pause work under siege and resume after defense (5.8821ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2617.5665
+
+✖ failing tests:
+
+test at tests\garrison-domestic.test.mjs:45:1
+✖ appointed prepared units actually defend the city, pause work under siege and resume after defense (5.8821ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/garrison-domestic.test.mjs:46:121)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

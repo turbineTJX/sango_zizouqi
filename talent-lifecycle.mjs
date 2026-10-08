@@ -1,5 +1,7 @@
 import {mapNode,mapNodes,isJunction} from './road-network.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
+import {retainFactionMerit,meritChangeText,PROGRESSION} from './progression.mjs';
+import {settleOfficerMerit,settleMeritCapacity} from './campaign-merit.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {cityNeedsAgriculture,cityNeedsCommerce} from './economy.mjs';
 import {plannedOfficer,domesticIntentWeight} from './strategic-intent.mjs';
@@ -32,14 +34,14 @@ function report(s,code,id,text,faction=playerFaction(s),extra={}){
  }
  if(faction===playerFaction(s))log(s,`第${day(s)}天：${text}`,'event');
 }
-function record(s,id){return data(s).records[id]??={phase:'WAIT',phaseUntilDay:0,hardWaitUntilDay:0,defeatHistory:[],rejoinBlocks:{},idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+90,lastDutyDay:0,voluntaryFaction:null};}
+function record(s,id){return data(s).records[id]??={phase:'WAIT',phaseUntilDay:0,hardWaitUntilDay:0,defeatHistory:[],rejoinBlocks:{},idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+90,lastDutyDay:0,voluntaryFaction:null,meritFaction:null};}
 export function initializeTalent(s){
  s.campaign.talent={version:TALENT_RULES.version,seed:(s.seed^0x9a325f17)>>>0,records:{},projects:{},knowledge:{},demands:{},demandSignature:'',demandMonth:-1,reports:[],processedEvents:[],defeats:{},lastDay:0,nextProject:1};
  const occupied=servingPeople(s),spec=nationalScenario(s.campaign.scenarioId),t=data(s);let index=0,missing=0;
  for(const f of new Set(s.cities.map(c=>c.owner)))if(f!=='neutral'){t.knowledge[f]={};}
  s.campaign.domestic.people=[];
  for(const u of OFFICER_CATALOG){
-  const r=record(s,u.id);if(occupied.has(u.id))continue;
+  const r=record(s,u.id);if(occupied.has(u.id)){r.meritFaction=occupied.get(u.id).faction;continue;}
   const entry=talentScenarioEntry(s.campaign.scenarioId,u,s.cities),cityId=entry.activityCityIds[0]||s.cities[index++%s.cities.length].id;if(!entry.activityCityIds.length)missing++;
   const debutDay=entry.earliestTurn===null?1:1+10*randomInt(s,entry.earliestTurn,entry.latestTurn);
   const status=!entry.autoEligible?'EXCLUDED':spec&&spec.kind!=='fictional'&&u.deathYear&&u.deathYear<spec.year?'DEAD':debutDay>1?'NOT_DEBUTED':'FREE';
@@ -76,7 +78,7 @@ export function talentCandidates(s,c,mode){
 export function startTalentProject(s,a,c){
  const x=a.action,t=data(s),key=talentKey(x.targetId,c.owner);
  if(t.projects[key]?.state==='CLOSED')delete t.projects[key];
- const p=t.projects[key]??={personId:x.targetId,factionId:c.owner,mode:x.key,executorId:a.officerId,cityId:c.id,progress:0,attempts:0,spent:0,createdOrder:t.nextProject++,createdDay:day(s),lastContactDay:day(s),lastDecayDay:day(s),nextAttemptDay:0,lastAttemptTurn:-1,state:'ACTIVE',reason:'ready'};
+ const p=t.projects[key]??={personId:x.targetId,factionId:c.owner,mode:x.key,executorId:a.officerId,cityId:c.id,progress:0,attempts:0,spent:0,createdOrder:t.nextProject++,createdDay:day(s),lastContactDay:day(s),lastDecayDay:day(s),nextAttemptDay:0,lastAttemptTurn:-1,state:'ACTIVE',reason:'ready',meritPenalty:0};
  p.executorId=a.officerId;p.cityId=c.id;p.mode=x.key;p.state='ACTIVE';p.targetFaction=servingPeople(s).get(x.targetId)?.faction??null;p.lastAttemptTurn=talentTurn(s);p.attempts++;p.spent+=x.cost;
  const r=record(s,x.targetId);if(x.key==='hire'&&r.phase==='WAIT'){r.phase='SEEK';r.phaseUntilDay=day(s)+180;}
 }
@@ -108,6 +110,13 @@ export function resolveTalentOffers(s,cancel){
   const {p}=winners[0],free=s.campaign.domestic.people.find(x=>x.id===p.personId),existing=s.campaign.idle.find(o=>o.unit.id===p.personId),location=free?.cityId||existing?.location;
   if(!location){offers=offers.filter(x=>x!==p);continue;}
   const unit=free?(free.unit||makeOfficer(p.personId,0,0,1,s.seed)):existing.unit;
+  const previousFaction=record(s,p.personId).meritFaction||existing?.faction;
+  let factionGrowth=null;
+  if(previousFaction&&previousFaction!==p.factionId){
+   factionGrowth=retainFactionMerit(unit);
+   report(s,'merit-transfer',p.personId,`${unit.name}改仕，旧功绩保留20%；${meritChangeText(factionGrowth)}。`,p.factionId,{growth:factionGrowth,previousFaction});
+  }
+  record(s,p.personId).meritFaction=p.factionId;
   if(existing)report(s,'changed-side',p.personId,`${unit.name}接受其他势力邀请，离开本方。`,existing.faction);
   cancel(s,p.personId,'接受新势力邀请');
   if(existing)s.campaign.idle=s.campaign.idle.filter(o=>o!==existing);
@@ -115,9 +124,12 @@ export function resolveTalentOffers(s,cancel){
   unit.homeCity=p.cityId;const recruit={unit,faction:p.factionId,location,destination:location===p.cityId?null:p.cityId,remainingDays:0};if(recruit.destination)startPersonnelJourney(s,recruit);s.campaign.idle.push(recruit);
   s.campaign.domestic.loyalty[p.personId]=free?80:65;
   const r=record(s,p.personId);Object.assign(r,{idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+91+(location===p.cityId?0:2),voluntaryFaction:p.factionId});
-  for(const other of Object.values(t.projects).filter(x=>x.personId===p.personId)){if(other!==p&&other.state!=='CLOSED')report(s,'project-closed',p.personId,`${unit.name}已接受其他势力邀请，接洽项目结束。`,other.factionId);other.state='CLOSED';other.reason=other===p?'signed':'other-faction';}
+  for(const other of Object.values(t.projects).filter(x=>x.personId===p.personId)){if(other!==p&&other.state!=='CLOSED'){const o=servingPeople(s).get(other.executorId),penalty=Math.max(0,PROGRESSION.failures.talentProject-other.meritPenalty);if(o?.faction===other.factionId&&penalty)settleOfficerMerit(s,o.unit,{sourceId:`talent-project-failed:${other.createdOrder}`,amount:-penalty,faction:other.factionId,cityId:other.cityId,category:'talent',reason:'接洽项目未能签约'});}if(other!==p&&other.state!=='CLOSED')report(s,'project-closed',p.personId,`${unit.name}已接受其他势力邀请，接洽项目结束。`,other.factionId);other.state='CLOSED';other.reason=other===p?'signed':'other-faction';}
   for(const knowledge of Object.values(t.knowledge))if(knowledge[p.personId])knowledge[p.personId].locationConfirmed=false;
   report(s,'signed',p.personId,`${unit.name}完成接洽，加入${mapNode(s,p.cityId).name}${location===p.cityId?'':'，正沿道路赴任'}。`,p.factionId,{cost:p.spent,elapsed:day(s)-p.createdDay+1,reward:{kind:'officer',officerId:unit.id,stats:Object.fromEntries(['leadership','force','intellect','politics','charm'].map(k=>[k,unit[k]])),traits:passiveList(unit).filter(t=>!t.cap).map(t=>({id:t.id,name:t.name})),location,destination:recruit.destination}});
+  const executor=servingPeople(s).get(p.executorId);
+  if(executor?.faction===p.factionId)settleOfficerMerit(s,executor.unit,{sourceId:`talent-signed:${p.createdOrder}`,amount:PROGRESSION.talentSigned,faction:p.factionId,cityId:p.cityId,category:'talent',reason:`促成${unit.name}签约`});
+  settleMeritCapacity(s);
   offers=offers.filter(x=>x.personId!==p.personId);
  }
 }
@@ -275,7 +287,7 @@ export function validateTalent(s){
  fail(Object.keys(t.records).length===OFFICER_CATALOG.length);
  for(const [id,r]of Object.entries(t.records)){
   fail(OFFICER_BY_ID[id]&&r&&['WAIT','SEEK'].includes(r.phase)&&['phaseUntilDay','hardWaitUntilDay','idleTurns','idleDays','idlePenaltyStep','workedDays','graceUntilDay','lastDutyDay'].every(k=>int(r[k]))&&r.idleTurns===Math.floor(r.idleDays/10)&&r.lastDutyDay<=day(s));
-  fail(r.leaveAtDay===null||int(r.leaveAtDay));fail(r.voluntaryFaction===null||factions.has(r.voluntaryFaction));fail(map(r.rejoinBlocks)&&Object.entries(r.rejoinBlocks).every(([f,n])=>factions.has(f)&&int(n))&&Array.isArray(r.defeatHistory));
+  fail(r.leaveAtDay===null||int(r.leaveAtDay));fail(r.voluntaryFaction===null||factions.has(r.voluntaryFaction));fail(r.meritFaction===null||factions.has(r.meritFaction));fail(map(r.rejoinBlocks)&&Object.entries(r.rejoinBlocks).every(([f,n])=>factions.has(f)&&int(n))&&Array.isArray(r.defeatHistory));
   for(const h of r.defeatHistory)fail(factions.has(h.oldFactionId)&&factions.has(h.defeatingFactionId)&&(h.formerLordId===null||OFFICER_BY_ID[h.formerLordId])&&int(h.defeatedTurn)&&typeof h.eventId==='string');
  }
  const serving=servingPeople(s),seen=new Set(serving.keys());
@@ -290,7 +302,7 @@ export function validateTalent(s){
  const orders=new Set();
  for(const [key,p]of Object.entries(t.projects)){
   fail(key===talentKey(p.personId,p.factionId)&&OFFICER_BY_ID[p.personId]&&factions.has(p.factionId)&&['hire','persuade'].includes(p.mode)&&OFFICER_BY_ID[p.executorId]&&city(p.cityId));
-  fail(['progress','attempts','spent','createdOrder','createdDay','lastContactDay','lastDecayDay','nextAttemptDay'].every(k=>int(p[k]))&&p.progress<=projectNeed(p.personId,'persuade')&&p.createdOrder>0&&p.createdOrder<t.nextProject&&!orders.has(p.createdOrder)&&int(p.lastAttemptTurn)&&['ACTIVE','PAUSED','CLOSED'].includes(p.state)&&typeof p.reason==='string');orders.add(p.createdOrder);
+  fail(Number.isSafeInteger(p.meritPenalty)&&p.meritPenalty>=0,'人才扣罚记录无效');fail(['progress','attempts','spent','createdOrder','createdDay','lastContactDay','lastDecayDay','nextAttemptDay'].every(k=>int(p[k]))&&p.progress<=projectNeed(p.personId,'persuade')&&p.createdOrder>0&&p.createdOrder<t.nextProject&&!orders.has(p.createdOrder)&&int(p.lastAttemptTurn)&&['ACTIVE','PAUSED','CLOSED'].includes(p.state)&&typeof p.reason==='string');orders.add(p.createdOrder);
  }
  for(const [f,known]of Object.entries(t.knowledge)){fail(factions.has(f)&&map(known));for(const [id,k]of Object.entries(known))fail(OFFICER_BY_ID[id]&&k.discovered===true&&city(k.lastKnownCityId)&&int(k.lastSeenDay,day(s))&&typeof k.locationConfirmed==='boolean'&&['ready','waiting','unwilling'].includes(k.lastReportedAttitude));}
  for(const [f,d]of Object.entries(t.demands))fail(factions.has(f)&&int(d.cities,s.cities.length)&&int(d.soldiers)&&int(d.demand)&&d.demand>=1);

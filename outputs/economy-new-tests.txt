@@ -1,0 +1,21 @@
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (3.8989ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (9.1748ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (2.2992ms)
+✔ fame adds city manpower rather than free troops (1.9936ms)
+✔ governors gain merit at actual turn settlement and loaded campaigns remain deterministic (392.1166ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (16.9224ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (0.4199ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (335.8206ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (9.9984ms)
+✔ income uses the authoritative economy and applies equally to player and AI ownership (71.3765ms)
+✔ AI replenishment keeps food for existing soldiers and the next turn of new recruits (38.1394ms)
+✔ autonomous recruitment rechecks rations at completion after grain is depleted (11.4768ms)
+✔ low food excludes new autonomous recruitment even with men and money (4.2537ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 981.8816

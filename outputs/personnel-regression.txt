@@ -1,0 +1,25 @@
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (74.9972ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (2.8458ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (150.1845ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (78.9721ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (244.3625ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (93.2772ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (43.9527ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (394.1696ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (141.1655ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (135.3667ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (532.3311ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (22.9414ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (31.493ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (26.57ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (217.2709ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (138.3028ms)
+✔ picker protects garrison, governor and phase restrictions; new rosters retain city administrators (65.6165ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2356.0907

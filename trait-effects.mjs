@@ -77,7 +77,7 @@ export function resolveTraitEvent(b,u,event,context,api){
    switch(r.effect){
 
     case 'debuff':for(const k of r.statuses)status(t,k,r.steps,{fraction:r.fraction});api.signal(u,t,name);break;
-    case 'status':api.control(t,r.steps,r.status,source);recordContribution(u,'control',1);api.signal(u,t,name);break;
+    case 'status':{const active=(t.statuses?.[r.status]?.until||0)>b.tick;api.control(t,r.steps,r.status,source);if(!active&&(t.statuses?.[r.status]?.until||0)>b.tick)recordContribution(u,'control',1);api.signal(u,t,name);break;}
     case 'push':{const from={x:t.x,y:t.y},cell=hexBeyond(u,t);Object.assign(t,cell);api.moved(b,t,from);api.control(t,r.steps,'disrupted',source);recordContribution(u,'control',1);api.signal(u,t,name,{text:name+' · 击退'});break;}
     case 'disrupt':api.control(t,r.steps,'disrupted',source);status(t,'slow',r.steps);api.signal(u,t,name);break;
     case 'rescue':remedy(b,t,'calm');shield(t,r.fraction);api.signal(u,t,name);break;

@@ -1,0 +1,60 @@
+✔ all current facilities and gates save actual current and maximum durability (282.0523ms)
+✔ new construction advances actual durability daily and inspection cannot advance it (205.1664ms)
+✔ damaged facilities use the same construction progress, pay less and retain their level (445.7828ms)
+✔ interruption preserves paid work, durability and the saved construction site (115.7699ms)
+✔ expansion raises maximum durability without instantly supplying the new durability (71.5729ms)
+✔ damage to a half-built facility extends remaining work without resetting or charging again (163.783ms)
+✔ battle repairs that finish construction activate the facility and settle its original job once (154.204ms)
+✔ a destroyed watchtower stops its sight until genuine military repairs restore durability (317.2309ms)
+✔ destroyed facilities cease production and become operational after actual repair (49.7476ms)
+✔ construction and gate durability cannot be forged in saves (124.3058ms)
+✔ battle buildings preserve real damage and map repairs back to the same physical facilities (31.1531ms)
+✔ actual siege attacks a functioning tower, preserves civilian works and returns physical damage after retreat (217.1195ms)
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\TJX\Documents\ChatGPT\sango\domestic-incident-view.mjs' imported from C:\Users\TJX\Documents\ChatGPT\sango\strategic-view.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:861:10)
+    at defaultResolve (node:internal/modules/esm/resolve:988:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+    at #resolve (node:internal/modules/esm/loader:679:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:252:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic-incident-view.mjs'
+}
+
+Node.js v24.15.0
+✖ tests\domestic-cooperation.test.mjs (166.6077ms)
+✔ level ten retains upgrade surplus and keeps earning a deduction buffer (56.3403ms)
+✔ downgrades reverse every threshold, clamp at one, and restore saved bonds without rerolls (1.1262ms)
+✔ changed allegiance retains twenty percent of thresholds plus balance (0.2525ms)
+✔ real recruitment preserves first service and discounts former service once, including former free officers (495.5474ms)
+✔ permanent event records prevent repeat rewards and deductions after reload (74.201ms)
+✔ downgrade preserves field soldiers and returns excess troops to reserves at home (66.8916ms)
+✔ split transport deliveries and reverse deliveries share one route budget (13.6483ms)
+✔ scouting rewards real intelligence and watch days, capped and persistent across redispatch (238.8311ms)
+✔ actual shield absorption credits its friendly provider, including reload (369.4863ms)
+✔ actual ordinary failures deduct merit and can downgrade, while partial results retain credit (891.2314ms)
+✔ real battle contributions survive reload and settle by actual work exactly once (607.368ms)
+✔ current saves reject missing or forged contribution counters and old rules (18.4315ms)
+✔ battle awards are reduced and marginal upgrade costs accelerate (0.2911ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 25
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2475.923
+
+✖ failing tests:
+
+test at tests\domestic-cooperation.test.mjs:1:1
+✖ tests\domestic-cooperation.test.mjs (166.6077ms)
+  'test failed'

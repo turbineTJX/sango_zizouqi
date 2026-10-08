@@ -1,4 +1,4 @@
-import {newCampaign,findCampaignRoute} from '../../strategic-campaign.mjs';
+import {newCampaign,findCampaignRoute} from './auto-domestic-campaign.mjs';
 import {cityForce} from '../../city-units.mjs';
 import {roadDistance,roadCost,movementPoints} from '../../strategic-movement.mjs';
 // Explicit already-mobilized forces for road/combat fixtures. The game itself

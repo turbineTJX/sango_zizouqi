@@ -1,0 +1,125 @@
+✔ orb preparation stays a small cue and enchanted basics never replay spell announcements (3.08ms)
+✔ ongoing recovery, phantom absorption and retaliation do not replay a cast cinematic each tick (0.5322ms)
+✔ ZOC breakthrough is explained on the existing skill row without duplicate announcements (0.3781ms)
+✔ multi-target terrain modifiers share one readable cast announcement (0.4807ms)
+✔ legacy windup events never display a preparation animation or log row (0.3591ms)
+✔ pause freezes effect time and speed/focus redraws never duplicate effects (0.715ms)
+✔ fatal-hit animation stays busy until finished even when no units remain on the board (3.0235ms)
+✔ effect rendering does not mutate combat events and cleans up hidden-tab animation (0.5203ms)
+✔ all six visuals and reduced-motion alternatives can complete their lifecycle (7.9089ms)
+✔ paused single stepping never replays a stack of hits from earlier turns (0.4503ms)
+✔ clear mode merges same-step damage per target without changing battle events (0.3541ms)
+✔ intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics (1.9579ms)
+✔ clear paused inspection hides transient drawings but preserves event log and clock (0.2681ms)
+✔ both factions keep twenty log rows and multi-hit effects do not flood announcements (1.5415ms)
+✔ speed changes preserve animation progress and scale lifetime with simulation steps (0.3614ms)
+✔ paused command effects append once at the same tick without replaying earlier hits (0.2609ms)
+✔ combo beams and banner survive pause and fatal targets, support reduced motion, and never replay (0.8359ms)
+✔ a multi-target cast holds the battlefield once and stays readable at 4x (2.3372ms)
+✔ simultaneous officers play in sequence and manual pause freezes the entire sequence (3.4123ms)
+✔ normal attacks and paused inspection never trigger a cinematic; new battles clear it (0.6093ms)
+✔ reduced motion uses static focus and finishes without impact particles (1.1248ms)
+✔ result summary follows the active cast, survives expiry, and retains damage alongside control (2.3329ms)
+✔ combo bonus does not add a second cinematic or replace the actual paused result (0.2824ms)
+✔ minor tactics including criticals stay local in both effect modes (0.4759ms)
+✔ a linked minor tactic and its multi-hit result get exactly one cut-in (3.6429ms)
+✔ real zero-intent combat only queues 100-intent tactics or genuine links (837.0112ms)
+✔ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (16.8342ms)
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (44.3259ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (7.7785ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (6.9991ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (11.2652ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (10.7982ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (8.8263ms)
+✖ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (29.0665ms)
+✖ exclusive support stays local and capped while army healing reaches distant active units (27.0059ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (2.4523ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (1.8259ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (10.5771ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (707.4019ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (59.4652ms)
+✔ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (589.8691ms)
+✔ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (561.9319ms)
+✔ command and experience define individual capacity; fielded troops are independent (16.1836ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (101.8762ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (76.776ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (56.3303ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (856.8466ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (108.3573ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (353.0949ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 46
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1761.0294
+
+✖ failing tests:
+
+test at tests\famous-officers.test.mjs:43:1
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (44.3259ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:25:25)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:45:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:116:1
+✖ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (29.0665ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:25:25)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:119:29)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:138:1
+✖ exclusive support stays local and capped while army healing reaches distant active units (27.0059ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at fixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:25:25)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:140:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

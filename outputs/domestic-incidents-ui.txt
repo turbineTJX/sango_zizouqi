@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 verify:domestic-incidents-ui
+> node scripts/verify-domestic-incidents-ui.mjs
+
+Domestic incident UI passed: cross-domain report, daily record, reload, acknowledgement, city effect and joint report.

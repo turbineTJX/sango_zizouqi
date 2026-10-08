@@ -1,0 +1,19 @@
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (13.9146ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (21.711ms)
+✔ overlapping interception remains after harass disables one owner (9.0769ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (4.6339ms)
+✔ out-of-range rear does not displace an attackable front (2.143ms)
+✔ real Wei Wu command restores interception without waiting for disruption expiry (3.4498ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (2.949ms)
+✔ nearby wounded front takes priority over a healthy ranged target (1.4528ms)
+✔ 疑兵战法为残血部队额外避战两回合并保持确定性续战 (6.5465ms)
+✔ 疑兵战法不能绕过共用避战间隔 (2.0295ms)
+✔ enemy side uses the same finisher priority and excludes protected targets (3.0814ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 265.9822

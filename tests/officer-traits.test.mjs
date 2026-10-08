@@ -8,7 +8,7 @@ import {DESIGN_TABLES,validateDesignTables} from '../design-catalog.mjs';
 import {personnelSpeed,lightPersonnelSpeed} from '../personnel-movement.mjs';
 import {domesticEffects} from '../passives.mjs';
 test('all 832 assignments allow no independent trait and preserve only genuine mechanisms',()=>{
- assert.equal(Object.keys(OFFICER_ASSIGNMENTS).length,832);assert.equal(Object.keys(TRAIT_DESIGNS).length,65);
+ assert.equal(Object.keys(OFFICER_ASSIGNMENTS).length,832);assert.equal(Object.keys(TRAIT_DESIGNS).length,67);
  for(const [id,a]of Object.entries(OFFICER_ASSIGNMENTS)){
   assert.ok(a.traits.every(t=>TRAIT_DESIGNS[t]));assert.deepEqual(officerTraits(makeOfficer(id,1000,0,1)),officerTraits(makeOfficer(id,1000,0,10)));
  }

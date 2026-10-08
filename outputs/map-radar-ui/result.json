@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "initial": {
+    "x": 595,
+    "y": 94,
+    "width": 360,
+    "height": 360
+  },
+  "errors": [],
+  "checks": [
+    "local focus",
+    "radar click and drag",
+    "viewport sync",
+    "city selection",
+    "keyboard pan and zoom",
+    "command draft unchanged",
+    "mobile layout"
+  ]
+}

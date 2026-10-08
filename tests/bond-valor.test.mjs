@@ -109,13 +109,10 @@ test('full Valor retains real friendly treatment and buffs at both lower and equ
  }
 });
 
-test('full Valor also checks the real source of enemy command intent loss and army status effects',()=>{
- const x=scene(),p=battleStratagemSource(x.b,'demoralize',1);assert.ok(p);bondSource(x.b,p).intent=20;
- x.b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(x.b,'demoralize',{x:x.u.x,y:x.u.y},1),null);assert.equal(x.u.intent,90);
- const y=scene(full,0,'archer',['司马懿','袁绍','田丰','郭嘉']),q=battleStratagemSource(y.b,'disrupt',1);assert.ok(q);const caster=bondSource(y.b,q);caster.intent=20;
- const before=unitAttributes(y.u,y.b).attack;y.b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(y.b,'disrupt',null,1),null);
- assert.equal(unitAttributes(y.u,y.b).attack,before);assert.ok(!inspectionStatuses(y.b,y.u).some(s=>s.key==='disruptUntil'));
- caster.intent=y.u.intent;assert.ok(unitAttributes(y.u,y.b).attack<before);assert.ok(inspectionStatuses(y.b,y.u).some(s=>s.key==='disruptUntil'));
+test('full Valor checks actual source intent for hostile area commands and can admit it at equal intent',()=>{
+ const x=scene(full,0,'archer',['田丰','袁绍','司马懿','郭嘉']),p=battleStratagemSource(x.b,'disrupt',1);assert.ok(p);const caster=bondSource(x.b,p);caster.intent=20;
+ x.b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;const point={x:x.u.x,y:x.u.y};assert.ok(issueCommand(x.b,'disrupt',point,1));assert.equal(hasStatus(x.b,x.u,'stun'),false);assert.equal(x.b.enemyCommand.commandProgress,COMMAND_RESOURCE.capacity);
+ caster.intent=x.u.intent;assert.equal(issueCommand(x.b,'disrupt',point,1),null);assert.ok(hasStatus(x.b,x.u,'stun'));
 });
 
 test('Valor immunity rolls and preserved low-intent buffs resume identically from current saves',()=>{

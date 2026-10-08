@@ -1,3 +1,4 @@
+import {treasureUnitMarkup} from './treasure-view.mjs';
 import {trainingCost} from './troop-training.mjs';
 import {equipmentTypes,canEquip,equipmentNames,troopTypes} from './troop-equipment.mjs';
 import {personalBondsMarkup,bondsMarkup} from './bond-display.mjs';
@@ -24,7 +25,7 @@ export function commanderSetupMarkup(s,units,roles,{attribute='data-expedition-r
  return bondsMarkup(units,{army:roles})+commanderComparison(s,units,roles,attribute,city);
 }
 
-export function unitTraitsMarkup(u){return `${personalBondsMarkup(u)}<section class="unit-relevant-traits"><h4>特性</h4>${traitChips(u,null,true)}</section>`;}
+export function unitTraitsMarkup(u){return `${treasureUnitMarkup(u)}${personalBondsMarkup(u)}<section class="unit-relevant-traits"><h4>特性</h4>${traitChips(u,null,true)}</section>`;}
 export function unitReviewMarkup(units,{terrain='land',detailAction='campaign-person-detail',detailAttribute='data-officer'}={}){
  return `<section class="compiled-units"><h3>部队</h3>${units.map(u=>{const stats=unitAttributes(u,{terrain,tick:0,sides:[]});return `<article class="compiled-unit"><h4><button class="personnel-name" data-action="${detailAction}" ${detailAttribute}="${u.id}">${esc(u.name)}部队 ↗</button> · ${TROOPS[u.type].name} · 适性 ${['C','B','A','S'][troopAptitude(u,u.type)]}</h4><p>${u.troops} 人 / 上限 ${troopCapacity(u)} · 等级 ${u.level||1}</p><dl class="compiled-unit-stats">${Object.entries(ATTRIBUTE_LABELS).map(([key,name])=>`<div><dt>${name}</dt><dd>${Number(stats[key].toFixed(2))}</dd></div>`).join('')}</dl>${unitTraitsMarkup(u)}<p>携带 ${equipmentNames(u)}</p><h4>战法</h4>${unitTactics(u).map(t=>`<button class="unit-trait-name" data-action="ability-reference" data-kind="tactic" data-id="${esc(t.id)}">${esc(t.name)}</button>`).join('')||'<p>无</p>'}</article>`;}).join('')}</section>`;
 }

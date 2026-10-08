@@ -1,0 +1,4 @@
+guandu-200 51 51 1219136 1219136 true 1219136 -33:town-35:junction:town-34:town-35":{"trail":true,"distance":47.74149138851865,"costFactor":1.5}}} -33:town-35:junction:town-34:town-35":{"trail":true,"distance":47.74149138851865,"costFactor":1.5}}}
+valid
+heroes-251 51 51 2373306 2373306 true 2373306 -33:town-35:junction:town-34:town-35":{"trail":true,"distance":47.74149138851865,"costFactor":1.5}}} -33:town-35:junction:town-34:town-35":{"trail":true,"distance":47.74149138851865,"costFactor":1.5}}}
+valid

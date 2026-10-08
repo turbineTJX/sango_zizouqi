@@ -1,0 +1,9 @@
+{"scenario":"guandu-200","player":"yuan","day":31}
+{"scenario":"guandu-200","player":"yuan","day":61}
+{"scenario":"guandu-200","player":"yuan","day":91}
+{"scenario":"guandu-200","player":"yuan","day":121}
+{"scenario":"guandu-200","player":"yuan","day":151}
+{"scenario":"guandu-200","player":"yuan","day":181}
+{"scenario":"guandu-200","player":"yuan","day":211}
+{"scenario":"guandu-200","player":"yuan","day":241}
+{"scenario":"guandu-200","seed":9173,"player":"yuan","day":241,"finished":null,"issues":[],"findings":[],"metrics":{"cao":{"name":"曹操","startCities":25,"completed":895,"failed":335,"interrupted":11,"assignments":122,"decisions":{"attack":12,"stage":20,"transfer":9,"hold":6,"reinforce":2,"retreat":2,"transport":8},"captures":12,"losses":3,"battles":16,"wins":13,"defeats":3,"plans":13,"hungryArmyDays":0,"hungryCityDays":0,"endCities":34,"gold":271692,"activeAssignments":69},"force-7":{"name":"刘表","startCities":19,"completed":440,"failed":196,"interrupted":18,"assignments":66,"decisions":{"attack":12,"transfer":19,"stage":16,"hold":17,"retreat":7,"transport":13,"reinforce":3},"captures":9,"losses":7,"battles":17,"wins":10,"defeats":7,"plans":12,"hungryArmyDays":0,"hungryCityDays":0,"endCities":21,"gold":218944,"activeAssignments":35},"sunce":{"name":"孙策","startCities":14,"completed":642,"failed":201,"interrupted":0,"assignments":73,"decisions":{"stage":37,"transport":9,"attack":12,"retreat":5,"hold":3,"transfer":3},"captures":9,"losses":0,"battles":11,"wins":9,"defeats":2,"plans":13,"hungryArmyDays":0,"hungryCityDays":0,"endCities":23,"gold":274567,"activeAssignments":39}}}

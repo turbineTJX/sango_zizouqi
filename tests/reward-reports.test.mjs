@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,commissionProject} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,commissionProject} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,ACTIONS,TECHS,cancelDomestic,grainCapacity} from '../domestic.mjs';
 import {cityStaffStatus,pendingDomesticAlerts,acknowledgeDomesticAlerts,domesticAlertsMarkup} from '../domestic-feedback.mjs';
 import {harvestStocks} from '../harvest-summary.mjs';

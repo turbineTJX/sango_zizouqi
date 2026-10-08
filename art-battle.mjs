@@ -3,6 +3,7 @@ import {TROOP_DESIGNS} from './data/design/troops.mjs';
 import {hidden} from './battle-status-rules.mjs';
 import {art} from './art-assets.mjs';
 import {hexCenter} from './hex-grid.mjs';
+import {unitSpriteClips,unitModelKey} from './unit-appearance.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const smooth=t=>t*t*(3-2*t);
@@ -22,7 +23,6 @@ export class BattleArt {
   this.board=board;this.fx=fx;this.canvas=document.createElement('canvas');this.canvas.className='art-sprites';this.canvas.setAttribute('aria-hidden','true');board.prepend(this.canvas);this.ctx=this.canvas.getContext('2d');
   this.units=new Map();this.clock=0;this.last=0;this.paused=true;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
   this.resize=new ResizeObserver(()=>this.measure());this.resize.observe(board);this.measure();
-  if(art.active)import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead){try{this.models=new ModelLayer(board,art.pack);this.models.update(this.snapshot);}catch{board.dataset.modelStatus='fallback';}}}).catch(()=>{board.dataset.modelStatus='fallback';});
   this.frame=requestAnimationFrame(t=>this.draw(t));
  }
  measure(){const r=this.board.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);this.width=r.width;this.height=r.height;this.canvas.width=Math.round(r.width*d);this.canvas.height=Math.round(r.height*d);this.ctx.setTransform(d,0,0,d,0,0);}
@@ -47,6 +47,10 @@ export class BattleArt {
    this.units.set(u.id,next);
   }
   this.snapshot={terrain:b.terrain,gate:b.siege?.gate?{...b.siege.gate}:null,units:[...this.units.values()].filter(u=>u.deadAt===undefined).map(u=>({...u}))};
+  if(!this.models&&!this.modelLoading&&(Object.keys(art.pack.models||{}).length||this.snapshot.units.some(u=>unitModelKey(art.pack,u)))){
+   this.modelLoading=true;
+   import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead){try{this.models=new ModelLayer(this.board,art.pack);this.models.update(this.snapshot);}catch{this.board.dataset.modelStatus='fallback';}}}).catch(()=>{this.board.dataset.modelStatus='fallback';});
+  }
   this.models?.update(this.snapshot);
   // Preload while deployed so the first cast never waits on an image request.
   art.image(art.pack.criticals?.default);
@@ -73,7 +77,7 @@ export class BattleArt {
    const moving=!cinematic&&u.moveAt!==undefined&&this.clock-u.moveAt<.48;
    let ap=cinematic?(actor?clamp((castP-.32)/.5):1):clamp((this.clock-(u.attackAt??-10))/.65);
    const attacking=ap<1&&(!cinematic||castP>=.32),target=actor?hexCenter(actor.x,actor.y):u.target;
-   const clips=art.pack.troops[combatFamily(u)],key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
+   const clips=unitSpriteClips(art.pack,u),key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
    const img=art.image(clip?.url),el=elements.get(u.id),model=this.models?.hasUnit(u.id);
    el?.classList.toggle('has-unit-art',!!img||!!model);
    if(!img||model)continue;

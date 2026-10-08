@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave,settleBattle} from '../engine.mjs';
-import {battleMerit,meritNeeded} from '../progression.mjs';
+import {battleMerit,battleMeritResult,meritNeeded} from '../progression.mjs';
 
 test('real battle contributions survive reload and settle by actual work exactly once',()=>{
   const s=createScenario('field',817);lockDeployment(s.battle);
@@ -14,8 +14,8 @@ test('real battle contributions survive reload and settle by actual work exactly
   assert.ok(units.some(u=>u.contribution.damage>0));
   assert.ok(units.some(u=>u.contribution.taken>0));
   assert.ok(new Set(units.map(u=>battleMerit(u,u.side===winner).award)).size>1);
-  const report=settleBattle(s);assert.deepEqual(report,settleBattle(copy));
-  for(const g of report.growth){const u=units.find(u=>u.id===g.id);assert.equal(g.gained,battleMerit(u,u.side===winner).award);}
+  const battle=s.battle;const report=settleBattle(s);assert.deepEqual(report,settleBattle(copy));
+  for(const g of report.growth){const u=units.find(u=>u.id===g.id);assert.equal(g.gained,battleMeritResult(u,battle).net);}
   const settled=structuredClone(s);assert.equal(settleBattle(s),null);assert.deepEqual(s,settled);validateSave(s);
 });
 

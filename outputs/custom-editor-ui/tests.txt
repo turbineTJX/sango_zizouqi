@@ -1,0 +1,21 @@
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (238.2017ms)
+✔ 自由对战：无效配置被拒绝 (2.3168ms)
+✔ 自定义军团长与军师独立于队列，军略按指定人选带入并保存 (12.6862ms)
+✔ 审计配兵保持六队同级总兵力，遵守武将带兵上限 (1.7227ms)
+✔ AI对战镜像布阵不修改敌军、随机数或战意，并能确定性续战 (268.3962ms)
+✔ 建筑有无不改变已学战法，野战和攻城都不会由AI重新选装 (5.4207ms)
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (10.2015ms)
+✔ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (173.5468ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (3.7234ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (302.8451ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (1148.8219ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (11.4774ms)
+✔ old officer data versions are rejected without changing saved progress (12.7178ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1839.3878

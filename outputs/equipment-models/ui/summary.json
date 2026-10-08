@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "type": "ram",
+      "side": 0,
+      "deploying": true,
+      "ready": true,
+      "desktop": true,
+      "mobile": true,
+      "fallback": true,
+      "recovered": true
+    },
+    {
+      "type": "ram",
+      "side": 1,
+      "deploying": true,
+      "ready": true,
+      "desktop": true,
+      "mobile": true,
+      "fallback": true,
+      "recovered": true
+    },
+    {
+      "type": "siege",
+      "side": 0,
+      "deploying": true,
+      "ready": true,
+      "desktop": true,
+      "mobile": true,
+      "fallback": true,
+      "recovered": true
+    },
+    {
+      "type": "siege",
+      "side": 1,
+      "deploying": true,
+      "ready": true,
+      "desktop": true,
+      "mobile": true,
+      "fallback": true,
+      "recovered": true
+    },
+    {
+      "type": "tower",
+      "side": 0,
+      "deploying": true,
+      "ready": true,
+      "desktop": true,
+      "mobile": true,
+      "fallback": true,
+      "recovered": true
+    },
+    {
+      "type": "tower",
+      "side": 1,
+      "deploying": true,
+      "ready": true,
+      "desktop": true,
+      "mobile": true,
+      "fallback": true,
+      "recovered": true
+    }
+  ],
+  "errors": []
+}

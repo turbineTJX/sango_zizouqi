@@ -1,0 +1,1 @@
+PASS multi-select both armies, duplicate rejection, editable troop/type/level rows, details, roles, launch/edit, persistence, mobile

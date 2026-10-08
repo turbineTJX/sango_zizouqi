@@ -1,0 +1,41 @@
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (49.8047ms)
+✔ nearby front takes priority before contact; fast movement stops on contact (6.0224ms)
+✔ rush cannot escape an engagement or charge through a blocking line (4.4499ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (5.9512ms)
+✖ an unreachable rear focus advances into the blocking line instead of stalling (15.2073ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (21.1795ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (7.374ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (2.2173ms)
+✔ a real retreat can leave contact (3.0923ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (362.2391ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 717.9309
+
+✖ failing tests:
+
+test at tests\engagement.test.mjs:57:1
+✖ an unreachable rear focus advances into the blocking line instead of stalling (15.2073ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(attacks(b,a).some(e=>wall.some(w=>w.id===e.to)))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engagement.test.mjs:63:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

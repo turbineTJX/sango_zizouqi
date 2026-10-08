@@ -1,0 +1,7 @@
+{"case":"low-discipline","phase":"validation","battles":72,"normalWins":12,"suppressedWins":12,"n":24,"casts":24,"applications":47.208333333333336}
+{"case":"high-discipline","phase":"validation","battles":144,"normalWins":0,"suppressedWins":0,"n":24,"casts":24,"applications":24.75}
+{"case":"unequal","phase":"validation","battles":216,"normalWins":22,"suppressedWins":21,"n":24,"casts":24,"applications":47.208333333333336}
+{"case":"small","phase":"validation","battles":288,"normalWins":8,"suppressedWins":2,"n":24,"casts":24,"applications":27.666666666666668}
+{"case":"siege","phase":"validation","battles":360,"normalWins":0,"suppressedWins":0,"n":24,"casts":24,"applications":22.25}
+{"case":"reserves","phase":"validation","battles":432,"normalWins":12,"suppressedWins":12,"n":24,"casts":24,"applications":23.416666666666668}
+REPORT C:\Users\TJX\Documents\ChatGPT\sango\outputs\eight-strength-1790584408911\report.md

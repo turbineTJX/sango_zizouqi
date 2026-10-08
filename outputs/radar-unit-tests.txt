@@ -1,0 +1,11 @@
+✔ national map starts at the operation city and never zooms out to the whole country (54.9948ms)
+✔ manual radar navigation persists through rendering; changing operation city recenters (11.8171ms)
+✔ army focus uses its actual position and manual navigation suspends following (9.8576ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 282.0001

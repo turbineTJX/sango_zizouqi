@@ -1,0 +1,147 @@
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (191.8428ms)
+✔ 自由对战：无效配置被拒绝 (2.1276ms)
+✔ 自定义军团长与军师独立于队列，军略按指定人选带入并保存 (12.4447ms)
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (6.3893ms)
+✖ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (2.3752ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (3.8301ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (277.0567ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (1214.2847ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (12.093ms)
+✔ old officer data versions are rejected without changing saved progress (12.5349ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (44.932ms)
+✖ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (3.8775ms)
+✖ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (48.0548ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (3.0103ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (15.0104ms)
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (2.1927ms)
+✖ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (2.8709ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 12
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1687.2872
+
+✖ failing tests:
+
+test at tests\officer-catalog.test.mjs:27:1
+✖ every officer has five growth skills; ordinary officers have no exclusive tactics and only authored commander stratagems (2.3752ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'fortify'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/officer-catalog.test.mjs:35:62)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'fortify' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:18:1
+✖ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (3.8775ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'heal',
+  -   'range',
+      'cleanse'
+    ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:22:38)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'heal', 'cleanse' ],
+    expected: [ 'heal', 'range', 'cleanse' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:26:1
+✖ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (48.0548ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:27:97)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:54:1
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (2.1927ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:57:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:62:1
+✖ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (2.8709ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:63:68)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

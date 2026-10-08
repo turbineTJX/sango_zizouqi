@@ -1,0 +1,22 @@
+✔ removed auxiliary troop and old aura cannot be acquired through traits or technology (1.0691ms)
+✔ current escort support comes from real bond holders and stops outside its radius (0.8332ms)
+✔ independent traits remain fixed while bond levels grow to actual personal caps (2.2686ms)
+✔ troop income has no removed personal denial or support multiplier (0.793ms)
+✔ actual holders contribute only while on field and troop conditions gate benefits (14.484ms)
+✔ ordinary and upgraded legal battles preserve actual damage and current snapshots (169.9832ms)
+✔ current independent battle mechanics all require explicit appointments (1.0221ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/leader (34.0061ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/advisor (13.0831ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/leader (9.9469ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/advisor (9.1236ms)
+✔ Ji Jun does not activate without appointment, while withdrawing or for another army (8.6851ms)
+✔ Bi Yan triggers from a real legal command and saves its interval (11.2579ms)
+✔ Yin Ren refunds only its own gauge after an actual enemy command (12.0943ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 357.5134

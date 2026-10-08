@@ -1,0 +1,25 @@
+✖ defending city troops leave as real retreat transports without duplicating personnel (159.0032ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 368.9962
+
+✖ failing tests:
+
+test at tests\domestic.test.mjs:91:1
+✖ defending city troops leave as real retreat transports without duplicating personnel (159.0032ms)
+  Error: 入场羁绊快照无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1202:78)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1350:9
+      at Array.forEach (<anonymous>)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1308:13)
+      at checkBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:639:398)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:648:159)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:99:198)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)

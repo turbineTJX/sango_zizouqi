@@ -2,7 +2,7 @@ import {gateDurability} from '../building-durability.mjs';
 import {initializeVision} from '../strategic-vision.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,roadLength,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,launchExpedition} from '../strategic-campaign.mjs';
+import {newCampaign,roadLength,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,launchExpedition} from './helpers/auto-domestic-campaign.mjs';
 import {initializeStrategicAI,manageStrategicEconomy,planStrategicAI,strategicPower,strategicCapabilities,strategicTravelDays,safeStrategicTransportRoute,validateStrategicAI,expeditionTiming,evaluateOffensive,factionStrategicProfile,estimateStrategicEnemy} from '../strategic-ai.mjs';
 import {cityForce} from '../city-units.mjs';
 import {makeOfficer} from '../engine.mjs';

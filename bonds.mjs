@@ -4,21 +4,30 @@ import {grantFormationEntries,formationBoost,validFormationEntry,routDamageBonus
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {BOND_ASSIGNMENTS} from './data/design/bond-assignments.mjs';
 import {troopFamily} from './troop-training.mjs';
+import {TREASURE_RULES} from './data/design/treasures.mjs';
+import {treasureBondBonus,grantTreasureEntries} from './treasure-battle.mjs';
+import {setStatus} from './tactics.mjs';
 export const bondCaps=u=>BOND_ASSIGNMENTS[u.id]||{bondGuard:1};
 const hash=s=>{let n=2166136261;for(const c of String(s))n=Math.imul(n^c.charCodeAt(0),16777619);return n>>>0;};
 function random(g){g.seed=(Math.imul(g.seed,1664525)+1013904223)>>>0;return g.seed/4294967296;}
 export function advanceBonds(u,seed=0){
- const g=u.bondGrowth ||= {level:1,seed:hash(`${seed}:${u.id}`),levels:{}};
- const gained=[];
- while(g.level<Math.min(10,u.level??1)){
-  g.level++;
+ if(!u.bondGrowth){
+  const g={level:1,seed:hash(`${seed}:${u.id}`),levels:{},history:[{}]};
+  while(g.level<10){
+   g.level++;
   // Each missing point has equal probability of arriving at any remaining level.
   const probability=1/(11-g.level);
   for(const [id,cap] of Object.entries(bondCaps(u))){
    const missing=cap-(g.levels[id]||0);
-   for(let i=0;i<missing;i++)if(random(g)<probability){g.levels[id]=(g.levels[id]||0)+1;gained.push(id);}
+   for(let i=0;i<missing;i++)if(random(g)<probability)g.levels[id]=(g.levels[id]||0)+1;
   }
+   g.history.push({...g.levels});
+  }
+  g.level=1;g.levels={};u.bondGrowth=g;
  }
+ const g=u.bondGrowth,level=Math.max(1,Math.min(10,u.level??1)),levels=g.history[level-1],gained=[];
+ for(const [id,n]of Object.entries(levels))for(let i=g.levels[id]||0;i<n;i++)gained.push(id);
+ g.level=level;g.levels={...levels};
  return gained;
 }
 export function bondLevels(u){
@@ -27,14 +36,19 @@ export function bondLevels(u){
 }
 export function validBondGrowth(u){
  const g=u.bondGrowth,caps=bondCaps(u);
- return !!g&&g.level===(u.level??1)&&Number.isInteger(g.seed)&&g.seed>=0&&g.seed<=0xffffffff&&g.levels&&typeof g.levels==='object'&&!Array.isArray(g.levels)&&Object.entries(g.levels).every(([id,n])=>Number.isInteger(n)&&n>0&&n<=(caps[id]||0))&&(g.level!==10||Object.entries(caps).every(([id,n])=>g.levels[id]===n));
+ const valid=x=>x&&typeof x==='object'&&!Array.isArray(x)&&Object.entries(x).every(([id,n])=>Number.isInteger(n)&&n>0&&n<=(caps[id]||0));
+ return !!g&&g.level===(u.level??1)&&Number.isInteger(g.seed)&&g.seed>=0&&g.seed<=0xffffffff&&valid(g.levels)&&Array.isArray(g.history)&&g.history.length===10&&g.history.every((x,i)=>valid(x)&&(i===0?Object.keys(x).length===0:Object.entries(g.history[i-1]).every(([id,n])=>(x[id]||0)>=n)))&&Object.entries(caps).every(([id,n])=>g.history[9][id]===n)&&JSON.stringify(g.levels)===JSON.stringify(g.history[g.level-1]);
 }
 export const bondOnField=u=>u.status==='active'&&u.hp>0&&!u.isDecoy;
-export function sideBonds(b,side){
- const sums={};
- for(const u of b?.sides?.[side]?.units||[])if(bondOnField(u))for(const [id,n] of Object.entries(bondLevels(u)))sums[id]=(sums[id]||0)+n;
- return Object.fromEntries(Object.entries(sums).map(([id,points])=>[id,{points,tier:BOND_DESIGNS[id].thresholds.filter(n=>points>=n).length}]));
+export function sideBondDetails(b,side){
+ const sums={},holders={},bonuses={};
+ for(const u of b?.sides?.[side]?.units||[])if(bondOnField(u)){
+  const levels=bondLevels(u);for(const [id,n] of Object.entries(levels)){sums[id]=(sums[id]||0)+n;holders[id]=(holders[id]||0)+1;}
+  const bonus=treasureBondBonus(u,levels);if(bonus)bonuses[bonus.id]=1;
+ }
+ return Object.fromEntries(Object.entries(sums).map(([id,n])=>{const extra=bonuses[id]||0,points=n+extra,d=BOND_DESIGNS[id],tier=d.thresholds.filter((threshold,i)=>points>=threshold&&(d.grade==='advanced'||holders[id]>=TREASURE_RULES.minimumHolders[i])).length;return [id,{points,tier,holders:holders[id],treasurePoints:extra}];}));
 }
+export const sideBonds=(b,side)=>Object.fromEntries(Object.entries(sideBondDetails(b,side)).map(([id,{points,tier}])=>[id,{points,tier}]));
 export function activeBonds(b,u){
  if(!b||!bondOnField(u))return [];
  return Object.entries(sideBonds(b,u.side)).filter(([id,s])=>s.tier>0&&(BOND_DESIGNS[id].family?troopFamily(u.type)===BOND_DESIGNS[id].family:(bondLevels(u)[id]||0)>0)).map(([id,s])=>({id,...BOND_DESIGNS[id],...s}));
@@ -93,7 +107,7 @@ export function bondProtection(b,u,kind){
  return factor;
 }
 // Contribution persists while on the field; active aid has stricter action eligibility.
-export const bondOperational=(b,u)=>bondOnField(u)&&!u.withdrawing&&!u.disengage&&!b.sides[u.side].retreat&&!['confuse','stasis'].some(key=>(u.statuses?.[key]?.until||0)>b.tick&&!bondBlocksEffect(b,u,u.statuses[key]));
+export const bondOperational=(b,u)=>bondOnField(u)&&!u.withdrawing&&!u.disengage&&!b.sides[u.side].retreat&&!['stun','confuse','stasis'].some(key=>(u.statuses?.[key]?.until||0)>b.tick&&!bondBlocksEffect(b,u,u.statuses[key]));
 // The stored window keeps counting while qualification or action eligibility is lost.
 export function bondSwiftEffect(b,u){
  const s=u.statuses?.swiftRush;
@@ -121,6 +135,7 @@ export function grantBondEntries(b,side=null,entryOrder=[]){
    grantBondEquipment(b,u,sums);
    u.bondEntry={tick:b.tick};
   }
+  grantTreasureEntries(b,pending,(u,key,steps,extra)=>setStatus(b,u,key,steps,extra));
  }
 }
 export function validBondEntry(b,u){
@@ -160,7 +175,7 @@ export function bondValorDamage(b,u,target){
  const d=bondValorRule(b,u);return d?1+d.values[d.tier-1]:1;
 }
 const bondStatus=(b,u,key)=>(u.statuses?.[key]?.until||0)>b.tick&&!bondBlocksEffect(b,u,u.statuses[key]);
-export const bondControlled=(b,u)=>['confuse','seal','disrupted'].some(key=>bondStatus(b,u,key));
+export const bondControlled=(b,u)=>['stun','confuse','seal','disrupted'].some(key=>bondStatus(b,u,key));
 export const bondFinisherCritical=(b,u,target)=>!target.isDecoy&&target.type!=='gate'&&target.hp<=target.maxHp*BOND_DESIGNS.bondFinisher.hpThreshold&&topBond(b,u,'bondFinisher')&&bondStatus(b,target,'armorBreak');
 export function bondDefenseIgnore(b,u,target,kind){
  const d=activeBonds(b,u).find(d=>d.special==='distantStrike');

@@ -1,0 +1,35 @@
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (231.9076ms)
+✖ 自然击溃守军后，城门仍存时友军救护和名将支援继续使用真实伤兵与战意 (132.0887ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (74.676ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (29.8684ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (46.181ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (59.5784ms)
+✔ appointed prepared units actually defend the city, pause work under siege and resume after defense (303.5761ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 597.8621
+
+✖ failing tests:
+
+test at tests\engine-command-phase.test.mjs:23:1
+✖ 自然击溃守军后，城门仍存时友军救护和名将支援继续使用真实伤兵与战意 (132.0887ms)
+  AssertionError [ERR_ASSERTION]: 基础救护不依赖敌方活部队
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine-command-phase.test.mjs:41:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

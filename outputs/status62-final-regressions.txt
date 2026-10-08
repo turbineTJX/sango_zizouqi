@@ -1,0 +1,112 @@
+✔ all six directions have independent work and a single stat; no city morale multiplier (10.337ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (220.8786ms)
+✔ random results vary across seeds while identical seed is reproducible (162.7188ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.7831ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (89.8096ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (72.8016ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (134.2637ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (39.7548ms)
+✔ research unlocks a local troop only after a successful trial (65.6873ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (106.4732ms)
+✔ healing conserves personnel and does not require local troop technology (37.5056ms)
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (15.8442ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (202.9892ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (110.4407ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (69.4095ms)
+✔ actual siege pauses construction without charging again or completing in the background (151.1762ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (67.2454ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (56.0133ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (449.324ms)
+✔ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (355.8834ms)
+✔ medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal (46.5494ms)
+✔ front support heals one other ally, never itself, and has a real range limit (10.0691ms)
+✔ healing does not revive defeated troops or restore already recovered wounds (7.3177ms)
+✔ doubt deals strategy damage through control protection without bypassing that protection (7.7726ms)
+✔ medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit (29.5842ms)
+✔ real zero-intent battles trigger both medical roles and resume deterministically (775.2187ms)
+✔ fire builds three layers through actual follow-up attacks, loses stacks to firefighting, and expires after disengagement (19.6858ms)
+✔ strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance (36.472ms)
+✔ medical casting spends the next basic attack interval rather than adding free healing between shots (6.7721ms)
+✔ only equipped chargers select legal short flanks, and live interception cancels that preference (3.851ms)
+✔ a naturally stacked battle saves exact layers, rejects forged stacks, and continues deterministically (494.1291ms)
+✔ ordinary officers retain their fixed positive traits at every level (83.0094ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (4.918ms)
+✔ ordinary officers use legal support and damage builds in real combat and resume deterministically (447.1449ms)
+✔ fixed identity traits are available at every level and never equipped (15.6577ms)
+✔ fixed martial and movement traits modify only intended attributes (1.6181ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (1.5243ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (19.8698ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (10.666ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (7.976ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (5.3616ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.4701ms)
+✔ isolated and joint evaluate neighbors on the correct side (7.7323ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (31.8312ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (7.0326ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (42.9378ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (16.4878ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.6189ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.3857ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (24.6684ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (23.2361ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (25.4877ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (11.0556ms)
+✔ merit advances learned tactics and capacity without unlocking or rerolling traits (1.8894ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (12.976ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (1056.8853ms)
+✔ invalid levels, merit, counters, durations and fractional cooldowns are rejected; missing required state is rejected (45.183ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (431.2821ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (462.3585ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (962.5268ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (2068.1902ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (531.658ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (146.3531ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (190.7025ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (116.8896ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1997.1046ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (425.4754ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (670.8391ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (709.8381ms)
+✔ river: complete battle, reserves, save recovery and settlement (712.2657ms)
+✔ breach: complete battle, reserves, save recovery and settlement (159.0998ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (396.6029ms)
+✔ field: complete battle, reserves, save recovery and settlement (705.7195ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (313.0672ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (511.4553ms)
+✔ siege: complete battle, reserves, save recovery and settlement (762.9689ms)
+✔ defense: complete battle, reserves, save recovery and settlement (1062.0937ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (622.1586ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (30.1214ms)
+✔ sieges add an independent gate and shields only to defending starters (64.3499ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (10.1835ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (41.2282ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (50.4067ms)
+✔ fixture and seed validation rejects malformed test state (19.7919ms)
+ℹ tests 84
+ℹ suites 0
+ℹ pass 83
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14445.8139
+
+✖ failing tests:
+
+test at tests\domestic.test.mjs:62:1
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (15.8442ms)
+  AssertionError [ERR_ASSERTION]: the intended prepared city is under siege
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:65:145)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

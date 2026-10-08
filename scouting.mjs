@@ -6,7 +6,9 @@ import {NATIONAL_FACTIONS as FACTIONS} from './national-scenarios.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {personnelEvent} from './officer-fates.mjs';
 import {recordOfficerActivities} from './officer-activity.mjs';
-import {updateVision,visionPosition,armyObservation} from './strategic-vision.mjs';
+import {PROGRESSION} from './progression.mjs';
+import {settleOfficerMerit} from './campaign-merit.mjs';
+import {updateVision,visionPosition,armyObservation,directPointVisible} from './strategic-vision.mjs';
 import {cityPersonnel} from './city-personnel.mjs';
 import {plannedOfficer} from './strategic-intent.mjs';
 import {scoutAssignments,scoutAssignment,scoutOperator,scoutingPosition,scoutVisionProxy,scoutRoute,scoutingNeighborhood} from './scouting-state.mjs';
@@ -34,6 +36,14 @@ function storeContact(s,t,kind,id,data){
  const key=kind+':'+id;let contact=t.contacts.find(c=>c.key===key),first=!contact;
  if(first){contact={key,kind,id,name:data.name,firstDay:s.campaign.day,report:null};t.contacts.push(contact);}
  contact.report={day:s.campaign.day,receivedDay:s.campaign.day,data};
+ if(kind!=='node'&&!directPointVisible(s,kind==='army'?visionPosition(s,data):mapNode(s,id),t.faction)){
+  const day=s.campaign.day,r=PROGRESSION.scouting,turn=Math.floor((day-1)/10),nodes=s.campaign.activity.nodes;
+  const previous=nodes.filter(n=>n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
+  if(!previous.some(n=>day-n.day<r.freshDays)){
+   const used=nodes.filter(n=>n.result.scouting?.faction===t.faction&&n.officerId===t.officerId&&n.result.scouting.turn===turn).reduce((n,x)=>n+x.result.growth.gained,0),amount=Math.min(r.information,Math.max(0,r.maximumPerTurn-used));
+   if(amount){settleOfficerMerit(s,scoutOperator(s,t).unit,{sourceId:`scout-information:${t.faction}:${key}:${day}`,amount,faction:t.faction,cityId:t.homeCity,reason:`取得${data.name}有效情报`});nodes.at(-1).result.scouting={faction:t.faction,key,turn};}
+  }
+ }
  if(first){const u=scoutOperator(s,t).unit,details=kind==='city'?`驻城${data.units.reduce((n,u)=>n+u.troops,0)}人，存粮${Math.floor(data.grain)}。`:kind==='army'?`兵力${data.units.reduce((n,u)=>n+u.troops,0)}人。`:'';
   personnelEvent(s,`scout:${t.id}:${key}:intel`,'SCOUT_INTEL',u,`${u.name}收到${contact.name}的侦察情报：${details}`);
  }
@@ -80,6 +90,12 @@ export function advanceScouting(s){
    if(t.progress>=cost){t.location=to;t.route.shift();t.progress=0;scan(s,t);}
   }
   if(!t.route.length)t.phase='watch';
+  if(t.phase==='watch'){
+   const day=s.campaign.day,turn=Math.floor((day-1)/10),r=PROGRESSION.scouting,nodes=s.campaign.activity.nodes,key='watch:'+t.targetCity;
+   const duplicate=nodes.some(n=>n.day===day&&n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
+   const used=nodes.filter(n=>n.result.scouting?.faction===t.faction&&n.officerId===t.officerId&&n.result.scouting.turn===turn).reduce((n,x)=>n+x.result.growth.gained,0),amount=Math.min(r.watchPerDay,Math.max(0,r.maximumPerTurn-used));
+   if(!duplicate&&amount){settleOfficerMerit(s,o.unit,{sourceId:`scout-watch:${t.faction}:${t.targetCity}:${day}`,amount,faction:t.faction,cityId:t.homeCity,reason:`维持${mapNode(s,t.targetCity).name}驻察`});nodes.at(-1).result.scouting={faction:t.faction,key,turn};}
+  }
  }
  updateVision(s);
 }

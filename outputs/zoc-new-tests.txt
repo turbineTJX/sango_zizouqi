@@ -1,0 +1,13 @@
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (23.8036ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (25.3185ms)
+✔ overlapping interception remains after harass disables one owner (2.6801ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (3.2587ms)
+✔ out-of-range rear does not displace an attackable front (2.422ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 218.9348

@@ -12,6 +12,7 @@ import {hexDistance, hexNeighbors, hexBeyond} from './hex-grid.mjs';
 import {unitAttributes,isRear,battleSupplyPenalty} from './unit-stats.mjs';
 import {blockedTerrain,canOccupy,gateTarget} from './battlefield.mjs';
 import {COMBAT} from './combat-rules.mjs';
+import {mergeTreasureStatus} from './treasure-statuses.mjs';
 import {tacticPowerProfile,tacticPowerDescription} from './tactic-power.mjs';
 import {terrainTacticDescription} from './terrain-rules.mjs';
 import {isTargetable,meleeTargetPool,interceptorsAt,canStrikeFrom,holdsLine,isMelee} from './engagement.mjs';
@@ -97,7 +98,7 @@ export function setStatus(b,u,key,duration,extra={}) {
   if(key==='shield') {
     const source=extra.source||'unattributed',layers=shieldLayers(b,u).filter(l=>l.source!==source);
     const amount=Math.max(0,Math.min(extra.amount,u.maxHp-layers.reduce((n,l)=>n+l.amount,0)));
-    if(amount)layers.push({source,label:extra.label||'护盾',amount,until:b.tick+duration+1,...(extra.bondGuardTier!==undefined?{bondGuardTier:extra.bondGuardTier,sourceId:extra.sourceId,castTick:extra.castTick}:{})});
+    if(amount)layers.push({source,label:extra.label||'护盾',amount,until:b.tick+duration+1,...(extra.sourceId?{sourceId:extra.sourceId}:{}),...(extra.sourceTreasure?{sourceTreasure:extra.sourceTreasure}:{}),...(extra.bondGuardTier!==undefined?{bondGuardTier:extra.bondGuardTier,castTick:extra.castTick}:{}),...(extra.sourceCommand?{sourceCommand:extra.sourceCommand,castTick:extra.castTick}:{})});
     refreshShield(b,u,layers);return;
   }
   // Independent applications build one bounded fire, not unlimited DOT instances.
@@ -110,6 +111,7 @@ export function setStatus(b,u,key,duration,extra={}) {
     const origin=oldBase>extra.amount?current:extra;
     u.statuses.burn={until:Math.max(current?.until||0,b.tick+duration+1),sourceId,sourceName:origin.sourceName,sourceSkillName:origin.sourceSkillName,origins:provenance(current),baseAmount,stacks,amount:baseAmount*stacks};return;
   }
+  if(mergeTreasureStatus(b,u,key,{until:b.tick+duration+1,...extra}))return;
   if(key==='ward'&&hasStatus(b,u,'ward')&&u.statuses.ward.percent>extra.percent)return;
   const prior=hasStatus(b,u,key)?u.statuses[key]:null;
   const magnitude=v=>['powerDown','armorBreak','weaken'].includes(key)?(v.fraction??.2*(v.potency??1)):(v.percent??v.amount??v.fraction??v.potency??1);
@@ -384,6 +386,7 @@ export function lureCell(b,u,target) {
   return hexNeighbors(target).map(([x,y])=>({x,y})).filter(p=>openCell(b,p.x,p.y,target)&&distance(p,u)<distance(target,u)).sort((a,c)=>distance(a,u)-distance(c,u))[0];
 }
 export function readyTactic(b,u,range) {
+  if(hasStatus(b,u,'stun'))return null;
   if(u.withdrawing||u.disengage||b.sides[u.side].retreat)return null;
   if(hasStatus(b,u,'seal') || hasStatus(b,u,'stealth') || (u.tacticRecoveryUntil||0)>b.tick)return null;
   // Player slot order is the priority; blocked tactics never block a later legal one.

@@ -1,0 +1,74 @@
+✔ all six directions have independent work and a single stat; no city morale multiplier (8.2378ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (140.6187ms)
+✔ random results vary across seeds while identical seed is reproducible (67.9374ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.0251ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (42.2303ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (25.8038ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (52.9323ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (25.0287ms)
+✔ research unlocks a local troop only after a successful trial (29.5308ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (108.6602ms)
+✔ healing conserves personnel and does not require local troop technology (25.0737ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (143.975ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (85.0483ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (61.3493ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (38.0528ms)
+✔ actual siege pauses construction without charging again or completing in the background (83.2839ms)
+✖ defending city troops leave as real retreat transports without duplicating personnel (70.1408ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (43.8679ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (333.4559ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (37.2531ms)
+✔ nearby front takes priority before contact; fast movement stops on contact (4.268ms)
+✔ rush cannot escape an engagement or charge through a blocking line (3.583ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (5.4699ms)
+✖ an unreachable rear focus advances into a legal blocking line instead of stalling (20.2393ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (16.2404ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (6.6219ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (1.8633ms)
+✔ a real retreat can leave contact (2.9549ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (314.3361ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 27
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1596.1052
+
+✖ failing tests:
+
+test at tests\domestic.test.mjs:91:1
+✖ defending city troops leave as real retreat transports without duplicating personnel (70.1408ms)
+  Error: 入场羁绊快照无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1202:78)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1350:9
+      at Array.forEach (<anonymous>)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1308:13)
+      at checkBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:639:398)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:648:159)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:99:198)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+
+test at tests\engagement.test.mjs:57:1
+✖ an unreachable rear focus advances into a legal blocking line instead of stalling (20.2393ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(attacks(b,a).some(e=>wall.some(w=>w.id===e.to)))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engagement.test.mjs:63:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

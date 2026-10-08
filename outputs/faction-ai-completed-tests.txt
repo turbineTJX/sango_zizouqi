@@ -1,0 +1,29 @@
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (71.8486ms)
+✔ superior defenses produce no attack plan or resource debit (18.4375ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (20.5763ms)
+✔ a serious incoming attack retains the home defense instead of expanding (20.6141ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (37.5073ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (23.4988ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (21.1411ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (43.3035ms)
+✔ local plan reservation lets current work finish and blocks starting another task (19.8105ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (22.7367ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (16.4853ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (18.5055ms)
+✔ AI save rejects duplicated commitments and old planner versions (29.5922ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (25.5951ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (27.7878ms)
+✔ waiting transport earmarks cargo without a debit and replenishment preserves plan food (18.7647ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (19.9062ms)
+✔ cancelling an assault before its first movement actually clears the outgoing route (20.1327ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (16.7781ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (15.1516ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (5320.2962ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6034.627

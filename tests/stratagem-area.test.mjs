@@ -8,7 +8,7 @@ function scene(leader='person-246',advisor='yu'){
  const s=newGame();appointTestCommanders(s,leader,advisor);orderArmy(s,'a1','guandu');advanceTurn(s);startBattle(s);lockDeployment(s.battle);s.battle.commandProgress=COMMAND_RESOURCE.capacity;return s;
 }
 test('circle and rotated rectangle use rendered geometry, inclusive boundary',()=>{
- const circle=STRATAGEMS.heal,rect=STRATAGEMS.firestorm,p={x:4,y:2};
+ const circle=STRATAGEMS.heal,rect=STRATAGEMS['zhou-redcliffs'],p={x:4,y:2};
  assert.ok(stratagemAreaContains(circle,p,{x:6,y:2}));
  assert.ok(!stratagemAreaContains(circle,p,{x:7,y:2}));
  assert.ok(stratagemAreaContains(rect,p,{x:6,y:2}));
@@ -37,7 +37,7 @@ test('fire only applies inside rectangle and does not concentrate excluded targe
  const broken=structuredClone(s);broken.battle.lastCommand.target.rotation=45;assert.throws(()=>validateSave(broken));
 });
 test('healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded',()=>{
- const b=scene().battle,units=b.sides[0].units.filter(u=>u.status==='active'),a=units[0],z=units.at(-1);
+ const b=scene('person-246','person-668').battle,units=b.sides[0].units.filter(u=>u.status==='active'),a=units[0],z=units.at(-1);
  a.x=2;a.y=2;z.x=10;z.y=6;
  for(const u of [a,z]){u.hp-=1000;u.battleDamage+=1000;}
  assert.deepEqual(chooseStratagemPoint(b,STRATAGEMS.heal,0),{x:2,y:2,rotation:0});
@@ -50,14 +50,14 @@ test('enemy uses identical selected geometry',()=>{
  assert.equal(issueCommand(b,'zhou-redcliffs',p,1),null);
  for(const u of b.sides[0].units)assert.equal(!!u.statuses.burn,u.status==='active'&&stratagemAreaContains(STRATAGEMS['zhou-redcliffs'],p,u));
 });
-test('demoralize affects only selected active enemies and AI chooses effective coverage',()=>{
- const holder=Object.keys(OFFICER_STRATAGEMS).find(id=>OFFICER_STRATAGEMS[id].includes('demoralize'));
+test('disrupt affects only selected active enemies and AI chooses effective coverage',()=>{
+ const holder=Object.keys(OFFICER_STRATAGEMS).find(id=>OFFICER_STRATAGEMS[id].includes('disrupt'));
  const b=scene(holder,'yu').battle,active=b.sides[1].units.filter(u=>u.status==='active'),a=active[0],z=active.at(-1);
  a.x=4;a.y=2;z.x=12;z.y=6;
  for(const u of b.sides[1].units)u.intent=80;
- const point=chooseStratagemPoint(b,STRATAGEMS.demoralize,0);
- assert.ok(active.filter(u=>stratagemAreaContains(STRATAGEMS.demoralize,point,u)).length>=active.filter(u=>stratagemAreaContains(STRATAGEMS.demoralize,{x:4,y:2},u)).length);
- assert.equal(issueCommand(b,'demoralize',{x:4,y:2}),null);
- assert.ok(a.intent<80);assert.equal(z.intent,80);
- for(const u of b.sides[1].units.filter(u=>u.status==='reserve'))assert.equal(u.intent,80);
+ const point=chooseStratagemPoint(b,STRATAGEMS.disrupt,0);
+ assert.ok(active.filter(u=>stratagemAreaContains(STRATAGEMS.disrupt,point,u)).length>=active.filter(u=>stratagemAreaContains(STRATAGEMS.disrupt,{x:4,y:2},u)).length);
+ assert.equal(issueCommand(b,'disrupt',{x:4,y:2}),null);
+ assert.ok(a.statuses.stun);assert.equal(z.statuses.stun,undefined);
+ for(const u of b.sides[1].units.filter(u=>u.status==='reserve'))assert.equal(u.statuses.stun,undefined);
 });

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,validateCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,validateCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {domesticPriority,setDomesticPriority,fillFactionAppointments} from '../faction-affairs.mjs';
 import {assignmentFor} from '../domestic.mjs';
 import {playerFaction} from '../player-faction.mjs';

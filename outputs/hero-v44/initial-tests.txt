@@ -1,0 +1,80 @@
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (3.8199ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (11.975ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (3.8012ms)
+✔ fame adds city manpower rather than free troops (3.4991ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (333.4239ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (26.8089ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.4187ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (256.8934ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (3.7243ms)
+✖ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (1.326ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (148.2394ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (3.1016ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (3.6759ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (6.2516ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (9.8965ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (7.5673ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (50.4941ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (22.9818ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (3.3863ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (1.6997ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (10.128ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 41 officers (549.678ms)
+✔ 八兵种都有至少三个低级候选和一个高级候选，所有战法进入唯一池 (0.8587ms)
+✔ S在5级两低一高，A在8级两低一高，B在8级三低，C无保底 (508.2242ms)
+✔ 1级专属有获得和未获得结果，5级全部必得，普通将没有专属 (110.4175ms)
+✔ 保底能一次补齐多个缺额，而不是只多抽一次 (797.6946ms)
+✔ 同种子身份等级结果相同，不同种子随机；换兵种不重抽，玩家只能重排 (7.8944ms)
+✔ AI不替换所学战法，专属不挤掉三普通，四槽能自动施放并确定性续战 (85.2968ms)
+✔ 跨多级与逐级学习一致，升级存档与战略换兵种保持记录 (20.037ms)
+✔ 所有预设战役生成合法学习记录，旧人工配装不绕过学习 (96.8373ms)
+✖ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (1.1853ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (189.8503ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 30
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1788.6414
+
+✖ failing tests:
+
+test at tests\famous-officers.test.mjs:24:1
+✖ 41 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (1.326ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  42 !== 41
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:25:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 42,
+    expected: 41,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tactic-tempo.test.mjs:9:1
+✖ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (1.1853ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  70 !== 60
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactic-tempo.test.mjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 70,
+    expected: 60,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

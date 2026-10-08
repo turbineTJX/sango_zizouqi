@@ -1,0 +1,41 @@
+✔ close same-work officers gain a strong, saved joint effect on both real operations (402.3761ms)
+✔ hostile same-work officers can obstruct both participants without new fees (82.6887ms)
+✖ the concrete Xun Yu and Xiahou Dun market story loses real reserves and lowers their friendship (30.2833ms)
+✔ one commercial officer encounters good and bad farming and training stories with real colleagues (5949.3721ms)
+✔ cross-domain incidents can help another existing approved research project (2360.8283ms)
+✔ same research slot has one actual project and a waiting colleague can aid its progress (95.8732ms)
+✔ departure breaks the joint effect, and different tasks never produce social incidents (466.2802ms)
+✔ positive stories improve friendship and saved settlement never rerolls or pays twice (548.5909ms)
+✔ unapproved work and nonresident characters never generate a story (398.6035ms)
+✔ one city receives at most two incidents per turn; saved source and effect tampering is rejected (5719.3974ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16337.345
+
+✖ failing tests:
+
+test at tests\domestic-incidents.test.mjs:55:1
+✖ the concrete Xun Yu and Xiahou Dun market story loses real reserves and lowers their friendship (30.2833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /荀彧.+夏侯惇.+強夺|荀彧.+夏侯惇.+强夺/. Input:
+  
+  '许昌奏报 · 强夺市货：荀彧办理「举办集市」期间，荀彧巡察市肆，发现夏侯惇强夺摊贩货物，出言制止，二人争执不休。此事传开，乡民离心，部分预备兵离营而去。本城预备兵减少120；荀彧与夏侯惇的交情转疏，友好度下降5。'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-incidents.test.mjs:59:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '许昌奏报 · 强夺市货：荀彧办理「举办集市」期间，荀彧巡察市肆，发现夏侯惇强夺摊贩货物，出言制止，二人争执不休。此事传开，乡民离心，部分预备兵离营而去。本城预备兵减少120；荀彧与夏侯惇的交情转疏，友好度下降5。',
+    expected: /荀彧.+夏侯惇.+強夺|荀彧.+夏侯惇.+强夺/,
+    operator: 'match',
+    diff: 'simple'
+  }

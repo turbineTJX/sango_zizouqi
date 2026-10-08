@@ -1,0 +1,14 @@
+✔ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (0.7175ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (173.4041ms)
+✔ limited stock covers every learned tier and only one authored burst spends intent (1.8935ms)
+✔ real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly (238.0808ms)
+✔ army restoration is useful, once per battle, does not reset cooldown or restore specials (109.9405ms)
+✔ recovery supports do not cast on full stock, themselves, or each other to form a loop (2.081ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 520.9129

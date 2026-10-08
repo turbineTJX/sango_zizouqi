@@ -1,0 +1,135 @@
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (33.2155ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (6.6269ms)
+✔ auxiliaries earn intent through melee, run their aura without consuming casts, and resume deterministically (1303.23ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (4.8445ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (1093.4271ms)
+✖ tower: repair uses earned intent, reports durability and resumes exactly (81.4211ms)
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (79.2765ms)
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (77.3639ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (529.0994ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (28.5802ms)
+✔ all 77 passives and 41 fixed routes unlock exactly at 2,3,5,8,10; exclusive only at 10 (21.7379ms)
+✔ base and advanced skills modify only their intended attributes, adding passive percentages (1.3523ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (2.4064ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (16.4573ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (8.09ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (7.8692ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (6.5709ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (4.449ms)
+✔ isolated and joint change actual basic damage and evaluate neighbors from the correct side (44.5514ms)
+✔ foresight enhances actual intellect damage below 60 regardless of the lowest equipped threshold (37.5243ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (4.6047ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (28.6149ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (13.0921ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.4198ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.424ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (17.1917ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (18.0749ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (6.7149ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (8.7602ms)
+✔ experience carries across thresholds, unlocks all crossed nodes and stops at level 10 (0.9252ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (9.2298ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (739.4325ms)
+✔ invalid levels, experience, counters, durations and fractional cooldowns are rejected; missing required state is rejected (39.6448ms)
+✔ every tactic declares its actual power, chance effects and critical policy (1.0098ms)
+✔ defensive status magnitude snapshots martial power and ignores intellect (44.9342ms)
+✔ control succeeds and fails through real casts, pays cooldown, and reports actual chance (218.5237ms)
+✔ resolve blocks control and outcome never claims an applied status (6.1122ms)
+✔ multi-hit burst shares one power-dependent critical roll per target (137.4178ms)
+✔ control duration grows with power and potency remains bounded (5.5063ms)
+✔ current saves resume identical probability rolls and reject malformed event probabilities (256.15ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (4.5357ms)
+✔ instant skills spend shared intent and recovery separates learned casts (28.4281ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (9.8037ms)
+✔ expired cooldown is insufficient below threshold; regaining intent re-enables the tactic (8.5424ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (20.6294ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (11.1715ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (22.4483ms)
+✔ blocked displacement never overlaps units or crosses board limits (4.8139ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (12.5993ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (15.4771ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (14.0125ms)
+✔ prepaid casts and previous save formats are rejected (10.7942ms)
+✔ new saves distinguish bows and crossbows and require current rules (5.5168ms)
+✔ every troop retains six learning candidates, but arbitrary role templates cannot grant skills (35.4929ms)
+✔ positioning targets real columns and clustered enemies and always includes the anchor (19.4624ms)
+✔ allied slow enables a real spear finisher, with no intent or target bypass (9.1457ms)
+✔ fire preparation increases wildfire direct hits without replacing a stronger burn (11.0444ms)
+✔ low-intellect guards retain mitigation and suppression; their support casts deal no damage (7.3554ms)
+✔ cavalry offensive stance increases basic attack at the cost of real defense (7.0939ms)
+✔ screen protects threatened healthy allies, respects its own layer and caps at one recipient (4.5899ms)
+✔ seal exchanges all damage for silence; ambush waits for close range (14.5702ms)
+✔ each role completes a battle and preserves deterministic continuation under current rules (938.6302ms)
+ℹ tests 62
+ℹ suites 0
+ℹ pass 59
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3397.6079
+
+✖ failing tests:
+
+test at tests\auxiliary.test.mjs:72:69
+✖ tower: repair uses earned intent, reports durability and resumes exactly (81.4211ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:91:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:72:69
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (79.2765ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:91:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:72:69
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (77.3639ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:91:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

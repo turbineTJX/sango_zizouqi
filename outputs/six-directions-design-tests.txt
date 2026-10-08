@@ -1,0 +1,87 @@
+
+> sango-sovereign@0.3.0 test:design
+> node --test tests/design-tables.test.mjs tests/design-strategy.test.mjs
+
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+domesticActions.fair.stat：同方向全部事务必须使用该方向唯一主属性
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:33:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10
+
+Node.js v24.15.0
+✔ strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values (108.5785ms)
+✖ edited action/building/road/movement records drive real autonomous work, routing and saves (159.2303ms)
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (162.3615ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (230.4499ms)
+✔ generated overview tables stay synchronized with the authoritative records (122.8504ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 626.3582
+
+✖ failing tests:
+
+test at tests\design-strategy.test.mjs:20:1
+✖ edited action/building/road/movement records drive real autonomous work, routing and saves (159.2303ms)
+  Error: Command failed: C:\Program Files\nodejs\node.exe --input-type=module -e 
+   import assert from 'node:assert/strict';
+   import {DOMESTIC_ACTION_DESIGNS as A} from './data/design/domestic-actions.mjs';
+   import {BUILDING_DESIGNS as B} from './data/design/buildings.mjs';
+   import {NATIONAL_ROAD_DESIGNS as R} from './data/design/roads.mjs';
+   import {MOVEMENT_RULES as M} from './data/design/movement-rules.mjs';
+   A.fair.cost=321;A.fair.days=7;A.fair.stat='charm';B.commerce.cost=777;B.commerce.days=17;
+   R.push(['town-1','town-42']);M.roadVariants.main.costFactors.land=2;M.roadVariants.side.costFactors.land=3;M.army.speedByTroop.cavalry=60;M.personnel.light=90;M.personnel.transport=130;
+   const e=await import('./strategic-campaign.mjs'),w=await import('./domestic.mjs'),m=await import('./strategic-movement.mjs'),p=await import('./personnel-movement.mjs');
+   assert.equal(w.ACTIONS.build_commerce.cost,777);assert.equal(w.ACTIONS.build_commerce.days,17);assert.equal(e.PROJECTS.commerce.cost,777);assert.equal(e.PROJECTS.commerce.turns,1.7);
+   const s=e.newCampaign(42,'heroes-251');assert.deepEqual(e.findCampaignRoute(s,'town-1','town-42'),['town-42']);
+   assert.equal(m.roadCost(s,'town-1','town-42','main'),m.roadDistance(s,'town-1','town-42')*2);
+   assert.equal(m.movementPoints({leader:'u',morale:80,hunger:0,units:[{id:'u',troops:1000,type:'cavalry',leadership:80}]}),65.4);
+   assert.equal(p.lightPersonnelSpeed({id:'dun'}),90);assert.equal(p.personnelSpeed({destination:'ye',unit:{id:'dun',troops:1000}}),130);
+   const c=s.cities.find(c=>c.id==='xuchang');c.commerce=1;s.gold=20000;
+   for(const [id,a] of Object.entries(w.ACTIONS))if(a.direction==='commerce'&&id!=='fair')c.domestic.cooldowns[id]=1000;
+   assert.equal(w.assignDomestic(s,c.id,'commerce','cao'),null);w.beginDomesticTurn(s);
+   const action=w.assignmentFor(s,'cao').action;assert.equal(action.key,'fair');assert.equal(action.cost,321);assert.equal(action.remaining,7);assert.equal(w.ACTIONS.fair.stat,'charm');
+   const restored=e.validateCampaign(JSON.parse(e.serializeCampaign(s)));assert.equal(e.serializeCampaign(restored),e.serializeCampaign(s));
+   console.log('strategic design edits verified');
+   
+  file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75
+  export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                            ^
+  
+  Error: 设计表校验失败：
+  domesticActions.fair.stat：同方向全部事务必须使用该方向唯一主属性
+      at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75:123)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:33:1
+      at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+      at async node:internal/modules/esm/loader:639:26
+      at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10
+  
+  Node.js v24.15.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/design-strategy.test.mjs:42:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\ndomesticActions.fair.stat：同方向全部事务必须使用该方向唯一主属性\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:33:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10\r\n\r\nNode.js v24.15.0\r\n" ],
+    pid: 17960,
+    stdout: '',
+    stderr: "file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75\r\nexport function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\\n'+errors.join('\\n'));return tables;}\r\n                                                                                                                          ^\r\n\r\nError: 设计表校验失败：\r\ndomesticActions.fair.stat：同方向全部事务必须使用该方向唯一主属性\r\n    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:75:123)\r\n    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:33:1\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)\r\n    at async node:internal/modules/esm/loader:639:26\r\n    at async file:///C:/Users/TJX/Documents/ChatGPT/sango/[eval1]:9:10\r\n\r\nNode.js v24.15.0\r\n"
+  }

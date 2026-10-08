@@ -1,0 +1,42 @@
+✔ all campaign information is read only and city units are not armies (134.5644ms)
+✔ expedition information follows real city-unit departure without duplication (20.0845ms)
+✔ current status follows actual marching and transfer progress (1721.0547ms)
+✔ siege status includes the live battlefield state of a real defending unit (1712.9119ms)
+✔ prepared troops show active domestic work and deferred orders separately (12.1759ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (649.7239ms)
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (7636.0297ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (1299.3484ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (13186.7517ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (172.6016ms)
+✔ scenario identity, topology, and town coordinates are validated (119.4382ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.0463ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (10747.4123ms)
+✔ national victory and defeat depend on ownership of the complete map (1406.8955ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 35436.1675
+
+✖ failing tests:
+
+test at tests\national-campaign.test.mjs:16:2
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (7636.0297ms)
+  AssertionError [ERR_ASSERTION]: AI forces fight each other
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/national-campaign.test.mjs:19:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

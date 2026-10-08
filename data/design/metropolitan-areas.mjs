@@ -12,5 +12,8 @@ export const METROPOLITAN_RULES=Object.freeze({
   drill:{main:4,small:3,gate:5,port:2},
   walls:{main:1,small:0,gate:0,port:0},
   hall:{main:6,small:3,gate:1,port:2},
+  arrowTower:{main:6,small:4,gate:5,port:4},
+  musicStage:{main:6,small:4,gate:4,port:3},
+  aidCamp:{main:6,small:4,gate:3,port:3},
  }
 });

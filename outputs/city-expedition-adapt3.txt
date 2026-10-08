@@ -1,0 +1,93 @@
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (4.185ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (15.3706ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (3.5328ms)
+✔ fame adds city manpower rather than free troops (2.7836ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (477.6841ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (27.0387ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.7122ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (311.5454ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (13.0888ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (63.9139ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (107.4468ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (125.5226ms)
+✔ appointed prepared units actually defend the city, pause work under siege and resume after defense (405.0489ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (103.451ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (30.9976ms)
+✖ a merged city army splits a legal expedition instead of stalling above ten units (33.223ms)
+✔ a hostile column approaching home takes priority over expansion (31.3379ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (25.5261ms)
+✔ columns sharing an AI route consume independent paths before and after JSON reload (34.3407ms)
+✔ a hungry army reverses its actual road progress without teleporting home (26.8808ms)
+✔ a starving merged army splits its retreat into legal marching columns (32.8264ms)
+✖ a merged wounded roster sends only its live companies as reinforcements (29.2338ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (32.373ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (7690.6724ms)
+✔ each connection offers two distinct, bidirectional roads with terrain costs (54.0603ms)
+✔ movement budget reflects active troops, commander, morale and hunger (0.3958ms)
+✔ real daily marching spends action points at the selected road cost (25.9321ms)
+✔ opposing armies on different roads pass without a field encounter (7.9878ms)
+✔ a side-road journey survives validation and resumes deterministically (53.037ms)
+✔ both directions of a road have identical positions and distinct roads diverge (0.2501ms)
+✔ a detour beyond supply range does not provide free supplies (5.3869ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (323.6451ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (90.5238ms)
+✔ 八兵种都有至少三个低级候选和一个高级候选，所有战法进入唯一池 (1.3614ms)
+✔ S在5级两低一高，A在8级两低一高，B在8级三低，C无保底 (648.6294ms)
+✔ 1级专属有获得和未获得结果，5级全部必得，普通将没有专属 (134.3435ms)
+✔ 保底能一次补齐多个缺额，而不是只多抽一次 (911.082ms)
+✔ 同种子身份等级结果相同，不同种子随机；换兵种不重抽，玩家只能重排 (9.6661ms)
+✔ AI不替换所学战法，专属不挤掉三普通，四槽能自动施放并确定性续战 (81.0103ms)
+✔ 跨多级与逐级学习一致，升级存档与战略换兵种保持记录 (43.3433ms)
+✔ 所有预设战役生成合法学习记录，旧人工配装不绕过学习 (110.8573ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 39
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8299.4523
+
+✖ failing tests:
+
+test at tests\strategic-ai.test.mjs:27:1
+✖ a merged city army splits a legal expedition instead of stalling above ten units (33.223ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  27000 !== 39000
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:30:122)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 27000,
+    expected: 39000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:58:1
+✖ a merged wounded roster sends only its live companies as reinforcements (29.2338ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.armies.some(x=>x!==a&&x.faction==='yuan'&&x.units.length===27&&!x.route.length))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:62:72)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {MAP_CITIES,terrainDrawing} from '../strategic-map-art.mjs';
 import {art,sanitizePack} from '../art-assets.mjs';
-import {roadLength,orderCampaignArmy,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
+import {roadLength,orderCampaignArmy,beginExecution,advanceCampaignDay} from './helpers/auto-domestic-campaign.mjs';
 import {mapArmyPosition,mapBattlePosition,strategicArtMap} from '../art-strategic-map.mjs';
 const anchors=MAP_CITIES;
 const url='/local-art/files/'+'a'.repeat(24)+'.png';

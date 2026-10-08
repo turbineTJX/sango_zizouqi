@@ -1,0 +1,20 @@
+✔ paid work presents a fixed proposal before any payment, research or construction; reload is read-only (330.1472ms)
+✔ approval is exactly once and denial preserves assignment, spends nothing and does not repropose this turn (94.4685ms)
+✔ automatic approval applies to pending and future work and is saved; free operations need no proposal (87.4019ms)
+✔ approval rechecks city gold and sites without charging or substituting the original proposal (43.045ms)
+✔ unpaid proposals occupy the research slot and their actual cost enters the budget once (43.7739ms)
+✔ recalling or transferring the author withdraws the unpaid proposal (41.5055ms)
+✔ every domestic action and research depends on its executor primary ability, without guaranteed success (4.7039ms)
+✔ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (502.5554ms)
+✔ proposal save rejects tampered costs, duplicate ids and simultaneous action/proposal states (116.2124ms)
+✔ actual free domestic operations fail as well; higher executor ability succeeds more often with matched seeds (5656.6301ms)
+✔ national city approvals use local funds and preserve the chosen construction site across reload (3573.5604ms)
+✔ replacing a construction executor updates their own chance without a new proposal or payment (77.9817ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10995.1968

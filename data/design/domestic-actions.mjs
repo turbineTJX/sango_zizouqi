@@ -1,4 +1,5 @@
 // Authoritative design data. Edit here; no generated overview edits.
+export const DOMESTIC_OUTCOME_RULES=Object.freeze({baseChance:.48,abilityFactor:.004,minChance:.12,maxChance:.94,criticalShare:.15,partialChance:.15,partialCeiling:.98,partialFactor:.45,criticalFactor:1.2});
 export const DOMESTIC_DIRECTIONS = {
   "commerce": "商业",
   "agriculture": "农业",
@@ -18,6 +19,9 @@ export const DOMESTIC_DIRECTION_STATS = {
 };
 
 export const DOMESTIC_ACTION_DESIGNS = {
+  build_arrowTower:{kind:'build',value:'arrowTower',stat:'leadership',cooperation:'progress'},
+  build_musicStage:{kind:'build',value:'musicStage',stat:'force',cooperation:'progress'},
+  build_aidCamp:{kind:'build',value:'aidCamp',stat:'intellect',cooperation:'progress'},
   "build_commerce": {
     "kind": "build",
     "value": "commerce",

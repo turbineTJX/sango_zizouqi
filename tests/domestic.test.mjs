@@ -7,7 +7,7 @@ import {setRelationshipType} from '../relationships.mjs';
 import {learnedTacticIds} from '../tactic-learning.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {launchExpedition,recruitCityUnits,changeCityTroop,newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,createCampaignArmy,splitCampaignArmy,orderCampaignArmy,mergeCampaignArmies,recruitCampaign,changeCampaignTroop,cityIncome,transferOfficer} from '../strategic-campaign.mjs';
+import {launchExpedition,recruitCityUnits,changeCityTroop,newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,createCampaignArmy,splitCampaignArmy,orderCampaignArmy,mergeCampaignArmies,recruitCampaign,changeCampaignTroop,cityIncome,transferOfficer} from './helpers/auto-domestic-campaign.mjs';
 import {ACTIONS,BUILDINGS,DIRECTIONS,TECHS,assignDomestic,assignmentFor,actionCandidates,cityMilitary,cancelDomestic} from '../domestic.mjs';
 import {makeOfficer,lockDeployment,activeUnits,issueCommand} from '../engine.mjs';
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
@@ -109,7 +109,7 @@ test('completed domestic work earns merit, cancellation earns none, and reload c
  const s=peaceful(81),a=selectOnly(s,'build_workshop'),o=s.campaign.idle.find(o=>o.unit.id===a.officerId),c=s.cities.find(c=>c.id===a.cityId);c.governor=null;
  beginExecution(s);const before={level:o.unit.level,merit:o.unit.merit};cancelDomestic(s,a.officerId);assert.deepEqual({level:o.unit.level,merit:o.unit.merit},before);
  const q=peaceful(81),b=selectOnly(q,'build_workshop'),city=q.cities.find(c=>c.id===b.cityId);city.governor=null;beginExecution(q);const restored=restore(q);advance(q,61);advance(restored,61);assert.equal(serializeCampaign(q),serializeCampaign(restored));
- const u=q.campaign.idle.find(o=>o.unit.id===b.officerId).unit;assert.ok(u.level>1||u.merit>0);assert.ok(q.campaign.domestic.events.some(e=>e.text.includes('功绩 +')));
+ const u=q.campaign.idle.find(o=>o.unit.id===b.officerId).unit;assert.ok(u.level>1||u.merit>0);assert.ok(q.campaign.activity.nodes.some(n=>n.phase==='merit'&&n.officerId===b.officerId&&n.result.growth?.gained>0));
 });
 
 test('force-led drills and patrols produce real defensive preparation with no secondary-stat penalty',()=>{

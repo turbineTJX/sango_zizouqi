@@ -1,0 +1,837 @@
+[
+  {
+    "file": "ability-differentiation.test.mjs",
+    "line": 40,
+    "name": "test('Xu Shu reveals stealth only inside shared insight range and loses detection on withdrawal',()=>{"
+  },
+  {
+    "file": "ability-differentiation.test.mjs",
+    "line": 43,
+    "name": "test('Gan Ning gains haste from a real stealth basic once, never from damage reveal',()=>{"
+  },
+  {
+    "file": "attributes.test.mjs",
+    "line": 18,
+    "name": "test('four officer stats affect separate derived attributes, with no charm dimension',()=>{\r"
+  },
+  {
+    "file": "attributes.test.mjs",
+    "line": 25,
+    "name": "test('basic, martial and intellect damage use distinct offense and resistance paths',()=>{\r"
+  },
+  {
+    "file": "attributes.test.mjs",
+    "line": 40,
+    "name": "test('troop attack speed changes actual basic attack cadence but not tactic cooldown',()=>{\r"
+  },
+  {
+    "file": "attributes.test.mjs",
+    "line": 49,
+    "name": "test('politics reduces actual confusion duration but physical confuse remains independent',()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 25,
+    "name": "test('recovery aura follows adjacency, breaks under control, and never increases combat attributes',()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 46,
+    "name": "test('politics leads rescue and repair power, intellect assists, and force provides no healing power',()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 54,
+    "name": "test('trait holders earn intent through melee, run their aura without consuming casts, and resume deterministically',()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 68,
+    "name": "test('repair respects ownership, distance, destruction and a three-cast material budget',()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 78,
+    "name": "for(const kind of ['gate','tower','supply-depot','future-building'])test(`${kind}: repair uses earned intent, reports durability and resumes exactly`,()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 78,
+    "name": "for(const kind of ['gate','tower','supply-depot','future-building'])test(`${kind}: repair uses earned intent, reports durability and resumes exactly`,()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 78,
+    "name": "for(const kind of ['gate','tower','supply-depot','future-building'])test(`${kind}: repair uses earned intent, reports durability and resumes exactly`,()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 78,
+    "name": "for(const kind of ['gate','tower','supply-depot','future-building'])test(`${kind}: repair uses earned intent, reports durability and resumes exactly`,()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 105,
+    "name": "test('recovery pulses restore real wounds and intent without casts, combos or overhealing',()=>{\r"
+  },
+  {
+    "file": "auxiliary.test.mjs",
+    "line": 121,
+    "name": "test('generic building records reject corrupt kinds, ownership, durability and duplicate positions',()=>{\r"
+  },
+  {
+    "file": "balance.test.mjs",
+    "line": 22,
+    "name": "test('intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize',()=>{\r"
+  },
+  {
+    "file": "battle-effects.test.mjs",
+    "line": 42,
+    "name": "test('trait outcomes get attributed cards and logs without pausing or replaying damage',t=>{"
+  },
+  {
+    "file": "battle-journal.test.mjs",
+    "line": 15,
+    "name": "test('real ordinary attack and trait results enter saved journal once and retain sources',()=>{"
+  },
+  {
+    "file": "breakthrough.test.mjs",
+    "line": 24,
+    "name": "test('a real control cast opens ZOC and the next allied charge exploits it',()=>{\r"
+  },
+  {
+    "file": "breakthrough.test.mjs",
+    "line": 34,
+    "name": "test('overlapping ZOC still stops a charge after only one front is controlled',()=>{\r"
+  },
+  {
+    "file": "breakthrough.test.mjs",
+    "line": 43,
+    "name": "test('a flanking lure relocates ZOC and enables rush; a braced front resists the lure',()=>{\r"
+  },
+  {
+    "file": "breakthrough.test.mjs",
+    "line": 55,
+    "name": "test('control protection, silence and restored ZOC cannot be bypassed',()=>{\r"
+  },
+  {
+    "file": "breakthrough.test.mjs",
+    "line": 64,
+    "name": "test('ZOC coverage uses live interceptors and respects boundaries and both sides',()=>{\r"
+  },
+  {
+    "file": "campaign-info.test.mjs",
+    "line": 36,
+    "name": "test('siege status includes the live battlefield state of a real defending unit',()=>{\r"
+  },
+  {
+    "file": "cavalry-support-intent.test.mjs",
+    "line": 9,
+    "name": "for(const id of ['person-661','person-396','person-99'])test(`${id}: 攻击骑兵携带策应仍接敌，零战意实战与续战一致`,()=>{\r"
+  },
+  {
+    "file": "cavalry-support-intent.test.mjs",
+    "line": 9,
+    "name": "for(const id of ['person-661','person-396','person-99'])test(`${id}: 攻击骑兵携带策应仍接敌，零战意实战与续战一致`,()=>{\r"
+  },
+  {
+    "file": "cavalry-support-intent.test.mjs",
+    "line": 9,
+    "name": "for(const id of ['person-661','person-396','person-99'])test(`${id}: 攻击骑兵携带策应仍接敌，零战意实战与续战一致`,()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 19,
+    "name": "test('civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects',()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 30,
+    "name": "test('wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves',()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 41,
+    "name": "test('administration charges the shown cost once; relief respects caps and once-per-turn restriction',()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 48,
+    "name": "test('fame adds city manpower rather than free troops',()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 52,
+    "name": "test('governors gain merit at actual turn settlement and loaded campaigns remain deterministic',()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 60,
+    "name": "test('governor interface shows actual discounts and links personnel to full officer details',()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 65,
+    "name": "test('weapon general damage requires correct troop, fixed trait, superior force and a physical tactic',()=>{\r"
+  },
+  {
+    "file": "civil-skills.test.mjs",
+    "line": 76,
+    "name": "test('reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots',()=>{\r"
+  },
+  {
+    "file": "combos.test.mjs",
+    "line": 38,
+    "name": "test('a stunned unit and pure self buffs do not prime a combo',()=>{\r"
+  },
+  {
+    "file": "combos.test.mjs",
+    "line": 42,
+    "name": "test('combo enhances damage-over-time, intent reduction and control duration while respecting immunity',()=>{\r"
+  },
+  {
+    "file": "combos.test.mjs",
+    "line": 48,
+    "name": "test('support combos really strengthen shields and do not include unrelated primary targets',()=>{\r"
+  },
+  {
+    "file": "command-traits.test.mjs",
+    "line": 9,
+    "name": "import {officerRecommendation} from '../officer-recommendation.mjs';"
+  },
+  {
+    "file": "command-traits.test.mjs",
+    "line": 19,
+    "name": "test('appointment UI displays the matching trait effect and recommendation uses it',()=>{"
+  },
+  {
+    "file": "contact-damage.test.mjs",
+    "line": 20,
+    "name": "test('two, three and six adjacent enemies share one normal attack budget',()=>{\r"
+  },
+  {
+    "file": "domestic-single-stat.test.mjs",
+    "line": 40,
+    "name": "test('picker explains the single primary stat instead of a mixed ability',()=>{"
+  },
+  {
+    "file": "domestic.test.mjs",
+    "line": 91,
+    "name": "test('a defeated city army retreats in columns of at most ten without duplicating personnel',()=>{\r"
+  },
+  {
+    "file": "engagement.test.mjs",
+    "line": 39,
+    "name": "test('nearby front takes priority before contact; fast movement stops on contact',()=>{\r"
+  },
+  {
+    "file": "engagement.test.mjs",
+    "line": 48,
+    "name": "test('rush cannot escape an engagement or charge through a blocking line',()=>{\r"
+  },
+  {
+    "file": "engagement.test.mjs",
+    "line": 68,
+    "name": "test('an unreachable rear focus advances into the blocking line instead of stalling',()=>{\r"
+  },
+  {
+    "file": "engagement.test.mjs",
+    "line": 115,
+    "name": "test('a real retreat can leave contact',()=>{\r"
+  },
+  {
+    "file": "engine-command-phase.test.mjs",
+    "line": 8,
+    "name": "test('电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界',()=>{\r"
+  },
+  {
+    "file": "engine-command-phase.test.mjs",
+    "line": 23,
+    "name": "for(const healer of ['liu','yu'])test(`自然击溃守军后，${healer}继续使用真实伤兵与战意救护`,t=>{\r"
+  },
+  {
+    "file": "engine-foundations.test.mjs",
+    "line": 38,
+    "name": "test('持协阵特性的武将围绕实际主力布阵并覆盖光环，不凭空改变战意或随机数',()=>{\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 42,
+    "name": "test('roads, marching, encounter, and turn lock form a connected loop', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 53,
+    "name": "test('AI battle terminates automatically with capacity, occupancy and troop conservation', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 60,
+    "name": "test('identical seeds and serialized battle recovery produce identical outcomes', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 101,
+    "name": "test('friendly recruitment and wounded recovery cannot duplicate soldiers', async () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 113,
+    "name": "test('garrison alone can defend a city when player army is elsewhere', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 125,
+    "name": "test('invalid saves are rejected before replacing game state', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 128,
+    "name": "test('different seeds finish without deadlocks or overlapping units', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 155,
+    "name": "test('daylight limit ends a stalemate in a draw without capturing the city', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 162,
+    "name": "test('capturing the final city completes the scenario', () => {\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 208,
+    "name": "test('a defeated unit cannot use a ready skill',()=>{\r"
+  },
+  {
+    "file": "engine.test.mjs",
+    "line": 266,
+    "name": "test('each skill has its own threshold, and intent below threshold cannot cast', () => {\r"
+  },
+  {
+    "file": "expanded-troops.test.mjs",
+    "line": 35,
+    "name": "test('all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns',()=>{\r"
+  },
+  {
+    "file": "expanded-troops.test.mjs",
+    "line": 53,
+    "name": "test('疫伤降低持续救治，救护先解除疫伤再救治',()=>{"
+  },
+  {
+    "file": "expanded-troops.test.mjs",
+    "line": 58,
+    "name": "test('疑兵有独立耐久且不抵挡本体持续伤害、不增加部队',()=>{"
+  },
+  {
+    "file": "expanded-troops.test.mjs",
+    "line": 64,
+    "name": "test('riposte is one direct reaction per step, without a counter chain or extra intent',()=>{\r"
+  },
+  {
+    "file": "expanded-troops.test.mjs",
+    "line": 81,
+    "name": "test('siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective',()=>{\r"
+  },
+  {
+    "file": "expanded-troops.test.mjs",
+    "line": 88,
+    "name": "test('two real ram casts can link against the gate and increase the second hit',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 34,
+    "name": "test('42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 47,
+    "name": "test('every exclusive tactic resolves through the real engine and enters only its own cooldown',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 74,
+    "name": "test('multi-hit and multi-target exclusive attacks do not charge the caster',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 82,
+    "name": "test('support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 94,
+    "name": "test('exclusive control respects resolve and discipline; deaths do not acquire new statuses',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 103,
+    "name": "test('personal mechanism traits remain fixed across level and troop changes, with no retired stat bonuses',()=>{"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 110,
+    "name": "test('exclusive support stays local and army healing uses selected circle',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 131,
+    "name": "test('Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded',()=>{\r"
+  },
+  {
+    "file": "famous-officers.test.mjs",
+    "line": 150,
+    "name": "test('self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent',()=>{\r"
+  },
+  {
+    "file": "follow-army.test.mjs",
+    "line": 64,
+    "name": "test('an escaped commander accompanies surviving retreating troops from the actual road position',()=>{\r"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 10,
+    "name": "test('荀彧获得额外专属，持有固定内政特性和普通学习名额',()=>{"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 29,
+    "name": "for(const [id,name,type] of HERO_CASES)test(`${name}：合法自定义战役自然发动专属，遵守消耗、目标与续战`,()=>{"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 29,
+    "name": "for(const [id,name,type] of HERO_CASES)test(`${name}：合法自定义战役自然发动专属，遵守消耗、目标与续战`,()=>{"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 29,
+    "name": "for(const [id,name,type] of HERO_CASES)test(`${name}：合法自定义战役自然发动专属，遵守消耗、目标与续战`,()=>{"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 29,
+    "name": "for(const [id,name,type] of HERO_CASES)test(`${name}：合法自定义战役自然发动专属，遵守消耗、目标与续战`,()=>{"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 29,
+    "name": "for(const [id,name,type] of HERO_CASES)test(`${name}：合法自定义战役自然发动专属，遵守消耗、目标与续战`,()=>{"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 29,
+    "name": "for(const [id,name,type] of HERO_CASES)test(`${name}：合法自定义战役自然发动专属，遵守消耗、目标与续战`,()=>{"
+  },
+  {
+    "file": "hero-redesign.test.mjs",
+    "line": 29,
+    "name": "for(const [id,name,type] of HERO_CASES)test(`${name}：合法自定义战役自然发动专属，遵守消耗、目标与续战`,()=>{"
+  },
+  {
+    "file": "hex-grid.test.mjs",
+    "line": 25,
+    "name": "test('hex paths use six neighbors and cannot cross a gate or an occupied ring',()=>{\r"
+  },
+  {
+    "file": "hex-grid.test.mjs",
+    "line": 62,
+    "name": "test('diagonal protection knockback follows the hex line and stops before an occupied cell',()=>{\r"
+  },
+  {
+    "file": "intent-roles.test.mjs",
+    "line": 32,
+    "name": "test('interdict is fixed from level one and prevents the entire normal hit award, including endurance',()=>{\r"
+  },
+  {
+    "file": "intent-roles.test.mjs",
+    "line": 41,
+    "name": "test('stifle suppresses every victim once per damage tactic and does not suppress normal attacks',()=>{\r"
+  },
+  {
+    "file": "intent-roles.test.mjs",
+    "line": 52,
+    "name": "test('suppression traits remain with their fixed holders after troop changes',()=>{for(const [id,trait]of [['liao','interdict'],['jia','stifle']]){const u=makeOfficer(id);assert.ok(hasPassive(u,trait));assert.deepEqual(skillRoute({...u,type:'ship',level:10}),skillRoute(u));}assert.ok(!hasPassive(makeOfficer('person-46'),'interdict'));});"
+  },
+  {
+    "file": "intent-roles.test.mjs",
+    "line": 54,
+    "name": "test('denial neither drains stored intent nor blocks explicit support or fully shielded attacks',()=>{\r"
+  },
+  {
+    "file": "intent-roles.test.mjs",
+    "line": 62,
+    "name": "test('legal learned suppression repeatedly denies income and drains intent without disabling cheap defense',()=>{"
+  },
+  {
+    "file": "intent-roles.test.mjs",
+    "line": 71,
+    "name": "test('current suppression routes and troop incomes survive deterministic battle continuation',()=>{\r"
+  },
+  {
+    "file": "intent-tempo.test.mjs",
+    "line": 41,
+    "name": "test('damage tactics against a gate do not charge the caster, basic siege attacks do',()=>{\r"
+  },
+  {
+    "file": "intent-tiers.test.mjs",
+    "line": 8,
+    "name": "test('cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically',()=>{\r"
+  },
+  {
+    "file": "loadouts.test.mjs",
+    "line": 20,
+    "name": "test('each troop has a valid shared pool and exclusive tactics remain optional',()=>{\r"
+  },
+  {
+    "file": "loadouts.test.mjs",
+    "line": 39,
+    "name": "test('force and intellect damage scale with their own attribute, not troop weapon type',()=>{\r"
+  },
+  {
+    "file": "loadouts.test.mjs",
+    "line": 44,
+    "name": "test('confusion and seal prevent immediate skills while seal still permits basic attacks',()=>{\r"
+  },
+  {
+    "file": "loadouts.test.mjs",
+    "line": 53,
+    "name": "test('intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns',()=>{\r"
+  },
+  {
+    "file": "loadouts.test.mjs",
+    "line": 60,
+    "name": "test('cavalry schemes induce real movement and suppress intent immediately',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 21,
+    "name": "test('medical tactics heal actual wounded, respect the shared recovery budget, and never create casualties to heal',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 35,
+    "name": "test('front support heals one other ally, never itself, and has a real range limit',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 43,
+    "name": "test('healing does not revive defeated troops or restore already recovered wounds',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 50,
+    "name": "test('doubt deals strategy damage through control protection without bypassing that protection',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 55,
+    "name": "test('medical positioning requires earned intent and is not enabled by an incidental heal in an offensive kit',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 65,
+    "name": "test('real zero-intent battles trigger both medical roles and resume deterministically',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 75,
+    "name": "test('fire builds three layers through actual follow-up attacks, loses stacks to firefighting, and expires after disengagement',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 88,
+    "name": "test('strategy attacks remain basic attacks for shelter and cooperation, while using strategy damage resistance',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 103,
+    "name": "test('medical casting spends the next basic attack interval rather than adding free healing between shots',()=>{\r"
+  },
+  {
+    "file": "medical-roles.test.mjs",
+    "line": 110,
+    "name": "test('only equipped chargers select legal short flanks, and live interception cancels that preference',()=>{\r"
+  },
+  {
+    "file": "officer-catalog.test.mjs",
+    "line": 29,
+    "name": "test('every officer has fixed positive traits; ordinary officers have no exclusive tactics and bounded ordinary commander stratagems',()=>{\r"
+  },
+  {
+    "file": "officer-synergy.test.mjs",
+    "line": 11,
+    "name": "test('普通武将默认兵种采用真实最高适性，枪戟分别计算',()=>{"
+  },
+  {
+    "file": "ordinary-growth.test.mjs",
+    "line": 19,
+    "name": "test('ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs',()=>{\r"
+  },
+  {
+    "file": "ordinary-growth.test.mjs",
+    "line": 29,
+    "name": "test('ordinary officers use legal support and damage builds in real combat and resume deterministically',()=>{\r"
+  },
+  {
+    "file": "scenarios.test.mjs",
+    "line": 10,
+    "name": "for (const config of SCENARIOS) {\r"
+  },
+  {
+    "file": "scenarios.test.mjs",
+    "line": 10,
+    "name": "for (const config of SCENARIOS) {\r"
+  },
+  {
+    "file": "skill-adjustment.test.mjs",
+    "line": 24,
+    "name": "test('fire and wildfire snapshot troop-scaled DOT, keep full-strength power, and do not generate intent on ticks',()=>{\r"
+  },
+  {
+    "file": "skill-adjustment.test.mjs",
+    "line": 43,
+    "name": "test('screen has a useful baseline and scales with support passives',()=>{\r"
+  },
+  {
+    "file": "skill-adjustment.test.mjs",
+    "line": 55,
+    "name": "test('foresight no longer depends on enemy loadout and respects its strict boundary and damage kind',()=>{\r"
+  },
+  {
+    "file": "skill-adjustment.test.mjs",
+    "line": 69,
+    "name": "test('gallop provides travel speed before contact and mitigation while adjacent',()=>{\r"
+  },
+  {
+    "file": "skill-adjustment.test.mjs",
+    "line": 77,
+    "name": "test('new officer defaults activate the intended bow and support routes without removing troop choice',()=>{\r"
+  },
+  {
+    "file": "status-rules62.test.mjs",
+    "line": 44,
+    "name": "test('personal range changes do not increase weapon tactic range',()=>{"
+  },
+  {
+    "file": "status-rules62.test.mjs",
+    "line": 48,
+    "name": "test('learned opening ambush is first-entry only, respects ZOC, and is serialized with the current rules',()=>{"
+  },
+  {
+    "file": "status-rules62.test.mjs",
+    "line": 66,
+    "name": "test('single-target learned decoy creates a real target, not a seventh troop or damage shield',()=>{"
+  },
+  {
+    "file": "status-rules62.test.mjs",
+    "line": 73,
+    "name": "test('prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage',()=>{"
+  },
+  {
+    "file": "stratagems.test.mjs",
+    "line": 60,
+    "name": "test('range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed',()=>{\r"
+  },
+  {
+    "file": "strategic-campaign.test.mjs",
+    "line": 58,
+    "name": "test('manual battle suspends at the next planning phase and resumes the same battle',()=>{\r"
+  },
+  {
+    "file": "strategic-campaign.test.mjs",
+    "line": 64,
+    "name": "test('a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit',()=>{\r"
+  },
+  {
+    "file": "strategic-campaign.test.mjs",
+    "line": 133,
+    "name": "test('combat desertions are never healable and dissolved officers are not duplicated in saves',()=>{\r"
+  },
+  {
+    "file": "tactic-learning.test.mjs",
+    "line": 60,
+    "name": "test('升级不授予或更换战法，战略改编和存读档维持固定记录',()=>{"
+  },
+  {
+    "file": "tactic-tempo.test.mjs",
+    "line": 9,
+    "name": "test('ordinary learning pools retain low/high slots and exclusive roles have distinct costs',()=>{"
+  },
+  {
+    "file": "tactic-tempo.test.mjs",
+    "line": 22,
+    "name": "test('earned casts pay fixed intent, recover between spells, still attack and resume during recovery',()=>{"
+  },
+  {
+    "file": "tactic-uses.test.mjs",
+    "line": 23,
+    "name": "test('real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly',()=>{"
+  },
+  {
+    "file": "tactical-campaigns.test.mjs",
+    "line": 23,
+    "name": "for(const id of ['tactical-control-lv','tactical-control-zhang']){\r"
+  },
+  {
+    "file": "tactical-campaigns.test.mjs",
+    "line": 23,
+    "name": "for(const id of ['tactical-control-lv','tactical-control-zhang']){\r"
+  },
+  {
+    "file": "tactics.test.mjs",
+    "line": 60,
+    "name": "test('fire burns without intent feedback and ranged skills have distinct real effects',()=>{\r"
+  },
+  {
+    "file": "tactics.test.mjs",
+    "line": 76,
+    "name": "test('formation and valor grant real statuses; gallop needs a path and rush changes position',()=>{\r"
+  },
+  {
+    "file": "tactics.test.mjs",
+    "line": 92,
+    "name": "test('rare skills confuse, protect and reduce intent without being universal damage attacks',()=>{\r"
+  },
+  {
+    "file": "tactics.test.mjs",
+    "line": 99,
+    "name": "test('independent cooldowns, statuses and active casts survive save and resume identically',()=>{\r"
+  },
+  {
+    "file": "tactics.test.mjs",
+    "line": 108,
+    "name": "test('formation mitigates actual damage and blocks displacement; shields absorb before soldiers',()=>{\r"
+  },
+  {
+    "file": "taunt-pursuit.test.mjs",
+    "line": 31,
+    "name": "test('taunted ranged offensive skills wait for range, then attack the taunter',()=>{\r"
+  },
+  {
+    "file": "taunt-pursuit.test.mjs",
+    "line": 37,
+    "name": "test('cleanse removes a real taunt; its source dying or retreating immediately releases the target',()=>{\r"
+  },
+  {
+    "file": "taunt-pursuit.test.mjs",
+    "line": 60,
+    "name": "test('a real charge follows a real retreat shot instead of switching back to a disabled front',()=>{\r"
+  },
+  {
+    "file": "taunt-pursuit.test.mjs",
+    "line": 66,
+    "name": "test('pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry',()=>{\r"
+  },
+  {
+    "file": "terrain.test.mjs",
+    "line": 58,
+    "name": "test('fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs',()=>{\r"
+  },
+  {
+    "file": "terrain.test.mjs",
+    "line": 67,
+    "name": "test('area fire resolves each target terrain separately',()=>{\r"
+  },
+  {
+    "file": "terrain.test.mjs",
+    "line": 77,
+    "name": "test('burn recalculates terrain after moving, without compounding its stored stack strength',()=>{\r"
+  },
+  {
+    "file": "terrain.test.mjs",
+    "line": 106,
+    "name": "test('ambush and fortifications change duration, while terrain slow is visible in derived movement',()=>{\r"
+  },
+  {
+    "file": "terrain.test.mjs",
+    "line": 117,
+    "name": "test('water tactics and fire distinguish a ship under the bridge from troops on it',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 28,
+    "name": "test('positioning targets real columns and clustered enemies and always includes the anchor',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 38,
+    "name": "test('allied slow enables a real spear finisher, with no intent or target bypass',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 43,
+    "name": "test('fire preparation increases wildfire direct hits without replacing a stronger burn',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 48,
+    "name": "test('low-intellect guards retain mitigation and suppression; their support casts deal no damage',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 57,
+    "name": "test('cavalry offensive stance increases basic attack at the cost of real defense',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 64,
+    "name": "test('screen protects threatened healthy allies, respects its own layer and caps at one recipient',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 75,
+    "name": "test('seal exchanges all damage for silence; ambush waits for close range',()=>{\r"
+  },
+  {
+    "file": "toolbox.test.mjs",
+    "line": 82,
+    "name": "test('each role completes a battle and preserves deterministic continuation under current rules',()=>{\r"
+  },
+  {
+    "file": "trait-mechanics.test.mjs",
+    "line": 28,
+    "name": "test('Ji Jun does not activate without appointment, while withdrawing or for another army',()=>{"
+  },
+  {
+    "file": "trait-mechanics.test.mjs",
+    "line": 33,
+    "name": "test('Yin Ren refunds only its own gauge after an actual enemy command',()=>{"
+  },
+  {
+    "file": "troop-capacity.test.mjs",
+    "line": 36,
+    "name": "test('outnumbered defense enforces a real hold objective and retreat still fails',()=>{\r"
+  },
+  {
+    "file": "zoc-counterplay.test.mjs",
+    "line": 24,
+    "name": "test('real gallop bypasses live ZOC without removing enemy coverage and expires',()=>{"
+  },
+  {
+    "file": "zoc-counterplay.test.mjs",
+    "line": 34,
+    "name": "test('real harass disables only its target ZOC, respects resolve, and permits deterministic saves',()=>{"
+  },
+  {
+    "file": "zoc-counterplay.test.mjs",
+    "line": 50,
+    "name": "test('overlapping interception remains after harass disables one owner',()=>{"
+  },
+  {
+    "file": "zoc-counterplay.test.mjs",
+    "line": 68,
+    "name": "test('real Wei Wu command restores interception without waiting for disruption expiry',()=>{"
+  },
+  {
+    "file": "zoc-counterplay.test.mjs",
+    "line": 94,
+    "name": "test('疑兵战法为残血部队额外避战两回合并保持确定性续战',()=>{"
+  },
+  {
+    "file": "zoc-counterplay.test.mjs",
+    "line": 108,
+    "name": "test('enemy side uses the same finisher priority and excludes protected targets',()=>{"
+  }
+]

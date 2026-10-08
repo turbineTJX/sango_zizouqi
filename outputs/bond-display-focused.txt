@@ -1,0 +1,19 @@
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (28.2821ms)
+✔ council rejects posture changes, changes starters, respects arrivals and resumes deterministically (70.4228ms)
+✔ reserve bench supports swaps, ordering, overflow validation and saved deployment (4.4572ms)
+✔ removed postures do not change attributes or field intent (2.3663ms)
+✔ display uses the engine in-field sums and updates after substitution (1.5858ms)
+✔ draft preview excludes zero troops and decoys and is explicitly potential (0.3926ms)
+✔ all 832 personal growth ceilings complete at ten without exceeding caps (17.1514ms)
+✔ random progression survives save, bulk upgrades and changes of troop (1.4352ms)
+✔ only live field units sum levels; reserve arrival and retreat immediately update tiers (0.4351ms)
+✔ independent commander traits remain and replaced battle traits no longer activate (0.3966ms)
+✔ real combat and save validation preserve bond growth (153.2714ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 355.7976

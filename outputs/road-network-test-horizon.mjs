@@ -1,0 +1,3 @@
+import fs from 'node:fs';
+let p='tests/national-campaign.test.mjs',s=fs.readFileSync(p,'utf8');s=s.replace("const copy=restored(s);toDay(s,31);toDay(copy,31);", "// Field junctions change travel and assembly times; observe five turns of real warfare.\n  const copy=restored(s);toDay(s,51);toDay(copy,51);");fs.writeFileSync(p,s);
+p='tests/campaign-info.test.mjs';s=fs.readFileSync(p,'utf8').replace("target:'luoyang',policy:'auto'","target:'luoyang',policy:'auto'");s=s.replace(" const a=s.armies[0];assert.match(status(s,'officer',ids[0]),/待出发/);", " // Use a road longer than one daily movement budget; short legs may end at a junction.\n const a=s.armies[0];assert.match(status(s,'officer',ids[0]),/待出发/);");fs.writeFileSync(p,s);

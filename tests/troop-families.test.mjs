@@ -4,7 +4,7 @@ import {OFFICER_CATALOG} from '../officer-catalog.mjs';
 import {troopAptitude} from '../tactic-learning.mjs';
 import {TROOPS,unitAttributes} from '../unit-stats.mjs';
 import {troopTypes,canEquip} from '../troop-equipment.mjs';
-import {newCampaign,prepareDepartureUnits,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,prepareDepartureUnits,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {canTrain,TECHS} from '../domestic.mjs';
 import {trainingCost} from '../troop-training.mjs';
 import {commandMarkup,newCommand} from '../strategic-command.mjs';

@@ -1,0 +1,33 @@
+✔ all current facilities and gates save actual current and maximum durability (278.574ms)
+✔ new construction advances actual durability daily and inspection cannot advance it (198.2954ms)
+✔ damaged facilities use the same construction progress, pay less and retain their level (440.4676ms)
+✔ interruption preserves paid work, durability and the saved construction site (118.156ms)
+✔ expansion raises maximum durability without instantly supplying the new durability (70.9035ms)
+✔ damage to a half-built facility extends remaining work without resetting or charging again (166.6031ms)
+✔ battle repairs that finish construction activate the facility and settle its original job once (156.2113ms)
+✔ a destroyed watchtower stops its sight until genuine military repairs restore durability (351.8564ms)
+✔ destroyed facilities cease production and become operational after actual repair (51.3732ms)
+✔ construction and gate durability cannot be forged in saves (141.7367ms)
+✔ battle buildings preserve real damage and map repairs back to the same physical facilities (36.2235ms)
+✔ actual siege attacks a functioning tower, preserves civilian works and returns physical damage after retreat (230.4094ms)
+✔ level ten retains upgrade surplus and keeps earning a deduction buffer (59.5338ms)
+✔ downgrades reverse every threshold, clamp at one, and restore saved bonds without rerolls (1.2636ms)
+✔ changed allegiance retains twenty percent of thresholds plus balance (0.4241ms)
+✔ real recruitment preserves first service and discounts former service once, including former free officers (477.4042ms)
+✔ permanent event records prevent repeat rewards and deductions after reload (74.5223ms)
+✔ downgrade preserves field soldiers and returns excess troops to reserves at home (65.6059ms)
+✔ split transport deliveries and reverse deliveries share one route budget (15.6948ms)
+✔ scouting rewards real intelligence and watch days, capped and persistent across redispatch (249.974ms)
+✔ actual shield absorption credits its friendly provider, including reload (383.9149ms)
+✔ actual ordinary failures deduct merit and can downgrade, while partial results retain credit (961.5391ms)
+✔ real battle contributions survive reload and settle by actual work exactly once (588.7252ms)
+✔ current saves reject missing or forged contribution counters and old rules (19.8731ms)
+✔ battle awards are reduced and marginal upgrade costs accelerate (0.2284ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2552.0108

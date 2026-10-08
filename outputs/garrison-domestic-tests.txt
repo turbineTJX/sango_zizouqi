@@ -1,0 +1,14 @@
+✔ prepared officers can take every civil direction and govern without duplicating their units (26.9484ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (44.1151ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (51.9117ms)
+✔ appointed prepared units actually defend the city, pause work under siege and resume after defense (268.7937ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (130.2269ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (57.275ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 516.1675

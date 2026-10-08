@@ -1,0 +1,24 @@
+✔ each offset-row neighbor is reciprocal, one step away, and equally spaced on screen (1.8091ms)
+✔ hex paths use six neighbors and cannot cross a gate or an occupied ring (0.9278ms)
+✔ diagonal spear thrust hits the next hex on the same axial line (27.0701ms)
+✔ removed protection tactic is not silently granted to the former holder (3.019ms)
+✔ missing grid type is rejected instead of upgrading a pre-hex battle (6.6167ms)
+✔ all presets have symmetric cells; ships never occupy forests, hills or marshes (1.0378ms)
+✔ terrain changes only during deployment, resets both sides legally and preserves intent and seed (44.7043ms)
+✔ fire hits gain in forests, weaken in marshes, and do not alter intent or cooldown costs (10.4482ms)
+✔ area fire resolves each target terrain separately (9.0176ms)
+✔ burn recalculates terrain after moving, without compounding its stored stack strength (5.0207ms)
+✔ high ground boosts shooting, woodland shields ranged targets and neutral skills remain neutral (5.1089ms)
+✔ charge damage remembers the starting high ground and the worst traversed wetland (10.7756ms)
+✔ fortifications change duration, while terrain slow is visible in derived movement (7.0138ms)
+✔ current fire treats a ship under the bridge as water (2.1421ms)
+✔ famous fire tactics share terrain effects and all tactics explain their terrain rules (2.7584ms)
+✔ all terrain saves resume deterministically to real battle completion and old rules are rejected (1772.2127ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2073.5296

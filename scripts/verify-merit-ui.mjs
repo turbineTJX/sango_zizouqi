@@ -1,0 +1,38 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import {mkdir,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {createScenario} from '../tests/helpers/scenarios.mjs';
+import {lockDeployment,stepBattle,settleBattle,validateSave} from '../engine.mjs';
+import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {gainMerit,meritFloor,totalMerit} from '../progression.mjs';
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const port=4212,base='http://127.0.0.1:'+port,out='outputs/merit-ui';
+await mkdir(out,{recursive:true});
+const battle=createScenario('field',817);lockDeployment(battle.battle);
+while(!battle.battle.result)stepBattle(battle.battle);
+const report=settleBattle(battle),decreased=report.growth.find(g=>g.side===0&&g.after<g.before);
+assert.ok(decreased,'actual losing commander must have a downgrade in the real battle');validateSave(battle);
+const campaign=newCampaign(7);for(const u of [...campaign.cities.find(c=>c.id==='xuchang').units,...campaign.campaign.idle.filter(o=>o.location==='xuchang').map(o=>o.unit)])gainMerit(u,meritFloor(10)+777-totalMerit(u));
+const server=spawn(process.execPath,['server.mjs'],{cwd:new URL('..',import.meta.url),env:{...process.env,PORT:String(port),SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
+let browser,page;const errors=[];
+try{
+ await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',code=>no(Error('Server exited '+code)));});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'});
+ await context.addInitScript(({battle,campaign})=>{if(!localStorage.getItem('sango-historical-battle-v1'))localStorage.setItem('sango-historical-battle-v1',battle);if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',campaign);},{battle:JSON.stringify(battle),campaign:serializeCampaign(campaign)});
+ page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base+'/#historical-battle');await page.locator('.growth-report').waitFor();
+ const growthText=await page.locator('.growth-report').innerText();assert.ok(growthText.includes(`${decreased.before} → ${decreased.after} 级`));assert.match(growthText,/功绩 −\d+/);assert.match(growthText,/奖励 \d+，扣罚 \d+/);
+ await page.locator('.growth-report').screenshot({path:out+'/battle-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.locator('.growth-report').screenshot({path:out+'/battle-mobile.png'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.reload();await page.locator('.growth-report').waitFor();assert.equal(await page.locator('.growth-report').innerText(),growthText);
+ await page.setViewportSize({width:1440,height:1000});await page.goto(base+'/?merit-campaign=1#strategy');await page.locator('[data-city="xuchang"][role="button"]').first().click();
+ await page.locator('[data-action="city-domestic"][data-town="xuchang"]').click();await page.locator('.modal-body [data-action="campaign-pick"][data-task="domestic"][data-direction="commerce"]').click();
+ const id=await page.locator('[data-personnel-choice]:not(:disabled)').first().getAttribute('data-personnel-choice');await page.locator(`[data-action="campaign-person-detail"][data-officer="${id}"]`).click();
+ await page.locator('.personnel-learning').waitFor();assert.match(await page.locator('.modal-body').innerText(),/满级.*功绩余额 777/);
+ await page.locator('.modal-body').screenshot({path:out+'/max-level-desktop.png'});
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.locator('.modal-body').screenshot({path:out+'/max-level-mobile.png'});
+ assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,downgrade:{id:decreased.id,before:decreased.before,after:decreased.after,gained:decreased.gained},maxLevelBalance:777,errors},null,2));
+ console.log('Merit UI passed: real battle deductions and downgrade, reload, level ten balance, desktop and mobile.');
+}catch(e){if(page)await page.screenshot({path:out+'/failure.png',fullPage:true});throw e;}finally{await browser?.close();server.kill();}

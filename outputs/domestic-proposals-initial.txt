@@ -1,0 +1,40 @@
+✔ paid work presents a fixed proposal before any payment, research or construction; reload is read-only (209.5129ms)
+✔ approval is exactly once and denial preserves assignment, spends nothing and does not repropose this turn (62.1056ms)
+✔ automatic approval applies to pending and future work and is saved; free operations need no proposal (61.6431ms)
+✔ approval rechecks city gold and sites without charging or substituting the original proposal (36.2486ms)
+✔ unpaid proposals occupy the research slot and their actual cost enters the budget once (40.3623ms)
+✔ recalling or transferring the author withdraws the unpaid proposal (40.2292ms)
+✔ every domestic action and research depends on its executor primary ability, without guaranteed success (7.0337ms)
+✖ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (331.0006ms)
+✔ proposal save rejects tampered costs, duplicate ids and simultaneous action/proposal states (97.9857ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1139.2774
+
+✖ failing tests:
+
+test at tests\domestic-proposals.test.mjs:63:1
+✖ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (331.0006ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  40000 !== 39800
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-proposals.test.mjs:70:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 40000,
+    expected: 39800,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

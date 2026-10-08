@@ -1,0 +1,48 @@
+✔ appointment traits affect only the appointed role and its own army independent of personal deployment (20.0048ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (3.113ms)
+✔ appointment UI displays the matching trait effect and recommendation uses it (2.9996ms)
+✔ current save preserves command eligibility and deterministic continuation (87.0288ms)
+✔ army traits are rare fixed identity assignments, never awarded by stat thresholds (1.1068ms)
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (156.8885ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (270.8903ms)
+✔ generated overview tables stay synchronized with the authoritative records (119.7342ms)
+✔ fixed identity traits are available at every level and never equipped (11.1703ms)
+✔ fixed martial and movement traits modify only intended attributes (1.1528ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (0.8875ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (17.475ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (7.5472ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (6.4311ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (4.3198ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (3.8718ms)
+✔ isolated and joint evaluate neighbors on the correct side (6.1599ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (32.1723ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (4.7653ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (21.9953ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (11.6441ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.2739ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.2164ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (12.0991ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (13.1474ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (6.6212ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (5.1665ms)
+✔ merit advances learned tactics and capacity without unlocking or rerolling traits (1.1637ms)
+✔ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (10.7207ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (512.3545ms)
+✔ invalid levels, merit, counters, durations and fractional cooldowns are rejected; missing required state is rejected (37.6436ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (17.0998ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (157.0683ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (132.9311ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (3.6502ms)
+✔ formation selects officers in place, army selects only compiled units (0.8104ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.3397ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.5331ms)
+✔ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (0.8065ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (214.8712ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 935.6653

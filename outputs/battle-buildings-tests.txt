@@ -1,0 +1,18 @@
+✔ new facilities require local research and the common automatic construction action (93.48ms)
+✔ each new facility is built with paid daily work, saved durability and visible original artwork (2241.4895ms)
+✔ arrow towers shoot within range, grow with completed local levels and use saved intervals on either side (37.9454ms)
+✔ arrow towers respect visibility, range, shields and actual invulnerability (14.1668ms)
+✔ music stages grant capped fixed intent only to nearby present allies on either side (9.6104ms)
+✔ overlapping music and medical support use the strongest local facility once (4.5231ms)
+✔ medical camps heal only real battle wounded, honor plague and stop at that budget (8.7776ms)
+✔ construction, destroyed buildings, stasis and withdrawing owners cannot provide support (22.9173ms)
+✔ building action history survives repairs and save validation rejects forged state (10.6945ms)
+✔ real sieges load and save the new original-site facilities and continue deterministically (234.0019ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2922.0582

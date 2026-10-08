@@ -1,0 +1,112 @@
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (57.4713ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (106.3646ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (123.6162ms)
+✔ waiting departure prevents idle members from picking new work across turns (34.7997ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (41.6637ms)
+✔ forged pending action references and duplicate officers are rejected (141.1936ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (74.1908ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1581.1544ms)
+✔ a queued garrison defends an actual siege and interrupts work and cancels its deferred departure (527.224ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (49.7681ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (79.1607ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (88.6008ms)
+✔ appointed prepared units actually defend the city, interrupt work under siege and retain civil appointments (449.9947ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (74.3286ms)
+✔ superior defenses produce no attack plan or resource debit (21.0181ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (21.5689ms)
+✔ a serious incoming attack retains the home defense instead of expanding (19.6641ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (43.5266ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (19.6637ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (23.6453ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (43.6208ms)
+✖ local plan reservation lets current work finish and blocks starting another task (26.0735ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (25.3127ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (20.1438ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (17.6522ms)
+✔ AI save rejects duplicated commitments and old planner versions (28.1866ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (27.7245ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (26.3726ms)
+✖ waiting transport earmarks cargo without a debit and replenishment preserves plan food (20.4947ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (24.9158ms)
+✔ cancelling an assault before its first movement actually clears the outgoing route (17.1484ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (17.9077ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (22.264ms)
+✔ departure checks real presence before considering work or interruption history (18.6469ms)
+✖ ordinary ready offensives interrupt lengthy work through the real command and record the loss (17.7673ms)
+✔ recent real interruption protects the next task across reload except when rescue would be missed (24.5747ms)
+✔ an expensive real construction near completion is protected even with more than two days left (24.3735ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (5574.6747ms)
+✔ offensive composition leaves busy officers working when idle troops suffice (26.2361ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 36
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6464.7754
+
+✖ failing tests:
+
+test at tests\strategic-ai.test.mjs:87:1
+✖ local plan reservation lets current work finish and blocks starting another task (26.0735ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(p)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:89:40)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:125:1
+✖ waiting transport earmarks cargo without a debit and replenishment preserves plan food (20.4947ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(reserved)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:126:341)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:155:1
+✖ ordinary ready offensives interrupt lengthy work through the real command and record the loss (17.7673ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.units.some(u=>u.id==='ju')))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:158:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

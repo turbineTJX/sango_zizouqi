@@ -2,7 +2,7 @@ import {fieldCampaign as newCampaign} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {campaignRoads,movementPoints,roadCost,roadDistance,roadPoint,renderRoads} from '../strategic-movement.mjs';
-import {orderCampaignArmy,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,serializeCampaign,validateCampaign,armyPosition,supplyConnection} from '../strategic-campaign.mjs';
+import {orderCampaignArmy,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,serializeCampaign,validateCampaign,armyPosition,supplyConnection} from './helpers/auto-domestic-campaign.mjs';
 import {initializeTalent} from '../talent-lifecycle.mjs';
 
 test('each connection has one bidirectional road with terrain costs',()=>{

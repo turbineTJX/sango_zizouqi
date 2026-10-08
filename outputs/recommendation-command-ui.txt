@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 verify:command-ui
+> node scripts/verify-command-flow-ui.mjs
+
+Command flow passed: selection, detail return, back, cancel, map selection, formation, submission, reload, mobile.

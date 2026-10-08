@@ -1,0 +1,47 @@
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:114
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+stratagems.basic-guard：未接入字段 scope
+stratagems.heal：未接入字段 scope
+stratagems.regenerate：未接入字段 scope
+stratagems.range：未接入字段 scope
+stratagems.firestorm：未接入字段 scope
+stratagems.assault：未接入字段 scope
+stratagems.fortify：未接入字段 scope
+stratagems.inspire：未接入字段 scope
+stratagems.disrupt：未接入字段 scope
+stratagems.demoralize：未接入字段 scope
+stratagems.cleanse：未接入字段 scope
+stratagems.haste：未接入字段 scope
+stratagems.cycle：未接入字段 scope
+stratagems.blockade：未接入字段 scope
+stratagems.relief：未接入字段 scope
+stratagems.cao-wuchao：未接入字段 scope
+stratagems.zhou-redcliffs：未接入字段 scope
+stratagems.jia-speed：未接入字段 scope
+stratagems.sima-isolate：未接入字段 scope
+stratagems.zhuge-eight：未接入字段 scope
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:114:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:41:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\battle-retreat.test.mjs (177.8116ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.6631
+
+✖ failing tests:
+
+test at tests\battle-retreat.test.mjs:1:1
+✖ tests\battle-retreat.test.mjs (177.8116ms)
+  'test failed'

@@ -1,7 +1,7 @@
 import {cityForce} from '../../city-units.mjs';
 import {peacefulCities} from './field-campaign.mjs';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter} from '../../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter} from './auto-domestic-campaign.mjs';
 import {ACTIONS,assignDomestic,assignmentFor} from '../../domestic.mjs';
 function advance(s,target){for(let i=0;i<500&&s.campaign.day<target;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,target);}
 export function busyFixture(seed=19){

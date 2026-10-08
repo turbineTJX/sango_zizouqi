@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignStep} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignStep} from './helpers/auto-domestic-campaign.mjs';
 import {newCommand,selectCommandPoint,continueCommandRoute,backCommandRoute,commandRoute,commandMarkup} from '../strategic-command.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {validMapRoute,campaignRoads} from '../strategic-movement.mjs';

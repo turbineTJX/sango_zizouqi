@@ -1,0 +1,106 @@
+✔ every playable preset is a legal editable custom draft and produces the same battle (200.1558ms)
+✔ custom generator validates conditions and wave budgets (485.1378ms)
+✔ saved custom conditions are used for named-preset retries and save validation (16.8048ms)
+✔ 曹操额外首发名额不挪用明确指定的延迟援军 (141.792ms)
+✔ council accepts exact counts and null atomically; custom configs and saves retain them (29.0937ms)
+✔ exact current soldiers trigger either side, wounds are excluded, healing never cancels withdrawal (17.0655ms)
+✔ actual damage triggers withdrawal; unit remains targetable but stops attacks, commands and ZOC (11.725ms)
+✔ retreat walks to the exit before a reserve enters and never heals, resets uses or reenters (47.3785ms)
+✔ occupied escape route blocks withdrawal; no instantaneous removal or early replacement (12.5999ms)
+✔ defenders leaving the battlefield lose even while the gate remains intact (5.5064ms)
+✔ a freed slot waits for actual reserve arrival and a withdrawing force cannot supply commands (30.6036ms)
+✔ ordinary campaign retains withdrawn soldiers and wounded without drawing a destroyed-officer fate (152.7748ms)
+✔ malformed and old saves are rejected rather than repaired (9.5067ms)
+✔ melee withdrawal spends an action disengaging, does not cast, and moves without passing through enemies (9.0336ms)
+✔ focus beyond an engaged front line requires disengagement, never an illegal ranged hit (7.1109ms)
+✔ unified retreat destination accepts only a reachable friendly formation site and locks at battle start (21.2118ms)
+✔ departure dispatches once, moves on its first world step, and resumes deterministically before battle ends (77.6572ms)
+✔ retreat uses transport interception and cannot shelter in an enemy destination (17.3748ms)
+✔ all units leaving removes the empty army and settlement never duplicates a returning officer (45.3463ms)
+✔ destination loss reroutes at the actual position; no legal city leaves a visible stationary retreat (17.7702ms)
+✔ returning to a city and marching again cannot reenter the original ongoing battle (103.2643ms)
+✔ appointment traits affect only the appointed role and its own army independent of personal deployment (21.4588ms)
+✔ advisor traits require advisor appointment and do not leak from ordinary officers (5.0781ms)
+✖ appointment UI displays the matching trait effect and recommendation uses it (8.7375ms)
+✔ current save preserves command eligibility and deterministic continuation (197.1199ms)
+✔ army traits are rare fixed identity assignments, never awarded by stat thresholds (0.7057ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (475.6651ms)
+✔ 自由对战：无效配置被拒绝 (1.9605ms)
+✔ all six directions have independent work and a single stat; no city morale multiplier (10.2784ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (227.4954ms)
+✔ random results vary across seeds while identical seed is reproducible (107.1417ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.7643ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (71.0101ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (34.5746ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (73.798ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (31.4526ms)
+✔ research unlocks a local troop only after a successful trial (38.5913ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (98.0154ms)
+✔ healing conserves personnel and does not require local troop technology (24.1047ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (147.6792ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (94.3484ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (67.667ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (42.7627ms)
+✔ actual siege pauses construction without charging again or completing in the background (114.8359ms)
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (42.0744ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (43.6703ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (382.8491ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (63.8129ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (124.4294ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1498.2481ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (13.7117ms)
+✔ AI fills a vacant governorship using the same governor recommendation (1110.0325ms)
+✔ expedition recommendations place idle officers before busy officers regardless of ability score (1076.9178ms)
+✔ trainer offsets twenty force points on exercise and remains visible in standby ranking (18.3871ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 52
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4173.6046
+
+✖ failing tests:
+
+test at tests\command-traits.test.mjs:26:1
+✖ appointment UI displays the matching trait effect and recommendation uses it (8.7375ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(html.includes(t.description))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/command-traits.test.mjs:29:193)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\domestic.test.mjs:91:1
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (42.0744ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(returned.length>=2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:97:106)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

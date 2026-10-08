@@ -2,7 +2,7 @@ import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {assignDomestic,ACTIONS} from '../domestic.mjs';
 import {buildingDurability} from '../building-durability.mjs';
 import {peacefulCities} from '../tests/helpers/field-campaign.mjs';

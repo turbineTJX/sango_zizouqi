@@ -9,7 +9,7 @@ const port=4198,server=spawn(process.execPath,['server.mjs'],{env:{...process.en
 try{
  await new Promise((resolve,reject)=>{server.stdout.on('data',resolve);server.on('error',reject);});
  browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1100}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- const entry=id=>({id,type:'spear',troops:3000,level:5});const s=createScenario('custom-battle',4511,20,null,{seed:4511,terrain:'land',ownTeam:[entry('person-246'),entry('yu')],enemyTeam:[entry('shao'),entry('wen'),entry('yan')],ownTeamRoles:{leader:'person-246',advisor:'yu'}});lockDeployment(s.battle);s.battle.commandProgress=COMMAND_RESOURCE.capacity;
+ const entry=id=>({id,type:'spear',troops:3000,level:5});const s=createScenario('custom-battle',4511,20,null,{seed:4511,terrain:'land',ownTeam:[entry('person-246'),entry('person-668')],enemyTeam:[entry('shao'),entry('wen'),entry('yan')],ownTeamRoles:{leader:'person-246',advisor:'person-668'}});lockDeployment(s.battle);s.battle.commandProgress=COMMAND_RESOURCE.capacity;
  await page.goto(`http://127.0.0.1:${port}`);await page.locator('[data-action="settings"]').first().click();await page.locator('#import-file').setInputFiles({name:'area.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(s))});
  await page.locator('[data-action="choose-stratagem"]').click();await page.locator('[data-command="zhou-redcliffs"]').click();assert.equal(await page.locator('#stratagem-area-controls').isVisible(),true);
  const b=await page.locator('#battle-board').boundingBox(),u=s.battle.sides[1].units.find(u=>u.status==='active');

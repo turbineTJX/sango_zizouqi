@@ -291,6 +291,7 @@ table.info-directory { display:table; width:100%; }
 #stratagem-area-overlay .area-hit { fill:#ffdf7033; stroke:#fff1a6; stroke-width:.08; }
 .stratagem-area-controls { position:sticky; top:0; z-index:60; display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:12px; background:#263139; color:#fff0cc; border:1px solid #c7a85b; }
 .stratagem-area-controls[hidden] { display:none; }
+.stratagem-area-effect { flex-basis:100%; min-width:0; overflow-wrap:anywhere; line-height:1.6; color:#ead7a6; }
 
 .battle-unit.stratagem-affected,.unit-nameplate.stratagem-affected { outline:3px solid #ffe58b; outline-offset:3px; box-shadow:0 0 16px #ffd65d99; }
 
@@ -319,3 +320,8 @@ button.info-portrait{width:calc(100% + 28px);padding:0;border:0;cursor:pointer}
 @media(max-width:600px){button.info-portrait{width:65px}}
 
 .siege-gate.is-destroyed{opacity:.45;filter:grayscale(1)}
+
+/* Treasure management shares the existing modal and officer detail surfaces. */
+.treasure-table-scroll{overflow-x:auto}.treasure-table{width:100%;border-collapse:collapse}.treasure-table th,.treasure-table td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid #b6a58144}.treasure-table td:first-child{width:40%;min-width:200px}.treasure-table small{display:block;margin-top:6px;line-height:1.6}.treasure-actions{display:flex;flex-wrap:wrap;gap:8px}.treasure-actions button{padding:7px 10px}.treasure-grant{border:1px solid #b6a58166;padding:18px;margin:16px 0}.treasure-grant label{display:block;margin:12px 0}.treasure-grant select{max-width:100%;min-width:220px}.scenario-treasures label{display:inline-block;max-width:100%;margin:8px}.scenario-treasures select{max-width:100%}.unit-treasure p{line-height:1.7}@media(max-width:600px){.treasure-table th,.treasure-table td{padding:8px}.treasure-grant{padding:12px}.treasure-actions{min-width:80px}}
+
+@media(max-width:600px){.treasure-table thead{display:none}.treasure-table tbody{display:block}.treasure-table tr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:16px 0;border-bottom:1px solid #b6a58144}.treasure-table td{padding:0;border:0;min-width:0}.treasure-table td:first-child{grid-column:1 / -1;width:auto;min-width:0}.treasure-table td:nth-child(2)::before{content:"位置 / 携带者";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-table td:nth-child(3)::before{content:"状态";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-table td:nth-child(4)::before{content:"操作";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-actions{min-width:0;gap:4px}.treasure-actions button{padding:6px}}

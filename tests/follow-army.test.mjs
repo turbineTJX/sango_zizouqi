@@ -2,7 +2,7 @@ import {fundCities} from './resource-fixtures.mjs';
 import {transportProxy} from '../personnel-movement.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,armyPosition,orderCampaignArmy,recruitCityUnits} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,armyPosition,orderCampaignArmy,recruitCityUnits} from './helpers/auto-domestic-campaign.mjs';
 import {newGame,startBattle,deployUnit,lockDeployment,issueCommand,armyCommanders,armyStratagems,battleStratagems} from '../engine.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {fateRoll,resolveOfficerLoss} from '../officer-fates.mjs';

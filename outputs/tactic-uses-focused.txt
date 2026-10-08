@@ -1,0 +1,116 @@
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (4.4894ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (9.8119ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (3.5822ms)
+✔ fame adds city manpower rather than free troops (2.7894ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (405.7421ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (28.2668ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.5001ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (244.9561ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (9.4329ms)
+✔ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (13.7686ms)
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (42.5153ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (4.835ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (6.7453ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (8.0117ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (12.0028ms)
+✔ personal skills unlock troop panels at ten, remain independent of tactics, and respect conditions (10.7585ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (60.2011ms)
+✖ exclusive support stays local and capped while army healing reaches distant active units (33.1509ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (3.2341ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (3.7399ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (13.0718ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (612.9941ms)
+✔ 835人遵守1/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.4779ms)
+✔ 军团长提供、低智军师不提供，70智力边界及任职交换 (18.4866ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (77.7987ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (50.9257ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (60.3434ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (47.4094ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (43.7924ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (39.1147ms)
+✔ 曹操与典韦的军略差距进入真实结算，并保存提供者与效果 (72.4412ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.7008ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.6777ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (67.507ms)
+✖ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (52.6993ms)
+✔ tactical-control-zhang: ordinary frontliners and strategist control create a fallible winning opportunity (663.5059ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (4.8641ms)
+✔ instant skills spend shared intent and recovery separates learned casts (22.5074ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (7.1863ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (5.5964ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (14.9162ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (9.2199ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (18.2051ms)
+✔ blocked displacement never overlaps units or crosses board limits (4.5559ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (7.5036ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (15.1706ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (12.1203ms)
+✔ prepaid casts and previous save formats are rejected (8.3644ms)
+✔ new saves distinguish bows and crossbows and require current rules (7.3075ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 46
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 989.7767
+
+✖ failing tests:
+
+test at tests\famous-officers.test.mjs:37:1
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (42.5153ms)
+  AssertionError [ERR_ASSERTION]: person-255 should cast
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:44:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:132:1
+✖ exclusive support stays local and capped while army healing reaches distant active units (33.1509ms)
+  AssertionError [ERR_ASSERTION]: person-368
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:140:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactical-campaigns.test.mjs:26:3
+✖ tactical-control-lv: ordinary frontliners and strategist control create a fallible winning opportunity (52.6993ms)
+  AssertionError [ERR_ASSERTION]: learned control can actually affect the enemy
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactical-campaigns.test.mjs:47:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

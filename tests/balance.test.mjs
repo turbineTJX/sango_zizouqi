@@ -7,7 +7,7 @@ import {RULES_VERSION} from '../combat-rules.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario,SCENARIOS} from './helpers/scenarios.mjs';
-import {COMBAT,activeUnits,battleStratagems,issueCommand,lockDeployment,stepBattle,unitAttributes,validateSave} from '../engine.mjs';
+import {COMBAT,activeUnits,battleStratagems,issueCommand,lockDeployment,stepBattle,unitAttributes,validateSave,lowerIntent} from '../engine.mjs';
 import {TACTICS_BOOK,configureTactics,hasStatus,readyTactic,unitTactics} from '../tactics.mjs';
 import {hexDistance} from '../hex-grid.mjs';
 
@@ -20,15 +20,15 @@ function duel() {
   return {state,b,a,d};
 }
 
-test('intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize',()=>{
+test('intent cap permits every tactic but a capped enemy loses high-threshold access after real intent loss',()=>{
   assert.equal(COMBAT.intentCap,100);
   assert.ok(Object.values(TACTICS_BOOK).every(s=>s.threshold<=COMBAT.intentCap));
   const {b,u:d,target:a}=currentBattle('terror','spear',{side:1});d.skillReady=Object.fromEntries(unitTactics(d).map(t=>[t.id,t.id==='terror'?0:999]));
-  appointBattleTestCommander(b,'jia');a.intent=d.intent=COMBAT.intentCap;b.commandProgress=12000;
+  a.intent=d.intent=COMBAT.intentCap;b.commandProgress=12000;
   assert.equal(readyTactic(b,d,1).skill.id,'terror');
-  assert.equal(issueCommand(b,'demoralize',chooseStratagemPoint(b,AREA_DESIGNS['demoralize'],0)),null);assert.equal(d.intent,100-Math.round(b.lastCommand.source.strength));
+  lowerIntent(d,80);assert.equal(d.intent,20);
   assert.notEqual(readyTactic(b,d,1)?.skill.id,'terror');
-  appointBattleTestCommander(b,'shao','leader');for(let i=0;i<4;i++) {b.commandProgress=12000;b.commandReady.inspire=0;assert.equal(issueCommand(b,'inspire'),null);assert.equal(a.intent,100);}
+  assert.equal(a.intent,100);
 });
 
 test('only the current rule version loads, and intent is validated without normalization',()=>{
@@ -60,8 +60,7 @@ test('trial loadouts use legal tools and the advertised support commands are unl
   for(const c of SCENARIOS)for(const u of createScenario(c.id).battle.sides.flatMap(s=>s.units)) {
     const skills=unitTactics(u);assert.ok(skills.length<=4);assert.ok(skills.every(s=>s.threshold<=100));
   }
-  assert.ok(battleStratagems(createScenario('outnumbered').battle).includes('heal'));
-  for(const id of ['rotation','defense'])for(const command of ['heal','regenerate','fortify'])assert.ok(battleStratagems(createScenario(id).battle).includes(command));
+  for(const id of ['outnumbered','rotation','defense'])for(const command of battleStratagems(createScenario(id).battle))assert.ok(AREA_DESIGNS[command]);
 });
 
 test('siege defenders hold their rear line before enemies approach',()=>{

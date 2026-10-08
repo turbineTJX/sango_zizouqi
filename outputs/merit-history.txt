@@ -1,0 +1,65 @@
+✖ 官渡之战: historical roster, real command accumulation and saved replay (285.0696ms)
+✖ 赤壁之战: historical roster, real command accumulation and saved replay (344.3291ms)
+✖ 合肥之战: historical roster, real command accumulation and saved replay (353.0577ms)
+✖ 夷陵之战: historical roster, real command accumulation and saved replay (210.3843ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (130.7266ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1526.8261
+
+✖ failing tests:
+
+test at tests\historical-campaigns.test.mjs:9:42
+✖ 官渡之战: historical roster, real command accumulation and saved replay (285.0696ms)
+  Error: 成长战报无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1033:78)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1266:5)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/historical-campaigns.test.mjs:36:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\historical-campaigns.test.mjs:9:42
+✖ 赤壁之战: historical roster, real command accumulation and saved replay (344.3291ms)
+  Error: 成长战报无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1033:78)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1266:5)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/historical-campaigns.test.mjs:36:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\historical-campaigns.test.mjs:9:42
+✖ 合肥之战: historical roster, real command accumulation and saved replay (353.0577ms)
+  Error: 成长战报无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1033:78)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1266:5)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/historical-campaigns.test.mjs:36:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\historical-campaigns.test.mjs:9:42
+✖ 夷陵之战: historical roster, real command accumulation and saved replay (210.3843ms)
+  Error: 成长战报无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1033:78)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1266:5)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/historical-campaigns.test.mjs:36:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

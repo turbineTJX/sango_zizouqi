@@ -1,0 +1,54 @@
+✔ a real control cast opens ZOC and the next allied charge exploits it (22.924ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (3.6037ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (7.102ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (4.5789ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (3.0325ms)
+✔ zero-intent playable trial shows control then rear penetration while the front lives (107.5628ms)
+✔ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (24.9709ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (3.8167ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (7.7818ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (3.3047ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (401.2027ms)
+✔ status timer matches exclusive expiration and distinguishes the final active step from expired state (1.2447ms)
+✖ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (1.086ms)
+✔ five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally (36.5824ms)
+✔ taunt cannot reach six hexes or override control protection (10.8882ms)
+✔ taunted ranged offensive skills wait for range, then attack the taunter (5.8185ms)
+✔ cleanse removes a real taunt; its source dying or retreating immediately releases the target (18.781ms)
+✔ taunt never drags melee out through another active ZOC (7.4973ms)
+✔ a real charge follows a real retreat shot instead of switching back to a disabled front (6.1301ms)
+✔ pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry (2.6357ms)
+✔ a real taunt redirects pursuit only on a successful roll and uses a legal route (25.7292ms)
+✔ a natural pursuit snapshot validates and resumes deterministically (101.5757ms)
+✔ current saves validate taunt and pursuit references and resume the real battle deterministically (78.4685ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 22
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 626.2239
+
+✖ failing tests:
+
+test at tests\status-display.test.mjs:14:1
+✖ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (1.086ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  35 !== 34
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/status-display.test.mjs:25:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 35,
+    expected: 34,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

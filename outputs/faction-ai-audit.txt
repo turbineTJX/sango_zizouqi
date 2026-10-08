@@ -1,0 +1,8 @@
+{"id":"guandu-200","day":1,"battles":0,"archived":0,"active":0,"cities":{"neutral":19,"yuan":10,"cao":25,"force-7":19,"sunce":14},"orders":{},"marching":0,"saveChars":517816}
+{"id":"guandu-200","day":11,"battles":0,"archived":0,"active":0,"cities":{"neutral":19,"yuan":10,"cao":25,"force-7":19,"sunce":14},"orders":{"stage":5},"marching":2,"saveChars":606405}
+{"id":"guandu-200","day":21,"battles":3,"archived":0,"active":0,"cities":{"yuan":11,"cao":24,"sunce":15,"force-7":20,"neutral":17},"orders":{"attack":3,"stage":5},"marching":0,"saveChars":821216}
+{"id":"guandu-200","completedDay":31,"saveChars":838337,"archived":0,"passed":true}
+{"id":"heroes-251","day":1,"battles":0,"archived":0,"active":0,"cities":{"yuan":15,"sunce":27,"cao":22,"force-2":23},"orders":{},"marching":0,"saveChars":976498}
+{"id":"heroes-251","day":11,"battles":0,"archived":0,"active":0,"cities":{"yuan":15,"sunce":27,"cao":22,"force-2":23},"orders":{"stage":10},"marching":2,"saveChars":1063902}
+{"id":"heroes-251","day":21,"battles":2,"archived":0,"active":1,"cities":{"yuan":15,"sunce":26,"cao":22,"force-2":24},"orders":{"retreat":1,"hold":2,"reinforce":1,"attack":2,"stage":10},"marching":1,"saveChars":1456851}
+{"id":"heroes-251","completedDay":31,"saveChars":1605510,"archived":0,"passed":true}

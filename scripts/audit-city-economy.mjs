@@ -4,7 +4,7 @@ import {makeOfficer} from '../engine.mjs';
 // Controlled economic stress test: real autonomous work and city income;
 // representative upkeep/replacement demand is a ledger, not fabricated battles.
 import {mkdir,writeFile} from 'node:fs/promises';
-import {newCampaign,cityIncome,settleCityEconomy} from '../strategic-campaign.mjs';
+import {newCampaign,cityIncome,settleCityEconomy} from './automatic-domestic-campaign.mjs';
 import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
 import {compareEconomicWork} from './economy-balance-lib.mjs';
 import {beginDomesticTurn,finishDomesticDay,ACTIONS,grainCapacity} from '../domestic.mjs';

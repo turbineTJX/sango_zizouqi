@@ -33,29 +33,29 @@ for(const defenderSide of [0,1])test(`守军 ${defenderSide} 不追界外近战�
 });
 
 test('疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果',()=>{
- const state=custom([unit('liao','cavalry')]),b=state.battle;lockDeployment(b);
- assert.equal(chooseEnemyCommand(b,['haste'],STRATAGEMS),'haste');
- assert.match(issueCommand(b,'haste',null,1),/尚未蓄满/);
- b.enemyCommand.commandReady.haste=b.tick+8;assert.equal(chooseEnemyCommand(b,['haste'],STRATAGEMS),null);b.enemyCommand.commandReady.haste=0;
- b.sides[1].hasteUntil=b.tick+5;assert.equal(chooseEnemyCommand(b,['haste'],STRATAGEMS),null);b.sides[1].hasteUntil=0;
- const u=b.sides[1].units[0];u.statuses.confuse={until:b.tick+3};assert.equal(chooseEnemyCommand(b,['haste'],STRATAGEMS),'haste');delete u.statuses.confuse;
- Object.assign(u,{x:4,y:3});Object.assign(b.sides[0].units[0],{x:3,y:3});assert.equal(chooseEnemyCommand(b,['haste'],STRATAGEMS),'haste');
+ const state=custom([unit('person-366','cavalry')]),b=state.battle;lockDeployment(b);
+ assert.equal(chooseEnemyCommand(b,['swift'],STRATAGEMS),'swift');
+ assert.match(issueCommand(b,'swift',{x:0,y:0},1),/尚未蓄满/);
+ b.enemyCommand.commandReady.swift=b.tick+8;assert.equal(chooseEnemyCommand(b,['swift'],STRATAGEMS),null);b.enemyCommand.commandReady.swift=0;
+ b.sides[1].units[0].statuses.rapidAdvance={until:b.tick+5};assert.equal(chooseEnemyCommand(b,['swift'],STRATAGEMS),null);delete b.sides[1].units[0].statuses.rapidAdvance;
+ const u=b.sides[1].units[0];u.statuses.confuse={until:b.tick+3};assert.equal(chooseEnemyCommand(b,['swift'],STRATAGEMS),'swift');delete u.statuses.confuse;
+ Object.assign(u,{x:4,y:3});Object.assign(b.sides[0].units[0],{x:3,y:3});assert.equal(chooseEnemyCommand(b,['swift'],STRATAGEMS),'swift');
 });
 
 test('单队休养以实际伤兵触发，救疗按固定顺序优先',()=>{
- const state=custom([unit('jin','spear')]),b=state.battle;lockDeployment(b);
- assert.equal(chooseEnemyCommand(b,['regenerate'],STRATAGEMS),null);
+ const state=custom([unit('person-668','spear')]),b=state.battle;lockDeployment(b);
+ assert.equal(chooseEnemyCommand(b,['heal'],STRATAGEMS),null);
  while(!b.result&&!battleWounded(b.sides[1].units[0]))stepBattle(b);
  assert.ok(battleWounded(b.sides[1].units[0])>0);validateSave(structuredClone(state));
- assert.equal(chooseEnemyCommand(b,['regenerate'],STRATAGEMS),'regenerate');
- assert.equal(chooseEnemyCommand(b,['heal','regenerate'],STRATAGEMS),'heal');
- assert.match(issueCommand(b,'regenerate',null,1),/尚未蓄满/);
- b.sides[1].recoveryUntil=b.tick+5;assert.equal(chooseEnemyCommand(b,['regenerate'],STRATAGEMS),null);b.sides[1].recoveryUntil=0;
- b.enemyCommand.commandReady.regenerate=b.tick+8;assert.equal(chooseEnemyCommand(b,['regenerate'],STRATAGEMS),null);
+ assert.equal(chooseEnemyCommand(b,['heal'],STRATAGEMS),'heal');
+ assert.equal(chooseEnemyCommand(b,['heal','heal'],STRATAGEMS),'heal');
+ assert.match(issueCommand(b,'heal',{x:0,y:0},1),/尚未蓄满/);
+
+ b.enemyCommand.commandReady.heal=b.tick+8;assert.equal(chooseEnemyCommand(b,['heal'],STRATAGEMS),null);
 });
 
 test('单队自然蓄满后自动下达休养，实际救治且保持确定性续战',()=>{
- const state=createScenario('custom-battle',48,20,null,{seed:48,terrain:'land',ownTeam:[{...unit('person-443','halberd'),troops:6000}],enemyTeam:[{...unit('person-255','halberd'),troops:6000}]}),b=state.battle;
+ const state=createScenario('custom-battle',48,20,null,{seed:48,terrain:'land',ownTeam:[{...unit('person-443','halberd'),troops:6000}],enemyTeam:[{...unit('person-668','halberd'),troops:6000}]}),b=state.battle;
  // Hold isolates natural command accumulation from the separate withdrawal policy.
  for(const u of b.sides.flatMap(s=>s.units))u.retreatAt=null;
  lockDeployment(b);let resumed,serial=0,cast=false,healing=0;
@@ -63,9 +63,9 @@ test('单队自然蓄满后自动下达休养，实际救治且保持确定性�
   stepBattle(b);if(resumed)stepBattle(resumed.battle);
   if(b.enemyCommand.commandSerial!==serial){
    serial=b.enemyCommand.commandSerial;
-   if(b.enemyCommand.lastCommand.key==='regenerate'){cast=true;assert.equal(b.enemyCommand.commandProgress,0);}
+   if(b.enemyCommand.lastCommand.key==='heal'){cast=true;assert.equal(b.enemyCommand.commandProgress,0);}
   }
-  healing+=b.effects.filter(e=>e.from==='person-255'&&e.label==='救治伤兵'&&e.ongoing).reduce((n,e)=>n+(e.healing||0),0);
+  healing+=b.effects.filter(e=>e.from==='person-668'&&e.label==='救治伤兵'&&!e.ongoing).reduce((n,e)=>n+(e.healing||0),0);
   if(b.tick===20)resumed=validateSave(structuredClone(state));
  }
  assert.ok(cast,'无需注入军略槽');assert.ok(healing>0,'不是只记录军略名称');

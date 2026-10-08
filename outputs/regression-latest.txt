@@ -1,0 +1,178 @@
+✔ person-661: 攻击骑兵按固定配置接敌，实战与续战一致 (287.6734ms)
+✔ person-396: 攻击骑兵按固定配置接敌，实战与续战一致 (183.4375ms)
+✔ person-99: 攻击骑兵按固定配置接敌，实战与续战一致 (155.7784ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (38.3845ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (10.8141ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (6.2789ms)
+✔ damage tactics against a gate do not charge the caster, basic siege attacks do (11.7307ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (634.5805ms)
+✖ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (539.0336ms)
+✖ each troop has two fixed small actions and one large action; only listed owners have exclusives (1.6927ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (37.1017ms)
+✖ force and intellect fixed actions use distinct authored power channels (28.055ms)
+✔ confusion and seal block an actual fixed tactic while seal still permits basic attacks (17.3248ms)
+✖ current rally restores actual intent and ward taunts a legal nearby enemy (32.4677ms)
+✔ current cavalry harassment suppresses the real target without granting retired lure (27.9118ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (19.0374ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (132.3898ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (494.5717ms)
+✔ ordinary officers may have no independent trait and never gain traits from levels (38.2781ms)
+✔ ordinary aptitude routes stay fixed through troop changes and keep specialization tradeoffs (6.2079ms)
+✔ ordinary officers fight with generated fixed kits and resume deterministically (616.0796ms)
+✖ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (2.9201ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (632.3756ms)
+✔ role suggestions never grant a tactic outside a real fixed kit or mutate rejected kits (7.6135ms)
+✖ all ordinary fixed actions retain their authored role and tradeoff descriptions (214.0013ms)
+✔ command and merit define individual capacity; fielded troops are independent (24.6465ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (218.0511ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (237.4723ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (144.0504ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (1046.1543ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (397.6564ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (790.2245ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 26
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3175.6935
+
+✖ failing tests:
+
+test at tests\intent-tiers.test.mjs:8:1
+✖ cheap setup precedes 100-intent finishers in real zero-intent combat and resumes deterministically (539.0336ms)
+  TypeError: Cannot read properties of undefined (reading 'threshold')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-tiers.test.mjs:24:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\loadouts.test.mjs:23:1
+✖ each troop has two fixed small actions and one large action; only listed owners have exclusives (1.6927ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undermine'
+  - undefined
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:23:237)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undermine',
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:35:1
+✖ force and intellect fixed actions use distinct authored power channels (28.055ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(x.target.hp<x.target.maxHp)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:35:360)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:37:1
+✖ current rally restores actual intent and ward taunts a legal nearby enemy (32.4677ms)
+  TypeError: Cannot read properties of undefined (reading 'sourceId')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:37:325)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\tactic-tempo.test.mjs:9:1
+✖ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (2.9201ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   category: 'intellect',
+  +   cooldown: 26,
+  +   description: '立即降低目标战意，并使其抑气6回合，攻击与受击战意获取减少30%；持续专属；每场 2 次；战意门槛 45，施放消耗 0；施放后 4 回合才能再次施放其他战法，期间可普攻',
+  +   drain: 28,
+  +   effect: 'undermine',
+  +   highIntent: {
+  +     drain: 18,
+  +     threshold: 60
+  +   },
+  +   id: 'undermine',
+  +   intentCost: 0,
+  +   learningTier: 'special',
+  +   maxUses: 2,
+  +   name: '十胜奇谋',
+  +   power: {
+  +     attribute: 'strategyPower',
+  +     checks: [],
+  +     critical: false,
+  +     name: '谋略威力'
+  +   },
+  +   powerDescription: '效果随谋略威力增强，与智力及现役兵力有关。',
+  +   special: true,
+  +   tempo: {
+  +     cost: 12,
+  +     role: '持续专属'
+  +   },
+  +   tempoDescription: '持续专属；每场 2 次；战意门槛 45，施放消耗 0；施放后 4 回合才能再次施放其他战法，期间可普攻',
+  +   tempoRole: '持续专属',
+  +   terrainDescription: '无额外地形修正；仍遵守水陆通行、射程与目标限制。',
+  +   threshold: 45,
+  +   visual: 'banner'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactic-tempo.test.mjs:17:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { category: 'intellect', name: '十胜奇谋', threshold: 45, cooldown: 26, effect: 'undermine', visual: 'banner', description: '立即降低目标战意，并使其抑气6回合，攻击与受击战意获取减少30%；持续专属；每场 2 次；战意门槛 45，施放消耗 0；施放后 4 回合才能再次施放其他战法，期间可普攻', special: true, drain: 28, highIntent: { threshold: 60, drain: 18 }, tempo: { cost: 12, role: '持续专属' }, learningTier: 'special', tempoRole: '持续专属', intentCost: 0, maxUses: 2, id: 'undermine', tempoDescription: '持续专属；每场 2 次；战意门槛 45，施放消耗 0；施放后 4 回合才能再次施放其他战法，期间可普攻', terrainDescription: '无额外地形修正；仍遵守水陆通行、射程与目标限制。', power: { attribute: 'strategyPower', name: '谋略威力', checks: [], critical: false }, powerDescription: '效果随谋略威力增强，与智力及现役兵力有关。' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\toolbox.test.mjs:4:1
+✖ all ordinary fixed actions retain their authored role and tradeoff descriptions (214.0013ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(covered.size>=25)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/toolbox.test.mjs:4:364)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -2,7 +2,7 @@ import {personalBondsMarkup} from './bond-display.mjs';
 import {abilityButton} from './ability-reference.mjs';
 import {traitChips} from './trait-display.mjs';
 import {sortButton} from './list-sort.mjs';
-import {officerStratagems,STRATAGEMS,stratagemPoolLabel,STRATAGEM_RULE_TEXT,stratagemProfile,stratagemEffectText} from './stratagems.mjs';
+import {officerStratagems,STRATAGEMS,STRATAGEM_RULE_TEXT,stratagemProfile,stratagemEffectText} from './stratagems.mjs';
 import {OFFICER_BY_ID,searchOfficers,PERSONALITY_NAMES,RIGHTEOUSNESS_NAMES} from './officer-catalog.mjs';
 import {relationshipInfo,RELATIONSHIP_TIERS} from './relationships.mjs';
 import {SKILL_ROUTES,commonRouteName,passiveList} from './passives.mjs';
@@ -84,6 +84,7 @@ export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,typ
  <p class="muted">不同武将在 3 日内对同一目标完成战法时，按与上一位连携参与者的关系值判定（80 即 80%）。失败不加成，当前战法成为新一轮起点；自身增益不触发连携。</p></section>`;
 }
 
-export function officerCommandMarkup(id,holder=OFFICER_BY_ID[id]){return `<h3 class="stats-section-title">个人军略</h3><p class="muted">${STRATAGEM_RULE_TEXT}</p><div class="repertoire-skills">${officerStratagems(id).map(k=>`<span><b>${esc(STRATAGEMS[k].name)}</b> · ${stratagemPoolLabel(k)}<small>${esc(stratagemEffectText(stratagemProfile(k,holder)))}</small>${STRATAGEMS[k].history?`<small>事迹依据：${esc(STRATAGEMS[k].history)}</small>`:''}</span>`) .join('')||'<p class=muted>无军略：基础智力不足70。</p>'}</div>`;}
+export function officerCommandMarkup(id,holder=OFFICER_BY_ID[id]){return `<h3 class="stats-section-title">个人军略</h3><p class="muted">${STRATAGEM_RULE_TEXT}</p><div class="repertoire-skills">${officerStratagems(id).map(k=>`<span><b>${esc(STRATAGEMS[k].name)}</b><small>${esc(stratagemEffectText(stratagemProfile(k,holder)))}</small>${STRATAGEMS[k].history?`<small>事迹依据：${esc(STRATAGEMS[k].history)}</small>`:''}</span>`) .join('')||'<p class=muted>无军略：未列入军略持有人名单。</p>'}</div>`;}
 
 export function traitMarkup(u){return personalBondsMarkup(u)+'<section class="passive-panel" data-officer-traits><h3>特性</h3>'+traitChips(u)+'</section>';}
+

@@ -1,3 +1,4 @@
+import {treasureFate} from './treasures.mjs';
 import {mapNode,mapNodes} from './road-network.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
 import {officerActivities} from './officer-activity.mjs';
@@ -50,6 +51,7 @@ export function resolveOfficerLoss(s,{unit,faction,location,enemy,eventId,edge=n
   personnelEvent(s,eventId,'ESCAPED',unit,`${unit.name}${reason}后脱身，随${survivingArmy.name}待整编，保留原任职；补充兵员前不能参战或提供军略。`);
   return 'ESCAPED';
  }
+ treasureFate(s,unit.id,result,location);
  removeOfficer(s,unit.id);delete unit.mission;unit.troops=0;unit.wounded=0;
  let escapedHome=null;
  if(result==='ESCAPED')escapedHome=sendOfficerHome(s,unit,faction,location,{edge,reason:'败军脱身返城'});
@@ -70,6 +72,7 @@ export function releaseCaptive(s,id,{ransom=false,automatic=false,diplomatic=fal
  if(!automatic&&(!isPlanning(s)||s.finished||!(ransom?f===playerFaction(s):p.fate.captor===playerFaction(s))))return '只能在筹划阶段处置相关俘虏';
  if(ransom){const cost=ransomCost(p);const home=factionFundingCity(s,f),captor=town(s,p.cityId);if(!home)return '已无可返回的己方城池';if(home.gold<cost)return '付款城市赎金不足';if(captor?.owner!==p.fate.captor)return '关押城市已失守';addCityGold(s,home,-cost);addCityGold(s,captor,cost);}
  s.campaign.domestic.people=s.campaign.domestic.people.filter(x=>x!==p);sendOfficerHome(s,p.unit,f,p.cityId,{edge:p.custody?.route.length?{from:p.cityId,to:p.custody.route[0],fraction:p.custody.progress/roadCost(s,p.cityId,p.custody.route[0])}:null,reason:ransom?'赎回返城':'获释返城'});
+ treasureFate(s,p.unit.id,'RELEASE',p.cityId);
  personnelEvent(s,`${p.fate.eventId}:release`,ransom?'RANSOM':'RELEASE',p.unit,`${p.unit.name}${ransom?'已付赎金获释':'获释'}，从${town(s,p.cityId).name}出发返城。`,{faction:f,siteId:p.cityId});return null;
 }
 export function updateCaptives(s){

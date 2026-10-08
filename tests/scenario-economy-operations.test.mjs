@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {actionCandidates,cityFoodReserve} from '../domestic.mjs';
 import {advanceDiplomacy,validateDiplomacy,diplomaticAIPlan,diplomaticOfficerCandidates} from '../diplomacy.mjs';
 import {assignDomestic} from '../domestic.mjs';

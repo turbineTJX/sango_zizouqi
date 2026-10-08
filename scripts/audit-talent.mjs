@@ -1,7 +1,7 @@
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './automatic-domestic-campaign.mjs';
 import {assignDomestic} from '../domestic.mjs';
 import {talentContext,servingPeople} from '../talent-core.mjs';
 

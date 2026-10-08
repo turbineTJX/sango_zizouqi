@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 verify:domestic-proposals-ui
+> node scripts/verify-domestic-proposals-ui.mjs
+
+Domestic proposals UI passed: unpaid review, deny/approve, close/reopen, reload, auto approval and mobile layout.

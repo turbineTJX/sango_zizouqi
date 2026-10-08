@@ -1,0 +1,57 @@
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (564.6283ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (2217.7375ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (2149.8815ms)
+✖ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (7512.3442ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (252.9396ms)
+✔ scenario identity, topology, and town coordinates are validated (170.2044ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (3.4172ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (12133.3914ms)
+✔ national victory and defeat depend on ownership of the complete map (417.0265ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (76.5452ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (69.6878ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1059.3246ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (22.9322ms)
+✔ AI fills a vacant governorship using the same governor recommendation (764.576ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (80.0594ms)
+✔ superior defenses produce no attack plan or resource debit (19.7672ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (24.1885ms)
+✔ a serious incoming attack retains the home defense instead of expanding (22.1974ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (37.6668ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (21.0855ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (23.8126ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (49.5207ms)
+✔ local plan reservation lets current work finish and blocks starting another task (23.2594ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (24.1494ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (22.1057ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (19.1992ms)
+✔ AI save rejects duplicated commitments and old planner versions (25.062ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (18.6685ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (7130.2619ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 28
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25619.9093
+
+✖ failing tests:
+
+test at tests\national-campaign.test.mjs:16:2
+✖ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (7512.3442ms)
+  AssertionError [ERR_ASSERTION]: AI forces fight each other
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/national-campaign.test.mjs:19:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

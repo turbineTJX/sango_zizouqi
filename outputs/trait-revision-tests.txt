@@ -1,0 +1,38 @@
+✔ real ordinary attack and trait results enter saved journal once and retain sources (23.2845ms)
+✔ journal bounds are shared by routine battle messages and structured results (0.2783ms)
+✔ hidden enemy trait is not disclosed in persistent journal (1.8606ms)
+✔ two, three and six adjacent enemies share one normal attack budget (32.3561ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (3.6863ms)
+✔ minimum damage is shared rather than multiplied once per enemy (6.1447ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (8.8172ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (4.8778ms)
+✔ an enchanted contact attack consumes one charge and divides extra fire damage (9.5192ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (4.3625ms)
+✔ current combat saves resume with exactly the same shared attacks (199.8405ms)
+✔ 28 unique mechanics replace old personal stat multipliers and describe their conditions (14.388ms)
+✔ Flying General ignores ZOC for real route searches, but cannot pass occupied cells (3.2194ms)
+✔ Flying General converts one basic attack into seeded area hits on both sides (102.0711ms)
+✔ Wolong doubles only appointed army recovery, including reserves; no zero-hp or withdrawing source (1.1186ms)
+✔ Jianxiong intelligence difference is bounded and confusion respects resolve and immunity (2.8159ms)
+✔ rescue and guard trigger on actual allies (3.6109ms)
+✔ ambush entry is one-use, wrong troops do not activate, and stationary range ends on movement (8.7575ms)
+✔ on-hit troop mechanics produce control and extra attacks through real basics (50.3429ms)
+✔ kill reward shortens cooldown but never replenishes charges or recovery (2.0818ms)
+✔ fixed tactic casts activate ally shield and movement release (7.1717ms)
+✔ real battle save resumes all random trait rolls and rejects forged trigger records (90.2315ms)
+✔ Pang Tong links real tactic targets, Lu Xun spreads fire and Zhang Jiao adds bounded thunder (7.4173ms)
+✔ Lu Su cleanses his own army (1.798ms)
+✔ Sun Quan and Sima Yi react to actual paid stratagems without extra casts or free loops (73.1705ms)
+✔ army role recommendations include mechanical benefits using the shared candidate scorer (21.5382ms)
+✔ Dian Wei guard transfers actual damage once; withdrawing sources stop new effects (4.3936ms)
+✔ Diao Chan basics weaken both tactic powers, refresh without stacking and can be cleansed (11.5845ms)
+✔ Huang Gai wounded basics debuff the actual enemy; health and troop restrictions apply (5.5898ms)
+✔ frequent debuffs expire promptly and cannot refresh stronger limited effects (3.4982ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 626.0766

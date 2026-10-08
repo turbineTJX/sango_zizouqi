@@ -1,0 +1,123 @@
+✖ national map keeps simulation/save untouched and uses one projection for cities, roads, army and encounter (30.6601ms)
+✔ redrawn terrain works without external artwork and all seasons are distinct (5.0768ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (350.5808ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (6503.3204ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (959.4513ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (17898.2748ms)
+✖ map includes mandatory passes and long routes beyond the former nine-node limit (20.4746ms)
+✔ scenario identity, topology, and town coordinates are validated (124.0006ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (1.9071ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (44952.766ms)
+✔ national victory and defeat depend on ownership of the complete map (280.0743ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (74.2215ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (21.3047ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (20.803ms)
+✔ a hostile column approaching home takes priority over expansion (19.9972ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (19.9517ms)
+✔ columns sharing an AI route consume independent paths before and after JSON reload (26.5258ms)
+✖ a hungry army reverses its actual road progress without teleporting home (22.4072ms)
+✔ a starving merged army splits its retreat into legal marching columns (17.6233ms)
+✔ a merged wounded roster sends only its live companies as reinforcements (23.2193ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (21.5264ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (7060.4977ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (28.8876ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (214.483ms)
+✔ armies move visibly along road interiors before arriving (15.8002ms)
+✔ head-on marching armies meet on the road without passing through each other (28.4362ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (130.2952ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (315.8346ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (685.805ms)
+✔ multiple battles and their snapshots share the same global day (120.9145ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (71.035ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (1019.7259ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (112.8524ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (122.9363ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (11.1493ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (13.8585ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.7593ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (12.041ms)
+✔ supply connection is cut by hostile road occupation (2.1652ms)
+✔ five days without food disband armies and preserve officers for their return (20.5268ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (97.9239ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (320.2147ms)
+✔ city capture settles once and can be saved immediately within a day (132.3844ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (62.8591ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 41
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 71250.7558
+
+✖ failing tests:
+
+test at tests\art-strategic-map.test.mjs:9:1
+✖ national map keeps simulation/save untouched and uses one projection for cities, roads, army and encounter (30.6601ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 458.8733164517103
+  - 457.19882352941175
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/art-strategic-map.test.mjs:16:143)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 458.8733164517103,
+    expected: 457.19882352941175,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\national-campaign.test.mjs:22:1
+✖ map includes mandatory passes and long routes beyond the former nine-node limit (20.4746ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '道路不通' !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/national-campaign.test.mjs:23:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '道路不通',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:47:1
+✖ a hungry army reverses its actual road progress without teleporting home (22.4072ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      from: 'town-5',
+      progress: 24,
+  +   road: undefined,
+      to: 'ye'
+    }
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:49:43)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { road: undefined, from: 'town-5', to: 'ye', progress: 24 },
+    expected: { from: 'town-5', to: 'ye', progress: 24 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

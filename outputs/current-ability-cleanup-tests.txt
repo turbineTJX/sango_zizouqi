@@ -1,0 +1,292 @@
+✔ rear priority respects range, fallback, stasis and melee interception (14.2145ms)
+✔ actual fixed halberd cast heals real wounds and grants bounded shield on either side 0 (17.0576ms)
+✔ actual fixed halberd cast heals real wounds and grants bounded shield on either side 1 (6.6758ms)
+✔ absorbed damage gives no recovery or shield; no wounded soldiers means no healing (3.2472ms)
+✔ Zhao Yun uses fixed special at two cells without sustain, adjacent hits gain sustain (4.2172ms)
+✔ taunt overrides ranged rear preference and real two-shot cast hits selected rear (4.5402ms)
+✔ sustain respects real wounds, plague, lethal overkill and per-cast cap (2.8662ms)
+✔ status catalog has unique names and rejects removed status identities (13.5418ms)
+✔ continuous intent loss is bounded, and calm does not extinguish fire or restore formation (8.8242ms)
+✔ attack cadence and range use real derived attributes without changing minimum range or skill cooldown (2.6179ms)
+✔ loss of ZOC, root and disarm have independent effects; resolve covers all controls (2.6859ms)
+✖ personal range changes do not increase weapon tactic range (3.7175ms)
+✖ learned opening ambush is first-entry only, respects ZOC, and is serialized with the current rules (1.6858ms)
+✔ ambush chooses reachable rear, waits to cast, and first strike confuses for one step (7.2605ms)
+✔ insight exposes hidden units without changing contact; damage breaks stealth and cancels surprise (6.3775ms)
+✖ single-target learned decoy creates a real target, not a seventh troop or damage shield (1.9254ms)
+✔ prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage (6.7407ms)
+✔ new state saves reject malformed decoys and retired rules (6.527ms)
+✔ stealth attacks an adjacent ZOC owner instead of chasing the rear (2.5979ms)
+✔ stealth movement stops at first ZOC contact and attacks in the same step (2.9491ms)
+✔ contact reveals stealth without granting a free attack during cooldown (1.7666ms)
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (12.2788ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (2.1493ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (3.5744ms)
+✔ healing results use wounded budget and show actual shield separately (1.9241ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (442.121ms)
+✔ 28 unique mechanics replace old personal stat multipliers and describe their conditions (14.8607ms)
+✔ Flying General ignores ZOC for real route searches, but cannot pass occupied cells (2.4689ms)
+✔ Flying General converts one basic attack into seeded area hits on both sides (108.519ms)
+✔ Wolong doubles only appointed army recovery, including reserves; no zero-hp or withdrawing source (1.2248ms)
+✔ Jianxiong intelligence difference is bounded and confusion respects resolve and immunity (2.6093ms)
+✔ rescue and guard trigger on actual allies (3.6073ms)
+✔ ambush entry is one-use, wrong troops do not activate, and stationary range ends on movement (7.7946ms)
+✔ on-hit troop mechanics produce control and extra attacks through real basics (49.4427ms)
+✔ kill reward shortens cooldown but never replenishes charges or recovery (2.1782ms)
+✔ fixed tactic casts activate ally shield and movement release (6.9096ms)
+✔ real battle save resumes all random trait rolls and rejects forged trigger records (86.6068ms)
+✔ Pang Tong links real tactic targets, Lu Xun spreads fire and Zhang Jiao adds bounded thunder (9.561ms)
+✔ Lu Su cleanses his own army (2.3256ms)
+✔ Sun Quan and Sima Yi react to actual paid stratagems without extra casts or free loops (62.2293ms)
+✔ army role recommendations include mechanical benefits using the shared candidate scorer (19.9109ms)
+✔ Dian Wei guard transfers actual damage once; withdrawing sources stop new effects (4.2871ms)
+✔ Diao Chan basics weaken both tactic powers, refresh without stacking and can be cleansed (10.9903ms)
+✔ Huang Gai wounded basics debuff the actual enemy; health and troop restrictions apply (6.3423ms)
+✔ frequent debuffs expire promptly and cannot refresh stronger limited effects (5.6646ms)
+✔ Flying General area attacks keep full basic damage per target with one action budget (2.7051ms)
+✔ Flying General area fire uses one legitimately cast enchantment charge (2.7501ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 44
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 655.5896
+
+✖ failing tests:
+
+test at tests\status-rules62.test.mjs:44:1
+✖ personal range changes do not increase weapon tactic range (3.7175ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   action: '列阵',
+  +   advisorBonus: 0.07,
+  +   armyId: 'a2',
+  +   attackCarry: 0,
+  +   battleDamage: 0,
+  +   birthYear: 154,
+  +   cast: null,
+  +   charm: 90,
+  +   commandBonus: 0.081,
+  +   compatibility: 101,
+  +   contribution: {
+  +     control: 0,
+  +     damage: 0,
+  +     healing: 0,
+  +     siege: 0,
+  +     support: 0,
+  +     taken: 0
+  +   },
+  +   cooldown: 999,
+  +   courtesy: '本初',
+  +   deathYear: 202,
+  +   deputyBonus: 0,
+  +   disengage: null,
+  +   effect: null,
+  +   entryStatusesApplied: true,
+  +   first: true,
+  +   force: 69,
+  +   formation: 'front',
+  +   healed: 0,
+  +   hp: 3000,
+  +   id: 'shao',
+  +   initial: 3000,
+  +   intellect: 70,
+  +   intent: 0,
+  +   leadership: 81,
+  +   level: 10,
+  +   loyalty: 100,
+  +   maxHp: 3000,
+  +   merit: 0,
+  +   morale: 80,
+  +   moveProgress: 0,
+  +   name: '袁绍',
+  +   participated: false,
+  +   passiveState: {
+  +     entryUntil: 0,
+  +     lastMoveTick: 0,
+  +     moveCount: 0,
+  +     reserveEntered: false,
+  +     shotType: null,
+  +     shots: 0,
+  +     targetId: null
+  +   },
+  +   personality: 3,
+  +   politics: 73,
+  +   relations: {
+  +     dislikedIds: [
+  +       'person-17',
+  +       'person-494'
+  +     ],
+  +     fatherId: null,
+  +     likedIds: [
+  +       'person-18'
+  +     ],
+  +     motherId: null,
+  +     spouseIds: [
+  +       'person-623'
+  +     ],
+  +     swornSiblingIds: []
+  +   },
+  +   retreatAt: null,
+  +   righteousness: 2,
+  +   sex: 0,
+  +   side: 1,
+  +   skill: '名门号令',
+  +   skillCasts: 0,
+  +   skillReady: {},
+  +   skillRouteType: 'spear',
+  +   status: 'active',
+  +   statuses: {},
+  +   tacticCasts: {},
+  +   tacticLearning: {
+  +     byTroop: {
+  +       archer: {
+  +         high: [
+  +           'scatter'
+  +         ],
+  +         low: [
+  +           'rally'
+  +         ]
+  +       },
+  +       cavalry: {
+  +         high: [],
+  +         low: [
+  +           'harass'
+  +         ]
+  +       },
+  +       crossbow: {
+  +         high: [
+  +           'repeat'
+  +         ],
+  +         low: [
+  +           'screen'
+  +         ]
+  +       },
+  +       halberd: {
+  +         high: [],
+  +         low: [
+  +           'curse'
+  +         ]
+  +       },
+  +       ram: {
+  +         high: [
+  +           'ram'
+  +         ],
+  +         low: [
+  +           'bulwark',
+  +           'tremor'
+  +         ]
+  +       },
+  +       ship: {
+  +         high: [],
+  +         low: [
+  +           'boarding'
+  +         ]
+  +       },
+  +       siege: {
+  +         high: [
+  +           'bombard'
+  +         ],
+  +         low: [
+  +           'emplace',
+  +           'tremor'
+  +         ]
+  +       },
+  +       spear: {
+  +         high: [
+  +           'thrust'
+  +         ],
+  +         low: [
+  +           'ward'
+  +         ]
+  +       },
+  +       tower: {
+  +         high: [
+  +           'repeat'
+  +         ],
+  +         low: [
+  +           'emplace',
+  +           'nexus'
+  +         ]
+  +       }
+  +     },
+  +     special: false
+  +   },
+  +   tacticRecoveryUntil: 999,
+  +   tacticRestored: {},
+  +   tacticUseBonus: {},
+  +   tactics: [
+  +     'ward',
+  +     'thrust'
+  +   ],
+  +   trait: '名门雄主',
+  +   traitState: {},
+  +   troops: 3000,
+  +   type: 'spear',
+  +   withdrawing: false,
+  +   wounded: 0,
+  +   x: 8,
+  +   y: 3
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/status-rules62.test.mjs:46:51)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { personality: 3, righteousness: 2, compatibility: 101, sex: 0, birthYear: 154, deathYear: 202, relations: { fatherId: null, motherId: null, spouseIds: [Array], swornSiblingIds: [], likedIds: [Array], dislikedIds: [Array] }, id: 'shao', name: '袁绍', courtesy: '本初', leadership: 81, force: 69, intellect: 70, politics: 73, charm: 90, skill: '名门号令', type: 'spear', formation: 'front', trait: '名门雄主', troops: 3000, wounded: 0, first: true, loyalty: 100, level: 10, merit: 0, tacticLearning: { byTroop: [Object], special: false }, tactics: [ 'ward', 'thrust' ], retreatAt: null, skillRouteType: 'spear', passiveState: { lastMoveTick: 0, moveCount: 0, targetId: null, shots: 0, shotType: null, reserveEntered: false, entryUntil: 0 }, traitState: {}, participated: false, contribution: { damage: 0, taken: 0, healing: 0, siege: 0, support: 0, control: 0 }, attackCarry: 0, armyId: 'a2', side: 1, withdrawing: false, disengage: null, hp: 3000, maxHp: 3000, initial: 3000, battleDamage: 0, healed: 0, moveProgress: 0, status: 'active', x: 8, y: 3, morale: 80, cooldown: 999, intent: 0, tacticRecoveryUntil: 999, cast: null, skillReady: {}, tacticCasts: {}, tacticRestored: {}, tacticUseBonus: {}, statuses: {}, skillCasts: 0, action: '列阵', effect: null, commandBonus: 0.081, deputyBonus: 0, advisorBonus: 0.07, entryStatusesApplied: true },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\status-rules62.test.mjs:48:1
+✖ learned opening ambush is first-entry only, respects ZOC, and is serialized with the current rules (1.6858ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/status-rules62.test.mjs:49:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\status-rules62.test.mjs:66:1
+✖ single-target learned decoy creates a real target, not a seventh troop or damage shield (1.9254ms)
+  AssertionError [ERR_ASSERTION]: person-433 cannot equip mirage
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/status-rules62.test.mjs:67:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

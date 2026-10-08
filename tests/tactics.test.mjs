@@ -34,10 +34,10 @@ test('instant skills spend shared intent and recovery separates learned casts',(
  stepBattle(b);assert.equal(a.tacticCasts.phalanx,1);assert.equal(a.skillCasts,2);assert.equal(a.cast,null);
 });
 
-test('demoralize clamps active and reserve intent and prevents subsequent skills below threshold',()=>{
-  const {b,a,d}=scene();appointBattleTestCommander(b,'jia');allowOnly(a,'thrust');a.intent=100;d.intent=30;
+test('real intent loss clamps at zero and does not affect reserves',()=>{
+  const {b,a,d}=scene();allowOnly(a,'thrust');a.intent=100;d.intent=30;
   const reserve={...structuredClone(d),id:'reserve-test',status:'reserve',x:-1,y:-1,intent:80};b.sides[1].units.push(reserve);
-  b.commandProgress=12000;assert.equal(issueCommand(b,'demoralize',chooseStratagemPoint(b,AREA_DESIGNS['demoralize'],0)),null);assert.equal(d.intent,0);assert.equal(reserve.intent,80);
+  lowerIntent(d,45);assert.equal(d.intent,0);assert.equal(reserve.intent,80);
   stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.cast,null);
   lowerIntent(a,100);a.skillReady.thrust=0;stepBattle(b);assert.equal(a.tacticCasts.thrust,1);
 });
@@ -55,7 +55,6 @@ test('fire burns without intent feedback and ranged skills have distinct real ef
   const x=scene('crossbow');allowOnly(x.a,'repeat');complete(x.b,x.a);
   assert.equal(x.b.effects.filter(e=>e.from===x.a.id&&e.damage>0).length,2);
   assert.equal(x.a.tacticCasts.repeat,1,'two projectiles count as one completed tactic');
-  const p=scene('crossbow');allowOnly(p.a,'pierce');complete(p.b,p.a);p.a.cooldown=0;stepBattle(p.b);assert.ok(hasStatus(p.b,p.d,'armorBreak'));
 });
 test('thrust hits the unit directly behind; scatter hits several nearby targets',()=>{
   for(const [type,id] of [['spear','thrust'],['archer','scatter']]) {

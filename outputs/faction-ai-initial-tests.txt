@@ -1,0 +1,205 @@
+✔ both current national scenarios store units in cities with no standing map armies (918.6468ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (196.4277ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (17.2642ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (928.7213ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (93.5826ms)
+✔ real sieges build temporary defense from city units and resume deterministically (2815.8568ms)
+✔ departure can prepare an idle officer atomically and invalid departure spends nothing (268.3098ms)
+✔ awaiting siege permits real idle-officer preparation without starting battle or changing source (105.0657ms)
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (62.9497ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (122.9619ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (132.4167ms)
+✔ waiting departure prevents idle members from picking new work across turns (36.4403ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (39.5229ms)
+✔ forged pending action references and duplicate officers are rejected (142.7175ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (72.1645ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1852.5938ms)
+✔ a queued garrison defends an actual siege and does not depart while its work is paused (546.48ms)
+✖ advantageous attack retains a real garrison and conserves all men and carried grain (84.874ms)
+✖ AI avoids a superior garrison and strong walls rather than charging the nearest city (20.9975ms)
+✖ a merged city army splits a legal expedition instead of stalling above ten units (26.6604ms)
+✖ a hostile column approaching home takes priority over expansion (24.4354ms)
+✖ reserve columns reinforce threatened friendly cities through friendly roads (27.0774ms)
+✖ columns sharing an AI route consume independent paths before and after JSON reload (24.7022ms)
+✔ a hungry army reverses its actual road progress without teleporting home (24.1589ms)
+✖ a starving merged army splits its retreat into legal marching columns (23.9275ms)
+✖ a merged wounded roster sends only its live companies as reinforcements (29.1876ms)
+✖ insufficient food or morale causes recovery, and recruitment spends finite local resources once (24.5798ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (5079.3775ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 19
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5624.3848
+
+✖ failing tests:
+
+test at tests\strategic-ai.test.mjs:19:1
+✖ advantageous attack retains a real garrison and conserves all men and carried grain (84.874ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'town-5'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'town-5',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:24:1
+✖ AI avoids a superior garrison and strong walls rather than charging the nearest city (20.9975ms)
+  TypeError: Cannot read properties of undefined (reading 'kind')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:25:225)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\strategic-ai.test.mjs:27:1
+✖ a merged city army splits a legal expedition instead of stalling above ten units (26.6604ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'town-5'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:30:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'town-5',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:32:1
+✖ a hostile column approaching home takes priority over expansion (24.4354ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '驻城' !== '守城待援'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:33:121)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '驻城',
+    expected: '守城待援',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:35:1
+✖ reserve columns reinforce threatened friendly cities through friendly roads (27.0774ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'town-5'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:36:179)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'town-5',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:39:1
+✖ columns sharing an AI route consume independent paths before and after JSON reload (24.7022ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'town-5'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:43:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'town-5',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:53:1
+✖ a starving merged army splits its retreat into legal marching columns (23.9275ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(a.route.length)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:56:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:58:1
+✖ a merged wounded roster sends only its live companies as reinforcements (29.1876ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  29 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:62:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 29,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-ai.test.mjs:64:1
+✖ insufficient food or morale causes recovery, and recruitment spends finite local resources once (24.5798ms)
+  TypeError: Cannot read properties of undefined (reading 'kind')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:65:154)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

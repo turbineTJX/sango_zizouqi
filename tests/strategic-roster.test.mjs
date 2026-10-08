@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,transferOfficer,appointGovernor,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,transferOfficer,appointGovernor,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {campaignOfficers,pickerReason,cityRosterMarkup,campaignRosterMarkup} from '../strategic-roster.mjs';
 test('personnel census covers every owned officer once and tracks real transfer locations',()=>{
  const s=newCampaign(203,'guandu-200'),rows=campaignOfficers(s);

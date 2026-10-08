@@ -1,0 +1,31 @@
+✔ four officer stats affect separate derived attributes, with no charm dimension (3.9909ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (104.2086ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (4.6192ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (14.9184ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (6.4653ms)
+✔ politics reduces actual confusion duration but physical confuse remains independent (27.5983ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (4.7055ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (33.6164ms)
+✔ repeating shots grant one surviving-hit award and no caster recharge (24.2782ms)
+✔ a fully blocked first segment does not consume the surviving-hit award (7.9625ms)
+✔ separate attackers still provide separate pressure rewards to a surviving tank (3.6288ms)
+✔ damage tactics against a gate do not charge the caster, basic siege attacks do (8.7342ms)
+✔ zero-intent support and frontlines remain active, and save continuation is deterministic (375.8154ms)
+✔ status catalog has unique names and rejects removed status identities (17.8937ms)
+✔ continuous intent loss is bounded, and calm does not extinguish fire or restore formation (7.6798ms)
+✔ attack cadence and range use real derived attributes without changing minimum range or skill cooldown (2.8312ms)
+✔ loss of ZOC, root and disarm have independent effects; resolve covers all controls (3.1098ms)
+✔ learned opening ambush is first-entry only, ignores ZOC, and is serialized with the current rules (26.2928ms)
+✔ ambush chooses reachable rear, waits to cast, and first strike confuses for one step (7.3043ms)
+✔ insight exposes hidden units without stripping bypass; damage breaks stealth and cancels surprise (5.6038ms)
+✔ single-target learned decoy creates a real target, not a seventh troop or damage shield (9.1723ms)
+✔ prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage (6.2042ms)
+✔ new state saves reject malformed decoys and retired rules (5.692ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 599.962

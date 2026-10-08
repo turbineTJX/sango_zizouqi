@@ -1,0 +1,551 @@
+{
+  "days": 11,
+  "peaceful": false,
+  "sources": {
+    "talent-core.mjs": "34b850754eaf49780d77c7c5da4304e8e81e9898f230628a22b52ebf6130b8f0",
+    "talent-lifecycle.mjs": "b5285780fddbb0f2b15f8b2ab777525fdfb322804b5a7ecf36ce054227e16f99",
+    "domestic.mjs": "6cc442d1188de8d8ed508e7f1fcc68f09c647b125303fb98a21c7f49d247ee08",
+    "strategic-campaign.mjs": "b66c0c52a0ec473dce96044228ab055262c71a2af17bbd2a2e333d977c62834d",
+    "strategic-ai.mjs": "70553b727b4b52a288f9e7852fad0d2d405a5babbbf765fba04888116e8d03dc",
+    "national-scenarios.mjs": "9b4a3915b0b6d6c37301892d2b55685e79a3936b5e8ddc772f7eab8b12ab1645"
+  },
+  "results": [
+    {
+      "scenario": "small-map",
+      "seed": 23,
+      "day": 12,
+      "finished": null,
+      "samples": [],
+      "newHires": 0,
+      "cost": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "elapsed": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "reassurance": {
+        "spent": 0,
+        "zeroOutcome": 0
+      },
+      "resigned": 0,
+      "warnings": 0,
+      "defeatDestinations": {},
+      "projects": 0,
+      "events": [
+        {
+          "day": 1,
+          "code": "initialization",
+          "personId": null,
+          "faction": "cao",
+          "text": "803名人物暂无活动城市配置，暂按地图顺序分布；不代表历史地理。"
+        }
+      ]
+    },
+    {
+      "scenario": "small-map",
+      "seed": 71,
+      "day": 12,
+      "finished": null,
+      "samples": [],
+      "newHires": 0,
+      "cost": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "elapsed": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "reassurance": {
+        "spent": 0,
+        "zeroOutcome": 0
+      },
+      "resigned": 0,
+      "warnings": 0,
+      "defeatDestinations": {},
+      "projects": 0,
+      "events": [
+        {
+          "day": 1,
+          "code": "initialization",
+          "personId": null,
+          "faction": "cao",
+          "text": "803名人物暂无活动城市配置，暂按地图顺序分布；不代表历史地理。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-103",
+          "faction": "cao",
+          "text": "发现毌丘秀在洛阳，观望／拒绝考虑。"
+        }
+      ]
+    },
+    {
+      "scenario": "guandu-200",
+      "seed": 23,
+      "day": 12,
+      "finished": null,
+      "samples": [],
+      "newHires": 0,
+      "cost": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "elapsed": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "reassurance": {
+        "spent": 0,
+        "zeroOutcome": 0
+      },
+      "resigned": 0,
+      "warnings": 0,
+      "defeatDestinations": {},
+      "projects": 2,
+      "events": [
+        {
+          "day": 1,
+          "code": "initialization",
+          "personId": null,
+          "faction": "cao",
+          "text": "149名人物暂无活动城市配置，暂按地图顺序分布；不代表历史地理。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-3",
+          "faction": "force-7",
+          "text": "发现伊籍在江陵，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-646",
+          "faction": "force-7",
+          "text": "发现廖化在江陵，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-100",
+          "faction": "force-7",
+          "text": "发现桓阶在长沙，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-704",
+          "faction": "sunce",
+          "text": "发现于吉在吴，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-158",
+          "faction": "sunce",
+          "text": "发现严畯在吴，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-565",
+          "faction": "sunce",
+          "text": "发现步骘在寿春，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-49",
+          "faction": "yuan",
+          "text": "发现王凌在晋阳，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-209",
+          "faction": "yuan",
+          "text": "发现胡班在濮阳，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-666",
+          "faction": "cao",
+          "text": "发现娄圭在宛，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-713",
+          "faction": "cao",
+          "text": "发现北斗在平原，愿意洽谈。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-13",
+          "faction": "cao",
+          "text": "发现袁涣在汝南，愿意洽谈。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-423",
+          "faction": "cao",
+          "text": "发现张承在下邳，观望／拒绝考虑。"
+        }
+      ]
+    },
+    {
+      "scenario": "guandu-200",
+      "seed": 71,
+      "day": 12,
+      "finished": null,
+      "samples": [],
+      "newHires": 0,
+      "cost": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "elapsed": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "reassurance": {
+        "spent": 0,
+        "zeroOutcome": 0
+      },
+      "resigned": 0,
+      "warnings": 0,
+      "defeatDestinations": {},
+      "projects": 6,
+      "events": [
+        {
+          "day": 1,
+          "code": "initialization",
+          "personId": null,
+          "faction": "cao",
+          "text": "149名人物暂无活动城市配置，暂按地图顺序分布；不代表历史地理。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-367",
+          "faction": "force-7",
+          "text": "发现孙乾在江陵，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-636",
+          "faction": "force-7",
+          "text": "发现刘备在江陵，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-433",
+          "faction": "force-7",
+          "text": "发现张飞在江陵，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-111",
+          "faction": "force-7",
+          "text": "发现韩嵩在襄阳，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-557",
+          "faction": "force-7",
+          "text": "发现法正在江陵，愿意洽谈。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-212",
+          "faction": "sunce",
+          "text": "发现顾雍在吴，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-666",
+          "faction": "force-7",
+          "text": "发现娄圭在宛，愿意洽谈。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-42",
+          "faction": "yuan",
+          "text": "发现王忠在濮阳，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-254",
+          "faction": "yuan",
+          "text": "发现朱灵在平原，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-611",
+          "faction": "yuan",
+          "text": "发现李孚在南皮，愿意洽谈。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-194",
+          "faction": "yuan",
+          "text": "发现吴巨在蓟，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-703",
+          "faction": "cao",
+          "text": "发现献帝在长安，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-216",
+          "faction": "cao",
+          "text": "发现蔡琰在洛阳，愿意洽谈。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-666",
+          "faction": "cao",
+          "text": "发现娄圭在宛，愿意洽谈。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-42",
+          "faction": "cao",
+          "text": "发现王忠在濮阳，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-659",
+          "faction": "cao",
+          "text": "发现吕岱在下邳，暂不求仕。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-642",
+          "faction": "cao",
+          "text": "发现刘晔在寿春，愿意洽谈。"
+        }
+      ]
+    },
+    {
+      "scenario": "heroes-251",
+      "seed": 23,
+      "day": 12,
+      "finished": null,
+      "samples": [],
+      "newHires": 0,
+      "cost": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "elapsed": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "reassurance": {
+        "spent": 0,
+        "zeroOutcome": 0
+      },
+      "resigned": 0,
+      "warnings": 0,
+      "defeatDestinations": {},
+      "projects": 0,
+      "events": [
+        {
+          "day": 1,
+          "code": "initialization",
+          "personId": null,
+          "faction": "cao",
+          "text": "149名人物暂无活动城市配置，暂按地图顺序分布；不代表历史地理。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-726",
+          "faction": "force-2",
+          "text": "发现山越头目在云南，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-723",
+          "faction": "force-2",
+          "text": "发现乌丸武将在江州，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-700",
+          "faction": "force-2",
+          "text": "发现刘协在襄阳，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-700",
+          "faction": "sunce",
+          "text": "发现刘协在襄阳，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-727",
+          "faction": "yuan",
+          "text": "发现山越武将在壶关，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-729",
+          "faction": "cao",
+          "text": "发现南蛮武将在潼关，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-728",
+          "faction": "cao",
+          "text": "发现南蛮头目在虎牢关，观望／拒绝考虑。"
+        }
+      ]
+    },
+    {
+      "scenario": "heroes-251",
+      "seed": 71,
+      "day": 12,
+      "finished": null,
+      "samples": [],
+      "newHires": 0,
+      "cost": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "elapsed": {
+        "count": 0,
+        "mean": null,
+        "p50": null,
+        "p90": null
+      },
+      "reassurance": {
+        "spent": 0,
+        "zeroOutcome": 0
+      },
+      "resigned": 0,
+      "warnings": 0,
+      "defeatDestinations": {},
+      "projects": 0,
+      "events": [
+        {
+          "day": 1,
+          "code": "initialization",
+          "personId": null,
+          "faction": "cao",
+          "text": "149名人物暂无活动城市配置，暂按地图顺序分布；不代表历史地理。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-725",
+          "faction": "force-2",
+          "text": "发现羌族武将在建宁，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-726",
+          "faction": "force-2",
+          "text": "发现山越头目在云南，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-724",
+          "faction": "force-2",
+          "text": "发现羌族头目在成都，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-723",
+          "faction": "force-2",
+          "text": "发现乌丸武将在江州，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-700",
+          "faction": "force-2",
+          "text": "发现刘协在襄阳，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-700",
+          "faction": "sunce",
+          "text": "发现刘协在襄阳，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-727",
+          "faction": "yuan",
+          "text": "发现山越武将在壶关，观望／拒绝考虑。"
+        },
+        {
+          "day": 10,
+          "code": "discovered",
+          "personId": "person-728",
+          "faction": "cao",
+          "text": "发现南蛮头目在虎牢关，观望／拒绝考虑。"
+        }
+      ]
+    }
+  ]
+}

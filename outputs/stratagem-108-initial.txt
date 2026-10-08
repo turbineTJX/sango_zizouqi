@@ -1,0 +1,640 @@
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营0 (29.5619ms)
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营1 (11.6196ms)
+✖ 魏武挥鞭由真实充能施放，逐队军纪决定时长，仅覆盖在场部队 (390.8508ms)
+✔ 魔免阻止全部异常与八阵；只让物理普攻伤害通过，到期恢复 (247.4049ms)
+✔ 真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵，确定性续战一致 (1133.6652ms)
+✖ 兵贵神速只选一队，空地敌军与重复目标不消费，预览高亮与AI一致 (168.4518ms)
+✔ 神速无视ZOC但保留目标合法性；攻速及移速同类取高不叠加 (162.8687ms)
+✖ 敌方自然充能使用同一魔免及单队神速规则，固定优先序不变成收益评分 (183.7747ms)
+✖ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (31.8795ms)
+✖ discipline directly reduces probability; duration and odds do not use unrelated officer attributes (17.1632ms)
+✖ each round checks actual occupants, never allies, reserves or protected targets; expiry stops checking (10.2151ms)
+✖ live formation causes real random statuses, survives reload, and expires after eighteen rounds (62.9371ms)
+✔ area saves reject forged location, duration, source, duplicate zones and missing new state (35.0841ms)
+✔ enemy formation uses the same target side and probability rules (6.6992ms)
+✖ 军略不检查接敌距离，远近均按固定条件施放 (12.1684ms)
+✖ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (25.4675ms)
+✔ field：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (1061.0658ms)
+✔ terrain：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (700.9254ms)
+✔ river：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (1208.1338ms)
+✔ circle and rotated rectangle use rendered geometry, inclusive boundary (1.3029ms)
+✔ missing, malformed and empty selection leave resources and effects unchanged (41.1538ms)
+✔ fire only applies inside rectangle and does not concentrate excluded target budget (176.307ms)
+✔ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (6.2153ms)
+✔ enemy uses identical selected geometry (6.5046ms)
+✖ demoralize affects only selected active enemies and AI chooses effective coverage (8.5713ms)
+✖ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (9.107ms)
+✔ AI excludes burning, untargetable and reserve units, and skips unusable area commands (0.6683ms)
+✔ heal highlights only real wounded and confirmation is disabled without useful targets (0.5515ms)
+✖ zero-intent troops are not scored or highlighted for demoralize; both sides share placement (0.9371ms)
+✖ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.0243ms)
+✖ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (0.569ms)
+✖ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (243.1768ms)
+✖ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (172.0213ms)
+✖ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (138.5957ms)
+✖ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (83.213ms)
+✖ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (126.2053ms)
+✖ 曹操军略进入真实结算，并保存提供者与效果 (97.0086ms)
+✖ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.6692ms)
+✖ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.6006ms)
+✖ single gauge starts empty, scales with active intellect, caps without storing charges (199.9974ms)
+✖ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (9.0725ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (281.8652ms)
+✖ first aid consumes only recoverable casualties and cannot heal dead or reserve units (5.379ms)
+✖ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (4.9731ms)
+✖ army range extends basic attacks but explicit tactic ranges remain fixed (4.6802ms)
+✖ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (46.5411ms)
+✔ departed commander stops providing stratagems: defeated side 0 (4.115ms)
+✔ departed commander stops providing stratagems: defeated side 1 (4.3291ms)
+✔ departed commander stops providing stratagems: withdrawn side 0 (4.7444ms)
+✔ departed commander stops providing stratagems: withdrawn side 1 (5.5052ms)
+✖ same-name stratagem uses remaining holder after stronger provider leaves (4.619ms)
+✔ real combat removes defeated providers from both command lists (341.9576ms)
+ℹ tests 52
+ℹ suites 0
+ℹ pass 21
+ℹ fail 31
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3313.5508
+
+✖ failing tests:
+
+test at tests\cleanse-ai.test.mjs:7:25
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营0 (29.5619ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'assault'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/cleanse-ai.test.mjs:12:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'assault',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\cleanse-ai.test.mjs:7:25
+✖ 镇静只检查有无可清除状态，不比较严重度：阵营1 (11.6196ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'assault'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/cleanse-ai.test.mjs:12:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'assault',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-specials.test.mjs:25:1
+✖ 魏武挥鞭由真实充能施放，逐队军纪决定时长，仅覆盖在场部队 (390.8508ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/command-specials.test.mjs:31:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-specials.test.mjs:62:1
+✖ 兵贵神速只选一队，空地敌军与重复目标不消费，预览高亮与AI一致 (168.4518ms)
+  TypeError: Cannot read properties of undefined (reading 'statuses')
+      at statusOn (file:///C:/Users/TJX/Documents/ChatGPT/sango/battle-status-rules.mjs:8:37)
+      at remedy (file:///C:/Users/TJX/Documents/ChatGPT/sango/battle-status-rules.mjs:22:30)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/command-specials.test.mjs:64:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\command-specials.test.mjs:79:1
+✖ 敌方自然充能使用同一魔免及单队神速规则，固定优先序不变成收益评分 (183.7747ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'swift'
+  - 'jia-speed'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/command-specials.test.mjs:85:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'swift',
+    expected: 'jia-speed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\eight-formation.test.mjs:16:1
+✖ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (31.8795ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/eight-formation.test.mjs:20:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\eight-formation.test.mjs:27:1
+✖ discipline directly reduces probability; duration and odds do not use unrelated officer attributes (17.1632ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(formationChance(s,unitAttributes(u,b).discipline)<before)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/eight-formation.test.mjs:31:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\eight-formation.test.mjs:33:1
+✖ each round checks actual occupants, never allies, reserves or protected targets; expiry stops checking (10.2151ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(apply.every(([id,,steps])=>b.sides[1].units.some(v=>v.id===id)&&steps===2))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/eight-formation.test.mjs:38:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\eight-formation.test.mjs:46:1
+✖ live formation causes real random statuses, survives reload, and expires after eighteen rounds (62.9371ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(v.until<=b.tick+2)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/eight-formation.test.mjs:51:155)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\proactive-command-ai.test.mjs:7:1
+✖ 军略不检查接敌距离，远近均按固定条件施放 (12.1684ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'assault'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/proactive-command-ai.test.mjs:13:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'assault',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\proactive-command-ai.test.mjs:24:1
+✖ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (25.4675ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'heal' !== 'assault'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/proactive-command-ai.test.mjs:31:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'heal',
+    expected: 'assault',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-area.test.mjs:53:1
+✖ demoralize affects only selected active enemies and AI chooses effective coverage (8.5713ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '未知军令' !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-area.test.mjs:60:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '未知军令',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-placement-ai.test.mjs:10:1
+✖ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (9.107ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'firestorm'
+  - 'assault'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-placement-ai.test.mjs:17:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'firestorm',
+    expected: 'assault',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-placement-ai.test.mjs:37:1
+✖ zero-intent troops are not scored or highlighted for demoralize; both sides share placement (0.9371ms)
+  TypeError: Cannot read properties of undefined (reading 'scope')
+      at areaPreview (file:///C:/Users/TJX/Documents/ChatGPT/sango/stratagem-area-view.mjs:6:26)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-placement-ai.test.mjs:40:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\stratagem-pools.test.mjs:17:1
+✖ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.0243ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:18:91)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:21:1
+✖ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (0.569ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:22:134)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:27:1
+✖ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (243.1768ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未掌握/. Input:
+  
+  '未知军令'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:33:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '未知军令',
+    expected: /未掌握/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:41:60
+✖ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (172.0213ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'cao-wuchao'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:58:33)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'cao-wuchao',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:41:60
+✖ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (138.5957ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'zhou-redcliffs'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:58:33)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'zhou-redcliffs',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:41:60
+✖ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (83.213ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:53:74)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:60:1
+✖ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (126.2053ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  11 !== 7
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:70:110)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 11,
+    expected: 7,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:74:1
+✖ 曹操军略进入真实结算，并保存提供者与效果 (97.0086ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '未知军令' !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:81:10)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '未知军令',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:91:1
+✖ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.6692ms)
+  TypeError: Cannot read properties of null (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:95:61)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\stratagem-pools.test.mjs:103:1
+✖ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.6006ms)
+  TypeError: Cannot read properties of null (reading 'strength')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:108:49)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\stratagems.test.mjs:14:1
+✖ single gauge starts empty, scales with active intellect, caps without storing charges (199.9974ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '未知军令' !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:20:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '未知军令',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:23:1
+✖ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (9.0725ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'heal',
+  -   'cleanse'
+    ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:27:38)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'heal' ],
+    expected: [ 'heal', 'cleanse' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:39:1
+✖ first aid consumes only recoverable casualties and cannot heal dead or reserve units (5.379ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2350 !== 2721
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:44:194)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2350,
+    expected: 2721,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:49:1
+✖ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (4.9731ms)
+  TypeError: Cannot read properties of null (reading 'strength')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:51:92)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\stratagems.test.mjs:60:1
+✖ army range extends basic attacks but explicit tactic ranges remain fixed (4.6802ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '未知军令' !== null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:63:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '未知军令',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:68:1
+✖ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (46.5411ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2088 !== 2122
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:72:146)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2088,
+    expected: 2122,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:85:1
+✖ same-name stratagem uses remaining holder after stronger provider leaves (4.619ms)
+  TypeError: Cannot read properties of null (reading 'id')
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:88:43
+      at Array.find (<anonymous>)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:88:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

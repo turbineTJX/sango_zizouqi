@@ -1,0 +1,26 @@
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (4.8276ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (10.1585ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (2.8918ms)
+✔ fame adds city manpower rather than free troops (2.5328ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (474.0265ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (25.1327ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (0.4322ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (228.4027ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (8.5903ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (216.4917ms)
+✔ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (135.3894ms)
+✔ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (105.7121ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (64.0388ms)
+✔ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (26.7287ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (4.2107ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (8.2043ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (2.3668ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (384.3505ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 922.9396

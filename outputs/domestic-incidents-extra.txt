@@ -1,0 +1,22 @@
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (667.6655ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (328.7746ms)
+✔ generated overview tables stay synchronized with the authoritative records (323.0116ms)
+✔ close same-work officers gain a strong, saved joint effect on both real operations (452.4089ms)
+✔ hostile same-work officers can obstruct both participants without new fees (273.3755ms)
+✔ one commercial officer can discover favorable and adverse agricultural and training events (2417.4242ms)
+✔ cross-domain incidents can help another existing approved research project (556.0345ms)
+✔ same research slot has one actual project and a waiting colleague can aid its progress (100.1002ms)
+✔ departure breaks the joint effect, and different tasks never produce social incidents (465.6117ms)
+✔ reading reports and loading never rerolls, extends effects or repeats them; expiry is real (1435.9192ms)
+✔ unapproved, paused and empty-garrison work does not receive ineligible events (738.1693ms)
+✔ one city receives at most two incidents per turn; saved source and effect tampering is rejected (5042.1561ms)
+✔ crop events change the actual harvest and budget once; ownership loss clears city effects (2268.3441ms)
+✔ a real siege pauses incident checks and uses the previously saved training effect once (1300.6774ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15326.2331

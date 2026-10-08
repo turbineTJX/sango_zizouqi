@@ -1,0 +1,32 @@
+
+> sango-sovereign@0.3.0 design:export
+> node scripts/design-tables.mjs export
+
+设计表导出通过：{"战役预设":20,"待接入表":18,"内政动作":41,"建筑":9,"全国道路":151,"入门道路":16,"特技":94,"战法":89,"军略":20,"兵种":9,"武将":832,"全国据点":87,"入门据点":9}
+
+> sango-sovereign@0.3.0 design:check
+> node scripts/design-tables.mjs check
+
+设计表校验通过：{"战役预设":20,"待接入表":18,"内政动作":41,"建筑":9,"全国道路":151,"入门道路":16,"特技":94,"战法":89,"军略":20,"兵种":9,"武将":832,"全国据点":87,"入门据点":9}
+
+> sango-sovereign@0.3.0 design:verify
+> node scripts/design-tables.mjs verify
+
+设计表同步检查通过：{"战役预设":20,"待接入表":18,"内政动作":41,"建筑":9,"全国道路":151,"入门道路":16,"特技":94,"战法":89,"军略":20,"兵种":9,"武将":832,"全国据点":87,"入门据点":9}
+
+> sango-sovereign@0.3.0 test:design
+> node --test tests/design-tables.test.mjs tests/design-strategy.test.mjs
+
+✔ strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values (115.526ms)
+✔ edited action/building/road/movement records drive real autonomous work, routing and saves (1783.19ms)
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (223.0956ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (282.5961ms)
+✔ generated overview tables stay synchronized with the authoritative records (311.8275ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2006.3046

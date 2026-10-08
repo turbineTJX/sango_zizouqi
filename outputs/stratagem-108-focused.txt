@@ -1,0 +1,169 @@
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营0 (33.1012ms)
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营1 (13.9279ms)
+✔ 魏武挥鞭由真实充能施放，逐队军纪决定时长，仅覆盖在场部队 (732.87ms)
+✔ 魔免阻止全部异常与八阵；只让物理普攻伤害通过，到期恢复 (225.8688ms)
+✔ 真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵，确定性续战一致 (917.8305ms)
+✖ 兵贵神速只选一队，空地敌军与重复目标不消费，预览高亮与AI一致 (162.5393ms)
+✔ 神速无视ZOC但保留目标合法性；攻速及移速同类取高不叠加 (170.4114ms)
+✔ 敌方自然充能使用同一魔免及范围神速规则，固定优先序不变成收益评分 (162.0721ms)
+✖ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (371.6802ms)
+✔ discipline directly reduces probability; duration and odds do not use unrelated officer attributes (7.343ms)
+✔ each round checks actual occupants, never allies, reserves or protected targets; expiry stops checking (7.9285ms)
+✔ live formation causes real random statuses, survives reload, and expires after the declared duration (203.5622ms)
+✔ area saves reject forged location, duration, source, duplicate zones and missing new state (20.1828ms)
+✔ enemy formation uses the same target side and probability rules (4.4291ms)
+✖ 军略不检查接敌距离，远近均按固定条件施放 (14.406ms)
+✖ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (29.3465ms)
+✔ field：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (1060.0041ms)
+✔ terrain：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (672.2148ms)
+✔ river：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (1316.8424ms)
+✔ circle and rotated rectangle use rendered geometry, inclusive boundary (0.899ms)
+✔ missing, malformed and empty selection leave resources and effects unchanged (40.2465ms)
+✔ fire only applies inside rectangle and does not concentrate excluded target budget (189.8462ms)
+✖ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (7.8301ms)
+✔ enemy uses identical selected geometry (7.7127ms)
+✔ disrupt affects only selected active enemies and AI chooses effective coverage (9.0227ms)
+✔ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (8.2717ms)
+✔ AI excludes burning, untargetable and reserve units, and skips unusable area commands (0.5925ms)
+✔ heal highlights only real wounded and confirmation is disabled without useful targets (0.604ms)
+✔ protected troops are not scored or highlighted for disrupt; both sides share placement (0.6101ms)
+✔ ten basics and three exclusives use finite rosters; intellect and level never grant repertoire (8.8382ms)
+✔ validator rejects expansion by attribute, wrong exclusive ownership and short cooldown (110.5419ms)
+✔ same name chooses one eligible source and only leadership and intellect scale it (13.035ms)
+✔ single gauge starts empty, uses active intellect, holds one charge and resets only on success (205.5947ms)
+✔ leader and advisor union is sparse, duplicates collapse, unassigned officers unlock nothing (21.1328ms)
+✔ healing uses wounded budget, never heals dead or reserves, and settlement does not duplicate it (8.281ms)
+✔ fire uses declared ticks, shields absorb loss, no intent income, and broad dispel clears it (72.5931ms)
+✔ departed commander loses only their repertoire: defeated side 0 (6.3828ms)
+✔ departed commander loses only their repertoire: defeated side 1 (4.1909ms)
+✔ departed commander loses only their repertoire: withdrawn side 0 (8.2852ms)
+✔ departed commander loses only their repertoire: withdrawn side 1 (6.6814ms)
+✖ same-name falls back to remaining eligible source, saves resume and old rules are rejected (13.2681ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 35
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3408.6961
+
+✖ failing tests:
+
+test at tests\command-specials.test.mjs:62:1
+✖ 兵贵神速只选一队，空地敌军与重复目标不消费，预览高亮与AI一致 (162.5393ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(issueCommand(b,'swift',b.sides[1].units.find(u=>u.status==='active')))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/command-specials.test.mjs:65:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\eight-formation.test.mjs:16:1
+✖ formation can be placed on empty ground, consumes once, and replaces all old army bonuses (371.6802ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /次数/. Input:
+  
+  '主将与军师未掌握此军略'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/eight-formation.test.mjs:25:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: /次数/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\proactive-command-ai.test.mjs:7:1
+✖ 军略不检查接敌距离，远近均按固定条件施放 (14.406ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'disrupt'
+  - 'fortify'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/proactive-command-ai.test.mjs:16:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'disrupt',
+    expected: 'fortify',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\proactive-command-ai.test.mjs:24:1
+✖ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (29.3465ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'heal' !== 'fortify'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/proactive-command-ai.test.mjs:33:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'heal',
+    expected: 'fortify',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-area.test.mjs:39:1
+✖ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (7.8301ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-area.test.mjs:44:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:51:1
+✖ same-name falls back to remaining eligible source, saves resume and old rules are rejected (13.2681ms)
+  Error: 武将重复
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1329:78)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1396:24)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:55:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

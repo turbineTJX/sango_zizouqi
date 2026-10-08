@@ -1,4 +1,7 @@
+import {EYE_ACTIONS,TREASURE_RULES} from './treasures.mjs';
 export const TRAIT_DESIGNS = {
+ treasureEye:{name:'眼力',tier:'普通',domain:'domestic',scope:'actor',kinds:[],strategic:{effect:'treasureDiscovery',chance:TREASURE_RULES.eyeChance,actions:EYE_ACTIONS},description:'本人主办合资格内政并取得真实成果，或实际参战有贡献且存活未被俘时，发现宝物的单次概率由2%提高到4%；不叠加、不缩短30日发现间隔。'},
+ treasurePlunder:{name:'夺宝',tier:'普通',domain:'personnel',scope:'actor',kinds:[],strategic:{effect:'treasureCapture',chance:TREASURE_RULES.plunderChance,damage:TREASURE_RULES.plunderDamage},description:'本方获胜，本人实际参战、存活未被俘，并对候选宝物原持有者造成至少其初始兵力10%的真实伤害时，缴获概率由5%提高到10%；不改变战斗目标、不生成新宝物。'},
   "hero-person-368": {
     "name": "碧眼",
     "tier": "专属",

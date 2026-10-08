@@ -1,0 +1,1 @@
+import {TRAIT_DESIGNS} from '../data/design/traits.mjs';for(const id of ['merchant','farming','inventor','builder','recruiter','trainer','physician'])delete TRAIT_DESIGNS[id].chance;

@@ -12,9 +12,9 @@ export const canEquip=(c,id)=>!!TROOP_DESIGNS[id]?.equipmentSlot&&cityTroopUnloc
 export const equipmentCost=(e,previous,men,c=null)=>['siege','ship'].reduce((sum,slot)=>sum+(e[slot]&&e[slot]!==previous?.[slot]?Math.ceil(TROOP_DESIGNS[e[slot]].goldPerThousand*men/1000*technologyMilitaryMultiplier(c)):0),0);
 export const equipmentNames=u=>['siege','ship'].map(slot=>u.equipment?.[slot]).filter(Boolean).map(id=>TROOP_DESIGNS[id].name).join('、')||'无';
 export const allowedFormTypes=u=>[u.type,...['siege','ship'].map(slot=>u.equipment?.[slot]).filter(Boolean)];
-export function desiredForm(b,u,ground,distance){
+export function desiredForm(b,u,ground,distance,target=b.siege?.gate){
  if(ground==='water')return u.equipment?.ship||null;
- const gate=b.siege?.gate,id=u.equipment?.siege,t=id&&TROOP_DESIGNS[id];
- if(!u.withdrawing&&!b.sides[u.side]?.retreat&&gate?.hp>0&&u.side===b.siege.attackerSide&&t&&distance>= (t.minRange||0)&&distance<=t.range)return id;
+ const id=u.equipment?.siege,t=id&&TROOP_DESIGNS[id];
+ if(!u.withdrawing&&!b.sides[u.side]?.retreat&&target?.hp>0&&['gate','building'].includes(target.type)&&target.side!==u.side&&t&&distance>= (t.minRange||0)&&distance<=t.range)return id;
  return null;
 }

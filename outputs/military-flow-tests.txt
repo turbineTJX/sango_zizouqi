@@ -1,0 +1,12 @@
+✔ military adjustments are isolated drafts and validate before committing (212.531ms)
+✔ recruitment affects only selected units and previews the actual cost (159.1844ms)
+✔ split and merge previews preserve officers, learning and supplies (313.5035ms)
+✔ a moved army invalidates a draft without partial changes (18.4571ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 882.2162

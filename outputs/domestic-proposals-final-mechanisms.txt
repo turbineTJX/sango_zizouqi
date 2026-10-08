@@ -1,0 +1,32 @@
+✔ all current facilities and gates save actual current and maximum durability (272.0218ms)
+✔ new construction advances actual durability daily and inspection cannot advance it (188.7859ms)
+✔ damaged facilities use the same construction progress, pay less and retain their level (453.6306ms)
+✔ interruption preserves paid work, durability and the saved construction site (118.7094ms)
+✔ expansion raises maximum durability without instantly supplying the new durability (73.2382ms)
+✔ damage to a half-built facility extends remaining work without resetting or charging again (180.1217ms)
+✔ battle repairs that finish construction activate the facility and settle its original job once (159.8029ms)
+✔ a destroyed watchtower stops its sight until genuine military repairs restore durability (324.2708ms)
+✔ destroyed facilities cease production and become operational after actual repair (52.8841ms)
+✔ construction and gate durability cannot be forged in saves (121.5351ms)
+✔ battle buildings preserve real damage and map repairs back to the same physical facilities (32.0191ms)
+✔ actual siege attacks a functioning tower, preserves civilian works and returns physical damage after retreat (222.8639ms)
+✔ paid work presents a fixed proposal before any payment, research or construction; reload is read-only (224.7722ms)
+✔ approval is exactly once and denial preserves assignment, spends nothing and does not repropose this turn (66.3348ms)
+✔ automatic approval applies to pending and future work and is saved; free operations need no proposal (69.9555ms)
+✔ approval rechecks city gold and sites without charging or substituting the original proposal (43.0356ms)
+✔ unpaid proposals occupy the research slot and their actual cost enters the budget once (45.796ms)
+✔ recalling or transferring the author withdraws the unpaid proposal (36.4496ms)
+✔ every domestic action and research depends on its executor primary ability, without guaranteed success (4.2504ms)
+✔ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (412.8246ms)
+✔ proposal save rejects tampered costs, duplicate ids and simultaneous action/proposal states (115.4043ms)
+✔ actual free domestic operations fail as well; higher executor ability succeeds more often with matched seeds (4589.8604ms)
+✔ national city approvals use local funds and preserve the chosen construction site across reload (2825.9294ms)
+✔ replacing a construction executor updates their own chance without a new proposal or payment (42.5432ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8763.5759

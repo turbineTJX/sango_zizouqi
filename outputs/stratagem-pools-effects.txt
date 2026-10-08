@@ -1,0 +1,33 @@
+✔ 835人遵守1/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.5267ms)
+✔ 军团长提供、低智军师不提供，70智力边界及任职交换 (19.9898ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (82.2808ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (61.1232ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (47.7205ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (37.2486ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (44.5779ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (6.2162ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (104.3408ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (4.5459ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (14.5502ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (6.1683ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (11.477ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (3.7055ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (26.2767ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (51.7088ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (39.6566ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (28.6212ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (28.8617ms)
+✔ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (23.4207ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (9.6109ms)
+✔ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (23.977ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (18.5835ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (11.956ms)
+✔ firestorm is bounded by friendly power, not enemy army size (81.4354ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 518.0852

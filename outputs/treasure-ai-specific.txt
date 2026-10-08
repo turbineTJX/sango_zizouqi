@@ -1,0 +1,39 @@
+✔ AI retains basic deployment and can use an already active formation without changing its selected troops (93.4474ms)
+✖ AI fills a missing role without chasing maximum Beauty; a legal player choice can complete it (12.3698ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 543.2414
+
+✖ failing tests:
+
+test at tests\ai-bond-boundary.test.mjs:32:1
+✖ AI fills a missing role without chasing maximum Beauty; a legal player choice can complete it (12.3698ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   holders: 3,
+      points: 3,
+      tier: 2,
+  +   treasurePoints: 0
+    }
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ai-bond-boundary.test.mjs:40:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { points: 3, tier: 2, holders: 3, treasurePoints: 0 },
+    expected: { points: 3, tier: 2 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

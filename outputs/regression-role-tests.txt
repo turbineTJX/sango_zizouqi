@@ -1,0 +1,18 @@
+✔ removed auxiliary aura is not implicitly supplied by former holders (30.7167ms)
+✔ actual building records survive current saves and reject invalid identity, ownership and durability (10.9755ms)
+✔ domestic abilities are command-bound rather than permanent governor income or battle stats (1.9042ms)
+✔ every command trait applies only to its authored existing automatic commands (4.9343ms)
+✔ selling, buying, recruitment and construction retain separate command-specific profiles (0.2634ms)
+✔ ordinary fixed troop pools cannot create old pure-medical loadouts (0.9856ms)
+✔ legal Liu Bei regrowth restores only real wounds, plague=false (44.1298ms)
+✔ legal Liu Bei regrowth restores only real wounds, plague=true (17.5233ms)
+✔ low HP with no wound budget and defeated troops cannot trigger medical support (13.5336ms)
+✔ recovery action obeys intent, finite uses and real cast recovery instead of a pending cast (13.8422ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 278.8774

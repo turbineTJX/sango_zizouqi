@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,assignDomestic,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,assignDomestic,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
 import {campaignOfficers} from '../strategic-roster.mjs';
 import {nationalLobby} from '../national-lobby.mjs';

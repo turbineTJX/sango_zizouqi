@@ -1,0 +1,114 @@
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (6.0413ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (12.1853ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (4.3403ms)
+✔ fame adds city manpower rather than free troops (3.2141ms)
+✔ governors gain merit at actual turn settlement and loaded campaigns remain deterministic (621.2863ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (27.6341ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (0.7286ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (335.9273ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (15.1787ms)
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (158.1509ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (5.2971ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (135.203ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (47.6269ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (365.3946ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (172.3541ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (61.8263ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (341.0722ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (95.014ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (110.9627ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (649.0827ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (65.0917ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (75.0703ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (45.5499ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (285.7235ms)
+✔ every work action uses exactly its one primary stat, including zero (9.7388ms)
+✔ helper effectiveness and recommendation ignore secondary stats for all five jobs (25.9735ms)
+✖ picker explains the single primary stat instead of a mixed ability (16.3344ms)
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (12.2365ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (191.0074ms)
+✔ random results vary across seeds while identical seed is reproducible (122.8264ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (4.1906ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (96.1353ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (61.1482ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (129.158ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (49.1711ms)
+✔ research unlocks a local troop only after a successful trial (58.7747ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (112.8216ms)
+✔ healing conserves personnel and does not require local troop technology (44.4123ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (91.426ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (174.7485ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (104.243ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (84.4418ms)
+✔ actual siege pauses construction without charging again or completing in the background (136.7589ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (69.5529ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (70.0286ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (97.1279ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (87.6183ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1269.1502ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (21.4674ms)
+✔ AI fills a vacant governorship using the same governor recommendation (721.9739ms)
+✔ all 835 identities have fixed positive traits, independent of level, troop and learned tactics (68.8726ms)
+✔ actor administration works without a governor and matching governor does not double the discount (83.7622ms)
+✔ research, farming, repairs, medicine and preparation traits change real paid task outcomes (329.388ms)
+✔ recruitment discounts charge actual recruits at the saved rate without creating free people (69.5825ms)
+✔ talent traits improve only the corresponding real action chance; mediator does not stack (4.4326ms)
+✔ transport speed applies to actual travel and saves resume; light travel has separate eligibility (64.6911ms)
+✔ all catalogue people exist once, historical debut dates and timeless heroes differ (1125.7038ms)
+✔ historical righteousness maps the actual 1..5 range and treats unspecified values as neutral (0.1816ms)
+✔ need counts only cities, has an independent standard, and splitting does not create troops (48.6634ms)
+✔ W below 60 never schedules paid hire during 100 real turns (486.6417ms)
+✔ Q90 requires ten ordinary successes; effects are progress, never immediate recruitment (238.4514ms)
+✔ same faction locks one paid target, replacing an executor preserves progress and same-turn lock (221.7048ms)
+✔ full projects sign without further payment, signed travellers count immediately, no duplicate callbacks (227.9175ms)
+✔ full unwilling project pauses without another charge and resumes when conditions improve (200.7737ms)
+✔ competition is independent of project iteration order and chooses at most one owner (203.2118ms)
+✔ signing multiple offers rechecks N so willingness can stop subsequent offers (20.0689ms)
+✔ paid target movement invalidates progress and preserves paid cost (222.6459ms)
+✔ project decay begins after 90 idle days plus a 30-day interval and is idempotent (188.2141ms)
+✔ loyal foreign officers and reigning lords cannot be persuaded (2.6882ms)
+✔ continuous employment prevents losses; idle warnings require 30 actual days to cancel (4.8405ms)
+✔ one-day boundary appointments do not erase idle history; resignation preserves learned officer (5.4989ms)
+✔ no-benefit reassurance is not charged and cannot delete a warning (2.4212ms)
+✔ defeat waits for effective armies, preserves people, and processes each event once (2.3985ms)
+✔ new version persists projects, phases and RNG, UI reads do not mutate saves (420.4039ms)
+✔ enemy talent actions use their own treasury and preserve player funds (1766.061ms)
+✔ cooldown is per faction; ordinary success has no extra wait and failures cannot wear down loyalty (199.2293ms)
+✔ Q90 contact project requires ten controlled ordinary outcomes, not ten random join rolls (2.9055ms)
+✔ project cost records actual payments when persuasion changes to hiring (201.7974ms)
+✔ a free person migrates along real edges and other factions retain only stale location (186.8751ms)
+✔ initial SEEK lasts exactly eighteen turns and dead or captive people are never recruited (209.7258ms)
+✔ reigning lord is excluded even as a local idle officer with zero loyalty (2.8112ms)
+✔ arrival grace on a non-boundary day neither leaks loyalty nor avoids later idle penalties (48.3136ms)
+✔ an empty army does not protect an idle officer from a due resignation (2.9787ms)
+ℹ tests 83
+ℹ suites 0
+ℹ pass 82
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6543.8066
+
+✖ failing tests:
+
+test at tests\domestic-single-stat.test.mjs:35:1
+✖ picker explains the single primary stat instead of a mixed ability (16.3344ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(html.includes('主属性：'+label))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-single-stat.test.mjs:39:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

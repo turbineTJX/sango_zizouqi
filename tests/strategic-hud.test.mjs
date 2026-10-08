@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {strategicHUD} from '../strategic-hud.mjs';
 import {armyMapMarkers} from '../strategic-army-markers.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';

@@ -1,0 +1,55 @@
+✔ campaign begins in day-one planning with cities, homes and at most ten units (24.454ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (281.0438ms)
+✔ armies move visibly along road interiors before arriving (16.9439ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (19.166ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (19.0188ms)
+✔ head-on marching armies meet on the road without passing through each other (22.4168ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (128.5944ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (118.5904ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (203.7722ms)
+✔ multiple battles and their snapshots share the same global day (201.6356ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (54.9178ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (638.1534ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (100.3054ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (227.5607ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (16.9064ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (18.0259ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.0406ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (11.1383ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (1.6177ms)
+✔ five days without food disband armies and preserve officers for their return (16.0115ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (100.5675ms)
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (241.8217ms)
+✔ city capture settles once and can be saved immediately within a day (188.0958ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (84.5875ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 23
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2930.3357
+
+✖ failing tests:
+
+test at tests\strategic-campaign.test.mjs:134:1
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (241.8217ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:145:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

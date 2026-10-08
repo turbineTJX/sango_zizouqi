@@ -7,7 +7,7 @@ export function commandTrial(b) {
   if(b.commandProgress<12000)return;
   const allowed=battleStratagems(b),own=activeUnits(b,0);
   const hurt=own.reduce((n,u)=>n+battleWounded(u),0)>own.reduce((n,u)=>n+u.initial,0)*.04;
-  const options=[...(hurt?['regenerate','heal']:[]),'firestorm','assault','fortify','inspire'];
+  const options=[...(hurt?['heal']:[]),'invincible','ward','disrupt','firestorm','fortify','ambush','swift'];
   for(const id of options)if(allowed.includes(id)&&issueCommand(b,id,chooseStratagemPoint(b,AREA_DESIGNS[id],0))===null)break;
 }
 export function sample(c,n=20,command=false) {

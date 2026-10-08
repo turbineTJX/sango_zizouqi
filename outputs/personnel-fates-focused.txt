@@ -1,0 +1,51 @@
+✔ all campaign information is read only and city units are not armies (99.1857ms)
+✔ expedition information follows real city-unit departure without duplication (16.3493ms)
+✔ current status follows actual marching and transfer progress (211.0342ms)
+✔ siege status includes the live battlefield state of a real defending unit (449.6207ms)
+✔ prepared troops show active domestic work and deferred orders separately (16.4072ms)
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (62.2406ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (103.3242ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (132.1225ms)
+✔ waiting departure prevents idle members from picking new work across turns (36.6122ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (38.1163ms)
+✔ forged pending action references and duplicate officers are rejected (134.8479ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (77.2107ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1267.7819ms)
+✔ a queued garrison defends an actual siege and does not depart while its work is paused (407.974ms)
+✔ light personnel are faster than cavalry, invisible on map, and unavailable while moving (388.3581ms)
+✖ transport carries prepared troops and cargo once, projects position, then hands them to the destination (188.6935ms)
+✖ cargo-only convoys are visible, blocked roads keep their position, full warehouses retain cargo (8.8771ms)
+✔ deferred transport preserves cargo instructions without deducting resources or moving its officer (124.6154ms)
+✔ real daily execution resumes a transport deterministically and rejects corrupt journey cargo (1670.2471ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 17
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2561.4553
+
+✖ failing tests:
+
+test at tests\personnel-movement.test.mjs:15:1
+✖ transport carries prepared troops and cargo once, projects position, then hands them to the destination (188.6935ms)
+  TypeError: Cannot read properties of undefined (reading 'progress')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:19:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\personnel-movement.test.mjs:22:1
+✖ cargo-only convoys are visible, blocked roads keep their position, full warehouses retain cargo (8.8771ms)
+  TypeError: Cannot read properties of undefined (reading 'progress')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:24:163)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

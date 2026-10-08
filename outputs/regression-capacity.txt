@@ -1,0 +1,159 @@
+✔ first six favor real troop strength over roster order without changing learned skills, player or RNG (21.8097ms)
+✔ same candidates prioritize a missing front line over another rear and react to visible cavalry (4.05ms)
+✖ learned support is useful beside a core but a tiny helper does not displace full-strength troops (1.9547ms)
+✔ siege context is available when choosing starters and favors a viable siege reserve (16.3098ms)
+✔ future arrivals, blockade and retreat never admit a stronger reserve early (5.1903ms)
+✔ unplaceable ships do not block land reserves; river deployment is legal and unique (3.9544ms)
+✔ replacement choices and combat remain deterministic after save/resume, without changing initiative order (366.8666ms)
+✔ player replacement order is preserved (3.1758ms)
+✔ campaign starts with 9 cities, 8 player officers, 6 starters and 2 reserves (2.0393ms)
+✔ roads, marching, encounter, and turn lock form a connected loop (1.8237ms)
+✔ AI battle terminates automatically with capacity, occupancy and troop conservation (188.0445ms)
+✔ identical seeds and serialized battle recovery produce identical outcomes (357.9887ms)
+✔ fresh reserves replace destroyed units without exceeding 6 (10.2118ms)
+✔ removed basic orders cannot mutate combat or consume the stratagem gauge (6.5724ms)
+✔ retreat terminates and sends the attacker back without taking the city (12.6994ms)
+✔ split and merge conserve officers, soldiers, wounded and supply (0.8739ms)
+✔ friendly recruitment and wounded recovery cannot duplicate soldiers (0.94ms)
+✔ enemy launches an attack and city garrison participates in defense (98.1452ms)
+✔ garrison alone can defend a city when player army is elsewhere (28.9623ms)
+✖ multiple same-side armies share the same six battlefield slots (3.2563ms)
+✔ invalid saves are rejected before replacing game state (1.9544ms)
+✔ different seeds finish without deadlocks or overlapping units (617.6613ms)
+✔ save validation accepts the encounter, defense, report and army split lifecycle (100.7936ms)
+✔ malformed battle, pending encounter, map, and report data fail closed (5.7156ms)
+✔ left and right formations deploy on opposite flanks (3.505ms)
+✔ daylight limit ends a stalemate in a draw without capturing the city (7.4085ms)
+✔ capturing the final city completes the scenario (22.9344ms)
+✔ losing the final friendly city ends the scenario (18.5407ms)
+✔ source-stat Guandu fights stay within the 240-step daylight limit and allow repeated completed skills (304.9279ms)
+✔ a ready skill resolves damage and enters cooldown in the same step (2.5919ms)
+✔ saving after immediate skills resumes identically without duplicating a hit (81.1317ms)
+✔ pending casts from the removed windup format are rejected (3.1729ms)
+✔ a defeated unit cannot use a ready skill (15.2935ms)
+✔ retreat stops subsequent friendly skills immediately (75.0775ms)
+✔ skill events carry enough data to show effects after the victim leaves the board (104.682ms)
+✔ intent grows from actual attacks and surviving hits, never elapsed time (2.4986ms)
+✔ a ready tactic casts with fixed intent expenditure, regardless of morale or attack cooldown (2.7ms)
+✔ no valid target preserves intent and leaving range cannot duplicate an instant hit (4.3345ms)
+✔ each skill has its own threshold, and intent below threshold cannot cast (1.9514ms)
+✖ deployment can move, swap, reset and persist without advancing time (4.3035ms)
+✔ paused stratagem consumes a full gauge, preserves time and includes reserves (5.2976ms)
+✔ attack and defense stratagems change actual damage and stop at expiration (11.6261ms)
+✔ missing deployment and command state is rejected instead of reconstructed (27.564ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (159.4062ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (317.5557ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (731.0931ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (433.5712ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (532.5166ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (135.1877ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (229.0903ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (148.314ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1576.6248ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (825.6946ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (599.4837ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (656.7773ms)
+✔ river: complete battle, reserves, save recovery and settlement (660.6054ms)
+✔ breach: complete battle, reserves, save recovery and settlement (136.1493ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (261.2365ms)
+✔ field: complete battle, reserves, save recovery and settlement (530.3935ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (320.3578ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (413.4851ms)
+✔ siege: complete battle, reserves, save recovery and settlement (632.6412ms)
+✔ defense: complete battle, reserves, save recovery and settlement (598.4446ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (805.6766ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (29.8208ms)
+✖ sieges add an independent gate and shields only to defending starters (25.354ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (6.4679ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (37.7811ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (40.3379ms)
+✔ fixture and seed validation rejects malformed test state (12.1148ms)
+ℹ tests 70
+ℹ suites 0
+ℹ pass 66
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11067.3693
+
+✖ failing tests:
+
+test at tests\deployment-order.test.mjs:52:1
+✖ learned support is useful beside a core but a tiny helper does not displace full-strength troops (1.9547ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/deployment-order.test.mjs:54:43)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\engine.test.mjs:114:1
+✖ multiple same-side armies share the same six battlefield slots (3.2563ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  7 !== 6
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine.test.mjs:119:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 7,
+    expected: 6,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\engine.test.mjs:267:1
+✖ deployment can move, swap, reset and persist without advancing time (4.3035ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  7 !== 6
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine.test.mjs:275:48)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 7,
+    expected: 6,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\scenarios.test.mjs:55:1
+✖ sieges add an independent gate and shields only to defending starters (25.354ms)
+  Error: 入场羁绊快照无效
+      at require (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1201:78)
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1348:9
+      at Array.forEach (<anonymous>)
+      at validateSave (file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:1307:13)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/scenarios.test.mjs:73:5)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)

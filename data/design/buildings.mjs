@@ -80,6 +80,27 @@ export const BUILDING_DESIGNS = {
     "projectDescription": "每级增加 3,000 城门耐久上限",
     "durability": 3000
   },
+  "arrowTower": {
+    name:'箭塔',direction:'military',cost:800,days:20,durability:1000,
+    technology:'towerDefense',maximumLevel:3,
+    description:'守备箭术解锁；射程4格，每4回合射击一支可见敌军，每级提高射击威力',
+    projectName:'建造箭塔',projectDescription:'建成原址箭塔，提供战场射击支援',
+    combat:{effect:'shoot',range:4,interval:4,power:180,powerPerLevel:60}
+  },
+  "musicStage": {
+    name:'军乐台',direction:'martial',cost:600,days:10,durability:1000,
+    technology:'militaryMusic',maximumLevel:3,
+    description:'军乐鼓吹解锁；每6回合使3格内在场友军每级获得2战意，同类不叠加',
+    projectName:'建造军乐台',projectDescription:'建成原址军乐台，持续鼓舞附近友军',
+    combat:{effect:'intent',range:3,interval:6,intentPerLevel:2}
+  },
+  "aidCamp": {
+    name:'救护营',direction:'technology',cost:700,days:10,durability:1000,
+    technology:'battlefieldMedicine',maximumLevel:3,
+    description:'战地救护解锁；每8回合救治3格内友军本场真实伤兵，每级至多为本队初始兵力的0.4%，同类不叠加',
+    projectName:'建造救护营',projectDescription:'建成原址救护营，救治附近友军真实伤兵',
+    combat:{effect:'heal',range:3,interval:8,healPerLevel:.004}
+  },
   "hall": {
     "name": "招贤馆",
     "direction": "talent",

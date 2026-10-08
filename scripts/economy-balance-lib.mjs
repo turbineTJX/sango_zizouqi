@@ -1,5 +1,7 @@
 import {resourceRecipe} from './resource-recipe.mjs';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {BUILDING_DESIGNS} from '../data/design/buildings.mjs';
+import {completeTechnologyBuilding} from '../building-durability.mjs';
+import {newCampaign} from './automatic-domestic-campaign.mjs';
 import {makeOfficer} from '../engine.mjs';
 import {initializeTalent} from '../talent-lifecycle.mjs';
 import {ACTIONS,assignDomestic,assignmentFor,beginDomesticTurn,finishDomesticDay} from '../domestic.mjs';
@@ -55,6 +57,7 @@ export function constructionTrial(seed,ability,key){
  u.homeCity=c.id;s.armies=[];s.campaign.idle=[{unit:u,faction:c.owner,location:c.id,destination:null,remainingDays:0}];
  for(const town of s.cities){town.units=[];town.governor=null;}
  initializeTalent(s);c.commerce=c.farm=c.barracks=1;c.granary=1;c.grain=8000;c.gold=10000;
+ const unlock=BUILDING_DESIGNS[ACTIONS[key].value].technology;if(unlock){c.domestic.techs=['watchtower',unlock];completeTechnologyBuilding(c,'watchtower');}
  // A real available candidate supplies the common demand condition for a hall.
  if(key==='build_hall'){const candidate=s.campaign.domestic.people.find(p=>p.status==='FREE'&&!p.travel&&p.id!==u.id);if(!candidate)throw Error('No available hall candidate');candidate.cityId=c.id;}
  for(const [id,def] of Object.entries(ACTIONS))if(def.direction===ACTIONS[key].direction&&id!==key)c.domestic.cooldowns[id]=10000;

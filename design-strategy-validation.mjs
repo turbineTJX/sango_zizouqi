@@ -3,6 +3,27 @@ export function validateStrategyDesigns(t){
  const errors=[],check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},num=(v,min=0,max=Infinity)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
+ const incidents=t.domesticIncidents,rules=incidents?.rules;
+ if(fields(rules,['triggerChance','closeRelation','hostileRelation','hostileChance','closeChanceMultiplier','minimumRewardShare','cityLimit','historyLimit'],'domesticIncidents.rules')){
+  for(const key of ['triggerChance','hostileChance','closeChanceMultiplier','minimumRewardShare'])check(num(rules[key],0,1),'domesticIncidents.rules.'+key,'须为有效概率');
+  check(num(rules.closeRelation,70,100)&&num(rules.hostileRelation,0,20),'domesticIncidents.rules','关系门槛无效');
+  for(const key of ['cityLimit','historyLimit'])check(Number.isSafeInteger(rules[key])&&rules[key]>0,'domesticIncidents.rules.'+key,'须为正整数');
+ }
+ check(!!incidents?.events&&Object.keys(incidents.events).length>0,'domesticIncidents.events','缺少事件库');
+ for(const [id,e]of Object.entries(incidents?.events||{})){
+  const path='domesticIncidents.events.'+id;if(!fields(e,['name','directions','kinds','social','story','relationDelta','chance','quantity','progress','description'],path))continue;
+  check(typeof e.name==='string'&&typeof e.description==='string'&&!/概率|成功率|%/.test(e.description),path,'名称或叙述无效');
+  check(num(e.chance,-.5,.5)&&num(e.quantity,.25,2)&&num(e.progress,.25,2),path,'事务效果超出范围');
+  check(e.directions===null||Array.isArray(e.directions)&&e.directions.every(d=>t.directions[d]),path,'方向无效');
+  check(e.kinds===null||Array.isArray(e.kinds)&&e.kinds.every(k=>Object.values(t.domesticActions).some(a=>a.kind===k)),path,'事务类型无效');
+  check([null,'close','hostile'].includes(e.social)&&(e.social?!e.story:!!e.story),path,'社会事件类型无效');
+  check(Number.isSafeInteger(e.relationDelta)&&e.relationDelta!==0&&num(e.relationDelta,-20,20),path,'交情变化无效');
+  if(e.story&&fields(e.story,['resource','amount','source','building','actor','text'],path+'.story')){
+   const v=e.story;check([null,'gold','grain','manpower'].includes(v.resource)&&Number.isSafeInteger(v.amount)&&num(v.amount,-3000,10000)&&(v.resource?v.amount!==0:v.amount===0&&e.kinds!==null)&&(!v.resource||e.directions?.length>0),path,'故事资源效果无效');
+   check(v.amount>0?['gift','volunteers'].includes(v.source):v.source===null,path,'故事资源来源无效');
+   check([null,'farm','commerce','barracks'].includes(v.building)&&['any','civil','bold'].includes(v.actor)&&typeof v.text==='string'&&v.text.includes('{source}')&&v.text.includes('{other}')&&!/概率|成功率|%/.test(v.text),path,'故事当事人或叙述无效');
+  }
+ }
  for(const [group,keys] of Object.entries({income:['gold','grain','manpower','governorPoliticsDivisor'],capacity:['grainBase','grainPerGranary','manpowerMax','recruitmentBase','recruitmentPerBarracks'],ai:['foodReserveDays','recruitReserveDays','economicWorkersPerDirection','cityTroopTarget']})){
   const row=economy?.[group];if(!fields(row,group==='ai'?[...keys,'offensive']:keys,'economy.'+group))continue;
   for(const key of keys){const value=row[key];if(group==='income'&&key!=='governorPoliticsDivisor'){const subKeys={gold:['base','perCommerce'],grain:['base','perFarm'],manpower:['base','perBarracks']}[key];if(fields(value,subKeys,'economy.income.'+key))for(const sub of subKeys)check(num(value[sub],1),'economy.income.'+key+'.'+sub,'须为正数');}else check(Number.isSafeInteger(value)&&value>0,'economy.'+group+'.'+key,'须为正整数');}
@@ -34,13 +55,23 @@ export function validateStrategyDesigns(t){
  const modes={build:'progress',research:'quantity',cash:'quantity',grain:'quantity',effect:'quantity',discount:'quantity',recruit:'quantity',heal:'quantity',repair:'quantity',prepare:'quantity',trade:'chance',rescue:'chance',explore:'chance',hire:'chance',persuade:'chance',reassure:'chance'};
  for(const id of Object.keys(t.directions))check(['leadership','force','intellect','politics','charm'].includes(t.directionStats?.[id]),'directionStats.'+id,'方向须指定唯一主属性');
  check(new Set(Object.values(t.directionStats||{})).size===5,'directionStats','六方向须覆盖五种属性');
- const buildingIds=['commerce','farm','granary','workshop','barracks','clinic','drill','walls','hall'];
+ const buildingIds=['commerce','farm','granary','workshop','barracks','clinic','drill','walls','hall','arrowTower','musicStage','aidCamp'];
  for(const id of ['commerce','agriculture','technology','military','martial','talent'])check(typeof t.directions[id]==='string'&&t.directions[id].length>0,'directions.'+id,'缺少内政方向名称');
  for(const id of Object.keys(t.directions))check(['commerce','agriculture','technology','military','martial','talent'].includes(id),'directions.'+id,'新增内政方向须先接入流程');
  for(const id of buildingIds)check(!!t.buildings[id],'buildings.'+id,'缺少已有建筑');
  for(const [id,b] of Object.entries(t.buildings)){
-  const path='buildings.'+id;if(!fields(b,['name','direction','cost','days','description','projectName','projectDescription','durability'],path))continue;
+  const path='buildings.'+id;if(!fields(b,['name','direction','cost','days','description','projectName','projectDescription','durability','technology','maximumLevel','combat'],path))continue;
   check(buildingIds.includes(id),path,'新建筑须先接入城市状态与效果');
+  if(['arrowTower','musicStage','aidCamp'].includes(id)){
+   check(t.technologies.records.some(r=>r.id===b.technology)&&b.maximumLevel===3,path,'战场设施解锁或等级上限无效');
+   const expected={arrowTower:'shoot',musicStage:'intent',aidCamp:'heal'}[id],r=b.combat;
+   if(fields(r,['effect','range','interval',...(expected==='shoot'?['power','powerPerLevel']:expected==='intent'?['intentPerLevel']:['healPerLevel'])],path+'.combat')){
+    check(r.effect===expected&&Number.isSafeInteger(r.range)&&num(r.range,1,5)&&Number.isSafeInteger(r.interval)&&num(r.interval,1,30),path,'战场设施范围或间隔无效');
+    if(expected==='shoot')check(num(r.power,1,500)&&num(r.powerPerLevel,0,200),path,'箭塔威力无效');
+    if(expected==='intent')check(Number.isSafeInteger(r.intentPerLevel)&&num(r.intentPerLevel,1,5),path,'军乐台战意无效');
+    if(expected==='heal')check(num(r.healPerLevel,Number.EPSILON,.02),path,'救护营救治比例无效');
+   }
+  }else check(b.technology===undefined&&b.combat===undefined&&b.maximumLevel===undefined,path,'普通设施不支持战场效果字段');
   for(const k of ['name','description','projectName','projectDescription'])check(typeof b[k]==='string'&&b[k].length>0,path+'.'+k,'文本不能为空');
   check(Number.isSafeInteger(b.durability)&&b.durability>0&&b.durability<=100000,'buildings.'+id+'.durability','每级耐久须为正整数');
   check(Object.hasOwn(t.directions,b.direction),path+'.direction','未知内政方向');check(num(b.cost)&&Number.isInteger(b.cost),path+'.cost','费用须为非负整数');check(num(b.days,1)&&Number.isInteger(b.days),path+'.days','工期须为正整数天');

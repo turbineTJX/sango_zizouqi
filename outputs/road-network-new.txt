@@ -1,0 +1,15 @@
+✔ junctions create cross-road bypasses without adding cities or bypassing passes (37.9322ms)
+✔ a real order arrives at a junction without creating an occupation or city economy (1888.3335ms)
+✔ supply avoids occupied junctions and cannot use a completely blocked source outlet (11.6244ms)
+✔ convoys pass unoccupied junctions but lose cargo to an actual junction garrison (19.6186ms)
+✔ junction defenders trigger a real field battle and the battle save validates (1943.6039ms)
+✔ command target and review display junctions as field locations (19.6472ms)
+✔ junction topology is validated and old campaign versions are rejected (20.4452ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4155.1337

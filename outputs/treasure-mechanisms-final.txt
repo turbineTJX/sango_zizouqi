@@ -1,0 +1,20 @@
+✔ overview and details track every design and variable threshold count (14.7215ms)
+✔ catalogue is bounded and seven new worlds have one physical record per treasure (5095.4729ms)
+✔ fixed ordinary traits preserve assignments and have separate eligibility (0.6078ms)
+✔ grant, single equipment slot and collection recall obey resident vs deployed officers (204.2224ms)
+✔ cross-city treasure uses a visible real courier, deterministic transit and arrival storage fallback (370.4775ms)
+✔ treasure bond never grants an unlearned level or bypasses the individual and holder caps (4.4981ms)
+✔ first real entry grants each status once; preview, reserves and save reload cannot refresh it (674.9715ms)
+✔ stronger ordinary status expires independently and withdrawal preserves other sources (6.1729ms)
+✔ regrowth uses only real wounds and a saved total budget; treasure shield is independent (59.6828ms)
+✔ custom uniqueness spans both sides and reinforcements; malformed entry sources are rejected (117.5049ms)
+✔ domestic discovery commits the one turn roll and shared 30 day interval without rerolls (23.0771ms)
+✔ plunder requires real damage to the selected original holder and never creates an item (22.9081ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7348.7224

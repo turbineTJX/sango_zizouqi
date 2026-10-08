@@ -1,0 +1,209 @@
+✖ fire: three real basics consume exactly three charges, with normal intent and no links (17.0555ms)
+✖ suppress: three real basics consume exactly three charges, with normal intent and no links (2.6009ms)
+✖ pierce: three real basics consume exactly three charges, with normal intent and no links (3.4656ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (9.7004ms)
+✖ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (3.7782ms)
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (2.3085ms)
+✖ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (1.817ms)
+✖ gate attacks do not spend troop enchantments (2.8059ms)
+✖ remaining charges/source survive save and resume; forged or obsolete state is rejected (4.5048ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 1
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 317.2368
+
+✖ failing tests:
+
+test at tests\.attack-orbs-baseline.test.mjs:29:42
+✖ fire: three real basics consume exactly three charges, with normal intent and no links (17.0555ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\.attack-orbs-baseline.test.mjs:29:42
+✖ suppress: three real basics consume exactly three charges, with normal intent and no links (2.6009ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\.attack-orbs-baseline.test.mjs:29:42
+✖ pierce: three real basics consume exactly three charges, with normal intent and no links (3.4656ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\.attack-orbs-baseline.test.mjs:43:1
+✖ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (3.7782ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:44:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\.attack-orbs-baseline.test.mjs:52:1
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (2.3085ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:53:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\.attack-orbs-baseline.test.mjs:63:1
+✖ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (1.817ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:64:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\.attack-orbs-baseline.test.mjs:69:1
+✖ gate attacks do not spend troop enchantments (2.8059ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:70:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\.attack-orbs-baseline.test.mjs:77:1
+✖ remaining charges/source survive save and resume; forged or obsolete state is rejected (4.5048ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/.attack-orbs-baseline.test.mjs:78:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

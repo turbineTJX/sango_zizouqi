@@ -1,0 +1,17 @@
+✔ close same-work officers gain a strong, saved joint effect on both real operations (463.4873ms)
+✔ hostile same-work officers can obstruct both participants without new fees (257.7181ms)
+✔ one commercial officer can discover favorable and adverse agricultural and training events (2387.9248ms)
+✔ cross-domain incidents can help another existing approved research project (528.5868ms)
+✔ same research slot has one actual project and a waiting colleague can aid its progress (100.4171ms)
+✔ departure breaks the joint effect, and different tasks never produce social incidents (521.6715ms)
+✔ reading reports and loading never rerolls, extends effects or repeats them; expiry is real (1583.626ms)
+✔ unapproved, paused and empty-garrison work does not receive ineligible events (836.0113ms)
+✔ one city receives at most two incidents per turn; saved source and effect tampering is rejected (5990.4161ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12983.8023

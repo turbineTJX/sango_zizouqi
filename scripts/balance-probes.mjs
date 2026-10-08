@@ -34,14 +34,6 @@ probes.strength=[1,1800,3000].map(hp=>{
   stepBattle(b);
   probes.targetChoice={action:u.action,position:{x:u.x,y:u.y},damage:b.effects.filter(e=>e.from===u.id&&e.damage>0),closeTarget:close.name,pursuedTarget:far.name};
 }
-// Compare tactic thresholds before and after intent reduction at the current cap.
-{
-  const b=createScenario('field',1).battle;lockDeployment(b);b.commandProgress=12000;
-  for(const u of b.sides[1].units)u.intent=COMBAT.intentCap;
-  const before=b.sides[1].units.map(u=>({name:u.name,intent:u.intent,thresholds:unitTactics(u).map(s=>s.threshold)}));
-  const error=issueCommand(b,'demoralize',chooseStratagemPoint(b,AREA_DESIGNS['demoralize'],0));
-  probes.demoralize={error,before,after:b.sides[1].units.map(u=>({name:u.name,intent:u.intent,allThresholdsStillMet:unitTactics(u).every(s=>u.intent>=s.threshold)}))};
-}
 // Actual wave arrival versus earliest deployment in the preset battle.
 {
   const b=createScenario('reinforcements').battle,entered={};

@@ -1,0 +1,68 @@
+
+> sango-sovereign@0.3.0 test:strategy
+> node --test tests/strategic-campaign.test.mjs tests/domestic.test.mjs tests/domestic-cooperation.test.mjs
+
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (129.2241ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (2.9991ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (98.6581ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (39.7119ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (261.9394ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (139.4998ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (51.1751ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (305.7656ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (81.6036ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (89.6065ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (624.4649ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (67.6352ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (76.7659ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (45.7501ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (290.4602ms)
+✔ all six directions have independent work and a single stat; no city morale multiplier (8.0043ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (138.1374ms)
+✔ random results vary across seeds while identical seed is reproducible (100.6391ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (2.3747ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (65.0385ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (44.2581ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (86.873ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (45.3812ms)
+✔ research unlocks a local troop only after a successful trial (46.2529ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (94.2923ms)
+✔ healing conserves personnel and does not require local troop technology (33.6526ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (69.2924ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (186.7772ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (101.5264ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (64.7584ms)
+✔ actual siege pauses construction without charging again or completing in the background (130.7794ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (67.3231ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (56.1395ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (464.4472ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (38.6086ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (269.0941ms)
+✔ armies move visibly along road interiors before arriving (24.0379ms)
+✔ head-on marching armies meet on the road without passing through each other (31.0549ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (146.0956ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (449.4038ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (509.2439ms)
+✔ multiple battles and their snapshots share the same global day (136.0289ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (92.2046ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (995.4266ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (126.2316ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (236.2794ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (23.886ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (45.1903ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (4.1837ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (32.3306ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (2.2763ms)
+✔ five days without food disband armies and preserve officers for their return (40.4675ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (207.693ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (615.7501ms)
+✔ city capture settles once and can be saved immediately within a day (208.054ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (125.0811ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 56
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4582.2082

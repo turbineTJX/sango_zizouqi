@@ -1,0 +1,130 @@
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+bonds.bondPeach：稀有最高档须可达且不能单人完成
+bonds.bondPeach：羁绊特殊效果未接入
+bonds.bondReserve：羁绊特殊效果未接入
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:51:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\cavalry-support-intent.test.mjs (185.6781ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+bonds.bondPeach：稀有最高档须可达且不能单人完成
+bonds.bondPeach：羁绊特殊效果未接入
+bonds.bondReserve：羁绊特殊效果未接入
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:51:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\intent-tempo.test.mjs (180.1329ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+bonds.bondPeach：稀有最高档须可达且不能单人完成
+bonds.bondPeach：羁绊特殊效果未接入
+bonds.bondReserve：羁绊特殊效果未接入
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:51:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\intent-tiers.test.mjs (176.5562ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+bonds.bondPeach：稀有最高档须可达且不能单人完成
+bonds.bondPeach：羁绊特殊效果未接入
+bonds.bondReserve：羁绊特殊效果未接入
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:51:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\ordinary-growth.test.mjs (186.004ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+bonds.bondPeach：稀有最高档须可达且不能单人完成
+bonds.bondPeach：羁绊特殊效果未接入
+bonds.bondReserve：羁绊特殊效果未接入
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:51:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\tactic-tempo.test.mjs (185.9123ms)
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+bonds.bondPeach：稀有最高档须可达且不能单人完成
+bonds.bondPeach：羁绊特殊效果未接入
+bonds.bondReserve：羁绊特殊效果未接入
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:171:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:51:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\troop-capacity.test.mjs (183.3489ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 0
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 225.849
+
+✖ failing tests:
+
+test at tests\cavalry-support-intent.test.mjs:1:1
+✖ tests\cavalry-support-intent.test.mjs (185.6781ms)
+  'test failed'
+
+test at tests\intent-tempo.test.mjs:1:1
+✖ tests\intent-tempo.test.mjs (180.1329ms)
+  'test failed'
+
+test at tests\intent-tiers.test.mjs:1:1
+✖ tests\intent-tiers.test.mjs (176.5562ms)
+  'test failed'
+
+test at tests\ordinary-growth.test.mjs:1:1
+✖ tests\ordinary-growth.test.mjs (186.004ms)
+  'test failed'
+
+test at tests\tactic-tempo.test.mjs:1:1
+✖ tests\tactic-tempo.test.mjs (185.9123ms)
+  'test failed'
+
+test at tests\troop-capacity.test.mjs:1:1
+✖ tests\troop-capacity.test.mjs (183.3489ms)
+  'test failed'

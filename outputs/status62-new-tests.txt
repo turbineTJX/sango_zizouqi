@@ -1,0 +1,18 @@
+✔ status catalog has unique names and rejects removed status identities (17.9834ms)
+✔ continuous intent loss is bounded, and calm does not extinguish fire or restore formation (6.0442ms)
+✔ attack cadence and range use real derived attributes without changing minimum range or skill cooldown (4.9924ms)
+✔ loss of ZOC, root and disarm have independent effects; resolve covers all controls (5.3024ms)
+✔ learned opening ambush is first-entry only, ignores ZOC, and is serialized with the current rules (27.3961ms)
+✔ ambush chooses reachable rear, waits to cast, and first strike confuses for one step (5.5621ms)
+✔ insight exposes hidden units without stripping bypass; damage breaks stealth and cancels surprise (11.2122ms)
+✔ single-target learned decoy creates a real target, not a seventh troop or damage shield (9.301ms)
+✔ prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage (6.6982ms)
+✔ new state saves reject malformed decoys and retired rules (5.3028ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 282.1775

@@ -1,0 +1,14 @@
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (24.6944ms)
+✔ tests\historical-campaigns.test.mjs (172.5075ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (180.3291ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (3.4178ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (32.4835ms)
+✔ firestorm is bounded by friendly power, not enemy army size (170.9071ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 405.5537

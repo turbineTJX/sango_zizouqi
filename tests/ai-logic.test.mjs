@@ -63,14 +63,3 @@ test('支援路径允许在接敌格施法，但不允许穿越有效拦截线',
  Object.assign(u,{x:6,y:3});Object.assign(ally,{x:10,y:3});
  assert.equal(routeTo(b,u,ally,10,{range:2,charging:false,requireStrike:false}),null,'接敌后不能穿过拦截继续走向远方队友');
 });
-
-test('单队鼓舞有充分战意收益时可选；满战意、冷却和更优军略仍受约束',()=>{
- const b=make([unit('person-246','spear')]).battle;lockDeployment(b);
- assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),'inspire');
- const u=b.sides[1].units[0];u.intent=100;assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),null);
- u.intent=95;assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),'inspire','有缺失战意即符合触发条件');
- u.intent=0;b.enemyCommand.commandReady.inspire=b.tick+8;assert.equal(chooseEnemyCommand(b,['inspire'],STRATAGEMS),null);
- b.enemyCommand.commandReady.inspire=0;u.statuses.confuse={until:b.tick+3};
- assert.equal(chooseEnemyCommand(b,['inspire','cleanse'],STRATAGEMS),'inspire');
- assert.match(issueCommand(b,'inspire',null,1),/尚未蓄满/,'评分改动不能绕过资源门槛');
-});

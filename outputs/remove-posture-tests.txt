@@ -1,0 +1,15 @@
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (27.8163ms)
+✔ council changes strategy and starters, respects arrivals, locks after battle and resumes deterministically (57.5283ms)
+✔ reserve bench supports swaps, ordering, overflow validation and saved deployment (6.6939ms)
+✔ battle intent is selected before combat and stays locked at tick zero and after save recovery (89.5909ms)
+✔ defenders cannot choose siege and invalid intent does not alter deployment (5.0328ms)
+✔ 防守方 0 接近界外射手反击并确定性续战 (35.8975ms)
+✔ 防守方 1 接近界外射手反击并确定性续战 (20.0739ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 277.7332

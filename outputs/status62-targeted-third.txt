@@ -1,0 +1,395 @@
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (59.7764ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (8.7642ms)
+✔ trait holders earn intent through melee, run their aura without consuming casts, and resume deterministically (2141.2679ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (8.0931ms)
+✖ gate: repair uses earned intent, reports durability and resumes exactly (154.9772ms)
+✖ tower: repair uses earned intent, reports durability and resumes exactly (112.2157ms)
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (126.4736ms)
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (131.2085ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (1318.6889ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (39.9166ms)
+✔ command triggers ignore range and read only the requested side cooldowns (34.2801ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (384.6819ms)
+✔ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (129.2561ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (144.47ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (8.7323ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (67.8369ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (181.3125ms)
+✖ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (8.4062ms)
+✔ AI follows fixed command order, holds ineligible commands, and does not refresh active buffs (5.0935ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (539.6527ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (34.2754ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (7.5718ms)
+✖ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (9.6756ms)
+✔ signals render finite coordinates without changing battle data through real combat (299.8122ms)
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (7.4497ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (20.1208ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (5.8079ms)
+✔ fame adds city manpower rather than free troops (4.6667ms)
+✔ governors gain merit at actual turn settlement and loaded campaigns remain deterministic (840.5343ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (37.1109ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (1.1492ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (627.1054ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (30.6689ms)
+✔ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (30.6605ms)
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (182.3825ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (6.8383ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (24.6815ms)
+✖ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (15.9324ms)
+✖ exclusive control respects resolve and discipline; deaths do not acquire new statuses (20.5433ms)
+✔ personal traits affect troop panels from level one, remain independent of tactics, and respect conditions (17.691ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (122.5107ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (50.9724ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (5.0459ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (2.5952ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (20.5389ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (1562.9444ms)
+✔ all current troops use their actual basic and surviving-hit income, with no timed regeneration (104.0113ms)
+✔ interdict is fixed from level one and prevents the entire normal hit award, including endurance (15.8299ms)
+✔ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (35.1548ms)
+✔ suppression traits remain with their fixed holders after troop changes (3.4405ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (19.4161ms)
+✖ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (137.1899ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (631.1716ms)
+✔ each troop has a valid shared pool and exclusive tactics remain optional (1.4588ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (46.2238ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (43.4605ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (11.7452ms)
+✖ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (54.2983ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (13.8601ms)
+✖ new army strategies cleanse controls, shorten cooldowns and persist across saves (6.0175ms)
+✔ blockade delays replacement but expires; relief shields automatic reinforcements (203.6282ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (786.3093ms)
+✔ status timer matches exclusive expiration and distinguishes the final active step from expired state (1.9916ms)
+✔ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (1.5454ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (293.7827ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (9.175ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (334.1372ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (7.0078ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (140.4844ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (16.678ms)
+✖ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (141.6968ms)
+✔ departed commander stops providing stratagems: defeated side 0 (4.3523ms)
+✔ departed commander stops providing stratagems: defeated side 1 (3.5483ms)
+✔ departed commander stops providing stratagems: withdrawn side 0 (5.4608ms)
+✔ departed commander stops providing stratagems: withdrawn side 1 (3.3989ms)
+✔ same-name stratagem uses remaining holder after stronger provider leaves (4.188ms)
+✔ real combat removes defeated providers from both command lists (329.8117ms)
+✔ troop pools retain valid learning candidates, but arbitrary role templates cannot grant skills (47.8585ms)
+✔ positioning targets real columns and clustered enemies and always includes the anchor (22.6686ms)
+✔ allied slow enables a real spear finisher, with no intent or target bypass (25.3535ms)
+✔ fire preparation increases wildfire direct hits without replacing a stronger burn (20.1571ms)
+✔ low-intellect guards retain mitigation and suppression; their support casts deal no damage (12.2732ms)
+✔ cavalry offensive stance increases basic attack at the cost of real defense (6.0551ms)
+✔ screen protects threatened healthy allies, respects its own layer and caps at one recipient (9.8181ms)
+✔ seal exchanges all damage for silence; ambush waits for close range (32.5675ms)
+✔ each role completes a battle and preserves deterministic continuation under current rules (1547.3848ms)
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (49.7464ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (68.3642ms)
+✔ overlapping interception remains after harass disables one owner (5.179ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (6.9736ms)
+✔ out-of-range rear does not displace an attackable front (5.9569ms)
+✔ real cleanse restores interception without waiting for disruption expiry (7.6964ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (8.1292ms)
+✔ nearby wounded front takes priority over a healthy ranged target (5.8446ms)
+✔ 疑兵战法为残血部队额外避战两日并保持确定性续战 (23.2967ms)
+✔ 疑兵战法不能绕过共用避战间隔 (5.2044ms)
+✔ enemy side uses the same finisher priority and excludes protected targets (8.5523ms)
+ℹ tests 97
+ℹ suites 0
+ℹ pass 84
+ℹ fail 13
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4347.9791
+
+✖ failing tests:
+
+test at tests\auxiliary.test.mjs:78:69
+✖ gate: repair uses earned intent, reports durability and resumes exactly (154.9772ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:78:69
+✖ tower: repair uses earned intent, reports durability and resumes exactly (112.2157ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:78:69
+✖ supply-depot: repair uses earned intent, reports durability and resumes exactly (126.4736ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\auxiliary.test.mjs:78:69
+✖ future-building: repair uses earned intent, reports durability and resumes exactly (131.2085ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/auxiliary.test.mjs:88:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\battle-ai.test.mjs:113:1
+✖ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (8.4062ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-ai.test.mjs:128:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\battle-signals.test.mjs:25:1
+✖ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (9.6756ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!battlefieldStatuses(b,u).some(s=>['burn','confuse'].includes(s.key)))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-signals.test.mjs:32:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:44:1
+✖ every exclusive tactic resolves through the real engine and enters only its own cooldown (182.3825ms)
+  AssertionError [ERR_ASSERTION]: person-99 should cast
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:51:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:79:1
+✖ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (15.9324ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!hasStatus(b,ally,'seal'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:85:23)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\famous-officers.test.mjs:91:1
+✖ exclusive control respects resolve and discipline; deaths do not acquire new statuses (20.5433ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/famous-officers.test.mjs:97:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\intent-roles.test.mjs:62:1
+✖ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (137.1899ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(target.tacticCasts.phalanx>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:68:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:53:1
+✖ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (54.2983ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at complete (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:17:118)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:56:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:65:1
+✖ new army strategies cleanse controls, shorten cooldowns and persist across saves (6.0175ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   amount: 20,
+  +   baseAmount: 20,
+  +   sourceId: 'shao',
+  +   stacks: 1,
+  +   until: 99
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:69:122)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { until: 99, sourceId: 'shao', amount: 20, baseAmount: 20, stacks: 1 },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:65:1
+✖ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (141.6968ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   amount: 18,
+  +   sourceId: 'shao',
+  +   until: 99
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:71:55)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { until: 99, amount: 18, sourceId: 'shao' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

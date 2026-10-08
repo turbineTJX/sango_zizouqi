@@ -2,7 +2,7 @@ import {setBuildingLevel} from './building-fixtures.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,cancelDomestic,ACTIONS} from '../domestic.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';
 import {citySceneState,citySceneMarkup,cityCompactMarkup,cityBuildingInfo} from '../city-scene.mjs';
@@ -33,11 +33,11 @@ test('interrupted construction keeps its real progress and never looks completed
  const paused=citySceneState(s,c);assert.equal(paused.project.paused,true);assert.equal(paused.project.progress,before.project.progress);assert.equal(paused.levels.commerce,before.levels.commerce);
  assert.match(citySceneMarkup(paused),/is-paused/);assert.match(cityBuildingInfo(paused,'commerce').rows.find(r=>r[0]==='工程')[1],/停工/);
 });
-test('all nine facilities reflect real levels, stocks, gate damage and active income effects without modifying state',()=>{
+test('all twelve facilities reflect real levels, stocks, gate damage and active income effects without modifying state',()=>{
  const s=newCampaign(1,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang');c.grain=0;setBuildingLevel(c,'walls',c.walls,c.id,{hp:500});setBuildingLevel(c,'commerce',5);setBuildingLevel(c,'farm',4);
  c.domestic.effects=[{key:'gold',power:.2,untilTurn:3},{key:'grain',power:.2,untilTurn:0}];
  const before=JSON.stringify(s),model=citySceneState(s,c),markup=citySceneMarkup(model);
- assert.equal(model.districts.length,9);assert.equal(model.grainFill,0);assert.ok(model.gateCondition<.7);assert.match(markup,/city-gate-crack/);
+ assert.equal(model.districts.length,12);assert.equal(model.grainFill,0);assert.ok(model.gateCondition<.7);assert.match(markup,/city-gate-crack/);
  assert.equal(model.districts.find(d=>d.key==='commerce').busy,true);assert.equal(model.districts.find(d=>d.key==='farm').busy,false);
  assert.match(cityBuildingInfo(model,'walls').rows.find(r=>r[0]==='耐久')[1],/^500 \/ /);
  assert.equal(JSON.stringify(s),before);

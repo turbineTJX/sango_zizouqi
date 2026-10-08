@@ -1,0 +1,163 @@
+✔ 水战攻击舰船不会因无收益策应停手，实际行动与存读档一致 (2020.7072ms)
+✔ 单人和远程阵容仍携带已学战法，AI不会替换学习结果 (43.2258ms)
+✔ 预备队状态和开场满血不改变所学战法 (47.1621ms)
+✔ 单舰对陆军不会把无友舰的接舷替换成无敌舰的艨冲 (9.0589ms)
+✔ 支援路径允许在接敌格施法，但不允许穿越有效拦截线 (6.685ms)
+✔ 守军 0 不追界外近战，转向可达的攻城兵器并确定性续战 (3428.1852ms)
+✔ 守军 1 不追界外近战，转向可达的攻城兵器并确定性续战 (2663.5066ms)
+✔ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (19.4249ms)
+✔ 单队休养以实际伤兵触发，救疗按固定顺序优先 (94.9738ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (624.4018ms)
+✔ charm remains available for personnel while four stats affect separate battle attributes (8.9954ms)
+✔ basic, martial and intellect damage use distinct offense and resistance paths (713.8713ms)
+✔ attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers (55.4333ms)
+✔ troop attack speed changes actual basic attack cadence but not tactic cooldown (109.8404ms)
+✔ slow movement accumulates half-steps and active haste cannot stack twice (51.419ms)
+✔ discipline controls duration with an actual current physical control source (43.8973ms)
+✔ shield sources refresh separately, expire separately, cap at capacity and absorb earliest first (9.22ms)
+✔ new saves preserve shield layers and fractional movement; reject invalid sources and totals (175.5492ms)
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after real intent loss (80.7853ms)
+✔ only the current rule version loads, and intent is validated without normalization (122.5614ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (95.6496ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (48.4678ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (140.7439ms)
+✖ trial loadouts use legal tools and the advertised support commands are unlocked (927.1197ms)
+✔ siege defenders hold their rear line before enemies approach (937.4739ms)
+✔ command triggers ignore range and read only the requested side cooldowns (150.9538ms)
+✔ AI can protect active siege attackers but never treats a gate as a hostile troop (2233.6709ms)
+✔ enemy preserves fixed tactics and bonds while arranging legal deployment without changing player troops or RNG (110.3912ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (365.9911ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (900.0943ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (34.4231ms)
+✔ AI follows fixed command order, holds ineligible commands, and does not refresh active buffs (24.7216ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (3557.0869ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (91.01ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (21.6585ms)
+✖ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (44.0512ms)
+✔ signals render finite coordinates without changing battle data through real combat (1536.3186ms)
+✔ Valor tiers compare live intent strictly and replace passive power and speed bonuses (406.6043ms)
+✔ lower Valor tiers both resist and receive real basic damage with deterministic RNG (2334.6376ms)
+✔ full Valor blocks real attacks on both sides only when source intent is strictly lower (474.1022ms)
+✔ Valor damage amplification affects actual basic and ongoing damage without increasing unit stats (346.476ms)
+✔ full Valor suppresses existing harmful statuses and ongoing damage while retaining shields (93.9721ms)
+✔ full Valor rejects low-source harmful effects but preserves all beneficial, self and source-free effects (12.7859ms)
+✔ full Valor blocks actual hostile tactics and their secondary effects without refunding casts (168.3519ms)
+✔ full Valor retains real friendly treatment and buffs at both lower and equal intent (130.0686ms)
+✔ full Valor checks actual source intent for hostile area commands and can admit it at equal intent (23.432ms)
+✔ Valor immunity rolls and preserved low-intent buffs resume identically from current saves (1640.7076ms)
+✔ full Valor blocks low-intent retaliation; six slots cannot also fit full Peach (110.1285ms)
+✔ lower Valor tiers immunize damage without also blocking the attack orb status (58.7347ms)
+✔ single gauge starts empty, uses active intellect, holds one charge and resets only on success (797.6165ms)
+✔ leader and advisor union is sparse, duplicates collapse, unassigned officers unlock nothing (57.4463ms)
+✔ healing uses wounded budget, never heals dead or reserves, and settlement does not duplicate it (112.3216ms)
+✔ fire uses declared ticks, shields absorb loss, no intent income, and broad dispel clears it (270.8828ms)
+✔ departed commander loses only their repertoire: defeated side 0 (9.9195ms)
+✔ departed commander loses only their repertoire: defeated side 1 (54.1219ms)
+✔ departed commander loses only their repertoire: withdrawn side 0 (50.78ms)
+✔ departed commander loses only their repertoire: withdrawn side 1 (9.7099ms)
+✔ same-name falls back to remaining eligible source, saves resume and old rules are rejected (404.9065ms)
+✖ unlearned units have no tactics and each learned slot belongs to the current troop or owner (2.8923ms)
+✔ instant skills spend shared intent and recovery separates learned casts (208.3123ms)
+✔ real intent loss clamps at zero and does not affect reserves (47.0795ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (51.8868ms)
+✖ fire burns without intent feedback and ranged skills have distinct real effects (65.7579ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (181.8114ms)
+✔ formation and gallop grant real statuses; rush needs a legal path (84.3226ms)
+✔ blocked displacement never overlaps units or crosses board limits (66.4405ms)
+✔ current rare tactical control requires its actual exclusive holder (87.9162ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (126.0013ms)
+✔ formation mitigates actual damage and shields absorb before soldiers (93.9586ms)
+✔ prepaid casts and previous save formats are rejected (24.8655ms)
+✔ new saves distinguish bows and crossbows and require current rules (10.7287ms)
+✔ current independent battle mechanics all require explicit appointments (2.7285ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/leader (367.3252ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/advisor (146.3885ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/leader (193.9887ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/advisor (117.3772ms)
+✔ Ji Jun does not activate without appointment, while withdrawing or for another army (30.0596ms)
+✔ Bi Yan triggers from a real legal command and saves its interval (279.0037ms)
+✔ Yin Ren refunds only its own gauge after an actual enemy command (104.2459ms)
+ℹ tests 79
+ℹ suites 0
+ℹ pass 75
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8719.6099
+
+✖ failing tests:
+
+test at tests\balance.test.mjs:59:1
+✖ trial loadouts use legal tools and the advertised support commands are unlocked (927.1197ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battleStratagems(createScenario('outnumbered').battle).includes('heal'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/balance.test.mjs:63:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\battle-signals.test.mjs:28:1
+✖ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (44.0512ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battlefieldStatuses(b,{...u,type:'archer'}).some(s=>s.key==='rangeUntil'))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-signals.test.mjs:32:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactics.test.mjs:25:1
+✖ unlearned units have no tactics and each learned slot belongs to the current troop or owner (2.8923ms)
+  TypeError: Cannot read properties of undefined (reading 'special')
+      at learnedTacticIds (file:///C:/Users/TJX/Documents/ChatGPT/sango/tactic-learning.mjs:40:21)
+      at validLoadout (file:///C:/Users/TJX/Documents/ChatGPT/sango/tactics.mjs:56:25)
+      at unitTactics (file:///C:/Users/TJX/Documents/ChatGPT/sango/tactics.mjs:60:13)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactics.test.mjs:26:64)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\tactics.test.mjs:51:1
+✖ fire burns without intent feedback and ranged skills have distinct real effects (65.7579ms)
+  AssertionError [ERR_ASSERTION]: person-46 cannot equip pierce
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/prime-tactic.mjs:9:10)
+      at allowOnly (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactics.test.mjs:18:27)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/tactics.test.mjs:58:29)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

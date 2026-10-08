@@ -1,0 +1,35 @@
+✔ 军略不检查接敌距离，远近均按固定条件施放 (6.3705ms)
+✔ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (10.846ms)
+✔ field：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (383.5497ms)
+✔ terrain：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (328.2947ms)
+✔ river：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (327.3838ms)
+✔ circle and rotated rectangle use rendered geometry, inclusive boundary (0.6924ms)
+✔ missing, malformed and empty selection leave resources and effects unchanged (19.7759ms)
+✔ fire only applies inside rectangle and does not concentrate excluded target budget (110.5322ms)
+✔ healing uses real wounded budget, excludes reserve and outside allies; AI chooses first wounded (2.9259ms)
+✔ enemy uses identical selected geometry (3.0876ms)
+✔ demoralize affects only selected active enemies and AI chooses effective coverage (2.7526ms)
+✔ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (3.437ms)
+✔ AI excludes burning, untargetable and reserve units, and skips unusable area commands (0.2496ms)
+✔ heal highlights only real wounded and confirmation is disabled without useful targets (0.4084ms)
+✔ zero-intent troops are not scored or highlighted for demoralize; both sides share placement (0.5398ms)
+✔ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.0559ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (14.9603ms)
+✔ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (78.5967ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (70.1068ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (54.499ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (52.7457ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (47.7655ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (41.8285ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (33.7482ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (32.7908ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.3563ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.393ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1229.2215

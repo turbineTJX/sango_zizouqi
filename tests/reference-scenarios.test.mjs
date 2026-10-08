@@ -5,7 +5,7 @@ import {NATIONAL_SCENARIOS,NATIONAL_FACTIONS,nationalWorld,nationalRoster,scenar
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {campaignOfficers} from '../strategic-roster.mjs';
 import {playerHome} from '../player-faction.mjs';
-import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 const added=NATIONAL_SCENARIOS.filter(s=>s.rosterDistribution==='reference');
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 for(const spec of added){

@@ -1,0 +1,22 @@
+✔ recovery aura follows adjacency, breaks under control, and never increases combat attributes (25.0244ms)
+✔ politics leads rescue and repair power, intellect assists, and force provides no healing power (6.0482ms)
+✔ trait holders earn intent through melee, run their aura without consuming casts, and resume deterministically (973.759ms)
+✔ repair respects ownership, distance, destruction and a three-cast material budget (4.6573ms)
+✔ gate: repair uses earned intent, reports durability and resumes exactly (1141.8994ms)
+✔ tower: repair uses earned intent, reports durability and resumes exactly (988.9947ms)
+✔ supply-depot: repair uses earned intent, reports durability and resumes exactly (1060.1759ms)
+✔ future-building: repair uses earned intent, reports durability and resumes exactly (1003.2624ms)
+✔ recovery pulses restore real wounds and intent without casts, combos or overhealing (533.9507ms)
+✔ generic building records reject corrupt kinds, ownership, durability and duplicate positions (23.876ms)
+✔ removed auxiliaries cannot be trained or learned; recovery is an identity trait (1.7362ms)
+✔ aura needs its fixed holder, works with every weapon and scales with politics alone (0.5982ms)
+✔ same aura selects one strongest living source, never stacks or helps its own source (0.2888ms)
+✔ camp care political defense and discipline apply across weapons without boosting attack (1.4682ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5939.871

@@ -1,0 +1,28 @@
+✔ point selection keeps a route draft, supports return, and has four choices (47.3163ms)
+✔ manual marching route is issued exactly and deterministic after saving (4480.4531ms)
+✔ expedition preserves selected roads and rejects invalid paths before changing state (294.9897ms)
+✔ waiting expedition saves the exact selected route (111.2259ms)
+✔ junctions create cross-road bypasses without adding cities or bypassing passes (35.4736ms)
+✔ a real order arrives at a junction without creating an occupation or city economy (2045.9607ms)
+✔ supply avoids occupied junctions and cannot use a completely blocked source outlet (12.9899ms)
+✔ convoys pass unoccupied junctions but lose cargo to an actual junction garrison (21.887ms)
+✔ junction defenders trigger a real field battle and the battle save validates (2833.7709ms)
+✔ command target and review display junctions as field locations (35.5218ms)
+✔ junction topology is validated and old campaign versions are rejected (21.2074ms)
+✔ convoys meet enemies arriving from another branch only after their arrival time (10.7077ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (268.909ms)
+✔ a changed officer state blocks final formation without partial changes (24.1303ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (17.6747ms)
+✔ ordinary formation owns officer selection and army selection lists compiled units (74.5504ms)
+✔ domestic appointment exposes six simple directions and keeps commerce and agriculture separate (9.8753ms)
+✔ army composition displays current work and puts idle units first without changing their jobs (1143.1078ms)
+✔ disband drafts return soldiers without refund or lost appointments and remain cancellable (327.7946ms)
+✔ removing an uncommitted new unit does not create a reserve refund (15.7792ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5228.3474

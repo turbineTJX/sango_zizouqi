@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "key": "invincible",
+      "hits": 5,
+      "desktop": true,
+      "mobile": true,
+      "cancel": true,
+      "cast": true,
+      "reload": true,
+      "cooldown": true
+    },
+    {
+      "key": "disrupt",
+      "hits": 4,
+      "desktop": true,
+      "mobile": true,
+      "cancel": true,
+      "cast": true,
+      "reload": true,
+      "cooldown": true
+    }
+  ],
+  "attributes": [
+    {
+      "caster": "person-520",
+      "name": "马良",
+      "duration": 4,
+      "desktop": true,
+      "mobile": true,
+      "previewMatchesCast": true,
+      "reload": true
+    },
+    {
+      "caster": "person-226",
+      "name": "司马懿",
+      "duration": 15,
+      "desktop": true,
+      "mobile": true,
+      "previewMatchesCast": true,
+      "reload": true
+    }
+  ],
+  "errors": []
+}

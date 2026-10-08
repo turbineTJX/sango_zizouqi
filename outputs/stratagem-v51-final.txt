@@ -1,0 +1,43 @@
+✔ all 832 library and 3 custom records survive normalization without merging names or source fields (10.6569ms)
+✔ every officer has fixed positive traits; ordinary officers have no exclusive tactics and bounded ordinary commander stratagems (216.868ms)
+✔ catalogue search, source filters, descending stats, no-result and HTML escaping (4.5352ms)
+✔ custom rosters including legacy enemies and same-name people save, resume and settle deterministically (346.4442ms)
+✔ every catalogue record is accepted by battle save validation without relying on name matching (1133.6893ms)
+✔ invalid custom roster, unknown source ID, edited attributes and duplicate IDs are rejected (10.8031ms)
+✔ old officer data versions are rejected without changing saved progress (16.1535ms)
+✔ commerce and agriculture match actor traits rather than governor-only income skills (91.7629ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (84.1828ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (1072.7419ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (22.753ms)
+✔ AI fills a vacant governorship using the same governor recommendation (686.611ms)
+✔ 普通武将默认兵种采用真实最高适性，枪戟分别计算 (2.5466ms)
+✔ 兵种强化特性匹配至少A适性，普通弱将则匹配自身最高适性 (4.3471ms)
+✔ 全部专属跨八兵种携带，换兵种保留同一学习记录 (17.8049ms)
+✔ 合资格指挥官军略配合本职，张郃按规则51不再持有军略 (0.3126ms)
+✔ 835人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (3.4368ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (23.979ms)
+✔ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (85.3972ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (58.0475ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (46.6811ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (44.6536ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (57.7873ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (43.4586ms)
+✔ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (27.1852ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (34.6512ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.4517ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (1.1682ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (63.7083ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (8.9957ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (134.7553ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (3.1585ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (17.3629ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (6.9541ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (18.9256ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2135.7355

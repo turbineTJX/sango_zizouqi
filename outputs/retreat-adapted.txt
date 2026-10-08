@@ -1,0 +1,207 @@
+✔ 守军 0 不追界外近战，转向可达的攻城兵器并确定性续战 (377.0119ms)
+✔ 守军 1 不追界外近战，转向可达的攻城兵器并确定性续战 (739.0346ms)
+✔ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (1.6736ms)
+✔ 单队休养以实际伤兵触发，救疗按固定顺序优先 (7.56ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (58.3285ms)
+✔ hold-position field battles inflict meaningful daily losses while leaving time for repeated tactics (993.1323ms)
+✔ two, three and six adjacent enemies share one normal attack budget (44.8614ms)
+✔ focus cannot concentrate contact damage; nonadjacent enemies are not included (9.3416ms)
+✔ minimum damage is shared rather than multiplied once per enemy (10.358ms)
+✔ ranged fire remains single-target outside contact and siege minimum range is preserved (18.8979ms)
+✔ shields and different defenses resolve independently without reallocating blocked damage (9.1032ms)
+✖ an enchanted contact attack consumes one charge and divides extra fire damage (4.3119ms)
+✔ all contact shares land before a lethal retaliation; target ordering is deterministic (6.9795ms)
+✔ current combat saves resume with exactly the same shared attacks (310.0443ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (536.5885ms)
+✔ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (299.9069ms)
+✖ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (167.6335ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (137.1082ms)
+✔ spear: gate attacks use derived siege power once, including casualties and attack buffs (48.5756ms)
+✔ halberd: gate attacks use derived siege power once, including casualties and attack buffs (22.0627ms)
+✔ cavalry: gate attacks use derived siege power once, including casualties and attack buffs (18.0964ms)
+✔ archer: gate attacks use derived siege power once, including casualties and attack buffs (14.3427ms)
+✔ crossbow: gate attacks use derived siege power once, including casualties and attack buffs (13.4997ms)
+✔ siege: gate attacks use derived siege power once, including casualties and attack buffs (16.0579ms)
+✔ ship: gate attacks use derived siege power once, including casualties and attack buffs (13.5922ms)
+✔ ram: gate attacks use derived siege power once, including casualties and attack buffs (13.3717ms)
+✔ tower: gate attacks use derived siege power once, including casualties and attack buffs (13.6173ms)
+✔ 832人遵守0/2/3军略名额，专属计入总数，只有诸葛亮三项 (2.7052ms)
+✔ 军团长和军师统一基础智力70门槛，升级和任职不能绕过 (22.141ms)
+✔ 低智军团长没有保底军略，自然满条也不能施放，存读档不恢复资格 (133.1061ms)
+✔ cao-wuchao：史实出处、双方AI识别、自然蓄力与确定性续战 (113.412ms)
+✔ zhou-redcliffs：史实出处、双方AI识别、自然蓄力与确定性续战 (94.0596ms)
+✔ jia-speed：史实出处、双方AI识别、自然蓄力与确定性续战 (88.7406ms)
+✔ sima-isolate：史实出处、双方AI识别、自然蓄力与确定性续战 (80.0721ms)
+✔ zhuge-eight：史实出处、双方AI识别、自然蓄力与确定性续战 (120.8319ms)
+✖ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (45.4291ms)
+✔ 曹操军略进入真实结算，并保存提供者与效果 (51.8615ms)
+✔ 相同军略取合资格持有者的较强效果，武力不影响军略倍率 (0.6342ms)
+✔ 统帅与军师各擅其长，武力政治魅力不影响任何军略效果 (0.7536ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (49.5134ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (417.8718ms)
+✔ armies move visibly along road interiors before arriving (36.229ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (39.0225ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (35.7675ms)
+✔ head-on marching armies meet on the road without passing through each other (38.7588ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (179.6408ms)
+✖ manual battle suspends at the next planning phase and resumes the same battle (4.8112ms)
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (4.1957ms)
+✔ multiple battles and their snapshots share the same global day (255.6938ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (87.5518ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (808.5899ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (154.4475ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (144.2595ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (16.9444ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (18.7706ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.3843ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (12.8048ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (1.8851ms)
+✔ five days without food disband armies and preserve officers for their return (17.5484ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (123.0358ms)
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (2.7121ms)
+✔ city capture settles once and can be saved immediately within a day (146.7706ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (75.2471ms)
+✔ all 832 officers use family aptitude for subtypes (3.1749ms)
+✔ siege variants have distinct implemented range and gate damage (1.4673ms)
+✔ city technology, faction funds, failed atomic drafts and conversion costs (300.3933ms)
+✔ city form shows local unlocks, family and differentiated costs (77.8878ms)
+✔ all siege variants damage a real gate from zero intent and resume deterministically (218.4586ms)
+ℹ tests 68
+ℹ suites 0
+ℹ pass 62
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2977.0553
+
+✖ failing tests:
+
+test at tests\contact-damage.test.mjs:68:1
+✖ an enchanted contact attack consumes one charge and divides extra fire damage (4.3119ms)
+  TypeError: Cannot read properties of undefined (reading 'charges')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/contact-damage.test.mjs:72:57)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\engine-command-phase.test.mjs:23:34
+✖ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (167.6335ms)
+  AssertionError [ERR_ASSERTION]: 基础救护不依赖敌方活部队
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine-command-phase.test.mjs:42:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-pools.test.mjs:53:1
+✖ 赤壁火攻仅对舰船提高火势，普通目标保持共同结算规则 (45.4291ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   reason: '撤退',
+  +   winner: 1
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-pools.test.mjs:58:9)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { winner: 1, reason: '撤退' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:58:1
+✖ manual battle suspends at the next planning phase and resumes the same battle (4.8112ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:59:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:64:1
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (4.1957ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:65:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:133:1
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (2.7121ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:134:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

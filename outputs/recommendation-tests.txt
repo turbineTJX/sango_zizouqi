@@ -1,0 +1,12 @@
+✔ commerce and agriculture match actor traits rather than governor-only income skills (89.2887ms)
+✔ recommendation reads and roster rendering do not mutate saves or draw random numbers (63.2037ms)
+✔ AI uses the same scores for vacant jobs, preserves existing assignments, and appoints each actor once (981.5495ms)
+✔ transport recommendation uses actual transport speed and compilation does not penalize domestic duties (18.1571ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1319.6526

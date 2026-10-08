@@ -1,0 +1,23 @@
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {PASSIVES} from './passives.mjs';
+import {TACTICS_BOOK,TROOP_TACTICS,INTELLECT_TACTICS,SPECIAL_TACTICS} from './tactics.mjs';
+import {TROOPS} from './unit-stats.mjs';
+import {STRATAGEMS,OFFICER_STRATAGEMS} from './stratagems.mjs';
+import {OFFICER_CATALOG} from './officer-catalog.mjs';
+import {OFFICER_TRAITS} from './officer-traits.mjs';
+import {FAMOUS_OFFICERS} from './famous-officers.mjs';
+import {NATIONAL_MAP} from './data/national-map.mjs';
+import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,stepBattle} from './engine.mjs';
+import {createScenario} from './scenarios.mjs';
+mkdirSync('data/design',{recursive:true});mkdirSync('outputs/design-tables',{recursive:true});
+const write=(file,exports)=>writeFileSync('data/design/'+file+'.mjs','// Authoritative design data. Edit here; runtime imports this table.\n'+Object.entries(exports).map(([key,value])=>'export const '+key+' = '+JSON.stringify(value,null,2)+';\n').join('\n'));
+const traits=structuredClone(PASSIVES);for(const [id,t] of Object.entries(traits))if(id.startsWith('hero-'))t.personal=FAMOUS_OFFICERS[id.slice(5)].ultimate;
+const tactics=structuredClone(TACTICS_BOOK);for(const t of Object.values(tactics)){if(t.tempoDescription)t.description=t.description.replace('；'+t.tempoDescription,'');for(const key of ['power','powerDescription','terrainDescription','tempoDescription'])delete t[key];}
+write('traits',{TRAIT_DESIGNS:traits});write('tactics',{TACTIC_DESIGNS:tactics});write('stratagems',{STRATAGEM_DESIGNS:STRATAGEMS});write('troops',{TROOP_DESIGNS:TROOPS});
+write('officers',{OFFICER_DESIGNS:Object.fromEntries(OFFICER_CATALOG.map(({source,profileSource,...u})=>[u.id,u]))});
+write('cities',{CITY_DESIGNS:NATIONAL_MAP.cities,DEMO_CITY_DESIGNS:newGame().cities});
+write('assignments',{OFFICER_ASSIGNMENTS:Object.fromEntries(OFFICER_CATALOG.map(u=>[u.id,{traits:OFFICER_TRAITS[u.id],stratagems:OFFICER_STRATAGEMS[u.id],specialTactic:SPECIAL_TACTICS[u.id]||null}])),TROOP_TACTIC_POOLS:TROOP_TACTICS,INTELLECT_TACTIC_POOLS:INTELLECT_TACTICS});
+const baseline={traits:PASSIVES,tactics:TACTICS_BOOK,troops:TROOPS,stratagems:STRATAGEMS,officers:OFFICER_CATALOG,assignments:OFFICER_TRAITS,stratagemAssignments:OFFICER_STRATAGEMS,cities:NATIONAL_MAP.cities};
+writeFileSync('outputs/design-tables/baseline.json',JSON.stringify(baseline));
+const battles=[];for(const id of ['history-guandu','history-chibi','history-hefei','history-yiling']){const s=createScenario(id);lockDeployment(s.battle);for(let i=0;i<30;i++)stepBattle(s.battle);battles.push(s.battle);}writeFileSync('outputs/design-tables/battles-before.json',JSON.stringify(battles));
+console.log({traits:Object.keys(traits).length,tactics:Object.keys(tactics).length,stratagems:Object.keys(STRATAGEMS).length,troops:Object.keys(TROOPS).length,officers:OFFICER_CATALOG.length,cities:NATIONAL_MAP.cities.length});

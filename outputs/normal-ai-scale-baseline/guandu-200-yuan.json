@@ -1,0 +1,4743 @@
+{
+  "scenario": "guandu-200",
+  "seed": 417,
+  "player": "yuan",
+  "day": 121,
+  "finished": null,
+  "issues": [],
+  "findings": [
+    {
+      "type": "non-siege-garrison-hunger",
+      "cityDays": 88,
+      "cities": [
+        "town-31",
+        "town-30",
+        "town-10",
+        "chenliu",
+        "town-24",
+        "town-11",
+        "town-25",
+        "town-23",
+        "town-28",
+        "town-12"
+      ],
+      "message": "非围城驻军发生缺粮，需要检查补兵、供给和内政优先级。"
+    }
+  ],
+  "metrics": {
+    "cao": {
+      "name": "曹操",
+      "startCities": 25,
+      "completed": 244,
+      "failed": 71,
+      "interrupted": 1,
+      "assignments": 82,
+      "decisions": {
+        "attack": 3,
+        "stage": 4,
+        "transfer": 11,
+        "hold": 6,
+        "reinforce": 1,
+        "transport": 21,
+        "retreat": 3
+      },
+      "captures": 2,
+      "losses": 2,
+      "battles": 4,
+      "wins": 2,
+      "defeats": 2,
+      "plans": 4,
+      "hungryArmyDays": 0,
+      "hungryCityDays": 24,
+      "endCities": 25,
+      "gold": 15896,
+      "activeAssignments": 60
+    },
+    "force-7": {
+      "name": "刘表",
+      "startCities": 19,
+      "completed": 169,
+      "failed": 46,
+      "interrupted": 13,
+      "assignments": 50,
+      "decisions": {
+        "attack": 6,
+        "transfer": 27,
+        "stage": 8,
+        "hold": 10,
+        "retreat": 6,
+        "transport": 33,
+        "reinforce": 1
+      },
+      "captures": 4,
+      "losses": 4,
+      "battles": 8,
+      "wins": 4,
+      "defeats": 4,
+      "plans": 7,
+      "hungryArmyDays": 0,
+      "hungryCityDays": 27,
+      "endCities": 19,
+      "gold": 18155,
+      "activeAssignments": 25
+    },
+    "sunce": {
+      "name": "孙策",
+      "startCities": 14,
+      "completed": 194,
+      "failed": 68,
+      "interrupted": 0,
+      "assignments": 58,
+      "decisions": {
+        "stage": 14,
+        "transport": 13,
+        "attack": 5,
+        "retreat": 1,
+        "hold": 1,
+        "transfer": 6
+      },
+      "captures": 4,
+      "losses": 0,
+      "battles": 4,
+      "wins": 4,
+      "defeats": 0,
+      "plans": 6,
+      "hungryArmyDays": 0,
+      "hungryCityDays": 38,
+      "endCities": 18,
+      "gold": 12430,
+      "activeAssignments": 43
+    }
+  },
+  "expeditions": [
+    {
+      "day": 1,
+      "faction": "cao",
+      "armyId": "a56",
+      "units": 1,
+      "men": 2500,
+      "wounded": 0,
+      "target": "runan",
+      "origin": "xuchang"
+    },
+    {
+      "day": 1,
+      "faction": "force-7",
+      "armyId": "a57",
+      "units": 2,
+      "men": 5000,
+      "wounded": 0,
+      "target": "runan",
+      "origin": "town-29"
+    },
+    {
+      "day": 4,
+      "faction": "sunce",
+      "armyId": "a62",
+      "units": 5,
+      "men": 12600,
+      "wounded": 0,
+      "target": "town-28",
+      "origin": "town-27"
+    },
+    {
+      "day": 11,
+      "faction": "force-7",
+      "armyId": "a65",
+      "units": 2,
+      "men": 6400,
+      "wounded": 0,
+      "target": "runan",
+      "origin": "town-29"
+    },
+    {
+      "day": 21,
+      "faction": "cao",
+      "armyId": "a67",
+      "units": 2,
+      "men": 5000,
+      "wounded": 0,
+      "target": "town-20",
+      "origin": "town-18"
+    },
+    {
+      "day": 21,
+      "faction": "force-7",
+      "armyId": "a68",
+      "units": 4,
+      "men": 12000,
+      "wounded": 0,
+      "target": "wan",
+      "origin": "town-19"
+    },
+    {
+      "day": 25,
+      "faction": "sunce",
+      "armyId": "a74",
+      "units": 6,
+      "men": 13544,
+      "wounded": 0,
+      "target": "town-32",
+      "origin": "town-27"
+    },
+    {
+      "day": 31,
+      "faction": "cao",
+      "armyId": "a77",
+      "units": 2,
+      "men": 5000,
+      "wounded": 0,
+      "target": "town-20",
+      "origin": "town-18"
+    },
+    {
+      "day": 31,
+      "faction": "force-7",
+      "armyId": "a78",
+      "units": 1,
+      "men": 4500,
+      "wounded": 0,
+      "target": "town-37",
+      "origin": "town-19"
+    },
+    {
+      "day": 45,
+      "faction": "sunce",
+      "armyId": "a82",
+      "units": 3,
+      "men": 6982,
+      "wounded": 0,
+      "target": "town-34",
+      "origin": "town-32"
+    },
+    {
+      "day": 51,
+      "faction": "force-7",
+      "armyId": "a85",
+      "units": 1,
+      "men": 4500,
+      "wounded": 0,
+      "target": "town-21",
+      "origin": "town-37"
+    },
+    {
+      "day": 61,
+      "faction": "sunce",
+      "armyId": "a87",
+      "units": 1,
+      "men": 2291,
+      "wounded": 0,
+      "target": "town-33",
+      "origin": "town-32"
+    },
+    {
+      "day": 71,
+      "faction": "sunce",
+      "armyId": "a89",
+      "units": 2,
+      "men": 6080,
+      "wounded": 0,
+      "target": "town-33",
+      "origin": "town-32"
+    },
+    {
+      "day": 111,
+      "faction": "force-7",
+      "armyId": "a94",
+      "units": 2,
+      "men": 10974,
+      "wounded": 0,
+      "target": "xuchang",
+      "origin": "wan"
+    }
+  ],
+  "shortages": [
+    {
+      "day": 69,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 1.158,
+      "grain": 0,
+      "men": 25550,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 12
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 70,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 1.008,
+      "grain": 0,
+      "men": 31281,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 1
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "partnership",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 70,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 2.158,
+      "grain": 0,
+      "men": 25550,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 11
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 71,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 2.008,
+      "grain": 1936,
+      "men": 31281,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 71,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 3.158,
+      "grain": 1637,
+      "men": 22993,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 10
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 72,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 1.008,
+      "grain": 1623.19,
+      "men": 31281,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 72,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 2.158,
+      "grain": 1406.26,
+      "men": 22993,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 73,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 1.158,
+      "grain": 1175.52,
+      "men": 22993,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 8
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 8
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 8
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 80,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 1.912,
+      "grain": 826.07,
+      "men": 24427,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 81,
+      "city": "town-10",
+      "name": "小沛",
+      "faction": "cao",
+      "hunger": 1.466,
+      "grain": 1392,
+      "men": 24620,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 81,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 1.395,
+      "grain": 2416,
+      "men": 26125,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 88,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 1.804,
+      "grain": 443,
+      "men": 23000,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 3
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 3
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 90,
+      "city": "town-11",
+      "name": "寿春",
+      "faction": "cao",
+      "hunger": 1.823,
+      "grain": 0,
+      "men": 22210,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 1
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "military"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 91,
+      "city": "town-10",
+      "name": "小沛",
+      "faction": "cao",
+      "hunger": 1.715,
+      "grain": 1392,
+      "men": 25780,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 5
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 91,
+      "city": "town-11",
+      "name": "寿春",
+      "faction": "cao",
+      "hunger": 2.823,
+      "grain": 2531,
+      "men": 22210,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "military"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 91,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 1.878,
+      "grain": 1432,
+      "men": 23000,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 5
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 92,
+      "city": "town-11",
+      "name": "寿春",
+      "faction": "cao",
+      "hunger": 1.823,
+      "grain": 2277.59,
+      "men": 22241,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "store",
+          "remaining": 4
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 19
+        },
+        {
+          "direction": "commerce",
+          "key": "partnership",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 98,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 1.225,
+      "grain": 0,
+      "men": 25940,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 3
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 3
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 3
+        },
+        {
+          "direction": "technology",
+          "key": "breakthrough",
+          "remaining": 3
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 3
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 98,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 1.504,
+      "grain": 0,
+      "men": 25255,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 3
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 3
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 13
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 3
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 3
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 99,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 1.275,
+      "grain": 0,
+      "men": 26964,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 2
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 99,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 2.225,
+      "grain": 0,
+      "men": 25940,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 2
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 2
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "breakthrough",
+          "remaining": 2
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 99,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 2.504,
+      "grain": 0,
+      "men": 25255,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 2
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 2
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 12
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 100,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 2.275,
+      "grain": 0,
+      "men": 26964,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 1
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 100,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 3.225,
+      "grain": 0,
+      "men": 23346,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 1
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 1
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "breakthrough",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 100,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 3.504,
+      "grain": 0,
+      "men": 22728,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 1
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 11
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "explore",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 101,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 3.275,
+      "grain": 2832,
+      "men": 24267,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 101,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 4.225,
+      "grain": 1416,
+      "men": 22190,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 101,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 1.689,
+      "grain": 1396,
+      "men": 34481,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 1
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 101,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 4.504,
+      "grain": 2608,
+      "men": 20452,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 10
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 102,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 2.275,
+      "grain": 2254.01,
+      "men": 24599,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "store",
+          "remaining": 4
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "craftsmen",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 102,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 3.225,
+      "grain": 1194.1,
+      "men": 19969,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 9
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 102,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 3.504,
+      "grain": 2290.435,
+      "men": 18499,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 4
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "master",
+          "remaining": 9
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 9
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 103,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 1.275,
+      "grain": 2008.02,
+      "men": 24599,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 8
+        },
+        {
+          "direction": "agriculture",
+          "key": "store",
+          "remaining": 3
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 8
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 8
+        },
+        {
+          "direction": "technology",
+          "key": "craftsmen",
+          "remaining": 8
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 103,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 2.225,
+      "grain": 994.41,
+      "men": 19969,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 8
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 8
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 8
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 103,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 2.504,
+      "grain": 2101.48,
+      "men": 18499,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 3
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 8
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 8
+        },
+        {
+          "direction": "technology",
+          "key": "master",
+          "remaining": 8
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 8
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 104,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 1.225,
+      "grain": 794.72,
+      "men": 19969,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 7
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 7
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 7
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 7
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 104,
+      "city": "town-31",
+      "name": "江陵",
+      "faction": "force-7",
+      "hunger": 1.504,
+      "grain": 1912.525,
+      "men": 18499,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 2
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 7
+        },
+        {
+          "direction": "military",
+          "key": "build_walls",
+          "remaining": 7
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 7
+        },
+        {
+          "direction": "technology",
+          "key": "master",
+          "remaining": 7
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 7
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 108,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 1.847,
+      "grain": 0,
+      "men": 27325,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 3
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 3
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 3
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 3
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 3
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 108,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 1.998,
+      "grain": 0,
+      "men": 24778,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 3
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology",
+          "key": "breakthrough",
+          "remaining": 3
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 108,
+      "city": "town-28",
+      "name": "江夏",
+      "faction": "sunce",
+      "hunger": 1.997,
+      "grain": 0,
+      "men": 20881,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 3
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 13
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 3
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 3
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 109,
+      "city": "town-12",
+      "name": "濮阳",
+      "faction": "cao",
+      "hunger": 1.531,
+      "grain": 0,
+      "men": 21704,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 2
+        },
+        {
+          "direction": "commerce",
+          "key": "partnership",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 109,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 2.847,
+      "grain": 0,
+      "men": 27325,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 2
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 2
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 2
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 109,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 2.998,
+      "grain": 0,
+      "men": 24778,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 2
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology",
+          "key": "breakthrough",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 109,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 1.02,
+      "grain": 0,
+      "men": 19969,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 2
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 2
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 2
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 109,
+      "city": "town-28",
+      "name": "江夏",
+      "faction": "sunce",
+      "hunger": 2.997,
+      "grain": 0,
+      "men": 20881,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 12
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 2
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 2
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 109,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 1.802,
+      "grain": 0,
+      "men": 34481,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 2
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 110,
+      "city": "town-11",
+      "name": "寿春",
+      "faction": "cao",
+      "hunger": 1.307,
+      "grain": 0,
+      "men": 22241,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 1
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 110,
+      "city": "town-12",
+      "name": "濮阳",
+      "faction": "cao",
+      "hunger": 2.531,
+      "grain": 0,
+      "men": 21704,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "partnership",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 110,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 3.847,
+      "grain": 0,
+      "men": 24591,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 1
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 110,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 3.998,
+      "grain": 0,
+      "men": 22300,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "tax",
+          "remaining": 1
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology",
+          "key": "breakthrough",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 110,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 2.02,
+      "grain": 0,
+      "men": 19969,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 1
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 1
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 110,
+      "city": "town-28",
+      "name": "江夏",
+      "faction": "sunce",
+      "hunger": 3.997,
+      "grain": 0,
+      "men": 18792,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 11
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 1
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 110,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 2.802,
+      "grain": 0,
+      "men": 34481,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 111,
+      "city": "town-11",
+      "name": "寿春",
+      "faction": "cao",
+      "hunger": 2.307,
+      "grain": 2635,
+      "men": 22241,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "military"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 111,
+      "city": "town-12",
+      "name": "濮阳",
+      "faction": "cao",
+      "hunger": 3.531,
+      "grain": 2106,
+      "men": 19532,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 111,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 4.847,
+      "grain": 1408,
+      "men": 22970,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 111,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 4.998,
+      "grain": 1432,
+      "men": 20070,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 111,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 3.02,
+      "grain": 1725,
+      "men": 18501,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 111,
+      "city": "town-28",
+      "name": "江夏",
+      "faction": "sunce",
+      "hunger": 4.997,
+      "grain": 2613,
+      "men": 16912,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 10
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 111,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 3.802,
+      "grain": 1396,
+      "men": 31030,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 112,
+      "city": "town-11",
+      "name": "寿春",
+      "faction": "cao",
+      "hunger": 1.307,
+      "grain": 2276.24,
+      "men": 22376,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "store",
+          "remaining": 4
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "military"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 112,
+      "city": "town-12",
+      "name": "濮阳",
+      "faction": "cao",
+      "hunger": 2.531,
+      "grain": 1910.68,
+      "men": 19532,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 9
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 112,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 3.847,
+      "grain": 1178.3,
+      "men": 20670,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 4
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 112,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 3.998,
+      "grain": 1231.3,
+      "men": 18060,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 112,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 2.02,
+      "grain": 1539.99,
+      "men": 18501,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "harvest",
+          "remaining": 4
+        },
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 112,
+      "city": "town-28",
+      "name": "江夏",
+      "faction": "sunce",
+      "hunger": 3.997,
+      "grain": 2329.75,
+      "men": 15321,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 9
+        },
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 4
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 9
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 9
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 112,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 2.802,
+      "grain": 1085.7,
+      "men": 31030,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 9
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 9
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 9
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 9
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 10
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 113,
+      "city": "town-12",
+      "name": "濮阳",
+      "faction": "cao",
+      "hunger": 1.531,
+      "grain": 1715.36,
+      "men": 19532,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 8
+        },
+        {
+          "direction": "martial",
+          "key": "build_drill",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 8
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 8
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 8
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 113,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 2.847,
+      "grain": 971.6,
+      "men": 20670,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 8
+        },
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 3
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 8
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 8
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 113,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 2.998,
+      "grain": 1050.7,
+      "men": 18060,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 8
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 8
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 113,
+      "city": "town-25",
+      "name": "会稽",
+      "faction": "sunce",
+      "hunger": 1.02,
+      "grain": 1354.98,
+      "men": 18501,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 8
+        },
+        {
+          "direction": "agriculture",
+          "key": "harvest",
+          "remaining": 3
+        },
+        {
+          "direction": "martial",
+          "key": "exercise",
+          "remaining": 8
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 8
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 113,
+      "city": "town-28",
+      "name": "江夏",
+      "faction": "sunce",
+      "hunger": 2.997,
+      "grain": 2176.54,
+      "men": 15321,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 8
+        },
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 3
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 8
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 8
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 8
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 113,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 1.802,
+      "grain": 775.4,
+      "men": 31030,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 8
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 8
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 8
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 8
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 9
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 114,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 1.847,
+      "grain": 764.9,
+      "men": 20670,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 7
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 7
+        },
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 2
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 7
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 7
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 114,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 1.998,
+      "grain": 870.1,
+      "men": 18060,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 7
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 7
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 7
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 114,
+      "city": "town-28",
+      "name": "江夏",
+      "faction": "sunce",
+      "hunger": 1.997,
+      "grain": 2023.33,
+      "men": 15321,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 7
+        },
+        {
+          "direction": "martial",
+          "key": "patrol",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "build_workshop",
+          "remaining": 7
+        },
+        {
+          "direction": "agriculture",
+          "key": "cultivate",
+          "remaining": 7
+        },
+        {
+          "direction": "commerce",
+          "key": "merchants",
+          "remaining": 7
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 117,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 1.501,
+      "grain": 0,
+      "men": 31030,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 4
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 4
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 4
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 4
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 5
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 118,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 2.501,
+      "grain": 0,
+      "men": 31030,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 3
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 3
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 3
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 3
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 4
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 119,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 1.299,
+      "grain": 0,
+      "men": 20670,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 2
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 2
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 119,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 1.01,
+      "grain": 0,
+      "men": 28000,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 2
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 119,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 3.501,
+      "grain": 0,
+      "men": 27925,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 2
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 2
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 2
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 2
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 3
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 120,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 2.299,
+      "grain": 0,
+      "men": 20670,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture",
+          "key": "build_farm",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 1
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "commerce",
+          "key": "fair",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 120,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 2.01,
+      "grain": 0,
+      "men": 28000,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 120,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 1.182,
+      "grain": 0,
+      "men": 18060,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "recruit",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "research",
+          "remaining": 1
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 120,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 4.501,
+      "grain": 0,
+      "men": 25131,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture",
+          "key": "buy",
+          "remaining": 1
+        },
+        {
+          "direction": "commerce",
+          "key": "build_commerce",
+          "remaining": 1
+        },
+        {
+          "direction": "technology",
+          "key": "trial",
+          "remaining": 1
+        },
+        {
+          "direction": "military",
+          "key": "labor",
+          "remaining": 1
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 2
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 121,
+      "city": "chenliu",
+      "name": "陈留",
+      "faction": "cao",
+      "hunger": 3.299,
+      "grain": 2113,
+      "men": 18597,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 121,
+      "city": "town-23",
+      "name": "建业",
+      "faction": "sunce",
+      "hunger": 3.01,
+      "grain": 2832,
+      "men": 25198,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 121,
+      "city": "town-24",
+      "name": "吴",
+      "faction": "sunce",
+      "hunger": 2.182,
+      "grain": 1432,
+      "men": 18060,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "talent"
+        },
+        {
+          "direction": "agriculture"
+        }
+      ],
+      "incoming": []
+    },
+    {
+      "day": 121,
+      "city": "town-30",
+      "name": "襄阳",
+      "faction": "force-7",
+      "hunger": 5,
+      "grain": 2596,
+      "men": 0,
+      "besieged": false,
+      "work": [
+        {
+          "direction": "martial"
+        },
+        {
+          "direction": "agriculture"
+        },
+        {
+          "direction": "commerce"
+        },
+        {
+          "direction": "technology"
+        },
+        {
+          "direction": "military"
+        },
+        {
+          "direction": "talent",
+          "key": "hire",
+          "remaining": 1
+        }
+      ],
+      "incoming": []
+    }
+  ],
+  "plans": [
+    {
+      "id": 1,
+      "faction": "cao",
+      "phase": "complete",
+      "target": "runan",
+      "staging": "xuchang",
+      "officerIds": [
+        "cao"
+      ],
+      "origins": [
+        {
+          "cityId": "xuchang",
+          "officerIds": [
+            "cao"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 1,
+      "updatedDay": 14,
+      "deadline": 46,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 2,
+      "faction": "force-7",
+      "phase": "cancelled",
+      "target": "runan",
+      "staging": "town-29",
+      "officerIds": [
+        "person-24",
+        "person-100"
+      ],
+      "origins": [
+        {
+          "cityId": "town-29",
+          "officerIds": [
+            "person-24",
+            "person-100"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 1,
+      "updatedDay": 4,
+      "deadline": 41,
+      "reason": "江夏守备告急，优先保境"
+    },
+    {
+      "id": 3,
+      "faction": "sunce",
+      "phase": "complete",
+      "target": "town-28",
+      "staging": "town-27",
+      "officerIds": [
+        "person-119",
+        "person-252",
+        "person-283",
+        "person-247",
+        "person-292"
+      ],
+      "origins": [
+        {
+          "cityId": "town-27",
+          "officerIds": [
+            "person-119",
+            "person-252"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-74",
+          "officerIds": [
+            "person-283"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-26",
+          "officerIds": [
+            "person-247"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-75",
+          "officerIds": [
+            "person-292"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 1,
+      "updatedDay": 11,
+      "deadline": 31,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 4,
+      "faction": "force-7",
+      "phase": "cancelled",
+      "target": "runan",
+      "staging": "town-29",
+      "officerIds": [
+        "person-24",
+        "person-100"
+      ],
+      "origins": [
+        {
+          "cityId": "town-29",
+          "officerIds": [
+            "person-24",
+            "person-100"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 11,
+      "updatedDay": 14,
+      "deadline": 51,
+      "reason": "敌军增援后优势消失，保存部队"
+    },
+    {
+      "id": 5,
+      "faction": "cao",
+      "phase": "cancelled",
+      "target": "town-20",
+      "staging": "town-18",
+      "officerIds": [
+        "person-296",
+        "person-492"
+      ],
+      "origins": [
+        {
+          "cityId": "town-18",
+          "officerIds": [
+            "person-296",
+            "person-492"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 21,
+      "updatedDay": 22,
+      "deadline": 66,
+      "reason": "宛守备告急，优先保境"
+    },
+    {
+      "id": 6,
+      "faction": "force-7",
+      "phase": "cancelled",
+      "target": "wan",
+      "staging": "town-19",
+      "officerIds": [
+        "person-186",
+        "person-176",
+        "person-220",
+        "person-637"
+      ],
+      "origins": [
+        {
+          "cityId": "town-19",
+          "officerIds": [
+            "person-186",
+            "person-176",
+            "person-220",
+            "person-637"
+          ],
+          "grain": 3600
+        }
+      ],
+      "reserves": {},
+      "createdDay": 21,
+      "updatedDay": 25,
+      "deadline": 61,
+      "reason": "长沙守备告急，优先保境"
+    },
+    {
+      "id": 7,
+      "faction": "sunce",
+      "phase": "complete",
+      "target": "town-32",
+      "staging": "town-27",
+      "officerIds": [
+        "person-603",
+        "person-662",
+        "person-295",
+        "person-370",
+        "person-459",
+        "person-93"
+      ],
+      "origins": [
+        {
+          "cityId": "town-27",
+          "officerIds": [
+            "person-603",
+            "person-662"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-76",
+          "officerIds": [
+            "person-295"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-77",
+          "officerIds": [
+            "person-370"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-26",
+          "officerIds": [
+            "person-459",
+            "person-93"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 21,
+      "updatedDay": 33,
+      "deadline": 51,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 8,
+      "faction": "cao",
+      "phase": "complete",
+      "target": "town-20",
+      "staging": "town-18",
+      "officerIds": [
+        "person-296",
+        "person-492"
+      ],
+      "origins": [
+        {
+          "cityId": "town-18",
+          "officerIds": [
+            "person-296",
+            "person-492"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 31,
+      "updatedDay": 50,
+      "deadline": 76,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 9,
+      "faction": "force-7",
+      "phase": "complete",
+      "target": "town-37",
+      "staging": "town-19",
+      "officerIds": [
+        "person-125"
+      ],
+      "origins": [
+        {
+          "cityId": "town-19",
+          "officerIds": [
+            "person-125"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 31,
+      "updatedDay": 41,
+      "deadline": 71,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 10,
+      "faction": "sunce",
+      "phase": "complete",
+      "target": "town-34",
+      "staging": "town-32",
+      "officerIds": [
+        "person-603",
+        "person-295",
+        "person-251"
+      ],
+      "origins": [
+        {
+          "cityId": "town-32",
+          "officerIds": [
+            "person-603",
+            "person-295"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-27",
+          "officerIds": [
+            "person-251"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 41,
+      "updatedDay": 52,
+      "deadline": 71,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 11,
+      "faction": "force-7",
+      "phase": "complete",
+      "target": "town-21",
+      "staging": "town-37",
+      "officerIds": [
+        "person-125"
+      ],
+      "origins": [
+        {
+          "cityId": "town-37",
+          "officerIds": [
+            "person-125"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 51,
+      "updatedDay": 60,
+      "deadline": 91,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 12,
+      "faction": "cao",
+      "phase": "cancelled",
+      "target": "town-5",
+      "staging": "town-12",
+      "officerIds": [
+        "person-61",
+        "person-399",
+        "person-640",
+        "person-140"
+      ],
+      "origins": [
+        {
+          "cityId": "town-12",
+          "officerIds": [
+            "person-61",
+            "person-399",
+            "person-640",
+            "person-140"
+          ],
+          "grain": 3600
+        }
+      ],
+      "reserves": {},
+      "createdDay": 61,
+      "updatedDay": 107,
+      "deadline": 106,
+      "reason": "筹备或交战超时，收回兵力"
+    },
+    {
+      "id": 13,
+      "faction": "sunce",
+      "phase": "cancelled",
+      "target": "town-33",
+      "staging": "town-32",
+      "officerIds": [
+        "person-459"
+      ],
+      "origins": [
+        {
+          "cityId": "town-32",
+          "officerIds": [
+            "person-459"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 61,
+      "updatedDay": 64,
+      "deadline": 91,
+      "reason": "敌军增援后优势消失，保存部队"
+    },
+    {
+      "id": 14,
+      "faction": "force-7",
+      "phase": "cancelled",
+      "target": "xuchang",
+      "staging": "wan",
+      "officerIds": [
+        "person-24",
+        "person-54"
+      ],
+      "origins": [
+        {
+          "cityId": "town-29",
+          "officerIds": [
+            "person-24",
+            "person-54"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 71,
+      "updatedDay": 72,
+      "deadline": 111,
+      "reason": "武陵守备告急，优先保境"
+    },
+    {
+      "id": 15,
+      "faction": "sunce",
+      "phase": "complete",
+      "target": "town-33",
+      "staging": "town-32",
+      "officerIds": [
+        "person-662",
+        "person-370"
+      ],
+      "origins": [
+        {
+          "cityId": "town-32",
+          "officerIds": [
+            "person-662",
+            "person-370"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 71,
+      "updatedDay": 80,
+      "deadline": 101,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 16,
+      "faction": "force-7",
+      "phase": "complete",
+      "target": "xuchang",
+      "staging": "wan",
+      "officerIds": [
+        "person-24",
+        "person-54"
+      ],
+      "origins": [
+        {
+          "cityId": "town-29",
+          "officerIds": [
+            "person-24",
+            "person-54"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 81,
+      "updatedDay": 118,
+      "deadline": 121,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 17,
+      "faction": "sunce",
+      "phase": "assemble",
+      "target": "town-36",
+      "staging": "town-33",
+      "officerIds": [
+        "person-390"
+      ],
+      "origins": [
+        {
+          "cityId": "town-27",
+          "officerIds": [
+            "person-390"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {
+        "town-33": 900
+      },
+      "createdDay": 91,
+      "updatedDay": 91,
+      "deadline": 121,
+      "reason": "须保留更多守备，暂缓出征"
+    }
+  ],
+  "decisions": [
+    {
+      "day": 115,
+      "armyId": "city-force:town-21",
+      "faction": "force-7",
+      "name": "天水",
+      "kind": "transport",
+      "target": "wan",
+      "reason": "调运727粮、0预备兵支援宛，实际沿路运输"
+    },
+    {
+      "day": 114,
+      "armyId": "city-force:town-32",
+      "faction": "sunce",
+      "name": "长沙",
+      "kind": "transport",
+      "target": "town-23",
+      "reason": "调运1167粮、821预备兵支援建业，实际沿路运输"
+    },
+    {
+      "day": 114,
+      "armyId": "a95",
+      "faction": "cao",
+      "name": "许昌守城军",
+      "kind": "retreat",
+      "target": "xuchang",
+      "reason": "战损过重或断粮，保存残部"
+    },
+    {
+      "day": 113,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "hold",
+      "target": "xuchang",
+      "reason": "敌军逼近，守备仍有缺口"
+    },
+    {
+      "day": 112,
+      "armyId": "city-force:town-19",
+      "faction": "force-7",
+      "name": "上庸",
+      "kind": "transport",
+      "target": "wan",
+      "reason": "调运1912粮、0预备兵支援宛，实际沿路运输"
+    },
+    {
+      "day": 112,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "transport",
+      "target": "town-10",
+      "reason": "调运1104粮、0预备兵支援小沛，实际沿路运输"
+    },
+    {
+      "day": 112,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "hold",
+      "target": "xuchang",
+      "reason": "敌军逼近，守备仍有缺口"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:town-23",
+      "faction": "sunce",
+      "name": "建业",
+      "kind": "transfer",
+      "target": "town-32",
+      "reason": "调任张纮补充当地内政人才"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:town-30",
+      "faction": "force-7",
+      "name": "襄阳",
+      "kind": "transfer",
+      "target": "town-21",
+      "reason": "调任邢道荣补充当地内政人才"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:wan",
+      "faction": "force-7",
+      "name": "宛",
+      "kind": "transfer",
+      "target": "town-19",
+      "reason": "调任樊氏补充当地内政人才"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transport",
+      "target": "wan",
+      "reason": "调运388粮、0预备兵支援宛，实际沿路运输"
+    },
+    {
+      "day": 111,
+      "armyId": "a94",
+      "faction": "force-7",
+      "name": "王威军",
+      "kind": "attack",
+      "target": "xuchang",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:chenliu",
+      "faction": "cao",
+      "name": "陈留",
+      "kind": "transfer",
+      "target": "xuchang",
+      "reason": "调任朱灵补充当地内政人才"
+    },
+    {
+      "day": 107,
+      "armyId": "city-force:town-12",
+      "faction": "cao",
+      "name": "濮阳",
+      "kind": "hold",
+      "target": "town-5",
+      "reason": "筹备或交战超时，收回兵力"
+    },
+    {
+      "day": 105,
+      "armyId": "city-force:town-32",
+      "faction": "sunce",
+      "name": "长沙",
+      "kind": "transport",
+      "target": "town-23",
+      "reason": "调运1229粮、552预备兵支援建业，实际沿路运输"
+    },
+    {
+      "day": 105,
+      "armyId": "city-force:town-21",
+      "faction": "force-7",
+      "name": "天水",
+      "kind": "transport",
+      "target": "wan",
+      "reason": "调运668粮、0预备兵支援宛，实际沿路运输"
+    },
+    {
+      "day": 103,
+      "armyId": "city-force:town-19",
+      "faction": "force-7",
+      "name": "上庸",
+      "kind": "transport",
+      "target": "wan",
+      "reason": "调运670粮、0预备兵支援宛，实际沿路运输"
+    },
+    {
+      "day": 103,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "transport",
+      "target": "town-10",
+      "reason": "调运2000粮、0预备兵支援小沛，实际沿路运输"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:town-24",
+      "faction": "sunce",
+      "name": "吴",
+      "kind": "transfer",
+      "target": "town-32",
+      "reason": "调任张纮补充当地内政人才"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:town-30",
+      "faction": "force-7",
+      "name": "襄阳",
+      "kind": "transfer",
+      "target": "town-21",
+      "reason": "调任苏飞补充当地内政人才"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:town-30",
+      "faction": "force-7",
+      "name": "襄阳",
+      "kind": "transfer",
+      "target": "town-19",
+      "reason": "调任樊氏补充当地内政人才"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运741粮、0预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:town-10",
+      "faction": "cao",
+      "name": "小沛",
+      "kind": "transfer",
+      "target": "xuchang",
+      "reason": "调任满宠补充当地内政人才"
+    },
+    {
+      "day": 95,
+      "armyId": "city-force:town-32",
+      "faction": "sunce",
+      "name": "长沙",
+      "kind": "transport",
+      "target": "town-24",
+      "reason": "调运2218粮、0预备兵支援吴，实际沿路运输"
+    },
+    {
+      "day": 95,
+      "armyId": "city-force:town-21",
+      "faction": "force-7",
+      "name": "天水",
+      "kind": "transport",
+      "target": "town-29",
+      "reason": "调运308粮、0预备兵支援新野，实际沿路运输"
+    },
+    {
+      "day": 94,
+      "armyId": "city-force:town-33",
+      "faction": "sunce",
+      "name": "武陵",
+      "kind": "transport",
+      "target": "town-23",
+      "reason": "调运173粮、620预备兵支援建业，实际沿路运输"
+    },
+    {
+      "day": 94,
+      "armyId": "city-force:town-37",
+      "faction": "force-7",
+      "name": "汉中",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运327粮、0预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 93,
+      "armyId": "city-force:town-19",
+      "faction": "force-7",
+      "name": "上庸",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运1872粮、0预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 93,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "transport",
+      "target": "town-10",
+      "reason": "调运1959粮、0预备兵支援小沛，实际沿路运输"
+    },
+    {
+      "day": 91,
+      "armyId": "a93",
+      "faction": "sunce",
+      "name": "太史慈军",
+      "kind": "stage",
+      "target": "town-33",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transfer",
+      "target": "town-33",
+      "reason": "调任大乔补充当地内政人才"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-25",
+      "faction": "sunce",
+      "name": "会稽",
+      "kind": "transfer",
+      "target": "town-32",
+      "reason": "调任张纮补充当地内政人才"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-33",
+      "faction": "sunce",
+      "name": "武陵",
+      "kind": "stage",
+      "target": "town-36",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-31",
+      "faction": "force-7",
+      "name": "江陵",
+      "kind": "transfer",
+      "target": "town-37",
+      "reason": "调任苏飞补充当地内政人才"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-30",
+      "faction": "force-7",
+      "name": "襄阳",
+      "kind": "transfer",
+      "target": "town-21",
+      "reason": "调任邢道荣补充当地内政人才"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-31",
+      "faction": "force-7",
+      "name": "江陵",
+      "kind": "transfer",
+      "target": "town-19",
+      "reason": "调任樊氏补充当地内政人才"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-11",
+      "faction": "cao",
+      "name": "寿春",
+      "kind": "transfer",
+      "target": "xuchang",
+      "reason": "调任满宠补充当地内政人才"
+    },
+    {
+      "day": 85,
+      "armyId": "city-force:town-23",
+      "faction": "sunce",
+      "name": "建业",
+      "kind": "transport",
+      "target": "town-25",
+      "reason": "调运1739粮、0预备兵支援会稽，实际沿路运输"
+    },
+    {
+      "day": 85,
+      "armyId": "city-force:town-21",
+      "faction": "force-7",
+      "name": "天水",
+      "kind": "transport",
+      "target": "town-29",
+      "reason": "调运340粮、0预备兵支援新野，实际沿路运输"
+    },
+    {
+      "day": 84,
+      "armyId": "city-force:town-33",
+      "faction": "sunce",
+      "name": "武陵",
+      "kind": "transport",
+      "target": "town-24",
+      "reason": "调运443粮、0预备兵支援吴，实际沿路运输"
+    },
+    {
+      "day": 84,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transport",
+      "target": "town-31",
+      "reason": "调运0粮、718预备兵支援江陵，实际沿路运输"
+    },
+    {
+      "day": 83,
+      "armyId": "city-force:town-32",
+      "faction": "sunce",
+      "name": "长沙",
+      "kind": "transport",
+      "target": "town-23",
+      "reason": "调运0粮、3000预备兵支援建业，实际沿路运输"
+    },
+    {
+      "day": 83,
+      "armyId": "city-force:town-37",
+      "faction": "force-7",
+      "name": "汉中",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运2474粮、236预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 83,
+      "armyId": "city-force:town-19",
+      "faction": "force-7",
+      "name": "上庸",
+      "kind": "transport",
+      "target": "town-29",
+      "reason": "调运1373粮、0预备兵支援新野，实际沿路运输"
+    },
+    {
+      "day": 83,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "transport",
+      "target": "town-10",
+      "reason": "调运1846粮、0预备兵支援小沛，实际沿路运输"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transfer",
+      "target": "town-33",
+      "reason": "调任孙翊补充当地内政人才"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transfer",
+      "target": "town-32",
+      "reason": "调任张纮补充当地内政人才"
+    },
+    {
+      "day": 81,
+      "armyId": "a92",
+      "faction": "force-7",
+      "name": "王威军",
+      "kind": "stage",
+      "target": "wan",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transfer",
+      "target": "town-37",
+      "reason": "调任邢道荣补充当地内政人才"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-30",
+      "faction": "force-7",
+      "name": "襄阳",
+      "kind": "transfer",
+      "target": "town-21",
+      "reason": "调任文聘补充当地内政人才"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transfer",
+      "target": "town-19",
+      "reason": "调任樊氏补充当地内政人才"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:wan",
+      "faction": "force-7",
+      "name": "宛",
+      "kind": "stage",
+      "target": "xuchang",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-10",
+      "faction": "cao",
+      "name": "小沛",
+      "kind": "transfer",
+      "target": "xuchang",
+      "reason": "调任温恢补充当地内政人才"
+    },
+    {
+      "day": 78,
+      "armyId": "city-force:town-85",
+      "faction": "force-7",
+      "name": "洞庭港",
+      "kind": "transport",
+      "target": "town-29",
+      "reason": "调运1607粮、0预备兵支援新野，实际沿路运输"
+    },
+    {
+      "day": 76,
+      "armyId": "a90",
+      "faction": "force-7",
+      "name": "武陵守城军",
+      "kind": "retreat",
+      "target": "town-33",
+      "reason": "战损过重或断粮，保存残部"
+    },
+    {
+      "day": 73,
+      "armyId": "city-force:town-19",
+      "faction": "force-7",
+      "name": "上庸",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运2131粮、313预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 73,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "transport",
+      "target": "town-10",
+      "reason": "调运1129粮、0预备兵支援小沛，实际沿路运输"
+    },
+    {
+      "day": 73,
+      "armyId": "city-force:town-33",
+      "faction": "force-7",
+      "name": "武陵",
+      "kind": "hold",
+      "target": "town-33",
+      "reason": "敌军逼近，守备仍有缺口"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:town-33",
+      "faction": "force-7",
+      "name": "武陵",
+      "kind": "transport",
+      "target": "town-29",
+      "reason": "调运1820粮、0预备兵支援新野，实际沿路运输"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:town-33",
+      "faction": "force-7",
+      "name": "武陵",
+      "kind": "hold",
+      "target": "town-33",
+      "reason": "敌军逼近，守备仍有缺口"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:wan",
+      "faction": "force-7",
+      "name": "宛",
+      "kind": "hold",
+      "target": "xuchang",
+      "reason": "武陵守备告急，优先保境"
+    },
+    {
+      "day": 71,
+      "armyId": "a89",
+      "faction": "sunce",
+      "name": "吕蒙军",
+      "kind": "attack",
+      "target": "town-33",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 71,
+      "armyId": "city-force:town-32",
+      "faction": "sunce",
+      "name": "长沙",
+      "kind": "stage",
+      "target": "town-33",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 71,
+      "armyId": "city-force:town-31",
+      "faction": "force-7",
+      "name": "江陵",
+      "kind": "transfer",
+      "target": "town-33",
+      "reason": "调任樊氏补充当地内政人才"
+    },
+    {
+      "day": 71,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transfer",
+      "target": "town-19",
+      "reason": "调任文聘补充当地内政人才"
+    },
+    {
+      "day": 71,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transport",
+      "target": "town-31",
+      "reason": "调运0粮、666预备兵支援江陵，实际沿路运输"
+    },
+    {
+      "day": 71,
+      "armyId": "city-force:wan",
+      "faction": "force-7",
+      "name": "宛",
+      "kind": "stage",
+      "target": "xuchang",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 71,
+      "armyId": "city-force:town-11",
+      "faction": "cao",
+      "name": "寿春",
+      "kind": "transfer",
+      "target": "xuchang",
+      "reason": "调任温恢补充当地内政人才"
+    },
+    {
+      "day": 65,
+      "armyId": "city-force:town-21",
+      "faction": "force-7",
+      "name": "天水",
+      "kind": "transport",
+      "target": "town-29",
+      "reason": "调运510粮、400预备兵支援新野，实际沿路运输"
+    },
+    {
+      "day": 64,
+      "armyId": "a87",
+      "faction": "sunce",
+      "name": "陈武军",
+      "kind": "retreat",
+      "target": "town-32",
+      "reason": "敌军增援后优势消失，保存部队"
+    },
+    {
+      "day": 64,
+      "armyId": "city-force:town-32",
+      "faction": "sunce",
+      "name": "长沙",
+      "kind": "hold",
+      "target": "town-33",
+      "reason": "敌军增援后优势消失，保存部队"
+    },
+    {
+      "day": 63,
+      "armyId": "city-force:town-19",
+      "faction": "force-7",
+      "name": "上庸",
+      "kind": "transport",
+      "target": "town-29",
+      "reason": "调运1580粮、1000预备兵支援新野，实际沿路运输"
+    },
+    {
+      "day": 63,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "transport",
+      "target": "town-11",
+      "reason": "调运1008粮、0预备兵支援寿春，实际沿路运输"
+    },
+    {
+      "day": 62,
+      "armyId": "city-force:town-33",
+      "faction": "force-7",
+      "name": "武陵",
+      "kind": "hold",
+      "target": "town-33",
+      "reason": "守城并等待已派援军"
+    },
+    {
+      "day": 62,
+      "armyId": "a88",
+      "faction": "force-7",
+      "name": "刘度军",
+      "kind": "reinforce",
+      "target": "town-33",
+      "reason": "援军可及时抵达，优先救援；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 61,
+      "armyId": "a87",
+      "faction": "sunce",
+      "name": "陈武军",
+      "kind": "attack",
+      "target": "town-33",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 61,
+      "armyId": "city-force:town-32",
+      "faction": "sunce",
+      "name": "长沙",
+      "kind": "stage",
+      "target": "town-33",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 61,
+      "armyId": "city-force:town-30",
+      "faction": "force-7",
+      "name": "襄阳",
+      "kind": "transfer",
+      "target": "town-21",
+      "reason": "调任苏飞补充当地内政人才"
+    },
+    {
+      "day": 61,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transfer",
+      "target": "town-19",
+      "reason": "调任文聘补充当地内政人才"
+    },
+    {
+      "day": 61,
+      "armyId": "city-force:town-29",
+      "faction": "force-7",
+      "name": "新野",
+      "kind": "transport",
+      "target": "town-31",
+      "reason": "调运0粮、1160预备兵支援江陵，实际沿路运输"
+    }
+  ]
+}

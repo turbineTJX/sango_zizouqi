@@ -1,4 +1,4 @@
-// Independent identity abilities and fixed troop tactics.
+// Authoritative officer assignments. Fixed repertoire; no random military commands.
 export const OFFICER_ASSIGNMENTS = {
   "person-1": {
     "traits": [],
@@ -12,10 +12,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-3": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-4": {
@@ -40,10 +37,7 @@ export const OFFICER_ASSIGNMENTS = {
       "laborDeal",
       "drillConstruction"
     ],
-    "stratagems": [
-      "fortify",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-8": {
@@ -53,18 +47,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-9": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-10": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-11": {
@@ -79,10 +67,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-13": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-14": {
@@ -97,10 +82,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-16": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-17": {
@@ -116,17 +98,13 @@ export const OFFICER_ASSIGNMENTS = {
   "shao": {
     "traits": [],
     "stratagems": [
-      "inspire",
-      "assault"
+      "fortify"
     ],
     "specialTactic": null
   },
   "person-20": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-21": {
@@ -137,8 +115,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-22": {
     "traits": [],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "refresh"
     ],
     "specialTactic": null
   },
@@ -154,10 +131,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-25": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-26": {
@@ -167,10 +141,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-27": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-28": {
@@ -200,50 +171,32 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-33": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-34": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-35": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-36": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-37": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-38": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-39": {
@@ -268,18 +221,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-43": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-44": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-45": {
@@ -289,18 +236,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-46": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-47": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-48": {
@@ -310,57 +251,40 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-49": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-50": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-51": {
-    "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "traits": ["treasureEye",],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-52": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-53": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-54": {
     "traits": [],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "ambush"
     ],
     "specialTactic": null
   },
   "person-55": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "disrupt"
     ],
     "specialTactic": null
   },
@@ -371,18 +295,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-57": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-58": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-59": {
@@ -392,10 +310,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-60": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-61": {
@@ -403,17 +318,13 @@ export const OFFICER_ASSIGNMENTS = {
       "jiaContingency"
     ],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "ambush"
     ],
     "specialTactic": null
   },
   "person-62": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-63": {
@@ -424,8 +335,7 @@ export const OFFICER_ASSIGNMENTS = {
   "jia": {
     "traits": [],
     "stratagems": [
-      "jia-speed",
-      "demoralize"
+      "reinforce"
     ],
     "specialTactic": "undermine"
   },
@@ -446,10 +356,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-68": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-69": {
@@ -459,10 +366,7 @@ export const OFFICER_ASSIGNMENTS = {
       "militaryConstruction",
       "patrolReadiness"
     ],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-70": {
@@ -477,10 +381,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-72": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-73": {
@@ -505,10 +406,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-77": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-78": {
@@ -530,34 +428,22 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-81": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-82": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-83": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-84": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-85": {
@@ -572,10 +458,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-87": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-88": {
@@ -585,18 +468,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-89": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-90": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-91": {
@@ -611,18 +488,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-93": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-94": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-95": {
@@ -647,10 +518,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-99": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": "unique-person-99"
   },
   "person-100": {
@@ -711,26 +579,17 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-110": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-111": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-112": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-113": {
@@ -740,10 +599,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-114": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-115": {
@@ -757,7 +613,7 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-117": {
-    "traits": [],
+    "traits": ["treasurePlunder",],
     "stratagems": [],
     "specialTactic": null
   },
@@ -768,18 +624,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-119": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-120": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-121": {
@@ -799,10 +649,7 @@ export const OFFICER_ASSIGNMENTS = {
       "talentCalm",
       "hallConstruction"
     ],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "yan": {
@@ -822,10 +669,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-127": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-128": {
@@ -840,18 +684,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-130": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-131": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-132": {
@@ -882,8 +720,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-137": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "swift"
     ],
     "specialTactic": null
   },
@@ -930,8 +767,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-146": {
     "traits": [],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "ambush"
     ],
     "specialTactic": null
   },
@@ -957,18 +793,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-151": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-152": {
-    "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "traits": ["treasureEye",],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-153": {
@@ -998,18 +828,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-158": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-159": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-160": {
@@ -1044,18 +868,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-166": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-167": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-168": {
@@ -1065,10 +883,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-169": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-170": {
@@ -1092,10 +907,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-173": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-174": {
@@ -1135,10 +947,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-181": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-182": {
@@ -1173,10 +982,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-188": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-189": {
@@ -1186,18 +992,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-190": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-191": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "gao": {
@@ -1227,10 +1027,7 @@ export const OFFICER_ASSIGNMENTS = {
       "storageRescue",
       "farmConstruction"
     ],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-196": {
@@ -1240,10 +1037,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-197": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-198": {
@@ -1253,10 +1047,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-199": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-200": {
@@ -1266,18 +1057,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-201": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-202": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-203": {
@@ -1286,7 +1071,7 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-204": {
-    "traits": [],
+    "traits": ["treasurePlunder",],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1302,10 +1087,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-207": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-208": {
@@ -1330,10 +1112,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-212": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-213": {
@@ -1343,26 +1122,17 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-214": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-215": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-216": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-217": {
@@ -1382,10 +1152,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-220": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-221": {
@@ -1418,33 +1185,23 @@ export const OFFICER_ASSIGNMENTS = {
       "hero-person-226"
     ],
     "stratagems": [
-      "sima-isolate",
-      "disrupt"
+      "ward"
     ],
     "specialTactic": "unique-person-226"
   },
   "person-227": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-228": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-229": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-230": {
@@ -1454,34 +1211,22 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-231": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-232": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-233": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-234": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-235": {
@@ -1506,10 +1251,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-239": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-240": {
@@ -1523,7 +1265,7 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-242": {
-    "traits": [],
+    "traits": ["treasurePlunder",],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1534,18 +1276,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-244": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-245": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-246": {
@@ -1553,25 +1289,18 @@ export const OFFICER_ASSIGNMENTS = {
       "zhouDrill"
     ],
     "stratagems": [
-      "zhou-redcliffs",
-      "inspire"
+      "zhou-redcliffs"
     ],
     "specialTactic": "unique-person-246"
   },
   "person-247": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-248": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-249": {
@@ -1581,10 +1310,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-250": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-251": {
@@ -1592,18 +1318,12 @@ export const OFFICER_ASSIGNMENTS = {
       "wallInspection",
       "patrolReadiness"
     ],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-252": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-253": {
@@ -1621,8 +1341,7 @@ export const OFFICER_ASSIGNMENTS = {
       "xunTalent"
     ],
     "stratagems": [
-      "regenerate",
-      "cleanse"
+      "heal"
     ],
     "specialTactic": null
   },
@@ -1633,33 +1352,23 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-257": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-258": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-259": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "yu": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "cleanse"
+      "refresh"
     ],
     "specialTactic": null
   },
@@ -1670,10 +1379,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-262": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-263": {
@@ -1685,16 +1391,14 @@ export const OFFICER_ASSIGNMENTS = {
       "hero-person-668"
     ],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "heal"
     ],
     "specialTactic": null
   },
   "person-264": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "blockade"
     ],
     "specialTactic": null
   },
@@ -1710,10 +1414,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-267": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-268": {
@@ -1723,10 +1424,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-269": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-270": {
@@ -1746,18 +1444,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-273": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-274": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-275": {
@@ -1771,27 +1463,18 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-277": {
-    "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "traits": ["treasureEye",],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-278": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-279": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-280": {
@@ -1802,17 +1485,13 @@ export const OFFICER_ASSIGNMENTS = {
   "person-281": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "zhuge-eight"
     ],
     "specialTactic": null
   },
   "person-282": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-283": {
@@ -1822,10 +1501,7 @@ export const OFFICER_ASSIGNMENTS = {
       "talentPersuade",
       "hallConstruction"
     ],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-284": {
@@ -1850,18 +1526,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-288": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-289": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-290": {
@@ -1874,26 +1544,19 @@ export const OFFICER_ASSIGNMENTS = {
       "zhugeCoordination"
     ],
     "stratagems": [
-      "zhuge-eight",
       "cleanse",
-      "cycle"
+      "zhuge-eight"
     ],
     "specialTactic": "unique-person-290"
   },
   "person-291": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-292": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-293": {
@@ -1906,17 +1569,13 @@ export const OFFICER_ASSIGNMENTS = {
       "recommendTalent"
     ],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "cleanse"
     ],
     "specialTactic": null
   },
   "person-295": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-296": {
@@ -1936,10 +1595,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-299": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-300": {
@@ -1949,10 +1605,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-301": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-302": {
@@ -1968,33 +1621,23 @@ export const OFFICER_ASSIGNMENTS = {
   "person-304": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "invincible"
     ],
     "specialTactic": null
   },
   "person-305": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-306": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-307": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-308": {
@@ -2034,10 +1677,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-315": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-316": {
@@ -2062,10 +1702,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-320": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-321": {
@@ -2095,10 +1732,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-326": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-327": {
@@ -2113,10 +1747,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-329": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-330": {
@@ -2171,10 +1802,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-340": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-341": {
@@ -2204,7 +1832,6 @@ export const OFFICER_ASSIGNMENTS = {
       "hero-cao"
     ],
     "stratagems": [
-      "assault",
       "cao-wuchao"
     ],
     "specialTactic": "unique-cao"
@@ -2216,10 +1843,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-346": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-347": {
@@ -2229,10 +1853,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-348": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-349": {
@@ -2263,8 +1884,7 @@ export const OFFICER_ASSIGNMENTS = {
   "ju": {
     "traits": [],
     "stratagems": [
-      "fortify",
-      "regenerate"
+      "ward"
     ],
     "specialTactic": null
   },
@@ -2295,10 +1915,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-360": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-361": {
@@ -2313,10 +1930,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-363": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-364": {
@@ -2332,17 +1946,13 @@ export const OFFICER_ASSIGNMENTS = {
   "person-366": {
     "traits": [],
     "stratagems": [
-      "assault",
-      "inspire"
+      "swift"
     ],
     "specialTactic": null
   },
   "person-367": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-368": {
@@ -2350,7 +1960,6 @@ export const OFFICER_ASSIGNMENTS = {
       "hero-person-368"
     ],
     "stratagems": [
-      "inspire",
       "fortify"
     ],
     "specialTactic": null
@@ -2367,7 +1976,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-371": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "reinforce"
+    ],
     "specialTactic": "unique-person-371"
   },
   "person-372": {
@@ -2387,10 +1998,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-375": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-376": {
@@ -2405,10 +2013,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-378": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-379": {
@@ -2423,10 +2028,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-381": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-382": {
@@ -2441,10 +2043,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-384": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-385": {
@@ -2459,18 +2058,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-387": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-388": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-389": {
@@ -2495,10 +2088,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-393": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-394": {
@@ -2513,10 +2103,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-396": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": "unique-person-396"
   },
   "person-397": {
@@ -2541,18 +2128,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-401": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-402": {
-    "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "traits": ["treasureEye",],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-403": {
@@ -2563,25 +2144,18 @@ export const OFFICER_ASSIGNMENTS = {
   "person-404": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "storm"
     ],
     "specialTactic": null
   },
   "person-405": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-406": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-407": {
@@ -2591,10 +2165,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-408": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-409": {
@@ -2610,8 +2181,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-411": {
     "traits": [],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "refresh"
     ],
     "specialTactic": null
   },
@@ -2642,10 +2212,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-417": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-418": {
@@ -2655,10 +2222,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-419": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-420": {
@@ -2671,17 +2235,13 @@ export const OFFICER_ASSIGNMENTS = {
       "marketConstruction"
     ],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "cao-wuchao"
     ],
     "specialTactic": null
   },
   "person-421": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-422": {
@@ -2691,34 +2251,22 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-423": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-424": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-425": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-426": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-427": {
@@ -2728,10 +2276,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-428": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-429": {
@@ -2746,10 +2291,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-431": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-432": {
@@ -2764,10 +2306,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-434": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-435": {
@@ -2778,8 +2317,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-436": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "invincible"
     ],
     "specialTactic": null
   },
@@ -2795,10 +2333,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-439": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "liao": {
@@ -2806,15 +2341,14 @@ export const OFFICER_ASSIGNMENTS = {
       "lightMarch",
       "forcedMarch"
     ],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": "terror"
   },
   "person-441": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "reinforce"
+    ],
     "specialTactic": null
   },
   "person-442": {
@@ -2825,7 +2359,6 @@ export const OFFICER_ASSIGNMENTS = {
   "person-443": {
     "traits": [],
     "stratagems": [
-      "regenerate",
       "heal"
     ],
     "specialTactic": null
@@ -2848,33 +2381,23 @@ export const OFFICER_ASSIGNMENTS = {
   "person-447": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "ambush"
     ],
     "specialTactic": null
   },
   "person-448": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-449": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-450": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-451": {
@@ -2899,10 +2422,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-455": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-456": {
@@ -2915,10 +2435,7 @@ export const OFFICER_ASSIGNMENTS = {
       "harvestRescue",
       "farmConstruction"
     ],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-457": {
@@ -2928,10 +2445,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-458": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-459": {
@@ -2946,16 +2460,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-461": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-462": {
     "traits": [],
     "stratagems": [
-      "disrupt",
       "cleanse"
     ],
     "specialTactic": null
@@ -2985,34 +2495,22 @@ export const OFFICER_ASSIGNMENTS = {
       "laborDeal",
       "defenseDrill"
     ],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-468": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-469": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-470": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-471": {
@@ -3037,17 +2535,13 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-475": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "tian": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "disrupt"
     ],
     "specialTactic": null
   },
@@ -3058,34 +2552,22 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-478": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-479": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-480": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-481": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-482": {
@@ -3095,25 +2577,18 @@ export const OFFICER_ASSIGNMENTS = {
       "dengFarm"
     ],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "reinforce"
     ],
     "specialTactic": null
   },
   "person-483": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-484": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-485": {
@@ -3133,10 +2608,7 @@ export const OFFICER_ASSIGNMENTS = {
       "talentHire",
       "talentPersuade"
     ],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-488": {
@@ -3166,10 +2638,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-493": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-494": {
@@ -3209,26 +2678,19 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-501": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-502": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "cleanse"
     ],
     "specialTactic": null
   },
   "person-503": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-504": {
@@ -3238,10 +2700,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-505": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-506": {
@@ -3281,10 +2740,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-512": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-513": {
@@ -3325,33 +2781,23 @@ export const OFFICER_ASSIGNMENTS = {
   "person-520": {
     "traits": [],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "ward"
     ],
     "specialTactic": null
   },
   "person-521": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-522": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-523": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-524": {
@@ -3360,11 +2806,8 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-525": {
-    "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "traits": ["treasurePlunder",],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-526": {
@@ -3390,8 +2833,7 @@ export const OFFICER_ASSIGNMENTS = {
       "acuteHealing"
     ],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "refresh"
     ],
     "specialTactic": null
   },
@@ -3422,10 +2864,7 @@ export const OFFICER_ASSIGNMENTS = {
       "marketConstruction",
       "purchaseFill"
     ],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-534": {
@@ -3435,10 +2874,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-535": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-536": {
@@ -3453,10 +2889,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-538": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-539": {
@@ -3466,10 +2899,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-540": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-541": {
@@ -3514,10 +2944,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-549": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-550": {
@@ -3538,8 +2965,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-553": {
     "traits": [],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "ambush"
     ],
     "specialTactic": null
   },
@@ -3555,34 +2981,26 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-556": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-557": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "ambush"
     ],
     "specialTactic": null
   },
   "person-558": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "disrupt"
     ],
     "specialTactic": "unique-person-558"
   },
   "person-559": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-560": {
@@ -3602,10 +3020,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-563": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-564": {
@@ -3615,25 +3030,18 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-565": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-566": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-567": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "fortify"
     ],
     "specialTactic": null
   },
@@ -3649,18 +3057,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-570": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-571": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-572": {
@@ -3685,10 +3087,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-576": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-577": {
@@ -3699,17 +3098,13 @@ export const OFFICER_ASSIGNMENTS = {
   "person-578": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "invincible"
     ],
     "specialTactic": null
   },
   "person-579": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-580": {
@@ -3719,10 +3114,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-581": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-582": {
@@ -3732,10 +3124,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-583": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-584": {
@@ -3770,10 +3159,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-590": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-591": {
@@ -3798,18 +3184,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-595": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-596": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-597": {
@@ -3819,10 +3199,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-598": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-599": {
@@ -3832,49 +3209,37 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-600": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-601": {
     "traits": [],
     "stratagems": [
-      "heal",
-      "regenerate"
+      "ward"
     ],
     "specialTactic": null
   },
   "person-602": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-603": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "fortify"
+      "zhou-redcliffs"
     ],
     "specialTactic": "unique-person-603"
   },
   "person-604": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-605": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "storm"
     ],
     "specialTactic": null
   },
@@ -3900,18 +3265,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-610": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "heal"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-611": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-612": {
@@ -3931,10 +3290,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-615": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-616": {
@@ -3989,10 +3345,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-626": {
     "traits": [],
-    "stratagems": [
-      "fortify",
-      "relief"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-627": {
@@ -4032,10 +3385,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-634": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-635": {
@@ -4048,25 +3398,20 @@ export const OFFICER_ASSIGNMENTS = {
       "liuTrust"
     ],
     "stratagems": [
-      "inspire",
-      "heal"
+      "invincible"
     ],
     "specialTactic": "unique-person-636"
   },
   "person-637": {
     "traits": [],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "fortify"
     ],
     "specialTactic": null
   },
   "person-638": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-639": {
@@ -4094,8 +3439,7 @@ export const OFFICER_ASSIGNMENTS = {
       "liuEngines"
     ],
     "stratagems": [
-      "basic-guard",
-      "inspire"
+      "disrupt"
     ],
     "specialTactic": null
   },
@@ -4131,10 +3475,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-649": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-650": {
@@ -4164,10 +3505,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-655": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-656": {
@@ -4192,10 +3530,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-660": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-661": {
@@ -4206,8 +3541,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-662": {
     "traits": [],
     "stratagems": [
-      "disrupt",
-      "cleanse"
+      "blockade"
     ],
     "specialTactic": null
   },
@@ -4218,10 +3552,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-664": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-665": {
@@ -4231,10 +3562,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-666": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-667": {
@@ -4251,25 +3579,18 @@ export const OFFICER_ASSIGNMENTS = {
       "talentCalm"
     ],
     "stratagems": [
-      "heal",
-      "relief"
+      "heal"
     ],
     "specialTactic": null
   },
   "person-669": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-670": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-671": {
@@ -4453,44 +3774,29 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-706": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-707": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-708": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-709": {
     "traits": [
       "recommendTalent"
     ],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-710": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-711": {
@@ -4505,18 +3811,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-713": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-714": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-715": {
@@ -4596,18 +3896,12 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-730": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-731": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-732": {
@@ -4957,74 +4251,47 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-801": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-802": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-803": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-804": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-805": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-806": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-807": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-808": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-809": {
     "traits": [],
-    "stratagems": [
-      "range",
-      "fortify"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-810": {
@@ -5039,10 +4306,7 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-812": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-813": {
@@ -5057,26 +4321,17 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-815": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-816": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-817": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-818": {
@@ -5091,26 +4346,17 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-820": {
     "traits": [],
-    "stratagems": [
-      "disrupt",
-      "cleanse"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-821": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-822": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-823": {
@@ -5125,66 +4371,42 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-825": {
     "traits": [],
-    "stratagems": [
-      "assault",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-826": {
     "traits": [],
-    "stratagems": [
-      "haste",
-      "assault"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-827": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-828": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-829": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-830": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-831": {
     "traits": [],
-    "stratagems": [
-      "heal",
-      "regenerate"
-    ],
+    "stratagems": [],
     "specialTactic": null
   },
   "person-832": {
     "traits": [],
-    "stratagems": [
-      "basic-guard",
-      "inspire"
-    ],
+    "stratagems": [],
     "specialTactic": null
   }
 };
@@ -5332,3 +4554,4 @@ export const INTELLECT_TACTIC_POOLS = {
     "boarding"
   ]
 };
+

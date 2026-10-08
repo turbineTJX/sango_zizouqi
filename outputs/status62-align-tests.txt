@@ -1,0 +1,111 @@
+✔ cleave charges each victim once without charging the caster (32.2387ms)
+✔ all 24 additions resolve through equipped slots, real thresholds, targeting and cooldowns (127.4002ms)
+✔ 挫志普攻施加丧志，不叠层，镇静解除 (6.4713ms)
+✔ 疫伤降低持续救治，救护先解除疫伤再救治 (23.2761ms)
+✔ 疑兵有独立耐久且不抵挡本体持续伤害、不增加部队 (5.5172ms)
+✔ riposte is one direct reaction per step, without a counter chain or extra intent (5.2486ms)
+✔ naval deployment, swap, movement and save validation obey water and bridge domains (342.5662ms)
+✔ siege blind spot prevents normal shots and bombard; gate charge damages the real victory objective (8.0696ms)
+✔ two real ram casts can link against the gate and increase the second hit (10.6899ms)
+✔ fresh mixed and river battles earn casts and preserve all new status data across saves (566.834ms)
+✔ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (132.3906ms)
+✔ status timer matches exclusive expiration and distinguishes the final active step from expired state (1.5446ms)
+✖ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (1.2093ms)
+✔ 当前各兵种都有至少三个低级候选和一个高级候选，所有战法进入唯一池 (0.8951ms)
+✔ S在5级两低一高，A在8级两低一高，B在8级三低，C无保底 (659.6114ms)
+✔ 1级专属有获得和未获得结果，5级全部必得，普通将没有专属 (166.1895ms)
+✔ 保底能一次补齐多个缺额，而不是只多抽一次 (1342.7883ms)
+✔ 同种子身份等级结果相同，不同种子随机；换兵种不重抽，玩家只能重排 (8.2046ms)
+✔ AI不替换所学战法，专属不挤掉三普通，四槽能自动施放并确定性续战 (143.9702ms)
+✔ 跨多级与逐级学习一致，升级存档与战略换兵种保持记录 (61.3247ms)
+✔ 所有预设战役生成合法学习记录，旧人工配装不绕过学习 (107.0557ms)
+✔ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (0.7637ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (330.2262ms)
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (25.2806ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (30.9564ms)
+✔ overlapping interception remains after harass disables one owner (3.3536ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (3.51ms)
+✔ out-of-range rear does not displace an attackable front (3.4332ms)
+✖ real cleanse restores interception without waiting for disruption expiry (5.3693ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (4.3648ms)
+✔ nearby wounded front takes priority over a healthy ranged target (2.6729ms)
+✖ 雾隐为残血部队避战一日并保持确定性续战 (1.6904ms)
+✔ 疑兵自身不提供无敌 (6.0226ms)
+✔ enemy side uses the same finisher priority and excludes protected targets (5.9736ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 31
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2719.2899
+
+✖ failing tests:
+
+test at tests\status-display.test.mjs:14:1
+✖ hard control and DOT take precedence over buffs; icons, stacks and hit counts remain available (1.2093ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'confuse',
+      'burn',
+  +   'attackHaste'
+  -   'plague'
+    ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/status-display.test.mjs:20:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'confuse', 'burn', 'attackHaste' ],
+    expected: [ 'confuse', 'burn', 'plague' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:68:1
+✖ real cleanse restores interception without waiting for disruption expiry (5.3693ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:72:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\zoc-counterplay.test.mjs:94:1
+✖ 雾隐为残血部队避战一日并保持确定性续战 (1.6904ms)
+  AssertionError [ERR_ASSERTION]: person-433 cannot equip mist
+      at primeTactic (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/prime-tactic.mjs:9:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/zoc-counterplay.test.mjs:95:70)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,22 @@
+✔ real reserves exceed the shared cap once, obey queue/AI order and lose extra slots on departure, side 0 (257.2515ms)
+✔ real reserves exceed the shared cap once, obey queue/AI order and lose extra slots on departure, side 1 (183.9411ms)
+✔ future reinforcements cannot enter early; lack of reserves consumes neither gauge nor RNG (95.428ms)
+✔ whole army refresh restores legal active tactics without erasing casts, intent or recovery; deterministic reload, side 0 (205.2127ms)
+✔ whole army refresh restores legal active tactics without erasing casts, intent or recovery; deterministic reload, side 1 (180.2796ms)
+✔ refresh includes specials while preserving the ordinary restoration restriction and caster cooldown difference (106.0955ms)
+✔ random broad damage hits both armies, is reproducible and rejects altered saved rolls, side 0 (521.2966ms)
+✔ random broad damage hits both armies, is reproducible and rejects altered saved rolls, side 1 (437.9195ms)
+✔ storm uses shared immunity and shields; an invulnerable caster may still hurt both sides (193.1169ms)
+✔ new AI triggers use arrived reserves, real spent stock and a fixed enemy count; no benefit prediction (191.1725ms)
+✔ fifteen unified strategies use explicit character rosters; intellect and level never grant repertoire (7.5548ms)
+✔ validator rejects expansion by attribute, wrong exclusive ownership and short cooldown (67.9728ms)
+✔ strategies are spread across real factions including religious forces; recruitment preserves personal commands (4.6848ms)
+✔ same name chooses one eligible source and only leadership and intellect scale it (8.6934ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2617.7142

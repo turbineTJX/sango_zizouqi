@@ -1,0 +1,201 @@
+✔ all fifteen strategies explicitly configure an implemented simple AI condition (53.4555ms)
+✔ 金城汤池 AI automatically casts after real charging, side 0, seed 11211 (271.5512ms)
+✔ 金城汤池 AI automatically casts after real charging, side 0, seed 11231 (216.2764ms)
+✔ 金城汤池 AI holds its full gauge when the condition fails, side 0 (183.7586ms)
+✔ 金城汤池 AI automatically casts after real charging, side 1, seed 11211 (188.9266ms)
+✔ 金城汤池 AI automatically casts after real charging, side 1, seed 11231 (175.6679ms)
+✔ 金城汤池 AI holds its full gauge when the condition fails, side 1 (173.0241ms)
+✔ 济世安军 AI automatically casts after real charging, side 0, seed 11211 (224.7857ms)
+✔ 济世安军 AI automatically casts after real charging, side 0, seed 11231 (206.5481ms)
+✔ 济世安军 AI holds its full gauge when the condition fails, side 0 (177.2979ms)
+✔ 济世安军 AI automatically casts after real charging, side 1, seed 11211 (163.1403ms)
+✔ 济世安军 AI automatically casts after real charging, side 1, seed 11231 (169.6833ms)
+✔ 济世安军 AI holds its full gauge when the condition fails, side 1 (144.1821ms)
+✔ 扶正祛邪 AI automatically casts after real charging, side 0, seed 11211 (224.8759ms)
+✔ 扶正祛邪 AI automatically casts after real charging, side 0, seed 11231 (191.7883ms)
+✖ 扶正祛邪 AI holds its full gauge when the condition fails, side 0 (141.0531ms)
+✔ 扶正祛邪 AI automatically casts after real charging, side 1, seed 11211 (180.7325ms)
+✔ 扶正祛邪 AI automatically casts after real charging, side 1, seed 11231 (181.5993ms)
+✖ 扶正祛邪 AI holds its full gauge when the condition fails, side 1 (121.9522ms)
+✔ 固若金汤 AI automatically casts after real charging, side 0, seed 11211 (208.565ms)
+✔ 固若金汤 AI automatically casts after real charging, side 0, seed 11231 (229.5943ms)
+✔ 固若金汤 AI holds its full gauge when the condition fails, side 0 (96.993ms)
+✔ 固若金汤 AI automatically casts after real charging, side 1, seed 11211 (210.7476ms)
+✔ 固若金汤 AI automatically casts after real charging, side 1, seed 11231 (192.5694ms)
+✔ 固若金汤 AI holds its full gauge when the condition fails, side 1 (87.5117ms)
+✔ 瞒天过海 AI automatically casts after real charging, side 0, seed 11211 (1121.9843ms)
+✔ 瞒天过海 AI automatically casts after real charging, side 0, seed 11231 (1136.3693ms)
+✔ 瞒天过海 AI holds its full gauge when the condition fails, side 0 (97.2203ms)
+✔ 瞒天过海 AI automatically casts after real charging, side 1, seed 11211 (1120.8272ms)
+✔ 瞒天过海 AI automatically casts after real charging, side 1, seed 11231 (1251.314ms)
+✔ 瞒天过海 AI holds its full gauge when the condition fails, side 1 (93.4364ms)
+✔ 威震三军 AI automatically casts after real charging, side 0, seed 11211 (190.6249ms)
+✔ 威震三军 AI automatically casts after real charging, side 0, seed 11231 (203.2267ms)
+✔ 威震三军 AI holds its full gauge when the condition fails, side 0 (201.0471ms)
+✔ 威震三军 AI automatically casts after real charging, side 1, seed 11211 (231.9665ms)
+✔ 威震三军 AI automatically casts after real charging, side 1, seed 11231 (237.818ms)
+✔ 威震三军 AI holds its full gauge when the condition fails, side 1 (197.3905ms)
+✔ 百邪不侵 AI automatically casts after real charging, side 0, seed 11211 (293.486ms)
+✔ 百邪不侵 AI automatically casts after real charging, side 0, seed 11231 (264.0063ms)
+✔ 百邪不侵 AI holds its full gauge when the condition fails, side 0 (93.0967ms)
+✔ 百邪不侵 AI automatically casts after real charging, side 1, seed 11211 (192.0635ms)
+✔ 百邪不侵 AI automatically casts after real charging, side 1, seed 11231 (203.063ms)
+✔ 百邪不侵 AI holds its full gauge when the condition fails, side 1 (74.83ms)
+✔ 号令如山 AI automatically casts after real charging, side 0, seed 11211 (188.87ms)
+✔ 号令如山 AI automatically casts after real charging, side 0, seed 11231 (229.75ms)
+✖ 号令如山 AI holds its full gauge when the condition fails, side 0 (88.6885ms)
+✔ 号令如山 AI automatically casts after real charging, side 1, seed 11211 (219.6443ms)
+✔ 号令如山 AI automatically casts after real charging, side 1, seed 11231 (204.4079ms)
+✖ 号令如山 AI holds its full gauge when the condition fails, side 1 (83.723ms)
+✔ 火烧连营 AI automatically casts after real charging, side 0, seed 11211 (201.0307ms)
+✔ 火烧连营 AI automatically casts after real charging, side 0, seed 11231 (226.0613ms)
+✔ 火烧连营 AI holds its full gauge when the condition fails, side 0 (104.9184ms)
+✔ 火烧连营 AI automatically casts after real charging, side 1, seed 11211 (187.4347ms)
+✔ 火烧连营 AI automatically casts after real charging, side 1, seed 11231 (194.1718ms)
+✔ 火烧连营 AI holds its full gauge when the condition fails, side 1 (82.7361ms)
+✔ 八阵奇门 AI automatically casts after real charging, side 0, seed 11211 (236.6526ms)
+✔ 八阵奇门 AI automatically casts after real charging, side 0, seed 11231 (248.4505ms)
+✔ 八阵奇门 AI holds its full gauge when the condition fails, side 0 (95.2351ms)
+✔ 八阵奇门 exhausted AI command stays unavailable after natural recharging, side 0 (315.5433ms)
+✔ 八阵奇门 AI automatically casts after real charging, side 1, seed 11211 (229.3659ms)
+✔ 八阵奇门 AI automatically casts after real charging, side 1, seed 11231 (193.1839ms)
+✔ 八阵奇门 AI holds its full gauge when the condition fails, side 1 (88.3577ms)
+✔ 八阵奇门 exhausted AI command stays unavailable after natural recharging, side 1 (245.4508ms)
+✔ 奇兵天降 AI automatically casts after real charging, side 0, seed 11211 (254.4593ms)
+✔ 奇兵天降 AI automatically casts after real charging, side 0, seed 11231 (229.0669ms)
+✔ 奇兵天降 AI holds its full gauge when the condition fails, side 0 (176.9877ms)
+✔ 奇兵天降 exhausted AI command stays unavailable after natural recharging, side 0 (295.803ms)
+✔ 奇兵天降 AI automatically casts after real charging, side 1, seed 11211 (250.9836ms)
+✔ 奇兵天降 AI automatically casts after real charging, side 1, seed 11231 (261.2718ms)
+✔ 奇兵天降 AI holds its full gauge when the condition fails, side 1 (166.6843ms)
+✔ 奇兵天降 exhausted AI command stays unavailable after natural recharging, side 1 (353.3ms)
+✔ 重整旗鼓 AI automatically casts after real charging, side 0, seed 11211 (302.7675ms)
+✔ 重整旗鼓 AI automatically casts after real charging, side 0, seed 11231 (330.4693ms)
+✔ 重整旗鼓 AI holds its full gauge when the condition fails, side 0 (199.1948ms)
+✔ 重整旗鼓 exhausted AI command stays unavailable after natural recharging, side 0 (367.2547ms)
+✔ 重整旗鼓 AI automatically casts after real charging, side 1, seed 11211 (242.8385ms)
+✔ 重整旗鼓 AI automatically casts after real charging, side 1, seed 11231 (233.6622ms)
+✔ 重整旗鼓 AI holds its full gauge when the condition fails, side 1 (173.7473ms)
+✔ 重整旗鼓 exhausted AI command stays unavailable after natural recharging, side 1 (280.5043ms)
+✔ 天雷地火 AI automatically casts after real charging, side 0, seed 11211 (205.0675ms)
+✔ 天雷地火 AI automatically casts after real charging, side 0, seed 11231 (197.1532ms)
+✔ 天雷地火 AI holds its full gauge when the condition fails, side 0 (97.2517ms)
+✔ 天雷地火 exhausted AI command stays unavailable after natural recharging, side 0 (325.0215ms)
+✔ 天雷地火 AI automatically casts after real charging, side 1, seed 11211 (193.5955ms)
+✔ 天雷地火 AI automatically casts after real charging, side 1, seed 11231 (193.5891ms)
+✔ 天雷地火 AI holds its full gauge when the condition fails, side 1 (82.844ms)
+✔ 天雷地火 exhausted AI command stays unavailable after natural recharging, side 1 (253.2959ms)
+✔ 疾风迅雷 AI automatically casts after real charging, side 0, seed 11211 (221.8971ms)
+✔ 疾风迅雷 AI automatically casts after real charging, side 0, seed 11231 (243.8521ms)
+✔ 疾风迅雷 AI holds its full gauge when the condition fails, side 0 (105.1078ms)
+✔ 疾风迅雷 AI automatically casts after real charging, side 1, seed 11211 (195.7385ms)
+✔ 疾风迅雷 AI automatically casts after real charging, side 1, seed 11231 (218.9031ms)
+✔ 疾风迅雷 AI holds its full gauge when the condition fails, side 1 (98.744ms)
+✔ 十面埋伏 AI automatically casts after real charging, side 0, seed 11211 (208.4505ms)
+✔ 十面埋伏 AI automatically casts after real charging, side 0, seed 11231 (236.8239ms)
+✔ 十面埋伏 AI holds its full gauge when the condition fails, side 0 (155.8591ms)
+✔ 十面埋伏 AI automatically casts after real charging, side 1, seed 11211 (180.0087ms)
+✔ 十面埋伏 AI automatically casts after real charging, side 1, seed 11231 (164.2373ms)
+✔ 十面埋伏 AI holds its full gauge when the condition fails, side 1 (147.9093ms)
+ℹ tests 99
+ℹ suites 0
+ℹ pass 95
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23375.0362
+
+✖ failing tests:
+
+test at tests\stratagem-ai.test.mjs:17:2
+✖ 扶正祛邪 AI holds its full gauge when the condition fails, side 0 (141.0531ms)
+  AssertionError [ERR_ASSERTION]: cleanse cast without the required condition
+  
+  1 !== 0
+  
+      at runStratagemAiProbe (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/stratagem-ai.mjs:69:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-ai.test.mjs:18:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-ai.test.mjs:17:2
+✖ 扶正祛邪 AI holds its full gauge when the condition fails, side 1 (121.9522ms)
+  AssertionError [ERR_ASSERTION]: cleanse cast without the required condition
+  
+  1 !== 0
+  
+      at runStratagemAiProbe (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/stratagem-ai.mjs:69:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-ai.test.mjs:18:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-ai.test.mjs:17:2
+✖ 号令如山 AI holds its full gauge when the condition fails, side 0 (88.6885ms)
+  AssertionError [ERR_ASSERTION]: cao-wuchao selected an unusable command
+  + actual - expected
+  
+  + 'cao-wuchao'
+  - null
+  
+      at runStratagemAiProbe (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/stratagem-ai.mjs:70:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-ai.test.mjs:18:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'cao-wuchao',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagem-ai.test.mjs:17:2
+✖ 号令如山 AI holds its full gauge when the condition fails, side 1 (83.723ms)
+  AssertionError [ERR_ASSERTION]: cao-wuchao selected an unusable command
+  + actual - expected
+  
+  + 'cao-wuchao'
+  - null
+  
+      at runStratagemAiProbe (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/stratagem-ai.mjs:70:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagem-ai.test.mjs:18:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'cao-wuchao',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

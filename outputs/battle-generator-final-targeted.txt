@@ -1,0 +1,47 @@
+✔ every playable preset is a legal editable custom draft and produces the same battle (192.8387ms)
+✔ custom generator validates conditions and wave budgets (294.0651ms)
+✔ saved custom conditions are used for named-preset retries and save validation (5.9509ms)
+✔ a real control cast opens ZOC and the next allied charge exploits it (24.6445ms)
+✔ overlapping ZOC still stops a charge after only one front is controlled (5.3653ms)
+✔ a flanking lure relocates ZOC and enables rush; a braced front resists the lure (7.8728ms)
+✔ control protection, silence and restored ZOC cannot be bypassed (6.417ms)
+✔ ZOC coverage uses live interceptors and respects boundaries and both sides (2.6506ms)
+✔ zero-intent generator trial uses natural learned tactics and resumes deterministically (116.9791ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (178.7649ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (398.1558ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (759.3269ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (1898.2082ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (612.5169ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (209.0408ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (307.2009ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (257.6916ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (2294.5548ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (343.4623ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (727.6088ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (744.2153ms)
+✔ river: complete battle, reserves, save recovery and settlement (712.3008ms)
+✔ breach: complete battle, reserves, save recovery and settlement (288.7881ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (345.3421ms)
+✔ field: complete battle, reserves, save recovery and settlement (594.7853ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (375.5679ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (426.842ms)
+✔ siege: complete battle, reserves, save recovery and settlement (577.2211ms)
+✔ defense: complete battle, reserves, save recovery and settlement (731.1881ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (558.749ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (58.2223ms)
+✔ sieges add an independent gate and shields only to defending starters (74.2664ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (12.3751ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (37.3509ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (53.3213ms)
+✔ fixture and seed validation rejects malformed test state (15.6413ms)
+✔ three heroes all reach melee contact with Lu Bu at the same time (74.8579ms)
+✔ tactical-control-lv: generated roster uses natural learned tactics across fixed seeds (522.8354ms)
+✔ tactical-control-zhang: generated roster uses natural learned tactics across fixed seeds (557.2473ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13804.5476

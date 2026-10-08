@@ -137,6 +137,10 @@
 .arena-page .battle-unit .unit-map-caption{--army-color:#77dcc4;top:8%;width:52px;max-width:none;padding:0;gap:0;background:transparent;filter:drop-shadow(0 1px 2px #071610);align-items:center}
 .arena-page .battle-unit.side-1 .unit-map-caption{--army-color:#f39a83;background:transparent}
 .arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{top:8%;width:52px}
+.unit-equipment-model{position:absolute;left:50%;top:-24%;transform:translateX(-50%);width:145%;height:100%;pointer-events:none;overflow:visible;color:#8be0c5;filter:drop-shadow(0 2px 2px #071610)}
+.side-1 .unit-equipment-model{color:#f1a18a;transform:translateX(-50%) scaleX(-1)}.equipment-shadow{fill:#05151066}.equipment-frame{fill:#9b754b;stroke:#e9cf93;stroke-width:2;stroke-linejoin:round}.equipment-banner{fill:currentColor;stroke:currentColor;stroke-width:2}
+.battle-unit.has-unit-art>.unit-equipment-model{visibility:hidden}.arena-page .battle-unit.equipment-deployed .unit-map-caption{top:72%}
+.battle-unit.equipment-deploying .unit-equipment-model{opacity:.65}
 .map-portrait-row{position:relative;display:block;width:34px;height:34px}
 .map-portrait-ring{display:block;padding:2px;border-radius:50%;background:conic-gradient(var(--army-color) var(--troop-health),#292e32 var(--troop-health));box-shadow:0 0 0 1px #13191b}
 .unit-map-caption .portrait.small{display:block;position:relative;width:30px;height:30px;border-radius:50%;border:0;margin:0;overflow:hidden;background:#303b3b}

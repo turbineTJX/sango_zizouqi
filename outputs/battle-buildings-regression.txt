@@ -1,0 +1,50 @@
+
+> sango-sovereign@0.3.0 test:battle-buildings
+> node --test tests/battle-buildings.test.mjs tests/building-durability.test.mjs tests/city-technology.test.mjs tests/city-scene.test.mjs
+
+✔ new facilities require local research and the common automatic construction action (105.2868ms)
+✔ each new facility is built with paid daily work, saved durability and visible original artwork (2440.7824ms)
+✔ arrow towers shoot within range, grow with completed local levels and use saved intervals on either side (44.6848ms)
+✔ arrow towers respect visibility, range, shields and actual invulnerability (13.3256ms)
+✔ music stages grant capped fixed intent only to nearby present allies on either side (11.168ms)
+✔ overlapping music and medical support use the strongest local facility once (6.8421ms)
+✔ medical camps heal only real battle wounded, honor plague and stop at that budget (16.4198ms)
+✔ construction, destroyed buildings, stasis and withdrawing owners cannot provide support (21.3973ms)
+✔ building action history survives repairs and save validation rejects forged state (11.1278ms)
+✔ real sieges load and save the new original-site facilities and continue deterministically (242.8202ms)
+✔ all current facilities and gates save actual current and maximum durability (283.9998ms)
+✔ new construction advances actual durability daily and inspection cannot advance it (215.8087ms)
+✔ damaged facilities use the same construction progress, pay less and retain their level (432.4569ms)
+✔ interruption preserves paid work, durability and the saved construction site (114.5751ms)
+✔ expansion raises maximum durability without instantly supplying the new durability (65.2623ms)
+✔ damage to a half-built facility extends remaining work without resetting or charging again (166.8037ms)
+✔ battle repairs that finish construction activate the facility and settle its original job once (134.285ms)
+✔ a destroyed watchtower stops its sight until genuine military repairs restore durability (335.8042ms)
+✔ destroyed facilities cease production and become operational after actual repair (46.8796ms)
+✔ construction and gate durability cannot be forged in saves (124.1536ms)
+✔ battle buildings preserve real damage and map repairs back to the same physical facilities (30.5966ms)
+✔ actual siege loads damaged gate and facilities and returns gate damage after retreat (186.653ms)
+✔ a real domestic project appears as construction, completes as an expanded city, and survives saving (378.2212ms)
+✔ interrupted construction keeps its real progress and never looks completed (49.369ms)
+✔ all twelve facilities reflect real levels, stocks, gate damage and active income effects without modifying state (42.0543ms)
+✔ national camera reaches building scale and retains it on rerender, while every city has a live scene source (126.3334ms)
+✔ all cities have fixed partial technology trees; buildings cannot create new affinities (69.6489ms)
+✔ military research uses governance and different basic facilities, never barracks level (33.705ms)
+✔ research spends city funds once, progresses on real days and reloads deterministically (324.3274ms)
+✔ cancelling and resuming retains paid research and accepts changed dynamic conditions (121.2401ms)
+✔ one city research project is exclusive and a second scientist can cooperate (66.5901ms)
+✔ tech income bonuses add to 25 percent and increase the actual shared production allowance (36.0872ms)
+✔ technology increases completed real resource operations without a second harvest payout (1041.9576ms)
+✔ an actual siege pauses daily research without losing the project or its payment (255.7614ms)
+✔ military and construction discounts affect paid city actions and preview calculations (34.9949ms)
+✔ umbrella gear technologies unlock their three local forms, with a real water condition (20.5853ms)
+✔ watchtowers are persistent sight sources and transfer with the city, without revealing remote points (7.3249ms)
+✔ save validation rejects foreign-city technology and impossible research progress (210.7154ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3181.2121

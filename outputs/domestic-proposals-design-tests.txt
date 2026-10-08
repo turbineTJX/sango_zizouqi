@@ -1,0 +1,17 @@
+
+> sango-sovereign@0.3.0 test:design
+> node --test tests/design-tables.test.mjs tests/design-strategy.test.mjs
+
+✔ strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values (321.2571ms)
+✔ edited action/building/road/movement records drive real autonomous work, routing and saves (3893.9912ms)
+✔ design validation rejects invalid references, unsupported effects and misspelled fields (879.7035ms)
+✔ editing design records drives real unit creation, learning, army attributes, commands and cities (417.5525ms)
+✔ generated overview tables stay synchronized with the authoritative records (373.135ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4355.7461

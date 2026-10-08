@@ -9,7 +9,7 @@ export const statusOn=(b,u,key)=>(u.statuses?.[key]?.until||0)>b.tick&&!bondBloc
 export const statusValue=(u,key,field)=>u.statuses?.[key]?.[field]??STATUS_DEFINITIONS[key]?.[field];
 export const statusNotice=(b,u,text)=>appendBattleLog(b,u.name+' · '+text);
 export function detected(b,u,side=1-u.side){
- return (b.sides[side]?.units||[]).some(v=>v.status==='active'&&v.hp>0&&!v.withdrawing&&!b.sides[side]?.retreat&&statusOn(b,v,'insight')&&!['confuse','stasis','stealth'].some(k=>statusOn(b,v,k))&&hexDistance(u,v)<=statusValue(v,'insight','range'));
+ return (b.sides[side]?.units||[]).some(v=>v.status==='active'&&v.hp>0&&!v.withdrawing&&!b.sides[side]?.retreat&&statusOn(b,v,'insight')&&!['stun','confuse','stasis','stealth'].some(k=>statusOn(b,v,k))&&hexDistance(u,v)<=statusValue(v,'insight','range'));
 }
 export const hidden=(b,u)=>statusOn(b,u,'stealth')&&!detected(b,u);
 export function breakStealth(b,u,reason){

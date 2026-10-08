@@ -17,7 +17,7 @@ export function generateBattle(input,{id='custom-battle',name='自由对战',off
     const entries=reinforcement?.team||draft[key],roles=reinforcement?.roles||customRoles(draft,key);
     army.units=entries.map((entry,i)=>{
       const u=makeOfficer(entry.id,entry.troops,i,entry.level,draft.seed);
-      Object.assign(u,{type:entry.type,equipment:structuredClone(entry.equipment),retreatAt:entry.retreatAt??null,formation:entry.formation||(['spear','halberd'].includes(entry.type)?'front':entry.type==='cavalry'?'left':'back'),first:entry.first??i<customFrontlineCapacity({[key]:entries,[key+'Roles']:roles},key)});
+      Object.assign(u,{type:entry.type,...(entry.treasureId?{treasureId:entry.treasureId}:{}),equipment:structuredClone(entry.equipment),retreatAt:entry.retreatAt??null,formation:entry.formation||(['spear','halberd'].includes(entry.type)?'front':entry.type==='cavalry'?'left':'back'),first:entry.first??i<customFrontlineCapacity({[key]:entries,[key+'Roles']:roles},key)});
       if(reinforcement)Object.assign(u,{reinforcementIndex:index,arrivalTick:reinforcement.tick??null,arrivalConfirmed:reinforcement.tick===0,wave:draft.waves.length+index+1,...(reinforcement.arrivalCondition?{arrivalCondition:structuredClone(reinforcement.arrivalCondition)}:{})});
       return initializeTacticLearning(u,draft.seed);
     });

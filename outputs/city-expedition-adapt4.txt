@@ -1,0 +1,87 @@
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (11.4308ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (156.9781ms)
+✔ random results vary across seeds while identical seed is reproducible (117.3392ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (4.4259ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (79.3602ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (44.1051ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (106.4143ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (41.8523ms)
+✔ research unlocks a local troop only after a successful trial (50.5618ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (101.3401ms)
+✔ healing conserves personnel and does not require local troop technology (46.227ms)
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (25.509ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (161.1814ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (92.1355ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (65.5496ms)
+✔ actual siege pauses construction without charging again or completing in the background (125.9411ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (87.9484ms)
+✔ advantageous attack retains a real garrison and conserves all men and carried grain (88.3935ms)
+✔ AI avoids a superior garrison and strong walls rather than charging the nearest city (28.7666ms)
+✔ a merged city army splits a legal expedition instead of stalling above ten units (29.7519ms)
+✔ a hostile column approaching home takes priority over expansion (24.7517ms)
+✔ reserve columns reinforce threatened friendly cities through friendly roads (28.2895ms)
+✔ columns sharing an AI route consume independent paths before and after JSON reload (31.1837ms)
+✔ a hungry army reverses its actual road progress without teleporting home (23.2125ms)
+✔ a starving merged army splits its retreat into legal marching columns (23.4626ms)
+✔ a merged wounded roster sends only its live companies as reinforcements (21.2353ms)
+✔ insufficient food or morale causes recovery, and recruitment spends finite local resources once (24.0546ms)
+✔ both four-faction scenarios use real marching and combat, and AI decisions survive reload (7100.5915ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (39.7325ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (296.2724ms)
+✔ armies move visibly along road interiors before arriving (35.234ms)
+✔ head-on marching armies meet on the road without passing through each other (38.5407ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (146.8658ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (311.1019ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (590.5604ms)
+✔ multiple battles and their snapshots share the same global day (104.991ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (62.6066ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (604.0963ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (112.1367ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (144.3676ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (19.806ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (28.5939ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.5612ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (20.202ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (2.221ms)
+✔ five days without food disband armies and preserve officers for their return (27.7089ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (111.806ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (379.1876ms)
+✔ city capture settles once and can be saved immediately within a day (118.2288ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (69.2751ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 49
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7628.9704
+
+✖ failing tests:
+
+test at tests\domestic.test.mjs:62:1
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (25.509ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   actionId: 1,
+  +   amount: 12,
+  +   until: 100
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:66:295)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { amount: 12, until: 100, actionId: 1 },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

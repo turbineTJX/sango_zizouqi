@@ -1,0 +1,102 @@
+✔ civic traits remain fixed at all levels after changing troops; diplomatic reserves do not claim effects (4.7725ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (11.8995ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (2.7499ms)
+✔ fame adds city manpower rather than free troops (2.5524ms)
+✔ governors gain merit at actual turn settlement and loaded campaigns remain deterministic (671.2952ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (28.3744ms)
+✔ weapon general damage requires correct troop, fixed trait, superior force and a physical tactic (0.5607ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (334.7277ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (12.1721ms)
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (8.7868ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (185.5422ms)
+✔ random results vary across seeds while identical seed is reproducible (148.7588ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (4.1201ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (95.1955ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (57.7991ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (128.4168ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (46.2451ms)
+✔ research unlocks a local troop only after a successful trial (60.1639ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (103.5916ms)
+✔ healing conserves personnel and does not require local troop technology (43.9095ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (100.2399ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (171.7491ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (92.969ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (67.7311ms)
+✔ actual siege pauses construction without charging again or completing in the background (123.5704ms)
+✔ a defeated city army retreats in columns of at most ten without duplicating personnel (65.1846ms)
+✔ fixed identity traits are available at every level and never equipped (12.5453ms)
+✔ fixed martial and movement traits modify only intended attributes (0.7983ms)
+✔ expanded troop training modifies the real panel and is removed immediately after troop changes (1.0867ms)
+✔ army command aura affects nearby other active allies, does not stack and vanishes on departure (16.3749ms)
+✔ spear formation, stationary defense and movement resets respect exact conditions (6.3893ms)
+✔ desperate uses strict 40% boundary and defiant scales continuously, caps and falls after healing (5.0052ms)
+✔ bow and swift deactivate immediately on adjacency, cavalry specialization survives troop changes (3.4398ms)
+✔ guard and shelter reduce only eligible damage; fortress and adapt also protect against damage over time (2.9446ms)
+✔ isolated and joint evaluate neighbors on the correct side (6.7104ms)
+✔ foresight enhances actual intellect damage at its strict intent boundary (23.4733ms)
+✔ crossbow streak counts basic attacks, resets on target or troop changes, and persists through tactics (4.5394ms)
+✔ fractional attack intervals produce more actual attacks instead of rounding away attack speed (19.0117ms)
+✔ multi-hit tactics do not charge the caster and grant surviving-hit intent once (9.2464ms)
+✔ suppress and calm modify intent loss without changing cooldowns (0.3137ms)
+✔ support passives add, exclude self support bonuses, and enforce rescue strict half-health condition (0.217ms)
+✔ rescue increases actual shield, rally and relay effects, and leaves army stratagems unchanged (16.7557ms)
+✔ cooperation raises a real combo to 30%, keeps the window and duration bonus, and saves correctly (13.7248ms)
+✔ reserve entry grants preparedness and adaptation once, expires at 15 steps, and is not triggered by deployment (10.9708ms)
+✔ fortress reduces real burning and army firestorm damage before shields without creating intent (6.2135ms)
+✔ merit advances learned tactics and capacity without unlocking or rerolling traits (1.4752ms)
+✖ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (6.2763ms)
+✔ max-level full battles and fractional cooldown saves resume deterministically (738.2639ms)
+✔ invalid levels, merit, counters, durations and fractional cooldowns are rejected; missing required state is rejected (54.7884ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (42.5591ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (447.0686ms)
+✔ armies move visibly along road interiors before arriving (31.2739ms)
+✔ head-on marching armies meet on the road without passing through each other (47.1583ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (219.2985ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (377.6236ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (519.8622ms)
+✔ multiple battles and their snapshots share the same global day (133.4541ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (85.4553ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (899.5775ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (158.1592ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (215.7397ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (28.8637ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (30.9605ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.5789ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (19.4617ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (2.2268ms)
+✔ five days without food disband armies and preserve officers for their return (29.2892ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (153.1905ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (447.8738ms)
+✔ city capture settles once and can be saved immediately within a day (170.5017ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (100.4577ms)
+ℹ tests 71
+ℹ suites 0
+ℹ pass 70
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4370.4867
+
+✖ failing tests:
+
+test at tests\passives.test.mjs:164:1
+✖ settlement rewards actual participation on both sides once, excludes idle reserves and no-combat retreats (6.2763ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/passives.test.mjs:166:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

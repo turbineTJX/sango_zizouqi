@@ -1,0 +1,23 @@
+✔ catalogue is bounded and seven new worlds have one physical record per treasure (2558.3661ms)
+✔ fixed ordinary traits preserve assignments and have separate eligibility (0.4421ms)
+✔ grant, single equipment slot and collection recall obey resident vs deployed officers (107.4796ms)
+✔ cross-city treasure uses a visible real courier, deterministic transit and arrival storage fallback (263.1636ms)
+✔ treasure bond never grants an unlearned level or bypasses the individual and holder caps (2.0265ms)
+✔ first real entry grants each status once; preview, reserves and save reload cannot refresh it (353.88ms)
+✔ stronger ordinary status expires independently and withdrawal preserves other sources (2.9565ms)
+✔ regrowth uses only real wounds and a saved total budget; treasure shield is independent (33.5131ms)
+✔ custom uniqueness spans both sides and reinforcements; malformed entry sources are rejected (66.8921ms)
+✔ domestic discovery commits the one turn roll and shared 30 day interval without rerolls (10.5336ms)
+✔ plunder requires real damage to the selected original holder and never creates an item (13.7089ms)
+✔ captivity seals original collections, release returns them, and death hides the same IDs (203.3301ms)
+✔ interception loses the original treasure at the route instead of creating a battle drop (64.9391ms)
+✔ Eye applies only to the actual completed eligible primary actor and records its source (10.6295ms)
+✔ real normal-mode encounter settles physical treasures once and resumes from the same snapshot (1125.0876ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5247.5907

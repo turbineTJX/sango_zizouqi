@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {battleDay,battleDays,battleTimeText,battleSteps} from '../player-time.mjs';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {campaignBattleBar} from '../strategic-view.mjs';
 test('player dates distinguish current day and completed duration without exposing steps',()=>{
  assert.equal(battleDay(48),3);assert.equal(battleDays(48),2);assert.equal(battleSteps(15),360);

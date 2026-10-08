@@ -1,3 +1,5 @@
+import {validateTreasureDesigns} from './treasure-design-validation.mjs';
+import {TREASURE_DESIGNS,TREASURE_RULES,EYE_ACTIONS} from './data/design/treasures.mjs';
 import {WORK_MODIFIERS} from './work-traits.mjs';
 import {STRATEGIC_TRAIT_EFFECTS} from './strategic-traits.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
@@ -7,6 +9,7 @@ import {ROAD_NETWORK_DESIGN} from './data/design/road-network.mjs';
 import {STATUS_DEFINITIONS,REMEDIES} from './data/design/battle-statuses.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {MERIT_RULES} from './data/design/progression.mjs';
+import {DOMESTIC_INCIDENT_RULES,DOMESTIC_INCIDENTS} from './data/design/domestic-incidents.mjs';
 import {validateStrategyDesigns} from './design-strategy-validation.mjs';
 import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
 import {DOMESTIC_ACTION_DESIGNS,DOMESTIC_DIRECTIONS,DOMESTIC_DIRECTION_STATS} from './data/design/domestic-actions.mjs';
@@ -16,6 +19,7 @@ import {NATIONAL_MAP as MAP_SOURCE} from './data/national-map.mjs';
 import {TRAIT_DESIGNS} from './data/design/traits.mjs';
 import {TACTIC_DESIGNS} from './data/design/tactics.mjs';
 import {STRATAGEM_DESIGNS} from './data/design/stratagems.mjs';
+import {STRATAGEM_ATTRIBUTE_RULES} from './data/design/stratagem-attributes.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
 import {OFFICER_DESIGNS} from './data/design/officers.mjs';
 import {CITY_DESIGNS,DEMO_CITY_DESIGNS} from './data/design/cities.mjs';
@@ -27,9 +31,12 @@ import TECHNOLOGIES from './data/design/technologies.mjs';
 import {CITY_TECHNOLOGY_PROFILES} from './data/design/city-technologies.mjs';
 import {validateTechnologyDesigns} from './technology-design-validation.mjs';
 import {DIPLOMACY_RULES,DIPLOMACY_AI,DIPLOMACY_WORK,DIPLOMACY_DIRECTIONS,DIPLOMACY_GOALS,DIPLOMACY_ACTIONS} from './data/design/diplomacy-rules.mjs';
-export const DESIGN_TABLES={diplomacy:{rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS};
+export const DESIGN_TABLES={treasures:TREASURE_DESIGNS,treasureRules:TREASURE_RULES,domesticIncidents:{rules:DOMESTIC_INCIDENT_RULES,events:DOMESTIC_INCIDENTS},diplomacy:{rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,stratagemAttributes:STRATAGEM_ATTRIBUTE_RULES,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS};
 export function validateDesignTables(tables=DESIGN_TABLES){
  const errors=[],check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},exists=(table,id)=>Object.hasOwn(table,id),numeric=(n,min=0,max=Infinity)=>typeof n==='number'&&Number.isFinite(n)&&n>=min&&n<=max;
+ const attr=tables.stratagemAttributes;
+ check(attr&&Object.keys(attr).sort().join(',')==='doublingPoints,max,min,reference'&&numeric(attr.reference,1,100)&&numeric(attr.doublingPoints,1,100)&&numeric(attr.min,.1,1)&&numeric(attr.max,1,2),'stratagemAttributes','军略属性折算参数无效');
+ validateTreasureDesigns(tables,check);
  const diplomacy=tables.diplomacy;
  check(diplomacy&&Object.keys(diplomacy).sort().join(',')==='actions,ai,directions,goals,rules,work','diplomacy','外交设计字段未接入');
  if(diplomacy){for(const group of ['rules','ai']){const source=group==='rules'?DIPLOMACY_RULES:DIPLOMACY_AI;check(Object.keys(diplomacy[group]).sort().join(',')===Object.keys(source).sort().join(','),'diplomacy.'+group,'未接入字段');for(const [key,n]of Object.entries(diplomacy[group]))check(numeric(n,0),'diplomacy.'+group+'.'+key,'参数须为非负有限数');}
@@ -150,25 +157,37 @@ export function validateDesignTables(tables=DESIGN_TABLES){
  }
  for(const [id,s] of Object.entries(tables.stratagems)){
   const r=s.scope,path='stratagems.'+id+'.scope';
+  check(typeof s.ai==='string'&&DESIGN_EFFECTS.stratagems.includes(s.ai)&&s.ai===s.effect,'stratagems.'+id+'.ai','每项军略须明确配置已实现的简单AI触发类型');
+  const scaledEffect=['shield','heal','firestorm','tacticRefresh','catastrophe'].includes(s.effect)?'strength':s.effect==='forceReserve'?'count':s.effect==='cleanse'?'resolve':s.disciplineDuration?'disciplineDuration':'duration';
+  check(s.weights&&Object.keys(s.weights).sort().join(',')==='intellect,leadership'&&Object.values(s.weights).every(w=>numeric(w,0,1))&&Math.abs(s.weights.leadership+s.weights.intellect-1)<1e-9,'stratagems.'+id+'.weights','军略须按施放者统率与智力折算');
+  check(s.scaling===scaledEffect,'stratagems.'+id+'.scaling','军略属性须改变实际主要效果');
   check(['support','offense','control'].includes(s.group),'stratagems.'+id+'.group','军略表现组无效');
-  check(r&&['army','reserve','circle','rectangle','unit'].includes(r.shape),path,'必须明确施放范围');
+  check(r&&['army','reserve','battlefield','circle','rectangle','unit'].includes(r.shape),path,'必须明确施放范围');
   if(r?.shape==='circle')check(numeric(r.radius,.1,10)&&Object.keys(r).every(k=>['shape','radius'].includes(k)),path,'圆形半径或字段无效');
   if(r?.shape==='rectangle')check(numeric(r.width,.1,14)&&numeric(r.height,.1,8)&&Object.keys(r).every(k=>['shape','width','height'].includes(k)),path,'矩形尺寸或字段无效');
-  if(['circle','rectangle'].includes(r?.shape))check(['heal','demoralize','firestorm','eightFormation'].includes(s.effect||id),path,'该效果尚未支持选区');
+  if(['circle','rectangle'].includes(r?.shape))check(['shield','heal','cleanse','invincible','ambush','stun','magicImmunity','rapidAdvance','firestorm','eightFormation'].includes(s.effect||id),path,'该效果尚未支持选区');
   if(r?.shape==='unit')check(s.effect==='rapidAdvance'&&s.side===0&&Object.keys(r).length===1,path,'单队军略无效');
-  if(s.effect==='magicImmunity'){const d=s.disciplineDuration;check(s.side===0&&r?.shape==='army'&&d&&Object.keys(d).length===3&&Number.isInteger(d.base)&&d.base>0&&numeric(d.per,1)&&Number.isInteger(d.max)&&d.max>=d.base,'stratagems.'+id,'军纪时长参数无效');}
+  if(s.effect==='magicImmunity'){const d=s.disciplineDuration;check(s.side===0&&(r?.shape==='circle'&&!d&&s.duration>0||r?.shape==='army'&&d&&Object.keys(d).length===3&&Number.isInteger(d.base)&&d.base>0&&numeric(d.per,1)&&Number.isInteger(d.max)&&d.max>=d.base),'stratagems.'+id,'军纪时长参数无效');}
   else check(s.disciplineDuration===undefined,'stratagems.'+id,'未接入军纪时长');
   if(s.maxUses!==undefined)check(Number.isInteger(s.maxUses)&&s.maxUses>0,'stratagems.'+id+'.maxUses','每场次数无效');
   if(s.effect==='eightFormation'){
-   const z=s.zone;check(s.pool==='exclusive'&&s.side===1&&s.maxUses===1&&r?.shape==='circle'&&Number.isInteger(s.duration)&&s.duration>0&&!s.field,'stratagems.'+id,'八阵范围或限次无效');
+   const z=s.zone;check(s.side===1&&s.maxUses===1&&r?.shape==='circle'&&Number.isInteger(s.duration)&&s.duration>0&&!s.field,'stratagems.'+id,'八阵范围或限次无效');
    check(z&&Object.keys(z).every(k=>['statusSteps','chanceScale','minChance','maxChance','statuses'].includes(k))&&Number.isInteger(z.statusSteps)&&z.statusSteps>0&&numeric(z.chanceScale,1)&&numeric(z.minChance,0,1)&&numeric(z.maxChance,z.minChance,1)&&Array.isArray(z.statuses)&&z.statuses.length>0&&new Set(z.statuses).size===z.statuses.length&&z.statuses.every(k=>['confuse','seal','disrupted','slow','weaken','armorBreak'].includes(k)),'stratagems.'+id+'.zone','八阵异常与概率参数无效');
   }else check(s.zone===undefined,'stratagems.'+id+'.zone','该效果未接入持续区域');
   check(DESIGN_EFFECTS.stratagems.includes(s.effect||id),'stratagems.'+id+'.effect','引擎尚未支持此效果');check(numeric(s.duration),'stratagems.'+id+'.duration','持续时间无效');
-  check(['ordinary','exclusive'].includes(s.pool),'stratagems.'+id+'.pool','军略池无效');if(s.pool==='exclusive')check(exists(tables.officers,s.owner),'stratagems.'+id+'.owner','专属持有者不存在');
+  const maxDuration=scaledEffect==='duration'?Math.round(s.duration*(attr?.max||2)):scaledEffect==='disciplineDuration'?Math.round(s.disciplineDuration.max*(attr?.max||2)):scaledEffect==='resolve'?Math.round(s.resolve*(attr?.max||2)):s.duration;
+  check(Number.isInteger(s.cooldown)&&s.cooldown>=32&&s.cooldown>maxDuration,'stratagems.'+id+'.cooldown','军略须有独立长冷却');
+  check(Array.isArray(s.roster)&&s.roster.length>0&&new Set(s.roster).size===s.roster.length&&s.roster.every(id=>exists(tables.officers,id)),'stratagems.'+id+'.roster','军略须有明确人物名单');
+  check([0,1,2].includes(s.side),'stratagems.'+id+'.side','军略目标阵营无效');
+  if(s.effect==='forceReserve')check(r?.shape==='reserve'&&s.side===0&&s.baseCount===2&&s.maxUses===1&&s.duration===0,'stratagems.'+id,'奇兵出场规则无效');
+  if(s.effect==='tacticRefresh')check(r?.shape==='army'&&s.side===0&&numeric(s.baseStrength,.1,.5)&&s.maxUses===1&&s.duration===0,'stratagems.'+id,'战法整备规则无效');
+  if(s.effect==='catastrophe')check(r?.shape==='battlefield'&&s.side===2&&s.maxUses===1&&s.duration===0&&s.strikes===8&&s.strikeRadius===2&&s.randomDamage?.min===.75&&s.randomDamage?.max===1.25&&numeric(s.baseStrength,.1,.3),'stratagems.'+id,'雷火范围与随机伤害规则无效');
+  if(s.effect!=='catastrophe')check(s.side!==2&&r?.shape!=='battlefield'&&s.strikes===undefined&&s.strikeRadius===undefined&&s.randomDamage===undefined,'stratagems.'+id,'未接入雷火参数');
+  if(s.effect!=='forceReserve')check(s.baseCount===undefined,'stratagems.'+id,'未接入额外出场队数');
  }
  for(const [id,t] of Object.entries(tables.traits)){
   if(t.work){const w=t.work,path='traits.'+id+'.work';check(Array.isArray(w.actions)&&w.actions.length>0&&new Set(w.actions).size===w.actions.length&&w.actions.every(k=>tables.domesticActions[k]),path,'未知或重复内政命令');for(const key of Object.keys(w))check(['actions','targets',...WORK_MODIFIERS].includes(key),path,'未接入命令修正 '+key);for(const key of WORK_MODIFIERS)if(w[key]!==undefined)check(numeric(w[key],0,key==='durationDays'?60:key==='secondaryTargets'?2:key==='setbackDays'?5:key==='cooperationMultiplier'?2:1),path,'修正参数越界 '+key);if(w.targets)check(Array.isArray(w.targets)&&w.targets.every(k=>tables.technologies.records.some(r=>r.id===k)),path,'未知研究科技');for(const key of w.actions||[]){const a=tables.domesticActions[key];if(a)check((a.direction||tables.buildings[a.value]?.direction)===t.direction&&t.kinds.includes(a.kind),path,'命令方向或种类错配');}}
-  if(t.strategic){const v=t.strategic;check(STRATEGIC_TRAIT_EFFECTS.includes(v.effect),'traits.'+id+'.strategic','战略机制未接入');check(Object.keys(v).every(k=>['effect','days','count','relation','requiredTroops','bonus','capacity','speed','morale','minimum','recovery'].includes(k)),'traits.'+id+'.strategic','战略机制字段未接入');for(const [k,n]of Object.entries(v))if(k!=='effect')check(numeric(n,0,10000),'traits.'+id+'.strategic.'+k,'战略机制参数无效');if(v.effect==='farmTroops')check(numeric(v.requiredTroops,1)&&numeric(v.bonus,0,.25),'traits.'+id,'军屯参数无效');if(v.effect==='referral')check(Number.isInteger(v.count)&&v.count>=1&&v.count<=2&&numeric(v.relation,60,100),'traits.'+id,'举荐参数无效');if(v.effect==='forcedMarch')check(numeric(v.speed,1,2)&&numeric(v.minimum,1,100)&&numeric(v.morale,1,20)&&Number.isInteger(v.recovery)&&v.recovery>0&&v.recovery<=10,'traits.'+id,'急行参数无效');if(v.effect==='lightMarch')check(numeric(v.capacity,.1,1)&&numeric(v.speed,1,2),'traits.'+id,'轻装参数无效');}
+  if(t.strategic){const v=t.strategic;check(STRATEGIC_TRAIT_EFFECTS.includes(v.effect),'traits.'+id+'.strategic','战略机制未接入');check(Object.keys(v).every(k=>['effect','days','count','relation','requiredTroops','bonus','capacity','speed','morale','minimum','recovery','chance','damage','actions'].includes(k)),'traits.'+id+'.strategic','战略机制字段未接入');for(const [k,n]of Object.entries(v))if(!['effect','actions'].includes(k))check(numeric(n,0,10000),'traits.'+id+'.strategic.'+k,'战略机制参数无效');if(v.effect==='treasureDiscovery')check(v.chance===TREASURE_RULES.eyeChance&&JSON.stringify(v.actions)===JSON.stringify(EYE_ACTIONS),'traits.'+id,'眼力命令和概率无效');if(v.effect==='treasureCapture')check(v.chance===TREASURE_RULES.plunderChance&&v.damage===TREASURE_RULES.plunderDamage,'traits.'+id,'夺宝概率和贡献门槛无效');if(v.effect==='farmTroops')check(numeric(v.requiredTroops,1)&&numeric(v.bonus,0,.25),'traits.'+id,'军屯参数无效');if(v.effect==='referral')check(Number.isInteger(v.count)&&v.count>=1&&v.count<=2&&numeric(v.relation,60,100),'traits.'+id,'举荐参数无效');if(v.effect==='forcedMarch')check(numeric(v.speed,1,2)&&numeric(v.minimum,1,100)&&numeric(v.morale,1,20)&&Number.isInteger(v.recovery)&&v.recovery>0&&v.recovery<=10,'traits.'+id,'急行参数无效');if(v.effect==='lightMarch')check(numeric(v.capacity,.1,1)&&numeric(v.speed,1,2),'traits.'+id,'轻装参数无效');}
   check(['普通','专属'].includes(t.tier),'traits.'+id+'.tier','独立特性只分普通、专属');
   check(!['stats','effects','chance','quantity','recruitDiscount','politicsStats'].some(k=>Object.hasOwn(t,k))&&(t.work||t.clinicIndependent===true||STRATEGIC_TRAIT_EFFECTS.includes(t.strategic?.effect)||t.mechanics?.some(m=>m.effect!=='commandRate'&&m.effect!=='armySpeed')),'traits.'+id,'独立特性须有非纯数值机制');
   if(t.aura){check(id==='formationSupport'&&Object.keys(t.aura).every(k=>['interval','range','healFraction','intent','basePower','politicsScale'].includes(k)),'traits.'+id+'.aura','未实现的光环参数');for(const key of ['interval','range','healFraction','intent','basePower','politicsScale'])check(numeric(t.aura[key],key==='interval'?1:0),'traits.'+id+'.aura.'+key,'光环参数无效');}
@@ -205,8 +224,8 @@ export function validateDesignTables(tables=DESIGN_TABLES){
  for(const [id,a] of Object.entries(tables.assignments)){
   check(exists(tables.officers,id),'assignments.'+id,'武将不存在');ids(a.traits,tables.traits,'assignments.'+id+'.traits');ids(a.stratagems,tables.stratagems,'assignments.'+id+'.stratagems');
   if(a.specialTactic)check(tables.tactics[a.specialTactic]?.special,'assignments.'+id+'.specialTactic','须引用专属战法');
-  const u=tables.officers[id];if(u){check(a.stratagems.length<=(u.intellect<70?0:id==='person-290'?3:2),'assignments.'+id+'.stratagems','超过当前军略资格或名额');}
-  for(const key of a.stratagems)if(tables.stratagems[key]?.pool==='exclusive')check(tables.stratagems[key].owner===id,'assignments.'+id+'.stratagems','专属军略归属不符');
+  const u=tables.officers[id];if(u){check(a.stratagems.length<=(id==='person-290'?2:1),'assignments.'+id+'.stratagems','超过当前军略资格或名额');}
+  for(const key of a.stratagems)if(tables.stratagems[key])check(tables.stratagems[key].roster?.includes(id),'assignments.'+id+'.stratagems','不在军略指定人物名单');
  }
  for(const name of ['troopPools','intellectPools']){
   for(const type of Object.keys(tables.troops))ids(tables[name][type],tables.tactics,name+'.'+type);

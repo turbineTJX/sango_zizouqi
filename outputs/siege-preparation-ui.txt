@@ -1,0 +1,1 @@
+Siege preparation UI passed: idle selection, reinforcement, cancel, commit, valid pending battle save.

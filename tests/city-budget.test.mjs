@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,settleCityEconomy,changeCityTroop,equipCityUnit,recruitLocalUnits,transferOfficer,validateCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,settleCityEconomy,changeCityTroop,equipCityUnit,recruitLocalUnits,transferOfficer,validateCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {cityBudget,updateCityBudgetAlerts,setCityBudget,citySoldierCounts,citySoldierLabel} from '../city-budget.mjs';
 import {addCityGold,syncResourceTotals,factionGold} from '../city-resources.mjs';
 import {advancePersonnel,isTransport} from '../personnel-movement.mjs';

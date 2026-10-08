@@ -1,0 +1,38 @@
+✔ income uses the authoritative economy and applies equally to player and AI ownership (81.5773ms)
+✔ AI replenishment keeps food for existing soldiers and the next turn of new recruits (38.5679ms)
+✔ autonomous recruitment rechecks rations at completion after grain is depleted (14.8887ms)
+✔ low food excludes new autonomous recruitment even with men and money (5.0895ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (84.2648ms)
+✔ superior defenses produce no attack plan or resource debit (24.8333ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (20.7936ms)
+✔ a serious incoming attack retains the home defense instead of expanding (23.296ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (37.5894ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (19.5778ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (32.9406ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (44.2186ms)
+✔ local plan reservation lets current work finish and blocks starting another task (24.099ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (25.083ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (22.5247ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (21.1279ms)
+✔ AI save rejects duplicated commitments and old planner versions (29.695ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (31.3285ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (29.572ms)
+✔ waiting transport earmarks cargo without a debit and replenishment preserves plan food (25.9854ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (23.9037ms)
+✔ cancelling an assault before its first movement actually clears the outgoing route (19.7277ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (20.4394ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (18.5734ms)
+✔ departure checks real presence before considering work or interruption history (19.4612ms)
+✔ ordinary ready offensives interrupt lengthy work through the real command and record the loss (25.5222ms)
+✔ recent real interruption protects the next task across reload except when rescue would be missed (27.4787ms)
+✔ an expensive real construction near completion is protected even with more than two days left (22.6711ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (5625.1664ms)
+✔ offensive composition leaves busy officers working when idle troops suffice (20.6156ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6550.8528

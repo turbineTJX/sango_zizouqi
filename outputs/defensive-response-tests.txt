@@ -1,0 +1,95 @@
+✔ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (332.2758ms)
+✖ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (12.4288ms)
+✔ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (2.6246ms)
+✔ 单队休养以实际伤兵触发，救疗按固定顺序优先 (7.6374ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (75.5971ms)
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (33.979ms)
+✔ only the current rule version loads, and intent is validated without normalization (37.2101ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (13.5975ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (7.7081ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (28.0113ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (157.0061ms)
+✔ siege defenders hold their rear line before enemies approach (182.082ms)
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (47.5223ms)
+✔ council changes strategy and starters, respects arrivals, locks after battle and resumes deterministically (92.2924ms)
+✔ reserve bench supports swaps, ordering, overflow validation and saved deployment (9.502ms)
+✔ battle intent is selected before combat and stays locked at tick zero and after save recovery (173.0358ms)
+✔ defenders cannot choose siege and invalid intent does not alter deployment (11.3929ms)
+✔ 防守方 0 接近界外射手反击并确定性续战 (52.9433ms)
+✔ 防守方 1 接近界外射手反击并确定性续战 (26.8509ms)
+✔ engaged melee shares its attack with every adjacent troop despite explicit focus, on both sides (72.892ms)
+✔ nearby front takes priority before contact; fast movement stops on contact (11.6407ms)
+✔ rush cannot escape an engagement or charge through a blocking line (12.5045ms)
+✔ an open flank allows a real rush to the rear without crossing a melee zone (12.133ms)
+✔ an unreachable rear focus advances into the blocking line instead of stalling (16.6611ms)
+✔ disabled troops still share contact damage; removed troops no longer share it (40.53ms)
+✔ ranged troops share damage in contact while intellect tactics retain their target selection (16.3562ms)
+✔ confusion and reserve status disable interception immediately; expiry restores it (5.2594ms)
+✔ a real retreat can leave contact (4.6924ms)
+✔ current battle saves resume deterministically and rule 10 is rejected (422.8252ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (393.0048ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (393.3271ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (925.6891ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (318.5428ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (582.9316ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (169.8814ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (210.4377ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (143.8811ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (2384.7744ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (652.4217ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (949.8002ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (987.9186ms)
+✔ river: complete battle, reserves, save recovery and settlement (961.0022ms)
+✔ breach: complete battle, reserves, save recovery and settlement (191.9515ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (381.0792ms)
+✔ field: complete battle, reserves, save recovery and settlement (1053.9228ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (396.9654ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (715.5721ms)
+✔ siege: complete battle, reserves, save recovery and settlement (1226.6575ms)
+✔ defense: complete battle, reserves, save recovery and settlement (698.2173ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (782.8646ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (34.9046ms)
+✔ sieges add an independent gate and shields only to defending starters (76.7519ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (9.2955ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (48.9448ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (74.6688ms)
+✔ fixture and seed validation rejects malformed test state (22.1129ms)
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (41.5424ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (50.8008ms)
+✔ overlapping interception remains after harass disables one owner (6.122ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (7.2709ms)
+✔ out-of-range rear does not displace an attackable front (4.9635ms)
+✔ real cleanse restores interception without waiting for disruption expiry (7.942ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (6.0553ms)
+✔ nearby wounded front takes priority over a healthy ranged target (3.0404ms)
+✔ 疑兵战法为残血部队额外避战两日并保持确定性续战 (15.6895ms)
+✔ 疑兵战法不能绕过共用避战间隔 (6.2452ms)
+✔ enemy side uses the same finisher priority and excludes protected targets (7.2655ms)
+ℹ tests 67
+ℹ suites 0
+ℹ pass 66
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15060.6405
+
+✖ failing tests:
+
+test at tests\ai-target-command.test.mjs:11:33
+✖ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (12.4288ms)
+  AssertionError [ERR_ASSERTION]: 始终遵守守区
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ai-target-command.test.mjs:26:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

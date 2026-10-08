@@ -1,0 +1,25 @@
+✔ both current national scenarios store units in cities with no standing map armies (424.6018ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (105.7648ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (14.7383ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (1679.2879ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (62.4504ms)
+✔ real sieges build temporary defense from city units and resume deterministically (2119.0621ms)
+✔ departure can prepare an idle officer atomically and invalid departure spends nothing (124.633ms)
+✔ awaiting siege permits real idle-officer preparation without starting battle or changing source (62.7484ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (429.6854ms)
+✔ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (11078.6645ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (792.802ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (20774.4648ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (119.4621ms)
+✔ scenario identity, topology, and town coordinates are validated (99.9435ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.9517ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (14584.5236ms)
+✔ national victory and defeat depend on ownership of the complete map (2442.4716ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50533.6175

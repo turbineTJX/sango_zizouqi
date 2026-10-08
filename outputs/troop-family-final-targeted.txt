@@ -1,0 +1,27 @@
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (58.0585ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (104.8992ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (137.7871ms)
+✔ waiting departure prevents idle members from picking new work across turns (37.6706ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (38.1922ms)
+✔ forged pending action references and duplicate officers are rejected (141.8131ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (84.5067ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1172.8279ms)
+✔ a queued garrison defends an actual siege and interrupts work and cancels its deferred departure (396.9051ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (259.9196ms)
+✔ a changed officer state blocks final formation without partial changes (26.3206ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (16.0283ms)
+✔ ordinary formation owns officer selection and army selection lists compiled units (69.0041ms)
+✔ domestic appointment exposes six simple directions and keeps commerce and agriculture separate (9.4622ms)
+✔ army composition displays current work and puts idle units first without changing their jobs (220.0024ms)
+✔ all 832 officers use family aptitude for subtypes (2.2954ms)
+✔ siege variants have distinct implemented range and gate damage (0.9283ms)
+✔ city technology, faction funds, failed atomic drafts and conversion costs (290.6269ms)
+✔ city form shows local unlocks, family and differentiated costs (35.8753ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2356.8606

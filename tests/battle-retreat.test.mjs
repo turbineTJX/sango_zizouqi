@@ -8,7 +8,7 @@ import {beginUnitRetreat} from '../battle-retreat.mjs';
 import {lockDeployment,stepBattle,validateSave,battleCommanders,commandIntellect,fillSlots} from '../engine.mjs';
 import {holdsLine,isTargetable} from '../engagement.mjs';
 import {readyTactic} from '../tactics.mjs';
-import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {deployUnit,combatUnit,makeOfficer,issueCommand} from '../engine.mjs';
 import {retreatDestinations,configureRetreatDestination,dispatchWithdrawn} from '../strategic-retreat.mjs';

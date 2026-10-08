@@ -1,7 +1,7 @@
 import {completeTechnologyBuilding} from '../building-durability.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,changeCityTroop,equipCityUnit,recruitCityUnits,activeBattles,chooseEncounter} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,changeCityTroop,equipCityUnit,recruitCityUnits,activeBattles,chooseEncounter} from './helpers/auto-domestic-campaign.mjs';
 import {lockDeployment} from '../engine.mjs';
 import {assignDomestic,assignmentFor,ACTIONS,cancelDomestic,canTrain,buildCost,actionCandidates} from '../domestic.mjs';
 import {TECHS,canResearch,localTechnologies,technologyAllowed,cityTechnologyProfile,cityVisionRadius,technologyRequirements} from '../city-technology.mjs';
@@ -19,8 +19,8 @@ function fixture(seed=1){const s=peacefulCities(newCampaign(seed));fundCities(s,
 function days(s,n){for(let i=0;i<n;i++){if(s.campaign.phase==='planning')assert.equal(beginExecution(s),null);assert.ok(advanceCampaignDay(s).dayEnded);}}
 
 test('all cities have fixed partial technology trees; buildings cannot create new affinities',()=>{
- assert.equal(Object.keys(TECHS).length,20);const s=newCampaign(20,'guandu-200');
- for(const c of s.cities){const available=localTechnologies(c);assert.ok(available.length>=7&&available.length<=10,c.name);const profile=structuredClone(cityTechnologyProfile(c));for(const key of ['barracks','commerce','farm','granary','workshop','walls','drill'])c[key]=5;assert.deepEqual(cityTechnologyProfile(c),profile);assert.deepEqual(localTechnologies(c),available);}
+ assert.equal(Object.keys(TECHS).length,23);const s=newCampaign(20,'guandu-200');
+ for(const c of s.cities){const available=localTechnologies(c);assert.ok(available.length>=10&&available.length<=13,c.name);const profile=structuredClone(cityTechnologyProfile(c));for(const key of ['barracks','commerce','farm','granary','workshop','walls','drill'])c[key]=5;assert.deepEqual(cityTechnologyProfile(c),profile);assert.deepEqual(localTechnologies(c),available);}
  const c=s.cities.find(c=>c.id==='xuchang');assert.ok(!technologyAllowed(c,'whiteHorse'));assert.ok(!technologyAllowed(c,'shipbuilding'));
  const bad=structuredClone(DESIGN_TABLES);bad.technologies.records.find(r=>r.id==='militaryRegistry').parameters.buildings={barracks:1};assert.ok(validateDesignTables(bad).some(e=>e.includes('不能以兵营')));
 });

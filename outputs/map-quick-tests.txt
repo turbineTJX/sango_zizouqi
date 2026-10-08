@@ -1,0 +1,24 @@
+✔ all campaign information is read only and city units are not armies (118.7974ms)
+✔ expedition information follows real city-unit departure without duplication (19.166ms)
+✔ current status follows actual marching and transfer progress (1629.4126ms)
+✔ siege status includes the live battlefield state of a real defending unit (2755.7847ms)
+✔ prepared troops show active domestic work and deferred orders separately (12.7118ms)
+✔ object details reuse dossier format without opening a faction directory (9.6885ms)
+✔ owned directories restrict scope, search without mutations and expose all fixed entrances (82.8241ms)
+✔ battle directory excludes finished and foreign-only battles (8.1655ms)
+✔ national map starts locally and allows an explicit national overview (31.7118ms)
+✔ manual radar navigation persists through rendering; changing operation city recenters (7.9779ms)
+✔ army focus uses its actual position and manual navigation suspends following (8.422ms)
+✔ battle selection centers the actual battle point instead of the previous city (9.5557ms)
+✔ personnel census covers every owned officer once and tracks real transfer locations (153.5117ms)
+✔ picker allows civil duties alongside prepared units and retains departure restrictions (19.0089ms)
+✔ city roster has a fixed local population and independent city context (9.6027ms)
+✔ siege preparation is optional and hidden when all residents are compiled (11.9771ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4743.8394

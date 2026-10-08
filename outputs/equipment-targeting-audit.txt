@@ -1,0 +1,1 @@
+{"cases":16,"buildingHits":1,"towerShots":227,"healing":5761,"maxPreparation":0,"maxExpansion":4,"deterministic":true}

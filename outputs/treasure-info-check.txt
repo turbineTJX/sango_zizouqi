@@ -1,0 +1,14 @@
+✔ all campaign information is read only and city units are not armies (3055.2579ms)
+✔ expedition information follows real city-unit departure without duplication (116.0067ms)
+✔ current status follows actual marching and transfer progress (127276.5937ms)
+✔ siege status includes the live battlefield state of a real defending unit (305.309ms)
+✔ prepared troops show active domestic work and deferred orders separately (190.098ms)
+✔ object details reuse dossier format without opening a faction directory (260.6962ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 131485.5402

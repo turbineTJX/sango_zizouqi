@@ -1,0 +1,1 @@
+Invulnerability, stun and different ward casters UI: natural charging, actual attribute effects, preview, cancellation, confirmation, mobile and reload passed.

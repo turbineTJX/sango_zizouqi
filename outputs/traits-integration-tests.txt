@@ -1,0 +1,514 @@
+✖ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (50.8681ms)
+✖ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (3.5288ms)
+✖ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (54.4992ms)
+✖ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (37.5956ms)
+✖ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (32.7077ms)
+✖ group cap is independent of officer count, and UI/refresh preserve deterministic results (37.8743ms)
+✖ different directions, different cities and empty tasks cannot generate cooperation (46.332ms)
+✖ multiple research and talent assignments retain exclusive research and person targets (37.244ms)
+✖ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (108.9718ms)
+✖ cooperative healing conserves existing people and grain storage clips extra harvest (34.1554ms)
+✖ cooperative talent success stays capped and only one target outcome is settled (590.2488ms)
+✖ repeating a daily settlement cannot advance tasks or reroll cooperation (35.6054ms)
+✖ construction cooperation shortens paid work, remains fractional and resumes without recharging (34.5616ms)
+✖ relationship growth leaves an active battle and its snapshots unchanged (41.4702ms)
+✖ siege prevents new cooperation and invalid record or old save is rejected (97.2864ms)
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (9.0831ms)
+✖ assignments persist across turns, log starts and results, and reload deterministically (56.3735ms)
+✔ random results vary across seeds while identical seed is reproducible (99.9317ms)
+✔ no reserves or no legal unit vacancies means no recruitment candidate (3.3639ms)
+✖ recruitment reserves are shared with manual replenishment and only actual recruits are charged (32.1533ms)
+✖ cancelling recruitment releases reserves; leaving recipients never get remote troops (29.6844ms)
+✖ city can hold more than ten independent units while each new expedition is capped at ten (47.8753ms)
+✖ new commands replace appointments and construction can be resumed without paying twice (36.0353ms)
+✖ research unlocks a local troop only after a successful trial (40.3963ms)
+✖ exploration discovers actual candidates and recruiting never duplicates a person (37.3384ms)
+✖ healing conserves personnel and does not require local troop technology (32.089ms)
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (67.125ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (143.1517ms)
+✖ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (50.4192ms)
+✖ new assignments end on transfer, and unresearched troops cannot receive new recruits (32.0193ms)
+✖ actual siege pauses construction without charging again or completing in the background (87.567ms)
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (62.3462ms)
+✖ light personnel are faster than cavalry, invisible on map, and unavailable while moving (196.3447ms)
+✖ transport carries prepared troops and cargo once, projects position, then hands them to the destination (169.7508ms)
+✖ cargo-only convoys are visible and full warehouses retain cargo (159.8207ms)
+✖ deferred transport preserves cargo instructions without deducting resources or moving its officer (45.9962ms)
+✖ real daily execution resumes a transport deterministically and rejects corrupt journey cargo (299.3176ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 4
+ℹ fail 33
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1400.9286
+
+✖ failing tests:
+
+test at tests\domestic-cooperation.test.mjs:30:1
+✖ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (50.8681ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:31:100)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\domestic-cooperation.test.mjs:37:1
+✖ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (3.5288ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.54 !== 0.44
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:40:59)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.54,
+    expected: 0.44,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\domestic-cooperation.test.mjs:46:1
+✖ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (54.4992ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:47:305)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:51:1
+✖ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (37.5956ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:55:130)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:58:1
+✖ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (32.7077ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:59:117)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:63:1
+✖ group cap is independent of officer count, and UI/refresh preserve deterministic results (37.8743ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:64:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:69:1
+✖ different directions, different cities and empty tasks cannot generate cooperation (46.332ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:72:116)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:75:1
+✖ multiple research and talent assignments retain exclusive research and person targets (37.244ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:76:139)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:81:1
+✖ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (108.9718ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:83:172)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:88:1
+✖ cooperative healing conserves existing people and grain storage clips extra harvest (34.1554ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:90:118)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:94:1
+✖ cooperative talent success stays capped and only one target outcome is settled (590.2488ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:95:266)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:98:1
+✖ repeating a daily settlement cannot advance tasks or reroll cooperation (35.6054ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:99:212)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:103:1
+✖ construction cooperation shortens paid work, remains fractional and resumes without recharging (34.5616ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:104:177)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:108:1
+✖ relationship growth leaves an active battle and its snapshots unchanged (41.4702ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:111:333)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic-cooperation.test.mjs:114:1
+✖ siege prevents new cooperation and invalid record or old save is rejected (97.2864ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:14:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:117:299)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:23:1
+✖ assignments persist across turns, log starts and results, and reload deterministically (56.3735ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:25:134)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:35:1
+✖ recruitment reserves are shared with manual replenishment and only actual recruits are charged (32.1533ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:36:239)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:39:1
+✖ cancelling recruitment releases reserves; leaving recipients never get remote troops (29.6844ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:40:259)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:43:1
+✖ city can hold more than ten independent units while each new expedition is capped at ten (47.8753ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:44:230)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:47:1
+✖ new commands replace appointments and construction can be resumed without paying twice (36.0353ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:49:250)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:51:1
+✖ research unlocks a local troop only after a successful trial (40.3963ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:53:134)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:55:1
+✖ exploration discovers actual candidates and recruiting never duplicates a person (37.3384ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:56:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:59:1
+✖ healing conserves personnel and does not require local troop technology (32.089ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:60:326)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:62:1
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (67.125ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:66:482)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:72:1
+✖ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (50.4192ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:74:232)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:78:1
+✖ new assignments end on transfer, and unresearched troops cannot receive new recruits (32.0193ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:79:157)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:83:1
+✖ actual siege pauses construction without charging again or completing in the background (87.567ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:86:289)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\domestic.test.mjs:89:1
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (62.3462ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:12:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:95:279)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\personnel-movement.test.mjs:10:1
+✖ light personnel are faster than cavalry, invisible on map, and unavailable while moving (196.3447ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:8:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:12:379)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\personnel-movement.test.mjs:15:1
+✖ transport carries prepared troops and cargo once, projects position, then hands them to the destination (169.7508ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:8:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:18:261)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\personnel-movement.test.mjs:22:1
+✖ cargo-only convoys are visible and full warehouses retain cargo (159.8207ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:8:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:25:256)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\personnel-movement.test.mjs:28:1
+✖ deferred transport preserves cargo instructions without deducting resources or moving its officer (45.9962ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:8:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:31:235)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+
+test at tests\personnel-movement.test.mjs:35:1
+✖ real daily execution resumes a transport deterministically and rejects corrupt journey cargo (299.3176ms)
+  Error: 内政存档版本不兼容，请重新开始
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:351:46)
+      at validateDomestic (file:///C:/Users/TJX/Documents/ChatGPT/sango/domestic.mjs:353:30)
+      at validateCampaign (file:///C:/Users/TJX/Documents/ChatGPT/sango/strategic-campaign.mjs:584:3)
+      at restore (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:8:18)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/personnel-movement.test.mjs:36:163)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)

@@ -1,0 +1,13 @@
+{
+  "facilities": [
+    "arrowTower",
+    "musicStage",
+    "aidCamp"
+  ],
+  "technology": true,
+  "cityArtwork": true,
+  "battleDetails": true,
+  "desktop": true,
+  "mobile": true,
+  "errors": []
+}

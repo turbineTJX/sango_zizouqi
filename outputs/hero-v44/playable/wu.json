@@ -1,0 +1,3699 @@
+{
+  "version": 2,
+  "rulesVersion": 44,
+  "officerDataVersion": 3,
+  "relationshipScores": {},
+  "relationshipTypes": {},
+  "seed": 479806,
+  "turn": 1,
+  "gold": 3200,
+  "grain": 12800,
+  "fame": 120,
+  "cities": [
+    {
+      "id": "ye",
+      "name": "邺城",
+      "x": 660,
+      "y": 118,
+      "owner": "yuan",
+      "garrison": 6600,
+      "subtitle": "河北重镇",
+      "province": "冀州"
+    },
+    {
+      "id": "jinyang",
+      "name": "晋阳",
+      "x": 365,
+      "y": 98,
+      "owner": "yuan",
+      "garrison": 3800,
+      "subtitle": "北地雄关",
+      "province": "并州"
+    },
+    {
+      "id": "baima",
+      "name": "白马",
+      "x": 774,
+      "y": 259,
+      "owner": "yuan",
+      "garrison": 4000,
+      "subtitle": "黄河渡口",
+      "province": "兖州"
+    },
+    {
+      "id": "guandu",
+      "name": "官渡",
+      "x": 570,
+      "y": 340,
+      "owner": "yuan",
+      "garrison": 0,
+      "subtitle": "兵家必争",
+      "province": "兖州"
+    },
+    {
+      "id": "luoyang",
+      "name": "洛阳",
+      "x": 243,
+      "y": 330,
+      "owner": "neutral",
+      "garrison": 3600,
+      "subtitle": "故都遗址",
+      "province": "司隶"
+    },
+    {
+      "id": "chenliu",
+      "name": "陈留",
+      "x": 825,
+      "y": 456,
+      "owner": "cao",
+      "garrison": 4200,
+      "subtitle": "中原粮仓",
+      "province": "兖州"
+    },
+    {
+      "id": "xuchang",
+      "name": "许昌",
+      "x": 506,
+      "y": 545,
+      "owner": "cao",
+      "garrison": 6000,
+      "subtitle": "天子所在",
+      "province": "豫州"
+    },
+    {
+      "id": "runan",
+      "name": "汝南",
+      "x": 742,
+      "y": 693,
+      "owner": "neutral",
+      "garrison": 3300,
+      "subtitle": "汝水之南",
+      "province": "豫州"
+    },
+    {
+      "id": "wan",
+      "name": "宛城",
+      "x": 275,
+      "y": 687,
+      "owner": "neutral",
+      "garrison": 4200,
+      "subtitle": "南阳门户",
+      "province": "荆州"
+    }
+  ],
+  "roads": [
+    [
+      "ye",
+      "jinyang"
+    ],
+    [
+      "ye",
+      "baima"
+    ],
+    [
+      "ye",
+      "guandu"
+    ],
+    [
+      "jinyang",
+      "luoyang"
+    ],
+    [
+      "luoyang",
+      "guandu"
+    ],
+    [
+      "luoyang",
+      "xuchang"
+    ],
+    [
+      "guandu",
+      "baima"
+    ],
+    [
+      "guandu",
+      "xuchang"
+    ],
+    [
+      "baima",
+      "chenliu"
+    ],
+    [
+      "guandu",
+      "chenliu"
+    ],
+    [
+      "chenliu",
+      "xuchang"
+    ],
+    [
+      "chenliu",
+      "runan"
+    ],
+    [
+      "xuchang",
+      "runan"
+    ],
+    [
+      "xuchang",
+      "wan"
+    ],
+    [
+      "luoyang",
+      "wan"
+    ],
+    [
+      "wan",
+      "runan"
+    ]
+  ],
+  "armies": [
+    {
+      "id": "a1",
+      "name": "自选我军",
+      "faction": "cao",
+      "location": "guandu",
+      "route": [],
+      "target": null,
+      "supply": 900,
+      "morale": 80,
+      "tactic": "balanced",
+      "leader": "person-371",
+      "advisor": "person-246",
+      "deputy": "person-368",
+      "units": [
+        {
+          "personality": 4,
+          "righteousness": 4,
+          "compatibility": 125,
+          "sex": 0,
+          "birthYear": 175,
+          "deathYear": 200,
+          "relations": {
+            "fatherId": "person-366",
+            "motherId": "person-199",
+            "spouseIds": [
+              "person-388"
+            ],
+            "swornSiblingIds": [
+              "person-246"
+            ],
+            "likedIds": [
+              "person-246",
+              "person-376",
+              "person-388",
+              "person-390"
+            ],
+            "dislikedIds": [
+              "person-620"
+            ]
+          },
+          "id": "person-371",
+          "name": "孙策",
+          "courtesy": "伯符",
+          "leadership": 92,
+          "force": 92,
+          "intellect": 69,
+          "politics": 70,
+          "skill": "霸王讨逆",
+          "type": "cavalry",
+          "formation": "left",
+          "trait": "突阵压制",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "cleanse",
+                  "phalanx"
+                ],
+                "high": [
+                  "thrust"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "mirage",
+                  "bulwark"
+                ],
+                "high": [
+                  "cleave"
+                ]
+              },
+              "cavalry": {
+                "low": [
+                  "relay",
+                  "harass"
+                ],
+                "high": [
+                  "lure"
+                ]
+              },
+              "archer": {
+                "low": [
+                  "fire",
+                  "rally",
+                  "suppress"
+                ],
+                "high": []
+              },
+              "crossbow": {
+                "low": [
+                  "screen",
+                  "pierce",
+                  "ambush"
+                ],
+                "high": []
+              },
+              "logistics": {
+                "low": [
+                  "passage",
+                  "purify",
+                  "supply"
+                ],
+                "high": []
+              },
+              "siege": {
+                "low": [
+                  "tremor",
+                  "nexus"
+                ],
+                "high": [
+                  "bombard"
+                ]
+              },
+              "ship": {
+                "low": [
+                  "boarding",
+                  "anchor"
+                ],
+                "high": [
+                  "undertow"
+                ]
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-person-371",
+            "relay",
+            "harass",
+            "lure"
+          ]
+        },
+        {
+          "personality": 3,
+          "righteousness": 3,
+          "compatibility": 125,
+          "sex": 0,
+          "birthYear": 182,
+          "deathYear": 252,
+          "relations": {
+            "fatherId": "person-366",
+            "motherId": "person-199",
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-243",
+              "person-251"
+            ],
+            "dislikedIds": [
+              "person-420"
+            ]
+          },
+          "id": "person-368",
+          "name": "孙权",
+          "courtesy": "仲谋",
+          "leadership": 76,
+          "force": 67,
+          "intellect": 80,
+          "politics": 89,
+          "skill": "江东制衡",
+          "type": "spear",
+          "formation": "front",
+          "trait": "制衡援军",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "phalanx",
+                  "ward",
+                  "cleanse"
+                ],
+                "high": []
+              },
+              "halberd": {
+                "low": [
+                  "bulwark",
+                  "mirage"
+                ],
+                "high": [
+                  "riposte"
+                ]
+              },
+              "cavalry": {
+                "low": [
+                  "gallop",
+                  "relay",
+                  "harass"
+                ],
+                "high": []
+              },
+              "archer": {
+                "low": [
+                  "rally",
+                  "fire",
+                  "suppress"
+                ],
+                "high": []
+              },
+              "crossbow": {
+                "low": [
+                  "pierce",
+                  "ambush",
+                  "screen"
+                ],
+                "high": []
+              },
+              "logistics": {
+                "low": [
+                  "purify",
+                  "camp"
+                ],
+                "high": [
+                  "regrowth"
+                ]
+              },
+              "siege": {
+                "low": [
+                  "emplace",
+                  "nexus"
+                ],
+                "high": []
+              },
+              "ship": {
+                "low": [
+                  "boarding",
+                  "mist"
+                ],
+                "high": [
+                  "broadside"
+                ]
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-person-368",
+            "phalanx",
+            "ward",
+            "cleanse"
+          ]
+        },
+        {
+          "personality": 2,
+          "righteousness": 5,
+          "compatibility": 125,
+          "sex": 0,
+          "birthYear": 175,
+          "deathYear": 210,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [
+              "person-267"
+            ],
+            "swornSiblingIds": [
+              "person-371"
+            ],
+            "likedIds": [
+              "person-267",
+              "person-371",
+              "person-467",
+              "person-662",
+              "person-668"
+            ],
+            "dislikedIds": [
+              "person-290"
+            ]
+          },
+          "id": "person-246",
+          "name": "周瑜",
+          "courtesy": "公瑾",
+          "leadership": 97,
+          "force": 71,
+          "intellect": 96,
+          "politics": 86,
+          "skill": "神火计",
+          "type": "archer",
+          "formation": "back",
+          "trait": "火攻破阵",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "cleanse",
+                  "ward"
+                ],
+                "high": [
+                  "strike"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "mirage",
+                  "curse"
+                ],
+                "high": [
+                  "cleave"
+                ]
+              },
+              "cavalry": {
+                "low": [
+                  "valor",
+                  "relay",
+                  "harass"
+                ],
+                "high": []
+              },
+              "archer": {
+                "low": [
+                  "fire",
+                  "suppress"
+                ],
+                "high": [
+                  "wildfire"
+                ]
+              },
+              "crossbow": {
+                "low": [
+                  "ambush",
+                  "screen"
+                ],
+                "high": [
+                  "seal"
+                ]
+              },
+              "logistics": {
+                "low": [
+                  "bandage",
+                  "purify"
+                ],
+                "high": [
+                  "regrowth"
+                ]
+              },
+              "siege": {
+                "low": [
+                  "emplace",
+                  "tremor",
+                  "nexus"
+                ],
+                "high": []
+              },
+              "ship": {
+                "low": [
+                  "boarding",
+                  "anchor"
+                ],
+                "high": [
+                  "broadside"
+                ]
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-person-246",
+            "fire",
+            "suppress",
+            "wildfire"
+          ]
+        },
+        {
+          "personality": 3,
+          "righteousness": 5,
+          "compatibility": 127,
+          "sex": 0,
+          "birthYear": 154,
+          "deathYear": 218,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-117",
+              "person-366",
+              "person-467"
+            ],
+            "dislikedIds": []
+          },
+          "id": "person-164",
+          "name": "黄盖",
+          "courtesy": "公覆",
+          "leadership": 79,
+          "force": 83,
+          "intellect": 65,
+          "politics": 65,
+          "skill": "苦肉火船",
+          "type": "archer",
+          "formation": "back",
+          "trait": "火攻承伤",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "ward",
+                  "cleanse",
+                  "phalanx"
+                ],
+                "high": []
+              },
+              "halberd": {
+                "low": [
+                  "curse",
+                  "bulwark"
+                ],
+                "high": [
+                  "cleave"
+                ]
+              },
+              "cavalry": {
+                "low": [
+                  "valor",
+                  "harass"
+                ],
+                "high": []
+              },
+              "archer": {
+                "low": [
+                  "fire",
+                  "suppress"
+                ],
+                "high": [
+                  "wildfire"
+                ]
+              },
+              "crossbow": {
+                "low": [
+                  "pierce",
+                  "ambush"
+                ],
+                "high": [
+                  "retreatShot"
+                ]
+              },
+              "logistics": {
+                "low": [
+                  "purify",
+                  "supply",
+                  "passage"
+                ],
+                "high": []
+              },
+              "siege": {
+                "low": [
+                  "tremor",
+                  "emplace",
+                  "nexus"
+                ],
+                "high": []
+              },
+              "ship": {
+                "low": [
+                  "boarding",
+                  "mist"
+                ],
+                "high": [
+                  "navalRam"
+                ]
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-person-164",
+            "fire",
+            "suppress",
+            "wildfire"
+          ]
+        },
+        {
+          "personality": 2,
+          "righteousness": 4,
+          "compatibility": 124,
+          "sex": 0,
+          "birthYear": 172,
+          "deathYear": 217,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-246",
+              "person-283",
+              "person-662"
+            ],
+            "dislikedIds": []
+          },
+          "id": "person-668",
+          "name": "鲁肃",
+          "courtesy": "子敬",
+          "leadership": 80,
+          "force": 56,
+          "intellect": 92,
+          "politics": 90,
+          "skill": "榻上定策",
+          "type": "logistics",
+          "formation": "back",
+          "trait": "战意补给",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "phalanx",
+                  "ward"
+                ],
+                "high": [
+                  "thrust"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "curse",
+                  "mirage"
+                ],
+                "high": [
+                  "cleave"
+                ]
+              },
+              "cavalry": {
+                "low": [
+                  "harass",
+                  "relay"
+                ],
+                "high": []
+              },
+              "archer": {
+                "low": [
+                  "suppress",
+                  "fire"
+                ],
+                "high": [
+                  "smoke"
+                ]
+              },
+              "crossbow": {
+                "low": [
+                  "screen",
+                  "ambush"
+                ],
+                "high": [
+                  "repeat"
+                ]
+              },
+              "logistics": {
+                "low": [
+                  "bandage",
+                  "purify"
+                ],
+                "high": [
+                  "regrowth"
+                ]
+              },
+              "siege": {
+                "low": [
+                  "nexus",
+                  "tremor"
+                ],
+                "high": [
+                  "bombard"
+                ]
+              },
+              "ship": {
+                "low": [
+                  "mist",
+                  "anchor"
+                ],
+                "high": [
+                  "broadside"
+                ]
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-person-668",
+            "bandage",
+            "purify",
+            "regrowth"
+          ]
+        },
+        {
+          "personality": 4,
+          "righteousness": 3,
+          "compatibility": 129,
+          "sex": 0,
+          "birthYear": 174,
+          "deathYear": 222,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-355",
+              "person-652"
+            ],
+            "dislikedIds": [
+              "person-176"
+            ]
+          },
+          "id": "person-119",
+          "name": "甘宁",
+          "courtesy": "兴霸",
+          "leadership": 86,
+          "force": 94,
+          "intellect": 76,
+          "politics": 18,
+          "skill": "百骑劫营",
+          "type": "cavalry",
+          "formation": "left",
+          "trait": "近战袭扰",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "ward",
+                  "phalanx"
+                ],
+                "high": [
+                  "thrust"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "mirage",
+                  "bulwark"
+                ],
+                "high": [
+                  "cleave"
+                ]
+              },
+              "cavalry": {
+                "low": [
+                  "valor",
+                  "relay"
+                ],
+                "high": [
+                  "rush"
+                ]
+              },
+              "archer": {
+                "low": [
+                  "suppress",
+                  "rally"
+                ],
+                "high": [
+                  "wildfire"
+                ]
+              },
+              "crossbow": {
+                "low": [
+                  "ambush",
+                  "pierce"
+                ],
+                "high": [
+                  "retreatShot"
+                ]
+              },
+              "logistics": {
+                "low": [
+                  "bandage",
+                  "supply",
+                  "camp"
+                ],
+                "high": []
+              },
+              "siege": {
+                "low": [
+                  "emplace",
+                  "nexus"
+                ],
+                "high": [
+                  "bombard"
+                ]
+              },
+              "ship": {
+                "low": [
+                  "mist",
+                  "anchor"
+                ],
+                "high": [
+                  "broadside"
+                ]
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-person-119",
+            "valor",
+            "relay",
+            "rush"
+          ]
+        }
+      ],
+      "task": "驻守"
+    },
+    {
+      "id": "a2",
+      "name": "自选敌军",
+      "faction": "yuan",
+      "location": "guandu",
+      "route": [],
+      "target": null,
+      "supply": 900,
+      "morale": 80,
+      "tactic": "balanced",
+      "leader": "shao",
+      "advisor": "tian",
+      "deputy": "yan",
+      "units": [
+        {
+          "personality": 3,
+          "righteousness": 2,
+          "compatibility": 101,
+          "sex": 0,
+          "birthYear": 154,
+          "deathYear": 202,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [
+              "person-623"
+            ],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "person-18"
+            ],
+            "dislikedIds": [
+              "person-17",
+              "person-494"
+            ]
+          },
+          "id": "shao",
+          "name": "袁绍",
+          "courtesy": "本初",
+          "leadership": 81,
+          "force": 69,
+          "intellect": 70,
+          "politics": 73,
+          "skill": "名门号令",
+          "type": "spear",
+          "formation": "front",
+          "trait": "名门雄主",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "cleanse",
+                  "phalanx"
+                ],
+                "high": [
+                  "thrust"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "curse",
+                  "bulwark"
+                ],
+                "high": []
+              },
+              "cavalry": {
+                "low": [
+                  "valor",
+                  "relay",
+                  "harass"
+                ],
+                "high": []
+              },
+              "archer": {
+                "low": [
+                  "fire",
+                  "suppress"
+                ],
+                "high": [
+                  "wildfire"
+                ]
+              },
+              "crossbow": {
+                "low": [
+                  "screen",
+                  "pierce"
+                ],
+                "high": [
+                  "repeat"
+                ]
+              },
+              "logistics": {
+                "low": [
+                  "supply",
+                  "bandage",
+                  "camp"
+                ],
+                "high": []
+              },
+              "siege": {
+                "low": [
+                  "emplace",
+                  "tremor"
+                ],
+                "high": [
+                  "bombard"
+                ]
+              },
+              "ship": {
+                "low": [
+                  "anchor",
+                  "boarding",
+                  "mist"
+                ],
+                "high": []
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-shao",
+            "cleanse",
+            "phalanx",
+            "thrust"
+          ]
+        },
+        {
+          "personality": 4,
+          "righteousness": 3,
+          "compatibility": 102,
+          "sex": 0,
+          "birthYear": 160,
+          "deathYear": 200,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "wen"
+            ],
+            "dislikedIds": []
+          },
+          "id": "yan",
+          "name": "颜良",
+          "courtesy": "",
+          "leadership": 79,
+          "force": 93,
+          "intellect": 42,
+          "politics": 32,
+          "skill": "河北雄锋",
+          "type": "cavalry",
+          "formation": "left",
+          "trait": "勇冠三军",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "phalanx",
+                  "cleanse"
+                ],
+                "high": [
+                  "doubt"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "mirage",
+                  "bulwark"
+                ],
+                "high": [
+                  "cleave"
+                ]
+              },
+              "cavalry": {
+                "low": [
+                  "gallop",
+                  "relay"
+                ],
+                "high": [
+                  "rush"
+                ]
+              },
+              "archer": {
+                "low": [
+                  "suppress",
+                  "rally",
+                  "fire"
+                ],
+                "high": []
+              },
+              "crossbow": {
+                "low": [
+                  "screen",
+                  "pierce",
+                  "ambush"
+                ],
+                "high": []
+              },
+              "logistics": {
+                "low": [
+                  "purify"
+                ],
+                "high": []
+              },
+              "siege": {
+                "low": [],
+                "high": []
+              },
+              "ship": {
+                "low": [
+                  "anchor",
+                  "mist",
+                  "boarding"
+                ],
+                "high": []
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-yan",
+            "gallop",
+            "relay",
+            "rush"
+          ]
+        },
+        {
+          "personality": 3,
+          "righteousness": 5,
+          "compatibility": 96,
+          "sex": 0,
+          "birthYear": 162,
+          "deathYear": 200,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [],
+            "dislikedIds": [
+              "person-304",
+              "person-553"
+            ]
+          },
+          "id": "tian",
+          "name": "田丰",
+          "courtesy": "元皓",
+          "leadership": 72,
+          "force": 29,
+          "intellect": 93,
+          "politics": 87,
+          "skill": "审势定谋",
+          "type": "archer",
+          "formation": "back",
+          "trait": "刚直多谋",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "cleanse",
+                  "ward"
+                ],
+                "high": [
+                  "strike"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "curse",
+                  "bulwark",
+                  "mirage"
+                ],
+                "high": []
+              },
+              "cavalry": {
+                "low": [
+                  "gallop",
+                  "harass",
+                  "valor"
+                ],
+                "high": []
+              },
+              "archer": {
+                "low": [
+                  "suppress",
+                  "fire",
+                  "rally"
+                ],
+                "high": []
+              },
+              "crossbow": {
+                "low": [
+                  "ambush",
+                  "screen",
+                  "pierce"
+                ],
+                "high": []
+              },
+              "logistics": {
+                "low": [
+                  "supply",
+                  "purify"
+                ],
+                "high": [
+                  "regrowth"
+                ]
+              },
+              "siege": {
+                "low": [
+                  "nexus",
+                  "tremor"
+                ],
+                "high": [
+                  "bombard"
+                ]
+              },
+              "ship": {
+                "low": [
+                  "anchor",
+                  "boarding",
+                  "mist"
+                ],
+                "high": []
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-tian",
+            "suppress",
+            "fire",
+            "rally"
+          ]
+        },
+        {
+          "personality": 4,
+          "righteousness": 3,
+          "compatibility": 102,
+          "sex": 0,
+          "birthYear": 161,
+          "deathYear": 200,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "yan"
+            ],
+            "dislikedIds": []
+          },
+          "id": "wen",
+          "name": "文丑",
+          "courtesy": "",
+          "leadership": 78,
+          "force": 94,
+          "intellect": 25,
+          "politics": 25,
+          "skill": "破阵长驱",
+          "type": "halberd",
+          "formation": "front",
+          "trait": "锐不可当",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "phalanx",
+                  "cleanse"
+                ],
+                "high": [
+                  "thrust"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "bulwark",
+                  "mirage",
+                  "curse"
+                ],
+                "high": []
+              },
+              "cavalry": {
+                "low": [
+                  "harass",
+                  "valor"
+                ],
+                "high": [
+                  "rush"
+                ]
+              },
+              "archer": {
+                "low": [
+                  "rally",
+                  "fire"
+                ],
+                "high": [
+                  "wildfire"
+                ]
+              },
+              "crossbow": {
+                "low": [
+                  "screen",
+                  "ambush"
+                ],
+                "high": [
+                  "seal"
+                ]
+              },
+              "logistics": {
+                "low": [
+                  "purify",
+                  "passage",
+                  "supply"
+                ],
+                "high": []
+              },
+              "siege": {
+                "low": [
+                  "tremor",
+                  "nexus",
+                  "emplace"
+                ],
+                "high": []
+              },
+              "ship": {
+                "low": [
+                  "anchor",
+                  "boarding",
+                  "mist"
+                ],
+                "high": []
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-wen",
+            "bulwark",
+            "mirage",
+            "curse"
+          ]
+        },
+        {
+          "personality": 3,
+          "righteousness": 3,
+          "compatibility": 27,
+          "sex": 0,
+          "birthYear": 167,
+          "deathYear": 231,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [
+              "gao",
+              "person-226"
+            ],
+            "dislikedIds": [
+              "person-72"
+            ]
+          },
+          "id": "he",
+          "name": "张郃",
+          "courtesy": "俊乂",
+          "leadership": 90,
+          "force": 89,
+          "intellect": 69,
+          "politics": 57,
+          "skill": "巧变奇袭",
+          "type": "crossbow",
+          "formation": "back",
+          "trait": "善识地势",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "ward",
+                  "phalanx"
+                ],
+                "high": [
+                  "doubt"
+                ]
+              },
+              "halberd": {
+                "low": [
+                  "curse",
+                  "mirage",
+                  "bulwark"
+                ],
+                "high": []
+              },
+              "cavalry": {
+                "low": [
+                  "relay",
+                  "harass"
+                ],
+                "high": [
+                  "lure"
+                ]
+              },
+              "archer": {
+                "low": [
+                  "rally",
+                  "fire",
+                  "suppress"
+                ],
+                "high": []
+              },
+              "crossbow": {
+                "low": [
+                  "screen",
+                  "ambush",
+                  "pierce"
+                ],
+                "high": []
+              },
+              "logistics": {
+                "low": [
+                  "passage",
+                  "bandage",
+                  "purify"
+                ],
+                "high": []
+              },
+              "siege": {
+                "low": [
+                  "emplace",
+                  "tremor"
+                ],
+                "high": [
+                  "bombard"
+                ]
+              },
+              "ship": {
+                "low": [
+                  "boarding",
+                  "anchor",
+                  "mist"
+                ],
+                "high": []
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-he",
+            "screen",
+            "ambush",
+            "pierce"
+          ]
+        },
+        {
+          "personality": 2,
+          "righteousness": 4,
+          "compatibility": 96,
+          "sex": 0,
+          "birthYear": 156,
+          "deathYear": 201,
+          "relations": {
+            "fatherId": null,
+            "motherId": null,
+            "spouseIds": [],
+            "swornSiblingIds": [],
+            "likedIds": [],
+            "dislikedIds": []
+          },
+          "id": "ju",
+          "name": "沮授",
+          "courtesy": "",
+          "leadership": 78,
+          "force": 35,
+          "intellect": 90,
+          "politics": 89,
+          "skill": "料敌布防",
+          "type": "logistics",
+          "formation": "back",
+          "trait": "筹略深远",
+          "troops": 3000,
+          "wounded": 0,
+          "first": true,
+          "loyalty": 100,
+          "level": 8,
+          "experience": 0,
+          "tacticLearning": {
+            "seed": 479806,
+            "level": 8,
+            "byTroop": {
+              "spear": {
+                "low": [
+                  "cleanse",
+                  "phalanx",
+                  "ward"
+                ],
+                "high": []
+              },
+              "halberd": {
+                "low": [
+                  "mirage",
+                  "bulwark",
+                  "curse"
+                ],
+                "high": []
+              },
+              "cavalry": {
+                "low": [
+                  "gallop",
+                  "relay"
+                ],
+                "high": [
+                  "lure"
+                ]
+              },
+              "archer": {
+                "low": [
+                  "fire",
+                  "rally"
+                ],
+                "high": [
+                  "smoke"
+                ]
+              },
+              "crossbow": {
+                "low": [
+                  "pierce",
+                  "ambush"
+                ],
+                "high": [
+                  "repeat"
+                ]
+              },
+              "logistics": {
+                "low": [
+                  "camp",
+                  "bandage"
+                ],
+                "high": [
+                  "regrowth"
+                ]
+              },
+              "siege": {
+                "low": [
+                  "emplace",
+                  "nexus"
+                ],
+                "high": [
+                  "bombard"
+                ]
+              },
+              "ship": {
+                "low": [
+                  "mist",
+                  "boarding",
+                  "anchor"
+                ],
+                "high": []
+              }
+            },
+            "special": true
+          },
+          "tactics": [
+            "unique-ju",
+            "camp",
+            "bandage",
+            "regrowth"
+          ]
+        }
+      ],
+      "task": "驻守"
+    }
+  ],
+  "logs": [
+    {
+      "turn": 1,
+      "text": "建安五年，袁曹相争。立足许昌，调兵北上，逐鹿中原。",
+      "type": "event"
+    }
+  ],
+  "battle": {
+    "id": "battle-1-3",
+    "cityId": "guandu",
+    "context": {
+      "cityId": "guandu",
+      "attackerId": "a1",
+      "defenderIds": [
+        "a2"
+      ],
+      "origin": "xuchang",
+      "defenderFaction": "yuan",
+      "attackingIds": [
+        "a1"
+      ]
+    },
+    "tick": 0,
+    "seed": 479807,
+    "sides": [
+      {
+        "faction": "cao",
+        "commanders": [
+          {
+            "id": "person-371",
+            "name": "孙策",
+            "role": "leader",
+            "armyId": "a1"
+          },
+          {
+            "id": "person-246",
+            "name": "周瑜",
+            "role": "advisor",
+            "armyId": "a1"
+          }
+        ],
+        "rangeUntil": 0,
+        "recoveryUntil": 0,
+        "tactic": "balanced",
+        "retreat": false,
+        "focus": null,
+        "focusUntil": 0,
+        "inspireUntil": 0,
+        "assaultUntil": 0,
+        "fortifyUntil": 0,
+        "disruptUntil": 0,
+        "hasteUntil": 0,
+        "blockadeUntil": 0,
+        "reliefUntil": 0,
+        "units": [
+          {
+            "personality": 4,
+            "righteousness": 4,
+            "compatibility": 125,
+            "sex": 0,
+            "birthYear": 175,
+            "deathYear": 200,
+            "relations": {
+              "fatherId": "person-366",
+              "motherId": "person-199",
+              "spouseIds": [
+                "person-388"
+              ],
+              "swornSiblingIds": [
+                "person-246"
+              ],
+              "likedIds": [
+                "person-246",
+                "person-376",
+                "person-388",
+                "person-390"
+              ],
+              "dislikedIds": [
+                "person-620"
+              ]
+            },
+            "id": "person-371",
+            "name": "孙策",
+            "courtesy": "伯符",
+            "leadership": 92,
+            "force": 92,
+            "intellect": 69,
+            "politics": 70,
+            "skill": "霸王讨逆",
+            "type": "cavalry",
+            "formation": "left",
+            "trait": "突阵压制",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "cleanse",
+                    "phalanx"
+                  ],
+                  "high": [
+                    "thrust"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "mirage",
+                    "bulwark"
+                  ],
+                  "high": [
+                    "cleave"
+                  ]
+                },
+                "cavalry": {
+                  "low": [
+                    "relay",
+                    "harass"
+                  ],
+                  "high": [
+                    "lure"
+                  ]
+                },
+                "archer": {
+                  "low": [
+                    "fire",
+                    "rally",
+                    "suppress"
+                  ],
+                  "high": []
+                },
+                "crossbow": {
+                  "low": [
+                    "screen",
+                    "pierce",
+                    "ambush"
+                  ],
+                  "high": []
+                },
+                "logistics": {
+                  "low": [
+                    "passage",
+                    "purify",
+                    "supply"
+                  ],
+                  "high": []
+                },
+                "siege": {
+                  "low": [
+                    "tremor",
+                    "nexus"
+                  ],
+                  "high": [
+                    "bombard"
+                  ]
+                },
+                "ship": {
+                  "low": [
+                    "boarding",
+                    "anchor"
+                  ],
+                  "high": [
+                    "undertow"
+                  ]
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-person-371",
+              "relay",
+              "harass",
+              "lure"
+            ],
+            "skillRouteType": "cavalry",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 3,
+            "y": 0,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.092,
+            "deputyBonus": 0.0335,
+            "advisorBonus": 0.096
+          },
+          {
+            "personality": 3,
+            "righteousness": 3,
+            "compatibility": 125,
+            "sex": 0,
+            "birthYear": 182,
+            "deathYear": 252,
+            "relations": {
+              "fatherId": "person-366",
+              "motherId": "person-199",
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-243",
+                "person-251"
+              ],
+              "dislikedIds": [
+                "person-420"
+              ]
+            },
+            "id": "person-368",
+            "name": "孙权",
+            "courtesy": "仲谋",
+            "leadership": 76,
+            "force": 67,
+            "intellect": 80,
+            "politics": 89,
+            "skill": "江东制衡",
+            "type": "spear",
+            "formation": "front",
+            "trait": "制衡援军",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "phalanx",
+                    "ward",
+                    "cleanse"
+                  ],
+                  "high": []
+                },
+                "halberd": {
+                  "low": [
+                    "bulwark",
+                    "mirage"
+                  ],
+                  "high": [
+                    "riposte"
+                  ]
+                },
+                "cavalry": {
+                  "low": [
+                    "gallop",
+                    "relay",
+                    "harass"
+                  ],
+                  "high": []
+                },
+                "archer": {
+                  "low": [
+                    "rally",
+                    "fire",
+                    "suppress"
+                  ],
+                  "high": []
+                },
+                "crossbow": {
+                  "low": [
+                    "pierce",
+                    "ambush",
+                    "screen"
+                  ],
+                  "high": []
+                },
+                "logistics": {
+                  "low": [
+                    "purify",
+                    "camp"
+                  ],
+                  "high": [
+                    "regrowth"
+                  ]
+                },
+                "siege": {
+                  "low": [
+                    "emplace",
+                    "nexus"
+                  ],
+                  "high": []
+                },
+                "ship": {
+                  "low": [
+                    "boarding",
+                    "mist"
+                  ],
+                  "high": [
+                    "broadside"
+                  ]
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-person-368",
+              "phalanx",
+              "ward",
+              "cleanse"
+            ],
+            "skillRouteType": "spear",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 3,
+            "y": 3,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.092,
+            "deputyBonus": 0.0335,
+            "advisorBonus": 0.096
+          },
+          {
+            "personality": 2,
+            "righteousness": 5,
+            "compatibility": 125,
+            "sex": 0,
+            "birthYear": 175,
+            "deathYear": 210,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [
+                "person-267"
+              ],
+              "swornSiblingIds": [
+                "person-371"
+              ],
+              "likedIds": [
+                "person-267",
+                "person-371",
+                "person-467",
+                "person-662",
+                "person-668"
+              ],
+              "dislikedIds": [
+                "person-290"
+              ]
+            },
+            "id": "person-246",
+            "name": "周瑜",
+            "courtesy": "公瑾",
+            "leadership": 97,
+            "force": 71,
+            "intellect": 96,
+            "politics": 86,
+            "skill": "神火计",
+            "type": "archer",
+            "formation": "back",
+            "trait": "火攻破阵",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "cleanse",
+                    "ward"
+                  ],
+                  "high": [
+                    "strike"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "mirage",
+                    "curse"
+                  ],
+                  "high": [
+                    "cleave"
+                  ]
+                },
+                "cavalry": {
+                  "low": [
+                    "valor",
+                    "relay",
+                    "harass"
+                  ],
+                  "high": []
+                },
+                "archer": {
+                  "low": [
+                    "fire",
+                    "suppress"
+                  ],
+                  "high": [
+                    "wildfire"
+                  ]
+                },
+                "crossbow": {
+                  "low": [
+                    "ambush",
+                    "screen"
+                  ],
+                  "high": [
+                    "seal"
+                  ]
+                },
+                "logistics": {
+                  "low": [
+                    "bandage",
+                    "purify"
+                  ],
+                  "high": [
+                    "regrowth"
+                  ]
+                },
+                "siege": {
+                  "low": [
+                    "emplace",
+                    "tremor",
+                    "nexus"
+                  ],
+                  "high": []
+                },
+                "ship": {
+                  "low": [
+                    "boarding",
+                    "anchor"
+                  ],
+                  "high": [
+                    "broadside"
+                  ]
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-person-246",
+              "fire",
+              "suppress",
+              "wildfire"
+            ],
+            "skillRouteType": "archer",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 1,
+            "y": 3,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.092,
+            "deputyBonus": 0.0335,
+            "advisorBonus": 0.096
+          },
+          {
+            "personality": 3,
+            "righteousness": 5,
+            "compatibility": 127,
+            "sex": 0,
+            "birthYear": 154,
+            "deathYear": 218,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-117",
+                "person-366",
+                "person-467"
+              ],
+              "dislikedIds": []
+            },
+            "id": "person-164",
+            "name": "黄盖",
+            "courtesy": "公覆",
+            "leadership": 79,
+            "force": 83,
+            "intellect": 65,
+            "politics": 65,
+            "skill": "苦肉火船",
+            "type": "archer",
+            "formation": "back",
+            "trait": "火攻承伤",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "ward",
+                    "cleanse",
+                    "phalanx"
+                  ],
+                  "high": []
+                },
+                "halberd": {
+                  "low": [
+                    "curse",
+                    "bulwark"
+                  ],
+                  "high": [
+                    "cleave"
+                  ]
+                },
+                "cavalry": {
+                  "low": [
+                    "valor",
+                    "harass"
+                  ],
+                  "high": []
+                },
+                "archer": {
+                  "low": [
+                    "fire",
+                    "suppress"
+                  ],
+                  "high": [
+                    "wildfire"
+                  ]
+                },
+                "crossbow": {
+                  "low": [
+                    "pierce",
+                    "ambush"
+                  ],
+                  "high": [
+                    "retreatShot"
+                  ]
+                },
+                "logistics": {
+                  "low": [
+                    "purify",
+                    "supply",
+                    "passage"
+                  ],
+                  "high": []
+                },
+                "siege": {
+                  "low": [
+                    "tremor",
+                    "emplace",
+                    "nexus"
+                  ],
+                  "high": []
+                },
+                "ship": {
+                  "low": [
+                    "boarding",
+                    "mist"
+                  ],
+                  "high": [
+                    "navalRam"
+                  ]
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-person-164",
+              "fire",
+              "suppress",
+              "wildfire"
+            ],
+            "skillRouteType": "archer",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 1,
+            "y": 4,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.092,
+            "deputyBonus": 0.0335,
+            "advisorBonus": 0.096
+          },
+          {
+            "personality": 2,
+            "righteousness": 4,
+            "compatibility": 124,
+            "sex": 0,
+            "birthYear": 172,
+            "deathYear": 217,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-246",
+                "person-283",
+                "person-662"
+              ],
+              "dislikedIds": []
+            },
+            "id": "person-668",
+            "name": "鲁肃",
+            "courtesy": "子敬",
+            "leadership": 80,
+            "force": 56,
+            "intellect": 92,
+            "politics": 90,
+            "skill": "榻上定策",
+            "type": "logistics",
+            "formation": "back",
+            "trait": "战意补给",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "phalanx",
+                    "ward"
+                  ],
+                  "high": [
+                    "thrust"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "curse",
+                    "mirage"
+                  ],
+                  "high": [
+                    "cleave"
+                  ]
+                },
+                "cavalry": {
+                  "low": [
+                    "harass",
+                    "relay"
+                  ],
+                  "high": []
+                },
+                "archer": {
+                  "low": [
+                    "suppress",
+                    "fire"
+                  ],
+                  "high": [
+                    "smoke"
+                  ]
+                },
+                "crossbow": {
+                  "low": [
+                    "screen",
+                    "ambush"
+                  ],
+                  "high": [
+                    "repeat"
+                  ]
+                },
+                "logistics": {
+                  "low": [
+                    "bandage",
+                    "purify"
+                  ],
+                  "high": [
+                    "regrowth"
+                  ]
+                },
+                "siege": {
+                  "low": [
+                    "nexus",
+                    "tremor"
+                  ],
+                  "high": [
+                    "bombard"
+                  ]
+                },
+                "ship": {
+                  "low": [
+                    "mist",
+                    "anchor"
+                  ],
+                  "high": [
+                    "broadside"
+                  ]
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-person-668",
+              "bandage",
+              "purify",
+              "regrowth"
+            ],
+            "skillRouteType": "logistics",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 1,
+            "y": 2,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.092,
+            "deputyBonus": 0.0335,
+            "advisorBonus": 0.096
+          },
+          {
+            "personality": 4,
+            "righteousness": 3,
+            "compatibility": 129,
+            "sex": 0,
+            "birthYear": 174,
+            "deathYear": 222,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-355",
+                "person-652"
+              ],
+              "dislikedIds": [
+                "person-176"
+              ]
+            },
+            "id": "person-119",
+            "name": "甘宁",
+            "courtesy": "兴霸",
+            "leadership": 86,
+            "force": 94,
+            "intellect": 76,
+            "politics": 18,
+            "skill": "百骑劫营",
+            "type": "cavalry",
+            "formation": "left",
+            "trait": "近战袭扰",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "ward",
+                    "phalanx"
+                  ],
+                  "high": [
+                    "thrust"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "mirage",
+                    "bulwark"
+                  ],
+                  "high": [
+                    "cleave"
+                  ]
+                },
+                "cavalry": {
+                  "low": [
+                    "valor",
+                    "relay"
+                  ],
+                  "high": [
+                    "rush"
+                  ]
+                },
+                "archer": {
+                  "low": [
+                    "suppress",
+                    "rally"
+                  ],
+                  "high": [
+                    "wildfire"
+                  ]
+                },
+                "crossbow": {
+                  "low": [
+                    "ambush",
+                    "pierce"
+                  ],
+                  "high": [
+                    "retreatShot"
+                  ]
+                },
+                "logistics": {
+                  "low": [
+                    "bandage",
+                    "supply",
+                    "camp"
+                  ],
+                  "high": []
+                },
+                "siege": {
+                  "low": [
+                    "emplace",
+                    "nexus"
+                  ],
+                  "high": [
+                    "bombard"
+                  ]
+                },
+                "ship": {
+                  "low": [
+                    "mist",
+                    "anchor"
+                  ],
+                  "high": [
+                    "broadside"
+                  ]
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-person-119",
+              "valor",
+              "relay",
+              "rush"
+            ],
+            "skillRouteType": "cavalry",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a1",
+            "side": 0,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 3,
+            "y": 1,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.092,
+            "deputyBonus": 0.0335,
+            "advisorBonus": 0.096
+          }
+        ]
+      },
+      {
+        "faction": "yuan",
+        "commanders": [
+          {
+            "id": "shao",
+            "name": "袁绍",
+            "role": "leader",
+            "armyId": "a2"
+          },
+          {
+            "id": "tian",
+            "name": "田丰",
+            "role": "advisor",
+            "armyId": "a2"
+          }
+        ],
+        "rangeUntil": 0,
+        "recoveryUntil": 0,
+        "tactic": "balanced",
+        "retreat": false,
+        "focus": null,
+        "focusUntil": 0,
+        "inspireUntil": 0,
+        "assaultUntil": 0,
+        "fortifyUntil": 0,
+        "disruptUntil": 0,
+        "hasteUntil": 0,
+        "blockadeUntil": 0,
+        "reliefUntil": 0,
+        "units": [
+          {
+            "personality": 3,
+            "righteousness": 2,
+            "compatibility": 101,
+            "sex": 0,
+            "birthYear": 154,
+            "deathYear": 202,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [
+                "person-623"
+              ],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "person-18"
+              ],
+              "dislikedIds": [
+                "person-17",
+                "person-494"
+              ]
+            },
+            "id": "shao",
+            "name": "袁绍",
+            "courtesy": "本初",
+            "leadership": 81,
+            "force": 69,
+            "intellect": 70,
+            "politics": 73,
+            "skill": "名门号令",
+            "type": "spear",
+            "formation": "front",
+            "trait": "名门雄主",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "cleanse",
+                    "phalanx"
+                  ],
+                  "high": [
+                    "thrust"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "curse",
+                    "bulwark"
+                  ],
+                  "high": []
+                },
+                "cavalry": {
+                  "low": [
+                    "valor",
+                    "relay",
+                    "harass"
+                  ],
+                  "high": []
+                },
+                "archer": {
+                  "low": [
+                    "fire",
+                    "suppress"
+                  ],
+                  "high": [
+                    "wildfire"
+                  ]
+                },
+                "crossbow": {
+                  "low": [
+                    "screen",
+                    "pierce"
+                  ],
+                  "high": [
+                    "repeat"
+                  ]
+                },
+                "logistics": {
+                  "low": [
+                    "supply",
+                    "bandage",
+                    "camp"
+                  ],
+                  "high": []
+                },
+                "siege": {
+                  "low": [
+                    "emplace",
+                    "tremor"
+                  ],
+                  "high": [
+                    "bombard"
+                  ]
+                },
+                "ship": {
+                  "low": [
+                    "anchor",
+                    "boarding",
+                    "mist"
+                  ],
+                  "high": []
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-shao",
+              "cleanse",
+              "phalanx",
+              "thrust"
+            ],
+            "skillRouteType": "spear",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 9,
+            "y": 3,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.081,
+            "deputyBonus": 0.0465,
+            "advisorBonus": 0.093
+          },
+          {
+            "personality": 4,
+            "righteousness": 3,
+            "compatibility": 102,
+            "sex": 0,
+            "birthYear": 160,
+            "deathYear": 200,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "wen"
+              ],
+              "dislikedIds": []
+            },
+            "id": "yan",
+            "name": "颜良",
+            "courtesy": "",
+            "leadership": 79,
+            "force": 93,
+            "intellect": 42,
+            "politics": 32,
+            "skill": "河北雄锋",
+            "type": "cavalry",
+            "formation": "left",
+            "trait": "勇冠三军",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "phalanx",
+                    "cleanse"
+                  ],
+                  "high": [
+                    "doubt"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "mirage",
+                    "bulwark"
+                  ],
+                  "high": [
+                    "cleave"
+                  ]
+                },
+                "cavalry": {
+                  "low": [
+                    "gallop",
+                    "relay"
+                  ],
+                  "high": [
+                    "rush"
+                  ]
+                },
+                "archer": {
+                  "low": [
+                    "suppress",
+                    "rally",
+                    "fire"
+                  ],
+                  "high": []
+                },
+                "crossbow": {
+                  "low": [
+                    "screen",
+                    "pierce",
+                    "ambush"
+                  ],
+                  "high": []
+                },
+                "logistics": {
+                  "low": [
+                    "purify"
+                  ],
+                  "high": []
+                },
+                "siege": {
+                  "low": [],
+                  "high": []
+                },
+                "ship": {
+                  "low": [
+                    "anchor",
+                    "mist",
+                    "boarding"
+                  ],
+                  "high": []
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-yan",
+              "gallop",
+              "relay",
+              "rush"
+            ],
+            "skillRouteType": "cavalry",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 10,
+            "y": 7,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.081,
+            "deputyBonus": 0.0465,
+            "advisorBonus": 0.093
+          },
+          {
+            "personality": 3,
+            "righteousness": 5,
+            "compatibility": 96,
+            "sex": 0,
+            "birthYear": 162,
+            "deathYear": 200,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [],
+              "dislikedIds": [
+                "person-304",
+                "person-553"
+              ]
+            },
+            "id": "tian",
+            "name": "田丰",
+            "courtesy": "元皓",
+            "leadership": 72,
+            "force": 29,
+            "intellect": 93,
+            "politics": 87,
+            "skill": "审势定谋",
+            "type": "archer",
+            "formation": "back",
+            "trait": "刚直多谋",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "cleanse",
+                    "ward"
+                  ],
+                  "high": [
+                    "strike"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "curse",
+                    "bulwark",
+                    "mirage"
+                  ],
+                  "high": []
+                },
+                "cavalry": {
+                  "low": [
+                    "gallop",
+                    "harass",
+                    "valor"
+                  ],
+                  "high": []
+                },
+                "archer": {
+                  "low": [
+                    "suppress",
+                    "fire",
+                    "rally"
+                  ],
+                  "high": []
+                },
+                "crossbow": {
+                  "low": [
+                    "ambush",
+                    "screen",
+                    "pierce"
+                  ],
+                  "high": []
+                },
+                "logistics": {
+                  "low": [
+                    "supply",
+                    "purify"
+                  ],
+                  "high": [
+                    "regrowth"
+                  ]
+                },
+                "siege": {
+                  "low": [
+                    "nexus",
+                    "tremor"
+                  ],
+                  "high": [
+                    "bombard"
+                  ]
+                },
+                "ship": {
+                  "low": [
+                    "anchor",
+                    "boarding",
+                    "mist"
+                  ],
+                  "high": []
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-tian",
+              "suppress",
+              "fire",
+              "rally"
+            ],
+            "skillRouteType": "archer",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 11,
+            "y": 4,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.081,
+            "deputyBonus": 0.0465,
+            "advisorBonus": 0.093
+          },
+          {
+            "personality": 4,
+            "righteousness": 3,
+            "compatibility": 102,
+            "sex": 0,
+            "birthYear": 161,
+            "deathYear": 200,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "yan"
+              ],
+              "dislikedIds": []
+            },
+            "id": "wen",
+            "name": "文丑",
+            "courtesy": "",
+            "leadership": 78,
+            "force": 94,
+            "intellect": 25,
+            "politics": 25,
+            "skill": "破阵长驱",
+            "type": "halberd",
+            "formation": "front",
+            "trait": "锐不可当",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "phalanx",
+                    "cleanse"
+                  ],
+                  "high": [
+                    "thrust"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "bulwark",
+                    "mirage",
+                    "curse"
+                  ],
+                  "high": []
+                },
+                "cavalry": {
+                  "low": [
+                    "harass",
+                    "valor"
+                  ],
+                  "high": [
+                    "rush"
+                  ]
+                },
+                "archer": {
+                  "low": [
+                    "rally",
+                    "fire"
+                  ],
+                  "high": [
+                    "wildfire"
+                  ]
+                },
+                "crossbow": {
+                  "low": [
+                    "screen",
+                    "ambush"
+                  ],
+                  "high": [
+                    "seal"
+                  ]
+                },
+                "logistics": {
+                  "low": [
+                    "purify",
+                    "passage",
+                    "supply"
+                  ],
+                  "high": []
+                },
+                "siege": {
+                  "low": [
+                    "tremor",
+                    "nexus",
+                    "emplace"
+                  ],
+                  "high": []
+                },
+                "ship": {
+                  "low": [
+                    "anchor",
+                    "boarding",
+                    "mist"
+                  ],
+                  "high": []
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-wen",
+              "bulwark",
+              "mirage",
+              "curse"
+            ],
+            "skillRouteType": "halberd",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 9,
+            "y": 4,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.081,
+            "deputyBonus": 0.0465,
+            "advisorBonus": 0.093
+          },
+          {
+            "personality": 3,
+            "righteousness": 3,
+            "compatibility": 27,
+            "sex": 0,
+            "birthYear": 167,
+            "deathYear": 231,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [
+                "gao",
+                "person-226"
+              ],
+              "dislikedIds": [
+                "person-72"
+              ]
+            },
+            "id": "he",
+            "name": "张郃",
+            "courtesy": "俊乂",
+            "leadership": 90,
+            "force": 89,
+            "intellect": 69,
+            "politics": 57,
+            "skill": "巧变奇袭",
+            "type": "crossbow",
+            "formation": "back",
+            "trait": "善识地势",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "ward",
+                    "phalanx"
+                  ],
+                  "high": [
+                    "doubt"
+                  ]
+                },
+                "halberd": {
+                  "low": [
+                    "curse",
+                    "mirage",
+                    "bulwark"
+                  ],
+                  "high": []
+                },
+                "cavalry": {
+                  "low": [
+                    "relay",
+                    "harass"
+                  ],
+                  "high": [
+                    "lure"
+                  ]
+                },
+                "archer": {
+                  "low": [
+                    "rally",
+                    "fire",
+                    "suppress"
+                  ],
+                  "high": []
+                },
+                "crossbow": {
+                  "low": [
+                    "screen",
+                    "ambush",
+                    "pierce"
+                  ],
+                  "high": []
+                },
+                "logistics": {
+                  "low": [
+                    "passage",
+                    "bandage",
+                    "purify"
+                  ],
+                  "high": []
+                },
+                "siege": {
+                  "low": [
+                    "emplace",
+                    "tremor"
+                  ],
+                  "high": [
+                    "bombard"
+                  ]
+                },
+                "ship": {
+                  "low": [
+                    "boarding",
+                    "anchor",
+                    "mist"
+                  ],
+                  "high": []
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-he",
+              "screen",
+              "ambush",
+              "pierce"
+            ],
+            "skillRouteType": "crossbow",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 11,
+            "y": 3,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.081,
+            "deputyBonus": 0.0465,
+            "advisorBonus": 0.093
+          },
+          {
+            "personality": 2,
+            "righteousness": 4,
+            "compatibility": 96,
+            "sex": 0,
+            "birthYear": 156,
+            "deathYear": 201,
+            "relations": {
+              "fatherId": null,
+              "motherId": null,
+              "spouseIds": [],
+              "swornSiblingIds": [],
+              "likedIds": [],
+              "dislikedIds": []
+            },
+            "id": "ju",
+            "name": "沮授",
+            "courtesy": "",
+            "leadership": 78,
+            "force": 35,
+            "intellect": 90,
+            "politics": 89,
+            "skill": "料敌布防",
+            "type": "logistics",
+            "formation": "front",
+            "trait": "筹略深远",
+            "troops": 3000,
+            "wounded": 0,
+            "first": true,
+            "loyalty": 100,
+            "level": 8,
+            "experience": 0,
+            "tacticLearning": {
+              "seed": 479806,
+              "level": 8,
+              "byTroop": {
+                "spear": {
+                  "low": [
+                    "cleanse",
+                    "phalanx",
+                    "ward"
+                  ],
+                  "high": []
+                },
+                "halberd": {
+                  "low": [
+                    "mirage",
+                    "bulwark",
+                    "curse"
+                  ],
+                  "high": []
+                },
+                "cavalry": {
+                  "low": [
+                    "gallop",
+                    "relay"
+                  ],
+                  "high": [
+                    "lure"
+                  ]
+                },
+                "archer": {
+                  "low": [
+                    "fire",
+                    "rally"
+                  ],
+                  "high": [
+                    "smoke"
+                  ]
+                },
+                "crossbow": {
+                  "low": [
+                    "pierce",
+                    "ambush"
+                  ],
+                  "high": [
+                    "repeat"
+                  ]
+                },
+                "logistics": {
+                  "low": [
+                    "camp",
+                    "bandage"
+                  ],
+                  "high": [
+                    "regrowth"
+                  ]
+                },
+                "siege": {
+                  "low": [
+                    "emplace",
+                    "nexus"
+                  ],
+                  "high": [
+                    "bombard"
+                  ]
+                },
+                "ship": {
+                  "low": [
+                    "mist",
+                    "boarding",
+                    "anchor"
+                  ],
+                  "high": []
+                }
+              },
+              "special": true
+            },
+            "tactics": [
+              "unique-ju",
+              "camp",
+              "bandage",
+              "regrowth"
+            ],
+            "skillRouteType": "logistics",
+            "passiveState": {
+              "lastMoveTick": 0,
+              "targetId": null,
+              "shots": 0,
+              "shotType": null,
+              "reserveEntered": false,
+              "entryUntil": 0
+            },
+            "participated": false,
+            "attackCarry": 0,
+            "armyId": "a2",
+            "side": 1,
+            "hp": 3000,
+            "maxHp": 3000,
+            "initial": 3000,
+            "battleDamage": 0,
+            "healed": 0,
+            "moveProgress": 0,
+            "status": "active",
+            "x": 9,
+            "y": 5,
+            "morale": 80,
+            "cooldown": 0,
+            "intent": 0,
+            "tacticRecoveryUntil": 0,
+            "cast": null,
+            "skillReady": {},
+            "tacticCasts": {},
+            "statuses": {},
+            "skillCasts": 0,
+            "action": "列阵",
+            "effect": null,
+            "commandBonus": 0.081,
+            "deputyBonus": 0.0465,
+            "advisorBonus": 0.093
+          }
+        ]
+      }
+    ],
+    "gridType": "hex",
+    "terrain": "land",
+    "relationshipScores": {},
+    "relationshipTypes": {},
+    "comboWindows": [],
+    "comboCounts": [
+      0,
+      0
+    ],
+    "commandProgress": 0,
+    "commandCooldown": 0,
+    "commandReady": {},
+    "commandSerial": 0,
+    "lastCommand": null,
+    "enemyCommand": {
+      "commandProgress": 0,
+      "commandReady": {},
+      "commandSerial": 0,
+      "lastCommand": null
+    },
+    "deploymentLocked": false,
+    "logs": [
+      {
+        "tick": 0,
+        "text": "自由对战，自选我军迎战自选敌军。请布阵后开战。"
+      }
+    ],
+    "effects": [],
+    "buildings": [],
+    "result": null,
+    "settled": false,
+    "maxTicks": 480
+  },
+  "report": null,
+  "pending": null,
+  "nextId": 4,
+  "victories": 0,
+  "finished": null,
+  "testScenario": {
+    "id": "custom-battle",
+    "seed": 479806,
+    "shieldPercent": 20,
+    "customBattle": {
+      "terrain": "land",
+      "seed": 479806,
+      "ownTeam": [
+        {
+          "id": "person-371",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "person-368",
+          "type": "spear",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "person-246",
+          "type": "archer",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "person-164",
+          "type": "archer",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "person-668",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "person-119",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 8
+        }
+      ],
+      "enemyTeam": [
+        {
+          "id": "shao",
+          "type": "spear",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "yan",
+          "type": "cavalry",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "tian",
+          "type": "archer",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "wen",
+          "type": "halberd",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "he",
+          "type": "crossbow",
+          "troops": 3000,
+          "level": 8
+        },
+        {
+          "id": "ju",
+          "type": "logistics",
+          "troops": 3000,
+          "level": 8
+        }
+      ]
+    }
+  }
+}

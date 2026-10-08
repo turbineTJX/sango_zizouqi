@@ -1,0 +1,29 @@
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (34.2927ms)
+✔ council changes strategy and starters, respects arrivals, locks after battle and resumes deterministically (51.6443ms)
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (81.6854ms)
+✔ matrix keeps candidate rows while selections add and remove columns (38.6444ms)
+✔ military adjustments are isolated drafts and validate before committing (235.024ms)
+✔ recruitment affects only selected units and previews the actual cost (177.7118ms)
+✔ split and merge previews preserve officers, learning and supplies (346.4944ms)
+✔ a moved army invalidates a draft without partial changes (18.4887ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (13.3289ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (128.4398ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (122.0679ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (3.2668ms)
+✔ formation selects officers in place, army selects only compiled units (0.7434ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.3377ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.5253ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (251.8839ms)
+✔ a changed officer state blocks final formation without partial changes (26.7741ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (15.676ms)
+✔ ordinary formation owns officer selection and army selection lists compiled units (43.4131ms)
+✔ domestic appointment exposes six simple directions and keeps commerce and agriculture separate (11.2359ms)
+✔ army composition displays current work and puts idle units first without changing their jobs (215.3808ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 991.7

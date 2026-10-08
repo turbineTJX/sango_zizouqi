@@ -1,0 +1,25 @@
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (238.8427ms)
+✔ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (132.0042ms)
+✔ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (119.1588ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (80.362ms)
+✔ 42 owners have five growth nodes, their exclusive loadout and visible descriptions; others cannot equip them (14.8248ms)
+✔ every exclusive tactic resolves through the real engine and enters only its own cooldown (119.7007ms)
+✔ area AI selects the larger cluster and includes the anchor despite enemy array order (2.9353ms)
+✔ multi-hit and multi-target exclusive attacks do not charge the caster (3.6427ms)
+✔ support AI avoids idle shields, prioritizes cleansing, and skips a useless high-priority slot (5.4393ms)
+✔ exclusive control respects resolve and discipline; deaths do not acquire new statuses (6.0257ms)
+✔ personal traits affect troop panels from level one, remain independent of tactics, and respect conditions (6.2513ms)
+✔ all personal troop skills have distinct panel identities and no hidden tactic damage multiplier (46.8349ms)
+✔ exclusive support stays local and capped while army healing reaches distant active units (25.0362ms)
+✔ Liu Bei skips empty healing and never revives, overheals, or converts deaths into wounded (2.7396ms)
+✔ burn stacks retain the strongest snapshot, refresh duration, and cap at three (1.4103ms)
+✔ self-cost bypasses shields, preserves one survivor and updates the casualty ledger without extra intent (9.1967ms)
+✔ new exclusive effects resume deterministically and settle with conserved troops for all 42 officers (634.0131ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1051.3373

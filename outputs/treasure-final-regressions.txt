@@ -1,0 +1,208 @@
+✔ fire: fixed legal tactics naturally charge, grant and spend orbs; current saves resume deterministically (160.6732ms)
+✔ curse: fixed legal tactics naturally charge, grant and spend orbs; current saves resume deterministically (103.0069ms)
+✔ orb charges persist without an attack and forged charges or unlearned sources cannot be loaded (29.5296ms)
+✔ 連弩 inherits fire and cannot equip the retired piercing small tactic (7.2876ms)
+✔ display uses the engine in-field sums and updates after substitution (2.7404ms)
+✔ draft preview excludes zero troops and decoys and shows opening levels (0.9591ms)
+✔ opening preview follows first flags and shared commander capacity; reserves cannot inflate tier (0.8071ms)
+✔ contributor portraits use the same actual holders and points as the battle summary, including inactive tiers (0.2552ms)
+✔ opening portraits exclude the bench and unreached reinforcements, while hidden enemies use unknown portraits (0.3604ms)
+✔ formation markers mirror both sides, adapt to terrain and cannot consume RNG or change with unit order (60.4356ms)
+✔ real legal deployment grants tile-only first-entry benefits, doubles holders and extends only a complete top formation (199.1487ms)
+✔ unmarked and reserved troops cannot retroactively receive a formation bonus by moving onto a tile (9.8435ms)
+✔ Rout accumulates actual enemy defeats on either side, bursts once, and resumes deterministically (410.8141ms)
+✔ rout excludes retreats, decoys, gates and friendly damage and does not grant a higher-tier burst retroactively (8.9598ms)
+✔ overview and details track every design and variable threshold count (6.741ms)
+✔ all basic top tiers require at least six people and high caps are exceptionally scarce (53.4341ms)
+✔ advanced Valor activates immediately and follows live tiers without stack counters (43.877ms)
+✔ basic Valor has no accumulating or once-only attack records in real combat (595.9216ms)
+✔ specified advanced cores carry two points while companions carry one, with exact three example thresholds (1.5542ms)
+✔ Beauty requires all four named women; removal, reserve and portrait points follow actual qualification (222.5389ms)
+✔ Valor needs its core and four strong companions; ordinary recruits cannot substitute for missing points (41.9727ms)
+✔ advanced validation rejects point inflation and weak fillers even when the declared roster is forged to match (69.3281ms)
+✔ one Peach member has a real first-tier discipline benefit and no damage-sharing partners (22.9462ms)
+✔ all 832 personal growth ceilings complete at ten without exceeding caps (55.7308ms)
+✔ random progression survives save, bulk upgrades and changes of troop (2.471ms)
+✔ only live field units sum levels; reserve arrival and retreat immediately update tiers (0.9103ms)
+✔ independent commander traits remain and replaced battle traits no longer activate (0.8745ms)
+✔ real combat and save validation preserve bond growth (289.5999ms)
+✔ retired troop synergies grant no cavalry damage or defense bonuses (0.8209ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (788.8691ms)
+✔ 自由对战：无效配置被拒绝 (2.3905ms)
+✔ multiple distinct legal armies can exceed thirty battle units while retaining ten units per army (59.481ms)
+✔ unarrived commanders give neither military stratagems nor the seventh slot, and arrival enters council before replacement (135.5257ms)
+✔ opposing AI uses the same arrival restrictions and does not request a player council (15.1763ms)
+✔ army editor isolates a reinforcement column, blocks duplicates and preserves all other columns (8.1591ms)
+✔ save validation rejects forged arrivals, foreign army provenance and early entry (17.0318ms)
+✔ swapping preserves every army and arrival time, and defender hold goals work on either side (76.2758ms)
+✔ paid work presents a fixed proposal before any payment, research or construction; reload is read-only (329.4868ms)
+✔ approval is exactly once and denial preserves assignment, spends nothing and does not repropose this turn (89.5291ms)
+✔ automatic approval applies to pending and future work and is saved; free operations need no proposal (105.2919ms)
+✔ approval rechecks city gold and sites without charging or substituting the original proposal (56.58ms)
+✔ unpaid proposals occupy the research slot and their actual cost enters the budget once (53.6198ms)
+✔ recalling or transferring the author withdraws the unpaid proposal (49.8913ms)
+✔ every domestic action and research depends on its executor primary ability, without guaranteed success (7.0821ms)
+✔ real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic (574.2442ms)
+✔ proposal save rejects tampered costs, duplicate ids and simultaneous action/proposal states (119.744ms)
+✔ actual free domestic operations fail as well; higher executor ability succeeds more often with matched seeds (7074.743ms)
+✔ national city approvals use local funds and preserve the chosen construction site across reload (4848.9722ms)
+✔ replacing a construction executor updates their own chance without a new proposal or payment (79.9977ms)
+✔ all six directions have independent work and a single stat; no city morale multiplier (36.742ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (2010.8419ms)
+✔ random results vary across seeds while identical seed is reproducible (5601.8544ms)
+✔ no reserves permits source recruitment; stocked full units need no replenishment (6.4393ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (373.7843ms)
+✔ cancelling recruitment releases reserves; leaving recipients never get remote troops (289.078ms)
+✔ city can hold more than ten independent units while each new expedition is capped at ten (162.4145ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (347.6596ms)
+✔ research progresses for actual work days and directly unlocks the local troop (1934.8307ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (2316.9385ms)
+✔ healing conserves personnel and does not require local troop technology (195.572ms)
+✔ siege opening bonuses apply once at deployment lock, only to first six defenders (249.0988ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (287.9918ms)
+✔ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (1403.8333ms)
+✔ new assignments end on transfer, and unresearched troops cannot receive new recruits (112.4844ms)
+✔ actual siege pauses construction without charging again or completing in the background (508.8916ms)
+✔ defending city troops leave as real retreat transports without duplicating personnel (605.2429ms)
+✔ completed domestic work earns merit, cancellation earns none, and reload cannot duplicate it (2813.7313ms)
+✔ force-led drills and patrols produce real defensive preparation with no secondary-stat penalty (18323.9268ms)
+✔ talent recruiters really travel, cannot act locally, and return after their paid task; save continuation is exact (1155.4296ms)
+✔ an immediate new order recalls the recruiter physically before execution (944.7586ms)
+✔ express transports outrun armies but swept enemy crossings cause total loss without a battle (232.3759ms)
+✔ death, captivity and escape preserve exactly one person; ransom is paid once and return takes time (190.2018ms)
+✔ real battles assign fates to annihilated units and saves preserve their learned abilities (588.1845ms)
+✔ surviving withdrawn officers leave their army and return as unique transport personnel (296.3604ms)
+✔ a prepared commander visiting talent cannot also defend or depart before returning (1943.3348ms)
+✖ all 832 assignments allow no independent trait and preserve only genuine mechanisms (1.4036ms)
+✔ deleted traits supply no task, governor, transport or personnel multiplier (1.9446ms)
+✔ design rejects numerical traits and accepts ordinary or exclusive mechanism categories (50.5989ms)
+✔ light personnel are faster than cavalry, invisible on map, and unavailable while moving (551.0876ms)
+✔ transport carries prepared troops and cargo once, projects position, then hands them to the destination (612.3984ms)
+✔ cargo-only convoys are visible and full warehouses retain cargo (584.9431ms)
+✔ deferred transport preserves cargo instructions without deducting resources or moving its officer (2638.1431ms)
+✔ real daily execution resumes a transport deterministically and rejects corrupt journey cargo (156016.6844ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (17.9659ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (106.0406ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (234.3614ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (5.9782ms)
+✔ formation selects officers in place, army selects only compiled units (1.7408ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.5248ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.9978ms)
+✔ custom unit management exposes disband and finite reserves, preset participants stay fixed (2.1826ms)
+✖ status catalog has unique names and rejects removed status identities (1.6427ms)
+✔ continuous intent loss is bounded, and calm does not extinguish fire or restore formation (39.1592ms)
+✔ attack cadence and range use real derived attributes without changing minimum range or skill cooldown (6.7883ms)
+✔ loss of ZOC, root and disarm have independent effects; resolve covers all controls (8.4572ms)
+✔ personal range changes do not increase weapon tactic range (6.4948ms)
+✔ removed opening ambush cannot be equipped or generate an entry status (13.4197ms)
+✔ ambush chooses reachable rear, waits to cast, and first strike confuses for one step (21.3732ms)
+✔ insight exposes hidden units without changing contact; damage breaks stealth and cancels surprise (16.3872ms)
+✔ authored decoy status creates a real target, not a seventh troop or damage shield (7.6674ms)
+✔ prepared decoy triggers only once below half, and guard / link cannot recursively duplicate damage (16.3956ms)
+✔ new state saves reject malformed decoys and retired rules (12.1539ms)
+✔ stealth attacks an adjacent ZOC owner instead of chasing the rear (8.1342ms)
+✔ stealth movement stops at first ZOC contact and attacks in the same step (5.7719ms)
+✔ contact reveals stealth without granting a free attack during cooldown (7.6187ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (67.9409ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (238.2281ms)
+✔ armies move visibly along road interiors before arriving (58.4361ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (234.4878ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (240.0838ms)
+✔ head-on marching armies meet on the road without passing through each other (147.3275ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (802.0743ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (328.9574ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (1786.1688ms)
+✔ multiple battles and their snapshots share the same global day (868.0657ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (691.5804ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (2268.0341ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (1570.8196ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (273.2854ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (40.9921ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (297.1319ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (8.1817ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (47.2594ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (8.2382ms)
+✔ five days without food disband armies and preserve officers for their return (199.9611ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (787.6851ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (776.2405ms)
+✔ city capture settles once and can be saved immediately within a day (1189.1948ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (694.6741ms)
+✔ current independent battle mechanics all require explicit appointments (1.1905ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/leader (61.8519ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 0/advisor (26.6976ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/leader (20.947ms)
+✔ Ji Jun cleans one actual ally and respects its interval on 1/advisor (19.6421ms)
+✔ Ji Jun does not activate without appointment, while withdrawing or for another army (14.3974ms)
+✔ Bi Yan triggers from a real legal command and saves its interval (39.2771ms)
+✔ Yin Ren refunds only its own gauge after an actual enemy command (32.0242ms)
+✔ catalogue is bounded and seven new worlds have one physical record per treasure (1983.14ms)
+✔ fixed ordinary traits preserve assignments and have separate eligibility (0.2656ms)
+✔ grant, single equipment slot and collection recall obey resident vs deployed officers (76.2165ms)
+✔ cross-city treasure uses a visible real courier, deterministic transit and arrival storage fallback (150.5905ms)
+✔ treasure bond never grants an unlearned level or bypasses the individual and holder caps (1.2359ms)
+✔ first real entry grants each status once; preview, reserves and save reload cannot refresh it (220.4567ms)
+✔ stronger ordinary status expires independently and withdrawal preserves other sources (3.1455ms)
+✔ regrowth uses only real wounds and a saved total budget; treasure shield is independent (20.3186ms)
+✔ custom uniqueness spans both sides and reinforcements; malformed entry sources are rejected (46.0837ms)
+✔ domestic discovery commits the one turn roll and shared 30 day interval without rerolls (6.679ms)
+✔ plunder requires real damage to the selected original holder and never creates an item (7.9867ms)
+✔ captivity seals original collections, release returns them, and death hides the same IDs (120.7323ms)
+✔ interception loses the original treasure at the route instead of creating a battle drop (42.4219ms)
+✔ Eye applies only to the actual completed eligible primary actor and records its source (5.5098ms)
+✔ real normal-mode encounter settles physical treasures once and resumes from the same snapshot (935.9006ms)
+ℹ tests 152
+ℹ suites 0
+ℹ pass 150
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 162753.111
+
+✖ failing tests:
+
+test at tests\officer-traits.test.mjs:10:1
+✖ all 832 assignments allow no independent trait and preserve only genuine mechanisms (1.4036ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  67 !== 65
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/officer-traits.test.mjs:11:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 67,
+    expected: 65,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\status-rules62.test.mjs:21:1
+✖ status catalog has unique names and rejects removed status identities (1.6427ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   description: '停止移动、普攻、反击与战法，不产生ZOC；打断待结算战法，可驱散，遵守魔免、坚定和控制保护',
+  +   icon: 'confuse',
+  +   name: '眩晕',
+  +   priority: 1,
+  +   tone: 'control'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/status-rules62.test.mjs:23:79)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { name: '眩晕', icon: 'confuse', tone: 'control', priority: 1, description: '停止移动、普攻、反击与战法，不产生ZOC；打断待结算战法，可驱散，遵守魔免、坚定和控制保护' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

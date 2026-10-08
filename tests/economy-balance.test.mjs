@@ -1,7 +1,8 @@
 import {fundCities} from './resource-fixtures.mjs';
+import {setBuildingLevel} from './building-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,cityIncome,settleCityEconomy,serializeCampaign,validateCampaign,recruitLocalUnits,dailySupply} from '../strategic-campaign.mjs';
+import {newCampaign,cityIncome,settleCityEconomy,serializeCampaign,validateCampaign,recruitLocalUnits,dailySupply} from './helpers/auto-domestic-campaign.mjs';
 import {allocateUnitTroops} from '../troop-allocation.mjs';
 import {trainingCost} from '../troop-training.mjs';
 import {ACTIONS,assignDomestic,assignmentFor,actionCandidates,beginDomesticTurn,finishDomesticDay,cityFoodReserve} from '../domestic.mjs';
@@ -13,7 +14,7 @@ import {cityDomesticMarkup} from '../strategic-view.mjs';
 
 function fixture(key,seed=31){
  const s=newCampaign(seed),c=s.cities.find(c=>c.id==='xuchang'),o=s.campaign.idle.find(o=>o.faction===c.owner&&o.location===c.id);
- fundCities(s,20000);c.grain=18000;c.manpower=0;c.granary=5;s.grain=Math.floor(s.cities.filter(t=>t.owner==='cao').reduce((n,t)=>n+t.grain,0));
+ fundCities(s,20000);c.grain=18000;c.manpower=0;setBuildingLevel(c,'granary',5);s.grain=Math.floor(s.cities.filter(t=>t.owner==='cao').reduce((n,t)=>n+t.grain,0));
  for(const [id,def] of Object.entries(ACTIONS))if(def.direction===ACTIONS[key].direction&&id!==key)c.domestic.cooldowns[id]=10000;
  assert.equal(assignDomestic(s,c.id,ACTIONS[key].direction,o.unit.id),null);
  return {s,c,o,a:assignmentFor(s,o.unit.id)};

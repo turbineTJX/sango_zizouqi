@@ -1,0 +1,13 @@
+{
+  "keys": [
+    "cao-wuchao",
+    "refresh"
+  ],
+  "desktop": true,
+  "mobile": true,
+  "cancelPreservesBattle": true,
+  "oneClickCast": true,
+  "reloadPreservesBattle": true,
+  "noProvider": true,
+  "errors": []
+}

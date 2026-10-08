@@ -1,0 +1,53 @@
+✔ fixed replacements apply real plague, short range and decoy on side 0 (53.4776ms)
+✔ fixed replacements apply real plague, short range and decoy on side 1 (33.3237ms)
+✔ Ma Chao roots through a legal special, preserves ZOC and respects resolve (11.5782ms)
+✔ Sun Ce trades armor break and ward for attack haste (11.5001ms)
+✔ Liu Bei supplies bounded regrowth and shields instead of instant healing and camp (11.0787ms)
+✔ Xu Shu reveals stealth only inside shared insight range and loses detection on withdrawal (1.8628ms)
+✔ Gan Ning gains haste from a real stealth basic once, never from damage reveal (17.0159ms)
+✖ anchored gives basic range only with zero movement and no damage reduction (0.2605ms)
+✔ 29 unique mechanics replace old personal stat multipliers and describe their conditions (14.1547ms)
+✔ Flying General ignores ZOC for real route searches, but cannot pass occupied cells (2.6787ms)
+✔ Flying General converts one basic attack into seeded area hits on both sides (96.2498ms)
+✔ Wolong doubles only appointed army recovery, including reserves; no zero-hp or withdrawing source (1.1409ms)
+✔ Jianxiong intelligence difference is bounded and confusion respects resolve and immunity (2.5077ms)
+✔ rescue and guard trigger on actual allies (3.5931ms)
+✔ ambush entry is one-use, wrong troops do not activate, and stationary range ends on movement (7.8319ms)
+✔ on-hit troop mechanics produce control and extra attacks through real basics (49.2755ms)
+✔ kill reward shortens cooldown but never replenishes charges or recovery (2.495ms)
+✔ fixed tactic casts activate ally shield and movement release (5.8504ms)
+✔ real battle save resumes all random trait rolls and rejects forged trigger records (85.2438ms)
+✔ Pang Tong links real tactic targets, Lu Xun spreads fire and Zhang Jiao adds bounded thunder (7.0978ms)
+✔ Lu Su cleanses his own army (2.3184ms)
+✔ Sun Quan and Sima Yi react to actual paid stratagems without extra casts or free loops (60.9543ms)
+✔ army role recommendations include mechanical benefits using the shared candidate scorer (18.095ms)
+✔ Dian Wei guard transfers actual damage once; withdrawing sources stop new effects (3.6423ms)
+✔ Diao Chan basics weaken both tactic powers, refresh without stacking and can be cleansed (16.4697ms)
+✔ Huang Gai wounded basics debuff the actual enemy; health and troop restrictions apply (5.8082ms)
+✔ frequent debuffs expire promptly and cannot refresh stronger limited effects (3.366ms)
+✔ Flying General area attacks keep full basic damage per target with one action budget (2.6726ms)
+✔ Flying General area fire uses one legitimately cast enchantment charge (4.638ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 28
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 589.393
+
+✖ failing tests:
+
+test at tests\ability-differentiation.test.mjs:47:1
+✖ anchored gives basic range only with zero movement and no damage reduction (0.2605ms)
+  Error: 配置舰船时，请选择河流地形
+      at validateCustomBattle (file:///C:/Users/TJX/Documents/ChatGPT/sango/custom-battle.mjs:36:57)
+      at createScenario (file:///C:/Users/TJX/Documents/ChatGPT/sango/scenarios.mjs:23:24)
+      at scene (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ability-differentiation.test.mjs:13:14)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/ability-differentiation.test.mjs:48:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

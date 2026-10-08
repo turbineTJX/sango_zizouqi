@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 verify:battle-buildings-ui
+> node scripts/verify-battle-buildings-ui.mjs
+
+PASS battle facilities: technology, original city artwork, battle details, desktop/mobile and current saved state

@@ -1,0 +1,29 @@
+✔ close same-work officers gain a strong, saved joint effect on both real operations (429.7157ms)
+✔ hostile same-work officers can obstruct both participants without new fees (254.3112ms)
+✔ one commercial officer can discover favorable and adverse agricultural and training events (2452.5671ms)
+✔ cross-domain incidents can help another existing approved research project (540.1443ms)
+✔ same research slot has one actual project and a waiting colleague can aid its progress (105.8858ms)
+✔ departure breaks the joint effect, and different tasks never produce social incidents (488.9982ms)
+✔ reading reports and loading never rerolls, extends effects or repeats them; expiry is real (1550.1095ms)
+✔ unapproved, paused and empty-garrison work does not receive ineligible events (724.3753ms)
+✔ one city receives at most two incidents per turn; saved source and effect tampering is rejected (5120.4659ms)
+✔ crop events change the actual harvest and budget once; ownership loss clears city effects (2278.2261ms)
+✔ a real siege pauses incident checks and uses the previously saved training effect once (1482.7701ms)
+✔ level ten retains upgrade surplus and keeps earning a deduction buffer (53.7006ms)
+✔ downgrades reverse every threshold, clamp at one, and restore saved bonds without rerolls (1.141ms)
+✔ changed allegiance retains twenty percent of thresholds plus balance (0.2424ms)
+✔ real recruitment preserves first service and discounts former service once, including former free officers (479.9145ms)
+✔ permanent event records prevent repeat rewards and deductions after reload (73.0007ms)
+✔ downgrade preserves field soldiers and returns excess troops to reserves at home (68.0248ms)
+✔ split transport deliveries and reverse deliveries share one route budget (14.5846ms)
+✔ scouting rewards real intelligence and watch days, capped and persistent across redispatch (241.7242ms)
+✔ actual shield absorption credits its friendly provider, including reload (395.499ms)
+✔ actual ordinary failures deduct merit and can downgrade, while partial results retain credit (891.716ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15707.9323

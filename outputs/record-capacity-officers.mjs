@@ -1,0 +1,1 @@
+import fs from 'node:fs';let p='scripts/audit-city-economy.mjs',s=fs.readFileSync(p,'utf8');s=s.replace('officers:units.length,politics:','officers:units.length,officerIds:units.map(u=>u.id),politics:');fs.writeFileSync(p,s);

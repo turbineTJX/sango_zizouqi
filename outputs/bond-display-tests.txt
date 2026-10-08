@@ -1,0 +1,48 @@
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (32.4514ms)
+✔ council rejects posture changes, changes starters, respects arrivals and resumes deterministically (82.3686ms)
+✔ reserve bench supports swaps, ordering, overflow validation and saved deployment (4.8373ms)
+✔ removed postures do not change attributes or field intent (2.8678ms)
+✔ display uses the engine in-field sums and updates after substitution (1.6247ms)
+✔ draft preview excludes zero troops and decoys and is explicitly potential (0.6283ms)
+✔ all 832 personal growth ceilings complete at ten without exceeding caps (16.6486ms)
+✔ random progression survives save, bulk upgrades and changes of troop (1.5948ms)
+✔ only live field units sum levels; reserve arrival and retreat immediately update tiers (0.5266ms)
+✔ independent commander traits remain and replaced battle traits no longer activate (0.4547ms)
+✔ real combat and save validation preserve bond growth (162.883ms)
+✔ all campaign information is read only and city units are not armies (119.1559ms)
+✔ expedition information follows real city-unit departure without duplication (21.1675ms)
+✔ current status follows actual marching and transfer progress (1613.1884ms)
+✖ siege status includes the live battlefield state of a real defending unit (2598.8986ms)
+✔ prepared troops show active domestic work and deferred orders separately (12.8743ms)
+✔ object details reuse dossier format without opening a faction directory (12.1854ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 16
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4608.5715
+
+✖ failing tests:
+
+test at tests\campaign-info.test.mjs:36:1
+✖ siege status includes the live battlefield state of a real defending unit (2598.8986ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(battle)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/campaign-info.test.mjs:39:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

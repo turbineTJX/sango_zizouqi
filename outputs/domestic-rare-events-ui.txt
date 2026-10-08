@@ -1,0 +1,4 @@
+
+> sango-sovereign@0.3.0 verify:domestic-incidents-ui
+> node scripts/verify-domestic-incidents-ui.mjs
+

@@ -1,0 +1,100 @@
+✔ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (222.2929ms)
+✔ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (102.1075ms)
+✔ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (5.5444ms)
+✔ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (9.8706ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (50.602ms)
+✔ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (421.2887ms)
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (182.7445ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (5.4914ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (157.085ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (73.5626ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (289.9579ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (134.9735ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (49.4717ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (300.9852ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (139.3352ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (73.0161ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (543.0814ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (52.4533ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (62.8393ms)
+✔ relationship growth leaves an active battle and its snapshots unchanged (45.7042ms)
+✔ siege prevents new cooperation and invalid record or old save is rejected (251.0546ms)
+✔ 电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界 (284.6158ms)
+✔ 自然击溃守军后，liu继续使用真实伤兵与战意救护 (168.0457ms)
+✔ 自然击溃守军后，yu继续使用真实伤兵与战意救护 (93.5212ms)
+✔ 本步已结算战果时不再追加电脑军略，即使自然充能恰好蓄满 (65.2861ms)
+✔ 荀彧获得额外专属，持有固定内政特性和普通学习名额 (2.1223ms)
+✔ 条件加成只读取施放前已有状态和战意，不把本次破甲或受击收益算作铺垫 (0.1975ms)
+✔ 曹操：合法自定义战役自然发动专属，遵守消耗、目标与续战 (164.7054ms)
+✔ 郭嘉：合法自定义战役自然发动专属，遵守消耗、目标与续战 (79.0945ms)
+✔ 荀彧：合法自定义战役自然发动专属，遵守消耗、目标与续战 (69.234ms)
+✔ 诸葛亮：合法自定义战役自然发动专属，遵守消耗、目标与续战 (69.6477ms)
+✔ 夏侯惇：合法自定义战役自然发动专属，遵守消耗、目标与续战 (71.7782ms)
+✔ 夏侯渊：合法自定义战役自然发动专属，遵守消耗、目标与续战 (47.5298ms)
+✔ 典韦：合法自定义战役自然发动专属，遵守消耗、目标与续战 (57.5231ms)
+✔ 刘备：合法自定义战役自然发动专属，遵守消耗、目标与续战 (55.4198ms)
+✔ 关羽：合法自定义战役自然发动专属，遵守消耗、目标与续战 (38.2592ms)
+✔ 张飞：合法自定义战役自然发动专属，遵守消耗、目标与续战 (47.4391ms)
+✔ 吕布：合法自定义战役自然发动专属，遵守消耗、目标与续战 (52.5332ms)
+✔ 周瑜：合法自定义战役自然发动专属，遵守消耗、目标与续战 (43.4633ms)
+✔ 孙策：合法自定义战役自然发动专属，遵守消耗、目标与续战 (53.4432ms)
+✔ 孙权：合法自定义战役自然发动专属，遵守消耗、目标与续战 (46.2643ms)
+✔ 司马懿：合法自定义战役自然发动专属，遵守消耗、目标与续战 (42.9324ms)
+✔ all eight troops use their actual basic and surviving-hit income, with no timed regeneration (72.5051ms)
+✔ interdict is fixed from level one and prevents the entire normal hit award, including endurance (9.9766ms)
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (20.5918ms)
+✔ suppression traits remain with their fixed holders after troop changes (1.3649ms)
+✔ denial neither drains stored intent nor blocks explicit support or fully shielded attacks (9.7958ms)
+✔ legal learned suppression repeatedly denies income and drains intent without disabling cheap defense (47.2392ms)
+✔ current suppression routes and troop incomes survive deterministic battle continuation (229.9768ms)
+✔ unlearned units have no tactics and each learned slot belongs to the current troop or owner (5.7132ms)
+✔ instant skills spend shared intent and recovery separates learned casts (29.0882ms)
+✔ demoralize clamps active and reserve intent and prevents subsequent skills below threshold (8.5096ms)
+✔ expired cooldown and restored intent cannot replenish an exhausted advanced tactic (8.7325ms)
+✔ fire burns without intent feedback and ranged skills have distinct real effects (21.5095ms)
+✔ thrust hits the unit directly behind; scatter hits several nearby targets (10.7306ms)
+✔ formation and valor grant real statuses; gallop needs a path and rush changes position (22.8691ms)
+✔ blocked displacement never overlaps units or crosses board limits (7.7864ms)
+✔ rare skills stun, protect and reduce intent without being universal damage attacks (13.4108ms)
+✔ independent cooldowns, statuses and active casts survive save and resume identically (20.1371ms)
+✔ formation mitigates actual damage and blocks displacement; shields absorb before soldiers (15.3756ms)
+✔ prepaid casts and previous save formats are rejected (9.3674ms)
+✔ new saves distinguish bows and crossbows and require current rules (7.2749ms)
+✔ command and experience define individual capacity; fielded troops are independent (21.3356ms)
+✔ tactical-control-lv: current deployment, legal capacity and deterministic continuation (107.273ms)
+✔ tactical-control-zhang: current deployment, legal capacity and deterministic continuation (71.3275ms)
+✔ tactical-three-heroes: current deployment, legal capacity and deterministic continuation (73.4879ms)
+✔ tactical-shu-defense: current deployment, legal capacity and deterministic continuation (834.4436ms)
+✔ tactical-lv-cao: current deployment, legal capacity and deterministic continuation (88.7028ms)
+✔ outnumbered defense enforces a real hold objective and retreat still fails (416.9491ms)
+ℹ tests 69
+ℹ suites 0
+ℹ pass 68
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2564.4218
+
+✖ failing tests:
+
+test at tests\intent-roles.test.mjs:40:1
+✖ stifle suppresses every victim once per damage tactic and does not suppress normal attacks (20.5918ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(d.statuses.burn||other.statuses.burn)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/intent-roles.test.mjs:48:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

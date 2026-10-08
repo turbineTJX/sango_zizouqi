@@ -1,0 +1,77 @@
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (41.4258ms)
+✔ only the current rule version loads, and intent is validated without normalization (24.37ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (8.4751ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (5.8195ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (14.4975ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (71.8206ms)
+✔ siege defenders hold their rear line before enemies approach (117.0615ms)
+✔ all campaign information is read only and city units are not armies (116.092ms)
+✔ expedition information follows real city-unit departure without duplication (24.044ms)
+✔ current status follows actual marching and transfer progress (1643.5578ms)
+✔ siege status includes the live battlefield state of a real defending unit (24.1143ms)
+✔ prepared troops show active domestic work and deferred orders separately (9.9577ms)
+✔ object details reuse dossier format without opening a faction directory (10.5868ms)
+✔ same target links distinct officers, doubles count once, triples cap at forty percent (33.4131ms)
+✔ self repeats, other targets, expired windows, enemy casts and departed partners cannot link (22.1888ms)
+✔ a confused unit and a current self buff do not prime a combo (3.9971ms)
+✔ a real harass combo strengthens intent loss and respects control protection (8.5245ms)
+✔ current rally support combos strengthen real intent gains on the same patient (3.4524ms)
+✔ ongoing combo window and fatal-hit metadata survive save; malformed chains fail closed (514.6087ms)
+✔ relationship rolls use the previous caster, failed links restart the chain and do not boost damage (3.6385ms)
+✔ intermediate relationship scores produce reproducible probabilities at the exact seeded threshold (14.3931ms)
+✔ a changed relationship type supplies its current baseline to the real combo roll (2.9692ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (33.9408ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (286.8239ms)
+✔ armies move visibly along road interiors before arriving (15.8492ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (22.9331ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (21.8913ms)
+✔ head-on marching armies meet on the road without passing through each other (29.9148ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (131.8267ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (98.9661ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (224.0838ms)
+✔ multiple battles and their snapshots share the same global day (194.7273ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (68.9012ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (634.0522ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (113.1342ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (155.0223ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (15.4303ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (23.1324ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.3514ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (19.4203ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (1.7059ms)
+✔ five days without food disband armies and preserve officers for their return (17.9687ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (101.0736ms)
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (169.4838ms)
+✔ city capture settles once and can be saved immediately within a day (170.1641ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (59.1347ms)
+ℹ tests 46
+ℹ suites 0
+ℹ pass 45
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2847.3357
+
+✖ failing tests:
+
+test at tests\strategic-campaign.test.mjs:134:1
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (169.4838ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:145:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

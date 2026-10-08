@@ -1,0 +1,124 @@
+✔ command scoring reads the requested side attributes and cooldowns without swapping units (20.9267ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (142.4771ms)
+✔ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (68.9309ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (111.7937ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (5.4976ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (36.0743ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (42.7025ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (4.8665ms)
+✔ AI prioritizes cleanse for control and DOT, holds useless commands, and does not refresh active buffs (11.6216ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (150.5371ms)
+✔ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (26.4495ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (5.8646ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (9.7151ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (3.9179ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (488.7556ms)
+✔ each troop has exactly six tools and exclusive tactics remain optional (1.0057ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (27.8752ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (22.4729ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (6.7352ms)
+✔ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (20.7589ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (6.4709ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (8.058ms)
+✖ blockade delays replacement but expires; relief shields automatic reinforcements (40.5732ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (413.1021ms)
+✔ custom-battle: complete battle, reserves, save recovery and settlement (315.8984ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (310.471ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (573.4577ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (329.6292ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (345.5351ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (158.1522ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (136.0431ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (108.2371ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1407.5478ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (204.2892ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (304.1133ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (386.5555ms)
+✔ river: complete battle, reserves, save recovery and settlement (354.2929ms)
+✔ breach: complete battle, reserves, save recovery and settlement (124.7102ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (137.2122ms)
+✔ field: complete battle, reserves, save recovery and settlement (477.3133ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (217.1941ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (701.2827ms)
+✔ siege: complete battle, reserves, save recovery and settlement (456.4161ms)
+✔ defense: complete battle, reserves, save recovery and settlement (3382.2596ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (659.5375ms)
+✖ unarrived waves prevent early victory, arrive on schedule and obey blockade (24.3639ms)
+✔ sieges add an independent gate and shields only to defending starters (49.4314ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (6.4158ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (27.1527ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (39.6677ms)
+✔ fixture and seed validation rejects malformed test state (14.9986ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (53.2361ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (7.5272ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (115.1502ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (5.0904ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (16.8596ms)
+✔ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (7.4021ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (12.8848ms)
+✔ panel offense sums current soldiers, while defensive attributes do not shrink (2.5705ms)
+✔ ordinary attacks use the displayed attack once, without a second troop multiplier (30.868ms)
+✔ 100 survivors: unique-person-661 earns intent and cannot destroy a 48,000-soldier army (55.3389ms)
+✔ 100 survivors: unique-person-433 earns intent and cannot destroy a 48,000-soldier army (34.8836ms)
+✔ 100 survivors: unique-person-99 earns intent and cannot destroy a 48,000-soldier army (32.2694ms)
+✔ 100 survivors: unique-person-246 earns intent and cannot destroy a 48,000-soldier army (29.665ms)
+✔ 100 survivors: wildfire earns intent and cannot destroy a 48,000-soldier army (24.1785ms)
+✔ 100 survivors: fire earns intent and cannot destroy a 48,000-soldier army (13.9473ms)
+✔ 100 survivors: plague earns intent and cannot destroy a 48,000-soldier army (31.6669ms)
+✔ 100 survivors: bombard earns intent and cannot destroy a 48,000-soldier army (21.3738ms)
+✔ 100 survivors: broadside earns intent and cannot destroy a 48,000-soldier army (12.8233ms)
+✔ firestorm is bounded by friendly power, not enemy army size (97.0158ms)
+ℹ tests 70
+ℹ suites 0
+ℹ pass 68
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11442.67
+
+✖ failing tests:
+
+test at tests\loadouts.test.mjs:74:1
+✖ blockade delays replacement but expires; relief shields automatic reinforcements (40.5732ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:82:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\scenarios.test.mjs:35:1
+✖ unarrived waves prevent early victory, arrive on schedule and obey blockade (24.3639ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 4
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/scenarios.test.mjs:51:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

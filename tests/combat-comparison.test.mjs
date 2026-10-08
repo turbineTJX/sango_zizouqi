@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {combatComparison,commanderComparison,relationshipMatrix} from '../combat-comparison.mjs';
 import {armyCommanders,armyStratagems} from '../engine.mjs';
 import {selectStratagemSource,stratagemEffectText} from '../stratagems.mjs';

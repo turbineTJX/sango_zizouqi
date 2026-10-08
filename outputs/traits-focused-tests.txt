@@ -1,0 +1,37 @@
+✔ all 835 identities have fixed positive traits, independent of level, troop and learned tactics (48.9614ms)
+✔ actor administration works without a governor and matching governor does not double the discount (55.2873ms)
+✔ research, farming, repairs, medicine and preparation traits change real paid task outcomes (209.4346ms)
+✔ recruitment discounts charge actual recruits at the saved rate without creating free people (35.614ms)
+✖ talent traits improve only the corresponding real action chance; mediator does not stack (4.4708ms)
+✔ transport speed applies to actual travel and saves resume; light travel has separate eligibility (36.32ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 548.3965
+
+✖ failing tests:
+
+test at tests\officer-traits.test.mjs:73:1
+✖ talent traits improve only the corresponding real action chance; mediator does not stack (4.4708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(Math.abs(actionChance(s,c,u,ACTIONS.explore)-actionChance(s,c,plain,ACTIONS.explore)-.08)<1e-9)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/officer-traits.test.mjs:75:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

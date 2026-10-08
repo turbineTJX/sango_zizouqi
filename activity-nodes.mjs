@@ -3,6 +3,7 @@ import TECHNOLOGIES from './data/design/technologies.mjs';
 import {mapNode} from './map-node-data.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {playerFaction} from './player-faction.mjs';
+import {validMeritGrowth,PROGRESSION} from './progression.mjs';
 
 // Factual outcomes live in the daily ledger. Reports only select these nodes.
 export function appendActivityNode(s,{sourceId,category,phase,faction,officerId=null,officerIds=[],cityId=null,siteId=cityId,key=null,text,result={}}){
@@ -12,8 +13,11 @@ export function appendActivityNode(s,{sourceId,category,phase,faction,officerId=
  ledger.nodes.push(node);return node;
 }
 export function importantActivityNode(n){
+ if(n.category==='domestic'&&n.phase==='incident')return true;
+ if(n.phase==='merit')return n.result.leveled===true;
  if(n.category==='domestic'&&['harvest','harvest-start'].includes(n.phase))return false;
  if(n.category==='diplomacy')return ['effective','expired','expiring'].includes(n.phase)?n.result?.important===true:['pending','signed','fulfilled','blocked','failed','war','city','prisoner','aid','aid-end','withdrawal'].includes(n.phase);
+ if(n.category==='treasure')return ['acquired','delivered'].includes(n.phase);
  if(n.category==='battle'||n.category==='occupation')return true;
  if(n.category==='personnel')return ['DEAD','CAPTIVE','ESCAPED','TRANSPORT_LOST','RANSOM','RELEASE','SCOUT_INTEL'].includes(n.phase);
  if(n.category==='talent')return ['discovered','signed','leave-warning','resigned','changed-side','offer-paused','project-closed','retained','displaced'].includes(n.phase);
@@ -33,10 +37,15 @@ export function validateActivityNodes(s,fail){
  const ids=new Set(),sources=new Set(),sequences=new Set();let prior=0,day=1;
  for(const n of ledger.nodes){
   fail(n&&Number.isSafeInteger(n.sequence)&&n.sequence>prior&&n.sequence<ledger.nextSequence&&n.id==='activity:'+n.sequence&&typeof n.sourceId==='string'&&n.sourceId.length>0&&!ids.has(n.id)&&!sources.has(n.sourceId));
-  fail(Number.isSafeInteger(n.day)&&n.day>=day&&n.day<=s.campaign.day&&['domestic','talent','personnel','battle','occupation','diplomacy'].includes(n.category)&&typeof n.phase==='string'&&typeof n.faction==='string'&&typeof n.text==='string'&&n.text.length>0&&typeof n.read==='boolean'&&n.result&&typeof n.result==='object');
+  fail(Number.isSafeInteger(n.day)&&n.day>=day&&n.day<=s.campaign.day&&['domestic','talent','personnel','battle','occupation','diplomacy','treasure'].includes(n.category)&&typeof n.phase==='string'&&typeof n.faction==='string'&&typeof n.text==='string'&&n.text.length>0&&typeof n.read==='boolean'&&n.result&&typeof n.result==='object');
   fail((n.officerId===null||!!OFFICER_BY_ID[n.officerId])&&Array.isArray(n.officerIds)&&n.officerIds.every(id=>!!OFFICER_BY_ID[id])&&new Set(n.officerIds).size===n.officerIds.length&&(n.officerId===null||n.officerIds.includes(n.officerId))&&[n.cityId,n.siteId].every(id=>id===null||!!mapNode(s,id))&&(n.key===null||!!ACTIONS[n.key]));
   const resourceKeys=['gold','grain','manpower'],resources=(r,signed=false)=>r&&Object.keys(r).sort().join(',')==='gold,grain,manpower'&&resourceKeys.every(k=>Number.isFinite(r[k])&&(signed||r[k]>=0)),r=n.result,reward=r.reward;
   if(r.resourceCredit)fail(resources(r.resourceCredit),'运营入库记录无效');
+  if(n.phase==='merit'){
+   fail(validMeritGrowth(r.growth)&&r.leveled===(r.growth.before!==r.growth.after),'功绩结算记录无效');
+   if(r.scouting)fail(r.scouting.faction===n.faction&&typeof r.scouting.key==='string'&&r.scouting.turn===Math.floor((n.day-1)/10)&&r.growth.gained>=0&&r.growth.gained<=PROGRESSION.scouting.maximumPerTurn,'侦察计功记录无效');
+   if(r.transport)fail(r.transport.faction===n.faction&&[r.transport.source,r.transport.target].every(id=>!!mapNode(s,id))&&r.transport.pair===[r.transport.source,r.transport.target].sort().join(':')&&r.transport.turn===Math.floor((n.day-1)/10)&&Number.isFinite(r.transport.value)&&r.transport.value>=0,'运输计功记录无效');
+  }
   if(n.phase==='harvest-start')fail(Number.isSafeInteger(r.turn)&&r.turn>0&&resources(r.stocks),'旬首资源记录无效');
   if(n.phase==='harvest'){
    fail(Number.isSafeInteger(r.turn)&&r.turn>0&&resources(r.recurring)&&resources(r.work)&&resources(r.stocks)&&(r.net===null||resources(r.net,true))&&Array.isArray(r.cities)&&r.cities.length<=s.cities.length&&r.cities.every(c=>!!mapNode(s,c.id)&&typeof c.name==='string'&&resources(c.credited)&&resources(c.work)),'收获入库记录无效');

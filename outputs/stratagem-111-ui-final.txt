@@ -1,0 +1,8 @@
+
+> sango-sovereign@0.3.0 verify:stratagems-ui
+> node scripts/verify-stratagem-picker-ui.mjs && node scripts/verify-stratagem-area-ui.mjs && node scripts/verify-command-specials-ui.mjs && node scripts/verify-stratagem-impact-ui.mjs
+
+Stratagem picker desktop/mobile, cancellation, one-click cast and reload passed.
+Area UI: preview, rotate, cancel, circle, confirm, resources, mobile and no JS errors passed
+Command UI passed: single target, highlight, empty target, cancellation, mobile, effects and reload
+Invulnerability, stun and different ward casters UI: natural charging, actual attribute effects, preview, cancellation, confirmation, mobile and reload passed.

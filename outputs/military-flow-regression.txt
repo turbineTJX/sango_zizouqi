@@ -1,0 +1,45 @@
+✔ both current national scenarios store units in cities with no standing map armies (943.8257ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (187.6071ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (15.4004ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (553.3566ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (80.6073ms)
+✔ real sieges build temporary defense from city units and resume deterministically (4729.3769ms)
+✔ departure can prepare an idle officer atomically and invalid departure spends nothing (219.3993ms)
+✔ awaiting siege permits real idle-officer preparation without starting battle or changing source (5975.3011ms)
+✔ military adjustments are isolated drafts and validate before committing (281.3744ms)
+✔ recruitment affects only selected units and previews the actual cost (239.0155ms)
+✔ split and merge previews preserve officers, learning and supplies (321.1398ms)
+✔ a moved army invalidates a draft without partial changes (18.3922ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (49.7292ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (319.9282ms)
+✔ armies move visibly along road interiors before arriving (28.4649ms)
+✔ head-on marching armies meet on the road without passing through each other (50.5651ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (123.771ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (277.096ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (581.3649ms)
+✔ multiple battles and their snapshots share the same global day (101.7101ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (58.9283ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (672.9796ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (105.3092ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (144.1178ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (18.246ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (27.5415ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.5301ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (19.7789ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (2.618ms)
+✔ five days without food disband armies and preserve officers for their return (27.1107ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (109.4946ms)
+✔ combat desertions are never healable and dissolved officers are not duplicated in saves (558.3698ms)
+✔ city capture settles once and can be saved immediately within a day (238.8787ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (90.7398ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (317.9708ms)
+✔ a changed officer state blocks final formation without partial changes (30.9753ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (18.5211ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12911.1941

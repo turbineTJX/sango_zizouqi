@@ -1,0 +1,299 @@
+✖ fire: three real basics consume exactly three charges, with normal intent and no links (16.7704ms)
+✖ suppress: three real basics consume exactly three charges, with normal intent and no links (2.8846ms)
+✖ pierce: three real basics consume exactly three charges, with normal intent and no links (3.3013ms)
+✔ curse: three real basics consume exactly three charges, with normal intent and no links (10.1447ms)
+✖ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (4.4058ms)
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (2.5834ms)
+✖ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (2.2021ms)
+✖ gate attacks do not spend troop enchantments (4.422ms)
+✖ remaining charges/source survive save and resume; forged or obsolete state is rejected (4.5504ms)
+✔ command triggers ignore range and read only the requested side cooldowns (19.4267ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (157.607ms)
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (39.5165ms)
+✔ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (82.2844ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (4.5968ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (30.837ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (71.6006ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (3.2432ms)
+✔ AI follows fixed command order, holds ineligible commands, and does not refresh active buffs (2.386ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (225.8871ms)
+✖ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (224.7326ms)
+✔ 每兵种固定武技小战法、谋略小战法和大战法各一项 (1.3314ms)
+✔ 832名武将全部兵种和等级遵守S三项、A两项、B/C一项，种子不影响配置 (32.3542ms)
+✔ 属性比较按智武、政统、魅力50边界选择，不受等级或随机数影响 (0.4125ms)
+✔ 仅确认16人拥有专属，一级即可跨九兵种携带且不挤占普通名额 (16.3284ms)
+✔ 固定记录校验拒绝额外战法、篡改和旧规则存档 (9.1024ms)
+✔ AI保持固定战法，真实非均分战斗和存档续战一致 (76.2337ms)
+✔ 升级不授予或更换战法，战略改编和存读档维持固定记录 (34.5326ms)
+✔ 所有预设共用固定配置生成器，没有场景专属授予或随机学习 (81.3412ms)
+✔ 16名将一级专属在九兵种下通过真实自动施放、次数与冷却流程 (133.2158ms)
+✔ limited stock covers every learned tier and only one authored burst spends intent (2.2525ms)
+✖ real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly (168.108ms)
+✔ army restoration is useful, once per battle, does not reset cooldown or restore specials (114.9692ms)
+✔ recovery supports do not cast on full stock, themselves, or each other to form a loop (2.0269ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 22
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 867.128
+
+✖ failing tests:
+
+test at tests\attack-orbs.test.mjs:29:42
+✖ fire: three real basics consume exactly three charges, with normal intent and no links (16.7704ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:29:42
+✖ suppress: three real basics consume exactly three charges, with normal intent and no links (2.8846ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:29:42
+✖ pierce: three real basics consume exactly three charges, with normal intent and no links (3.3013ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:30:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:43:1
+✖ charges persist while idle and while sealed; cooldown cannot refill or replace an active orb (4.4058ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:44:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:52:1
+✖ tactics and retaliation do not consume charges or double-apply timed burning attacks (2.5834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:53:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:63:1
+✖ a shielded hit still consumes one charge; a lethal hit consumes one without debuffing the defeated unit (2.2021ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:64:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:69:1
+✖ gate attacks do not spend troop enchantments (4.422ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:70:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\attack-orbs.test.mjs:77:1
+✖ remaining charges/source survive save and resume; forged or obsolete state is rejected (4.5504ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at scene (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:21:10)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/attack-orbs.test.mjs:78:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\battle-ai.test.mjs:44:66
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (39.5165ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   reason: '撤退',
+  +   winner: 1
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/battle-ai.test.mjs:50:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { winner: 1, reason: '撤退' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\combat-tempo.test.mjs:7:1
+✖ standard field battles inflict meaningful daily losses while leaving time for repeated tactics (224.7326ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(['击溃','久战收兵'].includes(b.result.reason))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/combat-tempo.test.mjs:14:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\tactic-uses.test.mjs:23:1
+✖ real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly (168.108ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(expanded>0&&restored>0&&exhausted>0&&ordinary>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-before-rear-nOLoO1/tests/tactic-uses.test.mjs:47:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,95 @@
+✔ interruption prompt has no side effects; immediate reassignment archives the interrupted work (60.8682ms)
+✔ deferred reassignment persists and switches after real completion with deterministic continuation (115.8036ms)
+✔ queued departure reserves the exact garrison and leaves only after its action completes (126.1361ms)
+✔ waiting departure prevents idle members from picking new work across turns (38.1753ms)
+✔ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (41.7987ms)
+✔ forged pending action references and duplicate officers are rejected (159.4293ms)
+✔ extended construction keeps its waiting order until the actual project succeeds (74.6579ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1307.534ms)
+✔ a queued garrison defends an actual siege and interrupts work and cancels its deferred departure (428.2534ms)
+✔ prepared officers can take every civil direction and govern without duplicating their units (52.6193ms)
+✔ compiling, recruiting, splitting and merging preserve appointments; an actual march order ends only departing duties (87.1444ms)
+✔ an unfilled prepared unit keeps its civil job, earns governor growth, and continues deterministically (91.1186ms)
+✔ appointed prepared units actually defend the city, interrupt work under siege and retain civil appointments (460.9433ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: cao missing fields
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/game-officer-table.mjs:103:9
+    at Array.map (<anonymous>)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/scripts/game-officer-table.mjs:82:50
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+✖ tests\officer-source.test.mjs (244.6961ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (75.9043ms)
+✔ superior defenses produce no attack plan or resource debit (18.8595ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (21.7449ms)
+✔ a serious incoming attack retains the home defense instead of expanding (19.9385ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (38.4537ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (17.9461ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (22.7094ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (51.8681ms)
+✔ local plan reservation lets current work finish and blocks starting another task (26.0686ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (24.798ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (19.3352ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (18.0122ms)
+✔ AI save rejects duplicated commitments and old planner versions (27.6116ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (29.0429ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (30.6457ms)
+✖ waiting transport earmarks cargo without a debit and replenishment preserves plan food (27.3566ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (26.7954ms)
+✔ cancelling an assault before its first movement actually clears the outgoing route (20.4071ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (19.0055ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (18.9378ms)
+✔ departure checks real presence before considering work or interruption history (19.8212ms)
+✔ ordinary ready offensives interrupt lengthy work through the real command and record the loss (18.3549ms)
+✔ recent real interruption protects the next task across reload except when rescue would be missed (28.6666ms)
+✔ an expensive real construction near completion is protected even with more than two days left (20.5657ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (5053.1407ms)
+✔ offensive composition leaves busy officers working when idle troops suffice (19.5418ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 38
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5956.2177
+
+✖ failing tests:
+
+test at tests\officer-source.test.mjs:1:1
+✖ tests\officer-source.test.mjs (244.6961ms)
+  'test failed'
+
+test at tests\strategic-ai.test.mjs:125:1
+✖ waiting transport earmarks cargo without a debit and replenishment preserves plan food (27.3566ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(result.queued)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-ai.test.mjs:130:155)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

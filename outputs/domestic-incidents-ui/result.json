@@ -1,0 +1,195 @@
+{
+  "passed": true,
+  "crossDomain": {
+    "id": 8,
+    "code": "marketAbuse",
+    "turn": 1,
+    "day": 1,
+    "cityId": "xuchang",
+    "siteId": "xuchang",
+    "direction": "military",
+    "sourceOfficerId": "person-255",
+    "sourceDirection": "commerce",
+    "sourceActionId": 6,
+    "sourceKey": "fair",
+    "otherOfficerId": "dun",
+    "officerIds": [],
+    "actionIds": [],
+    "relation": null,
+    "participants": [
+      {
+        "id": "person-255",
+        "faction": "cao",
+        "cityId": "xuchang",
+        "direction": "commerce",
+        "key": "fair"
+      },
+      {
+        "id": "dun",
+        "faction": "cao",
+        "cityId": "xuchang",
+        "direction": null,
+        "key": null
+      }
+    ],
+    "resources": {
+      "before": {
+        "gold": 40000,
+        "grain": 9710,
+        "manpower": 6500
+      },
+      "after": {
+        "gold": 40000,
+        "grain": 9710,
+        "manpower": 5700
+      },
+      "reserved": 0,
+      "delta": {
+        "gold": 0,
+        "grain": 0,
+        "manpower": -800
+      }
+    },
+    "relationship": {
+      "key": "dun|person-255",
+      "before": 50,
+      "after": 38,
+      "beforeType": "ordinary",
+      "afterType": "distant",
+      "delta": -12
+    }
+  },
+  "positive": {
+    "id": 8,
+    "code": "marketPeace",
+    "turn": 1,
+    "day": 1,
+    "cityId": "xuchang",
+    "siteId": "xuchang",
+    "direction": "commerce",
+    "sourceOfficerId": "person-255",
+    "sourceDirection": "commerce",
+    "sourceActionId": 6,
+    "sourceKey": "fair",
+    "otherOfficerId": "yu",
+    "officerIds": [],
+    "actionIds": [],
+    "relation": null,
+    "participants": [
+      {
+        "id": "person-255",
+        "faction": "cao",
+        "cityId": "xuchang",
+        "direction": "commerce",
+        "key": "fair"
+      },
+      {
+        "id": "yu",
+        "faction": "cao",
+        "cityId": "xuchang",
+        "direction": null,
+        "key": null
+      }
+    ],
+    "resources": {
+      "before": {
+        "gold": 40000,
+        "grain": 9710,
+        "manpower": 6500
+      },
+      "after": {
+        "gold": 42000,
+        "grain": 9710,
+        "manpower": 6500
+      },
+      "reserved": 0,
+      "delta": {
+        "gold": 2000,
+        "grain": 0,
+        "manpower": 0
+      }
+    },
+    "relationship": {
+      "key": "person-255|yu",
+      "before": 50,
+      "after": 62,
+      "beforeType": "ordinary",
+      "afterType": "friendly",
+      "delta": 12
+    }
+  },
+  "joint": {
+    "id": 12,
+    "code": "unity",
+    "turn": 1,
+    "day": 1,
+    "cityId": "xuchang",
+    "siteId": "xuchang",
+    "direction": "commerce",
+    "sourceOfficerId": "person-255",
+    "sourceDirection": "commerce",
+    "sourceActionId": 8,
+    "sourceKey": "fair",
+    "otherOfficerId": "person-462",
+    "officerIds": [
+      "person-255",
+      "person-462"
+    ],
+    "actionIds": [
+      8,
+      10
+    ],
+    "relation": 100,
+    "participants": [
+      {
+        "id": "person-255",
+        "faction": "cao",
+        "cityId": "xuchang",
+        "direction": "commerce",
+        "key": "fair"
+      },
+      {
+        "id": "person-462",
+        "faction": "cao",
+        "cityId": "xuchang",
+        "direction": "commerce",
+        "key": "fair"
+      }
+    ],
+    "resources": {
+      "before": {
+        "gold": 40000,
+        "grain": 9710,
+        "manpower": 6500
+      },
+      "after": {
+        "gold": 40000,
+        "grain": 9710,
+        "manpower": 6500
+      },
+      "reserved": 0,
+      "delta": {
+        "gold": 0,
+        "grain": 0,
+        "manpower": 0
+      }
+    },
+    "relationship": {
+      "key": "person-255|person-462",
+      "before": 100,
+      "after": 100,
+      "beforeType": "sworn",
+      "afterType": "sworn",
+      "delta": 0
+    }
+  },
+  "desktop": [
+    1440,
+    1000
+  ],
+  "mobile": [
+    390,
+    844
+  ],
+  "errors": []
+}

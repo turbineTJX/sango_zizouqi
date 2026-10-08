@@ -1,0 +1,1768 @@
+{
+  "scenario": "heroes-251",
+  "seed": 643,
+  "player": "yuan",
+  "day": 121,
+  "finished": null,
+  "issues": [],
+  "findings": [],
+  "metrics": {
+    "cao": {
+      "name": "曹操",
+      "startCities": 22,
+      "completed": 586,
+      "failed": 191,
+      "interrupted": 14,
+      "assignments": 24,
+      "decisions": {
+        "stage": 17,
+        "hold": 6,
+        "transport": 20,
+        "attack": 5,
+        "reinforce": 3,
+        "retreat": 4
+      },
+      "captures": 5,
+      "losses": 2,
+      "battles": 8,
+      "wins": 6,
+      "defeats": 2,
+      "plans": 7,
+      "hungryArmyDays": 0,
+      "hungryCityDays": 0,
+      "endCities": 25,
+      "gold": 95211,
+      "activeAssignments": 120
+    },
+    "force-2": {
+      "name": "刘备",
+      "startCities": 23,
+      "completed": 574,
+      "failed": 213,
+      "interrupted": 2,
+      "assignments": 116,
+      "decisions": {
+        "stage": 21,
+        "attack": 5,
+        "hold": 4,
+        "transport": 18,
+        "retreat": 2,
+        "reinforce": 1
+      },
+      "captures": 4,
+      "losses": 1,
+      "battles": 6,
+      "wins": 4,
+      "defeats": 2,
+      "plans": 7,
+      "hungryArmyDays": 0,
+      "hungryCityDays": 0,
+      "endCities": 26,
+      "gold": 120184,
+      "activeAssignments": 99
+    },
+    "sunce": {
+      "name": "孙策",
+      "startCities": 27,
+      "completed": 594,
+      "failed": 218,
+      "interrupted": 7,
+      "assignments": 99,
+      "decisions": {
+        "stage": 20,
+        "hold": 10,
+        "retreat": 7,
+        "reinforce": 2,
+        "transport": 28,
+        "attack": 4,
+        "transfer": 1
+      },
+      "captures": 3,
+      "losses": 5,
+      "battles": 10,
+      "wins": 4,
+      "defeats": 6,
+      "plans": 6,
+      "hungryArmyDays": 0,
+      "hungryCityDays": 0,
+      "endCities": 25,
+      "gold": 128390,
+      "activeAssignments": 113
+    }
+  },
+  "expeditions": [
+    {
+      "day": 27,
+      "faction": "force-2",
+      "armyId": "a109",
+      "units": 7,
+      "men": 20600,
+      "wounded": 0,
+      "target": "town-34",
+      "origin": "town-35"
+    },
+    {
+      "day": 34,
+      "faction": "cao",
+      "armyId": "a117",
+      "units": 5,
+      "men": 18300,
+      "wounded": 0,
+      "target": "ye",
+      "origin": "chenliu"
+    },
+    {
+      "day": 34,
+      "faction": "sunce",
+      "armyId": "a118",
+      "units": 5,
+      "men": 22500,
+      "wounded": 0,
+      "target": "town-8",
+      "origin": "town-9"
+    },
+    {
+      "day": 41,
+      "faction": "force-2",
+      "armyId": "a123",
+      "units": 1,
+      "men": 4400,
+      "wounded": 0,
+      "target": "town-84",
+      "origin": "town-81"
+    },
+    {
+      "day": 54,
+      "faction": "sunce",
+      "armyId": "a128",
+      "units": 5,
+      "men": 16564,
+      "wounded": 969,
+      "target": "town-5",
+      "origin": "town-8"
+    },
+    {
+      "day": 55,
+      "faction": "cao",
+      "armyId": "a129",
+      "units": 4,
+      "men": 18800,
+      "wounded": 0,
+      "target": "town-5",
+      "origin": "town-12"
+    },
+    {
+      "day": 66,
+      "faction": "force-2",
+      "armyId": "a135",
+      "units": 1,
+      "men": 4500,
+      "wounded": 0,
+      "target": "town-75",
+      "origin": "town-81"
+    },
+    {
+      "day": 71,
+      "faction": "cao",
+      "armyId": "a138",
+      "units": 2,
+      "men": 11600,
+      "wounded": 0,
+      "target": "town-48",
+      "origin": "town-18"
+    },
+    {
+      "day": 76,
+      "faction": "sunce",
+      "armyId": "a144",
+      "units": 8,
+      "men": 26212,
+      "wounded": 1596,
+      "target": "town-5",
+      "origin": "town-8"
+    },
+    {
+      "day": 84,
+      "faction": "cao",
+      "armyId": "a153",
+      "units": 6,
+      "men": 25250,
+      "wounded": 229,
+      "target": "town-4",
+      "origin": "ye"
+    },
+    {
+      "day": 91,
+      "faction": "force-2",
+      "armyId": "a156",
+      "units": 3,
+      "men": 16300,
+      "wounded": 0,
+      "target": "town-48",
+      "origin": "town-37"
+    },
+    {
+      "day": 96,
+      "faction": "sunce",
+      "armyId": "a162",
+      "units": 7,
+      "men": 32715,
+      "wounded": 0,
+      "target": "chenliu",
+      "origin": "town-10"
+    },
+    {
+      "day": 111,
+      "faction": "cao",
+      "armyId": "a169",
+      "units": 4,
+      "men": 19800,
+      "wounded": 0,
+      "target": "chenliu",
+      "origin": "xuchang"
+    }
+  ],
+  "shortages": [],
+  "plans": [
+    {
+      "id": 1,
+      "faction": "cao",
+      "phase": "cancelled",
+      "target": "town-29",
+      "staging": "wan",
+      "officerIds": [
+        "person-132",
+        "person-244",
+        "person-415",
+        "person-204",
+        "cao"
+      ],
+      "origins": [
+        {
+          "cityId": "wan",
+          "officerIds": [
+            "person-132",
+            "person-244",
+            "person-415",
+            "person-204"
+          ],
+          "grain": 3600
+        },
+        {
+          "cityId": "xuchang",
+          "officerIds": [
+            "cao"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 1,
+      "updatedDay": 21,
+      "deadline": 46,
+      "reason": "目标增援后优势消失，暂缓进攻"
+    },
+    {
+      "id": 2,
+      "faction": "force-2",
+      "phase": "complete",
+      "target": "town-29",
+      "staging": "town-30",
+      "officerIds": [
+        "person-55",
+        "person-176",
+        "person-54",
+        "person-217",
+        "person-122"
+      ],
+      "origins": [
+        {
+          "cityId": "town-30",
+          "officerIds": [
+            "person-55",
+            "person-176",
+            "person-54",
+            "person-217"
+          ],
+          "grain": 3600
+        },
+        {
+          "cityId": "town-80",
+          "officerIds": [
+            "person-122"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 1,
+      "updatedDay": 8,
+      "deadline": 41,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 3,
+      "faction": "sunce",
+      "phase": "cancelled",
+      "target": "town-35",
+      "staging": "town-34",
+      "officerIds": [
+        "person-445",
+        "person-523",
+        "person-261",
+        "person-371",
+        "person-119"
+      ],
+      "origins": [
+        {
+          "cityId": "town-34",
+          "officerIds": [
+            "person-445",
+            "person-523"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-84",
+          "officerIds": [
+            "person-261"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-27",
+          "officerIds": [
+            "person-371",
+            "person-119"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 1,
+      "updatedDay": 3,
+      "deadline": 31,
+      "reason": "新野守备告急，优先保境"
+    },
+    {
+      "id": 4,
+      "faction": "force-2",
+      "phase": "cancelled",
+      "target": "town-28",
+      "staging": "town-31",
+      "officerIds": [
+        "person-137",
+        "person-166",
+        "person-237",
+        "person-222",
+        "person-150",
+        "person-273"
+      ],
+      "origins": [
+        {
+          "cityId": "town-82",
+          "officerIds": [
+            "person-137"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-83",
+          "officerIds": [
+            "person-166"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-33",
+          "officerIds": [
+            "person-237",
+            "person-222",
+            "person-150"
+          ],
+          "grain": 2700
+        },
+        {
+          "cityId": "town-30",
+          "officerIds": [
+            "person-273"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 11,
+      "updatedDay": 13,
+      "deadline": 51,
+      "reason": "目标增援后优势消失，暂缓进攻"
+    },
+    {
+      "id": 5,
+      "faction": "sunce",
+      "phase": "cancelled",
+      "target": "town-30",
+      "staging": "town-28",
+      "officerIds": [
+        "person-251",
+        "person-366",
+        "person-246",
+        "person-245",
+        "person-247"
+      ],
+      "origins": [
+        {
+          "cityId": "town-78",
+          "officerIds": [
+            "person-251"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-27",
+          "officerIds": [
+            "person-366"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-75",
+          "officerIds": [
+            "person-246"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-74",
+          "officerIds": [
+            "person-245"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-76",
+          "officerIds": [
+            "person-247"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 11,
+      "updatedDay": 21,
+      "deadline": 41,
+      "reason": "目标增援后优势消失，暂缓进攻"
+    },
+    {
+      "id": 6,
+      "faction": "force-2",
+      "phase": "complete",
+      "target": "town-34",
+      "staging": "town-35",
+      "officerIds": [
+        "person-1",
+        "person-153",
+        "person-621",
+        "person-210",
+        "person-137",
+        "person-46",
+        "person-193"
+      ],
+      "origins": [
+        {
+          "cityId": "town-35",
+          "officerIds": [
+            "person-1",
+            "person-153",
+            "person-621"
+          ],
+          "grain": 2700
+        },
+        {
+          "cityId": "town-86",
+          "officerIds": [
+            "person-210"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-31",
+          "officerIds": [
+            "person-137",
+            "person-46"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-85",
+          "officerIds": [
+            "person-193"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 21,
+      "updatedDay": 35,
+      "deadline": 61,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 7,
+      "faction": "cao",
+      "phase": "complete",
+      "target": "ye",
+      "staging": "chenliu",
+      "officerIds": [
+        "jin",
+        "person-85",
+        "person-77",
+        "person-342",
+        "yuanxia"
+      ],
+      "origins": [
+        {
+          "cityId": "chenliu",
+          "officerIds": [
+            "jin"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "guandu",
+          "officerIds": [
+            "person-85"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "xuchang",
+          "officerIds": [
+            "person-77",
+            "person-342"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-44",
+          "officerIds": [
+            "yuanxia"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 31,
+      "updatedDay": 43,
+      "deadline": 76,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 8,
+      "faction": "sunce",
+      "phase": "cancelled",
+      "target": "town-8",
+      "staging": "town-9",
+      "officerIds": [
+        "person-170",
+        "person-334",
+        "person-174",
+        "person-128",
+        "person-199"
+      ],
+      "origins": [
+        {
+          "cityId": "town-9",
+          "officerIds": [
+            "person-170",
+            "person-334",
+            "person-174",
+            "person-128"
+          ],
+          "grain": 3600
+        },
+        {
+          "cityId": "town-59",
+          "officerIds": [
+            "person-199"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 31,
+      "updatedDay": 42,
+      "deadline": 61,
+      "reason": "罗县港守备告急，优先保境"
+    },
+    {
+      "id": 9,
+      "faction": "force-2",
+      "phase": "complete",
+      "target": "town-84",
+      "staging": "town-81",
+      "officerIds": [
+        "person-123"
+      ],
+      "origins": [
+        {
+          "cityId": "town-81",
+          "officerIds": [
+            "person-123"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 41,
+      "updatedDay": 52,
+      "deadline": 81,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 10,
+      "faction": "cao",
+      "phase": "complete",
+      "target": "town-5",
+      "staging": "town-12",
+      "officerIds": [
+        "person-101",
+        "person-525",
+        "person-556",
+        "dun"
+      ],
+      "origins": [
+        {
+          "cityId": "town-12",
+          "officerIds": [
+            "person-101"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "chenliu",
+          "officerIds": [
+            "person-525",
+            "person-556"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-64",
+          "officerIds": [
+            "dun"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 51,
+      "updatedDay": 67,
+      "deadline": 96,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 11,
+      "faction": "sunce",
+      "phase": "cancelled",
+      "target": "town-5",
+      "staging": "town-8",
+      "officerIds": [
+        "person-170",
+        "person-334",
+        "person-174",
+        "liao",
+        "person-447"
+      ],
+      "origins": [
+        {
+          "cityId": "town-8",
+          "officerIds": [
+            "person-170",
+            "person-334",
+            "person-174"
+          ],
+          "grain": 2700
+        },
+        {
+          "cityId": "town-9",
+          "officerIds": [
+            "liao",
+            "person-447"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 51,
+      "updatedDay": 62,
+      "deadline": 81,
+      "reason": "平原守备告急，优先保境"
+    },
+    {
+      "id": 12,
+      "faction": "force-2",
+      "phase": "cancelled",
+      "target": "town-75",
+      "staging": "town-81",
+      "officerIds": [
+        "person-597"
+      ],
+      "origins": [
+        {
+          "cityId": "town-33",
+          "officerIds": [
+            "person-597"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 61,
+      "updatedDay": 68,
+      "deadline": 101,
+      "reason": "人员损失或离队，重新评估战力"
+    },
+    {
+      "id": 13,
+      "faction": "cao",
+      "phase": "cancelled",
+      "target": "town-48",
+      "staging": "town-18",
+      "officerIds": [
+        "person-190",
+        "person-250"
+      ],
+      "origins": [
+        {
+          "cityId": "town-18",
+          "officerIds": [
+            "person-190",
+            "person-250"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 71,
+      "updatedDay": 76,
+      "deadline": 116,
+      "reason": "平原守备告急，优先保境"
+    },
+    {
+      "id": 14,
+      "faction": "sunce",
+      "phase": "cancelled",
+      "target": "town-5",
+      "staging": "town-8",
+      "officerIds": [
+        "liao",
+        "person-447",
+        "person-174",
+        "person-410",
+        "person-423",
+        "person-74",
+        "person-236",
+        "person-201"
+      ],
+      "origins": [
+        {
+          "cityId": "town-8",
+          "officerIds": [
+            "liao",
+            "person-447",
+            "person-174"
+          ],
+          "grain": 2700
+        },
+        {
+          "cityId": "town-9",
+          "officerIds": [
+            "person-410",
+            "person-423",
+            "person-74",
+            "person-236"
+          ],
+          "grain": 3600
+        },
+        {
+          "cityId": "town-60",
+          "officerIds": [
+            "person-201"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 71,
+      "updatedDay": 81,
+      "deadline": 101,
+      "reason": "人员损失或离队，重新评估战力"
+    },
+    {
+      "id": 15,
+      "faction": "cao",
+      "phase": "complete",
+      "target": "town-4",
+      "staging": "ye",
+      "officerIds": [
+        "yuanxia",
+        "person-85",
+        "person-604",
+        "person-525",
+        "person-638",
+        "person-612"
+      ],
+      "origins": [
+        {
+          "cityId": "ye",
+          "officerIds": [
+            "yuanxia",
+            "person-85"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "town-5",
+          "officerIds": [
+            "person-604",
+            "person-525"
+          ],
+          "grain": 1800
+        },
+        {
+          "cityId": "chenliu",
+          "officerIds": [
+            "person-638",
+            "person-612"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {},
+      "createdDay": 81,
+      "updatedDay": 93,
+      "deadline": 126,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 16,
+      "faction": "force-2",
+      "phase": "complete",
+      "target": "town-48",
+      "staging": "town-37",
+      "officerIds": [
+        "person-108",
+        "person-109",
+        "person-214"
+      ],
+      "origins": [
+        {
+          "cityId": "town-50",
+          "officerIds": [
+            "person-108"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-51",
+          "officerIds": [
+            "person-109"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-38",
+          "officerIds": [
+            "person-214"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 81,
+      "updatedDay": 100,
+      "deadline": 121,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 17,
+      "faction": "sunce",
+      "phase": "complete",
+      "target": "chenliu",
+      "staging": "town-10",
+      "officerIds": [
+        "person-130",
+        "person-102",
+        "person-202",
+        "person-269",
+        "person-198",
+        "person-343",
+        "person-197"
+      ],
+      "origins": [
+        {
+          "cityId": "town-10",
+          "officerIds": [
+            "person-130"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-11",
+          "officerIds": [
+            "person-102",
+            "person-202",
+            "person-269",
+            "person-198"
+          ],
+          "grain": 3600
+        },
+        {
+          "cityId": "town-9",
+          "officerIds": [
+            "person-343"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-23",
+          "officerIds": [
+            "person-197"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 91,
+      "updatedDay": 109,
+      "deadline": 121,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 18,
+      "faction": "cao",
+      "phase": "cancelled",
+      "target": "town-11",
+      "staging": "runan",
+      "officerIds": [
+        "person-339",
+        "person-567",
+        "person-70",
+        "person-62",
+        "cao"
+      ],
+      "origins": [
+        {
+          "cityId": "xuchang",
+          "officerIds": [
+            "person-339",
+            "person-567",
+            "person-70",
+            "person-62"
+          ],
+          "grain": 3600
+        },
+        {
+          "cityId": "wan",
+          "officerIds": [
+            "cao"
+          ],
+          "grain": 900
+        }
+      ],
+      "reserves": {},
+      "createdDay": 101,
+      "updatedDay": 102,
+      "deadline": 146,
+      "reason": "陈留守备告急，优先保境"
+    },
+    {
+      "id": 19,
+      "faction": "cao",
+      "phase": "complete",
+      "target": "chenliu",
+      "staging": "xuchang",
+      "officerIds": [
+        "person-339",
+        "person-567",
+        "person-70",
+        "person-78"
+      ],
+      "origins": [
+        {
+          "cityId": "xuchang",
+          "officerIds": [
+            "person-339",
+            "person-567",
+            "person-70",
+            "person-78"
+          ],
+          "grain": 3600
+        }
+      ],
+      "reserves": {},
+      "createdDay": 111,
+      "updatedDay": 118,
+      "deadline": 156,
+      "reason": "目标已占领，恢复守备与粮道"
+    },
+    {
+      "id": 20,
+      "faction": "force-2",
+      "phase": "assemble",
+      "target": "town-68",
+      "staging": "town-80",
+      "officerIds": [
+        "person-111",
+        "person-634",
+        "person-633"
+      ],
+      "origins": [
+        {
+          "cityId": "town-30",
+          "officerIds": [
+            "person-111"
+          ],
+          "grain": 900
+        },
+        {
+          "cityId": "town-35",
+          "officerIds": [
+            "person-634",
+            "person-633"
+          ],
+          "grain": 1800
+        }
+      ],
+      "reserves": {
+        "town-80": 2700
+      },
+      "createdDay": 111,
+      "updatedDay": 111,
+      "deadline": 151,
+      "reason": "须保留更多守备，暂缓出征"
+    }
+  ],
+  "decisions": [
+    {
+      "day": 120,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运628粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 119,
+      "armyId": "city-force:guandu",
+      "faction": "cao",
+      "name": "官渡港",
+      "kind": "transport",
+      "target": "chenliu",
+      "reason": "调运0粮、1400预备兵支援陈留，实际沿路运输"
+    },
+    {
+      "day": 119,
+      "armyId": "city-force:guandu",
+      "faction": "cao",
+      "name": "官渡港",
+      "kind": "transport",
+      "target": "town-12",
+      "reason": "调运0粮、2276预备兵支援濮阳，实际沿路运输"
+    },
+    {
+      "day": 118,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运627粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 117,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运628粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 115,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运627粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 114,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运628粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 114,
+      "armyId": "a172",
+      "faction": "sunce",
+      "name": "陈留守城军",
+      "kind": "retreat",
+      "target": "chenliu",
+      "reason": "战损过重或断粮，保存残部"
+    },
+    {
+      "day": 113,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运428粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运0粮、1304预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 111,
+      "armyId": "a171",
+      "faction": "force-2",
+      "name": "刘度军",
+      "kind": "stage",
+      "target": "town-80",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 111,
+      "armyId": "a170",
+      "faction": "force-2",
+      "name": "韩嵩军",
+      "kind": "stage",
+      "target": "town-80",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:town-80",
+      "faction": "force-2",
+      "name": "中庐港",
+      "kind": "stage",
+      "target": "town-68",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 111,
+      "armyId": "a169",
+      "faction": "cao",
+      "name": "满宠军",
+      "kind": "attack",
+      "target": "chenliu",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:town-20",
+      "faction": "cao",
+      "name": "安定",
+      "kind": "transport",
+      "target": "town-18",
+      "reason": "调运0粮、1119预备兵支援长安，实际沿路运输"
+    },
+    {
+      "day": 111,
+      "armyId": "city-force:xuchang",
+      "faction": "cao",
+      "name": "许昌",
+      "kind": "stage",
+      "target": "chenliu",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 110,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运568粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 108,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运567粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 107,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运568粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 106,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运750粮、0预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 106,
+      "armyId": "city-force:luoyang",
+      "faction": "cao",
+      "name": "洛阳",
+      "kind": "transport",
+      "target": "xuchang",
+      "reason": "调运0粮、974预备兵支援许昌，实际沿路运输"
+    },
+    {
+      "day": 105,
+      "armyId": "a163",
+      "faction": "cao",
+      "name": "张宝军",
+      "kind": "retreat",
+      "target": "town-12",
+      "reason": "战损过重或断粮，保存残部"
+    },
+    {
+      "day": 102,
+      "armyId": "city-force:chenliu",
+      "faction": "cao",
+      "name": "陈留",
+      "kind": "hold",
+      "target": "chenliu",
+      "reason": "敌军逼近，守备仍有缺口"
+    },
+    {
+      "day": 102,
+      "armyId": "a168",
+      "faction": "cao",
+      "name": "曹操军",
+      "kind": "retreat",
+      "target": "wan",
+      "reason": "陈留守备告急，优先保境"
+    },
+    {
+      "day": 102,
+      "armyId": "a167",
+      "faction": "cao",
+      "name": "满宠军",
+      "kind": "retreat",
+      "target": "xuchang",
+      "reason": "陈留守备告急，优先保境"
+    },
+    {
+      "day": 102,
+      "armyId": "city-force:runan",
+      "faction": "cao",
+      "name": "汝南",
+      "kind": "hold",
+      "target": "town-11",
+      "reason": "陈留守备告急，优先保境"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运0粮、1304预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 101,
+      "armyId": "a168",
+      "faction": "cao",
+      "name": "曹操军",
+      "kind": "stage",
+      "target": "runan",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 101,
+      "armyId": "a167",
+      "faction": "cao",
+      "name": "满宠军",
+      "kind": "stage",
+      "target": "runan",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:town-20",
+      "faction": "cao",
+      "name": "安定",
+      "kind": "transport",
+      "target": "town-18",
+      "reason": "调运0粮、1090预备兵支援长安，实际沿路运输"
+    },
+    {
+      "day": 101,
+      "armyId": "city-force:runan",
+      "faction": "cao",
+      "name": "汝南",
+      "kind": "stage",
+      "target": "town-11",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 96,
+      "armyId": "city-force:town-26",
+      "faction": "sunce",
+      "name": "庐江",
+      "kind": "transport",
+      "target": "town-28",
+      "reason": "调运477粮、0预备兵支援江夏，实际沿路运输"
+    },
+    {
+      "day": 96,
+      "armyId": "city-force:chenliu",
+      "faction": "cao",
+      "name": "陈留",
+      "kind": "hold",
+      "target": "chenliu",
+      "reason": "守城并等待已派援军"
+    },
+    {
+      "day": 96,
+      "armyId": "a164",
+      "faction": "cao",
+      "name": "管亥军",
+      "kind": "reinforce",
+      "target": "chenliu",
+      "reason": "援军可及时抵达，优先救援；等待事务结束将错过救援时限，立即出征"
+    },
+    {
+      "day": 96,
+      "armyId": "a163",
+      "faction": "cao",
+      "name": "张宝军",
+      "kind": "reinforce",
+      "target": "chenliu",
+      "reason": "援军可及时抵达，优先救援；等待事务结束将错过救援时限，立即出征"
+    },
+    {
+      "day": 96,
+      "armyId": "a160",
+      "faction": "cao",
+      "name": "阳平关守城军",
+      "kind": "retreat",
+      "target": "town-48",
+      "reason": "战损过重或断粮，保存残部"
+    },
+    {
+      "day": 95,
+      "armyId": "city-force:town-26",
+      "faction": "sunce",
+      "name": "庐江",
+      "kind": "transport",
+      "target": "town-28",
+      "reason": "调运545粮、0预备兵支援江夏，实际沿路运输"
+    },
+    {
+      "day": 95,
+      "armyId": "a162",
+      "faction": "sunce",
+      "name": "毌丘俭军",
+      "kind": "attack",
+      "target": "chenliu",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 92,
+      "armyId": "city-force:town-23",
+      "faction": "sunce",
+      "name": "建业",
+      "kind": "transport",
+      "target": "town-27",
+      "reason": "调运0粮、1212预备兵支援柴桑，实际沿路运输"
+    },
+    {
+      "day": 91,
+      "armyId": "a159",
+      "faction": "sunce",
+      "name": "吾彦军",
+      "kind": "stage",
+      "target": "town-10",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 91,
+      "armyId": "a158",
+      "faction": "sunce",
+      "name": "曹性军",
+      "kind": "stage",
+      "target": "town-10",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 91,
+      "armyId": "a157",
+      "faction": "sunce",
+      "name": "毌丘俭军",
+      "kind": "stage",
+      "target": "town-10",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-27",
+      "faction": "sunce",
+      "name": "柴桑",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运0粮、1244预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-26",
+      "faction": "sunce",
+      "name": "庐江",
+      "kind": "transport",
+      "target": "town-28",
+      "reason": "调运0粮、1212预备兵支援江夏，实际沿路运输"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:town-10",
+      "faction": "sunce",
+      "name": "小沛",
+      "kind": "stage",
+      "target": "chenliu",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 91,
+      "armyId": "a156",
+      "faction": "force-2",
+      "name": "关兴军",
+      "kind": "attack",
+      "target": "town-48",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:luoyang",
+      "faction": "cao",
+      "name": "洛阳",
+      "kind": "transport",
+      "target": "chenliu",
+      "reason": "调运0粮、1122预备兵支援陈留，实际沿路运输"
+    },
+    {
+      "day": 91,
+      "armyId": "city-force:luoyang",
+      "faction": "cao",
+      "name": "洛阳",
+      "kind": "transport",
+      "target": "town-12",
+      "reason": "调运0粮、1138预备兵支援濮阳，实际沿路运输"
+    },
+    {
+      "day": 83,
+      "armyId": "city-force:town-33",
+      "faction": "force-2",
+      "name": "武陵",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运0粮、596预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 83,
+      "armyId": "a153",
+      "faction": "cao",
+      "name": "夏侯渊军",
+      "kind": "attack",
+      "target": "town-4",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 82,
+      "armyId": "city-force:town-31",
+      "faction": "force-2",
+      "name": "江陵",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运0粮、504预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-23",
+      "faction": "sunce",
+      "name": "建业",
+      "kind": "transport",
+      "target": "town-32",
+      "reason": "调运0粮、1183预备兵支援长沙，实际沿路运输"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-26",
+      "faction": "sunce",
+      "name": "庐江",
+      "kind": "transport",
+      "target": "town-28",
+      "reason": "调运0粮、1159预备兵支援江夏，实际沿路运输"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-23",
+      "faction": "sunce",
+      "name": "建业",
+      "kind": "transport",
+      "target": "town-27",
+      "reason": "调运0粮、1336预备兵支援柴桑，实际沿路运输"
+    },
+    {
+      "day": 81,
+      "armyId": "a144",
+      "faction": "sunce",
+      "name": "张辽军",
+      "kind": "retreat",
+      "target": "town-8",
+      "reason": "人员损失或离队，重新评估战力"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-8",
+      "faction": "sunce",
+      "name": "北海",
+      "kind": "hold",
+      "target": "town-5",
+      "reason": "人员损失或离队，重新评估战力"
+    },
+    {
+      "day": 81,
+      "armyId": "a152",
+      "faction": "force-2",
+      "name": "胡烈军",
+      "kind": "stage",
+      "target": "town-37",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 81,
+      "armyId": "a151",
+      "faction": "force-2",
+      "name": "关索军",
+      "kind": "stage",
+      "target": "town-37",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 81,
+      "armyId": "a150",
+      "faction": "force-2",
+      "name": "关兴军",
+      "kind": "stage",
+      "target": "town-37",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:town-37",
+      "faction": "force-2",
+      "name": "汉中",
+      "kind": "stage",
+      "target": "town-48",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 81,
+      "armyId": "a149",
+      "faction": "cao",
+      "name": "刘馥军",
+      "kind": "stage",
+      "target": "ye",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 81,
+      "armyId": "a148",
+      "faction": "cao",
+      "name": "李严军",
+      "kind": "stage",
+      "target": "ye",
+      "reason": "按势力计划赴前线集结；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:luoyang",
+      "faction": "cao",
+      "name": "洛阳",
+      "kind": "transport",
+      "target": "chenliu",
+      "reason": "调运0粮、1122预备兵支援陈留，实际沿路运输"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:luoyang",
+      "faction": "cao",
+      "name": "洛阳",
+      "kind": "transport",
+      "target": "town-12",
+      "reason": "调运0粮、313预备兵支援濮阳，实际沿路运输"
+    },
+    {
+      "day": 81,
+      "armyId": "city-force:ye",
+      "faction": "cao",
+      "name": "邺",
+      "kind": "stage",
+      "target": "town-4",
+      "reason": "集中兵力与粮草，完成集结后出征"
+    },
+    {
+      "day": 80,
+      "armyId": "a144",
+      "faction": "sunce",
+      "name": "张辽军",
+      "kind": "retreat",
+      "target": "town-8",
+      "reason": "战损过重或断粮，保存残部"
+    },
+    {
+      "day": 78,
+      "armyId": "a141",
+      "faction": "force-2",
+      "name": "关羽军",
+      "kind": "retreat",
+      "target": "town-49",
+      "reason": "战损过重或断粮，保存残部"
+    },
+    {
+      "day": 76,
+      "armyId": "city-force:town-48",
+      "faction": "force-2",
+      "name": "阳平关",
+      "kind": "hold",
+      "target": "town-48",
+      "reason": "敌军逼近，守备仍有缺口"
+    },
+    {
+      "day": 76,
+      "armyId": "city-force:town-5",
+      "faction": "cao",
+      "name": "平原",
+      "kind": "hold",
+      "target": "town-5",
+      "reason": "守城并等待已派援军"
+    },
+    {
+      "day": 76,
+      "armyId": "a145",
+      "faction": "cao",
+      "name": "李严军",
+      "kind": "reinforce",
+      "target": "town-5",
+      "reason": "援军可及时抵达，优先救援；等待事务结束将错过救援时限，立即出征"
+    },
+    {
+      "day": 76,
+      "armyId": "city-force:town-18",
+      "faction": "cao",
+      "name": "长安",
+      "kind": "hold",
+      "target": "town-48",
+      "reason": "平原守备告急，优先保境"
+    },
+    {
+      "day": 75,
+      "armyId": "a144",
+      "faction": "sunce",
+      "name": "张辽军",
+      "kind": "attack",
+      "target": "town-5",
+      "reason": "兵粮集结完成，按共同目标进攻；参战武将均在据点且没有正在办理的事务"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:town-40",
+      "faction": "force-2",
+      "name": "成都",
+      "kind": "transport",
+      "target": "town-33",
+      "reason": "调运0粮、500预备兵支援武陵，实际沿路运输"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:town-40",
+      "faction": "force-2",
+      "name": "成都",
+      "kind": "transport",
+      "target": "town-31",
+      "reason": "调运0粮、1400预备兵支援江陵，实际沿路运输"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:town-38",
+      "faction": "force-2",
+      "name": "梓潼",
+      "kind": "transport",
+      "target": "town-30",
+      "reason": "调运0粮、368预备兵支援襄阳，实际沿路运输"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:luoyang",
+      "faction": "cao",
+      "name": "洛阳",
+      "kind": "transport",
+      "target": "town-19",
+      "reason": "调运0粮、574预备兵支援上庸，实际沿路运输"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:luoyang",
+      "faction": "cao",
+      "name": "洛阳",
+      "kind": "transport",
+      "target": "chenliu",
+      "reason": "调运0粮、760预备兵支援陈留，实际沿路运输"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:wan",
+      "faction": "cao",
+      "name": "宛",
+      "kind": "transport",
+      "target": "town-12",
+      "reason": "调运0粮、1500预备兵支援濮阳，实际沿路运输"
+    },
+    {
+      "day": 72,
+      "armyId": "city-force:town-48",
+      "faction": "force-2",
+      "name": "阳平关",
+      "kind": "hold",
+      "target": "town-48",
+      "reason": "守城并等待已派援军"
+    },
+    {
+      "day": 72,
+      "armyId": "a141",
+      "faction": "force-2",
+      "name": "关羽军",
+      "kind": "reinforce",
+      "target": "town-48",
+      "reason": "援军可及时抵达，优先救援；等待事务结束将错过救援时限，立即出征"
+    }
+  ]
+}

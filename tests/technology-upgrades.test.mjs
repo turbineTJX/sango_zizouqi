@@ -9,7 +9,7 @@ import {unitTactics} from '../tactics.mjs';
 import {tacticUsesLeft,tacticReadyAt} from '../tactic-tempo.mjs';
 import {generateBattle} from '../battle-generator.mjs';
 import {defaultCustomBattle,validateCustomBattle} from '../custom-battle.mjs';
-import {newCampaign,prepareDepartureUnits,serializeCampaign,validateCampaign,changeCampaignTroop,orderCampaignArmy,beginExecution,advanceCampaignDay,activeBattles} from '../strategic-campaign.mjs';
+import {newCampaign,prepareDepartureUnits,serializeCampaign,validateCampaign,changeCampaignTroop,orderCampaignArmy,beginExecution,advanceCampaignDay,activeBattles} from './helpers/auto-domestic-campaign.mjs';
 import {fieldCampaign,fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
 import {canTrain,TECHS} from '../domestic.mjs';
 import {newScenarioSetup,changeScenarioSetup,scenarioSetupDraft,scenarioSetupMarkup} from '../scenario-setup.mjs';

@@ -1,0 +1,42 @@
+✔ every playable preset is a legal editable custom draft and produces the same battle (206.7118ms)
+✔ custom generator validates conditions and wave budgets (514.4716ms)
+✔ saved custom conditions are used for named-preset retries and save validation (8.5486ms)
+✔ formation comparison uses actual strongest stratagem holder and current relationship scores without mutation (55.3373ms)
+✔ matrix keeps candidate rows while selections add and remove columns (47.6339ms)
+✔ 自由对战：所有兵种、双方配置、实际战斗及确定性存档重试 (548.9512ms)
+✔ 自由对战：无效配置被拒绝 (1.4164ms)
+✔ 普通武将默认兵种采用真实最高适性，枪戟分别计算 (3.7853ms)
+✔ 兵种强化特性匹配至少A适性，普通弱将则匹配自身最高适性 (3.3736ms)
+✔ 全部专属跨九兵种携带，换兵种保留同一固定记录 (6.027ms)
+✔ 合资格指挥官军略配合本职，张郃按规则51不再持有军略 (0.407ms)
+✔ all 832 identities have fixed positive traits, independent of level, troop and learned tactics (41.3467ms)
+✔ actor administration works without a governor and matching governor does not double the discount (86.5627ms)
+✔ research, farming, repairs, medicine and preparation traits change real paid task outcomes (297.9878ms)
+✔ recruitment discounts charge actual recruits at the saved rate without creating free people (38.1627ms)
+✔ talent traits improve only the corresponding real action chance; mediator does not stack (2.2631ms)
+✔ transport speed applies to actual travel and saves resume; light travel has separate eligibility (42.0897ms)
+✔ shared custom setup is an isolated draft and applies all commander and unit fields (19.2404ms)
+✔ ordinary picker, formation and comparison views render without a strategic campaign (98.0841ms)
+✔ historical setup preserves scenario resources, enemy, learning and deterministic continuation (234.7788ms)
+✔ custom battle deployment adjustments survive save and same-seed retry (6.0335ms)
+✔ formation selects officers in place, army selects only compiled units (1.1204ms)
+✔ army membership is independent of the compiled pool and cancel leaves source unchanged (0.3972ms)
+✔ single-unit editor chooses one commander and adds only on unit confirmation (0.7028ms)
+✔ custom unit management exposes disband and unlimited reserves, preset participants stay fixed (3.623ms)
+✔ 每兵种固定武技小战法、谋略小战法和大战法各一项 (2.2994ms)
+✔ 832名武将全部兵种和等级遵守S三项、A两项、B/C一项，种子不影响配置 (39.7733ms)
+✔ 属性比较按智武、政统、魅力50边界选择，不受等级或随机数影响 (0.4224ms)
+✔ 仅确认16人拥有专属，一级即可跨九兵种携带且不挤占普通名额 (24.9472ms)
+✔ 固定记录校验拒绝额外战法、篡改和旧规则存档 (10.5451ms)
+✔ AI保持固定战法，真实非均分战斗和存档续战一致 (157.1804ms)
+✔ 升级不授予或更换战法，战略改编和存读档维持固定记录 (52.7969ms)
+✔ 所有预设共用固定配置生成器，没有场景专属授予或随机学习 (108.2393ms)
+✔ 16名将一级专属在九兵种下通过真实自动施放、次数与冷却流程 (177.5934ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 942.4997

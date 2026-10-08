@@ -1,0 +1,48 @@
+file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:133
+export function assertDesignTables(tables=DESIGN_TABLES){const errors=validateDesignTables(tables);if(errors.length)throw new Error('设计表校验失败：\n'+errors.join('\n'));return tables;}
+                                                                                                                          ^
+
+Error: 设计表校验失败：
+economy.ai.offensive：未接入字段 lossFactor
+economy.ai.offensive：未接入字段 lossPerPoint
+economy.ai.offensive：未接入字段 grainPerPoint
+economy.ai.offensive：未接入字段 goldPerPoint
+economy.ai.offensive：未接入字段 dayCost
+economy.ai.offensive：未接入字段 workPerPoint
+economy.ai.offensive：未接入字段 maxEstimateError
+economy.ai.offensive：未接入字段 judgmentLeadershipWeight
+economy.ai.offensive：未接入字段 counterattackWeight
+economy.ai.offensive：未接入字段 objectiveValues
+economy.ai.offensive.consolidationDays：须为正整数天
+economy.ai.offensive.cancelExtraDays：须为正整数天
+economy.ai.offensive.styles.bold：未接入字段 minimumValue
+economy.ai.offensive.styles.bold.openingDays：须为正整数天
+economy.ai.offensive.styles.bold.restDays：须为正整数天
+economy.ai.offensive.styles.balanced：未接入字段 minimumValue
+economy.ai.offensive.styles.balanced.openingDays：须为正整数天
+economy.ai.offensive.styles.balanced.restDays：须为正整数天
+economy.ai.offensive.styles.cautious：未接入字段 minimumValue
+economy.ai.offensive.styles.cautious.openingDays：须为正整数天
+economy.ai.offensive.styles.cautious.restDays：须为正整数天
+    at assertDesignTables (file:///C:/Users/TJX/Documents/ChatGPT/sango/design-catalog.mjs:133:123)
+    at file:///C:/Users/TJX/Documents/ChatGPT/sango/engine.mjs:46:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+✖ tests\faction-directory.test.mjs (194.0892ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.3569
+
+✖ failing tests:
+
+test at tests\faction-directory.test.mjs:1:1
+✖ tests\faction-directory.test.mjs (194.0892ms)
+  'test failed'

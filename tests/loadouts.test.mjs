@@ -36,25 +36,20 @@ test('force and intellect fixed actions use distinct authored power channels',()
 test('confusion and seal block an actual fixed tactic while seal still permits basic attacks',()=>{for(const status of ['confuse','seal']){const x=currentBattle('thrust','spear');setStatus(x.b,x.u,status,10);readyCurrent(x,'thrust');x.u.cooldown=0;stepBattle(x.b);assert.equal(x.u.tacticCasts.thrust||0,0);assert.equal(x.b.effects.some(e=>e.from===x.u.id&&!e.skill&&e.damage>0),status==='seal');}});
 test('current rally restores actual intent and ward taunts a legal nearby enemy',()=>{const r=currentBattle('rally','archer');readyCurrent(r,'rally');stepBattle(r.b);assert.ok(r.ally.intent>0);resumeCurrent(r);let applied=false;for(let seed=1;seed<=30&&!applied;seed++){const w=currentBattle('ward','spear',{seed});readyCurrent(w,'ward');stepBattle(w.b);assert.equal(w.u.tacticCasts.ward,1);applied=w.b.sides[1].units.some(u=>u.statuses.taunt?.sourceId===w.u.id);resumeCurrent(w);}assert.ok(applied);});
 test('current cavalry harassment suppresses the real target without granting retired lure',()=>{const x=currentBattle('harass','cavalry');x.target.intent=80;readyCurrent(x,'harass');stepBattle(x.b);assert.ok(x.target.intent<80);assert.ok(hasStatus(x.b,x.target,'disrupted'));assert.equal(x.u.tactics.includes('lure'),false);resumeCurrent(x);});
-test('new army strategies cleanse controls, shorten cooldowns and persist across saves',()=>{
-  const state=encounter('person-290','liao'),b=state.battle;lockDeployment(b);const u=b.sides[0].units[0];
-  const skillId=unitTactics(u)[0].id;
-  u.statuses.confuse={until:99};u.statuses.burn={until:99,sourceId:b.sides[1].units[0].id,amount:20,baseAmount:20,stacks:1};u.skillReady[skillId]=20;
-  b.commandProgress=12000;assert.equal(issueCommand(b,'cleanse'),null);assert.equal(u.statuses.confuse,undefined);assert.ok(u.statuses.burn);assert.ok(hasStatus(b,u,'resolve'));
-  b.commandProgress=12000;assert.equal(issueCommand(b,'cycle'),null);assert.equal(u.skillReady[skillId],20-b.lastCommand.source.cooldownReduction);assert.equal(u.intent,Math.round(b.lastCommand.source.strength));assert.equal(b.commandProgress,0);
-  b.commandProgress=12000;assert.equal(issueCommand(b,'haste'),null);assert.equal(b.commandProgress,0);assert.ok(b.sides[0].hasteUntil>0);
-  const copy=validateSave(structuredClone(syncFixtureLearning(state)));assert.deepEqual(copy.battle,b);
+test('area dispel and speed preserve real tactic cooldowns and persist across current saves',()=>{
+ const state=encounter('person-290','person-366'),b=state.battle;lockDeployment(b);const u=b.sides[0].units[0],skill=unitTactics(u)[0].id;
+ setStatus(b,u,'confuse',20);setStatus(b,u,'burn',20,{amount:20,sourceId:b.sides[1].units[0].id});u.skillReady[skill]=20;
+ b.commandProgress=12000;assert.equal(issueCommand(b,'cleanse',{x:u.x,y:u.y}),null);assert.equal(u.statuses.confuse,undefined);assert.equal(u.statuses.burn,undefined);assert.ok(hasStatus(b,u,'resolve'));assert.equal(u.skillReady[skill],20);
+ b.commandProgress=12000;assert.equal(issueCommand(b,'swift',{x:u.x,y:u.y}),null);assert.equal(b.commandProgress,0);assert.ok(hasStatus(b,u,'rapidAdvance'));assert.equal(u.skillReady[skill],20);
+ const copy=validateSave(structuredClone(syncFixtureLearning(state)));assert.deepEqual(copy.battle,b);
 });
-test('blockade delays replacement but expires; relief shields automatic reinforcements',()=>{
-  const state=encounter('person-226','jia'),b=state.battle;lockDeployment(b);
-  b.commandProgress=12000;assert.equal(issueCommand(b,'sima-isolate'),null);
-  const dead=b.sides[1].units.find(u=>u.status==='active');dead.hp=0;dead.status='defeated';stepBattle(b);
-  assert.equal(b.sides[1].units.filter(u=>u.status==='active').length,5);
-  while(b.tick<b.sides[1].blockadeUntil)stepBattle(b);
-  assert.equal(b.sides[1].units.filter(u=>u.status==='active').length,6);
-  const other=encounter('person-668','jia'),ob=other.battle;lockDeployment(ob);ob.sides[0].units[0].hp=2400;
-  ob.commandProgress=12000;assert.ok(issueCommand(ob,'reserve'));assert.equal(issueCommand(ob,'relief'),null);ob.sides[0].units[0].hp=0;ob.sides[0].units[0].status='defeated';stepBattle(ob);
-  assert.ok(ob.sides[0].units.some(u=>u.status==='active'&&u.statuses.shield));
+test('ordinary blockade delays replacement until its actual saved expiry',()=>{
+ const state=encounter('person-264','jia'),b=state.battle;lockDeployment(b);
+ b.commandProgress=12000;assert.equal(issueCommand(b,'blockade'),null);
+ const dead=b.sides[1].units.find(u=>u.status==='active');dead.hp=0;dead.battleDamage=dead.initial;dead.status='defeated';stepBattle(b);
+ assert.equal(b.sides[1].units.filter(u=>u.status==='active').length,5);const copy=validateSave(structuredClone(syncFixtureLearning(state)));
+ while(b.tick<b.sides[1].blockadeUntil){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
+ assert.equal(b.sides[1].units.filter(u=>u.status==='active').length,6);
 });
 test('mixed-loadout simulation saves and resumes deterministically with all new status shapes',()=>{
   const state=encounter();

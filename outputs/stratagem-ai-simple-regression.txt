@@ -1,0 +1,34 @@
+✔ 守军 0 不追界外近战，转向可达的攻城兵器并确定性续战 (720.6567ms)
+✔ 守军 1 不追界外近战，转向可达的攻城兵器并确定性续战 (510.484ms)
+✔ 疾行不评估接敌路线和当前移动能力，仅遵守冷却与已有效果 (3.8995ms)
+✔ 单队休养以实际伤兵触发，救疗按固定顺序优先 (11.2643ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (103.8412ms)
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营0 (23.6162ms)
+✔ 镇静只检查有无可清除状态，不比较严重度：阵营1 (9.1905ms)
+✔ 军略不检查接敌距离，远近均按固定条件施放 (10.7934ms)
+✔ 伤兵数量不改变军略固定顺序，进攻冷却时触发救疗 (20.719ms)
+✔ field：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (588.1186ms)
+✔ terrain：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (399.235ms)
+✔ river：玩家全程不下军略，电脑自然充能并主动施放，读档一致 (841.8944ms)
+✔ real reserves exceed the shared cap once, obey queue/AI order and lose extra slots on departure, side 0 (286.9841ms)
+✔ real reserves exceed the shared cap once, obey queue/AI order and lose extra slots on departure, side 1 (207.3362ms)
+✔ future reinforcements cannot enter early; lack of reserves consumes neither gauge nor RNG (105.0555ms)
+✔ whole army refresh restores legal active tactics without erasing casts, intent or recovery; deterministic reload, side 0 (220.5074ms)
+✔ whole army refresh restores legal active tactics without erasing casts, intent or recovery; deterministic reload, side 1 (179.7595ms)
+✔ refresh includes specials while preserving the ordinary restoration restriction and caster cooldown difference (112.7103ms)
+✔ random broad damage hits both armies, is reproducible and rejects altered saved rolls, side 0 (533.0268ms)
+✔ random broad damage hits both armies, is reproducible and rejects altered saved rolls, side 1 (440.7347ms)
+✔ storm uses shared immunity and shields; an invulnerable caster may still hurt both sides (228.2723ms)
+✔ new AI triggers use arrived reserves, real spent stock and a fixed enemy count; no benefit prediction (212.3453ms)
+✔ AI improves coverage over first target and rotates rectangle, without mutating state or RNG (6.0693ms)
+✔ AI excludes burning, untargetable and reserve units, and skips unusable area commands (0.4283ms)
+✔ heal highlights only real wounded and confirmation is disabled without useful targets (0.4924ms)
+✔ protected troops are not scored or highlighted for disrupt; both sides share placement (0.4712ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2766.8171

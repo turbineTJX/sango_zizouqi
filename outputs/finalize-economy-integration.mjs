@@ -1,0 +1,4 @@
+import fs from 'node:fs';const edit=(p,f)=>fs.writeFileSync(p,f(fs.readFileSync(p,'utf8')));
+edit('tests/civil-skills.test.mjs',s=>"import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';\n"+s.replace("const factor=(1+o.unit.politics/500),base=field==='gold'?160+c.commerce*160:600+c.farm*600;","const p=ECONOMY_RULES.income,factor=(1+o.unit.politics/p.governorPoliticsDivisor),base=field==='gold'?p.gold.base+c.commerce*p.gold.perCommerce:p.grain.base+c.farm*p.grain.perFarm;"));
+edit('sw.js',s=>s.replace("'sango-rule61'","'sango-economy-20260922'").replace("ASSETS.push('./data/design/progression.mjs');","ASSETS.push('./data/design/progression.mjs','./data/design/economy-rules.mjs');"));
+edit('scripts/audit-city-economy.mjs',s=>s+"\nconst targets={weak:0,ordinary:2,strong:3};\nif(results.some(r=>r.lines===targets[r.tier]&&(Object.values(r.deficits).some(n=>n>0)||Object.values(r.net).some(n=>n<0))))process.exitCode=1;\n");

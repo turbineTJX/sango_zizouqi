@@ -1,0 +1,19 @@
+✔ asset manifest accepts only local opaque asset URLs and valid sprite grids (1.599ms)
+✔ Unity root movement preserves its Hermite curve and endpoints (0.1903ms)
+✔ local file route only exposes manifest-listed assets and sends no-store (5.2466ms)
+✔ simulation modules do not depend on presentation or local art files (3.4292ms)
+✔ melee anticipates then strikes and recovers; ranged troops stay in formation (0.9776ms)
+✔ presentation consumes appended real events once, resets per battle and preserves snapshots (0.719ms)
+✔ native models distinguish covered ram, throwing arm and tall siege tower (5.316ms)
+✔ exact equipment art never substitutes a generic catapult for ram or tower (0.1862ms)
+✔ ram: real deployment, shooting and recovery update models without mutating battle state (50.1615ms)
+✔ siege: real deployment, shooting and recovery update models without mutating battle state (13.7722ms)
+✔ tower: real deployment, shooting and recovery update models without mutating battle state (12.6396ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 324.0994

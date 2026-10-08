@@ -1,0 +1,32 @@
+✔ all campaign information is read only and city units are not armies (125.7789ms)
+✔ expedition information follows real city-unit departure without duplication (19.5265ms)
+✔ current status follows actual marching and transfer progress (1775.1922ms)
+✔ siege status includes the live battlefield state of a real defending unit (2225.5856ms)
+✔ prepared troops show active domestic work and deferred orders separately (19.6078ms)
+✔ junctions create cross-road bypasses without adding cities or bypassing passes (36.4205ms)
+✔ a real order arrives at a junction without creating an occupation or city economy (2030.8111ms)
+✔ supply avoids occupied junctions and cannot use a completely blocked source outlet (11.1898ms)
+✔ convoys pass unoccupied junctions but lose cargo to an actual junction garrison (22.9376ms)
+✔ junction defenders trigger a real field battle and the battle save validates (2765.9077ms)
+✔ command target and review display junctions as field locations (30.5756ms)
+✔ junction topology is validated and old campaign versions are rejected (23.0892ms)
+✔ convoys meet enemies arriving from another branch only after their arrival time (12.4327ms)
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (265.8639ms)
+✔ a changed officer state blocks final formation without partial changes (25.6781ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (17.0492ms)
+✔ ordinary formation owns officer selection and army selection lists compiled units (75.6473ms)
+✔ domestic appointment exposes six simple directions and keeps commerce and agriculture separate (11.1401ms)
+✔ army composition displays current work and puts idle units first without changing their jobs (1215.3383ms)
+✔ disband drafts return soldiers without refund or lost appointments and remain cancellable (283.1075ms)
+✔ removing an uncommitted new unit does not create a reserve refund (13.7808ms)
+✔ national map starts at the operation city and never zooms out to the whole country (43.2034ms)
+✔ manual radar navigation persists through rendering; changing operation city recenters (10.4777ms)
+✔ army focus uses its actual position and manual navigation suspends following (9.7471ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5145.2692

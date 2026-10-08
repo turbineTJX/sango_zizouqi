@@ -10,15 +10,18 @@ import {playerFaction} from './player-faction.mjs';
 import {factionsHostile,diplomaticPassage,protectedDiplomaticTraffic} from './diplomacy-relations.mjs';
 
 import {resolveOfficerLoss,personnelEvent,sendOfficerHome} from './officer-fates.mjs';
+import {deliverTreasures,loseTreasureTransport} from './treasures.mjs';
+import {transportMerit,settleMeritCapacity,transportRelievesShortage} from './campaign-merit.mjs';
 import {findCampaignRoute} from './strategic-campaign.mjs';
 import {roadCost,roadDistance} from './strategic-movement.mjs';
 const town=mapNode;
 export const PERSONNEL_SPEED=MOVEMENT_RULES.personnel.light;
 export const TRANSPORT_SPEED=MOVEMENT_RULES.personnel.transport;
-export const isTransport=o=>(!!o.destination||o.retreating)&&(o.unit.troops>0||o.unit.wounded>0||o.cargo?.gold>0||o.cargo?.grain>0||o.cargo?.manpower>0||!!o.convoyCycle);
+export const isTransport=o=>(!!o.destination||o.retreating)&&(o.unit.troops>0||o.unit.wounded>0||o.cargo?.gold>0||o.cargo?.grain>0||o.cargo?.manpower>0||o.cargo?.treasureIds?.length>0||!!o.convoyCycle);
 export const lightPersonnelSpeed=u=>PERSONNEL_SPEED;
 export const personnelSpeed=o=>isTransport(o)?TRANSPORT_SPEED:lightPersonnelSpeed(o.unit);
 export function startPersonnelJourney(s,o){
+ if(isTransport(o)&&!o.retreating&&o.convoyCycle?.leg!=='return'&&!o.meritTransport)o.meritTransport={id:`transport:${o.unit.id}:${s.campaign.day}:${s.campaign.activity?.nextSequence||0}`,source:o.location,target:o.relayDestination||o.destination,troopsCredited:false};
  const route=findCampaignRoute(s,o.location,o.destination,isTransport(o)?o.faction:null);
  o.journey={route:route||[],progress:0,blocked:route?'':'道路不通'};
  updatePersonnelETA(s,o);
@@ -44,7 +47,7 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
   return false;
  }
  if(isTransport(o)&&!o.journey.route.length){const enemy=s.armies.find(a=>!a.disbanded&&a.faction!==o.faction&&!a.travel&&a.location===o.location&&a.units.some(u=>u.troops>0)),owner=town(s,o.location).owner;
-  if(enemy||owner!==o.faction&&!(o.retreating&&isJunction(s,o.location))){personnelEvent(s,`transport-loss:${o.unit.id}:${s.campaign.day}`,'TRANSPORT_LOST',o.unit,`${o.unit.name}运输队在卸载处遇敌，剩余部队及物资全部损失。`);resolveOfficerLoss(s,{unit:o.unit,faction:o.faction,location:o.location,enemy:enemy?.faction||owner,eventId:`transport-fate:${o.unit.id}:${s.campaign.day}`,reason:'运输队遇敌'});return false;}}
+  if(enemy||owner!==o.faction&&!(o.retreating&&isJunction(s,o.location))){loseTransport(s,o,{faction:enemy?.faction||owner},o.location,0);return false;}}
  const j=o.journey; j.blocked='';
  if(o.cargo?.grain>0&&j.progress===0&&!transportEnemy(s,o,o.location,0,0,0,dayFraction,traffic)){
   for(const a of s.armies.filter(a=>a.faction===o.faction&&!a.disbanded&&!a.travel&&a.location===o.location&&armyStrategicTrait(a,'receiveGrain')&&!s.campaign.battles.some(r=>!r.settled&&r.armyIds.includes(a.id))).sort((a,b)=>a.id.localeCompare(b.id))){const n=Math.max(0,Math.min(o.cargo.grain,a.supplyCapacity-a.supply));a.supply+=n;o.cargo.grain-=n;}
@@ -77,25 +80,32 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
    delete o.convoyCycle;
   }
   const c=town(s,o.destination),grain=Math.min(o.cargo?.grain||0,Math.max(0,Math.floor(10000+c.granary*10000-c.grain)));
+  if(o.meritTransport){const m=o.meritTransport,men=m.troopsCredited?0:o.unit.troops+o.unit.wounded,amounts={gold:o.cargo?.gold||0,grain,manpower:(o.cargo?.manpower||0)+men};transportMerit(s,o.unit,o.faction,m.source,c.id,amounts,{sourceId:`${m.id}:${s.campaign.day}:${o.cargo?.grain||0}`,relief:transportRelievesShortage(s,c,amounts),reason:'实际交付运输物资与部队'});m.troopsCredited=true;}
   addCityGold(s,c,o.cargo?.gold||0);c.grain+=grain;c.manpower+=o.cargo?.manpower||0;
   if(o.cargo){o.cargo.gold=0;o.cargo.grain-=grain;o.cargo.manpower=0;}
   s.grain=Math.floor(s.cities.filter(c=>c.owner===playerFaction(s)).reduce((n,c)=>n+c.grain,0));
   if(o.cargo?.grain>0){move.blocked='目的地粮仓不足，等待卸载';o.remainingDays=1;return false;}
-  if(o.convoyCycle&&--o.convoyCycle.remaining>0){const plan=o.convoyCycle,route=findCampaignRoute(s,o.location,plan.source,o.faction);if(town(s,plan.source)?.owner===o.faction&&route){o.destination=plan.source;plan.leg='return';startPersonnelJourney(s,o);return false;}}
+  if(o.convoyCycle&&--o.convoyCycle.remaining>0){const plan=o.convoyCycle,route=findCampaignRoute(s,o.location,plan.source,o.faction);if(town(s,plan.source)?.owner===o.faction&&route){delete o.meritTransport;o.destination=plan.source;plan.leg='return';startPersonnelJourney(s,o);return false;}}
   delete o.convoyCycle;
+  deliverTreasures(s,o,c.id);
   o.destination=null;o.remainingDays=0;o.unit.homeCity=c.id;delete o.journey;delete o.cargo;delete o.retreating;delete o.retreatOrigin;delete o.retreatFormation;
+  delete o.meritTransport;
   if(o.unit.troops>0||o.unit.wounded>0){c.units.push(o.unit);s.campaign.idle=s.campaign.idle.filter(x=>x!==o);}
+  settleMeritCapacity(s);
   return true;
  }
  updatePersonnelETA(s,o);return false;
 }
 function loseTransport(s,o,hit,next,from){
+ loseTreasureTransport(s,o,o.location);
  const fraction=hit.fraction??from;
+ if(o.meritTransport){const m=o.meritTransport;transportMerit(s,o.unit,o.faction,m.source,m.target,{...o.cargo,manpower:(o.cargo?.manpower||0)+o.unit.troops+o.unit.wounded},{sourceId:m.id+':loss',failed:true,reason:'运输遇敌损失'});}
  personnelEvent(s,`transport-loss:${o.unit.id}:${s.campaign.day}`,'TRANSPORT_LOST',o.unit,`${o.unit.name}${o.retreating?'撤离队':'运输队'}遭遇敌军，部队、伤兵及物资全部损失。`);
  resolveOfficerLoss(s,{unit:o.unit,faction:o.faction,location:o.location,enemy:hit.faction,eventId:`transport-fate:${o.unit.id}:${s.campaign.day}`,edge:next!==o.location?{from:o.location,to:next,fraction}:null,reason:o.retreating?'撤离队遇敌':'运输队遇敌'});
 }
 export function validatePersonnelJourney(s,o){
  const fail=ok=>{if(!ok)throw new Error('人才移动或运输存档无效');};
+ if(o.meritTransport){const m=o.meritTransport;fail(!!o.destination&&!o.retreating&&typeof m.id==='string'&&m.id.startsWith('transport:')&&town(s,m.source)&&town(s,m.target)&&m.source!==m.target&&typeof m.troopsCredited==='boolean');}
  if(o.convoyCycle){const p=o.convoyCycle;fail(hasStrategicTrait(o.unit,'cycleCargo')&&!o.unit.troops&&!o.unit.wounded&&!!o.cargo&&!!o.destination&&['out','return'].includes(p.leg)&&town(s,p.source)&&town(s,p.target)&&p.source!==p.target&&Number.isSafeInteger(p.batch)&&p.batch>0&&Number.isInteger(p.remaining)&&p.remaining>0&&p.remaining<=5&&o.destination===(p.leg==='out'?p.target:p.source)&&o.cargo.manpower===0&&o.cargo.grain<=p.batch);}
  if(o.relayDestination!==undefined)fail(hasStrategicTrait(o.unit,'relayCargo')&&!!o.destination&&!!o.cargo&&town(s,o.relayDestination)&&o.relayDestination!==o.destination);
  if(o.retreating!==undefined)fail(o.retreating===true&&(o.unit.troops>0||o.unit.wounded>0));

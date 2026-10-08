@@ -5,7 +5,7 @@ import {NATIONAL_ROAD_DESIGNS} from '../data/design/roads.mjs';
 import {ATLAS_CITY_ADDITIONS,ATLAS_SAME_CITY_NAMES,ATLAS_GATE_ADDITIONS,ATLAS_LARGE_CITY_IDS,ATLAS_CIRCLE_CITY_IDS} from '../data/design/atlas-cities.mjs';
 import {applyAtlasLayout} from '../data/design/atlas-layout.mjs';
 import {nationalWorld,NATIONAL_MAP_COUNTS} from '../national-scenarios.mjs';
-import {newCampaign,findCampaignRoute,transferOfficer,appointGovernor,assignDomestic,serializeCampaign,validateCampaign,orderCampaignArmy,beginExecution,advanceCampaignDay,activeBattles,cityIncome} from '../strategic-campaign.mjs';
+import {newCampaign,findCampaignRoute,transferOfficer,appointGovernor,assignDomestic,serializeCampaign,validateCampaign,orderCampaignArmy,beginExecution,advanceCampaignDay,activeBattles,cityIncome} from './helpers/auto-domestic-campaign.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {nationalLobby} from '../national-lobby.mjs';

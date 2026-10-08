@@ -1,0 +1,40 @@
+✔ council accepts exact counts and null atomically; custom configs and saves retain them (22.2058ms)
+✔ exact current soldiers trigger either side, wounds are excluded, healing never cancels withdrawal (7.6734ms)
+✔ actual damage triggers withdrawal; unit remains targetable but stops attacks, commands and ZOC (5.6642ms)
+✔ retreat walks to the exit before a reserve enters and never heals, resets uses or reenters (32.395ms)
+✔ occupied escape route blocks withdrawal; no instantaneous removal or early replacement (5.6736ms)
+✔ defenders leaving the battlefield lose even while the gate remains intact (6.6353ms)
+✔ a freed slot waits for actual reserve arrival and a withdrawing force cannot supply commands (21.9428ms)
+✔ ordinary campaign retains withdrawn soldiers and wounded without drawing a destroyed-officer fate (105.8119ms)
+✔ malformed and old saves are rejected rather than repaired (5.9384ms)
+✔ melee withdrawal spends an action disengaging, does not cast, and moves without passing through enemies (6.381ms)
+✔ focus beyond an engaged front line requires disengagement, never an illegal ranged hit (3.4651ms)
+✔ unified retreat destination accepts only a reachable friendly formation site and locks at battle start (10.355ms)
+✔ departure dispatches once, moves on its first world step, and resumes deterministically before battle ends (59.6448ms)
+✔ retreat uses transport interception and cannot shelter in an enemy destination (17.8164ms)
+✔ all units leaving removes the empty army and settlement never duplicates a returning officer (39.4343ms)
+✖ destination loss reroutes at the actual position; no legal city leaves a visible stationary retreat (11.6693ms)
+✔ returning to a city and marching again cannot reenter the original ongoing battle (90.7065ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 16
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 643.5257
+
+✖ failing tests:
+
+test at tests\battle-retreat.test.mjs:169:1
+✖ destination loss reroutes at the actual position; no legal city leaves a visible stationary retreat (11.6693ms)
+  Error: 人才移动或运输存档无效
+      at fail (file:///C:/Users/TJX/Documents/ChatGPT/sango/personnel-movement.mjs:75:31)
+      at validatePersonnelJourney (file:///C:/Users/TJX/Documents/ChatGPT/sango/personnel-movement.mjs:76:30)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-retreat.test.mjs:174:106)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

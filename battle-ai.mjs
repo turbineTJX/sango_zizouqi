@@ -4,14 +4,16 @@ import {isAreaStratagem,chooseStratagemPoint} from './stratagem-area.mjs';
 import {isTargetable} from './engagement.mjs';
 import {needsRemedy} from './battle-status-rules.mjs';
 import {hasTrait} from './officer-traits.mjs';
+import {arrivedReserves,refreshCandidates,needsCommandRefresh} from './stratagem-events.mjs';
 import {tacticUsesLeft} from './tactic-tempo.mjs';
 import {learnedTacticIds} from './tactic-learning.mjs';
 import {canOccupy,unitTerrain} from './battlefield.mjs';
 import {hexDistance} from './hex-grid.mjs';
 import {unitAttributes,isRear} from './unit-stats.mjs';
-import {validLoadout,configureTactics,unitTactics,hasStatus,NEGATIVE_STATUSES} from './tactics.mjs';
+import {validLoadout,configureTactics,unitTactics,hasStatus,NEGATIVE_STATUSES,recoverableWounded} from './tactics.mjs';
 import {isMelee} from './engagement.mjs';
-import {battleBuildings} from './building-rules.mjs';
+import {battleBuildings,buildingTargetValue} from './building-rules.mjs';
+import {statusFraction} from './tactic-power.mjs';
 
 const supportEffects=new Set(['screen','relay','bandage','regrowth','purify','cleanse','supply','rally','mirage','mist','boarding','nexus','protect','aura']);
 const offensiveEffects=new Set(['cleave','curse','blight','bombard','ram','plague','tremor','navalRam','broadside','undertow','confuse','harass','ambush','suppress','pierce','strike','thrust','scatter','wildfire','seal','lure','undermine','rush','terror','retreatShot','repeat','fire','taunt']);
@@ -33,6 +35,7 @@ export function rankEnemyReserves(b,candidates,side=1){
   const lineShare=enemies.filter(lineTroop).reduce((n,u)=>n+u.hp,0)/enemyHp;
   const rearShare=enemies.filter(isRear).reduce((n,u)=>n+u.hp,0)/enemyHp;
   const gate=b.siege?.gate,attackingGate=gate?.hp>0&&gate.side!==side;
+  const attackingWorks=(b.buildings||[]).some(a=>a.side!==side&&buildingTargetValue(b,a,{visible:u=>isTargetable(b,u),stasis:u=>hasStatus(b,u,'stasis'),wounded:recoverableWounded,healFactor:u=>hasStatus(b,u,'plague')?1-statusFraction(u,'plague',.5):1})>0);
   const friendlyBuilding=battleBuildings(b).some(a=>a.side===side&&a.hp>0);
   const profile=u=>{
     // Compare current strength without field/cell bonds or a hypothetical entry.
@@ -62,7 +65,7 @@ export function rankEnemyReserves(b,candidates,side=1){
     if(isRear(u)&&hasFront)score+=10*damage;
     if(combatFamily(u)==='cavalry')score+=(14*rearShare-14*lineShare-(['forest','marsh'].includes(b.terrain)?4:0))*damage;
     if(p.support)score+=(supports===0?(hasFront?34:12):injured?12:4)*p.aid/maxAid;
-    if(attackingGate&&combatFamily(u)==='siege')score+=(28+(p.skills.some(s=>s.effect==='ram')?12:0))*damage;
+    if((attackingGate||attackingWorks)&&(u.equipment?.siege||combatFamily(u)==='siege'))score+=(attackingGate?28+(p.skills.some(s=>s.effect==='ram')?12:0):16)*damage;
     return {unit:u,score};
   }).sort((a,c)=>c.score-a.score||a.unit.id.localeCompare(c.unit.id)).map(p=>p.unit);
 }
@@ -118,39 +121,36 @@ export function planEnemyArmy(b){
 }
 
 // Fixed trigger order, independent of troop strength, expected benefit or RNG.
-// Exclusive commands use their existing effect and keep the supplied list order.
-export const COMMAND_TRIGGER_ORDER=Object.freeze(['magicImmunity','assault','disrupt','eightFormation','firestorm','range','rapidAdvance','haste','fortify','inspire','cycle','demoralize','blockade','relief','heal','regenerate','cleanse']);
+// Each effect has a simple yes/no trigger; same-effect commands retain list order.
+export const COMMAND_TRIGGER_ORDER=Object.freeze(['cleanse','heal','forceReserve','tacticRefresh','invincible','magicImmunity','stun','eightFormation','firestorm','ambush','rapidAdvance','shield','blockade','catastrophe']);
 export function chooseEnemyCommand(b,available,definitions,side=1){
   const own=b.sides[side],foe=b.sides[1-side],resource=side===0?b:b.enemyCommand;
-  const active=s=>s.units.filter(u=>u.status==='active'&&u.hp>0);
+  const active=s=>s.units.filter(u=>u.status==='active'&&u.hp>0&&!hasStatus(b,u,'stasis'));
   const allies=active(own),enemies=active(foe).filter(u=>isTargetable(b,u)),gate=b.siege?.gate;
   const targets=[...enemies,...(gate?.hp>0&&gate.side!==side?[gate]:[])];
   if(b.result||own.retreat||!allies.length||!targets.length)return null;
   const injured=()=>allies.some(u=>u.hp<u.maxHp&&Math.floor((u.battleDamage-(u.battleDeserted||0))*.35)>u.healed);
-  const reserve=s=>s.units.some(u=>u.status==='reserve'&&u.hp>0);
+  const reserve=s=>s.units.some(u=>u.status==='reserve'&&u.hp>0&&(u.arrivalTick||0)<=b.tick&&u.arrivalConfirmed!==false);
   const triggers={
-    assault:()=>targets.length>0,
-    disrupt:()=>enemies.length>0,
+    forceReserve:()=>arrivedReserves(b,side).length>0,
+    tacticRefresh:()=>refreshCandidates(b,side).some(needsCommandRefresh),
+    catastrophe:()=>enemies.length>=2,
+    invincible:()=>true,
+    stun:()=>enemies.length>0,
+    shield:()=>true,
+    ambush:()=>allies.some(u=>!hasStatus(b,u,'stealth')),
     eightFormation:()=>enemies.length>0,
     firestorm:()=>enemies.some(u=>!hasStatus(b,u,'burn')),
-    range:()=>allies.some(u=>combatFamily(u)==='archer'),
-    haste:()=>true,
     rapidAdvance:()=>allies.some(u=>!hasStatus(b,u,'rapidAdvance')),
     magicImmunity:()=>allies.some(u=>!hasStatus(b,u,'magicImmune')),
-    fortify:()=>enemies.length>0,
-    inspire:()=>allies.some(u=>u.intent<100),
-    cycle:()=>allies.some(u=>u.intent<100||unitTactics(u).some(s=>tacticUsesLeft(u,s)>0&&(u.skillReady[s.id]||0)>b.tick)),
-    demoralize:()=>enemies.some(u=>u.intent>0),
     blockade:()=>reserve(foe),
-    relief:()=>reserve(own),
     heal:injured,
-    regenerate:injured,
-    cleanse:()=>allies.some(u=>needsRemedy(b,u,'calm')),
+    cleanse:()=>true,
   };
   for(const effect of COMMAND_TRIGGER_ORDER){
     for(const key of available){
       const s=definitions[key];
-      if(!s||(s.effect||key)!==effect||(resource.commandReady[key]||0)>b.tick)continue;
+      if(!s||s.ai!==effect||(resource.commandReady[key]||0)>b.tick)continue;
       const target=s.side===0?own:foe;
       if(s.field&&(target[s.field]||0)>b.tick)continue;
       if(s.maxUses&&(own.stratagemUses?.[key]||0)>=s.maxUses)continue;

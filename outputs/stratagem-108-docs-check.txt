@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 docs:check
+> node scripts/check-current-docs.mjs
+
+当前规则108：104份文档清单、107份Markdown链接及失效条文检查通过。

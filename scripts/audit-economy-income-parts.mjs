@@ -5,7 +5,7 @@ import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {compareConstruction,compareEconomicWork} from './economy-balance-lib.mjs';
 import {DEVELOPMENT_SEEDS,VALIDATION_SEEDS} from './economy-valuation-lib.mjs';
-import {newCampaign} from '../strategic-campaign.mjs';
+import {newCampaign} from './automatic-domestic-campaign.mjs';
 import {cityRecurringIncome,cityNeedsAgriculture,sustainableRecruitment,cityIncomeBreakdown} from '../economy.mjs';
 import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';

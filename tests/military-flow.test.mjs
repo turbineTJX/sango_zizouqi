@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {newMilitaryFlow,previewMilitaryFlow} from '../military-flow.mjs';
 const scene=()=>{const s=newCampaign(33,'guandu-200'),a=fieldFromCity(s,'xuchang');return {s,a};};

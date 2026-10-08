@@ -15,10 +15,10 @@ export function traitEligible(b,u,rule){
  if(rule.roles){
   if(!['active','reserve'].includes(u.status))return false;
   if(!['commandRefund','frontline'].includes(rule.effect)&&u.status!=='active')return false;
-  if(rule.event!=='passive'&&['confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0)&&!bondBlocksEffect(b,u,u.statuses[k])))return false;
+  if(rule.event!=='passive'&&['stun','confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0)&&!bondBlocksEffect(b,u,u.statuses[k])))return false;
   return !!b?.sides?.[u.side]?.commanders?.some(c=>c.id===u.id&&c.armyId===u.armyId&&rule.roles.includes(c.role));
  }
- return u.status==='active'&&!['confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0)&&!bondBlocksEffect(b,u,u.statuses[k]));
+ return u.status==='active'&&!['stun','confuse','stasis'].some(k=>(u.statuses?.[k]?.until||0)>(b?.tick||0)&&!bondBlocksEffect(b,u,u.statuses[k]));
 }
 export const traitIgnoresZoc=(b,u)=>bondEntryIgnoresZoc(b,u)||mechanicEntries(u,'passive').some(x=>x.rule.effect==='ignoreZoc'&&traitEligible(b,u,x.rule));
 export const traitImmune=(u,key)=>mechanicEntries(u,'passive').some(x=>x.rule.effect==='immunity'&&(!x.rule.troops||x.rule.troops.some(type=>type===combatType(u)||type===combatFamily(u)))&&x.rule.statuses.includes(key));

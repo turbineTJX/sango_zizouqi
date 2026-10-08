@@ -1,0 +1,21 @@
+✔ every playable preset is a legal editable custom draft and produces the same battle (128.9131ms)
+✔ custom generator validates conditions and wave budgets (304.3979ms)
+✔ saved custom conditions are used for named-preset retries and save validation (14.6552ms)
+✔ 曹操额外首发名额不挪用明确指定的延迟援军 (81.8762ms)
+✔ military orders show once for both factions, including paused same-tick commands; restores do not replay (17.4178ms)
+✔ enemy harmful order marks our affected units and failed commands never create an effect (3.1533ms)
+✔ head markers follow current state, expire and cleanse immediately; army range only applies to bow troops (4.0955ms)
+✔ signals render finite coordinates without changing battle data through real combat (114.6172ms)
+✔ 魏武挥鞭由真实充能施放，逐队军纪决定时长，仅覆盖在场部队 (162.0461ms)
+✔ 魔免阻止全部异常与八阵；只让物理普攻伤害通过，到期恢复 (51.1802ms)
+✔ 真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵，确定性续战一致 (151.8281ms)
+✔ 兵贵神速只选一队，空地敌军与重复目标不消费，预览高亮与AI一致 (153.5349ms)
+✔ 神速无视ZOC但保留目标合法性；攻速及移速同类取高不叠加 (53.747ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 750.9681

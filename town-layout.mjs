@@ -29,7 +29,8 @@ export function townLayout(place){
  const flip=region==='river'?river.x>place.x:!!(seed&1),spreadX=.88+(seed%5)*.025,spreadY=.84+((seed>>>4)%5)*.035;
  const sites=Object.fromEntries(Object.entries(TOWN_SITES).map(([key,site])=>{
   const local=hash(place.id+':'+key),jitterX=(local%17)-8,jitterY=((local>>>8)%13)-6;
-  const [baseX,baseY,width]=SPACE_SITES[kind][key];
+  const extras={large:{arrowTower:[-167,9,65],musicStage:[132,-14,64],aidCamp:[-142,128,65]},small:{arrowTower:[-137,5,58],musicStage:[111,-11,56],aidCamp:[-122,116,55]},gate:{arrowTower:[-148,16,64],musicStage:[67,-9,60],aidCamp:[-135,144,57]},port:{arrowTower:[-83,-3,62],musicStage:[169,71,57],aidCamp:[-31,111,58]}};
+  const [baseX,baseY,width]=SPACE_SITES[kind][key]||extras[kind][key];
   const x=baseX*(flip?-1:1)*spreadX+jitterX*.6,y=baseY*spreadY+jitterY*.6;
   return [key,{...site,x:round(x),y:round(y),width:round(width*(.96+(local%5)*.012))}];
  }));

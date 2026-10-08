@@ -1,0 +1,36 @@
+✔ all current facilities and gates save actual current and maximum durability (265.2281ms)
+✔ new construction advances actual durability daily and inspection cannot advance it (195.7372ms)
+✔ damaged facilities use the same construction progress, pay less and retain their level (441.2445ms)
+✔ interruption preserves paid work, durability and the saved construction site (112.5827ms)
+✔ expansion raises maximum durability without instantly supplying the new durability (64.4107ms)
+✔ damage to a half-built facility extends remaining work without resetting or charging again (160.231ms)
+✔ battle repairs that finish construction activate the facility and settle its original job once (143.0844ms)
+✔ a destroyed watchtower stops its sight until genuine military repairs restore durability (318.8508ms)
+✔ destroyed facilities cease production and become operational after actual repair (47.5487ms)
+✔ construction and gate durability cannot be forged in saves (117.8315ms)
+✔ battle buildings preserve real damage and map repairs back to the same physical facilities (28.7856ms)
+✔ actual siege loads damaged gate and facilities and returns gate damage after retreat (187.7607ms)
+✔ a real domestic project appears as construction, completes as an expanded city, and survives saving (388.6137ms)
+✔ interrupted construction keeps its real progress and never looks completed (48.4319ms)
+✔ all twelve facilities reflect real levels, stocks, gate damage and active income effects without modifying state (42.1361ms)
+✔ national camera reaches building scale and retains it on rerender, while every city has a live scene source (125.1855ms)
+✔ all cities have fixed partial technology trees; buildings cannot create new affinities (63.3341ms)
+✔ military research uses governance and different basic facilities, never barracks level (29.3838ms)
+✔ research spends city funds once, progresses on real days and reloads deterministically (325.4441ms)
+✔ cancelling and resuming retains paid research and accepts changed dynamic conditions (119.4904ms)
+✔ one city research project is exclusive and a second scientist can cooperate (56.4291ms)
+✔ tech income bonuses add to 25 percent and increase the actual shared production allowance (34.0404ms)
+✔ technology increases completed real resource operations without a second harvest payout (1040.7555ms)
+✔ an actual siege pauses daily research without losing the project or its payment (238.8602ms)
+✔ military and construction discounts affect paid city actions and preview calculations (33.8393ms)
+✔ umbrella gear technologies unlock their three local forms, with a real water condition (21.3827ms)
+✔ watchtowers are persistent sight sources and transfer with the city, without revealing remote points (6.7598ms)
+✔ save validation rejects foreign-city technology and impossible research progress (212.275ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2442.0104

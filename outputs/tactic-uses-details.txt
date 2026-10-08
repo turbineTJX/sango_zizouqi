@@ -1,0 +1,36 @@
+✔ 荀彧获得额外专属，保留内政成长和普通学习名额 (1.8536ms)
+✔ 条件加成只读取施放前已有状态和战意，不把本次破甲或受击收益算作铺垫 (0.2684ms)
+✔ 曹操：合法自定义战役自然发动专属，遵守消耗、目标与续战 (176.4742ms)
+✔ 郭嘉：合法自定义战役自然发动专属，遵守消耗、目标与续战 (73.07ms)
+✔ 荀彧：合法自定义战役自然发动专属，遵守消耗、目标与续战 (86.2539ms)
+✔ 诸葛亮：合法自定义战役自然发动专属，遵守消耗、目标与续战 (62.5802ms)
+✔ 夏侯惇：合法自定义战役自然发动专属，遵守消耗、目标与续战 (81.4353ms)
+✔ 夏侯渊：合法自定义战役自然发动专属，遵守消耗、目标与续战 (64.0039ms)
+✔ 典韦：合法自定义战役自然发动专属，遵守消耗、目标与续战 (66.1967ms)
+✔ 刘备：合法自定义战役自然发动专属，遵守消耗、目标与续战 (57.8243ms)
+✔ 关羽：合法自定义战役自然发动专属，遵守消耗、目标与续战 (44.677ms)
+✔ 张飞：合法自定义战役自然发动专属，遵守消耗、目标与续战 (62.1105ms)
+✔ 吕布：合法自定义战役自然发动专属，遵守消耗、目标与续战 (59.2312ms)
+✔ 周瑜：合法自定义战役自然发动专属，遵守消耗、目标与续战 (45.7019ms)
+✔ 孙策：合法自定义战役自然发动专属，遵守消耗、目标与续战 (69.1039ms)
+✔ 孙权：合法自定义战役自然发动专属，遵守消耗、目标与续战 (51.2983ms)
+✔ 司马懿：合法自定义战役自然发动专属，遵守消耗、目标与续战 (48.2359ms)
+✔ multi-hit results equal actual casualties and shield absorption, with no double counting (27.2841ms)
+✔ remaining shield after a hit is not misreported as a newly granted shield (4.5444ms)
+✔ mixed damage and control report actual duration; resisted control is not claimed (7.8765ms)
+✔ healing results use wounded budget and show actual shield separately (3.9042ms)
+✔ current save preserves result records and deterministic continuation; malformed results are rejected (305.9094ms)
+✔ ordinary learning pools retain low/high slots and exclusive roles have distinct costs (0.8969ms)
+✔ earned casts pay fixed intent, recover between spells, still attack and resume during recovery (257.3385ms)
+✔ limited stock covers every learned tier and only one authored burst spends intent (1.9253ms)
+✔ real combat consumes finite stock, grants authored uses, preserves cooldown and resumes exactly (346.1536ms)
+✔ army restoration is useful, once per battle, does not reset cooldown or restore specials (140.104ms)
+✔ recovery supports do not cast on full stock, themselves, or each other to form a loop (3.132ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1216.7871

@@ -1,0 +1,3017 @@
+{
+  "rulesVersion": 112,
+  "scope": "机制验收；合法武将、固定战法、自然军略充能和正式stepBattle自动下令；仅固定无关战斗条件，不注入进度、不手动下军略。非胜率或平衡结论。",
+  "seeds": {
+    "development": [
+      11211,
+      11217
+    ],
+    "validation": [
+      11231,
+      11237
+    ]
+  },
+  "summary": [
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "ai": "shield",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 34,
+      "tickMax": 36,
+      "resumed": 8
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "ai": "heal",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "ai": "cleanse",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "ai": "invincible",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 33,
+      "tickMax": 34,
+      "resumed": 8
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "ai": "ambush",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "ai": "stun",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "ai": "magicImmunity",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "ai": "magicImmunity",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 27,
+      "tickMax": 29,
+      "resumed": 8
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "ai": "firestorm",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "ai": "eightFormation",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 32,
+      "tickMax": 33,
+      "resumed": 8
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "ai": "forceReserve",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 32,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "ai": "tacticRefresh",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 31,
+      "tickMax": 32,
+      "resumed": 8
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "ai": "catastrophe",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 33,
+      "resumed": 8
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "ai": "rapidAdvance",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 30,
+      "tickMax": 34,
+      "resumed": 8
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "ai": "blockade",
+      "autoCast": 8,
+      "expectedAutoCast": 8,
+      "hold": 2,
+      "expectedHold": 2,
+      "tickMin": 29,
+      "tickMax": 33,
+      "resumed": 8
+    }
+  ],
+  "rows": [
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 34,
+      "source": "shao",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 34,
+      "source": "shao",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 34,
+      "source": "shao",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 34,
+      "source": "shao",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 37,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 36,
+      "source": "shao",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 36,
+      "source": "shao",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 36,
+      "source": "shao",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 36,
+      "source": "shao",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "shield",
+        "shield": 4615
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "fortify",
+      "name": "金城汤池",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 39,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "person-668",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "person-668",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "person-668",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "person-668",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-668",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-668",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-668",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-668",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "healed": 350
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "heal",
+      "name": "济世安军",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "person-294",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "person-294",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "person-294",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "person-294",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-294",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-294",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-294",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-294",
+      "target": {
+        "x": 9,
+        "y": 1,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 1,
+        "status": "resolve"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cleanse",
+      "name": "扶正祛邪",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 34,
+      "source": "person-636",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 34,
+      "source": "person-636",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 34,
+      "source": "person-636",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 34,
+      "source": "person-636",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 37,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 33,
+      "source": "person-636",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 33,
+      "source": "person-636",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 33,
+      "source": "person-636",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 33,
+      "source": "person-636",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "commandInvincible"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "invincible",
+      "name": "固若金汤",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 36,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "person-61",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "person-61",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "person-61",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "person-61",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-61",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-61",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-61",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-61",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stealth"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ambush",
+      "name": "瞒天过海",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "person-558",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "person-558",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "person-558",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "person-558",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-558",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-558",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-558",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-558",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "stun"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "disrupt",
+      "name": "威震三军",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "person-226",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "person-226",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "person-226",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "person-226",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-226",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-226",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-226",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-226",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "ward",
+      "name": "百邪不侵",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 27,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 27,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 27,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 27,
+      "source": "cao",
+      "target": null,
+      "evidence": {
+        "affected": 7,
+        "status": "magicImmune"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "cao-wuchao",
+      "name": "号令如山",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 30,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "person-246",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 270
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "person-246",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 270
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "person-246",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 270
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "person-246",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 270
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-246",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 290
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-246",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 290
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-246",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 290
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-246",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 90
+      },
+      "evidence": {
+        "affected": 5,
+        "perTick": 290
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhou-redcliffs",
+      "name": "火烧连营",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 33,
+      "source": "person-281",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 62
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 33,
+      "source": "person-281",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 62
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 33,
+      "source": "person-281",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 62
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 33,
+      "source": "person-281",
+      "target": {
+        "x": 9,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 62
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 36,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "person-281",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "person-281",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "person-281",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "person-281",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "zoneUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "zhuge-eight",
+      "name": "八阵奇门",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "liao",
+          "yan"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "liao",
+          "yan"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "liao",
+          "yan"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "liao",
+          "yan"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "yuanxia",
+          "jin"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "yuanxia",
+          "jin"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "yuanxia",
+          "jin"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "jia",
+      "target": null,
+      "evidence": {
+        "entered": [
+          "yuanxia",
+          "jin"
+        ],
+        "active": 8
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "reinforce",
+      "name": "奇兵天降",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 32,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 9
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 32,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 9
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 32,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 9
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 32,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 9
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 35,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 31,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 11
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 31,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 11
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 31,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 11
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 31,
+      "source": "yu",
+      "target": null,
+      "evidence": {
+        "restored": 11
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "refresh",
+      "name": "重整旗鼓",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 34,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 33,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 8,
+        "damage": 11394
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 33,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 7,
+        "damage": 9104
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 33,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 17,
+        "damage": 21384
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 33,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 19,
+        "damage": 22992
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 36,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 8,
+        "damage": 11349
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 7,
+        "damage": 9104
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 17,
+        "damage": 21384
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-404",
+      "target": null,
+      "evidence": {
+        "strikes": 8,
+        "hits": 19,
+        "damage": 22992
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "storm",
+      "name": "天雷地火",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 34,
+      "source": "person-366",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 34,
+      "source": "person-366",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 34,
+      "source": "person-366",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 34,
+      "source": "person-366",
+      "target": {
+        "x": 3,
+        "y": 3,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 5,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 37,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 30,
+      "source": "person-366",
+      "target": {
+        "x": 10,
+        "y": 2,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 4,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 30,
+      "source": "person-366",
+      "target": {
+        "x": 10,
+        "y": 2,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 4,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 30,
+      "source": "person-366",
+      "target": {
+        "x": 10,
+        "y": 2,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 4,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 30,
+      "source": "person-366",
+      "target": {
+        "x": 10,
+        "y": 2,
+        "rotation": 0
+      },
+      "evidence": {
+        "affected": 4,
+        "status": "rapidAdvance"
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "swift",
+      "name": "疾风迅雷",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 33,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 0,
+      "seed": 11211,
+      "condition": true,
+      "tick": 33,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 0,
+      "seed": 11217,
+      "condition": true,
+      "tick": 33,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 0,
+      "seed": 11231,
+      "condition": true,
+      "tick": 33,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 0,
+      "seed": 11237,
+      "condition": true,
+      "tick": 33,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 61
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 0,
+      "seed": 11237,
+      "condition": false,
+      "tick": 36,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 1,
+      "seed": 11211,
+      "condition": true,
+      "tick": 29,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 57
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 1,
+      "seed": 11217,
+      "condition": true,
+      "tick": 29,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 57
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "development",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 1,
+      "seed": 11231,
+      "condition": true,
+      "tick": 29,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 57
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 1,
+      "seed": 11237,
+      "condition": true,
+      "tick": 29,
+      "source": "person-264",
+      "target": null,
+      "evidence": {
+        "blockedUntil": 57
+      },
+      "resumedBeforeCast": true,
+      "resumedAfterCast": true,
+      "group": "validation",
+      "passed": true
+    },
+    {
+      "key": "blockade",
+      "name": "十面埋伏",
+      "side": 1,
+      "seed": 11237,
+      "condition": false,
+      "tick": 32,
+      "heldGauge": true,
+      "group": "negative",
+      "passed": true
+    }
+  ],
+  "failures": []
+}

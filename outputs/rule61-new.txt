@@ -1,0 +1,17 @@
+✔ real gallop bypasses live ZOC without removing enemy coverage and expires (22.8839ms)
+✔ real harass disables only its target ZOC, respects resolve, and permits deterministic saves (31.4734ms)
+✔ overlapping interception remains after harass disables one owner (3.6701ms)
+✔ basic fire prefers a ranged enemy within range over a closer front (3.1413ms)
+✔ out-of-range rear does not displace an attackable front (2.5577ms)
+✔ real cleanse restores interception without waiting for disruption expiry (3.5283ms)
+✔ focus command overrides ranged priority and ordinary melee remains pinned (5.0775ms)
+✔ nearby wounded front takes priority over a healthy ranged target (1.9481ms)
+✔ real mirage protects a wounded ally, forces retarget, blocks DOT, and resumes deterministically (6.6494ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 276.0471

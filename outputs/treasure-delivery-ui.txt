@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 verify:treasures-ui
+> node scripts/verify-treasures-ui.mjs
+
+Treasure UI passed: grant, equip replacement review, cancel, reload, deployed lock, custom editor and mobile layout.

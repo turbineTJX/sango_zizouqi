@@ -1,0 +1,157 @@
+[
+  {
+    "scenario": "guandu-200",
+    "seed": 417,
+    "day": 61,
+    "plans": 10,
+    "attacks": 7,
+    "battles": 1,
+    "departures": [
+      {
+        "faction": "yuan",
+        "day": 2,
+        "units": 1
+      },
+      {
+        "faction": "force-7",
+        "day": 2,
+        "units": 1
+      },
+      {
+        "faction": "yuan",
+        "day": 12,
+        "units": 1
+      },
+      {
+        "faction": "yuan",
+        "day": 22,
+        "units": 1
+      },
+      {
+        "faction": "sunce",
+        "day": 34,
+        "units": 1
+      },
+      {
+        "faction": "sunce",
+        "day": 43,
+        "units": 1
+      },
+      {
+        "faction": "yuan",
+        "day": 52,
+        "units": 3
+      }
+    ]
+  },
+  {
+    "scenario": "guandu-200",
+    "seed": 643,
+    "day": 61,
+    "plans": 10,
+    "attacks": 7,
+    "battles": 1,
+    "departures": [
+      {
+        "faction": "yuan",
+        "day": 2,
+        "units": 1
+      },
+      {
+        "faction": "force-7",
+        "day": 2,
+        "units": 1
+      },
+      {
+        "faction": "yuan",
+        "day": 12,
+        "units": 1
+      },
+      {
+        "faction": "yuan",
+        "day": 22,
+        "units": 1
+      },
+      {
+        "faction": "sunce",
+        "day": 34,
+        "units": 1
+      },
+      {
+        "faction": "sunce",
+        "day": 43,
+        "units": 1
+      },
+      {
+        "faction": "yuan",
+        "day": 52,
+        "units": 3
+      }
+    ]
+  },
+  {
+    "scenario": "heroes-251",
+    "seed": 417,
+    "day": 61,
+    "plans": 9,
+    "attacks": 4,
+    "battles": 3,
+    "departures": [
+      {
+        "faction": "yuan",
+        "day": 12,
+        "units": 8
+      },
+      {
+        "faction": "sunce",
+        "day": 12,
+        "units": 5
+      },
+      {
+        "faction": "sunce",
+        "day": 42,
+        "units": 1
+      },
+      {
+        "faction": "force-2",
+        "day": 52,
+        "units": 3
+      }
+    ]
+  },
+  {
+    "scenario": "heroes-251",
+    "seed": 643,
+    "day": 61,
+    "plans": 11,
+    "attacks": 5,
+    "battles": 3,
+    "departures": [
+      {
+        "faction": "yuan",
+        "day": 12,
+        "units": 8
+      },
+      {
+        "faction": "sunce",
+        "day": 12,
+        "units": 5
+      },
+      {
+        "faction": "force-2",
+        "day": 42,
+        "units": 3
+      },
+      {
+        "faction": "sunce",
+        "day": 42,
+        "units": 1
+      },
+      {
+        "faction": "force-2",
+        "day": 52,
+        "units": 3
+      }
+    ]
+  }
+]

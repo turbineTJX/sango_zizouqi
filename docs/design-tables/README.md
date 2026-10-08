@@ -9,7 +9,7 @@
 
 | 一览表 | 正式设计源 | 当前范围 |
 | --- | --- | --- |
-| [特技一览表](特技一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 当前接入65项特性（50普通、15专属） |
+| [特技一览表](特技一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 当前接入67项特性（52普通、15专属） |
 | [内政命令特性](内政命令特性一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 已接入40项，限定现有命令的效果与结算；持有者见正式分配 |
 | [战法一览表](战法一览表.md) | [tactics.mjs](../../data/design/tactics.mjs) | 75项效果定义；标明当前携带兵种／16名将专属／未配置效果库，以及门槛、冷却、次数和效果参数 |
 | [军略一览表](军略一览表.md) | [stratagems.mjs](../../data/design/stratagems.mjs) | 20项；效果、持续时间、普通／专属池、专属来源 |
@@ -64,3 +64,6 @@
 内政建设动作只保存 kind/value/stat/cooperation，其名称、方向、费用与工期通过 `domestic-designs.mjs` 读取建筑表，不重复维护。大地图道路是双向据点ID对，距离由坐标计算，路口与横向小路由正式路网定义；同一连接仅保留一条道路。
 
 全部允许字段见 [schema.mjs](../../data/design/schema.mjs)。新增内政、建筑、道路与移动字段的检查见 [design-strategy-validation.mjs](../../design-strategy-validation.mjs)。参数不适用时保持缺省，勿把未知字段写入文案后误认为已经实现。
+
+- [宝物一览表](宝物一览表.md)：24件宝物及获取概率，正式源 `data/design/treasures.mjs`；开局持有读取剧本源，眼力与夺宝读取特技和固定人物分配。
+

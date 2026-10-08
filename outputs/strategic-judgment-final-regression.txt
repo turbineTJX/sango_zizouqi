@@ -1,0 +1,110 @@
+✔ both current national scenarios store units in cities with no standing map armies (462.0206ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (126.8205ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (17.0573ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (2098.4504ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (72.8221ms)
+✖ real sieges build temporary defense from city units and resume deterministically (4532.4582ms)
+✔ departure can prepare an idle officer atomically and invalid departure spends nothing (253.6262ms)
+✔ awaiting siege permits real idle-officer preparation without starting battle or changing source (119.8865ms)
+✔ 官渡风云: connected national map, valid unique officers and reproducible saves (467.3948ms)
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (17299.4448ms)
+✔ 英雄集结: connected national map, valid unique officers and reproducible saves (1120.754ms)
+✔ 英雄集结: real multi-front combat survives daily serialization and deterministic continuation (25719.1436ms)
+✔ map includes mandatory passes and long routes beyond the former nine-node limit (121.3269ms)
+✔ scenario identity, topology, and town coordinates are validated (107.4796ms)
+✔ Guandu and Heroes differ in ownership and time-appropriate recruitment (2.8864ms)
+✔ a month of real multi-front warfare archives old snapshots and keeps the save compact (11671.6636ms)
+✔ national victory and defeat depend on ownership of the complete map (1752.5051ms)
+✔ the same marginal objective is accepted by a bold lord and declined by a cautious lord (57.712ms)
+✔ lord judgment bounds enemy estimate error without rerolls or changing actual forces (15.8333ms)
+✔ a winnable attack is refused when casualty replacement is unaffordable (15.9596ms)
+✔ valuable civil workers and a development-minded lord increase the opportunity cost (15.646ms)
+✔ occupation value is rejected when surviving troops cannot hold against nearby counterattack (11.5255ms)
+✔ AI occupies an undefended objective regardless of wall durability (15.4319ms)
+✔ a worthwhile opening opportunity is evaluated immediately without development timers (13.6644ms)
+✔ cancelled plans respond to changed conditions without a fixed rest deadline (24.3906ms)
+✔ heavily wounded troops recover at home before a voluntary offensive (14.1685ms)
+✔ offensive grain reservations include home rations and wait for actual supplies (13.0607ms)
+✔ a threatened home preserves defense while its troops are already fighting (31.4855ms)
+✔ AI factions still fight each other on actual hostile arrival (100.338ms)
+✔ siege budgeting exposes an archer column outlasting its food and caps simultaneous attackers (14.4944ms)
+✔ advantageous attack retains threat-sized city defense and conserves actual men and grain (18.5299ms)
+✔ superior defenses produce no attack plan or resource debit (13.644ms)
+✔ a large city roster selects legal columns and leaves wounded units in the city (14.2141ms)
+✔ a serious incoming attack retains the home defense instead of expanding (14.4997ms)
+✔ rescue uses arrival times and does not count a late column as successful relief (28.6444ms)
+✔ hungry marching columns reverse continuous road progress once without teleporting (14.2904ms)
+✔ shared recruitment spends one city quota and the AI treasury only, preserving planned grain (16.0572ms)
+✔ a persisted common AI order waits for real domestic work and never creates an army early (37.2352ms)
+✔ local plan reservation lets current work finish and blocks starting another task (18.2918ms)
+✔ plans survive small value changes but cancel on lost staging city and release commitments (17.8694ms)
+✔ AI actively transports grain through shared personnel movement without materializing it at destination (12.9103ms)
+✔ unsafe transport roads are rejected and no courier or grain is dispatched (14.4355ms)
+✔ AI save rejects duplicated commitments and old planner versions (23.4969ms)
+✔ two cities assemble for one target through real marching before the coordinated assault (27.084ms)
+✔ a city short of personnel receives a real transfer, leaving the governor and defenders in place (18.7095ms)
+✔ waiting transport earmarks cargo without a debit and replenishment preserves plan food (20.5394ms)
+✔ captured objective stays in consolidation until guard and food conditions recover (18.9651ms)
+✔ cancelling an assault before its first movement actually clears the outgoing route (15.8171ms)
+✔ queued safe transport rechecks threats before dispatch and retains undebited cargo on cancellation (14.345ms)
+✔ travel estimates charge each road separately, matching lost movement at city arrivals (11.1205ms)
+✔ departure checks real presence before considering work or interruption history (13.1727ms)
+✔ ordinary ready offensives interrupt lengthy work through the real command and record the loss (15.5513ms)
+✔ recent real interruption protects the next task across reload except when rescue would be missed (19.0963ms)
+✔ an expensive real construction near completion is protected even with more than two days left (15.8637ms)
+✔ both national scenarios continue real plans, movements and battles deterministically after reload (8257.4837ms)
+✔ offensive composition leaves busy officers working when idle troops suffice (19.673ms)
+✔ a staging city with an existing defense shortfall cannot reserve an impossible offensive (21.4194ms)
+✔ deferred AI departure rechecks the home guard when the original work finishes (21.6842ms)
+ℹ tests 58
+ℹ suites 0
+ℹ pass 56
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 58491.6809
+
+✖ failing tests:
+
+test at tests\city-expedition.test.mjs:46:1
+✖ real sieges build temporary defense from city units and resume deterministically (4532.4582ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(r)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/city-expedition.test.mjs:49:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\national-campaign.test.mjs:16:2
+✖ 官渡风云: real multi-front combat survives daily serialization and deterministic continuation (17299.4448ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.campaign.battles.length>0)
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/national-campaign.test.mjs:20:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

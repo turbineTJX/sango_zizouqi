@@ -11,7 +11,7 @@ export const isMelee = u => TROOP_DESIGNS[combatType(u)]?.range===1;
 // still occupy their hex, but cannot pin another unit in melee.
 export function holdsLine(b,u) {
   return isTargetable(b,u)&&isMelee(u)&&u.status==='active'&&u.hp>0&&!u.withdrawing&&!u.disengage&&!b.sides[u.side]?.retreat
-    &&!u.isDecoy&&!['stealth','confuse','disrupted'].some(k=>statusOn(b,u,k));
+    &&!u.isDecoy&&!['stealth','stun','confuse','disrupted'].some(k=>statusOn(b,u,k));
 }
 export function interceptorsAt(b,u,cell=u,charging=false) {
   if((traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance')||bondSwiftEffect(b,u)))return [];
@@ -41,8 +41,10 @@ export function meleeTargetPool(b,u,enemies) {
   if(!isMelee(u)||(traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance')||bondSwiftEffect(b,u))||statusOn(b,u,'phase')||statusOn(b,u,'stealth'))return enemies;
   const engaged=interceptorsAt(b,u);
   if(engaged.length)return enemies.filter(e=>engaged.some(g=>g.id===e.id));
-  const adjacent=enemies.filter(e=>hexDistance(u,e)===1);
+  // A facility cannot pin a troop. Nearby civilian works must not hide an
+  // approaching frontliner; exposed buildings still compete by their real value.
+  const adjacent=enemies.filter(e=>hexDistance(u,e)===1&&!['building','gate'].includes(e.type));
   if(adjacent.length)return adjacent;
   const front=enemies.filter(e=>holdsLine(b,e)&&hexDistance(u,e)<=2);
-  return front.length?front:enemies;
+  return front.length?[...front,...enemies.filter(e=>['building','gate'].includes(e.type)&&hexDistance(u,e)===1)]:enemies;
 }

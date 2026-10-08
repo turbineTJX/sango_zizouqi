@@ -27,14 +27,13 @@ test('all 832 library records survive normalization without merging names or sou
  assert.equal(OFFICER_BY_ID.he.sourceId,412);assert.equal(searchOfficers({query:'张郃'})[0].id,'he');
 });
 test('every officer has fixed positive traits; ordinary officers have no exclusive tactics and bounded ordinary commander stratagems',()=>{
- const historicalCommanders={'person-443':['regenerate','heal','inspire'],'person-610':['fortify','heal'],'person-167':['fortify','cleanse'],'person-447':['disrupt','cleanse','cycle']};
  for(const entry of OFFICER_CATALOG){
   const u=makeOfficer(entry.id);assert.equal(u.leadership,entry.source.command);assert.equal(u.force,entry.source.strength);
   assert.equal(u.intellect,entry.source.intelligence);assert.equal(u.politics,entry.source.politics);
   const stats=unitAttributes(u);for(const key of ['attack','defense','martialPower','strategyPower','discipline'])assert.ok(Number.isFinite(stats[key]));
   assert.ok(unitTactics(u).length<=3+Number(!!SPECIAL_TACTICS[u.id]));
   if(!SKILL_ROUTES[u.id]){
-   if(!SPECIAL_TACTICS[u.id])assert.equal(u.skill,'');assert.equal(officerStratagems(u.id).length,entry.intellect>=70?2:0);
+   if(!SPECIAL_TACTICS[u.id])assert.equal(u.skill,'');assert.ok(officerStratagems(u.id).length<=1);
    const growth=gainMerit(u,20000);assert.equal(u.level,10);assert.equal(growth.unlocked.length-growth.learned.length,0);assert.ok(passiveList(u).length>=2);assert.ok(passiveList(u).every(s=>s.tier!=='专属'));
   }else assert.deepEqual(passiveList({...u,level:10}),passiveList({...u,level:1}));
  }

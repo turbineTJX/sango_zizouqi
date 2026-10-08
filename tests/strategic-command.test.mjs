@@ -1,7 +1,7 @@
 import {beginDomesticTurn,assignmentFor} from '../domestic.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,serializeCampaign,validateCampaign,assignDomestic} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,validateCampaign,assignDomestic} from './helpers/auto-domestic-campaign.mjs';
 import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';
 import {changeCommandUnit,removeCommandUnit,newCommand,prepareCommandFormation,commandCanAdvance,commandRoute,commandMarkup,commandSteps} from '../strategic-command.mjs';
 test('inline city roster edits enlist existing units and validate the same allocation on a copy',()=>{

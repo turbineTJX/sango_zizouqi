@@ -1,0 +1,13 @@
+✔ formation preview preserves source, learning and domestic appointments; final copy is a valid save (235.8848ms)
+✔ a changed officer state blocks final formation without partial changes (24.776ms)
+✔ target is an explicit decision and routes follow transfer ownership rules (17.5487ms)
+✔ ordinary formation owns officer selection and army selection lists compiled units (44.6137ms)
+✔ domestic appointment exposes six simple directions and keeps commerce and agriculture separate (10.3208ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 516.2441

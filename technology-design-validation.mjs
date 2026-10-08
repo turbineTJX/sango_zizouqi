@@ -1,7 +1,7 @@
 import {TECHNOLOGY_AFFINITIES,TECHNOLOGY_BRANCHES} from './data/design/technologies.mjs';
 export function validateTechnologyDesigns(tables,check){
  const rows=tables.technologies.records,ids=new Set(rows.map(r=>r.id)),byId=Object.fromEntries(rows.map(r=>[r.id,r.parameters]));
- check(rows.length===20&&ids.size===20,'technologies','科技树须有20个独立节点');
+ check(rows.length===23&&ids.size===23,'technologies','科技树须有23个独立节点');
  const keys=['branch','tier','requiredProgress','cost','days','prerequisites','buildings','anyBuildings','order','affinity','troopId','waterRequired','unlocks','income','militaryDiscount','constructionDiscount','visionRadius','description'];
  const int=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
  for(const r of rows){

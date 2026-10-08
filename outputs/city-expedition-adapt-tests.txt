@@ -1,0 +1,401 @@
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (5.9392ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (15.7929ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (6.2886ms)
+✖ fame adds city manpower rather than free troops (2.474ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (547.7236ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (31.9998ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.8253ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (351.2255ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (12.6111ms)
+✔ same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows (192.6989ms)
+✔ compatibility uses circular distance including zero, and relation/affinity independently affect cooperation (6.214ms)
+✔ same-direction different actions can cooperate; waiting colleagues can assist a single research slot (261.585ms)
+✔ real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost (136.1146ms)
+✔ failed trigger and failed activity give no relationship reward; failure consumes the turn slot (346.9965ms)
+✔ group cap is independent of officer count, and UI/refresh preserve deterministic results (166.7627ms)
+✔ different directions, different cities and empty tasks cannot generate cooperation (50.6131ms)
+✔ multiple research and talent assignments retain exclusive research and person targets (338.2363ms)
+✔ parallel recruiting reserves different capacity and cooperation respects approved headcount and charges (147.6765ms)
+✔ cooperative healing conserves existing people and grain storage clips extra harvest (173.8792ms)
+✔ cooperative talent success stays capped and only one target outcome is settled (609.3526ms)
+✔ repeating a daily settlement cannot advance tasks or reroll cooperation (58.7964ms)
+✔ construction cooperation shortens paid work, remains fractional and resumes without recharging (71.3399ms)
+✖ relationship growth leaves an active battle and its snapshots unchanged (2.2693ms)
+✖ siege prevents new cooperation and invalid record or old save is rejected (3.0049ms)
+✖ interruption prompt has no side effects; immediate reassignment archives the interrupted work (11.0971ms)
+✖ deferred reassignment persists and switches after real completion with deterministic continuation (4.9492ms)
+✖ queued departure reserves the exact garrison and leaves only after its action completes (4.6976ms)
+✖ waiting departure prevents idle members from picking new work across turns (4.4592ms)
+✖ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (2.8502ms)
+✖ forged pending action references and duplicate officers are rejected (4.0225ms)
+✖ extended construction keeps its waiting order until the actual project succeeds (4.4649ms)
+✔ a failed ordinary attempt is finished work and releases a deferred dismissal (1697.5296ms)
+✖ a queued garrison defends an actual siege and does not depart while its work is paused (3.0155ms)
+✔ all five directions have buildings and richer action catalogs; no city morale multiplier (14.6176ms)
+✔ assignments persist across turns, log starts and results, and reload deterministically (209.3569ms)
+✔ random results vary across seeds while identical seed is reproducible (170.3749ms)
+✖ no reserves or no legal unit vacancies means no recruitment candidate (4.1709ms)
+✔ recruitment reserves are shared with manual replenishment and only actual recruits are charged (103.2578ms)
+✖ cancelling recruitment releases reserves; leaving recipients never get remote troops (60.6315ms)
+✖ city army exceeds ten units and saves, but expeditions and detached selections remain capped at ten (4.9305ms)
+✔ new commands replace appointments and construction can be resumed without paying twice (56.4956ms)
+✖ research unlocks a local troop only after a successful trial (18.4997ms)
+✔ exploration discovers actual candidates and recruiting never duplicates a person (122.8622ms)
+✔ healing conserves personnel and does not require local troop technology (46.9168ms)
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (6.1266ms)
+✔ invalid domestic saves cannot fabricate reserves, duplicate appointments, or exceed opening caps (211.552ms)
+✖ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (69.0846ms)
+✖ new assignments end on transfer, and unresearched troops cannot receive new recruits (39.0778ms)
+✖ actual siege pauses construction without charging again or completing in the background (2.1134ms)
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (2.3945ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (44.2684ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (399.2668ms)
+✔ armies move visibly along road interiors before arriving (32.9233ms)
+✔ head-on marching armies meet on the road without passing through each other (56.9087ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (193.2241ms)
+✔ manual battle suspends at the next planning phase and resumes the same battle (476.601ms)
+✔ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (907.4143ms)
+✔ multiple battles and their snapshots share the same global day (94.6157ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (59.0577ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (562.9501ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (130.9673ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (154.606ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (22.1307ms)
+✖ officer transfers take real time and new armies require local idle officers and recruitment (168.1656ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (4.0261ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (27.6937ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (2.7656ms)
+✖ five days without food disband armies and preserve officers for their return (7.5004ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (140.7144ms)
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (331.7397ms)
+✔ city capture settles once and can be saved immediately within a day (129.8816ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (72.8096ms)
+✖ each connection offers two distinct, bidirectional roads with terrain costs (10.1822ms)
+✔ movement budget reflects active troops, commander, morale and hunger (1.2746ms)
+✔ real daily marching spends action points at the selected road cost (23.9019ms)
+✔ opposing armies on different roads pass without a field encounter (10.9566ms)
+✔ a side-road journey survives validation and resumes deterministically (64.6153ms)
+✔ both directions of a road have identical positions and distinct roads diverge (0.5828ms)
+✔ a detour beyond supply range does not provide free supplies (6.9513ms)
+ℹ tests 79
+ℹ suites 0
+ℹ pass 55
+ℹ fail 24
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4275.1936
+
+✖ failing tests:
+
+test at tests\civil-skills.test.mjs:46:1
+✖ fame adds city manpower rather than free troops (2.474ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/civil-skills.test.mjs:47:81)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-cooperation.test.mjs:108:1
+✖ relationship growth leaves an active battle and its snapshots unchanged (2.2693ms)
+  TypeError: Cannot set properties of undefined (setting 'stationary')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:109:96)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-cooperation.test.mjs:114:1
+✖ siege prevents new cooperation and invalid record or old save is rejected (3.0049ms)
+  TypeError: Cannot set properties of undefined (setting 'route')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-cooperation.test.mjs:115:124)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-orders.test.mjs:10:1
+✖ interruption prompt has no side effects; immediate reassignment archives the interrupted work (11.0971ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:11:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests\domestic-orders.test.mjs:15:1
+✖ deferred reassignment persists and switches after real completion with deterministic continuation (4.9492ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:16:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+
+test at tests\domestic-orders.test.mjs:22:1
+✖ queued departure reserves the exact garrison and leaves only after its action completes (4.6976ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:23:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-orders.test.mjs:30:1
+✖ waiting departure prevents idle members from picking new work across turns (4.4592ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:31:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-orders.test.mjs:36:1
+✖ cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted (2.8502ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:37:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-orders.test.mjs:42:1
+✖ forged pending action references and duplicate officers are rejected (4.0225ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:43:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-orders.test.mjs:47:1
+✖ extended construction keeps its waiting order until the actual project succeeds (4.4649ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:48:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic-orders.test.mjs:65:1
+✖ a queued garrison defends an actual siege and does not depart while its work is paused (3.0155ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at busyFixture (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/helpers/domestic-orders.mjs:7:113)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic-orders.test.mjs:66:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:31:1
+✖ no reserves or no legal unit vacancies means no recruitment candidate (4.1709ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:32:185)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:39:1
+✖ cancelling recruitment releases reserves; leaving recipients never get remote troops (60.6315ms)
+  TypeError: Cannot set properties of undefined (setting 'location')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:41:130)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:43:1
+✖ city army exceeds ten units and saves, but expeditions and detached selections remain capped at ten (4.9305ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:44:165)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:52:1
+✖ research unlocks a local troop only after a successful trial (18.4997ms)
+  TypeError: Cannot read properties of undefined (reading 'id')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:54:89)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:63:1
+✖ siege opening bonuses apply once at deployment lock, only to first six defenders (6.1266ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '只能在战略筹划阶段下达军令'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:65:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '只能在战略筹划阶段下达军令',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\domestic.test.mjs:73:1
+✖ persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty (69.0846ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:76:96)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:79:1
+✖ new assignments end on transfer, and unresearched troops cannot receive new recruits (39.0778ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:81:139)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:84:1
+✖ actual siege pauses construction without charging again or completing in the background (2.1134ms)
+  TypeError: Cannot set properties of undefined (setting 'route')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:85:139)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\domestic.test.mjs:90:1
+✖ a defeated city army retreats in columns of at most ten without duplicating personnel (2.3945ms)
+  TypeError: Cannot read properties of undefined (reading 'units')
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/domestic.test.mjs:91:164)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\strategic-campaign.test.mjs:95:1
+✖ officer transfers take real time and new armies require local idle officers and recruitment (168.1656ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '只能在筹划阶段于未被围城的己方据点编制'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:98:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '只能在筹划阶段于未被围城的己方据点编制',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:114:1
+✖ five days without food disband armies and preserve officers for their return (7.5004ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.campaign.idle.filter(o=>ids.includes(o.unit.id)).every(o=>o.unit.troops===0&&o.unit.wounded===0&&o.destination))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:116:108)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:123:1
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (331.7397ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  7 !== 0
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:134:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 7,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-movement.test.mjs:8:1
+✖ each connection offers two distinct, bidirectional roads with terrain costs (10.1822ms)
+  TypeError: gate is not iterable (cannot read property undefined)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-movement.test.mjs:12:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)

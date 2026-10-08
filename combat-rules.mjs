@@ -10,4 +10,7 @@ const BASE_INTENT = Object.freeze(Object.fromEntries(Object.entries({
 }).map(([type,[attack,hit]])=>[type,Object.freeze({attack,hit})])));
 export const TROOP_INTENT=Object.freeze(Object.fromEntries(Object.entries(TROOP_DESIGNS).map(([id,t])=>[id,BASE_INTENT[id]||BASE_INTENT[t.family]])));
 export const INTENT_STATE = Object.freeze({defeatLoss:20,nearbyDefeatLoss:10,defeatRadius:2});
-export const RULES_VERSION = 107;
+// Lower target scores win. Continuity is weaker than one hex of distance;
+// it never overrides contact, taunt, focus or a legal nearby finishing blow.
+export const TARGETING = Object.freeze({distance:9,health:7,civilianBuilding:32,continuity:4,tower:36,music:24,medical:24,siegeEquipment:16});
+export const RULES_VERSION = 114;

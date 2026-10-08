@@ -3,7 +3,7 @@ import {fundCities} from './resource-fixtures.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,activeBattles,chooseEncounter,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,setArmyMarchMode,transferOfficer,orderCampaignArmy} from '../strategic-campaign.mjs';
+import {newCampaign,activeBattles,chooseEncounter,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,setArmyMarchMode,transferOfficer,orderCampaignArmy} from './helpers/auto-domestic-campaign.mjs';
 import {TECHS,ACTIONS,assignDomestic,assignmentFor,beginDomesticTurn,cancelDomestic,actionCandidates} from '../domestic.mjs';
 import {makeOfficer,lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {createScenario} from '../scenarios.mjs';

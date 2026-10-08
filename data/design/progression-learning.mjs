@@ -1,3 +1,4 @@
+import {MERIT_RULES} from './progression.mjs';
 // Current design reference; runtime source is recorded on each row.
 export default {
   "schemaVersion": 1,
@@ -9,34 +10,9 @@ export default {
     {
       "id": "merit",
       "name": "等级与功绩",
-      "parameters": {
-        "maxLevel": 10,
-        "domestic": 60,
-        "governor": 100,
-        "battleWeights": {
-          "damage": 1,
-          "taken": 0.35,
-          "healing": 1.2,
-          "siege": 0.5,
-          "support": 100,
-          "control": 150
-        },
-        "battleDivisor": 60,
-        "winFactor": 1.25,
-        "costs": [
-          100,
-          300,
-          600,
-          1000,
-          1500,
-          2100,
-          2800,
-          3600,
-          4500
-        ]
-      },
-      "source": "progression.mjs",
-      "todo": "细化字段并接入对应处理器"
+      "parameters": MERIT_RULES,
+      "source": "data/design/progression.mjs",
+      "todo": "双方共用实际贡献、失败扣罚、满级余额、降级与20%改仕折算；参数统一读取正式来源"
     },
     {
       "id": "C",

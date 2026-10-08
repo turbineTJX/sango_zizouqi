@@ -1,0 +1,121 @@
+✔ Jianxiong permits seven on either side, reserves refill and saves resume deterministically (55.8405ms)
+✔ advisor does not add a slot; an eighth unit or another army cannot occupy the extra slot (2.5828ms)
+✔ seven starters do not accelerate eighth and ninth reinforcement arrivals (3.0733ms)
+✔ Rapid March changes shared route speed only with a living appointed leader (0.5361ms)
+✔ Qingnang enables actual clinic-free treatment but preserves grain and real-wound limits (52.6266ms)
+✔ custom armies allow ten with six active, reject eleven, and configure either defending side (24.1808ms)
+✔ council rejects posture changes, changes starters, respects arrivals and resumes deterministically (53.6021ms)
+✔ reserve bench supports swaps, ordering, overflow validation and saved deployment (5.9384ms)
+✔ removed postures do not change attributes or field intent (2.3584ms)
+✔ campaign begins in day-one planning with cities, homes and at most ten units (30.1953ms)
+✔ ten days advance exactly one strategic turn; planning cannot advance combat or income (284.6522ms)
+✔ armies move visibly along road interiors before arriving (13.733ms)
+✔ a neutral city with intact walls and no defenders is occupied on arrival without combat (18.7544ms)
+✔ a yuan city with intact walls and no defenders is occupied on arrival without combat (18.353ms)
+✔ head-on marching armies meet on the road without passing through each other (20.3751ms)
+✔ delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns (133.4176ms)
+✖ manual battle suspends at the next planning phase and resumes the same battle (3.2895ms)
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (2.2575ms)
+✔ multiple battles and their snapshots share the same global day (212.7551ms)
+✔ daily snapshots reconstruct full battle state and are independent readonly copies (85.9446ms)
+✔ mid-day and multi-battle saves continue deterministically without charging supply twice (750.3101ms)
+✔ troops arriving on the map reinforce an existing battle, sharing six slots (140.8897ms)
+✔ construction is paid once, completes at the turn boundary and reports income once (177.3774ms)
+✔ governors may prepare city units while retaining their post; relief remains unavailable (12.7431ms)
+✔ officer transfers take real time and new armies require local idle officers and recruitment (18.4326ms)
+✔ split and merge conserve supply and capacity, and reject duplicated officers (2.3324ms)
+✔ recruitment consumes local manpower and grain and is limited across splits (12.0178ms)
+✔ supply reroutes around an occupied road and is cut when both roads are occupied (2.0046ms)
+✔ five days without food disband armies and preserve officers for their return (16.6136ms)
+✔ corrupt calendar, route, snapshot, duplicate participants and old saves are rejected (116.474ms)
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (2.5648ms)
+✔ city capture settles once and can be saved immediately within a day (234.0366ms)
+✔ import rejects a live battlefield on a different day from the rest of the world (85.1746ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 30
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2605.2157
+
+✖ failing tests:
+
+test at tests\strategic-campaign.test.mjs:58:1
+✖ manual battle suspends at the next planning phase and resumes the same battle (3.2895ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:59:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:64:1
+✖ a real learned-loadout battle crosses planning boundaries and respects the thirty-day limit (2.2575ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:65:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\strategic-campaign.test.mjs:133:1
+✖ combat desertions are never healable and dissolved officers are not duplicated in saves (2.5648ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '当前固定配置不包含该战法'
+  - null
+  
+      at file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:138
+      at Array.forEach (<anonymous>)
+      at prolongedEncounter (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:23:66)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/strategic-campaign.test.mjs:134:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '当前固定配置不包含该战法',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

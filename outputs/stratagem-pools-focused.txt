@@ -1,0 +1,176 @@
+✔ 守军 0 不追出守区，转向可达的攻城兵器并确定性续战 (426.8719ms)
+✔ 守军 1 不追出守区，转向可达的攻城兵器并确定性续战 (120.9518ms)
+✔ 单队疾行有接敌路线时可选，已接敌或不能移动时不浪费军略 (4.2168ms)
+✔ 单队休养承认自然伤兵，立即救疗同收益时仍优先即时治疗 (6.5604ms)
+✔ 单队自然蓄满后自动下达休养，实际救治且保持确定性续战 (57.3628ms)
+✔ intent cap permits every tactic but a capped enemy loses high-threshold access after demoralize (29.5754ms)
+✔ only the current rule version loads, and intent is validated without normalization (27.7704ms)
+✔ spearmen close the gap instead of immobilizing outside attack range (9.5569ms)
+✔ ready basic attacks hit an adjacent target rather than chasing a distant counter (8.6838ms)
+✔ full troop size affects actual damage and one surviving soldier no longer retains half power (21.5715ms)
+✔ trial loadouts use legal tools and the advertised support commands are unlocked (172.647ms)
+✔ siege defenders hold their rear line before enemies approach (176.5696ms)
+✔ command scoring reads the requested side attributes and cooldowns without swapping units (20.7628ms)
+✔ AI continues useful siege orders after defenders fall, without targeting the gate with unit debuffs (185.0783ms)
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (55.253ms)
+✖ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (37.5487ms)
+✔ enemy plans legal three-slot loadouts and forward/rear deployment without touching player troops or RNG (9.7317ms)
+✔ enemy re-plans with terrain, keeps ships afloat and preserves learned archer tactics (61.1103ms)
+✔ enemy earns its own gauge and automatically casts only learned commands after enough active intellect (59.75ms)
+✔ enemy support and offensive commands affect correct sides, obey cooldowns and leave player gauge intact (4.9627ms)
+✔ AI prioritizes cleanse for control and DOT, holds useless commands, and does not refresh active buffs (11.4878ms)
+✔ enemy decisions survive save/resume without replanning, and missing or malformed enemy state is rejected (219.2441ms)
+✔ civic routes remain five identity skills after changing troops; diplomatic reserves do not claim effects (6.0003ms)
+✔ wealth and rice change only the appointed city, apply after politics, and stop when the governor leaves (15.5067ms)
+✔ administration charges the shown cost once; relief respects caps and once-per-turn restriction (5.6783ms)
+✔ fame adds city manpower rather than free troops (4.671ms)
+✔ governors gain experience at actual turn settlement and loaded campaigns remain deterministic (534.8508ms)
+✔ governor interface shows actual discounts and links personnel to full officer details (28.0308ms)
+✔ weapon general damage requires correct troop, unlocked level, superior force and a physical tactic (0.4707ms)
+✔ reworked unique tactics use real automatic casts and persist their lower-strength buff snapshots (257.6964ms)
+✔ global defense and disruption modify discipline; chain strategy obeys intent and cooldown caps (3.2109ms)
+✖ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (28.7271ms)
+✔ 非均分兵力改变主辅判断，但不重抽或更换已学战法 (8.1453ms)
+✔ 辅兵围绕实际主力布阵并覆盖协阵，不凭空改变战意或随机数 (12.5572ms)
+✔ 骑兵侧翼响应可见枪戟兵力分布，锁定后不偷偷重排 (4.4265ms)
+✔ 非均分主辅配置跨地形真实战斗：合法行动、施法和确定性续战 (645.7202ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (307.3118ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (328.1677ms)
+✔ 合肥之战: historical roster, real command accumulation and saved replay (213.9207ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (139.2503ms)
+✔ introductory Guandu is completable without a player command; Yiling uses the Shu Zhang Nan (58.8799ms)
+✔ each troop has exactly six tools and exclusive tactics remain optional (0.9701ms)
+✔ learned loadouts persist, ordering works and unlearned additions fail without mutation (36.009ms)
+✔ force and intellect damage scale with their own attribute, not troop weapon type (34.0181ms)
+✔ confusion and seal prevent immediate skills while seal still permits basic attacks (10.5262ms)
+✔ intellect support tactics rally, taunt, cleanse, shield and shorten allied cooldowns (25.9398ms)
+✔ cavalry schemes induce real movement and suppress intent immediately (9.5104ms)
+✔ new army strategies cleanse controls, shorten cooldowns and persist across saves (14.7227ms)
+✖ blockade delays replacement but expires; relief shields automatic reinforcements (5.552ms)
+✔ mixed-loadout simulation saves and resumes deterministically with all new status shapes (552.9832ms)
+✔ single gauge starts empty, scales with active intellect, caps without storing charges (71.1442ms)
+✔ only leader/advisor union unlocks tactics, duplicates collapse, deputy adds nothing (7.6335ms)
+✔ gauge, commanders, injury ledger and effects resume deterministically; previous save versions are rejected (146.2401ms)
+✔ first aid consumes only recoverable casualties and cannot heal dead or reserve units (6.06ms)
+✔ recovery heals over time, stops at expiration and never replenishes an exhausted wounded pool (23.3151ms)
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (10.1301ms)
+✔ firestorm ticks exactly twelve times, gives no intent, respects shield, casualties and cleanse (20.5035ms)
+ℹ tests 57
+ℹ suites 0
+ℹ pass 52
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1255.533
+
+✖ failing tests:
+
+test at tests\battle-ai.test.mjs:44:66
+✖ tactical-control-lv: single-target commands spend naturally earned gauge and resume deterministically (55.253ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(b.sides[1].units.some(u=>hasStatus(b,u,'scorch')))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-ai.test.mjs:60:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\battle-ai.test.mjs:44:66
+✖ tactical-control-zhang: single-target commands spend naturally earned gauge and resume deterministically (37.5487ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(b.sides[1].units.some(u=>hasStatus(b,u,'scorch')))
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/battle-ai.test.mjs:60:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\engine-foundations.test.mjs:16:1
+✖ 自定义战役双方使用相同战略姿态，自动军师补充已有军略 (28.7271ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'person-512'
+  - 'liao'
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/engine-foundations.test.mjs:22:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'person-512',
+    expected: 'liao',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loadouts.test.mjs:74:1
+✖ blockade delays replacement but expires; relief shields automatic reinforcements (5.552ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/loadouts.test.mjs:76:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stratagems.test.mjs:55:1
+✖ range changes real attacks and weapon tactic legality; intelligence ranges and melee stay fixed (10.1301ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '主将与军师未掌握此军略'
+  - null
+  
+      at TestContext.<anonymous> (file:///C:/Users/TJX/Documents/ChatGPT/sango/tests/stratagems.test.mjs:58:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '主将与军师未掌握此军略',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

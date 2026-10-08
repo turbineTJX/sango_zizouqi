@@ -1,0 +1,34 @@
+
+> sango-sovereign@0.3.0 test:traits
+> node --test tests/officer-traits.test.mjs tests/trait-mechanics.test.mjs
+
+✔ all 832 identities have fixed positive traits, independent of level, troop and learned tactics (25.4587ms)
+✔ actor administration works without a governor and matching governor does not double the discount (46.9896ms)
+✔ research, farming, repairs, medicine and preparation traits change real paid task outcomes (162.8125ms)
+✔ recruitment discounts charge actual recruits at the saved rate without creating free people (27.6091ms)
+✔ talent traits improve only the corresponding real action chance; mediator does not stack (2.2713ms)
+✔ transport speed applies to actual travel and saves resume; light travel has separate eligibility (32.1183ms)
+✔ 27 unique mechanics replace old personal stat multipliers and describe their conditions (14.3863ms)
+✔ Flying General ignores ZOC for real route searches, but cannot pass occupied cells (2.6535ms)
+✔ Flying General sweep uses seeded chance and finite non-recursive extra hits on both sides (84.0225ms)
+✔ Wolong doubles only appointed army recovery, including reserves; no zero-hp or withdrawing source (1.3843ms)
+✔ Jianxiong intelligence difference is bounded and confusion respects resolve and immunity (30.8147ms)
+✔ rescue, guard and last-stand shields trigger on actual wounded allies with caps (4.2802ms)
+✔ ambush entry is one-use, wrong troops do not activate, and stationary range ends on movement (5.7871ms)
+✔ on-hit troop mechanics produce control and extra attacks through real basics (38.8761ms)
+✔ kill reward shortens cooldown but never replenishes charges or recovery (1.8105ms)
+✔ fixed tactic casts activate ally shield and movement release (5.033ms)
+✔ real battle save resumes all random trait rolls and rejects forged trigger records (78.9267ms)
+✔ Pang Tong links real tactic targets, Lu Xun spreads fire and Zhang Jiao adds bounded thunder (6.6461ms)
+✔ Diao Chan disarms the highest-force eligible enemy; Lu Su cleanses his own army (3.916ms)
+✔ Sun Quan and Sima Yi react to actual paid stratagems without extra casts or free loops (55.6761ms)
+✔ army role recommendations include mechanical benefits using the shared candidate scorer (18.4566ms)
+✔ Dian Wei guard transfers actual damage once; withdrawing sources stop new effects (4.0421ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 546.0877

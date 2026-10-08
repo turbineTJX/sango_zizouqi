@@ -39,7 +39,7 @@ test('edited action/building/road/movement records drive real autonomous work, r
  assert.equal(p.lightPersonnelSpeed({id:'dun'}),90);assert.equal(p.personnelSpeed({destination:'ye',unit:{id:'dun',troops:1000}}),130);
  const c=s.cities.find(c=>c.id==='xuchang');c.commerce=1;const {addCityGold}=await import('./city-resources.mjs');addCityGold(s,c,20000-c.gold);
  for(const [id,a] of Object.entries(w.ACTIONS))if(a.direction==='commerce'&&id!=='fair')c.domestic.cooldowns[id]=1000;
- assert.equal(w.assignDomestic(s,c.id,'commerce','cao'),null);w.beginDomesticTurn(s);
+ assert.equal(w.assignDomestic(s,c.id,'commerce','cao'),null);w.setDomesticAutoApprove(s,true);w.beginDomesticTurn(s);
  const action=w.assignmentFor(s,'cao').action;assert.equal(action.key,'fair');assert.equal(action.cost,321);assert.equal(action.remaining,7);assert.equal(w.ACTIONS.fair.stat,'politics');
  const restored=e.validateCampaign(JSON.parse(e.serializeCampaign(s)));assert.equal(e.serializeCampaign(restored),e.serializeCampaign(s));
  console.log('strategic design edits verified');

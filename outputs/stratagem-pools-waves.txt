@@ -1,0 +1,35 @@
+✔ custom-battle: complete battle, reserves, save recovery and settlement (222.7892ms)
+✔ history-guandu: complete battle, reserves, save recovery and settlement (281.0529ms)
+✔ history-chibi: complete battle, reserves, save recovery and settlement (642.7003ms)
+✔ history-hefei: complete battle, reserves, save recovery and settlement (323.2615ms)
+✔ history-yiling: complete battle, reserves, save recovery and settlement (422.1966ms)
+✔ tactical-control-lv: complete battle, reserves, save recovery and settlement (166.7442ms)
+✔ tactical-control-zhang: complete battle, reserves, save recovery and settlement (160.2699ms)
+✔ tactical-three-heroes: complete battle, reserves, save recovery and settlement (110.3435ms)
+✔ tactical-shu-defense: complete battle, reserves, save recovery and settlement (1789.8006ms)
+✔ tactical-lv-cao: complete battle, reserves, save recovery and settlement (303.9253ms)
+✔ terrain: complete battle, reserves, save recovery and settlement (443.247ms)
+✔ eight-arms: complete battle, reserves, save recovery and settlement (505.8058ms)
+✔ river: complete battle, reserves, save recovery and settlement (514.1114ms)
+✔ breach: complete battle, reserves, save recovery and settlement (181.4144ms)
+✔ officer-lab: complete battle, reserves, save recovery and settlement (202.0665ms)
+✔ field: complete battle, reserves, save recovery and settlement (490.865ms)
+✔ outnumbered: complete battle, reserves, save recovery and settlement (251.1935ms)
+✔ reinforcements: complete battle, reserves, save recovery and settlement (743.2774ms)
+✔ siege: complete battle, reserves, save recovery and settlement (503.1905ms)
+✔ defense: complete battle, reserves, save recovery and settlement (3570.9252ms)
+✔ rotation: complete battle, reserves, save recovery and settlement (505.2858ms)
+✔ unarrived waves prevent early victory, arrive on schedule and obey blockade (18.0786ms)
+✔ sieges add an independent gate and shields only to defending starters (32.215ms)
+✔ gate takes ordinary attacks and its destruction ends battle immediately with defenders remaining (5.7152ms)
+✔ gate remains a target after all defenders fall, removed focus cannot select it, deployment cannot overlap it (17.327ms)
+✔ siege retreat and daylight keep normal battle rules, malformed gates are rejected (32.6106ms)
+✔ fixture and seed validation rejects malformed test state (11.0125ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12615.3693

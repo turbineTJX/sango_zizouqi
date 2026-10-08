@@ -1,0 +1,1 @@
+{"version":74,"cases":144,"verified":["winner","duration","RNG","remaining forces","individual statuses","tactic uses","contributions"],"at":"2026-09-28T08:39:29.373Z"}

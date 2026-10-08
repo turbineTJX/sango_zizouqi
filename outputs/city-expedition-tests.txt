@@ -1,0 +1,14 @@
+✔ both current national scenarios store units in cities with no standing map armies (772.9141ms)
+✔ preparing units preserves domestic duties and creates no army; departure creates only selected units (171.4414ms)
+✔ invalid commander and duplicate selection cannot partially create a field army (15.5011ms)
+✔ arrival at a friendly destination returns individual units and removes the expedition instance (539.2854ms)
+✔ a deferred expedition stores composition, creates no army early, and launches after real work completes (73.0244ms)
+✔ real sieges build temporary defense from city units and resume deterministically (4076.8205ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5802.3302

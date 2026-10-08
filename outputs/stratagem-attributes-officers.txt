@@ -1,0 +1,5 @@
+
+> sango-sovereign@0.3.0 docs:officers
+> node scripts/game-officer-table.mjs
+
+Exported game officer CSV: 832 officers, 162 fields, rules 110.
