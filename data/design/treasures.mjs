@@ -1,5 +1,5 @@
 // One physical instance per world; both modes read this authoritative catalogue.
-export const TREASURE_RULES=Object.freeze({version:1,discoveryChance:.02,eyeChance:.04,captureChance:.05,plunderChance:.10,discoveryInterval:30,bondBonus:1,bondCap:3,totalBondCap:6,minimumHolders:[1,3,6],plunderDamage:.10});
+export const TREASURE_RULES=Object.freeze({version:2,discoveryChance:.02,eyeChance:.04,captureChance:.05,plunderChance:.10,discoveryInterval:30,bondBonus:1,bondCap:3,totalBondCap:6,minimumHolders:[1,3,6],plunderDamage:.10});
 const bond=(name,bondId)=>({name,kind:'bond',bondId,bonus:1,category:'book',description:'已获得的对应羁绊贡献增加1点，单项最多3点；第二档至少3名、最高档至少6名真实在场持有者。'});
 const entry=(name,status,steps,description,category='weapon',budget={})=>({name,kind:'entry',status,steps,category,description:'本队每场首次实际上场时'+description+'；每场一次。',...budget});
 export const TREASURE_DESIGNS=Object.freeze({

@@ -29,7 +29,7 @@ function normalize(s,command){
   const a=s.armies.find(a=>a.id===command.armyId);
   return {kind:'march',armyId:command.armyId,cityId:a?.location,officerIds:a?.units.map(u=>u.id)||[],target:command.target,policy:command.policy||'auto',...(command.route?{route:[...command.route]}:{})};
  }
- return {kind:command.kind,cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],...(command.kind==='assign'?{direction:command.direction}:command.kind==='transfer'?{target:command.target,cargo:{gold:0,grain:0,manpower:0,...command.cargo},relay:command.relay||null,cycles:command.cycles||0,safeOnly:command.safeOnly===true}:{})};
+ return {kind:command.kind,cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],...(command.kind==='assign'?{direction:command.direction}:command.kind==='transfer'?{target:command.target,cargo:{gold:0,grain:0,manpower:0,...command.cargo},relay:command.relay||null,cycles:command.cycles||0,safeOnly:command.safeOnly===true,...(command.route?{route:[...command.route]}:{})}:{})};
 }
 function check(s,q){
  const faction=q.faction;
@@ -57,9 +57,9 @@ function check(s,q){
   const o=residentOfficer(s,id);if(!o||o.faction!==faction||o.location!==q.cityId)return '武将已离开原据点';
   if(q.kind==='dismiss'&&!assignmentFor(s,id))return '武将已解除委任';
   if(q.kind==='transfer'){
-   const error=transferOfficer(s,id,q.target,{scheduled:true,cargo:q.cargo,relay:q.relay,cycles:q.cycles,checkOnly:true,faction});if(error)return error;
+   const error=transferOfficer(s,id,q.target,{scheduled:true,cargo:q.cargo,relay:q.relay,cycles:q.cycles,route:q.route,checkOnly:true,faction});if(error)return error;
    if(s.cities.some(c=>c.governor===id))return '请先解除太守任命';
-   const path=findCampaignRoute(s,o.location,q.target,faction);if(!path)return '调任道路不通';
+   const path=q.route||(q.relay?[...findCampaignRoute(s,o.location,q.relay,faction),...findCampaignRoute(s,q.relay,q.target,faction)]:findCampaignRoute(s,o.location,q.target,faction));if(!path)return '调任道路不通';
    if(q.safeOnly&&threatenedTransportRoute(intelligenceWorld(s,faction),o.location,path,faction))return '运输道路出现敌军，取消本次安排';
   }
  }
@@ -74,7 +74,7 @@ function apply(s,q,scheduled=false){
  const faction=q.faction;
  if(q.kind==='expedition'){const error=launchExpedition(s,q,{scheduled,faction});if(!error)clearDiplomaticAppointments(s,q.officerIds);return error;}
  if(q.kind==='march')return orderCampaignArmy(s,q.armyId,q.target,q.policy,{scheduled,faction,path:q.route});
- if(q.kind==='transfer'){const error=transferOfficer(s,q.officerIds[0],q.target,{scheduled,cargo:q.cargo,relay:q.relay,cycles:q.cycles,faction});if(!error)clearDiplomaticAppointments(s,q.officerIds);return error;}
+ if(q.kind==='transfer'){const error=transferOfficer(s,q.officerIds[0],q.target,{scheduled,cargo:q.cargo,relay:q.relay,cycles:q.cycles,route:q.route,faction});if(!error)clearDiplomaticAppointments(s,q.officerIds);return error;}
  for(const id of q.officerIds){const error=q.kind==='assign'?assignDomestic(s,q.cityId,q.direction,id,{scheduled,faction}):dismissDomestic(s,id,{scheduled,faction});if(error)return error;}
  clearDiplomaticAppointments(s,q.officerIds);
  return null;

@@ -50,7 +50,7 @@ import {initializeDiplomacy,advanceDiplomacy,planDiplomaticAI,validateDiplomacy,
 import {factionsHostile,diplomaticProtection,diplomaticPassage,diplomaticAssignment} from './diplomacy-relations.mjs';
 
 // A day consists of a fixed number of real combat steps, never wall-clock time.
-export const CAMPAIGN = Object.freeze({version:49, daysPerTurn:10, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
+export const CAMPAIGN = Object.freeze({version:50, daysPerTurn:10, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
 import {gateDurability,buildingWorkMode,buildingWorkQuote,beginBuildingWork,buildingDurability,restoreBuilding,campaignBattleBuildings,writeBattleBuildingDamage,validateBattleBuildingSources} from './building-durability.mjs';
 import {updateCityBudgetAlerts,validateCityBudget} from './city-budget.mjs';
 import {initializeCityResources,syncResourceTotals} from './city-resources.mjs';
@@ -285,7 +285,7 @@ export function mergeCampaignArmies(s,into,from){
 }
 export const createCampaignArmy=prepareCityUnits;
 
-export function transferOfficer(s,id,destination,{scheduled=false,cargo={gold:0,grain:0,manpower:0},relay=null,cycles=0,checkOnly=false,faction=playerFaction(s)}={}){
+export function transferOfficer(s,id,destination,{scheduled=false,cargo={gold:0,grain:0,manpower:0},relay=null,cycles=0,route:plannedRoute,checkOnly=false,faction=playerFaction(s)}={}){
   const resident=residentOfficer(s,id),c=city(s,destination),from=resident&&city(s,resident.location);
   if(!scheduled&&!isPlanning(s)||s.finished||!resident||resident.army||resident.faction!==faction||c?.owner!==faction)return '只能调任在城武将到友城';
   if(s.cities.some(c=>c.governor===id))return '请先解除太守任命';
@@ -294,16 +294,19 @@ export function transferOfficer(s,id,destination,{scheduled=false,cargo={gold:0,
   cargo={gold:0,...cargo};
   if(!cargo||!['gold','grain','manpower'].every(k=>Number.isSafeInteger(cargo[k])&&cargo[k]>=0))return '携带物资须为非负整数';
   if(cargo.gold>from.gold||cargo.grain>from.grain||cargo.manpower>from.manpower-reservedMen(from))return '本城可用金、粮草或预备兵不足';
-  const route=findCampaignRoute(s,from.id,destination,faction);if(!route)return '调任道路不通';
+  const route=plannedRoute||findCampaignRoute(s,from.id,destination,faction);if(!route)return '调任道路不通';
+  if(plannedRoute&&!validMapRoute(s,from.id,destination,plannedRoute,faction,'trade'))return '运输道路不连续或已失效';
   if(relay&&(!hasStrategicTrait(resident.unit,'relayCargo')||![from.id,destination].every(id=>id!==relay)||city(s,relay)?.owner!==faction||!(cargo.gold+cargo.grain+cargo.manpower)||!findCampaignRoute(s,from.id,relay,faction)||!findCampaignRoute(s,relay,destination,faction)))return '接力据点、转漕资格或道路无效';
   if(cycles&&(!hasStrategicTrait(resident.unit,'cycleCargo')||!Number.isInteger(cycles)||cycles<2||cycles>5||cargo.grain<=0||cargo.gold||cargo.manpower||resident.unit.troops||resident.unit.wounded))return '往返运输仅限无部队武将携带粮草，次数为2至5';
+  if(relay&&plannedRoute&&!plannedRoute.includes(relay))return '所选运输道路未经过中转据点';
   if(resident.unit.scouting)return '该武将正在负责侦察，请先停止侦察';
   if(checkOnly)return null;
   cancelDomestic(s,id,'调任其他城池');
   let o=s.campaign.idle.find(o=>o.unit.id===id);
   if(!o){from.units=from.units.filter(u=>u.id!==id);o={unit:resident.unit,faction:resident.faction,location:from.id};s.campaign.idle.push(o);}
   addCityGold(s,from,-cargo.gold);from.grain-=cargo.grain;from.manpower-=cargo.manpower;o.cargo={...cargo};o.destination=relay||destination;o.unit.homeCity=destination;if(relay)o.relayDestination=destination;if(cycles)o.convoyCycle={source:from.id,target:destination,batch:cargo.grain,remaining:cycles,leg:'out'};
-  startPersonnelJourney(s,o);syncResources(s);return null;
+  if(relay&&plannedRoute){const index=plannedRoute.indexOf(relay);o.relayRoute=plannedRoute.slice(index+1);startPersonnelJourney(s,o,plannedRoute.slice(0,index+1));}else startPersonnelJourney(s,o,plannedRoute);
+  if(cycles&&plannedRoute)o.convoyCycle.route=[from.id,...plannedRoute];syncResources(s);return null;
 }
 export function recruitCampaign(s,id,ids=null){
   const a=army(s,id);if(!canEditArmy(s,a)||a.faction!==playerFaction(s)||!canFormArmyAt(s,a.location,a.faction))return '只能在筹划阶段于友城整补';

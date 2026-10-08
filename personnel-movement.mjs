@@ -10,19 +10,21 @@ import {playerFaction} from './player-faction.mjs';
 import {factionsHostile,diplomaticPassage,protectedDiplomaticTraffic} from './diplomacy-relations.mjs';
 
 import {resolveOfficerLoss,personnelEvent,sendOfficerHome} from './officer-fates.mjs';
-import {deliverTreasures,loseTreasureTransport} from './treasures.mjs';
+import {loseTreasureTransport} from './treasures.mjs';
 import {transportMerit,settleMeritCapacity,transportRelievesShortage} from './campaign-merit.mjs';
 import {findCampaignRoute} from './strategic-campaign.mjs';
-import {roadCost,roadDistance} from './strategic-movement.mjs';
+import {roadCost,roadDistance,validMapRoute,threatenedTransportRoute} from './strategic-movement.mjs';
+import {intelligenceWorld} from './strategic-vision.mjs';
+import {cityFoodRequirement} from './city-logistics.mjs';
 const town=mapNode;
 export const PERSONNEL_SPEED=MOVEMENT_RULES.personnel.light;
 export const TRANSPORT_SPEED=MOVEMENT_RULES.personnel.transport;
-export const isTransport=o=>(!!o.destination||o.retreating)&&(o.unit.troops>0||o.unit.wounded>0||o.cargo?.gold>0||o.cargo?.grain>0||o.cargo?.manpower>0||o.cargo?.treasureIds?.length>0||!!o.convoyCycle);
+export const isTransport=o=>(!!o.destination||o.retreating)&&(o.unit.troops>0||o.unit.wounded>0||o.cargo?.gold>0||o.cargo?.grain>0||o.cargo?.manpower>0||!!o.convoyCycle);
 export const lightPersonnelSpeed=u=>PERSONNEL_SPEED;
 export const personnelSpeed=o=>isTransport(o)?TRANSPORT_SPEED:lightPersonnelSpeed(o.unit);
-export function startPersonnelJourney(s,o){
+export function startPersonnelJourney(s,o,path=null){
  if(isTransport(o)&&!o.retreating&&o.convoyCycle?.leg!=='return'&&!o.meritTransport)o.meritTransport={id:`transport:${o.unit.id}:${s.campaign.day}:${s.campaign.activity?.nextSequence||0}`,source:o.location,target:o.relayDestination||o.destination,troopsCredited:false};
- const route=findCampaignRoute(s,o.location,o.destination,isTransport(o)?o.faction:null);
+ const route=path||findCampaignRoute(s,o.location,o.destination,isTransport(o)?o.faction:null);
  o.journey={route:route||[],progress:0,blocked:route?'':'道路不通'};
  updatePersonnelETA(s,o);
 }
@@ -30,6 +32,10 @@ function updatePersonnelETA(s,o){
  let from=o.location,cost=-o.journey.progress;
  for(const to of o.journey.route){cost+=roadCost(s,from,to);from=to;}
  o.remainingDays=Math.max(1,Math.ceil(cost/personnelSpeed(o)));
+}
+function handoffGrain(s,o,traffic,t0=0,t1=1){
+ if(!o.cargo?.grain||o.journey.progress!==0||transportEnemy(s,o,o.location,0,0,t0,t1,traffic))return;
+ for(const a of s.armies.filter(a=>a.faction===o.faction&&!a.disbanded&&!a.travel&&a.location===o.location&&armyStrategicTrait(a,'receiveGrain')&&!s.campaign.battles.some(r=>!r.settled&&r.armyIds.includes(a.id))).sort((a,b)=>a.id.localeCompare(b.id))){const n=Math.max(0,Math.min(o.cargo.grain,a.supplyCapacity-a.supply));a.supply+=n;o.cargo.grain-=n;}
 }
 // Position uses the same normalized road distance as army map projections.
 export function transportProxy(s,o){
@@ -49,9 +55,7 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
  if(isTransport(o)&&!o.journey.route.length){const enemy=s.armies.find(a=>!a.disbanded&&a.faction!==o.faction&&!a.travel&&a.location===o.location&&a.units.some(u=>u.troops>0)),owner=town(s,o.location).owner;
   if(enemy||owner!==o.faction&&!(o.retreating&&isJunction(s,o.location))){loseTransport(s,o,{faction:enemy?.faction||owner},o.location,0);return false;}}
  const j=o.journey; j.blocked='';
- if(o.cargo?.grain>0&&j.progress===0&&!transportEnemy(s,o,o.location,0,0,0,dayFraction,traffic)){
-  for(const a of s.armies.filter(a=>a.faction===o.faction&&!a.disbanded&&!a.travel&&a.location===o.location&&armyStrategicTrait(a,'receiveGrain')&&!s.campaign.battles.some(r=>!r.settled&&r.armyIds.includes(a.id))).sort((a,b)=>a.id.localeCompare(b.id))){const n=Math.max(0,Math.min(o.cargo.grain,a.supplyCapacity-a.supply));a.supply+=n;o.cargo.grain-=n;}
- }
+ handoffGrain(s,o,traffic,0,dayFraction);
 
  if(town(s,o.destination).owner!==o.faction&&!isTransport(o)){const edge=j.route.length?{from:o.location,to:j.route[0],fraction:j.progress/roadCost(s,o.location,j.route[0])}:null;s.campaign.idle=s.campaign.idle.filter(x=>x!==o);sendOfficerHome(s,o.unit,o.faction,o.location,{edge,reason:o.movementReason||'改道返城'});return false;}
  if(!j.route.length&&o.location!==o.destination)startPersonnelJourney(s,o);
@@ -65,18 +69,18 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
    if(hit){loseTransport(s,o,hit,next,from);return false;}
   }
   move.progress+=used;budget-=used;if(used>0)delete o.retreatOrigin;
-  if(move.progress>=cost){o.location=next;move.route.shift();move.progress=0;}else break;
+  if(move.progress>=cost){o.location=next;move.route.shift();move.progress=0;handoffGrain(s,o,traffic,t1,t1);}else break;
  }
  if(o.location===o.destination&&!move.route.length&&o.relayDestination){
   const final=o.relayDestination;if(town(s,final)?.owner!==o.faction||town(s,o.location)?.owner!==o.faction){move.blocked='接力据点失守，等待改令';o.remainingDays=1;return false;}
-  const route=findCampaignRoute(s,o.location,final,o.faction);if(!route){move.blocked='接力道路不通';o.remainingDays=1;return false;}
-  o.destination=final;delete o.relayDestination;startPersonnelJourney(s,o);return false;
+  const route=o.relayRoute||findCampaignRoute(s,o.location,final,o.faction);if(!route||!validMapRoute(s,o.location,final,route,o.faction,'trade')){move.blocked='接力道路不通';o.remainingDays=1;return false;}
+  o.destination=final;delete o.relayDestination;delete o.relayRoute;startPersonnelJourney(s,o,route);return false;
  }
  if(o.location===o.destination&&!move.route.length){
   if(o.retreating&&isJunction(s,o.location))return rallyWithdrawn(s,o);
   if(o.convoyCycle?.leg==='return'){
-   const plan=o.convoyCycle,c=town(s,o.location),keep=Math.ceil(c.units.reduce((n,u)=>n+u.troops/100+u.wounded/200,0)*20)+plannedGrain(s,c.id),route=findCampaignRoute(s,c.id,plan.target,o.faction);
-   if(c.owner===o.faction&&town(s,plan.target)?.owner===o.faction&&route&&c.grain-keep>=plan.batch){c.grain-=plan.batch;o.cargo.grain=plan.batch;o.destination=plan.target;plan.leg='out';startPersonnelJourney(s,o);return false;}
+   const plan=o.convoyCycle,c=town(s,o.location),keep=cityFoodRequirement(s,c,20)+c.budget.grainReserve+plannedGrain(s,c.id),route=plan.route?.slice(1)||findCampaignRoute(s,c.id,plan.target,o.faction);
+   if(c.owner===o.faction&&town(s,plan.target)?.owner===o.faction&&route&&validMapRoute(s,c.id,plan.target,route,o.faction,'trade')&&!threatenedTransportRoute(intelligenceWorld(s,o.faction),c.id,route,o.faction)&&c.grain-keep>=plan.batch){c.grain-=plan.batch;o.cargo.grain=plan.batch;o.destination=plan.target;plan.leg='out';startPersonnelJourney(s,o,route);return false;}
    delete o.convoyCycle;
   }
   const c=town(s,o.destination),grain=Math.min(o.cargo?.grain||0,Math.max(0,Math.floor(10000+c.granary*10000-c.grain)));
@@ -85,9 +89,8 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
   if(o.cargo){o.cargo.gold=0;o.cargo.grain-=grain;o.cargo.manpower=0;}
   s.grain=Math.floor(s.cities.filter(c=>c.owner===playerFaction(s)).reduce((n,c)=>n+c.grain,0));
   if(o.cargo?.grain>0){move.blocked='目的地粮仓不足，等待卸载';o.remainingDays=1;return false;}
-  if(o.convoyCycle&&--o.convoyCycle.remaining>0){const plan=o.convoyCycle,route=findCampaignRoute(s,o.location,plan.source,o.faction);if(town(s,plan.source)?.owner===o.faction&&route){delete o.meritTransport;o.destination=plan.source;plan.leg='return';startPersonnelJourney(s,o);return false;}}
+  if(o.convoyCycle&&--o.convoyCycle.remaining>0){const plan=o.convoyCycle,route=plan.route?[...plan.route].reverse().slice(1):findCampaignRoute(s,o.location,plan.source,o.faction);if(town(s,plan.source)?.owner===o.faction&&route&&validMapRoute(s,o.location,plan.source,route,o.faction,'trade')&&!threatenedTransportRoute(intelligenceWorld(s,o.faction),o.location,route,o.faction)){delete o.meritTransport;o.destination=plan.source;plan.leg='return';startPersonnelJourney(s,o,route);return false;}}
   delete o.convoyCycle;
-  deliverTreasures(s,o,c.id);
   o.destination=null;o.remainingDays=0;o.unit.homeCity=c.id;delete o.journey;delete o.cargo;delete o.retreating;delete o.retreatOrigin;delete o.retreatFormation;
   delete o.meritTransport;
   if(o.unit.troops>0||o.unit.wounded>0){c.units.push(o.unit);s.campaign.idle=s.campaign.idle.filter(x=>x!==o);}
@@ -108,6 +111,8 @@ export function validatePersonnelJourney(s,o){
  if(o.meritTransport){const m=o.meritTransport;fail(!!o.destination&&!o.retreating&&typeof m.id==='string'&&m.id.startsWith('transport:')&&town(s,m.source)&&town(s,m.target)&&m.source!==m.target&&typeof m.troopsCredited==='boolean');}
  if(o.convoyCycle){const p=o.convoyCycle;fail(hasStrategicTrait(o.unit,'cycleCargo')&&!o.unit.troops&&!o.unit.wounded&&!!o.cargo&&!!o.destination&&['out','return'].includes(p.leg)&&town(s,p.source)&&town(s,p.target)&&p.source!==p.target&&Number.isSafeInteger(p.batch)&&p.batch>0&&Number.isInteger(p.remaining)&&p.remaining>0&&p.remaining<=5&&o.destination===(p.leg==='out'?p.target:p.source)&&o.cargo.manpower===0&&o.cargo.grain<=p.batch);}
  if(o.relayDestination!==undefined)fail(hasStrategicTrait(o.unit,'relayCargo')&&!!o.destination&&!!o.cargo&&town(s,o.relayDestination)&&o.relayDestination!==o.destination);
+ if(o.relayRoute!==undefined)fail(!!o.relayDestination&&validMapRoute(s,o.destination,o.relayDestination,o.relayRoute));
+ if(o.convoyCycle?.route)fail(o.convoyCycle.route[0]===o.convoyCycle.source&&validMapRoute(s,o.convoyCycle.source,o.convoyCycle.target,o.convoyCycle.route.slice(1)));
  if(o.retreating!==undefined)fail(o.retreating===true&&(o.unit.troops>0||o.unit.wounded>0));
  if(o.retreating){const f=o.retreatFormation;fail(f&&Number.isSafeInteger(f.capacity)&&f.capacity>=o.cargo.grain&&typeof f.id==='string'&&f.id.length<=100&&typeof f.name==='string'&&f.name.length>0&&f.name.length<=30&&town(s,f.homeCity)&&Number.isFinite(f.morale)&&f.morale>=0&&f.morale<=100&&Object.hasOwn(TACTICS,f.tactic)&&['leader','advisor','deputy'].every(k=>typeof f[k]==='string'||k==='deputy'&&f[k]===null));}
  if(o.retreatOrigin!==undefined)fail(o.retreating===true&&o.retreatOrigin&&Array.isArray(o.retreatOrigin.armyIds)&&o.retreatOrigin.armyIds.every(id=>typeof id==='string'));

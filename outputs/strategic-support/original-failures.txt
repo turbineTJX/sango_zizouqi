@@ -1,0 +1,157 @@
+✖ controlled attrition, actual expensive troop recipes and grain losses stress separate resources (77.8489ms)
+✖ time horizons and reserve buffers retain independent conditional consumption ratios (241.9525ms)
+✖ equal-value gifts only improve real formation when they address the limiting resource (1980.8022ms)
+✖ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (601.7128ms)
+✖ Cao loses his unit in real combat but a victorious army keeps him, his command and learned abilities (1885.4985ms)
+✔ 官渡之战: historical roster, real command accumulation and saved replay (708.2162ms)
+✔ 赤壁之战: historical roster, real command accumulation and saved replay (647.8834ms)
+✖ 合肥之战: historical roster, real command accumulation and saved replay (8.9599ms)
+✔ 夷陵之战: historical roster, real command accumulation and saved replay (392.1942ms)
+✖ Xinye–Runan siege takes 14 marching days on the real national map (70967.2952ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 3
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 71547.1195
+
+✖ failing tests:
+
+test at tests\economy-consumption.test.mjs:13:1
+✖ controlled attrition, actual expensive troop recipes and grain losses stress separate resources (77.8489ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + '整补部队已不在本城或兵种未解锁'
+  - null
+
+      at consumptionTrial (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/scripts/economy-consumption-lib.mjs:30:60)
+      at file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/economy-consumption.test.mjs:14:41
+      at Array.map (<anonymous>)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/economy-consumption.test.mjs:14:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '整补部队已不在本城或兵种未解锁',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\economy-consumption.test.mjs:20:1
+✖ time horizons and reserve buffers retain independent conditional consumption ratios (241.9525ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + '整补部队已不在本城或兵种未解锁'
+  - null
+
+      at consumptionTrial (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/scripts/economy-consumption-lib.mjs:30:60)
+      at file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/scripts/economy-consumption-lib.mjs:65:111
+      at Array.map (<anonymous>)
+      at file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/scripts/economy-consumption-lib.mjs:65:92
+      at Array.flatMap (<anonymous>)
+      at file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/scripts/economy-consumption-lib.mjs:65:59
+      at Array.flatMap (<anonymous>)
+      at consumptionMatrix (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/scripts/economy-consumption-lib.mjs:65:30)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/economy-consumption.test.mjs:21:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '整补部队已不在本城或兵种未解锁',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\economy-valuation.test.mjs:31:1
+✖ equal-value gifts only improve real formation when they address the limiting resource (1980.8022ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + '整补部队已不在本城或兵种未解锁'
+  - null
+
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/economy-valuation.test.mjs:34:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '整补部队已不在本城或兵种未解锁',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\expanded-troops.test.mjs:87:1
+✖ expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected (601.7128ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/expanded-troops.test.mjs:93:183)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /状态|疑兵/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests\follow-army.test.mjs:36:1
+✖ Cao loses his unit in real combat but a victorious army keeps him, his command and learned abilities (1885.4985ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert.ok(armyStratagems(reformed).includes('assault'))
+
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/follow-army.test.mjs:63:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\historical-campaigns.test.mjs:12:42
+✖ 合肥之战: historical roster, real command accumulation and saved replay (8.9599ms)
+  AssertionError [ERR_ASSERTION]: limited repertoire follows appointed commanders
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/historical-campaigns.test.mjs:19:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\march-duration.test.mjs:10:2
+✖ Xinye–Runan siege takes 14 marching days on the real national map (70967.2952ms)
+  Error: 武将数据无效
+      at require (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/engine.mjs:1448:78)
+      at validateUnit (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/engine.mjs:1486:5)
+      at validateSave (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/engine.mjs:1517:7)
+      at validateCampaign (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/strategic-campaign.mjs:723:131)
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/march-duration.test.mjs:27:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
