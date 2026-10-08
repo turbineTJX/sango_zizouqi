@@ -4,6 +4,8 @@ import { dirname, resolve, extname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import {loadLocalArt,serveLocalArt} from './local-art-server.mjs';
+import {ASSET_ROOT} from './asset-workspace.mjs';
+import {serveAssets} from './asset-server.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const localArt=await loadLocalArt(root,process.env.SANGO_ART!=='off');
@@ -19,6 +21,7 @@ createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     if(await serveLocalArt(pathname,res,localArt))return;
+    if(await serveAssets(pathname,res,ASSET_ROOT))return;
     const path = resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
     const relative = path.slice(root.length + 1);
     if (!path.startsWith(root + sep) || relative.split(/[\\/]/).some(p => p.startsWith('.')) || !mime[extname(path)]) {

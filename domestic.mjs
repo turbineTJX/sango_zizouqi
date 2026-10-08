@@ -5,8 +5,7 @@ import {cityFoodRequirement} from './city-logistics.mjs';
 import {BASE_TROOPS,cityHasWater,canEquip} from './troop-equipment.mjs';
 import {TECHS,canResearch,localTechnologies,technologyAllowed,cityTroopUnlocked,technologyIncomeBonus,technologyConstructionDiscount,technologyMilitaryMultiplier} from './city-technology.mjs';
 export {TECHS};
-import {importantDomesticEvent} from './domestic-feedback.mjs';
-import {appendActivityNode} from './activity-nodes.mjs';
+import {appendActivityNode,importantActivityNode} from './activity-nodes.mjs';
 import {recordOfficerActivities} from './officer-activity.mjs';
 import {initializeDomesticIncidents,planDomesticIncidents,validateDomesticIncidents,incidentModifiers,effectiveDomesticChance,incidentSupport,incidentFor} from './domestic-incidents.mjs';
 import {availableConstructionSites,chooseConstructionSite,constructionSiteAvailable,constructionSites,buildingSiteName,buildingLimit,canExpandBuilding,localBuildingLimit,localBuildingLevel} from './metropolitan-areas.mjs';
@@ -91,7 +90,7 @@ function emit(s,a,phase,text,result={}){
   const x=a.action,entry={actionId:x.id,cityId:a.cityId,siteId:x.siteId,key:x.key,targetId:x.targetId,startedDay:x.startedDay,endedDay:day(s),cost:x.cost,status:phase==='cancel'?'interrupted':phase==='complete'?'completed':'failed',text};
   const history=d.workHistory[a.officerId]||[];d.workHistory[a.officerId]=[entry,...history.filter(r=>r.actionId!==x.id)].slice(0,12);
  }
- e.important=!!importantDomesticEvent(phase,a?.action?.key,result);e.read=false;
+ e.important=!!importantActivityNode({category:'domestic',phase,key:a?.action?.key,result});e.read=false;
  appendActivityNode(s,{sourceId:'domestic:'+e.id,category:'domestic',phase,faction:e.faction,officerId:e.officerId,officerIds:a?.officerIds||[],cityId:e.cityId,siteId:a?.action?.siteId||result.siteId||e.cityId,key:a?.action?.key||null,text,result});
  d.events.unshift(e);d.events=d.events.slice(0,240);if(e.faction===playerFaction(s))log(s,`第${day(s)}天：${text}`,phase==='failure'?'event':'good');
 }

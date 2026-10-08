@@ -3,9 +3,10 @@ import {spawn} from 'node:child_process';
 import {mkdir,readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {runBatch} from './officer-art-batch.mjs';
+import {OFFICER_ASSET_ROOT} from '../asset-workspace.mjs';
 const [id,...rest]=process.argv.slice(2),portraits=rest.includes('--portraits'),flag=rest.indexOf('--out'),out=resolve(flag<0?'outputs/officer-art-'+id:rest[flag+1]);
 await mkdir(out,{recursive:true});await runBatch(['review',id,...(portraits?['--portraits']:[])]);
-const b=JSON.parse(await readFile('assets/officers/batches/'+id+'.json','utf8'));
+const b=JSON.parse(await readFile(resolve(OFFICER_ASSET_ROOT,'batches',id+'.json'),'utf8'));
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright'),port='4192';
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'off'},stdio:'pipe',windowsHide:true});let browser;
 try{

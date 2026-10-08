@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "original-sango",
+  "revision": "1",
+  "officers": "./assets/officers/manifest.json",
+  "town": {
+    "art": {
+      "background": "./assets/town/han-town-background.png",
+      "buildings": "./assets/town/han-buildings-transparent.png",
+      "construction": "./assets/town/han-construction.png",
+      "arrowTower": "./assets/town/han-arrowTower-v2.png",
+      "musicStage": "./assets/town/han-musicStage-v1.png",
+      "aidCamp": "./assets/town/han-aidCamp-v1.png"
+    },
+    "terrains": {
+      "plain": "./assets/town/han-terrain-plain.webp",
+      "mountain": "./assets/town/han-terrain-mountain.webp",
+      "river": "./assets/town/han-terrain-river.webp",
+      "frontier": "./assets/town/han-terrain-frontier.webp"
+    },
+    "foundations": {
+      "large": "./assets/town/han-space-large.webp",
+      "small": "./assets/town/han-space-small.webp",
+      "gate": "./assets/town/han-space-gate.webp",
+      "port": "./assets/town/han-space-port.webp"
+    }
+  }
+}

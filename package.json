@@ -5,6 +5,10 @@
   "type": "module",
   "description": "三国 · 君临：离线君主策略玩法原型",
   "scripts": {
+    "art:check": "node scripts/asset-pack.mjs check",
+    "art:bundle": "node scripts/asset-pack.mjs bundle",
+    "verify:asset-pack": "node scripts/verify-asset-pack-ui.mjs",
+    "test:asset-pack": "node --test tests/asset-pack.test.mjs tests/art.test.mjs tests/city-scene.test.mjs tests/art-strategic-map.test.mjs",
     "test:page-guides": "node --test tests/page-guides.test.mjs",
     "verify:page-guides-ui": "node scripts/verify-page-guides-ui.mjs",
     "test:technology-upgrades": "node --test tests/technology-upgrades.test.mjs tests/equipment-fixed-actions.test.mjs tests/current-fixed-actions.test.mjs tests/troop-families.test.mjs tests/attributes.test.mjs tests/loadouts.test.mjs tests/terrain.test.mjs tests/expanded-troops.test.mjs tests/status-rules62.test.mjs tests/tactic-learning.test.mjs tests/tactic-tempo.test.mjs tests/intent-tempo.test.mjs tests/troop-output.test.mjs tests/ability-differentiation.test.mjs tests/stratagem-pools.test.mjs tests/command-specials.test.mjs tests/engine-command-phase.test.mjs tests/passives.test.mjs tests/custom-battle.test.mjs tests/ai-logic.test.mjs tests/ai-target-command.test.mjs tests/deployment-order.test.mjs tests/intent-rout.test.mjs tests/attack-orbs.test.mjs tests/battle-troop-budget.test.mjs tests/custom-reinforcements.test.mjs tests/scenario-setup.test.mjs tests/mechanism-fixes.test.mjs tests/siege-power.test.mjs tests/siege-supply.test.mjs tests/bond-playstyles.test.mjs tests/military-flow.test.mjs tests/strategic-command.test.mjs tests/city-expedition.test.mjs",

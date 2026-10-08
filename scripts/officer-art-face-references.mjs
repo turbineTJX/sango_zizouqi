@@ -3,6 +3,7 @@ import {resolve,dirname,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {OFFICER_CATALOG,OFFICER_BY_ID} from '../officer-catalog.mjs';
+import {OFFICER_ASSET_ROOT} from '../asset-workspace.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 export function resolveLegacyFaceReference(pack,id){
  const url=pack?.public?.portraits?.[id],key=typeof url==='string'?url.match(/^\/local-art\/files\/([a-f0-9]{24}\.(?:png|jpe?g|webp))$/)?.[1]:null,file=key&&pack.files?.[key];
@@ -17,7 +18,7 @@ export async function legacyFaceReferences(ids){
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const args=process.argv.slice(2),flag=args.indexOf('--officers'),all=args.includes('--all');
- const ids=all?OFFICER_CATALOG.map(o=>o.id):flag>=0?(args[flag+1]||'').split(','):(JSON.parse(await readFile(resolve(root,'assets/officers/art-direction.json'),'utf8')).priority);
+ const ids=all?OFFICER_CATALOG.map(o=>o.id):flag>=0?(args[flag+1]||'').split(','):(JSON.parse(await readFile(resolve(OFFICER_ASSET_ROOT,'art-direction.json'),'utf8')).priority);
  if(ids.some(id=>!OFFICER_BY_ID[id]))throw Error('参考头像须使用名册中的稳定人物ID');
  const refs=await legacyFaceReferences(ids),record=resolve(root,'.local/officer-face-references.json');await mkdir(dirname(record),{recursive:true});await writeFile(record,JSON.stringify({version:1,localOnly:true,references:refs},null,2)+'\n');
  console.log(JSON.stringify({officers:ids.length,available:Object.keys(refs).length,missing:ids.filter(id=>!refs[id]),record:'.local/officer-face-references.json',...(!all?{references:Object.values(refs)}:{})},null,2));

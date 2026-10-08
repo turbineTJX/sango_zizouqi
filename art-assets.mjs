@@ -1,12 +1,13 @@
 // Presentation only. This module must never be imported by the simulation.
 import {OFFICER_ART_KEYS} from './officer-art-scenes.mjs';
+import {assetCatalog,applyAssetCatalog} from './asset-catalog.mjs';
 const builtin={version:1,id:'builtin',label:'默认图形',portraits:{},criticals:{},troops:{},models:{},effects:{},backgrounds:{}};
-export function assetURL(value){return typeof value==='string'&&(/^(?:\.\/|\/)?assets\/officers\/generated\/v[123]\/[a-z0-9-]+\/(?:portrait|detail|domestic|inspection|training|diplomacy|command|travel|report|report-concern|battle)\.png$/.test(value)||/^\/local-art\/files\/[a-f0-9]{24}\.(png|jpe?g|webp|glb|obj)$/.test(value))?value:null;}
+export function assetURL(value){return typeof value==='string'&&(/^(?:\.\/|\/)?assets\/officers\/generated\/v[1-9]\d*\/[a-z0-9-]+\/(?:portrait|detail|domestic|inspection|training|diplomacy|command|travel|report|report-concern|battle)\.png$/.test(value)||/^\/local-art\/files\/[a-f0-9]{24}\.(png|jpe?g|webp|glb|obj)$/.test(value))?value:null;}
 export function sanitizeOfficerArt(raw){
  if(raw?.version!==1||raw.id!=='original-officers')return {};
  return Object.fromEntries(Object.entries(raw.officers||{}).filter(([id])=>/^[a-z0-9-]+$/.test(id)).map(([id,scenes])=>[id,Object.fromEntries(OFFICER_ART_KEYS.flatMap(scene=>{
-  const entry=scenes?.[scene],url=assetURL(entry?.url),expected=[1,2,3].map(v=>`./assets/officers/generated/v${v}/${id}/${scene}.png`);
-  return expected.includes(url)?[[scene,{url,width:Number.isInteger(entry.width)?entry.width:1024,height:Number.isInteger(entry.height)?entry.height:1536,format:String(entry.format||''),fit:entry.fit==='contain'?'contain':'cover',transparent:entry.transparent===true,focus:/^\d{1,3}% \d{1,3}%$/.test(entry.focus)?entry.focus:'50% 24%'}]]:[];
+  const entry=scenes?.[scene],url=assetURL(entry?.url),path=url?.split('/');
+  return url?.startsWith('./assets/officers/generated/')&&path.at(-2)===id&&path.at(-1)===scene+'.png'?[[scene,{url,width:Number.isInteger(entry.width)&&entry.width>0?entry.width:1024,height:Number.isInteger(entry.height)&&entry.height>0?entry.height:1536,format:String(entry.format||''),fit:entry.fit==='contain'?'contain':'cover',transparent:entry.transparent===true,focus:/^\d{1,3}% \d{1,3}%$/.test(entry.focus)?entry.focus:'50% 24%'}]]:[];
  }))]));
 }
 export function sanitizePack(raw){
@@ -31,9 +32,17 @@ export function sampleCurve(keys,time,axis='y'){
 export const art={pack:{...builtin},officers:{},enabled:true,images:new Map(),failed:new Set(),
  async init(){
   try{this.enabled=localStorage.getItem('sango-art-mode')!=='builtin';}catch{}
+  this.pack={...builtin};this.officers={};this.images.clear();this.failed.clear();
   await Promise.allSettled([
    (async()=>{const r=await fetch('./local-art/manifest.json',{cache:'no-store',signal:AbortSignal.timeout(2000)});if(r.ok)this.pack=sanitizePack(await r.json());})(),
-   (async()=>{const r=await fetch('./assets/officers/manifest.json',{cache:'no-store',signal:AbortSignal.timeout(2000)});if(r.ok)this.officers=sanitizeOfficerArt(await r.json());})()
+   (async()=>{
+    applyAssetCatalog({version:1,id:'none'});
+    const catalog=await fetch('./assets/manifest.json',{cache:'no-store',signal:AbortSignal.timeout(2000)});
+    if(!catalog.ok)return;
+    applyAssetCatalog(await catalog.json());
+    if(!assetCatalog.officers)return;
+    const r=await fetch(assetCatalog.officers,{cache:'no-store',signal:AbortSignal.timeout(2000)});if(r.ok)this.officers=sanitizeOfficerArt(await r.json());
+   })()
   ]);
  },
  toggle(){this.enabled=!this.enabled;try{localStorage.setItem('sango-art-mode',this.enabled?'local':'builtin');}catch{}},

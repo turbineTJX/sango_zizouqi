@@ -5,7 +5,6 @@ import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
 import {BUILDING_DESIGNS} from '../data/design/buildings.mjs';
 import {completeTechnologyBuilding} from '../building-durability.mjs';
-import {TOWN_ART} from '../town-art.mjs';
 import {lockDeployment} from '../engine.mjs';
 import {setBuildingLevel} from '../tests/building-fixtures.mjs';
 import {invadeFromGuandu} from '../tests/helpers/field-campaign.mjs';
@@ -32,7 +31,7 @@ try{
  await page.setViewportSize({width:390,height:844});await tree.scrollIntoViewIfNeeded();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await page.screenshot({path:out+'/technology-mobile.png'});
  await page.setViewportSize({width:1440,height:1000});await load(citySave);await page.locator('[data-map-view="city"]').click();const city=page.locator('.national-world [data-city="xuchang"]');
  for(const kind of kinds){const building=city.locator('.map-city-scene [data-city-building="'+kind+'"]');assert.equal(await building.getAttribute('data-level'),'2');assert.equal(await building.locator('.town-facility-'+kind).count(),1);}
- await page.evaluate(async urls=>{for(const src of urls){const image=new Image();image.src=src;await image.decode();if(image.naturalWidth<1000)throw Error('Facility texture failed: '+src);}},kinds.map(k=>TOWN_ART[k]));
+ await page.evaluate(async kinds=>{const {assetCatalog}=await import('./asset-catalog.mjs');for(const key of kinds){const src=assetCatalog.town.art[key],image=new Image();image.src=src;await image.decode();if(image.naturalWidth<1000)throw Error('Facility texture failed: '+src);}},kinds);
  await page.screenshot({path:out+'/city-desktop.png'});
  const saved=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));for(const kind of kinds){const building=city.locator('.map-city-scene [data-city-building="'+kind+'"]');await building.focus();await page.keyboard.press('Enter');const card=page.locator('.city-building-card');assert.match(await card.innerText(),/1,500\s*\/\s*2,000/);assert.ok((await card.innerText()).includes(BUILDING_DESIGNS[kind].name));await page.locator('[data-city-card-close]').click();}
  assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),saved);

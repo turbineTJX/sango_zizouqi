@@ -7,7 +7,8 @@ import {OFFICER_CATALOG,OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {legacyFaceReferences} from './officer-art-face-references.mjs';
 import {artRole,roleSceneBrief,roleDescription} from './officer-art-roles.mjs';
 import {OFFICER_ART_KEYS,OFFICER_ART_SCENES,OFFICER_ART_STYLE,OFFICER_ART_LOCK,OFFICER_ART_FORMAT_VERSION} from '../officer-art-scenes.mjs';
-const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),base=resolve(root,'assets/officers'),output=resolve(base,'generated/v3');
+import {OFFICER_ASSET_ROOT,artWorkspacePath,resolveArtWorkspacePath} from '../asset-workspace.mjs';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),base=OFFICER_ASSET_ROOT,output=resolve(base,'generated/v3');
 const json=async path=>JSON.parse(await readFile(path,'utf8')),direction=await json(resolve(base,'art-direction.json'));
 const receiptsPath=resolve(base,'receipts.json'),manifestPath=resolve(base,'manifest.json'),identityPath=resolve(base,'identities.json');
 const optionalJSON=async path=>{try{return await json(path);}catch(e){if(e.code==='ENOENT')return {};throw e;}};
@@ -56,7 +57,7 @@ async function refreshManifest(receipts){
 }
 async function jobsFor(ids,receipts){
  const officers=await refreshManifest(receipts),identities=await validIdentities(),faces=await legacyFaceReferences(ids);
- return ids.flatMap(id=>OFFICER_ART_KEYS.map(scene=>{const def=OFFICER_ART_SCENES[scene],role=officerArtRole(id);return {id:id+':'+scene,officerId:id,name:OFFICER_BY_ID[id].name,scene,label:def.label,size:[def.width,def.height],format:def.format,transparent:def.transparent,dependsOn:scene==='portrait'?[]:[id+':portrait'],status:officers[id]?.[scene]?'complete':!role?'blocked-role':scene!=='portrait'&&!officers[id]?.portrait?'blocked-master':'pending',role,roleNeedsReview:!role,identityNeedsReview:!identities[id],sourceFaceReference:scene==='portrait'?faces[id]||null:null,output:relative(root,pathFor(id,scene)).replaceAll('\\','/'),reference:identities[id]?'assets/officers/identity/'+id+'.png':null,referenceSha256:identities[id]?.sha256||null,prompt:role?promptFor(OFFICER_BY_ID[id],scene,{hasIdentity:!!identities[id]}):null};}));
+ return ids.flatMap(id=>OFFICER_ART_KEYS.map(scene=>{const def=OFFICER_ART_SCENES[scene],role=officerArtRole(id);return {id:id+':'+scene,officerId:id,name:OFFICER_BY_ID[id].name,scene,label:def.label,size:[def.width,def.height],format:def.format,transparent:def.transparent,dependsOn:scene==='portrait'?[]:[id+':portrait'],status:officers[id]?.[scene]?'complete':!role?'blocked-role':scene!=='portrait'&&!officers[id]?.portrait?'blocked-master':'pending',role,roleNeedsReview:!role,identityNeedsReview:!identities[id],sourceFaceReference:scene==='portrait'?faces[id]||null:null,output:artWorkspacePath(pathFor(id,scene)),reference:identities[id]?'assets/officers/identity/'+id+'.png':null,referenceSha256:identities[id]?.sha256||null,prompt:role?promptFor(OFFICER_BY_ID[id],scene,{hasIdentity:!!identities[id]}):null};})).map(job=>({...job,outputFile:resolveArtWorkspacePath(job.output),referenceFile:job.reference?resolveArtWorkspacePath(job.reference):null}));
 }
 export async function officerArtSnapshot(){return refreshManifest(await optionalJSON(receiptsPath));}
 export async function officerArtJobs(ids){return jobsFor(ids,await optionalJSON(receiptsPath));}
