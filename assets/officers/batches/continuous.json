@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "automationId": "automation",
+  "automationId": null,
   "kind": "heartbeat",
   "destination": "thread",
   "name": "三国武将素材持续生成",
-  "status": "ACTIVE",
+  "status": "PAUSED",
   "intervalMinutes": 60,
   "createdAt": "2026-10-07 13:19:29 UTC",
-  "projectRoot": "C:/Users/tao50/Documents/ChatGPT/sango/sango_zizouqi",
+  "projectRoot": ".",
   "skill": ".agents/skills/sango-officer-art/SKILL.md",
   "formatVersion": "scene-neutral-v3",
   "scope": {
@@ -20,28 +20,28 @@
     "images": 99,
     "remainingImages": 9053
   },
-  "lastCompletedBatch": "batch-0008",
+  "lastCompletedBatch": "batch-0013",
   "policy": "每批默认3人；先读名册身份与传记记录美术主次类型，不能按兵种或能力值推断；优先处理显式角色返修；头像按本人稳定ID解析面部结构；自行完成视觉QA；全库和所有返修完成后停止；仅全库完成、真实失败或必要决策时通知。",
   "cadenceNote": "实际生成一批超过15分钟；按小时续跑，减少重入导致的在途生成中断，已有结果和全库范围保留。",
   "lastProgress": {
-    "officers": 30,
-    "images": 330,
-    "remainingImages": 8822,
-    "checkedAt": "2026-10-07T23:09:53.155Z"
+    "officers": 45,
+    "images": 498,
+    "remainingImages": 8654,
+    "checkedAt": "2026-10-08T06:03:36.974Z"
   },
   "nextPreparedOfficers": [],
   "lastVerification": {
     "assetTests": 19,
-    "uiImages": 330,
+    "uiImages": 495,
     "uiDecodedSamples": 66,
     "desktopAndMobile": true,
     "fallbackAndReadOnly": true,
     "docsCheck": "passed"
   },
   "nextPendingOfficers": [
-    "person-22",
-    "person-23",
-    "person-24"
+    "person-37",
+    "person-38",
+    "person-39"
   ],
   "lastRoleRework": {
     "officerId": "person-1",
@@ -57,9 +57,17 @@
     "identityChanged": false,
     "sourceRecord": ".local/officer-art-results/role-rework-person-1/plan.json"
   },
-  "verificationRuntime": {
-    "playwrightModule": "C:/Users/tao50/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright"
-  },
-  "lastVisualQA": ".local/officer-art-results/batch-0008/visual-qa.json",
-  "lastOfflineCache": "sango-scout-frequency-173"
+  "lastVisualQA": ".local/officer-art-results/batch-0013/visual-qa.json",
+  "lastOfflineCache": "sango-scout-frequency-178",
+  "pausedAt": "2026-10-08T06:03:36.974Z",
+  "pauseReason": "用户明确要求先暂停该工作，不要定时启动",
+  "resumeRequiresExplicitUserRequest": true,
+  "activeBatch": "batch-0014",
+  "lastPauseRecord": ".local/officer-art-results/batch-0014/pause-state.json",
+  "cloudMigration": {
+    "source": "local-art-production",
+    "targetThreadId": "01a11b4a-7ccd-7461-884e-799518a80031",
+    "sourceAutomationRemainsPaused": true,
+    "awaitingCloudStart": true
+  }
 }

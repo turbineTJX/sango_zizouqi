@@ -38,7 +38,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-10",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0488_袁遗_1.jpg",
+        "file": "local-only/0488_袁遗_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],
@@ -595,7 +595,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-11",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0169_袁胤_1.jpg",
+        "file": "local-only/0169_袁胤_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],
@@ -1110,7 +1110,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-12",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0302_阎宇_1.jpg",
+        "file": "local-only/0302_阎宇_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],

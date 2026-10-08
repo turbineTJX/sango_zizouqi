@@ -36,7 +36,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "shao",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0005_袁绍_1.jpg",
+        "file": "local-only/0005_袁绍_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],
@@ -564,7 +564,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-20",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0518_阎象_1.jpg",
+        "file": "local-only/0518_阎象_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],
@@ -1101,7 +1101,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-21",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0035_袁谭_1.jpg",
+        "file": "local-only/0035_袁谭_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],

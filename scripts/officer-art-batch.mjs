@@ -5,12 +5,13 @@ import {createHash} from 'node:crypto';
 import {OFFICER_CATALOG,OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {OFFICER_ART_KEYS,OFFICER_ART_SCENES,OFFICER_ART_FORMAT_VERSION} from '../officer-art-scenes.mjs';
 import {run,officerArtSnapshot,officerArtJobs,officerArtRole,pngInfo} from './officer-art.mjs';
-const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),base=resolve(root,'assets/officers'),dir=resolve(base,'batches');
+import {OFFICER_ASSET_ROOT,artWorkspacePath,resolveArtWorkspacePath} from '../asset-workspace.mjs';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),base=OFFICER_ASSET_ROOT,dir=resolve(base,'batches');
 const readJSON=async p=>JSON.parse(await readFile(p,'utf8'));
 const optional=async(p,fallback)=>{try{return await readJSON(p);}catch(e){if(e.code==='ENOENT')return fallback;throw e;}};
 const writeJSON=async(p,value)=>{await mkdir(dirname(p),{recursive:true});await writeFile(p+'.incoming',JSON.stringify(value,null,2)+'\n');await rename(p+'.incoming',p);};
 const hash=b=>createHash('sha256').update(b).digest('hex');
-const rel=p=>relative(root,p).replaceAll('\\','/');
+const rel=artWorkspacePath;
 const batchPath=id=>{if(!/^batch-\d{4,}$/.test(id))throw Error('无效批次ID');return resolve(dir,id+'.json');};
 export function selectOfficers(manifest,priority,catalog,limit){
  if(!Number.isInteger(limit)||limit<1||limit>12)throw Error('每批人数须为1至12');
@@ -64,9 +65,9 @@ export async function runBatch(args=process.argv.slice(2)){
   const scope=flag=>{const i=rest.indexOf(flag);return i<0?null:(rest[i+1]||'').split(',');},officers=scope('--officers'),scenes=scope('--scenes');
   const selected=b.jobs.filter(j=>j.status==='candidate'&&(!officers||officers.includes(j.officerId))&&(!scenes||scenes.includes(j.scene))).sort((a,b)=>(a.scene!=='portrait')-(b.scene!=='portrait'));
   for(const j of selected){
-   const c=j.candidate,bytes=await readFile(resolve(root,c.file));if(hash(bytes)!==c.sha256)throw Error('候选图在审阅后被改变');pngInfo(bytes,j.scene);
+   const c=j.candidate,bytes=await readFile(resolveArtWorkspacePath(c.file));if(hash(bytes)!==c.sha256)throw Error('候选图在审阅后被改变');pngInfo(bytes,j.scene);
    const masters=await identities();if(j.scene!=='portrait'&&masters[j.officerId]?.sha256!==c.referenceSha256)throw Error('身份参考已改变，先重新审阅候选图');
-   const promptFile=resolve(dir,id+'-'+j.officerId+'-'+j.scene+'-prompt.txt');await writeFile(promptFile,c.prompt+'\n');await run(['import',j.officerId,j.scene,resolve(root,c.file),'--approve','--prompt-file',promptFile]);
+   const promptFile=resolve(dir,id+'-'+j.officerId+'-'+j.scene+'-prompt.txt');await writeFile(promptFile,c.prompt+'\n');await run(['import',j.officerId,j.scene,resolveArtWorkspacePath(c.file),'--approve','--prompt-file',promptFile]);
    j.status='complete';await writeJSON(batchPath(id),b);
   }
   await refreshBatch(b,await officerArtSnapshot());console.log(JSON.stringify({id:b.id,status:b.status,counts:counts(b)}));return b;

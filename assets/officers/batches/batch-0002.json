@@ -456,7 +456,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-2",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0505_韦昭_1.jpg",
+        "file": "local-only/0505_韦昭_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],
@@ -888,7 +888,7 @@
       "identityNeedsReview": false,
       "sourceFaceReference": {
         "officerId": "person-3",
-        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0031_伊籍_1.jpg",
+        "file": "local-only/0031_伊籍_1.jpg",
         "source": "existing-local-officer-portrait",
         "localOnly": true,
         "sharedWith": [],
