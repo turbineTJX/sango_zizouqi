@@ -31,19 +31,19 @@ export function visionSources(s,faction=playerFaction(s)){
  for(const v of s.campaign.vision?.factions[faction]?.scouted||[])if(v.expiresDay>s.campaign.day)sources.push({...v,radius:rules.scout,kind:'scout',object:{location:v.location,travel:v.travel}});
  return sources;
 }
-export function pointVisible(s,point,faction=playerFaction(s)){
+export function pointVisible(s,point,faction=playerFaction(s),sources=null){
  if(!visionEnabled(s))return true;
- return !!point&&visionSources(s,faction).some(v=>Math.hypot(point.x-v.x,point.y-v.y)<=v.radius);
+ return !!point&&(sources||visionSources(s,faction)).some(v=>Math.hypot(point.x-v.x,point.y-v.y)<=v.radius);
 }
 export function directPointVisible(s,point,faction=playerFaction(s)){
  if(!visionEnabled(s))return true;return !!point&&visionSources(s,faction).some(v=>v.kind!=='scout'&&Math.hypot(point.x-v.x,point.y-v.y)<=v.radius);
 }
-export function cityVisible(s,id,faction=playerFaction(s)){return pointVisible(s,mapNode(s[origin]||s,id),faction);}
-export function armyVisible(s,a,faction=playerFaction(s)){
- return !a.disbanded&&(a.faction===faction||pointVisible(s,visionPosition(s[origin]||s,a),faction));
+export function cityVisible(s,id,faction=playerFaction(s),sources=null){return pointVisible(s,mapNode(s[origin]||s,id),faction,sources);}
+export function armyVisible(s,a,faction=playerFaction(s),sources=null){
+ return !a.disbanded&&(a.faction===faction||pointVisible(s,visionPosition(s[origin]||s,a),faction,sources));
 }
-export function battleVisible(s,r,faction=playerFaction(s)){
- return !visionEnabled(s)||r.battle?.sides.some(x=>x.faction===faction)||pointVisible(s,r.point,faction);
+export function battleVisible(s,r,faction=playerFaction(s),sources=null){
+ return !visionEnabled(s)||r.battle?.sides.some(x=>x.faction===faction)||pointVisible(s,r.point,faction,sources);
 }
 export function initializeVision(s){
  const factions=[...new Set(s.cities.map(c=>c.owner).filter(f=>f!=='neutral'))];
@@ -105,17 +105,17 @@ function observedBattle(s,r,faction){
 // All UI consumers use this read-only projection; never pass it to a mutation.
 export function intelligenceWorld(s,faction=playerFaction(s)){
  if(!visionEnabled(s)||s[perspective]===faction)return s;
- s=s[origin]||s;const record=s.campaign.vision.factions[faction],visibleCities=new Set(s.cities.filter(c=>cityVisible(s,c.id,faction)).map(c=>c.id));
+ s=s[origin]||s;const record=s.campaign.vision.factions[faction],sources=visionSources(s,faction),visibleCities=new Set(s.cities.filter(c=>cityVisible(s,c.id,faction,sources)).map(c=>c.id));
  const cities=s.cities.map(c=>{
   if(c.owner===faction||visibleCities.has(c.id))return c;
   const i=record?.cities[c.id];return i?.data?i.data:unknownCity(c,i?.owner||'neutral');
  });
- const armies=s.armies.filter(a=>armyVisible(s,a,faction)).map(a=>a.faction===faction?a:armyObservation(s,a));
+ const armies=s.armies.filter(a=>armyVisible(s,a,faction,sources)).map(a=>a.faction===faction?a:armyObservation(s,a));
  const idle=s.campaign.idle.filter(o=>o.faction===faction||!o.unit.mission&&!o.destination&&!o.retreating&&visibleCities.has(o.location));
  const ownIds=new Set([...s.cities.filter(c=>c.owner===faction).flatMap(c=>c.units),...s.armies.filter(a=>a.faction===faction).flatMap(a=>a.units),...s.campaign.idle.filter(o=>o.faction===faction).map(o=>o.unit)].map(u=>u.id));
  const activity=s.campaign.activity;
- const campaign={...s.campaign,playerFaction:faction,idle,scouting:{...s.campaign.scouting,tasks:scoutAssignments(s).filter(t=>t.faction===faction)},battles:s.campaign.battles.filter(r=>battleVisible(s,r,faction)).map(r=>observedBattle(s,r,faction)),archive:(s.campaign.archive||[]).filter(r=>record?.battles.includes(r.id)),
-  personnelEvents:s.campaign.personnelEvents.filter(e=>ownIds.has(e.officerId)),ai:s.campaign.ai?{...s.campaign.ai,factions:{},plans:[],decisions:[]}:undefined,
+ const campaign={...s.campaign,playerFaction:faction,idle,scouting:{...s.campaign.scouting,tasks:scoutAssignments(s).filter(t=>t.faction===faction)},battles:s.campaign.battles.filter(r=>battleVisible(s,r,faction,sources)).map(r=>observedBattle(s,r,faction)),archive:(s.campaign.archive||[]).filter(r=>record?.battles.includes(r.id)),
+  personnelEvents:s.campaign.personnelEvents.filter(e=>ownIds.has(e.officerId)),ai:s.campaign.ai?{...s.campaign.ai,factions:{},plans:[],supports:[],decisions:[]}:undefined,
   domestic:{...s.campaign.domestic,orders:s.campaign.domestic.orders.filter(q=>q.faction===faction),assignments:s.campaign.domestic.assignments.filter(a=>ownIds.has(a.officerId)),people:s.campaign.domestic.people.filter(p=>p.fate&&(p.fate.originalFaction===faction||p.fate.captor===faction))},
   activity:activity?{...activity,records:Object.fromEntries(Object.entries(activity.records).filter(([id])=>ownIds.has(id))),nodes:activity.nodes.filter(n=>n.faction===faction)}:activity};
  const result={...s,cities,armies,campaign,logs:record?.chronicle||[]};result[perspective]=faction;result[origin]=s;return result;

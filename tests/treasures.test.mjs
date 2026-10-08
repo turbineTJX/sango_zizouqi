@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {TREASURE_DESIGNS,TREASURE_RULES} from '../data/design/treasures.mjs';
-import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter} from '../strategic-campaign.mjs';
-import {treasureRecord,treasureOfficerRows,treasureResident,grantTreasure,equipTreasure,storeTreasure,recordTreasureWork,finishTreasureTurn,settleBattleTreasures,treasureCaptureCandidates,validateTreasures} from '../treasures.mjs';
+import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,transferOfficer} from '../strategic-campaign.mjs';
+import {treasureRecord,treasureOfficerRows,treasureResident,manageTreasuresAI,grantTreasure,equipTreasure,storeTreasure,recordTreasureWork,finishTreasureTurn,settleBattleTreasures,treasureCaptureCandidates,validateTreasures} from '../treasures.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {advancePersonnel,isTransport,personnelSpeed,TRANSPORT_SPEED} from '../personnel-movement.mjs';
 import {hasStrategicTrait} from '../strategic-traits.mjs';
@@ -21,7 +21,7 @@ import {roadDistance} from '../strategic-movement.mjs';
 import {campaignInfoDetail,campaignInfoMarkup} from '../campaign-info.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 const fail=(ok,message)=>assert.ok(ok,message);
-function storage(s,id,cityId){const t=treasureRecord(s,id);for(const o of treasureOfficerRows(s))if(o.unit.treasureId===id)delete o.unit.treasureId;Object.assign(t,{state:'city',cityId,holderId:null,delivery:null});return t;}
+function storage(s,id,cityId){const t=treasureRecord(s,id);for(const o of treasureOfficerRows(s))if(o.unit.treasureId===id)delete o.unit.treasureId;Object.assign(t,{state:'city',cityId,holderId:null});return t;}
 function battle(id='skyHalberd',holder=null){const d=defaultCustomBattle();if(holder)d.ownTeam[0].id=holder;d.ownTeam[0].treasureId=id;const s=generateBattle(d);lockDeployment(s.battle);return s;}
 test('catalogue is bounded and seven new worlds have one physical record per treasure',()=>{
  assert.equal(Object.keys(TREASURE_DESIGNS).length,24);assert.equal(Object.values(TREASURE_DESIGNS).filter(d=>d.kind==='bond').length,8);
@@ -41,12 +41,24 @@ test('officer and troop dossiers expose the common treasure manager without reve
  for(const type of ['unit','officer']){const detail=campaignInfoDetail(s,type,id);assert.ok(detail.sections.some(x=>x.id==='treasure'&&x.html.includes('treasure-open')));assert.match(campaignInfoMarkup(s,{type,id,objectOnly:true}).body,/treasure-open/);}
  assert.doesNotMatch(treasuresMarkup(s),/青龙偃月刀/);
 });
-test('cross-city treasure uses a visible real courier, deterministic transit and arrival storage fallback',()=>{
- const s=newCampaign(7),courier=s.campaign.idle.find(o=>o.faction==='cao'&&o.location==='xuchang'&&o.unit.id!=='cao'),to=treasureOfficerRows(s).find(o=>o.faction==='cao'&&o.location==='chenliu'&&treasureResident(s,o.unit.id));
- storage(s,'brightArmor','xuchang');assert.equal(grantTreasure(s,'brightArmor',to.unit.id,{courierId:courier.unit.id,equip:true}),null);assert.equal(treasureRecord(s,'brightArmor').state,'transit');assert.ok(isTransport(courier));assert.equal(personnelSpeed(courier),TRANSPORT_SPEED);assert.match(storeTreasure(s,'brightArmor'),/运输/);restore(s);
- const next=restore(s),other=next.campaign.idle.find(o=>o.unit.id===courier.unit.id);let days=0;while(courier.destination&&days++<100){advancePersonnel(s,courier);advancePersonnel(next,other);}assert.ok(days<100);assert.deepEqual(treasureRecord(s,'brightArmor'),treasureRecord(next,'brightArmor'));assert.equal(treasureRecord(s,'brightArmor').holderId,to.unit.id);assert.equal(to.unit.treasureId,'brightArmor');restore(s);
- const s2=newCampaign(7),q=s2.campaign.idle.find(o=>o.unit.id===courier.unit.id),target=treasureOfficerRows(s2).find(o=>o.unit.id===to.unit.id);storage(s2,'medicineBook','xuchang');assert.equal(grantTreasure(s2,'medicineBook',target.unit.id,{courierId:q.unit.id}),null);fieldFromCity(s2,'chenliu',{ids:[target.unit.id]});for(let i=0;q.destination&&i<100;i++)advancePersonnel(s2,q);assert.equal(treasureRecord(s2,'medicineBook').state,'city');assert.equal(treasureRecord(s2,'medicineBook').cityId,'chenliu');restore(s2);
+test('cross-city grants take effect immediately without moving people or resources',()=>{
+ const s=newCampaign(7),to=treasureOfficerRows(s).find(o=>o.faction==='cao'&&o.location==='chenliu'&&treasureResident(s,o.unit.id));storage(s,'brightArmor','xuchang');
+ const before=serializeCampaign(s),people=JSON.stringify(s.campaign.idle),resources=s.cities.map(c=>[c.gold,c.grain,c.manpower]);
+ assert.equal(grantTreasure(s,'brightArmor',to.unit.id,{equip:true,checkOnly:true}),null);assert.equal(serializeCampaign(s),before);
+ assert.equal(grantTreasure(s,'brightArmor',to.unit.id,{equip:true}),null);assert.equal(treasureRecord(s,'brightArmor').holderId,to.unit.id);assert.equal(to.unit.treasureId,'brightArmor');assert.equal(JSON.stringify(s.campaign.idle),people);assert.deepEqual(s.cities.map(c=>[c.gold,c.grain,c.manpower]),resources);assert.doesNotMatch(treasuresMarkup(s,{id:'brightArmor',recipientId:to.unit.id}),/跨城运送武将|data-treasure-courier/);restore(s);
+ storage(s,'medicineBook','xuchang');fieldFromCity(s,'chenliu',{ids:[to.unit.id]});const locked=serializeCampaign(s);assert.match(grantTreasure(s,'medicineBook',to.unit.id),/未出征/);assert.match(grantTreasure(s,'brightArmor','cao'),/锁定/);assert.equal(serializeCampaign(s),locked);
 });
+
+test('civil travel allows allocation while deployed troops and foreign recipients remain locked',()=>{
+ const s=newCampaign(7),o=s.campaign.idle.find(o=>o.faction==='cao'&&o.location==='xuchang'&&o.unit.id!=='cao');storage(s,'brightArmor','xuchang');assert.equal(transferOfficer(s,o.unit.id,'chenliu'),null);
+ assert.equal(grantTreasure(s,'brightArmor',o.unit.id,{equip:true}),null);assert.equal(grantTreasure(s,'brightArmor','cao',{equip:true}),null);assert.equal(treasureRecord(s,'brightArmor').holderId,'cao');assert.ok(grantTreasure(s,'brightArmor','shao'));restore(s);
+});
+
+test('AI allocates a city treasure to an eligible officer in another city without a courier',()=>{
+ const s=newCampaign(7),from=s.cities.find(c=>c.id==='guandu'),to=s.cities.find(c=>c.id==='baima');to.units.push(...from.units);from.units=[];from.governor=null;for(const o of s.campaign.idle.filter(o=>o.faction==='yuan'&&o.location===from.id))o.location=to.id;
+ storage(s,'brightArmor',from.id);const people=s.campaign.idle.length;manageTreasuresAI(s);const t=treasureRecord(s,'brightArmor'),holder=treasureOfficerRows(s).find(o=>o.unit.id===t.holderId);assert.equal(t.state,'person');assert.equal(holder.location,to.id);assert.equal(holder.unit.treasureId,t.id);assert.equal(s.campaign.idle.length,people);restore(s);
+});
+
 test('treasure bond never grants an unlearned level or bypasses the individual and holder caps',()=>{
  const u=makeOfficer('cao',3000,0,10,2),levels={bondScholar:1,bondGuard:2};u.treasureId='artOfWar';assert.deepEqual(treasureBondBonus(u,levels),{id:'bondScholar',points:1});assert.equal(treasureBondBonus(u,{bondGuard:2}),null);assert.equal(treasureBondBonus(u,{bondScholar:3}),null);assert.equal(treasureBondBonus(u,{bondScholar:2,bondGuard:2,bondPower:2}),null);
  const units=Array.from({length:5},(_,i)=>({...makeOfficer('cao',3000,0,10,2),id:'fixture'+i,status:'active',hp:3000,bondGrowth:{...u.bondGrowth,levels:{bondScholar:3}}})),b={sides:[{units}]};
@@ -80,7 +92,7 @@ test('domestic discovery commits the one turn roll and shared 30 day interval wi
 test('plunder requires real damage to the selected original holder and never creates an item',()=>{
  const world=newCampaign(7),d=defaultCustomBattle();d.ownTeam[0].id='person-204';d.enemyTeam[0].treasureId='skyHalberd';const s=generateBattle(d);lockDeployment(s.battle);const b=s.battle,actor=b.sides[0].units[0],target=b.sides[1].units[0];
  // The battle units still follow the real entry processor; strategic rows represent its actors.
- world.campaign.idle.push({unit:makeOfficer(actor.id,3000),faction:'cao',location:'xuchang',destination:null,remainingDays:0});const enemy=treasureOfficerRows(world).find(o=>o.unit.id===target.id);assert.ok(enemy);const t=treasureRecord(world,'skyHalberd');Object.assign(t,{state:'person',holderId:target.id,cityId:null,delivery:null});target.hp=0;target.status='defeated';b.result={winner:0,reason:'测试真实战后入口'};
+ world.campaign.idle.push({unit:makeOfficer(actor.id,3000),faction:'cao',location:'xuchang',destination:null,remainingDays:0});const enemy=treasureOfficerRows(world).find(o=>o.unit.id===target.id);assert.ok(enemy);const t=treasureRecord(world,'skyHalberd');Object.assign(t,{state:'person',holderId:target.id,cityId:null});target.hp=0;target.status='defeated';b.result={winner:0,reason:'测试真实战后入口'};
  recordTreasureDamage(b,actor,{...target,type:'gate'},1000);assert.equal(actor.treasureDamage,undefined);recordTreasureDamage(b,actor,target,target.initial*.1);const candidates=treasureCaptureCandidates(world,b),r={id:'loot-fixture',cityId:'guandu',battle:b};settleBattleTreasures(world,r,candidates);assert.equal(world.campaign.treasures.events.find(e=>e.kind==='capture').probability,.10);const count=world.campaign.treasures.events.length;settleBattleTreasures(world,r,candidates);assert.equal(world.campaign.treasures.events.length,count);assert.equal(world.campaign.treasures.items.length,24);
 });
 test('captivity seals original collections, release returns them, and death hides the same IDs',()=>{
@@ -92,11 +104,12 @@ test('captivity seals original collections, release returns them, and death hide
   if(fate==='CAPTIVE'){assert.equal(releaseCaptive(s,u.id,{automatic:true}),null);for(const id of ['brightArmor','artOfWar']){assert.equal(treasureRecord(s,id).state,'person');assert.equal(treasureRecord(s,id).holderId,u.id);}restore(s);}
  }
 });
-test('interception loses the original treasure at the route instead of creating a battle drop',()=>{
- const s=newCampaign(7),courier=s.campaign.idle.find(o=>o.location==='xuchang'&&o.unit.id!=='cao'),target=treasureOfficerRows(s).find(o=>o.faction==='cao'&&o.location==='chenliu'&&treasureResident(s,o.unit.id));storage(s,'brightArmor','xuchang');grantTreasure(s,'brightArmor',target.unit.id,{courierId:courier.unit.id});
+test('ordinary transport interception still loses the travelling officer original treasure',()=>{
+ const s=newCampaign(7),courier=s.campaign.idle.find(o=>o.location==='xuchang'&&o.unit.id!=='cao');storage(s,'brightArmor','xuchang');assert.equal(grantTreasure(s,'brightArmor',courier.unit.id),null);assert.equal(transferOfficer(s,courier.unit.id,'chenliu',{cargo:{gold:0,grain:100,manpower:0}}),null);
  const to=courier.journey.route[0],a=fieldFromCity(s,'guandu');a.location='xuchang';a.travel={from:'xuchang',to,road:'main',progress:roadDistance(s,'xuchang',to)*.01};a.route=[to];a.target=to;
  const battles=s.campaign.battles.length;advancePersonnel(s,courier);assert.equal(treasureRecord(s,'brightArmor').state,'hidden');assert.equal(treasureRecord(s,'brightArmor').cityId,'xuchang');assert.equal(s.campaign.battles.length,battles);assert.equal(s.campaign.treasures.items.length,24);restore(s);
 });
+
 test('Eye applies only to the actual completed eligible primary actor and records its source',()=>{
  const s=newCampaign(7),actor='person-277';s.campaign.day=10;const t=storage(s,'artOfWar','xuchang');t.state='hidden';
  recordTreasureWork(s,{id:'work:fail',key:'fair',officerId:actor,faction:'cao',cityId:'xuchang',factor:0,productive:false,finished:true});assert.equal(s.campaign.treasures.sources.length,0);

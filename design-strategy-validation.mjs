@@ -3,6 +3,13 @@ export function validateStrategyDesigns(t){
  const errors=[],check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},num=(v,min=0,max=Infinity)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
+ const support=t.strategicSupport;
+ if(fields(support,['maxMissions','reinforceRatio','guardRatio','maxTravelDays','guardFoodDays','quietDays','missionDays','minimumCargo','maximumCycles'],'strategicSupport')){
+  for(const key of ['maxMissions','maxTravelDays','guardFoodDays','quietDays','missionDays','maximumCycles'])check(Number.isSafeInteger(support[key])&&support[key]>0,'strategicSupport.'+key,'须为正整数');
+  for(const key of ['reinforceRatio','guardRatio'])check(num(support[key],1,3),'strategicSupport.'+key,'优势要求须为1至3');
+  check(support.maxMissions<=4&&support.maximumCycles>=2&&support.maximumCycles<=5,'strategicSupport','支援名额或真实往返批次超出范围');
+  if(fields(support.minimumCargo,['gold','grain','manpower'],'strategicSupport.minimumCargo'))for(const key of ['gold','grain','manpower'])check(Number.isSafeInteger(support.minimumCargo[key])&&support.minimumCargo[key]>0,'strategicSupport.minimumCargo.'+key,'须为正整数');
+ }
  const incidents=t.domesticIncidents,rules=incidents?.rules;
  if(fields(rules,['triggerChance','closeRelation','hostileRelation','hostileChance','closeChanceMultiplier','minimumRewardShare','cityLimit','historyLimit'],'domesticIncidents.rules')){
   for(const key of ['triggerChance','hostileChance','closeChanceMultiplier','minimumRewardShare'])check(num(rules[key],0,1),'domesticIncidents.rules.'+key,'须为有效概率');

@@ -1,0 +1,30 @@
+✖ disrupted external farms stop income and conquest transfers facilities without duplicating productivity (51.7933ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 453.8225
+
+✖ failing tests:
+
+test at tests\metropolitan-economy.test.mjs:45:1
+✖ disrupted external farms stop income and conquest transfers facilities without duplicating productivity (51.7933ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  1070 !== 300
+
+      at TestContext.<anonymous> (file:///C:/Users/TJX/AppData/Local/Temp/sango-ai-support-baseline-source-20261008/tests/metropolitan-economy.test.mjs:48:27)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1070,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

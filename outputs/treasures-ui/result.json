@@ -1,6 +1,7 @@
 {
   "passed": true,
   "grant": true,
+  "crossCityInstantGrant": true,
   "replacementPreview": true,
   "cancel": true,
   "reload": true,

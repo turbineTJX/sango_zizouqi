@@ -761,9 +761,9 @@ function act(action, el) {
  if(action==='ability-reference'||action==='tactic-detail'){const data=el.dataset.details?JSON.parse(el.dataset.details):abilityReference(action==='tactic-detail'?'tactic':el.dataset.kind,el.dataset.id||el.dataset.skill);if(data){if(action==='tactic-detail'){const u=inspectionUnits().find(u=>u.id===el.dataset.inspect),skill=TACTICS_BOOK[el.dataset.skill];if(u&&skill){const {unit,battle}=inspectContext(u);data.groups[0].rows.push(['威力','',tacticPowerPreview(skill,statusPower(unit,skill,battle))],['施放次数','',inspectionBattle()?'剩余 '+tacticUsesLeft(unit,skill)+'/'+tacticUseLimit(unit,skill)+' 次':'每场 '+skill.maxUses+' 次']);if(inspectionBattle())data.groups[0].rows.push(['当前限制','',tacticCondition(unit,skill,battle)]);}}if(el.dataset.effect)data.groups[0].rows.push(['当前效果','',el.dataset.effect]);ui.textDetails=data;ui.textDetailsTab=0;renderModal();}return;}
 
  if(action==='treasure-open'){ui.treasurePick={officerId:el.dataset.officer||null};ui.scenarioInspect=false;return openModal('treasures');}
- if(action==='treasure-select'){ui.treasurePick={...ui.treasurePick,id:el.dataset.id,recipientId:null,courierId:null,equip:false};renderModal();return;}
+ if(action==='treasure-select'){ui.treasurePick={...ui.treasurePick,id:el.dataset.id,recipientId:null,equip:false};renderModal();return;}
  if(action==='treasure-cancel'){ui.treasurePick={officerId:ui.treasurePick?.officerId,filter:ui.treasurePick?.filter};renderModal();return;}
- if(['treasure-confirm','treasure-equip','treasure-unequip','treasure-store'].includes(action)){const p=ui.treasurePick||{},error=action==='treasure-confirm'?grantTreasure(state,p.id,p.recipientId,{equip:!!p.equip,courierId:p.courierId}):action==='treasure-store'?storeTreasure(state,el.dataset.id):equipTreasure(state,el.dataset.officer,action==='treasure-equip'?el.dataset.id:null);if(error)return toast(error);ui.treasurePick={officerId:p.officerId,filter:p.filter};save();renderModal();return;}
+ if(['treasure-confirm','treasure-equip','treasure-unequip','treasure-store'].includes(action)){const p=ui.treasurePick||{},error=action==='treasure-confirm'?grantTreasure(state,p.id,p.recipientId,{equip:!!p.equip}):action==='treasure-store'?storeTreasure(state,el.dataset.id):equipTreasure(state,el.dataset.officer,action==='treasure-equip'?el.dataset.id:null);if(error)return toast(error);ui.treasurePick={officerId:p.officerId,filter:p.filter};save();renderModal();return;}
  if(action==='text-details'){ui.textDetails=JSON.parse(el.dataset.details);ui.textDetailsTab=0;renderModal();return;}
  if(action==='text-details-tab'){ui.textDetailsTab=Number(el.dataset.index);renderModal();return;}
  if(action==='map-city-inspect'){if(!cityVisible(state,el.dataset.town||ui.city)){ui.infoView={type:'city',id:el.dataset.town||ui.city,objectOnly:true};openModal('campaign-info');return;}ui.city=el.dataset.town||ui.city;ui.strategyTab=isJunction(state,ui.city)?'node':'city';ui.modal=null;ui.mapObject=null;ui.mapPanelOpen=false;render();$('#app [data-map-view="city"]')?.click();return;}
@@ -1068,8 +1068,7 @@ document.addEventListener('change', async event => {
  if(['scout-city','scout-officer','scout-target'].includes(event.target.id)){ui.scout??={};const field=event.target.id.slice(6);ui.scout[field]=event.target.value;if(field==='city')ui.scout.officer=null;if(field!=='target')ui.scout.target=null;renderModal();return;}
   const el = event.target, army = selectedArmy();
   if(el.hasAttribute('data-treasure-filter')){ui.treasurePick.filter=el.value;renderModal();return;}
- if(el.hasAttribute('data-treasure-recipient')){ui.treasurePick.recipientId=el.value||null;ui.treasurePick.courierId=null;renderModal();return;}
- if(el.hasAttribute('data-treasure-courier')){ui.treasurePick.courierId=el.value||null;renderModal();return;}
+ if(el.hasAttribute('data-treasure-recipient')){ui.treasurePick.recipientId=el.value||null;renderModal();return;}
  if(el.hasAttribute('data-treasure-equip')){ui.treasurePick.equip=el.checked;renderModal();return;}
  if(el.dataset.scenarioTreasure){changeScenarioSetup(ui.scenarioSetup,'treasureId',el.dataset.scenarioTreasure,el.value||null);renderModal();return;}
  if(el.hasAttribute('data-troop-range')){el.closest('.troop-slider').querySelector('input[type="number"]').dispatchEvent(new Event('change',{bubbles:true}));return;}

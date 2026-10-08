@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-08",
+  "baseline": "c8243d3",
+  "campaignVersion": 50,
+  "aiVersion": 4,
+  "treasureVersion": 2,
+  "relatedRegression": {
+    "command": "node --test tests/strategic-ai.test.mjs tests/ai-city-budget.test.mjs tests/strategic-support-ai.test.mjs tests/strategic-traits.test.mjs tests/personnel-movement.test.mjs tests/treasures.test.mjs",
+    "passed": 101,
+    "failed": 0
+  },
+  "visionRegression": {
+    "command": "node --test tests/strategic-support-ai.test.mjs tests/strategic-vision.test.mjs tests/strategic-ai-scouting.test.mjs tests/treasures.test.mjs",
+    "passed": 63,
+    "failed": 0
+  },
+  "treasureUi": {
+    "command": "npm run verify:treasures-ui",
+    "passed": true,
+    "result": "../treasures-ui/result.json"
+  },
+  "checks": {
+    "syntaxAndDesign": "npm run check",
+    "generatedTables": "node scripts/design-tables.mjs verify",
+    "documentation": "npm run docs:check",
+    "passed": true
+  },
+  "extendedRegression": {
+    "command": "node --test --test-concurrency=4 tests/*.test.mjs",
+    "status": "stopped after reproducing observed failures on original baseline; no full-suite pass claimed",
+    "observedPassed": 940,
+    "observedFailures": [
+      "controlled attrition, actual expensive troop recipes and grain losses stress separate resources",
+      "time horizons and reserve buffers retain independent conditional consumption ratios",
+      "equal-value gifts only improve real formation when they address the limiting resource",
+      "expanded ongoing statuses serialize exactly and invalid curse or phantom counts are rejected",
+      "Cao loses his unit in real combat but a victorious army keeps him, his command and learned abilities",
+      "合肥之战: historical roster, real command accumulation and saved replay",
+      "Xinye–Runan siege takes 14 marching days on the real national map",
+      "disrupted external farms stop income and conquest transfers facilities without duplicating productivity"
+    ],
+    "allObservedFailuresReproducedOnBaseline": true,
+    "baselineLogs": [
+      "original-failures.txt",
+      "original-metropolis-failure.txt"
+    ]
+  }
+}
