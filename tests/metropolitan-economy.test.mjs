@@ -1,3 +1,5 @@
+import {resolveCampaignDecisions} from './helpers/resolve-campaign-decisions.mjs';
+import {setBuildingLevel} from './building-fixtures.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -35,8 +37,9 @@ test('many actual cash workers share a saved turn allowance and continuation can
  assert.equal(beginExecution(s),null);
  for(let i=0;i<4;i++)advanceCampaignDay(s);
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));
- while(s.campaign.day<11){advanceCampaignDay(s);advanceCampaignDay(restored);assert.equal(serializeCampaign(s),serializeCampaign(restored));}
- assert.equal(c.domestic.production.gold,cityWorkLimit(s,c,'gold'));
+ for(let guard=0;s.campaign.day<11&&guard<40;guard++){resolveCampaignDecisions(s);resolveCampaignDecisions(restored);advanceCampaignDay(s);advanceCampaignDay(restored);assert.equal(serializeCampaign(s),serializeCampaign(restored));}
+ assert.equal(s.campaign.day,11,'all delegated decisions must allow the world to advance');
+ const current=s.cities.find(x=>x.id===c.id);assert.equal(current.domestic.production.gold,cityWorkLimit(s,current,'gold'));
  assert.ok(s.campaign.activity.nodes.filter(e=>e.category==='domestic'&&e.cityId===c.id&&e.key==='fair'&&['complete','failure'].includes(e.phase)).length>=4);
  // Viewing the following month's unused allowance does not rewrite history.
  const before=serializeCampaign(s);assert.equal(cityWorkRemaining(s,c,'gold'),cityWorkLimit(s,c,'gold'));assert.match(cityDomesticMarkup(s,c.id),/本旬额外内政产能剩余.*多人共用/);assert.equal(serializeCampaign(s),before);
@@ -44,7 +47,7 @@ test('many actual cash workers share a saved turn allowance and continuation can
 
 test('disrupted external farms stop income and conquest transfers facilities without duplicating productivity',()=>{
  const s=newCampaign(417,'guandu-200'),c=s.cities.find(c=>c.id==='jinyang'),small=metropolitanMembers(s,c).find(n=>n.citySize==='small');c.governor=null;
- c.farm=2;c.domestic.buildingSites.farm=[small.id];const before=cityIncome(s,c).grain;
+ setBuildingLevel(c,'farm',1);setBuildingLevel(c,'farm',1,small.id);const before=cityIncome(s,c).grain;
  small.owner='cao';assert.equal(cityIncome(s,c).grain,before-ECONOMY_RULES.income.grain.perFarm);
  reconcileDomestic(s);assert.equal(c.farm,1);assert.equal(small.farm,2);
  assert.equal(c.farm+small.farm,3);assert.equal(cityIncome(s,c).grain,before-ECONOMY_RULES.income.grain.perFarm);

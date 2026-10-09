@@ -24,7 +24,7 @@ for(const healer of ['liu'])test(`自然击溃守军后，${healer}继续使用�
  const unit=(id,type,troops)=>({id,type,troops,level:5,retreatAt:null});
  // An authored siege fixture: enough gate durability to observe the period
  // after the defenders fall. No intent, cooldown or wounded ledger injection.
- const fixture={...SCENARIOS.find(s=>s.id==='siege'),id:'engine-gate-support',ownName:'攻城验证军',enemyName:'守城验证军',terrain:'land',gateHp:60000,limit:480,waves:[],ownTeamRoles:{leader:'person-396',advisor:'yu',deputy:null},enemyTeamRoles:{leader:'jin',advisor:'jin',deputy:null},ownTeam:[unit('person-396','cavalry',6000),unit(healer==='liu'?'person-636':'person-433','spear',3000),unit('yu','crossbow',3000)],enemyTeam:[unit('jin','spear',1800),unit('yuanxia','archer',1800),unit('person-610','crossbow',1800)]};
+ const fixture={...SCENARIOS.find(s=>s.id==='siege'),id:'engine-gate-support',ownName:'攻城验证军',enemyName:'守城验证军',terrain:'land',gateHp:60000,limit:480,waves:[],ownTeamRoles:{leader:'person-396',advisor:'yu',},enemyTeamRoles:{leader:'jin',advisor:'jin',},ownTeam:[unit('person-396','cavalry',6000),unit(healer==='liu'?'person-636':'person-433','spear',3000),unit('yu','crossbow',3000)],enemyTeam:[unit('jin','spear',1800),unit('yuanxia','archer',1800),unit('person-610','crossbow',1800)]};
  SCENARIOS.push(fixture);t.after(()=>SCENARIOS.splice(SCENARIOS.indexOf(fixture),1));
  // Current legal troop kits: seed 2 leaves real wounded and one support use after defenders fall.
  const state=createScenario(fixture.id,2),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');

@@ -4,7 +4,12 @@ export function armyFrontlineCapacity(army){return 6+(mechanicEntries({id:army.l
 
 // Appointment snapshots fix this battle's organization even after casualties.
 export function extraFrontlineArmies(side){
- return new Set((side.commanders||[]).filter(c=>side.units.some(u=>u.armyId===c.armyId&&u.arrivalConfirmed!==false)&&mechanicEntries(c,'passive').some(({rule})=>rule.effect==='frontline'&&rule.roles.includes(c.role))).map(c=>c.armyId));
+ let commanders=[...(side.organizationCommanders||side.commanders||[])];
+ for(const e of side.appointmentEvents||[])if(e.tick===0){
+  commanders=commanders.filter(c=>c.armyId!==e.armyId);
+  for(const role of ['leader','advisor']){const u=side.units.find(u=>u.armyId===e.armyId&&u.id===e.roles[role]);if(u)commanders.push({id:u.id,armyId:u.armyId,role});}
+ }
+ return new Set(commanders.filter(c=>side.units.some(u=>u.armyId===c.armyId&&u.arrivalConfirmed!==false)&&mechanicEntries(c,'passive').some(({rule})=>rule.effect==='frontline'&&rule.roles.includes(c.role))).map(c=>c.armyId));
 }
 export const commandEntrants=side=>new Set((side.stratagemEvents||[]).filter(e=>e.key==='reinforce').flatMap(e=>e.units));
 export function frontlineCapacity(b,side){const s=b.sides[side],ids=commandEntrants(s);return 6+(extraFrontlineArmies(s).size?1:0)+s.units.filter(u=>ids.has(u.id)&&u.status==='active'&&u.hp>0).length;}

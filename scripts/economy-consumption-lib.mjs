@@ -20,7 +20,7 @@ const accumulate=(sum,part)=>{for(const key of Object.keys(sum))sum[key]+=part[k
 export function consumptionTrial(profile,{seed=9001,days=120,reserveBuffer=10000,frontTroops=2500}={}){
  const s=newCampaign(seed),c=s.cities.find(c=>c.id==='xuchang');s.armies=[];s.campaign.idle=[];s.campaign.domestic.assignments=[];s.campaign.domestic.orders=[];
  for(const town of s.cities)town.units=[];
- c.barracks=5;c.granary=5;c.water=true;c.domestic.techs=Object.keys(TROOP_DESIGNS);c.manpower=30000;c.grain=60000;c.gold=30000;
+ c.barracks=5;c.granary=5;c.water=true;c.domestic.techs=[...new Set(profile.frontTypes.map(type=>TROOP_DESIGNS[type].technology).filter(Boolean))];c.manpower=30000;c.grain=60000;c.gold=30000;
  c.units=['spear',...profile.frontTypes].map((type,i)=>{const u=makeOfficer('person-'+(715+i),0,0,1);resourceRecipe(u,type);u.troops=0;u.wounded=0;u.homeCity=c.id;return u;});
  const formationBefore={gold:c.gold,grain:c.grain,manpower:c.manpower};
  // Respect the same per-turn quota when initially raising more than 7000 men.

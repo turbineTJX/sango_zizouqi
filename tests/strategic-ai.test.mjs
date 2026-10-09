@@ -110,7 +110,7 @@ test('a threatened home preserves defense while its troops are already fighting'
  const {s,home,target,rear}=scene(),policy=s.campaign.ai.factions.yuan;policy.lastReviewTurn=s.turn;
  rear.owner='neutral';rear.domestic.owner='neutral'; // A separate easy objective remains available.
  const ids=home.units.slice(0,3).map(u=>u.id);
- assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],deputy:null,target:target.id,policy:'auto'},{faction:'yuan'}),null);
+ assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:target.id,policy:'auto'},{faction:'yuan'}),null);
  beginExecution(s);for(let i=0;i<4&&!activeBattles(s).length;i++)advanceCampaignDay(s);assert.ok(activeBattles(s).length);
  home.units.forEach(u=>u.troops=100);policy.lastReviewTurn=0;s.campaign.ai.lastPlanDay=0;
  planStrategicAI(s);assert.equal(s.campaign.ai.plans.length,0);
@@ -122,7 +122,7 @@ test('AI factions still fight each other on actual hostile arrival',()=>{
  city(s,'xuchang').owner='cao';city(s,'xuchang').domestic.owner='cao';
  for(const p of Object.values(s.campaign.ai.factions))p.lastReviewTurn=s.turn;
  const ids=home.units.slice(0,3).map(u=>u.id);
- assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],deputy:null,target:target.id,policy:'auto'},{faction:'yuan'}),null);
+ assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:target.id,policy:'auto'},{faction:'yuan'}),null);
  beginExecution(s);for(let i=0;i<4&&!activeBattles(s).some(b=>b.battle.sides.every(side=>side.faction!=='cao'));i++){
   for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);
   advanceCampaignDay(s);
@@ -146,7 +146,7 @@ const next=s=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;planS
 function incoming(s,c,from,menPerUnit=3000){
  const units=['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,menPerUnit,i,3),homeCity:from.id}));
  for(const town of s.cities)town.units=town.units.filter(u=>!units.some(x=>x.id===u.id));
- const a={...cityForce(from),id:`a${s.nextId++}`,units,faction:'cao',leader:'cao',advisor:'cao',deputy:null,route:[c.id],target:c.id,stationary:false,travel:{from:from.id,to:c.id,road:'main',progress:roadLength(s,from.id,c.id)*.7},supply:2700,supplyCapacity:2700};delete a.cityForce;s.armies.push(a);return a;
+ const a={...cityForce(from),id:`a${s.nextId++}`,units,faction:'cao',leader:'cao',advisor:'cao',route:[c.id],target:c.id,stationary:false,travel:{from:from.id,to:c.id,road:'main',progress:roadLength(s,from.id,c.id)*.7},supply:2700,supplyCapacity:2700};delete a.cityForce;s.armies.push(a);return a;
 }
 test('advantageous attack retains threat-sized city defense and conserves actual men and grain',()=>{
  const {s,home,target}=scene(),before={men:men(s),grain:grain(s)},enemy=strategicPower(s,cityForce(target));planStrategicAI(s);
@@ -177,7 +177,7 @@ test('rescue uses arrival times and does not count a late column as successful r
  }
 });
 test('hungry marching columns reverse continuous road progress once without teleporting',()=>{
- const {s,home,target}=scene();const ids=home.units.slice(0,3).map(u=>u.id);assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],deputy:null,target:target.id,policy:'auto'},{faction:'yuan'}),null);
+ const {s,home,target}=scene();const ids=home.units.slice(0,3).map(u=>u.id);assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:target.id,policy:'auto'},{faction:'yuan'}),null);
  const a=s.armies[0],length=roadLength(s,home.id,target.id);Object.assign(a,{hunger:1,supply:0,travel:{from:home.id,to:target.id,progress:2,road:'main'}});planStrategicAI(s);
  assert.deepEqual(a.travel,{from:target.id,to:home.id,progress:length-2,road:'main'});assert.deepEqual(a.route,[home.id]);const returning=structuredClone(a.travel);next(s);assert.deepEqual(a.travel,returning);
 });
@@ -288,7 +288,9 @@ test('recent real interruption protects the next task across reload except when 
 });
 test('an expensive real construction near completion is protected even with more than two days left',()=>{
  const {s,home}=scene();home.workshop=0;home.gold=50000;
- for(const [key,def] of Object.entries(ACTIONS))if(def.direction==='technology'&&key!=='build_workshop')home.domestic.cooldowns[key]=10000;
+ // Isolate the real construction being measured from other lawful workers
+ // competing for the single city construction slot under faction priorities.
+ for(const [key,def] of Object.entries(ACTIONS))if((def.direction==='technology'||['build','repair'].includes(def.kind))&&key!=='build_workshop')home.domestic.cooldowns[key]=10000;
  assignDomestic(s,home.id,'technology','ju',{faction:'yuan'});beginDomesticTurn(s);const action=assignmentFor(s,'ju').action;assert.equal(action.key,'build_workshop');assert.ok(action.cost>=500);
  while(action.remaining>6){s.campaign.day++;finishDomesticDay(s);}
  assert.ok(action.remaining>2);const timing=expeditionTiming(s,home.id,['ju']);assert.equal(timing.choice,'after');assert.match(timing.reason,/高投入/);

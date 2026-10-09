@@ -38,7 +38,6 @@ export function unitAttributes(u,b=null) {
  if(on('emplaced')){atk.push({label:'架设',factor:1+statusFraction(u,'emplaced',.2)});range.push({label:'架设',add:1});}
  if(on('anchored')||on('emplaced'))move.push({label:on('anchored')?'抛锚':'架设',factor:0});
  if(u.commandBonus){atk.push({label:'主将统率',factor:1+u.commandBonus});def.push({label:'主将统率',factor:1+u.commandBonus});}
- if(u.deputyBonus)martial.push({label:'副将武力',factor:1+u.deputyBonus});
  if(u.advisorBonus)strategy.push({label:'军师智力',factor:1+u.advisorBonus});
  if(on('valor'))atk.push({label:'奋战',factor:1+statusFraction(u,'valor',.25)});
  if(on('weaken'))atk.push({label:'疲弱',factor:1-(u.statuses.weaken.fraction??statusFraction(u,'weaken',.2))});

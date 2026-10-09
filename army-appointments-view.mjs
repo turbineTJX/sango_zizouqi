@@ -1,0 +1,4 @@
+const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function appointmentFields(army,units,roles,{kind='battle',locked=false}={}){
+ return `<article class="army-appointment" data-appointment-army="${esc(army.id)}"><h4>${esc(army.name||'军团')}</h4>${['leader','advisor'].map(role=>`<label>${role==='leader'?'军团长':'军师'} <select data-${kind}-appointment-role="${role}" data-army-id="${esc(army.id)}" aria-label="${esc(army.name||'军团')}${role==='leader'?'军团长':'军师'}" ${locked&&army[role]!==null?'disabled':''}><option value="">请选择</option>${units.map(u=>`<option value="${esc(u.id)}" ${roles?.[role]===u.id?'selected':''}>${esc(u.name)} · ${role==='leader'?'统率 '+u.leadership:'智力 '+u.intellect}</option>`).join('')}</select></label>`).join('')}<button data-action="${kind}-appointments-confirm" data-army-id="${esc(army.id)}">确认任命</button></article>`;
+}

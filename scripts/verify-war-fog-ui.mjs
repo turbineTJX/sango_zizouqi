@@ -13,7 +13,7 @@ const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:por
 try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});
  browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.addInitScript(save=>{if(!localStorage.getItem('war-fog-seeded')){localStorage.setItem('sango-sovereign-v2',save);localStorage.setItem('war-fog-seeded','1');}},serializeCampaign(s));
+ await page.addInitScript(save=>{localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));if(!localStorage.getItem('war-fog-seeded')){localStorage.setItem('sango-sovereign-v2',save);localStorage.setItem('war-fog-seeded','1');}},serializeCampaign(s));
  await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();assert.equal(await page.locator('.national-world .war-fog').count(),1);assert.equal(await page.locator('[data-strategy-radar] .war-fog').count(),1);
  if(await page.locator('.modal-backdrop').count())await page.locator('.modal-header [data-action="close"]').click();
  await page.locator('[data-map-view="national"]').click();await page.screenshot({path:out+'/national.png',animations:'disabled'});

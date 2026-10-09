@@ -14,6 +14,7 @@ import {rankOfficerCandidates} from './officer-recommendation.mjs';
 import {missionUnits} from './officer-missions.mjs';
 import {PERSONNEL_SPEED,TRANSPORT_SPEED} from './personnel-movement.mjs';
 import {campaignOfficers,campaignRosterMarkup,pickerReason,pickerTitle} from './strategic-roster.mjs';
+import {siegeDefenseCandidates} from './siege-defense.mjs';
 import {DIRECTIONS,canTrain} from './domestic.mjs';
 import {armyCommanders,armyStratagems,STRATAGEMS,FACTIONS,TROOPS} from './engine.mjs';
 import {disbandCityUnits,prepareDepartureUnits,prepareSiegeUnits,armyBattle,isPlanning,findCampaignRoute,prepareCityUnits,changeCityTroop,recruitCityUnits,armyActionPoints,dailyConsumption} from './strategic-campaign.mjs';
@@ -22,16 +23,18 @@ import {troopCapacity} from './troop-capacity.mjs';
 import {troopAptitude} from './tactic-learning.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const town=mapNode;
+const preparedCommandUnit=(s,p,id)=>town(s,p.city)?.units.find(u=>u.id===id)||(p.task==='defense'?siegeDefenseCandidates(s,p.city).find(o=>o.army?.defense&&o.unit.id===id)?.unit:null);
 const button=(action,label,extra='')=>`<button class="button secondary" data-action="${action}" ${extra}>${label}</button>`;
 export const commandSteps=p=>p.task==='expedition'?['formation','unit-review','unit-select','commanders','target','review']:p.task==='march'?['target','review']:p.task==='domestic'?['direction','officers']:p.task==='governor'?['officers']:p.task==='transfer'?['officers','target','review']:['draft','defense'].includes(p.task)?['formation','unit-review','review']:['officers','review'];
 const labels={'unit-select':'选择部队',commanders:'编组军团',armies:'选择军团',direction:'选择事务',officers:'选择武将',formation:'编制部队','unit-review':'部队管理',target:'选择终点',review:'确认下令'};
 export const commandTitle=p=>p.task==='expedition'?'编组出征':p.task==='march'?'调动军团':p.task==='domestic'?'内政委任':pickerTitle(p);
 export function newCommand(s,task,city,{direction,armyId}={}){
- return {task,city,direction,armyId,step:['draft','defense','expedition'].includes(task)?'unit-review':task==='march'?(armyId?'target':'armies'):task==='domestic'&&!direction?'direction':'officers',selected:[],leader:null,advisor:null,deputy:null,types:{},equipment:{},troops:{},cargo:{gold:0,grain:0,manpower:0},reinforce:false,destination:null,policy:'auto'};
+ return {task,city,direction,armyId,step:['draft','defense','expedition'].includes(task)?'unit-review':task==='march'?(armyId?'target':'armies'):task==='domestic'&&!direction?'direction':'officers',selected:[],leader:null,advisor:null,types:{},equipment:{},troops:{},cargo:{gold:0,grain:0,manpower:0},reinforce:false,destination:null,policy:'auto'};
 }
 export function changeCommandUnit(s,p,id,field,value){
  const c=town(s,p.city),unit=campaignOfficers(s).find(r=>r.unit.id===id)?.unit;
- if(!unit||!['type','troops','siege','ship'].includes(field)||p.disbandIds?.includes(id)||!c?.units.some(u=>u.id===id)&&!p.selected.includes(id))return '部队不存在';
+ const guard=p.task==='defense'&&siegeDefenseCandidates(s,p.city).some(o=>o.army?.defense&&o.unit.id===id);
+ if(!unit||!['type','troops','siege','ship'].includes(field)||p.disbandIds?.includes(id)||!c?.units.some(u=>u.id===id)&&!p.selected.includes(id)&&p.unitOfficer!==id&&!guard)return '部队不存在';
  p.selected=[...new Set([...p.selected,id])];
  p.formationPool=[...new Set([...(p.formationPool||[]),id])];
  if(['siege','ship'].includes(field)){p.equipment??={};p.equipment[id]??=structuredClone(unit.equipment||emptyEquipment());p.equipment[id][field]=value||null;}
@@ -41,11 +44,13 @@ export function changeCommandUnit(s,p,id,field,value){
 }
 function routeItineraryMarkup(s,p,route,speed){
  if(!route)return '';
+ s=intelligenceWorld(s);
  const trip=marchItinerary(s,route.from,route.route,speed,p.policy),direct=findCampaignRoute(s,route.from,p.destination,playerFaction(s),p.policy),base=direct?marchItinerary(s,route.from,direct,speed,p.policy):null;
  const delta=base?trip.days-base.days:0,extra=base?trip.cost-base.cost:0;
  return `<section class="route-itinerary"><h3>预计行程 · ${trip.days} 天</h3><p>道路消耗 ${trip.cost} 点 · 每日行动力 ${speed.toFixed(1)}</p>${base&&extra>0?`<p class="route-comparison">较最短可通行路线多 ${extra} 点${delta>0?' · 多 '+delta+' 天':delta<0?' · 少 '+(-delta)+' 天':' · 天数相同'}。</p>`:''}<ol>${trip.legs.map(l=>`<li><b>${esc(town(s,l.from).name)} → ${esc(town(s,l.to).name)}</b><span>${l.name} · ${l.cost} 点 · ${l.days} 天</span></li>`).join('')}</ol><small>按当前速度逐段结算，到节点后次日继续；补给、士气与战斗会影响实际抵达时间。</small></section>`;
 }
 export function commandRoute(s,p){
+ s=intelligenceWorld(s);
  const a=s.armies.find(a=>a.id===p.armyId),from=p.task==='march'?(a?.travel?.to||a?.location):p.city;
  if(!from||!p.destination)return null;
  if(p.task==='transfer'&&p.relay){if(p.relay===from||p.relay===p.destination||town(s,p.relay)?.owner!==playerFaction(s))return null;const first=findCampaignRoute(s,from,p.relay,playerFaction(s)),last=findCampaignRoute(s,p.relay,p.destination,playerFaction(s));if(!first||!last)return null;let at=from,cost=0;const route=[...first,...last];for(const id of route){cost+=roadCost(s,at,id);at=id;}return {from,route,cost};}
@@ -67,7 +72,7 @@ export function prepareCommandFormation(s,p){
 }
 export function commandCanAdvance(s,p){
  if(p.step==='unit-select')return p.selected.length>0&&p.selected.length<=10;
- if(p.step==='commanders')return p.selected.includes(p.leader)&&p.selected.includes(p.advisor)&&(!p.deputy||p.selected.includes(p.deputy));
+ if(p.step==='commanders')return p.selected.includes(p.leader)&&p.selected.includes(p.advisor);
  if(p.step==='direction')return !!DIRECTIONS[p.direction];
  if(p.step==='officers')return p.selected.length>0&&(p.task!=='expedition'||p.selected.length<=10);
  if(p.step==='target')return !!p.destination&&(p.task==='march'||p.destination!==p.city&&(p.task==='expedition'||town(s,p.destination)?.owner===playerFaction(s)))&&!!commandRoute(s,p);
@@ -77,6 +82,7 @@ export function commandCanAdvance(s,p){
 }
 export function commandMarkup(s,ui,mapMarkup){
  const p=ui.officerPick,steps=commandSteps(p),index=steps.indexOf(p.step),rows=campaignOfficers(p.task==='expedition'&&['commanders','target','review'].includes(p.step)?prepareCommandFormation(s,p).state||s:s),chosen=p.selected.map(id=>rows.find(r=>r.unit.id===id)).filter(Boolean),c=town(s,p.city),a=s.armies.find(a=>a.id===p.armyId);
+ const preparedIds=p.task==='defense'?siegeDefenseCandidates(s,p.city).filter(o=>o.cityUnit||o.army).map(o=>o.unit.id):(c?.units||[]).filter(u=>!u.mission).map(u=>u.id);
  const trail=`<nav class="command-steps" aria-label="下令步骤">${steps.map((step,i)=>step==='formation'?'':`<button data-action="campaign-command-step" data-step="${step}" ${i>=index?'disabled':''} aria-current="${i===index?'step':'false'}"><small>${steps.includes('formation')?i:i+1}</small>${labels[step]}</button>`).join('')}</nav>`;
  let body='';
  if(p.step==='commanders')body='<h3>军团编组</h3>'+commanderSetupMarkup(s,chosen.map(r=>r.unit),p,{city:p.city});
@@ -91,13 +97,13 @@ export function commandMarkup(s,ui,mapMarkup){
  if(p.step==='formation'&&p.choosingMain)return {title:'选择主将',subtitle:'单选',body:campaignRosterMarkup(s,ui,{...p,single:true,selected:p.unitOfficer?[p.unitOfficer]:[]}),footer:button('campaign-unit-picker-back','返回')};
  if(p.step==='review'){
   const route=commandRoute(s,p);
-  body=`<h3>确认命令</h3><div class="command-decree"><small>${esc(c?.name)} · ${commandTitle(p)}</small><h2>${p.task==='march'?esc(a?.name):chosen.map(r=>esc(r.unit.name)).join('、')}</h2><p>${p.task==='domestic'?`委任为${DIRECTIONS[p.direction]}负责人，持续办理该方向事务。`:p.task==='governor'?'任命为本城太守。':['draft','defense'].includes(p.task)?'编制驻城部队，保留现有内政任职。':`由${esc(c?.name)}前往${esc(town(s,p.destination)?.name)}。`}</p>${route?`<p>${[route.from,...route.route].map(id=>esc(town(s,id).name)).join(' → ')} · 道路消耗 ${route.cost} 点</p>`:''}${p.task==='expedition'?`<p>军团长 ${esc(rows.find(r=>r.unit.id===p.leader)?.unit.name)} · 军师 ${esc(rows.find(r=>r.unit.id===p.advisor)?.unit.name)} · 副将 ${esc(rows.find(r=>r.unit.id===p.deputy)?.unit.name||'无')}<br>拨付携粮 ${Math.min(c.grain,chosen.length*900)} · ${chosen.length} 队</p>`:''}${a?`<p>${a.units.length} 队 · 现役 ${a.units.reduce((n,u)=>n+u.troops,0)} 人 · 携粮 ${Math.floor(a.supply)} · 每日耗粮 ${dailyConsumption(s,a).toFixed(1)}</p><p>${a.units.map(u=>esc(u.name)).join('、')}</p>`:''}${['draft','expedition','defense'].includes(p.task)?formationSummary(s,p):''}</div>`;
+  body=`<h3>确认命令</h3><div class="command-decree"><small>${esc(c?.name)} · ${commandTitle(p)}</small><h2>${p.task==='march'?esc(a?.name):chosen.map(r=>esc(r.unit.name)).join('、')}</h2><p>${p.task==='domestic'?`委任为${DIRECTIONS[p.direction]}负责人，持续办理该方向事务。`:p.task==='governor'?'任命为本城太守。':['draft','defense'].includes(p.task)?'编制驻城部队，保留现有内政任职。':`由${esc(c?.name)}前往${esc(town(s,p.destination)?.name)}。`}</p>${route?`<p>${[route.from,...route.route].map(id=>esc(town(s,id).name)).join(' → ')} · 道路消耗 ${route.cost} 点</p>`:''}${p.task==='expedition'?`<p>军团长 ${esc(rows.find(r=>r.unit.id===p.leader)?.unit.name)} · 军师 ${esc(rows.find(r=>r.unit.id===p.advisor)?.unit.name)}<br>拨付携粮 ${Math.min(c.grain,chosen.length*900)} · ${chosen.length} 队</p>`:''}${a?`<p>${a.units.length} 队 · 现役 ${a.units.reduce((n,u)=>n+u.troops,0)} 人 · 携粮 ${Math.floor(a.supply)} · 每日耗粮 ${dailyConsumption(s,a).toFixed(1)}</p><p>${a.units.map(u=>esc(u.name)).join('、')}</p>`:''}${['draft','expedition','defense'].includes(p.task)?formationSummary(s,p):''}</div>`;
  }
  if(p.step==='review'&&['march','expedition'].includes(p.task)){const marching=a||{units:chosen.map(r=>r.unit),leader:p.leader,morale:80,hunger:0};body+=routeItineraryMarkup(s,p,commandRoute(s,p),armyActionPoints(marching));}
- if(['review'].includes(p.step)&&['draft','defense','expedition'].includes(p.task)){const preview=prepareCommandFormation(s,p);const prepared=preview.state?campaignOfficers(preview.state):rows;const units=p.selected.map(id=>prepared.find(r=>r.unit.id===id)?.unit).filter(Boolean);body+=p.step==='unit-review'||p.task!=='expedition'?unitReviewMarkup(p.step==='unit-review'?units.filter(u=>u.id===p.unitOfficer):units):armyDetailsMarkup({units,leader:p.leader,advisor:p.advisor,deputy:p.deputy,morale:80,hunger:c.hunger})+combatComparison(s,units,{leader:p.leader,advisor:p.advisor,deputy:p.deputy});}
- if(p.step==='unit-review'){const ids=[...new Set([...c.units.filter(u=>!u.mission).map(u=>u.id),...p.selected])].filter(id=>!p.disbandIds?.includes(id));body=unitManagementMarkup(ids.map(id=>rows.find(r=>r.unit.id===id)?.unit).filter(Boolean).map(u=>({...u,type:p.types[u.id]||u.type,equipment:p.equipment?.[u.id]||u.equipment,troops:p.troops[u.id]??u.troops})),{equipmentCity:c,editAction:'campaign-unit-edit',disbandAction:'campaign-unit-disband',newAction:'campaign-unit-new',workbench:p.workbench,types:Object.keys(TROOPS).filter(type=>canTrain(c,type)||TROOPS[type].category==='troop'&&c.units.some(u=>u.type===type)),troopsAttribute:'data-command-troops',troopsMax:u=>commandTroopLimit(s,c,p,rows,u.id)})+(p.selected.length||p.disbandIds?.length?formationSummary(s,p):'');}
- if(p.step==='formation'&&!p.choosingMain){const ids=[...new Set([...c.units.filter(u=>!u.mission).map(u=>u.id),...p.selected])].filter(id=>!p.disbandIds?.includes(id));const units=ids.map(id=>rows.find(r=>r.unit.id===id)?.unit).filter(Boolean).map(u=>({...u,type:p.types[u.id]||u.type,equipment:p.equipment?.[u.id]||u.equipment,troops:p.troops[u.id]??u.troops}));body=unitManagementMarkup(units,{editAction:'campaign-unit-edit',newAction:'campaign-unit-new',editorId:p.unitOfficer,editorHtml:body,workbench:p.workbench});}
- if(['formation','unit-review','review'].includes(p.step)&&['draft','defense','expedition'].includes(p.task)){const returned=(p.disbandIds||[]).reduce((n,id)=>{const u=c.units.find(u=>u.id===id);return n+(u?u.troops+u.wounded:0);},0);body='<p class="command-reserves">预备兵：'+c.manpower+' 人'+(returned?' · 待解散返还：'+returned+' 人（含伤兵）':'')+'</p>'+body;if(p.disbandIds?.length)body+='<p>待解散：'+p.disbandIds.map(id=>esc(c.units.find(u=>u.id===id)?.name||id)).join('、')+'。兵员返还本城预备兵，编制金不返还；确认下令后生效。</p>'; }
+ if(['review'].includes(p.step)&&['draft','defense','expedition'].includes(p.task)){const preview=prepareCommandFormation(s,p);const prepared=preview.state?campaignOfficers(preview.state):rows;const units=p.selected.map(id=>prepared.find(r=>r.unit.id===id)?.unit).filter(Boolean);body+=p.step==='unit-review'||p.task!=='expedition'?unitReviewMarkup(p.step==='unit-review'?units.filter(u=>u.id===p.unitOfficer):units):armyDetailsMarkup({units,leader:p.leader,advisor:p.advisor,morale:80,hunger:c.hunger})+combatComparison(s,units,{leader:p.leader,advisor:p.advisor,});}
+ if(p.step==='unit-review'){const ids=[...new Set([...preparedIds,...p.selected])].filter(id=>!p.disbandIds?.includes(id));body=unitManagementMarkup(ids.map(id=>rows.find(r=>r.unit.id===id)?.unit).filter(Boolean).map(u=>({...u,type:p.types[u.id]||u.type,equipment:p.equipment?.[u.id]||u.equipment,troops:p.troops[u.id]??u.troops})),{equipmentCity:c,editAction:'campaign-unit-edit',disbandAction:'campaign-unit-disband',newAction:'campaign-unit-new',workbench:p.workbench,types:Object.keys(TROOPS).filter(type=>canTrain(c,type)||TROOPS[type].category==='troop'&&c.units.some(u=>u.type===type)),troopsAttribute:'data-command-troops',troopsMax:u=>commandTroopLimit(s,c,p,rows,u.id)})+(p.selected.length||p.disbandIds?.length?formationSummary(s,p):'');}
+ if(p.step==='formation'&&!p.choosingMain){const ids=[...new Set([...preparedIds,...p.selected])].filter(id=>!p.disbandIds?.includes(id));const units=ids.map(id=>rows.find(r=>r.unit.id===id)?.unit).filter(Boolean).map(u=>({...u,type:p.types[u.id]||u.type,equipment:p.equipment?.[u.id]||u.equipment,troops:p.troops[u.id]??u.troops}));body=unitManagementMarkup(units,{editAction:'campaign-unit-edit',newAction:'campaign-unit-new',editorId:p.unitOfficer,editorHtml:body,workbench:p.workbench});}
+ if(['formation','unit-review','review'].includes(p.step)&&['draft','defense','expedition'].includes(p.task)){const returned=(p.disbandIds||[]).reduce((n,id)=>{const u=preparedCommandUnit(s,p,id);return n+(u?u.troops+u.wounded:0);},0);body='<p class="command-reserves">预备兵：'+c.manpower+' 人'+(returned?' · 待解散返还：'+returned+' 人（含伤兵）':'')+'</p>'+body;if(p.disbandIds?.length)body+='<p>待解散：'+p.disbandIds.map(id=>esc(preparedCommandUnit(s,p,id)?.name||id)).join('、')+'。兵员返还本城预备兵，编制金不返还；确认下令后生效。</p>'; }
  if(p.task==='transfer'&&['target','review'].includes(p.step)){
   const transport=chosen.some(r=>r.unit.troops>0||r.unit.wounded>0)||p.cargo.gold>0||p.cargo.grain>0||p.cargo.manpower>0,route=commandRoute(s,p),speed=transport?TRANSPORT_SPEED:PERSONNEL_SPEED;
   if(chosen.length===1&&hasStrategicTrait(chosen[0].unit,'cycleCargo'))body+=p.step==='target'?`<label class="strategy-field">运粮批次<select data-transfer-cycles>${[0,2,3,4,5].map(n=>`<option value="${n}" ${(p.cycles||0)===n?'selected':''}>${n?n+'批往返':'单次调任'}</option>`).join('')}</select></label>`:`<p>运粮：${p.cycles||1}批，后续批次仍须实际装粮。</p>`;
@@ -118,16 +124,16 @@ function formationSummary(s,p){const preview=prepareCommandFormation(s,p);if(pre
 
 function commandTroopLimit(s,c,p,rows,id){
  const selected=new Set([...p.selected,id]),units=rows.filter(r=>selected.has(r.unit.id)).map(r=>({...r.unit,type:p.types[r.unit.id]||r.unit.type,equipment:p.equipment?.[r.unit.id]||r.unit.equipment}));
- const equipment=units.reduce((n,u)=>{const original=rows.find(r=>r.unit.id===u.id).unit;const men=original.troops+original.wounded;return n+(!c.units.some(x=>x.id===u.id)?trainingCost({...original,type:u.type},men,c):original.type!==u.type?trainingCost(u.type,men,c):0)+equipmentCost(u.equipment,original.equipment,men,c);},0);
- return troopAllocationLimit(s,{...c,gold:Math.max(0,c.gold-equipment),manpower:c.manpower+(p.disbandIds||[]).reduce((n,id)=>{const u=c.units.find(u=>u.id===id);return n+(u?u.troops+u.wounded:0);},0)},units.find(u=>u.id===id),p.troops,units);
+ const equipment=units.reduce((n,u)=>{const row=rows.find(r=>r.unit.id===u.id),original=row.unit,prepared=c.units.some(x=>x.id===u.id)||p.task==='defense'&&row.army?.defense;const men=original.troops+original.wounded;return n+(!prepared?trainingCost({...original,type:u.type},men,c):original.type!==u.type?trainingCost(u.type,men,c):0)+equipmentCost(u.equipment,original.equipment,men,c);},0);
+ return troopAllocationLimit(s,{...c,gold:Math.max(0,c.gold-equipment),manpower:c.manpower+(p.disbandIds||[]).reduce((n,id)=>{const u=preparedCommandUnit(s,p,id);return n+(u?u.troops+u.wounded:0);},0)},units.find(u=>u.id===id),p.troops,units);
 }
 
 export function removeCommandUnit(s,p,id){
- const c=town(s,p.city),existing=c?.units.find(u=>u.id===id);
+ const existing=preparedCommandUnit(s,p,id);
  if(!existing&&!p.selected.includes(id))return '部队不存在';
  if(existing){const preview=structuredClone(s);const error=p.task==='defense'?prepareSiegeUnits(s,p.battleId,[],{},false,{},[id]).error:disbandCityUnits(preview,p.city,[id]);if(error)return error;p.disbandIds=[...new Set([...(p.disbandIds||[]),id])];}
  for(const key of ['selected','formationPool','armySelection'])if(p[key])p[key]=p[key].filter(x=>x!==id);
- for(const role of ['leader','advisor','deputy'])if(p[role]===id)p[role]=null;
+ for(const role of ['leader','advisor'])if(p[role]===id)p[role]=null;
  delete p.types[id];delete p.troops[id];if(p.equipment)delete p.equipment[id];if(p.unitOfficer===id)p.unitOfficer=null;
  return '';
 }

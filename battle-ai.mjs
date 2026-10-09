@@ -8,6 +8,7 @@ import {arrivedReserves,refreshCandidates,needsCommandRefresh} from './stratagem
 import {tacticUsesLeft} from './tactic-tempo.mjs';
 import {learnedTacticIds} from './tactic-learning.mjs';
 import {canOccupy,unitTerrain} from './battlefield.mjs';
+import {deployBattleUnit} from './battle-deployment.mjs';
 import {hexDistance} from './hex-grid.mjs';
 import {unitAttributes,isRear} from './unit-stats.mjs';
 import {validLoadout,configureTactics,unitTactics,hasStatus,NEGATIVE_STATUSES,recoverableWounded} from './tactics.mjs';
@@ -71,9 +72,9 @@ export function rankEnemyReserves(b,candidates,side=1){
 }
 
 // Enemy planning uses public combat information, stable ordering, and no RNG.
-export function planEnemyArmy(b){
+export function planEnemyArmy(b,side=1){
   if(b.tick!==0||b.deploymentLocked)return;
-  const units=b.sides[1].units;
+  const units=b.sides[side].units;
   const stats=new Map(units.map(u=>[u,unitAttributes(u,b)]));
   const strength=u=>Math.max(stats.get(u).attack,stats.get(u).martialPower,stats.get(u).strategyPower);
   const byStrength=(a,c)=>Number(c.status==='active')-Number(a.status==='active')||strength(c)-strength(a)||a.id.localeCompare(c.id);
@@ -82,31 +83,34 @@ export function planEnemyArmy(b){
     if(!validLoadout(u,u.tactics))configureTactics(u,learnedTacticIds(u));
     u.formation=combatFamily(u)==='cavalry'?'left':isRear(u)?'back':'front';
   }
-  const formation=formationTier(b,1)>0?formationCells(b,1):[];
+  const formation=formationTier(b,side)>0?formationCells(b,side):[];
   const active=units.filter(u=>u.status==='active'&&u.hp>0);
-  const occupied=new Set(b.sides[0].units.filter(u=>u.status==='active').map(u=>`${u.x},${u.y}`));
+  const occupied=new Set(b.sides[1-side].units.filter(u=>u.status==='active').map(u=>`${u.x},${u.y}`));
   const frontRows=[3,4,2,5,1,6],wingRows=[1,6,0,7];
   // Visible enemy lanes inform flanking. Avoid spear/halberd concentrations
   // first, then approach exposed ranged troops; never inspect future RNG.
-  const enemies=b.sides[0].units.filter(u=>u.status==='active'&&u.hp>0&&isTargetable(b,u));
+  const enemies=b.sides[1-side].units.filter(u=>u.status==='active'&&u.hp>0&&isTargetable(b,u));
   const lane=(y,predicate)=>enemies.filter(predicate).reduce((n,u)=>n+u.hp/(1+Math.abs(y-u.y)),0);
   const counters=u=>['spear','halberd'].includes(combatFamily(u));
   wingRows.sort((a,c)=>lane(a,counters)-lane(c,counters)||lane(c,isRear)-lane(a,isRear));
   const supportCore=active.filter(u=>['spear','halberd','cavalry'].includes(combatFamily(u))).sort(byStrength)[0];
-  let front=0,wing=0,rear=0;
+  let front=0,wing=0,rear=0;const placements=[];
   // Place the line and damage dealers before auxiliaries, so the latter can
   // cover an actual friendly position instead of an unrelated preferred cell.
   for(const u of [...active].sort((a,c)=>Number(hasTrait(a,'formationSupport'))-Number(hasTrait(c,'formationSupport'))||Number(isRear(a))-Number(isRear(c))||a.id.localeCompare(c.id))){
     const preferredY=combatFamily(u)==='ship'?[3,4][front++%2]:combatFamily(u)==='cavalry'?wingRows[wing++%4]:isRear(u)?frontRows[rear++%6]:frontRows[front++%6];
-    const preferredX=combatFamily(u)==='ship'?10:combatFamily(u)==='cavalry'?10:combatFamily(u)==='siege'?12:isRear(u)?11:9;
+    const ownX=x=>side===1?x:13-x;
+    const preferredX=ownX(combatFamily(u)==='ship'?10:combatFamily(u)==='cavalry'?10:combatFamily(u)==='siege'?12:isRear(u)?11:9);
     const candidates=[];
-    for(let x=9;x<14;x++)for(let y=0;y<8;y++){
+    for(let col=9;col<14;col++)for(let y=0;y<8;y++){
+      const x=ownX(col);
       if(!canOccupy(b,u,x,y)||occupied.has(`${x},${y}`))continue;
       const ground=unitTerrain(b,{...u,x,y});
       let score=Math.abs(x-preferredX)*4+Math.abs(y-preferredY)*2;
       if(hasTrait(u,'formationSupport')&&supportCore&&u!==supportCore){
-        score+=Math.max(0,hexDistance({x,y},supportCore)-1)*20;
-        if(x<supportCore.x)score+=20;
+        const core=placements.find(p=>p.u===supportCore)||supportCore;
+        score+=Math.max(0,hexDistance({x,y},core)-1)*20;
+        if(side===1?x<core.x:x>core.x)score+=20;
       }
       if(combatFamily(u)==='cavalry')score+=({forest:7,marsh:10,hill:3,bridge:4}[ground]||0);
       if(unitAttributes(u,b).range>1&&ground==='hill')score-=6;
@@ -115,9 +119,12 @@ export function planEnemyArmy(b){
       if(formation.some(p=>p.x===x&&p.y===y))score-=u.bondGrowth?.levels.bondGuard?18:9;
       candidates.push({x,y,score});
     }
-    candidates.sort((a,c)=>a.score-c.score||a.x-c.x||a.y-c.y);
-    const cell=candidates[0];if(cell){u.x=cell.x;u.y=cell.y;occupied.add(`${u.x},${u.y}`);}
+    candidates.sort((a,c)=>a.score-c.score||(side===1?a.x-c.x:c.x-a.x)||a.y-c.y);
+    const cell=candidates[0];if(cell){placements.push({u,...cell});occupied.add(`${cell.x},${cell.y}`);}
   }
+  if(placements.length!==active.length)return;
+  for(const u of active){u.status='reserve';u.x=-1;u.y=-1;}
+  for(const {u,x,y} of placements){const error=deployBattleUnit(b,u.id,x,y,side);if(error)throw Error(error);}
 }
 
 // Fixed trigger order, independent of troop strength, expected benefit or RNG.

@@ -6,7 +6,7 @@ export function appointTestCommanders(state,leader,advisor){
   const index=army.units.findLastIndex(u=>![leader,advisor].includes(u.id));
   army.units[index]=initializeTacticLearning(makeOfficer(id,3000,index,5),state.seed);
  }
- army.leader=leader;army.advisor=advisor;army.deputy=army.units.find(u=>u.id!==leader)?.id??null;
+ army.leader=leader;army.advisor=advisor;
 }
 
 // Isolated command/effect fixtures still need a real living provider. Put any

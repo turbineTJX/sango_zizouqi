@@ -9,7 +9,7 @@ for(const seed of [1709,2027]){
  fillFactionAppointments(s);
  const target=s.cities.find(c=>c.id==='ye');if(target.owner===home.owner||!target.units.some(u=>u.troops>0)||!findCampaignRoute(s,home.id,target.id,home.owner))throw Error('Audit requires a reachable, genuinely defended hostile city');
  const initialExpedition={units:units.length,troops:units.map(u=>u.troops),target:target.id};
- const error=launchExpedition(s,{kind:'expedition',cityId:home.id,officerIds:ids,leader:ids[0],advisor:units.reduce((best,u)=>u.intellect>best.intellect?u:best).id,deputy:null,target:target.id,policy:'auto'});
+ const error=launchExpedition(s,{kind:'expedition',cityId:home.id,officerIds:ids,leader:ids[0],advisor:units.reduce((best,u)=>u.intellect>best.intellect?u:best).id,target:target.id,policy:'auto'});
  if(error)throw Error(error);
  const departures=new Map(),samples=[];let guard=0;
  while(s.campaign.day<121&&!s.finished&&guard++<1500){

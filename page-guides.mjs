@@ -95,7 +95,7 @@ export const PAGE_GUIDES={
   ['任军团长','根据统军能力、特性与持有军略选择。'],
   ['任军师','根据谋略能力、特性与持有军略选择，查看当前军团能够使用的军略。'],
   ['核阅军团','查看人员、兵力、羁绊与实际效果，再继续选路或确认。']
- ],['军略按明确人物名单固定分配，任军团长或军师才提供，同名不按人数叠加。','没有军略资格的人不会因高智力或升级自动获得军略。']),
+ ],['军团长与军师中较高的智力决定大地图视野范围，实际军团范围内的敌情持续更新。','军略按明确人物名单固定分配，任军团长或军师才提供，同名不按人数叠加。','没有军略资格的人不会因高智力或升级自动获得军略。']),
  routes:guide('大地图选路','出征与补给','沿真实道路逐段选择，核阅后下令。',[
   ['点选下一点','从出发地或当前路线末端选择相连地点，查看路线与道路用度。'],
   ['继续或设终点','“继续行进”选择下一点；“设为终点”完成路线，返回可回到上一点。'],
@@ -256,7 +256,7 @@ export function pageGuideId(ui,state){
   }
   return 'intelligence';
  }
- const modals={scouting:'scouting','scout-report':'scoutReport','city-domestic':'domestic','domestic-proposals':'proposals','city-personnel':'personnel','campaign-personnel':'personnel',officers:'personnel','owned-officers':'personnel','catalog-detail':'officer','unit-officer':'officer','unit-stats':'unit','tactic-detail':'tactics',loadout:'tactics','stratagem-picker':'stratagems','battle-building':'buildings',gate:'buildings','domestic-alerts':'reports','activity-record':'reports','harvest-review':'harvest','domestic-interruption':'interruption','diplomacy-interruption':'interruption','campaign-battles':'battles','campaign-encounters':'encounter','faction-battle':'battles','encounter-flow':'encounter',encounter:'encounter','reinforcement-arrival':'reinforcements','march-mode':'marchMode','military-flow':'armies',army:'armies','scenario-army-info':'armies','scenario-review':'custom','info-menu':'intelligence',journal:'reports',report:'battleReport','campaign-history':'replay','campaign-replay':'replay','campaign-archive':'replay',settings:'saves',archives:'saves',scenarios:'custom'};
+ const modals={'postbattle-appointments':'commanders',scouting:'scouting','scout-report':'scoutReport','city-domestic':'domestic','domestic-proposals':'proposals','city-personnel':'personnel','campaign-personnel':'personnel',officers:'personnel','owned-officers':'personnel','catalog-detail':'officer','unit-officer':'officer','unit-stats':'unit','tactic-detail':'tactics',loadout:'tactics','stratagem-picker':'stratagems','battle-building':'buildings',gate:'buildings','domestic-alerts':'reports','activity-record':'reports','harvest-review':'harvest','domestic-interruption':'interruption','diplomacy-interruption':'interruption','campaign-battles':'battles','campaign-encounters':'encounter','faction-battle':'battles','encounter-flow':'encounter',encounter:'encounter','reinforcement-arrival':'reinforcements','march-mode':'marchMode','military-flow':'armies',army:'armies','scenario-army-info':'armies','scenario-review':'custom','info-menu':'intelligence',journal:'reports',report:'battleReport','campaign-history':'replay','campaign-replay':'replay','campaign-archive':'replay',settings:'saves',archives:'saves',scenarios:'custom'};
  if(modal==='treasures')return 'treasures';
  if(['split','merge'].includes(modal))return 'armies';
  if(['reset','archive-confirm'].includes(modal))return 'saves';

@@ -16,7 +16,7 @@ function encounter(entries,seed=710321){
     const u=makeOfficer(enemyIds[i],troops,i,5,seed);u.type=type==='ship'?'archer':type;if(type==='ship')u.equipment.ship='ship';
     initializeTacticLearning(u,seed);return u;
   });
-  enemy.leader=enemy.units[0].id;enemy.advisor=enemy.units[0].id;enemy.deputy=null;
+  enemy.leader=enemy.units[0].id;enemy.advisor=enemy.units[0].id;
   own.location=enemy.location='guandu';s.cities.find(c=>c.id==='guandu').garrison=0;
   s.pending={cityId:'guandu',attackerId:own.id,defenderIds:[enemy.id],origin:'xuchang',defenderFaction:'yuan'};
   startBattle(s,{deferEnemyDeployment:true});return s;

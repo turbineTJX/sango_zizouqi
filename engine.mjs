@@ -1,3 +1,5 @@
+import {validateBattleAppointments,commandProvidersAt,planBattleAppointmentsAI,planArrivalAppointmentsAI} from './battle-appointments.mjs';
+import {preparePostbattleAppointments,validatePendingAppointments,pendingArmyAppointments} from './postbattle-appointments.mjs';
 import {combatType,combatFamily,validEquipment,emptyEquipment,desiredForm,allowedFormTypes,canEquip,equipmentCost} from './troop-equipment.mjs';
 import {validTreasureId,treasureDesign} from './data/design/treasures.mjs';
 import {recordTreasureDamage,validTreasureBattle} from './treasure-battle.mjs';
@@ -61,6 +63,7 @@ import { TACTICS_BOOK, unitTactics, readyTactic, hasStatus, setStatus, routeTo, 
 export { TACTICS_BOOK, unitTactics, hasStatus } from './tactics.mjs';
 assertDesignTables();
 export const VERSION = 2;
+import {settleArmyAppointments,validArmyAppointmentChanges} from './army-appointments.mjs';
 export const GRID = { cols: 14, rows: 8 };
 export const COMBO = { window:3, doubleBonus:25, tripleBonus:40 };
 export { COMBAT } from './combat-rules.mjs';
@@ -146,11 +149,11 @@ export function makeOfficer(id, troops = 3000, index = 0, level = 1, learningSee
 export function newGame(seed = 521200) {
   const cities=structuredClone(DEMO_CITY_DESIGNS);
   const state = {
-    version: VERSION, rulesVersion:RULES_VERSION, officerDataVersion:4, relationshipScores:{}, relationshipTypes:{}, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
+    pendingAppointments:[], version: VERSION, rulesVersion:RULES_VERSION, officerDataVersion:4, relationshipScores:{}, relationshipTypes:{}, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
     cities, roads:structuredClone(DEMO_ROAD_DESIGNS),
     armies: [
-      { id: 'a1', name: '虎贲军', faction: 'cao', location: 'xuchang', route: [], target: null, supply: 900, morale: 80, tactic: 'balanced', leader: 'cao', advisor: 'jia', deputy: 'dun', units: STARTER_OFFICER_IDS.slice(0, 8).map((id, i) => makeOfficer(id, 3000, i)), task: '驻守' },
-      { id: 'a2', name: '河北军', faction: 'yuan', location: 'guandu', route: [], target: null, supply: 900, morale: 75, tactic: 'aggressive', leader: 'shao', advisor: 'ju', deputy: 'yan', units: STARTER_OFFICER_IDS.slice(8).map((id, i) => makeOfficer(id, 2500, i)), task: '驻守' },
+      { id: 'a1', name: '虎贲军', faction: 'cao', location: 'xuchang', route: [], target: null, supply: 900, morale: 80, tactic: 'balanced', leader: 'cao', advisor: 'jia',  units: STARTER_OFFICER_IDS.slice(0, 8).map((id, i) => makeOfficer(id, 3000, i)), task: '驻守' },
+      { id: 'a2', name: '河北军', faction: 'yuan', location: 'guandu', route: [], target: null, supply: 900, morale: 75, tactic: 'aggressive', leader: 'shao', advisor: 'ju',  units: STARTER_OFFICER_IDS.slice(8).map((id, i) => makeOfficer(id, 2500, i)), task: '驻守' },
     ],
     logs: [], battle: null, report: null, pending: null, nextId: 3, victories: 0, finished: null,
   };
@@ -211,7 +214,7 @@ export function splitArmy(state, armyId, ids) {
   const supply = Math.floor(army.supply * chosen.length / army.units.length);
   army.units = army.units.filter(u => !ids.includes(u.id)); army.supply -= supply;
   const id = `a${state.nextId++}`;
-  const created = { ...army, id, name: `${chosen[0].name}军`, units: chosen, route: [], target: null, leader: chosen[0].id, advisor: chosen.at(-1).id, deputy: chosen[1]?.id || null, supply };
+  const created = { ...army, id, name: `${chosen[0].name}军`, units: chosen, route: [], target: null, leader: chosen[0].id, advisor: chosen.at(-1).id,  supply };
   normalizeRoles(army); normalizeRoles(created);
   state.armies.push(created); log(state, `分兵立营，${created.name}于${cityById(state, army.location).name}组建。`, 'order');
   return null;
@@ -219,7 +222,6 @@ export function splitArmy(state, armyId, ids) {
 function normalizeRoles(army) {
   if (!army.units.some(u => u.id === army.leader)) army.leader = army.units[0]?.id;
   if (!army.units.some(u => u.id === army.advisor)) army.advisor = [...army.units].sort((a, b) => b.intellect - a.intellect)[0]?.id;
-  if (!army.units.some(u => u.id === army.deputy)) army.deputy = army.units.find(u => u.id !== army.leader)?.id || null;
   if (!army.units.some(u => u.first)) army.units.slice(0, armyFrontlineCapacity(army)).forEach(u => { u.first = true; });
 }
 export function mergeArmies(state, intoId, fromId) {
@@ -297,9 +299,9 @@ export function startBattle(state,{deferEnemyDeployment=false}={}) {
   const attacking = [attacker, ...supporters];
   const friendlyAttack = attacker.faction === playerFaction(state);
   const own = friendlyAttack ? attacking : defenders, enemy = friendlyAttack ? defenders : attacking;
-  const makeSide = (armies, index, faction) => ({ faction, commanders:armies.flatMap(armyCommanders),stratagemEffects:{},stratagemUses:{},stratagemEvents:[], tactic: armies[0]?.tactic || 'defensive', retreat: false, focus: null, focusUntil: 0, inspireUntil: 0, blockadeUntil:0, units: armies.flatMap(a => {
-    const leader = a.units.find(u => u.id === a.leader && u.troops > 0), advisor = a.units.find(u => u.id === a.advisor && u.troops > 0), deputy = a.units.find(u => u.id === a.deputy && u.troops > 0);
-    return [...a.units].sort((a, b) => Number(b.first) - Number(a.first)).filter(u => u.troops > 0).map(u => ({ ...combatUnit(u, a.id, index, a.morale), commandBonus: (leader?.leadership || 0) / 1000, deputyBonus: (deputy?.force || 0) / 2000, advisorBonus: (advisor?.intellect || 0) / 1000 }));
+  const makeSide = (armies, index, faction) => ({ faction, commanders:armies.flatMap(armyCommanders),organizationCommanders:armies.flatMap(armyCommanders),appointmentEvents:[],stratagemEffects:{},stratagemUses:{},stratagemEvents:[], tactic: armies[0]?.tactic || 'defensive', retreat: false, focus: null, focusUntil: 0, inspireUntil: 0, blockadeUntil:0, units: armies.flatMap(a => {
+    const leader = a.units.find(u => u.id === a.leader && u.troops > 0), advisor = a.units.find(u => u.id === a.advisor && u.troops > 0);
+    return [...a.units].sort((a, b) => Number(b.first) - Number(a.first)).filter(u => u.troops > 0).map(u => ({ ...combatUnit(u, a.id, index, a.morale), commandBonus: (leader?.leadership || 0) / 1000,  advisorBonus: (advisor?.intellect || 0) / 1000 }));
   }) });
   const sides = [makeSide(own, 0, playerFaction(state)), makeSide(enemy, 1, friendlyAttack ? p.defenderFaction : attacker.faction)];
   if (city.garrison > 0 && city.owner !== attacker.faction) {
@@ -314,20 +316,7 @@ export function startBattle(state,{deferEnemyDeployment=false}={}) {
   state.pending = null; return null;
 }
 export const activeUnits = (b, side) => b.sides[side].units.filter(u => u.status === 'active' && u.hp > 0);
-export function deployUnit(b, unitId, x, y) {
-  if (!isDeploying(b)) return '开战后位置锁定，暂停也不能移动部队';
-  if (!Number.isInteger(x) || !Number.isInteger(y) || x < 0 || x > 4 || y < 0 || y >= GRID.rows) return '请放在左侧绿色布阵区';
-  if (blockedTerrain(b,x,y)) return '城门所在格不能布置部队';
-  const unit = b.sides[0].units.find(u=>u.id === unitId && ['active','reserve'].includes(u.status) && u.hp>0);
-  if(unit && ((unit.arrivalTick||0)>b.tick||unit.arrivalConfirmed===false))return '援军尚未抵达，不能上阵';
-  if (!unit) return '请选择我军在场部队';
-  if(!canOccupy(b,unit,x,y))return '舰船只能布置在水道，陆军只能布置在陆地或桥面';
-  const occupied = b.sides.flatMap(s=>s.units).find(u=>u.status === 'active' && u.x === x && u.y === y && u !== unit);
-  if (occupied?.side === 1) return '不能与敌军重叠';
-  if(occupied&&unit.status==='active'&&!canOccupy(b,occupied,unit.x,unit.y))return '交换后的部队不符合水陆限制';
-  if (occupied) { occupied.x = unit.x; occupied.y = unit.y; if(unit.status==='reserve'){occupied.status='reserve';occupied.x=-1;occupied.y=-1;} }
-  unit.status='active';unit.x = x; unit.y = y; return null;
-}
+export {deployBattleUnit as deployUnit} from './battle-deployment.mjs';
 export function reserveDeploymentUnit(b,id,toId=null) {
   if(!isBattleCouncil(b))return '只能在开战前调整或援军军议中调整后备';
   const units=b.sides[0].units,u=units.find(u=>u.id===id&&u.hp>0&&['active','reserve'].includes(u.status));
@@ -425,6 +414,20 @@ export function fillSlots(b, side, {ai=side===1}={}) {
     if (b.tick) battleLog(b, `${unit.name}率${TROOPS[unit.type].name}补入战线。`);
   }
   if(b.deploymentLocked)grantBondEntries(b,side,entered);
+}
+export function planBattleCouncilAI(b,side=1){
+ if(!b||b.result||![0,1].includes(side)||b.sides[side].retreat)return;
+ if(isDeploying(b)||isReinforcementCouncil(b))planBattleAppointmentsAI(b,side);
+ if(isDeploying(b)){
+  for(const u of b.sides[side].units)if(u.status==='active'){u.status='reserve';u.x=-1;u.y=-1;}
+  configureBattleIntent(b,b.siege?(b.siege.attackerSide===side?'siege':'hold'):'annihilate',side);
+  fillSlots(b,side,{ai:true});planEnemyArmy(b,side);
+ }else fillSlots(b,side,{ai:true});
+ // Existing retreat thresholds are retained. Reinforcement councils never
+ // move active troops, rewrite intentions, change loadouts or reset resources.
+}
+function fillControllerSlots(b,aiSides){
+ for(const side of [0,1])if(aiSides.includes(side))planBattleCouncilAI(b,side);else fillSlots(b,side,{ai:false});
 }
 export function issueCommand(b, command, targetId = null, side = 0, {ai=side===1}={}) {
   if (!b || b.result) return '战斗已经结束';
@@ -1263,19 +1266,21 @@ function pulseFacilities(b){
 }
 // Normal games keep the enemy on AI and the player on the chosen queue.
 // Audits may run both sides through the same existing AI, without changing its policy.
-function confirmScheduledArrivals(b,pauseForReinforcements,{conditionsOnly=false}={}){
+function confirmScheduledArrivals(b,pauseForReinforcements,{conditionsOnly=false,aiSides=[]}={}){
  const units=b.sides.flatMap(s=>s.units);
  const arrivals=units.filter(u=>u.reinforcementIndex!==undefined&&!u.arrivalConfirmed&&u.status==='reserve'&&
   (u.arrivalCondition?arrivalConditionMet(b,u.arrivalCondition):!conditionsOnly&&u.arrivalTick<=b.tick));
  for(const u of arrivals){u.arrivalConfirmed=true;if(u.arrivalCondition)u.arrivalTick=b.tick;}
  for(const id of new Set(arrivals.map(u=>u.armyId))){const u=arrivals.find(u=>u.armyId===id);battleLog(b,`${u.side===0?'我军':'敌军'}援军抵达，${arrivals.filter(u=>u.armyId===id).length}队加入后备。`);}
  if(arrivals.length)applyBattleEvents(b);
+ for(const side of aiSides)if(arrivals.some(u=>u.side===side))planArrivalAppointmentsAI(b,side);
  if(pauseForReinforcements&&arrivals.some(u=>u.side===0)&&!b.sides[0].retreat)b.reinforcementCouncil='pending';
 }
 export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.includes(0)}={}) {
   if (!b || b.result || b.reinforcementCouncil) return;
+  if(isDeploying(b))for(const side of aiSides)planBattleCouncilAI(b,side);
   if (isDeploying(b) && lockDeployment(b)) return;
-  confirmScheduledArrivals(b,pauseForReinforcements);
+  confirmScheduledArrivals(b,pauseForReinforcements,{aiSides});
   if(b.reinforcementCouncil)return;
   b.tick++; b.effects = [];
   for (const side of b.sides) for (const u of side.units) {
@@ -1289,7 +1294,7 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
   tickStatuses(b);
   applyBattleEvents(b);
   for(const u of b.sides.flatMap(s=>s.units))traitEvent(b,u,'pulse');
-  fillSlots(b, 0,{ai:aiSides.includes(0)}); fillSlots(b, 1,{ai:aiSides.includes(1)});
+  fillControllerSlots(b,aiSides);
   pulseStratagemZones(b);
   pulseFacilities(b);
   for(const side of (b.tick%2?[0,1]:[1,0]))for(const u of activeUnits(b,side))if(bondOperational(b,u)){
@@ -1366,8 +1371,8 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
       }
     }
   }
-  confirmScheduledArrivals(b,pauseForReinforcements,{conditionsOnly:true});
-  if(!b.reinforcementCouncil){fillSlots(b, 0,{ai:aiSides.includes(0)}); fillSlots(b, 1,{ai:aiSides.includes(1)});}
+  confirmScheduledArrivals(b,pauseForReinforcements,{conditionsOnly:true,aiSides});
+  if(!b.reinforcementCouncil)fillControllerSlots(b,aiSides);
   const counts = [0,1].map(side => remainingUnits(b,side).length + (b.siege?.gate.side === side && b.siege.gate.hp > 0 && !b.sides[side].retreat && !(remainingUnits(b,side).length===0&&b.sides[side].units.some(u=>u.status==='withdrawn')) ? 1 : 0));
   if (!counts[0] || !counts[1]) b.result = { winner: !counts[0] && !counts[1] ? null : counts[0] ? 0 : 1, reason: b.sides.some((s,i)=>!counts[i]&&(s.retreat||s.units.some(u=>u.status==='withdrawn'))) ? '撤退' : '击溃' };
   if(!b.result&&b.holdUntil){
@@ -1433,10 +1438,12 @@ export function settleBattle(state) {
     army.morale = Math.max(25, Math.min(100, army.morale + (won ? 8 : -18))); army.route = []; army.target = null; army.task = '休整';
     if ((isAttacker && !attackWon) || (!isAttacker && attackWon)) retreatArmy(state, army, isAttacker ? context.origin : null);
   }
+  const appointments=[];
   if (b.result.winner === 0) { state.victories++; state.fame += 30; state.gold += 300; }
-  state.report = { id: b.id, city: city.name, winner: b.result.winner, reason: b.result.reason, tick: b.tick, stats, growth, captured: oldOwner !== city.owner, owner: city.owner, reward: b.result.winner === 0 ? 300 : 0 };
+  state.report = { id: b.id, city: city.name, winner: b.result.winner, reason: b.result.reason, tick: b.tick, stats, growth, appointments, captured: oldOwner !== city.owner, owner: city.owner, reward: b.result.winner === 0 ? 300 : 0 };
   log(state, `${city.name}之战${b.result.winner === 0 ? '告捷' : b.result.winner === 1 ? '失利' : '未分胜负'}，我军阵亡 ${stats[0].killed} 人，伤兵 ${stats[0].wounded} 人。`, b.result.winner === 0 ? 'good' : 'war');
   if (b.siege) state.report.gate = { remaining:b.siege.gate.hp, initial:b.siege.gate.maxHp, side:b.siege.gate.side };
+  preparePostbattleAppointments(state,b,[...context.attackingIds,...context.defenderIds]);
   state.battle = null;
   checkCampaign(state); return state.report;
 }
@@ -1511,13 +1518,14 @@ export function validateSave(value, { strategic = false } = {}) {
     require(Array.isArray(army.units) && army.units.length > 0 && army.units.length <= (strategic ? Object.keys(OFFICER_BY_ID).length : scenario ? 10 : 15) && Array.isArray(army.route) && army.route.length <= mapNodes(initial).length && army.route.every(id => cityById(value, id)) && number(army.supply) && number(army.morale, 100), '军团数据不完整');
     require(army.target === null || cityById(value, army.target));
     require(!army.route.length || army.target === army.route.at(-1));
-    for (const role of ['leader', 'advisor']) require(army.units.some(u => u.id === army[role]));
-    require(army.deputy === null || army.units.some(u => u.id === army.deputy));
+    for (const role of ['leader', 'advisor']) require(army.units.some(u => u.id === army[role])||army[role]===null&&(!army.units.some(u=>u.troops>0)||value.pendingAppointments?.some(p=>p.armyId===army.id)||strategic&&value.campaign?.battles?.some(r=>!r.settled&&r.armyIds.includes(army.id))));
+    require(!Object.hasOwn(army,'deputy'),'副将职位已取消，请重新开始');
     for (const u of army.units) {
       validateUnit(u); require(!seen.has(u.id), '武将重复'); seen.add(u.id);
     }
   }
   if(scenario)require(value.armies.filter(a=>a.faction===playerFaction(value)).flatMap(a=>a.units).reduce((n,u)=>n+u.troops+u.wounded,0)<=scenario.ownTroopBudget,'我方兵力超过总预备兵');
+  validatePendingAppointments(value,require);
   const context = p => {
     require(p && armyIds.has(p.attackerId) && cityById(value, p.cityId) && cityById(value, p.origin) && faction(p.defenderFaction) && Array.isArray(p.defenderIds) && p.defenderIds.every(id => armyIds.has(id)), '交战信息无效');
   };
@@ -1564,8 +1572,8 @@ export function validateSave(value, { strategic = false } = {}) {
     require(!scenario||b.sides[0].units.reduce((n,u)=>n+u.initial,0)<=scenario.ownTroopBudget,'我方战场兵力超过总预备兵');
     const unitIds = new Set(), positions = new Set();
     const scheduledUnits=new Map((scenario?.reinforcements||[]).flatMap((a,index)=>a.team.map(entry=>[entry.id,{army:a,index,entry}])));
+    for(const [index,side] of b.sides.entries())validateBattleAppointments(b,index,[...new Set([...b.context.attackingIds,...b.context.defenderIds])].map(id=>armyById(value,id)).filter(a=>a.faction===side.faction).flatMap(armyCommanders),require);
     b.sides.forEach((side, index) => {
-      side.commanders=[...new Set([...b.context.attackingIds,...b.context.defenderIds])].map(id=>armyById(value,id)).filter(a=>a.faction===side.faction).flatMap(armyCommanders);
       require(validPeachState(b,side)&&validReserveState(b,side),'桃园或蓄锐记录无效');
       require(side.stratagemUses&&typeof side.stratagemUses==='object'&&!Array.isArray(side.stratagemUses),'军略次数记录缺失');
       for(const [key,n] of Object.entries(side.stratagemUses))require(STRATAGEMS[key]?.maxUses&&Number.isInteger(n)&&n>0&&n<=STRATAGEMS[key].maxUses,'军略次数记录无效');
@@ -1578,14 +1586,14 @@ export function validateSave(value, { strategic = false } = {}) {
         require((index===0?b:b.enemyCommand).commandReady[last.key]===last.tick+STRATAGEMS[last.key].cooldown,'军略冷却期限无效');
         if(isAreaStratagem(STRATAGEMS[last.key]))require(validStratagemPoint(last.target),'军略选区记录无效');
         // A later reinforcement may provide a stronger copy; validate the actual caster.
-        const provider=side.commanders.find(c=>c.id===last.source?.id&&c.role===last.source?.role&&commanderStratagems(c).includes(last.key));
+        const provider=commandProvidersAt(side,last.tick).find(c=>c.id===last.source?.id&&c.role===last.source?.role&&commanderStratagems(c).includes(last.key));
         const expected=provider&&stratagemProfile(last.key,provider,last.source?.bondStrength);
         require(expected&&last.source&&validBondStrength(last.source.bondStrength),'军略施放来源缺失');
         for(const key of Object.keys(expected))require(JSON.stringify(last.source[key])===JSON.stringify(expected[key]),'军略施放来源无效');
       }
       for(const [field,p] of Object.entries(side.stratagemEffects)){
         require(p&&STRATAGEMS[p.key]?.field===field&&[0,1].includes(p.sourceSide)&&number(p.castTick,b.tick)&&p.until===side[field],'军略效果来源无效');
-        const eligible=[...new Set([...b.context.attackingIds,...b.context.defenderIds])].map(id=>armyById(value,id)).filter(a=>a.faction===b.sides[p.sourceSide].faction).flatMap(armyCommanders);
+        const eligible=commandProvidersAt(b.sides[p.sourceSide],p.castTick);
         const provider=eligible.find(c=>c.id===p.id&&c.role===p.role&&commanderStratagems(c).includes(p.key));
         require(!!provider,'军略提供者无效');require(validBondStrength(p.bondStrength),'军略羁绊快照无效');const expected=stratagemProfile(p.key,provider,p.bondStrength);
         for(const key of Object.keys(expected))require(JSON.stringify(p[key])===JSON.stringify(expected[key]),'军略强度数据无效');
@@ -1642,7 +1650,7 @@ export function validateSave(value, { strategic = false } = {}) {
           if(status?.origins!==undefined)require(Array.isArray(status.origins)&&status.origins.length<=512&&status.origins.every(o=>o&&text(o.sourceSkillName,100)&&(o.sourceName===undefined||text(o.sourceName,100))),'叠层状态来源无效');
           require(Object.hasOwn(STATUS_DEFINITIONS,key) && status && number(status.until),'状态数据无效');
           if(['magicImmune','rapidAdvance','commandInvincible'].includes(key)||status.sourceCommand){
-            const strategy=STRATAGEMS[status.sourceCommand],provider=b.sides.flatMap(s=>s.commanders).find(c=>c.id===status.sourceId&&commanderStratagems(c).includes(status.sourceCommand)),p=provider&&stratagemProfile(status.sourceCommand,provider);
+            const strategy=STRATAGEMS[status.sourceCommand],provider=b.sides.flatMap(s=>commandProvidersAt(s,status.castTick)).find(c=>c.id===status.sourceId&&commanderStratagems(c).includes(status.sourceCommand)),p=provider&&stratagemProfile(status.sourceCommand,provider);
             const specialProtection=!!strategy?.disciplineDuration,postControl=key==='resolve'&&strategy?.effect==='stun';
             const duration=specialProtection&&p?commandProtectionDuration(status.protectionDiscipline,p.power):key==='resolve'?(postControl?p?.duration+3:p?.resolve):p?.duration;
             const validDuration=(!specialProtection||Number.isFinite(status.protectionDiscipline)&&status.protectionDiscipline>=0&&status.protectionDiscipline<=100000)&&status.duration===(postControl?p?.duration:duration);
@@ -1671,7 +1679,7 @@ export function validateSave(value, { strategic = false } = {}) {
             require(validEscortStatus(b,u,key,status),'护卫护盾来源或比例无效');
             for(const layer of status.layers.filter(l=>l.sourceTreasure||l.source.startsWith('treasure:'))){const d=treasureDesign(layer.sourceTreasure),e=u.treasureEntry;require(d?.status==='shield'&&e?.id===layer.sourceTreasure&&layer.source==='treasure:'+e.id&&layer.sourceId===u.id&&layer.until===e.until&&layer.amount<=e.amount&&layer.label===d.name+' · 护盾'&&layer.bondGuardTier===undefined&&layer.sourceCommand===undefined,'宝物护盾来源或额度无效');}
             for(const layer of status.layers.filter(l=>l.sourceCommand||l.source.startsWith('command:'))){
-              const design=STRATAGEMS[layer.sourceCommand],provider=side.commanders.find(c=>c.id===layer.sourceId&&commanderStratagems(c).includes(layer.sourceCommand)),p=provider&&stratagemProfile(layer.sourceCommand,provider);
+              const design=STRATAGEMS[layer.sourceCommand],provider=commandProvidersAt(side,layer.castTick).find(c=>c.id===layer.sourceId&&commanderStratagems(c).includes(layer.sourceCommand)),p=provider&&stratagemProfile(layer.sourceCommand,provider);
               require(design?.effect==='shield'&&p&&layer.source==='command:'+layer.sourceCommand&&layer.label===design.name&&Number.isInteger(layer.castTick)&&layer.castTick>=0&&layer.castTick<=b.tick&&layer.until===layer.castTick+p.duration+1&&layer.amount<=Math.round(u.maxHp*p.strength),'军略护盾来源或比例无效');
             }
           }
@@ -1689,7 +1697,8 @@ export function validateSave(value, { strategic = false } = {}) {
         require(u.skillCasts === undefined || number(u.skillCasts), '战法次数无效');
         require(number(u.tacticRecoveryUntil,b.tick+TACTIC_RECOVERY_STEPS), '战法调息数据无效');
         require(u.cast===null,'不支持旧版待施放状态，请重新开始');
-        for (const key of ['commandBonus', 'deputyBonus', 'advisorBonus']) require(u[key] === undefined || Number.isFinite(u[key]) && u[key] >= 0 && u[key] <= 1);
+        require(!Object.hasOwn(u,'deputyBonus'),'副将加成已取消，请重新开始');
+        for (const key of ['commandBonus', 'advisorBonus']) require(u[key] === undefined || Number.isFinite(u[key]) && u[key] >= 0 && u[key] <= 1);
         if (u.status === 'active') { require(number(u.x, 13) && number(u.y, 7) && canOccupy(b,u,u.x,u.y) && u.hp > 0 && !positions.has(`${u.x},${u.y}`), '战场位置无效'); positions.add(`${u.x},${u.y}`); }
       }
     });
@@ -1703,7 +1712,7 @@ export function validateSave(value, { strategic = false } = {}) {
       const s=STRATAGEMS[zone?.key];
       require(s?.zone&&[0,1].includes(zone.side)&&validStratagemPoint(zone.point)&&number(zone.castTick,b.tick),'军略区域数据无效');
       const identity=zone.side+':'+zone.key;require(!zoneKeys.has(identity),'军略区域重复');zoneKeys.add(identity);
-      const own=b.sides[zone.side],provider=own.commanders.find(c=>c.id===zone.source?.id&&c.role===zone.source?.role&&commanderStratagems(c).includes(zone.key));
+      const own=b.sides[zone.side],provider=commandProvidersAt(own,zone.castTick).find(c=>c.id===zone.source?.id&&c.role===zone.source?.role&&commanderStratagems(c).includes(zone.key));
       const expected=provider&&stratagemProfile(zone.key,provider,zone.source?.bondStrength);
       require(expected&&own.stratagemUses[zone.key]===1&&zone.until===zone.castTick+expected.duration+1&&zone.until>b.tick,'军略区域来源或时效无效');
       for(const k of Object.keys(expected))require(JSON.stringify(zone.source[k])===JSON.stringify(expected[k]),'军略区域来源无效');
@@ -1763,6 +1772,7 @@ export function validateSave(value, { strategic = false } = {}) {
   }
   if (value.report !== null) {
     const r = value.report;
+    require(validArmyAppointmentChanges(r.appointments,value.armies),'战后任命记录无效');
     if(r?.reason==='坚守成功')require(scenario?.holdUntil&&r.tick>=scenario.holdUntil&&r.winner===(scenario.defending?0:1)&&r.gate?.side===r.winner&&r.gate.remaining>0&&r.stats?.[r.winner]?.remaining>0,'坚守战报无效');
     require(result(r) && text(r.id) && initial.cities.some(c => c.name === r.city) && faction(r.owner) && typeof r.captured === 'boolean' && number(r.tick, scenario?.limit || 240) && number(r.reward) && Array.isArray(r.stats) && r.stats.length === 2, '战报数据无效');
     if (scenario?.gateHp) require(r.gate && r.gate.initial === scenario.gateHp && number(r.gate.remaining,r.gate.initial) && r.gate.side === (scenario.defending||scenario.id==='defense'?0:1), '城门战报无效');

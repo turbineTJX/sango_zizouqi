@@ -87,6 +87,6 @@ const concentration=Object.fromEntries(Object.entries({lu:9000,chen:5000,gao:700
 export const adaptedPlans=['center','north','south','fortress','spread'].flatMap(formation=>[
  {id:'aptitude-'+formation,starters:'beauty',formation,types,policy:'human'},
  {id:'concentrated-'+formation,starters:'beauty',formation,types,troops:concentration,policy:'human'},
- {id:'commanded-'+formation,starters:'beauty',formation,types,troops:concentration,roles:{leader:XIAPI_IDS.liao,advisor:XIAPI_IDS.chen,deputy:XIAPI_IDS.lu},policy:'human'},
+ {id:'commanded-'+formation,starters:'beauty',formation,types,troops:concentration,roles:{leader:XIAPI_IDS.liao,advisor:XIAPI_IDS.chen,},policy:'human'},
 ]);
 export function summarize(rows){const wins=rows.filter(r=>r.winner===0).length;return {n:rows.length,wins,losses:rows.filter(r=>r.winner===1).length,draws:rows.filter(r=>r.winner===null).length,winRate:wins/rows.length,remaining:rows.reduce((n,r)=>n+r.remaining[0]-r.remaining[1],0)/rows.length,gate:rows.reduce((n,r)=>n+r.gate,0)/rows.length,luAlive:rows.reduce((n,r)=>n+r.metrics.luAlive,0)/rows.length,diaoAttacks:rows.reduce((n,r)=>n+r.metrics.diaoAttacks,0)/rows.length};}

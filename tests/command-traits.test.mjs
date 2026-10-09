@@ -1,4 +1,6 @@
 import {frontlineCapacity} from '../army-trait-rules.mjs';
+import {appointBattleRoles} from '../battle-appointments.mjs';
+import {reserveDeploymentUnit} from '../engine.mjs';
 import {mechanicEntries,traitEligible} from '../trait-mechanics.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -8,7 +10,7 @@ import {passiveAttributes,passiveList} from '../passives.mjs';
 import {commanderComparison} from '../combat-comparison.mjs';
 import {officerRecommendation} from '../officer-recommendation.mjs';
 function battle(){const s=newGame(99);orderArmy(s,'a1','guandu');advanceTurn(s);assert.equal(startBattle(s),null);lockDeployment(s.battle);return s;}
-test('Jianxiong appointment changes slots without restoring retired army stat multipliers',()=>{const {battle:b}=battle(),u=b.sides[0].units[0];assert.equal(frontlineCapacity(b,0),7);assert.deepEqual(activeCommandTraits(b,u),[]);b.sides[0].commanders.find(c=>c.id==='cao'&&c.role==='leader').role='advisor';assert.equal(frontlineCapacity(b,0),6);});
+test('Jianxiong appointment changes slots without restoring retired army stat multipliers',()=>{const s=newGame(99);orderArmy(s,'a1','guandu');advanceTurn(s);assert.equal(startBattle(s),null);const b=s.battle,u=b.sides[0].units[0];assert.equal(frontlineCapacity(b,0),7);assert.deepEqual(activeCommandTraits(b,u),[]);assert.equal(appointBattleRoles(b,u.armyId,{leader:'liao',advisor:'jia'}),null);assert.equal(frontlineCapacity(b,0),6);reserveDeploymentUnit(b,b.sides[0].units.filter(u=>u.status==='active').at(-1).id);assert.equal(lockDeployment(b),null);validateSave(s);});
 test('current appointment eligibility is defined per mechanism, not generic role stats',()=>{const b=battle().battle;for(const id of ['person-368','person-668','person-226']){const rule=mechanicEntries({id})[0].rule,u={id,armyId:'fixture',side:0,hp:1000,status:'active'};b.sides[0].commanders=[{id,armyId:'fixture',role:'advisor'}];assert.ok(traitEligible(b,u,rule));b.sides[0].commanders[0].armyId='other';assert.equal(traitEligible(b,u,rule),false);}});
 test('appointment UI displays the matching trait effect and recommendation uses it',()=>{
  const s=newGame(99),a=s.armies[0],u=a.units.find(u=>u.id==='cao');

@@ -18,7 +18,7 @@ export function fixture(type,context,seed=1,profile='force') {
   b.maxTicks=160;
   const own=[[4,3],[2,2],[2,4]],enemy=context==='dense'?[[7,3],[8,3],[8,4]]:context==='charge'?[[6,2],[6,4],[8,3]]:[[10,0],[10,3],[10,6]];
   for(const side of b.sides)for(const [i,u] of side.units.entries()){
-    Object.assign(u,{hp:3000,maxHp:3000,initial:3000,troops:3000,intent:0,cooldown:0,skillReady:{},statuses:{},tacticCasts:{},skillCasts:0,level:1,commandBonus:0,deputyBonus:0,advisorBonus:0});
+    Object.assign(u,{hp:3000,maxHp:3000,initial:3000,troops:3000,intent:0,cooldown:0,skillReady:{},statuses:{},tacticCasts:{},skillCasts:0,level:1,commandBonus:0,advisorBonus:0});
     [u.x,u.y]=(u.side?enemy:own)[i];
     if(u.side){u.type=context==='charge'?'cavalry':context==='ranged'?'crossbow':'spear';u.tactics=roleTacticIds(u,'assault');}
   }

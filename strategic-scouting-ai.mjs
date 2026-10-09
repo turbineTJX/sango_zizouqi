@@ -3,7 +3,7 @@ import {mapNode} from './map-node-data.mjs';
 import {roadCost} from './road-metrics.mjs';
 import {cityIntelligence,cityVisible,directPointVisible,visionEnabled} from './strategic-vision.mjs';
 import {dispatchScout,recallScout,scoutCandidates,scoutRoute,scoutAssignments} from './scouting.mjs';
-import {activePlans,plannedOfficer} from './strategic-intent.mjs';
+import {offensivePlans,plannedOfficer} from './strategic-intent.mjs';
 import {factionsHostile,diplomaticAssignment} from './diplomacy-relations.mjs';
 import {cityPersonnel} from './city-personnel.mjs';
 import {assignmentFor,cancelDomestic} from './domestic.mjs';
@@ -33,7 +33,8 @@ function priority(s,faction,target,frontier,planned){
 export function planStrategicScouting(s,faction){
  if(!visionEnabled(s)||!s.campaign.scouting)return;
  const homes=s.cities.filter(c=>c.owner===faction),frontier=new Set(homes.flatMap(c=>adjacent(s,c.id)));
- const planned=new Set(activePlans(s).filter(p=>p.faction===faction).map(p=>p.target));
+ const planned=new Set(offensivePlans(s).filter(p=>p.faction===faction).map(p=>p.target));
+ const goal=s.campaign.ai?.factions[faction]?.strategy?.goal;if(goal?.kind==='capture'&&!['complete','cancelled'].includes(goal.status))planned.add(goal.targetCity);
  const score=id=>priority(s,faction,id,frontier.has(id),planned.has(id));
  for(const t of [...scoutAssignments(s)].filter(t=>t.faction===faction)){
   if(!score(t.targetCity)||mapNode(s,t.homeCity)?.owner!==faction)recallScout(s,t.officerId,{faction});

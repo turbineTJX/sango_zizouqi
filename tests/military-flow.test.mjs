@@ -15,7 +15,7 @@ test('recruitment affects only selected units and previews the actual cost',()=>
  assert.equal(r.error,undefined);assert.ok(r.gold>0);assert.equal(r.grain,0);assert.equal(r.army.units[0].troops,100);assert.ok(r.army.units[1].troops>100);assert.equal(serializeCampaign(s),before);validateCampaign(r.state);
 });
 test('split and merge previews preserve officers, learning and supplies',()=>{
- const {s,a}=scene(),p=newMilitaryFlow(s,a.id,'split'),u=a.units[0];p.selected=[u.id];p.roles={leader:u.id,advisor:u.id,deputy:null};const before=serializeCampaign(s),r=previewMilitaryFlow(s,p);
+ const {s,a}=scene(),p=newMilitaryFlow(s,a.id,'split'),u=a.units[0];p.selected=[u.id];p.roles={leader:u.id,advisor:u.id,};const before=serializeCampaign(s),r=previewMilitaryFlow(s,p);
  assert.equal(r.error,undefined);assert.equal(serializeCampaign(s),before);assert.equal(r.army.units.length,1);assert.deepEqual(r.army.units[0].tacticLearning,u.tacticLearning);validateCampaign(r.state);
  const merge=newMilitaryFlow(r.state,a.id,'merge');merge.target=r.army.id;const merged=previewMilitaryFlow(r.state,merge);assert.equal(merged.error,undefined);assert.equal(merged.army.units.length,a.units.length);assert.equal(merged.army.supply,a.supply);validateCampaign(merged.state);
 });

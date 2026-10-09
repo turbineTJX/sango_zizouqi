@@ -13,7 +13,7 @@ function scene(skill,seed=71,force=100,intellect=100){
  const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(skill==='repeat'?'person-186':'person-433',type)],enemyTeam:[entry('shao','spear')]});
  const b=state.battle;lockDeployment(b);const u=b.sides[0].units[0],d=b.sides[1].units[0];
  for(const v of [u,d]){v.cooldown=999;v.intent=0;v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));setStatus(b,v,'root',999);}
- Object.assign(u,{force,intellect,x:4,y:3,commandBonus:0,deputyBonus:0,advisorBonus:0});Object.assign(d,{x:skill==='repeat'?6:5,y:3});
+ Object.assign(u,{force,intellect,x:4,y:3,commandBonus:0,advisorBonus:0});Object.assign(d,{x:skill==='repeat'?6:5,y:3});
  primeTactic(u,skill);return {state,b,u,d};
 }
 

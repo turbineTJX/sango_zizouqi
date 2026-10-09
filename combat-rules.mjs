@@ -13,4 +13,4 @@ export const INTENT_STATE = Object.freeze({defeatLoss:20,nearbyDefeatLoss:10,def
 // Lower target scores win. Continuity is weaker than one hex of distance;
 // it never overrides contact, taunt, focus or a legal nearby finishing blow.
 export const TARGETING = Object.freeze({distance:9,health:7,civilianBuilding:32,continuity:4,tower:36,music:24,medical:24,siegeEquipment:16});
-export const RULES_VERSION = 114;
+export const RULES_VERSION = 116;

@@ -87,7 +87,9 @@ test('peace stops an actual live battle while preserving casualties and physical
 test('peaceful city exchange waits for actual receivers and preserves stocks and construction',()=>{
  const s=fresh(),first=s.cities.find(c=>c.id==='atlas-zhongli'),second=s.cities.find(c=>c.id==='atlas-linchuan'),grain=first.grain,techs=[...first.domestic.techs],levels=first.farm;
  assert.equal(commissionProject(s,first.id,'farm'),null);const paid=first.project;
- const {p}=proposeDiplomatic(s,{goal:'border',clauses:[...peaceTerms(60),leg('city','cao','sunce',{cityId:first.id}),leg('city','sunce','cao',{cityId:second.id}),leg('gold','cao','sunce',{amount:500})]});approveAndSign(s,p);assert.equal(first.owner,'cao');assert.equal(second.owner,'sunce');
+ // This checks physical handover, not pricing. Pay real compensation for the
+ // recipient's uncertainty about the remote city instead of giving it full intel.
+ const {p}=proposeDiplomatic(s,{goal:'border',clauses:[...peaceTerms(60),leg('city','cao','sunce',{cityId:first.id}),leg('city','sunce','cao',{cityId:second.id}),leg('gold','cao','sunce',{amount:2000})]});approveAndSign(s,p);assert.equal(first.owner,'cao');assert.equal(second.owner,'sunce');
  untilDiplomatic(s,()=>p.clauses.filter(c=>c.kind==='city').every(c=>c.status==='done'));assert.equal(first.owner,'sunce');assert.equal(second.owner,'cao');assert.deepEqual(first.domestic.techs,techs);assert.ok(first.farm>=levels);assert.ok(first.project===paid||first.farm>levels);assert.ok(first.grain>0&&grain>0);assert.ok(p.receivers);assert.equal(s.campaign.activity.nodes.some(n=>n.category==='personnel'&&n.text.includes('和平交接')&&n.phase==='CAPTIVE'),false);
 });
 

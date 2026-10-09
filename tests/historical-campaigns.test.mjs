@@ -8,15 +8,16 @@ import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle,issueCommand,battleStratagems,STRATAGEMS,validateSave,settleBattle} from '../engine.mjs';
 import {chooseEnemyCommand} from '../battle-ai.mjs';
 import {canOccupy} from '../battlefield.mjs';
+import {commanderStratagems} from '../stratagems.mjs';
 
 for(const config of HISTORICAL_CAMPAIGNS)test(`${config.name}: historical roster, real command accumulation and saved replay`,()=>{
   const state=createScenario(config.id),b=state.battle;
   assert.equal(b.terrain,config.terrain);
   for(const [side,entries] of [[0,config.ownTeam],[1,config.enemyTeam]]){
     assert.deepEqual(new Set(b.sides[side].units.map(u=>u.id)),new Set(entries.map(u=>u.id)));
-    for(const u of b.sides[side].units){assert.equal(u.type,entries.find(e=>e.id===u.id).type);assert.ok(canOccupy(b,u,u.x,u.y));}
+    for(const u of b.sides[side].units){assert.equal(u.type,entries.find(e=>e.id===u.id).type);if(u.status==='active')assert.ok(canOccupy(b,u,u.x,u.y));else assert.equal(u.status,'reserve');}
   }
-  assert.ok(battleStratagems(b).length>=1&&battleStratagems(b).length<=5,'limited repertoire follows appointed commanders');
+  const repertoire=battleStratagems(b);assert.deepEqual(repertoire,[...new Set(b.sides[0].commanders.flatMap(commanderStratagems))]);assert.ok(repertoire.length<=5,'limited repertoire follows actual appointed commanders, including an empty repertoire');
   assert.equal(b.commandProgress,0);
   assert.ok(issueCommand(b,battleStratagems(b)[0]),'commands must not bypass deployment or resource costs');
   lockDeployment(b);
@@ -31,7 +32,7 @@ for(const config of HISTORICAL_CAMPAIGNS)test(`${config.name}: historical roster
     }
     stepBattle(b);stepBattle(resumed.battle);
   }
-  assert.ok(orders>0);
+  if(repertoire.length)assert.ok(orders>0);else assert.equal(orders,0);
   assert.deepEqual(resumed.battle,b);
   assert.equal(b.result.winner,0,'default scenario must be winnable with real player orders');
   const report=settleBattle(state);

@@ -21,7 +21,7 @@ export function fateRoll(s,key){let h=s.seed>>>0;for(const c of key)h=Math.imul(
 export function removeOfficer(s,id){
  cancelDomestic(s,id,'人员离队');
  for(const c of s.cities){c.units=c.units.filter(u=>u.id!==id);if(c.governor===id)c.governor=null;}
- for(const a of s.armies){a.units=a.units.filter(u=>u.id!==id);for(const role of ['leader','advisor','deputy'])if(a[role]===id)a[role]=role==='deputy'?null:a.units.find(u=>u.troops>0)?.id||a.units[0]?.id||null;}
+ for(const a of s.armies){a.units=a.units.filter(u=>u.id!==id);for(const role of ['leader','advisor'])if(a[role]===id)a[role]=s.campaign.battles.some(r=>!r.settled&&r.armyIds.includes(a.id))?null:a.units.find(u=>u.troops>0)?.id||a.units[0]?.id||null;}
  s.campaign.idle=s.campaign.idle.filter(o=>o.unit.id!==id);
  s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);
 }
@@ -48,7 +48,7 @@ export function resolveOfficerLoss(s,{unit,faction,location,enemy,eventId,edge=n
  // Keep appointments, wounded, growth and learning; zero troops cannot fight.
  if(result==='ESCAPED'&&survivingArmy&&s.armies.includes(survivingArmy)&&!survivingArmy.disbanded&&survivingArmy.faction===faction&&survivingArmy.units.includes(unit)&&survivingArmy.units.some(u=>u!==unit&&u.troops>0)){
   delete unit.mission;unit.troops=0;
-  personnelEvent(s,eventId,'ESCAPED',unit,`${unit.name}${reason}后脱身，随${survivingArmy.name}待整编，保留原任职；补充兵员前不能参战或提供军略。`);
+  personnelEvent(s,eventId,'ESCAPED',unit,`${unit.name}${reason}后脱身，随${survivingArmy.name}待整编，战后复核军团任职；补充兵员前不能参战或提供军略。`);
   return 'ESCAPED';
  }
  treasureFate(s,unit.id,result,location);
@@ -63,13 +63,13 @@ export function resolveOfficerLoss(s,{unit,faction,location,enemy,eventId,edge=n
  personnelEvent(s,eventId,result,unit,`${unit.name}${reason}：${result==='DEAD'?'战死':result==='CAPTIVE'?`被${FACTIONS[enemy].name}俘获`:escapedHome?'脱身，正沿道路返回友城':'脱身，但已无可归城池，转为在野'}。`,{faction,siteId:location});return result;
 }
 export const ransomCost=p=>300+5*Math.max(p.unit.leadership,p.unit.force,p.unit.intellect);
-export function releaseCaptive(s,id,{ransom=false,automatic=false,diplomatic=false}={}){
+export function releaseCaptive(s,id,{ransom=false,automatic=false,diplomatic=false,faction=playerFaction(s),scheduled=false}={}){
  const p=s.campaign.domestic.people.find(p=>p.id===id&&p.status==='CAPTIVE'&&p.fate);
  if(!p)return '该武将不在被俘状态';
  if(p.diplomaticLock&&!diplomatic)return '该武将正在外交交接，须按已批准方案办理';
  if(p.custody&&!automatic)return '正在押送，抵达后可办理赎回或释放';
  const f=p.fate.originalFaction;
- if(!automatic&&(!isPlanning(s)||s.finished||!(ransom?f===playerFaction(s):p.fate.captor===playerFaction(s))))return '只能在筹划阶段处置相关俘虏';
+ if(!automatic&&(!scheduled&&(s.campaign.allAI||!isPlanning(s))||s.finished||!(ransom?f===faction:p.fate.captor===faction)))return '只能在筹划阶段处置相关俘虏';
  if(ransom){const cost=ransomCost(p);const home=factionFundingCity(s,f),captor=town(s,p.cityId);if(!home)return '已无可返回的己方城池';if(home.gold<cost)return '付款城市赎金不足';if(captor?.owner!==p.fate.captor)return '关押城市已失守';addCityGold(s,home,-cost);addCityGold(s,captor,cost);}
  s.campaign.domestic.people=s.campaign.domestic.people.filter(x=>x!==p);sendOfficerHome(s,p.unit,f,p.cityId,{edge:p.custody?.route.length?{from:p.cityId,to:p.custody.route[0],fraction:p.custody.progress/roadCost(s,p.cityId,p.custody.route[0])}:null,reason:ransom?'赎回返城':'获释返城'});
  treasureFate(s,p.unit.id,'RELEASE',p.cityId);

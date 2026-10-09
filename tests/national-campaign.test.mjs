@@ -1,3 +1,4 @@
+import {resolveCampaignDecisions} from './helpers/resolve-campaign-decisions.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -6,9 +7,9 @@ import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBa
 const restored=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function startTestSiege(s){
  const ids=s.cities.find(c=>c.id==='chenliu').units.slice(0,6).map(u=>u.id);
- assert.equal(launchExpedition(s,{cityId:'chenliu',officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],deputy:null,target:'ye',policy:'auto'}),null);
+ assert.equal(launchExpedition(s,{cityId:'chenliu',officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],target:'ye',policy:'auto'}),null);
 }
-function toDay(s,day){for(let guard=0;s.campaign.day<day&&guard<300&&!s.finished;guard++){if(s.campaign.phase==='planning')beginExecution(s);const result=advanceCampaignDay(s);if(result.encounter)for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);}return s;}
+function toDay(s,day){for(let guard=0;s.campaign.day<day&&guard<300&&!s.finished;guard++){if(s.campaign.phase==='planning')beginExecution(s);resolveCampaignDecisions(s);advanceCampaignDay(s);}return s;}
 // These long combat fixtures exercise the original four-force layouts. The
 // expanded source layouts have their own ruler/roster/marching coverage.
 for(const spec of NATIONAL_SCENARIOS.filter(s=>s.layout.startsWith('legacy'))){

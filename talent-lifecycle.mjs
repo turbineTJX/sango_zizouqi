@@ -6,10 +6,12 @@ import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {cityNeedsAgriculture,cityNeedsCommerce} from './economy.mjs';
 import {plannedOfficer,domesticIntentWeight} from './strategic-intent.mjs';
 import {diplomaticAssignment} from './diplomacy-relations.mjs';
-import {assignDomestic,assignmentFor} from './domestic.mjs';
+import {assignDomestic,assignmentFor,setDomesticPriority} from './domestic.mjs';
+import {appointGovernor} from './strategic-campaign.mjs';
 import {DIRECTIONS} from './domestic-designs.mjs';
-import {playerFaction} from './player-faction.mjs';
+import {playerFaction,isAIControlled} from './player-faction.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
+import {withCitySupplyQueries} from './city-logistics.mjs';
 import {lightPersonnelSpeed,startPersonnelJourney} from './personnel-movement.mjs';
 import {roadCost} from './strategic-movement.mjs';
 import {cityPersonnel} from './city-personnel.mjs';
@@ -58,7 +60,7 @@ export function discoverTalent(s,id,faction){
  if(!k?.locationConfirmed)report(s,'discovered',id,`发现${OFFICER_BY_ID[id].name}在${mapNode(s,p.cityId).name}，${TALENT_REASONS[attitude]}。`,faction);
  return true;
 }
-export function unknownTalent(s,cityId,faction){return s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&localContact(s,cityId,p.cityId)&&(!data(s).knowledge[faction]?.[p.id]?.locationConfirmed));}
+export function unknownTalent(s,cityId,faction){return s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&!data(s).knowledge[faction]?.[p.id]?.locationConfirmed&&localContact(s,cityId,p.cityId));}
 export function talentCandidates(s,c,mode){
  const context=talentContext(s),t=data(s),ids=mode==='hire'?s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&nearby(s,c.id,p.cityId)&&t.knowledge[c.owner]?.[p.id]?.locationConfirmed).map(p=>p.id):s.campaign.idle.filter(o=>o.faction!==c.owner&&o.faction!=='neutral'&&!o.destination&&!o.retreating&&nearby(s,c.id,o.location)&&(s.campaign.domestic.loyalty[o.unit.id]??85)<70).map(o=>o.unit.id),f=context.factions[c.owner]||{N:0,D:1};
  const candidates=[];
@@ -202,7 +204,7 @@ export function finishTalentDay(s,cancel){
    // soldiers, changing a live battle or taking the rest of an army along.
    const a=o.army;
    if(a&&!a.travel&&!a.route.length&&!a.units.some(u=>u.troops+u.wounded>0)&&!s.campaign.battles.some(b=>!b.settled&&b.armyIds.includes(a.id))){
-    a.units=a.units.filter(u=>u.id!==o.unit.id);if(!a.units.length)s.armies=s.armies.filter(x=>x!==a);else{if(!a.units.some(u=>u.id===a.leader))a.leader=a.units[0].id;if(!a.units.some(u=>u.id===a.advisor))a.advisor=a.units[0].id;if(!a.units.some(u=>u.id===a.deputy))a.deputy=null;}
+    a.units=a.units.filter(u=>u.id!==o.unit.id);if(!a.units.length)s.armies=s.armies.filter(x=>x!==a);else{if(!a.units.some(u=>u.id===a.leader))a.leader=a.units[0].id;if(!a.units.some(u=>u.id===a.advisor))a.advisor=a.units[0].id;}
     delete o.army;
    }
    // Offsite missions keep their original resident container until return.
@@ -243,9 +245,13 @@ export function refreshTalentProjects(s){
 }
 export function prepareEnemyDomestic(s){
  if(!s.campaign.scenarioId)return;
- for(const c of s.cities.filter(c=>![playerFaction(s),'neutral'].includes(c.owner))){
+ for(const faction of [...new Set(s.cities.filter(c=>isAIControlled(s,c.owner)).map(c=>c.owner))]){
+  const cities=s.cities.filter(c=>c.owner===faction),first=[cities.some(c=>cityNeedsAgriculture(s,c))?'agriculture':null,cities.some(c=>cityNeedsCommerce(s,c))?'commerce':null].filter(Boolean);
+  setDomesticPriority(s,[...first,...Object.keys(DIRECTIONS).filter(d=>!first.includes(d))],{faction,scheduled:true});
+ }
+ for(const c of s.cities.filter(c=>isAIControlled(s,c.owner))){
   if(s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===c.id))continue;
-  if(!c.governor){const best=rankOfficerCandidates(s,cityPersonnel(s,c.id).map(o=>o.unit).filter(u=>!u.mission&&!u.scouting&&!diplomaticAssignment(s,u.id)&&!plannedOfficer(s,u.id)),{task:'governor',city:c.id})[0];if(best)c.governor=best.unit.id;}
+  if(!c.governor){const best=rankOfficerCandidates(s,cityPersonnel(s,c.id).map(o=>o.unit).filter(u=>!u.mission&&!u.scouting&&!diplomaticAssignment(s,u.id)&&!plannedOfficer(s,u.id)&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(u.id))),{task:'governor',city:c.id}).find(x=>x.recommendation.available);if(best)appointGovernor(s,c.id,best.unit.id,{scheduled:true,faction:c.owner});}
   // Reuse a waiting optional worker when the city has lost its sole producer.
   // Paid active work continues; this is a real appointment, never free income.
   const priorities=[cityNeedsAgriculture(s,c)?'agriculture':null,cityNeedsCommerce(s,c)?'commerce':null].filter(Boolean);
@@ -261,7 +267,7 @@ export function prepareEnemyDomestic(s){
   const directions=Object.keys(DIRECTIONS).filter(direction=>!s.campaign.domestic.assignments.some(a=>a.cityId===c.id&&a.direction===direction));
   // Secure food staffing before optional jobs when planned soldiers outconsume
   // recurring fields. Existing appointments and active work remain intact.
-  const foodPriority=cityNeedsAgriculture(s,c),cashPriority=cityNeedsCommerce(s,c),pairs=directions.flatMap(direction=>rankOfficerCandidates(s,units,{task:'domestic',city:c.id,direction}).filter(x=>x.recommendation.available).map(x=>({...x,direction,priority:x.recommendation.score*domesticIntentWeight(s,c.id,direction)}))).sort((a,b)=>(foodPriority?Number(b.direction==='agriculture')-Number(a.direction==='agriculture'):0)||(cashPriority?Number(b.direction==='commerce')-Number(a.direction==='commerce'):0)||b.priority-a.priority||a.unit.id.localeCompare(b.unit.id)||a.direction.localeCompare(b.direction));
+  const foodPriority=cityNeedsAgriculture(s,c),cashPriority=cityNeedsCommerce(s,c),pairs=withCitySupplyQueries(s,()=>directions.flatMap(direction=>rankOfficerCandidates(s,units,{task:'domestic',city:c.id,direction}).filter(x=>x.recommendation.available).map(x=>({...x,direction,priority:x.recommendation.score*domesticIntentWeight(s,c.id,direction)}))).sort((a,b)=>(foodPriority?Number(b.direction==='agriculture')-Number(a.direction==='agriculture'):0)||(cashPriority?Number(b.direction==='commerce')-Number(a.direction==='commerce'):0)||b.priority-a.priority||a.unit.id.localeCompare(b.unit.id)||a.direction.localeCompare(b.direction)));
   const filled=new Set();for(const x of pairs){if(assigned.has(x.unit.id)||filled.has(x.direction))continue;assigned.add(x.unit.id);filled.add(x.direction);assignDomestic(s,c.id,x.direction,x.unit.id,{scheduled:true,faction:c.owner});}
   // Additional civil officers perform real autonomous work, using the same
   // recommendation scores and costs as player appointments. Never reassign work.
@@ -296,7 +302,7 @@ export function validateTalent(s){
   if(p.travel){fail(p.status==='FREE'&&Array.isArray(p.travel.path)&&p.travel.path.length>0&&p.travel.path.length<=mapNodes(s).length&&int(p.travel.remainingDays,100)&&p.travel.remainingDays>0&&Number.isFinite(p.travel.progress)&&p.travel.progress>=0&&p.travel.progress<roadCost(s,p.cityId,p.travel.path[0]));let from=p.cityId;for(const to of p.travel.path){fail(city(to)&&s.roads.some(([a,b])=>a===from&&b===to||b===from&&a===to));from=to;}}
   if(p.fate){fail(['CAPTIVE','DEAD'].includes(p.status)&&factions.has(p.fate.originalFaction)&&(p.status==='DEAD'?p.fate.captor===null:factions.has(p.fate.captor))&&int(p.fate.day,day(s))&&typeof p.fate.eventId==='string'&&typeof p.fate.reason==='string');}
   if(p.custody){const t=p.custody;fail(p.status==='CAPTIVE'&&p.fate&&city(t.destination)&&Array.isArray(t.route)&&t.route.length>0&&t.route.length<=mapNodes(s).length&&Number.isFinite(t.progress)&&t.progress>=0&&t.progress<roadCost(s,p.cityId,t.route[0]));let from=p.cityId;for(const to of t.route){fail(Number.isFinite(roadCost(s,from,to)));from=to;}fail(from===t.destination);}
-  if(p.unit){fail(p.unit.id===p.id&&city(p.unit.homeCity));const proxy=newGame();proxy.armies=[{...proxy.armies[0],units:[p.unit],leader:p.id,advisor:p.id,deputy:null}];validateSave(proxy);}
+  if(p.unit){fail(p.unit.id===p.id&&city(p.unit.homeCity));const proxy=newGame();proxy.armies=[{...proxy.armies[0],units:[p.unit],leader:p.id,advisor:p.id,}];validateSave(proxy);}
  }
  fail(seen.size===OFFICER_CATALOG.length,'人物池存在遗漏');
  const orders=new Set();

@@ -55,7 +55,7 @@ for(const spec of specs){
     const paid={gold:before.gold-s.gold,manpower:before.manpower-p.c.manpower,grain:before.grain-p.c.grain};assert.equal(paid.manpower,1000);assert.equal(paid.grain,0);
     orders.push({day:s.campaign.day,kind:'resident-defender',city:p.c.id,officerId:id,paid});
    }
-   const result=requestStrategicOrder(s,{kind:'expedition',cityId:p.c.id,officerIds:p.ids,leader,advisor,deputy:null,target:p.target.id,policy:'auto',minSupply:2700},'after');
+   const result=requestStrategicOrder(s,{kind:'expedition',cityId:p.c.id,officerIds:p.ids,leader,advisor,target:p.target.id,policy:'auto',minSupply:2700},'after');
    orders.push({day:s.campaign.day,kind:'expedition',city:p.c.id,target:p.target.id,targetFaction:p.target.owner,officerIds:p.ids,troops:p.chosen.map(u=>u.troops),travelDays:p.travelDays,result});
    if(!result.error)break;
   }

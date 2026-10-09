@@ -1,3 +1,7 @@
+import {pendingArmyAppointments,confirmPostbattleAppointments} from '../postbattle-appointments.mjs';
+import {recommendArmyAppointments} from '../army-appointments.mjs';
+import {needsSiegeDefense,relinquishSiegeDefense} from '../strategic-campaign.mjs';
+import {confirmReinforcementCouncil} from '../engine.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import {transportProxy} from '../personnel-movement.mjs';
 import test from 'node:test';
@@ -24,7 +28,12 @@ function fixture(seed=1,{emptyFollower=false}={}){
  lockDeployment(r.battle);return {s,a,d,r};
 }
 function run(s,r,until=()=>r.settled){
- for(let i=0;i<2000&&!until();i++){if(s.campaign.phase==='planning')beginExecution(s);for(const pending of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,pending.id,false);advanceCampaignStep(s);}
+ for(let i=0;i<2000&&!until();i++){
+  for(const p of [...pendingArmyAppointments(s)])assert.equal(confirmPostbattleAppointments(s,p.armyId,recommendArmyAppointments(s.armies.find(a=>a.id===p.armyId))),null);
+  if(s.campaign.phase==='planning')beginExecution(s);
+  for(const pending of activeBattles(s)){if(needsSiegeDefense(pending))relinquishSiegeDefense(s,pending.id);else if(pending.awaiting)chooseEncounter(s,pending.id,false);if(pending.battle.reinforcementCouncil)confirmReinforcementCouncil(pending.battle);}
+  advanceCampaignStep(s);
+ }
  assert.ok(until());
 }
 function nextBattle(a,enemy){
@@ -33,24 +42,26 @@ function nextBattle(a,enemy){
  assert.equal(startBattle(s),null);return s.battle;
 }
 
-test('Cao loses his unit in real combat but a victorious army keeps him, his command and learned abilities',()=>{
+test('Cao survives with his learned abilities, while battle settlement appoints a living troop commander',()=>{
  const {s,a,r}=fixture(),cao=a.units.find(u=>u.id==='cao'),learning=structuredClone(cao.tacticLearning);
  run(s,r,()=>r.battle.sides[0].units.find(u=>u.id==='cao').status==='defeated');
- assert.ok(!r.settled);assert.ok(!battleStratagems(r.battle).includes('assault'));
+ assert.ok(!r.settled);assert.ok(!battleStratagems(r.battle).includes('cao-wuchao'));
  const old=JSON.parse(serializeCampaign(s));old.campaign.version=15;assert.throws(()=>validateCampaign(old),/不兼容/);
  const resumed=restore(s),copyRecord=resumed.campaign.battles.find(x=>x.id===r.id);
  run(s,r);run(resumed,copyRecord);assert.equal(serializeCampaign(s),serializeCampaign(resumed));
- assert.equal(r.battle.result.winner,0);assert.ok(s.armies.includes(a));assert.equal(a.leader,'cao');assert.ok(a.units.includes(cao));assert.equal(cao.troops,0);
+ for(const state of [s,resumed])for(const p of [...pendingArmyAppointments(state)])assert.equal(confirmPostbattleAppointments(state,p.armyId,recommendArmyAppointments(state.armies.find(a=>a.id===p.armyId))),null);
+ assert.equal(serializeCampaign(s),serializeCampaign(resumed));
+ assert.equal(r.battle.result.winner,0);assert.ok(s.armies.includes(a));assert.notEqual(a.leader,'cao');assert.ok(a.units.some(u=>u.id===a.leader&&u.troops>0));assert.ok(a.units.includes(cao));assert.equal(cao.troops,0);
  assert.deepEqual(cao.tacticLearning,learning);assert.ok(cao.wounded>0);
  assert.ok(!s.campaign.idle.some(o=>o.unit.id==='cao'));assert.ok(!s.campaign.domestic.people.some(p=>p.id==='cao'));assert.ok(!s.cities.some(c=>c.units.some(u=>u.id==='cao')));
  assert.match(s.campaign.personnelEvents.find(e=>e.id===r.id+':cao').text,/随.*待整编/);
  assert.match(campaignInfoDetail(s,'officer','cao').sections.map(x=>x.html).join(''),/随军待整编/);
  assert.match(campaignInfoDetail(s,'army',a.id).sections.map(x=>x.html).join(''),/随军待整编/);
- assert.ok(!armyCommanders(a).some(c=>c.id==='cao'));assert.ok(!armyStratagems(a).includes('assault'));
+ assert.ok(!armyCommanders(a).some(c=>c.id==='cao'));assert.ok(!armyStratagems(a).includes('cao-wuchao'));
  const next=nextBattle(a,r.armies.find(x=>x.faction==='yuan'));
- assert.ok(!next.sides[0].units.some(u=>u.id==='cao'));assert.ok(!next.sides[0].commanders.some(c=>c.id==='cao'));assert.ok(!battleStratagems(next).includes('assault'));
- assert.ok(next.sides[0].units.every(u=>u.commandBonus===0));
- assert.ok(movementPoints(a)>movementPoints({...a,units:a.units.map(u=>u.id==='cao'?{...u,leadership:0}:u)}));
+ assert.ok(!next.sides[0].units.some(u=>u.id==='cao'));assert.ok(!next.sides[0].commanders.some(c=>c.id==='cao'));assert.ok(!battleStratagems(next).includes('cao-wuchao'));
+ const commander=a.units.find(u=>u.id===a.leader);assert.ok(next.sides[0].units.every(u=>u.commandBonus===commander.leadership/1000));
+ assert.ok(movementPoints(a)>movementPoints({...a,units:a.units.map(u=>u.id===a.leader?{...u,leadership:0}:u)}));
  const count=s.campaign.personnelEvents.length;advanceCampaignStep(s);assert.equal(s.campaign.personnelEvents.length,count);restore(s);
  // A returning army becomes independent city units; the existing legal recruit
  // action restores actual manpower and then permits this officer to fight again.
@@ -59,8 +70,8 @@ test('Cao loses his unit in real combat but a victorious army keeps him, his com
  const c=s.cities.find(c=>c.id==='xuchang');assert.ok(c.units.includes(cao));c.manpower=10000;c.grain=20000;c.drafted=0;fundCities(s,10000);
  assert.equal(recruitCityUnits(s,c.id,['cao']),null);assert.ok(cao.troops>0);assert.ok(c.manpower<10000);
  assert.deepEqual(cao.tacticLearning,learning);
- const reformed={...a,units:[cao],leader:'cao',advisor:'cao',deputy:null};
- assert.ok(armyStratagems(reformed).includes('assault'));assert.ok(nextBattle(reformed,r.armies.find(x=>x.faction==='yuan')).sides[0].units.some(u=>u.id==='cao'));restore(s);
+ const reformed={...a,units:[cao],leader:'cao',advisor:'cao',};
+ assert.ok(armyStratagems(reformed).includes('cao-wuchao'));assert.ok(nextBattle(reformed,r.armies.find(x=>x.faction==='yuan')).sides[0].units.some(u=>u.id==='cao'));restore(s);
 });
 
 test('an escaped commander returns from the actual road position after the last troops depart',()=>{

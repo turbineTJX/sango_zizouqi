@@ -26,6 +26,17 @@ test('direction appointment excludes actual idle staff and browsing does not mut
 test('envoy walks actual roads; final offer and read acknowledgement never sign or pay',()=>{
  const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id);assert.notEqual(o.unit.mission.location,o.location);assert.equal(p.approvals.cao,undefined);assert.equal(s.campaign.diplomacy.contracts.some(c=>c.id===p.id),false);assert.ok(pendingActivityReports(s).some(n=>n.result.proposalId===p.id));acknowledgeActivityReports(s,pendingActivityReports(s).map(n=>n.id));assert.equal(p.status,'pending');assert.equal(p.approvals.cao,undefined);validateCampaign(JSON.parse(serializeCampaign(s)));
 });
+
+test('player and AI approval use the same final proposal, version and lawful preflight without paying early',()=>{
+ const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));
+ const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id),ai=structuredClone(s);ai.campaign.allAI=true;
+ const before=structuredClone(s.cities);
+ assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);assert.equal(approveDiplomaticProposal(ai,p.id,p.version,{faction:'cao',automatic:true}),null);
+ const automatic=ai.campaign.diplomacy.proposals.find(q=>q.id===p.id);
+ assert.deepEqual(automatic.approvals.cao.terms,p.approvals.cao.terms);assert.equal(automatic.approvals.cao.controller,'ai');assert.equal(p.approvals.cao.controller,'player');
+ assert.deepEqual(s.cities,before);assert.deepEqual(ai.cities,before);assert.equal(automatic.status,p.status);
+ assert.match(approveDiplomaticProposal(ai,p.id,p.version,{faction:'cao',automatic:true}),/失效/);
+});
 test('approved trade escrows real assets then unloads at the confirmed ruler city exactly once',()=>{
  const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id),gold=p.clauses.find(c=>c.kind==='gold'),grain=p.clauses.find(c=>c.kind==='grain');assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);assert.match(approveDiplomaticProposal(s,p.id,p.version),/失效/);
  waitFor(s,()=>s.campaign.diplomacy.contracts.some(c=>c.id===p.id));assert.equal(p.status,'signed');assert.equal(p.escrow.find(e=>e.kind==='gold').amount,gold.amount);assert.equal(gold.delivered,0);assert.equal(p.sites.cao,lordCity(s,'cao').id);waitFor(s,()=>grain.status==='done',130);assert.equal(grain.delivered,grain.amount);assert.equal(gold.delivered,gold.amount);assert.equal(p.escrow.find(e=>e.kind==='gold').amount,0);const count=s.campaign.activity.nodes.filter(n=>n.sourceId.includes(`diplomacy:${p.id}:delivery:cao`)&&n.result.clauseId===grain.id).length;

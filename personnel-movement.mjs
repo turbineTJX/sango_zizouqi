@@ -114,7 +114,7 @@ export function validatePersonnelJourney(s,o){
  if(o.relayRoute!==undefined)fail(!!o.relayDestination&&validMapRoute(s,o.destination,o.relayDestination,o.relayRoute));
  if(o.convoyCycle?.route)fail(o.convoyCycle.route[0]===o.convoyCycle.source&&validMapRoute(s,o.convoyCycle.source,o.convoyCycle.target,o.convoyCycle.route.slice(1)));
  if(o.retreating!==undefined)fail(o.retreating===true&&(o.unit.troops>0||o.unit.wounded>0));
- if(o.retreating){const f=o.retreatFormation;fail(f&&Number.isSafeInteger(f.capacity)&&f.capacity>=o.cargo.grain&&typeof f.id==='string'&&f.id.length<=100&&typeof f.name==='string'&&f.name.length>0&&f.name.length<=30&&town(s,f.homeCity)&&Number.isFinite(f.morale)&&f.morale>=0&&f.morale<=100&&Object.hasOwn(TACTICS,f.tactic)&&['leader','advisor','deputy'].every(k=>typeof f[k]==='string'||k==='deputy'&&f[k]===null));}
+ if(o.retreating){const f=o.retreatFormation;fail(f&&Number.isSafeInteger(f.capacity)&&f.capacity>=o.cargo.grain&&typeof f.id==='string'&&f.id.length<=100&&typeof f.name==='string'&&f.name.length>0&&f.name.length<=30&&town(s,f.homeCity)&&Number.isFinite(f.morale)&&f.morale>=0&&f.morale<=100&&Object.hasOwn(TACTICS,f.tactic)&&['leader','advisor'].every(k=>typeof f[k]==='string'));}
  if(o.retreatOrigin!==undefined)fail(o.retreating===true&&o.retreatOrigin&&Array.isArray(o.retreatOrigin.armyIds)&&o.retreatOrigin.armyIds.every(id=>typeof id==='string'));
  if(o.cargo){fail((!!o.destination||o.retreating)&&!!o.journey&&['gold','grain','manpower'].every(k=>Number.isSafeInteger(o.cargo[k]??0)&&(o.cargo[k]??0)>=0));}
  fail((!!o.destination||!!o.retreating)===!!o.journey);

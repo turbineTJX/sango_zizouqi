@@ -40,6 +40,13 @@ test('hidden enemies, their losses and secret destinations do not influence guar
  const {s,foe,enemy}=scene();enemy.x=800;foe.location=enemy.id;initializeVision(s);const copy=JSON.parse(serializeCampaign(s));copy.armies.find(a=>a.id===foe.id).target=s.junctions[0].id;copy.armies.find(a=>a.id===foe.id).units[0].troops=1;
  assert.deepEqual(strategicSupportObjectives(s,'yuan'),strategicSupportObjectives(copy,'yuan'));
 });
+test('an existing corridor mission adds timely real guards after a visible threat grows',()=>{
+ const {s,source,foe}=scene();planStrategicAI(s);const mission=s.campaign.ai.supports.find(q=>q.faction==='yuan'&&q.kind==='guard'),initial=[...mission.officerIds];
+ foe.units[0].troops=6000;updateVision(s);next(s);
+ const updated=s.campaign.ai.supports.find(q=>q.id===mission.id);assert.ok(updated.officerIds.length>initial.length);assert.ok(initial.every(id=>updated.officerIds.includes(id)));
+ assert.equal(s.campaign.ai.supports.filter(q=>q.faction==='yuan'&&q.target===mission.target).length,1);assert.ok(source.units.length);validateStrategicAI(s);
+ const count=updated.officerIds.length;next(s);assert.equal(updated.officerIds.length,count);
+});
 
 test('a hopeless guard expedition leaves the real home garrison and food intact',()=>{
  const {s,source,foe}=scene();foe.units[0].troops=30000;updateVision(s);const grain=source.grain,ids=source.units.map(u=>u.id);planStrategicAI(s);assert.equal(s.campaign.ai.supports.length,0);assert.equal(source.grain,grain);assert.deepEqual(source.units.map(u=>u.id),ids);
@@ -75,7 +82,7 @@ test('support commitments reject duplicates on reload',()=>{
 
 test('AI grain convoys actually hand off at an intermediate receiving node even when crossing several roads that day',()=>{
  const {s,source,front,rear,enemy,node,client,foe}=scene();front.grain=5000;rear.grain=5000;enemy.owner='yuan';enemy.domestic.owner='yuan';enemy.x=800;foe.location=enemy.id;
- const id=Object.keys(OFFICER_BY_ID).find(id=>hasStrategicTrait({id},'receiveGrain')&&!source.units.some(u=>u.id===id));s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);client.units=[{...makeOfficer(id,3000,0,3),homeCity:front.id}];client.leader=id;client.advisor=id;client.deputy=null;client.location=node.id;client.supply=100;initializeVision(s);const o=worker(s,source,'relayCargo');
+ const id=Object.keys(OFFICER_BY_ID).find(id=>hasStrategicTrait({id},'receiveGrain')&&!source.units.some(u=>u.id===id));s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);client.units=[{...makeOfficer(id,3000,0,3),homeCity:front.id}];client.leader=id;client.advisor=id;client.location=node.id;client.supply=100;initializeVision(s);const o=worker(s,source,'relayCargo');
  const total=source.grain+front.grain+client.supply;planStrategicAI(s);assert.ok(o.destination);assert.ok(o.journey.route.includes(node.id));assert.equal(client.supply,100);const loaded=o.cargo.grain;
  advancePersonnel(s,o);assert.equal(client.supply,100+loaded);assert.equal(source.grain+front.grain+client.supply,total);assert.equal(o.destination,null);
 });

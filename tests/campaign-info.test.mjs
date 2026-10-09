@@ -17,7 +17,7 @@ test('all campaign information is read only and city units are not armies',()=>{
 
 test('expedition information follows real city-unit departure without duplication',()=>{
  const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),ids=c.units.slice(0,2).map(u=>u.id),count=campaignInfoIndex(s).unit.length;
- assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[1],deputy:null,target:'chenliu',policy:'auto'}),null);
+ assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:'chenliu',policy:'auto'}),null);
  const before=JSON.stringify(s),ix=campaignInfoIndex(s);assert.equal(ix.army.length,1);assert.equal(ix.unit.length,count);
  assert.ok(ids.every(id=>ix.unit.find(r=>r.unit.id===id).army.id===s.armies[0].id));
  const html=campaignInfoSections(campaignInfoDetail(s,'army',s.armies[0].id));assert.match(html,/指挥任职/);assert.doesNotMatch(html,/undefined|NaN/);assert.equal(JSON.stringify(s),before);
@@ -27,7 +27,7 @@ const status=(s,type,id)=>campaignInfoDetail(s,type,id).sections.find(x=>x.id===
 test('current status follows actual marching and transfer progress',()=>{
  const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),ids=c.units.slice(0,2).map(u=>u.id);
  assert.match(status(s,'unit',ids[0]),/驻城备战/);
- assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[1],deputy:null,target:'luoyang',policy:'auto'}),null);
+ assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:'luoyang',policy:'auto'}),null);
  // Use a road longer than one daily movement budget; short legs may end at a junction.
  const a=s.armies[0];assert.match(status(s,'officer',ids[0]),/待出发/);
  const idle=s.campaign.idle.find(o=>o.faction==='cao'&&o.location===c.id&&o.unit.id!==c.governor);

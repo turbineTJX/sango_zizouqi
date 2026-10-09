@@ -30,7 +30,7 @@ for(let a=0;a<names.length;a++)for(let c=a+1;c<names.length;c++)for(let seed=1;s
    const officer=makeOfficer(id),ranged=['archer','crossbow'].includes(officer.type);
    const x=ranged?2:4,y=[0,2,4,6,1,5][i];
    return {...structuredClone(template),...officer,side,level:10,hp:3000,initial:3000,maxHp:3000,morale:80,
-    commandBonus:0,deputyBonus:0,advisorBonus:0,status:'active',intent:0,statuses:{},skillReady:disableSpecials?{[SPECIAL_TACTICS[id]]:1e9}:{},tacticCasts:{},
+    commandBonus:0,advisorBonus:0,status:'active',intent:0,statuses:{},skillReady:disableSpecials?{[SPECIAL_TACTICS[id]]:1e9}:{},tacticCasts:{},
     skillCasts:0,cooldown:0,attackCarry:0,moveProgress:0,passiveState:initialPassiveState(),
     x:side?13-x:x,y:side?7-y:y};
   });

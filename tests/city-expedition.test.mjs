@@ -7,7 +7,7 @@ import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {ACTIONS,assignmentFor} from '../domestic.mjs';
 import {campaignOfficers} from '../strategic-roster.mjs';
 const town=(s,id)=>s.cities.find(c=>c.id===id);
-const order=(s,id='xuchang',target='chenliu')=>{const ids=town(s,id).units.slice(0,2).map(u=>u.id);return {kind:'expedition',cityId:id,officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],deputy:null,target,policy:'auto'};};
+const order=(s,id='xuchang',target='chenliu')=>{const ids=town(s,id).units.slice(0,2).map(u=>u.id);return {kind:'expedition',cityId:id,officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],target,policy:'auto'};};
 const reload=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 const advance=s=>{if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);};
 test('both current national scenarios store units in cities with no standing map armies',()=>{
@@ -46,12 +46,17 @@ test('a deferred expedition stores composition, creates no army early, and launc
 });
 test('real sieges build temporary defense from city units and resume deterministically',()=>{
  const s=newCampaign(5,'guandu-200');let r;
+ // Isolate the real siege/serialization mechanism from unrelated new wars.
+ // Shared movement, economy, recruitment, diplomacy and combat still run.
+ const advanceSiege=world=>{world.campaign.ai.lastPlanDay=world.campaign.day;advance(world);};
  assert.equal(launchExpedition(s,order(s,'chenliu','ye')),null);
- for(let n=0;n<20&&!r;n++){advance(s);r=activeBattles(s).find(r=>r.armies.some(a=>a.defense));}
- assert.ok(r);const guard=s.armies.find(a=>a.defense&&r.armyIds.includes(a.id));assert.ok(guard);assert.equal(town(s,guard.location).units.length,0);
+ for(let n=0;n<20&&!r;n++){advanceSiege(s);r=activeBattles(s).find(r=>r.armies.some(a=>a.defense));}
+ assert.ok(r);const guard=s.armies.find(a=>a.defense&&r.armyIds.includes(a.id));assert.ok(guard);
+ assert.ok(town(s,guard.location).units.every(u=>u.mission||u.troops===0),'only absent or zero-strength units remain outside the temporary defense');
+ assert.ok(town(s,guard.location).units.every(u=>!guard.units.some(d=>d.id===u.id)),'temporary defenders are not duplicated in the city');
  for(const pending of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,pending.id,false);
  const loaded=reload(s);for(let i=0;i<4;i++){advanceCampaignStep(s);advanceCampaignStep(loaded);}
- assert.equal(serializeCampaign(s),serializeCampaign(loaded));reload(s);for(let n=0;n<100&&!r.settled;n++)advance(s);assert.ok(r.settled);assert.ok(!s.armies.some(a=>a.id===guard.id&&a.defense));reload(s);
+ assert.equal(serializeCampaign(s),serializeCampaign(loaded));reload(s);for(let n=0;n<100&&!r.settled;n++)advanceSiege(s);assert.ok(r.settled);assert.ok(!s.armies.some(a=>a.id===guard.id&&a.defense));reload(s);
 });
 
 test('departure can prepare an idle officer atomically and invalid departure spends nothing',()=>{

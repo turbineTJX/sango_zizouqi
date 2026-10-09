@@ -4,7 +4,7 @@ import {mkdir} from 'node:fs/promises';
 import {newCampaign,serializeCampaign,launchExpedition} from '../strategic-campaign.mjs';
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const state=newCampaign(203,'guandu-200'),city=state.cities.find(c=>c.id==='xuchang'),ids=city.units.slice(0,2).map(u=>u.id);
-assert.equal(launchExpedition(state,{kind:'expedition',cityId:city.id,officerIds:ids,leader:ids[0],advisor:ids[1],deputy:null,target:'chenliu',policy:'auto'}),null);
+assert.equal(launchExpedition(state,{kind:'expedition',cityId:city.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:'chenliu',policy:'auto'}),null);
 const browser=await chromium.launch({channel:'msedge',headless:true}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 await mkdir('outputs/field-sort-ui',{recursive:true});

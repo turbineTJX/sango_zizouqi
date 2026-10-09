@@ -46,7 +46,7 @@ test('cancelling recruitment releases reserves; leaving recipients never get rem
 });
 test('city can hold more than ten independent units while each new expedition is capped at ten',()=>{
  const s=peaceful(),ids=addIdle(s,'xuchang',16),c=s.cities.find(c=>c.id==='xuchang');assert.equal(createCampaignArmy(s,c.id,ids),null);c.units.forEach(u=>u.troops=100);assert.ok(c.units.length>10);assert.equal(s.armies.length,0);restore(s);
- const q={kind:'expedition',cityId:c.id,officerIds:c.units.slice(0,11).map(u=>u.id),leader:c.units[0].id,advisor:c.units[0].id,deputy:null,target:'chenliu',policy:'auto'};assert.ok(launchExpedition(s,q));q.officerIds.pop();assert.equal(launchExpedition(s,q),null);assert.equal(s.armies[0].units.length,10);restore(s);
+ const q={kind:'expedition',cityId:c.id,officerIds:c.units.slice(0,11).map(u=>u.id),leader:c.units[0].id,advisor:c.units[0].id,target:'chenliu',policy:'auto'};assert.ok(launchExpedition(s,q));q.officerIds.pop();assert.equal(launchExpedition(s,q),null);assert.equal(s.armies[0].units.length,10);restore(s);
 });
 test('new commands replace appointments and construction can be resumed without paying twice',()=>{
  const s=peaceful(),a=selectOnly(s,'build_workshop'),c=s.cities.find(c=>c.id==='xuchang');advance(s,11);assert.ok(a.action);const left=a.action.remaining;cancelDomestic(s,a.officerId);assert.equal(c.domestic.suspended.remaining,left);const gold=s.gold;

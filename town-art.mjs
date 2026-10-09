@@ -29,7 +29,10 @@ export function townSprite(key,{x=0,y=0,width=100,opacity=1,extraClass='',id=key
 }
 // Independently generated, transparent facilities in the same town palette.
 function militaryFacilitySprite(key,{x,y,width,opacity,extraClass}){
- if(!TOWN_ART[key])return '';
+ if(!TOWN_ART[key]){
+  const shape={arrowTower:'<path d="M32 94V32H68V94Z" fill="#ac9975"/><path d="M22 34L50 12L78 34Z" fill="#66564a"/><path d="M43 46H57V63H43Z" fill="#39372e"/>',musicStage:'<path d="M15 88H85V96H15Z M24 84V40H30V84Z M70 84V40H76V84Z" fill="#8b6346"/><path d="M12 40L50 18L88 40Z" fill="#806346"/><circle cx="50" cy="65" r="16" fill="#c2a76e" stroke="#674735"/>',aidCamp:'<path d="M12 90L50 22L88 90Z" fill="#b4ae8f" stroke="#655e4a"/><path d="M35 90L50 60L65 90Z" fill="#665b47"/><path d="M50 22V8H71V24H50" fill="#dfd5ac"/><path d="M61 10V22M56 16H66" stroke="#b34d39" stroke-width="3"/>'}[key];
+  return `<g class="town-building-sprite town-facility-${key} town-facility-fallback ${extraClass}" transform="translate(${x-width/2} ${y-width}) scale(${width/100})" opacity="${opacity}" aria-hidden="true" pointer-events="none">${shape}</g>`;
+ }
  const baseline={arrowTower:.93,musicStage:.95,aidCamp:.78}[key];
  return `<g class="town-building-sprite town-facility-${key} ${extraClass}" opacity="${opacity}" aria-hidden="true" pointer-events="none"><image href="${TOWN_ART[key]}" x="${x-width/2}" y="${y-width*baseline}" width="${width}" height="${width}" preserveAspectRatio="xMidYMid meet"/></g>`;
 }

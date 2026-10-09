@@ -23,10 +23,14 @@ export function missionVisionProxy(s,u){
  const m=u.mission,to=m.route[0];
  return {location:m.location,travel:to?{from:m.location,to,progress:roadDistance(s,m.location,to)*m.progress/roadCost(s,m.location,to)}:null};
 }
+export function armyVisionRadius(a){
+ const intellect=Math.max(0,...a.units.filter(u=>u.id===a.leader||u.id===a.advisor).map(u=>u.intellect));
+ return MOVEMENT_RULES.vision.army+intellect*MOVEMENT_RULES.vision.armyIntellectPerPoint;
+}
 export function visionSources(s,faction=playerFaction(s)){
  s=s[origin]||s;const rules=MOVEMENT_RULES.vision,sources=[];
  for(const c of s.cities)if(c.owner===faction)sources.push({...c,radius:cityVisionRadius(c,rules.city),kind:'city'});
- for(const a of s.armies)if(a.faction===faction&&!a.disbanded&&a.units.some(u=>u.troops>0))sources.push({...visionPosition(s,a),radius:rules.army,kind:'army',object:a});
+ for(const a of s.armies)if(a.faction===faction&&!a.disbanded&&a.units.some(u=>u.troops>0))sources.push({...visionPosition(s,a),radius:armyVisionRadius(a),kind:'army',object:a});
  for(const t of scoutAssignments(s))if(t.faction===faction&&!t.paused){const proxy=scoutVisionProxy(s,t);sources.push({...visionPosition(s,proxy),radius:rules.scout,kind:'scout',object:proxy});}
  for(const v of s.campaign.vision?.factions[faction]?.scouted||[])if(v.expiresDay>s.campaign.day)sources.push({...v,radius:rules.scout,kind:'scout',object:{location:v.location,travel:v.travel}});
  return sources;
@@ -89,18 +93,35 @@ export function armyObservation(s,a){
 }
 export function armyIntelligence(s,id,faction=playerFaction(s)){
  const base=s[origin]||s,a=base.armies.find(a=>a.id===id),live=a&&(a.faction===faction||pointVisible(base,visionPosition(base,a),faction));
- return live?{day:base.campaign.day,receivedDay:base.campaign.day,data:a}:base.campaign.vision?.factions[faction]?.armies[id]||null;
+ return live?{day:base.campaign.day,receivedDay:base.campaign.day,data:a.faction===faction?a:armyObservation(base,a)}:base.campaign.vision?.factions[faction]?.armies[id]||null;
 }
 function unknownCity(c,owner){
  const data={...c,owner,units:[],governor:null,project:null,domestic:null,buildings:null};
  for(const key of ['gold','grain','manpower',...Object.keys(BUILDING_DESIGNS),'order','hunger','garrison'])data[key]=null;
  return data;
 }
+// The same city value as intelligenceWorld, without projecting other cities,
+// armies, personnel or history. Views remain read-only and never persist here.
+export function cityObservation(s,id,faction=playerFaction(s)){
+ if(!visionEnabled(s)||s[perspective]===faction)return mapNode(s,id);
+ s=s[origin]||s;const c=mapNode(s,id);
+ if(!c||!s.cities.includes(c)||c.owner===faction||cityVisible(s,id,faction))return c;
+ const i=s.campaign.vision.factions[faction]?.cities[id];
+ return i?.data||unknownCity(c,i?.owner||'neutral');
+}
 function observedBattle(s,r,faction){
  if(r.battle.sides.some(x=>x.faction===faction))return r;
  // Foreign battles expose the present observation, not earlier unseen days.
  const battle={...r.battle,logs:[]};
  return {...r,battle,templates:{},snapshots:[{day:s.campaign.day,tick:battle.tick,data:battle}],report:r.report?{reason:r.report.reason,winner:r.report.winner,growth:[],stats:[]}:null};
+}
+// The army projection is also used by read-only threat assessments. Preserve
+// the caller's perspective without building unrelated city and history views.
+export function observedArmies(s,faction=playerFaction(s)){
+ if(!visionEnabled(s)||s[perspective]===faction)return s.armies;
+ s=s[origin]||s;if(!s.armies.length)return s.armies;
+ const sources=visionSources(s,faction);
+ return s.armies.filter(a=>armyVisible(s,a,faction,sources)).map(a=>a.faction===faction?a:armyObservation(s,a));
 }
 // All UI consumers use this read-only projection; never pass it to a mutation.
 export function intelligenceWorld(s,faction=playerFaction(s)){
@@ -116,7 +137,7 @@ export function intelligenceWorld(s,faction=playerFaction(s)){
  const activity=s.campaign.activity;
  const campaign={...s.campaign,playerFaction:faction,idle,scouting:{...s.campaign.scouting,tasks:scoutAssignments(s).filter(t=>t.faction===faction)},battles:s.campaign.battles.filter(r=>battleVisible(s,r,faction,sources)).map(r=>observedBattle(s,r,faction)),archive:(s.campaign.archive||[]).filter(r=>record?.battles.includes(r.id)),
   personnelEvents:s.campaign.personnelEvents.filter(e=>ownIds.has(e.officerId)),ai:s.campaign.ai?{...s.campaign.ai,factions:{},plans:[],supports:[],decisions:[]}:undefined,
-  domestic:{...s.campaign.domestic,orders:s.campaign.domestic.orders.filter(q=>q.faction===faction),assignments:s.campaign.domestic.assignments.filter(a=>ownIds.has(a.officerId)),people:s.campaign.domestic.people.filter(p=>p.fate&&(p.fate.originalFaction===faction||p.fate.captor===faction))},
+  domestic:{...s.campaign.domestic,priorities:{[faction]:s.campaign.domestic.priorities[faction]},orders:s.campaign.domestic.orders.filter(q=>q.faction===faction),assignments:s.campaign.domestic.assignments.filter(a=>ownIds.has(a.officerId)),people:s.campaign.domestic.people.filter(p=>p.fate&&(p.fate.originalFaction===faction||p.fate.captor===faction))},
   activity:activity?{...activity,records:Object.fromEntries(Object.entries(activity.records).filter(([id])=>ownIds.has(id))),nodes:activity.nodes.filter(n=>n.faction===faction)}:activity};
  const result={...s,cities,armies,campaign,logs:record?.chronicle||[]};result[perspective]=faction;result[origin]=s;return result;
 }

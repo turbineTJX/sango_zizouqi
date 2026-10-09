@@ -6,7 +6,7 @@ const team=(ids,types,troops=Array(6).fill(3000))=>ids.map((id,i)=>({id,type:typ
 const baseline={battleKind:'field',terrain:'land',seed:810001,limit:360,shieldPercent:0,waves:[],
  ownTeam:team(own,['spear','cavalry','halberd','crossbow','spear','halberd']),
  enemyTeam:team(enemy,['spear','archer','archer','crossbow','crossbow','halberd']),
- ownTeamRoles:{leader:'cao',advisor:'jia',deputy:null},enemyTeamRoles:{leader:'shao',advisor:'ju',deputy:null},
+ ownTeamRoles:{leader:'cao',advisor:'jia',},enemyTeamRoles:{leader:'shao',advisor:'ju',},
  ownTeamTactic:'balanced',enemyTeamTactic:'balanced'};
 export const BATTLE_VALIDATION_CASES=[
  {id:'ranged-pressure',name:'远程集中与骑兵应对',question:'同将、同等级、同兵力，更换前排兵种能否改变突破与损耗？',variants:[

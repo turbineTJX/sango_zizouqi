@@ -195,12 +195,12 @@ export const HISTORICAL_BATTLES = [
       "ownTeamRoles": {
         "leader": "person-661",
         "advisor": "person-447",
-        "deputy": null
+
       },
       "enemyTeamRoles": {
         "leader": "cao",
         "advisor": "yu",
-        "deputy": null
+
       },
       "reinforcements": [
         {
@@ -236,7 +236,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-636",
             "advisor": "person-636",
-            "deputy": null
+
           }
         }
       ],
@@ -446,12 +446,12 @@ export const HISTORICAL_BATTLES = [
       "ownTeamRoles": {
         "leader": "cao",
         "advisor": "yu",
-        "deputy": null
+
       },
       "enemyTeamRoles": {
         "leader": "shao",
         "advisor": "ju",
-        "deputy": null
+
       },
       "reinforcements": [
         {
@@ -498,7 +498,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-342",
             "advisor": "person-610",
-            "deputy": null
+
           }
         },
         {
@@ -558,7 +558,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-159",
             "advisor": "person-259",
-            "deputy": null
+
           }
         },
         {
@@ -621,7 +621,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-21",
             "advisor": "person-353",
-            "deputy": null
+
           }
         }
       ],
@@ -916,12 +916,12 @@ export const HISTORICAL_BATTLES = [
       "ownTeamRoles": {
         "leader": "person-246",
         "advisor": "person-668",
-        "deputy": null
+
       },
       "enemyTeamRoles": {
         "leader": "cao",
         "advisor": "yu",
-        "deputy": null
+
       },
       "reinforcements": [
         {
@@ -969,7 +969,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-636",
             "advisor": "person-636",
-            "deputy": null
+
           }
         },
         {
@@ -1029,7 +1029,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-547",
             "advisor": "person-541",
-            "deputy": null
+
           }
         },
         {
@@ -1113,7 +1113,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "dun",
             "advisor": "person-642",
-            "deputy": null
+
           }
         }
       ],
@@ -1276,12 +1276,12 @@ export const HISTORICAL_BATTLES = [
       "ownTeamRoles": {
         "leader": "liao",
         "advisor": "person-610",
-        "deputy": null
+
       },
       "enemyTeamRoles": {
         "leader": "person-368",
         "advisor": "person-662",
-        "deputy": null
+
       },
       "reinforcements": [
         {
@@ -1341,7 +1341,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-93",
             "advisor": "person-660",
-            "deputy": null
+
           }
         },
         {
@@ -1388,7 +1388,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-375",
             "advisor": "person-595",
-            "deputy": null
+
           }
         }
       ],
@@ -1577,12 +1577,12 @@ export const HISTORICAL_BATTLES = [
       "ownTeamRoles": {
         "leader": "person-603",
         "advisor": "person-603",
-        "deputy": null
+
       },
       "enemyTeamRoles": {
         "leader": "person-636",
         "advisor": "person-520",
-        "deputy": null
+
       },
       "reinforcements": [
         {
@@ -1637,7 +1637,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-396",
             "advisor": "person-163",
-            "deputy": null
+
           }
         },
         {
@@ -1660,7 +1660,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-167",
             "advisor": "person-167",
-            "deputy": null
+
           }
         }
       ],
@@ -1875,12 +1875,12 @@ export const HISTORICAL_BATTLES = [
       "ownTeamRoles": {
         "leader": "person-290",
         "advisor": "person-290",
-        "deputy": null
+
       },
       "enemyTeamRoles": {
         "leader": "person-226",
         "advisor": "person-305",
-        "deputy": null
+
       },
       "reinforcements": [
         {
@@ -1924,7 +1924,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-529",
             "advisor": "person-529",
-            "deputy": null
+
           }
         },
         {
@@ -1968,7 +1968,7 @@ export const HISTORICAL_BATTLES = [
           "roles": {
             "leader": "person-455",
             "advisor": "person-27",
-            "deputy": null
+
           }
         }
       ]

@@ -55,8 +55,9 @@ export function validateCustomBattle(draft){
   return entries.map(({id,type,troops,level,formation,first,retreatAt,equipment,treasureId})=>({id,type,troops,level,...(treasureId?{treasureId}:{}),equipment:structuredClone(equipment||emptyEquipment()),...(retreatAt!==undefined?{retreatAt}:{}),...(formation!==undefined?{formation}:{}),...(first!==undefined?{first}:{})}));
  }
  function roles(value,units){
-  if(!value||!units.some(u=>u.id===value.leader)||!units.some(u=>u.id===value.advisor)||value.deputy!=null&&!units.some(u=>u.id===value.deputy))throw Error('军团长、军师与副将必须来自本军团');
-  return {leader:value.leader,advisor:value.advisor,...(Object.hasOwn(value,'deputy')?{deputy:value.deputy}:{})};
+  if(value&&Object.keys(value).some(key=>!['leader','advisor'].includes(key)))throw Error('只支持军团长和军师');
+  if(!value||!units.some(u=>u.id===value.leader)||!units.some(u=>u.id===value.advisor))throw Error('军团长和军师必须来自本军团');
+  return {leader:value.leader,advisor:value.advisor};
  }
  const result={...(draft.mapId?{mapId:draft.mapId}:{}),limit,shieldPercent,waves:waves.map(({count,tick})=>({count,tick})),reinforcements:[],...(holdUntil?{holdUntil}:{}),battleKind,gateHp:draft.gateHp??12000,terrain:draft.terrain,seed:draft.seed};
  for(const key of ['ownTeam','enemyTeam']){

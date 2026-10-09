@@ -20,7 +20,7 @@ export function fixture(w,left,right,formation,level,seed,mirror=false){
   const b=w.createScenario('field',seed).battle;b.seed=seed;b.relationshipScores={};b.relationshipTypes={};
   b.sides.forEach((s,side)=>{const template=s.units[0];s.tactic='balanced';s.commanders=[];
     s.units=(side?right:left).map((entry,i)=>{
-      const u={...structuredClone(template),...structuredClone(entry),side,level,hp:3000,maxHp:3000,initial:3000,troops:3000,battleDamage:0,healed:0,status:'active',morale:80,intent:0,cooldown:0,skillReady:{},tacticCasts:{},skillCasts:0,statuses:{},commandBonus:0,deputyBonus:0,advisorBonus:0,attackCarry:0,moveProgress:0,passiveState:w.initialPassiveState()};
+      const u={...structuredClone(template),...structuredClone(entry),side,level,hp:3000,maxHp:3000,initial:3000,troops:3000,battleDamage:0,healed:0,status:'active',morale:80,intent:0,cooldown:0,skillReady:{},tacticCasts:{},skillCasts:0,statuses:{},commandBonus:0,advisorBonus:0,attackCarry:0,moveProgress:0,passiveState:w.initialPassiveState()};
       const p=positions[formation][i];u.x=side?13-p[0]:p[0];u.y=side?7-p[1]:p[1];assert.equal(w.configureTactics(u,entry.tactics),null);return u;
     });s.reserve=[];
   });

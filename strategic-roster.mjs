@@ -3,6 +3,7 @@ import {abilityButton} from './ability-reference.mjs';
 import {mapNode} from './road-network.mjs';
 import {DIRECTION_STATS} from './domestic-designs.mjs';
 import {playerFaction} from './player-faction.mjs';
+import {siegeDefenseCandidates} from './siege-defense.mjs';
 import {relationshipInfo} from './relationships.mjs';
 import {sortRows,sortHeader,sortButton} from './list-sort.mjs';
 import {officerRecommendation,compareRecommendations} from './officer-recommendation.mjs';
@@ -57,7 +58,7 @@ export function pickerReason(s,row,pick){
   if(s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===c.id))return '围城期间不可编制';
   if(!canTrain(c,row.unit.type))return '本城未解锁兵种';
  }
- if(pick.task==='defense'&&row.army)return '已参加守城编组';
+ if(pick.task==='defense'&&row.army&&!siegeDefenseCandidates(s,pick.city).some(o=>o.unit.id===row.unit.id))return '已参加守城编组';
  if(pick.task==='expedition'){if(row.army)return '已在军团中';if(s.campaign.domestic.orders.some(q=>q.kind==='expedition'&&q.officerIds.includes(row.unit.id)))return '已编入待出征命令';}
  if(pick.task==='domestic'&&assignmentFor(s,row.unit.id)?.direction===pick.direction)return '已在此任职';
  if(pick.task==='governor'&&c.governor===row.unit.id)return '现任太守';
@@ -100,5 +101,5 @@ export function campaignRosterMarkup(s,ui,pick=null,scope=null){
 
 export function canPrepareSiegeDefense(s,r){
  if(!r?.awaiting||r.settled||r.kind!=='siege'||s.cities.find(c=>c.id===r.cityId)?.owner!==playerFaction(s))return false;
- return campaignOfficers(s).some(row=>!row.cityUnit&&!pickerReason(s,row,{task:'defense',city:r.cityId}));
+ return siegeDefenseCandidates(s,r.cityId).length>0;
 }

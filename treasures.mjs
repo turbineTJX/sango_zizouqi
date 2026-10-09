@@ -5,7 +5,7 @@ import {hasStrategicTrait} from './strategic-traits.mjs';
 import {mapNode,mapNodes} from './road-network.mjs';
 import {roadCost} from './strategic-movement.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
-import {playerFaction} from './player-faction.mjs';
+import {playerFaction,isAIControlled} from './player-faction.mjs';
 import {DOMESTIC_ACTION_DESIGNS} from './data/design/domestic-actions.mjs';
 import {ACTIONS} from './domestic-designs.mjs';
 import {treasureBondBonus} from './treasure-battle.mjs';
@@ -76,7 +76,7 @@ export function treasureDistributionError(s,id,faction=playerFaction(s)){
  if(t.state==='city'&&s.campaign.battles.some(r=>!r.settled&&r.cityId===at.cityId))return '围城或交战期间不能分配库藏宝物';
  return null;
 }
-function editable(s,faction,automatic){return !s.finished&&(automatic||s.campaign.phase==='planning')&&(!automatic||faction!==playerFaction(s));}
+function editable(s,faction,automatic){return !s.finished&&(automatic||!s.campaign.allAI&&s.campaign.phase==='planning')&&(!automatic||isAIControlled(s,faction));}
 export function grantTreasure(s,id,recipientId,{equip=false,faction=playerFaction(s),automatic=false,checkOnly=false}={}){
  if(!editable(s,faction,automatic))return '须在筹划阶段授予宝物';
  const error=treasureDistributionError(s,id,faction);if(error)return error;
@@ -95,8 +95,8 @@ export function equipTreasure(s,officerId,id,{faction=playerFaction(s),automatic
  if(id){const t=treasureRecord(s,id);if(t?.state!=='person'||t.holderId!==officerId)return '只能装备本人实际携带的宝物';}
  o.unit.treasureId=id||null;return null;
 }
-export function storeTreasure(s,id,{faction=playerFaction(s)}={}){
- if(!editable(s,faction,false))return '须在筹划阶段收回宝物';
+export function storeTreasure(s,id,{faction=playerFaction(s),automatic=false}={}){
+ if(!editable(s,faction,automatic))return '须在筹划阶段收回宝物';
  const error=treasureDistributionError(s,id,faction);if(error)return error;
  const t=treasureRecord(s,id),at=treasureLocation(s,t);if(t.state==='person'&&!treasureResident(s,t.holderId,faction))return '收回至城库须等待携带者实际回城';moveItem(s,t,{state:'city',cityId:at.cityId});return null;
 }
@@ -173,7 +173,7 @@ export function settleBattleTreasures(s,r,candidates){
 export function manageTreasuresAI(s){
  const t=state(s);if(!t)return;
  for(const item of t.items.filter(t=>['city','person'].includes(t.state))){
-  const at=treasureLocation(s,item),faction=at.faction;if(!faction||faction==='neutral'||faction===playerFaction(s)||treasureDistributionError(s,item.id,faction))continue;
+  const at=treasureLocation(s,item),faction=at.faction;if(!isAIControlled(s,faction)||treasureDistributionError(s,item.id,faction))continue;
   const current=item.state==='person'?treasureOfficer(s,item.holderId):null;
   if(current?.unit.treasureId)continue;
   const candidates=treasureOfficerRows(s).filter(o=>!o.unit.treasureId&&treasureRecipient(s,o.unit.id,faction));

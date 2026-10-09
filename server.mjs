@@ -16,7 +16,7 @@ const openBrowser = () => {
   const child = spawn(args[0], args[1], { windowsHide: true, stdio: 'ignore' });
   child.on('error', () => console.log(`请在浏览器打开 ${url}`));
 };
-const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp':'image/webp', '.json': 'application/json; charset=utf-8', '.webmanifest': 'application/manifest+json' };
+const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp':'image/webp', '.json': 'application/json; charset=utf-8', '.bin':'application/octet-stream', '.webmanifest': 'application/manifest+json' };
 createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);

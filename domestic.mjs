@@ -1,7 +1,7 @@
 import {recordTreasureWork} from './treasures.mjs';
 import {buildingDurability,gateDurability,initializeBuildingDurability,buildingWorkQuote,buildingWorkMode,beginBuildingWork,restoreBuilding,transferBuildingDurability,validateBuildingDurability,completeTechnologyBuilding} from './building-durability.mjs';
 import {cityGoldCommitment} from './city-budget.mjs';
-import {cityFoodRequirement} from './city-logistics.mjs';
+import {cityFoodRequirement,withCitySupplyQueries} from './city-logistics.mjs';
 import {BASE_TROOPS,cityHasWater,canEquip} from './troop-equipment.mjs';
 import {TECHS,canResearch,localTechnologies,technologyAllowed,cityTroopUnlocked,technologyIncomeBonus,technologyConstructionDiscount,technologyMilitaryMultiplier} from './city-technology.mjs';
 export {TECHS};
@@ -18,14 +18,16 @@ import {trainingRate} from './troop-training.mjs';
 import {PROGRESSION,meritChangeText} from './progression.mjs';
 import {settleOfficerMerit} from './campaign-merit.mjs';
 import {initializeWorkMerit,creditWorkMerit,ordinaryWorkMerit,validWorkMerit} from './domestic-merit.mjs';
-import {playerFaction} from './player-faction.mjs';
+import {playerFaction,isPlayerControlled,isAIControlled} from './player-faction.mjs';
+import {observedHostileArmies} from './strategic-context.mjs';
+import {strategicDomesticPriority,strategicDemand} from './strategic-policy.mjs';
 import {plannedOfficer,plannedGrain,plannedCargo} from './strategic-intent.mjs';
 import {taskTraits,taskTraitBonus,WORK_TRAITS} from './officer-traits.mjs';
 import {missionOfficer,beginOfficerMission,advanceOfficerMissions,returnOfficerMission,recallOfficerMission} from './officer-missions.mjs';
 import {preparedUnits} from './city-units.mjs';
 import {residentOfficer} from './city-personnel.mjs';
 const isNationalCity=c=>!!c.kind;
-import {log,TROOPS,battleWounded} from './engine.mjs';
+import {log,TROOPS,FACTIONS,battleWounded} from './engine.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {domesticEffects} from './passives.mjs';
@@ -38,6 +40,12 @@ import {DIRECTIONS,BUILDINGS,ACTIONS} from './domestic-designs.mjs';
 import {DOMESTIC_OUTCOME_RULES as OUTCOMES} from './data/design/domestic-actions.mjs';
 export {DIRECTIONS,BUILDINGS,ACTIONS};
 export const actionName=(c,key)=>ACTIONS[key].kind==='build'?(c.project?.key===ACTIONS[key].value&&c.project.mode==='repair'?'修复':c[ACTIONS[key].value]?'扩建':'新建')+BUILDINGS[ACTIONS[key].value].name:ACTIONS[key].name;
+export const domesticPriority=(s,faction=playerFaction(s))=>s.campaign.domestic.priorities[faction]||[];
+export function setDomesticPriority(s,priority,{faction=playerFaction(s),scheduled=false}={}){
+ if(s.finished||!scheduled&&(s.campaign.allAI||s.campaign.phase!=='planning')||!s.campaign.domestic.priorities[faction])return '须在筹划阶段设置内政优先级';
+ if(!Array.isArray(priority)||priority.length!==Object.keys(DIRECTIONS).length||new Set(priority).size!==priority.length||priority.some(d=>!DIRECTIONS[d]))return '每个内政方向须出现一次';
+ s.campaign.domestic.priorities[faction]=[...priority];return null;
+}
 const town=mapNode;
 const day=s=>s.campaign.day;
 const turn=s=>Math.floor((day(s)-1)/10)+1;
@@ -70,7 +78,7 @@ export function cityMilitary(s,c){
 }
 export function domesticRandom(s){const d=s.campaign.domestic;d.seed=(Math.imul(d.seed,1664525)+1013904223)>>>0;return d.seed/4294967296;}
 export function initializeDomestic(s){
- s.campaign.domestic={version:19,autoApprove:false,priority:Object.keys(DIRECTIONS),seed:(s.seed^0x51a9c72d)>>>0,nextId:1,assignments:[],events:[],orders:[],workHistory:{},people:[],loyalty:{},cooperation:{},cooperationGrowth:{},lastOpportunityTurn:0,lastFinishedDay:0};
+ s.campaign.domestic={version:20,autoApprove:false,priorities:Object.fromEntries([...new Set(s.cities.map(c=>c.owner))].filter(f=>f!=='neutral').map(f=>[f,Object.keys(DIRECTIONS)])),seed:(s.seed^0x51a9c72d)>>>0,nextId:1,assignments:[],events:[],orders:[],workHistory:{},people:[],loyalty:{},cooperation:{},cooperationGrowth:{},lastOpportunityTurn:0,lastFinishedDay:0};
  initializeDomesticIncidents(s);
  const occupied=new Set([...preparedUnits(s).map(u=>u.id),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)]);
  for(const c of s.cities){
@@ -111,13 +119,17 @@ export function actionChance(s,c,u,def,target=null){
 export function buildCost(s,c,key,u){const g=residentOfficer(s,c.governor),discount=Math.max(domesticEffects(g?.location===c.id&&g?.faction===c.owner?g.unit:null).projectDiscount||0,domesticEffects(u).projectDiscount||0)+effect(c,'discount:'+BUILDINGS[key].direction,turn(s))+technologyConstructionDiscount(c);return Math.ceil(BUILDINGS[key].cost*(1-Math.min(.5,discount)));}
 const pendingActions=(s,except=null)=>s.campaign.domestic.assignments.filter(a=>a!==except&&(a.action||a.proposal)).map(a=>a.action?a:{...a,action:{...a.proposal.pick,siteId:a.proposal.siteId,recipients:[]}});
 const targetBusy=(s,id)=>pendingActions(s).some(a=>a.action.targetId===id&&['hire','persuade','reassure'].includes(ACTIONS[a.action.key].kind));
-function technologyPriority(s,c,id){const t=TECHS[id];let score=t.tier===1?60:45;if(t.income.gold)score+=c.gold<3000?25:10;if(t.income.grain)score+=c.grain<cityFoodReserve(s,c,20)?35:15;if(t.income.manpower)score+=c.manpower<reserveRecruitmentTarget(s,c)?25:10;if(t.troopId&&c.units.some(u=>TROOPS[u.type].family===TROOPS[t.troopId].family))score+=20;if(t.militaryDiscount)score+=c.units.length*3;if(Object.values(BUILDINGS).some(b=>b.technology===id)&&s.armies.some(a=>a.faction!==c.owner&&near(s,c,a.travel?.to||a.location)))score+=20;return score;}
+function technologyPriority(s,c,id){const t=TECHS[id];let score=t.tier===1?60:45;if(t.income.gold)score+=c.gold<3000?25:10;if(t.income.grain)score+=c.grain<cityFoodReserve(s,c,20)?35:15;if(t.income.manpower)score+=c.manpower<reserveRecruitmentTarget(s,c)?25:10;if(t.troopId&&c.units.some(u=>TROOPS[u.type].family===TROOPS[t.troopId].family))score+=20;if(t.militaryDiscount)score+=c.units.length*3;if(Object.values(BUILDINGS).some(b=>b.technology===id)&&observedHostileArmies(s,c.owner).some(a=>near(s,c,a.travel?.to||a.location)))score+=20;return score;}
 const reservedForUnit=(s,c,id)=>pendingActions(s).filter(a=>a.cityId===c.id&&ACTIONS[a.action.key].kind==='recruit').reduce((sum,a)=>sum+(a.action.recipients.find(r=>r.id===id)?.amount||0),0);
-export function actionCandidates(s,assignment,{ignoreFunds=false,approving=false}={}){
+export function actionCandidates(s,assignment,options={}){
+ return withCitySupplyQueries(s,()=>domesticActionCandidates(s,assignment,options));
+}
+function domesticActionCandidates(s,assignment,{ignoreFunds=false,approving=false}={}){
  const c=town(s,assignment.cityId),o=domesticOfficer(s,assignment.officerId);if(!c||!o||o.unit.mission||o.location!==c.id||o.faction!==c.owner||besieged(s,c.id))return [];
  const committed=!ignoreFunds&&s.campaign.ai?.factions[c.owner]?cityGoldCommitment(s,c):null;
- const protectedGold=Math.max(cityReserve(s,c),committed?.total||0);
- const d=s.campaign.domestic,st=stats(s,c),cash=ignoreFunds?Infinity:c.gold-protectedGold-(approving?0:d.assignments.filter(a=>a!==assignment&&a.cityId===c.id&&a.proposal).reduce((n,a)=>n+a.proposal.expenses.gold,0)),wealth=c.gold>4000,threat=s.armies.some(a=>a.faction!==c.owner&&near(s,c,a.travel?.to||a.location));
+ const demand=!ignoreFunds&&isAIControlled(s,c.owner)?strategicDemand(s,c.id):null;
+ const protectedGold=Math.max(cityReserve(s,c),committed?.total||0),warGold=demand?.kind==='capture'?demand.requirements.find(r=>r.cityId===c.id)?.gold||0:0;
+ const d=s.campaign.domestic,st=stats(s,c),cash=ignoreFunds?Infinity:Math.min(c.gold-warGold,c.gold-protectedGold-(approving?0:d.assignments.filter(a=>a!==assignment&&a.cityId===c.id&&a.proposal).reduce((n,a)=>n+a.proposal.expenses.gold,0))),wealth=c.gold>4000,threat=observedHostileArmies(s,c.owner).some(a=>near(s,c,a.travel?.to||a.location));
  const foodShort=c.grain<plannedGrain(s,c.id)+cityFoodReserve(s,c,ECONOMY_RULES.ai.foodReserveDays);
  const pending=pendingActions(s,assignment),local=pending.filter(a=>a.cityId===c.id),constructionClaims=pending.filter(a=>['build','repair'].includes(ACTIONS[a.action.key].kind));
  const candidates=[];
@@ -143,7 +155,7 @@ export function actionCandidates(s,assignment,{ignoreFunds=false,approving=false
    case 'cash':if(!cityWorkRemaining(s,c,'gold'))continue;score=wealth?28:60;break;
    case 'effect':if(def.value==='gold'&&!c.commerce||def.value==='grain'&&!c.farm||c.domestic.effects.some(e=>e.key===def.value&&e.untilTurn>=turn(s)))continue;score=42;break;
    case 'discount':if(c.domestic.effects.some(e=>e.key==='discount:'+def.value&&e.untilTurn>=turn(s))||def.value==='commerce'&&c.commerce>=buildingLimit(s,c,'commerce'))continue;score=wealth?28:38;break;
-   case 'trade':if(!accessible(s,c))continue;if(def.value==='sell'){amount=Math.min(1200,Math.floor(c.grain-grainReserve(s,c)));if(amount<300)continue;score=wealth?20:55;}else {amount=Math.min(1200,grainCapacity(c)-c.grain);if(amount<300||c.grain>=grainReserve(s,c)&&!(hasStrategicTrait(o.unit,'provision')&&c.grain-plannedGrain(s,c.id)<cityFoodReserve(s,c)))continue;score=80;}break;
+   case 'trade':if(!accessible(s,c))continue;if(def.value==='sell'){amount=Math.min(1200,Math.floor(c.grain-grainReserve(s,c)));if(amount<300)continue;score=wealth?20:55;}else {amount=Math.min(1200,Math.floor(grainCapacity(c)-c.grain));if(amount<300||c.grain>=grainReserve(s,c)&&!(hasStrategicTrait(o.unit,'provision')&&c.grain-plannedGrain(s,c.id)<cityFoodReserve(s,c)))continue;score=80;}break;
    case 'grain':if(c.grain>=grainCapacity(c)*.9||!cityWorkRemaining(s,c,'grain'))continue;score=foodShort?120:c.grain<grainReserve(s,c)?75:26;break;
    case 'rescue':{const e=c.domestic.opportunities.find(e=>e.kind===def.value&&e.expires>=day(s));if(!e||e.saved>=1||e.amount<=0)continue;const savedGrain=e.amount*(1-e.saved);score=30+Math.min(50,Math.max(0,savedGrain*ECONOMY_RULES.value.grain-cost)/10);break;}
    case 'research':{
@@ -183,6 +195,7 @@ export function actionCandidates(s,assignment,{ignoreFunds=false,approving=false
   const secondary=def.kind==='reassure'?ownTargets(s,c).filter(u=>u.id!==target?.id&&!targetBusy(s,u.id)&&(d.loyalty[u.id]??85)<Math.min(85,reassuranceCap(s,u.id))).length:0;
   score*=workValue(wp,{chance:actionChance(s,c,o.unit,def,target),cooperation,secondary});
   if(assignment.lastKey===key)score-=assignment.failures*12;
+  if(!approving&&isAIControlled(s,c.owner))score*=Math.max(1,strategicDomesticPriority(s,c.id,def));
   candidates.push({key,cost,amount,recruitMode,targetId:typeof target==='string'?target:target?.unit?.id||target?.id||null,score,chance:actionChance(s,c,o.unit,def,target)});
  }
  return candidates.sort((a,b)=>b.score-a.score||a.key.localeCompare(b.key));
@@ -224,7 +237,7 @@ export function dismissDomestic(s,officerId,{scheduled=false,faction=playerFacti
  cancelDomestic(s,officerId,'解除委任');return null;
 }
 export const domesticConfidence=chance=>chance>=.85?'颇有把握':chance>=.7?'有望奏效':chance>=.5?'尚可一试':chance>=.3?'成事不易':'恐难奏功';
-export const pendingDomesticProposals=s=>s.campaign.domestic.assignments.filter(a=>a.proposal&&town(s,a.cityId)?.owner===playerFaction(s));
+export const pendingDomesticProposals=s=>s.campaign.domestic.assignments.filter(a=>a.proposal&&isPlayerControlled(s,town(s,a.cityId)?.owner));
 const proposalExpenses=pick=>({gold:pick.cost,grain:ACTIONS[pick.key].kind==='heal'?200:ACTIONS[pick.key].kind==='trade'&&ACTIONS[pick.key].value==='sell'?pick.amount:0,manpower:pick.recruitMode==='replenish'?pick.amount:0});
 export function domesticProposalText(s,a){
  const p=a.proposal,c=town(s,a.cityId),u=domesticOfficer(s,a.officerId)?.unit,def=ACTIONS[p.pick.key],name=def.kind==='build'?(buildingWorkMode(c,def.value,p.siteId)==='repair'?'修缮':localBuildingLevel(c,def.value,p.siteId)?'扩建':'兴建')+BUILDINGS[def.value].name:def.kind==='research'?'研制「'+TECHS[p.pick.targetId].name+'」':def.name;
@@ -261,7 +274,7 @@ function start(s,a,c,pick,{approved=false,siteId:approvedSite=null}={}){
  const duration=quote?.days||(def.kind==='research'?TECHS[pick.targetId].days:def.days);
  pick={...pick,cost:quote?.cost??pick.cost};
  const expenses=proposalExpenses(pick);
- if(!approved&&c.owner===playerFaction(s)&&!s.campaign.domestic.autoApprove&&Object.values(expenses).some(n=>n>0)){
+ if(!approved&&isPlayerControlled(s,c.owner)&&!s.campaign.domestic.autoApprove&&Object.values(expenses).some(n=>n>0)){
   a.proposal={id:s.campaign.domestic.nextId++,pick:structuredClone(pick),siteId,days:duration,createdDay:day(s),expenses};a.waiting='已呈提案，恭候裁示';
   emit(s,a,'proposal',domesticProposalText(s,a),{proposalId:a.proposal.id,siteId});return;
  }
@@ -287,7 +300,7 @@ function start(s,a,c,pick,{approved=false,siteId:approvedSite=null}={}){
 }
 export function beginDomesticTurn(s){
  reconcileDomestic(s);refreshTalentDemand(s);refreshTalentProjects(s);prepareEnemyDomestic(s);
- for(const a of [...s.campaign.domestic.assignments].sort((a,b)=>{const rank=x=>town(s,x.cityId)?.owner===playerFaction(s)?s.campaign.domestic.priority.indexOf(x.direction):0;return rank(a)-rank(b)||a.id-b.id;})){
+ for(const a of [...s.campaign.domestic.assignments].sort((a,b)=>{const rank=x=>domesticPriority(s,town(s,x.cityId)?.owner).indexOf(x.direction);return rank(a)-rank(b)||a.id-b.id;})){
   const c=town(s,a.cityId);if(a.action||a.proposal||pendingDomesticOrder(s,a.officerId)||plannedOfficer(s,a.officerId)||a.lastTurn===turn(s))continue;a.lastTurn=turn(s);
   if(besieged(s,c.id)){a.waiting='围城期间暂停';continue;}
   if(c.domestic.suspended&&ACTIONS[c.domestic.suspended.key].direction===a.direction){a.action=c.domestic.suspended;const u=domesticOfficer(s,a.officerId).unit,def=ACTIONS[a.action.key];a.action.traitIds=taskTraits(u,def);a.action.chance=actionChance(s,c,u,def,a.action.targetId);if(a.action.incidentId!==null&&!s.campaign.domestic.incidents.events.find(r=>r.id===a.action.incidentId)?.officerIds.includes(a.officerId))a.action.incidentId=null;delete c.domestic.suspended;c.project.actionId=a.action.id;emit(s,a,'resume',`${c.name}${def.name}接续，保留原进度且不重复收费。`);continue;}
@@ -340,7 +353,7 @@ function settleCooperation(s,a,c,r,before,after,metric,productive=after>before){
 }
 const outcome=(roll,chance)=>roll<chance*OUTCOMES.criticalShare?OUTCOMES.criticalFactor:roll<chance?1:roll<Math.min(OUTCOMES.partialCeiling,chance+OUTCOMES.partialChance)?OUTCOMES.partialFactor:0;
 export function researchDailyRate(s,c,a){
- const x=a?.action,u=a&&domesticOfficer(s,a.officerId)?.unit,def=ACTIONS[x?.key];if(!u||def?.kind!=='research'||!TECHS[x.targetId])return 0;
+ const x=a?.action,u=a&&domesticOfficer(s,a.officerId)?.unit,def=ACTIONS[x?.key];if(!u||def?.kind!=='research'||!TECHS[x.targetId]||!completionAvailable(s,c,x))return 0;
  const work=workProfile(x.traitIds,def,x.targetId),factor=workFactor(outcome(x.researchRoll,effectiveDomesticChance(s,a)),work),quantity=x.traitIds.reduce((n,id)=>Math.max(n,WORK_TRAITS[id].quantity||0),0);
  return TECHS[x.targetId].requiredProgress/TECHS[x.targetId].days*(.75+domesticAbility(u,def)/200)*(1+c.workshop*.1)*def.value/100*factor*(1+quantity)*workQuantity(factor,work)*incidentModifiers(s,a).progress;
 }
@@ -365,7 +378,7 @@ function complete(s,a,c){
  const traitQuantity=x.traitIds.reduce((n,id)=>Math.max(n,WORK_TRAITS[id].quantity||0),0);
  const boost=(raw,cap=Infinity,round=Math.round)=>{raw*=(1+traitQuantity)*workQuantity(factor,work)*incidentModifiers(s,a).quantity;if(def.kind==='grain'&&x.farmDays)raw*=1+Math.min(.25,x.farmContribution/Math.max(1,def.days)*x.farmRate);const before=Math.max(0,Math.min(cap,round(raw))),after=Math.max(0,Math.min(cap,round(raw*(coop?.success&&coop.mode==='quantity'?1+coop.gain*(work.cooperationMultiplier||1):1))));coopBefore+=before;coopAfter+=after;return after;};
  let result=factor>=1?'成功':factor>0?'部分达成':'失败',details='',actual=0,refund=0,reward=null;
- if(!valid){details=['hire','persuade'].includes(def.kind)?completeTalentProject(s,a,c,0).details:'目标或执行条件已失效，没有新增成果';if(def.kind==='recruit'){release(s,c,x);if(x.recruitMode==='replenish')refund=x.cost-x.baseCost;}else if(x.key==='buy')refund=300;addCityGold(s,c,refund);}
+ if(!valid){details=['hire','persuade'].includes(def.kind)?completeTalentProject(s,a,c,0).details:'目标或执行条件已失效，没有新增成果';if(def.kind==='research'&&c.domestic.research?.type===x.targetId){actual=x.researchActual;details=`研究目标或机会已失效，本轮停止；累计已完成${Number(c.domestic.research.progress.toFixed(2))}%，保留实际进度与已付费用，下轮接续不重复收费`;}if(def.kind==='recruit'){release(s,c,x);if(x.recruitMode==='replenish')refund=x.cost-x.baseCost;}else if(x.key==='buy')refund=300;addCityGold(s,c,refund);}
  else switch(def.kind){
   case 'build':if(factor>=1){const before=cityBaseIncome(s,c),level=localBuildingLevel(c,def.value,x.siteId),mode=c.project.mode,beforeHp=c.project.startedHp;restoreBuilding(c,def.value,x.siteId,1);creditWorkMerit(s,a,c,c.project,buildingDurability(c,def.value,x.siteId).hp-c.project.meritOriginHp);if(mode==='build'){c[def.value]++;if(x.siteId!==c.id)c.domestic.buildingSites[def.value].push(x.siteId);}c.project=null;const after=cityBaseIncome(s,c);reward={kind:'building',mode,beforeHp,afterHp:buildingDurability(c,def.value,x.siteId).hp,maxHp:buildingDurability(c,def.value,x.siteId).maxHp,buildingKey:def.value,siteId:x.siteId,beforeLevel:level,afterLevel:localBuildingLevel(c,def.value,x.siteId),incomeDelta:Object.fromEntries(['gold','grain','manpower'].map(k=>[k,after[k]-before[k]]))};if(factor>1){refund=Math.floor(x.cost*(work.criticalRefund??.15));addCityGold(s,c,refund);}details=`${buildingSiteName(s,x.siteId)}的${BUILDINGS[def.value].name}${mode==='repair'?'已修复':'已建成'}，${c.name}设施合计${c[def.value]}级，实际花费${x.cost-refund}金${refund?'，节省'+refund+'金':''}`;}
    else {x.remaining=work.setbackDays??Math.ceil(def.days*ECONOMY_RULES.work.constructionSetbackShare);c.project.remaining=x.remaining/10;details=`工程受阻，保留进度，延长${x.remaining}天，不追加费用`; }break;
@@ -373,7 +386,7 @@ function complete(s,a,c){
   case 'effect':if(factor)addEffect(c,def.value,boost(def.power*factor,1,n=>Math.round(n*10000)/10000),turn(s),work.duration||0);details=factor?`未来${3+(work.duration||0)}次旬末产出获得加成`:'未获得额外产出加成';break;
   case 'discount':if(factor)addEffect(c,'discount:'+def.value,boost(.2*factor+(work.discount||0),.5,n=>Math.round(n*10000)/10000),turn(s));details=factor?'获得有期限的一次性建设优惠':'未达成合作';break;
   case 'grain':actual=creditCityWork(s,c,'grain',boost(def.value*factor*economicWorkScale(domesticAbility(o.unit,def))*(1+technologyIncomeBonus(c,'grain')),Math.min(grainCapacity(c)-c.grain,cityWorkRemaining(s,c,'grain'))));c.grain+=actual;details=`额外入仓${actual}粮`;break;
-  case 'trade':if(factor&&accessible(s,c)){if(def.value==='sell'){actual=Math.max(0,Math.min(x.amount,Math.floor(c.grain-grainReserve(s,c))));c.grain-=actual;const gold=Math.floor(actual*.18*(factor>1?1.1:1)*(1+(work.price||0))*incidentModifiers(s,a).quantity);addCityGold(s,c,gold);details=`售粮${actual}，收入${gold}金`;}else{actual=Math.min(grainCapacity(c)-c.grain,Math.floor(x.amount*Math.min(1,factor*incidentModifiers(s,a).quantity)));c.grain+=actual;refund=Math.floor((x.cost-def.cost+300)*(1-actual/1200));addCityGold(s,c,refund);details=`购入${actual}粮，退还未成交货款${refund}金`;}}else {if(def.value==='buy'){refund=300;addCityGold(s,c,refund);}details='未成交，仅损失联络费用';}break;
+  case 'trade':if(factor&&accessible(s,c)){if(def.value==='sell'){actual=Math.max(0,Math.min(x.amount,Math.floor(c.grain-grainReserve(s,c))));c.grain-=actual;const gold=Math.floor(actual*.18*(factor>1?1.1:1)*(1+(work.price||0))*incidentModifiers(s,a).quantity);addCityGold(s,c,gold);details=`售粮${actual}，收入${gold}金`;}else{actual=Math.max(0,Math.min(Math.floor(grainCapacity(c)-c.grain),Math.floor(x.amount*Math.min(1,factor*incidentModifiers(s,a).quantity))));c.grain+=actual;refund=Math.floor((x.cost-def.cost+300)*(1-actual/1200));addCityGold(s,c,refund);details=`购入${actual}粮，退还未成交货款${refund}金`;}}else {if(def.value==='buy'){refund=300;addCityGold(s,c,refund);}details='未成交，仅损失联络费用';}break;
   case 'rescue':{const e=c.domestic.opportunities.find(e=>e.kind===def.value);if(e&&factor){changed=Math.min(1,factor)>(e.saved||0);e.saved=Math.max(e.saved||0,Math.min(1,factor));details='减少本次灾情损失';}else details='未挽回额外损失';break;}
   case 'research':actual=x.researchActual;if(c.domestic.research?.type===x.targetId&&c.domestic.research.progress>=TECHS[x.targetId].requiredProgress){c.domestic.techs.push(x.targetId);completeTechnologyBuilding(c,x.targetId);c.domestic.research=null;changed=true;reward={kind:'technology',technologyId:x.targetId};details=`掌握${TECHS[x.targetId].name}：${TECHS[x.targetId].description}`;}else details=`${actual>0?'本轮研制有所进展，增加'+Number(actual.toFixed(2)):'本轮研制未成，未有进展'}，已完成${Number(c.domestic.research.progress.toFixed(2))}%，下轮接续不重复收费`;break;
     case 'recruit':{
@@ -468,6 +481,9 @@ export function finishDomesticDay(s){
   if(kind==='build'){const a=buildingDurability(c,ACTIONS[x.key].value,x.siteId);x.remaining=Math.max(x.remaining,Math.ceil(Math.max(0,a.maxHp-a.hp-1)/c.project.hpPerDay));}
   if(besieged(s,c.id)||siteBlocked){if(!x.paused){x.paused=true;emit(s,a,'pause',`${buildingSiteName(s,x.siteId)}工地或道路受阻，${ACTIONS[x.key].name}暂停。`,{siteId:x.siteId});}continue;}
   if(x.paused){x.paused=false;emit(s,a,'resume',`${buildingSiteName(s,x.siteId)}恢复通行，继续${ACTIONS[x.key].name}。`,{siteId:x.siteId});}
+  // Expired research sources cannot produce progress or merit. Settle before
+  // advancing so a failed opportunity never leaves a complete, locked project.
+  if(kind==='research'&&!completionAvailable(s,c,x)){complete(s,a,c);continue;}
   if(ACTIONS[x.key].kind==='grain'&&hasStrategicTrait(u,'farmTroops')){const troopUnits=farmTroops(s,c,u),rule=strategicTraits(u,'farmTroops')[0].strategic;x.farmSource=u.id;x.farmRate=rule.bonus;x.farmDays++;x.farmContribution+=Math.min(1,troopUnits.reduce((n,v)=>n+v.troops,0)/rule.requiredTroops);}
   const coop=cooperationFor(s,a),beforeRemaining=x.remaining,modifier=incidentModifiers(s,a),beforeHp=['build','repair'].includes(kind)?buildingDurability(c,c.project.key,c.project.siteId).hp:0,beforeResearch=c.domestic.research?.progress||0;
   if(kind==='build'){const normal=Math.min(x.remaining,modifier.progress),progress=Math.min(x.remaining,normal+(coop?.success?Math.min(10,x.remaining)*coop.gain:0));if(coop)settleCooperation(s,a,c,coop,normal,progress,'施工进度（天）');x.remaining=Math.max(0,Math.round((x.remaining-progress)*10000)/10000);}else x.remaining=Math.max(0,x.remaining-1);
@@ -501,7 +517,7 @@ export function validateDomestic(s){
  const fail=(ok,msg='内政存档无效')=>{if(!ok)throw new Error(msg);},int=(v,max=1e9)=>Number.isSafeInteger(v)&&v>=0&&v<=max,num=(v,max=1e9)=>Number.isFinite(v)&&v>=0&&v<=max;
  validateTalent(s);
  validateBuildingDurability(s,fail);validateDomesticIncidents(s,fail);
- const d=s.campaign.domestic;fail(Array.isArray(d?.priority)&&d.priority.length===Object.keys(DIRECTIONS).length&&new Set(d.priority).size===d.priority.length&&d.priority.every(x=>DIRECTIONS[x]),'内政优先级无效');fail(d?.version===19&&typeof d.autoApprove==='boolean','内政存档版本不兼容，请重新开始');fail(int(d.seed,0xffffffff)&&int(d.nextId)&&int(d.lastOpportunityTurn,turn(s))&&d.lastFinishedDay===day(s)-1,'内政日期或随机状态无效');
+ const d=s.campaign.domestic;fail(d?.version===20&&typeof d.autoApprove==='boolean','内政存档版本不兼容，请重新开始');fail(d.priorities&&typeof d.priorities==='object'&&!Array.isArray(d.priorities)&&Object.keys(d.priorities).every(f=>FACTIONS[f])&&s.cities.filter(c=>c.owner!=='neutral').every(c=>Array.isArray(d.priorities[c.owner])),'内政势力优先级无效');for(const priority of Object.values(d.priorities))fail(Array.isArray(priority)&&priority.length===Object.keys(DIRECTIONS).length&&new Set(priority).size===priority.length&&priority.every(x=>DIRECTIONS[x]),'内政优先级无效');fail(int(d.seed,0xffffffff)&&int(d.nextId)&&int(d.lastOpportunityTurn,turn(s))&&d.lastFinishedDay===day(s)-1,'内政日期或随机状态无效');
  const map=x=>!!x&&typeof x==='object'&&!Array.isArray(x);
  const occupiedSites=new Set();
  for(const c of s.cities){
@@ -531,7 +547,7 @@ export function validateDomestic(s){
  for(const a of d.assignments){
   fail(a.proposal===null||a.proposal&&typeof a.proposal==='object','提案状态无效');if(!a.proposal)continue;
   const p=a.proposal,x=p.pick,c=town(s,a.cityId),def=ACTIONS[x?.key];
-  fail(!a.action&&c.owner===playerFaction(s)&&!d.autoApprove&&def?.direction===a.direction&&int(p.id)&&p.id<d.nextId&&!ids.has(p.id)&&int(p.createdDay,day(s))&&p.createdDay>0&&num(p.days,500)&&p.days>0&&typeof p.siteId==='string'&&constructionSites(s,c).some(n=>n.id===p.siteId),'内政提案无效');ids.add(p.id);
+  fail(!a.action&&isPlayerControlled(s,c.owner)&&!d.autoApprove&&def?.direction===a.direction&&int(p.id)&&p.id<d.nextId&&!ids.has(p.id)&&int(p.createdDay,day(s))&&p.createdDay>0&&num(p.days,500)&&p.days>0&&typeof p.siteId==='string'&&constructionSites(s,c).some(n=>n.id===p.siteId),'内政提案无效');ids.add(p.id);
   fail(int(x.cost)&&int(x.amount)&&num(x.chance,OUTCOMES.maxChance)&&x.chance>=OUTCOMES.minChance&&Number.isFinite(x.score)&&(x.targetId===null||typeof x.targetId==='string')&&(def.kind==='recruit'?['reserve','replenish'].includes(x.recruitMode):x.recruitMode===null),'提案事务无效');
   fail(p.expenses&&Object.keys(p.expenses).sort().join(',')==='gold,grain,manpower'&&Object.keys(proposalExpenses(x)).every(k=>int(p.expenses[k])&&p.expenses[k]===proposalExpenses(x)[k])&&Object.values(p.expenses).some(n=>n>0),'提案用度无效');
   if(['build','repair'].includes(def.kind)){claim(constructionSlots,c.id);fail(!c.project&&!occupiedSites.has(p.siteId)&&constructionSites(s,c).some(n=>n.id===p.siteId),'提案工地重复或无效');occupiedSites.add(p.siteId);if(def.value==='walls')fail(p.siteId===c.id,'城墙须建设在主城');}

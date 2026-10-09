@@ -41,7 +41,7 @@ try{
  await page.locator('[data-map-view="city"]').click();assert.equal(await level(),'interior');await main.locator('.is-town-focused [data-city-building="farm"] .city-district-hit').click();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await sync();await page.screenshot({path:out+'/mobile-interior.png'});
  // Opening a group in a command map changes only the camera and keeps the route draft.
  const marching=newCampaign(203,'guandu-200'),home=marching.cities.find(c=>c.id==='xuchang'),ids=home.units.slice(0,2).map(u=>u.id);
- assert.equal(launchExpedition(marching,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[0],deputy:null,target:'chenliu',policy:'auto'}),null);
+ assert.equal(launchExpedition(marching,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:'chenliu',policy:'auto'}),null);
  await page.setViewportSize({width:1440,height:1000});await load(marching);await page.locator(`[data-campaign-army="${marching.armies[0].id}"] [data-map-army-card]`).click();await page.locator('.modal [data-action="campaign-order"]').click();await page.locator('.map-command-screen').waitFor();
  await page.locator('[data-map-view="metropolis"]').click();const draft=await page.locator('.map-point-menu').allTextContents();await page.locator('[data-metropolis-focus="xuchang"] .metropolis-halo').click();assert.equal(await level(),'settlements');assert.deepEqual(await page.locator('.map-point-menu').allTextContents(),draft);await sync();
  await page.locator('[data-command-city="chenliu"] .city-size-mark').click();assert.match((await page.locator('.map-point-menu').allTextContents()).join(''),/陈留/);await page.locator('[data-action="campaign-command-cancel"]').first().click();

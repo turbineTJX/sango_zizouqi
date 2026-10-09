@@ -4,6 +4,7 @@ import {roadCost} from './strategic-movement.mjs';
 import {roadEdgeForArmy,removeOfficer} from './officer-fates.mjs';
 import {battleWounded,isBattleCouncil} from './engine.mjs';
 import {diplomaticPassage} from './diplomacy-relations.mjs';
+import {intelligenceWorld} from './strategic-vision.mjs';
 
 // One weighted search from the exact road position, considering both directions.
 function retreatPaths(s,faction,location,edge,withdrawal=[]){
@@ -35,6 +36,7 @@ export function diplomaticRetreat(s,faction,location,edge,parties){return [...re
 export function retreatDestinations(s,b,side=0){
  const r=s.campaign?.battles.find(r=>r.battle.id===b.id);if(!r)return [];
  const faction=b.sides[side].faction;
+ s=intelligenceWorld(s,faction);
  const origins=r.armies.filter(a=>a.faction===faction);
  if(!origins.length)origins.push({location:r.cityId});
  const routes=origins.map(a=>retreatPaths(s,faction,a.location,roadEdgeForArmy(s,a)));
@@ -75,7 +77,7 @@ export function dispatchWithdrawn(s,r){
   source.troops=u.hp;source.wounded+=battleWounded(u);
   const original=r.armies.find(x=>x.id===a.id)||a;
   const retreatFormation={id:r.id+':'+a.id,name:original.name,capacity,homeCity:original.homeCity||source.homeCity||a.location,
-   leader:original.leader,advisor:original.advisor,deputy:original.deputy??null,morale:a.morale,tactic:a.tactic};
+   leader:original.leader,advisor:original.advisor,morale:a.morale,tactic:a.tactic};
   removeOfficer(s,u.id);
   const destination=side.retreatDestination;
   const path=destination&&routeFrom(s,a.faction,location,edge,destination);

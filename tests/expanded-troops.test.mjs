@@ -90,5 +90,6 @@ test('expanded ongoing statuses serialize exactly and invalid curse or phantom c
  setStatus(b,u,'regrowth',6,{amount:60,sourceId:b.sides[0].units[3].id});setStatus(b,u,'plague',10,{amount:20,sourceId:enemy.id});
  setStatus(b,u,'phase',6);setStatus(b,u,'phaseLock',18);setStatus(b,u,'riposte',8,{lastTick:0});
  const copy=validateSave(structuredClone(syncFixtureLearning(state)));for(let i=0;i<20;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
- for(const [key,data]of [['stun',{until:b.tick+9}],['decoy',{until:b.tick+9,hp:-1,x:1,y:1}]]){const bad=structuredClone(state);bad.battle.sides[0].units[0].statuses[key]=data;assert.throws(()=>validateSave(bad),/状态|疑兵/);}
+ // Stun is a current legal status; curse is the removed identity under test.
+ for(const [key,data]of [['curse',{until:b.tick+9}],['decoy',{until:b.tick+9,hp:-1,x:1,y:1}]]){const bad=structuredClone(state);bad.battle.sides[0].units[0].statuses[key]=data;assert.throws(()=>validateSave(bad),/状态|疑兵/);}
 });

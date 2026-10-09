@@ -33,7 +33,7 @@ function fixture(w,left,right,formation,level,seed,mirror){
   const b=w.createScenario('officer-lab',seed,0,['person-99','person-186','person-290']).battle;b.seed=seed;b.sides[1].units=b.sides[1].units.slice(0,3);
   b.sides.forEach((s,side)=>{s.tactic='steady';s.commanders=[];s.units.forEach((u,i)=>{
     const [type,ids]=specs[teams[side?right:left][i]],p=positions[formation][i];
-    Object.assign(u,{id:`audit-${side}-${i}`,name:`${side?'乙':'甲'}${i+1}`,type,skillRouteType:type,leadership:85,force:85,intellect:85,politics:85,level,hp:3000,maxHp:3000,initial:3000,troops:3000,intent:0,cooldown:0,statuses:{},skillReady:{},tacticCasts:{},skillCasts:0,commandBonus:0,deputyBonus:0,advisorBonus:0,x:side?13-p[0]:p[0],y:side?7-p[1]:p[1]});
+    Object.assign(u,{id:`audit-${side}-${i}`,name:`${side?'乙':'甲'}${i+1}`,type,skillRouteType:type,leadership:85,force:85,intellect:85,politics:85,level,hp:3000,maxHp:3000,initial:3000,troops:3000,intent:0,cooldown:0,statuses:{},skillReady:{},tacticCasts:{},skillCasts:0,commandBonus:0,advisorBonus:0,x:side?13-p[0]:p[0],y:side?7-p[1]:p[1]});
     assert.equal(w.configureTactics(u,ids),null);
   });});
   if(mirror){b.sides.reverse();b.sides.forEach((s,side)=>s.units.forEach(u=>{u.side=side;u.x=13-u.x;u.y=7-u.y;}));}

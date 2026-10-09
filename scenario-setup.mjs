@@ -23,13 +23,13 @@ export function newScenarioSetup(draft,team,reinforcementIndex=null){
  const column=reinforcementIndex===null?null:copy.reinforcements[reinforcementIndex];
  if(column){copy[team]=column.team;copy[team+'Roles']=column.roles;copy[team+'Tactic']=column.tactic;copy.reinforcements=[];}
  const roles=customRoles(copy,team);
- return {draft:copy,originalDraft,reinforcementIndex,team,blockedOfficers:customParticipants(draft).filter(u=>!copy[team].some(v=>v.id===u.id)).map(u=>u.id),editorId:copy[team][0]?.id,step:'unit-review',selected:copy[team].map(u=>u.id),entries:Object.fromEntries(copy[team].map(u=>[u.id,{...u,first:u.first??(copy[team].indexOf(u)<customFrontlineCapacity(copy,team)),formation:u.formation||OFFICER_BY_ID[u.id].formation||'front'}])),roles:{...roles,deputy:null},tactic:copy[team+'Tactic']||'balanced',filter:{sort:'recommended',direction:'desc'}};
+ return {draft:copy,originalDraft,reinforcementIndex,team,blockedOfficers:customParticipants(draft).filter(u=>!copy[team].some(v=>v.id===u.id)).map(u=>u.id),editorId:copy[team][0]?.id,step:'unit-review',selected:copy[team].map(u=>u.id),entries:Object.fromEntries(copy[team].map(u=>[u.id,{...u,first:u.first??(copy[team].indexOf(u)<customFrontlineCapacity(copy,team)),formation:u.formation||OFFICER_BY_ID[u.id].formation||'front'}])),roles:{...roles,},tactic:copy[team+'Tactic']||'balanced',filter:{sort:'recommended',direction:'desc'}};
 }
 export function newBattleSetup(s,armyId){
  const army=s.armies.find(a=>a.id===armyId);
  if(!army||!isDeploying(s.battle)||!s.battle.sides[0].units.some(u=>u.armyId===armyId))throw new Error('只能在开战前调整己方军团');
  const d=s.testScenario?.customBattle;
- return {sourceArmy:structuredClone(army),...(d?{troopBudget:customTroopBudget(d),availableTroops:customReserveTroops(d)}:{}),editorId:army.units[0]?.id,step:'unit-review',selected:army.units.map(u=>u.id),entries:Object.fromEntries(army.units.map(u=>[u.id,structuredClone(u)])),roles:{leader:army.leader,advisor:army.advisor,deputy:null},tactic:army.tactic,terrain:s.battle.terrain,filter:{}};
+ return {sourceArmy:structuredClone(army),...(d?{troopBudget:customTroopBudget(d),availableTroops:customReserveTroops(d)}:{}),editorId:army.units[0]?.id,step:'unit-review',selected:army.units.map(u=>u.id),entries:Object.fromEntries(army.units.map(u=>[u.id,structuredClone(u)])),roles:{leader:army.leader,advisor:army.advisor,},tactic:army.tactic,terrain:s.battle.terrain,filter:{}};
 }
 const catalogCache=new Map();
 export function scenarioAvailableTroops(p,excludeId=null){
@@ -60,7 +60,7 @@ const armyIds=p=>p.armySelected??p.selected;
 export const scenarioSetupUnits=p=>(['commanders','review'].includes(p.step)?armyIds(p):p.selected).map(id=>scenarioSetupOfficer(p,id));
 export function changeScenarioSetup(p,field,id,value){
  if(field==='unit-main'){if(p.sourceArmy&&!p.selected.includes(id))return;if(!p.sourceArmy&&p.blockedOfficers?.includes(id))return;p.entries[id]??={...scenarioSetupOfficer(p,id)};p.editorId=id;p.choosingMain=false;return;}
- if(field==='army-selected'){if(p.sourceArmy)return;p.armySelected??=[...p.selected];p.armySelected=value?[...new Set([...p.armySelected,id])]:p.armySelected.filter(x=>x!==id);for(const role of ['leader','advisor','deputy'])if(!p.armySelected.includes(p.roles[role]))p.roles[role]=role==='deputy'?null:p.armySelected[0];return;}
+ if(field==='army-selected'){if(p.sourceArmy)return;p.armySelected??=[...p.selected];p.armySelected=value?[...new Set([...p.armySelected,id])]:p.armySelected.filter(x=>x!==id);for(const role of ['leader','advisor'])if(!p.armySelected.includes(p.roles[role]))p.roles[role]=p.armySelected[0];return;}
  if(field==='role'){p.roles[id]=value||null;return;}
  if(field==='tactic'){p.tactic=value;return;}
  if(field==='selected'){
@@ -68,7 +68,7 @@ export function changeScenarioSetup(p,field,id,value){
   if(value){if(!p.selected.includes(id)&&p.selected.length<10&&!p.blockedOfficers?.includes(id)&&!p.draft[p.team==='ownTeam'?'enemyTeam':'ownTeam'].some(u=>u.id===id)){p.entries[id]??=defaultScenarioEntry(p,id);p.entries[id].first=p.selected.length<6;p.selected.push(id);}}
   else p.selected=p.selected.filter(x=>x!==id);
   if(p.armySelected)p.armySelected=p.armySelected.filter(x=>p.selected.includes(x));
-  for(const role of ['leader','advisor','deputy'])if(!p.selected.includes(p.roles[role]))p.roles[role]=role==='deputy'?null:p.selected[0];
+  for(const role of ['leader','advisor'])if(!p.selected.includes(p.roles[role]))p.roles[role]=p.selected[0];
   return;
  }
  if(['siege','ship'].includes(field)&&p.entries[id]){p.entries[id].equipment??=emptyEquipment();p.entries[id].equipment[field]=value||null;return;}
@@ -77,12 +77,12 @@ export function changeScenarioSetup(p,field,id,value){
  if(field==='level')p.entries[id].troops=Math.max(1000,Math.min(p.entries[id].troops,troopCapacity({...OFFICER_BY_ID[id],level:Number(value)})));
 }
 export function scenarioSetupError(p){
- if(['formation','unit-review'].includes(p.step)&&p.armySelected){const q={...p,armySelected:undefined,roles:{...p.roles}};for(const role of ['leader','advisor','deputy'])if(!q.selected.includes(q.roles[role]))q.roles[role]=role==='deputy'?null:q.selected[0];return scenarioSetupError(q);}
+ if(['formation','unit-review'].includes(p.step)&&p.armySelected){const q={...p,armySelected:undefined,roles:{...p.roles}};for(const role of ['leader','advisor'])if(!q.selected.includes(q.roles[role]))q.roles[role]=q.selected[0];return scenarioSetupError(q);}
  if(p.sourceArmy&&(p.selected.length!==p.sourceArmy.units.length||new Set(p.selected).size!==p.selected.length||p.selected.some(id=>!p.sourceArmy.units.some(u=>u.id===id))))return '剧本指定武将不可增减或替换';
  if(['unit-select','commanders','review'].includes(p.step)&&!armyIds(p).length)return '请选择加入军团的已编制部队';
  if(!p.selected.length||p.selected.length>(p.sourceArmy?p.sourceArmy.units.length:10))return '请选择一至十支部队';
  if(!Object.hasOwn(TACTICS,p.tactic))return '请选择全军策略';
- for(const role of ['leader','advisor','deputy'])if((role!=='deputy'||p.roles[role])&&!p.selected.includes(p.roles[role]))return '请从本军武将中任命军团长、军师与副将';
+ for(const role of ['leader','advisor'])if(!p.selected.includes(p.roles[role]))return '请从本军武将中任命军团长和军师';
  for(const id of p.selected){const u=p.entries[id];if(!u||!Object.hasOwn(TROOPS,u.type)||!Object.hasOwn(FORMATIONS,u.formation))return '部队配置无效';if(u.type==='ship'&&(p.terrain||p.draft.terrain)!=='river')return '舰船只能参加河流战役';}
  if(scenarioAvailableTroops(p)<0)return '我方兵力超过总预备兵，请减少兵力';
  if(!p.sourceArmy){try{scenarioSetupDraft(p);}catch(e){return e.message;}}
@@ -120,7 +120,7 @@ export function scenarioSetupMarkup(p,context={}){
  if(!p.sourceArmy&&['formation','unit-review'].includes(p.step))body+='<section class="scenario-treasures"><h3>宝物配装</h3><p>全场含后备与援军，同一宝物仅可装备一次。</p>'+units.map(u=>treasureOptions(u,'data-scenario-treasure')).join('')+'</section>';
  if(p.step==='unit-select')body+=combatComparison(context,units.filter(u=>armyIds(p).includes(u.id)),null,{only:['relations'],relationCandidates:units,relationPicker:{attribute:'data-scenario-army-unit',locked:!!p.sourceArmy}});
  if(p.step==='commanders')body+='<h3>第二阶段 · 将部队编成军团</h3>'+ bondsMarkup(units,{army:p.roles})+commanderSetupMarkup(context,units,p.roles,{attribute:'data-scenario-role'});
- if(p.step==='review')body+=`<h3>核阅编制结果</h3><div class="command-decree"><h2>${esc(title)}</h2><p>${units.length} 队 · ${units.reduce((n,u)=>n+u.troops,0)} 人</p><p>${['leader','advisor','deputy'].map(role=>({leader:'军团长',advisor:'军师',deputy:'副将'})[role]+' '+esc(units.find(u=>u.id===p.roles[role])?.name||'无')).join(' · ')}</p></div>`+armyDetailsMarkup({...p.sourceArmy,morale:p.sourceArmy?.morale??80,hunger:p.sourceArmy?.hunger??0,units,...p.roles})+combatComparison(context,units,p.roles)+'';
+ if(p.step==='review')body+=`<h3>核阅编制结果</h3><div class="command-decree"><h2>${esc(title)}</h2><p>${units.length} 队 · ${units.reduce((n,u)=>n+u.troops,0)} 人</p><p>${['leader','advisor'].map(role=>({leader:'军团长',advisor:'军师',})[role]+' '+esc(units.find(u=>u.id===p.roles[role])?.name||'无')).join(' · ')}</p></div>`+armyDetailsMarkup({...p.sourceArmy,morale:p.sourceArmy?.morale??80,hunger:p.sourceArmy?.hunger??0,units,...p.roles})+combatComparison(context,units,p.roles)+'';
  if(!p.sourceArmy){
   const total=customTroopBudget(p.originalDraft||p.draft);
   body=(p.team==='ownTeam'?`<p class="command-reserves" data-scenario-budget>总预备兵 ${total.toLocaleString()} 人 · 已编制 ${(total-available).toLocaleString()} 人 · 可用 ${Math.max(0,available).toLocaleString()} 人</p>`:'<p class="command-reserves">预备兵：inf</p>')+body;
@@ -137,10 +137,10 @@ export function applyBattleSetup(s,p){
  const next=structuredClone(s),army=next.armies.find(a=>a.id===p.sourceArmy.id);
  if(!army||JSON.stringify(army)!==JSON.stringify(p.sourceArmy))throw new Error('军团已变化，请重新编制');
  army.units=scenarioSetupUnits(p);Object.assign(army,p.roles,{tactic:p.tactic});
- const side=next.battle.sides[0],leader=army.units.find(u=>u.id===army.leader),advisor=army.units.find(u=>u.id===army.advisor),deputy=army.units.find(u=>u.id===army.deputy);
+ const side=next.battle.sides[0],leader=army.units.find(u=>u.id===army.leader),advisor=army.units.find(u=>u.id===army.advisor);
  const old=new Map(side.units.map(u=>[u.id,u]));
  const others=side.units.filter(u=>u.armyId!==army.id);
- side.units=[...army.units].sort((a,b)=>Number(b.first)-Number(a.first)).map(u=>({...old.get(u.id),...u,commandBonus:(leader?.leadership||60)/1000,advisorBonus:(advisor?.intellect||0)/1000,deputyBonus:(deputy?.force||0)/2000,status:'reserve',x:-1,y:-1}));
+ side.units=[...army.units].sort((a,b)=>Number(b.first)-Number(a.first)).map(u=>({...old.get(u.id),...u,commandBonus:(leader?.leadership||60)/1000,advisorBonus:(advisor?.intellect||0)/1000,status:'reserve',x:-1,y:-1}));
  side.units.push(...others);
  if(next.testScenario?.customBattle){const d=next.testScenario.customBattle,entries=army.units.map(({id,type,troops,level,formation,first,retreatAt,equipment,treasureId})=>({id,type,troops,level,formation,first,retreatAt,equipment,...(treasureId?{treasureId}:{})})),index=Number(army.id.slice(1))-3;
   if(index>=0){d.reinforcements[index].team=entries;d.reinforcements[index].roles={...p.roles};d.reinforcements[index].tactic=p.tactic;}

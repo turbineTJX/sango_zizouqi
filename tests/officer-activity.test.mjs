@@ -40,7 +40,7 @@ test('travel, armies, external missions and captive locations override appointme
  assert.equal(transferOfficer(s,u.id,'chenliu'),null);recordOfficerActivities(s);
  const o=s.campaign.idle.find(o=>o.unit.id===u.id),travel=officerActivities(s).get(u.id);
  assert.equal(travel.fromId,c.id);assert.equal(travel.toId,o.journey.route[0]);assert.equal(travel.buildingKey,null);assert.match(travel.action,/调任|运输/);
- const ids=c.units.slice(0,2).map(u=>u.id);assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],deputy:null,target:'chenliu',policy:'auto'}),null);
+ const ids=c.units.slice(0,2).map(u=>u.id);assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:'chenliu',policy:'auto'}),null);
  assert.equal(officerActivities(s).get(ids[0]).code,'army');assert.equal(officerActivities(s).get(ids[0]).buildingKey,null);
  const another=cityStaffStatus(s,c).idle[0].unit;
  another.mission={faction:'cao',location:'chenliu',homeCity:c.id,route:[],phase:'work',progress:0};

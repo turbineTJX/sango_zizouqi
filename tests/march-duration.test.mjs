@@ -5,12 +5,13 @@ import {movementPoints,marchItinerary} from '../strategic-movement.mjs';
 import {strategicTravelDays} from '../strategic-ai.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {initializeTacticLearning} from '../tactic-learning.mjs';
+import {resourceRecipe} from '../scripts/resource-recipe.mjs';
 
 for(const [type,expected] of [['spear',8],['cavalry',6],['siege',14]]){
  test(`Xinye–Runan ${type} takes ${expected} marching days on the real national map`,()=>{
   const s=newCampaign(217,'guandu-200','force-7'),home=s.cities.find(c=>c.id==='town-29');
   const a=fieldFromCity(s,home.id,{ids:[home.units[0].id]});
-  a.units[0].type=type;initializeTacticLearning(a.units[0],s.seed);
+  resourceRecipe(a.units[0],type);initializeTacticLearning(a.units[0],s.seed);
   a.morale=80;a.hunger=0;
   const trip=marchItinerary(s,a.location,['runan'],movementPoints(a));
   assert.equal(trip.days,expected);assert.equal(strategicTravelDays(s,a,['runan']),expected);

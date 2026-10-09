@@ -1,3 +1,4 @@
+import {commandProvidersAt} from './battle-appointments.mjs';
 import {STRATAGEMS,stratagemProfile,commanderStratagems} from './stratagems.mjs';
 import {TACTIC_DESIGNS} from './data/design/tactics.mjs';
 import {allLearnedTacticIds} from './tactic-learning.mjs';
@@ -29,7 +30,7 @@ export function validStratagemEvents(b,sideIndex){
  for(const key of ['reinforce','refresh','storm'])if((side.stratagemUses[key]||0)!==events.filter(e=>e.key===key).length)return false;
  for(const e of events){
   if(!['reinforce','refresh','storm'].includes(e.key)||!integer(e.castTick,b.tick)||!b.deploymentLocked)return false;
-  const c=side.commanders.find(c=>c.id===e.source?.id&&c.role===e.source?.role&&commanderStratagems(c).includes(e.key));
+  const c=commandProvidersAt(side,e.castTick).find(c=>c.id===e.source?.id&&c.role===e.source?.role&&commanderStratagems(c).includes(e.key));
   if(!c||!same(e.source,stratagemProfile(e.key,c)))return false;
   const caster=side.units.find(u=>u.id===c.id);if(!caster||(caster.arrivalTick||0)>e.castTick||caster.arrivalConfirmed===false)return false;
   if(e.key==='reinforce'){

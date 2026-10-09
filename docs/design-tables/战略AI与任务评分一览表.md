@@ -8,4 +8,4 @@
 | --- | --- | --- | --- | --- |
 | shared-recommendation | 共用选将评分 | source：officerRecommendation；weights：待完善；sharedWithPlayer：true | officer-recommendation.mjs | 按内政、编队、军团长、军师、运输等任务分别提取权重 |
 | battle-boundary | 固定阵容AI边界 | mayReorderDeployment：true；mayChooseStratagem：true；mayChooseTiming：true；mayChangeTactics：false；mayReorderTactics：false；extraResources：false | battle-ai.mjs | 细化字段并接入对应处理器 |
-| strategic-policy | 战略决策 | implementedSource：data/design/economy-rules.mjs:ai.offensive；targetWeights：待完善 | strategic-ai.mjs | 君主倾向、研判与进攻价值评估已接入正式经济表的ai.offensive；其余目标筛选与运输评分尚待抽取 |
+| strategic-policy | 战略决策 | implementedSource：data/design/economy-rules.mjs:ai.offensive + data/design/strategic-planning-rules.mjs；targetWeights：待完善 | strategic-ai.mjs | 君主倾向、研判、势力战略、有限准备预测和攻城任务已接入正式来源；后续校准战损预测并验证长期战略效果 |

@@ -25,7 +25,7 @@ test('manual marching route is issued exactly and deterministic after saving',()
  const copy=validateCampaign(JSON.parse(serializeCampaign(s)));beginExecution(s);beginExecution(copy);advanceCampaignStep(s);advanceCampaignStep(copy);assert.equal(serializeCampaign(s),serializeCampaign(copy));
 });
 test('expedition preserves selected roads and rejects invalid paths before changing state',()=>{
- const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),ids=c.units.slice(0,2).map(u=>u.id),q={kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],deputy:null,target:'chenliu',route:['junction:chenliu:xuchang','chenliu']};
+ const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),ids=c.units.slice(0,2).map(u=>u.id),q={kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:'chenliu',route:['junction:chenliu:xuchang','chenliu']};
  const before=serializeCampaign(s);assert.ok(requestStrategicOrder(s,{...q,route:['missing','chenliu']}).error);assert.equal(serializeCampaign(s),before);
  assert.equal(requestStrategicOrder(s,q).applied,true);assert.deepEqual(s.armies[0].route,q.route);validateCampaign(JSON.parse(serializeCampaign(s)));
  assert.equal(validMapRoute(s,c.id,'chenliu',['chenliu',c.id,'chenliu']),false);

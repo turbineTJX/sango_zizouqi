@@ -2,6 +2,9 @@ import {NATIONAL_FACTIONS} from './national-scenarios.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 // Battles outside a strategic campaign use the original Cao-side convention.
 export const playerFaction = state => state?.campaign?.playerFaction ?? 'cao';
+// The selected faction remains the viewing perspective in an AI observation.
+export const isPlayerControlled = (state,faction) => !state?.campaign?.allAI && faction===playerFaction(state);
+export const isAIControlled = (state,faction) => !!faction && faction!=='neutral' && !isPlayerControlled(state,faction);
 export function playerHome(state) {
  const faction=playerFaction(state),lord=NATIONAL_FACTIONS[faction]?.leaderSourceId;
  const ownsLord=u=>lord!==undefined&&OFFICER_BY_ID[u.id]?.sourceId===lord;

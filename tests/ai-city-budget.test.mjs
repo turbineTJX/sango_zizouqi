@@ -151,7 +151,7 @@ test('a quiet AI city operates for twelve real economic cycles without exhaustin
 test('a real AI siege can order physical withdrawal before a cut grain line causes hunger',()=>{
  const {s,source,rear,front}=scene();rear.grain=0;front.owner='cao';front.domestic.owner='cao';gateDurability(front).hp=15000;
  front.units=[{...makeOfficer('cao',3000,0,3),homeCity:front.id}];initializeVision(s);
- assert.equal(launchExpedition(s,{cityId:source.id,officerIds:['shao'],leader:'shao',advisor:'shao',deputy:null,target:front.id,policy:'auto'},{faction:'yuan'}),null);
+ assert.equal(launchExpedition(s,{cityId:source.id,officerIds:['shao'],leader:'shao',advisor:'shao',target:front.id,policy:'auto'},{faction:'yuan'}),null);
  beginExecution(s);for(let i=0;i<5&&!activeBattles(s).length;i++)advanceCampaignDay(s);
  const battle=activeBattles(s).find(b=>b.cityId===front.id);assert.ok(battle);assert.equal(battle.kind,'siege');
  if(battle.awaiting)chooseEncounter(s,battle.id,false);

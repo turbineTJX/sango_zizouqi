@@ -11,7 +11,7 @@ try{
  await mkdir('outputs/road-network-ui',{recursive:true});await page.goto('http://127.0.0.1:4203/#strategy');
  const fixture=await page.evaluate(async()=>{
   const {newCampaign,launchExpedition}=await import('/strategic-campaign.mjs');const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),ids=c.units.slice(0,2).map(u=>u.id);
-  const error=launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],deputy:null,target:'chenliu',policy:'auto'});if(error)throw Error(error);
+  const error=launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:'chenliu',policy:'auto'});if(error)throw Error(error);
   localStorage.setItem('sango-sovereign-v2',JSON.stringify(s));return {state:s,id:s.armies[0].id,target:'junction:chenliu:xuchang'};
  });
  await page.addInitScript(s=>{if(!sessionStorage.getItem('road-test-seeded')){localStorage.setItem('sango-sovereign-v2',JSON.stringify(s));sessionStorage.setItem('road-test-seeded','1');}},fixture.state);

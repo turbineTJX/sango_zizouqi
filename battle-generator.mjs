@@ -21,7 +21,7 @@ export function generateBattle(input,{id='custom-battle',name='自由对战',off
       if(reinforcement)Object.assign(u,{reinforcementIndex:index,arrivalTick:reinforcement.tick??null,arrivalConfirmed:reinforcement.tick===0,wave:draft.waves.length+index+1,...(reinforcement.arrivalCondition?{arrivalCondition:structuredClone(reinforcement.arrivalCondition)}:{})});
       return initializeTacticLearning(u,draft.seed);
     });
-    Object.assign(army,roles,{deputy:roles.deputy??null,tactic:reinforcement?.tactic||draft[key+'Tactic']||'balanced',morale:80,location:'guandu',route:[],target:null});return army;
+    Object.assign(army,roles,{tactic:reinforcement?.tactic||draft[key+'Tactic']||'balanced',morale:80,location:'guandu',route:[],target:null});return army;
   });
   state.nextId=state.armies.length+1;
   const defending=draft.battleKind==='defense',city=state.cities.find(c=>c.id==='guandu');

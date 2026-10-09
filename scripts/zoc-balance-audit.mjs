@@ -70,7 +70,7 @@ function fixture(w,left,right,formation,level,seed,mirror=false,named=false,size
     s.tactic='steady';s.commanders=[];
     s.units.forEach((u,i)=>{
       const spec=templates[teams[side?right:left][i%3]],pos=size===3?formations[formation][i]:(formation==='compact'?[[4,2],[3,1],[3,3],[4,5],[3,4],[3,6]]:[[4,2],[0,0],[0,2],[4,5],[0,5],[0,7]])[i];
-      Object.assign(u,{id:named&&!side?u.id:`audit-${side}-${i}`,name:named&&!side?u.name:`${side?'乙':'甲'}${i+1}`,type:spec.type,skillRouteType:spec.type,level,hp:3000,maxHp:3000,initial:3000,troops:3000,intent:0,cooldown:0,statuses:{},skillReady:{},tacticCasts:{},skillCasts:0,commandBonus:0,deputyBonus:0,advisorBonus:0});
+      Object.assign(u,{id:named&&!side?u.id:`audit-${side}-${i}`,name:named&&!side?u.name:`${side?'乙':'甲'}${i+1}`,type:spec.type,skillRouteType:spec.type,level,hp:3000,maxHp:3000,initial:3000,troops:3000,intent:0,cooldown:0,statuses:{},skillReady:{},tacticCasts:{},skillCasts:0,commandBonus:0,advisorBonus:0});
       if(!named||side)Object.assign(u,{leadership:85,force:85,intellect:85,politics:85});
       u.x=side?13-pos[0]:pos[0];u.y=side?7-pos[1]:pos[1];
       assert.equal(w.configureTactics(u,spec.ids),null);

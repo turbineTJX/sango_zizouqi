@@ -13,7 +13,7 @@ export function marchModes(a){return [{id:'normal',name:'常行'},...(armyStrate
 export function validMarch(a,day){
  if(a.marchMode===undefined)return a.marchRestUntil===undefined&&a.fullSupplyCapacity===undefined;
  if(!['normal','light','forced'].includes(a.marchMode)||!Number.isInteger(a.marchRestUntil)||a.marchRestUntil<0||a.marchRestUntil>day+TRAIT_DESIGNS.forcedMarch.strategic.recovery)return false;
- return a.marchMode==='light'?Number.isFinite(a.fullSupplyCapacity)&&a.fullSupplyCapacity>0&&a.supplyCapacity===a.fullSupplyCapacity*TRAIT_DESIGNS.lightMarch.strategic.capacity:a.fullSupplyCapacity===undefined;
+ return a.marchMode==='light'?Number.isSafeInteger(a.fullSupplyCapacity)&&a.fullSupplyCapacity>0&&a.supplyCapacity===Math.floor(a.fullSupplyCapacity*TRAIT_DESIGNS.lightMarch.strategic.capacity):a.fullSupplyCapacity===undefined;
 }
 
 export const marchDescription=a=>['lightMarch','forcedMarch'].map(effect=>armyStrategicTrait(a,effect)?.description).filter(Boolean).join(' ');

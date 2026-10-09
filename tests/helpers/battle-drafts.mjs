@@ -112,12 +112,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "yu",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "ju",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -260,12 +260,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-246",
       "advisor": "person-246",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "cao",
       "advisor": "yu",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -365,12 +365,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "liao",
       "advisor": "person-610",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "person-368",
       "advisor": "person-662",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -489,12 +489,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-603",
       "advisor": "person-603",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "person-636",
       "advisor": "person-167",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -557,12 +557,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-646",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "person-661",
       "advisor": "person-661",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -625,12 +625,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-646",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "person-433",
       "advisor": "person-433",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -685,12 +685,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-636",
       "advisor": "person-636",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "person-661",
       "advisor": "person-661",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -852,12 +852,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-636",
       "advisor": "person-290",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -968,12 +968,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-661",
       "advisor": "person-447",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -1092,12 +1092,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -1224,12 +1224,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -1372,12 +1372,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -1448,12 +1448,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-433",
       "advisor": "person-99",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "shao",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -1572,12 +1572,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "person-290",
       "advisor": "person-290",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -1696,12 +1696,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -1841,12 +1841,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "yu",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -2026,12 +2026,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -2208,12 +2208,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "cao",
       "advisor": "jia",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -2390,12 +2390,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "jin",
       "advisor": "yu",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",
@@ -2567,12 +2567,12 @@ export const REGRESSION_DRAFTS = [
     "ownTeamRoles": {
       "leader": "jin",
       "advisor": "yu",
-      "deputy": null
+
     },
     "enemyTeamRoles": {
       "leader": "shao",
       "advisor": "tian",
-      "deputy": null
+
     },
     "ownTeamTactic": "balanced",
     "enemyTeamTactic": "balanced",

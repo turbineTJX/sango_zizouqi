@@ -1,6 +1,6 @@
 import {gateDurability} from './building-durability.mjs';
 import {cityStaffStatus} from './domestic-feedback.mjs';
-import {intelligenceWorld,cityIntelligence,intelligenceLabel,cityVisible} from './strategic-vision.mjs';
+import {intelligenceWorld,cityIntelligence,intelligenceLabel,cityVisible,armyVisionRadius} from './strategic-vision.mjs';
 import {cityMilitary} from './domestic.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {unitAttributes} from './unit-stats.mjs';
@@ -32,7 +32,7 @@ export function armyHoverMarkup(s,a){
  s=intelligenceWorld(s);a=s.armies.find(x=>x.id===a.id);if(!a)return '';
  const named=id=>a.units.find(u=>u.id===id)?.name||'—',types=[...new Set(a.units.filter(u=>u.troops>0).map(u=>TROOPS[u.type]?.name).filter(Boolean))],target=mapNode(s,a.target||a.route?.at(-1))?.name;
  return summaryHeader(a.name,a.faction)+summaryTable([
- ['主将',named(a.leader)],['副将',named(a.deputy)],['军师',named(a.advisor)],['兵粮',num(Math.floor(a.supply||0))],['士兵',num(liveSoldiers(s,a))],['士气',num(a.morale)+'/100'],['兵科',types.length>2?'混编':types.join(' / ')||'—'],...(target?[['目标',target]]:[])
+ ['主将',named(a.leader)],['军师',named(a.advisor)],['视野半径',armyVisionRadius(a).toLocaleString('zh-CN',{maximumFractionDigits:2})],['兵粮',num(Math.floor(a.supply||0))],['士兵',num(liveSoldiers(s,a))],['士气',num(a.morale)+'/100'],['兵科',types.length>2?'混编':types.join(' / ')||'—'],...(target?[['目标',target]]:[])
  ]);
 }
 // One delegated hover surface for cities and armies; it never captures clicks.

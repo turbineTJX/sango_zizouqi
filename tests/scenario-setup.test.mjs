@@ -7,10 +7,10 @@ import {saveScenarioUnit,newScenarioSetup,newBattleSetup,changeScenarioSetup,sce
 test('shared custom setup is an isolated draft and applies all commander and unit fields',()=>{
  const d=defaultCustomBattle(),before=JSON.stringify(d),p=newScenarioSetup(d,'ownTeam');
  changeScenarioSetup(p,'selected','person-255',true);changeScenarioSetup(p,'level','person-255',8);changeScenarioSetup(p,'troops','person-255',4000);changeScenarioSetup(p,'type','person-255','halberd');
- changeScenarioSetup(p,'role','advisor','person-255');changeScenarioSetup(p,'role','deputy','person-255');changeScenarioSetup(p,'tactic',null,'defensive');
+ changeScenarioSetup(p,'role','advisor','person-255');changeScenarioSetup(p,'tactic',null,'defensive');
  assert.equal(scenarioSetupError(p),'');assert.equal(JSON.stringify(d),before);
  const draft=scenarioSetupDraft(p),s=createScenario('custom-battle',draft.seed,20,null,draft);
- assert.equal(s.armies[0].deputy,'person-255');assert.equal(s.armies[0].tactic,'defensive');
+ assert.equal(Object.hasOwn(s.armies[0],'deputy'),false);assert.equal(s.armies[0].tactic,'defensive');
  assert.deepEqual(scenarioSetupUnits(p).map(u=>u.tacticLearning),s.armies[0].units.map(u=>u.tacticLearning));
  assert.equal(validateSave(structuredClone(s)).armies[0].advisor,'person-255');
  changeScenarioSetup(p,'selected','shao',true);assert.ok(!p.selected.includes('shao'));

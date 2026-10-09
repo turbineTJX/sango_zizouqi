@@ -39,7 +39,7 @@ function fixture(g,context,formation='compact',level=10,team='ranged'){
   for(const [side,s] of b.sides.entries()){
     s.tactic='steady';
     for(const [i,u] of s.units.entries()){
-      Object.assign(u,{hp:3000,maxHp:3000,initial:3000,troops:3000,level,merit:0,status:'active',intent:0,cooldown:0,skillReady:{},statuses:{},tacticCasts:{},skillCasts:0,commandBonus:0,deputyBonus:0,advisorBonus:0});
+      Object.assign(u,{hp:3000,maxHp:3000,initial:3000,troops:3000,level,merit:0,status:'active',intent:0,cooldown:0,skillReady:{},statuses:{},tacticCasts:{},skillCasts:0,commandBonus:0,advisorBonus:0});
       [u.x,u.y]=(side?contexts[context].positions:formations[formation].positions)[i];
       if(side){
         Object.assign(u,{leadership:85,force:85,intellect:85,politics:70,type:contexts[context].types[i],skillRouteType:contexts[context].types[i]});

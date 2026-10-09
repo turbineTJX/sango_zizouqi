@@ -1,17 +1,27 @@
 import {intelligenceWorld} from './strategic-vision.mjs';
 import {cityRecurringIncome} from './economy.mjs';
 import {dailyConsumption,supplyConnection} from './strategic-campaign.mjs';
-import {citySupplyCapacity,allocateSupply} from './army-supply.mjs';
+import {citySupplyCapacity,allocateSupply,foodConsumption} from './army-supply.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 
-export const localFoodUse=c=>c.units.reduce((n,u)=>n+u.troops/100+u.wounded/200,0);
+export const localFoodUse=c=>foodConsumption(c.units.reduce((n,u)=>n+u.troops,0),c.units.reduce((n,u)=>n+u.wounded,0));
+const supplyQueryScopes=new WeakMap();
+// Only synchronous read-only candidate evaluation may share a supply query.
+// Closing the scope always drops it, before appointments, payments or movement.
+export function withCitySupplyQueries(s,evaluate){
+ if(supplyQueryScopes.has(s))return evaluate();
+ const scope={supplies:null};supplyQueryScopes.set(s,scope);
+ try{return evaluate();}finally{supplyQueryScopes.delete(s);}
+}
 export function citySupplyBudgets(s){
- if(!s.armies.some(a=>!a.disbanded))return [];
+ const scope=supplyQueryScopes.get(s);if(scope?.supplies)return scope.supplies;
+ if(!s.armies.some(a=>!a.disbanded)){const empty=[];if(scope)scope.supplies=empty;return empty;}
  const views=new Map();
- return s.armies.filter(a=>!a.disbanded).map(a=>{
+ const result=s.armies.filter(a=>!a.disbanded).map(a=>{
   if(!views.has(a.faction)){const view=intelligenceWorld(s,a.faction);views.set(a.faction,{view,empty:{...view,cities:view.cities.map(c=>c.grain>0?c:{...c,grain:1})}});}
   const {view,empty}=views.get(a.faction);return {army:a,link:supplyConnection(view,a)||supplyConnection(empty,a),need:dailyConsumption(s,a)};
  });
+ if(scope)scope.supplies=result;return result;
 }
 // Current positions and troop counts stay fixed. Warehouses are unconstrained
 // here: this measures required withdrawals, while city budgets check real stock.

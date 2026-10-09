@@ -56,7 +56,7 @@ export function formationProbes(weights,seed=9001){
   const s=newCampaign(seed),c=s.cities.find(c=>c.id==='xuchang'),u=makeOfficer('person-716',0,0,1);
   s.armies=[];s.campaign.idle=[];s.campaign.domestic.assignments=[];
   for(const town of s.cities)town.units=[];
-  resourceRecipe(u,type);u.troops=0;u.wounded=0;u.homeCity=c.id;c.units=[u];c.barracks=5;c.domestic.techs=Object.keys(TROOP_DESIGNS);
+  resourceRecipe(u,type);u.troops=0;u.wounded=0;u.homeCity=c.id;c.units=[u];c.barracks=5;c.domestic.techs=[...new Set(Object.values(TROOP_DESIGNS).map(d=>d.technology).filter(Boolean))];
   const recipe={gold:trainingCost(u,target),grain:0,manpower:target};
   const before=Object.fromEntries(Object.entries(recipe).map(([key,n])=>[key,Math.floor(n*(key===missing?.5:1))]));
   const added={gold:0,grain:0,manpower:0};if(grant!=='none')added[grant]=Math.floor(grantValue/weights[grant]);

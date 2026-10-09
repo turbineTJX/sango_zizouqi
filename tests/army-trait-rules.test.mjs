@@ -63,7 +63,7 @@ test('Qingnang enables actual clinic-free treatment but preserves grain and real
 
 test('normal campaign expedition persists seven starters under Cao Cao',()=>{
  const s=newCampaign(91),c=s.cities.find(c=>c.id==='xuchang');
- assert.equal(launchExpedition(s,{cityId:c.id,officerIds:c.units.map(u=>u.id),leader:'cao',advisor:'jia',deputy:null,target:'guandu',policy:'auto'}),null);
+ assert.equal(launchExpedition(s,{cityId:c.id,officerIds:c.units.map(u=>u.id),leader:'cao',advisor:'jia',target:'guandu',policy:'auto'}),null);
  const army=s.armies.find(a=>a.leader==='cao');assert.equal(army.units.filter(u=>u.first).length,7);
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));assert.equal(restored.armies.find(a=>a.id===army.id).units.filter(u=>u.first).length,7);
 });

@@ -1,7 +1,7 @@
 import {validMapRoute} from "./strategic-movement.mjs";
 import {intelligenceWorld} from './strategic-vision.mjs';
 import {mapNode} from './road-network.mjs';
-import {playerFaction} from './player-faction.mjs';
+import {playerFaction,isAIControlled} from './player-faction.mjs';
 import {strategicDepartureError} from './strategic-ai.mjs';
 import {threatenedTransportRoute} from './strategic-movement.mjs';
 import {missionOfficer,missionUnits,recallOfficerMission,missionStatus} from './officer-missions.mjs';
@@ -24,7 +24,7 @@ export function currentDomesticWork(s,id){
 // Initial campaign army splitting runs before domestic orders are initialized.
 export const armyWaitingOrder=(s,id)=>s.campaign.domestic?.orders.find(q=>q.kind==='march'&&q.armyId===id);
 function normalize(s,command){
- if(command.kind==='expedition')return {kind:'expedition',cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],leader:command.leader,advisor:command.advisor,deputy:command.deputy??null,target:command.target,policy:command.policy||'auto',...(command.route?{route:[...command.route]}:{}),minSupply:command.minSupply??0};
+ if(command.kind==='expedition')return {kind:'expedition',cityId:command.cityId,officerIds:[...new Set(command.officerIds||[])],leader:command.leader,advisor:command.advisor,target:command.target,policy:command.policy||'auto',...(command.route?{route:[...command.route]}:{}),minSupply:command.minSupply??0};
  if(command.kind==='march'){
   const a=s.armies.find(a=>a.id===command.armyId);
   return {kind:'march',armyId:command.armyId,cityId:a?.location,officerIds:a?.units.map(u=>u.id)||[],target:command.target,policy:command.policy||'auto',...(command.route?{route:[...command.route]}:{})};
@@ -80,6 +80,7 @@ function apply(s,q,scheduled=false){
  return null;
 }
 export function requestStrategicOrder(s,command,choice=null){
+ if(s.campaign.allAI)return {error:'全 AI 观战由 AI 安排军政事务'};
  return requestFactionOrder(s,playerFaction(s),command,choice,false);
 }
 // Controller identity is explicit; never swap the player's faction or treasury.
@@ -123,7 +124,7 @@ export function resolveStrategicOrders(s){
   if(q.kind==='march'&&armyBattle(s,q.armyId)||q.kind==='expedition'&&s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===q.cityId)){continue;}
   const error=check(s,q);if(error){removeDomesticOrder(s,q.id,error);continue;}
   if(waiting)continue;
-  if(q.kind==='expedition'&&q.faction!==playerFaction(s)){
+  if(q.kind==='expedition'&&isAIControlled(s,q.faction)){
    const safety=strategicDepartureError(s,q);if(safety){removeDomesticOrder(s,q.id,safety);continue;}
   }
   s.campaign.domestic.orders=s.campaign.domestic.orders.filter(x=>x.id!==q.id);
@@ -141,7 +142,7 @@ export function validateStrategicOrders(s){
   fail(Array.isArray(q.waits)&&q.waits.length>0&&q.waits.length<=q.officerIds.length);const seen=new Set();
   for(const w of q.waits){fail(q.officerIds.includes(w.officerId)&&!seen.has(w.officerId)&&int(w.actionId)&&w.actionId<d.nextId);seen.add(w.officerId);const history=d.workHistory[w.officerId]?.find(x=>x.actionId===w.actionId);fail(assignmentFor(s,w.officerId)?.action?.id===w.actionId||history&&history.status!=='interrupted');}
   if(q.route!==undefined)fail(validMapRoute(s,q.cityId,q.target,q.route));
-  if(q.kind==='expedition')fail(Number.isSafeInteger(q.minSupply)&&q.minSupply>=0&&q.minSupply<=q.officerIds.length*900&&q.officerIds.length<=10&&q.officerIds.includes(q.leader)&&q.officerIds.includes(q.advisor)&&(q.deputy===null||q.officerIds.includes(q.deputy))&&town(s,q.target)&&q.target!==q.cityId&&['auto','main'].includes(q.policy));
+  if(q.kind==='expedition')fail(Number.isSafeInteger(q.minSupply)&&q.minSupply>=0&&q.minSupply<=q.officerIds.length*900&&q.officerIds.length<=10&&q.officerIds.includes(q.leader)&&q.officerIds.includes(q.advisor)&&!Object.hasOwn(q,'deputy')&&town(s,q.target)&&q.target!==q.cityId&&['auto','main'].includes(q.policy));
   if(q.kind==='assign')fail(!!DIRECTIONS[q.direction]);
   if(q.kind==='march'){const a=s.armies.find(a=>a.id===q.armyId);fail(a&&!a.travel&&!a.route.length&&a.units.filter(u=>u.troops>0).length<=10&&a.units.length===q.officerIds.length&&a.units.every(u=>q.officerIds.includes(u.id))&&town(s,q.target)&&q.target!==q.cityId&&['auto','main'].includes(q.policy));}
   if(q.kind==='transfer'){fail(typeof q.safeOnly==='boolean'&&q.cargo&&['gold','grain','manpower'].every(k=>Number.isSafeInteger(q.cargo[k])&&q.cargo[k]>=0));} if(q.cycles!==undefined)fail(Number.isInteger(q.cycles)&&q.cycles>=0&&q.cycles<=5&&q.cycles!==1);

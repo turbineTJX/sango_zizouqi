@@ -4,7 +4,7 @@ export function cityUnitRows(s){return s.cities.flatMap(c=>c.units.map(unit=>({u
 // Read-only force estimate for AI planning. Never stored in s.armies.
 export function cityForce(c){
  const units=c.units.filter(u=>!u.mission),leader=[...units].sort((a,b)=>b.leadership-a.leadership)[0],advisor=[...units].sort((a,b)=>b.intellect-a.intellect)[0];
- return {id:`city-force:${c.id}`,cityForce:true,task:'驻城',name:`${c.name}城内部队`,faction:c.owner,location:c.id,homeCity:c.id,units,leader:leader?.id,advisor:advisor?.id,deputy:null,morale:80,tactic:'balanced',route:[],target:null,travel:null,supply:Math.min(c.grain,units.length*900),supplyCapacity:units.length*900,hunger:c.hunger,supplyIn:0,supplyLine:null,cooldownDay:0,stationary:c.kind&&c.kind!=='city'};
+ return {id:`city-force:${c.id}`,cityForce:true,task:'驻城',name:`${c.name}城内部队`,faction:c.owner,location:c.id,homeCity:c.id,units,leader:leader?.id,advisor:advisor?.id,morale:80,tactic:'balanced',route:[],target:null,travel:null,supply:Math.min(c.grain,units.length*900),supplyCapacity:units.length*900,hunger:c.hunger,supplyIn:0,supplyLine:null,cooldownDay:0,stationary:c.kind&&c.kind!=='city'};
 }
 export function cityForces(s){return s.cities.filter(c=>c.units.length).map(cityForce);}
 

@@ -4,13 +4,15 @@ import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validate
 import {scoutingMarkup,scoutingReportMarkup} from '../scouting-view.mjs';
 import {residentOfficer} from '../city-personnel.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';
-import {assignDomestic,cancelDomestic} from '../domestic.mjs';
+import {assignDomestic,cancelDomestic,finishDomesticDay} from '../domestic.mjs';
 import {finishTalentDay} from '../talent-lifecycle.mjs';
-import {cityVisible,cityIntelligence,intelligenceWorld,updateVision,visionSources} from '../strategic-vision.mjs';
+import {cityVisible,cityIntelligence,intelligenceWorld,updateVision,visionSources,visionPosition,armyVisionRadius,armyVisible,armyIntelligence,directPointVisible,fogMarkup} from '../strategic-vision.mjs';
 import {scoutCandidates,scoutTargets,dispatchScout,recallScout,scoutRoute,scoutAssignment,scoutingDurationRange,advanceScouting} from '../scouting.mjs';
 import {campaignInfoIndex,campaignInfoDetail,campaignInfoMarkup,campaignInfoSections} from '../campaign-info.mjs';
 import {nationalArtMap} from '../national-map-view.mjs';
-import {cityHoverMarkup} from '../army-inspection.mjs';
+import {cityHoverMarkup,armyHoverMarkup} from '../army-inspection.mjs';
+import {armyDetailSections} from '../army-details.mjs';
+import {strategicView} from '../strategic-view.mjs';
 import {armyMapMarkers} from '../strategic-army-markers.mjs';
 import {observeStrategicThreat} from '../strategic-ai.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
@@ -18,10 +20,72 @@ import {officerActivities} from '../officer-activity.mjs';
 import {mapNode} from '../map-node-data.mjs';
 import {roadDistance,roadCost} from '../road-metrics.mjs';
 import {scoutVisionProxy} from '../scouting-state.mjs';
+import {syncResourceTotals} from '../city-resources.mjs';
 
 function quietGame(){const s=newCampaign(203);for(const c of s.cities.filter(c=>c.owner!=='cao'))for(const u of c.units)u.troops=0;updateVision(s);return s;}
 function nextDay(s){if(s.campaign.phase==='planning')assert.equal(beginExecution(s),null);const r=advanceCampaignDay(s);assert.equal(r.dayEnded,true);}
 function scout(s){const city=s.cities.find(c=>c.owner==='cao'&&scoutCandidates(s,c.id).length),officer=scoutCandidates(s,city.id)[0];return {city,officer};}
+
+function armySightFixture(faction){
+ const s=newCampaign(203,'guandu-200'),home=s.cities.find(c=>{const units=c.units.filter(u=>!u.cityGuard).slice(0,10);return c.owner===faction&&units.some(u=>u.intellect>=75)&&units.some(u=>u.intellect<66);});
+ const target=s.cities.find(c=>c.owner!==faction&&c.owner!=='neutral'&&c.units.some(u=>!u.cityGuard)&&!cityVisible(s,c.id,faction)&&s.roads.some(e=>e.includes(c.id)&&Math.hypot(mapNode(s,e.find(id=>id!==c.id)).x-c.x,mapNode(s,e.find(id=>id!==c.id)).y-c.y)>40));
+ const from=mapNode(s,s.roads.find(e=>e.includes(target.id)&&Math.hypot(mapNode(s,e.find(id=>id!==target.id)).x-target.x,mapNode(s,e.find(id=>id!==target.id)).y-target.y)>40).find(id=>id!==target.id));
+ const own=fieldFromCity(s,home.id),enemy=fieldFromCity(s,target.id),length=roadDistance(s,from.id,target.id),distance=Math.hypot(from.x-target.x,from.y-target.y);
+ own.leader=[...own.units].sort((a,b)=>a.intellect-b.intellect)[0].id;own.advisor=[...own.units].sort((a,b)=>b.intellect-a.intellect)[0].id;
+ own.location=from.id;own.route=[target.id];own.target=target.id;own.travel={from:from.id,to:target.id,road:'main',progress:length*(1-28/distance)};
+ return {s,own,enemy,target,from,length,distance};
+}
+
+test('army sight uses the higher actual leader/advisor intellect, follows appointments and shares map/detail rules',()=>{
+ const {s,own}=armySightFixture('cao');
+ own.leader=own.units[0].id;own.advisor=own.units[1].id;own.units[0].intellect=40;own.units[1].intellect=100;
+ assert.equal(armyVisionRadius(own),32);
+ own.advisor=own.leader;assert.equal(armyVisionRadius(own),24.8,'another high-intellect officer does not contribute without the appointment');
+ own.leader=own.units[1].id;assert.equal(armyVisionRadius(own),32,'the leader can supply the higher intellect');
+ own.advisor=own.leader;assert.equal(armyVisionRadius(own),32,'holding both posts does not add their intellects');
+ own.advisor=null;assert.equal(armyVisionRadius(own),32);
+ own.leader=own.units[0].id;own.units[0].intellect=0;assert.equal(armyVisionRadius(own),20);
+ own.advisor=own.units[1].id;updateVision(s);
+ const before=serializeCampaign(s),source=visionSources(s).find(v=>v.object?.id===own.id);
+ assert.equal(source.radius,32);assert.deepEqual({x:source.x,y:source.y},visionPosition(s,own));assert.match(fogMarkup(s),/r="32"/);
+ assert.match(armyHoverMarkup(s,own),/视野半径<\/th><td>32/);
+ assert.match(armyDetailSections(own).find(x=>x.id==='command').html,/大地图视野半径<\/dt><dd>32/);
+ assert.match(strategicView(s,{army:own.id,strategyTab:'army'}),/大地图视野半径 32/);
+ assert.equal(serializeCampaign(s),before,'viewing sight cannot change or roll state');
+ own.disbanded=true;assert.ok(!visionSources(s).some(v=>v.object?.id===own.id));own.disbanded=false;
+ own.units.forEach(u=>u.troops=0);assert.ok(!visionSources(s).some(v=>v.object?.id===own.id),'an empty army is not a sight source');
+});
+
+test('real moving armies continuously observe nearby enemies and cities for players and AI, retaining dated intel after separation',()=>{
+ for(const faction of ['cao','yuan']){
+  const {s,own,enemy,target,length,distance}=armySightFixture(faction);
+  s.campaign.phase='executing';
+  const advisor=own.advisor,radius=armyVisionRadius(own);own.advisor=null;
+  assert.ok(armyVisionRadius(own)<28);assert.ok(!armyVisible(s,enemy,faction));
+  own.advisor=advisor;updateVision(s);
+  assert.ok(armyVisible(s,enemy,faction));assert.ok(cityVisible(s,target.id,faction));assert.ok(directPointVisible(s,target,faction));
+  assert.equal(s.campaign.scouting.tasks.length,0);assert.equal(s.campaign.vision.factions[faction].scouted.length,0,'direct army sight has no randomized lifetime');
+  enemy.target='secret-target';enemy.route=['secret-route'];
+  for(const day of [2,3]){
+   finishDomesticDay(s);s.campaign.day=day;enemy.units[0].troops-=100;target.grain-=77;syncResourceTotals(s);updateVision(s);
+   const observed=intelligenceWorld(s,faction).armies.find(a=>a.id===enemy.id),record=armyIntelligence(s,enemy.id,faction);
+   assert.equal(observed.units[0].troops,enemy.units[0].troops);assert.equal(observed.target,null);assert.deepEqual(observed.route,[]);
+   assert.equal(record.day,day);assert.equal(cityIntelligence(s,target.id,faction).data.grain,target.grain);
+  }
+  enemy.target=null;enemy.route=[];
+  const saved=serializeCampaign(s),resumed=validateCampaign(JSON.parse(saved));assert.equal(serializeCampaign(resumed),saved);
+  assert.equal(armyVisionRadius(resumed.armies.find(a=>a.id===own.id)),radius);assert.ok(armyVisible(resumed,resumed.armies.find(a=>a.id===enemy.id),faction));
+  for(const state of [s,resumed]){
+   finishDomesticDay(state);state.campaign.day=4;const column=state.armies.find(a=>a.id===own.id),opponent=state.armies.find(a=>a.id===enemy.id),city=state.cities.find(c=>c.id===target.id);
+   column.travel.progress=length*(1-38/distance);opponent.units[0].troops-=200;city.grain-=99;syncResourceTotals(state);updateVision(state);
+   assert.ok(!armyVisible(state,opponent,faction));assert.ok(!cityVisible(state,city.id,faction));assert.ok(!intelligenceWorld(state,faction).armies.some(a=>a.id===opponent.id));
+   assert.equal(armyIntelligence(state,opponent.id,faction).day,3);assert.equal(armyIntelligence(state,opponent.id,faction).data.units[0].troops,opponent.units[0].troops+200);
+   assert.equal(cityIntelligence(state,city.id,faction).day,3);assert.equal(cityIntelligence(state,city.id,faction).data.grain,city.grain+99);
+  }
+  assert.equal(serializeCampaign(s),serializeCampaign(resumed));
+  validateCampaign(JSON.parse(serializeCampaign(s)));
+ }
+});
 
 test('national geography is explored while enemy city contents, armies and rosters obey visibility',()=>{
  const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.owner!=='cao'&&c.units.length&&!cityVisible(s,c.id));assert.ok(c);

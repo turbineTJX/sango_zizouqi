@@ -1,6 +1,7 @@
 {
-  "rulesVersion": 114,
+  "rulesVersion": 116,
   "files": [
+    "docs/AI架构与决策评价方法.md",
     "docs/战争迷雾与武将侦察.md",
     "docs/当前剧本经济运营验证.md",
     "docs/README.md",
@@ -109,6 +110,9 @@
     "docs/城市钱粮与预算.md",
     "docs/宝物系统设计稿.md",
     "docs/内政战场建筑.md",
-    "docs/design-tables/战略护路增援与运输一览表.md"
+    "docs/design-tables/战略护路增援与运输一览表.md",
+    "docs/发行封包与试玩发布.md",
+    "docs/design-tables/势力战略规划一览表.md",
+    "docs/玩家决策与AI统一接口.md"
   ]
 }

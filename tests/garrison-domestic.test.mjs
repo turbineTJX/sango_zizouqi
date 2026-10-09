@@ -29,7 +29,7 @@ test('compiling, recruiting, splitting and merging preserve appointments; an act
  assert.equal(createCampaignArmy(s,c.id,[o.unit.id]),null);assert.strictEqual(assignmentFor(s,o.unit.id),appointment);assert.equal(c.governor,o.unit.id);assert.deepEqual(cityIncome(s,c),income);restore(s);
  assert.equal(recruitCityUnits(s,c.id,[o.unit.id]),null);assert.strictEqual(assignmentFor(s,o.unit.id),appointment);assert.equal(s.armies.length,0);
  const stay=c.units.find(u=>u.id!==o.unit.id);assert.equal(assignDomestic(s,c.id,'agriculture',stay.id),null);
- assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:[o.unit.id],leader:o.unit.id,advisor:o.unit.id,deputy:null,target:'chenliu',policy:'auto'}),null);
+ assert.equal(launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:[o.unit.id],leader:o.unit.id,advisor:o.unit.id,target:'chenliu',policy:'auto'}),null);
  assert.equal(assignmentFor(s,o.unit.id),undefined);assert.equal(c.governor,null);assert.ok(assignmentFor(s,stay.id));assert.equal(residentOfficer(s,o.unit.id),undefined);restore(s);
  assert.ok(assignDomestic(s,c.id,'commerce',o.unit.id));assert.ok(appointGovernor(s,c.id,o.unit.id));
 });

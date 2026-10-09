@@ -28,7 +28,7 @@ try{
  await page.reload();await page.locator('#battle-board').waitFor();assert.equal((await saved()).testScenario.customBattle.reinforcements.length,3);
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:output+'/battle-mobile.png',fullPage:true,animations:'disabled'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  const draft=defaultCustomBattle();draft.ownTeam=[{id:'yu',type:'spear',troops:5000,level:10}];draft.enemyTeam=[{id:'shao',type:'spear',troops:5000,level:10}];
- draft.reinforcements=[{side:0,name:'己方援军',tick:4,team:[{id:'cao',type:'spear',troops:3000,level:10},{id:'chu',type:'halberd',troops:3000,level:10}],roles:{leader:'cao',advisor:'cao',deputy:null}}];
+ draft.reinforcements=[{side:0,name:'己方援军',tick:4,team:[{id:'cao',type:'spear',troops:3000,level:10},{id:'chu',type:'halberd',troops:3000,level:10}],roles:{leader:'cao',advisor:'cao',}}];
  const fixture=generateBattle(draft);lockDeployment(fixture.battle);for(let n=0;n<4;n++)stepBattle(fixture.battle);validateSave(fixture);
  const arrival=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});arrival.on('pageerror',e=>errors.push(e.message));
  await arrival.addInitScript(raw=>localStorage.setItem('sango-historical-battle-v1',raw),JSON.stringify(fixture));await arrival.goto('http://127.0.0.1:4207/#historical-battle');await arrival.locator('[data-action="pause"]').first().click();

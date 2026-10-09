@@ -35,11 +35,11 @@ export default {
       "id": "strategic-policy",
       "name": "战略决策",
       "parameters": {
-        "implementedSource": "data/design/economy-rules.mjs:ai.offensive",
+        "implementedSource": "data/design/economy-rules.mjs:ai.offensive + data/design/strategic-planning-rules.mjs",
         "targetWeights": null
       },
       "source": "strategic-ai.mjs",
-      "todo": "君主倾向、研判与进攻价值评估已接入正式经济表的ai.offensive；其余目标筛选与运输评分尚待抽取"
+      "todo": "君主倾向、研判、势力战略、有限准备预测和攻城任务已接入正式来源；后续校准战损预测并验证长期战略效果"
     }
   ]
 };

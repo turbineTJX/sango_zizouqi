@@ -33,7 +33,7 @@ try{
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/review-mobile.png'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.setViewportSize({width:1440,height:1000});
  await action('scenario-setup-confirm').click();
  const draft=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-custom-draft-v46')));
- assert.equal(draft.ownTeam[1].level,8);assert.equal(draft.ownTeamRoles.advisor,'person-255');assert.equal(draft.ownTeamRoles.deputy,null);
+ assert.equal(draft.ownTeam[1].level,8);assert.equal(draft.ownTeamRoles.advisor,'person-255');assert.equal(Object.hasOwn(draft.ownTeamRoles,'deputy'),false);
  await page.locator('[data-action="launch-custom"]').click();await action('scenario-launch-confirm').click();
  // The engine's normal save validation and deterministic replay cover the committed draft.
  validateSave(createScenario('custom-battle',draft.seed,20,null,draft));

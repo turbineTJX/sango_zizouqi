@@ -11,7 +11,7 @@ try{
  await page.goto('http://127.0.0.1:4197/#strategy');
  const fixture=await page.evaluate(async()=>{
   const {newCampaign,launchExpedition}=await import('/strategic-campaign.mjs');const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang');
-  for(let i=0;i<2;i++){const ids=c.units.slice(0,1).map(u=>u.id);const error=launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],deputy:null,target:'chenliu',policy:'auto'});if(error)throw Error(error);}
+  for(let i=0;i<2;i++){const ids=c.units.slice(0,1).map(u=>u.id);const error=launchExpedition(s,{kind:'expedition',cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:'chenliu',policy:'auto'});if(error)throw Error(error);}
   const {recordOfficerActivities}=await import('/officer-activity.mjs');recordOfficerActivities(s);localStorage.setItem('sango-sovereign-v2',JSON.stringify(s));return s;
  });
  await page.addInitScript(s=>localStorage.setItem('sango-sovereign-v2',JSON.stringify(s)),fixture);await page.reload();

@@ -48,6 +48,6 @@ test('surviving withdrawn officers leave their army and return as unique transpo
 test('a prepared commander visiting talent cannot also defend or depart before returning',()=>{
  const s=newCampaign(15);peacefulCities(s);fundCities(s,100000);readyTalent(s,'chenliu');const c=s.cities.find(c=>c.id==='xuchang'),u=c.units.find(u=>u.id!==c.governor);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='talent'&&k!=='hire')c.domestic.cooldowns[k]=100000;
  assert.equal(assignDomestic(s,c.id,'talent',u.id),null);beginExecution(s);assert.ok(u.mission);assert.ok(!cityForce(c).units.includes(u));advance(s,11);
- const command={kind:'expedition',cityId:c.id,officerIds:[u.id],leader:u.id,advisor:u.id,deputy:null,target:'chenliu',policy:'auto',formation:{types:{},reinforce:false}};
+ const command={kind:'expedition',cityId:c.id,officerIds:[u.id],leader:u.id,advisor:u.id,target:'chenliu',policy:'auto',formation:{types:{},reinforce:false}};
  assert.ok(requestStrategicOrder(s,command).confirmation);assert.ok(requestStrategicOrder(s,command,'after').queued);assert.equal(s.armies.filter(a=>a.units.some(x=>x.id===u.id)).length,0);restore(s);advance(s,51);const arrived=s.cities.find(c=>c.id==='chenliu').units.find(x=>x.id===u.id);assert.ok(arrived);assert.equal(arrived.mission,undefined);restore(s);
 });

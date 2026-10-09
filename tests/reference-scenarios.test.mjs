@@ -23,7 +23,7 @@ for(const spec of added){
  test(`${spec.name}: a real expedition moves and continues deterministically after saving`,()=>{
   const s=newCampaign(217,spec.id),c=s.cities.find(c=>c.id===playerHome(s)),ids=c.units.map(u=>u.id);assert.ok(ids.length);
   const edge=s.roads.find(e=>e.includes(c.id)),target=edge.find(id=>id!==c.id);
-  assert.equal(launchExpedition(s,{cityId:c.id,target,officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],deputy:null,policy:'auto'}),null);
+  assert.equal(launchExpedition(s,{cityId:c.id,target,officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],policy:'auto'}),null);
   const armyId=s.armies.at(-1).id;
   const advance=value=>{if(value.campaign.phase==='planning')beginExecution(value);for(const b of activeBattles(value).filter(b=>b.awaiting))chooseEncounter(value,b.id,false);advanceCampaignDay(value);};
   advance(s);const copy=restore(s);for(let day=0;day<3;day++){advance(s);advance(copy);}

@@ -6,7 +6,7 @@ import {NATIONAL_ROAD_DESIGNS} from './data/design/roads.mjs';
 import {ROAD_DISTANCE_DESIGNS} from './data/design/road-distances.mjs';
 import {factionsHostile} from './diplomacy-relations.mjs';
 
-export const edgeKey=(a,b)=>[a,b].sort().join(':');
+export const edgeKey=(a,b)=>typeof a==='string'&&typeof b==='string'?(a<b?a+':'+b:b+':'+a):[a,b].sort().join(':');
 export const roadSegment=(s,a,b)=>s.roadSegments?.[edgeKey(a,b)];
 // All non-city locations share node rules; their kind selects the battlefield.
 export const isJunction=(s,id)=>!!s.junctions?.some(n=>n.id===id);
@@ -31,7 +31,7 @@ export function cityRoads(s){
   cityRoadCache.set(s.roads,result);return result;
 }
 export function adjacentCityPath(s,a,b){
-  if(!cityRoads(s).some(([x,y])=>edgeKey(x,y)===edgeKey(a,b)))return null;
+  if(!cityRoads(s).some(([x,y])=>x===a&&y===b||x===b&&y===a))return null;
   const queue=[{id:a,path:[]}],seen=new Set([a]);
   while(queue.length){const current=queue.shift();
     for(const [x,y] of s.roads){const next=x===current.id?y:y===current.id?x:null;

@@ -1,11 +1,11 @@
 import {cityRecurringIncome,cityMaintenance} from './economy.mjs';
-import {actionCandidates,cityMilitary} from './domestic.mjs';
+import {actionCandidates,cityMilitary,ACTIONS,pendingDomesticOrder} from './domestic.mjs';
 import {citySupplyBudgets,forecastArmySupply,localFoodUse} from './city-logistics.mjs';
 export {citySupplyBudgets} from './city-logistics.mjs';
-import {plannedGrain} from './strategic-intent.mjs';
+import {plannedGrain,plannedOfficer} from './strategic-intent.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
-import {playerFaction} from './player-faction.mjs';
+import {playerFaction,isPlayerControlled} from './player-faction.mjs';
 import {diplomaticAssetReserve} from './diplomacy-relations.mjs';
 import {trainingCost} from './troop-training.mjs';
 import {DIPLOMACY_RULES,DIPLOMACY_DIRECTIONS} from './data/design/diplomacy-rules.mjs';
@@ -13,10 +13,25 @@ import {DIPLOMACY_RULES,DIPLOMACY_DIRECTIONS} from './data/design/diplomacy-rule
 const fmt=n=>Math.ceil(n).toLocaleString('zh-CN');
 // A read-only forecast. Paid work is excluded, and speculative work rewards
 // or cargo still on the road are never treated as spendable city stocks.
-export function cityGoldCommitment(s,c,{includeWork=false}={}){
+// Estimate one executable round of work, rather than a separate construction
+// project for every waiting officer. Proposals remain their exact commitments.
+function nextWorkCost(s,c,assignments,workPolicy){
+ const slots=new Set(),slot=pick=>{const d=ACTIONS[pick.key];return ['build','repair'].includes(d.kind)?'construction':d.kind==='research'?'research':['effect','discount','prepare'].includes(d.kind)?d.kind+':'+d.value:null;};
+ let cost=0;
+ for(const a of assignments.filter(a=>!a.action&&a.proposal)){cost+=a.proposal.expenses.gold;const key=slot(a.proposal.pick);if(key)slots.add(key);}
+ for(const a of assignments.filter(a=>!a.action&&!a.proposal&&!pendingDomesticOrder(s,a.officerId)&&!plannedOfficer(s,a.officerId))){
+  const pick=actionCandidates(s,a,{ignoreFunds:true}).find(p=>{const d=ACTIONS[p.key],key=slot(p);
+   const essential=['cash','grain','heal','rescue'].includes(d.kind)||d.kind==='recruit'&&p.recruitMode==='reserve'||d.kind==='trade'&&d.value==='buy';
+   return (!key||!slots.has(key))&&(workPolicy!=='essential'||essential);
+  });
+  if(!pick)continue;cost+=pick.cost;const key=slot(pick);if(key)slots.add(key);
+ }
+ return cost;
+}
+export function cityGoldCommitment(s,c,{includeWork=false,workPolicy='all'}={}){
  const days=ECONOMY_RULES.budget.days,toHarvest=10-(s.campaign.day-1)%10;
  const assignments=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id);
- const work=includeWork?assignments.filter(a=>!a.action).reduce((n,a)=>n+(a.proposal?.expenses.gold??actionCandidates(s,a,{ignoreFunds:true})[0]?.cost??0),0):0;
+ const work=includeWork?nextWorkCost(s,c,assignments,workPolicy):0;
  const diplomacy=s.campaign.diplomacy,appointments=(diplomacy?.assignments||[]).filter(a=>a.faction===c.owner&&a.homeCity===c.id&&!a.projectId&&!a.dismissed);
  const farePerDay=[...c.units,...s.campaign.idle.filter(o=>o.location===c.id).map(o=>o.unit)].filter(u=>u.mission?.type==='diplomacy'&&u.mission.homeCity===c.id).length*DIPLOMACY_RULES.dailyFare;
  const contactFees=appointments.reduce((n,a)=>n+DIPLOMACY_DIRECTIONS[a.direction].fee,0),fees=contactFees+farePerDay*days;
@@ -29,13 +44,13 @@ export function cityGoldCommitment(s,c,{includeWork=false}={}){
  const maintenance=cityMaintenance(s,c).gold;
  return {work,fees,training,cargo,debt,orders,contactFees,farePerDay,debtBefore,maintenance,goldReserved,total:Math.ceil(work+fees+training+cargo+debt+maintenance)+goldReserved};
 }
-export function cityBudget(s,c,{supplies=citySupplyBudgets(s),supplyForecast=forecastArmySupply(s,{supplies}),includeWork=true}={}){
+export function cityBudget(s,c,{supplies=citySupplyBudgets(s),supplyForecast=forecastArmySupply(s,{supplies}),includeWork=true,workPolicy='all'}={}){
  const days=ECONOMY_RULES.budget.days,toHarvest=10-(s.campaign.day-1)%10;
  const besieged=s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===c.id);
  const income=besieged?{gold:0,grain:0,manpower:0}:cityRecurringIncome(s,c);
- const {work,fees,training,cargo,debt,orders,contactFees,farePerDay,debtBefore,maintenance,goldReserved}=cityGoldCommitment(s,c,{includeWork});
+ const {work,fees,training,cargo,debt,orders,contactFees,farePerDay,debtBefore,maintenance,goldReserved}=cityGoldCommitment(s,c,{includeWork,workPolicy});
  const localDaily=localFoodUse(c),supply=supplyForecast.cities[c.id].grain,supplyBefore=supplyForecast.cities[c.id].daily.slice(0,toHarvest).reduce((n,x)=>n+x,0);
- const grainOrders=orders.filter(q=>q.kind==='transfer'&&q.faction===playerFaction(s)).reduce((n,q)=>n+(q.cargo?.grain||0),0);
+ const grainOrders=orders.filter(q=>q.kind==='transfer'&&isPlayerControlled(s,q.faction)).reduce((n,q)=>n+(q.cargo?.grain||0),0);
  // Planned grain includes AI, diplomatic and non-player transport reservations.
  const grainReserved=plannedGrain(s,c.id)+grainOrders+c.budget.grainReserve;
  const costs={gold:Math.ceil(work+fees+training+cargo+debt+maintenance),grain:Math.ceil(localDaily*days+supply)};
@@ -45,9 +60,9 @@ export function cityBudget(s,c,{supplies=citySupplyBudgets(s),supplyForecast=for
  const shortages={gold:Math.ceil(Math.max(0,-projected.gold,-beforeHarvest.gold)),grain:Math.ceil(Math.max(0,-projected.grain,-beforeHarvest.grain))};
  return {days,toHarvest,stocks:{gold:c.gold,grain:c.grain},income,costs,reserve,projected,beforeHarvest,shortages,dailyGrain:costs.grain/days,daysSupply:costs.grain?Math.max(0,c.grain-reserve.grain)/(costs.grain/days):null,work,fees,training,cargo,debt};
 }
-export function setCityBudget(s,cityId,key,value){
+export function setCityBudget(s,cityId,key,value,{faction=playerFaction(s),scheduled=false}={}){
  const c=s.cities.find(c=>c.id===cityId);
- if(s.finished||s.campaign.phase!=='planning'||c?.owner!==playerFaction(s)||!['goldReserve','grainReserve'].includes(key)||!Number.isSafeInteger(value)||value<0||value>ECONOMY_RULES.budget.maxReserve)return '预算设置无效';
+ if(s.finished||!scheduled&&(s.campaign.allAI||s.campaign.phase!=='planning')||c?.owner!==faction||!['goldReserve','grainReserve'].includes(key)||!Number.isSafeInteger(value)||value<0||value>ECONOMY_RULES.budget.maxReserve)return '预算设置无效';
  c.budget[key]=value;return null;
 }
 export function updateCityBudgetAlerts(s){

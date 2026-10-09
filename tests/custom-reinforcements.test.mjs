@@ -7,7 +7,7 @@ import {lockDeployment,stepBattle,validateSave,fillSlots,deployUnit,battleStrata
 import {frontlineCapacity} from '../army-trait-rules.mjs';
 import {newScenarioSetup,scenarioSetupDraft,changeScenarioSetup,newBattleSetup,applyBattleSetup} from '../scenario-setup.mjs';
 const entry=id=>({id,type:'spear',troops:3000,level:10,retreatAt:null});
-function draft(){const d=defaultCustomBattle();d.ownTeam=[entry('yu')];d.enemyTeam=[entry('shao')];d.shieldPercent=0;d.reinforcements=[{side:0,name:'援军',tick:4,team:[entry('cao'),entry('chu')],roles:{leader:'cao',advisor:'cao',deputy:null}}];return d;}
+function draft(){const d=defaultCustomBattle();d.ownTeam=[entry('yu')];d.enemyTeam=[entry('shao')];d.shieldPercent=0;d.reinforcements=[{side:0,name:'援军',tick:4,team:[entry('cao'),entry('chu')],roles:{leader:'cao',advisor:'cao',}}];return d;}
 
 test('multiple distinct legal armies can exceed thirty battle units while retaining ten units per army',()=>{
  const d=draft(),ids=Object.keys(OFFICER_BY_ID).filter(id=>!['yu','shao'].includes(id));

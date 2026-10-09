@@ -1,8 +1,17 @@
 // Validation of currently supported strategic design fields and handlers.
+import {strategicAlgorithmProfile} from './strategic-algorithms.mjs';
 export function validateStrategyDesigns(t){
  const errors=[],check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},num=(v,min=0,max=Infinity)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
+ const planning=t.strategicPlanning;
+ if(fields(planning,['version','traceLimit','candidateLimit','forceVariants','assemblyDays','switchMargin','peacePressureRatio','preparationTurns','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority','resourcePriority','algorithms'],'strategicPlanning')){
+  for(const key of ['version','traceLimit','candidateLimit','forceVariants','assemblyDays','preparationTurns'])check(Number.isSafeInteger(planning[key])&&planning[key]>0,'strategicPlanning.'+key,'须为正整数');
+  for(const key of ['switchMargin','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority'])check(num(planning[key],0),'strategicPlanning.'+key,'须为非负数');
+  check(planning.candidateLimit<=16&&planning.forceVariants<=4&&planning.preparationTurns<=3&&planning.traceLimit<=30,'strategicPlanning','候选、推演或记录超出有限规划上限');
+  check(num(planning.peacePressureRatio,.1,3)&&num(planning.resourcePriority,1,2),'strategicPlanning','战略比例无效');
+  try{if(!planning.algorithms)throw Error();strategicAlgorithmProfile(planning.algorithms);}catch{check(false,'strategicPlanning.algorithms','算法配置无效或实现未注册');}
+ }
  const support=t.strategicSupport;
  if(fields(support,['maxMissions','reinforceRatio','guardRatio','maxTravelDays','guardFoodDays','quietDays','missionDays','minimumCargo','maximumCycles'],'strategicSupport')){
   for(const key of ['maxMissions','maxTravelDays','guardFoodDays','quietDays','missionDays','maximumCycles'])check(Number.isSafeInteger(support[key])&&support[key]>0,'strategicSupport.'+key,'须为正整数');
@@ -141,7 +150,10 @@ export function validateStrategyDesigns(t){
  }
  const m=t.movement;if(!fields(m,['distance','roadVariants','army','personnel','vision','scouting'],'movement'))return errors;
  if(fields(m.scouting,['speed','minimumDays','baseMaximumDays','intellectExtension','randomSpread'],'movement.scouting')){check(num(m.scouting.speed,Number.EPSILON),'movement.scouting.speed','斥候每日行程须大于0');for(const key of ['minimumDays','baseMaximumDays','intellectExtension','randomSpread'])check(Number.isSafeInteger(m.scouting[key])&&m.scouting[key]>=0,'movement.scouting.'+key,'须为非负整数');check(m.scouting.minimumDays>=1&&m.scouting.baseMaximumDays>=m.scouting.minimumDays,'movement.scouting','持续天数范围无效');}
- if(fields(m.vision,['city','army','scout','unknownDefense','unknownGateHp'],'movement.vision'))for(const key of ['city','army','scout','unknownDefense','unknownGateHp'])check(num(m.vision[key],Number.EPSILON),'movement.vision.'+key,'须大于0');
+ if(fields(m.vision,['city','army','armyIntellectPerPoint','scout','unknownDefense','unknownGateHp'],'movement.vision')){
+  for(const key of ['city','army','scout','unknownDefense','unknownGateHp'])check(num(m.vision[key],Number.EPSILON),'movement.vision.'+key,'须大于0');
+  check(num(m.vision.armyIntellectPerPoint,Number.EPSILON),'movement.vision.armyIntellectPerPoint','军团智力视野系数须大于0');
+ }
  if(fields(m.distance,['minimum','coordinateScale'],'movement.distance'))for(const key of ['minimum','coordinateScale'])check(num(m.distance[key],Number.EPSILON),'movement.distance.'+key,'须大于0');
  if(fields(m.roadVariants,['main'],'movement.roadVariants'))for(const id of ['main']){
   const r=m.roadVariants[id],path='movement.roadVariants.'+id;if(!fields(r,['offset','names','costFactors'],path))continue;

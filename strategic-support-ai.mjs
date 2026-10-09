@@ -77,10 +77,16 @@ export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retr
   }
  }
  for(const q of objectives){
-  if(ai.supports.filter(x=>x.faction===faction).length>=R.maxMissions)break;
-  if(ai.supports.some(x=>x.faction===faction&&key(x)===key(q)))continue;
+  const existing=ai.supports.find(x=>x.faction===faction&&key(x)===key(q));
+  if(!existing&&ai.supports.filter(x=>x.faction===faction).length>=R.maxMissions)continue;
   let need=q.power;const groups=[],view=intelligenceWorld(s,faction);
-  const incoming=s.armies.filter(a=>a.faction===faction&&a.target===q.target&&!inBattle(s,a));for(const a of incoming)if(strategicArrivalDays(view,a,q.target)<=q.days)need-=strategicPower(s,a);
+  const incoming=s.armies.filter(a=>a.faction===faction&&a.target===q.target&&!inBattle(s,a)&&(a.travel||a.location!==q.target));for(const a of incoming)if(strategicArrivalDays(view,a,q.target)<=q.days)need-=strategicPower(s,a);
+  for(const o of s.campaign.domestic.orders.filter(o=>o.faction===faction&&o.kind==='expedition'&&o.target===q.target)){
+   const c=s.cities.find(c=>c.id===o.cityId),units=o.officerIds.map(id=>c?.units.find(u=>u.id===id));if(units.some(u=>!u))continue;
+   const path=o.route||findCampaignRoute(view,c.id,q.target,faction);if(!path)continue;
+   const wait=Math.max(0,...o.officerIds.map(id=>s.campaign.domestic.assignments.find(a=>a.officerId===id)?.action?.remaining||0));
+   if(wait+strategicTravelDays(s,{...cityForce(c),units,leader:o.leader},path)<=q.days)need-=strategicPower(s,{...cityForce(c),units});
+  }
   if(need<=0)continue;
   const sources=s.cities.filter(c=>c.owner===faction&&c.id!==q.target&&!s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===c.id)).map(c=>({c,path:findCampaignRoute(view,c.id,q.target,faction)})).filter(x=>x.path).map(x=>({...x,units:supportUnits(s,x.c,x.path,view,availableUnits)})).filter(x=>x.units.length).map(x=>({...x,days:strategicTravelDays(s,{...cityForce(x.c),units:x.units},x.path)})).sort((a,b)=>a.days-b.days||a.c.id.localeCompare(b.c.id));
   for(const x of sources){
@@ -92,6 +98,6 @@ export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retr
   }
   if(need>0){const optional=activePlans(s).find(p=>p.faction===faction&&['prepare','assemble'].includes(p.phase));if(optional&&cancelPlan&&!released){cancelPlan(s,optional,'增援或粮路告急，释放尚未出发的可选进攻承诺');return planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},true);}continue;}
   const ids=[];for(const x of groups)if(commandUnits(s,x.c,x.units,q.target,q.kind,q.reason,{arrivalDeadline:day+q.days}))ids.push(...x.units.map(u=>u.id));
-  if(ids.length)ai.supports.push({id:ai.nextSupportId++,faction,kind:q.kind,target:q.target,battleId:q.battleId,officerIds:ids,createdDay:day,lastNeededDay:day,deadline:day+R.missionDays});
+  if(ids.length){if(existing)existing.officerIds.push(...ids);else ai.supports.push({id:ai.nextSupportId++,faction,kind:q.kind,target:q.target,battleId:q.battleId,officerIds:ids,createdDay:day,lastNeededDay:day,deadline:day+R.missionDays});}
  }
 }

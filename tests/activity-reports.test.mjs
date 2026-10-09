@@ -43,7 +43,7 @@ test('personnel fate and empty-city occupation are real daily milestones with fa
  for(let i=0;i<10000;i++)if(fateRoll(s,'milestone:'+i)<.02){key='milestone:'+i;break;}
  assert.equal(resolveOfficerLoss(s,{unit,faction:'cao',location:c.id,enemy:'yuan',eventId:key}),'DEAD');recordOfficerActivities(s);
  const fate=pendingDomesticAlerts(s).find(n=>n.category==='personnel'&&n.officerId===unit.id);assert.equal(fate.phase,'DEAD');assert.equal(fate.siteId,c.id);assert.equal(officerActivityDays(s,unit.id).rows[0].actions.find(a=>a.nodeId===fate.id).action,fate.text);restore(s);
- const a=fieldFromCity(s,c.id,{target:'guandu'}),target=s.cities.find(c=>c.id==='guandu');target.garrison=0;beginExecution(s);approachDestination(s,a);
+ const a=fieldFromCity(s,c.id,{target:'guandu'}),target=s.cities.find(c=>c.id==='guandu');target.garrison=0;target.manpower=0;target.gold=0;beginExecution(s);approachDestination(s,a);
  for(let i=0;i<5&&target.owner!==a.faction;i++)advanceCampaignDay(s);
  const capture=pendingDomesticAlerts(s).find(n=>n.category==='occupation'&&n.cityId===target.id);assert.ok(capture);assert.equal(capture.officerId,a.leader);assert.equal(target.owner,'cao');assert.equal(s.campaign.battles.length,0);restore(s);
 });

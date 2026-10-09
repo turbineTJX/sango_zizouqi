@@ -41,7 +41,7 @@ function fixture(type,profile,layout,officer=null){
       const id=`audit-${side}-${i}`,t=i===focal?type:['spear','spear','cavalry','crossbow','archer','crossbow'][i];
       const u=structuredClone(template.sides[0].units[0]);
       Object.assign(u,{id,name:id,type:t,skillRouteType:t,side,level:10,leadership:80,force:80,intellect:80,politics:80,
-        hp:3000,maxHp:3000,initial:3000,troops:3000,commandBonus:0,deputyBonus:0,advisorBonus:0,
+        hp:3000,maxHp:3000,initial:3000,troops:3000,commandBonus:0,advisorBonus:0,
         intent:0,cooldown:0,attackCarry:0,status:'active',statuses:{},skillReady:{},tacticCasts:{},skillCasts:0,
         passiveState:initialPassiveState(),morale:80});
       if(i===focal){
