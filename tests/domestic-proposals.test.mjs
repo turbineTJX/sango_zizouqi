@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
-import {ACTIONS,assignDomestic,assignmentFor,pendingDomesticProposals,decideDomesticProposal,setDomesticAutoApprove,domesticProposalText,domesticConfidence,actionChance,beginDomesticTurn,cancelDomestic} from '../domestic.mjs';
+import {ACTIONS,assignDomestic,assignmentFor,pendingDomesticProposals,decideDomesticProposal,setDomesticAutoApprove,domesticProposalText,domesticConfidence,actionChance,beginDomesticTurn,cancelDomestic,actionCandidates,cityFoodReserve} from '../domestic.mjs';
 import {domesticApprovalMarkup} from '../domestic-proposal-view.mjs';
 import {cityBudget} from '../city-budget.mjs';
+import {cityMaintenance} from '../economy.mjs';
 import {peacefulCities} from './helpers/field-campaign.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
@@ -34,7 +35,7 @@ test('approval is exactly once and denial preserves assignment, spends nothing a
 test('automatic approval applies to pending and future work and is saved; free operations need no proposal',()=>{
  const {s,c,a}=fixture(),gold=c.gold;beginExecution(s);assert.equal(setDomesticAutoApprove(s,true),null);assert.equal(a.proposal,null);assert.ok(a.action);assert.equal(c.gold,gold-a.action.cost);
  const paid=c.gold;setDomesticAutoApprove(s,true);assert.equal(c.gold,paid);assert.equal(restore(s).campaign.domestic.autoApprove,true);
- const free=fixture('cultivate');beginExecution(free.s);assert.equal(free.a.proposal,null);assert.equal(free.a.action.cost,0);assert.ok(advanceCampaignDay(free.s).dayEnded);
+ const free=fixture('cultivate');free.c.grain=8000;beginExecution(free.s);assert.equal(free.a.proposal,null);assert.equal(free.a.action.cost,0);assert.ok(advanceCampaignDay(free.s).dayEnded);
 });
 test('approval rechecks city gold and sites without charging or substituting the original proposal',()=>{
  const {s,c,a}=fixture('build_workshop');beginExecution(s);const proposal=structuredClone(a.proposal);c.gold=0;
@@ -42,6 +43,32 @@ test('approval rechecks city gold and sites without charging or substituting the
  c.gold=40000;assert.equal(decideDomesticProposal(s,a.proposal.id,true),null);assert.equal(c.project.siteId,proposal.siteId);
  assert.match(decideDomesticProposal(s,proposal.id,true),/已撤回/);
  const once=c.gold;cancelDomestic(s,a.officerId);assert.equal(c.gold,once);restore(s);
+});
+test('an unfunded paid action is not proposed, and free useful work remains available',()=>{
+ for(const ai of [false,true]){
+  const {s,c,a}=fixture('build_workshop');if(ai)s.campaign.allAI=true;
+  const cost=actionCandidates(s,a,{ignoreFunds:true})[0].cost,payroll=cityMaintenance(s,c).gold;c.gold=c.budget.goldReserve+payroll+cost-1;
+  assert.equal(actionCandidates(s,a).length,0);assert.equal(cityBudget(s,c).work,0);beginDomesticTurn(s);assert.equal(a.proposal,null);assert.equal(a.action,null);
+  c.gold=c.budget.goldReserve+payroll+cost;a.lastTurn=0;beginDomesticTurn(s);
+  assert.ok(ai?a.action:a.proposal,'exactly funded work is allowed for player and AI');
+ }
+ const {s,c,a}=fixture('fair');c.gold=0;beginDomesticTurn(s);assert.equal(a.proposal,null);assert.equal(a.action.cost,0);
+});
+test('rations and pending proposals cannot be spent by a second proposed action',()=>{
+ const {s,c,u,a}=fixture('heal');c.clinic=1;c.units[0].wounded=500;c.gold=10000;
+ c.grain=cityFoodReserve(s,c)+199;assert.ok(!actionCandidates(s,a).some(p=>p.key==='heal'));
+ beginDomesticTurn(s);assert.equal(a.proposal,null);
+ c.grain+=1;a.lastTurn=0;beginDomesticTurn(s);assert.equal(a.proposal.expenses.grain,200);
+ const other=c.units.find(v=>v.id!==u.id);assert.equal(assignDomestic(s,c.id,'technology',other.id),null);
+ const second=assignmentFor(s,other.id);assert.ok(!actionCandidates(s,second).some(p=>p.key==='heal'));
+ assert.equal(decideDomesticProposal(s,a.proposal.id,true),null);assert.equal(a.action.key,'heal');
+});
+test('proposal approval preserves the money held by other proposals and real shipments',()=>{
+ const {s,c,a}=fixture('build_workshop');beginDomesticTurn(s);const p=structuredClone(a.proposal);
+ s.campaign.domestic.orders.push({kind:'transfer',faction:c.owner,cityId:c.id,officerIds:[],cargo:{gold:500,grain:0,manpower:0}});
+ const payroll=cityMaintenance(s,c).gold;c.gold=c.budget.goldReserve+payroll+p.expenses.gold+499;
+ assert.match(decideDomesticProposal(s,p.id,true),/钱粮/);assert.deepEqual(a.proposal,p);assert.equal(a.action,null);
+ c.gold++;assert.equal(decideDomesticProposal(s,p.id,true),null);assert.equal(c.gold,c.budget.goldReserve+payroll+500);
 });
 test('unpaid proposals occupy the research slot and their actual cost enters the budget once',()=>{
  const {s,c,a}=fixture(),other=c.units.find(u=>u.id!==a.officerId);assignDomestic(s,c.id,'technology',other.id);beginExecution(s);

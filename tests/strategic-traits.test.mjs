@@ -26,9 +26,9 @@ test('Diao Chan alone starts Qingguo and cap budget is preserved; real hits and 
  let seen=false;for(let i=0;i<120&&!b.result;i++){stepBattle(b);if(b.sides[1].units.some(u=>Object.values(u.statuses).some(s=>s.sourceSkillName==='倾国'))){seen=true;break;}}assert.ok(seen);
  const copy=validateSave(structuredClone(s));for(let i=0;i<8;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(s,copy);
 });
-test('real paid work can hand off exactly once without double fees and resumes deterministically',()=>{
+test('changing an appointment does not transfer a paid action through a trait',()=>{
  const {s,c}=setup(['person-263','person-533']);only(c,'commerce',['fair']);assignDomestic(s,c.id,'commerce','person-533');beginDomesticTurn(s);const old=assignmentFor(s,'person-533').action;
- assignDomestic(s,c.id,'commerce','person-263');const gold=s.gold;cancelDomestic(s,'person-533');const next=assignmentFor(s,'person-263');assert.equal(next.action.id,old.id);assert.equal(s.gold,gold);assert.equal(assignmentFor(s,'person-533'),undefined);
+ assignDomestic(s,c.id,'commerce','person-263');const gold=s.gold;cancelDomestic(s,'person-533');const next=assignmentFor(s,'person-263');assert.equal(next.action,null);assert.equal(s.gold,gold);assert.equal(assignmentFor(s,'person-533'),undefined);assert.ok(s.campaign.domestic.workHistory['person-533'].some(x=>x.actionId===old.id&&x.status==='interrupted'));
  const copy=restore(s);days(s,9);days(copy,9);assert.equal(serializeCampaign(s),serializeCampaign(copy));
 });
 test('military farming counts only actual available troops and produces bounded progress',()=>{
@@ -41,8 +41,8 @@ test('cross-direction cooperation uses actual resident Zhang Zhao and common dai
 });
 test('march choices exchange actual grain and pay morale on real movement; save and cancel are safe',()=>{
  const {s,c}=setup(['person-482']);const a=fieldFromCity(s,c.id,{ids:['person-482']});const total=c.grain+a.supply,base=movementPoints(a);
- assert.equal(setArmyMarchMode(s,a.id,'light'),null);assert.equal(a.supplyCapacity,450);assert.equal(c.grain+a.supply,total);assert.ok(movementPoints(a)>base);restore(s);
- assert.equal(setArmyMarchMode(s,a.id,'normal'),null);assert.equal(a.supplyCapacity,900);assert.equal(c.grain+a.supply,total);assert.equal(setArmyMarchMode(s,a.id,'forced'),null);orderCampaignArmy(s,a.id,'chenliu');const morale=a.morale;days(s,1);assert.equal(a.morale,morale-5);assert.ok(a.travel||a.location!==c.id);restore(s);
+ assert.equal(setArmyMarchMode(s,a.id,'light'),null);assert.equal(a.supplyCapacity,675);assert.equal(c.grain+a.supply,total);assert.ok(movementPoints(a)>=base*1.49);restore(s);
+ assert.equal(setArmyMarchMode(s,a.id,'normal'),null);assert.equal(a.supplyCapacity,900);assert.equal(c.grain+a.supply,total);assert.equal(setArmyMarchMode(s,a.id,'forced'),null);orderCampaignArmy(s,a.id,'chenliu');const morale=a.morale;days(s,1);assert.equal(a.morale,morale-4);assert.ok(a.travel||a.location!==c.id);restore(s);
 });
 test('relay cargo retains real stocks at the waypoint and moves to final destination after a stop',()=>{
  const {s,c}=setup(['person-533']);const mid=s.cities.find(c=>c.id==='chenliu'),dest=s.cities.find(c=>c.id==='wan');mid.owner=c.owner;dest.owner=c.owner;mid.domestic.owner=c.owner;dest.domestic.owner=c.owner;

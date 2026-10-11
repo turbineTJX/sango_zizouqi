@@ -62,7 +62,7 @@ export function bondAttributes(b,u){
   if(d.tier===d.thresholds.length&&d.extraValue)(mods[d.extra] ||= []).push({label:`${d.name}满档`,factor:1+d.extraValue});
  }
 
- for(const d of activeBonds(b,u))if(d.special==='swornLink')(mods.discipline ||= []).push({label:'桃园结义',factor:1+d.singleDiscipline});
+ for(const d of activeBonds(b,u))if(d.special==='swornLink')(mods.discipline ||= []).push({label:'桃园结义',factor:1+d.values[d.tier-1]});
  for(const d of activeBonds(b,u))if(d.special==='nearAllySpeed'&&adjacentBondAlly(b,u))(mods.attackSpeed ||= []).push({label:'聚势邻接',factor:1+d.values[d.tier-1]});
  for(const d of activeBonds(b,u))if(d.special==='lastStand'&&u.hp<=u.maxHp*d.hpThreshold)for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'背水反击',factor:1+d.values[d.tier-1]});
  const formation=formationBoost(b||{},u);if(formation)for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'军阵阵位',factor:1+formation});
@@ -103,6 +103,7 @@ export function bondProtection(b,u,kind){
   if(d.special==='spreadGuard'&&kind==='intellect'&&!adjacentBondAlly(b,u))factor*=1-d.values[d.tier-1];
   if(d.special==='physicalGuard'&&['basic','force'].includes(kind))factor*=1-d.values[d.tier-1];
   if(d.special==='lastStand'&&u.hp<=u.maxHp*d.hpThreshold)factor*=1-d.protection[d.tier-1];
+  if(d.special==='swornLink')factor*=1-d.protection[d.tier-1];
  }
  return factor;
 }

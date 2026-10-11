@@ -9,16 +9,20 @@ import {troopCapacity} from './troop-capacity.mjs';
 import {productiveBuildingLevel} from './metropolitan-areas.mjs';
 import {domesticEffects} from './passives.mjs';
 import {DOMESTIC_ACTION_DESIGNS} from './data/design/domestic-actions.mjs';
+import {workProfile,workTraitIds,workChance,workQuantity,MAX_WORK_CAPACITY} from './work-traits.mjs';
+import {cityPayroll} from './officer-salaries.mjs';
 
 export const resourceValue=resources=>Object.entries(resources).reduce((n,[key,value])=>n+value*(ECONOMY_RULES.value[key]||0),0);
 export const economicWorkScale=ability=>ECONOMY_RULES.work.base+ability/ECONOMY_RULES.work.abilityDivisor;
 export const resourceBuilding={gold:'commerce',grain:'farm',manpower:'barracks'};
 const economicTurn=s=>Math.floor((s.campaign.day-1)/10)+1;
 const rawCityBaseIncome=(s,c)=>Object.fromEntries(Object.entries(resourceBuilding).map(([key,field])=>{const p=ECONOMY_RULES.income[key];return [key,(p.base+productiveBuildingLevel(s,c,field)*p[{gold:'perCommerce',grain:'perFarm',manpower:'perBarracks'}[key]])*(1+technologyIncomeBonus(c,key))];}));
+function cityGovernor(s,c){const o=residentOfficer(s,c.governor);return o?.location===c.id&&o.faction===c.owner?o.unit:null;}
+export function cityManagementBaseIncome(s,c){const factor=1+(cityGovernor(s,c)?.politics||0)/ECONOMY_RULES.income.governorPoliticsDivisor;return Object.fromEntries(Object.entries(rawCityBaseIncome(s,c)).map(([key,n])=>[key,n*factor]));}
 // Permanent local production, independent of who currently operates the city.
 export const cityBaseIncome=(s,c)=>Object.fromEntries(Object.entries(rawCityBaseIncome(s,c)).map(([key,n])=>[key,Math.floor(n)]));
 export function cityIncomeBreakdown(s,c){
- const raw=rawCityBaseIncome(s,c),o=residentOfficer(s,c.governor),u=o?.location===c.id&&o.faction===c.owner?o.unit:null,effects=domesticEffects(u),factor=1+(u?.politics||0)/ECONOMY_RULES.income.governorPoliticsDivisor;
+ const raw=rawCityBaseIncome(s,c),u=cityGovernor(s,c),effects=domesticEffects(u),factor=1+(u?.politics||0)/ECONOMY_RULES.income.governorPoliticsDivisor;
  const base={},governor={},management={},recurring={},work={},operations={},total={};
  for(const key of Object.keys(resourceBuilding)){
   const extra=c.domestic.effects.filter(e=>e.key===key&&e.untilTurn>=economicTurn(s)).reduce((n,e)=>n+e.amount,0),governed=Math.floor(raw[key]*factor*(1+(effects[key]||0)));
@@ -34,17 +38,20 @@ export function cityIncomeBreakdown(s,c){
 export const cityRecurringIncome=(s,c)=>cityIncomeBreakdown(s,c).recurring;
 // Shared physical work throughput. Extra officers, cooperation and traits can
 // fill this allowance sooner, but cannot mint unlimited local resources.
-export function cityWorkLimit(s,c,key){const p=ECONOMY_RULES.development;return Math.floor((p.workValueBase+productiveBuildingLevel(s,c,resourceBuilding[key])*p.workValuePerLevel)*(1+technologyIncomeBonus(c,key))/ECONOMY_RULES.value[key]);}
-export const cityWorkRemaining=(s,c,key)=>Math.max(0,cityWorkLimit(s,c,key)-(c.domestic.production.turn===economicTurn(s)?c.domestic.production[key]:0));
-export function creditCityWork(s,c,key,amount){
- const actual=Math.max(0,Math.floor(Math.min(amount,cityWorkRemaining(s,c,key))));
+export function cityWorkLimit(s,c,key,multiplier=1){const p=ECONOMY_RULES.development;return Math.floor((p.workValueBase+productiveBuildingLevel(s,c,resourceBuilding[key])*p.workValuePerLevel)*(1+technologyIncomeBonus(c,key))/ECONOMY_RULES.value[key]*Math.max(1,Math.min(MAX_WORK_CAPACITY,multiplier)));}
+export const cityWorkRemaining=(s,c,key,multiplier=1)=>Math.max(0,cityWorkLimit(s,c,key,multiplier)-(c.domestic.production.turn===economicTurn(s)?c.domestic.production[key]:0));
+export function creditCityWork(s,c,key,amount,multiplier=1){
+ const actual=Math.max(0,Math.floor(Math.min(amount,cityWorkRemaining(s,c,key,multiplier))));
  if(c.domestic.production.turn!==economicTurn(s))c.domestic.production={turn:economicTurn(s),gold:0,grain:0,manpower:0};
  c.domestic.production[key]+=actual;return actual;
 }
 export function sustainableRecruitment(s,c){
  const def=DOMESTIC_ACTION_DESIGNS.cultivate,people=cityPersonnel(s,c.id),workers=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.direction==='agriculture').map(a=>people.find(o=>o.unit.id===a.officerId)?.unit).filter(u=>u&&!u.mission);
- const expected=workers.reduce((n,u)=>{const p=Math.max(.12,Math.min(.94,.48+u[def.stat]*.004-(def.risk||0))),factor=p*1.03+Math.max(0,Math.min(.98,p+.15)-p)*.45;return n+def.value*economicWorkScale(u[def.stat])*factor;},0);
- const income=cityRecurringIncome(s,c).grain+Math.min(cityWorkLimit(s,c,'grain'),expected*(1+technologyIncomeBonus(c,'grain')))*ECONOMY_RULES.development.foodForecastSafety,use=cityDailyFood(s,c);
+ const profiles=workers.map(u=>{const w=workProfile(workTraitIds(u),def),p=Math.max(.12,Math.min(.94,.48+u[def.stat]*.004+workChance(w,def)-(def.risk||0))),partial=Math.max(0,Math.min(.98,p+.15)-p),factor=p*1.03+partial*Math.max(.45,w.partialFloor||0)+(1-p-partial)*(w.failureFloor||0);return {expected:def.value*economicWorkScale(u[def.stat])*factor*workQuantity(1,w),capacity:w.capacityMultiplier||1};});
+ // Troop participation is measured by actual workdays at settlement, so the
+ // forecast deliberately excludes this conditional contribution.
+ const expected=profiles.reduce((n,w)=>n+w.expected,0),capacity=Math.max(1,...profiles.map(w=>w.capacity));
+ const income=cityRecurringIncome(s,c).grain+Math.min(cityWorkLimit(s,c,'grain',capacity),expected*(1+technologyIncomeBonus(c,'grain')))*ECONOMY_RULES.development.foodForecastSafety,use=cityDailyFood(s,c);
  // A real stockpile may fund a campaign above recurring income. Keep a food
  // reserve and amortize only existing stocks; no arbitrary mobilization timer.
  const stock=Math.max(0,c.grain-use*ECONOMY_RULES.ai.foodReserveDays);
@@ -72,8 +79,9 @@ export function supportedSoldiers(s,c){
  return rows.reduce((sum,u)=>({troops:sum.troops+u.troops,wounded:sum.wounded+u.wounded}),{troops:0,wounded:0});
 }
 export function cityMaintenance(s,c){
- const p=ECONOMY_RULES.maintenance,men=supportedSoldiers(s,c);
- return {gold:Math.ceil((men.troops+men.wounded*p.woundedGoldFactor)*p.goldPerThousandTroops/1000)};
+ const p=ECONOMY_RULES.maintenance,men=supportedSoldiers(s,c),payroll=cityPayroll(s,c);
+ const troopsGold=Math.ceil((men.troops+men.wounded*p.woundedGoldFactor)*p.goldPerThousandTroops/1000);
+ return {gold:troopsGold+payroll.gold+payroll.arrears,troopsGold,salary:payroll.gold,arrears:payroll.arrears,officers:payroll.officers};
 }
 export const reserveRecruitmentTarget=(s,c)=>Math.min(ECONOMY_RULES.capacity.manpowerMax,Math.max(ECONOMY_RULES.recruitment.reserveTargetBase,Math.ceil(supportedSoldiers(s,c).troops*ECONOMY_RULES.recruitment.reserveTargetTroopShare)));
 

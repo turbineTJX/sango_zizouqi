@@ -4,7 +4,7 @@ import {PERSONNEL_SPEED} from '../personnel-movement.mjs';
 import {fieldFromCity,peacefulCities} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,disbandCityUnits} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,actionCandidates,ACTIONS,cancelDomestic,finishDomesticDay} from '../domestic.mjs';
 import {willingness,talentEligibility,talentKey,talentContext,projectNeed,progressFor,refreshTalentDemand,servingPeople,reassuranceCap,righteousness,isLord,affinityFit} from '../talent-core.mjs';
 import {discoverTalent,initializeTalent,finishTalentDay,resolveTalentOffers,startTalentProject,completeTalentProject,noteTalentCityCapture,processTalentDefeats,refreshTalentProjects,validateTalent} from '../talent-lifecycle.mjs';
@@ -92,6 +92,22 @@ test('one-day boundary appointments do not erase idle history; resignation prese
  const s=scene(),o=s.campaign.idle.find(o=>o.location==='xuchang'),original=structuredClone(o.unit),r=s.campaign.talent.records[o.unit.id];r.graceUntilDay=1;r.idleDays=200;r.idleTurns=20;r.leaveAtDay=30;s.campaign.domestic.loyalty[o.unit.id]=20;
  for(let n=1;n<=30;n++){s.campaign.day=n;if(n%10===0){s.campaign.phase='planning';assignDomestic(s,'xuchang','talent',o.unit.id);}else cancelDomestic(s,o.unit.id);finishTalentDay(s,cancelDomestic);}
  assert.ok(!servingPeople(s).has(o.unit.id));const p=s.campaign.domestic.people.find(p=>p.id===o.unit.id);assert.deepEqual(p.unit,original);assert.equal(r.hardWaitUntilDay,91);assert.equal(r.rejoinBlocks.cao,211);assert.equal(talentEligibility(s,p.id,'cao','xuchang','hire').reason,'hardWait');
+});
+test('a year-end resignation releases only that officer staffing promise and saves without changing resources',()=>{
+ const s=newCampaign(20261013,'all-heroes-251','cao',{allAI:true});let o=servingPeople(s).get('person-356');assert.ok(o);
+ if(o.cityUnit){assert.equal(disbandCityUnits(s,o.location,[o.unit.id],{scheduled:true,faction:o.faction}),null);o=servingPeople(s).get(o.unit.id);}
+ s.campaign.day=360;s.turn=36;
+ assert.equal(assignDomestic(s,o.location,'military',o.unit.id,{scheduled:true,faction:o.faction}),null);
+ const r=s.campaign.talent.records[o.unit.id];Object.assign(r,{graceUntilDay:1,idleDays:300,idleTurns:30,leaveAtDay:360,workedDays:8});
+ const promise=unit=>({faction:unit.faction,officerId:unit.unit.id,cityId:unit.location,direction:'military',createdDay:351,arrivedDay:352,phase:'work'});
+ const other=[...servingPeople(s).values()].find(v=>v.unit.id!==o.unit.id&&!v.army&&!v.destination);
+ const retained=promise(other);s.campaign.ai.staffing=[promise(o),retained];
+ const stocks=()=>s.cities.map(c=>({id:c.id,gold:c.gold,grain:c.grain,manpower:c.manpower})),before=stocks();
+ finishDomesticDay(s);
+ assert.equal(servingPeople(s).has(o.unit.id),false);assert.equal(s.campaign.domestic.people.find(p=>p.id===o.unit.id).status,'FREE');
+ assert.deepEqual(s.campaign.ai.staffing,[retained]);assert.deepEqual(stocks(),before);assert.equal(assignmentFor(s,o.unit.id),undefined);
+ s.campaign.day=361;s.turn=37;
+ const saved=serializeCampaign(s);assert.equal(serializeCampaign(validateCampaign(JSON.parse(saved))),saved);
 });
 test('no-benefit reassurance is not charged and cannot delete a warning',()=>{
  const s=scene(),a=only(s,'reassure');for(const o of servingPeople(s).values())s.campaign.domestic.loyalty[o.unit.id]=100;

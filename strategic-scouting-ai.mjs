@@ -4,10 +4,11 @@ import {roadCost} from './road-metrics.mjs';
 import {cityIntelligence,cityVisible,directPointVisible,visionEnabled} from './strategic-vision.mjs';
 import {dispatchScout,recallScout,scoutCandidates,scoutRoute,scoutAssignments} from './scouting.mjs';
 import {offensivePlans,plannedOfficer} from './strategic-intent.mjs';
-import {factionsHostile,diplomaticAssignment} from './diplomacy-relations.mjs';
+import {factionsHostile,diplomaticAssignment,diplomaticProtection} from './diplomacy-relations.mjs';
 import {cityPersonnel} from './city-personnel.mjs';
 import {assignmentFor,cancelDomestic} from './domestic.mjs';
 import {STRATEGIC_SCOUTING_RULES as RULES} from './data/design/strategic-scouting-rules.mjs';
+import {staffingOfficer} from './strategic-staffing.mjs';
 
 const adjacent=(s,id)=>cityRoads(s).flatMap(([a,b])=>a===id?[b]:b===id?[a]:[]);
 const besieged=(s,id)=>s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===id);
@@ -15,7 +16,7 @@ const localWorkers=(s,c)=>cityPersonnel(s,c.id).filter(o=>!o.army&&!o.unit.missi
 function availableScout(s,c,faction){
  if(localWorkers(s,c)<=RULES.minimumLocalWorkers)return null;
  const free=scoutCandidates(s,c.id,faction)[0];if(free)return free;
- const d=s.campaign.domestic,waiting=new Set(d.assignments.filter(a=>a.cityId===c.id&&!a.action&&!['agriculture','commerce'].includes(a.direction)).map(a=>a.officerId));
+ const d=s.campaign.domestic,waiting=new Set(d.assignments.filter(a=>a.cityId===c.id&&!a.action&&!staffingOfficer(s,a.officerId)&&!['agriculture','commerce'].includes(a.direction)).map(a=>a.officerId));
  if(!waiting.size)return null;
  // Assess shared eligibility after releasing an unstarted optional appointment.
  const candidateWorld={...s,campaign:{...s.campaign,domestic:{...d,assignments:d.assignments.filter(a=>!waiting.has(a.officerId))}}};
@@ -23,17 +24,18 @@ function availableScout(s,c,faction){
 }
 function priority(s,faction,target,frontier,planned){
  const i=cityIntelligence(s,target,faction);
- if(directPointVisible(s,mapNode(s,target),faction)||!factionsHostile(s,faction,i.owner))return 0;
+ if(directPointVisible(s,mapNode(s,target),faction)||i.owner===faction||!factionsHostile(s,faction,i.owner)&&(!planned||diplomaticProtection(s,faction,i.owner)||diplomaticProtection(s,i.owner,faction)))return 0;
  if(!frontier&&!planned)return 0;
  const age=i.day===null?RULES.unknownPriority:Math.min(RULES.maximumAgePriority,(s.campaign.day-i.day)*RULES.agePriorityPerDay);
  return (planned?RULES.planPriority:RULES.frontierPriority)+age;
 }
 
 // Called daily, using the same current and last observations as the player's map.
-export function planStrategicScouting(s,faction){
+export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
  if(!visionEnabled(s)||!s.campaign.scouting)return;
  const homes=s.cities.filter(c=>c.owner===faction),frontier=new Set(homes.flatMap(c=>adjacent(s,c.id)));
  const planned=new Set(offensivePlans(s).filter(p=>p.faction===faction).map(p=>p.target));
+ if(prospectiveTarget)planned.add(prospectiveTarget);
  const goal=s.campaign.ai?.factions[faction]?.strategy?.goal;if(goal?.kind==='capture'&&!['complete','cancelled'].includes(goal.status))planned.add(goal.targetCity);
  const score=id=>priority(s,faction,id,frontier.has(id),planned.has(id));
  for(const t of [...scoutAssignments(s)].filter(t=>t.faction===faction)){

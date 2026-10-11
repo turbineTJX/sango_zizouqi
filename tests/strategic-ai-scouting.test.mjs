@@ -209,7 +209,7 @@ test('scouting priorities do not follow unseen political changes and resume from
 });
 
 test('daily AI planning dispatches scouts and holds an unobserved offensive without consuming troops or grain',()=>{
- const {s,home}=front(),men=home.units.reduce((n,u)=>n+u.troops,0),grain=home.grain;
+ const {s,home}=front();home.units.forEach(u=>u.troops=5000);const men=home.units.reduce((n,u)=>n+u.troops,0),grain=home.grain;
  planStrategicAI(s);assert.equal(ownTasks(s).length,2);assert.ok(s.campaign.ai.decisions.some(d=>d.faction==='yuan'&&/等待斥候/.test(d.reason)));
  assert.equal(home.units.reduce((n,u)=>n+u.troops,0),men);assert.equal(home.grain,grain);
  assert.ok(!s.campaign.ai.plans.some(p=>p.faction==='yuan'&&ownTasks(s).some(t=>t.targetCity===p.target)));

@@ -1,5 +1,6 @@
 import {activeBonds,bondOnField,bondOperational,bondSource,bondBlocksEffect,adjacentBondAlly,topBond} from './bonds.mjs';
-import {hasStatus,setStatus,shieldLayers} from './tactics.mjs';
+import {hasStatus,setStatus,shieldLayers,unitTactics} from './tactics.mjs';
+import {tacticUsesLeft} from './tactic-tempo.mjs';
 import {STATUS_DEFINITIONS,CONTROL_STATUSES,statusNotice} from './battle-status-rules.mjs';
 import {traitImmune} from './trait-mechanics.mjs';
 import {hexDistance} from './hex-grid.mjs';
@@ -30,7 +31,11 @@ function shield(b,u,target,amount,steps,name,extra={}){
 export function resolveBondAttack(b,u,api){
  if(!bondOperational(b,u))return;
  const d=rule(b,u,'songAttack');if(!d)return;
- const target=b.sides[u.side].units.filter(v=>v!==u&&bondOnField(v)&&hexDistance(u,v)<=d.range).sort((a,c)=>a.intent-c.intent||a.id.localeCompare(c.id))[0];if(!target)return;
+ const candidates=b.sides[u.side].units.filter(v=>v!==u&&bondOnField(v)&&!hasStatus(b,v,'stasis')&&hexDistance(u,v)<=d.range);
+ // Feed an unspent tactic that is close to activation before a low but idle bar.
+ const gap=v=>Math.min(...unitTactics(v).filter(t=>!t.passive&&tacticUsesLeft(v,t)>0&&t.threshold>v.intent).map(t=>t.threshold-v.intent));
+ const pending=candidates.map(unit=>({unit,gap:gap(unit)})).filter(v=>Number.isFinite(v.gap)).sort((a,c)=>a.gap-c.gap||a.unit.id.localeCompare(c.unit.id));
+ const target=pending[0]?.unit||candidates.sort((a,c)=>a.intent-c.intent||a.id.localeCompare(c.id))[0];if(!target)return;
  const amount=d.intentGain[d.tier-1],overflow=Math.max(0,target.intent+amount-COMBAT.intentCap),gain=api.intent(target,amount,u);
  let protectedAmount=0;
  if(d.tier===d.thresholds.length&&overflow){const size=Math.floor(target.maxHp*Math.min(d.overflowShieldCap,overflow*d.overflowShieldRate));if(shield(b,u,target,size,d.shieldSteps,'战歌'))protectedAmount=size;}

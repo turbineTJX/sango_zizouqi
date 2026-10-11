@@ -9,6 +9,9 @@ test('normal demand is measured before income, keeps troop load constant and rec
  for(const sample of r.samples){assert.equal(sample.replacement.manpower,375);assert.equal(sample.reserveReplacement,375);assert.equal(sample.replacement.grain,0);}
  for(const key of ['gold','grain','manpower'])assert.equal(r.total[key],Object.values(r.parts).reduce((sum,part)=>sum+part[key],0));
  assert.equal(r.total.manpower,r.parts.replacement.manpower);
+ assert.equal(r.parts.officialSalaries.gold,240);assert.equal(r.parts.militaryUpkeep.gold,0);
+ assert.equal(r.perTurn.gold,147);assert.equal(r.perTurn.grain,970);
+ assert.ok(Math.abs(r.militaryWeights.grain-.13)<.01);assert.ok(r.weights.grain>r.militaryWeights.grain,'full treasury demand includes fixed payroll');
 });
 test('controlled attrition, actual expensive troop recipes and grain losses stress separate resources',()=>{
  const rows=CONSUMPTION_PROFILES.map(p=>consumptionTrial(p)),row=id=>rows.find(r=>r.profile===id),normal=row('normal');

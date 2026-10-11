@@ -17,11 +17,12 @@ export const CONSUMPTION_PROFILES=[
 ];
 const empty=()=>({gold:0,grain:0,manpower:0});
 const accumulate=(sum,part)=>{for(const key of Object.keys(sum))sum[key]+=part[key]||0;};
-export function consumptionTrial(profile,{seed=9001,days=120,reserveBuffer=10000,frontTroops=2500}={}){
+export function consumptionTrial(profile,{seed=9001,days=120,reserveBuffer=10000,frontTroops=2500,treasuryBuffer=60000,officerLevel=1}={}){
+ assert.ok(Number.isSafeInteger(officerLevel)&&officerLevel>=1&&officerLevel<=10);
  const s=newCampaign(seed),c=s.cities.find(c=>c.id==='xuchang');s.armies=[];s.campaign.idle=[];s.campaign.domestic.assignments=[];s.campaign.domestic.orders=[];
  for(const town of s.cities)town.units=[];
- c.barracks=5;c.granary=5;c.water=true;c.domestic.techs=[...new Set(profile.frontTypes.map(type=>TROOP_DESIGNS[type].technology).filter(Boolean))];c.manpower=30000;c.grain=60000;c.gold=30000;
- c.units=['spear',...profile.frontTypes].map((type,i)=>{const u=makeOfficer('person-'+(715+i),0,0,1);resourceRecipe(u,type);u.troops=0;u.wounded=0;u.homeCity=c.id;return u;});
+ c.barracks=5;c.granary=5;c.water=true;c.domestic.techs=[...new Set(profile.frontTypes.map(type=>TROOP_DESIGNS[type].technology).filter(Boolean))];c.manpower=30000;c.grain=60000;c.gold=treasuryBuffer;
+ c.units=['spear',...profile.frontTypes].map((type,i)=>{const u=makeOfficer('person-'+(715+i),0,0,officerLevel);resourceRecipe(u,type);u.troops=0;u.wounded=0;u.homeCity=c.id;return u;});
  const formationBefore={gold:c.gold,grain:c.grain,manpower:c.manpower};
  // Respect the same per-turn quota when initially raising more than 7000 men.
  const targets=c.units.map((u,i)=>i?frontTroops:2500);
@@ -33,7 +34,7 @@ export function consumptionTrial(profile,{seed=9001,days=120,reserveBuffer=10000
  assert.ok(c.units.every((u,i)=>u.troops===targets[i]));
  const initialFormation={gold:formationBefore.gold-c.gold,grain:formationBefore.grain-c.grain,manpower:formationBefore.manpower-c.manpower};
  c.manpower=reserveBuffer;
- const parts={rations:empty(),militaryUpkeep:empty(),replacement:empty(),transportLoss:empty()},samples=[];
+ const parts={rations:empty(),militaryUpkeep:empty(),officialSalaries:empty(),replacement:empty(),transportLoss:empty()},samples=[];
  for(let day=1;day<=days;day++){
   s.campaign.day=day;s.turn=Math.ceil(day/10);
   if(day%10===1)for(const u of c.units.slice(1))u.troops-=Math.round(frontTroops*profile.permanentLoss);
@@ -42,7 +43,7 @@ export function consumptionTrial(profile,{seed=9001,days=120,reserveBuffer=10000
   const before={gold:c.gold,grain:c.grain,manpower:c.manpower};
   const settlement=settleCityEconomy(s,c,{income:empty()});
   assert.equal(settlement.paidGold,settlement.upkeep.gold,'Measurement must fully fund upkeep');
-  parts.militaryUpkeep.gold+=settlement.paidGold;
+  parts.militaryUpkeep.gold+=settlement.paidTroops;parts.officialSalaries.gold+=settlement.paidSalary;
   c.drafted=0;const preRecruit={gold:c.gold,grain:c.grain,manpower:c.manpower};
   if(profile.permanentLoss)assert.equal(recruitLocalUnits(s,c,c.units.slice(1).map(u=>u.id),{cap:frontTroops}),null);
   assert.ok(c.units.every((u,i)=>u.troops===targets[i]),'Measurement must restore the prescribed troop load');
@@ -57,9 +58,13 @@ export function consumptionTrial(profile,{seed=9001,days=120,reserveBuffer=10000
  const total=empty();for(const part of Object.values(parts))accumulate(total,part);
  const perTurn=Object.fromEntries(Object.entries(total).map(([key,n])=>[key,n/(days/10)]));
  const weights={gold:1,grain:perTurn.gold/perTurn.grain,manpower:perTurn.manpower?perTurn.gold/perTurn.manpower:null};
+ // Personnel payroll depends on roster levels, independently of troop losses.
+ // Retain both the full treasury demand and the military replenishment ratios.
+ const militaryGold=perTurn.gold-parts.officialSalaries.gold/(days/10);
+ const militaryWeights={gold:1,grain:militaryGold/perTurn.grain,manpower:perTurn.manpower?militaryGold/perTurn.manpower:null};
  const lifecycle=Object.fromEntries(Object.entries(total).map(([key,n])=>[key,n+initialFormation[key]]));
  const lifecycleWeights={gold:1,grain:lifecycle.gold/lifecycle.grain,manpower:lifecycle.gold/lifecycle.manpower};
- return {profile:profile.id,seed,days,reserveBuffer,guard:{units:1,troops:2500},front:{units:profile.frontTypes.length,types:profile.frontTypes,troops:profile.frontTypes.map(()=>frontTroops)},assumptions:{permanentLossPerTurn:profile.permanentLoss,transportLossPerTurn:profile.grainLostPerTurn||0,station:'all units resident for controlled shared formation and supply costs; not a live expedition',reserveReplenishment:'measurement input restores the same reserve buffer after each turn; domestic acquisition costs are excluded to avoid deriving values from production'},initialFormation,parts,total,perTurn,weights,lifecycleWeights,samples};
+ return {profile:profile.id,seed,days,reserveBuffer,treasuryBuffer,measurementOpening:formationBefore,guard:{units:1,troops:2500},front:{units:profile.frontTypes.length,types:profile.frontTypes,troops:profile.frontTypes.map(()=>frontTroops)},assumptions:{permanentLossPerTurn:profile.permanentLoss,transportLossPerTurn:profile.grainLostPerTurn||0,station:'all units resident for controlled shared formation and supply costs; not a live expedition',payroll:'one level-1 officer per team, including guards, charged by shared salary settlement; actual scenario payroll varies by the complete serving roster and levels',reserveReplenishment:'measurement input restores the same reserve buffer after each turn; domestic acquisition costs are excluded to avoid deriving values from production',measurementFunding:'treasury and grain measurement buffers are disclosed above; no income is credited, and these funded measurements do not establish real scenario affordability'},initialFormation,parts,total,perTurn,weights,militaryWeights,lifecycleWeights,samples};
 }
 export function consumptionMatrix(){
  return CONSUMPTION_PROFILES.flatMap(profile=>[30,60,120].flatMap(days=>[5000,10000,15000].map(reserveBuffer=>consumptionTrial(profile,{days,reserveBuffer}))));

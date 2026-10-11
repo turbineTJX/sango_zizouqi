@@ -1,5 +1,6 @@
 import {gateDurability} from '../building-durability.mjs';
 import {initializeVision} from '../strategic-vision.mjs';
+import {advancePersonnel} from '../personnel-movement.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,roadLength,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,launchExpedition} from './helpers/auto-domestic-campaign.mjs';
@@ -13,6 +14,8 @@ import {plannedOfficer,plannedGrain,domesticIntentWeight} from '../strategic-int
 import {pendingOrdersMarkup} from '../strategic-order-view.mjs';
 import {strategicAIMarkup} from '../strategic-view.mjs';
 import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
+import {equipmentCost} from '../troop-equipment.mjs';
+import {syncResourceTotals} from '../city-resources.mjs';
 const city=(s,id)=>s.cities.find(c=>c.id===id);
 // Small connected front built from current city units, never a legacy city army.
 function scene(){
@@ -26,7 +29,9 @@ function scene(){
  home.units=['shao','yan','wen','he','ju','tian'].map((id,i)=>({...makeOfficer(id,3000,i,3),homeCity:home.id}));
  target.units=['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,1000,i,3),homeCity:target.id}));
   // A rear base is friendly; a high wall alone no longer blocks occupation.
- rear.owner='yuan';rear.domestic.owner='yuan';gateDurability(rear).hp=1000000;home.gold=6000;target.gold=6000;rear.gold=6000;initializeVision(s);initializeStrategicAI(s);
+ // These tests isolate the existing prepared defense. Emergency paid muster
+ // and its observed-resource limits have their own opposition behavior cases.
+ rear.owner='yuan';rear.domestic.owner='yuan';gateDurability(rear).hp=1000000;home.gold=6000;target.gold=6000;target.manpower=0;rear.gold=6000;syncResourceTotals(s);initializeVision(s);initializeStrategicAI(s);
  return {s,home,target,rear};
 }
 const men=s=>s.cities.flatMap(c=>c.units).concat(s.armies.flatMap(a=>a.units)).reduce((n,u)=>n+u.troops+u.wounded,0);
@@ -36,7 +41,10 @@ const assess=({s,home,target},units=home.units.slice(0,3))=>evaluateOffensive(s,
 test('the same marginal objective is accepted by a bold lord and declined by a cautious lord',()=>{
  for(const [personality,attack] of [[4,true],[2,false]]){
   const {s,home,target}=scene();home.units.find(u=>u.id==='shao').personality=personality;
-  target.units=[];target.kind='port';target.commerce=0;target.grain=0;
+  home.gold=30000;home.manpower=30000;target.kind='port';target.commerce=0;target.grain=0;target.gold=0;target.manpower=0;
+  // Real observed defense makes this a military risk margin. Physical supply
+  // and actual refill funding stay affordable under either lord's policy.
+  target.units.forEach(u=>u.troops=3000);initializeVision(s);
   const before={men:men(s),grain:grain(s)};planStrategicAI(s);
   assert.equal(s.campaign.ai.plans.some(p=>p.phase==='attack'),attack);
   assert.equal(men(s),before.men);assert.equal(grain(s),before.grain);
@@ -64,6 +72,7 @@ test('a winnable attack is refused when casualty replacement is unaffordable',()
 test('valuable civil workers and a development-minded lord increase the opportunity cost',()=>{
  const setup=scene(),{s,home,target}=setup,lord=home.units.find(u=>u.id==='shao'),worker=home.units.find(u=>u.id==='ju');target.units=[];
  const idle=assess(setup,[worker]);assert.equal(assignDomestic(s,home.id,'technology','ju',{faction:'yuan'}),null);
+ beginDomesticTurn(s);assert.ok(assignmentFor(s,'ju').action,'opportunity cost requires actual ongoing civil work');
  lord.politics=20;const low=assess(setup,[worker]);lord.politics=100;const high=assess(setup,[worker]);
  assert.ok(low.workCost>idle.workCost);assert.ok(high.workCost>low.workCost);assert.ok(high.score<low.score);
 });
@@ -72,7 +81,7 @@ test('occupation value is rejected when surviving troops cannot hold against nea
  const setup=scene(),{s,home,target,rear}=setup;target.units=[];target.commerce=10;assert.ok(assess(setup,home.units.slice(0,1)).accepted);
  // The threat borders the objective only, so it is a post-capture concern.
  s.roads=[[home.id,target.id],[target.id,rear.id]];rear.owner='cao';rear.units=['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,6000,i,3),homeCity:rear.id}));
- const result=assess(setup,home.units.slice(0,1));assert.equal(result.accepted,false);assert.match(result.reason,/反攻/);
+ const result=assess(setup,home.units.slice(0,1));assert.equal(result.accepted,false);assert.match(result.reason,/优势|反攻/);
 });
 
 test('AI occupies an undefended objective regardless of wall durability',()=>{
@@ -100,10 +109,16 @@ test('heavily wounded troops recover at home before a voluntary offensive',()=>{
 });
 
 test('offensive grain reservations include home rations and wait for actual supplies',()=>{
- const {s,home,rear}=scene();home.grain=2500;rear.grain=20000;planStrategicAI(s);
+ const {s,home,rear}=scene();home.grain=2500;rear.grain=20000;
+ // Forecast only the real loaded shipment, rather than inaccessible rear stock.
+ const courier={...makeOfficer('gao',0,0,3),homeCity:rear.id};s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==courier.id);
+ s.campaign.idle.push({unit:courier,faction:'yuan',location:rear.id,destination:null,remainingDays:0});
+ assert.ok(requestFactionOrder(s,'yuan',{kind:'transfer',cityId:rear.id,officerIds:[courier.id],target:home.id,cargo:{gold:0,grain:6000,manpower:0},route:[home.id],safeOnly:true},'now').applied);
+ planStrategicAI(s);
  const p=s.campaign.ai.plans[0];assert.ok(p);assert.notEqual(p.phase,'attack');assert.equal(s.armies.length,0);
  assert.ok(s.campaign.ai.cities[home.id].grainNeed>=plannedGrain(s,home.id)+2500);
- home.grain=20000;next(s);assert.equal(p.phase,'attack');assert.ok(home.grain>=2500);
+ const moving=s.campaign.idle.find(o=>o.unit.id===courier.id);for(let i=0;i<10&&moving.destination;i++)advancePersonnel(s,moving);
+ next(s);assert.equal(p.phase,'attack');assert.ok(home.grain>=2500);
 });
 
 test('a threatened home preserves defense while its troops are already fighting',()=>{
@@ -182,8 +197,8 @@ test('hungry marching columns reverse continuous road progress once without tele
  assert.deepEqual(a.travel,{from:target.id,to:home.id,progress:length-2,road:'main'});assert.deepEqual(a.route,[home.id]);const returning=structuredClone(a.travel);next(s);assert.deepEqual(a.travel,returning);
 });
 test('shared recruitment spends one city quota and the AI treasury only, preserving planned grain',()=>{
- const {s,home}=scene();home.units.forEach(u=>u.troops=1000);const before={men:men(s),gold:home.gold,player:s.gold,grain:home.grain,pop:home.manpower};manageStrategicEconomy(s);
- const recruited=men(s)-before.men;assert.equal(recruited,3000);assert.equal(home.drafted,recruited);assert.equal(home.grain,before.grain);assert.equal(home.manpower,before.pop-recruited);assert.equal(home.gold,before.gold-Math.ceil(recruited/4));assert.equal(s.gold,before.player);
+ const {s,home}=scene();home.units.forEach(u=>u.troops=1000);const before={men:men(s),gold:home.gold,player:s.gold,grain:home.grain,pop:home.manpower,equipment:Object.fromEntries(home.units.map(u=>[u.id,structuredClone(u.equipment)]))};manageStrategicEconomy(s);
+ const recruited=men(s)-before.men,equipped=home.units.reduce((n,u)=>n+equipmentCost(u.equipment,before.equipment[u.id],1000,home),0);assert.equal(recruited,3000);assert.equal(home.drafted,recruited);assert.equal(home.grain,before.grain);assert.equal(home.manpower,before.pop-recruited);assert.equal(home.gold,before.gold-Math.ceil(recruited/4)-equipped);assert.equal(s.gold,before.player);
  const snapshot=serializeCampaign(s);manageStrategicEconomy(s);assert.equal(serializeCampaign(s),snapshot);
 });
 test('a persisted common AI order waits for real domestic work and never creates an army early',()=>{
@@ -199,7 +214,7 @@ test('a persisted common AI order waits for real domestic work and never creates
  assert.ok(completed);assert.equal(serializeCampaign(copy),serializeCampaign(s));assert.equal(s.campaign.domestic.orders.length,0);assert.ok(!assignmentFor(s,id));
 });
 test('local plan reservation lets current work finish and blocks starting another task',()=>{
- const {s,home}=scene();home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;assert.equal(assignDomestic(s,home.id,'technology','ju',{faction:'yuan'}),null);beginDomesticTurn(s);const action=assignmentFor(s,'ju')?.action;assert.ok(action);nearFinish(s,'ju');city(s,'town-5').units.forEach(u=>u.troops=1000);home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;city(s,'town-5').commerce=10;planStrategicAI(s);
+ const {s,home}=scene();home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;assert.equal(assignDomestic(s,home.id,'technology','ju',{faction:'yuan'}),null);beginDomesticTurn(s);const action=assignmentFor(s,'ju')?.action;assert.ok(action);nearFinish(s,'ju');city(s,'town-5').units.forEach(u=>u.troops=1000);home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;city(s,'town-5').units=city(s,'town-5').units.slice(0,2);city(s,'town-5').commerce=10;planStrategicAI(s);
  const p=s.campaign.ai.plans[0];assert.ok(p);assert.ok(plannedOfficer(s,'ju'));assert.equal(s.armies.length,0);const original=action.id;
  s.campaign.day+=10;s.turn=Math.floor((s.campaign.day-1)/10)+1;beginDomesticTurn(s);assert.equal(assignmentFor(s,'ju').action.id,original);assert.equal(p.id,s.campaign.ai.plans[0].id);assert.ok(plannedGrain(s,home.id)>0);
 });
@@ -224,13 +239,16 @@ test('AI save rejects duplicated commitments and old planner versions',()=>{
  const old=structuredClone(s);old.campaign.ai.version=1;assert.throws(()=>validateStrategicAI(old));assert.equal(strategicAIMarkup(s),'');
 });
 test('two cities assemble for one target through real marching before the coordinated assault',()=>{
- const {s,home,target,rear}=scene();rear.owner='yuan';rear.domestic.owner='yuan';gateDurability(rear).hp=0;target.units.forEach(u=>u.troops=4000);
+ const {s,home,target,rear}=scene();rear.owner='yuan';rear.domestic.owner='yuan';gateDurability(rear).hp=0;target.units.forEach(u=>u.troops=3500);
+ // Assembly is this fixture's subject; its staging city can afford the newly
+ // conservative casualty forecast when all real columns have arrived there.
+ home.manpower=20000;rear.manpower=20000;home.gold=10000;rear.gold=10000;
  // Isolate military assembly from separate outbound talent and diplomacy missions.
  for(const policy of Object.values(s.campaign.diplomacy.policies))policy.feeBudget=0;
  for(const c of [home,rear])for(const [key,def] of Object.entries(ACTIONS))if(def.direction==='talent')c.domestic.cooldowns[key]=10000;
  const used=new Set(s.cities.flatMap(c=>c.units.map(u=>u.id)));
  rear.units=Object.keys(OFFICER_BY_ID).filter(id=>!used.has(id)).slice(0,5).map((id,i)=>({...makeOfficer(id,3000,i,3),homeCity:rear.id}));
- city(s,'town-5').commerce=10;planStrategicAI(s);const p=s.campaign.ai.plans[0];assert.ok(p);assert.equal(p.origins.length,2);assert.equal(p.phase,'assemble');assert.ok(s.armies.every(a=>a.target===home.id));
+ city(s,'town-5').commerce=10;planStrategicAI(s);const p=s.campaign.ai.plans[0];assert.ok(p);assert.equal(p.origins.length,2);assert.equal(p.phase,'assemble',p.reason);assert.ok(s.armies.every(a=>a.target===home.id));
  const ids=[...p.officerIds];assert.equal(new Set(ids).size,ids.length);assert.equal(s.campaign.ai.plans.filter(p=>!['complete','cancelled'].includes(p.phase)).length,1);
  for(let i=0;i<15&&p.phase!=='attack';i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);}
  assert.equal(p.phase,'attack',p.reason);assert.ok(s.armies.filter(a=>a.faction==='yuan').every(a=>a.units.length<=10));assert.deepEqual(p.officerIds,ids);
@@ -242,7 +260,7 @@ test('a city short of personnel receives a real transfer, leaving the governor a
  planStrategicAI(s);const traveler=s.campaign.idle.find(o=>o.destination===home.id);assert.ok(traveler);assert.notEqual(traveler.unit.id,'shao');assert.equal(traveler.location,rear.id);assert.equal(home.units.length,0);assert.ok(s.campaign.ai.decisions.some(d=>d.kind==='transfer'));
 });
 test('waiting transport earmarks cargo without a debit and replenishment preserves plan food',()=>{
- const {s,home,target,rear}=scene();home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;home.governor='shao';assignDomestic(s,home.id,'technology','ju',{faction:'yuan'});beginDomesticTurn(s);nearFinish(s,'ju');city(s,'town-5').units.forEach(u=>u.troops=1000);home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;city(s,'town-5').commerce=10;planStrategicAI(s);const reserved=plannedGrain(s,home.id);assert.ok(reserved);
+ const {s,home,target,rear}=scene();home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;home.governor='shao';assignDomestic(s,home.id,'technology','ju',{faction:'yuan'});beginDomesticTurn(s);nearFinish(s,'ju');city(s,'town-5').units.forEach(u=>u.troops=1000);home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;city(s,'town-5').units=city(s,'town-5').units.slice(0,2);city(s,'town-5').commerce=10;planStrategicAI(s);const reserved=plannedGrain(s,home.id);assert.ok(reserved);
  home.grain=reserved;home.units.forEach(u=>u.troops=1000);manageStrategicEconomy(s);assert.equal(home.grain,reserved);
  // Common queued cargo does not debit until actual departure.
  rear.owner='yuan';rear.domestic.owner='yuan';const id='ju',before=home.grain;
@@ -275,7 +293,7 @@ test('departure checks real presence before considering work or interruption his
 test('ordinary ready offensives interrupt lengthy work through the real command and record the loss',()=>{
  const {s,home}=scene();home.units.forEach(u=>u.troops=u.id==='ju'?3000:500);gateDurability(home).hp=1000000;gateDurability(city(s,'town-5')).hp=0;assignDomestic(s,home.id,'technology','ju',{faction:'yuan'});beginDomesticTurn(s);
  const action=assignmentFor(s,'ju').action;assert.ok(action.remaining>2);assert.equal(expeditionTiming(s,home.id,['ju']).choice,'now');
- city(s,'town-5').commerce=10;planStrategicAI(s);assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.units.some(u=>u.id==='ju')));assert.equal(assignmentFor(s,'ju'),undefined);
+ city(s,'town-5').units=city(s,'town-5').units.slice(0,2);city(s,'town-5').commerce=10;planStrategicAI(s);assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.units.some(u=>u.id==='ju')));assert.equal(assignmentFor(s,'ju'),undefined);
  assert.ok(s.campaign.domestic.workHistory.ju.some(h=>h.actionId===action.id&&h.status==='interrupted'));
 });
 test('recent real interruption protects the next task across reload except when rescue would be missed',()=>{

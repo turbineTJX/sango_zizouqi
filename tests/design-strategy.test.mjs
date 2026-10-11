@@ -23,6 +23,14 @@ test('strategy tables reject duplicate/disconnected roads, invalid work handlers
   [d=>d.strategicPlanning.candidateLimit=100,'有限规划上限'],
   [d=>d.strategicPlanning.peacePressureRatio=0,'战略比例无效'],
   [d=>d.strategicPlanning.algorithms.selector='missing-v1','算法配置无效或实现未注册'],
+  [d=>d.strategicPlanning.victory.territoryValue=0,'统一战略收益'],
+  [d=>d.strategicPlanning.victory.maxBonus=Infinity,'统一战略参数'],
+  [d=>d.strategicPlanning.victory.maxCorridors=99,'统一战略收益'],
+  [d=>d.strategicPlanning.opposition.citySupportShare=.8,'潜在援军须保留'],
+  [d=>d.strategicPlanning.opposition.minimumBattleDays=20,'交战窗口须有界'],
+  [d=>d.strategicPlanning.opposition.lossFactor=NaN,'比例须为'],
+  [d=>d.strategicPlanning.recovery.maximumForecastDays=1000,'补兵预测窗口'],
+  [d=>d.strategicPlanning.recovery.maximumAdvantageRelief=1,'补兵风险与成本'],
  ]){const d=structuredClone(DESIGN_TABLES);edit(d);assert.ok(validateDesignTables(d).some(e=>e.includes(needle)),needle);}
 });
 test('edited action/building/road/movement records drive real autonomous work, routing and saves',()=>{

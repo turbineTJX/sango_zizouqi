@@ -1,5 +1,4 @@
 import {combatType,combatFamily} from './troop-equipment.mjs';
-import {formationCells,formationTier} from './bond-battlefield.mjs';
 import {isAreaStratagem,chooseStratagemPoint} from './stratagem-area.mjs';
 import {isTargetable} from './engagement.mjs';
 import {needsRemedy} from './battle-status-rules.mjs';
@@ -40,7 +39,7 @@ export function rankEnemyReserves(b,candidates,side=1){
   const friendlyBuilding=battleBuildings(b).some(a=>a.side===side&&a.hp>0);
   const profile=u=>{
     // Compare current strength without field/cell bonds or a hypothetical entry.
-    const stats=unitAttributes({...u,status:'reserve'},b),skills=unitTactics(u);
+    const stats=unitAttributes({...u,status:'reserve'},b,{ignoreBonds:true}),skills=unitTactics(u);
     const offense=skills.filter(s=>offensiveEffects.has(s.effect)||s.effect==='famous'&&s.mode==='attack');
     const support=(hasTrait(u,'formationSupport')||skills.some(s=>{
       if(s.effect==='repair')return friendlyBuilding;
@@ -75,7 +74,7 @@ export function rankEnemyReserves(b,candidates,side=1){
 export function planEnemyArmy(b,side=1){
   if(b.tick!==0||b.deploymentLocked)return;
   const units=b.sides[side].units;
-  const stats=new Map(units.map(u=>[u,unitAttributes(u,b)]));
+  const stats=new Map(units.map(u=>[u,unitAttributes(u,b,{ignoreBonds:true})]));
   const strength=u=>Math.max(stats.get(u).attack,stats.get(u).martialPower,stats.get(u).strategyPower);
   const byStrength=(a,c)=>Number(c.status==='active')-Number(a.status==='active')||strength(c)-strength(a)||a.id.localeCompare(c.id);
   for(const u of units){
@@ -83,7 +82,6 @@ export function planEnemyArmy(b,side=1){
     if(!validLoadout(u,u.tactics))configureTactics(u,learnedTacticIds(u));
     u.formation=combatFamily(u)==='cavalry'?'left':isRear(u)?'back':'front';
   }
-  const formation=formationTier(b,side)>0?formationCells(b,side):[];
   const active=units.filter(u=>u.status==='active'&&u.hp>0);
   const occupied=new Set(b.sides[1-side].units.filter(u=>u.status==='active').map(u=>`${u.x},${u.y}`));
   const frontRows=[3,4,2,5,1,6],wingRows=[1,6,0,7];
@@ -113,10 +111,9 @@ export function planEnemyArmy(b,side=1){
         if(side===1?x<core.x:x>core.x)score+=20;
       }
       if(combatFamily(u)==='cavalry')score+=({forest:7,marsh:10,hill:3,bridge:4}[ground]||0);
-      if(unitAttributes(u,b).range>1&&ground==='hill')score-=6;
+      if(stats.get(u).range>1&&ground==='hill')score-=6;
       if(unitTactics(u).some(s=>s.id==='ambush')&&ground==='forest')score-=3;
       if(ground==='marsh')score+=3;
-      if(formation.some(p=>p.x===x&&p.y===y))score-=u.bondGrowth?.levels.bondGuard?18:9;
       candidates.push({x,y,score});
     }
     candidates.sort((a,c)=>a.score-c.score||(side===1?a.x-c.x:c.x-a.x)||a.y-c.y);

@@ -1,4 +1,5 @@
-import {validateBattleAppointments,commandProvidersAt,planBattleAppointmentsAI,planArrivalAppointmentsAI} from './battle-appointments.mjs';
+import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
+import {validateBattleAppointments,commandProvidersAt,planBattleAppointmentsAI,planArrivalAppointmentsAI,appointBattleRoles} from './battle-appointments.mjs';
 import {preparePostbattleAppointments,validatePendingAppointments,pendingArmyAppointments} from './postbattle-appointments.mjs';
 import {combatType,combatFamily,validEquipment,emptyEquipment,desiredForm,allowedFormTypes,canEquip,equipmentCost} from './troop-equipment.mjs';
 import {validTreasureId,treasureDesign} from './data/design/treasures.mjs';
@@ -54,9 +55,10 @@ import {isTargetable,meleeTargetPool,interceptorsAt,canStrikeFrom,holdsLine} fro
 import { SCENARIOS } from './scenario-catalog.mjs';
 import { COMBAT, RULES_VERSION, CAMPAIGN_TIME, INTENT_STATE, TARGETING } from './combat-rules.mjs';
 import {snapshotTactic,tacticOutcome} from './tactic-outcomes.mjs';
+import {cooperationCandidate,tacticSupportRecipients,cooperatingUnit} from './tactic-cooperation.mjs';
 import {powerFactor,powerDuration,effectChance,criticalChance,statusFraction,DURATION_POWER_STATUSES,CHANCE_EFFECT_NAMES,POWER_RULES} from './tactic-power.mjs';
 import {FAMOUS_OFFICERS} from './famous-officers.mjs';
-import {famousTargets, tacticOpening, undermineTargets, expandedSupportTargets, basicSupportTargets, areaTacticTargets, exposedTarget, tauntTarget, pursuitTarget, flankingTarget, supportApproach, repairTarget} from './tactics.mjs';
+import {famousTargets, famousIntentTargets, tacticOpening, undermineTargets, expandedSupportTargets, basicSupportTargets, areaTacticTargets, exposedTarget, tauntTarget, pursuitTarget, flankingTarget, supportApproach, repairTarget} from './tactics.mjs';
 export { TROOPS, unitAttributes, disciplineDuration, isRear } from './unit-stats.mjs';
 // The simulation has no DOM, network, clock, or storage dependencies.
 import { TACTICS_BOOK, unitTactics, readyTactic, hasStatus, setStatus, routeTo, retreatCell, openCell, configureTactics, validLoadout, defaultTacticIds, recommendedTacticIds, NEGATIVE_STATUSES, statusPower, lureCell, absorbShield, refreshShield, shieldAmount } from './tactics.mjs';
@@ -65,7 +67,7 @@ assertDesignTables();
 export const VERSION = 2;
 import {settleArmyAppointments,validArmyAppointmentChanges} from './army-appointments.mjs';
 export const GRID = { cols: 14, rows: 8 };
-export const COMBO = { window:3, doubleBonus:25, tripleBonus:40 };
+export const COMBO = { window:3, supportRange:2, doubleBonus:25, tripleBonus:40 };
 export { COMBAT } from './combat-rules.mjs';
 export const SKILL_THRESHOLDS = { cao:100, dun:85, liao:95, chu:80, jia:100, yu:90, yuanxia:85, jin:80, shao:100, yan:85, wen:95, he:90, ju:100, tian:100, gao:85 };
 export const skillThreshold = unit => Math.min(...unitTactics(unit).map(s=>s.threshold));
@@ -317,6 +319,7 @@ export function startBattle(state,{deferEnemyDeployment=false}={}) {
 }
 export const activeUnits = (b, side) => b.sides[side].units.filter(u => u.status === 'active' && u.hp > 0);
 export {deployBattleUnit as deployUnit} from './battle-deployment.mjs';
+import {deployBattleUnit} from './battle-deployment.mjs';
 export function reserveDeploymentUnit(b,id,toId=null) {
   if(!isBattleCouncil(b))return '只能在开战前调整或援军军议中调整后备';
   const units=b.sides[0].units,u=units.find(u=>u.id===id&&u.hp>0&&['active','reserve'].includes(u.status));
@@ -426,8 +429,32 @@ export function planBattleCouncilAI(b,side=1){
  // Existing retreat thresholds are retained. Reinforcement councils never
  // move active troops, rewrite intentions, change loadouts or reset resources.
 }
+export function planBattleCouncilsAI(b,aiSides=[1]){
+ const sides=[...new Set(aiSides)].filter(side=>[0,1].includes(side));
+ if(!isDeploying(b)||sides.length<2){for(const side of sides)planBattleCouncilAI(b,side);return;}
+ // Each controller sees the same pre-council public board. Proposing one
+ // side's deployment must not give the next controller a reaction turn.
+ const proposals=sides.map(side=>{const view=structuredClone(b);planBattleCouncilAI(view,side);return {side,army:view.sides[side]};});
+ for(const {side,army} of proposals){
+  for(const event of army.appointmentEvents.slice(b.sides[side].appointmentEvents.length)){
+   const error=appointBattleRoles(b,event.armyId,event.roles,side);if(error)throw Error(error);
+  }
+  for(const u of b.sides[side].units)if(u.status==='active'){u.status='reserve';u.x=-1;u.y=-1;}
+  configureBattleIntent(b,army.battleIntent,side);
+ }
+ for(const {side,army} of proposals){
+  for(const proposed of army.units){
+   const u=b.sides[side].units.find(u=>u.id===proposed.id);u.formation=proposed.formation;
+   if(!validLoadout(u,u.tactics))configureTactics(u,proposed.tactics);
+   if(proposed.status!=='active')continue;
+   if(!validFrontline(b,side,[...activeUnits(b,side),u])||!spawn(b,u))throw Error('AI战前方案无法合法上阵');
+   const error=deployBattleUnit(b,u.id,proposed.x,proposed.y,side);if(error)throw Error(error);
+  }
+ }
+}
 function fillControllerSlots(b,aiSides){
- for(const side of [0,1])if(aiSides.includes(side))planBattleCouncilAI(b,side);else fillSlots(b,side,{ai:false});
+ planBattleCouncilsAI(b,aiSides);
+ for(const side of [0,1])if(!aiSides.includes(side))fillSlots(b,side,{ai:false});
 }
 export function issueCommand(b, command, targetId = null, side = 0, {ai=side===1}={}) {
   if (!b || b.result) return '战斗已经结束';
@@ -911,16 +938,6 @@ function applyControl(b,u,steps,key='confuse',source={}) {
   if(hasStatus(b,u,'resolve')||hasStatus(b,u,'magicImmune')||traitImmune(u,key))return;
   setStatus(b,u,key,steps,source);setStatus(b,u,'resolve',steps+3,{...source,sourceNote:'受控保护'});
 }
-// The window is anchored to the first completed cast, never extended by a chain.
-function comboCandidate(b,u,s,target) {
-  if(s.attackOrb||s.effect==='repair'||['phalanx','gallop','valor','bulwark','riposte','anchor','emplace'].includes(s.effect))return null;
-  const units=b.sides[u.side].units;
-  const previous=(b.comboWindows||[]).find(c=>c.side===u.side&&c.targetId===target.id&&b.tick-c.tick<=COMBO.window);
-  const actors=(previous?.actors||[]).filter(a=>units.some(v=>v.id===a.id&&v.status==='active'&&v.hp>0));
-  if(actors.some(a=>a.id===u.id))return null; // Multi-hit and the same officer cannot link with itself.
-  const actor={id:u.id,name:u.name,skillId:s.id,x:u.x,y:u.y};
-  return {side:u.side,targetId:target.id,tick:actors.length?previous.tick:b.tick,actors:[...actors,actor]};
-}
 function finishTacticInner(b,u,s,target) {
   if(u.withdrawing||u.disengage||b.sides[u.side].retreat||u.status!=='active'||u.hp<=0)return false;
   breakStealth(b,u,'施放战法');
@@ -932,7 +949,8 @@ function finishTacticInner(b,u,s,target) {
   const terrainFor=t=>tacticTerrainEffect(b,origin,s,t,terrainPath);
   const terrainNotes=new Set();
   const noteTerrain=t=>{const terrain=terrainFor(t);if(terrain.label)terrainNotes.add(terrain.label);return terrain;};
-  const combo=target.isDecoy?null:comboCandidate(b,u,s,target);
+  // The first completed cast anchors the window, even when support changes target.
+  const candidate=target.isDecoy?null:cooperationCandidate(b,u,s,target,COMBO),combo=candidate?.record;
   const partner=combo?.actors.at(-2);
   const relation=partner?relationshipInfo(partner.id,u.id,b.relationshipScores,b.relationshipTypes):null;
   const linked=relation&&(relation.chance===100||relation.chance>0&&random(b)<relation.chance/100);
@@ -1056,7 +1074,7 @@ function finishTacticInner(b,u,s,target) {
           if(opening.setup||opening.highIntent)signal(t,opening.setup?'乘隙追击':'高战意反制',{openingTrigger:opening.setup?'setup':'highIntent'});
           for(let i=0;i<(s.hits||1)&&t.hp>0;i++){hit(t,scale,!charged);charged=true;}
           if(t.hp<=0)continue;
-          if(s.debuff)status(t,s.debuff,s.steps);
+          for(const key of s.debuffs||[s.debuff].filter(Boolean))status(t,key,s.steps);
           if(s.control)control(t,s.steps,s.control);
           if(s.drain){const amount=(hasStatus(b,t,'magicImmune')?0:lowerIntent(t,boosted(s.drain+opening.drain),u,b));signal(t,`战意 −${amount}`,{intentDrained:amount});}
           if(s.burn)status(t,'burn',s.steps,{sourceId:u.id,amount:boosted(s.burn*power/280*100/(100+unitAttributes(t,b).discipline),null,null,false)});
@@ -1074,11 +1092,17 @@ function finishTacticInner(b,u,s,target) {
         }
         signal(t,s.name);
       }
+      if(s.link){
+        // Connect survivors after the opening damage: only later hits propagate.
+        // Keep existing groups intact and never use immune or untargetable members.
+        const members=targets.filter(t=>t.hp>0&&t.status==='active'&&isTargetable(b,t)&&!battleInvincible(b,t)&&!hasStatus(b,t,'link')&&!hasStatus(b,t,'magicImmune')&&!bondBlocksEffect(b,t,u));
+        if(members.length>=2)for(const t of members)if(status(t,'link',s.link.steps,{group:u.id+':'+s.id+':'+b.tick,fraction:s.link.fraction}))signal(t,'连环 · 后续传导');
+      }
       if(s.selfStatus)status(u,s.selfStatus,s.selfStatusSteps);
       if(s.selfCleanse){remedy(b,u,'calm');status(u,'resolve',3);}
       if(s.selfWard)status(u,'ward',s.selfWardSteps||5,{percent:s.selfWard});
       if(s.selfRiposte)status(u,'riposte',s.selfRiposte,{lastTick:0});
-      if(s.allyIntent)for(const ally of activeUnits(b,u.side).filter(a=>a!==u&&hexDistance(u,a)<=s.allyRange&&a.intent<COMBAT.intentCap).sort((a,c)=>a.intent-c.intent||a.id.localeCompare(c.id)).slice(0,s.allyTargets)){
+      if(s.allyIntent)for(const ally of famousIntentTargets(b,u,s)){
         gainIntent(ally,boosted(s.allyIntent,ally,'intent'),u);signal(ally,`鼓舞 · 战意 +${boosted(s.allyIntent,ally,'intent')}`);
       }
       break;
@@ -1176,16 +1200,17 @@ function finishTacticInner(b,u,s,target) {
     const old=before.get(t.id);return old&&(t.intent!==old.intent||t.x!==old.x||t.y!==old.y||JSON.stringify(t.statuses)!==JSON.stringify(old.statuses)||JSON.stringify(t.skillReady)!==JSON.stringify(old.ready));
   });
   if(combo&&effective) {
+    combo.supportIds=tacticSupportRecipients(b,u,before,castEvents);
     b.comboWindows ||= [];b.comboCounts ||= [0,0];
-    b.comboWindows=b.comboWindows.filter(c=>!(c.side===u.side&&c.targetId===target.id));
+    b.comboWindows=b.comboWindows.filter(c=>c!==candidate.previous&&!(c.side===u.side&&c.targetId===target.id));
     b.comboWindows.push(combo);
     if(bonus) {
       b.comboCounts[u.side]++;
       for(const e of b.effects.slice(effectStart))e.comboLevel=level;
       const title=level===3?'三连携':'二连携';
-      const detail={level,bonus,actors:combo.actors.map(a=>({...a})),targetName:target.name};
+      const detail={level,bonus,kind:candidate.kind,actors:combo.actors.map(a=>({...a})),targetName:target.name};
       combatEffect(b,u,target,true,0,'impact',s,{label:title,visual:'shockwave',combo:detail,text:'效果 +'+bonus+'%'});
-      battleLog(b,'关系 '+relation.score+' · 连携概率 '+relation.chance+'% · '+title+' · '+combo.actors.map(a=>a.name).join(' → ')+' 对 '+target.name+' 发动「'+s.name+'」，伤害及数值效果 +'+bonus+'%，控制与状态持续 +1 日。');
+      battleLog(b,'关系 '+relation.score+' · 连携概率 '+relation.chance+'% · '+title+' · '+({focus:'协同集火',supported:'支援接续',cover:'接应掩护'}[candidate.kind])+' · '+combo.actors.map(a=>a.name).join(' → ')+' 对 '+target.name+' 发动「'+s.name+'」，伤害及数值效果 +'+bonus+'%，控制与状态持续延长。');
     }
   }
   if(partner&&!linked)battleLog(b,partner.name+' → '+u.name+'：关系 '+relation.score+'，'+relation.chance+'% 连携判定未成功，战法正常生效。');
@@ -1278,7 +1303,7 @@ function confirmScheduledArrivals(b,pauseForReinforcements,{conditionsOnly=false
 }
 export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.includes(0)}={}) {
   if (!b || b.result || b.reinforcementCouncil) return;
-  if(isDeploying(b))for(const side of aiSides)planBattleCouncilAI(b,side);
+  if(isDeploying(b))planBattleCouncilsAI(b,aiSides);
   if (isDeploying(b) && lockDeployment(b)) return;
   confirmScheduledArrivals(b,pauseForReinforcements,{aiSides});
   if(b.reinforcementCouncil)return;
@@ -1288,7 +1313,7 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
     if (u.wave && u.reinforcementIndex===undefined && u.arrivalTick === b.tick && side.units.find(v => v.wave === u.wave) === u)
       battleLog(b, `${u.side === 0 ? '我军' : '敌军'}第 ${u.wave} 批援军抵达，有空位时补入战线。`);
   }
-  b.comboWindows=(b.comboWindows||[]).filter(c=>b.tick-c.tick<=COMBO.window&&b.sides.flatMap(s=>s.units).some(u=>u.id===c.targetId&&u.status==='active'&&u.hp>0));
+  b.comboWindows=(b.comboWindows||[]).filter(c=>b.tick-c.tick<=COMBO.window&&b.sides[c.side].units.some(u=>cooperatingUnit(b,u)&&c.actors.some(a=>a.id===u.id)));
   b.comboCounts ||= [0,0];
   for(const u of b.sides.flatMap(s=>s.units))beginUnitRetreat(b,u);
   tickStatuses(b);
@@ -1311,7 +1336,6 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
     unit.cooldown = unit.cooldown-1<1e-9?0:unit.cooldown-1;
     if(hasStatus(b,unit,'stasis')){unit.action='避战 · 无敌';continue;}
     if(hasStatus(b,unit,'stun')){unit.cast=null;unit.action='眩晕';continue;}
-    if(hasStatus(b,unit,'confuse')) {unit.action='混乱';continue;}
     if(hasStatus(b,unit,'confuse')) {
       const cells=hexNeighbors(unit).filter(([x,y])=>openCell(b,x,y,unit));
       if(cells.length&&unitAttributes(unit,b).move>0){const from={x:unit.x,y:unit.y};const [x,y]=cells[Math.floor(random(b)*cells.length)];unit.x=x;unit.y=y;moved(b,unit,from);}
@@ -1564,7 +1588,7 @@ export function validateSave(value, { strategic = false } = {}) {
     if (b.lastCommand) require([...Object.keys(STRATAGEMS),'focus','reserve','retreat'].includes(b.lastCommand.key) && number(b.lastCommand.tick) && number(b.lastCommand.serial));
     require(!value.pending && !value.report && Array.isArray(b.context.attackingIds) && b.context.attackingIds.includes(b.context.attackerId) && b.context.attackingIds.every(id => armyIds.has(id)));
     require(text(b.id) && b.cityId === b.context.cityId && number(b.tick, battleLimit) && number(b.seed) && number(b.commandCooldown) && Array.isArray(b.sides) && b.sides.length === 2 && b.settled === false && (b.result === null || result(b.result)), '战斗数据无效');
-    if(b.domesticOpening!==undefined){const p=b.domesticOpening;require(strategic&&b.siege&&p&&p.side===1-b.siege.attackerSide&&Number.isFinite(p.intent)&&p.intent>=0&&p.intent<=30&&Number.isFinite(p.shield)&&p.shield>=0&&p.shield<=.35&&typeof p.applied==='boolean'&&p.applied===b.deploymentLocked&&(p.intentId===null||number(p.intentId))&&(p.shieldId===null||number(p.shieldId)),'守城内政开场状态无效');}
+    if(b.domesticOpening!==undefined){const p=b.domesticOpening;require(strategic&&b.siege&&p&&p.side===1-b.siege.attackerSide&&Number.isFinite(p.intent)&&p.intent>=0&&p.intent<=ECONOMY_RULES.work.preparationIntentMax&&Number.isFinite(p.shield)&&p.shield>=0&&p.shield<=ECONOMY_RULES.work.preparationShieldMax&&typeof p.applied==='boolean'&&p.applied===b.deploymentLocked&&(p.intentId===null||number(p.intentId))&&(p.shieldId===null||number(p.shieldId)),'守城内政开场状态无效');}
     if(scenario)require(Array.isArray(b.battleEvents)&&b.battleEvents.length===scenario.events.length&&b.battleEvents.every((e,i)=>{
       const expected=scenario.events[i];return e&&Object.keys(e).length===5&&['kind','side','tick','duration'].every(key=>e[key]===expected[key])&&(b.tick<e.tick?e.triggeredAt===null:e.triggeredAt===e.tick);
     }),'定时事件配置或触发记录无效');
@@ -1661,7 +1685,7 @@ export function validateSave(value, { strategic = false } = {}) {
           if(key==='guardInvincible')require(validEscortStatus(b,u,key,status),'护卫免伤来源或时长无效');
           if(key==='swiftRush')require(validSwiftStatus(b,u,status),'疾驰突进来源、档位或时长无效');
           if(key==='heavyAttack')require(validBondEquipmentStatus(b,u,key,status),'重击次数或来源无效');
-          if(key==='attackOrb')require(ATTACK_ORBS[status.skillId]&&(status.bondSource?validBondEquipmentStatus(b,u,key,status):skills.includes(status.skillId))&&Number.isInteger(status.charges)&&status.charges>=1&&status.charges<=ATTACK_ORBS[status.skillId].charges&&status.until===(b.maxTicks||240)+1&&text(status.sourceSkillName,100)&&status.sourceId===u.id,'强化普攻次数或来源无效');
+          if(key==='attackOrb')require(ATTACK_ORBS[status.skillId]&&(status.bondSource?validBondEquipmentStatus(b,u,key,status):skills.includes(status.skillId))&&Number.isInteger(status.charges)&&status.charges>=1&&(status.bondSource||status.charges<=ATTACK_ORBS[status.skillId].charges)&&status.until===(b.maxTicks||240)+1&&text(status.sourceSkillName,100)&&status.sourceId===u.id,'强化普攻次数或来源无效');
           if(status.potency!==undefined)require(Number.isFinite(status.potency)&&status.potency>=POWER_RULES.minFactor*(['valor','camp'].includes(key)?.4:1)&&status.potency<=POWER_RULES.maxFactor,'战法威力快照无效');
           if(key==='decoy')require(number(status.hp,Math.round(u.initial*STATUS_DEFINITIONS.decoy.hpFraction))&&status.hp>0&&number(status.x,13)&&number(status.y,7),'疑兵耐久或位置无效');
           if(status.amount!==undefined)require(number(status.amount,1000000),'状态数值无效');
@@ -1734,7 +1758,7 @@ export function validateSave(value, { strategic = false } = {}) {
     for(const u of b.sides.flatMap(s=>s.units))for(const key of ['burn','plague','regrowth'])if(u.statuses[key])require(unitIds.has(u.statuses[key].sourceId),'灼烧来源无效');
     for(const u of b.sides.flatMap(s=>s.units))for(const [key,field] of [['taunt','sourceId'],['pursuit','targetId']])if(u.statuses[key])require(b.sides[1-u.side].units.some(e=>e.id===u.statuses[key][field]),'引战或追击目标阵营无效');
     require(Array.isArray(b.effects) && b.effects.length <= 256 && b.effects.every(e => e && unitIds.has(e.from) && unitIds.has(e.to) && number(e.damage) && typeof e.skill === 'boolean' && number(e.x, 13) && number(e.y, 7) && (e.text===undefined || text(e.text))));
-    const comboActors = (actors,side) => Array.isArray(actors)&&actors.length>0&&actors.length<=6&&new Set(actors.map(a=>a.id)).size===actors.length&&actors.every(a=>{
+    const comboActors = (actors,side) => Array.isArray(actors)&&actors.length>0&&actors.length<=7&&new Set(actors.map(a=>a.id)).size===actors.length&&actors.every(a=>{
       const u=b.sides[side].units.find(u=>u.id===a.id);
       return u&&a.name===u.name&&Object.hasOwn(TACTICS_BOOK,a.skillId)&&number(a.x,13)&&number(a.y,7);
     });
@@ -1742,7 +1766,7 @@ export function validateSave(value, { strategic = false } = {}) {
     require(Array.isArray(b.comboWindows)&&b.comboWindows.length<=120,'连携窗口无效');
     const comboKeys=new Set();
     for(const c of b.comboWindows) {
-      require(c&&[0,1].includes(c.side)&&unitIds.has(c.targetId)&&number(c.tick,b.tick)&&comboActors(c.actors,c.side),'连携记录无效');
+      require(c&&[0,1].includes(c.side)&&unitIds.has(c.targetId)&&number(c.tick,b.tick)&&comboActors(c.actors,c.side)&&Array.isArray(c.supportIds)&&new Set(c.supportIds).size===c.supportIds.length&&!c.supportIds.includes(c.actors.at(-1).id)&&c.supportIds.every(id=>b.sides[c.side].units.some(u=>u.id===id)),'连携记录无效');
       const key=c.side+':'+c.targetId;require(!comboKeys.has(key),'连携记录重复');comboKeys.add(key);
     }
     for(const e of b.effects) {
@@ -1766,7 +1790,7 @@ export function validateSave(value, { strategic = false } = {}) {
       if(e.intentDenied!==undefined||e.intentBlock!==undefined)require(number(e.intentDenied,10)&&e.intentDenied>0&&['截气','断势'].includes(e.intentBlock),'战意压制表现无效');
       if(e.damageKind!==undefined)require(['force','intellect','dot'].includes(e.damageKind),'伤害类型无效');
       if(e.comboLevel!==undefined)require([2,3].includes(e.comboLevel),'连携等级无效');
-      if(e.combo) {const c=e.combo,source=b.sides[e.side]?.units.find(u=>u.id===e.from);require(e.phase==='impact'&&e.skill&&[2,3].includes(c.level)&&c.bonus===(c.level===2?COMBO.doubleBonus:COMBO.tripleBonus)+(source&&hasPassive(source,'combo')?5:0)&&comboActors(c.actors,e.side)&&c.actors.length>=c.level&&text(c.targetName,20),'连携特效无效');}
+      if(e.combo) {const c=e.combo,source=b.sides[e.side]?.units.find(u=>u.id===e.from);require(e.phase==='impact'&&e.skill&&[2,3].includes(c.level)&&['focus','supported','cover'].includes(c.kind)&&c.bonus===(c.level===2?COMBO.doubleBonus:COMBO.tripleBonus)+(source&&hasPassive(source,'combo')?5:0)&&comboActors(c.actors,e.side)&&c.actors.length>=c.level&&text(c.targetName,20),'连携特效无效');}
     }
     for (const e of b.effects) if (e.phase !== undefined) require(['cast', 'impact'].includes(e.phase) && ['charge', 'fire', 'shockwave', 'banner', 'volley', 'slash'].includes(e.visual) && (Object.hasOwn(TROOPS, e.troop)||e.troop==='building'&&b.buildings.some(a=>a.id===e.from&&a.side===e.side&&combatBuildingRule(a))) && [0, 1].includes(e.side) && text(e.name) && text(e.label) && number(e.fromX, 13) && number(e.fromY, 7), '战法表现事件无效');
   }

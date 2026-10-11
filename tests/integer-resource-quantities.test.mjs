@@ -33,7 +33,7 @@ test('light baggage floors odd capacity and returns whole grain while conserving
  for(const city of s.cities)city.units=city.units.filter(u=>u.id!==id);s.campaign.idle=s.campaign.idle.filter(o=>o.unit.id!==id);s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);
  c.units.push({...makeOfficer(id,2000),homeCity:c.id});const a=fieldFromCity(s,c.id,{ids:[id]});a.supplyCapacity=901;a.supply=700;
  const total=c.grain+a.supply;assert.equal(setArmyMarchMode(s,a.id,'light',{faction:'cao',scheduled:true}),null);
- assert.equal(a.supplyCapacity,450);assert.equal(a.supply,450);assert.equal(c.grain+a.supply,total);validateCampaign(JSON.parse(serializeCampaign(s)));
+ assert.equal(a.supplyCapacity,675);assert.equal(a.supply,675);assert.equal(c.grain+a.supply,total);validateCampaign(JSON.parse(serializeCampaign(s)));
  assert.equal(setArmyMarchMode(s,a.id,'normal',{faction:'cao',scheduled:true}),null);assert.equal(a.supplyCapacity,901);assert.equal(c.grain+a.supply,total);
 });
 test('save validation rejects fractional physical stocks instead of silently rounding the save',()=>{

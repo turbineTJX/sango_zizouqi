@@ -16,7 +16,7 @@ test('rarity uses twenty-five common pools and six specified scarce rosters, wit
  const inflated=structuredClone(DESIGN_TABLES);inflated.bondAssignments[plain].bondWisdom=1;assert.ok(validateDesignTables(inflated).some(e=>e.includes('指定稀有武将')));
  const invalid=structuredClone(DESIGN_TABLES);invalid.bonds.bondLastStand.grade='rare';assert.ok(validateDesignTables(invalid).some(e=>e.includes('定位')));
  assert.deepEqual(bondOverview().groups.map(g=>g.rows.length),[25,6]);
- assert.match(JSON.stringify(bondReference('bondValor')),/战意严格低于自身/);assert.match(JSON.stringify(bondReference('bondValor')),/治疗、护盾和增益正常生效/);assert.match(JSON.stringify(bondReference('bondBeauty')),/削减命中目标14战意/);assert.match(JSON.stringify(bondReference('bondBeauty')),/全场在场敌军各有40%/);
+ assert.match(JSON.stringify(bondReference('bondValor')),/战意严格低于自身/);assert.match(JSON.stringify(bondReference('bondValor')),/治疗、护盾和增益正常生效/);assert.match(JSON.stringify(bondReference('bondBeauty')),/削减命中目标24战意/);assert.match(JSON.stringify(bondReference('bondBeauty')),/全场在场敌军各有70%/);
 });
 test('simple synergies retain real limits: Swift changes move without removing root or adding range',()=>{
  const s=scene(['公孙瓒','张燕','曹彰','马岱'],0,'cavalry'),b=s.battle,u=b.sides[0].units[0],plain=unitAttributes(u);
@@ -39,19 +39,19 @@ test('Volley depends on actual hex distance and direct damage, including both si
 });
 test('Last Stand follows live strength boundaries and cannot rescue an over-threshold lethal hit',()=>{
  const s=scene(['夏侯惇','魏延','周泰','庞德']),b=s.battle,u=b.sides[0].units[0];assert.equal(sideBonds(b,0).bondLastStand.tier,3);
- u.hp=u.maxHp*.4+1;assert.equal(bondAttributes(b,u).attack,undefined);const protection=bondProtection(b,u,'force');
- u.hp=u.maxHp*.4;assert.equal(bondAttributes(b,u).attack[0].factor,1.4);assert.equal(bondProtection(b,u,'force'),protection*.8);assert.equal(bondProtection(b,u,'dot'),1);
+ u.hp=u.maxHp*.6+1;assert.equal(bondAttributes(b,u).attack,undefined);const protection=bondProtection(b,u,'force');
+ u.hp=u.maxHp*.6;assert.equal(bondAttributes(b,u).attack[0].factor,1.8);assert.equal(bondProtection(b,u,'force'),protection*.6);assert.equal(bondProtection(b,u,'dot'),1);
  u.hp++;assert.equal(bondAttributes(b,u).attack,undefined);u.hp=0;assert.equal(bondAttributes(b,u).attack,undefined);
- assert.match(bondTierText(D.bondLastStand,2),/40%/);
+ assert.match(bondTierText(D.bondLastStand,2),/60%/);
 });
 test('new synergies operate through direct engine attacks and resume deterministically on either side',()=>{
  for(const side of [0,1]){
  const s=scene(['夏侯惇','魏延','周泰','庞德','黄忠','韩当'],side,'crossbow'),b=s.battle;
  for(const u of b.sides.flatMap(a=>a.units)){u.retreatAt=null;u.cooldown=999;u.skillReady=Object.fromEntries(u.tactics.map(id=>[id,999]));}
- const u=b.sides[side].units[0],t=b.sides[1-side].units[0];Object.assign(u,{x:4,y:3,cooldown:0,hp:1600,battleDamage:2400});Object.assign(t,{x:6,y:3});
- const copy=validateSave(structuredClone(s)),healthy=validateSave(structuredClone(s)),base=healthy.battle.sides[side].units[0];base.hp=1601;base.battleDamage=2399;
+ const u=b.sides[side].units[0],t=b.sides[1-side].units[0];Object.assign(u,{x:4,y:3,cooldown:0,hp:2400,battleDamage:1600});Object.assign(t,{x:6,y:3});
+ const copy=validateSave(structuredClone(s)),healthy=validateSave(structuredClone(s)),base=healthy.battle.sides[side].units[0];base.hp=2401;base.battleDamage=1599;
  stepBattle(b);stepBattle(copy.battle);stepBattle(healthy.battle);
- const hit=x=>x.effects.find(e=>e.from===u.id&&e.to===t.id&&e.damage>0)?.damage;assert.ok(hit(b)>0);assert.ok(Math.abs(hit(b)/hit(healthy.battle)-1.4)<.02,'Last Stand must raise actual damage at the boundary');
+ const hit=x=>x.effects.find(e=>e.from===u.id&&e.to===t.id&&e.damage>0)?.damage;assert.ok(hit(b)>0);assert.ok(Math.abs(hit(b)/hit(healthy.battle)-1.8)<.02,'Last Stand must raise actual damage at the boundary');
  for(let i=0;i<20&&!b.result;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(s,copy);assert.doesNotThrow(()=>validateSave(structuredClone(s)));
  }
 });

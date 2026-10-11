@@ -4,6 +4,7 @@ import {planningFront} from './helpers/strategic-planning.mjs';
 import {makeOfficer} from '../engine.mjs';
 import {assignDomestic,assignmentFor,actionCandidates,beginDomesticTurn} from '../domestic.mjs';
 import {cityGoldCommitment} from '../city-budget.mjs';
+import {cityMaintenance} from '../economy.mjs';
 import {strategicCityBudget,planStrategicAI,validateStrategicAI,observeStrategicThreat} from '../strategic-ai.mjs';
 import {strategicContext} from '../strategic-context.mjs';
 import {forecastStrategicPreparation} from '../strategic-forecast.mjs';
@@ -17,7 +18,7 @@ test('waiting officers share the real construction slot and optional work cannot
  for(const u of home.units)assert.equal(assignDomestic(s,home.id,'commerce',u.id,{faction:'yuan'}),null);
  const before=JSON.stringify(s),cost=actionCandidates(s,assignmentFor(s,home.units[0].id),{ignoreFunds:true})[0].cost;
  assert.ok(cost>0);assert.ok(cityGoldCommitment(s,home,{includeWork:true}).work<cost*home.units.length);
- assert.equal(strategicCityBudget(s,home).goldNeed,500);
+ assert.equal(strategicCityBudget(s,home).goldNeed,500+cityMaintenance(s,home).gold);
  assert.equal(JSON.stringify(s),before);
  planStrategicAI(s);assert.ok(offensivePlans(s).some(p=>p.faction==='yuan'));
 });
@@ -101,4 +102,12 @@ test('preparation does not repeatedly charge a one-time budget and still rejects
  Object.assign(city,{gold:0,income:{gold:600,grain:0,manpower:0},costs:{gold:600,grain:0},oneTimeGold:600});
  const requirements=[{cityId:home.id,gold:100,grain:0,manpower:0}];assert.equal(forecastStrategicPreparation(context,requirements).readyDay,21);
  city.grain=5;city.costs.grain=100;assert.equal(forecastStrategicPreparation(context,requirements).feasible,false);
+});
+
+test('strategic admission explains rejected forces and rejects malformed reasons on reload',()=>{
+ const {s,home,target}=planningFront();home.units.forEach(u=>u.troops=100);planStrategicAI(s);
+ const trace=s.campaign.ai.factions.yuan.strategy.trace.at(-1);
+ assert.ok(trace.admission.some(a=>a.target===target.id&&['guard','force'].includes(a.stage)&&a.reason.length>0));
+ assert.ok(!offensivePlans(s).some(p=>p.faction==='yuan'));validateStrategicAI(s);
+ const saved=structuredClone(s);saved.campaign.ai.factions.yuan.strategy.trace.at(-1).admission[0].stage='invented';assert.throws(()=>validateStrategicAI(saved),/战略AI/);
 });

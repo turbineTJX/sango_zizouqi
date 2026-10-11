@@ -1,4 +1,5 @@
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
+import {HISTORICAL_RELATIONSHIPS} from './data/design/historical-cooperation.mjs';
 
 // Historical source bonds and the current, mutable relationship are separate.
 export const RELATIONSHIP_TIERS=Object.freeze(Object.fromEntries(Object.entries({
@@ -24,6 +25,7 @@ function sourceRelationships(a,b){
  if([x.fatherId,x.motherId].includes(b)||[y.fatherId,y.motherId].includes(a))types.push('parent');
  if(includes('likedIds'))types.push('liked');
  if(includes('dislikedIds'))types.unshift('disliked');
+ if(!types.length){const historical=HISTORICAL_RELATIONSHIPS.find(p=>p.ids.includes(a)&&p.ids.includes(b)&&a!==b&&person(a)&&person(b));if(historical)types.push(historical.type);}
  return types.length?types:['ordinary'];
 }
 export function relationshipInfo(a,b,scores={},types={}) {

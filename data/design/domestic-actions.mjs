@@ -82,25 +82,25 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 0,
     "days": 10,
     "kind": "cash",
-    "value": 200,
+    "value": 300,
     "stat": "politics",
     "cooperation": "quantity"
   },
   "merchants": {
     "name": "招徕商旅",
     "direction": "commerce",
-    "cost": 180,
+    "cost": 90,
     "days": 10,
     "kind": "effect",
     "value": "gold",
     "stat": "politics",
     "cooperation": "quantity",
-    "power": 0.25
+    "power": 0.35
   },
   "partnership": {
     "name": "招商合作",
     "direction": "commerce",
-    "cost": 120,
+    "cost": 60,
     "days": 10,
     "kind": "discount",
     "value": "commerce",
@@ -120,13 +120,13 @@ export const DOMESTIC_ACTION_DESIGNS = {
   "tax": {
     "name": "整顿税务",
     "direction": "commerce",
-    "cost": 100,
+    "cost": 50,
     "days": 10,
     "kind": "effect",
     "value": "gold",
     "stat": "politics",
     "cooperation": "quantity",
-    "power": 0.15
+    "power": 0.25
   },
   "cultivate": {
     "name": "督耕",
@@ -134,20 +134,20 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 0,
     "days": 10,
     "kind": "grain",
-    "value": 1538,
+    "value": 2307,
     "stat": "politics",
     "cooperation": "quantity"
   },
   "irrigate": {
     "name": "修整灌溉",
     "direction": "agriculture",
-    "cost": 200,
+    "cost": 100,
     "days": 10,
     "kind": "effect",
     "value": "grain",
     "stat": "politics",
     "cooperation": "quantity",
-    "power": 0.3
+    "power": 0.45
   },
   "buy": {
     "name": "购粮",
@@ -240,7 +240,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "days": 10,
     "kind": "recruit",
     "value": 1400,
-    "reserveValue": 588,
+    "reserveValue": 882,
     "stat": "leadership",
     "cooperation": "quantity"
   },
@@ -251,7 +251,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "days": 5,
     "kind": "recruit",
     "value": 1800,
-    "reserveValue": 900,
+    "reserveValue": 1350,
     "stat": "leadership",
     "cooperation": "quantity",
     "risk": 0.15
@@ -262,7 +262,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 30,
     "days": 5,
     "kind": "heal",
-    "value": 430,
+    "value": 645,
     "stat": "intellect",
     "cooperation": "quantity"
   },
@@ -272,7 +272,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cost": 20,
     "days": 10,
     "kind": "heal",
-    "value": 410,
+    "value": 615,
     "stat": "intellect",
     "cooperation": "quantity"
   },

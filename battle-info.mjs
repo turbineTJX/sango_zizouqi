@@ -36,7 +36,7 @@ export function battleUnitSummary(b,u){
  if((u.bondEntry?.zocUntil||0)>b.tick)rows.push(['骑将入场突破',`无视ZOC · 生效中`]);
  rows.push(['战意变化','攻击、受击积累；友军溃败降低']);
  if((u.bondEntry?.powerUntil||0)>b.tick)rows.push(['先登入场',`武技威力 +${Math.round(u.bondEntry.power*100)}% · 生效中`]);
- const reserveReward=side.bondReserve?.awarded.find(a=>a.id===u.id);if(reserveReward)rows.push(['蓄锐入场','已领取'+BOND_DESIGNS.bondReserve.intent+'战意及疾行、速攻'+(reserveReward.skill?'；普通小战法额外一次额度':'')]);
+ const reserveReward=side.bondReserve?.awarded.find(a=>a.id===u.id);if(reserveReward){const d=BOND_DESIGNS.bondReserve,tier=side.bondReserve.tier-1;rows.push(['蓄锐入场',`已领取${d.intent[tier]}战意、${d.entrySteps[tier]}回合疾行与速攻及${Math.round(d.entryShield[tier]*100)}%护盾`+(reserveReward.skill?'；普通小战法额外一次额度':'')]);}
  for(const [key,label]of [['peachFury','桃园奋战'],['peachInvincible','桃园无敌']])if((u.statuses?.[key]?.until||0)>b.tick)rows.push([label,'生效中']);
  rows.push(['撤离',retreatLabel(u.retreatAt)]);
  if(u.withdrawing&&u.status==='active')rows.push(['撤离状态','前往己方出口，途中仍可受击；离场后本场不再入场']);

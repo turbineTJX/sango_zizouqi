@@ -1,5 +1,11 @@
 // Authoritative shared economy; players and AI use the same income and costs.
 export const ECONOMY_RULES = {
+  // Opening headroom is local, so a large realm does not dilute every city.
+  "opening": {
+    "gold": {"large": 10000, "small": 5000},
+    "grain": {"large": 18000, "small": 10000},
+    "manpower": {"large": 18000, "small": 9000}
+  },
   "budget": {"days": 10, "goldReserve": 500, "grainReserve": 0, "maxReserve": 1000000, "criticalFoodDays": 3},
   "income": {
     "gold": {
@@ -14,12 +20,12 @@ export const ECONOMY_RULES = {
       "base": 100,
       "perBarracks": 294
     },
-    "governorPoliticsDivisor": 500
+    "governorPoliticsDivisor": 250
   },
   // Rounded normal sustained-demand coverage, not an executable market quote.
   // Forming spends money + reserves; only formed soldiers consume rations.
   "value": {"gold": 1, "grain": 0.13, "manpower": 0.34},
-  "work": {"base": 0.7, "abilityDivisor": 150, "constructionSetbackShare": 0.5},
+  "work": {"base": 0.7, "abilityDivisor": 150, "managementDiscountBase": 0.3, "constructionSetbackShare": 0.5, "capacityMultiplierMax": 5, "preparationIntentMax": 60, "preparationShieldMax": 0.6},
   "development": {
     "economicBuildings": ["commerce", "farm", "barracks"],
     "localLevels": {"small": 2, "large": 3, "rich": 6, "infrastructure": 5},
@@ -30,12 +36,13 @@ export const ECONOMY_RULES = {
       "gate": {"commerce": 1, "farm": 0, "barracks": 2, "other": 3},
       "port": {"commerce": 3, "farm": 1, "barracks": 1, "other": 3}
     },
-    "workValueBase": 100,
-    "workValuePerLevel": 50,
+    "workValueBase": 150,
+    "workValuePerLevel": 75,
     "foodForecastSafety": 0.9,
     "stockSupportDays": 60
   },
   "maintenance": {
+    "officerSalaryByLevel": [5, 10, 15, 22, 30, 40, 52, 66, 82, 100],
     "goldPerThousandTroops": 0,
     "woundedGoldFactor": 0.5
   },
@@ -45,6 +52,8 @@ export const ECONOMY_RULES = {
     "reserveTargetTroopShare": 0.35
   },
   "capacity": {
+    "armyFoodDays": 30,
+    "minimumUnitGrain": 900,
     "grainBase": 10000,
     "grainPerGranary": 10000,
     "manpowerMax": 30000,
@@ -61,20 +70,20 @@ export const ECONOMY_RULES = {
       "homeFoodDays": 10,
       "lossFactor": 0.3,
       "lossPerPoint": 80,
-      "grainPerPoint": 100,
+      "grainPerPoint": 50 / 0.13,
       "goldPerPoint": 50,
-      "dayCost": 4,
+      "dayCost": 0.4,
       "workPerPoint": 100,
-      "maxEstimateError": 0.6,
+      "maxEstimateError": 0.2,
       "judgmentLeadershipWeight": 0.5,
       "counterattackWeight": 0.5,
       "securityPowerPerPoint": 250,
       "securityValueCap": 80,
       "objectiveValues": {"city": 110, "gate": 80, "port": 50},
       "styles": {
-        "bold": {"minimumValue": 10, "economicWeight": 0.9, "militaryWeight": 1.15, "ratio": 1.2, "reserve": 0.5, "patience": 30},
-        "balanced": {"minimumValue": 25, "economicWeight": 1, "militaryWeight": 1, "ratio": 1.3, "reserve": 0.55, "patience": 40},
-        "cautious": {"minimumValue": 40, "economicWeight": 1.15, "militaryWeight": 0.9, "ratio": 1.45, "reserve": 0.65, "patience": 45}
+        "bold": {"minimumValue": 10, "economicWeight": 0.9, "militaryWeight": 1.15, "ratio": 1.5, "reserve": 0.5, "patience": 30},
+        "balanced": {"minimumValue": 25, "economicWeight": 1, "militaryWeight": 1, "ratio": 1.7, "reserve": 0.55, "patience": 40},
+        "cautious": {"minimumValue": 40, "economicWeight": 1.15, "militaryWeight": 0.9, "ratio": 1.9, "reserve": 0.65, "patience": 45}
       }
     }
   }

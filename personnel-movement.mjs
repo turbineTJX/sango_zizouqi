@@ -1,5 +1,5 @@
 import {plannedGrain} from './strategic-intent.mjs';
-import {armyStrategicTrait,hasStrategicTrait} from './strategic-traits.mjs';
+import {armyStrategicTrait,hasStrategicTrait,strategicTraits} from './strategic-traits.mjs';
 import {redirectRetreat} from './strategic-retreat.mjs';
 import {rallyWithdrawn} from './army-rally.mjs';
 import {TACTICS} from './engine.mjs';
@@ -21,7 +21,7 @@ export const PERSONNEL_SPEED=MOVEMENT_RULES.personnel.light;
 export const TRANSPORT_SPEED=MOVEMENT_RULES.personnel.transport;
 export const isTransport=o=>(!!o.destination||o.retreating)&&(o.unit.troops>0||o.unit.wounded>0||o.cargo?.gold>0||o.cargo?.grain>0||o.cargo?.manpower>0||!!o.convoyCycle);
 export const lightPersonnelSpeed=u=>PERSONNEL_SPEED;
-export const personnelSpeed=o=>isTransport(o)?TRANSPORT_SPEED:lightPersonnelSpeed(o.unit);
+export const personnelSpeed=o=>isTransport(o)?TRANSPORT_SPEED*Math.max(1,...(!o.retreating&&(o.cargo?.grain>0||o.convoyCycle)?strategicTraits(o.unit).filter(t=>['relayCargo','cycleCargo'].includes(t.strategic.effect)).map(t=>t.strategic.speed||1):[])):lightPersonnelSpeed(o.unit);
 export function startPersonnelJourney(s,o,path=null){
  if(isTransport(o)&&!o.retreating&&o.convoyCycle?.leg!=='return'&&!o.meritTransport)o.meritTransport={id:`transport:${o.unit.id}:${s.campaign.day}:${s.campaign.activity?.nextSequence||0}`,source:o.location,target:o.relayDestination||o.destination,troopsCredited:false};
  const route=path||findCampaignRoute(s,o.location,o.destination,isTransport(o)?o.faction:null);

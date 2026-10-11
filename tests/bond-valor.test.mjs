@@ -27,13 +27,13 @@ test('Valor tiers compare live intent strictly and replace passive power and spe
  const teams=[['吕布'],['吕布','赵云','典韦'],full];
  for(const side of [0,1])for(let i=0;i<teams.length;i++){
   const x=scene(teams[i],side);assert.equal(sideBonds(x.b,side).bondValor.tier,i+1);
-  assert.equal(bondDamageImmunity(x.b,x.u,x.enemy),[.3,.45,1][i]);
-  assert.equal(bondDamage(x.b,x.u,x.enemy,'basic'),[1.15,1.25,1.35][i]);assert.equal(bondDamage(x.b,x.u,x.enemy,'dot'),[1.15,1.25,1.35][i]);
+  assert.equal(bondDamageImmunity(x.b,x.u,x.enemy),[.4,.65,1][i]);
+  assert.equal(bondDamage(x.b,x.u,x.enemy,'basic'),[1.2,1.35,1.5][i]);assert.equal(bondDamage(x.b,x.u,x.enemy,'dot'),[1.2,1.35,1.5][i]);
   assert.equal(bondAttributes(x.b,x.u).martialPower,undefined);assert.equal(bondAttributes(x.b,x.u).attackSpeed,undefined);
   x.enemy.intent=x.u.intent;assert.equal(bondDamageImmunity(x.b,x.u,x.enemy),0);assert.equal(bondDamage(x.b,x.u,x.enemy,'basic'),1);assert.equal(bondBlocksEffect(x.b,x.u,x.enemy),false);
   x.enemy.intent++;assert.equal(bondDamageImmunity(x.b,x.u,x.enemy),0);assert.equal(bondDamage(x.b,x.u,x.enemy,'basic'),1);
  }
- const x=scene();x.us[3].status='reserve';assert.equal(bondDamageImmunity(x.b,x.u,x.enemy),.45);assert.equal(bondBlocksEffect(x.b,x.u,x.enemy),false);
+ const x=scene();x.us[3].status='reserve';assert.equal(bondDamageImmunity(x.b,x.u,x.enemy),.65);assert.equal(bondBlocksEffect(x.b,x.u,x.enemy),false);
  x.u.status='withdrawn';assert.equal(bondDamageImmunity(x.b,x.u,x.enemy),0);
 });
 

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,settleCityEconomy,changeCityTroop,equipCityUnit,recruitLocalUnits,transferOfficer,validateCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
-import {cityBudget,updateCityBudgetAlerts,setCityBudget,citySoldierCounts,citySoldierLabel} from '../city-budget.mjs';
-import {addCityGold,syncResourceTotals,factionGold} from '../city-resources.mjs';
+import {cityBudget,cityBudgetMarkup,updateCityBudgetAlerts,setCityBudget,citySoldierCounts,citySoldierLabel} from '../city-budget.mjs';
+import {syncResourceTotals,factionGold} from '../city-resources.mjs';
 import {advancePersonnel,isTransport} from '../personnel-movement.mjs';
 import {pendingActivityReports,acknowledgeActivityReports} from '../activity-nodes.mjs';
 import {cityDomesticMarkup} from '../strategic-view.mjs';
@@ -10,13 +10,52 @@ import {prepareCommandFormation,newCommand} from '../strategic-command.mjs';
 import {diplomaticResources,lordCity} from '../diplomacy.mjs';
 import {trainingCost} from '../troop-training.mjs';
 import {cityReserve} from '../talent-core.mjs';
+import {cityMaintenance} from '../economy.mjs';
+import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
+import {appendActivityNode} from '../activity-nodes.mjs';
 const town=(s,id)=>s.cities.find(c=>c.id===id);
 const setup=()=>{const s=newCampaign(41),c=town(s,'xuchang'),other=town(s,'chenliu');return {s,c,other};};
 
+test('every original scenario and playable faction starts without false reserve alerts',()=>{
+ for(const spec of NATIONAL_SCENARIOS)for(const faction of spec.factions){
+  const s=newCampaign(41,spec.id,faction);
+  assert.deepEqual(pendingActivityReports(s).filter(n=>n.phase==='budget-warning'),[],spec.id+' '+faction);
+  for(const c of s.cities.filter(c=>c.owner===faction)){
+   const b=cityBudget(s,c);assert.deepEqual(b.fundingShortages,{gold:0,grain:0},spec.id+' '+c.name);
+   assert.equal(b.reserveGaps.gold,0,'opening stock covers the reserve target');
+   assert.equal(c.budget.goldReserve,500);assert.equal(c.budget.warning,'');
+  }
+ }
+});
+test('a reserve target stays visible without issuing a report or changing stocks',()=>{
+ const {s,c}=setup();c.gold=352;c.budget.grainReserve=c.grain;syncResourceTotals(s);
+ const before=serializeCampaign(s),b=cityBudget(s,c),html=cityBudgetMarkup(s,c);
+ assert.equal(b.shortages.gold,148);assert.equal(b.fundingShortages.gold,0);assert.equal(b.fundingShortages.grain,0);
+ assert.match(html,/预留金尚差约 148/);assert.match(html,/本城钱粮预计可覆盖用度/);assert.doesNotMatch(html,/金不足约|粮不足约/);
+ assert.equal(serializeCampaign(s),before);updateCityBudgetAlerts(s);
+ assert.equal(c.budget.warning,'');assert.equal(c.gold,352);
+ assert.equal(pendingActivityReports(s).filter(n=>n.phase==='budget-warning').length,0);
+});
+test('an unpaid obligation reports its payment gap rather than adding savings targets',()=>{
+ const {s,c}=setup();c.gold=352;
+ s.campaign.diplomacy.contracts.push({status:'signed',sites:{cao:c.id},clauses:[{id:1,kind:'gold',deferred:true,from:'cao',status:'waiting',dueDay:2,amount:600,delivered:0}],escrow:[]});
+ const b=cityBudget(s,c);assert.equal(b.fundingShortages.gold,248);assert.ok(b.shortages.gold>248);
+ updateCityBudgetAlerts(s);const reports=pendingActivityReports(s).filter(n=>n.phase==='budget-warning');
+ assert.equal(reports.length,1);assert.match(reports[0].text,/金缺口约248/);assert.equal(c.gold,352);
+});
+test('recorded zero-expense reserve notices do not become important reports on reload',()=>{
+ const {s,c}=setup();c.gold=352;syncResourceTotals(s);const b=cityBudget(s,c);
+ const {fundingShortages,reserveGaps,fundingDaysSupply,...recorded}=b;
+ recorded.costs.gold=0; // Historical notice before officer payroll existed.
+ appendActivityNode(s,{sourceId:'reserve-notice',category:'domestic',phase:'budget-warning',faction:c.owner,cityId:c.id,text:'预留未满',result:{budget:recorded}});
+ const restored=validateCampaign(JSON.parse(serializeCampaign(s)));
+ assert.equal(pendingActivityReports(restored).filter(n=>n.phase==='budget-warning').length,0);
+});
+
 test('income credits its own city; faction totals are only a projection',()=>{
  const {s,c,other}=setup(),before=c.gold,untouched=other.gold,total=s.gold;
- settleCityEconomy(s,c,{income:{gold:370,grain:420,manpower:35}});
- assert.equal(c.gold,before+370);assert.equal(other.gold,untouched);assert.equal(s.gold,total+370);assert.equal(factionGold(s,'cao'),s.gold);
+ const result=settleCityEconomy(s,c,{income:{gold:370,grain:420,manpower:35}});
+ assert.equal(c.gold,before+370-result.paidGold);assert.equal(other.gold,untouched);assert.equal(s.gold,total+370-result.paidGold);assert.equal(factionGold(s,'cao'),s.gold);
 });
 test('a wealthy friendly city cannot pay local training, troop or equipment fees',()=>{
  const {s,c,other}=setup();c.gold=0;other.gold=100000;syncResourceTotals(s);
@@ -51,25 +90,25 @@ test('a positive end-of-turn forecast still warns of food exhaustion before harv
 });
 test('forecasts exclude cargo in transit and already paid domestic costs',()=>{
  const {s,c}=setup();s.campaign.idle[0].cargo={gold:5000,grain:5000,manpower:0};s.campaign.idle[0].destination=c.id;
- const b=cityBudget(s,c);assert.equal(b.stocks.gold,c.gold);assert.equal(b.stocks.grain,c.grain);assert.equal(b.costs.gold,0);
+ const b=cityBudget(s,c);assert.equal(b.stocks.gold,c.gold);assert.equal(b.stocks.grain,c.grain);assert.equal(b.costs.gold,cityMaintenance(s,c).gold);
 });
-test('local reserves produce reports once, persist across saves, and warn again after recovery',()=>{
- const {s,c}=setup();c.gold=0;syncResourceTotals(s);updateCityBudgetAlerts(s);
+test('real local shortages report once, persist across saves, and warn again after recovery',()=>{
+ const {s,c}=setup();c.gold=0;c.grain=0;syncResourceTotals(s);updateCityBudgetAlerts(s);
  const alerts=()=>pendingActivityReports(s).filter(n=>n.phase==='budget-warning');assert.equal(alerts().length,1);
  updateCityBudgetAlerts(s);assert.equal(alerts().length,1);acknowledgeActivityReports(s,alerts().map(n=>n.id));
  const raw=serializeCampaign(s),restored=validateCampaign(JSON.parse(raw));updateCityBudgetAlerts(restored);assert.equal(pendingActivityReports(restored).filter(n=>n.phase==='budget-warning').length,0);
- addCityGold(s,c,5000);updateCityBudgetAlerts(s);assert.equal(c.budget.warning,'');addCityGold(s,c,-5000);updateCityBudgetAlerts(s);assert.equal(alerts().length,1);assert.equal(c.budget.warningSequence,2);
+ c.grain=5000;updateCityBudgetAlerts(s);assert.equal(c.budget.warning,'');c.grain=0;updateCityBudgetAlerts(s);assert.equal(alerts().length,1);assert.equal(c.budget.warningSequence,2);
 });
 test('deferred debts use their bound city and subtract only the unpaid, unfunded remainder',()=>{
  const {s,c,other}=setup();s.campaign.day=10;c.gold=1200;
  s.campaign.diplomacy.contracts.push({status:'signed',sites:{cao:c.id},clauses:[{id:1,kind:'gold',deferred:true,from:'cao',status:'waiting',dueDay:12,amount:1000,delivered:100}],escrow:[{clauseId:1,amount:200}]});
- const b=cityBudget(s,c);assert.equal(b.debt,700);assert.equal(b.costs.gold,700);assert.equal(b.beforeHarvest.gold,700);assert.equal(cityBudget(s,other).debt,0);
+ const b=cityBudget(s,c);assert.equal(b.debt,700);assert.equal(b.costs.gold,700+cityMaintenance(s,c).gold);assert.equal(b.beforeHarvest.gold,700);assert.equal(cityBudget(s,other).debt,0);
 });
 test('queued local shipments and diplomatic promises reserve distinct stocks without a debit',()=>{
  const {s,c}=setup(),gold=c.gold,grain=c.grain;
  s.campaign.domestic.orders.push({kind:'transfer',faction:'cao',cityId:c.id,officerIds:[],cargo:{gold:400,grain:600,manpower:0}});
  s.campaign.diplomacy.proposals.push({id:1,status:'outbound',sites:{cao:c.id},clauses:[{kind:'grain',from:'cao',amount:900}]});
- const b=cityBudget(s,c);assert.equal(b.reserve.grain,1500);assert.equal(b.cargo,400);assert.equal(cityReserve(s,c),900);assert.equal(c.gold,gold);assert.equal(c.grain,grain);
+ const b=cityBudget(s,c);assert.equal(b.reserve.grain,1500);assert.equal(b.cargo,400);assert.equal(cityReserve(s,c),900+cityMaintenance(s,c).gold);assert.equal(c.gold,gold);assert.equal(c.grain,grain);
 });
 test('exactly funded equipment training does not lose a soldier to decimal rounding',()=>{
  const {s,c}=setup(),u=c.units[0];assert.equal(changeCityTroop(s,c.id,u.id,'halberd'),null);s.armies=[];u.troops=0;u.wounded=0;u.equipment={siege:'tower',ship:'ship'};c.water=true;c.domestic.techs.push('efficientConstruction','siegeEngineering');c.manpower=5000;c.drafted=0;c.gold=trainingCost(u,2000);syncResourceTotals(s);

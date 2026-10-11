@@ -9,7 +9,7 @@ import {cityForce} from '../city-units.mjs';
 import {makeOfficer} from '../engine.mjs';
 import {initializeVision} from '../strategic-vision.mjs';
 import {assignDomestic,assignmentFor,beginDomesticTurn,finishDomesticDay,cityFoodReserve} from '../domestic.mjs';
-import {economicStaffingError} from '../economy.mjs';
+import {economicStaffingError,cityMaintenance} from '../economy.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
 
 const town=(s,id)=>s.cities.find(c=>c.id===id);
@@ -70,7 +70,7 @@ test('AI reserves food for externally supplied armies before recruiting local so
 test('AI preserves a bound deferred payment before paying for troops',()=>{
  const {s,source}=scene();source.gold=3500;source.grain=20000;
  s.campaign.diplomacy.contracts.push({status:'signed',sites:{yuan:source.id},clauses:[{id:1,kind:'gold',deferred:true,from:'yuan',status:'waiting',dueDay:5,amount:3000,delivered:0}],escrow:[]});
- assert.equal(cityGoldCommitment(s,source).total,3500);manageStrategicEconomy(s);
+ assert.equal(cityGoldCommitment(s,source).total,3500+cityMaintenance(s,source).gold);manageStrategicEconomy(s);
  assert.equal(source.gold,3500);assert.equal(source.units[0].troops,1000);
 });
 test('AI sends real local gold and food cargo while preserving the donor budget',()=>{

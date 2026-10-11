@@ -1,19 +1,20 @@
 import {resourceRecipe} from './resource-recipe.mjs';
 import {BUILDING_DESIGNS} from '../data/design/buildings.mjs';
 import {completeTechnologyBuilding} from '../building-durability.mjs';
-import {newCampaign} from './automatic-domestic-campaign.mjs';
+import {newCampaign,settleCityEconomy} from './automatic-domestic-campaign.mjs';
 import {makeOfficer} from '../engine.mjs';
 import {initializeTalent} from '../talent-lifecycle.mjs';
 import {ACTIONS,assignDomestic,assignmentFor,beginDomesticTurn,finishDomesticDay} from '../domestic.mjs';
 import {resourceValue,cityBaseIncome,cityWorkLimit} from '../economy.mjs';
 import {trainingRate} from '../troop-training.mjs';
 import {addCityGold} from '../talent-core.mjs';
+import {officerSalary} from '../officer-salaries.mjs';
 
 // Matched random outcomes, equal relevant ability, no traits or collaborators.
 // Use a developed rich city so its work allowance does not truncate one ordinary
 // worker. Binding local capacity is tested separately; costs and completion are real.
-export function directWorkTrial(seed,ability,key,{patientType='spear',cityId='xuchang',prepareCity=null}={}){
- const s=newCampaign(seed,prepareCity?'guandu-200':undefined),c=s.cities.find(c=>c.id===cityId),u=makeOfficer('person-715',0,0,1);
+export function directWorkTrial(seed,ability,key,{patientType='spear',cityId='xuchang',prepareCity=null,level=1}={}){
+ const s=newCampaign(seed,prepareCity?'guandu-200':undefined),c=s.cities.find(c=>c.id===cityId),u=makeOfficer('person-715',0,0,level);
  for(const stat of ['politics','leadership','force','intellect','charm'])u[stat]=ability;
  u.homeCity=c.id;s.armies=[];s.campaign.idle=[{unit:u,faction:c.owner,location:c.id,destination:null,remainingDays:0}];
  for(const town of s.cities){town.units=[];town.governor=null;}
@@ -45,6 +46,25 @@ export function compareEconomicWork(seeds){
   const values=commands.map(c=>c.meanValue);
   return {ability,commands,spread:Math.max(...values)/Math.min(...values)-1};
  });
+}
+
+// Deliberate one-worker measurement: public autonomous commerce choices over a
+// full calendar, actual wages and fees, and city base production excluded.
+export function commercialCalendarTrial(seed,ability,{level=10,turns=18}={}){
+ const s=newCampaign(seed,'guandu-200','cao'),c=s.cities.find(c=>c.id==='xuchang'),u=makeOfficer('person-715',0,0,level);u.politics=ability;u.homeCity=c.id;
+ for(const town of s.cities){town.units=[];town.governor=null;}s.armies=[];s.campaign.idle=[{unit:u,faction:c.owner,location:c.id,destination:null,remainingDays:0}];initializeTalent(s);
+ s.campaign.domestic.assignments=[];s.campaign.domestic.incidents.enabled=false;s.campaign.domestic.autoApprove=true;c.gold=10000;
+ for(const key of ['commerce','farm','barracks']){c[key]=1;c.domestic.buildingSites[key]=[];c.buildings[key]={[c.id]:{hp:1000,maxHp:1000}};}
+ for(const [key,def]of Object.entries(ACTIONS))if(def.direction==='commerce'&&!['fair','merchants','tax'].includes(key))c.domestic.cooldowns[key]=10000;
+ const error=assignDomestic(s,c.id,'commerce',u.id,{scheduled:true,faction:c.owner});if(error)throw Error(error);
+ const initial=c.gold,base=cityBaseIncome(s,c).gold,bills=[];let paid=0;
+ for(let t=0;t<turns;t++){
+  beginDomesticTurn(s);
+  for(let day=0;day<10;day++){finishDomesticDay(s);if(day===9){const settlement=settleCityEconomy(s,c);paid+=settlement.paidGold;bills.push({day:s.campaign.day,level:u.level,due:officerSalary(u),paid:settlement.paidSalary,arrears:settlement.salaryArrears});}s.campaign.day++;}
+ }
+ const outcomes=s.campaign.domestic.events.filter(e=>e.officerId===u.id&&e.result.factor!==undefined).map(e=>({day:e.day,text:e.text,...e.result}));
+ const maxSalaryReference=officerSalary({level})*turns,personalAfterSalary=c.gold-initial-base*turns;
+ return {seed,ability,initialLevel:level,finalLevel:u.level,days:turns*10,initialGold:initial,finalGold:c.gold,cityBasePaid:base*turns,salaryPaid:paid,maxSalaryReference,arrears:c.payroll.arrears,personalAfterSalary,afterMaxSalaryReference:personalAfterSalary-(maxSalaryReference-paid),bills,outcomes};
 }
 
 // One real construction, including every setback, refund and occupied day.

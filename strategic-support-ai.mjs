@@ -1,4 +1,5 @@
 import {STRATEGIC_SUPPORT_RULES as R} from './data/design/strategic-support-rules.mjs';
+import {armySupplyCapacity} from './army-supply.mjs';
 import {intelligenceWorld} from './strategic-vision.mjs';
 import {isJunction} from './road-network.mjs';
 import {findCampaignRoute,supplyConnection,campaignBattleSide} from './strategic-campaign.mjs';
@@ -93,7 +94,7 @@ export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retr
    if(x.days>q.days||x.path.some((id,i)=>chosenRoad(view,i?x.path[i-1]:x.c.id,id)?.terrain==='water')&&x.units.some(u=>!u.equipment.ship))continue;
    const units=[];for(const u of x.units){units.push(u);need-=strategicPower(s,{...cityForce(x.c),units:[u]});if(need<=0)break;}
    const budget=strategicCityBudget(s,x.c),equipmentGold=units.reduce((n,u)=>n+equipmentCost(u.equipment,x.c.units.find(o=>o.id===u.id).equipment,u.troops+u.wounded,x.c),0);
-   if(x.c.gold-equipmentGold<budget.goldNeed||x.c.grain<units.length*900+budget.grainNeed||food(units)*(x.days*2+R.guardFoodDays)>units.length*900){need+=strategicPower(s,{...cityForce(x.c),units});continue;}
+   if(x.c.gold-equipmentGold<budget.goldNeed||x.c.grain<armySupplyCapacity(units)+budget.grainNeed||food(units)*(x.days*2+R.guardFoodDays)>armySupplyCapacity(units)){need+=strategicPower(s,{...cityForce(x.c),units});continue;}
    groups.push({...x,units});if(need<=0)break;
   }
   if(need>0){const optional=activePlans(s).find(p=>p.faction===faction&&['prepare','assemble'].includes(p.phase));if(optional&&cancelPlan&&!released){cancelPlan(s,optional,'增援或粮路告急，释放尚未出发的可选进攻承诺');return planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},true);}continue;}

@@ -7,6 +7,10 @@ const cwd=fileURLToPath(new URL('..',import.meta.url));
 test('design validation rejects invalid references, unsupported effects and misspelled fields',()=>{
  assert.deepEqual(validateDesignTables(),[]);
  for(const [edit,needle] of [
+  [d=>d.strategicPlanning.assessment.horizonSteps=10000,'静态效果预算'],
+  [d=>d.strategicPlanning.assessment.reserveShare=1.1,'折扣和效果上限'],
+  [d=>d.strategicPlanning.assessment.damageEffects.unknown=1,'效果须存在'],
+  [d=>d.strategicPlanning.assessment.healingEffects.bandage=2,'效果须存在'],
   [d=>d.treasures.skyHalberd.steps=30,'持续时间未接入'],
   [d=>d.treasures.artOfWar.bondId='bondBeauty','只可为低级羁绊'],
   [d=>d.treasureRules.discoveryChance=.2,'获取概率'],
@@ -29,6 +33,11 @@ test('design validation rejects invalid references, unsupported effects and miss
   [d=>d.stratagems.fortify.name='进攻','军略名称须为四个汉字'],
   [d=>d.tactics.cutRange.description='使敌军射程降低','须使用正式状态名称'],
   [d=>d.tactics['unique-person-371'].selfStatusSteps=0,'自身状态或时长无效'],
+  [d=>d.tactics['unique-person-558'].link.fraction=.9,'命中后连环参数无效'],
+  [d=>d.tactics['unique-person-558'].link.steps=0,'命中后连环参数无效'],
+  [d=>d.tactics['unique-person-226'].debuffs=['armorBreak','armorBreak'],'多重异常参数无效'],
+  [d=>d.tactics['unique-person-371'].allyIntentScope='battlefield','鼓舞军团范围参数无效'],
+  [d=>d.tactics['unique-person-371'].allyIntentPriority='futureCombo','鼓舞门槛优先参数无效'],
   [d=>d.tactics['unique-person-636'].regrowthFraction=2,'休整参数无效'],
   [d=>d.tactics.thrust.effect='unimplemented','tactics.thrust.effect'],
   [d=>d.troops.spear.atack=200,'未接入字段 atack'],

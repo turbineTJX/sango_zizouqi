@@ -40,6 +40,7 @@ for(const kind of ['port','gate']){
   const {s,n,a}=scene(kind),enemy=fieldFromCity(s,'ye');enemy.location=n.id;enemy.cooldownDay=999;
   const nodeBefore=structuredClone(n);s.campaign.ai.lastPlanDay=s.campaign.day;beginExecution(s);advanceCampaignStep(s);
   const r=activeBattles(s).find(r=>r.cityId===n.id);assert.ok(r);assert.equal(r.kind,'field');assert.equal(r.battle.terrain,kind==='port'?'river':'hill');assert.equal(r.battle.siege,undefined);
+  assert.equal(r.battle.mapId,kind==='port'?'river-harbor':'hill-pass');
   assert.ok(r.armyIds.includes(a.id)&&r.armyIds.includes(enemy.id));assert.deepEqual(n,nodeBefore);
   chooseEncounter(s,r.id,false);const copy=restore(s);
   for(const state of [s,copy])advanceCampaignDay(state);

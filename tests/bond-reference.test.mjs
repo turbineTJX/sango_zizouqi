@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {BOND_DESIGNS} from '../data/design/bonds.mjs';
-import {bondOverview,bondReference,bondTierText} from '../bond-reference.mjs';
+import {bondOverview,bondReference,bondTierText,bondRecipients} from '../bond-reference.mjs';
 import {detailTable} from '../ui-detail-table.mjs';
 test('overview and details track every design and variable threshold count',()=>{
  const before=JSON.stringify(BOND_DESIGNS),overview=bondOverview();
@@ -15,4 +15,10 @@ test('overview and details track every design and variable threshold count',()=>
   assert.doesNotMatch(detailTable(detail),/定位|稀缺性|持有武将|组阵取舍|受益部队|完整效果|成长/);
  }
  assert.equal(JSON.stringify(BOND_DESIGNS),before);assert.equal(bondReference('missing'),null);
+});
+
+test('Song detail and recipient wording use its actual range, tactic priorities and six-holder threshold',()=>{
+ const d=BOND_DESIGNS.bondSong,detail=JSON.stringify(bondReference('bondSong'));
+ assert.deepEqual(d.thresholds,[2,6,12]);assert.match(detail,/2格/);assert.match(detail,/尚有次数/);assert.match(detail,/门槛/);assert.match(detail,/非避战/);
+ assert.doesNotMatch(detail,/相邻战意最低/);assert.match(bondRecipients(d),/无需持有战歌/);
 });

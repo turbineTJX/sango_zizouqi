@@ -46,7 +46,7 @@ export class BattleArt {
    if(received){next.hitAt=this.clock;next.hitFrom=hexCenter(received.fromX??u.x,received.fromY??u.y);}
    this.units.set(u.id,next);
   }
-  this.snapshot={terrain:b.terrain,gate:b.siege?.gate?{...b.siege.gate}:null,units:[...this.units.values()].filter(u=>u.deadAt===undefined).map(u=>({...u}))};
+  this.snapshot={terrain:b.terrain,mapId:b.mapId,gate:b.siege?.gate?{...b.siege.gate}:null,units:[...this.units.values()].filter(u=>u.deadAt===undefined).map(u=>({...u}))};
   if(!this.models&&!this.modelLoading&&(Object.keys(art.pack.models||{}).length||this.snapshot.units.some(u=>unitModelKey(art.pack,u)))){
    this.modelLoading=true;
    import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead){try{this.models=new ModelLayer(this.board,art.pack);this.models.update(this.snapshot);}catch{this.board.dataset.modelStatus='fallback';}}}).catch(()=>{this.board.dataset.modelStatus='fallback';});

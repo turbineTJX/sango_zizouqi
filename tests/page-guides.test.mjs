@@ -4,6 +4,23 @@ import {PAGE_GUIDES,PAGE_GUIDE_STORAGE_KEY,createGuidePreferences,pageGuideId} f
 import {guideMarkup,guideCatalogueMarkup} from '../page-guide-view.mjs';
 const memory=()=>{const values=new Map();return {getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};};
 
+test('opening game, scenario and faction selection never interrupts with automatic help',()=>{
+ const storage=memory(),p=createGuidePreferences(storage);
+ const pages=[{mode:'lobby'},{mode:'lobby',lobbyPage:'national'},{mode:'lobby',lobbyPage:'national',nationalDraft:{step:'faction'}}];
+ function check(preferences){
+  for(const ui of pages){
+   const id=pageGuideId(ui,{});
+   assert.equal(preferences.shouldShow(id),false,id);
+   assert.equal(preferences.hasSeen(id),false,'visiting does not mark help read');
+   assert.match(guideMarkup(id),/data-guide-action="close"/,'manual help is available');
+  }
+  assert.equal(preferences.shouldShow('map'),true);
+  assert.equal(preferences.shouldShow('custom'),true);
+ }
+ check(p);p.setEnabled(false);p.setEnabled(true);check(createGuidePreferences(storage));
+ p.reset();check(createGuidePreferences(storage));
+});
+
 test('closing a page persists once per page across new controller instances',()=>{
  const storage=memory(),p=createGuidePreferences(storage);
  assert.equal(p.shouldShow('scouting'),true);

@@ -1,21 +1,21 @@
 // Player-facing page help. Opening help never issues a game command.
-const guide=(title,group,summary,steps,tips)=>({title,group,summary,steps,tips});
+const guide=(title,group,summary,steps,tips,{autoShow=true}={})=>({title,group,summary,steps,tips,autoShow});
 export const PAGE_GUIDES={
  modes:guide('选择游戏模式','开始游戏','从经营天下或独立对战开始，按自己的兴趣选择。',[
   ['普通模式','选择剧本与势力，管理城池、人员和钱粮，再沿大地图道路出征。'],
   ['战役模式','载入历史战役或自定义双方军团，核阅后直接进入战场。'],
   ['继续游戏','已有进度可从读取存档进入；新开一局前可在设置中保存命名存档。']
- ],['普通模式与战役模式共用部队、布阵和战斗规则。','各页面首次打开会显示指引，关闭后不再自动弹出；页面上的“指引”可随时重看。']),
+ ],['普通模式与战役模式共用部队、布阵和战斗规则。','开局选择不自动弹出指引；需要说明时可点击“指引”或按 F1。'],{autoShow:false}),
  scenarios:guide('选择剧本','开始游戏','剧本决定开局年代、城市归属与人物驻地。',[
   ['查看时局','阅读各剧本的背景与开局提示，选择想体验的局势。'],
   ['选择剧本','点击剧本后进入势力选择；返回可重新选取。'],
   ['继续征程','已有普通模式进度时，可使用“继续征程”回到原局。']
- ],['历史剧本与群雄同世剧本的人物范围不同。','选择剧本只是准备，开始游戏后才建立新局。']),
+ ],['历史剧本与群雄同世剧本的人物范围不同。','选择剧本只是准备，开始游戏后才建立新局。'],{autoShow:false}),
  factions:guide('选择势力','开始游戏','选择要执掌的君主，先了解自己的城池与人手。',[
   ['挑选君主','点击君主头像或地图中的所属城市。'],
   ['查看家底','比较城池数量、主要领地和麾下武将，留意有无腹地与前线。'],
   ['确认开始','点击“开始”建立新局；想调整剧本可返回。']
- ],['开局人员按实际驻城分配，其他城市的人不能直接在本城办事。','城池多意味着可经营的地方更多，也需要分别安排人员与补给。']),
+ ],['开局人员按实际驻城分配，其他城市的人不能直接在本城办事。','城池多意味着可经营的地方更多，也需要分别安排人员与补给。'],{autoShow:false}),
  map:guide('天下大地图','经营与人事','先经营本城、侦察周边，再决定军团的去向。',[
   ['查看城池','点击己方城市查看概况与命令；放大可进入都市圈、据点和城内建筑。'],
   ['安排本旬','筹划阶段可委任内政、指派侦察、编制部队和下达军令；点击“进行”执行本旬。'],
@@ -275,7 +275,7 @@ export function createGuidePreferences(storage){
  const persist=()=>{try{storage?.setItem(PAGE_GUIDE_STORAGE_KEY,JSON.stringify({version:1,enabled,seen:[...seen]}));return true;}catch{return false;}};
  return {
   get enabled(){return enabled;},
-  shouldShow:id=>enabled&&Object.hasOwn(PAGE_GUIDES,id)&&!seen.has(id),
+  shouldShow:id=>enabled&&Object.hasOwn(PAGE_GUIDES,id)&&PAGE_GUIDES[id].autoShow&&!seen.has(id),
   hasSeen:id=>seen.has(id),
   dismiss(id){if(Object.hasOwn(PAGE_GUIDES,id))seen.add(id);return persist();},
   setEnabled(value){enabled=!!value;return persist();},

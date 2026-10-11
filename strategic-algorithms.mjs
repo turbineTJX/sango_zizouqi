@@ -1,5 +1,5 @@
 import {STRATEGIC_PLANNING_RULES as R} from './data/design/strategic-planning-rules.mjs';
-import {predictAttritionV1,evaluateCostBenefitV1,evaluateGoalUtilityV1,selectUtilityV1} from './strategic-algorithm-defaults.mjs';
+import {predictAttritionV1,predictAttritionV2,predictAttritionV3,evaluateCostBenefitV1,evaluateCostBenefitV2,evaluateCostBenefitV3,evaluateGoalUtilityV1,selectUtilityV1} from './strategic-algorithm-defaults.mjs';
 import {forecastPreparationV2} from './strategic-predictors.mjs';
 
 export const STRATEGIC_ALGORITHM_KINDS=Object.freeze(['selector','goalEvaluator','offensiveEvaluator','battlePredictor','preparationPredictor']);
@@ -17,6 +17,10 @@ export function registerStrategicAlgorithm(kind,{id,run}){
 for(const [kind,id,run]of [
  ['selector','utility-v1',selectUtilityV1],['goalEvaluator','utility-v1',evaluateGoalUtilityV1],
  ['offensiveEvaluator','cost-benefit-v1',evaluateCostBenefitV1],['battlePredictor','attrition-v1',predictAttritionV1],
+ ['offensiveEvaluator','cost-benefit-v2',evaluateCostBenefitV2],
+ ['offensiveEvaluator','cost-benefit-v3',evaluateCostBenefitV3],
+ ['battlePredictor','attrition-v2',predictAttritionV2],
+ ['battlePredictor','attrition-v3',predictAttritionV3],
  ['preparationPredictor','two-turn-v2',forecastPreparationV2],
 ])registerStrategicAlgorithm(kind,{id,run});
 

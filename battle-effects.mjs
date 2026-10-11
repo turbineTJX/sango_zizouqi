@@ -6,6 +6,7 @@ import {BattleSignals} from './battle-signals.mjs';
 import {TACTICS_BOOK} from './tactics.mjs';
 import {AbilityCues,isHighlightedAbility} from './ability-cues.mjs';
 import {hidden} from './battle-status-rules.mjs';
+import {battleDay} from './player-time.mjs';
 // Presentation-only effects. All hits and casualties come from engine events.
 
 const COLORS = {
@@ -134,8 +135,8 @@ export class BattleEffects {
     if (this.notices.some(n => n.key === key)) return;
     const item = document.createElement('div'); item.className = `skill-announcement side-${e.side} fx-${e.visual}${e.combo?' combo-announcement':''}`;
     const badge = document.createElement('span'); badge.className = 'skill-seal'; badge.textContent = e.abilityKind==='trait'?'特性':e.enchantment?'装填':e.combo ? e.label : '施放';
-    const name = document.createElement('span'); name.className = 'skill-officer'; name.textContent = `${e.side ? '敌' : '我'} · ${e.tick}日 · ${e.combo ? e.combo.actors.map(a=>a.name).join(' + ')+' → '+e.combo.targetName : e.name + (e.targetName && e.to !== e.from ? ' → '+e.targetName : '')}`;
-    const title = document.createElement('strong'); title.textContent = e.combo ? '效果 +'+e.combo.bonus+'%' : e.label+(e.tacticalNote?' · '+e.tacticalNote:'')+(e.terrainNote?' · '+e.terrainNote:'');
+    const name = document.createElement('span'); name.className = 'skill-officer'; name.textContent = `${e.side ? '敌' : '我'} · 第${battleDay(e.tick)}天 · ${e.combo ? e.combo.actors.map(a=>a.name).join(' + ')+' → '+e.combo.targetName : e.name + (e.targetName && e.to !== e.from ? ' → '+e.targetName : '')}`;
+    const title = document.createElement('strong'); title.textContent = e.combo ? ({focus:'协同集火',supported:'支援接续',cover:'接应掩护'}[e.combo.kind]||'连携')+' · 效果 +'+e.combo.bonus+'%' : e.label+(e.tacticalNote?' · '+e.tacticalNote:'')+(e.terrainNote?' · '+e.terrainNote:'');
     item.title = `${name.textContent} · ${badge.textContent} · ${title.textContent}`;
     const detail=document.createElement('div');detail.className='skill-result';
     for(const line of outcomeLines(events)){const row=document.createElement('p');row.textContent=line;detail.append(row);}

@@ -6,15 +6,22 @@ import {statusFraction} from './tactic-power.mjs';
 import {terrainMoveFactor,unitTerrain,TERRAIN_NAMES} from './battlefield.mjs';
 // Shared, derived battle attributes. Never store a second mutable copy in saves.
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
+import {BOND_DESIGNS} from './data/design/bonds.mjs';
 export const TROOPS = structuredClone(TROOP_DESIGNS);
 export const isRear=u=>['archer','siege'].includes(combatFamily(u))&&TROOPS[combatType(u)].range>1;
 export const ATTRIBUTE_LABELS={attack:'攻击',defense:'防御',move:'移速',range:'射程',siege:'攻城',attackSpeed:'攻速',discipline:'军纪',martialPower:'武技威力',strategyPower:'谋略威力',supportPower:'营务威力'};
 export const POLITICS={cao:94,dun:70,liao:78,chu:32,jia:86,yu:95,yuanxia:61,jin:76,shao:81,yan:35,wen:31,he:73,ju:92,tian:90,gao:60};
 export const battleSupplyPenalty=(u,b=null)=>Math.max(u.supplyPenalty||0,statusOn(b||{tick:0},u,'hunger')?(u.statuses.hunger.fraction??0):0);
-export function unitAttributes(u,b=null) {
+const bondStatusNames=new Set(Object.values(BOND_DESIGNS).map(d=>d.name));
+export function unitAttributes(u,b=null,{ignoreBonds=false}={}) {
+ // A read-only assessment view; combat and player panels keep every real effect.
+ if(ignoreBonds)u={...u,bondGrowth:{...u.bondGrowth,levels:{}},statuses:Object.fromEntries(Object.entries(u.statuses||{}).flatMap(([key,s])=>{
+  if(s.sources){const sources=s.sources.filter(v=>!bondStatusNames.has(v.sourceSkillName));return sources.length?[[key,{...s,...sources[0],sources}]]:[];}
+  return bondStatusNames.has(s.sourceSkillName)?[]:[[key,s]];
+ }))};
  const t=TROOPS[combatType(u)],tick=b?.tick||0,side=b?.sides?.[u.side]||{};
  const on=k=>statusOn(b||{tick},u,k);
- const breakdown={},out={breakdown},passives=passiveAttributes(b,u);
+ const breakdown={},out={breakdown},passives=ignoreBonds?{}:passiveAttributes(b,u);
  const soldiers=Math.max(0,u.hp??u.troops??0);
  const troopAttributes=new Set(['attack','martialPower','strategyPower','supportPower']);
  function stat(key,base,officer,source,mods=[]) {

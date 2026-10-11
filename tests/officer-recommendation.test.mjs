@@ -26,7 +26,7 @@ test('AI secures needed food staffing with shared task scores, preserves appoint
  prepareEnemyDomestic(s);const assignments=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id);assert.equal(assignments[0].officerId,expected.unit.id);assert.equal(assignments[0].direction,'agriculture');assert.equal(new Set(assignments.map(a=>a.officerId)).size,assignments.length);assert.equal(new Set(s.campaign.domestic.assignments.map(a=>a.officerId)).size,s.campaign.domestic.assignments.length);const first=structuredClone(assignments);prepareEnemyDomestic(s);assert.deepEqual(s.campaign.domestic.assignments.filter(a=>first.some(b=>b.id===a.id)),first);
 });
 test('transport recommendation uses actual transport speed and compilation does not penalize domestic duties',()=>{
- const s=scene(),u=s.cities.flatMap(c=>cityPersonnel(s,c.id)).find(o=>o.unit.id==='person-533').unit,p={task:'transfer',city:'xuchang',cargo:{grain:100,manpower:0}};assert.equal(officerRecommendation(s,u,p).score,100);
+ const s=scene(),u=s.cities.flatMap(c=>cityPersonnel(s,c.id)).find(o=>o.unit.id==='person-533').unit,p={task:'transfer',city:'xuchang',cargo:{grain:100,manpower:0}};assert.equal(officerRecommendation(s,u,p).score,200);
  const before=officerRecommendation(s,u,{task:'draft',city:'xuchang'}).score;s.campaign.domestic.assignments.push({officerId:u.id,cityId:'xuchang',direction:'commerce',action:{remaining:8}});assert.equal(officerRecommendation(s,u,{task:'draft',city:'xuchang'}).score,before);
 });
 test('AI fills a vacant governorship using the same governor recommendation',()=>{

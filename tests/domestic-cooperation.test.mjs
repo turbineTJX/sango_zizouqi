@@ -52,7 +52,7 @@ test('same-direction different actions can cooperate; waiting colleagues can ass
 });
 
 test('real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost',()=>{
- const {s,r}=example(['fair'],r=>r.success&&r.actual>0&&r.relationGain>0);
+ const {s,r}=example(['fair'],r=>r.success&&r.actual>0&&r.relationGain>0,({c})=>setBuildingLevel(c,'commerce',6));
  const e=s.campaign.domestic.events.find(e=>['complete','failure'].includes(e.phase)&&e.actionId===r.actionId);assert.equal(e.result.actual,r.after);assert.ok(r.after>r.before);
  assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='start').length,2);assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='cooperation').length,1);
  assert.equal(relationshipInfo(r.officerId,r.helperId,s.relationshipScores,s.relationshipTypes).score,r.relation+r.relationGain);restore(s);

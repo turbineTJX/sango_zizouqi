@@ -1,23 +1,10 @@
 import {combatFamily} from './troop-equipment.mjs';
 import {battleBuildings} from './building-rules.mjs';
-import {BATTLE_MAPS} from './data/design/battle-maps.mjs';
-export const BATTLE_TERRAINS = Object.freeze({land:'平原',forest:'林地',hill:'丘陵',marsh:'湿地',river:'河流'});
-export const TERRAIN_NAMES = Object.freeze({land:'平地',forest:'林地',hill:'高地',marsh:'湿地',water:'水面',bridge:'桥梁'});
-export const TERRAIN_HELP = Object.freeze({
-  land:'开阔平原，战法按基础效果结算。',
-  forest:'两翼林地、中路平地；林中火攻与伏弩增强，射击和骑兵冲锋受限。',
-  hill:'两侧高地、中央平地；高地射击与列阵增强，冲锋和行军减慢。',
-  marsh:'中央湿地、两翼平地；湿地火攻、冲锋和列阵减弱，行军减慢。',
-  river:'双水道与中央桥梁；舰船走水面和桥下，陆军走岸地和桥面；水面火攻减弱，涡流增强。',
-});
-// Fixed, mirrored layouts are derived from the saved preset; no extra RNG draws.
+import {battleMap} from './data/design/battle-maps.mjs';
+export {BATTLE_TERRAINS,TERRAIN_NAMES,TERRAIN_HELP} from './data/design/battle-terrain.mjs';
+// Every consumer, including movement and rendering, reads the same authored map.
 export function terrainAt(b,x,y){
-  if(b.mapId&&BATTLE_MAPS[b.mapId]?.tiles[y]?.[x])return BATTLE_MAPS[b.mapId].tiles[y][x];
-  if(b.terrain==='river'&&[3,4].includes(y))return [6,7].includes(x)?'bridge':'water';
-  if(b.terrain==='forest'&&x>=2&&x<=11&&[1,2,5,6].includes(y))return 'forest';
-  if(b.terrain==='hill'&&[2,3,4,9,10,11].includes(x)&&y>=1&&y<=6)return 'hill';
-  if(b.terrain==='marsh'&&x>=4&&x<=9&&y>=2&&y<=5)return 'marsh';
-  return 'land';
+  return battleMap(b)?.tiles[y]?.[x]||'land';
 }
 export function unitTerrain(b,u){
   const ground=terrainAt(b,u.x,u.y);
@@ -37,7 +24,7 @@ export function canOccupy(b,u,x,y){
 export function canTraverseTerrain(b,u,x,y){
   if(x<0||x>=14||y<0||y>=8)return false;
   const ground=terrainAt(b,x,y);
-  return ground!=='water'||!!u.equipment?.ship;
+  return ground!=='rock'&&(ground!=='water'||!!u.equipment?.ship);
 }
 // Buildings occupy cells independently of the six troop slots.
 export function blockedTerrain(b, x, y) {

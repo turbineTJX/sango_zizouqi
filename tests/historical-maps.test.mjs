@@ -20,7 +20,7 @@ test('historical mass armies have more real troops and reinforcement units; inte
 });
 
 test('six distinct editable maps contain full legal level-10 historical armies',()=>{
- assert.equal(HISTORICAL_BATTLES.length,6);assert.equal(new Set(Object.values(BATTLE_MAPS).map(m=>JSON.stringify(m.tiles))).size,6);
+ assert.equal(HISTORICAL_BATTLES.length,6);assert.equal(new Set(HISTORICAL_BATTLES.map(h=>JSON.stringify(BATTLE_MAPS[h.id].tiles))).size,6);
  for(const h of HISTORICAL_BATTLES){const d=historicalBattleDraft(h.id),s=generateBattle(d);assert.equal(s.battle.mapId,h.id);assert.deepEqual(d,validateCustomBattle(d));
   for(const team of [d.ownTeam,d.enemyTeam]){assert.ok(team.length>=3&&team.length<=10);assert.equal(new Set(team.map(u=>u.id)).size,team.length);}
   for(const a of d.reinforcements){assert.ok(a.team.length>=1&&a.team.length<=10);assert.equal(new Set(a.team.map(u=>u.id)).size,a.team.length);}

@@ -6,6 +6,7 @@ import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
 import {assignDomestic,ACTIONS} from '../domestic.mjs';
 import {peacefulCities} from '../tests/helpers/field-campaign.mjs';
 import {fundCities} from '../tests/resource-fixtures.mjs';
+import {PAGE_GUIDE_STORAGE_KEY} from '../page-guides.mjs';
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const port=4192,base='http://127.0.0.1:'+port,out='outputs/domestic-proposals-ui';
 await mkdir(out,{recursive:true});
@@ -22,7 +23,7 @@ try{
  const c=s.cities.find(c=>c.id==='xuchang'),officers=s.campaign.idle.filter(o=>o.location===c.id);
  for(const [key,def]of Object.entries(ACTIONS))if(['technology','commerce'].includes(def.direction)&&!['research','build_commerce'].includes(key))c.domestic.cooldowns[key]=10000;
  assignDomestic(s,c.id,'technology',officers[0].unit.id);assignDomestic(s,c.id,'commerce',officers[1].unit.id);
- await context.addInitScript(raw=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},serializeCampaign(s));
+ await context.addInitScript(({raw,guideKey})=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem(guideKey,JSON.stringify({version:1,enabled:false,seen:[]}));},{raw:serializeCampaign(s),guideKey:PAGE_GUIDE_STORAGE_KEY});
  await page.goto(base+'/#strategy');await page.locator('.sovereign-hud').waitFor();
  await action('campaign-begin').click();await page.locator('.domestic-proposal').first().waitFor();
  let state=await saved();assert.equal(state.cities.find(c=>c.id==='xuchang').gold,40000);assert.equal(state.campaign.day,1);

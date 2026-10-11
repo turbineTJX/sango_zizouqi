@@ -53,7 +53,7 @@ test('a hopeless guard expedition leaves the real home garrison and food intact'
 });
 
 test('AI reinforcements walk to an ongoing field battle and enter its actual reserve pool',()=>{
- const {s,source,client,foe}=scene();foe.units[0].troops=4500;client.units[0].troops=3000;client.route=[foe.location,source.id];client.target=source.id;s.campaign.ai.lastPlanDay=s.campaign.day;beginExecution(s);advanceCampaignDay(s);
+ const {s,source,client,foe}=scene();foe.units[0].troops=6000;client.units[0].troops=4500;client.route=[foe.location,source.id];client.target=source.id;s.campaign.ai.lastPlanDay=s.campaign.day;beginExecution(s);advanceCampaignDay(s);
  const r=activeBattles(s)[0];assert.ok(r);if(r.awaiting)chooseEncounter(s,r.id,false);s.campaign.ai.lastPlanDay=0;updateVision(s);planStrategicAI(s);
  const mission=s.campaign.ai.supports.find(q=>q.kind==='reinforce'&&q.battleId===r.id);assert.ok(mission);const reinforcement=s.armies.find(a=>a.units.some(u=>mission.officerIds.includes(u.id)));assert.ok(reinforcement);assert.ok(!r.armyIds.includes(reinforcement.id));
  const copy=JSON.parse(serializeCampaign(s));for(let i=0;i<6&&!r.armyIds.includes(reinforcement.id);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);for(const battle of activeBattles(world).filter(r=>r.awaiting))chooseEncounter(world,battle.id,false);advanceCampaignDay(world);}

@@ -1154,7 +1154,7 @@ export const HISTORICAL_BATTLES = [
         "url": "https://sangokushi.grappli.net/sangokushi12/gunshiseiha/gappi/"
       }
     ],
-    "designNote": "三将守城：将七千对十万的差距压缩为游戏兵力，十余日围攻压缩为守住七天，守军不设曹操来援。孙军在一天、四天后遭突袭；陈武部队被消灭后江东后军接应。不复制11代直接削减敌军的事件。",
+    "designNote": "三将守城：将七千对十万的差距压缩为守军25000对孙军47600的游戏兵力，十余日围攻压缩为守住七天，守军不设曹操来援。孙军在一天、四天后遭突袭；陈武部队被消灭后江东后军接应。不复制11代直接削减敌军的事件。",
     "expectedWinner": 0,
     "numericalSide": 1,
     "draft": {
@@ -1195,7 +1195,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-368",
           "type": "spear",
-          "troops": 3000,
+          "troops": 2100,
           "level": 10,
           "retreatAt": null,
           "first": true
@@ -1203,7 +1203,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-662",
           "type": "crossbow",
-          "troops": 3000,
+          "troops": 2100,
           "level": 10,
           "retreatAt": null,
           "first": true
@@ -1211,7 +1211,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-119",
           "type": "halberd",
-          "troops": 3000,
+          "troops": 2100,
           "level": 10,
           "retreatAt": null,
           "first": true
@@ -1219,7 +1219,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-652",
           "type": "cavalry",
-          "troops": 3000,
+          "troops": 2100,
           "level": 10,
           "retreatAt": null,
           "first": true
@@ -1227,7 +1227,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-268",
           "type": "archer",
-          "troops": 3000,
+          "troops": 2100,
           "level": 10,
           "retreatAt": null,
           "first": true
@@ -1235,7 +1235,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-525",
           "type": "spear",
-          "troops": 3000,
+          "troops": 2100,
           "level": 10,
           "retreatAt": null,
           "first": true
@@ -1243,7 +1243,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-335",
           "type": "spear",
-          "troops": 2500,
+          "troops": 1800,
           "level": 10,
           "retreatAt": null,
           "first": false
@@ -1251,7 +1251,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-459",
           "type": "halberd",
-          "troops": 2500,
+          "troops": 1800,
           "level": 10,
           "retreatAt": null,
           "first": false
@@ -1259,7 +1259,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-295",
           "type": "crossbow",
-          "troops": 2500,
+          "troops": 1800,
           "level": 10,
           "retreatAt": null,
           "first": false
@@ -1267,7 +1267,7 @@ export const HISTORICAL_BATTLES = [
         {
           "id": "person-243",
           "type": "halberd",
-          "troops": 2500,
+          "troops": 1800,
           "level": 10,
           "retreatAt": null,
           "first": false
@@ -1292,7 +1292,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-93",
               "type": "archer",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1300,7 +1300,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-660",
               "type": "crossbow",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1308,7 +1308,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-382",
               "type": "spear",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1316,7 +1316,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-252",
               "type": "halberd",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1324,7 +1324,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-467",
               "type": "spear",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1332,7 +1332,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-470",
               "type": "crossbow",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1355,7 +1355,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-375",
               "type": "spear",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1363,7 +1363,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-247",
               "type": "halberd",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1371,7 +1371,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-370",
               "type": "cavalry",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true
@@ -1379,7 +1379,7 @@ export const HISTORICAL_BATTLES = [
             {
               "id": "person-595",
               "type": "crossbow",
-              "troops": 4000,
+              "troops": 2800,
               "level": 10,
               "retreatAt": null,
               "first": true

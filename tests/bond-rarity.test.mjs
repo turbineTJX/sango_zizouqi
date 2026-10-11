@@ -72,7 +72,7 @@ test('rare Beauty drains hit intent and rolls full-field anomalies through actua
   for(const v of b.sides.flatMap(a=>a.units)){v.cooldown=999;v.retreatAt=null;v.skillReady=Object.fromEntries(v.tactics.map(id=>[id,999]));}
   Object.assign(target,{x:6,y:3,intent:50});u.cooldown=0;const copy=validateSave(structuredClone(state));
   stepBattle(b);stepBattle(copy.battle);assert.equal(target.statuses.powerDown,undefined);
-  assert.ok(b.effects.some(e=>e.from===u.id&&e.intentDrained===14&&e.label==='倾国'));assert.deepEqual(state,copy);
+  assert.ok(b.effects.some(e=>e.from===u.id&&e.intentDrained===24&&e.label==='倾国'));assert.deepEqual(state,copy);
   assert.doesNotThrow(()=>validateSave(structuredClone(state)));
  }
 });
@@ -97,12 +97,12 @@ test('Beauty tiers use current field points, drain only hit units, and lower tie
  const teams=[['貂蝉'],['貂蝉','甄氏'],['貂蝉','甄氏','大乔','小乔']];
  for(const side of [0,1])for(let i=0;i<teams.length;i++){
   const x=beautyScene(teams[i],side),rule=bondHitEffect(x.b,x.u);
-  assert.equal(rule.intentDrain,[8,11,14][i]);assert.equal(rule.chance,[.3,.35,.4][i]);assert.equal(rule.allEnemies,i===2);
+  assert.equal(rule.intentDrain,[12,18,24][i]);assert.equal(rule.chance,[.4,.55,.7][i]);assert.equal(rule.allEnemies,i===2);
   beautyChance(1,()=>stepBattle(x.b));
   assert.equal(x.target.intent,50+intentIncome(x.target).hit-rule.intentDrain);
   assert.equal(beautyStatuses(x.target).length,1);assert.equal(x.target.statuses.powerDown,undefined);
   for(const v of x.foes.slice(1)){assert.equal(v.intent,50);assert.equal(beautyStatuses(v).length,i===2?1:0);}
-  for(const [key,s]of beautyStatuses(x.target)){assert.equal(s.until-x.b.tick-1,2);if(CONTROL_STATUSES.includes(key))assert.ok(hasStatus(x.b,x.target,'resolve'));}
+  for(const [key,s]of beautyStatuses(x.target)){assert.equal(s.until-x.b.tick-1,3);if(CONTROL_STATUSES.includes(key))assert.ok(hasStatus(x.b,x.target,'resolve'));}
   assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
  }
  const x=beautyScene();x.us[3].status='reserve';assert.equal(bondHitEffect(x.b,x.u).allEnemies,false);assert.equal(bondHitEffect(x.b,x.us[3]),null);

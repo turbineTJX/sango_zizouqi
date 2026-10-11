@@ -4,11 +4,12 @@ import {mapNode} from './map-node-data.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {validMeritGrowth,PROGRESSION} from './progression.mjs';
+import {activityBySource} from './activity-query-index.mjs';
 
 // Factual outcomes live in the daily ledger. Reports only select these nodes.
 export function appendActivityNode(s,{sourceId,category,phase,faction,officerId=null,officerIds=[],cityId=null,siteId=cityId,key=null,text,result={}}){
  const ledger=s.campaign.activity;if(!ledger)return null;
- const existing=ledger.nodes.find(n=>n.sourceId===sourceId);if(existing)return existing;
+ const existing=activityBySource(ledger.nodes,sourceId);if(existing)return existing;
  const sequence=ledger.nextSequence++,node={id:'activity:'+sequence,sourceId,sequence,day:s.campaign.day,category,phase,faction:faction||'neutral',officerId,officerIds:[...new Set([officerId,...officerIds].filter(Boolean))],cityId,siteId,key,text,result:structuredClone(result),read:false};
  ledger.nodes.push(node);return node;
 }
@@ -16,6 +17,11 @@ export function importantActivityNode(n){
  if(n.category==='domestic'&&n.phase==='incident')return true;
  if(n.phase==='merit')return n.result.leveled===true;
  if(n.category==='domestic'&&['harvest','harvest-start'].includes(n.phase))return false;
+ if(n.category==='domestic'&&n.phase==='budget-warning'&&n.result?.budget){
+  const b=n.result.budget;
+  if(b.fundingShortages)return b.fundingShortages.grain>0||b.fundingShortages.gold>0;
+  return b.shortages.grain>0||b.costs.gold>0&&b.shortages.gold>0;
+ }
  if(n.category==='diplomacy')return ['effective','expired','expiring'].includes(n.phase)?n.result?.important===true:['pending','signed','fulfilled','blocked','failed','war','city','prisoner','aid','aid-end','withdrawal'].includes(n.phase);
  if(n.category==='treasure')return ['acquired','delivered'].includes(n.phase);
  if(n.category==='battle'||n.category==='occupation')return true;

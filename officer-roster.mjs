@@ -81,7 +81,7 @@ export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,typ
  <button class="button primary" data-action="relationship-save" ${locked?'disabled':''}>保存</button>
  <button class="button secondary" data-action="relationship-reset" ${locked?'disabled':''} title="恢复关系基准值 ${info.base}">恢复基准</button></div>
  <p class="muted">${locked?'交战已经开始，关系锁定。':'修改保存在当前进度中；带入新试炼，试炼中的修改仅保存在试炼进度。'}两人共享当前关系及分值。厌恶 0～20、疏远 21～39、普通 40～59、友好 60～69、亲爱 70～79；父母子女 75～90、夫妻 80～95、义兄弟 80～100。变更关系时，原分值保留到新档允许的范围内。</p>
- <p class="muted">不同武将在 3 日内对同一目标完成战法时，按与上一位连携参与者的关系值判定（80 即 80%）。失败不加成，当前战法成为新一轮起点；自身增益不触发连携。</p></section>`;
+ <p class="muted">不同在场武将短时间内对同一目标施放战法，或在2格内由真实受益者接续支援、为上一位发动者提供支援时，按与上一位参与者的关系值判定（80 即 80%）。失败不加成，当前战法成为新起点；自身增益不触发连携。关系概率不是实战触发率。</p></section>`;
 }
 
 export function officerCommandMarkup(id,holder=OFFICER_BY_ID[id]){return `<h3 class="stats-section-title">个人军略</h3><p class="muted">${STRATAGEM_RULE_TEXT}</p><div class="repertoire-skills">${officerStratagems(id).map(k=>`<span><b>${esc(STRATAGEMS[k].name)}</b><small>${esc(stratagemEffectText(stratagemProfile(k,holder)))}</small>${STRATAGEMS[k].history?`<small>事迹依据：${esc(STRATAGEMS[k].history)}</small>`:''}</span>`) .join('')||'<p class=muted>无军略：未列入军略持有人名单。</p>'}</div>`;}

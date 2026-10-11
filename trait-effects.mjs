@@ -28,7 +28,7 @@ export function resolveTraitEvent(b,u,event,context,api){
    case 'rescue':targets=allies.filter(t=>t!==u&&near(t)&&t.hp/t.maxHp<r.health).sort(lowest).slice(0,1);break;
    case 'allyShield':case 'guard':targets=allies.filter(t=>t!==u&&near(t)&&(r.effect!=='guard'||!hasStatus(b,t,'guard'))).sort(lowest).slice(0,1);break;
    case 'armyCleanse':targets=allies.filter(t=>t.armyId===u.armyId);break;
-   case 'armyRemedy':targets=allies.filter(t=>t.armyId===u.armyId&&needsRemedy(b,t,'calm')).sort(lowest).slice(0,1);break;
+   case 'armyRemedy':targets=allies.filter(t=>t.armyId===u.armyId&&(r.remedies||['calm']).some(kind=>needsRemedy(b,t,kind))).sort(lowest).slice(0,r.targets||1);break;
    case 'followUp':targets=target&&enemies.includes(target)?[target]:[];break;
    case 'thunder':targets=target?enemies.filter(t=>t!==target&&near(t,target)).sort((a,c)=>a.id.localeCompare(c.id)).slice(0,r.targets):[];break;
    case 'link':targets=target&&enemies.includes(target)?[target,...enemies.filter(t=>t!==target&&near(t,target)).sort((a,c)=>a.id.localeCompare(c.id))].slice(0,r.targets):[];if(targets.length<2)targets=[];break;
@@ -83,8 +83,8 @@ export function resolveTraitEvent(b,u,event,context,api){
     case 'rescue':remedy(b,t,'calm');shield(t,r.fraction);api.signal(u,t,name);break;
     case 'allyShield':shield(t,r.fraction);api.signal(u,t,name);break;
     case 'guard':status(t,'guard',r.steps);api.signal(u,t,name);break;
-    case 'armyCleanse':remedy(b,t,'calm');status(t,'resolve',r.steps);api.signal(u,t,name);break;
-    case 'armyRemedy':if(remedy(b,t,'calm').length){recordContribution(u,'support',1);api.signal(u,t,name);}break;
+    case 'armyCleanse':for(const kind of r.remedies||['calm'])remedy(b,t,kind);status(t,'resolve',r.steps);if(r.fraction)shield(t,r.fraction);api.signal(u,t,name);break;
+    case 'armyRemedy':if((r.remedies||['calm']).flatMap(kind=>remedy(b,t,kind)).length){if(r.steps)status(t,'resolve',r.steps);if(r.fraction)shield(t,r.fraction);recordContribution(u,'support',1);api.signal(u,t,name);}break;
     case 'followUp':case 'thunder':api.damage(u,t,r.scale,{name,category:r.effect==='thunder'?'intellect':'force',trait:true,visual:r.effect==='thunder'?'shockwave':'slash'});break;
     case 'link':status(t,'link',r.steps,{group:u.id+':'+key+':'+b.tick});api.signal(u,t,name);break;
     case 'burn':case 'spreadFire':status(t,'burn',r.steps,{amount:Math.max(1,Math.round(api.attributes(u).strategyPower*r.scale*100/(100+api.attributes(t).discipline)))});api.signal(u,t,name);break;

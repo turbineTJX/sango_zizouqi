@@ -3431,10 +3431,8 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-642": {
     "traits": [
-      "steadyResearch",
       "focusedResearch",
       "craftsmanResearch",
-      "capturedResearch",
       "trialChance",
       "liuEngines"
     ],

@@ -62,10 +62,11 @@ test('source recruitment and its current version save continue deterministically
  const bad=JSON.parse(serializeCampaign(copy));bad.campaign.version--;assert.throws(()=>validateCampaign(bad),/不兼容/);
 });
 test('military maintenance follows actual soldiers once across city, expedition and transit',()=>{
- const s=newCampaign(31),c=s.cities.find(c=>c.id==='xuchang'),before=supportedSoldiers(s,c),bill=cityMaintenance(s,c);
- const a=fieldFromCity(s,c.id);assert.deepEqual(supportedSoldiers(s,c),before);assert.deepEqual(cityMaintenance(s,c),bill);
- a.location='guandu';assert.deepEqual(cityMaintenance(s,c),bill);
- const unit=a.units.pop();s.campaign.idle.push({unit,faction:c.owner,location:'guandu',destination:c.id,remainingDays:2});assert.deepEqual(cityMaintenance(s,c),bill);
+ const s=newCampaign(31),c=s.cities.find(c=>c.id==='xuchang'),before=supportedSoldiers(s,c);
+ const invoice=()=>{const bill=cityMaintenance(s,c);bill.officers.sort((a,b)=>a.id.localeCompare(b.id));return bill;},bill=invoice();
+ const a=fieldFromCity(s,c.id);assert.deepEqual(supportedSoldiers(s,c),before);assert.deepEqual(invoice(),bill);
+ a.location='guandu';assert.deepEqual(invoice(),bill);
+ const unit=a.units.pop();s.campaign.idle.push({unit,faction:c.owner,location:'guandu',destination:c.id,remainingDays:2});assert.deepEqual(invoice(),bill);
 });
 test('shared income settlement preserves reserve stock and never charges it food or rotation',()=>{
  const {s,c}=fixture('recruit');c.manpower=20000;beginDomesticTurn(s);assert.equal(c.domestic.reserved,assignmentFor(s,s.campaign.domestic.assignments[0].officerId).action.amount);

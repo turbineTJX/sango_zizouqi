@@ -944,7 +944,7 @@ export const TACTIC_DESIGNS = {
   "unique-person-433": {
     "name": "长坂怒喝",
     "category": "force",
-    "threshold": 85,
+    "threshold": 65,
     "cooldown": 32,
     "range": 1,
     "scale": 0.9,
@@ -952,7 +952,7 @@ export const TACTIC_DESIGNS = {
     "targets": 3,
     "radius": 1,
     "control": "confuse",
-    "steps": 3,
+    "steps": 6,
     "selfWard": 15,
     "selfWardSteps": 6,
     "tempo": {
@@ -962,7 +962,7 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "shockwave",
-    "description": "攻击1格内目标及其相邻敌军，最多3队，造成武技伤害并尝试施加混乱3回合；自身获得减伤6回合，直接伤害降低15%；控制遵守军纪与坚定规则",
+    "description": "攻击1格内目标及其相邻敌军，最多3队，造成武技伤害并尝试施加混乱6回合，为友军追击创造机会；自身获得减伤6回合，直接伤害降低15%；控制遵守军纪与坚定规则",
     "learningTier": "special",
     "tempoRole": "决胜专属",
     "intentCost": 0,
@@ -1073,7 +1073,7 @@ export const TACTIC_DESIGNS = {
   "unique-person-558": {
     "name": "连环奇计",
     "category": "intellect",
-    "threshold": 70,
+    "threshold": 50,
     "cooldown": 30,
     "range": 4,
     "scale": 0.9,
@@ -1082,10 +1082,14 @@ export const TACTIC_DESIGNS = {
     "radius": 1,
     "debuff": "slow",
     "steps": 4,
+    "link": {
+      "steps": 12,
+      "fraction": 0.35
+    },
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击4格内目标及其相邻敌军，最多3队，造成谋略伤害并施加迟滞4回合，移动速度减半",
+    "description": "攻击4格内目标及其相邻敌军，最多3队，造成谋略伤害并施加迟滞4回合，移动速度减半；命中后将至少两队存活且未处于连环的目标连接12回合，后续受伤的35%分摊传导给同组其他敌军，传导不递归；不要求灼烧，魔免与无敌目标不能被连接",
     "learningTier": "special",
     "tempoRole": "交锋专属",
     "intentCost": 0,
@@ -1100,9 +1104,10 @@ export const TACTIC_DESIGNS = {
     "range": 2,
     "scale": 1.35,
     "mode": "attack",
-    "allyIntent": 12,
-    "allyRange": 2,
-    "allyTargets": 1,
+    "allyIntent": 20,
+    "allyIntentScope": "army",
+    "allyTargets": 2,
+    "allyIntentPriority": "tacticThreshold",
     "tempo": {
       "cost": 25,
       "role": "交锋专属"
@@ -1110,7 +1115,7 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击2格内一队敌军，造成武技伤害；自身获得速攻6回合，普攻间隔缩短20%；为自身2格内战意最低的另一队友军增加12战意",
+    "description": "攻击2格内一队敌军，造成武技伤害；自身获得速攻6回合，普攻间隔缩短20%；鼓舞所属军团在场的最多两队其他友军，各增加基础20战意，优先帮助接近尚未用尽战法门槛的队友；没有待补门槛时不授予鼓舞，不支援后备或其他军团",
     "learningTier": "special",
     "tempoRole": "交锋专属",
     "intentCost": 0,
@@ -1164,10 +1169,16 @@ export const TACTIC_DESIGNS = {
     "radius": 1,
     "burn": 30,
     "steps": 5,
+    "exploit": {
+      "statuses": [
+        "burn"
+      ],
+      "scale": 0.65
+    },
     "effect": "famous",
     "special": true,
     "visual": "fire",
-    "description": "4 格内敌军，最多 3 队；目标周围 1 格，优先覆盖更多敌军；造成谋略伤害；叠加一层灼烧（最多三层），单层每回合基础 30，刷新 5回合，按兵力与目标军纪衰减",
+    "description": "4 格内敌军，最多 3 队；目标周围 1 格，优先覆盖更多敌军；造成谋略伤害；施放前目标已有灼烧时，伤害提高，本次新施加的灼烧不触发；叠加一层灼烧（最多三层），单层每回合基础 30，刷新 5回合，按兵力与目标军纪衰减",
     "learningTier": "special",
     "tempoRole": "决胜专属",
     "intentCost": 0,
@@ -1183,7 +1194,10 @@ export const TACTIC_DESIGNS = {
     "scale": 0.8,
     "mode": "attack",
     "drain": 24,
-    "debuff": "weaken",
+    "debuffs": [
+      "weaken",
+      "armorBreak"
+    ],
     "steps": 5,
     "highIntent": {
       "threshold": 60,
@@ -1197,7 +1211,7 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击4格内一队敌军，造成谋略伤害，降低24战意并施加疲弱5回合，攻击降低20%；施放前目标战意至少60时提高伤害并额外降低16战意",
+    "description": "攻击4格内一队敌军，造成谋略伤害，降低24战意并施加疲弱、破甲5回合，攻击与防御各降低20%，为友军进攻创造机会；施放前目标战意至少60时提高伤害并额外降低16战意",
     "learningTier": "special",
     "tempoRole": "交锋专属",
     "intentCost": 0,

@@ -6,7 +6,7 @@ export function guideMarkup(id){
  return `<div class="page-guide-backdrop"><section class="page-guide-dialog" role="dialog" aria-modal="true" aria-labelledby="page-guide-title" tabindex="-1">
   <header class="page-guide-header"><div><span class="page-guide-eyebrow">${esc(g.group)} · 页面指引</span><h2 id="page-guide-title">${esc(g.title)}</h2></div><button data-guide-action="close" class="page-guide-x" aria-label="关闭指引">×</button></header>
   <div class="page-guide-body"><p class="page-guide-summary">${esc(g.summary)}</p><h3>如何操作</h3><ol class="page-guide-steps">${g.steps.map(([title,body],i)=>`<li><span aria-hidden="true">${i+1}</span><div><h4>${esc(title)}</h4><p>${esc(body)}</p></div></li>`).join('')}</ol><section class="page-guide-tips"><h3>注意事项</h3><ul>${g.tips.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></section></div>
-  <footer class="page-guide-footer"><p>关闭后不再自动提示，可在页面中重看。</p><div><button data-guide-action="catalogue" class="button secondary">全部指引</button><button data-guide-action="close" class="button primary" data-guide-done>知道了</button></div></footer>
+  <footer class="page-guide-footer"><p>${g.autoShow?'关闭后不再自动提示，可在页面中重看。':'需要时可点击“指引”或按 F1 查阅。'}</p><div><button data-guide-action="catalogue" class="button secondary">全部指引</button><button data-guide-action="close" class="button primary" data-guide-done>知道了</button></div></footer>
  </section></div>`;
 }
 export function guideCatalogueMarkup(preferences){
@@ -83,7 +83,7 @@ export function createPageGuideView({root,storage,getTopic,onOpen=()=>{},onClose
  doc.addEventListener('keydown',keydown,true);
  return {
   get isOpen(){return !!active;},preferences,schedule,open:show,close,
-  settingsMarkup(){return `<section class="page-guide-settings"><div><b>页面指引</b><p>首次进入页面时显示操作说明；关闭后记住已读，所有新局共用。</p></div><div><button data-guide-action="toggle" aria-pressed="${preferences.enabled}">自动提示：${preferences.enabled?'开启':'关闭'}</button><button data-guide-action="reset">重置指引</button><button data-guide-action="catalogue">全部指引</button></div></section>`;},
+  settingsMarkup(){return `<section class="page-guide-settings"><div><b>页面指引</b><p>首次进入玩法页面时显示操作说明；开局选择不弹窗，指引可随时查阅。已读状态所有新局共用。</p></div><div><button data-guide-action="toggle" aria-pressed="${preferences.enabled}">自动提示：${preferences.enabled?'开启':'关闭'}</button><button data-guide-action="reset">重置指引</button><button data-guide-action="catalogue">全部指引</button></div></section>`;},
   destroy(){close();doc.removeEventListener('click',click,true);doc.removeEventListener('keydown',keydown,true);}
  };
 }

@@ -28,11 +28,15 @@ try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('Server exited '+code)));});
  browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
  const page=await pageFor();await page.goto(base);
- await expectGuide(page,'选择游戏模式');await page.screenshot({path:out+'/first-desktop.png'});await closeGuide(page);
+ await page.locator('.mode-selection').waitFor();assert.equal(await guide(page).count(),0);await page.screenshot({path:out+'/first-desktop.png'});
  await page.reload();await page.locator('.mode-selection').waitFor();assert.equal(await guide(page).count(),0);
  await page.locator('#app [data-guide-action="open"]').click();await expectGuide(page,'选择游戏模式');await page.keyboard.press('Escape');assert.equal(await guide(page).count(),0);
- await action(page,'strategy').click();await expectGuide(page,'选择剧本');await closeGuide(page);
- await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await expectGuide(page,'选择势力');await closeGuide(page);
+ await action(page,'strategy').click();await page.locator('[data-action="select-national-scenario"]').first().waitFor();assert.equal(await guide(page).count(),0);
+ await page.screenshot({path:out+'/scenario-desktop.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/scenario-mobile.png'});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.setViewportSize({width:1440,height:1000});
+ await page.locator('#app [data-guide-action="open"]').click();await expectGuide(page,'选择剧本');await closeGuide(page);
+ await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await page.locator('button[data-action="select-national-faction"]').first().waitFor();assert.equal(await guide(page).count(),0);
+ await page.keyboard.press('F1');await expectGuide(page,'选择势力');await closeGuide(page);
  await page.locator('button[data-action="select-national-faction"][data-faction="cao"]').click();assert.equal(await guide(page).count(),0);
  await action(page,'launch-national').click();await guide(page).waitFor();
  if(await page.locator('#page-guide-title').innerText()==='奏报与每日记录'){await closeGuide(page);await page.keyboard.press('Escape');}
@@ -53,7 +57,10 @@ try{
  const prefs=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-page-guides-v1')));assert.equal(prefs.enabled,false);assert.ok(prefs.seen.includes('troops'));
  await action(page,'settings').first().click();await page.locator('[data-guide-action="reset"]').click();await expectGuide(page,'设置与存档');await closeGuide(page);
  await page.keyboard.press('Escape');await expectGuide(page,'天下大地图');await closeGuide(page);
- checks.push('first visit, reopen, reload, per-page memory, F1, catalogue, disable, reset, mobile and focus');console.log('PASS '+checks.at(-1));
+ await page.keyboard.press('Escape');await action(page,'lobby').first().click();await page.locator('.mode-selection').waitFor();assert.equal(await guide(page).count(),0);
+ await action(page,'strategy').click();await page.locator('[data-action="select-national-scenario"]').first().waitFor();assert.equal(await guide(page).count(),0);
+ await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await page.locator('button[data-action="select-national-faction"]').first().waitFor();assert.equal(await guide(page).count(),0);
+ checks.push('opening selections stay unobstructed including after reset; manual help, first gameplay visits, memory, F1, catalogue, mobile and focus');console.log('PASS '+checks.at(-1));
 
  const draftPage=await pageFor({unseen:['custom','troops']});await draftPage.goto(base);await action(draftPage,'campaign-lobby').click();await expectGuide(draftPage,'战役编辑器');await closeGuide(draftPage);
  await draftPage.locator('[data-action="scenario-setup-open"][data-team="ownTeam"]').click();await expectGuide(draftPage,'部队编制');await closeGuide(draftPage);

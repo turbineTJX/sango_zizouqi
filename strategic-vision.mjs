@@ -7,6 +7,7 @@ import {playerFaction} from './player-faction.mjs';
 import {NATIONAL_FACTIONS as FACTIONS} from './national-scenarios.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {scoutAssignments,scoutVisionProxy} from './scouting-state.mjs';
+import {activityByFaction,activityByDay} from './activity-query-index.mjs';
 
 const perspective=Symbol('intelligence perspective');
 const origin=Symbol('intelligence origin');
@@ -59,7 +60,7 @@ export function initializeVision(s){
 export function updateVision(s){
  const vision=s.campaign.vision;if(!vision)return;
  let signatures=observationSignatures.get(s);if(!signatures){signatures=new Map();observationSignatures.set(s,signatures);}
- const today=(s.campaign.activity?.nodes||[]).filter(n=>n.day===s.campaign.day);
+ const today=activityByDay(s.campaign.activity?.nodes||[],s.campaign.day);
  const observedCities=new Map();
  for(const [f,record]of Object.entries(vision.factions)){
   record.scouted=record.scouted.filter(v=>v.expiresDay>s.campaign.day);
@@ -96,7 +97,7 @@ export function armyIntelligence(s,id,faction=playerFaction(s)){
  return live?{day:base.campaign.day,receivedDay:base.campaign.day,data:a.faction===faction?a:armyObservation(base,a)}:base.campaign.vision?.factions[faction]?.armies[id]||null;
 }
 function unknownCity(c,owner){
- const data={...c,owner,units:[],governor:null,project:null,domestic:null,buildings:null};
+ const data={...c,owner,units:[],governor:null,project:null,domestic:null,buildings:null,payroll:null};
  for(const key of ['gold','grain','manpower',...Object.keys(BUILDING_DESIGNS),'order','hunger','garrison'])data[key]=null;
  return data;
 }
@@ -138,7 +139,7 @@ export function intelligenceWorld(s,faction=playerFaction(s)){
  const campaign={...s.campaign,playerFaction:faction,idle,scouting:{...s.campaign.scouting,tasks:scoutAssignments(s).filter(t=>t.faction===faction)},battles:s.campaign.battles.filter(r=>battleVisible(s,r,faction,sources)).map(r=>observedBattle(s,r,faction)),archive:(s.campaign.archive||[]).filter(r=>record?.battles.includes(r.id)),
   personnelEvents:s.campaign.personnelEvents.filter(e=>ownIds.has(e.officerId)),ai:s.campaign.ai?{...s.campaign.ai,factions:{},plans:[],supports:[],decisions:[]}:undefined,
   domestic:{...s.campaign.domestic,priorities:{[faction]:s.campaign.domestic.priorities[faction]},orders:s.campaign.domestic.orders.filter(q=>q.faction===faction),assignments:s.campaign.domestic.assignments.filter(a=>ownIds.has(a.officerId)),people:s.campaign.domestic.people.filter(p=>p.fate&&(p.fate.originalFaction===faction||p.fate.captor===faction))},
-  activity:activity?{...activity,records:Object.fromEntries(Object.entries(activity.records).filter(([id])=>ownIds.has(id))),nodes:activity.nodes.filter(n=>n.faction===faction)}:activity};
+  activity:activity?{...activity,records:Object.fromEntries(Object.entries(activity.records).filter(([id])=>ownIds.has(id))),nodes:activityByFaction(activity.nodes,faction)}:activity};
  const result={...s,cities,armies,campaign,logs:record?.chronicle||[]};result[perspective]=faction;result[origin]=s;return result;
 }
 export function fogMarkup(s,id='world-fog',project=null){

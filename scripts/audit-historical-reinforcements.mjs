@@ -2,9 +2,9 @@ import {mkdirSync,writeFileSync} from 'node:fs';
 import {HISTORICAL_BATTLES,historicalBattleDraft} from '../historical-battle-library.mjs';
 import {generateBattle} from '../battle-generator.mjs';
 import {customParticipants,customBattleTotals,swapCustomBattle,validateCustomBattle} from '../custom-battle.mjs';
-import {stepBattle,lockDeployment,validateSave} from '../engine.mjs';
+import {stepBattle,lockDeployment,validateSave,planBattleCouncilsAI} from '../engine.mjs';
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
-import {fixedOwnAI,DEV_SEEDS,VALIDATION_SEEDS} from './xiapi-player-lab.mjs';
+import {DEV_SEEDS,VALIDATION_SEEDS} from './xiapi-player-lab.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
 import {sourceHash} from './basic-balance-lib.mjs';
 
@@ -18,7 +18,7 @@ export function equalizeBudget(draft,side,target){
 }
 export function simulateHistory(input,{seed=input.seed,swapped=false,verify=false}={}){
  const draft=swapped?swapCustomBattle(input):structuredClone(input);draft.seed=seed;
- const state=generateBattle(draft),b=state.battle;fixedOwnAI(b);lockDeployment(b);validateSave(structuredClone(state));
+ const state=generateBattle(draft),b=state.battle;planBattleCouncilsAI(b,[0,1]);lockDeployment(b);validateSave(structuredClone(state));
  let copy=null;
  while(!b.result){
   const before=b.tick;
@@ -32,7 +32,7 @@ export function simulateHistory(input,{seed=input.seed,swapped=false,verify=fals
 }
 
 if(process.argv[1]?.replaceAll('\\','/').endsWith('/audit-historical-reinforcements.mjs')){
- const phase=process.argv[2]||'dev',count=Number(process.argv[3]||(phase==='dev'?4:8)),seeds=(phase==='dev'?DEV_SEEDS:VALIDATION_SEEDS.slice(16)).slice(0,count),directory='outputs/historical-reinforcements';
+ const phase=process.argv[2]||'dev',count=Number(process.argv[3]||(phase==='dev'?4:8)),offset=Number(process.argv[4]||16),seeds=(phase==='dev'?DEV_SEEDS:VALIDATION_SEEDS.slice(offset)).slice(0,count),directory='outputs/historical-reinforcements';
  mkdirSync(directory,{recursive:true});const rows=[],summary=[],drafts={},snapshotHash=sourceHash();
  for(const history of HISTORICAL_BATTLES){
   const input=historicalBattleDraft(history.id);drafts[history.id]=input;
@@ -40,6 +40,6 @@ if(process.argv[1]?.replaceAll('\\','/').endsWith('/audit-historical-reinforceme
   const cases=rows.filter(r=>r.id===history.id),quality=[0,1].map(side=>officerQuality([input[side===0?'ownTeam':'enemyTeam'],...input.reinforcements.filter(a=>a.side===side).map(a=>a.team)].flat()));
   const result={id:history.id,name:history.name,expectedWinner:history.expectedWinner,forces:[0,1].map(side=>customBattleTotals(input,side)),quality,ownWins:cases.filter(r=>r.originalWinner===0).length,enemyWins:cases.filter(r=>r.originalWinner===1).length,draws:cases.filter(r=>r.originalWinner===null).length,n:cases.length,expectedWins:history.expectedWinner===null?null:cases.filter(r=>r.originalWinner===history.expectedWinner).length,arrivals:cases.map(r=>r.arrivals),fielded:cases.map(r=>r.fielded)};
   summary.push(result);console.log(history.id,JSON.stringify(result));
-  writeFileSync(directory+'/'+phase+'-results.json',JSON.stringify({rulesVersion:RULES_VERSION,sourceHash:snapshotHash,phase,seeds,drafts,summary,rows,losses:rows.filter(r=>HISTORICAL_BATTLES.find(h=>h.id===r.id).expectedWinner!==null&&r.originalWinner!==HISTORICAL_BATTLES.find(h=>h.id===r.id).expectedWinner)},null,2));
+  writeFileSync(directory+'/'+phase+'-results.json',JSON.stringify({rulesVersion:RULES_VERSION,sourceHash:snapshotHash,controller:'common-battle-councils-v1',phase,seeds,drafts,summary,rows,losses:rows.filter(r=>HISTORICAL_BATTLES.find(h=>h.id===r.id).expectedWinner!==null&&r.originalWinner!==HISTORICAL_BATTLES.find(h=>h.id===r.id).expectedWinner)},null,2));
  }
 }

@@ -6,7 +6,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateBattle} from '../battle-generator.mjs';
 import {defaultCustomBattle,validateCustomBattle} from '../custom-battle.mjs';
-import {makeOfficer,lockDeployment,stepBattle,planBattleCouncilAI,deployUnit,validateSave,battleCommanders} from '../engine.mjs';
+import {makeOfficer,lockDeployment,stepBattle,planBattleCouncilAI,planBattleCouncilsAI,deployUnit,validateSave,battleCommanders} from '../engine.mjs';
+import {historicalBattleDraft} from '../historical-battle-library.mjs';
 import {armyRoleScore,appointArmyRoles,recommendArmyAppointments,settleArmyAppointments} from '../army-appointments.mjs';
 import {officerRecommendation} from '../officer-recommendation.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
@@ -72,6 +73,29 @@ test('reinforcement AI keeps positions, action array, intention, retreats, coold
   for(const u of survivors)assert.deepEqual(own.units.find(v=>v.id===u.id),u);
   assert.equal(own.battleIntent,intent);assert.equal(b.commandProgress,700);assert.equal(b.commandReady.shield,44);
  }
+});
+
+test('simultaneous AI councils and complete battles do not depend on controller evaluation order',()=>{
+ for(const id of ['wuzhang','hefei']){
+  const draft=historicalBattleDraft(id);draft.seed=30361010;
+  const a=generateBattle(draft),c=structuredClone(a),initial=a.battle.seed;
+  planBattleCouncilsAI(a.battle,[0,1]);planBattleCouncilsAI(c.battle,[1,0]);
+  assert.deepEqual(a.battle,c.battle);assert.equal(a.battle.seed,initial);
+  assert.equal(lockDeployment(a.battle),null);assert.equal(lockDeployment(c.battle),null);
+  validateSave(structuredClone(a));validateSave(structuredClone(c));
+  while(!a.battle.result){stepBattle(a.battle,{aiSides:[0,1]});stepBattle(c.battle,{aiSides:[1,0]});}
+  assert.deepEqual(a.battle,c.battle);validateSave(structuredClone(a));
+ }
+});
+
+test('a shared council preserves the human deployment and never exposes unarrived enemy reserves',()=>{
+ const s=generateBattle(defaultCustomBattle()),b=s.battle,human=structuredClone(b.sides[0]);
+ planBattleCouncilsAI(b,[1]);assert.deepEqual(b.sides[0],human);
+ const a=generateBattle(historicalBattleDraft('wuzhang')),c=structuredClone(a);
+ c.battle.seed=12345;
+ for(const u of c.battle.sides[1].units.filter(u=>u.arrivalConfirmed===false))Object.assign(u,{hp:1,leadership:1,intellect:1});
+ planBattleCouncilsAI(a.battle,[0,1]);planBattleCouncilsAI(c.battle,[1,0]);
+ assert.deepEqual(a.battle.sides[0],c.battle.sides[0]);
 });
 
 test('a withdrawing commander leaves a vacancy until real battle settlement and save reload does not appoint early',()=>{

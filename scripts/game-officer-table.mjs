@@ -47,7 +47,7 @@ add('rules','规则版本','口径','生成时的运行规则版本。');
 add('routeKey','特性配置编号','成长','固定名将记录其武将ID，普通人物记录通用路线键。换兵种不重置已确定的特性配置。');
 for(let i=0;i<OFFICER_TRAIT_SLOTS;i++)add(`passiveId${i}`,`特性${i+1}编号`,'成长','与效果列逐项对应的正式被动ID。');
 for(let i=0;i<OFFICER_TRAIT_SLOTS;i++){
- add(`passiveDomain${i}`,`特性${i+1}领域`,'成长','战斗、指挥、内政、行旅或外交；按实际任职或事务生效。');
+ add(`passiveDomain${i}`,`特性${i+1}领域`,'成长','战斗、指挥、内政、行旅、外交或人事；按实际任职或事务生效。');
  add(`passiveAvailability${i}`,`特性${i+1}实现状态`,'成长','已实现或预留未开放；外交未开放特性不分配。');
 }
 for(const level of [1,10]){
@@ -86,7 +86,7 @@ export const GAME_RECORDS=OFFICER_MASTER_RECORDS.map(base=>{
  r.special=special?.name||'无专属（使用兵种通用战法）';
  r.rules=RULES_VERSION;r.routeKey=SKILL_ROUTES[u.id]||CIVIC_ROUTES[u.id]?u.id:commonRouteKey(u);
  for(let i=0;i<OFFICER_TRAIT_SLOTS;i++){r[`passiveId${i}`]='';r[`passiveDomain${i}`]='';r[`passiveAvailability${i}`]='无';}
- route.forEach((key,i)=>{r[`passiveId${i}`]=key;r[`passiveDomain${i}`]={battle:'战斗',domestic:'内政',movement:'行旅',command:'指挥',diplomacy:'外交'}[PASSIVES[key].domain];r[`passiveAvailability${i}`]=PASSIVES[key].available===false?'预留未开放':'已实现';});
+ route.forEach((key,i)=>{r[`passiveId${i}`]=key;r[`passiveDomain${i}`]={battle:'战斗',domestic:'内政',movement:'行旅',command:'指挥',diplomacy:'外交',personnel:'人事'}[PASSIVES[key].domain];r[`passiveAvailability${i}`]=PASSIVES[key].available===false?'预留未开放':'已实现';});
  for(const level of [1,10]){const unit={...u,level},intent=intentIncome(unit);r[`capacity${level}`]=troopCapacity(unit);r[`intentAttack${level}`]=intent.attack;r[`intentHit${level}`]=intent.hit;}
  for(const key of ['attack','defense','martialPower','strategyPower','discipline','move','range','attackSpeed','siege'])r['level10-'+key]=highStats[key];
  r.attackInterval=stats.attackInterval;r.minRange=stats.minRange;r.beats=TROOPS[TROOPS[u.type].beats]?.name||'无';

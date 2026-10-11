@@ -201,9 +201,10 @@
 
 .loadout-role-card{display:flex;flex-direction:column;gap:8px}.loadout-role-card p{min-height:0;margin:0}.loadout-role-card small{line-height:1.7;color:#adbcab}.loadout-role-card .button{margin-top:auto;align-self:flex-start}.loadout-card p.muted{min-height:0}
 
-.hex-grid polygon.hex-water{fill:#294b54;stroke:#496c77}.hex-grid polygon.hex-bridge{fill:#5b5845;stroke:#817b5c}
-.hex-grid polygon.hex-forest{fill:#264c39;stroke:#578065}.hex-grid polygon.hex-hill{fill:#62563b;stroke:#97825a}.hex-grid polygon.hex-marsh{fill:#364d4b;stroke:#648780}
+.hex-grid polygon.hex-land,.hex-grid polygon.hex-water,.hex-grid polygon.hex-bridge,.hex-grid polygon.hex-forest,.hex-grid polygon.hex-hill,.hex-grid polygon.hex-marsh,.hex-grid polygon.hex-rock{fill:transparent;stroke:#d7d4b320;stroke-width:1}
+.battle-map-preview{max-width:720px;margin:16px auto 22px;border:1px solid #8c92644a;border-radius:10px;overflow:hidden;background:#1c2b24}.battle-map-preview>div{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;color:#ddd3ab}.battle-map-preview>div>span{font-size:12px;color:#a3ae98}.battle-map-preview svg{display:block;width:100%;height:auto}.battle-map-preview p{margin:0;padding:12px 16px;font-size:12px;line-height:1.7;color:#b9c5b0}.battlefield-name{color:#dfd1a8;font-size:12px;white-space:nowrap}.terrain-rock:before{background:#737366}
 .terrain-cell-label{fill:#e4e4c6;opacity:.7;font-size:12px;text-anchor:middle;pointer-events:none}
+@media(max-width:900px){.arena-context{height:auto;min-height:32px;flex-wrap:wrap;gap:5px 10px;padding:5px 0}.battlefield-name{flex-basis:100%;font-size:10px}.arena-context .terrain-legend{gap:5px;font-size:10px}.arena-context .arena-legend{font-size:10px}}
 .terrain-legend{display:flex;gap:8px;flex-wrap:wrap}.terrain-key{white-space:nowrap}.terrain-key:before{content:'';display:inline-block;width:8px;height:8px;border:1px solid #839786;margin-right:4px;background:#354238}.terrain-forest:before{background:#39704c}.terrain-hill:before{background:#97825a}.terrain-marsh:before{background:#648780}.terrain-water:before{background:#3d8196}.terrain-bridge:before{background:#807253}
 .terrain-note{color:#c1ceb2;font-size:12px;line-height:1.7;display:block}.loadout-card p.terrain-note{min-height:0}
 .deployment-actions label{display:flex;align-items:center;gap:5px;white-space:nowrap}.deployment-actions select{background:#182a2b;color:var(--text);border:1px solid var(--border);border-radius:4px;padding:5px}.deployment-actions{flex-wrap:wrap}.arena-context{height:auto;min-height:28px;flex-wrap:wrap}

@@ -2,10 +2,11 @@ import {changeMerit,meritChangeText,PROGRESSION} from './progression.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {cityFoodRequirement} from './city-logistics.mjs';
+import {activityBySource} from './activity-query-index.mjs';
 
 // Reuse the permanent factual ledger for idempotency and player-visible changes.
 export function settleOfficerMerit(s,u,{sourceId,amount,faction,cityId=null,category='personnel',reason}){
- const key=`merit:${sourceId}:${u.id}`,prior=s.campaign.activity.nodes.find(n=>n.sourceId===key);
+ const key=`merit:${sourceId}:${u.id}`,prior=activityBySource(s.campaign.activity.nodes,key);
  if(prior)return prior.result.growth;
  const growth=changeMerit(u,amount);
  appendActivityNode(s,{sourceId:key,category,phase:'merit',faction,cityId,officerId:u.id,text:`${u.name}${reason}：${meritChangeText(growth)}。`,result:{growth,leveled:growth.before!==growth.after}});

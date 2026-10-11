@@ -3,8 +3,17 @@ import {readFile,writeFile,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {posix} from 'node:path';
 import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
+import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
 
 const json=async p=>JSON.parse(await readFile(p,'utf8'));
+const balanced=await json('outputs/economy-sustainability-20261011/summary.json').catch(error=>{if(error.code==='ENOENT')return json('outputs/talent-economy-20261011/summary.json').catch(e=>{if(e.code==='ENOENT')return json('outputs/economy-balanced-20261011/summary.json').catch(m=>{if(m.code==='ENOENT')return null;throw m;});throw e;});throw error;});
+if(balanced){
+ assert.equal(balanced.phases.originalScenarioCoverage,NATIONAL_SCENARIOS.length);
+ for(const [file,digest]of Object.entries(balanced.sourceHashes))assert.equal(createHash('sha256').update(await readFile(file)).digest('hex'),digest,'Economic balance report needs a current-input rerun: '+file);
+ assert.equal(typeof balanced.reportMarkdown,'string');
+ await writeFile('docs/当前剧本经济运营验证.md',balanced.reportMarkdown);
+ console.log('Current economy balance report restored from verified original all-AI runs.');process.exit(0);
+}
 const base='outputs/scenario-economy',manifest=await json(`${base}/runtime-manifest.json`),runtime=manifest.runtimeDirectory,raw=`${runtime}/outputs/scenario-economy`;
 const names=(await readdir(raw)).filter(f=>/-360\.json$/.test(f)),runs=await Promise.all(names.map(f=>json(`${raw}/${f}`)));
 const warNames=(await readdir(`${raw}/warfare`)).filter(f=>/-180\.json$/.test(f)),warfare=await Promise.all(warNames.map(f=>json(`${raw}/warfare/${f}`)));
@@ -29,7 +38,7 @@ const scenarios=NATIONAL_SCENARIOS.map(spec=>{
 });
 const warningRow=r=>({scenario:r.scenario,name:r.name,seed:r.seed,reasons:r.reasons,operatingReasons:r.operatingReasons,resolvedDevelopmentShortage:r.resolvedDevelopmentShortage,firstReserveBlockDay:r.firstReserveBlockDay,lastReserveBlockDay:r.lastReserveBlockDay,tailReserveBlockedCityDays:r.tailReserveBlockedCityDays,finalUsableManpower:r.final.usableManpower});
 const result={createdAt:new Date().toISOString(),snapshotAt:manifest.createdAt,sourceDifferencesSinceSnapshot:changedSources,stableRuntimeDependencies:sources.size,naturalRuns:runs.length,warfareRuns:warfare.length,scenarioFactionPairs:covered.size,factionObservations:rows.length,aiObservations:aiRows.length,allRunsComplete:[...runs,...warfare].every(r=>r.complete),allNaturalDaysComplete:runs.every(r=>r.completedDay>=361),warnings:rows.filter(r=>r.reasons.length).map(warningRow),operatingWarnings:rows.filter(r=>r.operatingReasons.length).map(warningRow),resolvedDevelopmentShortages:rows.filter(r=>r.resolvedDevelopmentShortage).map(warningRow),scenarios,scope:'Natural operations use unchanged opening layouts and resources, two seeds and rotated selected rulers. Selected player delegates only domestic vacancies; all other factions use real AI. The supplementary warfare profile legally commands a selected player column and uses actual routes, resources, troop losses and saves. Territory losses and local supply incidents are separate from global warehouse totals. One year is not proof of indefinite monetary equilibrium.',sources:Object.fromEntries([...sources].sort().map(f=>[f,manifest.sources[f]]))};
-const economicCore=['economy.mjs','domestic.mjs','metropolitan-areas.mjs','strategic-campaign.mjs','strategic-ai.mjs','faction-affairs.mjs','diplomacy.mjs','diplomacy-relations.mjs','talent-core.mjs','talent-lifecycle.mjs','troop-training.mjs','troop-allocation.mjs','troop-capacity.mjs','support-rules.mjs','building-rules.mjs','city-personnel.mjs','national-scenarios.mjs','strategic-movement.mjs','data/design/economy-rules.mjs','data/design/domestic-actions.mjs','data/design/buildings.mjs','data/design/building-effects.mjs','data/design/metropolitan-areas.mjs','data/design/national-scenarios.mjs','data/design/reference-scenario.mjs','data/design/cities.mjs','data/design/atlas-cities.mjs','data/design/troops.mjs','data/design/roads.mjs','data/design/road-network.mjs','data/design/road-distances.mjs','data/design/diplomacy-rules.mjs','data/design/traits.mjs','work-traits.mjs','passives.mjs'];
+const economicCore=['officer-salaries.mjs','city-resources.mjs','city-budget.mjs','economy.mjs','economy.mjs','domestic.mjs','metropolitan-areas.mjs','strategic-campaign.mjs','strategic-ai.mjs','faction-affairs.mjs','diplomacy.mjs','diplomacy-relations.mjs','talent-core.mjs','talent-lifecycle.mjs','troop-training.mjs','troop-allocation.mjs','troop-capacity.mjs','support-rules.mjs','building-rules.mjs','city-personnel.mjs','national-scenarios.mjs','strategic-movement.mjs','data/design/economy-rules.mjs','data/design/domestic-actions.mjs','data/design/buildings.mjs','data/design/building-effects.mjs','data/design/metropolitan-areas.mjs','data/design/national-scenarios.mjs','data/design/reference-scenario.mjs','data/design/cities.mjs','data/design/atlas-cities.mjs','data/design/troops.mjs','data/design/roads.mjs','data/design/road-network.mjs','data/design/road-distances.mjs','data/design/diplomacy-rules.mjs','data/design/traits.mjs','work-traits.mjs','passives.mjs'];
 result.currentWorkspaceFullyVerified=changedSources.length===0;
 result.economicCoreSourceDifferences=changedSources.filter(f=>economicCore.includes(f));
 result.snapshotDependenciesUnchanged=changedSnapshotSources.length===0;
@@ -37,7 +46,20 @@ result.reportScope=process.argv.includes('--snapshot-only')?'fixed snapshot, wit
 await writeFile(`${base}/summary.json`,JSON.stringify(result,null,2));
 const commas=n=>Math.round(n).toLocaleString('en-US');
 const incomeParts=await json('outputs/economy-income-parts/scenario-followup.json').catch(e=>{if(e.code==='ENOENT')return null;throw e;});
+const payrollSummary=await json('outputs/economic-headroom-20261011/natural-payroll-summary.json').catch(e=>{if(e.code==='ENOENT')return [];throw e;});
+const payrollLines=[];
+for(const row of payrollSummary){
+ const run=await json(`outputs/economic-headroom-20261011/${row.directory}/campaign-audit.json`),differences=[];
+ for(const [file,hash] of Object.entries(run.sourceHashes))if(createHash('sha256').update(await readFile(file)).digest('hex')!==hash)differences.push(file);
+ const samples=run.citySamples.filter(c=>c.payroll&&c.day>1),paid=samples.reduce((n,c)=>n+c.payroll.lastPaid,0),arrears=samples.filter(c=>c.payroll.arrears>0).length;
+ payrollLines.push(`官渡全AI种子${run.metrics.seed}完成${run.metrics.requestedDays}天，实发${paid}金俸禄、${arrears}条旬采样欠俸、${run.metrics.cityHungerDays+run.metrics.armyHungerDays}条断粮、${run.metrics.newDepartures}次出征、${run.metrics.captures}次占城、${run.metrics.settledBattles}场战斗、${run.metrics.deterministicCheckpoints}处确定性续行。当前完整输入${differences.length?'仍有差异：'+differences.join('、'):'代码指纹一致'}。原始记录：outputs/economic-headroom-20261011/${row.directory}。`, '');
+}
 const lines=['# 当前七剧本经济运营验证','',
+ `当前新局逐城配置：大城${ECONOMY_RULES.opening.gold.large}金、${ECONOMY_RULES.opening.grain.large}粮、${ECONOMY_RULES.opening.manpower.large}预备兵；小城${ECONOMY_RULES.opening.gold.small}金、${ECONOMY_RULES.opening.grain.small}粮、${ECONOMY_RULES.opening.manpower.small}预备兵，初始驻军携粮沿共同库容归并。城市库存独立，势力合计不能跨城支付。`,
+ '',`在仕武将按实际等级1至10级每旬依次发${ECONOMY_RULES.maintenance.officerSalaryByLevel.join("、")}金，待命、出征与外派照付；不足记本城欠俸并补发，预算、提案及AI支出判断保留工资。资源军事估值只比较补兵与口粮，完整财政消耗另外计入实际工资。`,
+ '', '当前开局、工资、提案与受控战争成本审计见 npm run audit:economic-headroom、npm run test:economic-headroom 及 outputs/economic-headroom-20261011；原始全AI对局另存自然运行与代码指纹。下文年度输入的固定快照与当前源差异独立披露，不能把旧快照当作新开局和俸禄已通过年度验证。', '',
+ ...payrollLines,
+ ...(payrollLines.length?['无实际战斗的运行不能证明连续高战损或七剧本年度战争承载；受控压力消耗与自然战果独立记录。','']:[]),
  ...(incomeParts?.markdownLines||[]),
  '## 年度与真实出征的已记录输入','',
  `已记录的年度输入使用${runs.length}组360天自然运营和${warfare.length}组180天真实出征，覆盖${covered.size}个剧本／势力组合、${rows.length}组逐势力观测，其中${aiRows.length}组由正式AI管理。种子417选择曹操并委任真实内政，种子1709轮换为另一主要势力；每个势力都至少被正式AI管理一次。真实出征使用独立种子2027。`,
@@ -52,10 +74,10 @@ const lines=['# 当前七剧本经济运营验证','',
  '| 剧本 | 势力数 | 两组年度验收 | AI期末金范围 | 内政完成数 | AI建立军团数 | 自然战果节点 | 补充出征：军团／战斗 | 补充出征饥饿记录 |',
  '| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: |',
  ...scenarios.map(r=>`| ${r.name} | ${r.factions} | ${r.cases.every(c=>c.complete&&c.day>=361)?'完成':r.cases.map(c=>c.complete?'完成':'未通过').join('／')} | ${commas(r.aiGoldRange.min)}～${commas(r.aiGoldRange.max)} | ${commas(r.domesticCompleted)} | ${r.naturalDepartures} | ${r.naturalBattleEvents} | ${r.warfare.departures}／${r.warfare.battles} | ${r.warfare.hungerDays} |`),
- '', '表中内政完成数包含不同实际命令，不等同于新增资源次数；军团建立数包含集结和空城占领，不能冒充持续战争。金为势力唯一府库；粮和储备兵同时记录城仓及在途货物，城仓转为携粮不计为实际消耗。',
+ '', '表中内政完成数包含不同实际命令，不等同于新增资源次数；军团建立数包含集结和空城占领，不能冒充持续战争。金、粮和储备兵按城市保存，势力数字仅为合计；在途货物另记，城仓转为携粮不计为实际消耗。',
  '', '## 城市收入上限与内政产能','',
  '本轮加入城市圈与本地上限：经济设施小城2级、普通大城本地3级、富城本地6级，都市圈单类总量最多12。圈内小城、关卡、港口按类型限制建设，小城原有设施与主城外建共用物理位置容量。道路不通或外部小城归敌时，相应设施不产出；失守设施移交实际小城，不重复结算。',
- '', '直接商业、督耕与未编制兵源按每城每类每旬共享价值额度100＋有效设施等级×50结算，多人、协作与特性不能无限增加本地资源。已用额度保存到当前版本存档；进入下一旬后才恢复，查看和读档不会刷新。自动整补预计实际农业人员的受限产量和真实可动用库存，玩家手动编制仍只花金与兵源。',
+ '', '直接商业、督耕与未编制兵源按每城每类每旬共享价值额度150＋有效设施等级×75结算，多人、协作与特性不能无限增加本地资源。已用额度保存到当前版本存档；进入下一旬后才恢复，查看和读档不会刷新。自动整补预计实际农业人员的受限产量和真实可动用库存，玩家手动编制仍只花金与兵源。',
  '', '四类成熟城市的产出上限、32独立种子的限额收益及120天受控高低战损对照见[单城资源与经济平衡](单城资源与经济调整-2026-09-22.md)和 outputs/metropolitan-economy/results.json。成熟收入是生产上限，受控战损是压力输入，不冒充本表的实际战斗。常规消耗复测维持金1、粮0.13、储备兵0.34基准。',
  '', `经济核心输入与当前工作区${result.economicCoreSourceDifferences.length?'存在差异：'+result.economicCoreSourceDifferences.join('、')+'。':'一致。'}本轮收入拆分和工程延期的独立诊断、逐日复测范围见前节；全体依赖是否一致仍以上方完整差异为准，同期战斗规则改动不计入年度快照的战果与存档验证。`,
  '', '## 已接入的运营修复','',

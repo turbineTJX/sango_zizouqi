@@ -20,7 +20,7 @@ test('advanced Valor activates immediately and follows live tiers without stack 
  const s=scene(bondLineup('bondValor',['吕布','马超','典韦','许褚'])),b=s.battle,u=b.sides[0].units[0];
  const enemy=b.sides[1].units[0];u.intent=90;enemy.intent=30;
  assert.equal(sideBonds(b,0).bondValor.tier,3);assert.equal(bondDamageImmunity(b,u,enemy),1);assert.equal(bondAttributes(b,u).attackSpeed,undefined);
- b.sides[0].units[3].status='reserve';assert.equal(bondDamageImmunity(b,u,enemy),.45);
+ b.sides[0].units[3].status='reserve';assert.equal(bondDamageImmunity(b,u,enemy),.65);
  assert.ok(validBondState(u));u.bondState.valorStacks=1;assert.equal(validBondState(u),false);
 });
 test('basic Valor has no accumulating or once-only attack records in real combat',()=>{
@@ -65,5 +65,5 @@ test('advanced validation rejects point inflation and weak fillers even when the
 });
 
 test('one Peach member has a real first-tier discipline benefit and no damage-sharing partners',()=>{
- for(const side of [0,1]){const s=scene(['刘备'],side),b=s.battle,u=b.sides[side].units[0];assert.deepEqual(sideBonds(b,side).bondPeach,{points:1,tier:1});assert.ok(Math.abs(unitAttributes(u,b).discipline/unitAttributes(u).discipline-1.1)<1e-10);assert.deepEqual(b.sides[side].bondPeach.members,[]);assert.doesNotThrow(()=>validateSave(structuredClone(s)));}
+ for(const side of [0,1]){const s=scene(['刘备'],side),b=s.battle,u=b.sides[side].units[0];assert.deepEqual(sideBonds(b,side).bondPeach,{points:1,tier:1});assert.ok(Math.abs(unitAttributes(u,b).discipline/unitAttributes(u).discipline-1.15)<1e-10);assert.deepEqual(b.sides[side].bondPeach.members,[]);assert.doesNotThrow(()=>validateSave(structuredClone(s)));}
 });

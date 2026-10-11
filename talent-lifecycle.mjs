@@ -1,3 +1,5 @@
+import {workProfile,workQuantity} from './work-traits.mjs';
+import {ACTIONS} from './domestic-designs.mjs';
 import {mapNode,mapNodes,isJunction} from './road-network.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
 import {retainFactionMerit,meritChangeText,PROGRESSION} from './progression.mjs';
@@ -91,7 +93,7 @@ export function completeTalentProject(s,a,c,factor){
  if(actor?.mission&&actual!==actor.mission.location){p.state='PAUSED';p.reason='range';return {actual:0,details:'接洽对象已经离开，未产生远程接洽进度'};}
  const check=talentEligibility(s,p.personId,c.owner,c.id,p.mode);
  if(!check.ok||(p.mode==='persuade'&&servingPeople(s).get(p.personId)?.faction!==p.targetFaction)){p.state='PAUSED';p.reason=check.ok?'invalid':check.reason;return {actual:0,details:`接洽中止：${TALENT_REASONS[p.reason]}，不退已付费用`};}
- const gain=Math.min(progressFor(factor),Math.max(0,projectNeed(p.personId,p.mode)-p.progress));p.progress+=gain;p.lastContactDay=day(s);p.lastDecayDay=day(s);
+ const gain=Math.min(Math.floor(progressFor(factor)*workQuantity(factor,workProfile(a.action.traitIds,ACTIONS[a.action.key]))),Math.max(0,projectNeed(p.personId,p.mode)-p.progress));p.progress+=gain;p.lastContactDay=day(s);p.lastDecayDay=day(s);
  p.nextAttemptDay=day(s)+(factor<1?(p.mode==='hire'?20:30):0)+1;
  if(gain&&a.officerId!==p.personId){const info=relationshipInfo(a.officerId,p.personId,s.relationshipScores,s.relationshipTypes);if(info.type!=='disliked'&&info.score<65)changeRelationshipScore({relationshipScores:s.relationshipScores,relationshipTypes:s.relationshipTypes},a.officerId,p.personId,1);}
  return {actual:gain,details:`接洽进度+${gain}（${p.progress}/${projectNeed(p.personId,p.mode)}）${p.progress>=projectNeed(p.personId,p.mode)?'，等待旬末统一签约':factor<1?'，进入接洽冷却':''}`};
@@ -152,6 +154,9 @@ function moveFreePerson(s,p){
 }
 function freeOfficer(s,o,{hardDays=60,defeat=null}={}){
  const t=data(s),r=record(s,o.unit.id);s.campaign.idle=s.campaign.idle.filter(x=>x!==o);
+ // A former employee cannot retain a staffing promise after leaving service.
+ // Release it in this transition so a same-day year-end save remains valid.
+ if(s.campaign.ai)s.campaign.ai.staffing=s.campaign.ai.staffing.filter(p=>p.officerId!==o.unit.id);
  if(s.campaign.domestic.people.some(p=>p.id===o.unit.id))throw new Error('人物重复转为在野');
  s.campaign.domestic.people.push({id:o.unit.id,cityId:o.location,status:'FREE',debutDay:day(s),travel:null,unit:o.unit});
  Object.assign(r,{phase:'WAIT',phaseUntilDay:day(s)+hardDays+1,hardWaitUntilDay:day(s)+hardDays+1,idleDays:0,idleTurns:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null});

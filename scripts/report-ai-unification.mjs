@@ -1,0 +1,12 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+const root=resolve('work/ai-unification-20261010'),out=join(root,'guandu-200-20261010');
+const load=file=>readFile(file,'utf8').then(text=>JSON.parse(text.replace(/^\uFEFF/,'')));
+const [config,failure,diagnosis,recordFailure,sourceVerification,indexVerification,stockTrace]=await Promise.all([
+ load(join(out,'run-config.json')),load(join(out,'failure.json')),load(join(out,'checkpoint-diagnosis.json')),load(join(out,'record-failure-diagnosis.json')),load(join(out,'source-verification.json')),load(join(root,'query-index-verification.json')),load(join(out,'stock-cap-trace.json'))
+]);
+const progress=(await readFile(join(out,'progress.jsonl'),'utf8')).trim().split(/\r?\n/).map(row=>JSON.parse(row)),last=progress.at(-1);
+const reasons=diagnosis.reasons,blocked=Object.fromEntries(reasons.map(([key,count])=>[key.split(':')[0],count]));
+const result={status:'failed-save-validation',unified:false,winner:null,scenario:config.scenario,scenarioName:config.scenarioName,seed:config.seed,rulesVersion:config.rulesVersion,sourceHash:config.sourceHash,sourceVerification,startUTC:config.startUTC,startDay:config.startDay,stoppedDay:failure.day,elapsedGameDays:failure.day-config.startDay,requestedDays:config.requestedDays,wallSeconds:failure.seconds,territory:failure.territory,lastCaptureDay:failure.lastCaptureDay,lastBattleDay:failure.lastBattleDay,lastDepartureDay:failure.lastDepartureDay,quietDays:failure.day-Math.max(failure.lastCaptureDay,failure.lastBattleDay,failure.lastDepartureDay),lastSuccessfulProgress:last,recentAdmission:{total:reasons.reduce((n,[,count])=>n+count,0),byStage:blocked,reasons},failure,recordFailure,stockTrace,indexVerification,scope:'Original frozen ordinary campaign ran from a fresh start and stopped at a failed save-validation check. The 3600-day window was not completed. Index-only copies were used for independent diagnostics and state-equivalence tests, not as a completed unification experiment.'};
+await writeFile(join(out,'attempt-result.json'),JSON.stringify(result,null,2));
+console.log(JSON.stringify({status:result.status,unified:result.unified,stoppedDay:result.stoppedDay,elapsedGameDays:result.elapsedGameDays,wallSeconds:result.wallSeconds,quietDays:result.quietDays,territory:result.territory,sourceChanged:sourceVerification.mismatches.length>0,indexComparisonPassed:indexVerification.status==='passed'}));

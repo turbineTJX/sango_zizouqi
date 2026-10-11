@@ -14,6 +14,17 @@ const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'42
 try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('UI server exited: '+code)));});
  browser=await chromium.launch({channel:'msedge',headless:true});page=await browser.newPage({viewport:{width:1440,height:1000}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const opening=await browser.newPage({viewport:{width:1440,height:1000}});opening.on('pageerror',e=>errors.push(e.message));
+ await opening.addInitScript(()=>localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]})));
+ await opening.goto('http://127.0.0.1:4297/');await opening.locator('[data-action="strategy"]').click();
+ await opening.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();
+ await opening.locator('button[data-action="select-national-faction"][data-faction="cao"]').click();await opening.locator('[data-action="launch-national"]').click();
+ await opening.locator('.sovereign-hud').waitFor();assert.equal(await opening.locator('.modal-backdrop').count(),0);assert.equal(await opening.locator('.city-budget-alerts').count(),0);
+ const openingSave=await opening.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ assert.ok(openingSave.cities.filter(c=>c.owner==='cao').every(c=>c.gold>=5000&&c.gold>c.budget.goldReserve));assert.ok(!openingSave.campaign.activity.nodes.some(n=>n.phase==='budget-warning'));
+ await opening.screenshot({path:out+'/opening-desktop.png'});await opening.setViewportSize({width:390,height:844});await opening.screenshot({path:out+'/opening-mobile.png'});
+ await opening.reload();await opening.locator('.sovereign-hud').waitFor();assert.equal(await opening.locator('.modal-backdrop').count(),0);await opening.close();
+ await page.addInitScript(()=>localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]})));
  await page.addInitScript(raw=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},raw);
  await page.goto('http://127.0.0.1:4297/#strategy');await page.locator('.strategy-world').waitFor();
  assert.match(await page.locator('.sovereign-resources').innerText(),/各城金合计/);
@@ -22,7 +33,7 @@ try{
  if(await page.locator('.modal-backdrop').isVisible()){assert.match(await page.locator('.modal-backdrop').innerText(),/钱粮预算不足/);await page.screenshot({path:out+'/report.png'});await page.locator('.modal-backdrop [data-action="close"]').last().click();}
  if(!await page.locator('.strategy-panel').isVisible())await page.locator('[data-action="map-panel-toggle"]').first().click();
  const budget=page.locator('.strategy-panel [data-city-budget="xuchang"]');await budget.waitFor();
- assert.match(await budget.innerText(),/预计收入/);assert.match(await budget.innerText(),/金不足/);assert.match(await budget.innerText(),/粮不足/);
+ assert.match(await budget.innerText(),/预计收入/);assert.match(await budget.innerText(),/预留金尚差/);assert.match(await budget.innerText(),/粮不足/);assert.match(await budget.innerText(),/官员俸禄.*金／旬/);assert.match(await budget.innerText(),/按实际等级每旬 5—100 金/);
  const stored=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));await page.screenshot({path:out+'/desktop.png'});await budget.scrollIntoViewIfNeeded();await page.screenshot({path:out+'/desktop-budget.png'});
  await page.setViewportSize({width:390,height:844});await budget.scrollIntoViewIfNeeded();
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await page.screenshot({path:out+'/mobile.png'});
@@ -31,6 +42,6 @@ try{
  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).cities.find(c=>c.id==='xuchang').budget.goldReserve===900);
  const changed=JSON.parse(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')));assert.equal(changed.cities.find(c=>c.id==='xuchang').gold,200);assert.equal(changed.cities.find(c=>c.id==='chenliu').budget.goldReserve,500);
  await page.reload();await page.locator('.strategy-world').waitFor();assert.equal(await page.locator('.strategy-world [data-city="xuchang"] .map-city-soldiers text').textContent(),'3,000 / 9,000');
- assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,errors,checks:['local stores and totals','city warnings','live / total soldier label','desktop','mobile overflow','read-only browsing','local budget changes and save']},null,2));
- console.log('PASS city budgets, shortages, soldier labels, desktop/mobile and save');
+ assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,errors,checks:['opening and reload without reserve reports','local stores and totals','real shortage warnings and inline reserve gaps','live / total soldier label','desktop','mobile overflow','read-only browsing','local budget changes and save']},null,2));
+ console.log('PASS opening without reserve reports, real shortages, city budgets, soldier labels, desktop/mobile and save');
 }catch(e){if(page){await page.screenshot({path:out+'/failure.png'});console.log((await page.locator('body').innerText()).slice(0,1800));}throw e;}finally{await browser?.close();server.kill();}

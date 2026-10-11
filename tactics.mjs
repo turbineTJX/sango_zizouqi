@@ -238,6 +238,14 @@ export function tacticOpening(b,s,target){
   const highIntent=!!s.highIntent&&target.intent>=s.highIntent.threshold;
   return {setup,highIntent,scale:(setup?s.exploit.scale||0:0)+(highIntent?s.highIntent.scale||0:0),drain:highIntent?s.highIntent.drain||0:0};
 }
+export function famousIntentTargets(b,u,s){
+ const candidates=living(b,u.side).filter(a=>a!==u&&(s.allyIntentScope==='army'?!!u.armyId&&a.armyId===u.armyId:distance(u,a)<=s.allyRange)&&a.intent<COMBAT.intentCap);
+ if(s.allyIntentPriority==='tacticThreshold'){
+  const gap=a=>Math.min(...unitTactics(a).filter(t=>!t.passive&&tacticUsesLeft(a,t)>0&&t.threshold>a.intent).map(t=>t.threshold-a.intent));
+  return candidates.map(unit=>({unit,gap:gap(unit)})).filter(p=>Number.isFinite(p.gap)).sort((a,c)=>a.gap-c.gap||idOrder(a.unit,c.unit)).slice(0,s.allyTargets).map(p=>p.unit);
+ }
+ return candidates.sort((a,c)=>a.intent-c.intent||idOrder(a,c)).slice(0,s.allyTargets);
+}
 // Suppression must threaten a remaining tactic, not an exhausted intent bar.
 export function undermineTargets(b,u,s,target){
   const eligible=e=>isTargetable(b,e)&&!e.isDecoy&&!hasStatus(b,e,'magicImmune')&&e.intent>0&&unitTactics(e).some(t=>tacticUsesLeft(e,t)>0);

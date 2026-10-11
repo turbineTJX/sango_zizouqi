@@ -8,13 +8,12 @@ export function syncResourceTotals(s){
  s.gold=cities.reduce((n,c)=>n+c.gold,0);
  s.grain=Math.floor(cities.reduce((n,c)=>n+c.grain,0));
 }
-export function initializeCityResources(s,openingGold){
- for(const faction of new Set(s.cities.map(c=>c.owner))){
-  const cities=s.cities.filter(c=>c.owner===faction),weight=cities.reduce((n,c)=>n+(c.citySize==='small'?1:2),0);
-  let remaining=openingGold;
-  cities.forEach((c,i)=>{c.gold=i===cities.length-1?remaining:Math.floor(openingGold*(c.citySize==='small'?1:2)/weight);remaining-=c.gold;
-   c.budget={goldReserve:ECONOMY_RULES.budget.goldReserve,grainReserve:ECONOMY_RULES.budget.grainReserve,warning:'',warningSequence:0};
-  });
+export function initializeCityResources(s){
+ for(const c of s.cities){
+  const size=c.citySize==='small'?'small':'large';
+  for(const key of ['gold','grain','manpower'])c[key]=ECONOMY_RULES.opening[key][size];
+  c.budget={goldReserve:ECONOMY_RULES.budget.goldReserve,grainReserve:ECONOMY_RULES.budget.grainReserve,warning:'',warningSequence:0};
+  c.payroll={arrears:0,lastTurn:0,lastDue:0,lastPaid:0};
  }
  syncResourceTotals(s);
 }

@@ -1,5 +1,6 @@
 import {BOND_DESIGNS as D} from './data/design/bonds.mjs';
 import {TACTIC_DESIGNS as T} from './data/design/tactics.mjs';
+import {setStatus} from './tactics.mjs';
 const field=u=>u.status==='active'&&u.hp>0&&!u.isDecoy;
 const peach=u=>u.bondGrowth?.levels?.bondPeach>0;
 export const peachInvincible=(b,u)=>(u.statuses?.peachInvincible?.until||0)>b.tick;
@@ -10,7 +11,17 @@ export function splitPeachDamage(total,units,capacity){const shares=new Map(unit
 export function settlePeach(b,api){syncPeach(b);for(const side of b.sides){const s=side.bondPeach;if(!s)continue;const fallen=side.units.filter(u=>s.members.includes(u.id)&&u.hp<=0&&u.status==='defeated').map(u=>u.id).sort();if(fallen.length<=s.defeated.length)continue;s.defeated=fallen;for(const u of side.units.filter(u=>field(u)&&s.members.includes(u.id))){api.status(u,'peachFury',D.bondPeach.furySteps);if(s.triple&&fallen.length===2)api.status(u,'peachInvincible',D.bondPeach.invincibleSteps);api.signal(u,s.triple&&fallen.length===2?'桃园 · 独存无敌':'桃园 · 奋战');}}}
 export function grantReserveEntries(b,pending,side){const army=b.sides[side],d=D.bondReserve;if(!army.bondReserve){const starters=army.units.filter(field).map(u=>u.id);const points=army.units.filter(field).reduce((n,u)=>n+(u.bondGrowth?.levels?.bondReserve||0),0),tier=d.thresholds.filter(n=>points>=n).length;army.bondReserve={tier,starters,awarded:[]};return;}
  const s=army.bondReserve,limit=d.slots[s.tier-1]||0;
- for(const u of pending){if(s.awarded.length>=limit)break;if(s.starters.includes(u.id)||s.awarded.some(a=>a.id===u.id))continue;const skill=s.tier===d.thresholds.length?(u.tactics||[]).find(id=>T[id]?.learningTier==='low'&&!T[id].special&&!T[id].passive&&!T[id].useEffect):null;s.awarded.push({id:u.id,tick:b.tick,skill:skill||null});u.intent=Math.min(100,(u.intent||0)+d.intent);u.statuses ||= {};for(const key of ['haste','attackHaste'])u.statuses[key]={...u.statuses[key],until:Math.max(u.statuses[key]?.until||0,b.tick+d.entrySteps+1),sourceId:u.id,sourceName:u.name,sourceSkillName:'蓄锐'};if(skill){u.tacticUseBonus ||= {};u.tacticUseBonus[skill]=Math.max(1,u.tacticUseBonus[skill]||0);}}
+ for(const u of pending){
+  if(s.awarded.length>=limit)break;
+  if(s.starters.includes(u.id)||s.awarded.some(a=>a.id===u.id))continue;
+  const skill=s.tier===d.thresholds.length?(u.tactics||[]).find(id=>T[id]?.learningTier==='low'&&!T[id].special&&!T[id].passive&&!T[id].useEffect):null;
+  s.awarded.push({id:u.id,tick:b.tick,skill:skill||null});
+  const tier=s.tier-1,steps=d.entrySteps[tier],source={sourceId:u.id,sourceName:u.name,sourceSkillName:d.name};
+  u.intent=Math.min(100,(u.intent||0)+d.intent[tier]);
+  for(const key of ['haste','attackHaste'])setStatus(b,u,key,steps,source);
+  setStatus(b,u,'shield',steps,{...source,amount:Math.floor(u.maxHp*d.entryShield[tier]),source:u.id+':bondReserve',label:d.name});
+  if(skill){u.tacticUseBonus ||= {};u.tacticUseBonus[skill]=Math.max(1,u.tacticUseBonus[skill]||0);}
+ }
 }
 export function validReserveState(b,side){const s=side.bondReserve;if(!b.deploymentLocked)return s===undefined;if(!s||Object.keys(s).length!==3||!Number.isInteger(s.tier)||s.tier<0||s.tier>3||!Array.isArray(s.starters)||new Set(s.starters).size!==s.starters.length||s.starters.some(id=>!side.units.some(u=>u.id===id))||!Array.isArray(s.awarded)||s.awarded.length>(D.bondReserve.slots[s.tier-1]||0)||new Set(s.awarded.map(a=>a.id)).size!==s.awarded.length)return false;const points=side.units.filter(u=>s.starters.includes(u.id)).reduce((n,u)=>n+(u.bondGrowth?.levels?.bondReserve||0),0);if(D.bondReserve.thresholds.filter(n=>points>=n).length!==s.tier)return false;return s.awarded.every(a=>{const u=side.units.find(u=>u.id===a.id),skill=s.tier===3?(u?.tactics||[]).find(id=>T[id]?.learningTier==='low'&&!T[id].special&&!T[id].passive&&!T[id].useEffect):null;return Object.keys(a).length===3&&u&&!s.starters.includes(a.id)&&Number.isInteger(a.tick)&&a.tick>=0&&a.tick<=b.tick&&u.bondEntry?.tick===a.tick&&a.skill===(skill||null)&&(!a.skill||u.tacticUseBonus?.[a.skill]===1);});}
 export function validPeachState(b,side){const s=side.bondPeach;if(!b.deploymentLocked)return s===undefined;if(!s||Object.keys(s).length!==3||!Array.isArray(s.members)||s.members.length>3||s.members.length===1||new Set(s.members).size!==s.members.length||s.members.some(id=>!side.units.some(u=>u.id===id&&peach(u)))||typeof s.triple!=='boolean'||s.triple&&s.members.length!==3||!Array.isArray(s.defeated)||new Set(s.defeated).size!==s.defeated.length)return false;return s.defeated.every(id=>s.members.includes(id)&&side.units.some(u=>u.id===id&&u.hp===0&&u.status==='defeated'))&&side.units.filter(u=>s.members.includes(u.id)&&u.status==='defeated'&&u.hp===0).length===s.defeated.length;}

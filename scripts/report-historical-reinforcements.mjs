@@ -13,9 +13,10 @@ import {sourceHash} from './basic-balance-lib.mjs';
 
 const path='outputs/historical-reinforcements/final-results.json',data=JSON.parse(readFileSync(path,'utf8'));
 assert.equal(data.rulesVersion,RULES_VERSION,'请重新运行当前规则验证');
+assert.equal(data.controller,'common-battle-councils-v1','双AI必须使用共同战前军议');
 assert.equal(data.sourceHash,sourceHash(),'运行时数据已变化，请重新验证');
 assert.ok(data.seeds.length>=8&&data.seeds.every(s=>!DEV_SEEDS.includes(s)),'至少八个独立种子');
-const summaries=[];
+const summaries=[],balanceWarnings=[],diagnostic=process.argv.includes('--diagnostic');
 for(const h of HISTORICAL_BATTLES){
  const draft=historicalBattleDraft(h.id),rows=data.rows.filter(r=>r.id===h.id),forces=[0,1].map(side=>customBattleTotals(draft,side)),quality=[0,1].map(side=>officerQuality(customSideEntries(draft,side)));
  assert.deepEqual(data.drafts[h.id],draft,'验证配置与当前模板不同');assert.equal(rows.length,data.seeds.length*2);
@@ -36,13 +37,16 @@ for(const h of HISTORICAL_BATTLES){
  const wins=[0,1].map(side=>rows.filter(r=>r.originalWinner===side).length),draws=rows.filter(r=>r.originalWinner===null).length;
  if(h.expectedWinner===null){
   for(const key of ['troops','units','reinforcementUnits'])assert.equal(forces[0][key],forces[1][key]);
-  assert.ok(wins.every(n=>n/rows.length<=.7),'五丈原单方优势超过均势观察范围');
+  if(!wins.every(n=>n/rows.length<=.7))balanceWarnings.push(`五丈原：蜀军${wins[0]}胜、魏军${wins[1]}胜，单方优势超过七成均势观察线`);
  }else{
-  assert.ok(wins[h.expectedWinner]/rows.length>=.7,h.name+'历史胜方不足七成');assert.ok(quality[h.expectedWinner]>quality[1-h.expectedWinner]);
+  if(wins[h.expectedWinner]/rows.length<.7)balanceWarnings.push(h.name+'历史胜方不足七成');assert.ok(quality[h.expectedWinner]>quality[1-h.expectedWinner]);
   for(const key of ['troops','units','reinforcementUnits'])assert.ok(forces[h.numericalSide][key]>forces[1-h.numericalSide][key]);
  }
  summaries.push({h,draft,rows,forces,quality,wins,draws});
 }
+// A failed balance check must remain a failure. Diagnostic mode updates stale
+// reports with the actual failed results while still returning a nonzero status.
+if(balanceWarnings.length&&!diagnostic)throw Error('平衡观察未通过：'+balanceWarnings.join('；')+'。使用 --diagnostic 可导出失败诊断，不表示验收通过。');
 const number=n=>n.toLocaleString('en-US'),force=f=>`${number(f.troops)}／${f.units}／${f.reinforcementUnits}`;
 const score=s=>s.h.expectedWinner===null?`蜀军${s.wins[0]}胜、魏军${s.wins[1]}胜、${s.draws}平`:`${s.h.expectedWinner?s.h.enemyName:s.h.ownName} ${s.wins[s.h.expectedWinner]}胜、${s.wins[1-s.h.expectedWinner]}败、${s.draws}平`;
 const range=values=>Math.min(...values)+'～'+Math.max(...values);
@@ -51,7 +55,9 @@ const schedule=s=>{const units=customParticipants(s.draft).map(u=>({...u,name:OF
 const table=(heads,rows)=>'| '+heads.join(' | ')+' |\n| '+heads.map(()=>'---').join(' | ')+' |\n'+rows.map(r=>'| '+r.join(' | ')+' |').join('\n')+'\n';
 let doc=`# 历史战役兵力、援军与玩家操作（规则${RULES_VERSION}）
 
-六张历史地图均使用自定义生成器及现有战斗规则，全员10级，每军团最多十队，全场武将唯一。用户确认按游戏尺度压缩兵力差距，保留数量劣势及历史胜方的武将优势；五丈原保留均势对峙。预期胜方只是验证元数据，不参与结算。
+六张历史地图均使用自定义生成器及现有战斗规则，全员10级，每军团最多十队，全场武将唯一。用户确认按游戏尺度压缩兵力差距，保留数量劣势及历史胜方的武将优势；五丈原采用相等兵力、队数与援军队数，不指定胜方。预期胜方只是验证元数据，不参与结算。
+
+${balanceWarnings.length?'本轮机制与确定性续战检查通过，但平衡观察未通过：'+balanceWarnings.join('；')+'。下表保留当前真实结果，不能宣称已经实现均势。':'本轮机制与历史方向、均势观察检查通过。'}
 
 ## 当前参战规模
 
@@ -87,7 +93,7 @@ ${summaries.map(s=>'### '+s.h.name+'\n\n'+s.h.designNote+'\n\n'+s.h.sources.map(
 
 下邳吕军${force(summaries[0].forces[0])}、曹刘联军${force(summaries[0].forces[1])}。开战前可合法改兵种、分兵、任职、首发、布阵和后备；原名单的倾国、护卫、勇武与疾驰仍受在场名额、适性和存活限制。援军抵达后的军议只改后备顺序与撤离，在场部队、意图与地形锁定，不推进时间或恢复资源。
 
-当前验证证明双AI历史方向及机制合法性，尚未验证具体玩家翻盘方案的胜率。运行 npm run audit:historical-reinforcements 和 npm run report:historical-reinforcements 复核当前配置与运行时哈希；数据变化必须重新验证。npm run test:historical-reinforcements 检查规则、条件和续战，npm run verify:battle-events-ui 与 npm run verify:custom-reinforcements-ui 检查编辑、核阅、换边、移动端及到达军议。
+当前验证确认双方共用战前军议、真实援军、事件与确定性续战；平衡检查结论见文首，尚未验证具体玩家翻盘方案的胜率。运行 npm run audit:historical-reinforcements 和 npm run report:historical-reinforcements 复核当前配置与运行时哈希；数据变化必须重新验证。平衡未通过时可运行 node scripts/report-historical-reinforcements.mjs --diagnostic 更新失败诊断，仍返回非零状态，不作为平衡通过。npm run test:historical-reinforcements 检查规则、条件和续战，npm run verify:battle-events-ui 与 npm run verify:custom-reinforcements-ui 检查编辑、核阅、换边、移动端及到达军议。
 `;
 writeFileSync('docs/玩家布阵与羁绊强度-下邳.md',doc);
 writeFileSync('docs/多战役玩家操作空间实测.md',`# 多战役玩家操作与验证
@@ -98,4 +104,5 @@ scripts/historical-player-lab.mjs 与 scripts/xiapi-player-lab.mjs 使用真实�
 
 方案强度须用同预算双AI对照、固定开发种子及独立验证种子，记录实际触发、败局、平局和续战，不能把混合调整全部归因于羁绊。当前未报告新版玩家方案的推荐胜率；五丈原不指定蜀魏任一方应胜。
 `);
-console.log(JSON.stringify({rulesVersion:RULES_VERSION,games:data.rows.length,accepted:true,results:summaries.map(s=>({id:s.h.id,wins:s.wins,draws:s.draws}))}));
+console.log(JSON.stringify({rulesVersion:RULES_VERSION,games:data.rows.length,mechanismsPassed:true,accepted:balanceWarnings.length===0,balanceWarnings,results:summaries.map(s=>({id:s.h.id,wins:s.wins,draws:s.draws}))}));
+if(balanceWarnings.length)process.exitCode=1;

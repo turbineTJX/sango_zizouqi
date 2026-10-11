@@ -10,7 +10,7 @@
 | 一览表 | 正式设计源 | 当前范围 |
 | --- | --- | --- |
 | [特技一览表](特技一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 当前接入67项特性（52普通、15专属） |
-| [内政命令特性](内政命令特性一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 已接入40项，限定现有命令的效果与结算；持有者见正式分配 |
+| [内政命令特性](内政命令特性一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 已接入50项，修改既有命令的实际成果、工期或费用；持有者见正式分配 |
 | [战法一览表](战法一览表.md) | [tactics.mjs](../../data/design/tactics.mjs) | 75项效果定义；标明当前携带兵种／16名将专属／未配置效果库，以及门槛、冷却、次数和效果参数 |
 | [军略一览表](军略一览表.md) | [stratagems.mjs](../../data/design/stratagems.mjs) | 20项；效果、持续时间、普通／专属池、专属来源 |
 | [兵种一览表](兵种一览表.md) | [troops.mjs](../../data/design/troops.mjs) | 9种；基础属性、攻城系数、克制 |
@@ -22,6 +22,7 @@
 | [城市建筑](建筑一览表.md) | [buildings.mjs](../../data/design/buildings.mjs) | 9种；名称、方向、费用、工期 |
 | [大地图道路](大地图道路一览表.md) | [roads.mjs](../../data/design/roads.mjs) | 全国280条、入门16条连接；含实际野外路口，行程长度独立维护 |
 | [移动规则](移动规则一览表.md) | [movement-rules.mjs](../../data/design/movement-rules.mjs) | 道路代价、军团及人才运输移动参数 |
+| [战场地图](战场地形与地图模板一览表.md) | [battle-maps.mjs](../../data/design/battle-maps.mjs)、[battle-terrain.mjs](../../data/design/battle-terrain.mjs) | 已接入15张普通地图、6张历史地图；实际地形、山壁与通路 |
 | 内部设计备注 | [notes.mjs](../../data/design/notes.mjs) | 稀有度、设计定位、理由、后续待办；不被游戏导入 |
 | [历史战役与援军](历史战役与援军一览表.md) | [historical-battles.mjs](../../data/design/historical-battles.mjs) | 六张历史地图、双方真实先遣及援军军团，共用自定义生成器；每军团最多十队 |
 | [战役预设](战役预设一览表.md) | [battles.mjs](../../data/design/battles.mjs) | 当前无旧预设；独立入口使用自定义编辑器和历史地图模板 |

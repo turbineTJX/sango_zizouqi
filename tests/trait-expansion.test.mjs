@@ -29,26 +29,26 @@ function fixture(key,id,seed=71){
  return {s,c,u,a,key,actionId:a.action.id};
 }
 function finish(f){const duration=f.a.action.remaining;for(let i=0;i<duration&&f.a.action?.id===f.actionId;i++){f.s.campaign.day++;finishDomesticDay(f.s);}return f.s.campaign.domestic.events.find(e=>e.actionId===f.actionId&&e.result.factor!==undefined);}
-test('40 work traits have real holders, matching command snapshots and no new commands',()=>{
- const pool=Object.entries(traits).filter(([,t])=>t.work);assert.equal(pool.length,40);assert.equal(Object.keys(ACTIONS).length,40);
+test('50 work traits have real holders, matching command snapshots and no new commands',()=>{
+ const pool=Object.entries(traits).filter(([,t])=>t.work);assert.equal(pool.length,50);assert.equal(Object.keys(ACTIONS).length,43);
  for(const [id,t]of pool){assert.ok(holders(id).length);if(t.tier==='专属')assert.equal(holders(id).length,1);for(const key of t.work.actions){assert.ok(taskTraits({id:holders(id)[0]},ACTIONS[key]).includes(id));const other=Object.values(ACTIONS).find(d=>!t.work.actions.includes(d.id));assert.ok(!taskTraits({id:holders(id)[0]},other).includes(id));}assert.ok(traitExpansionMarkdown().includes(t.name));}
  const bad=structuredClone(DESIGN_TABLES);bad.traits.marketYield.work.actions=['new-command'];assert.ok(validateDesignTables(bad).some(e=>e.includes('未知或重复内政命令')));
 });
 test('real automatic commands apply output, temporary duration, discounts and repair',()=>{
  for(const [trait,key,check]of [
- ['marketYield','fair',(f,e)=>assert.equal(e.result.actual,Math.min(cityWorkLimit(f.s,f.c,'gold'),Math.round(Math.round(ACTIONS.fair.value*e.result.factor*(.7+f.u.politics/150))*(e.result.factor>=1?1.25:1))))],
- ['farmYield','cultivate',(f,e)=>assert.ok(e.result.actual>0&&e.result.actual<=cityWorkLimit(f.s,f.c,'grain'))],
- ['merchantReach','merchants',(f,e)=>assert.equal(f.c.domestic.effects.find(x=>x.key==='gold').untilTurn,Math.floor((f.s.campaign.day-1)/10)+4)],
- ['partnershipDeal','partnership',(f,e)=>assert.equal(f.c.domestic.effects.find(x=>x.key==='discount:commerce').amount,Math.round((.2*e.result.factor+.1)*10000)/10000)],
- ['wallRepair','repair',(f,e)=>assert.equal(e.result.actual,Math.round(3000*e.result.factor*1.3))],
- ['patrolReadiness','patrol',(f,e)=>assert.equal(f.c.domestic.preparation.shield.until,f.s.campaign.day+45)],
- ['zhouDrill','exercise',(f,e)=>{assert.equal(f.c.domestic.preparation.intent.until,f.s.campaign.day+60);assert.equal(f.c.domestic.preparation.intent.amount,Math.min(15,12*e.result.factor*1.25));}],
- ['caoFortress','fortify',(f,e)=>assert.equal(f.c.domestic.preparation.shield.amount,Math.min(.125,.1*e.result.factor*1.25))]
+ ['marketYield','fair',(f,e)=>assert.equal(e.result.actual,Math.min(cityWorkLimit(f.s,f.c,'gold',2),Math.round(ACTIONS.fair.value*e.result.factor*(.7+f.u.politics/150))*2))],
+ ['farmYield','cultivate',(f,e)=>assert.ok(e.result.actual>0&&e.result.actual<=cityWorkLimit(f.s,f.c,'grain',5))],
+ ['merchantReach','merchants',(f,e)=>assert.equal(f.c.domestic.effects.find(x=>x.key==='gold').untilTurn,Math.floor((f.s.campaign.day-1)/10)+5)],
+ ['partnershipDeal','partnership',(f,e)=>assert.equal(f.c.domestic.effects.find(x=>x.key==='discount:commerce').amount,Math.round((.2*e.result.factor+.15)*10000)/10000)],
+ ['wallRepair','repair',(f,e)=>assert.equal(e.result.actual,Math.min(3000*e.result.factor*1.75,gateDurability(f.c).maxHp-1000))],
+ ['patrolReadiness','patrol',(f,e)=>assert.equal(f.c.domestic.preparation.shield.until,f.s.campaign.day+60)],
+ ['zhouDrill','exercise',(f,e)=>{assert.equal(f.c.domestic.preparation.intent.until,f.s.campaign.day+90);assert.equal(f.c.domestic.preparation.intent.amount,24);}],
+ ['caoFortress','fortify',(f,e)=>assert.equal(f.c.domestic.preparation.shield.amount,.2)]
  ]){let checked=false;for(let seed=1;seed<15&&!checked;seed++){const f=fixture(key,holders(trait)[0],seed),e=finish(f);if(e?.result.factor>0){check(f,e);checked=true;}}assert.ok(checked,trait);}
 });
 test('single-roll floors, recruitment budgets and healing conserve actual resources',()=>{
- assert.equal(workFactor(0,workProfile(['jiaContingency'],ACTIONS.breakthrough)),.3);
- assert.equal(workFactor(.45,workProfile(['purchaseFill'],ACTIONS.buy)),.75);
+ assert.equal(workFactor(0,workProfile(['jiaContingency'],ACTIONS.breakthrough)),.75);
+ assert.equal(workFactor(.45,workProfile(['purchaseFill'],ACTIONS.buy)),1);
  assert.equal(workChance(workProfile(['urgentRisk'],ACTIONS.urgent),ACTIONS.urgent),.15);
  for(const [id,key]of [['recruitFill','recruit'],['acuteHealing','heal'],['longHealing','recover'],['purchaseFill','buy'],['harvestRescue','harvest'],['storageRescue','store']]){
   const f=fixture(key,holders(id)[0]),before=f.c.units.reduce((n,u)=>n+u.troops+u.wounded,0),reserve=f.c.manpower,reserved=f.a.action.amount,e=finish(f);assert.ok(e,id);
@@ -58,10 +58,11 @@ test('single-roll floors, recruitment budgets and healing conserve actual resour
   if(['harvest','store'].includes(key))assert.ok(f.c.domestic.opportunities[0].saved<=1);
  }
 });
-test('siege research trait applies only to the umbrella siege technology',()=>{
- const u=makeOfficer(holders('liuEngines')[0],2000),base=fixture('research',holders('liuEngines')[0]);u.intellect=30;
- const ordinary=actionChance(base.s,base.c,u,ACTIONS.research,'baier'),siege=actionChance(base.s,base.c,u,ACTIONS.research,'siegeEngineering');assert.ok(Math.abs(siege-ordinary-.1)<1e-10);
- assert.equal(workProfile(['liuEngines'],ACTIONS.research,'baier').chance,undefined);
+test('engineering research trait increases real progress without a technology or method restriction',()=>{
+ const base=fixture('research',holders('liuEngines')[0]);base.a.action.researchRoll=0;
+ const withEngines=researchDailyRate(base.s,base.c,base.a);base.a.action.traitIds=base.a.action.traitIds.filter(id=>id!=='liuEngines');
+ assert.ok(withEngines>=researchDailyRate(base.s,base.c,base.a)*1.25-1e-10);
+ for(const def of Object.values(ACTIONS).filter(d=>d.kind==='research'))for(const target of ['siegeEngineering','baier','militaryRegistry'])assert.equal(workProfile(['liuEngines'],def,target).quantity,1.5);
 });
 test('mid-command JSON roundtrip completes identically and mismatched work snapshot is rejected',()=>{
  const f=fixture('fair',holders('marketYield')[0]);beginExecution(f.s);advanceCampaignDay(f.s);
@@ -71,12 +72,12 @@ test('mid-command JSON roundtrip completes identically and mismatched work snaps
 });
 test('construction setbacks and great-success refunds use the original paid project',()=>{
  for(const [id,key]of [['marketConstruction','build_commerce'],['farmConstruction','build_farm'],['drillConstruction','build_drill'],['hallConstruction','build_hall']]){
-  let seen=false;for(let seed=1;seed<60&&!seen;seed++){const f=fixture(key,holders(id)[0],seed),initial=f.a.action.cost,e=finish(f);if(e.result.factor<1){assert.equal(f.a.action.remaining,3);assert.equal(f.a.action.cost,initial);assert.equal(f.c.project.actionId,f.actionId);seen=true;}}assert.ok(seen,id);
+  let seen=false;for(let seed=1;seed<60&&!seen;seed++){const f=fixture(key,holders(id)[0],seed),initial=f.a.action.cost,e=finish(f);if(e.result.factor<1){assert.equal(f.a.action.remaining,1);assert.equal(f.a.action.cost,initial);assert.equal(f.c.project.actionId,f.actionId);seen=true;}}assert.ok(seen,id);
  }
- let seen=false;for(let seed=1;seed<60&&!seen;seed++){const f=fixture('build_walls',holders('militaryConstruction')[0],seed),cost=f.a.action.cost,e=finish(f);if(e.result.factor>1){assert.equal(e.result.spent,cost-Math.floor(cost*.25));assert.equal(f.c.walls,2);seen=true;}}assert.ok(seen);
+ let seen=false;for(let seed=1;seed<60&&!seen;seed++){const f=fixture('build_walls',holders('militaryConstruction')[0],seed),cost=f.a.action.cost,e=finish(f);if(e.result.factor>1){assert.equal(e.result.spent,cost-Math.floor(cost*.5));assert.equal(f.c.walls,2);seen=true;}}assert.ok(seen);
 });
-test('Liu Bei reassures at most two additional real local targets with half primary gain',()=>{
- let seen=false;for(let seed=1;seed<30&&!seen;seed++){const f=fixture('reassure',holders('liuTrust')[0],seed),target=f.a.action.targetId,old={...f.s.campaign.domestic.loyalty},e=finish(f);if(e.result.factor>=1){const now=f.s.campaign.domestic.loyalty,gain=now[target]-old[target],others=f.c.units.filter(u=>u.id!==target&&now[u.id]>old[u.id]);assert.ok(gain>0);assert.ok(others.length>0&&others.length<=2);for(const u of others)assert.ok(now[u.id]-old[u.id]<=Math.floor(gain*.5));seen=true;}}assert.ok(seen);
+test('Liu Bei reassures at most three additional real local targets with full primary gain',()=>{
+ let seen=false;for(let seed=1;seed<30&&!seen;seed++){const f=fixture('reassure',holders('liuTrust')[0],seed),target=f.a.action.targetId,old={...f.s.campaign.domestic.loyalty},e=finish(f);if(e.result.factor>=1){const now=f.s.campaign.domestic.loyalty,gain=now[target]-old[target],others=f.c.units.filter(u=>u.id!==target&&now[u.id]>old[u.id]);assert.ok(gain>0);assert.ok(others.length>0&&others.length<=3);for(const u of others)assert.ok(now[u.id]-old[u.id]<=gain);seen=true;}}assert.ok(seen);
 });
 test('Zhuge Liang doubles only a successful real research cooperation contribution',()=>{
  let seen=false;for(let seed=1;seed<50&&!seen;seed++){const f=fixture('research',holders('zhugeCoordination')[0],seed),helper=f.c.units.find(u=>u.id!==f.u.id);assert.equal(assignDomestic(f.s,f.c.id,'technology',helper.id),null);beginDomesticTurn(f.s);const e=finish(f),coop=Object.values(f.s.campaign.domestic.cooperation).find(r=>r.actionId===f.actionId&&r.success);if(coop&&e.result.factor>0){assert.ok(e.result.actual>0&&e.result.actual<=100);assert.ok(Math.abs(coop.after-coop.before*(1+coop.gain*2))<.001);assert.ok(coop.applied);seen=true;}}assert.ok(seen);

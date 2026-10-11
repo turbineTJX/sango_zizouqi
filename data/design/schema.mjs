@@ -3,6 +3,7 @@ export const DESIGN_SCHEMA_VERSION=1;
 export const DESIGN_FIELDS={
   treasures:['name','kind','bondId','bonus','category','description','status','steps','fraction','cap','totalFraction','totalCap'],
   "traits": [
+    "diplomacy",
     "work",
     "strategic",
     "clinicIndependent",
@@ -28,6 +29,8 @@ export const DESIGN_FIELDS={
   "tactics": [
     "selfStatus", "selfStatusSteps", "regrowthFraction", "regrowthSteps", "targetRear", "meleeSustain", "statusKey", "remedy", "stasisDays", "stasisHealth", "stasisLockDays",
     "allyIntent",
+    "allyIntentPriority",
+    "allyIntentScope",
     "allyRange",
     "allyTargets",
     "attackOrb",
@@ -41,6 +44,7 @@ export const DESIGN_FIELDS={
     "cooldown",
     "cooldownReduction",
     "debuff",
+    "debuffs",
     "description",
     "drain",
     "effect",
@@ -54,6 +58,7 @@ export const DESIGN_FIELDS={
     "intent",
     "intentCost",
     "learningTier",
+    "link",
     "maxUses",
     "minRange",
     "mode",

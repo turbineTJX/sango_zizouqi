@@ -5,12 +5,50 @@ export function validateStrategyDesigns(t){
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
  const planning=t.strategicPlanning;
- if(fields(planning,['version','traceLimit','candidateLimit','forceVariants','assemblyDays','switchMargin','peacePressureRatio','preparationTurns','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority','resourcePriority','algorithms'],'strategicPlanning')){
-  for(const key of ['version','traceLimit','candidateLimit','forceVariants','assemblyDays','preparationTurns'])check(Number.isSafeInteger(planning[key])&&planning[key]>0,'strategicPlanning.'+key,'须为正整数');
+ if(fields(planning,['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','switchMargin','peacePressureRatio','preparationTurns','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority','resourcePriority','victory','opposition','recovery','tempo','assessment','algorithms'],'strategicPlanning')){
+  for(const key of ['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','preparationTurns'])check(Number.isSafeInteger(planning[key])&&planning[key]>0,'strategicPlanning.'+key,'须为正整数');
+  check(planning.pairLimit>=planning.candidateLimit&&planning.pairLimit<=64,'strategicPlanning.pairLimit','边境枚举须覆盖候选且不超过64组');
   for(const key of ['switchMargin','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority'])check(num(planning[key],0),'strategicPlanning.'+key,'须为非负数');
   check(planning.candidateLimit<=16&&planning.forceVariants<=4&&planning.preparationTurns<=3&&planning.traceLimit<=30,'strategicPlanning','候选、推演或记录超出有限规划上限');
   check(num(planning.peacePressureRatio,.1,3)&&num(planning.resourcePriority,1,2),'strategicPlanning','战略比例无效');
   try{if(!planning.algorithms)throw Error();strategicAlgorithmProfile(planning.algorithms);}catch{check(false,'strategicPlanning.algorithms','算法配置无效或实现未注册');}
+  if(fields(planning.assessment,['horizonSteps','powerScale','reserveShare','maxSustain','maxControl','damageEffects','healingEffects','protectionEffects','controlEffects'],'strategicPlanning.assessment')){
+   const a=planning.assessment;
+   check(Number.isSafeInteger(a.horizonSteps)&&num(a.horizonSteps,24,120),'strategicPlanning.assessment.horizonSteps','静态效果预算须为24至120回合');
+   check(num(a.powerScale,10,500),'strategicPlanning.assessment.powerScale','战力归一化系数须为10至500');
+   for(const key of ['reserveShare','maxSustain','maxControl'])check(num(a[key],0,1),'strategicPlanning.assessment.'+key,'折扣和效果上限须为0至1');
+   for(const key of ['damageEffects','healingEffects','protectionEffects','controlEffects']){
+    const effects=a[key];check(effects&&typeof effects==='object'&&!Array.isArray(effects)&&Object.keys(effects).length>0,'strategicPlanning.assessment.'+key,'须配置已接入的战法效果预算');
+    for(const [effect,value] of Object.entries(effects||{}))check(Object.values(t.tactics).some(s=>s.effect===effect)&&num(value,0,key==='damageEffects'?5:1),'strategicPlanning.assessment.'+key+'.'+effect,'效果须存在且权重须有界');
+   }
+  }
+  if(fields(planning.recovery,['horizonDays','maximumForecastDays','freshIntelligenceDays','maximumAdvantageRelief','minimumAdvantage','bufferLosses','maximumCostRelief'],'strategicPlanning.recovery')){
+   const r=planning.recovery;
+   for(const key of ['horizonDays','maximumForecastDays','freshIntelligenceDays'])check(Number.isSafeInteger(r[key])&&num(r[key],1,key==='maximumForecastDays'?180:30),'strategicPlanning.recovery.'+key,'补兵预测窗口须有界');
+   check(r.maximumForecastDays>=r.horizonDays&&num(r.maximumAdvantageRelief,0,.5)&&num(r.minimumAdvantage,1.2,2)&&num(r.bufferLosses,1,3)&&num(r.maximumCostRelief,1,3),'strategicPlanning.recovery','补兵风险与成本折算须有界');
+  }
+  if(fields(planning.tempo,['earlyLastTurn','campaignLastTurn','campaignUnits','jointUnits','jointCities','jointFundedCities','maxOperations','columnUnits','campaignAssemblyDays','jointAssemblyDays','executionBufferDays','continuationMargin','minimumContinuationAdvantage'],'strategicPlanning.tempo')){
+   const p=planning.tempo;for(const k of ['campaignUnits','jointUnits','jointCities','jointFundedCities','maxOperations','columnUnits'])check(Number.isSafeInteger(p[k])&&num(p[k],1,20),'strategicPlanning.tempo.'+k,'军团和准备规模须为有界整数');
+   for(const k of ['earlyLastTurn','campaignLastTurn'])check(Number.isSafeInteger(p[k])&&num(p[k],1,200),'strategicPlanning.tempo.'+k,'阶段边界须为有界回合数');
+   check(p.earlyLastTurn<p.campaignLastTurn,'strategicPlanning.tempo','中期回合边界须晚于前期');
+   check(p.campaignUnits<p.jointUnits&&p.jointFundedCities<=p.jointCities&&p.maxOperations<=2&&p.columnUnits<=10&&num(p.continuationMargin,0,.25)&&num(p.minimumContinuationAdvantage,1.1,1.5),'strategicPlanning.tempo','持续作战和协同规模须有界');
+   for(const k of ['campaignAssemblyDays','jointAssemblyDays','executionBufferDays'])check(Number.isSafeInteger(p[k])&&num(p[k],1,40),'strategicPlanning.tempo.'+k,'集结与执行余量须为有界天数');
+   check(p.campaignAssemblyDays>=planning.assemblyDays&&p.jointAssemblyDays>=p.campaignAssemblyDays,'strategicPlanning.tempo','集结范围须随实际作战容量递增');
+  }
+  const oppositionKeys=['emergencyPowerPerMan','citySupportShare','fieldSupportShare','cityResponseDays','minimumBattleDays','maxBattleDays','neutralContestDays','staleMarginPerDay','maxStaleMargin','lossFactor'];
+  if(fields(planning.opposition,oppositionKeys,'strategicPlanning.opposition')){
+   const o=planning.opposition;
+   check(num(o.emergencyPowerPerMan,1,2),'strategicPlanning.opposition.emergencyPowerPerMan','估计战力系数须为1至2');
+   for(const key of ['citySupportShare','fieldSupportShare','staleMarginPerDay','maxStaleMargin','lossFactor'])check(num(o[key],0,1),'strategicPlanning.opposition.'+key,'比例须为0至1');
+   for(const key of ['cityResponseDays','minimumBattleDays','maxBattleDays','neutralContestDays'])check(Number.isSafeInteger(o[key])&&num(o[key],1,20),'strategicPlanning.opposition.'+key,'到达窗口须为1至20天');
+   check(o.citySupportShare<=.5&&o.minimumBattleDays<=o.maxBattleDays,'strategicPlanning.opposition','潜在援军须保留至少一半驻军，交战窗口须有界');
+  }
+  const victoryKeys=['territoryValue','endgameValue','regionalValue','completionValue','eliminationValue','connectionValue','corridorValue','maxCorridors','focusValue','focusSwitchMargin','maxBonus','observedStockShare','observedStockGoldPerPoint','maxObservedStockBonus'];
+  if(fields(planning.victory,victoryKeys,'strategicPlanning.victory')){
+   check(num(planning.victory.observedStockShare,0,.5)&&num(planning.victory.observedStockGoldPerPoint,50,500)&&num(planning.victory.maxObservedStockBonus,0,140),'strategicPlanning.victory','情报军资收益折算须有界');
+   for(const key of victoryKeys)check(num(planning.victory[key],0,500),'strategicPlanning.victory.'+key,'统一战略参数须为0至500');
+   check(planning.victory.territoryValue>0&&planning.victory.maxBonus>0&&Number.isSafeInteger(planning.victory.maxCorridors)&&planning.victory.maxCorridors<=8,'strategicPlanning.victory','统一战略收益或方向上限无效');
+  }
  }
  const support=t.strategicSupport;
  if(fields(support,['maxMissions','reinforceRatio','guardRatio','maxTravelDays','guardFoodDays','quietDays','missionDays','minimumCargo','maximumCycles'],'strategicSupport')){
@@ -40,15 +78,17 @@ export function validateStrategyDesigns(t){
    check([null,'farm','commerce','barracks'].includes(v.building)&&['any','civil','bold'].includes(v.actor)&&typeof v.text==='string'&&v.text.includes('{source}')&&v.text.includes('{other}')&&!/概率|成功率|%/.test(v.text),path,'故事当事人或叙述无效');
   }
  }
- for(const [group,keys] of Object.entries({income:['gold','grain','manpower','governorPoliticsDivisor'],capacity:['grainBase','grainPerGranary','manpowerMax','recruitmentBase','recruitmentPerBarracks'],ai:['foodReserveDays','recruitReserveDays','economicWorkersPerDirection','cityTroopTarget']})){
+ for(const [group,keys] of Object.entries({income:['gold','grain','manpower','governorPoliticsDivisor'],capacity:['grainBase','grainPerGranary','manpowerMax','recruitmentBase','recruitmentPerBarracks','armyFoodDays','minimumUnitGrain'],ai:['foodReserveDays','recruitReserveDays','economicWorkersPerDirection','cityTroopTarget']})){
   const row=economy?.[group];if(!fields(row,group==='ai'?[...keys,'offensive']:keys,'economy.'+group))continue;
   for(const key of keys){const value=row[key];if(group==='income'&&key!=='governorPoliticsDivisor'){const subKeys={gold:['base','perCommerce'],grain:['base','perFarm'],manpower:['base','perBarracks']}[key];if(fields(value,subKeys,'economy.income.'+key))for(const sub of subKeys)check(num(value[sub],1),'economy.income.'+key+'.'+sub,'须为正数');}else check(Number.isSafeInteger(value)&&value>0,'economy.'+group+'.'+key,'须为正整数');}
  }
- for(const [group,keys] of Object.entries({value:['gold','grain','manpower'],work:['base','abilityDivisor','constructionSetbackShare'],maintenance:['goldPerThousandTroops','woundedGoldFactor'],recruitment:['reserveCost','reserveTargetBase','reserveTargetTroopShare']})){
-  const row=economy?.[group];if(fields(row,keys,'economy.'+group))for(const key of keys)check(num(row[key],['reserveCost','goldPerThousandTroops'].includes(key)?0:Number.EPSILON),'economy.'+group+'.'+key,'参数须为有效非负数，比例及收益须大于零');
+ for(const [group,keys] of Object.entries({value:['gold','grain','manpower'],work:['base','abilityDivisor','managementDiscountBase','constructionSetbackShare','capacityMultiplierMax','preparationIntentMax','preparationShieldMax'],maintenance:['goldPerThousandTroops','woundedGoldFactor'],recruitment:['reserveCost','reserveTargetBase','reserveTargetTroopShare']})){
+  const row=economy?.[group];if(fields(row,group==='maintenance'?[...keys,'officerSalaryByLevel']:keys,'economy.'+group))for(const key of keys)check(num(row[key],['reserveCost','goldPerThousandTroops'].includes(key)?0:Number.EPSILON),'economy.'+group+'.'+key,'参数须为有效非负数，比例及收益须大于零');
  }
  check(num(economy?.maintenance?.woundedGoldFactor,0,1)&&num(economy?.recruitment?.reserveTargetTroopShare,0,1),'economy.maintenance','比例须为0至1');
  check(num(economy?.work?.constructionSetbackShare,Number.EPSILON,1),'economy.work.constructionSetbackShare','工程延期比例须大于0且不超过1');
+ check(num(economy?.work?.managementDiscountBase,Number.EPSILON,.5),'economy.work.managementDiscountBase','经营优惠须大于0且不超过共同折扣上限');
+ check(Number.isSafeInteger(economy?.work?.capacityMultiplierMax)&&num(economy.work.capacityMultiplierMax,1,5)&&Number.isSafeInteger(economy.work.preparationIntentMax)&&num(economy.work.preparationIntentMax,30,60)&&num(economy.work.preparationShieldMax,.35,.6),'economy.work','强化产能和守城准备须有有限上限');
  const development=economy?.development;
  if(fields(development,['economicBuildings','localLevels','richCities','metropolitanMax','externalLevels','workValueBase','workValuePerLevel','foodForecastSafety','stockSupportDays'],'economy.development')){
   check(Array.isArray(development.economicBuildings)&&development.economicBuildings.slice().sort().join(',')==='barracks,commerce,farm','economy.development.economicBuildings','须为三种生产设施');
@@ -60,7 +100,8 @@ export function validateStrategyDesigns(t){
  }
  const offensive=economy?.ai?.offensive,path='economy.ai.offensive';
  if(fields(offensive,['maxWoundedShare','homeFoodDays','styles','lossFactor','lossPerPoint','grainPerPoint','goldPerPoint','dayCost','workPerPoint','maxEstimateError','judgmentLeadershipWeight','counterattackWeight','objectiveValues','securityPowerPerPoint','securityValueCap'],path)){
-  for(const key of ['homeFoodDays','lossPerPoint','grainPerPoint','goldPerPoint','dayCost','workPerPoint','securityPowerPerPoint','securityValueCap'])check(Number.isSafeInteger(offensive[key])&&offensive[key]>0,path+'.'+key,'须为正整数');
+  for(const key of ['homeFoodDays','lossPerPoint','goldPerPoint','workPerPoint','securityPowerPerPoint','securityValueCap'])check(Number.isSafeInteger(offensive[key])&&offensive[key]>0,path+'.'+key,'须为正整数');
+  for(const key of ['grainPerPoint','dayCost'])check(num(offensive[key],.001,1000000),path+'.'+key,'评分费率须为有界正数');
   for(const key of ['lossFactor','maxEstimateError','judgmentLeadershipWeight','counterattackWeight'])check(num(offensive[key],0,1),path+'.'+key,'比例须为0至1');
   if(fields(offensive.objectiveValues,['city','gate','port'],path+'.objectiveValues'))for(const key of ['city','gate','port'])check(num(offensive.objectiveValues[key],1),path+'.objectiveValues.'+key,'须为正数');
   check(num(offensive.maxWoundedShare,0,1),path+'.maxWoundedShare','伤兵比例须为0至1');

@@ -5,7 +5,7 @@ export const TRAIT_DESIGNS = {
   "hero-person-368": {
     "name": "碧眼",
     "tier": "专属",
-    "description": "任军团长或军师时，施放军略后为所属军团在场部队解除混乱、嘲讽、丧志与抑气，并给予3回合坚定；每12回合一次。",
+    "description": "任军团长或军师时，施放军略后为所属军团在场部队解除镇静与整军类异常，给予5回合坚定及最大兵力12%的护盾；每8回合一次。",
     "domain": "battle",
     "mechanics": [
       {
@@ -15,15 +15,20 @@ export const TRAIT_DESIGNS = {
           "leader",
           "advisor"
         ],
-        "steps": 3,
-        "interval": 12
+        "steps": 5,
+        "interval": 8,
+        "remedies": [
+          "calm",
+          "rally"
+        ],
+        "fraction": 0.12
       }
     ]
   },
   "hero-person-668": {
     "name": "济军",
     "tier": "普通",
-    "description": "任军团长或军师时，每8回合为所属军团一队在场友军解除混乱、嘲讽、丧志与抑气；优先兵力比例最低者。",
+    "description": "任军团长或军师时，每6回合为所属军团最多两队在场友军解除镇静与整军类异常，并给予3回合坚定及最大兵力10%的护盾；优先兵力比例最低者，只在存在可解除异常时触发。",
     "domain": "battle",
     "mechanics": [
       {
@@ -33,14 +38,21 @@ export const TRAIT_DESIGNS = {
           "leader",
           "advisor"
         ],
-        "interval": 8
+        "interval": 6,
+        "targets": 2,
+        "steps": 3,
+        "fraction": 0.1,
+        "remedies": [
+          "calm",
+          "rally"
+        ]
       }
     ]
   },
   "hero-person-226": {
     "name": "隐忍",
     "tier": "专属",
-    "description": "任军团长或军师时，敌方施放军略后恢复本方军略进度上限的15%；每12回合一次，不影响敌方施放与消耗。",
+    "description": "任军团长或军师时，敌方施放军略后恢复本方军略进度上限的25%；每8回合一次，不影响敌方施放与消耗。",
     "domain": "battle",
     "mechanics": [
       {
@@ -50,8 +62,8 @@ export const TRAIT_DESIGNS = {
           "leader",
           "advisor"
         ],
-        "fraction": 0.15,
-        "interval": 12
+        "fraction": 0.25,
+        "interval": 8
       }
     ]
   },
@@ -80,7 +92,15 @@ export const TRAIT_DESIGNS = {
       "heal"
     ],
     "clinicIndependent": true,
-    "description": "本人可在没有医馆的据点办理救治、疗养事务；仍须在城任职并支付正常费用及粮食，只恢复本地原部队的真实伤兵。"
+    "description": "本人青囊治疗时，不需医馆，本次实际治疗量提高100%；照付真实费用与粮食，只恢复实际伤兵。",
+    "work": {
+      "actions": [
+        "heal",
+        "recover"
+      ],
+      "quantity": 1
+    },
+    "direction": "technology"
   },
   "reserveGrain": {
     "name": "备荒",
@@ -88,15 +108,22 @@ export const TRAIT_DESIGNS = {
     "domain": "domestic",
     "scope": "actor",
     "kinds": [
-      "grain",
-      "trade",
       "rescue"
     ],
     "strategic": {
       "effect": "reserveGrain",
       "days": 20
     },
-    "description": "任农业负责人且实际在城时，售粮与自动购粮按本城二十日口粮保留粮食；征兵、补给仍遵守共用预算，不凭空增加库存。"
+    "description": "本人备荒办理抢收或仓储救灾时，部分成果足额兑现，失败保留60%，并同时保护本城另一类有效灾情；只减少真实灾损，原费用、机会和工期照常。",
+    "work": {
+      "actions": [
+        "harvest",
+        "store"
+      ],
+      "partialFloor": 1,
+      "failureFloor": 0.6
+    },
+    "direction": "agriculture"
   },
   "provision": {
     "name": "筹粮",
@@ -104,13 +131,21 @@ export const TRAIT_DESIGNS = {
     "domain": "domestic",
     "scope": "actor",
     "kinds": [
-      "trade",
-      "grain"
+      "trade"
     ],
     "strategic": {
       "effect": "provision"
     },
-    "description": "任农业负责人时，出征预留导致可用粮草不足，可提前办理购粮；仍需道路畅通、粮仓空间及实际金钱。"
+    "description": "本人筹粮购粮时，办理工期减半，部分成交足额兑现，失败保留60%成交；只购买已付货款范围内的粮，仍须道路、余仓和实际购粮需求。",
+    "work": {
+      "actions": [
+        "buy"
+      ],
+      "partialFloor": 1,
+      "failureFloor": 0.6,
+      "durationFactor": 0.5
+    },
+    "direction": "agriculture"
   },
   "healRemainder": {
     "name": "抚伤",
@@ -123,7 +158,15 @@ export const TRAIT_DESIGNS = {
     "strategic": {
       "effect": "healRemainder"
     },
-    "description": "救治原目标后，将本次未用完的救治额度转用于同城其它已有伤兵；不增加总额度，不重复扣粮。"
+    "description": "本人抚伤治疗时，治疗量提高100%；原对象实际伤兵用尽后，剩余额度用于本城其他真实伤兵，包括办理中新增伤兵，仍只付一次原粮费。",
+    "work": {
+      "actions": [
+        "heal",
+        "recover"
+      ],
+      "quantity": 1
+    },
+    "direction": "technology"
   },
   "recommendTalent": {
     "name": "举荐",
@@ -137,10 +180,10 @@ export const TRAIT_DESIGNS = {
     ],
     "strategic": {
       "effect": "referral",
-      "count": 1,
+      "count": 2,
       "relation": 70
     },
-    "description": "成功完成人才搜索或接洽后，从本人关系网揭示一名可实际找到的在野人才；不直接招募，不忽略出仕条件。"
+    "description": "本人成功搜索、招揽或劝说后，最多举荐两名关系至少70的真实未确认在野亲近者；取得实际所在地情报，仍须另行接洽和签约。"
   },
   "calmChain": {
     "name": "安众",
@@ -153,7 +196,14 @@ export const TRAIT_DESIGNS = {
     "strategic": {
       "effect": "chain"
     },
-    "description": "安抚成功后，若同城还有其他合法对象，可立即启动下一次安抚；重新支付费用和完整办理时间，等待军令时不续办。"
+    "description": "本人安众时，原目标忠诚恢复提高50%；成功后可立即继续安抚另一名本城合法低忠诚目标，仍付原命令费用且不重复原对象。",
+    "work": {
+      "actions": [
+        "reassure"
+      ],
+      "quantity": 0.5
+    },
+    "direction": "talent"
   },
   "trialChain": {
     "name": "续研",
@@ -166,10 +216,21 @@ export const TRAIT_DESIGNS = {
     "strategic": {
       "effect": "chain"
     },
-    "description": "完成一轮研究后，当天接续本城未完成项目或下一项合法科技；新项目支付费用，仍按实际工作日推进，等待军令时不续办。"
+    "description": "本人续研时，本轮工期减半、每日进度按同倍提速；完成后有合法研究候选即可继续办理，既有项目接续不重复收费。",
+    "work": {
+      "actions": [
+        "research",
+        "breakthrough",
+        "craftsmen",
+        "master",
+        "imitate"
+      ],
+      "durationFactor": 0.5
+    },
+    "direction": "technology"
   },
   "successor": {
-    "name": "接任",
+    "name": "勤政",
     "tier": "普通",
     "domain": "domestic",
     "scope": "actor",
@@ -180,23 +241,43 @@ export const TRAIT_DESIGNS = {
       "heal",
       "reassure"
     ],
-    "strategic": {
-      "effect": "handoff"
-    },
-    "description": "同城同方向负责人被改任或调离时，可承接其已付费、目标仍合法的进行中事务；自身须空闲，继承进度，不额外获得一次行动。"
+    "description": "任商业、农业、军务、技术或人才负责人，正常办理市集、精耕、修复、治疗或安抚时，实际成果提高100%、工期减半；直接资源产能最多基础两倍，仍共用本城当旬已产出数。",
+    "work": {
+      "actions": [
+        "fair",
+        "cultivate",
+        "repair",
+        "rush",
+        "inspect",
+        "heal",
+        "recover",
+        "reassure"
+      ],
+      "quantity": 1,
+      "capacityMultiplier": 2,
+      "durationFactor": 0.5
+    }
   },
   "researchHandoff": {
-    "name": "传习",
+    "name": "研习",
     "tier": "普通",
     "domain": "domestic",
     "scope": "actor",
     "kinds": [
       "research"
     ],
-    "strategic": {
-      "effect": "handoff"
+    "description": "任技术负责人，正常办理研究、攻坚、访匠、尊工或仿研时，本轮工期缩至55%、每日研究进度按同倍提速；仍只推进本城一个合法科技项目，支付正常费用并遵守机会期限。",
+    "work": {
+      "actions": [
+        "research",
+        "breakthrough",
+        "craftsmen",
+        "master",
+        "imitate"
+      ],
+      "durationFactor": 0.55
     },
-    "description": "同城技术负责人被改任或调离时，可承接其正在办理的研究；保留行动进度和已付费用，城市项目仍可由其他负责人继续。"
+    "direction": "technology"
   },
   "speakerHandoff": {
     "name": "说客",
@@ -207,10 +288,24 @@ export const TRAIT_DESIGNS = {
       "hire",
       "persuade"
     ],
-    "strategic": {
-      "effect": "handoff"
+    "description": "任人才负责人，正常办理招揽或劝说时，实际接洽进度提高75%、工作工期减半；本人仍须真实到访，目标意愿与签约条件照常。外交负责亲善、交涉时，实际办理进度为普通的2倍，接洽费减少50%；路程、每日行资与双方批准照常。",
+    "work": {
+      "actions": [
+        "hire",
+        "persuade"
+      ],
+      "quantity": 0.75,
+      "durationFactor": 0.5
     },
-    "description": "可接续同城人才负责人中止的接洽行动；本人仍须实际赴访，到达后才推进接洽，原执行人实际返程。"
+    "direction": "talent",
+    "diplomacy": {
+      "directions": [
+        "friendship",
+        "negotiation"
+      ],
+      "rate": 2,
+      "feeDiscount": 0.5
+    }
   },
   "armyFarm": {
     "name": "屯田",
@@ -223,9 +318,9 @@ export const TRAIT_DESIGNS = {
     "strategic": {
       "effect": "farmTroops",
       "requiredTroops": 1000,
-      "bonus": 0.25
+      "bonus": 1
     },
-    "description": "任农业负责人办理督耕时，可使用本人实际驻城的闲置部队协作；按士兵实际参与日数折算一次协作成果，守城或出征立即停止，不占用其他武将。"
+    "description": "本人屯田精耕时，同城实际投入满1000现役兵，每个实际工作日的军屯贡献使本次粮食成果最多提高100%，有界产能按实际贡献同比提高；出征、伤兵和有其他任务的部队不计。"
   },
   "receiveGrain": {
     "name": "接粮",
@@ -256,9 +351,10 @@ export const TRAIT_DESIGNS = {
     "scope": "transport",
     "kinds": [],
     "strategic": {
-      "effect": "relayCargo"
+      "effect": "relayCargo",
+      "speed": 2
     },
-    "description": "运粮出发时可预定一个己方接力据点，先在中转点停驻检查，再携原货继续送达；不重复装货、不瞬移，运输途中照常遇敌损失。"
+    "description": "运粮出发时可预定一个己方接力据点，先在中转点停驻检查，再携原货继续送达；不重复装货、不瞬移，运输途中照常遇敌损失。 本人实际运粮时速度提高100%，中转前后均生效；不加快空身调任或撤退，真实路程、货物与截击照常。"
   },
   "lightMarch": {
     "name": "轻装",
@@ -268,10 +364,10 @@ export const TRAIT_DESIGNS = {
     "kinds": [],
     "strategic": {
       "effect": "lightMarch",
-      "capacity": 0.5,
-      "speed": 1.2
+      "capacity": 0.75,
+      "speed": 1.5
     },
-    "description": "任军团长时可选择轻装行军：只能在己方据点启用，携粮上限减半，超出粮食返还本城，移动行动力提高20%；退出须在己方据点。"
+    "description": "任有兵力军团长时，可在己方城市切换轻装：携粮容量降至75%，实际行军速度提高50%；多余粮须真实卸入可容纳仓库。"
   },
   "forcedMarch": {
     "name": "急行",
@@ -281,12 +377,12 @@ export const TRAIT_DESIGNS = {
     "kinds": [],
     "strategic": {
       "effect": "forcedMarch",
-      "morale": 5,
+      "morale": 4,
       "minimum": 40,
-      "speed": 1.35,
-      "recovery": 2
+      "speed": 1.65,
+      "recovery": 1
     },
-    "description": "任军团长时可选择急行：每个实际行军日消耗5士气，行动力提高35%；士气不足40或缺粮时停止急行，退出后至少休整2天才可重启。"
+    "description": "任有兵力军团长时，无缺粮且士气至少40可急行，速度提高65%，每个实际移动日消耗4士气；停止后休整1天。道路与实际口粮消耗照常。"
   },
   "xunTalent": {
     "name": "王佐",
@@ -300,10 +396,16 @@ export const TRAIT_DESIGNS = {
     ],
     "strategic": {
       "effect": "referral",
-      "count": 2,
-      "relation": 70
+      "count": 4,
+      "relation": 60
     },
-    "description": "成功完成人才搜索或接洽后，可沿本人及本次已结识人才的关系链揭示最多两名在野人才；须真实在野且无在途状态，不直接招募。"
+    "description": "本人成功搜索、招揽或劝说后，可从本人及本次接洽对象的真实关系中，举荐至多四名关系至少60的未确认在野人才；仍须另行接洽和签约。 外交负责亲善时，实际办理进度为普通的3倍；路程、每日行资与双方批准照常。",
+    "diplomacy": {
+      "directions": [
+        "friendship"
+      ],
+      "rate": 3
+    }
   },
   "zhangAdministration": {
     "name": "辅政",
@@ -312,9 +414,17 @@ export const TRAIT_DESIGNS = {
     "scope": "actor",
     "kinds": [],
     "strategic": {
-      "effect": "crossCooperate"
+      "effect": "crossCooperate",
+      "cooperationBonus": 0.4
     },
-    "description": "本人实际在城任职且未等待军令时，可与同城不同方向的负责人协作；仍按执行事务方向的唯一属性计算，同一人每天最多参与一次协作。"
+    "description": "本人辅政时，可与本城其他方向人员参与现有真实协作，本人参与的协作触发率提高40个百分点、最多95%；仍须真实行动、同址与人员资格，不新增执行槽。 外交负责经贸、交涉时，实际办理进度为普通的2.5倍；路程、每日行资与双方批准照常。",
+    "diplomacy": {
+      "directions": [
+        "commerce",
+        "negotiation"
+      ],
+      "rate": 2.5
+    }
   },
   "dengFarm": {
     "name": "军屯",
@@ -327,9 +437,10 @@ export const TRAIT_DESIGNS = {
     "strategic": {
       "effect": "farmTroops",
       "requiredTroops": 1000,
-      "bonus": 0.25
+      "bonus": 1.5,
+      "garrison": 1
     },
-    "description": "任农业负责人时，可组织本城未出征且主将空闲的驻城部队参与督耕；按实际参与日数结算协作，正在办事、等待军令和参与守城的人员不计。"
+    "description": "本人军屯精耕时，可组织本城合法驻军；每个实际工作日满1000现役兵，本次粮食成果及有界产能最多提高150%。出征、伤兵、在办事务及等待军令人员不计。"
   },
   "maCraft": {
     "name": "巧思",
@@ -342,7 +453,18 @@ export const TRAIT_DESIGNS = {
     "strategic": {
       "effect": "chain"
     },
-    "description": "完成一轮研究后，立即接续本城未完成项目或下一项合法科技；仍需真实费用和工作时间。"
+    "description": "本人巧思研究时，本轮工期缩至40%、每日进度提高至2.5倍；完成后可立即继续合法研究，不增加项目槽或虚构机会。",
+    "work": {
+      "actions": [
+        "research",
+        "breakthrough",
+        "craftsmen",
+        "master",
+        "imitate"
+      ],
+      "durationFactor": 0.4
+    },
+    "direction": "technology"
   },
   "cycleCargo": {
     "name": "漕运",
@@ -351,9 +473,10 @@ export const TRAIT_DESIGNS = {
     "scope": "transport",
     "kinds": [],
     "strategic": {
-      "effect": "cycleCargo"
+      "effect": "cycleCargo",
+      "speed": 2
     },
-    "description": "本人无部队及伤兵时，可安排最多5批同线往返运粮；每批从源城实际库存装粮，保留源城二十日口粮与军令预留。双方据点失守、道路不通或库存不足即停止继续装粮；往返全程可遭敌军拦截。"
+    "description": "本人无部队及伤兵时，可安排最多5批同线往返运粮；每批从源城实际库存装粮，保留源城二十日口粮与军令预留。双方据点失守、道路不通或库存不足即停止继续装粮；往返全程可遭敌军拦截。 本人实际运粮与循环任务的空车返程速度提高100%；不加快普通空身调任或撤退，真实道路与截击照常。"
   },
   "marketYield": {
     "name": "市集",
@@ -368,9 +491,10 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "fair"
       ],
-      "successQuantity": 0.25
+      "quantity": 1,
+      "capacityMultiplier": 2
     },
-    "description": "成功时本次集市收入提高25%；失败与部分达成按原结算。"
+    "description": "本人办理市集时，实际收入提高100%，可用本城商业每旬基础产能的两倍；全城共用已产出数，不按人数叠加额度。"
   },
   "merchantReach": {
     "name": "通商",
@@ -385,9 +509,15 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "merchants"
       ],
-      "duration": 1
+      "duration": 2
     },
-    "description": "成功时招徕商旅的原产金增益延长1次旬末结算，幅度不变。"
+    "description": "本人招引商旅取得非零成果时，商业增益覆盖五次旬末结算，比普通多两次；效果到期后才可重新办理。 外交负责经贸时，实际办理进度为普通的2倍；路程、每日行资与双方批准照常。",
+    "diplomacy": {
+      "directions": [
+        "commerce"
+      ],
+      "rate": 2
+    }
   },
   "partnershipDeal": {
     "name": "合营",
@@ -402,9 +532,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "partnership"
       ],
-      "discount": 0.1
+      "discount": 0.15
     },
-    "description": "非失败时，本次招商取得的一次性建设优惠增加10个百分点，仍遵守原优惠上限。"
+    "description": "本人谈妥合营时，在本次合作折扣上再减15个百分点建设费用；仍有期限、只抵一次商业建设，总折扣最多50%。"
   },
   "grainSale": {
     "name": "善贾",
@@ -419,9 +549,16 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "sell"
       ],
-      "price": 0.2
+      "price": 0.4
     },
-    "description": "成交时出售同量余粮所得金提高20%，售粮数量与粮食预留规则不变。"
+    "description": "本人售粮时，实际成交粮价提高40%；仍只出售真实余粮，保留公共口粮及计划用粮。 外交负责经贸时，实际办理进度为普通的2倍，接洽费减少25%；路程、每日行资与双方批准照常。",
+    "diplomacy": {
+      "directions": [
+        "commerce"
+      ],
+      "rate": 2,
+      "feeDiscount": 0.25
+    }
   },
   "taxOrder": {
     "name": "理税",
@@ -436,9 +573,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "tax"
       ],
-      "effect": 0.5
+      "effect": 0.75
     },
-    "description": "非失败时，本次整顿税务产生的产金增益幅度提高50%，有效次数不变。"
+    "description": "本人整顿税务时，本次税收加成提高75%；只影响既定有效期内的实际商业收入。"
   },
   "marketConstruction": {
     "name": "营市",
@@ -453,9 +590,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "build_commerce"
       ],
-      "setbackDays": 3
+      "setbackDays": 1
     },
-    "description": "本次市场建设受阻时，追加工期由5天改为3天；正常建设工期与费用不变。"
+    "description": "本次市场建设受阻时，追加工期由5天改为1天；正常建设工期与费用不变。"
   },
   "farmYield": {
     "name": "精耕",
@@ -470,9 +607,10 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "cultivate"
       ],
-      "successQuantity": 0.25
+      "quantity": 1,
+      "capacityMultiplier": 2
     },
-    "description": "成功时本次督耕入仓粮食提高25%，超过现有粮仓空间的部分不生成。"
+    "description": "本人精耕时，实际入仓粮提高100%，可用本城农业每旬基础产能的两倍；全城共用已产出数，满仓仍截断。"
   },
   "irrigationYield": {
     "name": "疏渠",
@@ -487,9 +625,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "irrigate"
       ],
-      "effect": 0.4
+      "effect": 0.75
     },
-    "description": "非失败时，本次灌溉产生的产粮增益幅度提高40%，有效次数不变。"
+    "description": "本人疏渠时，本次农业增益提高75%；只作用于既定有效期内的真实农业收入。"
   },
   "purchaseFill": {
     "name": "丰籴",
@@ -504,9 +642,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "buy"
       ],
-      "partialFloor": 0.75
+      "partialFloor": 1,
+      "failureFloor": 0.6,
+      "purchaseDiscount": 0.25
     },
-    "description": "购粮部分达成时，成交比例由45%提高到75%；成功、失败结果不改，未成交货款按实际成交量退回。"
+    "description": "本人购粮时，部分成果按足额兑现，失败仍保留60%实际成果；仍须原费用、合法目标与可用容量，失效目标不给成果。 本次购粮实际货款另减25%，联络费照付，退费只退已付未成交货款。"
   },
   "harvestRescue": {
     "name": "抢收",
@@ -521,9 +661,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "harvest"
       ],
-      "partialFloor": 0.75
+      "partialFloor": 1,
+      "failureFloor": 0.6,
+      "durationFactor": 0.5
     },
-    "description": "抢收部分达成时，本次灾情挽回比例由45%提高到75%；不影响其它灾情。"
+    "description": "本人抢收时，部分成果按足额兑现，失败仍保留60%实际成果；仍须原费用、合法目标与可用容量，失效目标不给成果。 本次救灾办理工期减半。"
   },
   "storageRescue": {
     "name": "仓储",
@@ -538,9 +680,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "store"
       ],
-      "partialFloor": 0.8
+      "partialFloor": 1,
+      "failureFloor": 0.6,
+      "durationFactor": 0.5
     },
-    "description": "整理仓储部分达成时，本次霉变损失挽回比例由45%提高到80%；不增加正常粮仓容量。"
+    "description": "本人仓储救灾时，部分成果按足额兑现，失败仍保留60%实际成果；仍须原费用、合法目标与可用容量，失效目标不给成果。 本次救灾办理工期减半。"
   },
   "farmConstruction": {
     "name": "垦殖",
@@ -556,9 +700,9 @@ export const TRAIT_DESIGNS = {
         "build_farm",
         "build_granary"
       ],
-      "setbackDays": 3
+      "setbackDays": 1
     },
-    "description": "本次农田或粮仓建设受阻时，追加工期由5天改为3天；公共已完成进度照常保留。"
+    "description": "本次农田或粮仓建设受阻时，追加工期由5天改为1天；公共已完成进度照常保留。"
   },
   "recruitFill": {
     "name": "募众",
@@ -573,9 +717,12 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "recruit"
       ],
-      "partialFloor": 0.75
+      "partialFloor": 1,
+      "quantity": 1,
+      "capacityMultiplier": 2,
+      "failureFloor": 0.6
     },
-    "description": "常规征兵部分达成时，实际整补比例由45%提高到75%；上限仍为本次已预留兵员及目标真实缺额。"
+    "description": "本人征募时，预备兵成果提高100%，军务产能上限提高至基础的两倍；部分成果足额兑现，失败保留60%。整补只使用已预留的真实兵源、军费和部队缺额。"
   },
   "urgentRisk": {
     "name": "速募",
@@ -590,9 +737,13 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "urgent"
       ],
-      "riskReduction": 0.15
+      "riskReduction": 0.15,
+      "quantity": 1,
+      "capacityMultiplier": 2,
+      "partialFloor": 1,
+      "failureFloor": 0.6
     },
-    "description": "只抵消加急征兵自带的15个百分点风险扣减；仍需正常成功判定与真实兵员预算。"
+    "description": "本人速募时，抵消15个百分点命令风险，预备兵成果及有界产能提高100%；部分成果足额兑现，失败保留60%。仍支付紧急费用并受真实兵源与整补预算限制。"
   },
   "wallRepair": {
     "name": "缮城",
@@ -607,9 +758,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "repair"
       ],
-      "quantity": 0.3
+      "quantity": 0.75
     },
-    "description": "非失败时，本次常规修缮恢复城门耐久提高30%，不超过本城实际城防上限。"
+    "description": "本人缮城时，每个实际工作日恢复的城墙或哨塔耐久提高75%；不超过建筑真实耐久缺额。"
   },
   "urgentRepair": {
     "name": "应急",
@@ -624,9 +775,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "rush"
       ],
-      "partialFloor": 0.8
+      "partialFloor": 1,
+      "quantity": 0.5,
+      "failureFloor": 0.6
     },
-    "description": "紧急抢修部分达成时，实际修复比例由45%提高到80%；不改变费用与办理时间。"
+    "description": "本人应急修复时，每日耐久恢复提高50%，部分成果足额兑现，失败保留60%；只修复实际受损建筑。"
   },
   "wallInspection": {
     "name": "固防",
@@ -641,9 +794,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "inspect"
       ],
-      "quantity": 0.5
+      "quantity": 1
     },
-    "description": "非失败时，本次检查整固恢复城门耐久提高50%，满耐久时无额外成果。"
+    "description": "本人固防巡检时，本次真实修复量提高100%；不增加完好建筑的耐久上限。"
   },
   "laborDeal": {
     "name": "工务",
@@ -658,9 +811,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "labor"
       ],
-      "discount": 0.1
+      "discount": 0.15
     },
-    "description": "非失败时，本次征集工匠的一次性军事建设优惠增加10个百分点，仍遵守原优惠上限。"
+    "description": "本人协调劳役时，本次军务工程合作额外减少15个百分点费用；只抵一次建设，总折扣最多50%。"
   },
   "militaryConstruction": {
     "name": "营筑",
@@ -676,9 +829,10 @@ export const TRAIT_DESIGNS = {
         "build_barracks",
         "build_walls"
       ],
-      "criticalRefund": 0.25
+      "criticalRefund": 0.5,
+      "completionRefund": 0.3
     },
-    "description": "兵营或城墙建设大成功时，返还费用比例由15%提高到25%；普通成功和受阻结果不改。"
+    "description": "本人完成兵营或城墙建设时，普通成功返还实付费用的30%，卓有成效返还50%；受阻期间不返款，不改变原施工投入。"
   },
   "defenseDrill": {
     "name": "武练",
@@ -693,9 +847,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "exercise"
       ],
-      "effect": 0.25
+      "effect": 0.5
     },
-    "description": "非失败时，本次守城操演的战意准备幅度提高25%；原准备强度上限、有效期及一次守城限制不变。"
+    "description": "本人武练时，本次下一场本城守城战的训练准备提高50%；强化准备与公共设施合计战意最多60。"
   },
   "patrolReadiness": {
     "name": "巡备",
@@ -710,9 +864,10 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "patrol"
       ],
-      "durationDays": 45
+      "durationDays": 60,
+      "effect": 0.5
     },
-    "description": "非失败时，本次城防巡查的护盾准备有效期由30天延至45天；强度和仅一场本城守城战限制不变。"
+    "description": "本人巡备时，本次守城护盾准备提高50%，有效期延长至60天；只供本城下一场守城战使用，合计护盾最多60%。"
   },
   "drillConstruction": {
     "name": "筑场",
@@ -727,9 +882,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "build_drill"
       ],
-      "setbackDays": 3
+      "setbackDays": 1
     },
-    "description": "练兵场建设受阻时，追加工期由5天改为3天；正常工期、费用和建筑等级上限不变。"
+    "description": "练兵场建设受阻时，追加工期由5天改为1天；正常工期、费用和建筑等级上限不变。"
   },
   "steadyResearch": {
     "name": "求精",
@@ -744,9 +899,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "research"
       ],
-      "quantity": 0.3
+      "quantity": 1
     },
-    "description": "非失败时，常规研制的每日研究进度提高30%；仍需实际工作时间，达到100%按公共规则完成科技。"
+    "description": "本人求精研究时，每个实际工作日的研究进度提高100%；只推进本城既有的一个科技项目。"
   },
   "focusedResearch": {
     "name": "攻坚",
@@ -761,9 +916,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "breakthrough"
       ],
-      "partialFloor": 0.75
+      "partialFloor": 1,
+      "quantity": 0.75,
+      "failureFloor": 0.3
     },
-    "description": "集中攻关部分达成时，研究成果比例由45%提高到75%；原失败概率、费用和目标不变。"
+    "description": "本人攻坚时，每日真实研究进度提高75%，部分成果足额兑现，失败保留30%；科技费用只支付一次。"
   },
   "craftsmanResearch": {
     "name": "访匠",
@@ -778,9 +935,10 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "craftsmen"
       ],
-      "riskReduction": 0.2
+      "riskReduction": 0.2,
+      "quantity": 0.75
     },
-    "description": "只抵消寻访工匠自带的20个百分点风险扣减；仍使用本次原成功判定。"
+    "description": "本人访匠时，抵消20个百分点命令风险，每日真实研究进度提高75%；仍须实际匠人机会。"
   },
   "masterResearch": {
     "name": "尊工",
@@ -795,9 +953,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "master"
       ],
-      "quantity": 0.3
+      "quantity": 1
     },
-    "description": "非失败时，本次聘请名匠取得的研究进度提高30%；仍须真实存在且消耗原名匠机会。"
+    "description": "本人尊工时，每日真实研究进度提高100%；仍须有效大师机会，机会失效不继续增加进度。"
   },
   "capturedResearch": {
     "name": "仿研",
@@ -812,9 +970,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "imitate"
       ],
-      "quantity": 0.35
+      "quantity": 1.25
     },
-    "description": "非失败时，本次仿制改良研究进度提高35%；不生成新的缴获机会，原机会照常消耗。"
+    "description": "本人仿研时，每日真实研究进度提高125%；仍须缴获机会，只推进实际选中的本城项目。"
   },
   "trialChance": {
     "name": "复验",
@@ -829,9 +987,10 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "research"
       ],
-      "chance": 0.1
+      "chance": 0.2,
+      "durationFactor": 0.7
     },
-    "description": "办理常规研制时，成果判定成功机会增加10个百分点，遵守统一上限；按实际工作日推进研究。"
+    "description": "本人复验时，研究成功率提高20个百分点，并把本轮工期缩至70%、每日进度按同倍提速；高成功率下仍有进度收益，至多推进一个实际项目。"
   },
   "acuteHealing": {
     "name": "疗伤",
@@ -846,9 +1005,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "heal"
       ],
-      "quantity": 0.3
+      "quantity": 1.25
     },
-    "description": "非失败时，集中救治对原受治部队的治疗额度提高30%；仍只恢复真实伤兵，按原费用和粮耗办理。"
+    "description": "本人疗伤时，本次实际治疗量提高125%；只恢复真实伤兵，粮费和医馆资格照常。"
   },
   "longHealing": {
     "name": "养复",
@@ -863,9 +1022,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "recover"
       ],
-      "partialFloor": 0.8
+      "partialFloor": 0.9,
+      "quantity": 0.75,
+      "failureFloor": 0.4
     },
-    "description": "精心疗养部分达成时，实际救治比例由45%提高到80%；不向未在受治名单的部队复制治疗额度。"
+    "description": "本人养复时，本次实际治疗量提高75%，部分成果至少90%，失败保留40%；不超过真实伤兵人数。"
   },
   "talentHire": {
     "name": "好贤",
@@ -880,9 +1041,16 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "hire"
       ],
-      "chance": 0.1
+      "chance": 0.25,
+      "quantity": 0.5
     },
-    "description": "登用在野人才的成功机会增加10个百分点；基础资格、目标状态和实际赴访返程不变。"
+    "description": "本人好贤接洽时，成功率提高25个百分点，实际招揽进度提高50%；仍需本人实际到达，目标接受意愿和签约条件照常。 外交负责亲善时，实际办理进度为普通的2倍；路程、每日行资与双方批准照常。",
+    "diplomacy": {
+      "directions": [
+        "friendship"
+      ],
+      "rate": 2
+    }
   },
   "talentPersuade": {
     "name": "游说",
@@ -897,9 +1065,16 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "persuade"
       ],
-      "riskReduction": 0.15
+      "riskReduction": 0.25,
+      "quantity": 0.75
     },
-    "description": "只抵消劝说周边人才自带风险中的15个百分点；不抵消目标忠诚等其它影响，不直接招募。"
+    "description": "本人游说时，抵消至多25个百分点命令风险，实际劝说进度提高75%；不跳过实际出使、目标意愿与签约条件。 外交负责交涉时，实际办理进度为普通的2.5倍；路程、每日行资与双方批准照常。",
+    "diplomacy": {
+      "directions": [
+        "negotiation"
+      ],
+      "rate": 2.5
+    }
   },
   "talentCalm": {
     "name": "抚众",
@@ -914,9 +1089,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "reassure"
       ],
-      "quantity": 0.4
+      "quantity": 1,
+      "secondaryTargets": 1,
+      "secondaryFraction": 1
     },
-    "description": "非失败时，本次安抚对原目标增加的忠诚提高40%；受该武将实际安抚上限限制。"
+    "description": "本人抚众时，原目标实际忠诚恢复提高100%；成功后同时安抚另一名本城合法低忠诚目标，各目标仍受实际忠诚上限限制。"
   },
   "hallConstruction": {
     "name": "礼士",
@@ -931,9 +1108,9 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "build_hall"
       ],
-      "setbackDays": 3
+      "setbackDays": 1
     },
-    "description": "人才馆建设受阻时，追加工期由5天改为3天；不改变建设上限与人才出仕资格。"
+    "description": "人才馆建设受阻时，追加工期由5天改为1天；不改变建设上限与人才出仕资格。"
   },
   "liuTrust": {
     "name": "仁望",
@@ -948,10 +1125,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "reassure"
       ],
-      "secondaryTargets": 2,
-      "secondaryFraction": 0.5
+      "secondaryTargets": 3,
+      "secondaryFraction": 1,
+      "quantity": 0.5
     },
-    "description": "安抚成功后，对同城最多两名其它合法安抚对象，各应用原目标本次实际忠诚增量的50%；所有目标分别受安抚上限限制；排除已被其它安抚事务锁定的目标，按忠诚从低到高选取。"
+    "description": "本人仁望安抚时，原目标恢复量提高50%；成功后最多另安抚三名本城合法目标，每人取得原目标实际恢复量的100%，仍受各自忠诚上限限制。"
   },
   "zhugeCoordination": {
     "name": "统筹",
@@ -970,9 +1148,10 @@ export const TRAIT_DESIGNS = {
         "master",
         "imitate"
       ],
-      "cooperationMultiplier": 2
+      "cooperationMultiplier": 2,
+      "teamMultiplier": 2
     },
-    "description": "本次研究若成功触发实际数量协作，将该次协作额外研究进度提高至原来的2倍；原研究成果、机会资格与项目门槛不变。"
+    "description": "任技术负责人，正常研究时自动安排另一名同城技术负责人协助，每日研究进度翻倍；协助期间不另开新事务，无需玩家指定待命。只组织实际空闲、同址且无使命、侦察或等待军令的人员，不打断其已开办事务或提案。原单次协作增量也翻倍，不新增研究项目。"
   },
   "zhouDrill": {
     "name": "督练",
@@ -987,10 +1166,10 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "exercise"
       ],
-      "durationDays": 60,
-      "effect": 0.25
+      "durationDays": 90,
+      "effect": 1
     },
-    "description": "守城操演取得准备后，原战意准备只供下一场本城守城战使用，但有效期从30天延至60天；其幅度另提高25%，仍受原准备上限限制。"
+    "description": "本人督练时，本次守城训练准备提高100%，有效期90天；只供本城下一场守城战使用，准备与设施合计战意最多60。"
   },
   "caoFortress": {
     "name": "坚壁",
@@ -1005,10 +1184,11 @@ export const TRAIT_DESIGNS = {
       "actions": [
         "fortify"
       ],
-      "effect": 0.25,
-      "partialFloor": 0.75
+      "effect": 1,
+      "partialFloor": 1,
+      "failureFloor": 0.6
     },
-    "description": "布置守备非失败时，基础护盾准备额度提高25%；部分达成至少按75%成果结算，仍受本城护盾准备总上限限制。"
+    "description": "本人坚壁时，本次守城护盾准备提高100%，部分成果足额兑现，失败保留60%；只供下一场本城守城战使用，护盾合计最多60%。"
   },
   "liuEngines": {
     "name": "筹械",
@@ -1021,14 +1201,15 @@ export const TRAIT_DESIGNS = {
     "direction": "technology",
     "work": {
       "actions": [
-        "research"
+        "research",
+        "breakthrough",
+        "craftsmen",
+        "master",
+        "imitate"
       ],
-      "chance": 0.2,
-      "targets": [
-        "siegeEngineering"
-      ]
+      "quantity": 1.5
     },
-    "description": "办理攻城器械研究时，常规研制的成功机会增加20个百分点；其它科技不生效，仍需真实研究时间。"
+    "description": "任技术负责人，正常办理任一合法研究事务时，每日真实进度提高150%；无需指定科技项目或研究方式。同类进度修正取强，与复验工期提速共同生效；仍只推进本城一个实际项目，支付正常费用并遵守机会期限。"
   },
   "jiaContingency": {
     "name": "审势",
@@ -1044,8 +1225,10 @@ export const TRAIT_DESIGNS = {
         "breakthrough",
         "craftsmen"
       ],
-      "failureFloor": 0.3
+      "failureFloor": 0.75,
+      "quantity": 0.75,
+      "partialFloor": 0.9
     },
-    "description": "目标仍合法时，本次集中攻关或寻访工匠完全失败改为取得30%研究成果；不改变原成功和部分达成结果，也不额外抽签。"
+    "description": "本人审势办理攻坚或访匠时，每日真实研究进度提高75%；部分成果至少90%，失败仍保留75%进度，目标或机会失效不保底。"
   }
 };

@@ -14,8 +14,8 @@ import {primeTactic} from './helpers/prime-tactic.mjs';
 
 const id=n=>Object.values(O).find(o=>o.name===n).id;
 const teams={
- song:['曹操','袁术','袁谭','袁尚','袁绍','袁涣'],
- crusher:['徐晃','阎行','郭汜','华雄','鄂焕','阿会喃'],
+ song:['曹操','袁术','袁谭','大乔','甄氏','小乔'],
+ crusher:['徐晃','阎行','郭汜','华雄','鄂焕','周仓'],
  doubt:['贾诩','尹大目','郭图','桓范','魏讽','沮鹄'],
  lure:['陈宫','袁胤','郝萌','牛辅','王门','郭马'],
  fire:['周瑜','虞翻','阚泽','朱然','全琮','黄盖'],
@@ -27,7 +27,10 @@ const teams={
 };
 function scene(key,side=0,type='archer',foes=['刘禅','刘璋','韩玄','刘度','孔伷','张鲁']){
  const team=ns=>ns.map(name=>({id:id(name),type,troops:4000,level:10}));
- const state=createScenario('custom-battle',9501,20,null,{seed:9501,terrain:'land',ownTeam:team(side?foes:teams[key]),enemyTeam:team(side?teams[key]:foes)}),b=state.battle;lockDeployment(b);
+ // Keep the Escort fixture focused on its bond; Lu Su's role-based remedy
+ // otherwise adds a second shield to the injured recipient.
+ const roles=key==='escort'?{[side?'enemyTeamRoles':'ownTeamRoles']:{leader:id('赵云'),advisor:id('赵云')}}:{};
+ const state=createScenario('custom-battle',9501,20,null,{seed:9501,terrain:'land',ownTeam:team(side?foes:teams[key]),enemyTeam:team(side?teams[key]:foes),...roles}),b=state.battle;lockDeployment(b);
  for(const u of b.sides.flatMap(s=>s.units)){u.intent=0;u.cooldown=999;u.retreatAt=null;u.statuses.root={until:999};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
  const us=b.sides[side].units,es=b.sides[1-side].units;us.forEach((u,i)=>Object.assign(u,{x:i?0:4,y:i?i:3}));es.forEach((u,i)=>Object.assign(u,{x:i?13:6,y:i?i:3}));
  return {state,b,us,es,u:us[0],enemy:es[0],side};
@@ -42,7 +45,7 @@ test('single primary maxima require six actual holders, and secondary bonds rema
  for(const [key,ids]of Object.entries(pairs))for(const side of [0,1]){const x=scene(key,side);assert.equal(sideBonds(x.b,side)[ids[0]].tier,3,key);assert.ok((sideBonds(x.b,side)[ids[1]]?.tier||0)<3,key+' cannot freely max both');assert.ok(x.us.length<=6);assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
 });
 
-test('Song uses real basic hits, chooses the lowest adjacent ally and preserves low-source support',()=>{
+test('Song uses real basic hits, feeds available tactic thresholds and preserves low-source support',()=>{
  for(const side of [0,1]){const x=scene('song',side),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});recipient.intent=90;x.u.intent=20;basic(x);assert.equal(recipient.intent,97);assert.equal(x.b.effects.filter(e=>e.text?.startsWith('战歌 ·')).length,1);assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
  const x=scene('song'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});recipient.intent=98;x.u.intent=20;basic(x);assert.equal(recipient.intent,100);assert.equal(shieldAmount(x.b,recipient),200);assert.equal(recipient.hp,4000);
  const shielded=scene('song');Object.assign(shielded.us[4],{x:4,y:2});setStatus(shielded.b,shielded.enemy,'shield',5,{amount:4000,source:'test',label:'护盾'});basic(shielded);assert.equal(shielded.us[4].intent,0);assert.ok(!shielded.b.effects.some(e=>e.label==='战歌'));

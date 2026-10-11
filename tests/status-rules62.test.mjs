@@ -1,9 +1,12 @@
-import {currentBattle} from './helpers/current-battle.mjs';
+import {currentBattle,tacticHolder} from './helpers/current-battle.mjs';
+import {OFFICER_CATALOG} from '../officer-catalog.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from './helpers/scenarios.mjs';
 import {stepBattle,lockDeployment,validateSave,fillSlots} from '../engine.mjs';
-import {setStatus,hasStatus,unitTactics,readyTactic,routeTo,tacticTarget,TACTICS_BOOK} from '../tactics.mjs';
+import {setStatus,hasStatus,unitTactics,readyTactic,routeTo,tacticTarget,TACTICS_BOOK,openCell} from '../tactics.mjs';
+import {hexNeighbors,hexDistance} from '../hex-grid.mjs';
+import {canOccupy} from '../battlefield.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
 import {isTargetable,holdsLine,interceptorsAt} from '../engagement.mjs';
 import {STATUS_DEFINITIONS,remedy,createDecoy,prepareDecoy,decoyTargets,detected,breakStealth} from '../battle-status-rules.mjs';
@@ -17,6 +20,63 @@ function scene(){
  for(const u of [a,c,d,e]){u.status='active';u.statuses={};u.intent=0;u.cooldown=999;u.entryStatusesApplied=true;u.tacticRecoveryUntil=999;}
  Object.assign(a,{x:3,y:3});Object.assign(c,{x:2,y:2});Object.assign(d,{x:4,y:3,type:'spear'});Object.assign(e,{x:7,y:3,type:'archer'});
  return {state,b,a,c,d,e};
+}
+function confusionScene(side,terrain='land'){
+ const id=tacticHolder('thrust','spear',[],true),others=OFFICER_CATALOG.filter(o=>o.id!==id).slice(0,3);
+ const entry=(id,type='spear')=>({id,type,troops:3000,level:1,retreatAt:null});
+ const own=[entry(id),entry(others[0].id)],enemy=[entry(others[1].id),entry(others[2].id,'archer')];
+ const state=createScenario('custom-battle',91,0,null,{seed:91,terrain,shieldPercent:0,ownTeam:side?enemy:own,enemyTeam:side?own:enemy}),b=state.battle;
+ lockDeployment(b);const [u,ally]=b.sides[side].units,[target,rear]=b.sides[1-side].units;
+ for(const a of [u,ally,target,rear]){a.cooldown=999;a.intent=0;a.skillReady=Object.fromEntries(unitTactics(a).map(s=>[s.id,999]));}
+ Object.assign(u,{x:4,y:2});Object.assign(ally,{x:3,y:2});Object.assign(target,{x:5,y:2});Object.assign(rear,{x:7,y:2});
+ const x={state,b,u,ally,target,rear};
+ for(const u of [x.ally,x.target,x.rear])setStatus(x.b,u,'root',20);
+ x.u.cooldown=0;x.u.intent=100;
+ for(const id of Object.keys(x.u.skillReady))x.u.skillReady[id]=0;
+ setStatus(x.b,x.u,'confuse',4,{sourceId:x.target.id});
+ return x;
+}
+for(const side of [0,1]){
+ test(`confusion randomly moves side ${side} through legal adjacent cells, blocks attacks and resumes identically`,()=>{
+  const {state,b,u}=confusionScene(side),casts=structuredClone(u.tacticCasts);
+  let copy;
+  for(let tick=1;tick<=4;tick++){
+   const before={x:u.x,y:u.y},cells=hexNeighbors(u).filter(([x,y])=>openCell(b,x,y,u));
+   assert.ok(cells.length);assert.equal(holdsLine(b,u),false);
+   stepBattle(b);if(copy)stepBattle(copy.battle);
+   assert.equal(hexDistance(before,u),1);
+   assert.ok(cells.some(([x,y])=>u.x===x&&u.y===y));assert.ok(canOccupy(b,u,u.x,u.y));
+   const active=b.sides.flatMap(s=>s.units).filter(a=>a.status==='active');
+   assert.equal(new Set(active.map(a=>a.x+','+a.y)).size,active.length);
+   assert.equal(u.action,'混乱 · 阵位失序');assert.equal(u.skillCasts,0);assert.deepEqual(u.tacticCasts,casts);
+   assert.ok(!b.effects.some(e=>e.from===u.id&&e.damage>0));assert.equal(holdsLine(b,u),false);
+   if(tick===1)copy=validateSave(structuredClone(state));else assert.deepEqual(copy.battle,b);
+  }
+  stepBattle(b);stepBattle(copy.battle);assert.deepEqual(copy.battle,b);
+  assert.equal(hasStatus(b,u,'confuse'),false);assert.ok(holdsLine(b,u));validateSave(state);
+ });
+ test(`confusion side ${side} respects root, blocked cells, stun and stasis without consuming movement RNG`,()=>{
+  for(const restriction of ['root','blocked','stun','stasis']){
+   const {state,b,u,ally,target}=confusionScene(side);
+   if(restriction==='blocked'){
+    Object.assign(u,{x:0,y:0});Object.assign(ally,{x:1,y:0});Object.assign(target,{x:0,y:1});
+    assert.equal(hexNeighbors(u).filter(([x,y])=>openCell(b,x,y,u)).length,0);
+   }else setStatus(b,u,restriction,4);
+   const before={x:u.x,y:u.y,seed:b.seed};stepBattle(b);
+   assert.deepEqual({x:u.x,y:u.y,seed:b.seed},before,restriction);
+   assert.equal(u.skillCasts,0);assert.ok(!b.effects.some(e=>e.from===u.id&&e.damage>0));
+   if(restriction==='root'||restriction==='blocked')assert.equal(u.action,'混乱 · 阵位失序');
+   else assert.equal(u.action,restriction==='stun'?'眩晕':'避战 · 无敌');
+   validateSave(state);
+  }
+ });
+ test(`confusion side ${side} cannot move an unequipped land troop into river water`,()=>{
+  const {state,b,u}=confusionScene(side,'river');
+  const cells=hexNeighbors(u).filter(([x,y])=>openCell(b,x,y,u));
+  assert.ok(cells.length);assert.ok(hexNeighbors(u).some(([x,y])=>!canOccupy(b,u,x,y)));
+  stepBattle(b);assert.equal(hexDistance({x:4,y:2},u),1);assert.ok(canOccupy(b,u,u.x,u.y));
+  assert.ok(cells.some(([x,y])=>u.x===x&&u.y===y));validateSave(state);
+ });
 }
 test('status catalog has unique names, supports current stun and rejects removed status identities',()=>{
  assert.equal(new Set(Object.values(STATUS_DEFINITIONS).map(v=>v.name)).size,Object.keys(STATUS_DEFINITIONS).length);
