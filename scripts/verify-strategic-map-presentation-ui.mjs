@@ -27,7 +27,7 @@ try{
  assert.equal(await page.locator('.turn-seal').textContent(),'进行');
  assert.equal(await page.locator('.turn-seal small,.sovereign-identity p,.world-commands>small').count(),0);
  assert.equal(await page.locator('.national-legend>summary').textContent(),'势力');
- assert.equal(await page.locator('.map-reports>summary').textContent(),'记录');
+ assert.equal(await page.locator('.map-reports,.map-workspace-actions').count(),0);
  if(await page.locator('.modal').count()){console.log('Opening report:',await page.locator('#modal-title').textContent());await page.locator('.modal .close-button').click();}
  const marker=page.locator(`[data-campaign-army="${armyId}"]`);
  assert.equal(await marker.getAttribute('data-army-state'),'departing');
@@ -70,7 +70,7 @@ try{
  assert.equal(await page.locator('.map-metropolis .metropolis-summary').count(),0);
  await page.setViewportSize({width:1440,height:1000});
  const beforeDetails=await page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
- await page.locator('#national-city-search').selectOption('jinyang');await page.locator('.city-command-menu [data-action="campaign-info-detail"]').click();
+ await page.locator('.map-search>summary').click();await page.locator('#national-city-search').selectOption('jinyang');await page.locator('.city-command-menu [data-action="campaign-info-detail"]').click();
  assert.equal(await page.locator('.metropolitan-table').count(),0);
  await page.locator('[data-action="campaign-info-page"][data-page="都市圈"]').click();
  assert.deepEqual(await page.locator('.metropolitan-table tbody tr td:nth-child(2)').allTextContents(),['主城','府','关卡','港口']);
@@ -78,7 +78,7 @@ try{
  await page.screenshot({path:out+'/metropolis-desktop.png'});
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/metropolis-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  await page.locator('.modal .close-button').click();
- await page.locator('#national-city-search').selectOption('jinyang');await page.locator('.city-command-menu [data-action="map-city-inspect"]').click();
+ await page.locator('.map-search>summary').click();await page.locator('#national-city-search').selectOption('jinyang');await page.locator('.city-command-menu [data-action="map-city-inspect"]').click();
  await page.locator('.national-world.map-close').waitFor();
  assert.equal(await page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),beforeDetails);
  await writeFile(out+'/result.json',JSON.stringify({passed:true,playback,mobileCards,reducedMotion:true,errors},null,2));

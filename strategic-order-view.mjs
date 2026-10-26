@@ -1,3 +1,4 @@
+import {campaignDate} from './national-scenarios.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {assignmentFor} from './domestic.mjs';
@@ -8,9 +9,9 @@ export function interruptionMarkup(s,{command,work,replacing}){
 }
 export function pendingOrdersMarkup(s){
  const orders=s.campaign.domestic.orders.filter(q=>q.faction===playerFaction(s));if(!orders.length)return '';
- return `<section class="strategy-ledger pending-orders"><h3>待执行命令 · ${orders.length}</h3>${orders.map(q=>`<article><div><b>${esc(strategicOrderLabel(s,q))}</b><small>${s.cities.find(c=>c.id===q.cityId)?.name} · 第 ${q.requestedDay} 天下令</small><p>${q.waits.map(w=>{const work=currentDomesticWork(s,w.officerId);return work&&work.actionId===w.actionId?`${esc(work.name)}：${esc(work.title)}，剩余 ${Number(work.remaining.toFixed(2))} 天${work.paused?'（暂停）':''}`:esc(OFFICER_BY_ID[w.officerId]?.name)+'：已完成 · 等待同军团';}).join('<br>')}</p></div><button class="button secondary" data-action="campaign-cancel-order" data-order="${q.id}">取消等待</button></article>`).join('')}</section>`;
+ return `<section class="strategy-ledger pending-orders"><h3>待执行命令 · ${orders.length}</h3>${orders.map(q=>`<article><div><b>${esc(strategicOrderLabel(s,q))}</b><small>${s.cities.find(c=>c.id===q.cityId)?.name} · ${campaignDate(s,{day:q.requestedDay})}</small><p>${q.waits.map(w=>{const work=currentDomesticWork(s,w.officerId);return work&&work.actionId===w.actionId?`${esc(work.name)}：${esc(work.title)}，剩余 ${Number(work.remaining.toFixed(2))} 天${work.paused?'（暂停）':''}`:esc(OFFICER_BY_ID[w.officerId]?.name)+'：已完成 · 等待同军团';}).join('<br>')}</p></div><button class="button secondary" data-action="campaign-cancel-order" data-order="${q.id}">取消等待</button></article>`).join('')}</section>`;
 }
 export function officerWorkMarkup(s,id){
  const work=currentDomesticWork(s,id),order=s.campaign.domestic.orders.find(q=>q.officerIds.includes(id)),history=s.campaign.domestic.workHistory[id]||[];
- return `<section class="officer-work"><h3>当前内政事务</h3><p>${work?`${esc(work.title)}${work.target?' · '+esc(work.target):''} · 剩余 ${Number(work.remaining.toFixed(2))} 天${work.paused?' · 暂停中':''} · 已付 ${work.cost} 金`:esc(assignmentFor(s,id)?.waiting||'暂无事务')}</p>${order?`<p class="queued-duty">完成后：${esc(strategicOrderLabel(s,order))}</p>`:''}<details><summary>个人事务记录 · 最近 ${history.length} 项</summary>${history.map(x=>`<p><small>第 ${x.startedDay}～${x.endedDay} 天 · ${({completed:'完成',failed:'未达预期',interrupted:'中止'})[x.status]}</small><br>${esc(x.text)}</p>`).join('')||'<p>暂无已结束事务。</p>'}</details></section>`;
+ return `<section class="officer-work"><h3>当前内政事务</h3><p>${work?`${esc(work.title)}${work.target?' · '+esc(work.target):''} · 剩余 ${Number(work.remaining.toFixed(2))} 天${work.paused?' · 暂停中':''} · 已付 ${work.cost} 金`:esc(assignmentFor(s,id)?.waiting||'暂无事务')}</p>${order?`<p class="queued-duty">完成后：${esc(strategicOrderLabel(s,order))}</p>`:''}<details><summary>个人事务记录 · 最近 ${history.length} 项</summary>${history.map(x=>`<p><small>${campaignDate(s,{day:x.startedDay})}～${campaignDate(s,{day:x.endedDay})} · ${({completed:'完成',failed:'未达预期',interrupted:'中止'})[x.status]}</small><br>${esc(x.text)}</p>`).join('')||'<p>暂无已结束事务。</p>'}</details></section>`;
 }

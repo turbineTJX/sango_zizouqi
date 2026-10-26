@@ -19,8 +19,8 @@ test('paid work presents a fixed proposal before any payment, research or constr
  for(const key of ['research','build_workshop']){
   const {s,c,a}=fixture(key),gold=c.gold;assert.equal(s.campaign.domestic.autoApprove,false);beginExecution(s);
   assert.ok(a.proposal);assert.equal(a.action,null);assert.equal(c.gold,gold);assert.equal(c.project,null);assert.equal(c.domestic.research,null);
-  const before=serializeCampaign(s),text=domesticProposalText(s,a);assert.match(text,/呈请：拟于.+预计用度\d+金.+恭候裁示/);assert.doesNotMatch(text,/%|概率|成功率/);
-  assert.match(domesticApprovalMarkup(s),/准奏/);assert.equal(serializeCampaign(s),before);
+  const before=serializeCampaign(s),text=domesticProposalText(s,a);assert.match(text,/费用 \d+金.+耗时 \d+天.+成功率/);assert.doesNotMatch(text,/%|呈请|臣度|裁示/);
+  assert.match(domesticApprovalMarkup(s),/同意/);assert.equal(serializeCampaign(s),before);
   const copy=restore(s);assert.equal(serializeCampaign(copy),before);assert.deepEqual(advanceCampaignDay(s),{paused:true,proposals:true});assert.equal(s.campaign.day,1);
   beginDomesticTurn(s);assert.equal(pendingDomesticProposals(s).length,1);
   assert.equal(decideDomesticProposal(s,a.proposal.id,true),null);assert.equal(c.gold,gold-a.action.cost);assert.equal(a.proposal,null);
@@ -85,7 +85,7 @@ test('every domestic action and research depends on its executor primary ability
   const low=actionChance(s,c,{...u,[def.stat]:0},def),high=actionChance(s,c,{...u,[def.stat]:100},def);
   assert.ok(high>low,def.id);assert.ok(high<1,def.id);
  }
- assert.deepEqual([.9,.8,.6,.4,.2].map(domesticConfidence),['颇有把握','有望奏效','尚可一试','成事不易','恐难奏功']);
+ assert.deepEqual([.9,.8,.6,.4,.2].map(domesticConfidence),['很高','较高','一般','较低','很低']);
 });
 test('real research can fail, preserves payment and prior progress, then resumes without further payment; save is deterministic',()=>{
  const {s,c,a}=fixture();beginExecution(s);decideDomesticProposal(s,a.proposal.id,true);

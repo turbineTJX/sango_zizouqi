@@ -1,3 +1,4 @@
+import {campaignDate} from './national-scenarios.mjs';
 import {mapNode} from './map-node-data.mjs';
 import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
 import {cityVisionRadius} from './city-technology.mjs';
@@ -109,7 +110,7 @@ export function cityIntelligence(s,id,faction=playerFaction(s)){
  const base=s[origin]||s,c=mapNode(base,id),live=cityVisible(base,id,faction),record=base.campaign.vision?.factions[faction]?.cities[id];
  return {visible:live,day:live?base.campaign.day:record?.day??null,owner:live?c?.owner:record?.owner||'neutral',data:live?c:record?.data||null};
 }
-export function intelligenceLabel(s,id){const i=cityIntelligence(s,id);if(i.visible){const base=s[origin]||s,p=mapNode(base,id),until=Math.max(0,...(base.campaign.vision.factions[playerFaction(s)]?.scouted||[]).filter(v=>Math.hypot(v.x-p.x,v.y-p.y)<=MOVEMENT_RULES.vision.scout).map(v=>v.expiresDay));return !directPointVisible(base,p)&&until>base.campaign.day?`当前视野 · 侦察视野剩余 ${until-base.campaign.day} 天`:'当前视野';}return i.day===null?'尚未侦察':`第 ${i.day} 天情报 · 已失去视野`;}
+export function intelligenceLabel(s,id){const i=cityIntelligence(s,id);if(i.visible){const base=s[origin]||s,p=mapNode(base,id),until=Math.max(0,...(base.campaign.vision.factions[playerFaction(s)]?.scouted||[]).filter(v=>Math.hypot(v.x-p.x,v.y-p.y)<=MOVEMENT_RULES.vision.scout).map(v=>v.expiresDay));return !directPointVisible(base,p)&&until>base.campaign.day?`当前视野 · 侦察视野剩余 ${until-base.campaign.day} 天`:'当前视野';}return i.day===null?'尚未侦察':`${campaignDate(s,{day:i.day})}情报 · 已失去视野`;}
 export function armyObservation(s,a){
  const data=clone(a),battle=s.campaign.battles.find(r=>!r.settled&&r.armyIds.includes(a.id));
  if(battle)for(const u of data.units){const live=battle.battle.sides.flatMap(side=>side.units).find(x=>x.id===u.id&&x.armyId===a.id);if(live)u.troops=live.hp;}

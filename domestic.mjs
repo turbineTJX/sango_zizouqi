@@ -284,7 +284,7 @@ export function cancelDomestic(s,officerId,reason='接到新的命令'){
  cancelOrdersFor(s,[officerId],reason);
  const d=s.campaign.domestic,a=d.assignments.find(a=>a.officerId===officerId);if(!a)return;
  const c=town(s,a.cityId),x=a.action;
- if(a.proposal){emit(s,a,'proposal-withdrawn',`${OFFICER_BY_ID[officerId].name}${reason}，所呈提案撤回，未支用钱粮。`,{proposalId:a.proposal.id,siteId:a.proposal.siteId});a.proposal=null;}
+ if(a.proposal){emit(s,a,'proposal-withdrawn',`${OFFICER_BY_ID[officerId].name}${reason}，提案已撤回，未扣钱粮。`,{proposalId:a.proposal.id,siteId:a.proposal.siteId});a.proposal=null;}
  if(x){release(s,c,x);if(['build','repair'].includes(ACTIONS[x.key].kind)&&c.project?.actionId===x.id){c.domestic.suspended=structuredClone(x);c.project.actionId=null;}
   const refund=ACTIONS[x.key].kind==='recruit'&&x.recruitMode==='replenish'?x.cost-x.baseCost:x.key==='buy'?Math.max(0,x.cost-ACTIONS[x.key].cost+300):0;c.owner===c.domestic.owner&&addCityGold(s,c,refund);
   emit(s,a,'cancel',`${domesticOfficer(s,officerId)?.unit.name||'执行人'}${reason}，${ACTIONS[x.key].name}中止${['build','research'].includes(ACTIONS[x.key].kind)?'，保留已完成进度':''}${refund?'，退回未使用费用'+refund+'金':''}。`,{spent:x.cost-refund,refund});}
@@ -307,20 +307,20 @@ export function dismissDomestic(s,officerId,{scheduled=false,faction=playerFacti
  const a=assignmentFor(s,officerId);if(!scheduled&&s.campaign.phase!=='planning'||s.finished||!a||town(s,a.cityId)?.owner!==faction)return '须在筹划阶段解除己方武将的委任';
  cancelDomestic(s,officerId,'解除委任');return null;
 }
-export const domesticConfidence=chance=>chance>=.85?'颇有把握':chance>=.7?'有望奏效':chance>=.5?'尚可一试':chance>=.3?'成事不易':'恐难奏功';
+export const domesticConfidence=chance=>chance>=.85?'很高':chance>=.7?'较高':chance>=.5?'一般':chance>=.3?'较低':'很低';
 export const pendingDomesticProposals=s=>s.campaign.domestic.assignments.filter(a=>a.proposal&&isPlayerControlled(s,town(s,a.cityId)?.owner));
 const proposalExpenses=pick=>({gold:pick.cost,grain:ACTIONS[pick.key].kind==='heal'?200:ACTIONS[pick.key].kind==='trade'&&ACTIONS[pick.key].value==='sell'?pick.amount:0,manpower:pick.recruitMode==='replenish'?pick.amount:0});
 export function domesticProposalText(s,a){
  const p=a.proposal,c=town(s,a.cityId),u=domesticOfficer(s,a.officerId)?.unit,def=ACTIONS[p.pick.key],name=def.kind==='build'?(buildingWorkMode(c,def.value,p.siteId)==='repair'?'修缮':localBuildingLevel(c,def.value,p.siteId)?'扩建':'兴建')+BUILDINGS[def.value].name:def.kind==='research'?'研制「'+TECHS[p.pick.targetId].name+'」':def.name;
  const target=['hire','persuade','reassure'].includes(def.kind)?'（'+OFFICER_BY_ID[p.pick.targetId].name+'）':'';
  const expenses=Object.entries(p.expenses).filter(([,n])=>n>0).map(([key,n])=>n+({gold:'金',grain:'粮',manpower:'预备兵'})[key]).join('、');
- return `${u?.name||OFFICER_BY_ID[a.officerId].name}呈请：拟于${buildingSiteName(s,p.siteId)}${name}${target}，预计用度${expenses}${p.pick.key==='sell'?'，成交后从货款扣除'+def.cost+'金手续费':''}，约需${p.days}日。臣度此事${domesticConfidence(p.pick.chance)}，恭候裁示。`;
+ return `${u?.name||OFFICER_BY_ID[a.officerId].name} · ${buildingSiteName(s,p.siteId)} · ${name}${target}；费用 ${expenses||'无'}${p.pick.key==='sell'?'，成交后扣除'+def.cost+'金手续费':''}；耗时 ${p.days}天；成功率 ${domesticConfidence(p.pick.chance)}。`;
 }
 export function decideDomesticProposal(s,id,approve){
- if(typeof approve!=='boolean')return '请选择准奏或暂缓';
+ if(typeof approve!=='boolean')return '请选择同意或暂缓';
  const a=pendingDomesticProposals(s).find(a=>a.proposal.id===id);if(!a||s.finished)return '此案已撤回或不属本方';
  const p=a.proposal,c=town(s,a.cityId),u=residentOfficer(s,a.officerId)?.unit;
- if(!approve){emit(s,a,'proposal-rejected',`${OFFICER_BY_ID[a.officerId].name}所呈${ACTIONS[p.pick.key].name}未获准奏，本旬暂缓，未支用钱粮。`,{proposalId:p.id,siteId:p.siteId});a.proposal=null;a.waiting='所呈事务未获准奏，下一旬再议';a.lastTurn=turn(s);recordOfficerActivities(s);return null;}
+ if(!approve){emit(s,a,'proposal-rejected',`${OFFICER_BY_ID[a.officerId].name}的${ACTIONS[p.pick.key].name}提案已暂缓，未扣钱粮。`,{proposalId:p.id,siteId:p.siteId});a.proposal=null;a.waiting='提案暂缓，下旬再提交';a.lastTurn=turn(s);recordOfficerActivities(s);return null;}
  if(!u||u.mission||u.scouting||pendingDomesticOrder(s,a.officerId)||plannedOfficer(s,a.officerId)||besieged(s,c.id))return '执行人或城中情势已变，此案暂不能开办';
  // Recheck the exact proposal, without its own unpaid target reservation.
  a.proposal=null;
@@ -329,11 +329,11 @@ export function decideDomesticProposal(s,id,approve){
  const quote=ACTIONS[p.pick.key].kind==='build'?buildingWorkQuote(c,ACTIONS[p.pick.key].value,p.siteId,buildCost(s,c,ACTIONS[p.pick.key].value,u),ACTIONS[p.pick.key].days):null;
  const available=domesticWorkBudget(s,c,a);
  if(!candidate||!siteOk||quote&&quote.cost!==p.expenses.gold||Object.entries(p.expenses).some(([key,n])=>n>available[key])){a.proposal=p;return '钱粮、目标或用度已变，请暂缓此案，待下旬重新拟议';}
- emit(s,a,'proposal-approved',`${u.name}所呈${ACTIONS[p.pick.key].name}获准，依原案开办。`,{proposalId:p.id,siteId:p.siteId});
+ emit(s,a,'proposal-approved',`${u.name}的${ACTIONS[p.pick.key].name}提案已同意。`,{proposalId:p.id,siteId:p.siteId});
  start(s,a,c,p.pick,{approved:true,siteId:p.siteId});recordOfficerActivities(s);return null;
 }
 export function setDomesticAutoApprove(s,enabled){
- if(s.finished||typeof enabled!=='boolean')return '当前不能更改准奏方式';
+ if(s.finished||typeof enabled!=='boolean')return '当前不能更改审批方式';
  s.campaign.domestic.autoApprove=enabled;
  if(enabled)for(const a of [...pendingDomesticProposals(s)]){const error=decideDomesticProposal(s,a.proposal.id,true);if(error){decideDomesticProposal(s,a.proposal.id,false);a.waiting=error;}}
  return null;
@@ -350,7 +350,7 @@ function start(s,a,c,pick,{approved=false,siteId:approvedSite=null}={}){
  const available=domesticWorkBudget(s,c,a);
  if(Object.entries(expenses).some(([key,n])=>n>available[key])){a.waiting='本城预算不足，暂不提出或开办此事';return;}
  if(!approved&&isPlayerControlled(s,c.owner)&&!s.campaign.domestic.autoApprove&&Object.values(expenses).some(n=>n>0)){
-  a.proposal={id:s.campaign.domestic.nextId++,pick:structuredClone(pick),siteId,days:duration,createdDay:day(s),expenses};a.waiting='已呈提案，恭候裁示';
+  a.proposal={id:s.campaign.domestic.nextId++,pick:structuredClone(pick),siteId,days:duration,createdDay:day(s),expenses};a.waiting='提案待审批';
   emit(s,a,'proposal',domesticProposalText(s,a),{proposalId:a.proposal.id,siteId});return;
  }
  const action={id:s.campaign.domestic.nextId++,key:pick.key,cost:pick.cost,amount:pick.amount,targetId:pick.targetId,chance:pick.chance,incidentId:null,traitIds:taskTraits(o.unit,def),unitCost:def.kind==='recruit'?(pick.key==='urgent'?.4:.25)*(1-taskTraitBonus(o.unit,def,'recruitDiscount')):0,farmDays:0,farmContribution:0,farmSource:null,farmRate:0,remaining:duration,startedDay:day(s),recipients:[],paused:false};

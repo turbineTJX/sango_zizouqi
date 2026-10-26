@@ -30,7 +30,6 @@ try{
  await run('design-sync',['scripts/design-tables.mjs','verify']);
  await run('module-syntax',['scripts/check-module-syntax.mjs']);
  await run('source-offline-manifest',['scripts/source-offline-manifest.mjs','--check']);
- await run('unit-tests',['--test','--test-concurrency=4','tests/*.test.mjs']);
  await run('source-first-offline',['scripts/verify-source-offline-ui.mjs']);
  await run('campaign-ending',['scripts/verify-campaign-ending-ui.mjs']);
  await run('release-browser',['scripts/verify-release-ui.mjs']);
@@ -41,12 +40,16 @@ try{
  const android=process.argv.find(a=>a.startsWith('--android-apk='))?.slice(14),androidSave=process.argv.find(a=>a.startsWith('--android-save='))?.slice(15);
  if(android){if(!androidSave)throw Error('Android acceptance requires --android-save=<natural current save>');await run('android-device',['scripts/verify-android-device.mjs','--apk='+android,'--save='+androidSave,'--install=true']);}
  if(process.argv.includes('--desktop')){
-  const log=await run('desktop-build',['scripts/build-native.mjs','windows','--code-only']),directory=log.match(/Native release: (.+)/)?.[1]?.trim();
+  const log=await run('desktop-build',['scripts/build-native.mjs','windows','--code-only','--installer']),directory=log.match(/Native release: (.+)/)?.[1]?.trim();
   if(!directory)throw Error('未找到本次桌面发行目录');
   const manifest=JSON.parse(await readFile(join(directory,'native-release.json'),'utf8'));
   await run('desktop-container',['scripts/verify-desktop-release.mjs',join(directory,'win-unpacked','SangoSovereign.exe')]);
   await run('desktop-portable',['scripts/verify-portable-release.mjs',join(directory,manifest.artifacts.windows.file)]);
+  await run('desktop-installer',['scripts/verify-installer-release.mjs',directory]);
   result.desktopDirectory=directory;
  }
+ // Catch stale UI checks and packaging failures before spending time on the
+ // long strategic simulations. Every step still uses the same frozen input.
+ await run('unit-tests',['--test','--test-concurrency=4','tests/*.test.mjs']);
  result.passed=true;result.complete=true;result.finishedAt=new Date().toISOString();await record();console.log('Delivery verification passed: '+out);
 }catch(error){result.error=error.message;result.finishedAt=new Date().toISOString();await record();console.error(error.message);process.exitCode=1;}

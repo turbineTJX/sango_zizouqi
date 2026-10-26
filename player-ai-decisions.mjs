@@ -3,7 +3,7 @@
 const entry=(pages,shared,ai,policy)=>({pages,shared,ai,policy});
 export const PLAYER_AI_DECISIONS=Object.freeze({
  domestic:entry(['city','domestic','appoint','personnel'],[['domestic.mjs','assignDomestic'],['domestic.mjs','dismissDomestic'],['officer-recommendation.mjs','rankOfficerCandidates']],[['talent-lifecycle.mjs','prepareEnemyDomestic']],'按本城真实需求补任；保留已开始工作'),
- proposals:entry(['proposals'],[['domestic.mjs','actionCandidates'],['domestic.mjs','decideDomesticProposal']],[['domestic.mjs','beginDomesticTurn']],'同一候选与开办处理器；AI即时准奏，玩家可逐案裁示'),
+ proposals:entry(['proposals'],[['domestic.mjs','actionCandidates'],['domestic.mjs','decideDomesticProposal']],[['domestic.mjs','beginDomesticTurn']],'同一候选与开办处理器；AI即时同意，玩家可手动审批'),
  priority:entry(['affairs'],[['domestic.mjs','setDomesticPriority'],['faction-affairs.mjs','fillFactionAppointments']],[['talent-lifecycle.mjs','prepareEnemyDomestic']],'各势力独立优先顺序，缺粮缺金时先安排生产'),
  budgets:entry(['budget'],[['city-budget.mjs','cityBudget'],['city-budget.mjs','setCityBudget']],[['strategic-ai.mjs','strategicCityBudget'],['strategic-ai.mjs','manageStrategicEconomy']],'城市保留底线采用保存值；动态需求随真实军政办理估算'),
  governor:entry(['governor'],[['strategic-campaign.mjs','appointGovernor']],[['talent-lifecycle.mjs','prepareEnemyDomestic']],'从合法驻城人选按共用太守评分任命'),

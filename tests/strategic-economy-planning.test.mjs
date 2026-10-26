@@ -12,12 +12,14 @@ import {plannedOfficer,offensivePlans} from '../strategic-intent.mjs';
 import {requestFactionOrder} from '../strategic-orders.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
 import {initializeVision} from '../strategic-vision.mjs';
+import {domesticStaffingLimit} from '../domestic-staffing.mjs';
 
 test('waiting officers share the real construction slot and optional work cannot veto military funding',()=>{
  const {s,home}=planningFront();
- for(const u of home.units)assert.equal(assignDomestic(s,home.id,'commerce',u.id,{faction:'yuan'}),null);
+ const workers=home.units.slice(0,domesticStaffingLimit(home));assert.ok(workers.length>1);
+ for(const u of workers)assert.equal(assignDomestic(s,home.id,'commerce',u.id,{faction:'yuan'}),null);
  const before=JSON.stringify(s),cost=actionCandidates(s,assignmentFor(s,home.units[0].id),{ignoreFunds:true})[0].cost;
- assert.ok(cost>0);assert.ok(cityGoldCommitment(s,home,{includeWork:true}).work<cost*home.units.length);
+ assert.ok(cost>0);assert.ok(cityGoldCommitment(s,home,{includeWork:true}).work<cost*workers.length);
  assert.equal(strategicCityBudget(s,home).goldNeed,500+cityMaintenance(s,home).gold);
  assert.equal(JSON.stringify(s),before);
  planStrategicAI(s);assert.ok(offensivePlans(s).some(p=>p.faction==='yuan'));

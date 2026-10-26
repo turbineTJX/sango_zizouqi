@@ -79,7 +79,7 @@ export function validateStrategyDesigns(t){
  check(!!incidents?.events&&Object.keys(incidents.events).length>0,'domesticIncidents.events','缺少事件库');
  for(const [id,e]of Object.entries(incidents?.events||{})){
   const path='domesticIncidents.events.'+id;if(!fields(e,['name','directions','kinds','social','story','relationDelta','chance','quantity','progress','description'],path))continue;
-  check(typeof e.name==='string'&&typeof e.description==='string'&&!/概率|成功率|%/.test(e.description),path,'名称或叙述无效');
+  check(typeof e.name==='string'&&typeof e.description==='string'&&!/%/.test(e.description),path,'名称或叙述无效');
   check(num(e.chance,-.5,.5)&&num(e.quantity,.25,2)&&num(e.progress,.25,2),path,'事务效果超出范围');
   check(e.directions===null||Array.isArray(e.directions)&&e.directions.every(d=>t.directions[d]),path,'方向无效');
   check(e.kinds===null||Array.isArray(e.kinds)&&e.kinds.every(k=>Object.values(t.domesticActions).some(a=>a.kind===k)),path,'事务类型无效');

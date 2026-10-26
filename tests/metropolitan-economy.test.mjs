@@ -10,7 +10,8 @@ import {assignDomestic,ACTIONS,reconcileDomestic} from '../domestic.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';
 import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
 import {validateDesignTables,DESIGN_TABLES} from '../design-catalog.mjs';
-import {cityDomesticMarkup} from '../strategic-view.mjs';
+import {cityProductionMarkup} from '../finance-view.mjs';
+import {domesticStaffingLimit} from '../domestic-staffing.mjs';
 
 test('small cities, rich centers and large metropolises have different physical development ceilings',()=>{
  const s=newCampaign(417,'guandu-200'),city=id=>s.cities.find(c=>c.id===id);
@@ -32,7 +33,10 @@ test('small cities, rich centers and large metropolises have different physical 
 test('cash scheduling reserves a shared saved turn allowance and continuation cannot restore spent output',()=>{
  const s=newCampaign(911,'heroes-251'),c=s.cities.find(c=>c.id==='xuchang');fundCities(s,30000);c.commerce=1;
  for(const [key,def]of Object.entries(ACTIONS))if(def.direction==='commerce'&&key!=='fair')c.domestic.cooldowns[key]=10000;
- const people=cityPersonnel(s,c.id).slice(0,8);assert.ok(people.length>=4);
+ // Expand staffing through completed agricultural facilities, keeping the
+ // commercial output allowance at level one for the shared-capacity check.
+ setBuildingLevel(c,'farm',6);assert.ok(domesticStaffingLimit(c)>=4);
+ const people=cityPersonnel(s,c.id).slice(0,4);assert.equal(people.length,4);
  for(const p of people)assert.equal(assignDomestic(s,c.id,'commerce',p.unit.id),null);
  assert.equal(beginExecution(s),null);
  const started=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.action?.key==='fair').length;
@@ -45,7 +49,7 @@ test('cash scheduling reserves a shared saved turn allowance and continuation ca
  assert.equal(results.length,started);assert.equal(current.domestic.production.gold,results.reduce((n,e)=>n+(e.result.resourceCredit?.gold||0),0));
  assert.ok(current.domestic.production.gold>0&&current.domestic.production.gold<=cityWorkLimit(s,current,'gold'));
  // Viewing the following month's unused allowance does not rewrite history.
- const before=serializeCampaign(s);assert.equal(cityWorkRemaining(s,c,'gold'),cityWorkLimit(s,c,'gold'));assert.match(cityDomesticMarkup(s,c.id),/本旬剩余产能/);assert.equal(serializeCampaign(s),before);
+ const before=serializeCampaign(s);assert.equal(cityWorkRemaining(s,c,'gold'),cityWorkLimit(s,c,'gold'));assert.match(cityProductionMarkup(s,c),/本旬剩余产能/);assert.equal(serializeCampaign(s),before);
 });
 
 test('disrupted external farms stop income and conquest transfers facilities without duplicating productivity',()=>{

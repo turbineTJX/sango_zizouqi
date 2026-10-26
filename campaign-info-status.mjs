@@ -1,3 +1,4 @@
+import {campaignDate} from './national-scenarios.mjs';
 import {scoutAssignment,scoutStatus} from './scouting-state.mjs';
 import {mapNode} from './road-network.mjs';
 import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
@@ -30,7 +31,7 @@ export function campaignCurrentStatus(s,type,entry,index){
  if(type==='unit'||type==='officer'){
   const r=entry,id=r.unit.id,work=currentDomesticWork(s,id),assignment=s.campaign.domestic.assignments.find(a=>a.officerId===id),order=s.campaign.domestic.orders.find(q=>q.officerIds.includes(id));
   const scout=scoutAssignment(s,id);if(scout)return [['正在做什么','在城工作 · 负责侦察'],['所在位置',town(s,scout.homeCity)],['侦察终点',town(s,scout.targetCity)],['模拟斥候',scoutStatus(scout)],['斥候位置',town(s,scout.location)+(scout.route.length?' → '+town(s,scout.route[0]):'')],['工作状态',scout.paused?'暂停':'办理中'],['视野持续时间','由负责人智力随机决定，智力越高持续越久']];
-  if(r.personFate){const p=r.personFate;return [['正在做什么',p.status==='DEAD'?'已战死':p.custody?'被俘，押送途中':'被俘，等待赎回或释放'],['所在位置',town(s,p.cityId)+(p.custody?' → '+town(s,p.custody.route[0]):'')],['事由',p.fate.reason],['发生日期','第 '+p.fate.day+' 天']];}
+  if(r.personFate){const p=r.personFate;return [['正在做什么',p.status==='DEAD'?'已战死':p.custody?'被俘，押送途中':'被俘，等待赎回或释放'],['所在位置',town(s,p.cityId)+(p.custody?' → '+town(s,p.custody.route[0]):'')],['事由',p.fate.reason],['发生日期',campaignDate(s,{day:p.fate.day})]];}
   if(r.unit.mission){const m=r.unit.mission,p=m.type==='diplomacy'&&[...s.campaign.diplomacy.proposals,...s.campaign.diplomacy.contracts].find(p=>p.id===m.projectId),speed=m.captiveId?DIPLOMACY_RULES.captiveSpeed:m.cargo?DIPLOMACY_RULES.cargoSpeed:DIPLOMACY_RULES.lightSpeed;return [['正在做什么',missionStatus(m)],['所在位置',town(s,m.location)+(m.route.length?' → '+town(s,m.route[0]):'')],['所属岗位',town(s,m.homeCity)],['接洽或交付目的地',town(s,m.targetCity)],['当前事务',p?DIPLOMACY_GOALS[p.goal]:work?.title||'返城'],...(!p&&m.phase==='work'?[['当地办理剩余',days(work?.remaining??0)]]:[]),...(m.cargo?[['实际押运',`${m.cargo.amount}${m.cargo.kind==='grain'?'粮':'预备兵'}`]]:[]),['每日行动力',String(speed)],['路段进度',m.route.length?Math.floor(m.progress/roadCost(s,m.location,m.route[0])*100)+'%':'已抵达']];}
   const siege=s.campaign.battles.find(b=>!b.settled&&b.kind==='siege'&&b.cityId===r.city);
   const result=r.army?armyStatus(s,r.army):[

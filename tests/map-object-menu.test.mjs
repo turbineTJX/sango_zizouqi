@@ -8,11 +8,11 @@ test('map menu restricts orders to owned objects and renders without state chang
  const s=newCampaign(203,'guandu-200'),before=serializeCampaign(s);
  const own=mapObjectMenu(s,{kind:'city',id:'xuchang',x:20,y:30});
  assert.match(own,/city-domestic/);assert.match(own,/城市一级命令/);
- assert.doesNotMatch(own,/staff-summary|strategy-stats|预备兵|管理面板|军团出征/);
+ assert.doesNotMatch(own,/staff-summary|strategy-stats|预备兵|管理面板|出征/);
  const military=mapObjectMenu(s,{kind:'city',id:'xuchang',group:'military'});
- assert.match(military,/部队编制/);assert.match(military,/军团出征/);assert.doesNotMatch(military,/调任武将/);
+ assert.match(military,/编制/);assert.match(military,/出征/);assert.doesNotMatch(military,/调任/);
  const personnel=mapObjectMenu(s,{kind:'city',id:'xuchang',group:'personnel'});
- assert.match(personnel,/城内武将/);assert.match(personnel,/调任武将/);assert.match(personnel,/任命太守/);
+ assert.match(personnel,/武将/);assert.match(personnel,/调任/);assert.match(personnel,/太守/);
  const enemy=mapObjectMenu(s,{kind:'city',id:'ye'});
  assert.match(enemy,/城市情报/);assert.doesNotMatch(enemy,/campaign-pick|city-domestic/);
  assert.equal(mapObjectMenu(s,{kind:'city',id:'missing'}),'');

@@ -1,3 +1,4 @@
+import {campaignDate} from './national-scenarios.mjs';
 import {DOMESTIC_INCIDENTS,incidentFor,domesticIncidentText} from './domestic-incidents.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {playerFaction} from './player-faction.mjs';
@@ -13,5 +14,5 @@ export function incidentWorkMarkup(s,a){
 export function cityIncidentMarkup(s,c){
  if(c.owner!==playerFaction(s))return '';
  const current=Math.floor((s.campaign.day-1)/10)+1;
- return s.campaign.domestic.incidents.events.filter(r=>r.cityId===c.id&&r.turn===current&&DOMESTIC_INCIDENTS[r.code].story).slice(-2).map(r=>{const e=DOMESTIC_INCIDENTS[r.code];return '<p class="domestic-incident-signal '+(concern(e)?'concern':'favorable')+'" data-city-incident="'+r.id+'">'+detailLink('内政纪事',[{name:e.name,rows:[['当事人','',OFFICER_BY_ID[r.sourceOfficerId].name+'、'+OFFICER_BY_ID[r.otherOfficerId].name],['纪事','',domesticIncidentText(s,r)],['结算','', '已记入城仓与武将交情。']]}],e.name)+' · 第'+r.day+'天 · 已结算</p>';}).join('');
+ return s.campaign.domestic.incidents.events.filter(r=>r.cityId===c.id&&r.turn===current&&DOMESTIC_INCIDENTS[r.code].story).slice(-2).map(r=>{const e=DOMESTIC_INCIDENTS[r.code];return '<p class="domestic-incident-signal '+(concern(e)?'concern':'favorable')+'" data-city-incident="'+r.id+'">'+detailLink('内政纪事',[{name:e.name,rows:[['当事人','',OFFICER_BY_ID[r.sourceOfficerId].name+'、'+OFFICER_BY_ID[r.otherOfficerId].name],['纪事','',domesticIncidentText(s,r)],['结算','', '已记入城仓与武将交情。']]}],e.name)+' · '+campaignDate(s,{day:r.day})+' · 已结算</p>';}).join('');
 }

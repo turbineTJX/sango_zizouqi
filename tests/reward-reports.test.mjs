@@ -43,7 +43,7 @@ test('turn receipt uses actual capped credits and treasury delta, persists and c
  assert.equal(row.credited.grain,0);assert.equal(row.credited.manpower,0);
  assert.deepEqual(receipt.result.stocks,harvestStocks(s));assert.equal(receipt.result.net.gold,s.gold-start.result.stocks.gold);
  assert.equal(pendingDomesticAlerts(s).some(n=>n.id===receipt.id),false);
- const saved=serializeCampaign(s),markup=harvestStripMarkup(s);assert.match(markup,/第 1 旬收获/);assert.match(markup,/各城金净变化/);assert.equal(serializeCampaign(s),saved);
+ const saved=serializeCampaign(s),markup=harvestStripMarkup(s);assert.match(markup,/200年1月上旬收获/);assert.match(markup,/各城金净变化/);assert.equal(serializeCampaign(s),saved);
  const copy=restore(s);assert.equal(harvestStripMarkup(copy),markup);advanceCampaignDay(s);assert.equal(serializeCampaign(s),saved);
 });
 test('routine persuasion progress and unsuccessful contacts remain recorded without interrupting; real warnings and signed offers still interrupt',()=>{

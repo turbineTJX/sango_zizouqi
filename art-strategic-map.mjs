@@ -138,7 +138,7 @@ export function attachStrategicMap(root,ui,onFailure){
   if(frame){cancelAnimationFrame(frame);frame=0;}
   // Read layout before changing styles, classes, viewBox or city geometry.
   const screenWidth=svg.clientWidth,screenHeight=svg.clientHeight;
-  const screenBox=svg.getBoundingClientRect(),occluders=workspace?[...workspace.querySelectorAll('.sovereign-hud,.world-toolbar,.faction-navigation,.world-turn,.world-commands,.map-information,.strategy-notice,.national-map-tools,.encounter-callout,.map-workspace-actions,.map-quick-directory')].map(node=>node.getBoundingClientRect()).filter(r=>r.width&&r.height):[];
+  const screenBox=svg.getBoundingClientRect(),occluders=workspace?[...workspace.querySelectorAll('.sovereign-hud,.world-toolbar,.faction-navigation,.world-turn,.world-commands,.map-information,.map-search[open] .national-search,.national-legend[open]>div,.strategy-notice,.national-map-tools,.encounter-callout,.map-workspace-actions,.map-quick-directory')].map(node=>node.getBoundingClientRect()).filter(r=>r.width&&r.height):[];
   const previous=animate?svg.viewBox.animVal:null,from=previous?{x:previous.x,y:previous.y,width:previous.width,height:previous.height}:null;
   if(!continuous)clearTimeout(previewTimer);
   svg.classList.toggle('map-camera-moving',continuous);
@@ -285,7 +285,8 @@ export function attachStrategicMap(root,ui,onFailure){
   else if(key==='metropolis'){const metro=metropolisForSelection();if(metro){view=metropolitanOverviewView({x:+metro.dataset.x,y:+metro.dataset.y},bounds.width/bounds.height);apply();}}
   else if(key==='territory'){svg.classList.toggle('hide-territory');ui.mapTerritoryHidden=svg.classList.contains('hide-territory');b.setAttribute('aria-pressed',String(!ui.mapTerritoryHidden));}else if(key==='selected')focus();else {view={...(key==='national'?NATIONAL_VIEW:THEATER_VIEW)};apply();}
  });
- root.querySelector('#national-city-search')?.addEventListener('change',e=>{const node=svg.querySelector(`[data-city="${e.target.value}"],[data-command-city="${e.target.value}"],[data-junction="${e.target.value}"]`);if(!node)return;view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y},360*bounds.width/bounds.height,360);apply();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));});
+ for(const [selector,key] of [['.map-search','mapSearchOpen'],['.national-legend','mapLegendOpen']])root.querySelector(selector)?.addEventListener('toggle',e=>{ui[key]=e.target.open;scheduleApply();});
+ root.querySelector('#national-city-search')?.addEventListener('change',e=>{const node=svg.querySelector(`[data-city="${e.target.value}"],[data-command-city="${e.target.value}"],[data-junction="${e.target.value}"]`);if(!node)return;ui.mapSearchOpen=false;const search=root.querySelector('.map-search');if(search)search.open=false;view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y},360*bounds.width/bounds.height,360);apply();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));});
  const inspectMetropolis=e=>{const node=e.target.closest?.('[data-metropolis-focus]');if(!node||svg.dataset.mapDetail!=='metropolis')return;e.preventDefault();e.stopPropagation();closeBuilding();expandMetropolis(node.dataset.metropolisFocus);};
  svg.addEventListener('click',inspectMetropolis);
  svg.addEventListener('wheel',e=>{

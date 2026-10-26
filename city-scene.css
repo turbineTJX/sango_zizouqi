@@ -11,7 +11,7 @@
 .map-command-screen .national-world .map-city-model [data-map-building],.map-command-screen .national-world .map-city-model .map-building-hit{pointer-events:none!important}
 @media(max-width:700px){.city-building-card{right:8px;top:auto;bottom:134px;width:240px;padding:12px 14px;font-size:12px;max-height:calc(100dvh - 375px);overflow:auto}.city-building-card h3{font-size:18px}}
 
-.strategy-map-first.city-view .map-information,.strategy-map-first.city-view .strategy-notice,.strategy-map-first.city-view .harvest-strip{display:none}
+.strategy-map-first.city-view .strategy-notice,.strategy-map-first.city-view .harvest-strip{display:none}
 .national-world .atlas-province-labels{opacity:calc(.3*(1 - var(--interior-opacity,0)))}
 .national-world .terrain-relief,.national-world .terrain-landscape{opacity:calc(1 - var(--interior-opacity,0)*.85)!important}
 

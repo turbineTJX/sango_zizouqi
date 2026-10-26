@@ -107,7 +107,7 @@ test('actual finance uses completed harvest and payroll receipts and survives a 
  assert.equal(beginExecution(s),null);while(s.campaign.day<11)advanceCampaignDay(s);
  const receipt=s.campaign.activity.nodes.findLast(n=>n.phase==='harvest'),row=receipt.result.cities[0],city=s.cities.find(c=>c.id===row.id),before=serializeCampaign(s);
  const html=cityFinanceMarkup(s,city),aggregate=factionFinanceMarkup(s,'cao'),fmt=n=>Math.round(n).toLocaleString('zh-CN');
- assert.match(html,/第 1 旬实际结算/);assert.ok(html.includes(fmt(row.credited.gold+row.work.gold)));assert.ok(html.includes('官员俸禄实发 '+fmt(city.payroll.lastPaid)+' 金'));
+ assert.match(html,/200年1月上旬结算/);assert.ok(html.includes(fmt(row.credited.gold+row.work.gold)));assert.ok(html.includes('官员俸禄实发 '+fmt(city.payroll.lastPaid)+' 金'));
  assert.match(aggregate,/城仓净变化/);assert.match(aggregate,/旬末收支明细/);assert.equal(serializeCampaign(s),before);
  const restored=validateCampaign(JSON.parse(before));assert.equal(cityFinanceMarkup(restored,restored.cities.find(c=>c.id===city.id)),html);assert.equal(factionFinanceMarkup(restored,'cao'),aggregate);
 });

@@ -8,7 +8,7 @@ import {sha256} from './release-lib.mjs';
 if(!process.argv[2])throw Error('Pass the native release directory');
 const root=resolve(process.argv[2]),manifest=JSON.parse(await readFile(join(root,'native-release.json'),'utf8')),
  codeManifest=JSON.parse(await readFile(join(root,'code/release.json'),'utf8'));
-assert.equal(manifest.codeOnly,true);assert.equal(Object.keys(manifest.artifacts).length,2);
+assert.equal(manifest.codeOnly,true);assert.deepEqual(Object.keys(manifest.artifacts).sort(),manifest.artifacts.windowsInstaller?['android','windows','windowsInstaller']:['android','windows']);
 for(const artifact of Object.values(manifest.artifacts))assert.equal(sha256(await readFile(join(root,artifact.file))),artifact.sha256);
 const asar=join(root,'win-unpacked/resources/app.asar'),names=listPackage(asar).map(path=>path.replaceAll('\\','/'));
 assert.ok(names.includes('/preload.cjs'));assert.ok(names.includes('/code/game-data.bin'));

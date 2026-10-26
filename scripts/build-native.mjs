@@ -13,6 +13,7 @@ const target=process.argv[2]||'all';
 if(!['windows','android','all','prepare-android'].includes(target))throw Error('Usage: build-native.mjs windows | android | all | prepare-android [--code-only]');
 if(process.argv.includes('--with-art')&&process.argv.includes('--code-only'))throw Error('Choose --with-art or --code-only');
 const withArt=process.argv.includes('--with-art');
+const withInstaller=process.argv.includes('--installer');
 const verifyAndroid=process.argv.includes('--verify-android');
 const exists=async path=>{try{await access(path);return true;}catch{return false;}};
 const packageInfo=JSON.parse(await readFile(join(ROOT,'package.json'),'utf8'));
@@ -41,13 +42,15 @@ async function windows(){
  await writeFile(join(appDir,'package.json'),JSON.stringify({name:'sango-sovereign-desktop',version:packageInfo.version,private:true,
   description:'三国 · 君临离线试玩版',author:'Sango',main:'main.cjs'},null,2));
  const filename='sango-'+packageInfo.version+'-windows.exe';
- await buildElectron({targets:Platform.WINDOWS.createTarget(['portable'],Arch.x64),config:{appId:'com.sango.sovereign',productName:'三国 · 君临',
+ await buildElectron({targets:Platform.WINDOWS.createTarget(withInstaller?['portable','nsis']:['portable'],Arch.x64),config:{appId:'com.sango.sovereign',productName:'三国 · 君临',
   electronVersion:packageInfo.devDependencies.electron,electronDist:join(ROOT,'node_modules/electron/dist'),directories:{app:appDir,output:release},asar:true,
   files:['main.cjs','main.cjs.LEGAL.txt','preload.cjs','package.json','icon.png','code/**/*'],
   extraResources:withArt?[{from:join(release,'art'),to:'art'}]:[],
-  win:{icon:join(stage,'icon.ico'),executableName:'SangoSovereign',target:'portable'},portable:{artifactName:filename},
+  win:{icon:join(stage,'icon.ico'),executableName:'SangoSovereign'},portable:{artifactName:filename},
+  nsis:{artifactName:'sango-'+packageInfo.version+'-windows-setup.exe',oneClick:false,perMachine:false,allowToChangeInstallationDirectory:true,deleteAppDataOnUninstall:false,createDesktopShortcut:true,createStartMenuShortcut:true},
   npmRebuild:false,compression:'normal',forceCodeSigning:false}});
  const bytes=await readFile(join(release,filename));artifacts.windows={file:filename,bytes:bytes.length,sha256:sha256(bytes),arch:'x64',signed:false};
+ if(withInstaller){const file='sango-'+packageInfo.version+'-windows-setup.exe',bytes=await readFile(join(release,file));artifacts.windowsInstaller={file,bytes:bytes.length,sha256:sha256(bytes),arch:'x64',signed:false};}
 }
 
 async function androidTools(){

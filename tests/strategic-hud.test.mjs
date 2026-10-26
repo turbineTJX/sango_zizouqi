@@ -4,6 +4,25 @@ import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {strategicHUD} from '../strategic-hud.mjs';
 import {armyMapMarkers} from '../strategic-army-markers.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {campaignDate} from '../national-scenarios.mjs';
+import {campaignJournalMarkup} from '../strategic-view.mjs';
+
+test('record dates use the scenario calendar across periods, months and years without changing state',()=>{
+ const s=newCampaign(203,'red-cliffs-208'),before=JSON.stringify(s);
+ for(const [day,date]of [[1,'208年1月1日'],[10,'208年1月10日'],[11,'208年1月11日'],[30,'208年1月30日'],[31,'208年2月1日'],[360,'208年12月30日'],[361,'209年1月1日']])assert.equal(campaignDate(s,{day}),date);
+ assert.equal(campaignDate(s,{turn:2,period:true}),'208年1月中旬');assert.equal(campaignDate(s,{turn:37,period:true}),'209年1月上旬');
+ assert.equal(JSON.stringify(s),before);
+ const legacy=newCampaign(1);assert.equal(campaignDate(legacy,{day:1}),'200年1月1日');
+});
+
+test('journal categories preserve records and dates while excluding foreign domestic events',()=>{
+ const s=newCampaign(203,'red-cliffs-208');
+ s.campaign.domestic.events.unshift({day:31,phase:'proposal-approved',faction:'cao',cityId:'xuchang',text:'本方提案已同意'},{day:31,phase:'start',faction:'yuan',cityId:'ye',text:'不可见的外国内政'});
+ const before=JSON.stringify(s),domestic=campaignJournalMarkup(s,'domestic');
+ assert.match(domestic,/208年2月1日/);assert.match(domestic,/本方提案已同意/);assert.doesNotMatch(domestic,/不可见的外国内政|呈案|准奏/);
+ for(const tab of ['all','domestic','personnel','battle','orders'])assert.match(campaignJournalMarkup(s,tab),new RegExp('data-journal-tab="'+tab+'"'));
+ assert.equal(JSON.stringify(s),before);
+});
 
 test('map sidebar exposes faction-wide commands independently of selected city',()=>{
  const s=newCampaign(203,'guandu-200'),before=JSON.stringify(s);

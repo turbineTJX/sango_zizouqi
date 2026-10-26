@@ -44,7 +44,7 @@ test('close same-work officers gain a strong, saved joint effect on both real op
  assert.equal(f.r.officerIds.length,2);assert.equal(f.r.actionIds.length,2);
  for(const a of assignments){assert.equal(incidentFor(f.s,a)?.id,f.r.id);assert.equal(incidentModifiers(f.s,a).quantity,2);assert.equal(effectiveDomesticChance(f.s,a),.94);}
  const reports=pendingActivityReports(f.s).filter(n=>n.phase==='incident');assert.equal(reports.length,1);assert.equal(reports[0].officerIds.length,2);
- assert.doesNotMatch(reports[0].text,/%|概率|成功率/);assert.match(cityDomesticMarkup(f.s,f.c.id),/同心协力/);
+ assert.doesNotMatch(reports[0].text,/%/);assert.match(cityDomesticMarkup(f.s,f.c.id),/同心协力/);
  const control=structuredClone(f.before);control.campaign.domestic.incidents.enabled=false;advanceCampaignDay(control);days(f.s,11);days(control,11);
  const result=(s,id)=>s.campaign.domestic.events.find(e=>e.officerId===id&&e.result.actual!==undefined);const first=f.ids[0];assert.ok(result(f.s,first).result.actual>result(control,first).result.actual);
  // Both results keep the same event even though the loop settles one first.

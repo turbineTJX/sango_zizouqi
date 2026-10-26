@@ -21,7 +21,7 @@ try{
  await page.locator('.national-world').waitFor();
  const saved=()=>page.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  const before=await saved(),menu=page.locator('.city-command-menu');
- const select=async(id='xuchang')=>{if(!await page.locator('#national-city-search').isVisible())await page.locator('[data-map-view="settlements"]').click();await page.locator('#national-city-search').selectOption(id);await menu.waitFor({state:'visible'});};
+ const select=async(id='xuchang')=>{if(!await page.locator('#national-city-search').isVisible())await page.locator('.map-search>summary').click();await page.locator('#national-city-search').selectOption(id);await menu.waitFor({state:'visible'});};
  const command=label=>menu.getByRole('button',{name:label,exact:true});
  const close=()=>page.locator('.modal-header [data-action="close"]').click();
  const compact=async()=>{
@@ -35,20 +35,20 @@ try{
  };
  await select();await compact();
  await page.screenshot({path:out+'/desktop.png',animations:'disabled'});
- await command('军事').click();assert.deepEqual(await menu.locator('nav button').allTextContents(),['部队编制','军团出征']);
+ await command('军事').click();assert.deepEqual(await menu.locator('nav button').allTextContents(),['编制','出征']);
  await command('返回').click();await compact();
- await command('军事').click();await command('部队编制').click();await page.locator('.unit-muster').waitFor();
+ await command('军事').click();await command('编制').click();await page.locator('.unit-muster').waitFor();
  assert.equal(await menu.count(),0);await page.locator('[data-action="campaign-command-cancel"]').click();assert.equal(await saved(),before);
- await select();await command('军事').click();await command('军团出征').click();await page.locator('.command-flow').waitFor();await page.locator('[data-action="campaign-command-cancel"]').click();
+ await select();await command('军事').click();await command('出征').click();await page.locator('.command-flow').waitFor();await page.locator('[data-action="campaign-command-cancel"]').click();
  await select();await command('内政').click();await page.locator('.domestic-workbench').waitFor();await close();
- await select();await command('人事').click();await command('城内武将').click();await page.locator('.modal .personnel-summary').waitFor();await close();
- await select();await command('人事').click();await command('调任武将').click();await page.locator('.command-flow').waitFor();await page.locator('[data-action="campaign-command-cancel"]').click();
- await select();await command('人事').click();await command('任命太守').click();await page.locator('.command-flow').waitFor();await page.locator('[data-action="campaign-command-cancel"]').click();
+ await select();await command('人事').click();await command('武将').click();await page.locator('.modal .personnel-summary').waitFor();await close();
+ await select();await command('人事').click();await command('调任').click();await page.locator('.command-flow').waitFor();await page.locator('[data-action="campaign-command-cancel"]').click();
+ await select();await command('人事').click();await command('太守').click();await page.locator('.command-flow').waitFor();await page.locator('[data-action="campaign-command-cancel"]').click();
  await select();await command('侦察').click();await page.locator('#scout-city').waitFor();await close();
  await select();await menu.getByRole('button',{name:'城市情报',exact:true}).click();await page.locator('.modal').waitFor();assert.match(await page.locator('#modal-title').innerText(),/许昌/);
  await select('chenliu');await compact();assert.match(await menu.locator('h3').innerText(),/陈留/);await menu.getByRole('button',{name:'城市情报',exact:true}).click();assert.match(await page.locator('#modal-title').innerText(),/陈留/);await close();
  await select();await menu.getByRole('button',{name:'查看城内',exact:true}).click();assert.equal(await menu.count(),0);assert.equal(await page.locator('.national-world').getAttribute('data-map-detail'),'interior');
- await page.locator('[data-map-view="settlements"]').click();
+ const world=page.locator('.national-world');await world.focus();await page.keyboard.press('Home');for(let i=0;i<8&&await world.evaluate(el=>Math.min(el.viewBox.baseVal.width,el.viewBox.baseVal.height)>420);i++)await page.keyboard.press('+');
  await page.locator('.national-world [data-city="xuchang"] [data-map-glyph]').click();await compact();
  await select('chenliu');assert.match(await menu.locator('h3').innerText(),/陈留/);assert.equal(await menu.count(),1);
  await page.keyboard.press('Escape');assert.equal(await menu.count(),0);

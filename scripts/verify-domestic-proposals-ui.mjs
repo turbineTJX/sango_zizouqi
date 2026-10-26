@@ -27,7 +27,7 @@ try{
  await page.goto(base+'/#strategy');await page.locator('.sovereign-hud').waitFor();
  await action('campaign-begin').click();await page.locator('.domestic-proposal').first().waitFor();
  let state=await saved();assert.equal(state.cities.find(c=>c.id==='xuchang').gold,40000);assert.equal(state.campaign.day,1);
- assert.equal(await page.locator('.domestic-proposal').count(),2);assert.doesNotMatch(await page.locator('.domestic-proposals').innerText(),/%|成功率|概率/);
+ assert.equal(await page.locator('.domestic-proposal').count(),2);assert.doesNotMatch(await page.locator('.domestic-proposals').innerText(),/%|呈请|臣度|裁示/);
  await page.screenshot({path:out+'/desktop.png',fullPage:true});
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/mobile.png',fullPage:true});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));

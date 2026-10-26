@@ -29,8 +29,9 @@ test('deferred transport preserves cargo instructions without deducting resource
  const {s,c,id}=busyFixture(),command={kind:'transfer',cityId:c.id,officerIds:[id],target:'chenliu',cargo:{gold:0,grain:600,manpower:200}},before=serializeCampaign(s);
  assert.ok(requestStrategicOrder(s,command).confirmation);assert.equal(serializeCampaign(s),before);const grain=c.grain,men=c.manpower;
  assert.ok(requestStrategicOrder(s,command,'after').queued);assert.deepEqual(s.campaign.domestic.orders[0].cargo,command.cargo);assert.equal(c.grain,grain);assert.equal(c.manpower,men);assert.ok(c.units.some(u=>u.id===id));const copy=restore(s);
- for(const value of [s,copy])for(let i=0;i<300&&value.campaign.day<61;i++){if(value.campaign.phase==='planning')beginExecution(value);for(const b of activeBattles(value).filter(b=>b.awaiting))chooseEncounter(value,b.id,false);advanceCampaignDay(value);}
- assert.equal(s.campaign.day,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.ok(s.cities.find(c=>c.id==='chenliu').units.some(u=>u.id===id));assert.ok(s.campaign.domestic.events.some(e=>e.phase==='order-done'));restore(s);
+ const orderId=s.campaign.domestic.orders[0].id;
+ for(const value of [s,copy]){const receipts=new Set();for(let i=0;i<300&&value.campaign.day<61;i++){if(value.campaign.phase==='planning')beginExecution(value);for(const b of activeBattles(value).filter(b=>b.awaiting))chooseEncounter(value,b.id,false);advanceCampaignDay(value);for(const e of value.campaign.domestic.events)if(e.phase==='order-done'&&e.result.orderId===orderId)receipts.add(e.id);}assert.equal(receipts.size,1,'queued cargo executes once before old receipts are compacted');}
+ assert.equal(s.campaign.day,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.ok(s.cities.find(c=>c.id==='chenliu').units.some(u=>u.id===id));restore(s);
 });
 test('real daily execution resumes a transport deterministically and rejects corrupt journey cargo',()=>{
  const {s,id,dest}=fixture();assert.equal(transferOfficer(s,id,dest.id,{cargo:{grain:100,manpower:100}}),null);beginExecution(s);advanceCampaignDay(s);const copy=restore(s);

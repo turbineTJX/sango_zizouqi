@@ -16,7 +16,7 @@ try{
  for(const kind of ['victory','defeat','observer']){
   const fixture=endingCampaign(kind);await importSaveFixture(page,fixture);await page.locator('.campaign-ending').waitFor();
   assert.match(await page.locator('#ending-title').innerText(),kind==='victory'?/天下一统/:kind==='defeat'?/征途落幕/:/袁绍.*统一天下/);
-  if(kind==='victory'){await page.locator('.ending-toolbar [data-guide-action="open"]').click();await page.getByRole('heading',{name:'整局回顾',exact:true}).waitFor();await page.locator('[data-guide-action="close"]').first().click();await page.locator('.campaign-ending').waitFor();}
+  if(kind==='victory'){await page.locator('.ending-toolbar [data-guide-action="open"]').click();await page.locator('.page-guide-coach[data-guide-topic="ending"]').waitFor();assert.equal(await page.locator('#page-guide-title').innerText(),'整局回顾');await page.locator('[data-guide-action="close"]').first().click();await page.locator('.campaign-ending').waitFor();}
   await page.reload();await page.locator('.campaign-ending').waitFor();
   const downloaded=page.waitForEvent('download');await page.locator('[data-action="ending-export"]').click();const file=join(out,kind+'.json');await (await downloaded).saveAs(file);assert.equal(JSON.parse(await readFile(file,'utf8')).finished,fixture.finished);
   await page.locator('[data-action="ending-map"]').click();await page.locator('.sovereign-hud').waitFor();await page.locator('[data-action="ending-show"]').click();await page.locator('.campaign-ending').waitFor();

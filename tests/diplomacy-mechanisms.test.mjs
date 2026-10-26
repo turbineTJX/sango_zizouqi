@@ -64,7 +64,10 @@ test('an approved fixed-price framework creates bounded batches with inherited a
  const {p}=proposeDiplomatic(s,{goal:'trade',direction:'commerce',clauses:[leg('trade','cao','sunce',{duration:60,resource:'grain',quota:3000,unitPrice:.18}),leg('tradePass','cao','sunce',{duration:60}),leg('tradePass','sunce','cao',{duration:60})]});approveAndSign(s,p);
  untilDiplomatic(s,()=>s.campaign.diplomacy.contracts.some(b=>b.parentId===p.id));const batch=s.campaign.diplomacy.contracts.find(b=>b.parentId===p.id),grain=batch.clauses.find(c=>c.kind==='grain');
  assert.equal(batch.approvals.cao.sourceContractId,p.id);assert.equal(batch.approvals.cao.day,p.approvals.cao.day);assert.ok(grain.amount<=3000);assert.equal(batch.clauses.find(c=>c.kind==='gold').amount,Math.ceil(grain.amount*.18));
- untilDiplomatic(s,()=>grain.delivered>0);assert.ok(grain.delivered<=grain.amount);assert.ok(s.campaign.activity.nodes.some(n=>n.result.batchId===batch.id));
+ // Observe the creation receipt while it is current; routine civil records
+ // can be compacted before a distant cargo reaches its destination.
+ assert.ok(s.campaign.activity.nodes.some(n=>n.result.batchId===batch.id&&n.result.proposalId===p.id));
+ untilDiplomatic(s,()=>grain.delivered>0);assert.ok(grain.delivered<=grain.amount);
 });
 
 test('a loan creates a real future debt, keeps unpaid balance and debits actual funds when paid',()=>{
