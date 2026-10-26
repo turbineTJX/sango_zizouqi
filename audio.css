@@ -1,0 +1,27 @@
+.audio-settings{padding:20px 0;border-top:1px solid var(--line,#cfc3a9);margin-top:20px}
+.officer-voice{position:fixed;z-index:160;bottom:calc(72px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);max-width:min(520px,calc(100vw - 24px));display:flex;align-items:baseline;gap:12px;padding:10px 16px;background:#101c24ed;border:1px solid #b59a6266;border-left:3px solid #b59a62;border-radius:3px;box-shadow:0 3px 16px #0005;pointer-events:none;color:#f0e8d7;font:14px/1.6 "Microsoft YaHei",sans-serif}
+.officer-voice[hidden]{display:none}
+.officer-voice [data-voice-name]{color:#e7c68c;white-space:nowrap;font-size:12px}
+.officer-voice[data-side="1"]{border-left-color:#c97376}
+.officer-voice[data-side="1"] [data-voice-name]{color:#f2b5b8}
+@media(max-width:560px){.officer-voice{width:max-content;bottom:calc(64px + env(safe-area-inset-bottom,0px));padding:8px 12px;gap:8px;font-size:13px}.officer-voice [data-voice-name]{font-size:11px}}
+.audio-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.audio-heading h3{font-size:17px;margin:0 0 6px}
+.audio-heading p{font-size:13px;color:var(--muted,#736a57);margin:0;line-height:1.6}
+.audio-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;min-height:36px}
+.audio-toggle[aria-pressed=true]{opacity:.7}
+.audio-toggle[aria-pressed=true] svg{stroke-dasharray:3 2}
+.audio-slider{display:grid;grid-template-columns:76px minmax(90px,1fr) 42px;gap:12px;align-items:center;margin:14px 0;font-size:14px}
+.audio-slider input{width:100%;min-height:32px;margin:0;accent-color:#8e6334;cursor:pointer}
+.audio-slider output{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted,#736a57)}
+.audio-audition{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px}
+.audio-audition small{color:var(--muted,#736a57);font-size:12px;line-height:1.6}
+.audio-track-picker{display:grid;gap:8px;font-size:13px;margin:16px 0}
+.audio-track-picker select{width:100%;min-height:36px;padding:7px 10px;font:inherit;color:inherit;background:var(--panel,#302e24);border:1px solid #9d86585c;border-radius:2px}
+.audio-track-picker small{color:var(--muted,#736a57);line-height:1.6;font-size:12px}
+.audio-settings button:focus-visible,.audio-slider input:focus-visible,.audio-toggle:focus-visible{outline:2px solid #956b34;outline-offset:3px}
+.lobby-nav>.audio-toggle{margin-left:auto}
+.lobby-nav>.audio-toggle+.button,.lobby-nav>.audio-toggle+.text-button{margin-left:0}
+.world-toolbar .audio-toggle{background:linear-gradient(#eeead4,#c9c6aa);color:#3d372a;border-color:#c0ad78}
+@media(max-width:700px){.world-toolbar .audio-toggle{height:31px;min-height:31px;padding:4px 9px}}
+@media(max-width:560px){.audio-heading{align-items:flex-start}.audio-heading p{max-width:210px}.audio-slider{grid-template-columns:68px minmax(70px,1fr) 36px;gap:8px}.lobby-nav>.audio-toggle{padding:7px 9px}.lobby-nav>.audio-toggle span{display:none}}

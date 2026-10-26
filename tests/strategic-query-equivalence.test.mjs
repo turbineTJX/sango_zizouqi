@@ -1,15 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,findCampaignRoute,supplyConnection,armyBattle,campaignBattleSide,liveSoldiers,roadLength,CAMPAIGN,advanceCampaignStep} from '../strategic-campaign.mjs';
-import {cityObservation,observedArmies,intelligenceWorld,armyVisible,updateVision} from '../strategic-vision.mjs';
+import {cityObservation,observedArmies,intelligenceWorld,armyVisible,updateVision,withIntelligenceQueries} from '../strategic-vision.mjs';
 import {cityPersonnel,residentOfficer,residentArmy} from '../city-personnel.mjs';
 import {cityUnitRows} from '../city-units.mjs';
-import {mapNode,mapNodes,isJunction,junctionBlocked,roadSegment} from '../road-network.mjs';
+import {mapNode,mapNodes,isJunction,junctionBlocked,roadSegment,cityRoads,adjacentCityPath,withRoadQueries} from '../road-network.mjs';
 import {roadCost,campaignRoads,threatenedTransportRoute} from '../strategic-movement.mjs';
 import {diplomaticPassage,factionsHostile} from '../diplomacy-relations.mjs';
-import {citySupplyBudgets,withCitySupplyQueries} from '../city-logistics.mjs';
+import {citySupplyBudgets,withCitySupplyQueries,forecastArmySupply} from '../city-logistics.mjs';
 import {safeStrategicTransportRoute} from '../strategic-ai.mjs';
 import {fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
+import {withPlanningQueries} from '../planning-queries.mjs';
 
 // Pre-optimization shortest-path algorithms provide an independent tie/order
 // oracle. Keep real distances, ownership, fog and passage checks in both paths.
@@ -53,6 +54,26 @@ test('optimized route queries retain costs, tie order, ownership and current roa
  for(const faction of [null,'cao','yuan'])for(const policy of ['auto','main'])for(const [from,to]of pairs)assert.deepEqual(findCampaignRoute(s,from,to,faction,policy),originalRoute(s,from,to,faction,policy));
  const from=s.roads[0][0],to=s.roads[0][1];s.roads.splice(0,1);mapNode(s,'chenliu').owner='yuan';
  for(const faction of [null,'cao','yuan'])assert.deepEqual(findCampaignRoute(s,from,to,faction),originalRoute(s,from,to,faction,'auto'));
+});
+
+test('depot branch pruning preserves original equal-cost paths and road variants across small connected graphs',()=>{
+ for(let seed=1;seed<=12;seed++){
+  const s=newCampaign(seed,'guandu-200'),template=s.cities[0];s.armies=[];s.junctions=[];s.roadSegments={};
+  s.cities=Array.from({length:8},(_,i)=>({...template,id:'tie-'+i,x:i,y:0,owner:'cao',grain:10000,granary:i%3,units:[]}));
+  s.roads=[];let random=seed;const next=()=>((random=Math.imul(random,1664525)+1013904223>>>0)%5);
+  for(let a=0;a<8;a++)for(let b=a+1;b<8;b++)if(b===a+1||next()<2){const edge=[s.cities[a].id,s.cities[b].id];s.roads.push(edge);s.roadSegments[[...edge].sort().join(':')]={distance:1+next(),costFactor:1};}
+  for(const city of s.cities){const army={id:'tie-army',faction:'cao',location:city.id,travel:null,units:[]};assert.deepEqual(supplyConnection(s,army),originalSupply(s,army),'seed '+seed+' target '+city.id);}
+ }
+});
+
+test('cached depot geometry respects each force treaty cap, detaches paths and expires before a treaty changes',()=>{
+ const s=newCampaign(217,'guandu-200'),template=s.cities[0],unit=template.units[0]||s.cities.find(c=>c.units.length).units[0];s.armies=[];s.junctions=[];
+ s.cities=['query-a','query-b','query-c'].map((id,i)=>({...template,id,x:i,y:0,owner:i===1?'cao':'yuan',grain:i===0?10000:0,units:[]}));
+ s.roads=[['query-a','query-b'],['query-b','query-c']];s.roadSegments=Object.fromEntries(s.roads.map(e=>[[...e].sort().join(':'),{distance:10}]));
+ const contract={id:'query-passage',status:'signed',clauses:[{kind:'militaryPass',status:'active',effectiveDay:1,untilDay:null,from:'cao',to:'yuan',troopCap:6000}]};s.campaign.diplomacy.contracts.push(contract);
+ const force=troops=>({id:'query-army',faction:'yuan',location:'query-c',travel:null,units:[{...unit,troops}]}),small=force(4000),large=force(8000),expected=originalSupply(s,small);assert.ok(expected);assert.equal(originalSupply(s,large),null);
+ withPlanningQueries(s,()=>{const first=supplyConnection(s,small);assert.deepEqual(first,expected);first.path.push('changed');assert.deepEqual(supplyConnection(s,small),expected);assert.equal(supplyConnection(s,large),null);});
+ contract.clauses[0].status='expired';assert.equal(withPlanningQueries(s,()=>supplyConnection(s,small)),null);
 });
 
 test('safe transport keeps shortest legal roads and immediately reacts to a visible blockade',()=>{
@@ -122,4 +143,25 @@ test('read-only supply scopes expire before changed troops, empty depots or late
  const source=s.cities.find(c=>c.id===second[0].link.source);source.grain=0;assert.deepEqual(citySupplyBudgets(s)[0].link,supplyConnection(intelligenceWorld(s,a.faction),a));
  assert.throws(()=>withCitySupplyQueries(s,()=>{citySupplyBudgets(s);throw Error('scope closed');}),/scope closed/);
  assert.notEqual(citySupplyBudgets(s),second);
+});
+
+test('scoped observations and forecasts equal uncached queries and expire before real changes',()=>{
+ const s=newCampaign(217,'guandu-200'),before=JSON.stringify(s),plain=intelligenceWorld(s,'cao'),forecast=forecastArmySupply(s);
+ const cached=withCitySupplyQueries(s,()=>{
+  const view=intelligenceWorld(s,'cao'),supply=forecastArmySupply(s);assert.deepEqual(view,plain);assert.deepEqual(supply,forecast);
+  assert.equal(intelligenceWorld(s,'cao'),view);assert.equal(forecastArmySupply(s),supply);
+  assert.notEqual(intelligenceWorld(s,'yuan'),view,'factions never share one projection');
+  assert.equal(withIntelligenceQueries(s,()=>intelligenceWorld(s,'cao')),view);return view;
+ });
+ assert.equal(JSON.stringify(s),before);
+ s.cities.find(c=>c.id==='xuchang').gold-=123;const next=withCitySupplyQueries(s,()=>intelligenceWorld(s,'cao'));assert.notEqual(next,cached);assert.equal(next.cities.find(c=>c.id==='xuchang').gold,s.cities.find(c=>c.id==='xuchang').gold);
+ assert.throws(()=>withIntelligenceQueries(s,()=>{intelligenceWorld(s,'cao');throw Error('closed');}),/closed/);assert.notEqual(intelligenceWorld(s,'cao'),next);
+});
+
+test('adjacent city graph queries preserve original edge order, separate directions and detach cached paths',()=>{
+ const s=newCampaign(217,'guandu-200');
+ const oracle=(a,b)=>{const queue=[{id:a,path:[]}],seen=new Set([a]);while(queue.length){const at=queue.shift();for(const [x,y]of s.roads){const next=x===at.id?y:y===at.id?x:null;if(!next||seen.has(next)||roadSegment(s,x,y)?.trail)continue;const path=[...at.path,next];if(next===b)return path;if(isJunction(s,next)){seen.add(next);queue.push({id:next,path});}}}return null;};
+ withRoadQueries(s,()=>{for(const [a,b]of cityRoads(s))for(const [from,to]of [[a,b],[b,a]]){const expected=oracle(from,to);assert.deepEqual(adjacentCityPath(s,from,to),expected);const path=adjacentCityPath(s,from,to);path.pop();assert.deepEqual(adjacentCityPath(s,from,to),expected);}});
+ const [a,b]=cityRoads(s)[0],before=adjacentCityPath(s,a,b);s.roadSegments[[a,before[0]].sort().join(':')].trail=true;
+ assert.deepEqual(withRoadQueries(s,()=>adjacentCityPath(s,a,b)),oracle(a,b),'a new query scope sees changed road conditions');
 });

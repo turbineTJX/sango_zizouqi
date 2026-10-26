@@ -29,7 +29,7 @@ export function militaryFlowMarkup(s,p){
  const preview=['review','configure','unit-review','commanders'].includes(p.step)?previewMilitaryFlow(s,p):null;
  if(p.step==='unit-review')body+=unitReviewMarkup(preview?.army?.units||configured,{detailAction:'military-detail',detailAttribute:'data-id'});
  if(p.step==='commanders')body+='<h3>第二阶段 · 将部队编成军团</h3>'+commanderSetupMarkup(s,preview?.army?.units||configured,p.roles,{attribute:'data-military-role',city:c.id});
- if(p.step==='review'&&preview?.state){const b=preview.army;body+=`<h3>核阅${names[p.kind]}结果</h3><p>${esc(b.name)} · ${b.units.length} 队 · ${b.units.reduce((n,u)=>n+u.troops,0)} 人 · 携粮 ${Math.floor(b.supply)}</p><p>消耗 ${preview.gold} 金 / ${preview.grain} 城内粮草</p><p>军团长 ${esc(b.units.find(u=>u.id===b.leader)?.name)} · 军师 ${esc(b.units.find(u=>u.id===b.advisor)?.name)}</p><p>军略：${armyStratagems(b).map(id=>STRATAGEMS[id].name).join('、')}</p>${b.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type].name} · ${u.troops} 人</p>`).join('')}${p.kind==='split'?`<p>原军保留 ${preview.state.armies.find(b=>b.id===a.id).units.length} 队。</p>`:''}<p>确认后生效，返回仍可修改。</p>`;}
+ if(p.step==='review'&&preview?.state){const b=preview.army;body+=`<h3>核阅${names[p.kind]}结果</h3><p>${esc(b.name)} · ${b.units.length} 队 · ${b.units.reduce((n,u)=>n+u.troops,0)} 人 · 携粮 ${Math.floor(b.supply)}</p><p>消耗 ${preview.gold} 金 / ${preview.grain} 城内粮草</p><p>军团长 ${esc(b.units.find(u=>u.id===b.leader)?.name)} · 军师 ${esc(b.units.find(u=>u.id===b.advisor)?.name)}</p><p>军略：${armyStratagems(b).map(id=>STRATAGEMS[id].name).join('、')}</p>${b.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type].name} · ${u.troops} 人</p>`).join('')}${p.kind==='split'?`<p>原军保留 ${preview.state.armies.find(b=>b.id===a.id).units.length} 队。</p>`:''}`;}
  if(p.step==='review'&&preview?.army)body+=armyDetailsMarkup(preview.army)+combatComparison(s,preview.army.units,preview.army);
  if(p.step==='select'&&p.kind!=='merge')body+=combatComparison(s,selected,null,{only:['relations']})+unitReviewMarkup(a.units.filter(u=>p.selected.includes(u.id)),{detailAction:'military-detail',detailAttribute:'data-id'});
  if(preview?.error)body+=`<p role="alert">${esc(preview.error)}</p>`;
@@ -39,7 +39,7 @@ export function militaryFlowMarkup(s,p){
 export function siegeDefenseOptionsMarkup(s,r){
  if(!canPrepareSiegeDefense(s,r))return '';
  const plan=siegeDefensePlan(s,r.cityId),empty=needsSiegeDefense(r);
- return `${empty?'<p role="alert">本城尚无现役守军。可调用本城预备兵临时编制；放弃守城将被直接占领。</p>':''}<div class="command-choices">${button('campaign-defense-prepare','守城编制',`data-battle="${r.id}"`)}${plan.officerIds.length?button('campaign-defense-auto',`自动编制守城（${plan.gold}金 / ${plan.men}预备兵）`,`data-battle="${r.id}"`):''}${empty?button('campaign-defense-relinquish','放弃守城，交出本城',`data-battle="${r.id}"`):''}</div>`;
+ return `${empty?'<p role="alert">无现役守军 · 放弃守城将失去本城</p>':''}<div class="command-choices">${button('campaign-defense-prepare','守城编制',`data-battle="${r.id}"`)}${plan.officerIds.length?button('campaign-defense-auto',`自动编制守城（${plan.gold}金 / ${plan.men}预备兵）`,`data-battle="${r.id}"`):''}${empty?button('campaign-defense-relinquish','放弃守城，交出本城',`data-battle="${r.id}"`):''}</div>`;
 }
 export function encounterFlowMarkup(s,p){
  const pending=s.campaign.battles.filter(r=>r.awaiting&&!r.settled),r=pending.find(r=>r.id===p.id);
@@ -50,6 +50,6 @@ export function encounterFlowMarkup(s,p){
  if(p.step===1)body+=`<h3>核阅参战部队</h3>${own.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}`;
  if(p.step===1||needsSiegeDefense(r))body+=siegeDefenseOptionsMarkup(s,r);
  if(p.step===1)body+=combatComparison(r.battle,own.units,{commanders:own.commanders},{prefix:'参战'});
- if(p.step===2)body+=`<h3>请选择本战指挥方式</h3><label class="command-reinforce"><input type="radio" name="encounter-control" value="manual" ${p.control==='manual'?'checked':''}>亲自指挥</label><label class="command-reinforce"><input type="radio" name="encounter-control" value="auto" ${p.control==='auto'?'checked':''}>委托作战</label><p class="strategy-muted">亲自指挥可在战前会议调整出阵顺序与布阵，确认开战前保持暂停；委托作战按现有编制和固定规则自动作战。</p>`;
- return {title:'战前军议',body,footer:button('military-cancel','返回舆图')+(p.step?button('encounter-back','上一步'):'')+button(p.step===2?'encounter-confirm':'encounter-next',p.step===2?'确认':'下一步',p.step===2&&needsSiegeDefense(r)?'disabled':'')};
+ if(p.step===2)body+=`<h3>请选择本战指挥方式</h3><label class="command-reinforce"><input type="radio" name="encounter-control" value="manual" ${p.control==='manual'?'checked':''}>亲自指挥</label><label class="command-reinforce"><input type="radio" name="encounter-control" value="auto" ${p.control==='auto'?'checked':''}>委托作战</label>`;
+ return {title:'战前准备',body,footer:button('military-cancel','返回舆图')+(p.step?button('encounter-back','上一步'):'')+button(p.step===2?'encounter-confirm':'encounter-next',p.step===2?'确认':'下一步',p.step===2&&needsSiegeDefense(r)?'disabled':'')};
 }

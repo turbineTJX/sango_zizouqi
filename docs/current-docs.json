@@ -1,11 +1,11 @@
 {
   "rulesVersion": 129,
   "files": [
+    "docs/当前版本验收与体验目标.md",
     "docs/名将历史协作与战斗定位.md",
     "docs/AI架构与决策评价方法.md",
     "docs/AI互战行为与决策审计.md",
     "docs/战争迷雾与武将侦察.md",
-    "docs/当前剧本经济运营验证.md",
     "docs/README.md",
     "docs/游戏内页面指引.md",
     "docs/多战役玩家操作空间实测.md",
@@ -27,7 +27,6 @@
     "docs/design-tables/势力一览表.md",
     "docs/design-tables/后勤与补给一览表.md",
     "docs/design-tables/历史战役与援军一览表.md",
-    "docs/design-tables/回归案例一览表.md",
     "docs/design-tables/城市一览表.md",
     "docs/design-tables/外交规则与原子动作一览表.md",
     "docs/design-tables/大地图道路一览表.md",
@@ -35,13 +34,10 @@
     "docs/design-tables/建筑效果一览表.md",
     "docs/design-tables/待接入设计表目录.md",
     "docs/design-tables/战场地形与地图模板一览表.md",
-    "docs/design-tables/战役场景一览表.md",
-    "docs/design-tables/战役预设一览表.md",
     "docs/design-tables/战斗状态与效果一览表.md",
     "docs/design-tables/战斗验证对照表.md",
     "docs/design-tables/战法一览表.md",
     "docs/design-tables/战略AI与任务评分一览表.md",
-    "docs/design-tables/据点附属与地图属性一览表.md",
     "docs/design-tables/武将一览表.md",
     "docs/design-tables/特技一览表.md",
     "docs/design-tables/科技与兵种解锁一览表.md",
@@ -60,7 +56,6 @@
     "docs/内政系统最终设计.md",
     "docs/外交系统设计.md",
     "docs/军事命令分步交互.md",
-    "docs/军团特技设计表.md",
     "docs/军略AI固定条件触发.md",
     "docs/军略强度与持有者-规则46.md",
     "docs/军略池与任职-规则45.md",
@@ -89,7 +84,6 @@
     "docs/战略命令分步交互.md",
     "docs/战略旬回合与内政.md",
     "docs/攻城属性-规则42.md",
-    "docs/武将光环与删除辅兵-规则60.md",
     "docs/武将总表-字段说明.md",
     "docs/武将正面特性-规则49.md",
     "docs/武将能力配合-规则50.md",
@@ -115,6 +109,14 @@
     "docs/design-tables/战略护路增援与运输一览表.md",
     "docs/发行封包与试玩发布.md",
     "docs/design-tables/势力战略规划一览表.md",
-    "docs/玩家决策与AI统一接口.md"
-  ]
+    "docs/玩家决策与AI统一接口.md",
+    "docs/design-tables/规则来源一览表.md"
+  ],
+  "runtimeVersions": {
+    "rules": 129,
+    "campaign": 63,
+    "ai": 17,
+    "strategy": 13,
+    "domestic": 25
+  }
 }

@@ -13,7 +13,7 @@ export const RELATIONSHIP_TIERS=Object.freeze(Object.fromEntries(Object.entries(
  sworn:{label:'义兄弟',base:80,min:80,max:100}
 }).map(([key,value])=>[key,Object.freeze(value)])));
 export const RELATIONSHIP_BASES=Object.freeze(Object.fromEntries(Object.entries(RELATIONSHIP_TIERS).map(([key,tier])=>[key,tier.base])));
-export const relationshipKey=(a,b)=>[a,b].sort().join('|');
+export const relationshipKey=(a,b)=>typeof a==='string'&&typeof b==='string'?(a<b?a+'|'+b:b+'|'+a):[a,b].sort().join('|');
 const person=id=>Object.hasOwn(OFFICER_BY_ID,id)?OFFICER_BY_ID[id]:null;
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 function sourceRelationships(a,b){
@@ -28,11 +28,32 @@ function sourceRelationships(a,b){
  if(!types.length){const historical=HISTORICAL_RELATIONSHIPS.find(p=>p.ids.includes(a)&&p.ids.includes(b)&&a!==b&&person(a)&&person(b));if(historical)types.push(historical.type);}
  return types.length?types:['ordinary'];
 }
+let sourceRecords;
+function sourceRecord(a,b,key=relationshipKey(a,b)){
+ if(!sourceRecords){
+  // Catalogue relations never change during a game. Only saved score/type maps
+  // are mutable. Index the sparse nonordinary pairs once, rather than scanning
+  // historical records for every candidate comparison.
+  const pairs=new Set();
+  for(const [id,p]of Object.entries(OFFICER_BY_ID)){
+   const r=p.relations||{};
+   for(const other of [...(r.swornSiblingIds||[]),...(r.spouseIds||[]),r.fatherId,r.motherId,...(r.likedIds||[]),...(r.dislikedIds||[])])if(other)pairs.add(relationshipKey(id,other));
+  }
+  for(const p of HISTORICAL_RELATIONSHIPS)for(const x of p.ids)for(const y of p.ids)if(x!==y)pairs.add(relationshipKey(x,y));
+  sourceRecords=new Map();for(const pair of pairs){const types=sourceRelationships(...pair.split('|'));sourceRecords.set(pair,{types,type:types[0],label:types.map(t=>RELATIONSHIP_TIERS[t].label).join('、')});}
+ }
+ return sourceRecords.get(key)||ordinarySource;
+}
+const ordinarySource={types:['ordinary'],type:'ordinary',label:RELATIONSHIP_TIERS.ordinary.label};
+export function relationshipScore(a,b,scores={},types={}){
+ const key=relationshipKey(a,b);if(Object.hasOwn(scores,key))return scores[key];
+ const type=Object.hasOwn(types,key)?types[key]:sourceRecord(a,b,key).type;return RELATIONSHIP_TIERS[type].base;
+}
 export function relationshipInfo(a,b,scores={},types={}) {
- const sourceTypes=sourceRelationships(a,b),sourceType=sourceTypes[0],key=relationshipKey(a,b);
+ const key=relationshipKey(a,b),source=sourceRecord(a,b,key),sourceTypes=[...source.types],sourceType=source.type;
  const type=Object.hasOwn(types,key)?types[key]:sourceType,tier=RELATIONSHIP_TIERS[type];
  const configured=Object.hasOwn(scores,key),score=configured?scores[key]:tier.base;
- return {...tier,key,type,sourceType,sourceTypes,sourceLabel:sourceTypes.map(t=>RELATIONSHIP_TIERS[t].label).join('、'),score,chance:score,configured};
+ return {...tier,key,type,sourceType,sourceTypes,sourceLabel:source.label,score,chance:score,configured};
 }
 const isMap=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
 function pairIds(key){

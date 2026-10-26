@@ -1,7 +1,7 @@
 import {LAND_PATH,NORTHERN_PATH,HIGHLAND_PATH,PROVINCE_LABELS,waterMarkup,polygonPath} from './national-geography.mjs';
 import {atlasPoint} from './data/design/ancient-atlas.mjs';
 import {reliefMarkup,landscapeMarkup} from './strategic-relief.mjs';
-const palettes={spring:['#ddb27c','#e0cc8b','#b6b8a4'],summer:['#d3a16f','#dec278','#acb2a0'],autumn:['#d39a63','#dac077','#b6ac99'],winter:['#d6cfbb','#ddd3a5','#c5c8bd']};
+const palettes={spring:['#aeb78c','#c0ba95','#949e8b'],summer:['#a8b084','#beb28d','#919d8b'],autumn:['#b5ac87','#c6b591','#a0a48a'],winter:['#c9cbbd','#d3cbb5','#afb7ae']};
 const cache=new Map();
 const shape=ps=>polygonPath(ps.map(atlasPoint));
 export function ancientAtlasTerrain(season='summer'){
@@ -10,8 +10,8 @@ export function ancientAtlasTerrain(season='summer'){
  const [land,north,highland]=palettes[season];
  const html=`<g class="drawn-terrain ancient-atlas-terrain" data-season="${season}" style="pointer-events:none">
  <defs>
- <linearGradient id="national-sea" x2=".4" y2="1"><stop stop-color="#b3d1db"/><stop offset="1" stop-color="#8dbbcb"/></linearGradient>
- <radialGradient id="national-land" cx=".6" cy=".42" r=".8"><stop stop-color="${land}"/><stop offset="1" stop-color="#b98a61"/></radialGradient>
+ <linearGradient id="national-sea" x2=".4" y2="1"><stop stop-color="#a4bfc0"/><stop offset="1" stop-color="#749a9e"/></linearGradient>
+ <radialGradient id="national-land" cx=".6" cy=".42" r=".8"><stop stop-color="${land}"/><stop offset="1" stop-color="#a39b7e"/></radialGradient>
  <pattern id="national-water" width="32" height="22" patternUnits="userSpaceOnUse"><path d="M2 11q7-3 14 0t14 0" fill="none" stroke="#e0eff0" stroke-opacity=".2" stroke-width=".65"/></pattern>
  <pattern id="national-paper" width="39" height="33" patternUnits="userSpaceOnUse"><path d="M4 7h2m15 14h3M8 28h1" stroke="#684b32" stroke-width=".6" opacity=".15"/><path d="M30 6h4m-18 8h2" stroke="#fff0cc" stroke-width=".8" opacity=".25"/></pattern>
  <filter id="national-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".034" numOctaves="3" seed="24"/><feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="multiply"/></filter>

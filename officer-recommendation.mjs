@@ -1,3 +1,4 @@
+import {domesticAssignmentError} from './domestic-staffing.mjs';
 import {workProfile,workChance,workValue} from './work-traits.mjs';
 import {strategicTraits} from './strategic-traits.mjs';
 import {mechanicEntries} from './trait-mechanics.mjs';
@@ -12,7 +13,7 @@ import {PASSIVES,domesticEffects} from './passives.mjs';
 import {troopAptitude} from './tactic-learning.mjs';
 import {unitTactics,TROOPS,officerStratagems,STRATAGEMS} from './engine.mjs';
 import {cityPersonnel} from './city-personnel.mjs';
-import {withCitySupplyQueries} from './city-logistics.mjs';
+import {withPlanningQueries} from './planning-queries.mjs';
 import {armyRoleScore} from './army-appointments.mjs';
 const round=n=>Math.round(n*10)/10;
 const traitInfo=ids=>ids.map(id=>({id,name:PASSIVES[id]?.name||id,description:PASSIVES[id]?.description||''}));
@@ -31,6 +32,7 @@ export function officerRecommendation(s,u,p){
   if(!pool.length){available=false;const specialty=Math.max(0,...defs.map(d=>(taskTraitBonus(u,d,'chance')+workChance(workProfile(ids,d),d))/.004+(workValue(workProfile(ids,d))-1)*20));score=(ability+specialty)*.1;reasons.push('候补负责人');if(specialty)reasons.push(`适用事务机制提高候选评分`);}
   reasons.push(`${DIRECTIONS[p.direction]} · ${DOMESTIC_STAT_LABELS[DIRECTION_STATS[p.direction]]} ${u[DIRECTION_STATS[p.direction]]}`);
   reasons.push('自动办理本方向事务');
+  const capacityError=c&&domesticAssignmentError(s,c.id,p.direction,[u.id]);if(capacityError){available=false;reasons.push(capacityError);}
   const colleagues=cityPersonnel(s,c?.id).filter(o=>o.unit.id!==u.id&&s.campaign.domestic.assignments.some(a=>a.officerId===o.unit.id&&(a.direction===p.direction||strategicTraits(u,'crossCooperate').length||strategicTraits(o.unit,'crossCooperate').length)));
   if(colleagues.length){const coop=Math.max(...colleagues.map(o=>{return Math.max(0,...pool.map(x=>{const profile=cooperationProfile(s,u,o.unit,ACTIONS[x.key]);return profile.chance*profile.gain;}));}));score*=1+coop;reasons.push(`同岗协作参考 +${Math.round(coop*100)}%`);}
  }else if(p.task==='governor'){
@@ -49,4 +51,7 @@ export function officerRecommendation(s,u,p){
  return {availabilityPriority:p.task==='expedition'?(u.mission?2:assignment?.action?1:0):0,score:round(score),available,traits:traitInfo(traits),reasons};
 }
 export const compareRecommendations=(a,b)=>Number(b.recommendation.available)-Number(a.recommendation.available)||(a.recommendation.availabilityPriority||0)-(b.recommendation.availabilityPriority||0)||b.recommendation.score-a.recommendation.score||a.unit.id.localeCompare(b.unit.id);
-export function rankOfficerCandidates(s,units,p){return withCitySupplyQueries(s,()=>units.map(unit=>({unit,recommendation:officerRecommendation(s,unit,p)})).sort(compareRecommendations));}
+export function rankOfficerCandidates(s,units,p){
+ const evaluate=()=>units.map(unit=>({unit,recommendation:officerRecommendation(s,unit,p)})).sort(compareRecommendations);
+ return s.campaign?withPlanningQueries(s,evaluate):evaluate();
+}

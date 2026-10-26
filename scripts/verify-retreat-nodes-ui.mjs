@@ -13,7 +13,7 @@ try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('server '+code)));});
  browser=await chromium.launch({channel:'msedge',headless:true});
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
  await page.addInitScript(save=>{if(!sessionStorage.getItem('retreat-node-fixture')){localStorage.setItem('sango-sovereign-v2',save);sessionStorage.setItem('retreat-node-fixture','1');}},serializeCampaign(s));
  await page.goto('http://127.0.0.1:4204/#strategy');await page.locator('.national-world').waitFor();
  await page.locator('#national-city-search').selectOption(node.id);

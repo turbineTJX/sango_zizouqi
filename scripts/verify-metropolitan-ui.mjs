@@ -35,7 +35,7 @@ try{
  const building=scene.locator('[data-city-building="workshop"]');await building.locator('.city-district-hit').click();assert.match(await page.locator('.city-building-card').innerText(),new RegExp('施工中[\\s\\S]*晋阳'));
  await page.screenshot({path:out+'/construction.png'});await page.locator('[data-city-card-close]').click();
  assert.notEqual(await scene.locator('.city-scaffold image').evaluate(el=>getComputedStyle(el).animationName),'none');
- const before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));await building.focus();await page.keyboard.press('Enter');await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),before);
+ const before=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));await building.focus();await page.keyboard.press('Enter');await page.keyboard.press('Escape');assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),before);
  await load(paused);await focus(siteId);assert.equal(await pin(siteId).locator('.city-scaffold.is-paused').count(),1);assert.equal(await pin(siteId).locator('.city-scaffold image').evaluate(el=>getComputedStyle(el).animationName),'none');await page.screenshot({path:out+'/paused.png'});
  await load(completed);await focus(siteId);assert.equal(await pin(siteId).locator('[data-city-building="workshop"]').getAttribute('data-level'),'1');assert.equal(await pin(siteId).locator('.city-scaffold').count(),0);await page.screenshot({path:out+'/completed.png'});
  await focus(c.id);assert.equal(await pin(c.id).locator('[data-city-building="workshop"]').getAttribute('data-level'),'0');

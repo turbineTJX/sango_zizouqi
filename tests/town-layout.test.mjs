@@ -4,6 +4,7 @@ import {newCampaign,serializeCampaign,validateCampaign} from './helpers/auto-dom
 import {citySceneState,citySceneMarkup,cityCompactMarkup,sceneDistricts} from '../city-scene.mjs';
 import {townLayout} from '../town-layout.mjs';
 import {mapDetailBlend} from '../map-detail-level.mjs';
+import {TOWN_TERRAINS,TOWN_FRAME} from '../town-art.mjs';
 
 test('all city layouts differ and stay stable across ownership, development and reload',()=>{
  const s=newCampaign(1,'guandu-200'),before=JSON.stringify(s),layouts=s.cities.map(townLayout);
@@ -22,8 +23,20 @@ test('compact and interior models keep every facility at the same coordinates an
   assert.ok(compact.includes('data-town-space="'+model.layout.kind+'"'));assert.ok(interior.includes('data-town-space="'+model.layout.kind+'"'));
   if(c.kind==='gate')assert.ok(!sceneDistricts(model).some(d=>['farm','walls'].includes(d.key)));
   if(c.kind==='port')assert.ok(!sceneDistricts(model).some(d=>d.key==='walls'));
-  assert.ok(interior.includes('han-terrain-'+model.layout.region+'.webp'));assert.ok(!interior.includes('town-frame'));
+  assert.ok(interior.includes(`href="${TOWN_TERRAINS[model.layout.region]}"`));assert.ok(!interior.includes('town-frame'));
  }
+});
+test('city footprints leave countryside between atlas neighbors, including Xuchang and Qiao',()=>{
+ const s=newCampaign(1,'guandu-200'),bounds=c=>{
+  const k=townLayout(c).mapScale;
+  return {left:c.x+TOWN_FRAME.x*k,right:c.x+(TOWN_FRAME.x+TOWN_FRAME.width)*k,top:c.y+TOWN_FRAME.y*k,bottom:c.y+(TOWN_FRAME.y+TOWN_FRAME.height)*k};
+ };
+ for(let i=0;i<s.cities.length;i++)for(const b of s.cities.slice(i+1)){
+  const a=s.cities[i],x=bounds(a),y=bounds(b);
+  assert.ok(x.right<y.left||y.right<x.left||x.bottom<y.top||y.bottom<x.top,a.name+' / '+b.name+' overlap');
+ }
+ const a=bounds(s.cities.find(c=>c.id==='xuchang')),b=bounds(s.cities.find(c=>c.id==='atlas-qiao'));
+ assert.ok(b.left-a.right>30,'the intercity road needs visible open countryside');
 });
 test('visual detail overlaps continuously at every threshold and reverses with zoom',()=>{
  for(const boundary of [490,420,350,240,170,110]){

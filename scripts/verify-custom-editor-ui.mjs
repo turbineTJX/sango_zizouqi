@@ -13,7 +13,7 @@ try{
  assert.equal(await page.locator('[data-custom-option="seed"]').count(),0);await page.locator('[data-custom-option="limit"]').fill('15');await page.locator('[data-custom-option="limit"]').press('Tab');
  await page.locator('[data-action="scenario-setup-open"][data-team="ownTeam"]').click();await action('scenario-setup-cancel').click();
  await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:'outputs/custom-editor/mobile.png'});
- await action('launch-custom').click();await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();assert.match(await page.locator('.arena-title').innerText(),/战前布阵/);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')).battle.maxTicks),360);
+ await action('launch-custom').click();await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();assert.match(await page.locator('.arena-title').innerText(),/战前布阵/);assert.equal(await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')).battle.maxTicks),360);
  await page.reload();await page.locator('#battle-board').waitFor();await action('lobby').first().click();await action('campaign-lobby').click();await action('continue-history').click();await page.locator('#battle-board').waitFor();
  assert.deepEqual(errors,[]);console.log('PASS editor entry, no presets, draft edit, muster, review, launch, mobile, reload, resume');
 }finally{await browser?.close();server.kill();}

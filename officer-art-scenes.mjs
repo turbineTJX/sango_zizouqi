@@ -13,8 +13,40 @@ export const OFFICER_ART_SCENES={
  battle:{label:'战斗切入',format:'宽幅人物像',width:2048,height:1152,transparent:false,fit:'contain',focus:'27% 43%',brief:'平视沉稳军姿的横幅人物像，人物在左半幅，兵器或羽扇贴近身体自然持握，神态坚定中性；不怒吼、挥击、突刺、扭身或夸张透视。'}
 };
 export const OFFICER_ART_KEYS=Object.keys(OFFICER_ART_SCENES);
-export const OFFICER_ART_FORMAT_VERSION='scene-neutral-v3';
-export const OFFICER_ART_STYLE='原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。每张按用途独立设计头像、立绘、半身和横幅取景；场景差异主要通过坐立、道具、视线与构图体现，不为了区分而夸张表演。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。';
+// Production assets and UI scenes are separate: three originals serve every view.
+export const OFFICER_ART_SOURCES={
+ neutral:{label:'站立母图',format:'透明全身母图',width:1536,height:2560,transparent:true,fit:'contain',focus:'50% 50%',brief:'完整头饰至双脚，自然稳定站立，面容清晰；头饰顶部留白约3%，头部居中并位于画面上部，手臂舒适低放，标志物靠近身体。'},
+ work:{label:'办事母图',format:'透明全身母图',width:1536,height:2560,transparent:true,fit:'contain',focus:'50% 50%',brief:'完整头饰至双脚，轻微侧身办理本职事务，以自然低位手势和个人道具区别站立母图；人物居中，不绘制桌案、建筑或环境背景。'},
+ command:{label:'指挥母图',format:'透明全身母图',width:1536,height:2560,transparent:true,fit:'contain',focus:'50% 50%',brief:'完整头饰至双脚，轻微侧转研判或部署，保持本人的文武职责；自然低位持兵器、指挥物或本职道具，人物居中，不绘制军帐、战场或环境背景。'}
+};
+export const OFFICER_ART_SOURCE_KEYS=Object.keys(OFFICER_ART_SOURCES);
+export const OFFICER_ART_ASSET_KEYS=[...new Set([...OFFICER_ART_KEYS,...OFFICER_ART_SOURCE_KEYS])];
+export const OFFICER_ART_FORMAT_VERSION='pose-reuse-v4';
+export const OFFICER_ART_LEGACY_VERSION='scene-neutral-v3';
+export const OFFICER_ART_SOURCE_FALLBACKS={neutral:['detail'],work:['domestic','diplomacy'],command:['battle','training']};
+export const OFFICER_ART_VIEWS={
+ portrait:{source:'neutral',frame:'face',background:'hall'},roster:{source:'neutral',frame:'face',background:'hall'},
+ detail:{source:'neutral',frame:'full',background:'none'},
+ domestic:{source:'work',frame:'half',background:'hall'},inspection:{source:'work',frame:'half',background:'field'},
+ training:{source:'command',frame:'half',background:'camp'},diplomacy:{source:'work',frame:'half',background:'hall'},
+ command:{source:'command',frame:'half',background:'camp'},travel:{source:'neutral',frame:'full',background:'road'},
+ report:{source:'work',frame:'half',background:'hall'},'report-concern':{source:'work',frame:'half',background:'hall'},
+ battle:{source:'command',frame:'half',background:'camp'}
+};
+export function validArtCrop(rect){return Array.isArray(rect)&&rect.length===4&&rect.every(Number.isFinite)&&rect[0]>=0&&rect[1]>=0&&rect[2]>0&&rect[3]>0&&rect[0]+rect[2]<=1.000001&&rect[1]+rect[3]<=1.000001;}
+export function officerArtView(entry,source,scene){
+ const view=OFFICER_ART_VIEWS[scene]||OFFICER_ART_VIEWS.detail;
+ const reusable=OFFICER_ART_SOURCE_KEYS.includes(source),framing=entry.framing||'full';
+ let crop=[0,0,1,1];
+ if(reusable&&framing==='full'&&view.frame==='face'){
+  const height=Math.min(.3,entry.width/entry.height),width=height*entry.height/entry.width;
+  crop=[(1-width)/2,.015,width,height];
+ }else if(reusable&&framing==='full'&&view.frame==='half')crop=[0,0,1,.62];
+ if(reusable&&validArtCrop(entry.crops?.[view.frame]))crop=entry.crops[view.frame];
+ const width=entry.width*crop[2],height=entry.height*crop[3];
+ return {...view,crop,width,height,fit:view.frame==='face'?'cover':'contain',reusable};
+}
+export const OFFICER_ART_STYLE='原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。';
 export const OFFICER_ART_LOCK='固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。';
 export function workArtScene({kind,direction,buildingKey}={}){
  if(['build','repair','rescue'].includes(kind)||['farm','granary','walls'].includes(buildingKey))return 'inspection';

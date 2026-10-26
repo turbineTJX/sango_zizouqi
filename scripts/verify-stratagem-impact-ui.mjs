@@ -14,9 +14,17 @@ try{
  for(const u of b.sides.flatMap(s=>s.units)){u.retreatAt=null;u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));setStatus(b,u,'phalanx',999);}
  lockDeployment(b);while(b.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(b,{aiSides:[]});validateSave(state);
  await mkdir(out,{recursive:true});browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],results=[];page.on('pageerror',e=>errors.push(e.message));
- const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem(location.hash==='#historical-battle'?'sango-historical-battle-v1':location.hash==='#battle-lab'?'sango-battle-lab-v1':'sango-sovereign-v2')));
+ const read=()=>page.evaluate(async()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame(location.hash==='#historical-battle'?'sango-historical-battle-v1':location.hash==='#battle-lab'?'sango-battle-lab-v1':'sango-sovereign-v2')));
  const load=async(data=state)=>{await page.goto('http://127.0.0.1:'+port);await page.locator('[data-action="settings"]').first().click();await page.locator('#import-file').setInputFiles({name:'impact.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(data))});await page.locator('#battle-board').waitFor();};
- const point=async u=>{await page.locator('#battle-board').scrollIntoViewIfNeeded();await page.locator('#battle-board [data-unit="'+u.id+'"]').first().click();};
+ const point=async u=>{
+  await page.locator('#battle-board [data-unit="'+u.id+'"]').first().scrollIntoViewIfNeeded();
+  const board=page.locator('#battle-board'),center=r=>({x:r.x+(u.x+(u.y&1)*.5+.5)/14.5*r.width,y:r.y+(u.y*.75+.5)/6.25*r.height});
+  let p=center(await board.boundingBox());
+  const bounds=await page.evaluate(()=>({top:document.querySelector('#stratagem-area-controls').getBoundingClientRect().bottom+24,bottom:innerHeight-24}));
+  const desired=Math.max(bounds.top,Math.min(bounds.bottom,p.y));
+  if(p.y!==desired){await page.evaluate(delta=>window.scrollBy(0,delta),p.y-desired);p=center(await board.boundingBox());}
+  await page.mouse.click(p.x,p.y);
+ };
  for(const [key,side,status] of [['invincible',0,'commandInvincible'],['disrupt',1,'stun']]){
   await page.setViewportSize({width:1440,height:1000});await load();const before=await read();await page.locator('[data-action="choose-stratagem"]').click();assert.equal(await page.locator('.stratagem-options [data-command]').count(),2);
   await page.locator('[data-command="'+key+'"]').click();await point(b.sides[side].units.find(u=>u.status==='active'));

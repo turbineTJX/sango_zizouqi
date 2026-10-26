@@ -140,7 +140,7 @@ export function validateDomesticIncidents(s,fail){
  for(const [id,c]of Object.entries(d.cities))fail(mapNode(s,id)&&int(c.turn,current)&&c.turn>0&&int(c.count,RULES.cityLimit)&&c.count>0,'内政事件城市次数无效');
  fail(Object.keys(d.factionChecks).length<=s.cities.length,'内政事件势力次数无效');
  for(const [faction,c]of Object.entries(d.factionChecks)){
-  const i=c.groupKey?.lastIndexOf(':');fail(typeof faction==='string'&&faction.length>0&&(s.cities.some(city=>city.owner===faction)||s.campaign.activity.nodes.some(n=>n.faction===faction))&&int(c.turn,current)&&c.turn>0&&int(c.day,day)&&c.day>0&&c.turn===Math.floor((c.day-1)/10)+1&&Number.isFinite(c.roll)&&c.roll>=0&&c.roll<1&&(c.groupKey===null||typeof c.groupKey==='string'&&mapNode(s,c.groupKey.slice(0,i))&&DIRECTIONS[c.groupKey.slice(i+1)])&&(c.code===null||EVENTS[c.code]&&c.roll<RULES.triggerChance&&c.groupKey!==null),'内政事件势力随机判定无效');
+  const i=c.groupKey?.lastIndexOf(':');fail(typeof faction==='string'&&faction.length>0&&Object.hasOwn(s.campaign.domestic.priorities,faction)&&int(c.turn,current)&&c.turn>0&&int(c.day,day)&&c.day>0&&c.turn===Math.floor((c.day-1)/10)+1&&Number.isFinite(c.roll)&&c.roll>=0&&c.roll<1&&(c.groupKey===null||typeof c.groupKey==='string'&&mapNode(s,c.groupKey.slice(0,i))&&DIRECTIONS[c.groupKey.slice(i+1)])&&(c.code===null||EVENTS[c.code]&&c.roll<RULES.triggerChance&&c.groupKey!==null),'内政事件势力随机判定无效');
  }
  const ids=new Set(),forceTurns=new Set();let previous=0;
  for(const r of d.events){

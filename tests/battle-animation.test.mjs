@@ -28,3 +28,12 @@ test('presentation consumes appended real events once, resets per battle and pre
  b.id='two';visual.update(b,{paused:true,speed:1});assert.equal(visual.units.size,0);
  }finally{art.enabled=previous;}
 });
+
+test('a charge holds its actual departure during windup and arrives at the health impact',()=>{
+ const visual=Object.create(BattleArt.prototype),unit={id:'liao',pos:{x:.6,y:.5}};
+ visual.reduced={matches:false};visual.fx={clock:0,actions:[{start:0,duration:1000,end:1000,events:[{from:'liao',fromX:2,fromY:3,visual:'charge',damage:10}]}]};
+ const departure=visual.position(unit);visual.fx.clock=230;assert.deepEqual(visual.position(unit),departure);
+ visual.fx.clock=380;const middle=visual.position(unit);assert.ok(middle.x>departure.x&&middle.x<unit.pos.x);
+ visual.fx.clock=520;assert.deepEqual(visual.position(unit),unit.pos);
+ assert.deepEqual(unit,{id:'liao',pos:{x:.6,y:.5}});
+});

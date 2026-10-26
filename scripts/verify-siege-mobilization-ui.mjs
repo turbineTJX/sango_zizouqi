@@ -12,7 +12,7 @@ try{
   const r=activeBattles(s)[0],plan=siegeDefensePlan(s,c.id),original=serializeCampaign(s),context=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block'}),page=await context.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));page.setDefaultTimeout(10000);
   await page.addInitScript(value=>{localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));if(!sessionStorage.getItem('muster-fixture')){localStorage.setItem('sango-sovereign-v2',value);sessionStorage.setItem('muster-fixture','1');}},original);
-  const action=id=>page.locator(`.modal [data-action="${id}"]`).first(),openCouncil=()=>page.locator('.encounter-callout [data-action="campaign-prepare"]').first(),saved=async()=>validateCampaign(await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2'))));
+  const action=id=>page.locator(`.modal [data-action="${id}"]`).first(),openCouncil=()=>page.locator('.encounter-callout [data-action="campaign-prepare"]').first(),saved=async()=>validateCampaign(await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'))));
   try{
    await page.goto('http://127.0.0.1:4173/#strategy');await openCouncil().waitFor();
    if(await page.locator('.modal-backdrop').count())await page.locator('.modal [data-action="close"]').last().click();

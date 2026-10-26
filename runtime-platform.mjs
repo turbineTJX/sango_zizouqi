@@ -16,9 +16,10 @@ export async function exportSaveFile(name,data){
 export async function installNativeLifecycle({pauseAndSave,back}){
  if(!globalThis.Capacitor?.isNativePlatform?.())return;
  const {App}=await import('@capacitor/app');
- await App.addListener('appStateChange',({isActive})=>{if(!isActive)pauseAndSave();});
+ await App.addListener('appStateChange',async({isActive})=>{if(!isActive)await pauseAndSave();});
  await App.addListener('backButton',async()=>{
   if(back())return;
-  pauseAndSave();if(confirm('进度已保存，退出游戏？'))await App.exitApp();
+  if(await pauseAndSave()===false)return;
+  if(confirm('进度已保存，退出游戏？'))await App.exitApp();
  });
 }

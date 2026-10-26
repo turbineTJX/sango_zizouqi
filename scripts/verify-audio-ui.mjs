@@ -1,0 +1,100 @@
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {audioBrowser} from './audio-browser.mjs';
+
+const host=await audioBrowser(4312),out=fileURLToPath(new URL('../.local/audio-ui/',import.meta.url)),errors=[];
+await mkdir(out,{recursive:true});
+try{
+ const page=await host.browser.newPage({viewport:{width:1440,height:1000}});page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(()=>localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]})));
+ await page.goto(host.url);await page.locator('[data-action="campaign-lobby"]').waitFor();
+ const instrument=()=>page.evaluate(async()=>{
+  const {GameAudio}=await import('./game-audio.mjs'),{BattleArt}=await import('./art-battle.mjs');
+  window.heard=[];const unlock=GameAudio.prototype.unlock,play=GameAudio.prototype.play,update=BattleArt.prototype.update;
+  GameAudio.prototype.unlock=function(...args){window.liveAudio=this;return unlock.apply(this,args);};
+  GameAudio.prototype.play=function(key,...args){const ok=play.call(this,key,...args);if(ok)heard.push(key);return ok;};
+  BattleArt.prototype.update=function(b,...args){window.liveBattle=b;return update.call(this,b,...args);};
+ });
+ await instrument();
+ await page.locator('[data-action="settings"]').click();await page.waitForFunction(()=>liveAudio.active&&liveAudio.context.state==='running');
+ assert.equal(await page.locator('.audio-settings').count(),1);
+ await page.waitForFunction(()=>liveAudio.recording?.scene==='lobby');
+ assert.equal(await page.locator('[data-audio-track] option').count(),14);
+ await page.locator('[data-audio-track]').selectOption('winter');await page.waitForFunction(()=>liveAudio.recording?.scene==='winter');
+ await page.evaluate(()=>{liveAudio.setPreferences({track:'advantage'});liveAudio.setPreferences({track:'decisive'});});
+ await page.waitForFunction(()=>liveAudio.recording?.scene==='decisive');assert.equal(await page.evaluate(()=>liveAudio.scene),'decisive');
+ assert.ok(await page.evaluate(()=>liveAudio.buffers.size<=2));
+ await page.locator('[data-audio-track]').selectOption('auto');await page.waitForFunction(()=>liveAudio.recording?.scene==='lobby');
+ await page.locator('[data-action="audio-preview"]').click();assert.ok(await page.evaluate(()=>heard.includes('order')));
+ await page.locator('[data-audio-volume="music"]').evaluate(el=>{el.value='24';el.dispatchEvent(new Event('input',{bubbles:true}));});
+ const pref=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-audio-v1')));assert.equal(pref.music,.24);
+ await page.screenshot({path:out+'settings-desktop.png'});
+ await page.locator('.audio-settings [data-action="audio-toggle"]').click();
+ assert.equal(await page.evaluate(()=>liveAudio.play('melee')),false);
+ await page.waitForTimeout(150);assert.equal(await page.evaluate(()=>[...liveAudio.voices].filter(v=>v.bus==='sfx').length),0);
+ await page.locator('.audio-settings [data-action="audio-toggle"]').click();await page.waitForFunction(()=>liveAudio.active&&!liveAudio.preferences.muted);
+ await page.locator('[data-audio-volume="music"]').evaluate(el=>{el.value='0';el.dispatchEvent(new Event('input',{bubbles:true}));});
+ await page.waitForTimeout(150);assert.equal(await page.evaluate(()=>[...liveAudio.voices].filter(v=>v.bus==='music').length),0);
+ await page.locator('[data-audio-volume="music"]').evaluate(el=>{el.value='24';el.dispatchEvent(new Event('input',{bubbles:true}));});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'settings-mobile.png'});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'audio settings must fit mobile');
+ await page.reload();await page.locator('[data-action="settings"]').waitFor();await instrument();await page.locator('[data-action="settings"]').click();
+ assert.equal(await page.locator('[data-audio-volume="music"]').inputValue(),'24');
+ await page.locator('.modal [data-action="close"]').click();
+ await page.setViewportSize({width:1440,height:1000});
+ await page.locator('[data-action="campaign-lobby"]').click();await page.locator('[data-action="launch-custom"]').click();await page.locator('[data-action="scenario-launch-confirm"]').click();
+ const guide=page.locator('[data-guide-action="close"]');if(await guide.isVisible())await guide.click();
+ await page.keyboard.press('Escape');
+ assert.equal(await page.evaluate(()=>liveAudio.scene),'council');
+ await page.locator('[data-action="pause"]').click();await page.waitForFunction(()=>liveAudio.scene==='encounter');
+ assert.ok(await page.evaluate(()=>heard.includes('start')));
+ await page.locator('[data-action="speed"]').click();await page.locator('[data-action="speed"]').click();
+ await page.waitForFunction(()=>heard.includes('melee')||heard.includes('arrow'),{},{timeout:25000});
+ await page.waitForFunction(()=>heard.includes('tactic')||heard.includes('fire'),{},{timeout:25000});
+ await page.locator('[data-action="pause"]').click();
+ const frozen=await page.evaluate(()=>liveBattle.tick);await page.waitForTimeout(300);assert.equal(await page.evaluate(()=>liveBattle.tick),frozen);
+ const lifecycle=await page.evaluate(async()=>{
+  const a=liveAudio,before=a.recording?(a.recording.offset+Math.max(0,a.context.currentTime-a.recording.start))%a.recording.loopLength:null;await a.setHidden(true);const hidden={state:a.context.state,active:a.active,timer:a.timer};
+  await a.setHidden(false);return {hidden,resumed:a.context.state,voices:a.voices.size,pulse:a.pulse,before,offset:a.recording?.offset};
+ });
+ assert.deepEqual(lifecycle.hidden,{state:'suspended',active:false,timer:null});assert.equal(lifecycle.resumed,'running');assert.ok(lifecycle.pulse<3,'background resume must not schedule a burst of missed notes');
+ if(lifecycle.before!==null)assert.ok(Math.abs(lifecycle.offset-lifecycle.before)<.2,'returning to the game must continue the recording instead of restarting the melody');
+ await page.screenshot({path:out+'battle-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'battle-mobile.png'});
+ assert.ok(await page.locator('.battle-playback [data-action="audio-toggle"]').isVisible());
+ const meter=await page.evaluate(async()=>{
+  const {SOUND_CUES}=await import('./audio-score.mjs'),{createAudioGraph,synthVoice}=await import('./audio-synth.mjs');const metrics=[];
+  for(const [key,voices]of Object.entries(SOUND_CUES)){
+   const c=new OfflineAudioContext(2,22050*4,22050),graph=createAudioGraph(c);for(const v of voices)synthVoice(c,graph.sfx,v,.05+(v.offset||0));
+   const buffer=await c.startRendering(),data=buffer.getChannelData(0);let peak=0,total=0;
+   for(const value of data){if(!Number.isFinite(value))throw Error('Nonfinite output: '+key);peak=Math.max(peak,Math.abs(value));total+=value*value;}
+   metrics.push({key,peak,rms:Math.sqrt(total/data.length)});
+  }return metrics;
+ });
+ for(const m of meter){assert.ok(m.peak>.01&&m.peak<.95,`${m.key}: non-silent, unclipped audio`);assert.ok(m.rms>.001);}
+ const map=await host.browser.newPage({viewport:{width:1440,height:1000}});map.on('pageerror',e=>errors.push(e.message));
+ await map.addInitScript(()=>localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]})));
+ await map.goto(host.url+'/#strategy');await map.locator('.sovereign-hud').waitFor();
+ assert.ok(await map.locator('.world-toolbar [data-action="audio-toggle"]').isVisible());
+ await map.locator('.world-toolbar [data-action="audio-toggle"]').click();assert.equal(await map.locator('.world-toolbar [data-action="audio-toggle"]').getAttribute('aria-pressed'),'true');
+ await map.setViewportSize({width:390,height:844});assert.ok(await map.locator('.world-toolbar [data-action="audio-toggle"]').isVisible());await map.screenshot({path:out+'map-mobile.png'});
+ assert.ok(await map.evaluate(()=>document.querySelector('.world-toolbar').getBoundingClientRect().bottom<=document.querySelector('.faction-navigation').getBoundingClientRect().top),'mobile sound control must not overlap faction navigation');
+ await map.evaluate(()=>navigator.serviceWorker.ready);await map.waitForFunction(()=>!!navigator.serviceWorker.controller,{},{timeout:20000});
+ const cachedAudio=await map.evaluate(async()=>{const keys=await caches.keys(),cache=await caches.open(keys.find(k=>k.startsWith('sango-art-decoupled-')));return Promise.all(['game-audio.mjs','audio-score.mjs','audio-synth.mjs','audio-events.mjs','audio.css'].map(async path=>!!await cache.match('./'+path)));});
+ assert.deepEqual(cachedAudio,[true,true,true,true,true]);
+ const cachedMusic=await map.evaluate(async()=>{const raw=await fetch('./assets/manifest.json').then(r=>r.json());return Promise.all(Object.values(raw.music).map(async entry=>!!await caches.match(entry.url)));});
+ assert.equal(cachedMusic.length,13);assert.ok(cachedMusic.every(Boolean),'all thirteen recordings must be available offline');
+ await map.reload();await map.locator('.sovereign-hud').waitFor();
+ await map.context().setOffline(true);await map.reload();await map.locator('.sovereign-hud').waitFor();await map.locator('.world-toolbar [data-action="audio-toggle"]').click();await map.locator('[data-action="settings"]').click();await map.locator('[data-action="audio-preview"]').click();
+ assert.ok((await map.locator('[data-audio-status]').textContent()).includes('春水入江'));await map.context().setOffline(false);
+ const unavailable=await host.browser.newPage();unavailable.on('pageerror',e=>errors.push(e.message));
+ await unavailable.addInitScript(()=>localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]})));
+ await unavailable.addInitScript(()=>{Object.defineProperty(window,'AudioContext',{value:undefined});Object.defineProperty(window,'webkitAudioContext',{value:undefined});});
+ await unavailable.goto(host.url);await unavailable.locator('[data-action="settings"]').click();await unavailable.locator('[data-action="audio-preview"]').click();
+ assert.ok((await unavailable.locator('[data-audio-status]').textContent()).includes('暂不可用'));await unavailable.locator('.modal [data-action="close"]').click();
+ assert.ok(await unavailable.locator('[data-action="campaign-lobby"]').isVisible());
+ assert.deepEqual(errors,[]);
+ const result={heard:await page.evaluate(()=>[...new Set(heard)]),lifecycle,meter,errors,mobile:true,preferencesPersisted:true,unavailableAudio:true,strategicToolbar:true,offlineAudio:cachedAudio.every(Boolean),sampledMusic:true,musicTracks:cachedMusic.length};
+ await writeFile(out+'result.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
+}finally{await host.close();}

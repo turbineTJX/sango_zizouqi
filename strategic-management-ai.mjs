@@ -11,7 +11,7 @@ const freeze=value=>{if(value&&typeof value==='object'){Object.values(value).for
 // Measure lawful observations and our own orders. Policies receive only detached
 // measurements, never the simulation, an opposing perspective or random state.
 export function armyManagementFacts(s,faction){
- const view=intelligenceWorld(s,faction),protectedIds=new Set([
+ const view=intelligenceWorld(s,faction),coordinatedIds=new Set(activePlans(s).filter(p=>p.faction===faction&&p.columns&&['prepare','assemble','attack'].includes(p.phase)).flatMap(p=>p.officerIds)),protectedIds=new Set([
   ...activePlans(s).filter(p=>p.faction===faction).flatMap(p=>p.officerIds),
   ...(s.campaign.ai?.supports||[]).filter(p=>p.faction===faction&&!['complete','cancelled'].includes(p.phase)).flatMap(p=>p.officerIds||[])
  ]);
@@ -30,7 +30,7 @@ export function armyManagementFacts(s,faction){
   const home=view.cities.find(c=>c.id===a.location&&c.owner===faction),safe=path.every(id=>view.cities.find(c=>c.id===id)?.owner===faction||view.junctions.some(n=>n.id===id))&&!view.armies.some(e=>e.faction!==faction&&path.includes(e.location));
   return {id:a.id,location:a.location,unitIds:a.units.map(u=>u.id),liveIds:units.map(u=>u.id),roles,currentRoles:{leader:a.leader,advisor:a.advisor},
    editable:free&&canEditArmy(view,a,{scheduled:true}),mode,modes:marchModes(a).map(m=>m.id),moving:!!a.travel||a.route.length>0,
-   modeEditable:!armyBattle(view,a.id)&&!a.diplomaticWithdrawal,home:!!home&&!a.travel,safe,
+   modeEditable:!armyBattle(view,a.id)&&!a.diplomaticWithdrawal&&!a.units.some(u=>coordinatedIds.has(u.id)),home:!!home&&!a.travel,safe,
    days,forcedDays,forcedAvailableDays,food,supply:a.supply,capacity:a.fullSupplyCapacity||a.supplyCapacity,hunger:a.hunger,morale:a.morale,
    forcedMinimum:forced?.minimum||40,restUntil:a.marchRestUntil||0,lightCapacity:armyStrategicTrait(a,'lightMarch')?.strategic.capacity||.5};
  });

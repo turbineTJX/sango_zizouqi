@@ -7,7 +7,7 @@ await page.locator('[data-action="city-domestic"]:visible').click();
 await page.locator('#overlay-root [data-task="domestic"][data-direction="commerce"]').click();
 assert.ok(await page.locator('[data-personnel-choice="'+id+'"]').count());
 const row=page.locator('tr').filter({has:page.locator('[data-personnel-choice="'+id+'"]')});assert.equal(await row.locator('[data-id="marketYield"]').count(),1);assert.equal(await row.locator('[data-id="grainSale"]').count(),1);
-const saved=()=>page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));const before=await saved();
+const saved=()=>page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));const before=await saved();
 await row.locator('[data-action="ability-reference"][data-id="marketYield"]').click();assert.match(await page.locator('#overlay-root').innerText(),/25%/);await page.keyboard.press('Escape');assert.equal(await saved(),before);
 await mkdir('outputs/work-traits-ui',{recursive:true});await page.screenshot({path:'outputs/work-traits-ui/desktop.png'});
 await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:'outputs/work-traits-ui/mobile.png'});

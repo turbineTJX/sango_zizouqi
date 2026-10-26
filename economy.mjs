@@ -16,10 +16,10 @@ export const resourceValue=resources=>Object.entries(resources).reduce((n,[key,v
 export const economicWorkScale=ability=>ECONOMY_RULES.work.base+ability/ECONOMY_RULES.work.abilityDivisor;
 export const resourceBuilding={gold:'commerce',grain:'farm',manpower:'barracks'};
 const economicTurn=s=>Math.floor((s.campaign.day-1)/10)+1;
-const rawCityBaseIncome=(s,c)=>Object.fromEntries(Object.entries(resourceBuilding).map(([key,field])=>{const p=ECONOMY_RULES.income[key];return [key,(p.base+productiveBuildingLevel(s,c,field)*p[{gold:'perCommerce',grain:'perFarm',manpower:'perBarracks'}[key]])*(1+technologyIncomeBonus(c,key))];}));
+const rawCityBaseIncome=(s,c)=>Object.fromEntries(Object.entries(resourceBuilding).map(([key,field])=>{const p=ECONOMY_RULES.income[key];return [key,c.owner==='neutral'?0:(p.base+productiveBuildingLevel(s,c,field)*p[{gold:'perCommerce',grain:'perFarm',manpower:'perBarracks'}[key]])*(1+technologyIncomeBonus(c,key))];}));
 function cityGovernor(s,c){const o=residentOfficer(s,c.governor);return o?.location===c.id&&o.faction===c.owner?o.unit:null;}
 export function cityManagementBaseIncome(s,c){const factor=1+(cityGovernor(s,c)?.politics||0)/ECONOMY_RULES.income.governorPoliticsDivisor;return Object.fromEntries(Object.entries(rawCityBaseIncome(s,c)).map(([key,n])=>[key,n*factor]));}
-// Permanent local production, independent of who currently operates the city.
+// Administered cities produce independently of appointments; neutral stores do not grow.
 export const cityBaseIncome=(s,c)=>Object.fromEntries(Object.entries(rawCityBaseIncome(s,c)).map(([key,n])=>[key,Math.floor(n)]));
 export function cityIncomeBreakdown(s,c){
  const raw=rawCityBaseIncome(s,c),u=cityGovernor(s,c),effects=domesticEffects(u),factor=1+(u?.politics||0)/ECONOMY_RULES.income.governorPoliticsDivisor;

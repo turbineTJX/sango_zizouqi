@@ -30,7 +30,7 @@ try{
  await page.setViewportSize({width:390,height:844});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  await page.screenshot({path:'outputs/balance-objectives-ui/mobile.png',fullPage:true});
- const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+ const saved=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
  assert.deepEqual(saved.battle.sides[0].units[0].tactics,recommendedTacticIds(state.battle.sides[0].units[0]));
  await page.reload();await page.locator('[data-action="loadout"]').first().click();
  await page.locator('#loadout-unit').selectOption('person-396');

@@ -1,3 +1,4 @@
+import {chooseCommandTarget} from './map-target-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
@@ -9,7 +10,7 @@ const town='xuchang',armed=s.armies.find(a=>a.faction==='cao'&&a.location===town
 await page.addInitScript(raw=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},serializeCampaign(s));
 page.on('pageerror',e=>errors.push(e.message));
 const out='outputs/garrison-domestic-ui';await mkdir(out,{recursive:true});
-const action=x=>page.locator(`[data-action="${x}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+const action=x=>page.locator(`[data-action="${x}"]`),saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
 async function pick(task,id,direction=''){
  if(task==='domestic')await page.locator('[data-city-disclosure="xuchang:affairs"]').evaluate(el=>el.open=true);if(task==='governor')await page.locator('[data-city-disclosure="xuchang:offices"]').evaluate(el=>el.open=true);
  await page.locator(`[data-action="campaign-pick"][data-task="${task}"]${direction?`[data-direction="${direction}"]`:''}`).click();
@@ -29,7 +30,7 @@ try{
  await page.reload();await page.locator('.city-directory').waitFor();state=await saved();assert.equal(state.cities.find(c=>c.id===town).governor,idle);
  await page.locator('[data-action="campaign-tab"][data-tab="city"]').click();await page.locator('[data-city-disclosure="xuchang:affairs"]>summary').click();await page.locator('[data-action="campaign-pick"][data-task="domestic"][data-direction="technology"]').click();
  assert.equal(await page.locator(`[data-personnel-choice="${idle}"]`).isEnabled(),true);await page.screenshot({path:out+'/prepared-governor-selectable.png',animations:'disabled'});await action('close').first().click();
- await page.locator('[data-action="campaign-tab"][data-tab="army"]').click();await action('campaign-order').click();await page.locator('#command-destination').selectOption('chenliu');await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
+ await page.locator('[data-action="campaign-tab"][data-tab="army"]').click();await action('campaign-order').click();await chooseCommandTarget(page,'chenliu');await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
  state=await saved();assert.equal(state.cities.find(c=>c.id===town).governor,null);assert.equal(state.campaign.domestic.assignments.some(a=>[armed,idle].includes(a.officerId)),false);
  await page.reload();await page.locator('.city-directory').waitFor();assert.deepEqual(errors,[]);
  await writeFile(out+'/result.json',JSON.stringify({passed:true,preparedOfficer:armed,preparedGovernor:idle,errors},null,2));console.log('Garrison UI passed: concurrent duties, filtering, prepare governor, reload, eligibility, march cleanup.');

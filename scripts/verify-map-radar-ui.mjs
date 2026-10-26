@@ -2,37 +2,50 @@ import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
+import {newCampaign,serializeCampaign,launchExpedition} from '../strategic-campaign.mjs';
+import {LOCAL_MAP_SIZE} from '../strategic-map-camera.mjs';
+import {recordOfficerActivities} from '../officer-activity.mjs';
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4204',SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
-let browser;
-const out='outputs/map-radar-ui';
+const out='outputs/map-navigation-ui';let browser,page;
 try{
- await mkdir(out,{recursive:true});await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);});
- browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000},hasTouch:true}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto('http://127.0.0.1:4204/#strategy');
- const fixture=await page.evaluate(async()=>{const {newCampaign,launchExpedition}=await import('/strategic-campaign.mjs');const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),ids=c.units.slice(0,2).map(u=>u.id);const error=launchExpedition(s,{cityId:c.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:'chenliu',policy:'auto'});if(error)throw Error(error);return s;});
- await page.addInitScript(s=>{if(!sessionStorage.getItem('radar-fixture')){localStorage.setItem('sango-sovereign-v2',JSON.stringify(s));sessionStorage.setItem('radar-fixture','1');}},fixture);
- await page.reload();const main=page.locator('.national-world'),radar=page.locator('[data-strategy-radar]');await main.waitFor();
- const view=async()=>main.evaluate(s=>{const v=s.viewBox.baseVal;return {x:v.x,y:v.y,width:v.width,height:v.height};});
- const sync=async()=>{const v=await view(),f=await radar.locator('.radar-viewport').evaluate(r=>Object.fromEntries(['x','y','width','height'].map(k=>[k,+r.getAttribute(k)])));for(const key in v)assert.ok(Math.abs(v[key]-f[key])<.001);};
- const initial=await view();assert.equal(initial.width,360);assert.equal(initial.x+180,+await main.getAttribute('data-focus-x'));assert.equal(initial.y+180,+await main.getAttribute('data-focus-y'));assert.equal(await page.locator('[data-map-view="national"]').count(),0);
- await page.locator('.city-directory [data-city="xuchang"]').click();
- await page.locator('.strategy-map-panel').screenshot({path:out+'/desktop.png'});
- const stateBefore=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
- const box=await radar.boundingBox();await radar.click({position:{x:box.width*.18,y:box.height*.82}});assert.ok((await view()).y>500);await sync();
- assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),stateBefore);
- // Drag the national radar, then zoom and pan the main map with the keyboard.
- await page.mouse.move(box.x+box.width*.5,box.y+box.height*.5);await page.mouse.down();await page.mouse.move(box.x+box.width*.65,box.y+box.height*.3,{steps:4});await page.mouse.up();await sync();
- await main.focus();const beforePan=await view();await page.keyboard.press('ArrowLeft');assert.ok((await view()).x<beforePan.x);await page.keyboard.press('+');assert.ok((await view()).width<beforePan.width);await sync();const wheelBox=await main.boundingBox(),wheelBefore=await view();await page.mouse.move(wheelBox.x+wheelBox.width/2,Math.max(50,wheelBox.y+wheelBox.height/2));await page.mouse.wheel(0,-100);await page.waitForTimeout(100);assert.ok((await view()).width<wheelBefore.width);await sync();
- await page.locator('[data-map-view="selected"]').click();const centered=await view();assert.ok(Math.abs(centered.x+centered.width/2-507)<.01);
- await page.locator('.city-directory [data-city="town-9"]').click();let v=await view();assert.ok(Math.abs(v.x+v.width/2-758)<.01);
- // Main-map camera is carried into command planning, whose radar must not create a route.
- await page.locator('[data-action="campaign-tab"][data-tab="army"]').click();await page.locator('#army-select').selectOption(fixture.armies[0].id);await page.locator('[data-action="campaign-order"]').click();await page.locator('.map-command-screen').waitFor();
- const destination=await page.locator('.map-point-menu').innerText(),b=await radar.boundingBox();await radar.click({position:{x:b.width*.3,y:b.height*.75}});assert.equal(await page.locator('.map-point-menu').innerText(),destination);await sync();
- await page.locator('[data-map-view="selected"]').click();await page.locator('.map-command-screen').screenshot({path:out+'/command-desktop.png'});
- await page.locator('[data-action="campaign-command-cancel"]').first().click();await page.setViewportSize({width:390,height:844});await page.locator('.strategy-map-panel').scrollIntoViewIfNeeded();
- const m=await radar.boundingBox();await radar.tap({position:{x:m.width*.6,y:m.height*.4}});await sync();
- assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await page.locator('.strategy-map-panel').screenshot({path:out+'/mobile.png'});
- await radar.focus();await page.keyboard.press('Home');await sync();assert.deepEqual(errors,[]);
- await writeFile(out+'/result.json',JSON.stringify({passed:true,initial,errors,checks:['local focus','radar click and drag','viewport sync','city selection','keyboard pan and zoom','command draft unchanged','mobile layout']},null,2));console.log('PASS: local operation map and national radar, desktop and mobile');
-}catch(e){if(browser){const p=browser.contexts()[0]?.pages()[0];if(p){await p.screenshot({path:out+'/failure.png',fullPage:true});console.log(await p.locator('body').innerText());}}throw e;}finally{await browser?.close();server.kill();}
+ await mkdir(out,{recursive:true});await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',code=>no(Error('Map server exited: '+code)));});
+ const fixture=newCampaign(203,'guandu-200'),home=fixture.cities.find(c=>c.id==='xuchang'),ids=home.units.slice(0,2).map(u=>u.id);
+ assert.equal(launchExpedition(fixture,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:'chenliu',policy:'auto'}),null);
+ recordOfficerActivities(fixture);
+ browser=await chromium.launch({channel:'msedge',headless:true});page=await browser.newPage({viewport:{width:1440,height:1000},hasTouch:true,serviceWorkers:'block',reducedMotion:'reduce'});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(raw=>{localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},serializeCampaign(fixture));
+ await page.goto('http://127.0.0.1:4204/#strategy');const main=page.locator('.national-world');await main.waitFor();
+ const view=()=>main.evaluate(el=>{const v=el.viewBox.baseVal;return {x:v.x,y:v.y,width:v.width,height:v.height};});
+ const saved=()=>page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
+ const absent=async()=>assert.equal(await page.locator('.strategy-radar,[data-strategy-radar],.radar-viewport').count(),0);
+ const contains=async point=>{const v=await view();assert.ok(point.x>=v.x&&point.x<=v.x+v.width&&point.y>=v.y&&point.y<=v.y+v.height);};
+ const frames=()=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ const initial=await view();assert.equal(Math.min(initial.width,initial.height),LOCAL_MAP_SIZE);await absent();
+ const before=await saved();await page.screenshot({path:out+'/desktop.png'});
+ await main.focus();const beforePan=await view();await page.keyboard.press('ArrowLeft');assert.ok((await view()).x<beforePan.x);await page.keyboard.press('+');assert.ok((await view()).width<beforePan.width);
+ const wheelBefore=await view(),box=await main.boundingBox();await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,-100);await frames();assert.ok((await view()).width<wheelBefore.width);
+ const dragBefore=await view();await page.mouse.down({button:'right'});await page.mouse.move(box.x+box.width/2+60,box.y+box.height/2+40,{steps:4});await page.mouse.up({button:'right'});await frames();assert.notDeepEqual(await view(),dragBefore);
+ await page.locator('[data-map-view="national"]').click();assert.deepEqual(await view(),{x:0,y:0,width:1024,height:1024});
+ await page.locator('[data-map-view="selected"]').click();await contains(home);assert.ok(Math.min((await view()).width,(await view()).height)<1024);
+ await page.locator('#national-city-search').selectOption('luoyang');await page.locator('.modal [data-action="close"]').click();await contains(fixture.cities.find(c=>c.id==='luoyang'));
+ await main.focus();await page.keyboard.press('Home');await contains(fixture.cities.find(c=>c.id==='luoyang'));assert.equal(await saved(),before);
+ await page.locator('#national-city-search').selectOption('xuchang');await page.locator('.modal [data-action="close"]').click();
+ await page.locator(`[data-campaign-army="${fixture.armies[0].id}"] [data-map-army-card]`).click();await page.locator('.modal [data-action="campaign-order"]').click();await page.locator('.map-command-screen').waitFor();await absent();
+ const draft=await page.locator('.map-point-menu').allTextContents();await page.locator('[data-map-view="national"]').click();await main.focus();await page.keyboard.press('+');await page.keyboard.press('ArrowLeft');await page.locator('[data-map-view="selected"]').click();assert.deepEqual(await page.locator('.map-point-menu').allTextContents(),draft);assert.equal(await saved(),before);
+ await page.screenshot({path:out+'/command-desktop.png'});await page.locator('[data-action="campaign-command-cancel"]').first().click();
+ const close=page.locator('.modal [data-action="close"]');if(await close.count())await close.click();
+ await page.setViewportSize({width:390,height:844});await absent();await page.locator('[data-map-view="national"]').tap();assert.equal((await view()).width,1024);await page.locator('[data-map-view="selected"]').tap();
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));assert.equal(await saved(),before);await page.screenshot({path:out+'/mobile.png'});
+ assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,initial,errors,checks:['no minimap on desktop, mobile or command map','local focus','main-map drag','keyboard and wheel zoom','national overview','city search location','return to operation center','command draft retained','read-only camera','mobile touch controls and layout']},null,2));
+ console.log('PASS map navigation without a minimap: desktop/mobile, drag, zoom, search, national overview, return, unchanged command draft and save');
+}catch(error){
+ if(page)await page.screenshot({path:out+'/failure.png'});
+ if(typeof error.actual==='string'&&error.actual.startsWith('{')&&typeof error.expected==='string'){
+  const changes=[];
+  const diff=(a,b,path='')=>{if(changes.length>=12||JSON.stringify(a)===JSON.stringify(b))return;if(a&&b&&typeof a==='object'&&typeof b==='object'){for(const k of new Set([...Object.keys(a),...Object.keys(b)]))diff(a[k],b[k],path+'.'+k);}else changes.push({path,before:b,after:a});};
+  diff(JSON.parse(error.actual),JSON.parse(error.expected));console.error('Unexpected save differences:',JSON.stringify(changes));
+ }
+ throw Error('Map navigation verification failed: '+error.stack.split('\n').filter(line=>/^\s+at /.test(line)).slice(0,3).join('\n'));
+}finally{await browser?.close();server.kill();}

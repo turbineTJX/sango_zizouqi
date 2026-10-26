@@ -8,6 +8,7 @@ import {historicalBattleDraft} from '../historical-battle-library.mjs';
 import {defaultCustomBattle} from '../custom-battle.mjs';
 import {generateBattle} from '../battle-generator.mjs';
 import {validateSave} from '../engine.mjs';
+import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
 
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const out='outputs/battle-map-variety',port=4264;
@@ -24,7 +25,6 @@ try{
  });
  await page.addInitScript(()=>{
   localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));
-  const fixture=sessionStorage.getItem('battle-map-verify');if(fixture)localStorage.setItem('sango-historical-battle-v1',fixture);
  });
  page.on('pageerror',e=>errors.push(e.message));
  const action=a=>page.locator(`[data-action="${a}"]`);
@@ -40,7 +40,7 @@ try{
  await selector.selectOption('hill-pass');
  await page.locator('.battle-map-preview').screenshot({path:out+'/pass-preview.png'});
  await action('launch-custom').click();await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();
- let saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+ let saved=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
  assert.equal(saved.battle.mapId,'hill-pass');validateSave(saved);
  await page.waitForFunction(()=>window.battleMapArtSnapshot?.mapId==='hill-pass');
  assert.equal(await page.locator('#battle-board [data-map-terrain="rock"]').count(),BATTLE_MAPS['hill-pass'].tiles.flat().filter(t=>t==='rock').length);
@@ -54,8 +54,7 @@ try{
  for(const id of ['xiapi','guandu','chibi','hefei','yiling','wuzhang','river-harbor']){
   const state=generateBattle(id==='river-harbor'?{...defaultCustomBattle(),terrain:'river',mapId:id}:historicalBattleDraft(id));
   validateSave(state);
-  await page.evaluate(state=>sessionStorage.setItem('battle-map-verify',JSON.stringify(state)),state);
-  await page.reload();await page.locator('#battle-board').waitFor();
+  await importSaveFixture(page,state);await page.locator('#battle-board').waitFor();
   assert.equal(await page.locator('#battle-board [data-map-terrain]').count(),112);
   assert.match(await page.locator('.battlefield-name').innerText(),new RegExp(BATTLE_MAPS[id].name));
   await page.waitForFunction(id=>window.battleMapArtSnapshot?.mapId===id,id);

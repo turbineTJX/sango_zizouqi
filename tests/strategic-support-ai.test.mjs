@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,supplyConnection} from './helpers/auto-domestic-campaign.mjs';
-import {initializeStrategicAI,planStrategicAI,validateStrategicAI,safeStrategicTransportRoute} from '../strategic-ai.mjs';
+import {initializeStrategicAI,planStrategicAI,validateStrategicAI,safeStrategicTransportRoute,factionStrategicProfile} from '../strategic-ai.mjs';
+import {drawFactionTemperament} from '../strategic-temperament.mjs';
 import {strategicSupportObjectives} from '../strategic-support-ai.mjs';
 import {initializeVision,updateVision} from '../strategic-vision.mjs';
 import {makeOfficer} from '../engine.mjs';
@@ -24,7 +25,7 @@ function scene({alternative=false}={}){
  for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:7.5};
  source.units=['shao','yan','he','ju','tian'].map((id,i)=>({...makeOfficer(id,3000,i,3),homeCity:source.id}));front.units=[{...makeOfficer('wen',1000,0,3),homeCity:front.id}];enemy.units=[{...makeOfficer('cao',1000,0,3),homeCity:enemy.id}];
  const client=fieldFromCity(s,front.id),foe=fieldFromCity(s,enemy.id);foe.location=node.id;
- initializeVision(s);initializeStrategicAI(s);for(const p of Object.values(s.campaign.ai.factions))p.lastReviewTurn=s.turn;for(const p of Object.values(s.campaign.diplomacy.policies))p.feeBudget=0;
+ initializeVision(s);initializeStrategicAI(s);for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),0);p.lastReviewTurn=s.turn;}for(const p of Object.values(s.campaign.diplomacy.policies))p.feeBudget=0;
  return {s,source,front,rear,enemy,node,client,foe};
 }
 const next=s=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;planStrategicAI(s);};

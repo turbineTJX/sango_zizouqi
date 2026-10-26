@@ -11,7 +11,7 @@ export function validateArchiveEntries(entries){
  if(index.formatVersion!==1||!Array.isArray(index.files)||index.files.length>20000)throw Error('Invalid art pack index');
  const paths=new Set(),files=new Map();let size=0;
  for(const file of index.files){
-  if(typeof file.path!=='string'||!/^([A-Za-z0-9_-]+\/)*[A-Za-z0-9_-][A-Za-z0-9_.-]*\.(json|png|jpe?g|webp|svg|glb|obj)$/.test(file.path)||paths.has(file.path))throw Error('Invalid art pack path');
+  if(typeof file.path!=='string'||!/^([A-Za-z0-9_-]+\/)*[A-Za-z0-9_-][A-Za-z0-9_.-]*\.(json|png|jpe?g|webp|svg|glb|obj|ogg|wav|mp3)$/.test(file.path)||paths.has(file.path))throw Error('Invalid art pack path');
   paths.add(file.path);const bytes=entries[file.path];
   if(!bytes||bytes.byteLength!==file.bytes||archiveDigest(bytes)!==file.sha256)throw Error('Art pack file checksum mismatch: '+file.path);
   size+=bytes.length;if(size>MAX_BYTES)throw Error('Art pack exceeds the runtime limit');files.set(file.path,bytes);

@@ -35,7 +35,8 @@ test('全部专属跨九兵种携带，换兵种保留同一固定记录',()=>{
  }
 });
 
-test('合资格指挥官军略配合本职，张郃按规则51不再持有军略',()=>{
- assert.deepEqual(officerStratagems('liao'),['haste','assault']);
+test('军略沿用当前明确名单，张辽和张郃不获额外军略',()=>{
+ assert.deepEqual(officerStratagems('liao'),[]);
  assert.deepEqual(officerStratagems('he'),[]);
+ assert.deepEqual(officerStratagems('person-255'),['heal']);
 });

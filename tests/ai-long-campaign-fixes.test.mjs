@@ -10,7 +10,7 @@ import {cityForce} from '../city-units.mjs';
 import {forecastRouteSupply,withRouteSupplyQueries} from '../strategic-route-supply.mjs';
 import {intelligenceWorld,updateVision} from '../strategic-vision.mjs';
 import {observeStrategicThreat,strategicPower,planStrategicAI,manageStrategicEconomy,strategicCapabilities} from '../strategic-ai.mjs';
-import {diplomaticCandidates,assignDiplomat,prepareDiplomaticProposal} from '../diplomacy.mjs';
+import {diplomaticCandidates,assignDiplomat,prepareDiplomaticProposal,advanceDiplomacy,approveDiplomaticProposal,validateDiplomacy} from '../diplomacy.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
 
 test('returned real soldiers survive reserve production limits and current save continuation',()=>{
@@ -54,6 +54,24 @@ test('returned reserve overflow does not block diplomacy without a net incoming 
  const a=s.campaign.diplomacy.assignments.find(a=>a.officerId==='ju');
  const p=prepareDiplomaticProposal(s,a,{goal:'friendship',other:'cao',targetCity:target.id,path:[target.id],score:60,reason:'实际小额赠礼',clauses:[{kind:'gold',from:'yuan',to:'cao',amount:50,gift:true}]});
  assert.ok(p,a.waiting);assert.equal(home.manpower,30200);
+});
+
+test('deferred payment funds only its unescrowed balance while reciprocal cargo is still travelling',()=>{
+ const {s,home,target}=planningFront();target.grain=1000;s.roadSegments[[home.id,target.id].sort().join(':')].distance=2000;updateVision(s);
+ const totalGold=()=>s.cities.reduce((n,c)=>n+c.gold,0)+[...s.campaign.diplomacy.proposals,...s.campaign.diplomacy.contracts].flatMap(p=>p.escrow).filter(e=>e.kind==='gold').reduce((n,e)=>n+e.amount,0);
+ const initialGold=totalGold();assert.ok(assignDiplomat(s,'dun','commerce',{faction:'cao',choice:'now'}).applied);
+ const a=s.campaign.diplomacy.assignments.find(a=>a.officerId==='dun'),pass=['envoyPass','tradePass'].flatMap(kind=>[{kind,from:'cao',to:'yuan',duration:180},{kind,from:'yuan',to:'cao',duration:180}]);
+ const p=prepareDiplomaticProposal(s,a,{goal:'buyGrain',other:'yuan',targetCity:home.id,path:[home.id],score:60,reason:'实际粮食与延期金交易',clauses:[{kind:'grain',from:'yuan',to:'cao',amount:4000},{kind:'gold',from:'cao',to:'yuan',amount:640,deferred:true,dueOffset:10},...pass]});assert.ok(p,a.waiting);
+ const step=()=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.diplomacy.lastAIReview=s.campaign.day;advanceDiplomacy(s);if(p.status==='pending'&&!p.approvals.cao)assert.equal(approveDiplomaticProposal(s,p.id,p.version,{faction:'cao'}),null);validateDiplomacy(s);};
+ for(let i=0;i<100&&p.status!=='signed';i++)step();assert.equal(p.status,'signed',p.failure||p.status);
+ const gold=p.clauses.find(c=>c.kind==='gold'),grain=p.clauses.find(c=>c.kind==='grain'),escrow=p.escrow.find(e=>e.clauseId===gold.id);let heldDays=0,copy=null;
+ for(let i=0;i<100&&grain.status!=='done';i++){
+  step();if(copy){copy.campaign.day=s.campaign.day;copy.turn=s.turn;copy.campaign.diplomacy.lastAIReview=copy.campaign.day;advanceDiplomacy(copy);const q=copy.campaign.diplomacy.contracts.find(q=>q.id===p.id);assert.deepEqual(q.escrow,p.escrow);assert.deepEqual(copy.cities,s.cities);validateDiplomacy(copy);}
+  assert.ok(escrow.amount<=gold.amount-gold.delivered);
+  if(s.campaign.day>=gold.dueDay&&grain.delivered===0){heldDays++;assert.equal(escrow.amount,gold.amount);copy??=JSON.parse(serializeCampaign(s));}
+ }
+ assert.ok(heldDays>=2,'real cargo remains in transit through repeated payment settlement');assert.equal(grain.status,'done');assert.equal(gold.delivered,gold.amount);assert.equal(escrow.amount,0);
+ const expenses=[...s.campaign.diplomacy.proposals,...s.campaign.diplomacy.contracts].reduce((n,p)=>n+Object.values(p.expenses||{}).reduce((n,x)=>n+x,0),0);assert.equal(totalGold()+expenses,initialGold,'only actual recorded diplomacy expenses leave the treasury and escrow total');
 });
 
 test('border threat estimates reserve part of city troops while real incoming armies remain full threats',()=>{

@@ -4,7 +4,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,validateSave,COMMAND_RESOURCE,battleStratagems} from '../engine.mjs';
-import {STRATAGEMS,selectStratagemSource,stratagemEffectText} from '../stratagems.mjs';
+import {STRATAGEMS,selectStratagemSource,stratagemEffectSummary,stratagemEffectText} from '../stratagems.mjs';
 const require=createRequire(import.meta.url),{chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4329'},stdio:'pipe',windowsHide:true});
 let browser;
@@ -23,7 +23,14 @@ try{
  const dialog=page.getByRole('dialog',{name:'选择军略'});await dialog.waitFor();
  assert.equal(await dialog.locator('[data-action="command-category"]').count(),0);
  assert.equal(await dialog.locator('.stratagem-options [data-command]').count(),keys.length);
- for(const key of keys){const text=await dialog.locator(`[data-command="${key}"]`).innerText();assert.ok(text.includes(STRATAGEMS[key].name));assert.ok(text.includes(stratagemEffectText(selectStratagemSource(state.battle.sides[0].commanders,key))));}
+ for(const key of keys){
+  const source=selectStratagemSource(state.battle.sides[0].commanders,key),text=await dialog.locator(`[data-command="${key}"]`).innerText();
+  assert.ok(text.includes(STRATAGEMS[key].name));assert.ok(text.includes(stratagemEffectSummary(source)));
+  assert.ok(!text.includes(stratagemEffectText(source)),'full rules stay in the detail panel');
+  await dialog.locator(`.stratagem-choice:has([data-command="${key}"]) [data-action="ability-reference"]`).click();
+  assert.ok((await page.locator('.text-detail-view').innerText()).includes(stratagemEffectText(source)));
+  await page.locator('#modal-panel-root .close-button').click();await dialog.waitFor();
+ }
  await mkdir('outputs/stratagem-picker-ui',{recursive:true});
  await page.screenshot({path:'outputs/stratagem-picker-ui/desktop.png',fullPage:true});
  await page.setViewportSize({width:390,height:844});
@@ -31,7 +38,7 @@ try{
  assert.ok(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth));
  await page.screenshot({path:'outputs/stratagem-picker-ui/mobile.png',fullPage:true});
  await dialog.getByRole('button',{name:'取消',exact:true}).click();
- const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+ const read=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
  assert.deepEqual((await read()).battle,state.battle);
  await page.locator('#command-cue').click();
  await dialog.locator('[data-command="cao-wuchao"]').click();

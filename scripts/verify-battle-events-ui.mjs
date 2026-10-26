@@ -30,7 +30,7 @@ try{
  const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'}),battle=await context.newPage();battle.on('pageerror',e=>errors.push(e.message));
  await battle.addInitScript(raw=>{if(!sessionStorage.getItem('events-fixture')){localStorage.setItem('sango-historical-battle-v1',raw);sessionStorage.setItem('events-fixture','1');}},JSON.stringify(fixture));
  await battle.goto('http://127.0.0.1:4223/#historical-battle');await battle.locator('[data-action="pause"]').first().click();await battle.locator('[data-action="battle-reinforcement-council"]').waitFor();
- const getBattle=()=>battle.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));let s=await getBattle();validateSave(s);assert.equal(s.battle.tick,26);assert.ok(s.battle.battleEvents.every(e=>e.triggeredAt===24));assert.equal(s.battle.logs.filter(l=>l.text.includes('事件触发')).length,2);
+ const getBattle=()=>battle.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));let s=await getBattle();validateSave(s);assert.equal(s.battle.tick,26);assert.ok(s.battle.battleEvents.every(e=>e.triggeredAt===24));assert.equal(s.battle.logs.filter(l=>l.text.includes('事件触发')).length,2);
  const enemy=s.battle.sides[1].units[0];assert.ok(enemy.statuses.hunger);assert.ok(enemy.statuses.confuse);assert.ok(enemy.statuses.disrupted);
  await battle.locator('[data-action="battle-reinforcement-council"]').click();await battle.reload();s=await getBattle();validateSave(s);assert.equal(s.battle.tick,26);assert.ok(s.battle.battleEvents.every(e=>e.triggeredAt===24));
  await battle.screenshot({path:output+'/date-trigger.png',fullPage:true,animations:'disabled'});assert.deepEqual(errors,[]);

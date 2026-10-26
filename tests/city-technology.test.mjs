@@ -14,8 +14,9 @@ import {citySceneState,citySceneMarkup} from '../city-scene.mjs';
 import {peacefulCities,invadeFromGuandu} from './helpers/field-campaign.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import {validateDesignTables,DESIGN_TABLES} from '../design-catalog.mjs';
+import {syncResourceTotals} from '../city-resources.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
-function fixture(seed=1){const s=peacefulCities(newCampaign(seed));fundCities(s,100000);const c=s.cities.find(c=>c.id==='xuchang'),u=s.campaign.idle.find(o=>o.location===c.id).unit;for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='technology'&&k!=='research')c.domestic.cooldowns[k]=1000;assert.equal(assignDomestic(s,c.id,'technology',u.id),null);return {s,c,u};}
+function fixture(seed=1){const s=peacefulCities(newCampaign(seed));fundCities(s,100000);const c=s.cities.find(c=>c.id==='xuchang'),u=s.campaign.idle.find(o=>o.location===c.id).unit;c.manpower=0;c.grain=20000;syncResourceTotals(s);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='technology'&&k!=='research')c.domestic.cooldowns[k]=1000;assert.equal(assignDomestic(s,c.id,'technology',u.id),null);return {s,c,u};}
 function days(s,n){for(let i=0;i<n;i++){if(s.campaign.phase==='planning')assert.equal(beginExecution(s),null);assert.ok(advanceCampaignDay(s).dayEnded);}}
 
 test('all cities have fixed partial technology trees; buildings cannot create new affinities',()=>{
@@ -52,13 +53,13 @@ test('one city research project is exclusive and a second scientist can cooperat
 
 test('tech income bonuses add to 25 percent and increase the actual shared production allowance',()=>{
  const {s,c}=fixture();c.governor=null;const base=cityIncomeBreakdown(s,c).base,limit=cityWorkLimit(s,c,'manpower');c.domestic.techs=['militaryRegistry','militaryHouseholds'];
- assert.equal(cityIncomeBreakdown(s,c).base.manpower,Math.floor(base.manpower*1.25));assert.equal(cityWorkLimit(s,c,'manpower'),Math.floor(limit*1.25));assert.equal(cityIncomeBreakdown(s,c).base.gold,base.gold);
+ assert.equal(cityIncomeBreakdown(s,c).base.manpower,Math.floor(base.manpower*1.25));assert.equal(limit,661);assert.equal(cityWorkLimit(s,c,'manpower'),827,'apply technology before the single final rounding');assert.equal(cityIncomeBreakdown(s,c).base.gold,base.gold);
  const other=s.cities.find(c=>c.id==='chenliu');other.governor=null;const money=cityIncomeBreakdown(s,other).base.gold;other.domestic.techs=['taxation','tradeLaw'];assert.equal(cityIncomeBreakdown(s,other).base.gold,Math.floor(money*1.25));restore(s);
 });
 
 test('technology increases completed real resource operations without a second harvest payout',()=>{
  for(const [key,direction,resource,techs]of [['fair','commerce','gold',['taxation']],['cultivate','agriculture','grain',['cultivation']],['recruit','military','manpower',['militaryRegistry','militaryHouseholds']]]){
-  const {s,c,u}=fixture(1);cancelDomestic(s,u.id);if(resource==='manpower')c.manpower=0;
+  const {s,c,u}=fixture(1);cancelDomestic(s,u.id);if(resource==='manpower')c.manpower=0;if(resource==='grain')c.grain=1000;
   for(const [id,def]of Object.entries(ACTIONS))if(def.direction===direction&&id!==key)c.domestic.cooldowns[id]=1000;
   assert.equal(assignDomestic(s,c.id,direction,u.id),null);const boosted=structuredClone(s),other=boosted.cities.find(x=>x.id===c.id);other.domestic.techs=techs;
   days(s,10);days(boosted,10);const actual=world=>world.campaign.domestic.events.find(e=>e.cityId===c.id&&e.result.resourceCredit?.[resource]>0)?.result.resourceCredit[resource];
@@ -74,7 +75,7 @@ test('an actual siege pauses daily research without losing the project or its pa
 });
 
 test('military and construction discounts affect paid city actions and preview calculations',()=>{
- const {s,c}=fixture();const u=c.units[0];c.domestic.techs=['militaryRegistry','militarySupply'];const gold=c.gold,cost=trainingCost('baier',u.troops+u.wounded,c);c.domestic.techs.push('baier');
+ const {s,c}=fixture();c.manpower=10000;const u=c.units[0];c.domestic.techs=['militaryRegistry','militarySupply'];const gold=c.gold,cost=trainingCost('baier',u.troops+u.wounded,c);c.domestic.techs.push('baier');
  assert.equal(changeCityTroop(s,c.id,u.id,'baier'),null);assert.equal(c.gold,gold-cost);assert.equal(cost,Math.ceil((u.troops+u.wounded)*400*.9/1000));
  c.domestic.techs.push('efficientConstruction','siegeEngineering');const gear={siege:'tower',ship:null},fee=equipmentCost(gear,u.equipment,u.troops+u.wounded,c),before=c.gold;assert.equal(equipCityUnit(s,c.id,u.id,gear),null);assert.equal(c.gold,before-fee);
  assert.equal(buildCost(s,c,'commerce',u),450);u.troops=1000;const replenishGold=c.gold;assert.equal(recruitCityUnits(s,c.id,[u.id]),null);assert.equal(replenishGold-c.gold,trainingCost(u,u.troops-1000,c));restore(s);

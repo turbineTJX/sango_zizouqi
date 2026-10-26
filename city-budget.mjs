@@ -11,6 +11,20 @@ import {trainingCost} from './troop-training.mjs';
 import {DIPLOMACY_RULES,DIPLOMACY_DIRECTIONS} from './data/design/diplomacy-rules.mjs';
 
 const fmt=n=>Math.ceil(n).toLocaleString('zh-CN');
+let budgetQueryScope=null;
+export function withCityBudgetQueries(evaluate){
+ if(budgetQueryScope)return evaluate();budgetQueryScope={cities:new WeakMap(),forecasts:new WeakMap(),nextForecast:0};
+ try{return evaluate();}finally{budgetQueryScope=null;}
+}
+function cachedBudget(s,c,kind,key,evaluate){
+ if(!budgetQueryScope)return evaluate();
+ let cities=budgetQueryScope.cities.get(s);if(!cities){cities=new WeakMap();budgetQueryScope.cities.set(s,cities);}
+ let values=cities.get(c);if(!values){values=new Map();cities.set(c,values);}
+ const cacheKey=kind+key;if(!values.has(cacheKey))values.set(cacheKey,evaluate());
+ // Summaries are flat records. Orders retain their original read-only source
+ // references, just as the uncached filter does; containers remain detached.
+ return Object.fromEntries(Object.entries(values.get(cacheKey)).map(([name,value])=>[name,Array.isArray(value)?[...value]:value&&typeof value==='object'?{...value}:value]));
+}
 // A read-only forecast. Paid work is excluded, and speculative work rewards
 // or cargo still on the road are never treated as spendable city stocks.
 // Estimate one executable round of work, rather than a separate construction
@@ -30,6 +44,9 @@ function nextWorkCost(s,c,assignments,workPolicy){
  return cost;
 }
 export function cityGoldCommitment(s,c,{includeWork=false,workPolicy='all'}={}){
+ return cachedBudget(s,c,'gold',JSON.stringify([includeWork,workPolicy]),()=>readCityGoldCommitment(s,c,{includeWork,workPolicy}));
+}
+function readCityGoldCommitment(s,c,{includeWork,workPolicy}){
  const days=ECONOMY_RULES.budget.days,toHarvest=10-(s.campaign.day-1)%10;
  const assignments=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id);
  const work=includeWork?nextWorkCost(s,c,assignments,workPolicy):0;
@@ -47,6 +64,15 @@ export function cityGoldCommitment(s,c,{includeWork=false,workPolicy='all'}={}){
  return {work,fees,training,cargo,debt,orders,contactFees,farePerDay,debtBefore,maintenance,payroll:{gold:upkeep.salary,arrears:upkeep.arrears,count:upkeep.officers.length},goldBuffer,goldReserved,total:Math.ceil(work+fees+training+cargo+debt+maintenance)+goldReserved};
 }
 export function cityBudget(s,c,{supplies=citySupplyBudgets(s),supplyForecast=forecastArmySupply(s,{supplies}),includeWork=true,workPolicy='all'}={}){
+ // Supply forecasts can be caller-provided counterfactuals. Their object
+ // identities are part of the query key, rather than just the city's id.
+ if(!budgetQueryScope)return readCityBudget(s,c,{supplies,supplyForecast,includeWork,workPolicy});
+ const roots=budgetQueryScope.forecasts;
+ let bySupplies=roots.get(supplies);if(!bySupplies){bySupplies=new WeakMap();roots.set(supplies,bySupplies);}
+ let token=bySupplies.get(supplyForecast);if(token===undefined){token=++budgetQueryScope.nextForecast;bySupplies.set(supplyForecast,token);}
+ return cachedBudget(s,c,'budget',JSON.stringify([includeWork,workPolicy,token]),()=>readCityBudget(s,c,{supplies,supplyForecast,includeWork,workPolicy}));
+}
+function readCityBudget(s,c,{supplies,supplyForecast,includeWork,workPolicy}){
  const days=ECONOMY_RULES.budget.days,toHarvest=10-(s.campaign.day-1)%10;
  const besieged=s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===c.id);
  const income=besieged?{gold:0,grain:0,manpower:0}:cityRecurringIncome(s,c);
@@ -92,9 +118,10 @@ export function validateCityBudget(c,fail){
 export function cityBudgetMarkup(s,c,{editable=false}={}){
  const b=cityBudget(s,c),short=b.shortages.gold||b.shortages.grain;
  const funding=b.fundingShortages.gold||b.fundingShortages.grain;
- const status=funding?`${b.fundingShortages.gold?'金不足约 '+fmt(b.fundingShortages.gold)+'；':''}${b.fundingShortages.grain?'粮不足约 '+fmt(b.fundingShortages.grain)+'；':''}请调整事务或调运钱粮。`:'本城钱粮预计可覆盖用度。';
- const bufferStatus=[['gold','金'],['grain','粮']].filter(([k])=>b.reserveGaps[k]).map(([k,label])=>`预留${label}尚差约 ${fmt(b.reserveGaps[k])}。`).join('')+` 官员俸禄 ${b.payroll.count} 人，共 ${fmt(b.payroll.gold)} 金／旬${b.payroll.arrears?'；欠俸 '+fmt(b.payroll.arrears)+' 金，后续补发':''}，已计入预计支出。按实际等级每旬 ${ECONOMY_RULES.maintenance.officerSalaryByLevel[0]}—${ECONOMY_RULES.maintenance.officerSalaryByLevel.at(-1)} 金，待命、出征与外派照常发放。`;
- return `<section class="city-budget ${short?'budget-shortage':''}" data-city-budget="${c.id}"><h3>${c.name} · 钱粮预算（未来一旬）</h3><div class="personnel-table-wrap"><table class="personnel-table"><thead><tr><th>资源</th><th>现存</th><th>预计收入</th><th>预计支出</th><th>预留</th><th>预计结余</th></tr></thead><tbody>${[['gold','金'],['grain','粮']].map(([k,label])=>`<tr><th>${label}</th><td data-label="现存">${fmt(b.stocks[k])}</td><td data-label="预计收入">${fmt(b.income[k])}</td><td data-label="预计支出">${fmt(b.costs[k])}</td><td data-label="预留">${fmt(b.reserve[k])}</td><td data-label="预计结余">${fmt(b.projected[k])}</td></tr>`).join('')}</tbody></table></div><p class="budget-status" role="status">${status}${bufferStatus}${b.fundingDaysSupply===null?'':` 现粮约可维持 ${b.fundingDaysSupply.toFixed(1)} 天。`}</p><small>收入在旬末入库；预算同时检查入库前的用度。预留目标未满仅在此提示。未完成运营和在途物资不计入现存，已付款的事务不重复计费。</small>${editable?`<div class="city-budget-settings">${[['goldReserve','保留金'],['grainReserve','保留粮']].map(([key,label])=>`<label class="strategy-field">${label}<input type="number" min="0" max="1000000" step="100" data-city-budget-key="${key}" data-city-budget-id="${c.id}" value="${c.budget[key]}"></label>`).join('')}</div>`:''}</section>`;
+ const status=funding?`${b.fundingShortages.gold?'金不足约 '+fmt(b.fundingShortages.gold)+'；':''}${b.fundingShortages.grain?'粮不足约 '+fmt(b.fundingShortages.grain)+'；':''}`:'钱粮充足';
+ const bufferStatus=[['gold','金'],['grain','粮']].filter(([k])=>b.reserveGaps[k]).map(([k,label])=>` · 预留${label}尚差 ${fmt(b.reserveGaps[k])}`).join('');
+ const payrollStatus=`俸禄 ${b.payroll.count} 人 · ${fmt(b.payroll.gold)} 金／旬${b.payroll.arrears?' · 欠俸 '+fmt(b.payroll.arrears)+' 金':''}`;
+ return `<section class="city-budget ${short?'budget-shortage':''}" data-city-budget="${c.id}"><h3>${c.name} · 钱粮预算（未来一旬）</h3><div class="personnel-table-wrap"><table class="personnel-table"><thead><tr><th>资源</th><th>现存</th><th>预计收入</th><th>预计支出</th><th>预留</th><th>预计结余</th></tr></thead><tbody>${[['gold','金'],['grain','粮']].map(([k,label])=>`<tr><th>${label}</th><td data-label="现存">${fmt(b.stocks[k])}</td><td data-label="预计收入">${fmt(b.income[k])}</td><td data-label="预计支出">${fmt(b.costs[k])}</td><td data-label="预留">${fmt(b.reserve[k])}</td><td data-label="预计结余">${fmt(b.projected[k])}</td></tr>`).join('')}</tbody></table></div><p class="budget-status" role="status">${status}${bufferStatus}${b.fundingDaysSupply===null?'':` · 口粮约 ${b.fundingDaysSupply.toFixed(1)} 天`}</p><p class="budget-payroll">${payrollStatus}</p>${editable?`<div class="city-budget-settings">${[['goldReserve','保留金'],['grainReserve','保留粮']].map(([key,label])=>`<label class="strategy-field">${label}<input type="number" min="0" max="1000000" step="100" data-city-budget-key="${key}" data-city-budget-id="${c.id}" value="${c.budget[key]}"></label>`).join('')}</div>`:''}</section>`;
 }
 export function citySoldierCounts(s,c){
  const troops=Math.floor(cityMilitary(s,c).troops),total=troops+c.manpower;

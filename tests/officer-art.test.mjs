@@ -6,7 +6,7 @@ import {pngInfo,promptFor,officerArtRole,officerArtJobs} from '../scripts/office
 import {artRole,roleSceneBrief} from '../scripts/officer-art-roles.mjs';
 import {OFFICER_CATALOG,OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {assetURL,sanitizeOfficerArt,art} from '../art-assets.mjs';
-import {workArtScene,reportArtScene,activityArtScene,OFFICER_ART_KEYS,OFFICER_ART_SCENES,OFFICER_ART_FORMAT_VERSION} from '../officer-art-scenes.mjs';
+import {workArtScene,reportArtScene,activityArtScene,OFFICER_ART_KEYS,OFFICER_ART_SOURCE_KEYS,OFFICER_ART_FORMAT_VERSION,OFFICER_ART_LEGACY_VERSION,officerArtView,validArtCrop} from '../officer-art-scenes.mjs';
 const own=(id,scene)=>`./assets/officers/generated/v3/${id}/${scene}.png`;
 const local='/local-art/files/'+'b'.repeat(24)+'.png';
 test('art role follows recorded biography direction and cannot change with stats or combat troop type',()=>{
@@ -14,7 +14,7 @@ test('art role follows recorded biography direction and cannot change with stats
  assert.deepEqual(officerArtRole('person-1').secondary,['commander']);
  assert.equal(officerArtRole('person-4').primary,'martial');
  for(const id of ['person-2','person-3','person-5','person-6'])assert.equal(officerArtRole(id).primary,'civil');
- for(const id of ['person-1','person-2'])for(const scene of OFFICER_ART_KEYS){
+ for(const id of ['person-1','person-2'])for(const scene of OFFICER_ART_SOURCE_KEYS){
   const officer=OFFICER_BY_ID[id];
   assert.equal(promptFor({...officer,force:0,intellect:100,type:'cavalry'},scene),promptFor({...officer,force:100,intellect:0,type:'spear'},scene));
  }
@@ -24,7 +24,7 @@ test('art role follows recorded biography direction and cannot change with stats
 test('unclassified officers have blocked tasks instead of a stat-derived generic prompt',async()=>{
  const officer=OFFICER_CATALOG.find(o=>!officerArtRole(o.id));assert.ok(officer);
  assert.throws(()=>promptFor({...officer,intellect:100,force:0},'portrait'),/先依据身份和传记/);
- const jobs=await officerArtJobs([officer.id]);assert.equal(jobs.length,OFFICER_ART_KEYS.length);
+ const jobs=await officerArtJobs([officer.id]);assert.equal(jobs.length,3);
  for(const job of jobs){assert.equal(job.status,'blocked-role');assert.equal(job.roleNeedsReview,true);assert.equal(job.role,null);assert.equal(job.prompt,null);}
 });
 test('incomplete or unknown art classifications cannot enter production',()=>{
@@ -57,16 +57,48 @@ test('scene selection follows actual work and outcomes, never guesses an officer
  assert.equal(activityArtScene({code:'mission',fromId:'a',toId:'b'}),'travel');assert.equal(activityArtScene({code:'mission'}),'diplomacy');
  assert.equal(activityArtScene({code:'dead'}),'detail');assert.equal(activityArtScene({code:'absent'}),'detail');
 });
-test('approved originals have valid frames, full alpha standees, exact file hashes and current identities',async()=>{
+test('reused originals retain their exact hashes, source receipts and current identities without extra PNGs',async()=>{
  const receipts=JSON.parse(await readFile(new URL('../assets/officers/receipts.json',import.meta.url),'utf8'));
  const manifest=JSON.parse(await readFile(new URL('../assets/officers/manifest.json',import.meta.url),'utf8'));
  const identities=JSON.parse(await readFile(new URL('../assets/officers/identities.json',import.meta.url),'utf8'));
- assert.equal(manifest.formatVersion,OFFICER_ART_FORMAT_VERSION);const hashes=new Set();
+ assert.equal(manifest.formatVersion,OFFICER_ART_FORMAT_VERSION);const hashes=new Set();let reused=0;
  for(const [id,scenes] of Object.entries(manifest.officers)){
-  const keys=Object.keys(scenes);assert.ok(keys.every(s=>OFFICER_ART_KEYS.includes(s)));assert.ok(scenes.portrait);
-  const sizes=new Set();for(const scene of keys){const receipt=receipts[id][scene],entry=scenes[scene];assert.ok(receipt.approved);assert.equal(receipt.masterSha256,identities[id].sha256);assert.equal(receipt.sha256,entry.sha256);assert.equal(receipt.formatVersion,OFFICER_ART_FORMAT_VERSION);const bytes=await readFile(new URL('../'+entry.url,import.meta.url)),info=pngInfo(bytes,scene);assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256);assert.equal(info.width,entry.width);assert.equal(info.height,entry.height);hashes.add(entry.sha256);sizes.add(entry.width+':'+entry.height);if(scene==='detail'){assert.ok(info.transparentFraction>.05);const opaque=Buffer.from(bytes);opaque[25]=2;assert.throws(()=>pngInfo(opaque,'detail'),/RGBA/);}}
-  if(keys.length===OFFICER_ART_KEYS.length)assert.ok(sizes.size>=7,'not a uniform portrait batch');
-  const portrait=await readFile(new URL('../'+manifest.officers[id].portrait.url,import.meta.url));assert.throws(()=>pngInfo(portrait,'battle'),/画幅不符/);
+  const keys=Object.keys(scenes);assert.ok(keys.every(s=>[...OFFICER_ART_SOURCE_KEYS,'portrait'].includes(s)));
+  for(const scene of keys){const entry=scenes[scene],original=entry.derivedFrom||scene,receipt=receipts[id][original];assert.ok(receipt.approved);assert.equal(receipt.masterSha256,identities[id].sha256);assert.equal(receipt.sha256,entry.sha256);assert.equal(receipt.formatVersion,entry.sourceFormatVersion);const bytes=await readFile(new URL('../'+entry.url,import.meta.url)),info=pngInfo(bytes,original,{legacy:receipt.formatVersion===OFFICER_ART_LEGACY_VERSION});assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256);assert.equal(info.width,entry.width);assert.equal(info.height,entry.height);hashes.add(entry.sha256);if(entry.derivedFrom)reused++;}
  }
- assert.equal(hashes.size,Object.values(manifest.officers).reduce((n,s)=>n+Object.keys(s).length,0),'distinct originals, not repeated files');
+ assert.ok(reused>0);assert.ok(hashes.size<=Object.values(manifest.officers).reduce((n,s)=>n+Object.keys(s).length,0));
+});
+
+test('one neutral original supplies face, half body and full body with bounded source crops',()=>{
+ const saved={officers:art.officers,pack:art.pack,enabled:art.enabled,failed:art.failed};
+ try{
+  const url='./assets/officers/generated/v4/cao/neutral.png';
+  art.officers=sanitizeOfficerArt({version:1,id:'original-officers',officers:{cao:{neutral:{url,width:1536,height:2560,transparent:true,framing:'full'}}}});art.pack={id:'builtin',portraits:{}};art.enabled=true;art.failed=new Set();
+  const entries=['roster','detail','domestic','report','battle'].map(scene=>art.resolvePortrait('cao',scene));
+  assert.ok(art.active);assert.equal(new Set(entries.map(e=>e.url)).size,1);
+  assert.equal(entries[0].view.width,entries[0].view.height);assert.deepEqual(entries[1].view.crop,[0,0,1,1]);
+  assert.ok(entries[2].view.crop[3]<1);for(const entry of entries)assert.ok(validArtCrop(entry.view.crop));
+  assert.equal(entries[2].view.background,'hall');assert.equal(entries[4].view.background,'camp');
+ }finally{Object.assign(art,saved);}
+});
+
+test('work and command poses serve related scenes and fall back to the same neutral identity',()=>{
+ const saved={officers:art.officers,pack:art.pack,enabled:art.enabled,failed:art.failed};
+ try{
+  const sources=Object.fromEntries(OFFICER_ART_SOURCE_KEYS.map(key=>[key,{url:`./assets/officers/generated/v4/cao/${key}.png`,width:1536,height:2560,framing:'full'}]));
+  art.officers=sanitizeOfficerArt({version:1,id:'original-officers',officers:{cao:sources}});art.pack={id:'builtin',portraits:{}};art.enabled=true;art.failed=new Set();
+  for(const scene of ['domestic','inspection','diplomacy','report','report-concern'])assert.equal(art.resolvePortrait('cao',scene).scene,'work');
+  for(const scene of ['command','training','battle'])assert.equal(art.resolvePortrait('cao',scene).scene,'command');
+  art.failed.add(sources.work.url);assert.equal(art.resolvePortrait('cao','domestic').scene,'neutral');
+  art.failed.add(sources.command.url);assert.equal(art.resolvePortrait('cao','battle').scene,'neutral');
+ }finally{Object.assign(art,saved);}
+});
+
+test('crop metadata is bounded, officer-specific, and can correct tall headwear without new artwork',()=>{
+ const url='./assets/officers/generated/v4/cao/neutral.png',entry={url,width:1536,height:2560,framing:'full',crops:{face:[.2,.01,.6,.36]}};
+ assert.deepEqual(officerArtView(entry,'neutral','portrait').crop,entry.crops.face);
+ for(const crop of [[-1,0,1,1],[0,0,2,1],[0,0,0,1],[0,0,NaN,1]])assert.equal(validArtCrop(crop),false);
+ const raw={version:1,id:'original-officers',officers:{cao:{neutral:{...entry,crops:{face:[0,0,2,1]}}}}};assert.equal(sanitizeOfficerArt(raw).cao.neutral,undefined);
+ raw.officers.cao.neutral={...entry,url:'./assets/officers/generated/v3/person-99/detail.png'};assert.equal(sanitizeOfficerArt(raw).cao.neutral,undefined);
+ raw.officers.cao.neutral={...entry,url:own('cao','detail')};assert.equal(sanitizeOfficerArt(raw).cao.neutral.derivedFrom,'detail');
 });

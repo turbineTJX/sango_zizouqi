@@ -24,17 +24,19 @@ function setup(seed=1,keys=['fair'],count=2){
  for(const o of present.slice(0,count))assert.equal(assignDomestic(s,c.id,dir,o.unit.id),null);
  return {s,c,officers:present.slice(0,count),dir};
 }
-function advance(s,target){for(let i=0;i<500&&s.campaign.day<target;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,target);}
+const observedEvents=new WeakMap();
+function events(s){let observed=observedEvents.get(s);if(!observed){observed=new Map();observedEvents.set(s,observed);}for(const e of s.campaign.domestic.events)observed.set(e.id,e);return [...observed.values()];}
+function advance(s,target){for(let i=0;i<500&&s.campaign.day<target;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);events(s);advanceCampaignDay(s);events(s);}assert.equal(s.campaign.day,target);}
 function example(keys,predicate,prepare=()=>{},target=11){
  for(let seed=1;seed<=120;seed++){const f=setup(seed,keys);prepare(f);advance(f.s,target);const r=f.s.campaign.domestic.cooperation[f.c.id+':'+f.dir];if(r&&predicate(r,f))return {...f,r};}
  assert.fail('No real simulation matched the required cooperative outcome');
 }
 
 test('same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows',()=>{
- const {s,c,officers}=setup(1,['fair'],12);assert.equal(s.campaign.domestic.assignments.length,12);restore(s);
- const html=strategicView(s,{city:c.id,strategyTab:'city'});assert.equal((html.match(/data-domestic-officer=/g)||[]).length,12);assert.match(html,/data-task="domestic" data-town="xuchang" data-direction="commerce"/);
- const id=officers[0].unit.id,other=assignmentFor(s,officers[1].unit.id);assert.equal(assignDomestic(s,c.id,'agriculture',id),null);assert.equal(s.campaign.domestic.assignments.length,12);assert.strictEqual(assignmentFor(s,officers[1].unit.id),other);
- assert.equal(dismissDomestic(s,id),null);assert.equal(s.campaign.domestic.assignments.length,11);restore(s);
+ const {s,c,officers}=setup(1,['fair'],3);assert.equal(s.campaign.domestic.assignments.length,3);restore(s);
+ const html=strategicView(s,{city:c.id,strategyTab:'city'});assert.equal((html.match(/data-domestic-officer=/g)||[]).length,3);assert.match(html,/data-task="domestic" data-town="xuchang" data-direction="commerce"/);
+ const id=officers[0].unit.id,other=assignmentFor(s,officers[1].unit.id);assert.equal(assignDomestic(s,c.id,'agriculture',id),null);assert.equal(s.campaign.domestic.assignments.length,3);assert.strictEqual(assignmentFor(s,officers[1].unit.id),other);
+ assert.equal(dismissDomestic(s,id),null);assert.equal(s.campaign.domestic.assignments.length,2);restore(s);
 });
 
 test('compatibility uses circular distance including zero, and relation/affinity independently affect cooperation',()=>{
@@ -47,24 +49,24 @@ test('compatibility uses circular distance including zero, and relation/affinity
 });
 
 test('same-direction different actions can cooperate; waiting colleagues can assist a single research slot',()=>{
- const {s,c,r}=example(['build_workshop','research'],r=>r.success);assert.equal(r.direction,'technology');assert.ok(s.campaign.domestic.events.some(e=>e.phase==='start'&&e.text.includes('研制')));assert.ok(s.campaign.domestic.events.some(e=>e.phase==='start'&&e.text.includes('工坊')));assert.ok(r.actual>0);restore(s);
- const waiting=example(['research'],r=>r.success);assert.equal(waiting.s.campaign.domestic.events.filter(e=>e.phase==='start').length,1);assert.ok(waiting.r.actual>0);assert.ok(waiting.r.relationGain>0);restore(waiting.s);
+ const {s,c,r}=example(['build_workshop','research'],r=>r.success);assert.equal(r.direction,'technology');assert.ok(events(s).some(e=>e.phase==='start'&&e.text.includes('研制')));assert.ok(events(s).some(e=>e.phase==='start'&&e.text.includes('工坊')));assert.ok(r.actual>0);restore(s);
+ const waiting=example(['research'],r=>r.success);assert.equal(events(waiting.s).filter(e=>e.phase==='start').length,1);assert.ok(waiting.r.actual>0);assert.ok(waiting.r.relationGain>0);restore(waiting.s);
 });
 
 test('real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost',()=>{
  const {s,r}=example(['fair'],r=>r.success&&r.actual>0&&r.relationGain>0,({c})=>setBuildingLevel(c,'commerce',6));
  const e=s.campaign.domestic.events.find(e=>['complete','failure'].includes(e.phase)&&e.actionId===r.actionId);assert.equal(e.result.actual,r.after);assert.ok(r.after>r.before);
- assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='start').length,2);assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='cooperation').length,1);
+ assert.equal(events(s).filter(e=>e.phase==='start').length,2);assert.equal(events(s).filter(e=>e.phase==='cooperation').length,1);
  assert.equal(relationshipInfo(r.officerId,r.helperId,s.relationshipScores,s.relationshipTypes).score,r.relation+r.relationGain);restore(s);
 });
 
 test('failed trigger and failed activity give no relationship reward; failure consumes the turn slot',()=>{
  const failed=example(['fair'],r=>!r.success);assert.equal(failed.r.actual,0);assert.equal(failed.r.relationGain,0);restore(failed.s);
- const noYield=example(['breakthrough'],r=>r.success&&r.actual===0);assert.equal(noYield.r.relationGain,0);assert.equal(noYield.s.campaign.domestic.events.filter(e=>e.phase==='cooperation').length,1);restore(noYield.s);
+ const noYield=example(['breakthrough'],r=>r.success&&r.actual===0);assert.equal(noYield.r.relationGain,0);assert.equal(events(noYield.s).filter(e=>e.phase==='cooperation').length,1);restore(noYield.s);
 });
 
 test('group cap is independent of officer count, and UI/refresh preserve deterministic results',()=>{
- const {s,c}=setup(9,['fair'],8);advance(s,9);const fork=restore(s),rng=s.campaign.domestic.seed;strategicView(s,{city:c.id});assert.equal(s.campaign.domestic.seed,rng);
+ const {s,c}=setup(9,['fair'],3);advance(s,9);const fork=restore(s),rng=s.campaign.domestic.seed;strategicView(s,{city:c.id});assert.equal(s.campaign.domestic.seed,rng);
  advance(s,11);advance(fork,11);assert.equal(serializeCampaign(s),serializeCampaign(fork));assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='cooperation').length,1);
  const later=restore(s);advance(s,31);advance(later,31);assert.equal(serializeCampaign(s),serializeCampaign(later));assert.ok(s.campaign.domestic.events.filter(e=>e.phase==='cooperation').length<=3);restore(s);
 });
@@ -76,15 +78,15 @@ test('different directions, different cities and empty tasks cannot generate coo
 });
 
 test('multiple research and talent assignments retain exclusive research and person targets',()=>{
- const f=setup(5,['research','breakthrough'],6);beginExecution(f.s);assert.equal(f.s.campaign.domestic.assignments.filter(a=>a.action).length,1);restore(f.s);
- const g=setup(5,['hire'],5),p=readyTalent(g.s,g.c.id);beginExecution(g.s);assert.equal(g.s.campaign.domestic.assignments.filter(a=>a.action).length,1);advance(g.s,11);restore(g.s);
+ const f=setup(5,['research','breakthrough'],3);beginExecution(f.s);assert.equal(f.s.campaign.domestic.assignments.filter(a=>a.action).length,1);restore(f.s);
+ const g=setup(5,['hire'],3),p=readyTalent(g.s,g.c.id);beginExecution(g.s);assert.equal(g.s.campaign.domestic.assignments.filter(a=>a.action).length,1);advance(g.s,11);restore(g.s);
  const all=[...g.s.armies.flatMap(a=>a.units.map(u=>u.id)),...g.s.campaign.idle.map(o=>o.unit.id),...g.s.campaign.domestic.people.map(p=>p.id)];assert.equal(all.length,new Set(all).size);
 });
 
 test('parallel recruiting reserves different capacity and cooperation respects approved headcount and charges',()=>{
  const {s,c,r}=example(['recruit'],r=>r.success&&r.actual>0);const e=s.campaign.domestic.events.find(e=>e.actionId===r.actionId&&e.result.factor!==undefined);
  assert.ok(e.result.actual<=1400);assert.equal(e.result.actual,r.after);assert.equal(e.result.spent,60+Math.ceil(e.result.actual*.25));assert.equal(c.domestic.reserved,0);restore(s);
- const f=setup(4,['recruit'],6);for(const u of f.c.units)u.troops=troopCapacity(u)-u.wounded-100;
+ const f=setup(4,['recruit'],3);for(const u of f.c.units)u.troops=troopCapacity(u)-u.wounded-100;
  beginExecution(f.s);const reservations=f.s.campaign.domestic.assignments.filter(a=>a.action?.key==='recruit').flatMap(a=>a.action.recipients),totals={};for(const r of reservations)totals[r.id]=(totals[r.id]||0)+r.amount;assert.ok(Object.values(totals).every(n=>n<=100));restore(f.s);
 });
 

@@ -19,7 +19,9 @@ const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function fixture(keys=['fair'],relation=null,prepare=()=>{}){
  const s=peacefulCities(newCampaign(7));fundCities(s,40000);setDomesticAutoApprove(s,true);
  const c=s.cities.find(c=>c.id==='xuchang'),people=[...s.campaign.idle.filter(o=>o.location===c.id),...cityPersonnel(s,c.id).filter(o=>!s.campaign.idle.some(p=>p.unit.id===o.unit.id))];
- setBuildingLevel(c,'commerce',3);setBuildingLevel(c,'drill',1);
+ // Two concurrent cash actions require enough real shared work capacity;
+ // gift stories also require room to receive at least 75% of their reward.
+ setBuildingLevel(c,'commerce',6);setBuildingLevel(c,'drill',1);c.grain=3000;
  for(const direction of new Set(keys.map(k=>ACTIONS[k].direction)))for(const [id,def]of Object.entries(ACTIONS))if(def.direction===direction&&!keys.includes(id))c.domestic.cooldowns[id]=10000;
  const ids=keys.map((key,i)=>{const id=people[i].unit.id;assert.equal(assignDomestic(s,c.id,ACTIONS[key].direction,id),null);return id;});
  if(relation)assert.equal(setRelationshipType(s,ids[0],ids[1],relation,relation==='sworn'?100:0),null);
@@ -59,7 +61,7 @@ test('the concrete Xun Yu and Xiahou Dun market story loses real reserves and lo
  const r=s.campaign.domestic.incidents.events[0];assert.equal(r.code,'marketAbuse');assert.equal(r.sourceOfficerId,'person-255');assert.equal(r.otherOfficerId,'dun');
  assert.equal(base.c.manpower,before-800);assert.equal(base.c.gold,gold);assert.equal(r.relationship.delta,-12);assert.equal(relationshipInfo('person-255','dun',s.relationshipScores,s.relationshipTypes).score,r.relationship.after);
  const report=pendingActivityReports(s).find(n=>n.phase==='incident');assert.match(report.text,/荀彧.+夏侯惇强夺/);assert.match(report.text,/预备兵减少800.+友好度下降12/);assert.equal(reportTone(report),'concern');
- for(const id of [r.sourceOfficerId,r.otherOfficerId])assert.ok(officerActivityDays(s,id).rows.some(d=>d.actions.some(a=>a.nodeId===report.id)));restore(s);
+ for(const id of [r.sourceOfficerId,r.otherOfficerId])assert.ok(officerActivityDays(s,id,{beforeDay:report.day}).rows.some(d=>d.actions.some(a=>a.nodeId===report.id)));restore(s);
 });
 test('one commercial officer encounters good and bad farming and training stories with real colleagues',()=>{
  const base=fixture();for(const code of ['protectHarvest','wasteGrain','enlistHelp','bullyRecruits']){

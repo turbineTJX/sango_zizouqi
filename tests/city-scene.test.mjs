@@ -46,5 +46,9 @@ test('national camera reaches building scale and retains it on rerender, while e
  const s=newCampaign(1,'guandu-200'),ui={city:'xuchang'},before=JSON.stringify(s);operationMapView(s,ui);
  ui.strategicMapView={x:490,y:315,width:64,height:64};ui.mapCameraManual=true;
  assert.equal(operationMapView(s,ui).view.width,64);assert.equal(clampMapView({x:-5,y:1030,width:1,height:1}).width,MIN_MAP_SIZE);
- const markup=nationalArtMap(s,ui);assert.match(markup,/data-map-view="city"/);assert.equal((markup.match(/data-city-scene/g)||[]).length,s.cities.filter(c=>cityIntelligence(s,c.id).data).length+s.junctions.filter(n=>['gate','port'].includes(n.kind)).length);assert.equal(JSON.stringify(s),before);
+ const markup=nationalArtMap(s,ui);assert.match(markup,/data-map-view="city"/);
+ const models=[...markup.matchAll(/<script type="application\/json" data-city-model>(.*?)<\/script>/g)].map(m=>JSON.parse(m[1])),ids=new Set(models.map(m=>m.id));
+ assert.equal((markup.match(/data-city-scene/g)||[]).length,models.length);assert.equal(ids.size,models.length);
+ for(const place of [...s.cities.filter(c=>cityIntelligence(s,c.id).data),...s.junctions.filter(n=>['gate','port'].includes(n.kind))])assert.ok(ids.has(place.id),place.id+' has a scene source');
+ assert.equal(JSON.stringify(s),before);
 });

@@ -63,7 +63,6 @@ try{
   assert.match(await page.locator('#modal-title').innerText(),/部队属性/);
   await page.locator('.close-button').click();
   // Use a fresh deployment fixture to exercise actual loadout selection and return.
-  await page.evaluate(data=>localStorage.setItem('sango-battle-lab-v1',JSON.stringify(data)),createScenario('field'));
   await page.removeAllListeners('pageerror');
   await page.close();
   const deployment=await browser.newPage({viewport:{width:1440,height:1000}});

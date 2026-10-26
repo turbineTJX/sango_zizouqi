@@ -8,7 +8,9 @@ import {fieldFromCity} from './helpers/field-campaign.mjs';
 test('map sidebar exposes faction-wide commands independently of selected city',()=>{
  const s=newCampaign(203,'guandu-200'),before=JSON.stringify(s);
  const own=strategicHUD(s,{city:'xuchang'}),enemy=s.cities.find(c=>c.owner!=='cao');
- assert.match(own,/aria-label="势力命令"/);assert.match(own,/统一内政/);assert.match(own,/外交/);assert.match(own,/战役/);
+ assert.match(own,/aria-label="势力命令"/);assert.match(own,/data-action="faction-domestic"[^>]*>内政<\/button>/);assert.doesNotMatch(own,/统一内政|势力事务|data-action="campaign-affairs"/);assert.match(own,/外交/);assert.match(own,/战役/);
+ assert.match(own,/200年1月上旬/);assert.doesNotMatch(own,/第 1 旬/);
+ assert.doesNotMatch(own,/执行本旬|安排行动|时间推进中|<small>势力命令/);
  assert.doesNotMatch(own,/data-task="expedition"/);
  assert.equal(strategicHUD(s,{city:enemy.id}),own);assert.equal(JSON.stringify(s),before);
 });
@@ -21,10 +23,13 @@ test('army presentation stays anchored to the real army and provides a portrait 
  assert.equal(JSON.stringify(s),before);
 });
 
-test('marching company faces its road destination and reports real segment progress',()=>{
+test('marching company faces its road destination and is anchored to real segment progress',()=>{
  const s=newCampaign(203,'guandu-200'),a=fieldFromCity(s,'xuchang');
  a.target='luoyang';a.route=['luoyang'];a.travel={from:'xuchang',to:'luoyang',progress:27.5,road:'main'};
  const before=JSON.stringify(s),html=armyMapMarkers(s,{army:a.id});
- assert.match(html,/army-march-company.*scale\(-1 1\)/);assert.match(html,/往 洛阳/);assert.match(html,/行军 · 50%/);
+ assert.match(html,/army-march-company.*scale\(-1 1\)/);assert.match(html,/许昌 → 洛阳/);assert.match(html,/，行军，/);
+ const from=s.cities.find(c=>c.id==='xuchang'),to=s.cities.find(c=>c.id==='luoyang');
+ const distance=s.roadSegments[['xuchang','luoyang'].sort().join(':')].distance,p=a.travel.progress/distance;
+ assert.ok(html.includes(`data-x="${from.x+(to.x-from.x)*p}" data-y="${from.y+(to.y-from.y)*p}"`));
  assert.equal(JSON.stringify(s),before);
 });

@@ -11,6 +11,7 @@ export const ROAD_NETWORK_DESIGN = {
     'town-10:town-12':'任城', 'chenliu:town-10':'考城',
     'chenliu:town-12':'匡亭', 'chenliu:xuchang':'尉氏',
     'runan:xuchang':'临颍', 'wan:xuchang':'博望',
+    'atlas-qiao:xuchang':'鄢陵',
     'town-29:wan':'棘阳', 'town-20:town-21':'街亭',
     'town-20:town-22':'三水', 'town-23:town-24':'曲阿',
     'town-24:town-25':'钱唐', 'town-32:town-34':'耒阳',
@@ -25,6 +26,7 @@ export const ROAD_NETWORK_DESIGN = {
     'town-10:town-12':[780.3,392.4], 'chenliu:town-10':[782.4,415.3],
     'chenliu:town-12':[735.9,383.4], 'chenliu:xuchang':[726.2,425],
     'runan:xuchang':[728.3,463.1], 'wan:xuchang':[686.7,465.2],
+    'atlas-qiao:xuchang':[731.1,433.3],
     'town-29:wan':[675.6,502.6], 'town-20:town-21':[445.4,420.1],
     'town-20:town-22':[407.3,357], 'town-23:town-24':[925.2,518.6],
     'town-24:town-25':[961.3,552.6], 'town-32:town-34':[688.8,748.8],
@@ -41,6 +43,8 @@ export const ROAD_NETWORK_DESIGN = {
     ['town-10', 'town-12', 'chenliu'], // 任城—考城：小沛西侧通道
     ['town-12', 'chenliu', 'town-10'], // 匡亭—任城：濮阳南侧通道
     ['xuchang', 'chenliu', 'runan'],
+    ['xuchang', 'atlas-qiao', 'chenliu'],
+    ['xuchang', 'atlas-qiao', 'runan'],
     ['wan', 'xuchang', 'town-29'],
     ['town-20', 'town-21', 'town-22'],
     ['town-24', 'town-23', 'town-25'],

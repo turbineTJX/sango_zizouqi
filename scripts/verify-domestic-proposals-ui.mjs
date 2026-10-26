@@ -15,7 +15,7 @@ let serverError='';server.stderr.on('data',b=>serverError+=b);
 const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'}),page=await context.newPage(),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
-const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2'))),action=k=>page.locator('[data-action="'+k+'"]');
+const saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'))),action=k=>page.locator('[data-action="'+k+'"]');
 try{
  for(let i=0;i<100;i++){try{if((await fetch(base)).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
  assert.equal(serverError,'');

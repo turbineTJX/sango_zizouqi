@@ -12,6 +12,11 @@ export async function validateAssetPack(root=ASSET_ROOT){
   if(!Object.hasOwn(catalog.town[name],key)||(value!==''&&!publicAssetURL(value)))throw Error('Invalid town asset: '+name+'.'+key);
  }
  if(catalogRaw.officers&&!catalog.officers)throw Error('Invalid officer manifest URL');
+ if(Object.keys(catalogRaw.music||{}).length!==Object.keys(catalog.music).length)throw Error('Invalid music entry');
+ for(const [id,entry]of Object.entries(catalogRaw.music||{}))if(entry.sha256&&!catalog.music[id]?.sha256)throw Error('Invalid music hash: '+id);
+ if(catalogRaw.musicCredits&&!catalog.musicCredits)throw Error('Invalid music credits');
+ if(Object.keys(catalogRaw.voices||{}).length!==Object.keys(catalog.voices).length)throw Error('Invalid voice entry');
+ if(catalogRaw.voiceCredits&&!catalog.voiceCredits)throw Error('Invalid voice credits');
  const files=new Map();
  const add=async(url,sha256)=>{
   const path=await realpath(assetFile(url,base));
@@ -22,6 +27,8 @@ export async function validateAssetPack(root=ASSET_ROOT){
   files.set(url,path);
  };
  for(const url of catalogAssetURLs(catalogRaw))await add(url);
+ for(const entry of Object.values(catalog.music))if(entry.sha256)await add(entry.url,entry.sha256);
+ for(const entry of Object.values(catalog.voices))await add(entry.url,entry.sha256);
  let officers=null;
  if(catalog.officers){
   officers=JSON.parse(await readFile(files.get(catalog.officers),'utf8'));

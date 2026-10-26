@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {planningFront} from './helpers/strategic-planning.mjs';
 import {serializeCampaign} from '../strategic-campaign.mjs';
-import {planStrategicAI,validateStrategicAI} from '../strategic-ai.mjs';
+import {planStrategicAI,validateStrategicAI,factionStrategicProfile} from '../strategic-ai.mjs';
+import {drawFactionTemperament} from '../strategic-temperament.mjs';
 import {progressStrategicStaffing,staffingOfficer} from '../strategic-staffing.mjs';
 import {requestFactionOrder} from '../strategic-orders.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
@@ -15,7 +16,7 @@ function transfer(){
  const result=requestFactionOrder(s,'yuan',{kind:'transfer',cityId:home.id,officerIds:[u.id],target:rear.id,cargo:{gold:0,grain:0,manpower:0},route:[rear.id],safeOnly:true},'now');
  assert.ok(result.applied);
  s.campaign.ai.staffing.push({faction:'yuan',officerId:u.id,cityId:rear.id,direction:'commerce',createdDay:1,arrivedDay:null,phase:'travel'});
- for(const p of Object.values(s.campaign.ai.factions))p.lastReviewTurn=s.turn;
+ for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),0);p.lastReviewTurn=s.turn;}
  return {s,home,rear,id:u.id};
 }
 function arrive(s,id){for(let i=0;i<30&&s.campaign.idle.find(o=>o.unit.id===id).destination;i++)advancePersonnel(s,s.campaign.idle.find(o=>o.unit.id===id));}

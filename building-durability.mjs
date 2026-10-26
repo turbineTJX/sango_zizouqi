@@ -1,3 +1,4 @@
+import {ensureWatchtowerPosition} from './regional-watchtower.mjs';
 import {BUILDING_DESIGNS,AUXILIARY_BUILDINGS} from './data/design/buildings.mjs';
 import {buildingCombatState} from './building-rules.mjs';
 
@@ -7,8 +8,9 @@ const completedLevel=(c,key,siteId)=>AUXILIARY_BUILDINGS[key]?(siteId===c.id&&c.
 export const completedBuildingHp=(c,key,siteId=c.id)=>(key==='walls'&&siteId===c.id?12000:0)+completedLevel(c,key,siteId)*buildingUnitHp(key);
 export const buildingDurability=(c,key,siteId=c.id)=>c.buildings?.[key]?.[siteId]||{hp:0,maxHp:0};
 export const gateDurability=c=>buildingDurability(c,'walls');
-export function completeTechnologyBuilding(c,id){
+export function completeTechnologyBuilding(c,id,s=null){
  if(!['watchtower','beaconNetwork'].includes(id))return;
+ if(s)ensureWatchtowerPosition(s,c,()=>{const d=s.campaign.domestic;d.seed=(Math.imul(d.seed,1664525)+1013904223)>>>0;return d.seed/4294967296;});
  const a=buildingDurability(c,'watchtower'),maxHp=completedBuildingHp(c,'watchtower');
  c.buildings.watchtower[c.id]={hp:a.hp+Math.max(0,maxHp-a.maxHp),maxHp};
 }
@@ -56,7 +58,7 @@ export function siteBuildingDurability(s,siteId,key){
 export function campaignBattleBuildings(s,siteId,side,factions=null){
  const result=[];
  for(const c of s.cities)for(const key of Object.keys(DURABLE_BUILDINGS)){
-  const a=c.buildings[key][siteId];if(!a||key==='walls')continue;
+  const a=c.buildings[key][siteId];if(!a||key==='walls'||key==='watchtower'&&c.domestic.watchtowerPosition)continue;
   const ownerSide=factions?factions.indexOf(c.owner):side;if(ownerSide<0)continue;
   result.push({id:'city-building-'+result.length,name:DURABLE_BUILDINGS[key].name,type:'building',kind:key,side:ownerSide,x:0,y:0,hp:a.hp,maxHp:a.maxHp,...buildingCombatState(key,completedLevel(c,key,siteId)),source:{cityId:c.id,siteId,key},initialHp:a.hp});
  }

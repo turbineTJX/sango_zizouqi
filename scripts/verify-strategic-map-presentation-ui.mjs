@@ -1,0 +1,86 @@
+import {createRequire} from 'node:module';
+import {spawn} from 'node:child_process';
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,serializeCampaign} from '../tests/helpers/auto-domestic-campaign.mjs';
+import {fieldFromCity} from '../tests/helpers/field-campaign.mjs';
+import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
+
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const out='outputs/strategic-map-presentation-ui',march=newCampaign(203,'guandu-200'),city=march.cities.find(c=>c.id==='xuchang');
+for(let i=0;i<2;i++){const id=city.units[0].id;assert.equal(launchExpedition(march,{kind:'expedition',cityId:city.id,officerIds:[id],leader:id,advisor:id,target:'chenliu',policy:'auto'}),null);}
+assert.equal(beginExecution(march),null);
+const armyId=march.armies.find(a=>a.faction==='cao').id;
+const encounter=newCampaign(1);fieldFromCity(encounter,'xuchang',{target:'guandu'});fieldFromCity(encounter,'guandu',{target:'xuchang'});beginExecution(encounter);let encounterBefore;
+for(let i=0;i<30&&!activeBattles(encounter).length;i++){if(encounter.campaign.phase==='planning')beginExecution(encounter);encounterBefore=serializeCampaign(encounter);advanceCampaignDay(encounter);}
+assert.ok(activeBattles(encounter).length);
+await mkdir(out,{recursive:true});
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'4327',SANGO_ART:'off'},stdio:'pipe',windowsHide:true});let browser,page;
+try{
+ await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(save=>{localStorage.setItem('sango-sovereign-v2',save);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},serializeCampaign(march));
+ await page.goto('http://127.0.0.1:4327/#strategy');await page.locator('.national-world').waitFor();
+ assert.equal(await page.locator('.sovereign-identity small').textContent(),'200年1月上旬');
+ assert.equal(await page.locator('#map-season,[data-map-view="in"],[data-map-view="out"],.strategy-notice').count(),0);
+ assert.equal(await page.locator('.turn-seal').textContent(),'进行');
+ assert.equal(await page.locator('.turn-seal small,.sovereign-identity p,.world-commands>small').count(),0);
+ assert.equal(await page.locator('.national-legend>summary').textContent(),'势力');
+ assert.equal(await page.locator('.map-reports>summary').textContent(),'记录');
+ if(await page.locator('.modal').count()){console.log('Opening report:',await page.locator('#modal-title').textContent());await page.locator('.modal .close-button').click();}
+ const marker=page.locator(`[data-campaign-army="${armyId}"]`);
+ assert.equal(await marker.getAttribute('data-army-state'),'departing');
+ assert.equal(await marker.locator('.army-map-status').count(),0);
+ await page.locator('[data-action="campaign-day"]').click();
+ await page.waitForFunction(id=>document.querySelector(`[data-campaign-army="${id}"]`)?.classList.contains('is-playing-march'),armyId);
+ const playback=await marker.evaluate(node=>({frames:node.getAnimations()[0].effect.getKeyframes().length,duration:node._marchMotion.duration,day:+node.dataset.mapDay,paused:!!node.closest('.map-paused')}));
+ assert.ok(playback.frames>=2);assert.equal(playback.duration,2200);assert.ok(playback.paused);
+ assert.equal(await marker.getAttribute('data-army-state'),'marching');
+ assert.equal(await marker.locator('.army-heading').count(),1);
+ await page.waitForFunction(id=>!document.querySelector(`[data-campaign-army="${id}"]`)?.classList.contains('is-playing-march'),armyId);
+ await page.screenshot({path:out+'/march-desktop.png'});
+ const saved=await page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
+ await page.locator('[data-map-view="territory"]').click();assert.equal(await page.locator('.is-playing-march').count(),0);
+ assert.equal(await page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),saved);
+ await page.setViewportSize({width:390,height:844});await page.locator('[data-map-view="selected"]').click();
+ await page.screenshot({path:out+'/march-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ await page.setViewportSize({width:1440,height:1000});await importSaveFixture(page,encounterBefore);
+ if(await page.locator('.modal').count())await page.locator('.modal .close-button').click();
+ const encounterDay=+(await page.locator('[data-map-army-anchor]').first().getAttribute('data-map-day'));
+ await page.locator('[data-action="campaign-day"]').click();
+ await page.waitForFunction(()=>!!document.querySelector('.is-fighting.is-playing-march'));
+ assert.equal(+(await page.locator('[data-map-army-anchor]').first().getAttribute('data-map-day')),encounterDay);
+ await page.waitForFunction(()=>!document.querySelector('.is-playing-march'));
+ await page.locator('.map-encounter').first().waitFor();
+ assert.equal(await page.locator('.map-encounter .encounter-title').count(),0);
+ assert.equal(await page.locator('.map-encounter').first().locator('.encounter-troops').count(),2);
+ await page.screenshot({path:out+'/encounter-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.locator('.strategy-world').focus();await page.keyboard.press('Home');await page.screenshot({path:out+'/encounter-mobile.png'});
+ const mobileCards=await page.locator('[data-map-army-card]').evaluateAll(nodes=>nodes.map(n=>({name:n.textContent,rect:JSON.parse(JSON.stringify(n.getBoundingClientRect()))})));
+ for(let i=0;i<mobileCards.length;i++)for(let j=i+1;j<mobileCards.length;j++){const a=mobileCards[i].rect,b=mobileCards[j].rect;assert.equal(a.x<b.right&&a.right>b.x&&a.y<b.bottom&&a.bottom>b.y,false,'encounter army cards must not overlap');}
+ const battle=page.locator('.map-encounter').first();await battle.focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#modal-title').textContent(),'战前准备');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ const reduced=await page.evaluate(async()=>{const {animateArmyMarch}=await import('/strategic-army-markers.mjs');const root=document.createElement('div');root.innerHTML='<svg><g data-map-army-anchor data-campaign-army="reduced" data-x="10" data-y="0" data-map-day="2" data-map-session="test" data-march-edge="a:b:main" data-march-path="[]"></g></svg>';animateArmyMarch(root,new Map([['reduced',{x:0,y:0,day:1,session:'test',edge:'a:b:main',path:[{x:0,y:0},{x:10,y:0}]}]]));return root.querySelector('g').getAnimations().length;});
+ assert.equal(reduced,0);assert.deepEqual(errors,[]);
+ await page.locator('.modal .close-button').click();await importSaveFixture(page,serializeCampaign(newCampaign(203,'red-cliffs-208')));
+ assert.equal(await page.locator('.sovereign-identity small').textContent(),'208年1月上旬');
+ await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:out+'/date-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/date-mobile.png'});
+ assert.equal(await page.locator('.map-metropolis .metropolis-summary').count(),0);
+ await page.setViewportSize({width:1440,height:1000});
+ const beforeDetails=await page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
+ await page.locator('#national-city-search').selectOption('jinyang');await page.locator('.city-command-menu [data-action="campaign-info-detail"]').click();
+ assert.equal(await page.locator('.metropolitan-table').count(),0);
+ await page.locator('[data-action="campaign-info-page"][data-page="都市圈"]').click();
+ assert.deepEqual(await page.locator('.metropolitan-table tbody tr td:nth-child(2)').allTextContents(),['主城','府','关卡','港口']);
+ assert.equal(await page.locator('.metropolitan-table').getByText('小城',{exact:true}).count(),0);
+ await page.screenshot({path:out+'/metropolis-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/metropolis-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ await page.locator('.modal .close-button').click();
+ await page.locator('#national-city-search').selectOption('jinyang');await page.locator('.city-command-menu [data-action="map-city-inspect"]').click();
+ await page.locator('.national-world.map-close').waitFor();
+ assert.equal(await page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),beforeDetails);
+ await writeFile(out+'/result.json',JSON.stringify({passed:true,playback,mobileCards,reducedMotion:true,errors},null,2));
+ console.log('PASS: real daily march including pause, persistent state labels, no replay on view changes, encounter counts and keyboard entry, reduced motion, desktop/mobile');
+}catch(error){await page?.screenshot({path:out+'/failure.png'});throw error;}finally{await browser?.close();server.kill();}

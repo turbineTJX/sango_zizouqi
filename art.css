@@ -3,6 +3,11 @@
 [data-art-portrait]>img[data-officer-art]{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 [data-art-portrait]>img[data-art-frame="face"]{transform:none}
 [data-art-portrait].has-art-portrait>span{visibility:hidden}
+/* Shared environments sit behind transparent pose originals. */
+[data-art-background="hall"]{background:radial-gradient(ellipse at 50% 25%,#68715b55,transparent 65%),linear-gradient(135deg,#283b32,#1a2926 65%,#514331)}
+[data-art-background="camp"]{background:linear-gradient(115deg,#3f4131aa,#1a2b2be6),repeating-linear-gradient(80deg,#79755d33 0 2px,transparent 2px 36px),#293d35}
+[data-art-background="field"],[data-art-background="road"]{background:linear-gradient(#243d3677,#182b2788),url('./landscape-scroll.svg') center/cover}
+[data-art-background="none"]{background:transparent}
 .inspection-heading [data-art-scene="detail"],.catalog-detail-heading [data-art-scene="detail"]{width:96px;height:144px;flex-shrink:0}
 .diplomatic-officer{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .diplomatic-officer-art{display:block;width:56px;height:84px;flex-shrink:0;background:#21392e;border:1px solid #ae956b55}

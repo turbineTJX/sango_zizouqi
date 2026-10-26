@@ -15,6 +15,7 @@ import {roadCost,threatenedTransportRoute} from './strategic-movement.mjs';
 import {personnelSpeed} from './personnel-movement.mjs';
 import {factionsHostile} from './diplomacy-relations.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
+import {withPlanningQueries} from './planning-queries.mjs';
 
 const power=army=>assessCombatForce(army).power;
 export function victoryContext(s,faction,view=intelligenceWorld(s,faction)){
@@ -30,6 +31,9 @@ export function observedHostileArmies(s,faction){
 // A value-only DTO. Do not expose state, RNG, pre-drawn outcomes or private orders
 // to a goal evaluator. Foreign locations and resources come solely from reports.
 export function strategicContext(s,faction){
+ return withPlanningQueries(s,()=>readStrategicContext(s,faction));
+}
+function readStrategicContext(s,faction){
  const view=intelligenceWorld(s,faction),supplies=citySupplyBudgets(s).filter(x=>x.army.faction===faction),supplyForecast=forecastArmySupply(s,{supplies});
  const own=view.cities.filter(c=>c.owner===faction),ids=new Set(own.map(c=>c.id)),edges=cityRoads(s);
  const frontier=new Set(edges.flatMap(([a,b])=>ids.has(a)&&!ids.has(b)?[b]:ids.has(b)&&!ids.has(a)?[a]:[]));

@@ -12,7 +12,8 @@ try{
  browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(save=>localStorage.setItem('sango-sovereign-v2',save),serializeCampaign(s));
  await page.goto('http://127.0.0.1:4211/#strategy');await page.locator('.national-world').waitFor();
- await page.locator('#national-city-search').selectOption('xuchang');await page.locator('.close-button').click();await page.locator('[data-map-view="settlements"]').click();
+ const showSettlements=async()=>{const map=page.locator('.national-world');await map.focus();await page.keyboard.press('Home');for(let i=0;i<8&&await map.evaluate(el=>Math.min(el.viewBox.baseVal.width,el.viewBox.baseVal.height)>420);i++)await page.keyboard.press('+');};
+ await page.locator('#national-city-search').selectOption('xuchang');await page.locator('[data-action="map-object-close"]').click();await showSettlements();
  const city=page.locator('.national-world [data-city="xuchang"]'),troop=page.locator(`.national-world [data-campaign-army="${army.id}"]`),card=page.getByRole('tooltip');
  await city.locator('.map-city-banner').hover();await card.waitFor();assert.match(await card.innerText(),/许昌/);assert.match(await card.innerText(),/任职[\s\S]*空闲/);assert.doesNotMatch(await card.innerText(),/点击|负责人|空闲武将/);assert.equal(await city.getAttribute('aria-describedby'),'map-object-tooltip');
  mkdirSync('outputs/map-hover',{recursive:true});await page.screenshot({path:'outputs/map-hover/city.png',fullPage:true});
@@ -22,7 +23,7 @@ try{
  await city.focus();await card.waitFor();await page.keyboard.press('Escape');assert.equal(await card.count(),0);
  await city.locator('.map-city-banner').hover();await card.waitFor();await page.mouse.move(1438,990);assert.equal(await card.count(),0);
  await city.locator('.map-city-banner').hover();await card.waitFor();await page.mouse.wheel(0,100);assert.equal(await card.count(),0);
- await page.setViewportSize({width:390,height:844});await page.locator('[data-map-view="settlements"]').click();await city.focus();await card.waitFor();const bounds=await card.boundingBox();assert.ok(bounds.x>=0&&bounds.y>=0&&bounds.x+bounds.width<=390&&bounds.y+bounds.height<=844);
+ await page.setViewportSize({width:390,height:844});await showSettlements();await city.focus();await card.waitFor();const bounds=await card.boundingBox();assert.ok(bounds.x>=0&&bounds.y>=0&&bounds.x+bounds.width<=390&&bounds.y+bounds.height<=844);
  await page.screenshot({path:'outputs/map-hover/narrow.png',fullPage:true});
  assert.deepEqual(errors,[]);console.log('PASS city/army hover, keyboard, pointer leave, click, zoom dismissal and narrow viewport bounds');
 }finally{await browser?.close();server.kill();}

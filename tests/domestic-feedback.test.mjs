@@ -26,5 +26,5 @@ test('real domestic completion produces a persistent report, acknowledgement pre
  const events=pendingDomesticAlerts(s);assert.ok(events.some(e=>e.officerId===u.id&&['complete','failure'].includes(e.phase)));
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));assert.deepEqual(pendingDomesticAlerts(restored),events);
  acknowledgeDomesticAlerts(restored,events.map(e=>e.id));assert.equal(pendingDomesticAlerts(validateCampaign(JSON.parse(serializeCampaign(restored)))).length,0);
- assert.ok(restored.campaign.domestic.events.some(e=>e.phase==='start'&&!e.important));
+ assert.ok(!restored.campaign.domestic.events.some(e=>e.phase==='start'&&e.day<Math.floor((restored.campaign.day-1)/10)*10-1));
 });

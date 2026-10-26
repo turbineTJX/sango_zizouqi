@@ -2,6 +2,7 @@ import {outcomeLines} from './tactic-outcomes.mjs';
 import {art,assetURL} from './art-assets.mjs';
 import {TRAIT_DESIGNS} from './data/design/traits.mjs';
 import {TACTIC_DESIGNS} from './data/design/tactics.mjs';
+import {battleOutcomeTags} from './battle-presentation.mjs';
 
 export function isHighlightedAbility(e){
  if(!e||e.traitEffective===false)return false;
@@ -47,18 +48,12 @@ export class AbilityCues {
    const owner=document.createElement('span');owner.className='ability-owner';owner.textContent=`${side?'敌军':'我军'} · ${cue.name}`;
    const title=document.createElement('strong');title.textContent=cue.label;
    const kind=document.createElement('span');kind.className='ability-kind';kind.textContent=(cue.trait?'特性':'战法')+(cue.count>1?' ×'+cue.count:'');
-   const detail=document.createElement('span');detail.className='ability-detail';detail.textContent=outcomeLines(cue.events).join(' / ');
+   const detail=document.createElement('span');detail.className='ability-detail';
+   const outcomes=[...battleOutcomeTags(cue.events).values()],names=[...new Set(outcomes.map(o=>o.name))],tags=[...new Set(outcomes.flatMap(o=>o.tags))];
+   detail.textContent=outcomes.length?[names.join('、'),tags.slice(0,2).join(' · '),outcomes.reduce((n,o)=>n+(o.damage||0),0)?'损兵 '+outcomes.reduce((n,o)=>n+(o.damage||0),0):'',outcomes.reduce((n,o)=>n+(o.healing||0),0)?'救治 '+outcomes.reduce((n,o)=>n+(o.healing||0),0):''].filter(Boolean).join(' · '):outcomeLines(cue.events).join(' / ');
    const hint=document.createElement('span');hint.className='ability-hint';hint.textContent=`点击暂停查看${this.waiting[side].length?' · 另有'+this.waiting[side].length+'项':''}`;
    body.append(owner,title,kind,detail,hint);card.append(portrait,body);card.title=`${owner.textContent}「${cue.label}」\n${detail.textContent}`;card.setAttribute('aria-label',card.title+' · 暂停查看');this.root.append(card);
   }
  }
- draw(fx,cell){
-  for(const cue of this.active.filter(Boolean)){
-   if(fx.clock-cue.occurred>1500)continue;
-   const source=cue.events[0],from=fx.point(source.fromX,source.fromY),color=cue.side?'#f1ac95':'#a5e6cf';
-   fx.ring(from.x,from.y,cell*.48,color,2,.85);
-   fx.label(`${cue.name} · ${cue.label}`,from.x,from.y+cell*.65,color,1,Math.max(10,Math.min(14,cell*.24)));
-   for(const e of cue.events){if(e.to===e.from)continue;const to=fx.point(e.x,e.y);fx.ring(to.x,to.y,cell*.43,color,2,.8);if(!fx.reduced)fx.line(from.x,from.y,to.x,to.y,color,1,.35);}
-  }
- }
+ draw(){ /* Source movement belongs to the troop, with one compact card above the board. */ }
 }

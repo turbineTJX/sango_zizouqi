@@ -34,9 +34,9 @@ try{
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);
  };
  const showIncome=async()=>{await page.locator('.strategy-panel p').filter({hasText:'本旬直接运营已入库'}).scrollIntoViewIfNeeded();};
- const before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));await checks();await showIncome();await page.screenshot({path:out+'/desktop.png'});
+ const before=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));await checks();await showIncome();await page.screenshot({path:out+'/desktop.png'});
  await page.setViewportSize({width:390,height:844});await checks();await showIncome();await page.screenshot({path:out+'/mobile.png'});
- await page.reload();await showCity();await checks();assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),before);assert.deepEqual(errors,[]);
+ await page.reload();await showCity();await checks();assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),before);assert.deepEqual(errors,[]);
  await writeFile(out+'/result.json',JSON.stringify({passed:true,day:s.campaign.day,income,errors,checks:['actual completed operation','base and staffed income separated','direct operation already paid','desktop and narrow layout','no inspection mutation','reload values preserved']},null,2));
  console.log('PASS separated city income, actual paid operation, desktop, mobile and reload');
 }catch(e){if(page){await page.screenshot({path:out+'/failure.png'});console.log((await page.locator('body').innerText()).slice(0,1600));}throw e;}finally{await browser?.close();server.kill();}

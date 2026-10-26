@@ -39,12 +39,24 @@
 .command-steps small{border:1px solid #ae956166;border-radius:50%;width:24px;height:24px;line-height:22px;text-align:center}
 .command-target-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:24px}
 .command-target-layout aside{padding:8px 0;overflow-wrap:anywhere}
-.command-map .national-search,.command-map .national-legend,.command-map .national-map-tools label{display:none}
+.command-map .map-information,.command-map .national-search,.command-map .national-legend,.command-map .national-map-tools label{display:none}
 .command-map .national-map-tools{display:flex;flex-wrap:wrap;gap:8px;padding:8px;font-size:12px}
 .command-map .national-map-tools>div:first-child{display:none}
 .command-map .strategy-world{width:100%;height:auto;max-height:58vh;min-height:260px;display:block}
 .command-map [data-command-city]{cursor:pointer}
 .command-map [data-command-city]:focus-visible{outline:2px solid #f2d897}
+.map-target-field{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:42px;white-space:normal;text-align:left}
+.map-target-field small{color:#ddc38b;font-size:12px}
+.command-map [data-map-target="eligible"] [data-map-glyph]{filter:drop-shadow(0 0 3px #eac76a)}
+.command-map [data-map-target="eligible"] :is(.city-size-mark,.junction-hit,.atlas-gate-outline){stroke:#ebc56b!important;stroke-width:2.5}
+.command-map [data-map-target="selected"] [data-map-glyph]{filter:drop-shadow(0 0 5px #fff0ad)}
+.command-map [data-map-target="selected"] :is(.city-size-mark,.junction-hit,.atlas-gate-outline){stroke:#fff0ad!important;stroke-width:4}
+.command-map [data-map-target="unavailable"] [data-map-glyph]{opacity:.42;cursor:not-allowed}
+.map-target-results{display:grid;gap:8px}.map-target-results button{justify-content:space-between;white-space:normal;text-align:left}
+.map-target-screen input[type="search"]{min-width:0;width:100%;box-sizing:border-box}
+.map-target-screen .strategy-road{pointer-events:none}
+.map-target-screen :is(.map-city-gold,.map-city-grain,.map-city-soldiers,.map-staff-status){display:none}
+.map-target-screen .map-city-banner{height:20px}
 .command-map [data-command-army],.command-map [data-command-battle]{pointer-events:none}
 .command-formation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .command-formation article{padding:16px;border:1px solid #ae95614d;background:#ffffff04}
@@ -153,14 +165,14 @@
 .map-command-screen aside{align-self:start}
 @media(max-width:700px){.map-command-screen .map-point-menu[role="group"]{position:fixed;z-index:40;bottom:12px;left:10px;right:10px;background:#20372ff5;border:1px solid #baa36b;box-shadow:0 8px 32px #0008;padding:14px;border-radius:10px;grid-template-columns:1fr 1fr;gap:8px}.map-point-menu[role="group"] h3,.map-point-menu[role="group"] small,.map-point-menu[role="group"] p{grid-column:1/-1}.map-command-screen:has(.map-point-menu[role="group"]){padding-bottom:260px}}
 
-/* Local operation map with an independent national navigation radar. */
+/* Local operation map with zoom, national overview and operation focus. */
 .national-map-stage{position:relative;isolation:isolate;overflow:hidden;background:#d6d8b4}
 .national-map-stage>.national-world{display:block;width:100%;aspect-ratio:1;max-height:760px}
-.strategy-radar,.map-command-screen aside.strategy-radar{position:absolute;right:12px;bottom:12px;z-index:3;width:164px;max-width:32%;padding:6px;background:#253b32ed;border:1px solid #c7af79;border-radius:5px;box-shadow:0 3px 12px #0005;line-height:1.2}
-.radar-heading{display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:5px;color:#f0dca9;font-size:11px}.radar-heading span{font-size:9px;color:#c3ccbc}
-.strategy-radar svg{display:block;width:100%;aspect-ratio:1;touch-action:none;cursor:crosshair;outline-offset:2px}
-.radar-viewport{fill:#fff8d323;stroke:#fff6cf;stroke-width:3;vector-effect:non-scaling-stroke;pointer-events:none;filter:drop-shadow(0 0 2px #302b18)}
-@media(max-width:700px){.strategy-radar,.map-command-screen aside.strategy-radar{width:112px;right:6px;bottom:6px;padding:4px;max-width:32%}.radar-heading span{display:none}.radar-heading{font-size:10px;margin-bottom:3px}}
+
+
+
+
+
 @media(max-width:700px){.map-command-screen aside:has(.map-point-menu[role="group"]){padding:0;border:0;background:none}}
 
 /* Map-first workspace: management opens over the map only when requested. */
@@ -176,12 +188,12 @@
 .strategy-page.strategy-map-first.panel-open .strategy-panel{display:block}.map-panel-close{display:block;width:100%;text-align:right;position:sticky;top:0;z-index:2}
 .strategy-map-first .national-map-stage>.national-world{height:calc(100dvh - 255px);min-height:430px;max-height:none;aspect-ratio:auto;background:#a8beb6}
 .strategy-map-first .national-map-tools{padding:7px 12px}.strategy-map-first .national-map-tools small{display:none}.strategy-map-first .national-search{padding:6px 12px}.strategy-map-first .national-legend{position:absolute;bottom:40px;left:12px;z-index:4;max-width:250px;background:#273b30e8;color:#ebdcb7;padding:8px}
-.strategy-map-first.panel-open .strategy-radar{right:374px}.strategy-map-first .strategy-radar{width:145px}
+
 .map-territories{opacity:.22;pointer-events:none}.map-territories polygon{stroke:#fff3c2;stroke-width:.6;stroke-opacity:.6}.hide-territory .map-territories{display:none}.map-overview .map-territories{opacity:.55}
 .strategy-world .map-city-banner{fill:#293a2bea;stroke:var(--force-color);stroke-width:1}.strategy-world.national-world .node-city .national-place-name{font-size:11px;letter-spacing:0;fill:#fff2cb;stroke:none}.national-node:not(.node-city) .map-city-banner{display:none}
 .map-overview .strategy-road,.map-overview .strategy-junction{opacity:.28!important}.map-overview .national-node:not(.node-city):not(.selected) .national-place-name{display:none}.map-overview .army-location-line{opacity:.35}
 .strategy-world-art{touch-action:none;cursor:grab}.strategy-world-art:active{cursor:grabbing}
-@media(max-width:700px){.strategy-page.strategy-map-first{padding:6px}.strategy-map-first .strategy-heading{flex-wrap:wrap}.strategy-map-first .strategy-heading .button{font-size:10px;padding:6px}.strategy-map-first .strategy-clock{flex-wrap:wrap;gap:8px}.strategy-map-first .day-track{display:none}.map-workspace-actions span{display:none}.strategy-map-first .national-map-stage>.national-world{height:65dvh;min-height:380px!important}.strategy-map-first .national-map-tools{flex-wrap:wrap}.strategy-map-first.panel-open .strategy-radar{right:6px}.strategy-page.strategy-map-first .strategy-panel{top:60px;bottom:8px;width:320px}.strategy-map-first .national-legend{display:none}}
+@media(max-width:700px){.strategy-page.strategy-map-first{padding:6px}.strategy-map-first .strategy-heading{flex-wrap:wrap}.strategy-map-first .strategy-heading .button{font-size:10px;padding:6px}.strategy-map-first .strategy-clock{flex-wrap:wrap;gap:8px}.strategy-map-first .day-track{display:none}.map-workspace-actions span{display:none}.strategy-map-first .national-map-stage>.national-world{height:65dvh;min-height:380px!important}.strategy-map-first .national-map-tools{flex-wrap:wrap}.strategy-page.strategy-map-first .strategy-panel{top:60px;bottom:8px;width:320px}.strategy-map-first .national-legend{display:none}}
 
 .strategy-map-first .strategy-map-caption:first-child{display:none}
 .strategy-map-first .national-map-tools{position:absolute;left:12px;right:12px;top:54px;z-index:5;background:#27372ce8;border:1px solid #b9aa7055;gap:8px}
@@ -252,4 +264,10 @@
 .strategy-world.map-overview .strategy-junction{opacity:1!important}
 .map-overview .strategy-junction:not(:hover):not(:focus):not(.selected) .junction-name{display:none}
 .metropolitan-summary{margin:12px 0;padding:10px;border:1px solid #b6a16b44;border-radius:5px}.metropolitan-summary h3{margin:0 0 8px}.metropolitan-members{display:flex;flex-wrap:wrap;gap:6px}.metropolitan-members button{display:flex;flex-direction:column;gap:2px;padding:6px 9px;background:#31463b;color:#eedeb7;border:1px solid #b6a16b66;border-radius:4px;cursor:pointer}.metropolitan-members small{font-size:10px;color:#bac6ab}
+.metropolitan-summary>summary{cursor:pointer;color:#eedeb7}.metropolitan-summary[open]>.metropolitan-members{margin-top:8px}
+.info-fields.metropolitan-counts{grid-template-columns:repeat(3,minmax(0,1fr))}.metropolitan-table{margin-top:16px}
+.info-dossier:has([data-info-section="metropolis"]){grid-template-columns:150px minmax(0,1fr)}
+.info-dossier:has([data-info-section="metropolis"]) .info-identity{display:none}
+.info-dossier.info-single-object:has([data-info-section="metropolis"]){grid-template-columns:minmax(0,1fr)}
+@media(max-width:800px){.info-dossier:has([data-info-section="metropolis"]){grid-template-columns:minmax(0,1fr)}}
 .city-budget{margin:14px 0;padding:12px;border:1px solid #7b7257;border-radius:6px;background:#273329;color:#eee4c7}.city-budget h3{margin:0 0 8px;font-size:14px}.city-budget .personnel-table{font-size:11px;white-space:nowrap}.city-budget .budget-status{margin:8px 0}.city-budget small{display:block;line-height:1.6;color:#c4bda8}.city-budget.budget-shortage{border-color:#d2935f}.city-budget.budget-shortage .budget-status{color:#ffd2a0}.city-budget-settings{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}.city-budget-settings label{flex:1;min-width:110px}.city-budget-settings input{width:100%;box-sizing:border-box}.strategy-world .map-city-soldiers rect{fill:#243129ef;stroke:#d5ba77;stroke-width:.6}.strategy-world .map-city-soldiers text{fill:#ffe6a5;font-size:8px;letter-spacing:0;stroke:none;text-anchor:middle}.strategy-world .map-city-gold{fill:#e6c977;font-size:8px;text-anchor:middle;stroke:none}.city-budget-alerts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:7px 12px;background:#482e20;color:#ffd2a0}.city-budget-alerts button{border:1px solid #b48051;background:#2a3328;color:#ffe3bc;border-radius:4px;padding:4px 8px}

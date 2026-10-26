@@ -9,7 +9,8 @@ import {skillRoute,PASSIVES,intentIncome,commonRouteKey,SKILL_ROUTES,CIVIC_ROUTE
 import {availableTactics,unitTactics,recommendedTacticIds,validLoadout,TACTIC_ROLES,TACTICS_BOOK,SPECIAL_TACTICS} from '../tactics.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
 import {RULES_VERSION,COMBAT} from '../combat-rules.mjs';
-import {HISTORICAL_CAMPAIGNS} from '../historical-campaigns.mjs';
+import {HISTORICAL_BATTLES} from '../data/design/historical-battles.mjs';
+import {customSideEntries} from '../custom-battle.mjs';
 import {newCampaign} from '../strategic-campaign.mjs';
 import {stratagemProfile,stratagemEffectText} from '../stratagems.mjs';
 
@@ -97,7 +98,7 @@ export const GAME_RECORDS=OFFICER_MASTER_RECORDS.map(base=>{
  for(const role of TACTIC_ROLES[u.type])r[`role-${role.id}`]=`${role.name}：${role.ids.map(k=>TACTICS_BOOK[k].name).join(' → ')}；${role.position}；代价：${role.cost}`;
  const stratagems=officerStratagems(u.id);r.stratagemIds=stratagems.join('、');r.stratagemEffects=stratagems.map(k=>`${STRATAGEMS[k].name}：${stratagemEffectText(stratagemProfile(k,u))}`).join('；')||'无个人军略';
  r.campaignPlacement=placements.get(u.id)||'未编入默认战役';
- r.historicalPlacement=HISTORICAL_CAMPAIGNS.flatMap(s=>['own','enemy'].flatMap(side=>s[side+'Team'].filter(t=>t.id===u.id).map(t=>`${s.name}／${s[side+'Name']}／${TROOPS[t.type].name}`))).join('；')||'未配置历史战役出场';
+ r.historicalPlacement=HISTORICAL_BATTLES.flatMap(s=>[0,1].flatMap(side=>customSideEntries(s.draft,side).filter(t=>t.id===u.id).map(t=>`${s.name}／${side?s.enemyName:s.ownName}／${TROOPS[t.type].name}`))).join('；')||'未配置历史战役出场';
  assert.ok(route.length<=OFFICER_TRAIT_SLOTS,u.id);assert.ok(route.every(k=>PASSIVES[k]),u.id);
  assert.ok(validLoadout(u,unitTactics(u).map(s=>s.id))&&validLoadout(u,recommendedTacticIds(u)),u.id);
  assert.ok(GAME_COLUMNS.every(c=>r[c.key]!==undefined),u.id+' missing fields: '+GAME_COLUMNS.filter(c=>r[c.key]===undefined).map(c=>c.key).join(','));

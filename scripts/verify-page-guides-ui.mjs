@@ -9,21 +9,33 @@ import {fundCities} from '../tests/resource-fixtures.mjs';
 import {createScenario} from '../scenarios.mjs';
 import {defaultCustomBattle} from '../custom-battle.mjs';
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
-const port=4356,base='http://127.0.0.1:'+port,out='outputs/page-guides/ui',errors=[],checks=[];
+const port=4356,base='http://127.0.0.1:'+port,out=process.env.PAGE_GUIDES_OUT||'outputs/page-guides/ui',errors=[],checks=[];
 await mkdir(out,{recursive:true});
 const server=spawn(process.execPath,['server.mjs'],{cwd:new URL('..',import.meta.url),env:{...process.env,PORT:String(port),SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
 let browser,currentPage;
 const action=(page,id)=>page.locator('[data-action="'+id+'"]');
-const guide=page=>page.locator('#page-guide-root [role="dialog"]');
+const guide=page=>page.locator('#page-guide-root .page-guide-coach,#page-guide-root .page-guide-catalogue');
 async function expectGuide(page,title){await guide(page).waitFor();assert.equal(await page.locator('#page-guide-title').innerText(),title);}
 async function closeGuide(page){await page.locator('#page-guide-root [data-guide-done]').click();await guide(page).waitFor({state:'hidden'});}
+async function expectSpotlight(page,selector){
+ await page.waitForFunction(selector=>{
+  const targets=[...document.querySelectorAll(selector)].map(el=>el.getBoundingClientRect()).filter(r=>r.width>8&&r.height>8&&r.right>0&&r.bottom>0&&r.left<innerWidth&&r.top<innerHeight);
+  const rings=[...document.querySelectorAll('.page-guide-highlight')].map(el=>el.getBoundingClientRect());
+  return targets.some(t=>rings.some(r=>Math.abs(r.left-Math.max(3,t.left-6))<3&&Math.abs(r.top-Math.max(3,t.top-6))<3&&r.right>=Math.min(innerWidth-3,t.right)-2&&r.bottom>=Math.min(innerHeight-3,t.bottom)-2));
+ },selector);
+ const overlap=await page.evaluate(()=>{
+  const card=document.querySelector('.page-guide-coach').getBoundingClientRect();
+  return [...document.querySelectorAll('.page-guide-highlight')].some(el=>{const r=el.getBoundingClientRect();return Math.min(card.right,r.right)>Math.max(card.left,r.left)&&Math.min(card.bottom,r.bottom)>Math.max(card.top,r.top);});
+ });
+ assert.equal(overlap,false,'coach stays clear of the highlighted control');
+}
 async function pageFor({unseen=Object.keys(PAGE_GUIDES),save=null,key='sango-sovereign-v2',viewport={width:1440,height:1000}}={}){
  const context=await browser.newContext({viewport,serviceWorkers:'block'}),page=await context.newPage();currentPage=page;
  page.on('pageerror',e=>errors.push(e.message));
  await context.addInitScript(({preferences,key,save})=>{if(!localStorage.getItem('sango-page-guides-v1'))localStorage.setItem('sango-page-guides-v1',JSON.stringify(preferences));if(save&&!localStorage.getItem(key))localStorage.setItem(key,save);},{preferences:{version:1,enabled:true,seen:Object.keys(PAGE_GUIDES).filter(id=>!unseen.includes(id))},key,save});
  return page;
 }
-const saved=(page,key='sango-sovereign-v2')=>page.evaluate(key=>localStorage.getItem(key),key);
+const saved=(page,key='sango-sovereign-v2')=>page.evaluate(async key=>{const {AUTOMATIC_KEYS,readSavedGame}=await import('/save-storage.mjs');return AUTOMATIC_KEYS.includes(key)||key.startsWith('sango-manual-save-v1:')?readSavedGame(key):localStorage.getItem(key);},key);
 try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('Server exited '+code)));});
  browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
@@ -37,30 +49,90 @@ try{
  await page.locator('#app [data-guide-action="open"]').click();await expectGuide(page,'选择剧本');await closeGuide(page);
  await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await page.locator('button[data-action="select-national-faction"]').first().waitFor();assert.equal(await guide(page).count(),0);
  await page.keyboard.press('F1');await expectGuide(page,'选择势力');await closeGuide(page);
+ await page.keyboard.press('F1');await expectGuide(page,'选择势力');
+ assert.equal(await page.locator('#app').getAttribute('inert'),null);
+ const otherFaction=page.locator('button[data-action="select-national-faction"]:not([data-faction="cao"])').first();await otherFaction.click();
+ assert.equal(await otherFaction.getAttribute('aria-pressed'),'true');
+ await page.locator('.page-guide-x').click();assert.equal(await guide(page).count(),0);
  await page.locator('button[data-action="select-national-faction"][data-faction="cao"]').click();assert.equal(await guide(page).count(),0);
  await action(page,'launch-national').click();await guide(page).waitFor();
  if(await page.locator('#page-guide-title').innerText()==='奏报与每日记录'){await closeGuide(page);await page.keyboard.press('Escape');}
- await expectGuide(page,'天下大地图');await closeGuide(page);
+ await expectGuide(page,'天下大地图');
+ const mapBefore=await saved(page),preferencesBefore=await saved(page,PAGE_GUIDE_STORAGE_KEY);
+ assert.equal(await page.locator('.page-guide-tips').isVisible(),false,'long rules start collapsed');
+ await expectSpotlight(page,'.strategy-city.selected [data-map-glyph],.map-metropolis.selected [data-map-glyph],.self-city-navigation');
+ assert.equal(await page.locator('.page-guide-drawing').count(),0,'help uses the live interface');
+ await page.screenshot({path:out+'/map-spotlight-desktop.png'});
+ await page.locator('[data-guide-action="next"]').click();
+ assert.equal(await guide(page).getAttribute('data-guide-step'),'1');
+ await expectSpotlight(page,'.world-commands');
+ await page.keyboard.press('ArrowRight');assert.equal(await guide(page).getAttribute('data-guide-step'),'2');
+ await expectSpotlight(page,'.turn-seal');
+ await page.screenshot({path:out+'/map-turn-desktop.png'});
+ await page.locator('[data-guide-action="step"][data-guide-index="3"]').click();
+ assert.equal(await page.locator('#page-guide-root [aria-current="step"]').getAttribute('aria-label'),'巡视地图');
+ assert.equal(await page.locator('.strategy-radar').count(),0);await expectSpotlight(page,'.national-map-tools');
+ await page.screenshot({path:out+'/map-navigation-desktop.png'});
+ await page.locator('.page-guide-details summary').click();assert.equal(await page.locator('.page-guide-tips').isVisible(),true);
+ await page.locator('.page-guide-details summary').click();
+ assert.equal(await saved(page),mapBefore);assert.equal(await saved(page,PAGE_GUIDE_STORAGE_KEY),preferencesBefore,'steps do not mark help read');
+ await page.setViewportSize({width:390,height:844});
+ await page.locator('[data-guide-action="step"][data-guide-index="0"]').click();
+ await expectSpotlight(page,'.strategy-city.selected [data-map-glyph],.map-metropolis.selected [data-map-glyph],.self-city-navigation');
+ await page.screenshot({path:out+'/map-spotlight-mobile.png'});
+ await page.locator('[data-guide-action="step"][data-guide-index="3"]').click();
+ assert.equal(await page.locator('.strategy-radar').count(),0);await expectSpotlight(page,'.national-map-tools');
+ await page.screenshot({path:out+'/map-navigation-mobile.png'});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.setViewportSize({width:1440,height:1000});await closeGuide(page);
+ checks.push('live city, commands, turn and map tool highlights track desktop/mobile layouts without covering targets or changing game state');console.log('PASS '+checks.at(-1));
  const before=await saved(page);await page.keyboard.press('F1');await expectGuide(page,'天下大地图');await closeGuide(page);assert.equal(await saved(page),before);
  await action(page,'scout-open').first().click();await expectGuide(page,'侦察');
+ await expectSpotlight(page,'#scout-city');
  await page.screenshot({path:out+'/scouting-desktop.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/scouting-mobile.png'});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
- await page.keyboard.press('Tab');assert.ok(await page.evaluate(()=>document.querySelector('#page-guide-root').contains(document.activeElement)));
- await page.keyboard.press('Shift+Tab');assert.ok(await page.evaluate(()=>document.querySelector('#page-guide-root').contains(document.activeElement)));
+ assert.equal(await page.locator('#overlay-root').getAttribute('inert'),null,'coach leaves the actual form interactive');
+ await page.locator('#scout-city').focus();await page.keyboard.press('Tab');assert.ok(await page.evaluate(()=>document.querySelector('#overlay-root').contains(document.activeElement)));
  await page.keyboard.press('Escape');assert.equal(await page.locator('.scouting').count()>0||await page.locator('#modal-title').innerText()==='侦察',true);
  assert.equal(await saved(page),before);await page.keyboard.press('Escape');
  await action(page,'settings').first().click();await expectGuide(page,'设置与存档');await closeGuide(page);
  await page.locator('[data-guide-action="toggle"]').click();assert.equal(await page.locator('[data-guide-action="toggle"]').getAttribute('aria-pressed'),'false');
  await page.locator('[data-guide-action="catalogue"]').click();await expectGuide(page,'全部指引');
- await page.locator('[data-guide-action="topic"][data-guide-id="troops"]').click();await expectGuide(page,'部队编制');await closeGuide(page);
+ await page.locator('[data-guide-action="topic"][data-guide-id="troops"]').click();await expectGuide(page,'部队编制');
+ assert.equal(await page.locator('.page-guide-highlight').count(),0,'catalogue topics never highlight unrelated controls');
+ assert.equal(await page.locator('.page-guide-target-note').isVisible(),true);await closeGuide(page);
  await page.reload();await page.locator('.sovereign-hud').waitFor();assert.equal(await guide(page).count(),0);
  const prefs=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-page-guides-v1')));assert.equal(prefs.enabled,false);assert.ok(prefs.seen.includes('troops'));
- await action(page,'settings').first().click();await page.locator('[data-guide-action="reset"]').click();await expectGuide(page,'设置与存档');await closeGuide(page);
- await page.keyboard.press('Escape');await expectGuide(page,'天下大地图');await closeGuide(page);
+ await action(page,'settings').first().click();await page.locator('[data-guide-action="reset"]').click();assert.equal(await guide(page).count(),0);
+ await page.keyboard.press('F1');await expectGuide(page,'设置与存档');await closeGuide(page);
+ await page.keyboard.press('Escape');assert.equal(await guide(page).count(),0);
+ await page.keyboard.press('F1');await expectGuide(page,'天下大地图');await closeGuide(page);
  await page.keyboard.press('Escape');await action(page,'lobby').first().click();await page.locator('.mode-selection').waitFor();assert.equal(await guide(page).count(),0);
  await action(page,'strategy').click();await page.locator('[data-action="select-national-scenario"]').first().waitFor();assert.equal(await guide(page).count(),0);
  await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await page.locator('button[data-action="select-national-faction"]').first().waitFor();assert.equal(await guide(page).count(),0);
  checks.push('opening selections stay unobstructed including after reset; manual help, first gameplay visits, memory, F1, catalogue, mobile and focus');console.log('PASS '+checks.at(-1));
+
+ const domesticState=newCampaign(42);for(const n of domesticState.campaign.activity.nodes)n.read=true;
+ const domesticPage=await pageFor({unseen:['domestic','appoint'],save:serializeCampaign(domesticState)});await domesticPage.goto(base+'/#strategy');await domesticPage.locator('.sovereign-hud').waitFor();
+ await domesticPage.locator('[data-action="map-quick-open"][data-kind="city"]').first().click();
+ await domesticPage.locator('[data-action="map-quick-select"][data-id="xuchang"]').click();
+ await domesticPage.locator('[data-action="city-idle-assign"][data-town="xuchang"]').click();await expectGuide(domesticPage,'城市内政');
+ const appointButton=domesticPage.locator('#modal-panel-root .domestic-direction [data-action="campaign-pick"]:not([disabled])').first();
+ await expectSpotlight(domesticPage,'.domestic-direction [data-action="campaign-pick"]:not([disabled])');
+ assert.equal(await domesticPage.locator('.page-guide-shade').count(),0);
+ assert.equal(await domesticPage.locator('#overlay-root').getAttribute('inert'),null);
+ await domesticPage.screenshot({path:out+'/domestic-companion-desktop.png'});
+ await domesticPage.setViewportSize({width:390,height:844});await expectSpotlight(domesticPage,'.domestic-direction [data-action="campaign-pick"]:not([disabled])');
+ await domesticPage.screenshot({path:out+'/domestic-companion-mobile.png'});
+ await appointButton.click();await expectGuide(domesticPage,'内政委任');assert.equal(await guide(domesticPage).getAttribute('data-guide-step'),'1');
+ const candidate=domesticPage.locator('[data-personnel-choice]:not([disabled])').first();await candidate.check();
+ await domesticPage.waitForFunction(()=>document.querySelector('.page-guide-coach')?.dataset.guideStep==='2');
+ await expectSpotlight(domesticPage,'[data-action="campaign-pick-confirm"]');
+ await domesticPage.screenshot({path:out+'/appointment-companion-mobile.png'});
+ const beforeAssignment=await saved(domesticPage);await action(domesticPage,'campaign-pick-confirm').click();
+ await domesticPage.waitForFunction(async original=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')!==original,beforeAssignment);
+ await closeGuide(domesticPage);assert.equal(await domesticPage.locator('#overlay-root').getAttribute('inert'),null);
+ checks.push('companion frames a real appointment button; faction choice and domestic assignment work directly while coaching remains visible');console.log('PASS '+checks.at(-1));
 
  const draftPage=await pageFor({unseen:['custom','troops']});await draftPage.goto(base);await action(draftPage,'campaign-lobby').click();await expectGuide(draftPage,'战役编辑器');await closeGuide(draftPage);
  await draftPage.locator('[data-action="scenario-setup-open"][data-team="ownTeam"]').click();await expectGuide(draftPage,'部队编制');await closeGuide(draftPage);
@@ -84,7 +156,7 @@ try{
  await action(routePage,'campaign-command-next').click();await routePage.locator('[data-command-army-unit]').first().check();
  await action(routePage,'campaign-command-next').click();await action(routePage,'campaign-command-next').click();await expectGuide(routePage,'大地图选路');await closeGuide(routePage);
  await routePage.locator('[data-command-city="chenliu"]').first().click();await routePage.locator('[data-action="map-route-end"]').waitFor();const routeBefore=await saved(routePage);
- await routePage.locator('.map-command-screen [data-guide-action="open"]').click();await expectGuide(routePage,'大地图选路');await closeGuide(routePage);
+ await routePage.locator('.map-command-screen [data-guide-action="open"]').click();await expectGuide(routePage,'大地图选路');await expectSpotlight(routePage,'.map-point-menu');await closeGuide(routePage);
  assert.equal(await routePage.locator('.map-point-menu h3').innerText(),'陈留');assert.equal(await saved(routePage),routeBefore);
  checks.push('full-screen route guide leaves destination and unsubmitted military order intact');console.log('PASS '+checks.at(-1));
 
@@ -100,13 +172,13 @@ try{
 
  const d=defaultCustomBattle();d.seed=4511;d.ownTeam=[{id:'cao',type:'spear',troops:3000,level:5},{id:'jia',type:'archer',troops:3000,level:5},{id:'yu',type:'halberd',troops:3000,level:5}];d.enemyTeam=[{id:'shao',type:'spear',troops:3000,level:5},{id:'wen',type:'cavalry',troops:3000,level:5},{id:'yan',type:'cavalry',troops:3000,level:5}];d.ownTeamRoles={leader:'cao',advisor:'yu'};
  const battle=createScenario('custom-battle',4511,20,null,d),battleKey='sango-historical-battle-v1';
- const battlePage=await pageFor({unseen:['deployment','combat','stratagems'],save:JSON.stringify(battle),key:battleKey});await battlePage.goto(base+'/#historical-battle');await expectGuide(battlePage,'战前布阵');await closeGuide(battlePage);
+ const battlePage=await pageFor({unseen:['deployment','combat','stratagems'],save:JSON.stringify(battle),key:battleKey});await battlePage.goto(base+'/#historical-battle');await expectGuide(battlePage,'战前布阵');await expectSpotlight(battlePage,'.unit-nameplate.side-0');await closeGuide(battlePage);
  await action(battlePage,'pause').first().click();await expectGuide(battlePage,'战场指挥');const start=await saved(battlePage,battleKey);await battlePage.waitForTimeout(700);assert.equal(await saved(battlePage,battleKey),start);await closeGuide(battlePage);
- await battlePage.waitForFunction(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')).battle.tick>0);
+ await battlePage.waitForFunction(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')).battle.tick>0);
  await battlePage.keyboard.press('F1');await expectGuide(battlePage,'战场指挥');const frozen=await saved(battlePage,battleKey);
  await guide(battlePage).focus();await battlePage.keyboard.press('Space');await battlePage.waitForTimeout(700);assert.equal(await saved(battlePage,battleKey),frozen);
  await battlePage.setViewportSize({width:390,height:844});await battlePage.screenshot({path:out+'/combat-mobile.png'});assert.ok(await battlePage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await closeGuide(battlePage);
- const tick=JSON.parse(frozen).battle.tick;await battlePage.waitForFunction(t=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')).battle.tick>t,tick);
+ const tick=JSON.parse(frozen).battle.tick;await battlePage.waitForFunction(async t=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')).battle.tick>t,tick);
  await action(battlePage,'choose-stratagem').click();await expectGuide(battlePage,'施放军略');const commandBefore=await saved(battlePage,battleKey);await battlePage.keyboard.press('Escape');assert.equal(await battlePage.locator('#modal-title').innerText(),'选择军略');assert.equal(await saved(battlePage,battleKey),commandBefore);
  checks.push('deployment/combat guide, battle clock pause/resume, shortcut isolation and stratagem selection retained');console.log('PASS '+checks.at(-1));
  assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,guides:Object.keys(PAGE_GUIDES).length,checks,errors},null,2));

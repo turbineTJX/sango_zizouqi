@@ -26,9 +26,9 @@ function externalFixture(){
  return {s,c,a,u};
 }
 
-test('every small city, pass and port belongs to exactly one nearest major-city metropolis',()=>{
+test('every prefecture, small city, pass and port belongs to exactly one nearest major-city metropolis',()=>{
  const s=newCampaign(81,'guandu-200'),members=s.cities.filter(c=>c.citySize==='large').flatMap(c=>metropolitanMembers(s,c));
- const expected=[...s.cities,...s.junctions].filter(n=>n.citySize||['gate','port'].includes(n.kind));
+ const expected=[...s.cities,...s.junctions];
  assert.equal(members.length,expected.length);assert.equal(new Set(members.map(n=>n.id)).size,expected.length);
  const c=mapNode(s,'jinyang');assert.deepEqual(new Set(metropolitanMembers(s,c).map(n=>n.kind)),new Set(['city','gate','port']));
  for(const n of metropolitanMembers(s,c))assert.equal(metropolitanCenter(s,n).id,c.id);

@@ -32,12 +32,12 @@ try{
  await page.setViewportSize({width:390,height:844});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  await page.screenshot({path:'outputs/tempo-v43/ui/mobile.png',fullPage:true});
- const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+ const saved=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
  assert.deepEqual(saved.battle.sides[0].units[0].tactics,expected);
  await page.reload();await page.locator('[data-action="loadout"]').first().click();
  await page.locator('#loadout-unit').selectOption('person-396');
  assert.deepEqual(await slots(),expected.map(id=>TACTICS_BOOK[id].name));
  assert.deepEqual(errors,[]);
  await writeFile('outputs/tempo-v43/ui/result.json',JSON.stringify({passed:true,checks:['自动四槽，无自由选装入口','只重排已学战法','刷新后学习与顺序保留','桌面与移动布局','无浏览器脚本错误'],tactics:await slots()},null,2));
- console.log('PASS: 随机学习四槽、排序、保存、刷新，桌面与手机布局');
+ console.log('PASS: 固定战法、排序、保存、刷新，桌面与手机布局');
 }finally{await browser?.close();server.kill();}

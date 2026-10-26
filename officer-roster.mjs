@@ -2,7 +2,7 @@ import {personalBondsMarkup} from './bond-display.mjs';
 import {abilityButton} from './ability-reference.mjs';
 import {traitChips} from './trait-display.mjs';
 import {sortButton} from './list-sort.mjs';
-import {officerStratagems,STRATAGEMS,STRATAGEM_RULE_TEXT,stratagemProfile,stratagemEffectText} from './stratagems.mjs';
+import {officerStratagems,STRATAGEMS,stratagemProfile,stratagemEffectText} from './stratagems.mjs';
 import {OFFICER_BY_ID,searchOfficers,PERSONALITY_NAMES,RIGHTEOUSNESS_NAMES} from './officer-catalog.mjs';
 import {relationshipInfo,RELATIONSHIP_TIERS} from './relationships.mjs';
 import {SKILL_ROUTES,commonRouteName,passiveList} from './passives.mjs';
@@ -20,7 +20,7 @@ export function rosterMarkup({query='',sort='source',direction,kind='all',page=0
  <div class="catalog-toolbar"><label>搜索<input id="catalog-query" type="search" value="${esc(query)}" placeholder="姓名、字或编号" autocomplete="off"></label>
  <label>来源<select id="catalog-kind">${[['all','全部人物'],['common','武将库']].map(([v,n])=>`<option value="${v}" ${v===kind?'selected':''}>${n}</option>`).join('')}</select></label>
  <div class="field-sort-bar" aria-label="点击字段排序">${[['source','来源编号'],['name','姓名'],...stats].map(([k,n])=>sortButton('catalog',k,n,sort,direction||(sort==='source'?'asc':'desc'))).join('')}</div></div>
- ${picker?'':`<section class="catalog-selection"><b>试炼阵容 ${selected.length} / 6</b><small>按加入顺序排列，首位任主将</small>
+ ${picker?'':`<section class="catalog-selection"><b>试炼阵容 ${selected.length} / 6</b>
  <div>${selected.length?selected.map(id=>`<button class="button secondary" data-action="catalog-toggle" data-id="${id}" title="移出阵容">${esc(OFFICER_BY_ID[id]?.name)} ×</button>`).join(''):'尚未选将，在下方卡片加入。'}</div>
  <button class="button primary" data-action="catalog-launch" ${selected.length?'':'disabled'}>开始</button>
  <button class="button secondary" data-action="catalog-clear" ${selected.length?'':'disabled'}>清空阵容</button></section>`}
@@ -63,8 +63,8 @@ export function officerDetailMarkup(id,scores={},types={},preview=null){
  ${SPECIAL_TACTICS[id]?abilityButton('tactic',SPECIAL_TACTICS[id],TACTICS_BOOK[SPECIAL_TACTICS[id]].name):''}
  <dl class="catalog-facts">${[['登场年',s.yearAvailable??'未载'],['原始忠诚',s.loyalty??'未载']].map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
  <h3 class="stats-section-title">兵种适性</h3><div class="catalog-aptitudes">${aptitude.map(([key,label])=>`<span>${label}<b>${['C','B','A','S'][s[key]]??'未载'}</b></span>`).join('')}</div>
- <h3 class="stats-section-title">人物生平</h3><p class="catalog-biography">${esc(u.biography||'源项目未提供人物生平。')}</p>
- <details class="catalog-source"><summary>原始数据</summary><p class="muted">公共库原文保留；人物资料以来源剧本为准。原项目特性编号未转换为本游戏技能。</p><pre>${esc(JSON.stringify(u.source,null,2))}</pre></details>`;
+ <details class="profile-disclosure"><summary>人物生平</summary><p class="catalog-biography">${esc(u.biography||'暂无记录')}</p></details>
+ `;
 }
 
 export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,types={}){
@@ -75,16 +75,16 @@ export function relationshipEditorMarkup(id,partnerId,scores={},locked=false,typ
  return `<section class="relationship-editor"><h3 class="stats-section-title">关系值与连携</h3>
  <label>关系对象<select id="relationship-partner">${others.map(p=>`<option value="${p.id}" ${p.id===partner.id?'selected':''}>${esc(p.name)} · ${origin(p)} #${p.sourceId}</option>`).join('')}</select></label>
  <p><b>${esc(u.name)} ↔ ${esc(partner.name)}</b> · ${info.label} · 连携成功率 <b>${info.chance}%</b></p>
- <p class="muted">初始关系：${info.sourceLabel}；当前关系可以变化，初始人物资料保留。</p>
+ <p class="muted">初始关系：${info.sourceLabel}</p>
  <label>当前关系（选择即保存）<select id="relationship-type" ${locked?'disabled':''}>${Object.entries(RELATIONSHIP_TIERS).filter(([type])=>type!=='parent'||info.sourceTypes.includes('parent')).map(([type,tier])=>`<option value="${type}" ${type===info.type?'selected':''}>${tier.label} · ${tier.min}～${tier.max}</option>`).join('')}</select></label>
  <div class="relationship-controls"><label>关系值（${info.min}～${info.max}）<input id="relationship-score" type="number" min="${info.min}" max="${info.max}" step="1" value="${info.score}" ${locked?'disabled':''}></label>
  <button class="button primary" data-action="relationship-save" ${locked?'disabled':''}>保存</button>
  <button class="button secondary" data-action="relationship-reset" ${locked?'disabled':''} title="恢复关系基准值 ${info.base}">恢复基准</button></div>
- <p class="muted">${locked?'交战已经开始，关系锁定。':'修改保存在当前进度中；带入新试炼，试炼中的修改仅保存在试炼进度。'}两人共享当前关系及分值。厌恶 0～20、疏远 21～39、普通 40～59、友好 60～69、亲爱 70～79；父母子女 75～90、夫妻 80～95、义兄弟 80～100。变更关系时，原分值保留到新档允许的范围内。</p>
- <p class="muted">不同在场武将短时间内对同一目标施放战法，或在2格内由真实受益者接续支援、为上一位发动者提供支援时，按与上一位参与者的关系值判定（80 即 80%）。失败不加成，当前战法成为新起点；自身增益不触发连携。关系概率不是实战触发率。</p></section>`;
+ ${locked?'<p class="muted">交战中，关系锁定</p>':''}
+ </section>`;
 }
 
-export function officerCommandMarkup(id,holder=OFFICER_BY_ID[id]){return `<h3 class="stats-section-title">个人军略</h3><p class="muted">${STRATAGEM_RULE_TEXT}</p><div class="repertoire-skills">${officerStratagems(id).map(k=>`<span><b>${esc(STRATAGEMS[k].name)}</b><small>${esc(stratagemEffectText(stratagemProfile(k,holder)))}</small>${STRATAGEMS[k].history?`<small>事迹依据：${esc(STRATAGEMS[k].history)}</small>`:''}</span>`) .join('')||'<p class=muted>无军略：未列入军略持有人名单。</p>'}</div>`;}
+export function officerCommandMarkup(id,holder=OFFICER_BY_ID[id]){return `<h3 class="stats-section-title">个人军略</h3><div class="repertoire-skills">${officerStratagems(id).map(k=>abilityButton('stratagem',k,STRATAGEMS[k].name,stratagemEffectText(stratagemProfile(k,holder)))) .join('')||'<p class=muted>暂无军略</p>'}</div>`;}
 
 export function traitMarkup(u){return personalBondsMarkup(u)+'<section class="passive-panel" data-officer-traits><h3>特性</h3>'+traitChips(u)+'</section>';}
 

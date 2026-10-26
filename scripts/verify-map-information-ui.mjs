@@ -12,12 +12,12 @@ try{
  await page.goto('http://127.0.0.1:4217/#strategy');await page.locator('.national-world').waitFor();mkdirSync('outputs/map-information',{recursive:true});
  for(const [width,height] of [[1440,900],[1024,768],[390,844]]){
   await page.setViewportSize({width,height});
-  const metrics=await page.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom}};const n=document.querySelector('.strategy-notice');return {dock:rect('.map-information'),notice:rect('.strategy-notice'),tools:rect('.national-map-tools'),font:getComputedStyle(n).fontSize,clipped:n.scrollHeight>n.clientHeight,overflow:document.documentElement.scrollWidth>innerWidth};});
-  assert.equal(metrics.font,'14px');assert.equal(metrics.clipped,false);assert.equal(metrics.overflow,false);assert.ok(metrics.dock.bottom<metrics.notice.y);assert.ok(metrics.notice.bottom<=height);console.log(width,metrics);
+  const metrics=await page.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom}};const label=document.querySelector('.map-information .national-search label');return {dock:rect('.map-information'),tools:rect('.national-map-tools'),font:getComputedStyle(label).fontSize,removed:document.querySelectorAll('.strategy-notice,#map-season,[data-map-view="in"],[data-map-view="out"]').length,overflow:document.documentElement.scrollWidth>innerWidth};});
+  assert.equal(metrics.font,'14px');assert.equal(metrics.removed,0);assert.equal(metrics.overflow,false);assert.ok(metrics.dock.bottom<=height);console.log(width,metrics);
   await page.screenshot({path:`outputs/map-information/${width}.png`});
  }
  await page.locator('.national-legend>summary').click();assert.ok(await page.locator('.national-legend>div').isVisible());await page.screenshot({path:'outputs/map-information/mobile-expanded.png'});
  await page.selectOption('#national-city-search','xuchang');await page.locator('.national-world').waitFor();assert.ok(await page.locator('[data-city="xuchang"].selected').count());
- await page.locator('.map-reports>summary').click();assert.ok(await page.locator('.map-reports-body').isVisible());assert.deepEqual(errors,[]);console.log('PASS layout, full notice, legend, city selection, reports, no browser errors');
+ await page.locator('.map-reports>summary').click();assert.ok(await page.locator('.map-reports-body').isVisible());assert.deepEqual(errors,[]);console.log('PASS layout, removed routine notice and extra controls, legend, city selection, reports, no browser errors');
 }finally{await browser?.close();server.kill();}
 

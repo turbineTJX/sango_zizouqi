@@ -7,7 +7,7 @@ const behaviorTests={
  priority:[...cases('player-ai-decisions','each faction owns a saved domestic priority and budgets never depend on the viewing faction'),...cases('strategic-staffing','ordinary logistics preserves an arrived staffing appointment until its first real work attempt','urgent real food transport may release staffing while lost ownership and duplicate claims invalidate it')],
  budgets:[...cases('ai-default-policies','AI budget policy preserves saved city floors and reads forecasts without crediting income'),...cases('strategic-planning','preparation forecasting respects the actual harvest date and rejects starvation before income'),...cases('strategic-economy-planning','strategic admission explains rejected forces and rejects malformed reasons on reload'),...cases('integer-resource-quantities','actual city and army rations are whole units and forecasts settle the same grain','save validation rejects fractional physical stocks instead of silently rounding the save')],
  governor:cases('ai-default-policies','AI governor selection uses the shared ranking and excludes queued local officers'),
- scouting:cases('strategic-ai-scouting','AI assigns at most two unique scout targets and uses eligible officers in intelligence order','the complete military planner makes identical faction decisions when only hidden enemy state changes'),
+ scouting:[...cases('strategic-ai-scouting','AI assigns at most two unique scout targets and uses eligible officers in intelligence order','the complete military planner makes identical faction decisions when only hidden enemy state changes'),...cases('talent-intelligence','cao persuasion decisions ignore hidden loyalty and rival staffing','yuan persuasion decisions ignore hidden loyalty and rival staffing','an actual paid persuasion journey rejects a loyal target, saves its response and waits before retrying')],
  formation:cases('strategic-ai','shared recruitment spends one city quota and the AI treasury only, preserving planned grain'),
  expedition:[...cases('strategic-ai','a winnable attack is refused when casualty replacement is unaffordable','deferred AI departure rechecks the home guard when the original work finishes','offensive grain reservations include home rations and wait for actual supplies'),...cases('strategic-algorithms','an optimistic evaluator cannot override source budgets, staffing or physical supply constraints','a substituted battle model receives dated lawful intelligence, never hidden stocks or RNG'),...cases('strategic-planning','default development and recovery cannot veto a better feasible offensive through the switching margin'),...cases('strategic-opposition','paid emergency defense is estimated from observed gold reserves and quota without creating soldiers','timely nearby field reinforcements raise defense losses and can veto a previously viable attack','observed approaching relief counts fully while armies too late on real roads do not count','potential city relief retains half its garrison and includes arrival during the siege','a known neutral objective includes a timely competing hostile force before treating occupation as free','opposition estimates cannot read hidden city resources officers secret orders or random outcomes','militarily inadequate small variants do not prevent assembling an actually superior legal force','a launched operation rechecks newly observed timely relief before contact and really returns','military evidence survives ordinary all AI save continuation and malformed forecasts fail validation')],
  routes:cases('strategic-ai','hungry marching columns reverse continuous road progress once without teleporting','travel estimates charge each road separately, matching lost movement at city arrivals'),
@@ -37,6 +37,9 @@ behaviorTests.expedition.push(...cases('ai-bond-blind',
  'AI force assessment ignores both armies bond points while real combat attributes retain them',
  'shared expedition, formation and unit recommendations give no score or ranking credit to bonds'));
 behaviorTests.expedition.push(...cases('strategic-recovery',
+ 'recovery reports the full sustained grain deficit and preparation cannot mistake it for recruitment money',
+ 'recovery separates stock shortages from quota and capacity limits without fictional work',
+ 'candidate and committed recovery forecasts deduct the same real departure load exactly once',
  'recovery forecasts use actual later income and quota without spending current stocks',
  'unused recruitment quotas do not accumulate before the army really returns',
  'replacement capacity includes grain survival, commitments, real prices and shared work limits',
@@ -48,6 +51,7 @@ behaviorTests.deployment.push(...cases('ai-bond-blind',
  'AI starter rankings and deployment do not use bond levels or formation marks on side 0',
  'AI starter rankings and deployment do not use bond levels or formation marks on side 1',
  'AI attribute views exclude temporary bond benefits but retain normal tactic buffs without changing inputs'));
+behaviorTests.deployment.push(...cases('battle-decisions','simultaneous councils erase single side preview positions and water forms before either AI evaluates'));
 behaviorTests.expedition.push(...cases('strategic-tempo',
  'conquest stock value is bounded to fresh observed resources and cannot credit hidden or stale warehouses',
  'large troop formations carry real thirty day rations under the same player and AI stock rules',
@@ -61,6 +65,26 @@ behaviorTests.routes.push(...cases('strategic-tempo',
  'real carried grain bridges a finite unsupported camp without requiring every route segment to supply the whole trip'));
 behaviorTests.expedition.push(...cases('strategic-tempo',
  'sustained refill capacity reduces a long operation burden within a bound without altering losses or food'));
+behaviorTests.expedition.push(...cases('strategic-temperament',
+ 'ruler personality and attributes change sampled risk taking while early turns and quiet pressure remain bounded',
+ 'one ruler preference is drawn per strategic turn and survives a real save and daily continuation',
+ 'a willing ruler can admit an affordable marginal offensive without changing power losses resources or combat RNG',
+ 'ruler willingness cannot waive actual supply home guards or casualty replacement costs',
+ 'a committed operation retains its ruler preference when the next turn draws a different willingness',
+ 'ruler choice validation rejects modified dice probabilities attributes and old AI saves'));
+behaviorTests.expedition.push(...cases('strategic-coordination',
+ 'central assembly budgets replenishment at its real return depot before reserving distant troops',
+ 'a recoverable staffing gap retains its original objective and resumes only after real replacement and delivery',
+ 'a persistent preparation gap expires without extending the original deadline or creating troops',
+ 'active plan guard repairs can reference a real source depot without borrowing another plans request',
+ 'a marginal military gap can add real available troops to the same objective only at the next turn review',
+ 'an imminent real home threat still cancels a preparing attack instead of waiting for promised guards'));
+behaviorTests.routes.push(...cases('strategic-coordination',
+ 'coordinated forecasts share real depot stocks and daily road throughput between columns',
+ 'coordinated departures retain grain already reserved by a real waiting transport',
+ 'coordinated mixed land and water timing matches real ship speeds and daily road arrivals'));
+behaviorTests.diplomacy.push(...cases('ai-long-campaign-fixes',
+ 'deferred payment funds only its unescrowed balance while reciprocal cargo is still travelling'));
 const longCampaignCases={
  scouting:cases('strategic-victory','an unknown peaceful main direction obtains real scouting before any declaration or departure'),
  expedition:cases('strategic-victory','every ruler in every original scenario retains unification as the final victory objective','unification values connecting holdings, finishing a region, known last strongholds and future corridors','a viable unification operation reopens an unprotected peace through the shared declaration handler','victory ambition cannot declare war or depart with unaffordable replacement or active protection','unification assessments cannot see hidden foreign ownership, resources, orders or random outcomes','final objectives and score evidence survive deterministic ordinary all AI continuation and reject malformed saves'),

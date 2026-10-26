@@ -1,13 +1,17 @@
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile,access } from 'node:fs/promises';
 import { dirname, resolve, extname, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath,pathToFileURL } from 'node:url';
 import { spawn } from 'node:child_process';
 import {loadLocalArt,serveLocalArt} from './local-art-server.mjs';
 import {ASSET_ROOT} from './asset-workspace.mjs';
 import {serveAssets} from './asset-server.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
+// A bundled release server has its own worker and no source tools.
+const offlineTool=resolve(root,'scripts/source-offline-manifest.mjs');
+try{await access(offlineTool);const {writeSourceOfflineManifest}=await import(pathToFileURL(offlineTool));await writeSourceOfflineManifest(root);}
+catch(error){if(error.code!=='ENOENT')throw error;}
 const localArt=await loadLocalArt(root,process.env.SANGO_ART!=='off');
 const port = Number(process.env.PORT || 4173);
 const url = `http://127.0.0.1:${port}`;

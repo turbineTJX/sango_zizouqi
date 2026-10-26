@@ -21,7 +21,7 @@ try{
  await page.goto(base+'/#strategy');await page.locator('.sovereign-hud').waitFor();
  if(!await page.locator('.domestic-proposal').count())await page.locator('[data-action="domestic-proposals"]').first().click();
  const card=page.locator('.domestic-proposal').filter({hasText:'出售余粮'});await card.waitFor();assert.match(await card.innerText(),/成交后.*30金手续费/);
- const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ const read=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
  let saved=await read();assert.equal(saved.cities.find(t=>t.id===c.id).gold,0);assert.equal(saved.cities.find(t=>t.id===c.id).grain,20000);
  await page.screenshot({path:out+'/desktop.png',fullPage:true});await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:out+'/mobile.png',fullPage:true});
  await page.reload();await page.locator('.domestic-proposal').filter({hasText:'出售余粮'}).waitFor();saved=await read();assert.deepEqual(saved.campaign.domestic.assignments.find(a=>a.officerId==='person-367').proposal,proposal);

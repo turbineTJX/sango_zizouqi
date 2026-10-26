@@ -42,9 +42,9 @@ try{
     const portrait=await page.evaluate(async()=>{const {art}=await import('./art-assets.mjs');const id=Object.keys(art.officers).find(id=>art.officers[id].portrait),src=art.portraitURL(id);if(!src)throw Error('Release officer art missing');const image=new Image();image.src=src;await image.decode();return src;});assert.ok(portrait.startsWith('./assets/'));
    }
    if(await page.locator('.modal-header [data-action="close"]').count())await page.locator('.modal-header [data-action="close"]').click();
-   const before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
+   const before=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
    await page.locator('[data-map-view="city"]').click();
-   assertSameSave(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),before);
+   assertSameSave(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),before);
    await page.screenshot({path:resolve(out,hasArt?'split-online.png':'code-only.png')});
    await page.evaluate(async()=>{await Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>setTimeout(()=>reject(Error('Offline installation timed out')),20000))]);});
    await page.reload();await page.locator('.national-world').waitFor();await page.waitForFunction(()=>navigator.serviceWorker.controller);

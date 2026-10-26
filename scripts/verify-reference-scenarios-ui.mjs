@@ -23,9 +23,9 @@ try{
    const last=page.locator('.ruler-strip [data-faction]').last();await last.scrollIntoViewIfNeeded();await last.click();assert.equal(await last.getAttribute('aria-pressed'),'true');await button.scrollIntoViewIfNeeded();await button.click();await page.screenshot({path:`${out}/all-rulers-mobile.png`,fullPage:true});
   }
   await page.locator('[data-action="launch-national"]').click();await page.locator('.national-world').waitFor();assert.equal(await page.locator('.national-world [data-city]').count(),76);assert.equal(await page.locator('.national-world [data-junction]').count(),70);
-  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));assert.equal(saved.campaign.scenarioId,spec.id);assert.equal(saved.campaign.playerFaction,faction);
+  const saved=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));assert.equal(saved.campaign.scenarioId,spec.id);assert.equal(saved.campaign.playerFaction,faction);
   await page.setViewportSize({width:1440,height:1050});await page.locator('[data-map-view="national"]').click();await page.screenshot({path:`${out}/${spec.id}-map.png`});
-  await page.reload();await page.locator('.national-world').waitFor();assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).campaign.playerFaction),faction);
+  await page.reload();await page.locator('.national-world').waitFor();assert.equal(await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')).campaign.playerFaction),faction);
   checks.push({scenario:spec.id,rulers:spec.factions.length,officers:roster.length,player:faction});await page.close();
  }
  const page=await browser.newPage({viewport:{width:1440,height:1050}});await page.goto(`http://127.0.0.1:${port}/`);await page.locator('[data-action="strategy"]').click();await page.screenshot({path:`${out}/scenario-list.png`});await page.close();

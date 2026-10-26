@@ -54,7 +54,7 @@ try{
  await page.locator('[data-action="campaign-person-back"]').click();
  assert.equal(await page.locator(`[data-personnel-choice="${id}"]`).isChecked(),true);
  assert.equal(await page.locator('[data-sort-key="politics"]').getAttribute('data-sort-current'),'desc');
- assert.equal(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),serializeCampaign(state));
+ assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),serializeCampaign(state));
  assert.deepEqual(errors,[]);
  console.log('Field sorting passed: five directories, both directions, detail return, picker selection retained, mobile layout and unchanged save.');
 }finally{await browser.close();}

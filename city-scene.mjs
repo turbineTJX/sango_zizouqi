@@ -5,7 +5,7 @@ import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import TECHNOLOGIES from './data/design/technologies.mjs';
 import {cityVisionRadius} from './city-technology.mjs';
 import {TOWN_ART,TOWN_TERRAINS,TOWN_FOUNDATIONS,TOWN_FRAME,townSprite} from './town-art.mjs';
-import {townLayout} from './town-layout.mjs';
+import {townLayout,TOWN_MAP_SCALE} from './town-layout.mjs';
 import {metropolitanCenter,localBuildingLevel,projectSiteId,constructionSiteAvailable,localBuildingLimit} from './metropolitan-areas.mjs';
 import {SETTLEMENT_DETAIL_THRESHOLD} from './map-detail-level.mjs';
 import {officerActivities,domesticWorkplace as jobSite} from './officer-activity.mjs';
@@ -13,9 +13,9 @@ import {officerActivities,domesticWorkplace as jobSite} from './officer-activity
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const num=v=>Math.floor(v).toLocaleString('zh-CN');
-export const CITY_SCENE_SCALE=.13;
+export const CITY_SCENE_SCALE=TOWN_MAP_SCALE;
 export const CITY_DETAIL_THRESHOLD=SETTLEMENT_DETAIL_THRESHOLD;
-export const CITY_INTERIOR_SIZE=64;
+export const CITY_INTERIOR_SIZE=32;
 
 // Derived from live, already saved city data. Viewing a model never starts work.
 export function citySceneState(s,c,{activities=officerActivities(s,{all:false})}={}){
@@ -30,7 +30,8 @@ export function citySceneState(s,c,{activities=officerActivities(s,{all:false})}
  const paused=!!project&&(!work||work.paused||project.actionId===null||project.domestic&&!constructionSiteAvailable(s,projectOwner,c.id));
  const effects=sources.flatMap(source=>(source.domestic?.effects||[]).filter(e=>e.untilTurn>=turn));
  const levels=Object.fromEntries(Object.keys(BUILDINGS).map(k=>[k,sources.reduce((n,source)=>n+localBuildingLevel(source,k,c.id),0)]));
- const capacity=ECONOMY_RULES.capacity.grainBase+levels.granary*ECONOMY_RULES.capacity.grainPerGranary;
+ const center=metropolitanCenter(s,c),resourceCity=c.kind==='junction'?center:c,grain=Number.isFinite(resourceCity.grain)?Math.floor(resourceCity.grain):c.kind==='junction'?null:0;
+ const capacity=ECONOMY_RULES.capacity.grainBase+(c.kind==='junction'?(resourceCity.granary||0):levels.granary)*ECONOMY_RULES.capacity.grainPerGranary;
  const gate=siteBuildingDurability(s,c.id,'walls'),maxGate=gate.maxHp;
  const districts=Object.entries(BUILDINGS).map(([key,b])=>{
   const jobs=assignments.filter(a=>a.action&&(a.action.siteId||a.cityId)===c.id&&ACTIONS[a.action.key]?.kind!=='build'&&jobSite(ACTIONS[a.action.key])===key);
@@ -41,19 +42,29 @@ export function citySceneState(s,c,{activities=officerActivities(s,{all:false})}
   return {key,...b,...durability,condition:durability.maxHp?durability.hp/durability.maxHp:1,level:levels[key],limit:localBuildingLimit(s,s.cities.find(t=>t.id===c.id)||metropolitanCenter(s,c),key,c.id),administrators,officers,jobs:jobs.map(a=>({name:ACTIONS[a.action.key].name,paused:!!a.action.paused})),project:buildingProject,
    busy:jobs.some(a=>!a.action.paused)||!!buildingProject&&!paused||key==='commerce'&&effects.some(e=>e.key==='gold')||key==='farm'&&effects.some(e=>e.key==='grain')};
  });
- const center=metropolitanCenter(s,c);
- return {id:c.id,name:c.name,kind:c.kind||'city',citySize:c.citySize||'small',layout:townLayout(c),metropolis:{id:center.id,name:center.name},levels,districts,grain:Math.floor(c.grain||0),capacity,grainFill:clamp((c.grain||0)/capacity,0,1),gateHp:gate.hp,maxGate,gateCondition:maxGate?clamp(gate.hp/maxGate,0,1):1,
-  watchtowerRadius:cityVisionRadius(c,0),watchtower:siteBuildingDurability(s,c.id,'watchtower'),research:c.domestic?.research,techs:c.domestic?.techs||[],effects,project:project?{key:project.key,progress,paused,cityId:projectOwner.id,siteId:c.id}:null};
+ return {id:c.id,name:c.name,kind:c.kind||'city',citySize:c.citySize||'small',layout:townLayout(c),metropolis:{id:center.id,name:center.name},resourceCity:{id:resourceCity.id,name:resourceCity.name},levels,districts,grain,capacity,grainFill:grain===null?0:clamp(grain/capacity,0,1),gateHp:gate.hp,maxGate,gateCondition:maxGate?clamp(gate.hp/maxGate,0,1):1,
+  watchtowerPosition:c.domestic?.watchtowerPosition,watchtowerRadius:cityVisionRadius(c,0),watchtower:siteBuildingDurability(s,c.id,'watchtower'),research:c.domestic?.research,techs:resourceCity.domestic?.techs||[],effects,project:project?{key:project.key,progress,paused,cityId:projectOwner.id,siteId:c.id}:null};
 }
 
 
 function towerMarkup(model){
- if(!model.watchtower.maxHp)return '';
+ if(model.watchtowerPosition||!model.watchtower.maxHp)return '';
  return `<g class="city-watchtower ${model.watchtower.hp<model.watchtower.maxHp*.7?'town-damaged':''}" data-city-watchtower="${esc(model.id)}" data-watchtower-radius="${model.watchtowerRadius}" transform="translate(-172 -60)" pointer-events="none"><title>瞭望塔 · 耐久${model.watchtower.hp}/${model.watchtower.maxHp} · 视野半径${model.watchtowerRadius}</title><ellipse cy="6" rx="20" ry="8" fill="#182329" opacity=".5"/><path d="M-10 0V-37H10V0L0 6Z" fill="#b7986b" stroke="#584732" stroke-width="2"/><path d="M0-37H10V0L0 6Z" fill="#927548"/><path d="M-16-38V-48L0-56L16-48V-38Z" fill="#775332" stroke="#392e27" stroke-width="2"/><path d="M-20-47L0-60L20-47L0-51Z" fill="#35463e"/><path d="M-7-40V-46M6-40V-46M0-13V-22" stroke="#242d29" stroke-width="4"/><circle cy="-58" r="3" fill="${model.watchtowerRadius>=38?'#e4bd66':'#d38541'}"/></g>`;
 }
 function townFoundation(model){
+ if(model.kind==='junction')return '';
  const frame=TOWN_FRAME;
  return '<image class="town-foundation '+(model.gateCondition<.7?'town-damaged':'')+'" data-town-space="'+model.layout.kind+'" href="'+TOWN_FOUNDATIONS[model.layout.kind]+'" x="'+frame.x+'" y="'+frame.y+'" width="'+frame.width+'" height="'+frame.height+'" transform="'+(model.layout.flip?'scale(-1 1)':'')+'" preserveAspectRatio="none" pointer-events="none"/>';
+}
+function townGround(model,compact=false){
+ const frame=TOWN_FRAME,prefix='ground-'+model.id.replace(/[^a-zA-Z0-9_-]/g,'_')+(compact?'-map':'-interior');
+ const width=frame.width*1.8,height=frame.height*1.8,x=-width/2,y=-height*.53;
+ return `<g class="town-ground" pointer-events="none"><defs><radialGradient id="${prefix}-fade" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="white" stop-opacity=".85"/><stop offset=".45" stop-color="white" stop-opacity=".55"/><stop offset=".78" stop-color="white" stop-opacity=".18"/><stop offset="1" stop-color="black"/></radialGradient><mask id="${prefix}-mask" maskUnits="userSpaceOnUse" x="${x}" y="${y}" width="${width}" height="${height}"><rect x="${x}" y="${y}" width="${width}" height="${height}" fill="url(#${prefix}-fade)"/></mask></defs><image class="town-background" href="${TOWN_TERRAINS[model.layout.region]}" x="${x}" y="${y}" width="${width}" height="${height}" transform="${model.layout.flip?'scale(-1 1)':''}" mask="url(#${prefix}-mask)" preserveAspectRatio="none"/></g>`;
+}
+// Known settlement geography without any observed facilities or live city data.
+export function cityLocationMarkup(c){
+ const model={id:c.id,kind:c.kind,layout:townLayout(c),gateCondition:1};
+ return `<g class="map-city-model city-location-model" data-model-scale="${model.layout.mapScale}" transform="scale(${model.layout.mapScale})" aria-hidden="true" pointer-events="none">${townGround(model,true)}${townFoundation(model)}</g>`;
 }
 export const sceneDistricts=model=>model.districts.filter(d=>d.limit>0||d.level>0||d.project||d.officers?.length);
 function constructionMarkup(project,width,compact){
@@ -73,7 +84,11 @@ function districtMarkup(d,model,compact=false){
  if(d.key==='walls'&&model.gateCondition<.7)art+='<g class="city-gate-crack" aria-label="城防受损"><path d="M-13-18l4 6-3 4 5 5M19-15l-4 5 3 4-6 5" fill="none" stroke="#352d25" stroke-width="1.3"/><path d="M-30 2l5-3 4 3-5 2Zm55-4 5-3 3 5-4 1Z" fill="#746954"/></g>';
  if(d.busy&&(level||d.project))art+='<g class="town-activity" transform="translate('+width*.31+' -12)"><circle r="3"/><circle r="5" class="activity-ring"/></g>';
  if(d.project)art+=constructionMarkup(d.project,width*.85,compact);
- if(compact)return '<g class="town-compact-district" data-model-building="'+d.key+'" data-level="'+level+'" transform="translate('+site.x+' '+site.y+')">'+art+'</g>';
+ if(compact){
+  const visible=level>0||!!d.project,state=d.project?(d.project.paused?'paused':'construction'):d.hp===0?'destroyed':d.hp<d.maxHp?'damaged':'built';
+  const hit=visible?'<title>'+esc(d.name+' · '+status+' · '+durabilityText)+'</title><path class="map-building-hit" d="M'+(-width*.4)+' -'+width*.67+'H'+width*.4+'V'+width*.15+'H'+(-width*.4)+'Z"/>':'';
+  return '<g class="town-compact-district '+(visible?'map-building':'')+'" data-model-building="'+d.key+'" data-level="'+level+'" '+(visible?'data-map-building="'+d.key+'" data-building-state="'+state+'" data-building-progress="'+(d.project?d.project.progress:1)+'" role="button" tabindex="-1" aria-label="'+esc(d.name+' · '+status)+'"':'')+' transform="translate('+site.x+' '+site.y+')">'+hit+art+'</g>';
+ }
  return '<g class="city-district district-'+d.key+' '+(d.project?'under-construction':'')+' '+(d.busy?'district-busy':'')+'" data-city-building="'+d.key+'" data-level="'+level+'" tabindex="0" role="button" aria-label="'+esc(d.name)+'，'+esc(status+' · '+durabilityText)+'" transform="translate('+site.x+' '+site.y+')"><title>'+esc(d.name)+' · '+status+' · '+durabilityText+'</title><path class="city-district-hit" d="M'+(-width*.4)+' -'+width*.67+'H'+width*.4+'V'+width*.15+'H'+(-width*.4)+'Z"/>'+art+'</g>';
 }
 function siteLabels(model){
@@ -82,16 +97,16 @@ function siteLabels(model){
 function siteOfficers(model){
  return '<g class="city-officers">'+sceneDistricts(model).map(d=>{
   const officers=d.officers||[],shown=officers.slice(0,3),{x,y}=model.layout.sites[d.key];
-  return '<g transform="translate('+x+' '+(y-5)+')">'+shown.map((o,i)=>`<foreignObject x="${i*23-shown.length*11.5}" y="0" width="23" height="30"><button xmlns="http://www.w3.org/1999/xhtml" type="button" class="town-officer ${o.paused?'is-paused':''}" data-city-officer="${esc(o.id)}" data-action="campaign-info-detail" data-kind="officer" data-page="行动记录" data-id="${esc(o.id)}" title="${esc(o.name+' · '+o.action)}" aria-label="查看${esc(o.name)}的行动记录"><span class="town-officer-face" data-art-portrait="${esc(o.id)}"><span>${esc(o.name.slice(-1))}</span></span><b>${esc(o.name)}</b></button></foreignObject>`).join('')+(officers.length>3?`<g class="town-officer-overflow" transform="translate(${shown.length*11.5+5} 11)" pointer-events="none"><circle r="7"/><text y="2">+${officers.length-3}</text><title>另有${officers.length-3}人在此办事，点击建筑查看完整名单</title></g>`:'')+'</g>';
+  return '<g transform="translate('+x+' '+(y-5)+')">'+shown.map((o,i)=>`<foreignObject x="${i*23-shown.length*11.5}" y="0" width="23" height="30"><button xmlns="http://www.w3.org/1999/xhtml" type="button" class="town-officer ${o.paused?'is-paused':''}" data-city-officer="${esc(o.id)}" data-action="campaign-info-detail" data-kind="officer" data-page="当前动态" data-id="${esc(o.id)}" title="${esc(o.name+' · '+o.action)}" aria-label="查看${esc(o.name)}的当前动态"><span class="town-officer-face" data-art-portrait="${esc(o.id)}"><span>${esc(o.name.slice(-1))}</span></span><b>${esc(o.name)}</b></button></foreignObject>`).join('')+(officers.length>3?`<g class="town-officer-overflow" transform="translate(${shown.length*11.5+5} 11)" pointer-events="none"><circle r="7"/><text y="2">+${officers.length-3}</text><title>另有${officers.length-3}人在此办事，点击建筑查看完整名单</title></g>`:'')+'</g>';
  }).join('')+'</g>';
 }
 export function citySceneMarkup(model,{season='summer'}={}){
- const frame=TOWN_FRAME,districts=sceneDistricts(model).sort((a,b)=>model.layout.sites[a.key].y-model.layout.sites[b.key].y),prefix='terrain-'+model.id.replace(/[^a-zA-Z0-9_-]/g,'_');
- return '<g class="city-scene town-panorama town-season-'+esc(season)+' town-region-'+model.layout.region+'" data-scene-city="'+esc(model.id)+'" data-grain-fill="'+model.grainFill.toFixed(2)+'" data-gate-condition="'+model.gateCondition.toFixed(2)+'"><defs><radialGradient id="'+prefix+'-fade"><stop offset=".65" stop-color="white"/><stop offset="1" stop-color="black"/></radialGradient><mask id="'+prefix+'-mask" maskUnits="userSpaceOnUse" x="'+frame.x+'" y="'+frame.y+'" width="'+frame.width+'" height="'+frame.height+'"><rect x="'+frame.x+'" y="'+frame.y+'" width="'+frame.width+'" height="'+frame.height+'" fill="url(#'+prefix+'-fade)"/></mask></defs><g mask="url(#'+prefix+'-mask)"><image class="town-background" href="'+TOWN_TERRAINS[model.layout.region]+'" transform="'+(model.layout.flip?'scale(-1 1)':'')+'" x="'+frame.x+'" y="'+frame.y+'" width="'+frame.width+'" height="'+frame.height+'" preserveAspectRatio="none" pointer-events="none"/></g>'+townFoundation(model)+districts.map(d=>districtMarkup(d,model)).join('')+towerMarkup(model)+siteOfficers(model)+siteLabels(model)+'</g>';
-}
-export function cityCompactMarkup(model){
  const districts=sceneDistricts(model).sort((a,b)=>model.layout.sites[a.key].y-model.layout.sites[b.key].y);
- return '<g class="map-city-model" data-model-size="'+model.citySize+'" transform="scale('+model.layout.mapScale+')" pointer-events="none">'+townFoundation(model)+districts.map(d=>districtMarkup(d,model,true)).join('')+towerMarkup(model)+'</g>';
+ return '<g class="city-scene town-panorama town-season-'+esc(season)+' town-region-'+model.layout.region+'" data-scene-city="'+esc(model.id)+'" data-grain-fill="'+model.grainFill.toFixed(2)+'" data-gate-condition="'+model.gateCondition.toFixed(2)+'">'+townGround(model)+townFoundation(model)+districts.map(d=>districtMarkup(d,model)).join('')+towerMarkup(model)+siteOfficers(model)+siteLabels(model)+'</g>';
+}
+export function cityCompactMarkup(model,{season='summer'}={}){
+ const districts=sceneDistricts(model).sort((a,b)=>model.layout.sites[a.key].y-model.layout.sites[b.key].y);
+ return '<g class="map-city-model town-season-'+esc(season)+'" data-model-size="'+model.citySize+'" transform="scale('+model.layout.mapScale+')" pointer-events="none">'+townGround(model,true)+townFoundation(model)+districts.map(d=>districtMarkup(d,model,true)).join('')+towerMarkup(model)+'</g>';
 }
 
 export function cityBuildingInfo(model,key){
@@ -101,7 +116,8 @@ export function cityBuildingInfo(model,key){
  if(d.technology){const tech=TECHNOLOGIES.records.find(t=>t.id===d.technology);rows.push(['解锁技术',tech.name+(model.techs.includes(d.technology)?' · 已掌握':' · 尚未掌握')]);}
  if(d.project)rows.push(['工程',`${d.project.paused?'停工':'施工中'} · ${num(d.hp)} / ${num(d.maxHp)} · ${Math.floor(d.project.progress*100)}% · ${d.project.mode==='repair'?'修复后':'建成后'}${d.project.targetLevel}级`]);
  if(d.project)rows.push(['建设城市',d.project.cityName]);
- if(key==='granary')rows.push(['库存',`${num(model.grain)} / ${num(model.capacity)}`]);
+ if(model.kind==='junction'&&!d.project)rows.push(['建设城市',model.metropolis.name]);
+ if(key==='granary')rows.push([model.kind==='junction'?model.resourceCity.name+'库存':'库存',model.grain===null?'未知':`${num(model.grain)} / ${num(model.capacity)}`]);
  rows.push(['耐久',`${num(d.hp)} / ${num(d.maxHp||d.durability)}`]);
  if(key==='walls'&&model.watchtower.maxHp)rows.push(['瞭望塔耐久',num(model.watchtower.hp)+' / '+num(model.watchtower.maxHp)]);
  if(key==='walls'&&model.watchtowerRadius)rows.push(['瞭望塔','持续获取周围视野 · 半径'+model.watchtowerRadius]);
@@ -113,6 +129,6 @@ export function cityBuildingInfo(model,key){
 }
 export function cityBuildingCard(model,key){
  const info=cityBuildingInfo(model,key);if(!info)return '';
- const staff=info.officers.length?`<div class="city-building-staff"><h4>在此办事 · ${info.officers.length}人</h4>${info.officers.map(o=>`<button type="button" data-action="campaign-info-detail" data-kind="officer" data-page="行动记录" data-id="${esc(o.id)}"><span class="town-officer-face" data-art-portrait="${esc(o.id)}" data-art-scene="${o.artScene||'domestic'}"><span>${esc(o.name.slice(-1))}</span></span><span><b>${esc(o.name)}</b><small>${esc(o.action)}</small></span></button>`).join('')}</div>`:'';
- return `<header><div><small>${esc(model.name)} · 城内设施</small><h3>${esc(info.name)}</h3></div><button type="button" data-city-card-close aria-label="关闭建筑详情">×</button></header><p>${esc(info.description)}</p><dl>${info.rows.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>${staff}`;
+ const staff=info.officers.length?`<div class="city-building-staff"><h4>在此办事 · ${info.officers.length}人</h4>${info.officers.map(o=>`<button type="button" data-action="campaign-info-detail" data-kind="officer" data-page="当前动态" data-id="${esc(o.id)}"><span class="town-officer-face" data-art-portrait="${esc(o.id)}" data-art-scene="${o.artScene||'domestic'}"><span>${esc(o.name.slice(-1))}</span></span><span><b>${esc(o.name)}</b><small>${esc(o.action)}</small></span></button>`).join('')}</div>`:'';
+ return `<header><div><small>${esc(model.name)} · ${model.kind==='junction'?'府内':'城内'}设施</small><h3>${esc(info.name)}</h3></div><button type="button" data-city-card-close aria-label="关闭建筑详情">×</button></header><p>${esc(info.description)}</p><dl>${info.rows.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>${staff}`;
 }

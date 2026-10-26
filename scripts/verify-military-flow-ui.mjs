@@ -9,7 +9,7 @@ const s=newCampaign(33,'guandu-200'),a=fieldFromCity(s,'xuchang');a.units.forEac
 const browser=await chromium.launch({channel:'msedge',headless:true}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));const out='outputs/military-flow-ui';await mkdir(out,{recursive:true});
 const dismissReports=async()=>{if(await page.getByRole('heading',{name:'战略奏报',exact:true}).isVisible())await page.locator('.modal-header [data-action="close"]').click();};
-const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
 try{
  await page.addInitScript(value=>{localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));if(!sessionStorage.getItem('military-fixture')){localStorage.setItem('sango-sovereign-v2',value);sessionStorage.setItem('military-fixture','1');}},serializeCampaign(s));await page.goto((process.env.SANGO_UI_ORIGIN||'http://127.0.0.1:4173')+'/#strategy');
  assert.equal(await action('campaign-project').count(),0);

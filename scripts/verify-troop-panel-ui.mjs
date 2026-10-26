@@ -1,3 +1,4 @@
+import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
 import {mkdir} from 'node:fs/promises';
@@ -12,7 +13,7 @@ try{
  u.hp=100;u.battleDamage=u.initial-100;lockDeployment(state.battle);validateSave(structuredClone(state));
  const stats=unitAttributes(u,state.battle);
  await page.goto('http://127.0.0.1:4173/');
- await page.evaluate(s=>localStorage.setItem('sango-historical-battle-v1',JSON.stringify(s)),state);
+ await importSaveFixture(page,state);
  await page.goto('http://127.0.0.1:4173/#historical-battle');await page.reload();
  await page.locator('[data-panel="intel"]').click();await page.locator('[data-action="unit-stats"]').click();
  await page.locator('#inspect-unit').selectOption(u.id);

@@ -14,8 +14,8 @@ try{
  await page.goto('http://127.0.0.1:4207/#strategy');await page.locator('.faction-plans').waitFor();await page.locator('.faction-plans summary').click();
  assert.match(await page.locator('.faction-plans').innerText(),/筹备|集结|出征交战/);
  const out='outputs/faction-ai-ui';await mkdir(out,{recursive:true});await page.locator('.faction-plans').screenshot({path:out+'/desktop.png'});
- const snapshot=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).campaign.ai.plans);
- await page.reload();await page.locator('.faction-plans').waitFor();assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).campaign.ai.plans),snapshot);
+ const snapshot=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')).campaign.ai.plans);
+ await page.reload();await page.locator('.faction-plans').waitFor();assert.deepEqual(await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')).campaign.ai.plans),snapshot);
  await page.setViewportSize({width:390,height:844});await page.locator('.faction-plans summary').click();await page.locator('.faction-plans').screenshot({path:out+'/mobile.png'});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'mobile overflow');assert.deepEqual(errors,[]);
  await writeFile(out+'/result.json',JSON.stringify({plans:snapshot.length,reload:true,mobile:true,errors},null,2));console.log('faction AI desktop/mobile/reload passed');

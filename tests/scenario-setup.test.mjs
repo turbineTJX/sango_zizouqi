@@ -33,7 +33,7 @@ test('historical setup preserves scenario resources, enemy, learning and determi
  assert.deepEqual(next.cities,s.cities);assert.equal(next.gold,s.gold);assert.deepEqual(next.battle.sides[1],s.battle.sides[1]);
  assert.deepEqual(next.armies[0].units.map(u=>[u.troops,u.level,u.tacticLearning]),s.armies[0].units.map(u=>[u.troops,u.level,u.tacticLearning]));
  assert.equal(next.battle.sides[0].units.find(u=>u.id===id).type,'cavalry');
- const restored=validateSave(structuredClone(next));lockDeployment(next.battle);lockDeployment(restored.battle);
+ const restored=validateSave(structuredClone(next));assert.deepEqual(restored.battle,next.battle,'loading must preserve the edited organization snapshot');lockDeployment(next.battle);lockDeployment(restored.battle);
  for(let i=0;i<16;i++){stepBattle(next.battle);stepBattle(restored.battle);}assert.deepEqual(restored.battle,next.battle);
  assert.throws(()=>applyBattleSetup(next,p),/开战后/);
  p.selected.pop();assert.match(scenarioSetupError(p),/不可增减/);

@@ -16,7 +16,7 @@ test('small cities, rich centers and large metropolises have different physical 
  const s=newCampaign(417,'guandu-200'),city=id=>s.cities.find(c=>c.id===id);
  for(const key of ['commerce','farm','barracks']){
   assert.equal(buildingLimit(s,city('town-1'),key),2);
-  assert.equal(buildingLimit(s,city('xuchang'),key),6);
+  assert.equal(buildingLimit(s,city('xuchang'),key),12);
   assert.equal(buildingLimit(s,city('town-31'),key),12);
  }
  const big=city('jinyang'),small=metropolitanMembers(s,big).find(n=>n.citySize==='small');
@@ -29,20 +29,23 @@ test('small cities, rich centers and large metropolises have different physical 
  assert.ok(validateDesignTables(d).some(e=>e.includes('richCities')));
 });
 
-test('many actual cash workers share a saved turn allowance and continuation cannot restore spent output',()=>{
+test('cash scheduling reserves a shared saved turn allowance and continuation cannot restore spent output',()=>{
  const s=newCampaign(911,'heroes-251'),c=s.cities.find(c=>c.id==='xuchang');fundCities(s,30000);c.commerce=1;
  for(const [key,def]of Object.entries(ACTIONS))if(def.direction==='commerce'&&key!=='fair')c.domestic.cooldowns[key]=10000;
  const people=cityPersonnel(s,c.id).slice(0,8);assert.ok(people.length>=4);
  for(const p of people)assert.equal(assignDomestic(s,c.id,'commerce',p.unit.id),null);
  assert.equal(beginExecution(s),null);
+ const started=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.action?.key==='fair').length;
+ assert.ok(started>0&&started<people.length,'forecast capacity prevents redundant cash work');
  for(let i=0;i<4;i++)advanceCampaignDay(s);
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));
  for(let guard=0;s.campaign.day<11&&guard<40;guard++){resolveCampaignDecisions(s);resolveCampaignDecisions(restored);advanceCampaignDay(s);advanceCampaignDay(restored);assert.equal(serializeCampaign(s),serializeCampaign(restored));}
  assert.equal(s.campaign.day,11,'all delegated decisions must allow the world to advance');
- const current=s.cities.find(x=>x.id===c.id);assert.equal(current.domestic.production.gold,cityWorkLimit(s,current,'gold'));
- assert.ok(s.campaign.activity.nodes.filter(e=>e.category==='domestic'&&e.cityId===c.id&&e.key==='fair'&&['complete','failure'].includes(e.phase)).length>=4);
+ const current=s.cities.find(x=>x.id===c.id),results=s.campaign.activity.nodes.filter(e=>e.category==='domestic'&&e.cityId===c.id&&e.key==='fair'&&['complete','failure'].includes(e.phase));
+ assert.equal(results.length,started);assert.equal(current.domestic.production.gold,results.reduce((n,e)=>n+(e.result.resourceCredit?.gold||0),0));
+ assert.ok(current.domestic.production.gold>0&&current.domestic.production.gold<=cityWorkLimit(s,current,'gold'));
  // Viewing the following month's unused allowance does not rewrite history.
- const before=serializeCampaign(s);assert.equal(cityWorkRemaining(s,c,'gold'),cityWorkLimit(s,c,'gold'));assert.match(cityDomesticMarkup(s,c.id),/本旬额外内政产能剩余.*多人共用/);assert.equal(serializeCampaign(s),before);
+ const before=serializeCampaign(s);assert.equal(cityWorkRemaining(s,c,'gold'),cityWorkLimit(s,c,'gold'));assert.match(cityDomesticMarkup(s,c.id),/本旬剩余产能/);assert.equal(serializeCampaign(s),before);
 });
 
 test('disrupted external farms stop income and conquest transfers facilities without duplicating productivity',()=>{

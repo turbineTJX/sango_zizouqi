@@ -89,6 +89,12 @@ export const battleCommanders = (b,side=0) => availableBattleCommanders(b.sides[
 export const battleStratagemSource = (b,key,side=0) => selectStratagemSource(battleCommanders(b,side),key,bondStratagemStrength(b,side));
 export const battleStratagems = (b,side=0) => [...new Set(battleCommanders(b,side).flatMap(commanderStratagems))];
 export const commandIntellect = (b,side=0) => b.sides[side].retreat ? 0 : Math.round(activeUnits(b,side).filter(u=>!u.withdrawing).reduce((n,u)=>n+u.intellect*bondCommandMultiplier(b,u),0));
+// Shared effect entry point; fixed loadouts decide whether a battle can cast it.
+export function applyDecoyProtection(b,u,s,source={}){
+  createDecoy(b,u,source);
+  if(!s.stasisDays||u.hp/u.maxHp>s.stasisHealth||hasStatus(b,u,'stasisLock'))return false;
+  setStatus(b,u,'stasis',s.stasisDays,source);setStatus(b,u,'stasisLock',s.stasisLockDays,source);return true;
+}
 export function attackRange(b,u) {return unitAttributes(u,b).range;}
 export function battleWounded(u) {return Math.max(0,Math.floor(((u.battleDamage??u.initial-u.hp)-(u.battleDeserted||0))*.35)-(u.healed||0));}
 function takeCasualties(b,u,damage,source=null) {
@@ -432,9 +438,20 @@ export function planBattleCouncilAI(b,side=1){
 export function planBattleCouncilsAI(b,aiSides=[1]){
  const sides=[...new Set(aiSides)].filter(side=>[0,1].includes(side));
  if(!isDeploying(b)||sides.length<2){for(const side of sides)planBattleCouncilAI(b,side);return;}
- // Each controller sees the same pre-council public board. Proposing one
- // side's deployment must not give the next controller a reaction turn.
- const proposals=sides.map(side=>{const view=structuredClone(b);planBattleCouncilAI(view,side);return {side,army:view.sides[side]};});
+ // Standalone battles include an enemy preview for the human council. Erase
+ // that preview on a detached board before either AI proposes its deployment:
+ // positions also determine water/land combat forms and reserve rankings.
+ const initial=structuredClone(b);
+ for(const army of initial.sides)for(const u of army.units){
+  if(u.status==='active'){u.status='reserve';u.x=-1;u.y=-1;}
+  u.formation=['spear','halberd'].includes(u.type)?'front':u.type==='cavalry'?'left':'back';
+  u.formType=null;u.formReadyTick=initial.tick;
+ }
+ for(const side of [0,1])fillSlots(initial,side,{ai:false});
+ // Both controllers observe this same neutral board, independent of preview
+ // history and controller evaluation order. The player's single AI path above
+ // keeps the human deployment intact.
+ const proposals=sides.map(side=>{const view=structuredClone(initial);planBattleCouncilAI(view,side);return {side,army:view.sides[side]};});
  for(const {side,army} of proposals){
   for(const event of army.appointmentEvents.slice(b.sides[side].appointmentEvents.length)){
    const error=appointBattleRoles(b,event.armyId,event.roles,side);if(error)throw Error(error);
@@ -449,6 +466,7 @@ export function planBattleCouncilsAI(b,aiSides=[1]){
    if(proposed.status!=='active')continue;
    if(!validFrontline(b,side,[...activeUnits(b,side),u])||!spawn(b,u))throw Error('AI战前方案无法合法上阵');
    const error=deployBattleUnit(b,u.id,proposed.x,proposed.y,side);if(error)throw Error(error);
+   u.action=proposed.action;
   }
  }
 }
@@ -1026,7 +1044,7 @@ function finishTacticInner(b,u,s,target) {
     case 'bulwark':status(u,'bulwark',10);signal();break;
     case 'riposte':status(u,'riposte',8,{lastTick:0});signal();break;
     case 'blight':hit(target,.7);if(target.hp>0)status(target,'plague',s.steps,{sourceId:u.id,amount:Math.round(power*.025)});break;
-    case 'mirage':case 'mist':for(const a of expandedSupportTargets(b,u,s)){createDecoy(b,a,{sourceId:u.id,sourceName:u.name,sourceSkillName:s.name});if(s.stasisDays&&a.hp/a.maxHp<=s.stasisHealth&&!hasStatus(b,a,'stasisLock')){const source={sourceId:u.id,sourceName:u.name,sourceSkillName:s.name};setStatus(b,a,'stasis',s.stasisDays,source);setStatus(b,a,'stasisLock',s.stasisLockDays,source);}signal(a);}break;
+    case 'mirage':case 'mist':for(const a of expandedSupportTargets(b,u,s)){applyDecoyProtection(b,a,s,{sourceId:u.id,sourceName:u.name,sourceSkillName:s.name});signal(a);}break;
     case 'repair':{
       if(repairTarget(b,u,s.range)!==target)return false;
       const contested=target.lastDamagedTick!==undefined&&b.tick-target.lastDamagedTick<=3;
@@ -1253,9 +1271,9 @@ function tickStatusesInner(b) {
       const burn=u.statuses[key],source=b.sides.flatMap(s=>s.units).find(s=>s.id===burn.sourceId);
       const terrainFactor=key==='plague'?1:fireTerrainFactor(b,u);
       let damage=Math.round(burn.amount*passiveDamageTaken(b,u,'dot')*terrainFactor*bondValorDamage(b,source,u));u.participated=true;
-      damage=applyPeachDamage(b,source,u,damage).damage;
+      const packet=applyPeachDamage(b,source,u,damage);damage=packet.damage;
       if(damage>0){breakStealth(b,u,'持续伤害');triggerPreparedDecoy(b,u);}
-      if(source)combatEffect(b,source,u,false,damage,'impact',(key==='plague'?TACTICS_BOOK.plague:TACTICS_BOOK.fire),{text:key==='plague'?'疫伤':key==='burn'?'火攻':`灼烧 ${burn.stacks||1}层`,damageKind:'dot',fromX:u.x,fromY:u.y});
+      if(source)combatEffect(b,source,u,false,damage,'impact',(key==='plague'?TACTICS_BOOK.plague:TACTICS_BOOK.fire),{text:key==='plague'?'疫伤':key==='burn'?'火攻':`灼烧 ${burn.stacks||1}层`,damageKind:'dot',shieldAbsorbed:packet.absorbed,fromX:u.x,fromY:u.y});
       if(u.hp<=0) {u.status='defeated';u.cast=null;u.action='溃败';battleLog(b,`${u.name}所部在持续伤害中溃败。`);}
     }
   }

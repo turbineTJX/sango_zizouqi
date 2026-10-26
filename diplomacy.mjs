@@ -4,6 +4,7 @@ import {economicStaffingError} from './economy.mjs';
 import {PROGRESSION} from './progression.mjs';
 import {settleOfficerMerit,transportMerit} from './campaign-merit.mjs';
 import {cityBudget} from './city-budget.mjs';
+import {withPlanningQueries} from './planning-queries.mjs';
 import {DIPLOMACY_RULES as R,DIPLOMACY_AI as AI,DIPLOMACY_WORK as WORK,DIPLOMACY_DIRECTIONS as DIRECTIONS,DIPLOMACY_GOALS as GOALS,DIPLOMACY_ACTIONS as ACTIONS} from './data/design/diplomacy-rules.mjs';
 import {diplomaticAssignment,diplomaticPair,diplomaticClauses,activeDiplomaticClause,factionsHostile,diplomaticProtection,diplomaticPassage,militaryAidRestricted,diplomaticAssetReserve} from './diplomacy-relations.mjs';
 import {FACTIONS} from './engine.mjs';
@@ -125,6 +126,9 @@ function deployOptions(s,f,enemy,recipient,defendCity=null){
 }
 const hasRenewal=(s,old,c,exclude=null)=>s.campaign.diplomacy.contracts.some(p=>p.id!==exclude&&p.status==='signed'&&!p.failure&&p.clauses.some(x=>x.renews===old&&x.kind===c.kind&&x.from===c.from&&x.to===c.to&&['waiting','active'].includes(x.status)));
 export function diplomaticCandidates(s,a){
+ return withPlanningQueries(s,()=>readDiplomaticCandidates(s,a));
+}
+function readDiplomaticCandidates(s,a){
  const view=intelligenceWorld(s,a.faction),strategy=s.campaign.ai?.factions[a.faction]?.strategy;
  const f=a.faction,ours=context(s,f),policy=s.campaign.diplomacy.policies[f],domain=a.direction==='commerce'?['buyGrain','sellGrain','manpower','trade','funding']:a.direction==='friendship'?['friendship','intelligence']:['renew','prisoners','peace','alliance','aid','border','withdraw','terminate'],goals=domain.includes(policy.goal)?[policy.goal]:domain,options=[];
  if(!ours.city)return options;
@@ -365,7 +369,7 @@ function transferCities(s,p){const clauses=p.clauses.filter(c=>c.kind==='city'&&
  for(const c of clauses){completeClause(s,p,c,`${town(s,c.cityId).name}和平交接至${FACTIONS[c.to].name}，未触发战斗伤亡。`,'city');const u=servingPeople(s).get(p.receivers[c.id])?.unit;if(u)beginReturn(s,u);}
 }
 function settleGold(s,p,c){const e=holding(p,c);if(c.status!=='waiting'||!e||c.effectiveDay>s.campaign.day||c.after?.some(id=>!['done','active'].includes(p.clauses.find(x=>x.id===id)?.status)))return;
- if(c.deferred){if(s.campaign.day<c.dueDay)return;const n=Math.min(c.amount-c.delivered,Math.floor(Math.max(0,town(s,p.sites[c.from]).owner===c.from?town(s,p.sites[c.from]).gold-Math.max(town(s,p.sites[c.from]).budget.goldReserve,s.campaign.diplomacy.policies[c.from].goldReserve):0)));if(n){addCityGold(s,town(s,p.sites[c.from]),-n);e.amount+=n;}if(s.campaign.day>c.dueDay+10&&!c.overdue){c.overdue=true;s.campaign.diplomacy.credit[c.from]=Math.max(0,(s.campaign.diplomacy.credit[c.from]??100)-15);for(const f of p.factions)emit(s,p,'failed','约定债务逾期，未清余额继续保留。',{faction:f,result:{clauseId:c.id}});}}
+ if(c.deferred){if(s.campaign.day<c.dueDay)return;const n=Math.min(Math.max(0,c.amount-c.delivered-e.amount),Math.floor(Math.max(0,town(s,p.sites[c.from]).owner===c.from?town(s,p.sites[c.from]).gold-Math.max(town(s,p.sites[c.from]).budget.goldReserve,s.campaign.diplomacy.policies[c.from].goldReserve):0)));if(n){addCityGold(s,town(s,p.sites[c.from]),-n);e.amount+=n;}if(s.campaign.day>c.dueDay+10&&!c.overdue){c.overdue=true;s.campaign.diplomacy.credit[c.from]=Math.max(0,(s.campaign.diplomacy.credit[c.from]??100)-15);for(const f of p.factions)emit(s,p,'failed','约定债务逾期，未清余额继续保留。',{faction:f,result:{clauseId:c.id}});}}
  if(!e.amount||town(s,p.sites[c.to])?.owner!==c.to)return;
  const exchanges=p.clauses.filter(x=>x.from===c.to&&x.to===c.from&&['grain','manpower','prisoner','city','deploy'].includes(x.kind));let fraction=1;
  if(exchanges.length)fraction=Math.min(...exchanges.map(x=>x.kind==='deploy'?(x.arrivedDay?1:0):x.delivered/(x.amount||1)));
@@ -449,6 +453,9 @@ function refundStoredAssets(s,p){if(!p.failure&&p.status==='signed')return;for(c
 // Reuse the exact candidate generator and legal officers for both controllers.
 // Scores represent decisions only; resource and route gates never get noise.
 export function diplomaticAIPlan(s,faction){
+ return withPlanningQueries(s,()=>readDiplomaticAIPlan(s,faction));
+}
+function readDiplomaticAIPlan(s,faction){
  const d=s.campaign.diplomacy,rows=[],bySite=new Map();for(const direction of Object.keys(DIRECTIONS))for(const o of diplomaticOfficerCandidates(s,faction,direction)){
   const current=diplomaticAssignment(s,o.unit.id);if(current?.projectId||current?.dismissed)continue;
   const home=town(s,o.location);

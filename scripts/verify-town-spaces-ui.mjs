@@ -22,7 +22,7 @@ try{
  await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();
  if(await page.locator('.modal-header [data-action="close"]').count())await page.locator('.modal-header [data-action="close"]').click();
  await page.evaluate(async()=>{const {assetCatalog}=await import('./asset-catalog.mjs'),{art,terrains,foundations}=assetCatalog.town;await Promise.all([...Object.values(terrains),...Object.values(foundations),art.buildings,art.construction].map(async src=>{const i=new Image();i.src=src;await i.decode();}));});
- const main=page.locator('.national-world'),before=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
+ const main=page.locator('.national-world'),before=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  const choose=async id=>{await page.locator('[data-map-view="settlements"]').click();await page.waitForTimeout(280);await page.locator('#national-city-search').selectOption(id);if(await page.locator('.modal-header [data-action="close"]').count())await page.locator('.modal-header [data-action="close"]').click();await page.locator('[data-map-view="city"]').click();await page.waitForTimeout(280);};
  await choose('xuchang');assert.equal(await main.locator('.is-town-focused [data-town-space="large"]').count(),2);
  const compact=await main.locator('.is-town-focused .map-city-model').getAttribute('transform'),detail=await main.locator('.is-town-focused .map-city-scene').getAttribute('transform');assert.equal(compact,detail);
@@ -35,11 +35,11 @@ try{
  const pass=state.junctions.find(n=>n.kind==='gate'),harbor=state.junctions.find(n=>n.kind==='port');
  for(const [place,kind]of [[pass,'gate'],[harbor,'port']]){await choose(place.id);assert.equal(await main.locator(`.is-town-focused .city-scene [data-town-space="${kind}"]`).count(),1);assert.equal(await main.locator('.is-town-focused [data-city-building]').count(),sceneDistricts(citySceneState(state,place)).length);}
  await choose('xuchang');await page.locator('[data-map-view="metropolis"]').click();await main.focus();const trace=[await main.getAttribute('data-map-detail')],weights=[];
- for(let i=0;i<22&&trace.at(-1)!=='interior';i++){await page.keyboard.press('+');const level=await main.getAttribute('data-map-detail');if(level!==trace.at(-1))trace.push(level);weights.push(await main.evaluate(el=>+el.style.getPropertyValue('--interior-opacity')));}
+ for(let i=0;i<22&&trace.at(-1)!=='interior';i++){await page.keyboard.press('+');const level=await main.getAttribute('data-map-detail');if(level!==trace.at(-1))trace.push(level);weights.push(await main.locator('[data-city-scene]').first().evaluate(el=>+el.style.opacity));}
  assert.deepEqual(trace,['metropolis','settlements','interior']);assert.ok(weights.some(n=>n>0&&n<1));
  await page.waitForTimeout(280);for(let i=0;i<22&&await main.getAttribute('data-map-detail')!=='metropolis';i++)await page.keyboard.press('-');
  assert.equal(await main.getAttribute('data-map-detail'),'metropolis');
- const after=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'));
+ const after=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  if(after!==before){const changes=[];const diff=(a,b,path='')=>{if(JSON.stringify(a)===JSON.stringify(b))return;if(a&&b&&typeof a==='object'&&typeof b==='object')for(const key of new Set([...Object.keys(a),...Object.keys(b)]))diff(a[key],b[key],path+'.'+key);else if(changes.length<20)changes.push({path,before:a,after:b});};diff(JSON.parse(before),JSON.parse(after));throw Error('Viewing changed save: '+JSON.stringify(changes));}
  await page.setViewportSize({width:390,height:844});await choose('xuchang');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await main.locator('.is-town-focused [data-city-building="commerce"]').focus();await page.keyboard.press('Enter');const box=await page.locator('.city-building-card').boundingBox();assert.ok(box.x>=0&&box.x+box.width<=390&&box.y+box.height<=844);await page.screenshot({path:out+'/city-mobile.png'});
  // Visual model samples use real site limits, and deliberately do not simulate construction.

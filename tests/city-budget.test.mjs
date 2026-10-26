@@ -5,7 +5,7 @@ import {cityBudget,cityBudgetMarkup,updateCityBudgetAlerts,setCityBudget,citySol
 import {syncResourceTotals,factionGold} from '../city-resources.mjs';
 import {advancePersonnel,isTransport} from '../personnel-movement.mjs';
 import {pendingActivityReports,acknowledgeActivityReports} from '../activity-nodes.mjs';
-import {cityDomesticMarkup} from '../strategic-view.mjs';
+import {campaignInfoMarkup} from '../campaign-info.mjs';
 import {prepareCommandFormation,newCommand} from '../strategic-command.mjs';
 import {diplomaticResources,lordCity} from '../diplomacy.mjs';
 import {trainingCost} from '../troop-training.mjs';
@@ -31,7 +31,7 @@ test('a reserve target stays visible without issuing a report or changing stocks
  const {s,c}=setup();c.gold=352;c.budget.grainReserve=c.grain;syncResourceTotals(s);
  const before=serializeCampaign(s),b=cityBudget(s,c),html=cityBudgetMarkup(s,c);
  assert.equal(b.shortages.gold,148);assert.equal(b.fundingShortages.gold,0);assert.equal(b.fundingShortages.grain,0);
- assert.match(html,/预留金尚差约 148/);assert.match(html,/本城钱粮预计可覆盖用度/);assert.doesNotMatch(html,/金不足约|粮不足约/);
+ assert.match(html,/预留金尚差 148/);assert.match(html,/钱粮充足/);assert.doesNotMatch(html,/金不足约|粮不足约/);
  assert.equal(serializeCampaign(s),before);updateCityBudgetAlerts(s);
  assert.equal(c.budget.warning,'');assert.equal(c.gold,352);
  assert.equal(pendingActivityReports(s).filter(n=>n.phase==='budget-warning').length,0);
@@ -122,7 +122,7 @@ test('budget settings are local, validated and do not spend resources',()=>{
  const {s,c,other}=setup(),gold=c.gold;
  assert.equal(setCityBudget(s,c.id,'goldReserve',1800),null);assert.equal(c.budget.goldReserve,1800);assert.equal(other.budget.goldReserve,500);assert.equal(c.gold,gold);
  assert.ok(setCityBudget(s,c.id,'grainReserve',-1));assert.ok(setCityBudget(s,town(s,'ye').id,'goldReserve',100));
- const before=serializeCampaign(s);assert.match(cityDomesticMarkup(s,c.id),/钱粮预算/);assert.equal(serializeCampaign(s),before);
+ const before=serializeCampaign(s);assert.match(campaignInfoMarkup(s,{type:'city',id:c.id,page:'收支预算'}).body,/钱粮预算/);assert.equal(serializeCampaign(s),before);
 });
 test('city soldier labels count live garrison plus reserve soldiers and omit unknown intelligence',()=>{
  const {s,c}=setup();c.units=c.units.slice(0,1);c.units[0].troops=3000;c.units[0].wounded=500;c.manpower=7000;s.armies=[];

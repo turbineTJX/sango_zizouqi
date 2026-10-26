@@ -1,4 +1,5 @@
-// Display-only nearest-city regions. These do not change road control or supply.
+// Nearest-site geometry for map areas and territorial sight, without changing
+// road control or supply. Administrative membership follows real road distance.
 export function cityRegion(city,cities){
  let polygon=[[0,0],[1024,0],[1024,1024],[0,1024]];
  for(const other of cities){

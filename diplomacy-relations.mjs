@@ -5,21 +5,39 @@ export function diplomaticFeeReserve(s,faction,cityId=null){const d=s.campaign?.
 export const diplomaticAssignment=(s,id)=>s.campaign?.diplomacy?.assignments.find(a=>a.officerId===id);
 export const diplomaticClauses=s=>(s.campaign?.diplomacy?.contracts||[]).flatMap(p=>p.clauses.map(c=>({p,c})));
 export const activeDiplomaticClause=(s,p,c)=>p.status==='signed'&&c.status==='active'&&c.effectiveDay<=s.campaign.day&&(c.untilDay===null||s.campaign.day<=c.untilDay);
-export function diplomaticProtection(s,a,b){return diplomaticClauses(s).find(({p,c})=>activeDiplomaticClause(s,p,c)&&((c.from===a&&c.to===b)||(['peace','alliance'].includes(c.kind)&&c.from===b&&c.to===a))&&['peace','nonaggression','alliance'].includes(c.kind));}
+let clauseQueries=null;
+export function withDiplomaticQueries(evaluate){
+ if(clauseQueries)return evaluate();clauseQueries=new WeakMap();
+ try{return evaluate();}finally{clauseQueries=null;}
+}
+// Search live contracts in their saved order. Expired history remains saved,
+// but frequent route/threat queries need not allocate every historical clause.
+function findActiveClause(s,accept){
+ if(clauseQueries){
+  let active=clauseQueries.get(s);
+  if(!active){active=[];for(const p of s.campaign?.diplomacy?.contracts||[])if(p.status==='signed')for(const c of p.clauses)if(activeDiplomaticClause(s,p,c))active.push({p,c});clauseQueries.set(s,active);}
+  return active.find(({p,c})=>accept(p,c));
+ }
+ for(const p of s.campaign?.diplomacy?.contracts||[]){
+  if(p.status!=='signed')continue;
+  for(const c of p.clauses)if(activeDiplomaticClause(s,p,c)&&accept(p,c))return {p,c};
+ }
+}
+export function diplomaticProtection(s,a,b){return findActiveClause(s,(p,c)=>((c.from===a&&c.to===b)||(['peace','alliance'].includes(c.kind)&&c.from===b&&c.to===a))&&['peace','nonaggression','alliance'].includes(c.kind));}
 export function factionsHostile(s,a,b){
  if(a===b)return false;if(!s.campaign?.diplomacy)return true;
  if(a==='neutral'||b==='neutral')return true;
  if(diplomaticProtection(s,a,b)||diplomaticProtection(s,b,a))return false;
  return s.campaign.diplomacy.wars[diplomaticPair(a,b)]?.active===true;
 }
-export const factionsAllied=(s,a,b)=>a===b||diplomaticClauses(s).some(({p,c})=>c.kind==='alliance'&&activeDiplomaticClause(s,p,c)&&p.factions.includes(a)&&p.factions.includes(b));
+export const factionsAllied=(s,a,b)=>a===b||!!findActiveClause(s,(p,c)=>c.kind==='alliance'&&p.factions.includes(a)&&p.factions.includes(b));
 export function diplomaticPassage(s,faction,node,kind='military',contractId=null,army=null){
  const owner=(s.cities.find(c=>c.id===node)||s.junctions?.find(c=>c.id===node))?.owner;
  if(!owner||owner==='neutral'||owner===faction)return true;
  const kinds=kind==='trade'?['tradePass']:kind==='envoy'?['envoyPass']:kind==='station'?['station']:['militaryPass','station'];
- return diplomaticClauses(s).some(({p,c})=>activeDiplomaticClause(s,p,c)&&c.from===owner&&c.to===faction&&kinds.includes(c.kind)&&(!contractId||p.id===contractId)&&(!c.cityId||c.cityId===node)&&(!c.route?.length||c.route.includes(node))&&(!army||(!c.armyIds?.length||c.armyIds.includes(army.id))&&(!c.officerIds?.length||army.units.every(u=>c.officerIds.includes(u.id)))&&(!c.troopCap||army.units.reduce((n,u)=>n+u.troops,0)<=c.troopCap)));
+ return !!findActiveClause(s,(p,c)=>c.from===owner&&c.to===faction&&kinds.includes(c.kind)&&(!contractId||p.id===contractId)&&(!c.cityId||c.cityId===node)&&(!c.route?.length||c.route.includes(node))&&(!army||(!c.armyIds?.length||c.armyIds.includes(army.id))&&(!c.officerIds?.length||army.units.every(u=>c.officerIds.includes(u.id)))&&(!c.troopCap||army.units.reduce((n,u)=>n+u.troops,0)<=c.troopCap)));
 }
-export function militaryAidRestricted(s,from,recipient){return diplomaticClauses(s).some(({p,c})=>c.kind==='restrictAid'&&c.from===from&&c.enemy===recipient&&activeDiplomaticClause(s,p,c));}
+export function militaryAidRestricted(s,from,recipient){return !!findActiveClause(s,(p,c)=>c.kind==='restrictAid'&&c.from===from&&c.enemy===recipient);}
 export function protectedDiplomaticTraffic(s,from,other,contractId,envoyOfficerId=null){
  if(from===other||!factionsHostile(s,from,other))return true;
  const d=s.campaign?.diplomacy,p=d?.contracts.find(p=>p.id===contractId&&p.status==='signed');

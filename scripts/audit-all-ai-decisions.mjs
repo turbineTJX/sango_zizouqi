@@ -4,7 +4,7 @@ import {resolve,join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {performance} from 'node:perf_hooks';
-import {strategicTurn,warTempoReport} from './war-tempo-report.mjs';
+import {strategicTurn,warTempoReport,observedJointParticipation} from './war-tempo-report.mjs';
 
 const args=Object.fromEntries(process.argv.slice(2).map(a=>a.replace(/^--/,'').split('=')));
 const root=resolve(args.source||'.'),out=resolve(args.out||'work/all-ai-decisions');await mkdir(out,{recursive:true});
@@ -13,6 +13,8 @@ const scenario=args.scenario||'guandu-200',seed=Number(args.seed||20261009),days
 assert.ok(Number.isSafeInteger(seed)&&Number.isSafeInteger(days)&&days>0);
 const load=file=>import(pathToFileURL(join(root,file)));
 const {newCampaign,advanceCampaignDay,serializeCampaign,validateCampaign,activeBattles}=await load('strategic-campaign.mjs');
+const {domesticStaffing}=await load('domestic-staffing.mjs');
+const {DIRECTIONS}=await load('domestic.mjs');
 const {pendingDomesticProposals}=await load('domestic.mjs');
 const {isAIControlled}=await load('player-faction.mjs');
 const {NATIONAL_SCENARIOS}=await load('national-scenarios.mjs');
@@ -28,11 +30,14 @@ const inputSave=input?{path:resolve(args.save),sha256:createHash('sha256').updat
 assert.ok(spec);assert.ok(spec.factions.every(f=>isAIControlled(s,f)));assert.equal(s.campaign.domestic.incidents.enabled,true);
 const departures=new Map(),battles=new Map(),decisions=new Map(),hunger=[],captures=[],checkpoints=[],daily=[];
 const planTrace=[],strategyTrace=[],planStates=new Map(),strategyStates=new Map(),citySamples=[];
+const jointParticipation=new Map();
 const owners=new Map(s.cities.map(c=>[c.id,c.owner]));let steps=0;
 function inspect(eventDay=s.campaign.day){
  assert.equal(s.campaign.allAI,true);assert.equal(pendingDomesticProposals(s).length,0);
  for(const b of activeBattles(s)){assert.equal(b.awaiting,false);assert.equal(b.control,'auto');assert.equal(b.battle.deploymentLocked,true);}
- for(const c of s.cities){for(const key of ['gold','grain','manpower'])assert.ok(Number.isSafeInteger(c[key])&&c[key]>=0,`${c.id} ${key} must be whole units`);
+ for(const b of activeBattles(s))for(const row of observedJointParticipation(b))jointParticipation.set(`${eventDay}:${row.battleId}:${row.side}`,{day:eventDay,...row});
+ for(const c of s.cities){for(const direction of Object.keys(DIRECTIONS)){const slots=domesticStaffing(s,c.id,direction);assert.ok(slots.used<=slots.limit,`${c.id} ${direction} staffing overflow`);}
+  for(const key of ['gold','grain','manpower'])assert.ok(Number.isSafeInteger(c[key])&&c[key]>=0,`${c.id} ${key} must be whole units`);
   if(c.payroll)for(const key of ['arrears','lastTurn','lastDue','lastPaid'])assert.ok(Number.isSafeInteger(c.payroll[key])&&c.payroll[key]>=0,`${c.id} payroll ${key} must be whole units`);
   assert.ok(c.units.every(u=>Number.isSafeInteger(u.troops)&&Number.isSafeInteger(u.wounded)),'City troop counts must be whole units');
   const old=owners.get(c.id);if(old!==c.owner){captures.push({day:eventDay,city:c.id,from:old,to:c.owner});owners.set(c.id,c.owner);}
@@ -76,7 +81,7 @@ try{
  const changed=[];for(const file of files)if(await digest(file)!==sourceHashes[file])changed.push(file);assert.deepEqual(changed,[],'Simulation source changed');
  const metrics={scenario,scenarioName:spec.name||spec.id,seed,requestedDays:days,startDay,completedDay:s.campaign.day,finished:s.finished,aiFactions:spec.factions.length,departures:departures.size,newDepartures:[...departures.values()].filter(a=>!a.existingAtStart).length,settledBattles:battles.size,newSettledBattles:[...battles.values()].filter(b=>b.endedDay>=startDay).length,activeBattles:activeBattles(s).length,captures:captures.length,cityHungerDays:hunger.filter(x=>x.kind==='city').length,armyHungerDays:hunger.filter(x=>x.kind==='army').length,unguardedCityHungerDays:hunger.filter(x=>x.kind==='city'&&!x.besieged&&x.troops>0).length,deterministicCheckpoints:checkpoints.length,seconds:Math.round((performance.now()-start)/1000)};
  const result={metrics,inputSave,sourceHashes,departures:[...departures.values()],battles:[...battles.values()],captures,hunger,checkpoints,daily,decisions:[...decisions.values()],plans:s.campaign.ai.plans,scope:'Original ordinary nationwide scenario or exact validated continuation save. All factions use AI; ordinary fog and incidents enabled. No injected wars, units, stock, roads or combat outcomes. Resource failures caused by actual war remain diagnostic findings, not artificial victories. This run does not establish annual sustainability, calibrated losses or optimal decisions.'};
- Object.assign(result,{planTrace,strategyTrace,citySamples});
+ Object.assign(result,{planTrace,strategyTrace,citySamples,jointParticipation:[...jointParticipation.values()]});
  result.battleStarts=[...battles.values(),...s.campaign.battles.filter(b=>!b.settled)].map(b=>({id:b.id,kind:b.kind,city:b.city||b.cityId,startedDay:b.startedDay}));
  result.tempo=warTempoReport(result,STRATEGIC_PLANNING_RULES.tempo);
  await writeFile(join(out,'campaign-save.json'),saved);await writeFile(join(out,'campaign-audit.json'),JSON.stringify(result,null,2));console.log(JSON.stringify({event:'finish',...metrics}));

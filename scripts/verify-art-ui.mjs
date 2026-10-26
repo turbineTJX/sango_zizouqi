@@ -12,8 +12,8 @@ try{
  await page.waitForFunction(()=>document.querySelector('#battle-board').dataset.modelStatus==='ready');
  await page.screenshot({path:'outputs/local-art/deployment.png',fullPage:true});
  await page.locator('[data-panel="tools"]').click();
- const before=await page.evaluate(()=>localStorage.getItem('sango-historical-battle-v1'));
- await action('art-mode').click();assert.equal(await page.locator('.art-sprites').count(),0);assert.equal(await page.evaluate(()=>localStorage.getItem('sango-historical-battle-v1')),before);
+ const before=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1'));
+ await action('art-mode').click();assert.equal(await page.locator('.art-sprites').count(),0);assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')),before);
  await action('art-mode').click();await page.waitForFunction(()=>document.querySelectorAll('.has-unit-art').length>0);
  // Real start and deterministic pause; no synthetic battle events.
  await action('pause').click();await page.waitForTimeout(1300);await action('pause').click();

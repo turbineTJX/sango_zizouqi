@@ -3,14 +3,15 @@ import {learnedTacticIds} from '../tactic-learning.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
-import {stepBattle,lockDeployment,validateSave,issueCommand,COMMAND_RESOURCE} from '../engine.mjs';
+import {stepBattle,lockDeployment,validateSave,issueCommand,COMMAND_RESOURCE,applyDecoyProtection} from '../engine.mjs';
+import {TACTIC_DESIGNS} from '../data/design/tactics.mjs';
 import {unitTactics,routeTo,hasStatus,NEGATIVE_STATUSES} from '../tactics.mjs';
 import {holdsLine,interceptorsAt,zocCells} from '../engagement.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 import {syncFixtureLearning} from './helpers/learn-tactics.mjs';
 
 function scene(skill='harass'){
- const type=skill==='mirage'?'crossbow':'cavalry',supportId=tacticHolder(skill,type),chargerId=tacticHolder('gallop','cavalry',[supportId]);
+ const type='cavalry',supportId=tacticHolder(skill,type),chargerId=tacticHolder('gallop','cavalry',[supportId]);
  const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
  const enemyId=tacticHolder('rally','archer',[supportId,chargerId]);
  const state=createScenario('custom-battle',1,20,null,{seed:1,terrain:'land',ownTeam:[entry(supportId,type),entry(chargerId,'cavalry')],enemyTeam:[entry('cao','spear'),entry(enemyId,'archer')],enemyTeamRoles:{leader:'cao',advisor:enemyId}});
@@ -87,18 +88,20 @@ test('nearby wounded front takes priority over a healthy ranged target',()=>{
  stepBattle(b);assert.ok(b.effects.some(e=>e.from===support.id&&e.to===front.id&&!e.skill&&e.damage>0));
 });
 
-test('疑兵战法为残血部队额外避战两回合并保持确定性续战',()=>{
- const {state,b,support,charger,front}=scene('mirage');primeTactic(support,'mirage');charger.hp=Math.floor(charger.maxHp*.1);charger.battleDamage=charger.maxHp-charger.hp;
- stepBattle(b);assert.equal(support.tacticCasts.mirage,1);assert.ok(hasStatus(b,charger,'stasis'));assert.ok(!holdsLine(b,charger));
+test('疑兵公共效果为残血部队避战两回合并保持确定性续战',()=>{
+ // Mirage is absent from current fixed kits. Test its shared effect handler,
+ // without granting an unlearned tactic or claiming a legal player cast.
+ const {state,b,support,charger,front}=scene();charger.hp=Math.floor(charger.maxHp*.1);charger.battleDamage=charger.maxHp-charger.hp;
+ assert.equal(applyDecoyProtection(b,charger,TACTIC_DESIGNS.mirage,{sourceId:support.id}),true);assert.ok(hasStatus(b,charger,'stasis'));assert.ok(!holdsLine(b,charger));
  charger.statuses.burn={until:20,amount:100,baseAmount:100,stacks:1,sourceId:front.id};const hp=charger.hp;
  for(const u of b.sides.flatMap(s=>s.units)){u.tactics=learnedTacticIds(u);u.skillReady=Object.fromEntries(u.tactics.map(id=>[id,u.skillReady[id]??999]));}
  syncFixtureLearning(state);const resumed=validateSave(structuredClone(state));stepBattle(b);stepBattle(resumed.battle);assert.equal(charger.hp,hp);assert.deepEqual(resumed.battle,b);
  stepBattle(b);stepBattle(b);assert.ok(!hasStatus(b,charger,'stasis'));assert.ok(hasStatus(b,charger,'stasisLock'));assert.ok(charger.hp<hp);
 });
 
-test('疑兵战法不能绕过共用避战间隔',()=>{
- const {b,support,charger}=scene('mirage');primeTactic(support,'mirage');charger.hp=Math.floor(charger.maxHp*.1);charger.statuses.stasisLock={until:50};
- stepBattle(b);assert.equal(support.tacticCasts.mirage,1);assert.ok(hasStatus(b,charger,'decoy'));assert.ok(!hasStatus(b,charger,'stasis'));
+test('疑兵公共效果不能绕过共用避战间隔',()=>{
+ const {b,support,charger}=scene();charger.hp=Math.floor(charger.maxHp*.1);charger.statuses.stasisLock={until:50};
+ assert.equal(applyDecoyProtection(b,charger,TACTIC_DESIGNS.mirage,{sourceId:support.id}),false);assert.ok(hasStatus(b,charger,'decoy'));assert.ok(!hasStatus(b,charger,'stasis'));
 });
 
 test('enemy side uses the same finisher priority and excludes protected targets',()=>{

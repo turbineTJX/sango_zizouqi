@@ -35,7 +35,7 @@ export const pendingActivityReports=s=>(s.campaign?.activity?.nodes||[]).filter(
 export function acknowledgeActivityReports(s,ids){const selected=new Set(ids);for(const n of s.campaign.activity.nodes)if(selected.has(n.id)&&n.faction===playerFaction(s))n.read=true;}
 export function activityNodeEntry(s,n){return {milestone:true,nodeId:n.id,sequence:n.sequence,place:mapNode(s,n.siteId)?.name||'战略事项',action:n.text,progress:null,category:n.category,phase:n.phase};}
 export function siteActivityDays(s,id,{beforeDay=s.campaign.day,limit=30}={}){
- const end=Math.min(s.campaign.day,Math.max(1,beforeDay)),start=Math.max(1,end-limit+1),nodes=s.campaign.activity.nodes.filter(n=>n.siteId===id&&n.faction===playerFaction(s));
+ const end=Math.min(s.campaign.day,Math.max(1,beforeDay)),start=end,nodes=s.campaign.activity.nodes.filter(n=>n.siteId===id&&n.faction===playerFaction(s));
  return {start,end,rows:Array.from({length:end-start+1},(_,i)=>{const day=end-i;return {day,actions:nodes.filter(n=>n.day===day).map(n=>activityNodeEntry(s,n))};})};
 }
 export function validateActivityNodes(s,fail){
@@ -47,6 +47,7 @@ export function validateActivityNodes(s,fail){
   fail((n.officerId===null||!!OFFICER_BY_ID[n.officerId])&&Array.isArray(n.officerIds)&&n.officerIds.every(id=>!!OFFICER_BY_ID[id])&&new Set(n.officerIds).size===n.officerIds.length&&(n.officerId===null||n.officerIds.includes(n.officerId))&&[n.cityId,n.siteId].every(id=>id===null||!!mapNode(s,id))&&(n.key===null||!!ACTIONS[n.key]));
   const resourceKeys=['gold','grain','manpower'],resources=(r,signed=false)=>r&&Object.keys(r).sort().join(',')==='gold,grain,manpower'&&resourceKeys.every(k=>Number.isFinite(r[k])&&(signed||r[k]>=0)),r=n.result,reward=r.reward;
   if(r.resourceCredit)fail(resources(r.resourceCredit),'运营入库记录无效');
+  if(n.category==='occupation'&&r.resources){const receipt=r.resources;fail(['before','retained','lost'].every(key=>resources(receipt[key])&&resourceKeys.every(k=>Number.isSafeInteger(receipt[key][k])))&&resourceKeys.every(k=>receipt.before[k]===receipt.retained[k]+receipt.lost[k]),'占领资源交接记录无效');}
   if(n.phase==='merit'){
    fail(validMeritGrowth(r.growth)&&r.leveled===(r.growth.before!==r.growth.after),'功绩结算记录无效');
    if(r.scouting)fail(r.scouting.faction===n.faction&&typeof r.scouting.key==='string'&&r.scouting.turn===Math.floor((n.day-1)/10)&&r.growth.gained>=0&&r.growth.gained<=PROGRESSION.scouting.maximumPerTurn,'侦察计功记录无效');

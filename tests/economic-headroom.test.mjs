@@ -8,12 +8,13 @@ import {trainingCost} from '../troop-training.mjs';
 import {foodConsumption} from '../army-supply.mjs';
 import {validateDesignTables,DESIGN_TABLES} from '../design-catalog.mjs';
 
-test('original scenarios give each city local headroom equally for player, AI and neutral ownership',()=>{
+test('original scenarios share player and AI headroom while neutral cities start with small local stocks',()=>{
  for(const spec of NATIONAL_SCENARIOS){
   const s=newCampaign(20261011,spec.id),observer=newCampaign(20261011,spec.id,spec.factions[0],{allAI:true});
   for(const c of s.cities){
-   const size=c.citySize==='small'?'small':'large';assert.equal(c.gold,ECONOMY_RULES.opening.gold[size]);
-   assert.equal(c.manpower,ECONOMY_RULES.opening.manpower[size]);assert.ok(c.grain>=ECONOMY_RULES.opening.grain[size]&&c.grain<=20000);
+   const size=c.citySize==='small'?'small':'large',opening=c.owner==='neutral'?ECONOMY_RULES.neutralOpening:ECONOMY_RULES.opening;assert.equal(c.gold,opening.gold[size]);
+   assert.equal(c.manpower,opening.manpower[size]);assert.ok(c.grain>=opening.grain[size]&&c.grain<=20000);
+   if(c.owner==='neutral')assert.equal(c.grain,opening.grain[size]);
    const other=observer.cities.find(o=>o.id===c.id);assert.deepEqual([other.gold,other.grain,other.manpower],[c.gold,c.grain,c.manpower]);
   }
   assert.equal(s.gold,s.cities.filter(c=>c.owner===s.campaign.playerFaction).reduce((n,c)=>n+c.gold,0));
@@ -38,5 +39,11 @@ test('larger armies and advanced equipment retain real recurring money and ratio
 test('opening resources reject fractional, missing or inverted city budgets',()=>{
  for(const mutate of [t=>t.economy.opening.gold.large=1.5,t=>delete t.economy.opening.grain.small,t=>t.economy.opening.manpower.small=30000]){
   const tables=structuredClone(DESIGN_TABLES);mutate(tables);assert.ok(validateDesignTables(tables).some(e=>e.includes('economy.opening')));
+ }
+});
+
+test('neutral stocks and military occupation reject excess, fractional, missing or full retention designs',()=>{
+ for(const mutate of [t=>t.economy.neutralOpening.gold.large=3000,t=>t.economy.neutralOpening.manpower.small=.5,t=>delete t.economy.neutralOpening.grain.small,t=>t.economy.occupation.goldRetention=1,t=>t.economy.occupation.grainRetention=-.1,t=>t.economy.occupation.manpowerRetention=NaN,t=>t.economy.occupation.unknown=.2]){
+  const tables=structuredClone(DESIGN_TABLES);mutate(tables);assert.ok(validateDesignTables(tables).some(e=>e.includes('economy.neutralOpening')||e.includes('economy.occupation')));
  }
 });

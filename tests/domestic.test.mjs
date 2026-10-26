@@ -27,7 +27,7 @@ test('all six directions have independent work and a single stat; no city morale
 test('assignments persist across turns, log starts and results, and reload deterministically',()=>{
  const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');addIdle(s,c.id,4);const officers=s.campaign.idle.filter(o=>o.location===c.id).slice(0,6);
  Object.keys(DIRECTIONS).forEach((dir,i)=>assert.equal(assignDomestic(s,c.id,dir,officers[i].unit.id),null));advance(s,7);const copy=restore(s);advance(s,41);advance(copy,41);
- assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.assignments.length,6);assert.ok(s.campaign.domestic.events.some(e=>e.phase==='start'));assert.ok(s.campaign.domestic.events.some(e=>['complete','failure'].includes(e.phase)));restore(s);
+ assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.assignments.length,6);assert.ok(!s.campaign.domestic.events.some(e=>e.phase==='start'&&e.day<31));assert.ok(s.campaign.domestic.events.some(e=>['complete','failure'].includes(e.phase)));restore(s);
 });
 test('random results vary across seeds while identical seed is reproducible',()=>{
  const results=new Set();for(let seed=1;seed<=24;seed++){const s=peaceful(seed);selectOnly(s,'fair');advance(s,11);results.add(s.campaign.domestic.events.find(e=>e.result.factor!==undefined)?.result.factor);}assert.ok(results.size>=3);
@@ -77,8 +77,9 @@ test('invalid domestic saves cannot fabricate reserves, duplicate appointments, 
  const s=peaceful();selectOnly(s,'recruit');beginExecution(s);for(const mutate of [x=>x.cities.find(c=>c.id==='xuchang').domestic.reserved++,x=>x.campaign.domestic.seed=-1,x=>x.campaign.domestic.assignments.push(structuredClone(x.campaign.domestic.assignments[0])),x=>x.cities[0].domestic.preparation.intent={amount:100,until:100,actionId:1},x=>x.cities[0].workshop=9]){const bad=JSON.parse(serializeCampaign(s));mutate(bad);assert.throws(()=>validateCampaign(bad));}
 });
 
-test('persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty',()=>{
- const s=peaceful(17),target=s.campaign.idle.find(o=>o.faction==='yuan');target.location='guandu';target.unit.homeCity='guandu';const extra=addIdle(s,'ye',20);for(const o of s.campaign.idle)if(extra.includes(o.unit.id))o.faction='yuan';refreshTalentDemand(s,true);const a=selectOnly(s,'persuade'),id=target.unit.id;s.campaign.domestic.loyalty[id]=20;setRelationshipType(s,id,'cao','sworn',100);setRelationshipType(s,id,'shao','disliked',0);setRelationshipType(s,id,a.officerId,'sworn',100);assert.equal(actionCandidates(s,a)[0].targetId,id);advance(s,11);
+test('persuasion respects nearby foreign targets and cooldowns; reassurance raises actual loyalty',async()=>{
+ const s=peaceful(17),target=s.campaign.idle.find(o=>o.faction==='yuan');target.location='guandu';target.unit.homeCity='guandu';const extra=addIdle(s,'ye',20);for(const o of s.campaign.idle)if(extra.includes(o.unit.id))o.faction='yuan';refreshTalentDemand(s,true);const a=selectOnly(s,'persuade'),id=target.unit.id;s.campaign.domestic.loyalty[id]=20;setRelationshipType(s,id,'cao','sworn',100);setRelationshipType(s,id,'shao','disliked',0);setRelationshipType(s,id,a.officerId,'sworn',100);
+ const {observeFixtureCity}=await import('./helpers/observed-city.mjs');observeFixtureCity(s,'guandu','cao');assert.equal(actionCandidates(s,a)[0].targetId,id);advance(s,11);
  const project=s.campaign.talent.projects[talentKey(id,'cao')];assert.ok(project);assert.equal(s.campaign.domestic.loyalty[id],20);if(project.nextAttemptDay>s.campaign.day)assert.ok(!actionCandidates(s,a).some(x=>x.targetId===id));restore(s);
  const x=peaceful(2),c=x.cities.find(c=>c.id==='xuchang'),u=c.units[0];x.campaign.domestic.loyalty[u.id]=25;selectOnly(x,'reassure');advance(x,41);assert.ok(x.campaign.domestic.loyalty[u.id]>25);restore(x);
 });
@@ -120,7 +121,7 @@ test('force-led drills and patrols produce real defensive preparation with no se
    const original=Object.fromEntries(['force','leadership','intellect','politics','charm'].map(k=>[k,u[k]]));Object.assign(u,{force:20,leadership:70,intellect:70,politics:70,charm:70});const high=structuredClone(s),v=high.campaign.idle.find(o=>o.unit.id===u.id).unit;v.force=95;
    beginExecution(s);beginExecution(high);assert.equal(a.action.key,key);assert.ok(assignmentFor(high,u.id).action.chance>a.action.chance);
    advance(s,11);advance(high,11);const field=ACTIONS[key].value;weak+=c.domestic.preparation[field]?.amount||0;strong+=high.cities.find(x=>x.id===c.id).domestic.preparation[field]?.amount||0;
-   if(seed===1){Object.assign(u,original);Object.assign(v,original);restore(s);restore(high);assert.ok(high.campaign.domestic.events.some(e=>e.actionId&&e.text.includes(ACTIONS[key].name)));}
+   if(seed===1){Object.assign(u,original);Object.assign(v,original);restore(s);restore(high);assert.ok(high.campaign.domestic.events.every(e=>e.day>=9||e.important));}
   }
   assert.ok(strong>weak,key+' must give high-force officers a measurable real-work advantage');
  }

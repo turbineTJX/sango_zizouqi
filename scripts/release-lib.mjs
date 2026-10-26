@@ -43,7 +43,9 @@ export function packedDataPlugin(pack){
  return {name:'sango-binary-tables',setup(builder){
   builder.onResolve({filter:/^sango:packed-root$/},()=>({path:'root',namespace:'packed-root'}));
   builder.onLoad({filter:/.*/,namespace:'packed-root'},()=>({
-   contents:`import {loadDataPack} from ${JSON.stringify(resolve(ROOT,'packaging/data-pack.mjs'))}; export const tables=await loadDataPack(new URL('./game-data.bin',import.meta.url),${JSON.stringify(pack.metadata)});`,
+   // Keep asynchronous I/O outside the mutually importing battle modules.
+   // Bootstrap verifies and installs the pack before this synchronous graph runs.
+   contents:`const loaded=globalThis[Symbol.for('sango.runtime-data')]; if(loaded?.revision!==${JSON.stringify(pack.metadata.revision)})throw Error('游戏数据尚未就绪或版本不一致'); export const tables=loaded.tables;`,
    resolveDir:ROOT,loader:'js'
   }));
   builder.onResolve({filter:/\.mjs$/},args=>{
@@ -58,6 +60,7 @@ export function packedDataPlugin(pack){
 
 export async function bundleBrowser(pack,options={}){
  return build({entryPoints:[resolve(ROOT,'app.js')],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,
+  external:['./save-storage.mjs'],
   sourcemap:false,legalComments:'external',alias:{three:resolve(ROOT,'vendor/three/three.module.js')},
   plugins:[packedDataPlugin(pack)],...options});
 }
@@ -65,6 +68,9 @@ export async function bundleBrowser(pack,options={}){
 export async function buildCodeRelease(out){
  await mkdir(out,{recursive:true});const pack=await createGameData();
  await writeFile(resolve(out,'game-data.bin'),pack.bytes);
+ await build({entryPoints:[resolve(ROOT,'save-storage.mjs')],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:resolve(out,'save-storage.mjs')});
+ await build({stdin:{contents:`import {loadDataPack} from './packaging/data-pack.mjs'; export async function loadReleaseData(){const tables=await loadDataPack(new URL('./game-data.bin',import.meta.url),${JSON.stringify(pack.metadata)});globalThis[Symbol.for('sango.runtime-data')]={revision:${JSON.stringify(pack.metadata.revision)},tables};}`,resolveDir:ROOT,loader:'js'},
+  bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:resolve(out,'data-loader.js'),legalComments:'external'});
  await bundleBrowser(pack,{outfile:resolve(out,'app.js'),metafile:true});
  const original=await readFile(resolve(ROOT,'index.html'),'utf8');
  const styles=[...original.matchAll(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/g)].map(match=>match[1]);
@@ -74,7 +80,7 @@ export async function buildCodeRelease(out){
  html=html.replace('</head>','<link rel="stylesheet" href="./app.css">\n</head>').replace('src="./app.js"','src="./bootstrap.js"');
  html=html.replace('<div id="app"></div>','<div id="app" role="status">正在载入游戏…</div>');
  await writeFile(resolve(out,'index.html'),html);
- await writeFile(resolve(out,'bootstrap.js'),`import('./app.js').catch(error=>{console.error(error);const root=document.getElementById('app');root.textContent='游戏文件缺失、损坏或版本不一致，请重新安装。已有存档仍保留。';const button=document.createElement('button');button.textContent='重试';button.onclick=()=>location.reload();root.append(document.createElement('br'),button);});\n`);
+ await writeFile(resolve(out,'bootstrap.js'),`const start=async()=>{const {loadReleaseData}=await import('./data-loader.js');await loadReleaseData();await import('./app.js');};let timer;Promise.race([start(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('游戏启动超时')),30000);})]).catch(error=>{console.error(error);const root=document.getElementById('app');root.textContent='游戏文件缺失、损坏或版本不一致，请重新安装。已有存档仍保留。';const button=document.createElement('button');button.textContent='重试';button.onclick=()=>location.reload();root.append(document.createElement('br'),button);}).finally(()=>clearTimeout(timer));\n`);
  for(const path of ['icon.svg','landscape-scroll.svg','manifest.webmanifest'])await copyFile(resolve(ROOT,path),resolve(out,path));
  await build({entryPoints:[resolve(ROOT,'server.mjs')],bundle:true,platform:'node',format:'esm',target:'node20',minify:true,
   outfile:resolve(out,'server.mjs'),legalComments:'external'});

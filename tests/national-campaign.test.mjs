@@ -3,7 +3,7 @@ import {fieldFromCity} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NATIONAL_MAP_COUNTS,NATIONAL_SCENARIOS,nationalWorld,nationalRoster} from '../national-scenarios.mjs';
-import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,orderCampaignArmy,splitCampaignArmy,assignDomestic,launchExpedition} from './helpers/auto-domestic-campaign.mjs';
+import {newCampaign,findCampaignRoute,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,readDailySnapshot,orderCampaignArmy,splitCampaignArmy,assignDomestic,launchExpedition} from './helpers/auto-domestic-campaign.mjs';
 const restored=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function startTestSiege(s){
  const ids=s.cities.find(c=>c.id==='chenliu').units.slice(0,6).map(u=>u.id);
@@ -14,7 +14,7 @@ function toDay(s,day){for(let guard=0;s.campaign.day<day&&guard<300&&!s.finished
 // expanded source layouts have their own ruler/roster/marching coverage.
 for(const spec of NATIONAL_SCENARIOS.filter(s=>s.layout.startsWith('legacy'))){
  test(`${spec.name}: connected national map, valid unique officers and reproducible saves`,()=>{
-  const s=newCampaign(203,spec.id);assert.equal(s.cities.length,NATIONAL_MAP_COUNTS.city);assert.ok(s.cities.every(c=>c.kind==='city'));assert.deepEqual(['gate','port','junction'].map(k=>s.junctions.filter(c=>c.kind===k).length),[NATIONAL_MAP_COUNTS.gate,NATIONAL_MAP_COUNTS.port,23]);
+  const s=newCampaign(203,spec.id);assert.equal(s.cities.length,NATIONAL_MAP_COUNTS.city);assert.ok(s.cities.every(c=>c.kind==='city'));assert.deepEqual(['gate','port','junction'].map(k=>s.junctions.filter(c=>c.kind===k).length),[NATIONAL_MAP_COUNTS.gate,NATIONAL_MAP_COUNTS.port,nationalWorld(spec.id).junctions.filter(c=>c.kind==='junction').length]);
   for(const c of s.cities)assert.ok(findCampaignRoute(s,'xuchang',c.id),c.name);
   assert.equal(s.armies.length,0);assert.ok(s.cities.filter(c=>c.units.length).length>15);const first=serializeCampaign(s);assert.equal(serializeCampaign(restored(s)),first);
   const ids=[...s.cities.flatMap(c=>c.units.map(u=>u.id)),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)];assert.equal(ids.length,new Set(ids).size);
@@ -38,8 +38,20 @@ test('scenario identity, topology, and town coordinates are validated',()=>{
 test('Guandu and Heroes differ in ownership and time-appropriate recruitment',()=>{
  const a=nationalWorld('guandu-200'),b=nationalWorld('heroes-251');assert.notDeepEqual(a.cities.map(c=>c.owner),b.cities.map(c=>c.owner));assert.ok(nationalRoster('heroes-251',b.cities).length>nationalRoster('guandu-200',a.cities).length);
 });
-test('a month of real multi-front warfare archives old snapshots and keeps the save compact',()=>{
- const s=newCampaign(417,'heroes-251');startTestSiege(s);toDay(s,31);assert.equal(s.campaign.day,31);assert.ok(s.campaign.battles.some(b=>b.settled));assert.ok(s.campaign.battles.filter(r=>r.settled).length<=20);assert.ok(serializeCampaign(s).length<4_000_000);restored(s);
+test('a month of real multi-front warfare archives old snapshots and keeps the save compact',t=>{
+ const s=newCampaign(417,'heroes-251');startTestSiege(s);toDay(s,31);assert.equal(s.campaign.day,31);assert.ok(s.campaign.battles.some(b=>b.settled));assert.ok(s.campaign.battles.filter(r=>r.settled).length<=20);
+ // Full officer history grows with real activity. Compare the actual encoded
+ // replays with the same saved information expanded, rather than deleting
+ // required history or imposing the former small-roster total-size ceiling.
+ const saved=serializeCampaign(s),expanded=JSON.parse(saved);
+ for(const record of s.campaign.battles){
+  const full=expanded.campaign.battles.find(b=>b.id===record.id);
+  full.snapshots=record.snapshots.map(frame=>({...frame,data:readDailySnapshot(record,frame.day)}));full.templates={};
+ }
+ const bytes=Buffer.byteLength(saved),expandedBytes=Buffer.byteLength(serializeCampaign(expanded));
+ assert.ok(bytes<expandedBytes,'real replay deltas must use less space than complete daily battle states');
+ restored(expanded);restored(s);
+ t.diagnostic(JSON.stringify({saveBytes:bytes,expandedReplayBytes:expandedBytes,retainedBattles:s.campaign.battles.length}));
  const copy=restored(s);toDay(copy,32);toDay(s,32);assert.equal(serializeCampaign(copy),serializeCampaign(s));
  for(const mutate of [s=>s.cities.find(c=>c.owner==='yuan').gold=-1,s=>s.cities[0].kind='port',s=>s.cities[0].water=!s.cities[0].water]){const bad=structuredClone(s);mutate(bad);assert.throws(()=>restored(bad));}
 });

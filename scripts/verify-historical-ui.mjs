@@ -91,7 +91,7 @@ try{
   await action('lobby').first().click();
   // Keep the active state in another save slot so pagehide cannot re-save over this fixture.
   await action('strategy').click();await action('lobby').first().click();
-  await page.evaluate(()=>localStorage.setItem('sango-historical-battle-v1',JSON.stringify({rulesVersion:-1})));
+  await page.evaluate(async ()=>await (await import('/save-storage.mjs')).writeSavedGame('sango-historical-battle-v1',JSON.stringify({rulesVersion:-1})));
   await page.reload();await page.locator('.lobby-resume').waitFor();
   assert.match(await page.locator('.lobby-resume').innerText(),/重新开始/);
   assert.equal(await action('continue-history').isDisabled(),true);

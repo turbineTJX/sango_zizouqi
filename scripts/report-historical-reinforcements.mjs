@@ -55,6 +55,8 @@ const schedule=s=>{const units=customParticipants(s.draft).map(u=>({...u,name:OF
 const table=(heads,rows)=>'| '+heads.join(' | ')+' |\n| '+heads.map(()=>'---').join(' | ')+' |\n'+rows.map(r=>'| '+r.join(' | ')+' |').join('\n')+'\n';
 let doc=`# 历史战役兵力、援军与玩家操作（规则${RULES_VERSION}）
 
+复测源码指纹：${data.sourceHash}。逐局结果见[验证输入与战果](../outputs/historical-reinforcements/final-results.json)；只认定与该冻结输入一致的结果。
+
 六张历史地图均使用自定义生成器及现有战斗规则，全员10级，每军团最多十队，全场武将唯一。用户确认按游戏尺度压缩兵力差距，保留数量劣势及历史胜方的武将优势；五丈原采用相等兵力、队数与援军队数，不指定胜方。预期胜方只是验证元数据，不参与结算。
 
 ${balanceWarnings.length?'本轮机制与确定性续战检查通过，但平衡观察未通过：'+balanceWarnings.join('；')+'。下表保留当前真实结果，不能宣称已经实现均势。':'本轮机制与历史方向、均势观察检查通过。'}

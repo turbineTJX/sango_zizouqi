@@ -7,7 +7,7 @@ const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedg
 const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage(),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 const base=process.env.GAME_URL||'http://127.0.0.1:4183',out='outputs/domestic-cooperation-ui';await mkdir(out,{recursive:true});
-const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2'))),action=k=>page.locator(`[data-action="${k}"]`);
+const saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'))),action=k=>page.locator(`[data-action="${k}"]`);
 async function pause(){if(await action('campaign-run').count()&&await action('campaign-run').innerText()==='暂停世界')await action('campaign-run').click();}
 try{
  await context.addInitScript(raw=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},serializeCampaign(newCampaign(521200)));

@@ -9,6 +9,16 @@ import {appointBattleTestCommander} from './helpers/commanders.mjs';
 import {setStatus} from '../tactics.mjs';
 
 function combat(){const s=createScenario('history-guandu');lockDeployment(s.battle);return s.battle;}
+test('order portraits use the actual saved provider and conceal an unseen enemy provider',()=>{
+ const b=combat(),v=new BattleSignals();v.update(b,0);
+ b.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(b,'cao-wuchao'),null);v.update(b,0);
+ assert.deepEqual(v.orders[0].source,{id:b.lastCommand.source.id,name:b.lastCommand.source.name});
+ const provider=b.sides[1].units.find(u=>u.id==='shao');setStatus(b,provider,'stealth',10);
+ b.enemyCommand.commandProgress=COMMAND_RESOURCE.capacity;const point=chooseStratagemPoint(b,STRATAGEMS.fortify,1);
+ assert.equal(issueCommand(b,'fortify',point,1),null);const before=JSON.stringify(b);v.update(b,0);
+ assert.equal(v.orders[1].source,null);assert.deepEqual(v.orders[1].point,b.enemyCommand.lastCommand.target);
+ assert.equal(JSON.stringify(b),before);
+});
 test('military orders show once for both factions, including paused same-tick commands; restores do not replay',()=>{
  const b=combat(),v=new BattleSignals();v.update(b,0);
  b.commandProgress=COMMAND_RESOURCE.capacity;assert.equal(issueCommand(b,'cao-wuchao'),null);

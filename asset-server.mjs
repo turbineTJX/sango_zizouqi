@@ -1,7 +1,7 @@
 import {readFile,realpath} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {readAssetArchive} from './asset-archive.mjs';
-const mime={'.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.glb':'model/gltf-binary','.obj':'text/plain; charset=utf-8','.json':'application/json; charset=utf-8','.html':'text/html; charset=utf-8'};
+const mime={'.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.glb':'model/gltf-binary','.obj':'text/plain; charset=utf-8','.json':'application/json; charset=utf-8','.html':'text/html; charset=utf-8','.ogg':'audio/ogg','.wav':'audio/wav','.mp3':'audio/mpeg'};
 export async function serveAssets(pathname,res,root){
  if(!pathname.startsWith('/assets/'))return false;
  const tail=pathname.slice('/assets/'.length),headers={'Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'};

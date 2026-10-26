@@ -14,6 +14,7 @@ import {sortRows} from './list-sort.mjs';
 import {unitManagementMarkup,unitCommanderField,unitFormationMarkup,unitReviewMarkup,commanderSetupMarkup,setupTrail,FORMATIONS} from './army-setup-view.mjs';
 import {bondsMarkup} from './bond-display.mjs';
 import {combatComparison} from './combat-comparison.mjs';
+import {commandersAt} from './battle-appointments.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(action,label,extra='')=>`<button class="button secondary" data-action="${action}" ${extra}>${label}</button>`;
 export const scenarioSetupSteps=p=>['formation','unit-review','unit-select','commanders','review'];
@@ -117,7 +118,7 @@ export function scenarioSetupMarkup(p,context={}){
  }
  if(p.step==='formation'&&!p.choosingMain)body+=unitManagementMarkup(units,{detailAction:'scenario-setup-detail',unitDetailAction:'scenario-setup-unit-detail',editAction:'scenario-unit-edit',newAction:p.sourceArmy?null:'scenario-unit-new',canAdd,editorId:p.editorId,editorHtml:unitCommanderField(p.editorId?scenarioSetupOfficer(p,p.editorId):null,'scenario-unit-choose')+unitFormationMarkup(p.editorId?[scenarioSetupOfficer(p,p.editorId)]:[],{types:battleTroopTypes(p.terrain||p.draft.terrain),troopsMax:u=>scenarioTroopsMax(p,u),troopsValue:u=>p.entries[u.id].troops,typeAttribute:'data-scenario-type',levelAttribute:p.sourceArmy?null:'data-scenario-level',troopsAttribute:p.sourceArmy?null:'data-scenario-troops',detailAction:'scenario-setup-detail'})});
  if(p.step==='unit-review')body+=unitManagementMarkup(units,{detailAction:'scenario-setup-detail',unitDetailAction:'scenario-setup-unit-detail',editAction:'scenario-unit-edit',disbandAction:p.sourceArmy?null:'scenario-unit-disband',terrain:p.terrain||p.draft.terrain,newAction:p.sourceArmy?null:'scenario-unit-new',canAdd,workbench:p.workbench,types:battleTroopTypes(p.terrain||p.draft.terrain),typeAttribute:'data-scenario-type',troopsAttribute:p.sourceArmy?null:'data-scenario-troops',troopsMax:u=>scenarioTroopsMax(p,u),troopsValue:u=>p.entries[u.id].troops,levelAttribute:p.sourceArmy?null:'data-scenario-level'});
- if(!p.sourceArmy&&['formation','unit-review'].includes(p.step))body+='<section class="scenario-treasures"><h3>宝物配装</h3><p>全场含后备与援军，同一宝物仅可装备一次。</p>'+units.map(u=>treasureOptions(u,'data-scenario-treasure')).join('')+'</section>';
+ if(!p.sourceArmy&&['formation','unit-review'].includes(p.step))body+='<section class="scenario-treasures"><h3>宝物配装</h3>'+units.map(u=>treasureOptions(u,'data-scenario-treasure')).join('')+'</section>';
  if(p.step==='unit-select')body+=combatComparison(context,units.filter(u=>armyIds(p).includes(u.id)),null,{only:['relations'],relationCandidates:units,relationPicker:{attribute:'data-scenario-army-unit',locked:!!p.sourceArmy}});
  if(p.step==='commanders')body+='<h3>第二阶段 · 将部队编成军团</h3>'+ bondsMarkup(units,{army:p.roles})+commanderSetupMarkup(context,units,p.roles,{attribute:'data-scenario-role'});
  if(p.step==='review')body+=`<h3>核阅编制结果</h3><div class="command-decree"><h2>${esc(title)}</h2><p>${units.length} 队 · ${units.reduce((n,u)=>n+u.troops,0)} 人</p><p>${['leader','advisor'].map(role=>({leader:'军团长',advisor:'军师',})[role]+' '+esc(units.find(u=>u.id===p.roles[role])?.name||'无')).join(' · ')}</p></div>`+armyDetailsMarkup({...p.sourceArmy,morale:p.sourceArmy?.morale??80,hunger:p.sourceArmy?.hunger??0,units,...p.roles})+combatComparison(context,units,p.roles)+'';
@@ -146,7 +147,11 @@ export function applyBattleSetup(s,p){
   if(index>=0){d.reinforcements[index].team=entries;d.reinforcements[index].roles={...p.roles};d.reinforcements[index].tactic=p.tactic;}
   else{d.ownTeam=entries;d.ownTeamRoles={...p.roles};d.ownTeamTactic=p.tactic;}
  }
- side.commanders=next.armies.filter(a=>a.faction===army.faction).flatMap(armyCommanders);side.tactic=army.tactic;fillSlots(next.battle,0);
+ // Editing a prebattle army changes the organization snapshot as well as its
+ // current providers. Otherwise loading recomputes a different initial roster.
+ side.organizationCommanders=next.armies.filter(a=>a.faction===army.faction).flatMap(armyCommanders);
+ side.appointmentEvents=side.appointmentEvents.filter(e=>e.armyId!==army.id);
+ side.commanders=commandersAt(side);side.tactic=army.tactic;fillSlots(next.battle,0);
  return next;
 }
 

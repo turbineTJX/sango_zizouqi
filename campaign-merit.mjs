@@ -4,7 +4,7 @@ import {troopCapacity} from './troop-capacity.mjs';
 import {cityFoodRequirement} from './city-logistics.mjs';
 import {activityBySource} from './activity-query-index.mjs';
 
-// Reuse the permanent factual ledger for idempotency and player-visible changes.
+// Current-turn receipts provide idempotency and visible changes; lifetime totals are compact counters.
 export function settleOfficerMerit(s,u,{sourceId,amount,faction,cityId=null,category='personnel',reason}){
  const key=`merit:${sourceId}:${u.id}`,prior=activityBySource(s.campaign.activity.nodes,key);
  if(prior)return prior.result.growth;

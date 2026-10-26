@@ -15,7 +15,7 @@ test('personnel census covers every owned officer once and tracks real transfer 
 test('picker allows civil duties alongside prepared units and retains departure restrictions',()=>{
  for(const id of ['guandu-200','heroes-251']){
  const s=newCampaign(5,id),rows=campaignOfficers(s);
- for(const c of s.cities.filter(c=>c.owner==='cao'&&c.kind==='city'))assert.ok(rows.filter(r=>r.idle&&r.location===c.id).length>=3,c.name);
+ for(const c of s.cities.filter(c=>c.owner==='cao'&&c.kind==='city'))assert.deepEqual(rows.filter(r=>r.idle&&r.location===c.id).map(r=>r.unit.id).sort(),s.campaign.idle.filter(o=>o.faction==='cao'&&o.location===c.id).map(o=>o.unit.id).sort(),c.name);
  const p={task:'draft',city:'xuchang'},idle=rows.find(r=>r.idle&&r.location===p.city);
  assert.equal(appointGovernor(s,p.city,idle.unit.id),null);
  assert.equal(pickerReason(s,idle,p),'');
@@ -38,12 +38,15 @@ test('city roster has a fixed local population and independent city context',()=
  const global=campaignRosterMarkup(s,{personnel:{}});assert.ok(global.includes('麾下武将 '+all.length+' 人'));assert.ok(global.includes('全部据点'));
 });
 
- test('siege preparation is optional and hidden when all residents are compiled',async()=>{
+ test('siege preparation accepts prepared residents for replenishment and hides when no residents remain',async()=>{
  const {canPrepareSiegeDefense}=await import('../strategic-roster.mjs');
  const s=newCampaign(203,'guandu-200'),r={id:'pending-defense',kind:'siege',cityId:'xuchang',awaiting:true,settled:false};
  assert.equal(canPrepareSiegeDefense(s,r),true);
  const before=serializeCampaign(s);canPrepareSiegeDefense(s,r);assert.equal(serializeCampaign(s),before);
  s.campaign.idle=s.campaign.idle.filter(o=>o.location!=='xuchang');
+ assert.equal(canPrepareSiegeDefense(s,r),true,'prepared resident units can still replenish');
+ s.cities.find(c=>c.id==='xuchang').governor=null;
+ s.cities.find(c=>c.id==='xuchang').units=[];
  assert.equal(canPrepareSiegeDefense(s,r),false);
  r.awaiting=false;assert.equal(canPrepareSiegeDefense(s,r),false);
  });

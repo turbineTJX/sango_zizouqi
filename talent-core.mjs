@@ -3,10 +3,11 @@ import {playerFaction} from './player-faction.mjs';
 import {cityUnitRows} from './city-units.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {FACTIONS,battleWounded} from './engine.mjs';
-import {relationshipInfo} from './relationships.mjs';
+import {relationshipScore} from './relationships.mjs';
 import {compatibilityInfo} from './domestic-cooperation.mjs';
 import {diplomaticFeeReserve,diplomaticAssetReserve} from './diplomacy-relations.mjs';
 import {cityPayroll} from './officer-salaries.mjs';
+import {cityVisible,observedArmies,visionSources} from './strategic-vision.mjs';
 
 export const TALENT_RULES=Object.freeze({version:2,standardSoldiers:6000,adultAge:16,seekDays:180,graceDays:90});
 export const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
@@ -14,15 +15,23 @@ export const talentTurn=s=>Math.floor((s.campaign.day-1)/10);
 export const talentKey=(id,faction)=>`${id}:${faction}`;
 export const talentQuality=u=>Math.max(...['leadership','force','intellect','politics','charm'].map(k=>u[k]??0));
 export const righteousness=id=>{const raw=OFFICER_BY_ID[id]?.righteousness;return raw>=1&&raw<=5?(raw-1)*25:50;};
-export const relation=(s,a,b)=>!a||!b?50:a===b?100:relationshipInfo(a,b,s.relationshipScores,s.relationshipTypes).score;
+export const relation=(s,a,b)=>!a||!b?50:a===b?100:relationshipScore(a,b,s.relationshipScores,s.relationshipTypes);
 export function affinityFit(a,b){const {distance}=compatibilityInfo(OFFICER_BY_ID[a],OFFICER_BY_ID[b]);return distance===null?50:100-distance*100/75;}
+let servingQueryScope=null;
+// Candidate evaluation is synchronous and read-only. Every perspective keeps
+// its own map, and all maps expire before an appointment or actual movement.
+export function withServingPeopleQueries(evaluate){
+ if(servingQueryScope)return evaluate();servingQueryScope=new WeakMap();
+ try{return evaluate();}finally{servingQueryScope=null;}
+}
 export function servingPeople(s){
+ if(servingQueryScope?.has(s))return servingQueryScope.get(s);
  const result=new Map(cityUnitRows(s).map(o=>[o.unit.id,o]));
  for(const a of s.armies)for(const unit of a.units)result.set(unit.id,{unit,faction:a.faction,location:a.location,army:a});
  for(const o of s.campaign.idle)result.set(o.unit.id,o);
  // A dissolved army can hold returnees until its current encounter settles.
  for(const a of s.armies)for(const o of a.returningOfficers||[])result.set(o.unit.id,o);
- return result;
+ servingQueryScope?.set(s,result);return result;
 }
 const lordIds=new Map();
 export function factionLord(s,faction){
@@ -60,19 +69,24 @@ export function refreshTalentDemand(s,force=false){
   t.demands[f]={cities,soldiers,demand:Math.max(1,4*cities+military+Math.ceil(.25*military))};
  }
 }
-export function talentContext(s){
- const serving=servingPeople(s),rosters={};for(const o of serving.values())(rosters[o.faction]??=[]).push(o.unit);
- const factions={};for(const f of new Set([...Object.keys(rosters),...Object.keys(s.campaign.talent.demands)])){
+export function persuasionTargets(s,faction){
+ const sources=visionSources(s,faction);
+ return s.campaign.idle.filter(o=>o.faction!==faction&&o.faction!=='neutral'&&cityVisible(s,o.location,faction,sources)&&!o.destination&&!o.retreating&&!o.unit.mission&&!o.unit.scouting);
+}
+export function talentContext(s,observer=null){
+ const all=servingPeople(s),targets=observer?persuasionTargets(s,observer):null,visible=targets?new Set(targets.map(o=>o.unit.id)):null;
+ const serving=observer?new Map([...all].filter(([id,o])=>o.faction===observer||visible.has(id))):all,rosters={};for(const o of serving.values())if(!observer||o.faction===observer)(rosters[o.faction]??=[]).push(o.unit);
+ const factions={};for(const f of observer?[observer]:new Set([...Object.keys(rosters),...Object.keys(s.campaign.talent.demands)])){
   const units=rosters[f]||[],q=units.map(talentQuality).sort((a,b)=>a-b),n=q.length;
   factions[f]={N:n,D:s.campaign.talent.demands[f]?.demand??1,median:n?(q[Math.floor((n-1)/2)]+q[Math.floor(n/2)])/2:0,lord:factionLord(s,f),units};
- }return {serving,factions};
+ }return {serving,factions,...(observer?{observer,visibleTargets:new Map(targets.map(o=>[o.unit.id,o])),contactWorld:{...s,armies:observedArmies(s,observer)}}:{})};
 }
 export function willingness(s,id,faction,context=talentContext(s)){
  const f=context.factions[faction]||{N:0,D:1,median:0,lord:factionLord(s,faction),units:[]},q=talentQuality(context.serving.get(id)?.unit||OFFICER_BY_ID[id]);
  const O=f.N<f.D?15:f.N>=Math.ceil(1.25*f.D)?-30:q>=f.median+10?5:-15;
  const A=affinityFit(id,f.lord),R=relation(s,id,f.lord),friends=f.units.filter(u=>u.id!==f.lord&&u.id!==id),friend=friends.length?Math.max(...friends.map(u=>relation(s,id,u.id))):50,F=clamp(.3*(friend-60),0,12);
  let H=0;
- for(const h of s.campaign.talent.records[id]?.defeatHistory||[]){if(h.defeatingFactionId!==faction)continue;const joined=s.campaign.talent.records[h.formerLordId]?.voluntaryFaction;
+ for(const h of context.observer?[]:s.campaign.talent.records[id]?.defeatHistory||[]){if(h.defeatingFactionId!==faction)continue;const joined=s.campaign.talent.records[h.formerLordId]?.voluntaryFaction;
   if(joined===faction&&context.serving.get(h.formerLordId)?.faction===faction)continue;
   H=Math.max(H,Math.round(.2*righteousness(id)+.2*Math.max(relation(s,id,h.formerLordId)-50,0)));
  }
@@ -82,6 +96,21 @@ export const projectNeed=(id,mode='hire')=>Math.round(80+2*Math.max(talentQualit
 export const progressFor=factor=>factor>1?20:factor===1?12:factor>0?6:0;
 export function reassuranceCap(s,id){const idle=s.campaign.talent.records[id]?.idleTurns||0;return idle>=18?55:idle>=9?75:100;}
 export const TALENT_REASONS=Object.freeze({ready:'愿意洽谈',unknown:'尚无有效位置情报',range:'不在可通行接洽范围',waiting:'暂不求仕',hardWait:'战后／辞官整理期',rejoin:'暂不接受原势力邀请',cooldown:'接洽冷却',unwilling:'观望／拒绝考虑',loyal:'忠诚稳定，不接受劝说',difference:'改仕意愿不足',invalid:'人物身份或归属已改变',lord:'在位君主不可劝说',full:'进度已满，等待签约复核',limit:'并行接洽名额已占用'});
+// A decision is an invitation based on visible people and the inviting faction's
+// own roster. Private loyalty and the rival's staffing never enter this preview.
+export function persuasionEligibility(s,id,faction,cityId,context=talentContext(s,faction)){
+ if(context.observer!==faction)context=talentContext(s,faction);
+ const owned=context.serving.get(id),p=s.campaign.talent.projects[talentKey(id,faction)],w=willingness(s,id,faction,context),fail=reason=>({ok:false,reason,...w});
+ if(s.cities.find(c=>c.id===cityId)?.owner!==faction)return fail('invalid');
+ if(!owned||owned.faction===faction||!context.visibleTargets.has(id))return fail('unknown');
+ if(isLord(s,id,owned.faction))return fail('lord');
+ if(s.cities.some(c=>c.id===owned.location&&c.governor===id))return fail('invalid');
+ if(p?.state!=='CLOSED'&&p?.targetFaction&&p.targetFaction!==owned.faction)return fail('invalid');
+ if(!localContact(context.contactWorld,cityId,owned.location))return fail('range');
+ if(s.campaign.day<(p?.nextAttemptDay||0))return fail('cooldown');
+ if(w.W<60)return fail('unwilling');
+ return {ok:true,reason:'ready',...w,tentative:true};
+}
 export function talentEligibility(s,id,faction,cityId,mode,context=talentContext(s),{ignoreCooldown=false}={}){
  const t=s.campaign.talent,record=t.records[id],w=willingness(s,id,faction,context),p=t.projects[talentKey(id,faction)],free=s.campaign.domestic.people.find(p=>p.id===id),owned=context.serving.get(id),now=s.campaign.day;
  const fail=reason=>({ok:false,reason,...w});

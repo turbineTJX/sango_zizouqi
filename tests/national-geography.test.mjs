@@ -4,9 +4,9 @@ import {nationalTerrain,nationalArtMap} from '../national-map-view.mjs';
 import {RIVERS,MOUNTAINS,polyline,waterMarkup} from '../national-geography.mjs';
 import {newCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {renderJunctions} from '../road-network-view.mjs';
-test('national map and radar share visible geography without mutating campaign state',()=>{
+test('national map shows visible geography without mutating campaign state',()=>{
  const s=newCampaign(217,'guandu-200'),before=JSON.stringify(s),html=nationalArtMap(s,{},null);
- for(const river of ['huanghe','changjiang','huaihe'])assert.equal(html.split(`data-river="${river}"`).length-1,2);
+ for(const river of ['huanghe','changjiang','huaihe'])assert.equal(html.split(`data-river="${river}"`).length-1,1);
  for(const name of ['黄河','长江','淮河','汉水','秦岭','太行山','洞庭湖'])assert.ok(html.includes(name));
  assert.match(html,/mask="url\(#territory-dry-land\)"/);
  assert.equal(JSON.stringify(s),before);

@@ -37,11 +37,14 @@ export function playerCommand(b,policy='human'){
  const own=b.sides[0].units.filter(u=>u.status==='active'&&u.hp>0),foes=b.sides[1].units.filter(u=>u.status==='active'&&u.hp>0&&!hasStatus(b,u,'stealth')&&!hasStatus(b,u,'stasis'));
  const harmful=['confuse','seal','despair','weaken','intentSuppression','burn'];
  const core=own.find(u=>u.id===XIAPI_IDS.lu),affected=own.filter(u=>harmful.some(k=>hasStatus(b,u,k))).length;
- let key=null;
- if(available.includes('cleanse')&&(affected>=2||core&&['confuse','seal','despair','intentSuppression'].some(k=>hasStatus(b,core,k))))key='cleanse';
- else if(available.includes('disrupt')&&foes.some(e=>own.some(u=>hexDistance(u,e)<=3))&&foes.some(e=>e.intent>=30))key='disrupt';
- else if(available.includes('assault')&&!((b.sides[0].assaultUntil||0)>b.tick)&&foes.some(e=>own.some(u=>hexDistance(u,e)<=3)))key='assault';
- else if(available.includes('haste')&&!((b.sides[0].hasteUntil||0)>b.tick)&&foes.some(e=>own.some(u=>hexDistance(u,e)<=4)))key='haste';
+ const contact=foes.some(e=>own.some(u=>hexDistance(u,e)<=3)),priority=[];
+ if(affected>=2||core&&['confuse','seal','despair','intentSuppression'].some(k=>hasStatus(b,core,k)))priority.push('cleanse');
+ if(own.some(u=>u.hp<u.initial*.6))priority.push('heal','fortify','invincible');
+ if(contact)priority.push('ambush','disrupt','swift');
+ // Current named strategies replace the removed assault/haste entries. Each
+ // proposed order still passes the real source, target, cooldown and use checks.
+ priority.push('fortify','ward','cao-wuchao','zhou-redcliffs','zhuge-eight','reinforce','refresh','blockade','storm',...available);
+ const key=[...new Set(priority)].find(key=>available.includes(key)&&chooseEnemyCommand(b,[key],STRATAGEMS,0)===key);
  if(!key)return null;
  return {key,point:chooseStratagemPoint(b,STRATAGEMS[key],0)};
 }

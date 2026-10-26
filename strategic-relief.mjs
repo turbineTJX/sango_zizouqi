@@ -32,8 +32,8 @@ export function landscapeMarkup(season='summer'){
   const southern=y>480,spread=12+random()*18;
   parts.push(`<ellipse cx="${x}" cy="${y}" rx="${spread}" ry="${spread*.55}" fill="#507756" opacity=".1"/>`);
   for(let j=0;j<(southern?10:5);j++){
-   const tx=round(x+(random()-.5)*spread*2),ty=round(y+(random()-.5)*spread),size=2+random()*3;
-   parts.push(`<g transform="translate(${tx} ${ty})"><ellipse cy="2" rx="${size*1.3}" ry="${size*.5}" fill="#294b3c" opacity=".18"/><path d="M0 0v3" stroke="#636247" stroke-width=".6"/><path d="M${-size} 0Q${-size*1.4} ${-size*1.4} 0 ${-size*2.7}Q${size*1.6} ${-size*1.2} ${size} 0Z" fill="${winter?'#8d9f8e':autumn?['#8b864c','#ac9b56','#577956'][j%3]:['#47755c','#628864','#78966a'][j%3]}"/><path d="M${-size*.7} ${-size*.5}Q${-size*.8} ${-size*1.7} 0 ${-size*2.7}" fill="none" stroke="${winter?'#e2e4d5':'#bfca8b'}" stroke-opacity=".45" stroke-width=".7"/></g>`);
+   const tx=round(x+(random()-.5)*spread*2),ty=round(y+(random()-.5)*spread),size=.95+random()*1.45;
+   parts.push(`<g transform="translate(${tx} ${ty})"><ellipse cy="2" rx="${size*1.3}" ry="${size*.5}" fill="#294b3c" opacity=".18"/><path d="M0 0v3" stroke="#636247" stroke-width=".6"/><path d="M${-size} 0C${-size*1.7} ${-size*.7} ${-size*1.3} ${-size*1.9} ${-size*.5} ${-size*1.8}C${-size*.2} ${-size*2.6} ${size*.9} ${-size*2.4} ${size*1.1} ${-size*1.5}C${size*2} ${-size*.8} ${size*1.1} ${size*.3} 0 0Z" fill="${winter?'#8d9f8e':autumn?['#8b864c','#ac9b56','#577956'][j%3]:['#47755c','#628864','#78966a'][j%3]}"/><path d="M${-size*.7} ${-size*.5}Q${-size*.8} ${-size*1.7} 0 ${-size*2.7}" fill="none" stroke="${winter?'#e2e4d5':'#bfca8b'}" stroke-opacity=".45" stroke-width=".7"/></g>`);
   }
  }
  for(const [cx,cy] of [[1048,430],[1040,593],[938,674],[1197,584],[502,891],[895,864],[939,1022],[1240,812]].map(atlasPoint)){

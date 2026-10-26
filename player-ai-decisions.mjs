@@ -25,6 +25,6 @@ export const PLAYER_AI_DECISIONS=Object.freeze({
  captive:entry(['personnel'],[['officer-fates.mjs','releaseCaptive']],[['diplomacy.mjs','diplomaticCandidates'],['diplomacy.mjs','advanceDiplomacy']],'优先实际外交赎回和交换；未达成保留俘虏，失去关押条件按公共规则释放')
 });
 export const NON_DECISION_PAGES=Object.freeze({
- modes:'选择游戏运行模式',scenarios:'选择开局剧本',factions:'选择玩家或观察势力',custom:'编辑双方的初始战役与规则输入',saves:'本机存档与显示设置',
+ ending:'只读整局事实回顾、存档导出与新局入口',modes:'选择游戏运行模式',scenarios:'选择开局剧本',factions:'选择玩家或观察势力',custom:'编辑双方的初始战役与规则输入',saves:'本机存档与显示设置',
  map:'地图浏览，业务决策见对应对象页',officer:'只读人物详情',scoutReport:'已保存侦察报告',intelligence:'只读合法情报',unit:'只读部队详情',tactics:'查看固定战法，自动施放共用引擎',buildings:'只读设施详情，建设修复归内政',reports:'已发生事项核阅',harvest:'实际入库统计',battleReport:'共同战后结算',replay:'已保存战斗回放',records:'已保存人物与城市活动',abilities:'只读能力说明'
 });

@@ -24,15 +24,18 @@ import {BATTLE_EVENTS,battleEventSummary} from './battle-events.mjs';
 import {battleJournalMarkup} from './report-presentation.mjs';
 import {pendingDomesticAlerts,acknowledgeDomesticAlerts,domesticAlertsMarkup} from './domestic-feedback.mjs';
 import {attachArmyHover} from './army-inspection.mjs';
-import {animateArmyMarch} from './strategic-army-markers.mjs';
+import {animateArmyMarch,captureArmyMarch} from './strategic-army-markers.mjs';
 import {historicalBattleDraft} from './historical-battle-library.mjs';
 import {BATTLE_MAPS,battleMap} from './data/design/battle-maps.mjs';
 import {battleMapArtwork} from './battle-map-view.mjs';
+import {battleBuildingArtwork,decorateBattleBuildings} from './battle-building-art.mjs';
 import {formationCells,formationTier} from './bond-battlefield.mjs';
-import {marchModes,marchDescription} from './strategic-traits.mjs';
+import {marchModes,armyStrategicTrait} from './strategic-traits.mjs';
 import {setArmyMarchMode} from './strategic-campaign.mjs';
 import {battleBondsMarkup,personalBondsMarkup,bondsMarkup} from './bond-display.mjs';
 import {dispatchScout,recallScout} from './scouting.mjs';
+import {TARGET_TITLES,mapTargetCandidates,targetMapMarkup,mapTargetSummary,mapTargetSearchMarkup} from './map-target-picker.mjs';
+import {centeredMapView} from './strategic-map-camera.mjs';
 import {scoutingMarkup,scoutingReportMarkup} from './scouting-view.mjs';
 import {intelligenceWorld,cityVisible} from './strategic-vision.mjs';
 import {installBondHover} from './bond-hover.mjs';
@@ -40,13 +43,13 @@ import {FACTION_DIRECTORIES,factionDirectoryRows,factionDirectoryMarkup} from '.
 import {canPrepareSiegeDefense} from './strategic-roster.mjs';
 import {frontlineCapacity,armyFrontlineCapacity} from './army-trait-rules.mjs';
 import {BATTLE_LOG_KINDS} from './battle-log.mjs';
-import {isAreaStratagem} from './stratagem-area.mjs';
+import {isAreaStratagem,stratagemScopeText} from './stratagem-area.mjs';
 import {areaPreview,nearestAreaCell,stratagemZonesMarkup} from './stratagem-area-view.mjs';
 import {retreatDestinations,configureRetreatDestination} from './strategic-retreat.mjs';
 import {bondOverview} from './bond-reference.mjs';
 import {abilityReference,abilityButton,abilityOverview} from './ability-reference.mjs';
 import {traitChips} from './trait-display.mjs';
-import {detailTable,compactDescriptions} from './ui-detail-table.mjs';
+import {detailTable} from './ui-detail-table.mjs';
 import {mapNode,isJunction} from './road-network.mjs';
 import {hidden,decoyTargets,detected} from './battle-status-rules.mjs';
 import {battleStratagemSource} from './engine.mjs';
@@ -56,6 +59,7 @@ import {pageGuideId} from './page-guides.mjs';
 import {createPageGuideView} from './page-guide-view.mjs';
 import {createDetailPanels,isObjectDetail} from './detail-panels.mjs';
 import {archiveSummary,listArchives,readArchive,writeArchive,deleteArchive,archivesMarkup} from './save-archives.mjs';
+import {openSaveStorage,MAX_SAVE_BYTES} from './save-storage.mjs';
 import {saveScenarioUnit,newScenarioSetup,newBattleSetup,scenarioSetupMarkup,scenarioSetupSteps,scenarioSetupError,scenarioSetupDraft,scenarioSetupUnits,scenarioSetupOfficer,changeScenarioSetup,applyBattleSetup} from './scenario-setup.mjs';
 import {playerFaction,playerHome} from './player-faction.mjs';
 import {setCombatPage,combatComparison} from './combat-comparison.mjs';
@@ -69,7 +73,7 @@ import {mapObjectActions} from './map-object-menu.mjs';
 import {cityForce} from './city-units.mjs';
 import {selectCommandPoint,continueCommandRoute,backCommandRoute,removeCommandUnit,changeCommandUnit,newCommand,commandRoute,commandSteps,commandMarkup,commandCanAdvance,prepareCommandFormation} from './strategic-command.mjs';
 import {tacticUsesLeft,tacticUseLimit} from './tactic-tempo.mjs';
-import {commanderStratagems,STRATAGEM_RULE_TEXT,selectStratagemSource,stratagemEffectText} from './stratagems.mjs';
+import {commanderStratagems,selectStratagemSource,stratagemEffectText,stratagemEffectSummary} from './stratagems.mjs';
 import {requestStrategicOrder} from './strategic-orders.mjs';
 import {pendingDomesticProposals,decideDomesticProposal,setDomesticAutoApprove} from './domestic.mjs';
 import {domesticApprovalMarkup} from './domestic-proposal-view.mjs';
@@ -78,18 +82,19 @@ import {removeDomesticOrder} from './domestic.mjs';
 import {campaignOfficers,campaignRosterMarkup,cityRosterMarkup,pickerReason,pickerTitle} from './strategic-roster.mjs';
 import {initializeTacticLearning,LEARNING_TROOPS,troopAptitude} from './tactic-learning.mjs';
 import {nationalLobby} from './national-lobby.mjs';
+import {campaignEndingMarkup} from './campaign-ending-view.mjs';
 import {nationalScenario} from './national-scenarios.mjs';
 import {canTrain,dismissDomestic} from './domestic.mjs';
 import {BATTLE_INTENTS,battleIntent,configureBattleIntent} from './engine.mjs';
 import {art} from './art-assets.mjs';
 import {BattleArt} from './art-battle.mjs';
-import {BattleLabels,battleLabelMarkup} from './battle-labels.mjs';
+import {BattleLabels,battleLabelMarkup,battleMapStatusMarkup} from './battle-labels.mjs';
 let battleLabels=null;
 import {attachStrategicMap} from './art-strategic-map.mjs';
 import {newCampaign,setObserverFaction,validateCampaign,serializeCampaign,calendar,isPlanning,canEditArmy,armyBattle,activeBattles,battleRecord,beginExecution,advanceCampaignStep,advanceCampaignDay,chooseEncounter,takeOverBattle,viewCampaignMap,orderCampaignArmy,recruitCampaign,splitCampaignArmy,mergeCampaignArmies,createCampaignArmy,transferOfficer,commissionProject,relieveCity,appointGovernor,changeCampaignTroop,assignDomestic,prepareAutoSiegeDefense,relinquishSiegeDefense} from './strategic-campaign.mjs';
 import {cityDomesticMarkup,strategicView,campaignBattleBar,snapshotMarkup,commandMap,factionAffairsMarkup,battlesPanel,replayMarkup,campaignBattleName,campaignBattleDate} from './strategic-view.mjs';
 const newGame = (scenarioId='guandu-200',faction='cao',options={}) => newCampaign(521200,scenarioId,faction,options);
-function nationalResume(){try{const data=JSON.parse(localStorage.getItem('sango-sovereign-v2'));return nationalScenario(data?.campaign?.scenarioId)?{scenarioId:data.campaign.scenarioId,day:data.campaign.day,playerFaction:playerFaction(data),allAI:data.campaign.allAI}:null;}catch{return null;}}
+function nationalResume(){try{const data=JSON.parse(saveStorage.peek('sango-sovereign-v2'));return nationalScenario(data?.campaign?.scenarioId)?{scenarioId:data.campaign.scenarioId,day:data.campaign.day,playerFaction:playerFaction(data),allAI:data.campaign.allAI}:null;}catch{return null;}}
 const validateSave = value => {if(value?.testScenario){if(value.campaign)throw new Error('试炼与战略存档类型不一致');return validateBattleSave(value);}return validateCampaign(value);};
 import {troopCapacity} from './troop-capacity.mjs';
 import {relationshipInfo,setRelationshipScore,setRelationshipType} from './relationships.mjs';
@@ -104,6 +109,12 @@ import { TACTICS_BOOK, availableTactics, defaultTacticIds, CATEGORY_NAMES } from
 import { TROOPS, FACTIONS, GRID, COMBAT, armyTroops, armyById, cityById, findRoute, orderArmy, advanceTurn, startBattle, stepBattle, issueCommand, settleBattle, activeUnits, recruit, splitArmy, mergeArmies, validateSave as validateBattleSave } from './engine.mjs';
 import {visibleStatuses,statusIcon,statusTimeLabel,statusSources,inspectionStatuses,statusAttributeChanges,statusAmounts} from './status-display.mjs';
 import { BattleEffects } from './battle-effects.mjs';
+import {GameAudio} from './game-audio.mjs';
+import {BattleAudioReader,interactionCue} from './audio-events.mjs';
+import {BattleVoiceReader,StrategicVoiceReader,isVoiceRuler} from './officer-voice-events.mjs';
+import {officerVoiceLine} from './officer-voice-lines.mjs';
+import {MusicDirector} from './music-director.mjs';
+import {assetCatalog} from './asset-catalog.mjs';
 import {tacticPowerPreview} from './tactic-power.mjs';
 import {statusPower} from './tactics.mjs';
 import { HEX_GRID, HEX_ASPECT, hexCenter, hexCellStyle } from './hex-grid.mjs';
@@ -143,24 +154,65 @@ const icons = {
   crown: '<path d="m3 6 5 5 4-8 4 8 5-5-2 13H5L3 6Zm3 16h12"/>',
 };
 const icon = (name, cls = '') => `<svg class="icon ${cls}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.flag}</svg>`;
+const saveStorage=await openSaveStorage();
 let state, loadWarning = '';
-try { const raw = localStorage.getItem(routeKey()); state = raw ? validateSave(JSON.parse(raw)) : newGame(); }
+try { const raw = saveStorage.peek(routeKey()); state = raw ? validateSave(JSON.parse(raw)) : newGame(); }
 catch {
   const failedLab=['#battle-lab','#historical-battle'].includes(location.hash);
   state = newGame(); loadWarning = '存档已过期或无法读取，已按当前规则创建新局。';
-  try { localStorage.removeItem(routeKey()); } catch {}
+  try { await saveStorage.removeItem(routeKey()); } catch {}
   if(failedLab){
     // A stale trial must not overwrite a separate, valid current campaign.
-    try { const raw=localStorage.getItem(SAVE_KEY);if(raw){state=validateSave(JSON.parse(raw));loadWarning='试炼存档已过期或无法读取，已返回天下进度。';} } catch {}
+    try { const raw=saveStorage.peek(SAVE_KEY);if(raw){state=validateSave(JSON.parse(raw));loadWarning='试炼存档已过期或无法读取，已返回天下进度。';} } catch {}
     history.replaceState(null,'',location.pathname+location.search);
   }
 }
 const ui = { army: state.armies.find(a => a.faction === playerFaction(state))?.id, city: playerHome(state), mode: 'map', order: false, modal: null, paused: true, speed: 1, effectMode: 'clear', focusMode: false, deploymentSelection: null, zoom: 1, showArmies: true, selectedSplit: new Set(), savedAt: null, lastTime: 0, catalogQuery:'',catalogKind:'all',catalogSort:'source',catalogPage:0,catalogSelected:[...(state.testScenario?.officerIds||[])] };
 let guideWasPaused=true;
 let guideStorage;try{guideStorage=localStorage;}catch{}
-const pageGuides=createPageGuideView({root:document.getElementById('page-guide-root'),storage:guideStorage,getTopic:()=>pageGuideId(ui,state),
- onOpen(){guideWasPaused=ui.paused;ui.paused=true;},
- onClose(){ui.paused=guideWasPaused;ui.lastTime=performance.now();pageGuides.schedule();},
+const audio=new GameAudio({storage:guideStorage,onChange:refreshAudioControls,onError:message=>toast(message,'error'),onVoice:showOfficerVoice});
+const battleAudio=new BattleAudioReader();
+const battleVoice=new BattleVoiceReader(),strategicVoice=new StrategicVoiceReader();
+const musicDirector=new MusicDirector();
+function showOfficerVoice(line){
+ const el=document.getElementById('officer-voice');if(!el)return;el.hidden=!line;if(!line)return;
+ el.dataset.side=String(line.side??0);el.querySelector('[data-voice-name]').textContent=(line.side===1?'敌 · ':'')+line.name;el.querySelector('[data-voice-text]').textContent=line.text;
+}
+function acknowledgeOfficer(id,event='acknowledge'){
+ const officer=OFFICER_BY_ID[id];if(officer)void audio.playOfficer({...officerVoiceLine(officer,event,{sovereign:isVoiceRuler(state,id)}),priority:7});
+}
+function refreshAudioControls(){
+ for(const button of document.querySelectorAll('[data-action="audio-toggle"]')){const muted=audio.preferences.muted;button.setAttribute('aria-pressed',String(muted));button.setAttribute('aria-label',muted?'开启声音':'静音');button.title=muted?'开启声音':'静音；音量可在设置中调整';const label=button.querySelector('span');if(label)label.textContent=muted?'已静音':'声音';}
+ for(const el of document.querySelectorAll('[data-audio-status]'))el.textContent=audio.statusText();
+}
+let audioModal,voiceState,voiceBattle,voiceLobby,voicePaused;
+function syncAudioScene(){
+ const lobby=ui.mode==='lobby'||(!state.battle&&!!state.testScenario),b=!lobby?state.battle:null;
+ if(voiceState!==undefined&&(voiceState!==state||voiceBattle!==b||voiceLobby!==lobby||b&&ui.paused&&!voicePaused))audio.stopOfficerSpeech();
+ voiceState=state;voiceBattle=b;voiceLobby=lobby;voicePaused=ui.paused;
+ if(!b){battleAudio.read(null);battleVoice.read(null);}
+ for(const line of strategicVoice.read(state,{faction:playerFaction(state),audible:!lobby&&!b&&!document.hidden}))void audio.playOfficer(line);
+ audio.setScene(musicDirector.update(state,ui,performance.now()/1000),{soft:!!ui.modal||!!ui.textDetails||pageGuides.isOpen||!!b&&ui.paused});
+ if(audioModal!==undefined&&audioModal!==ui.modal&&['domestic-alerts','domestic-proposals','encounter'].includes(ui.modal))audio.play('notify',{priority:5});
+ audioModal=ui.modal;refreshAudioControls();
+}
+document.addEventListener('pointerdown',()=>{void audio.unlock();},{capture:true,passive:true});
+document.addEventListener('keydown',event=>{if(!event.repeat&&!event.ctrlKey&&!event.metaKey&&!event.altKey)void audio.unlock();},{capture:true});
+document.addEventListener('click',event=>{
+ const element=event.target.closest?.('button,a[data-action],[role="button"],[data-city],[data-command-city],[data-campaign-army],[data-unit]');
+ const cue=interactionCue(element);if(!cue)return;
+ if(audio.active)audio.play(cue);else void audio.unlock().then(ok=>{if(ok)audio.play(cue);});
+},true);
+document.addEventListener('input',event=>{
+ if(event.target.id==='archive-name')ui.archiveName=event.target.value;
+ const key=event.target.dataset?.audioVolume;if(!['music','sfx','voice'].includes(key))return;
+ audio.setPreferences({[key]:Number(event.target.value)/100});
+ const output=document.querySelector(`[data-audio-output="${key}"]`);if(output)output.textContent=event.target.value+'%';
+});
+document.addEventListener('change',event=>{if(event.target.matches?.('[data-audio-track]')){audio.setPreferences({track:event.target.value});syncAudioScene();void audio.unlock();}});
+const pageGuides=createPageGuideView({root:document.getElementById('page-guide-root'),storage:guideStorage,getTopic:()=>pageGuideId(ui,state),decorate:root=>art.decorate(root),
+ onOpen(){guideWasPaused=ui.paused;ui.paused=true;syncAudioScene();},
+ onClose(){ui.paused=guideWasPaused;ui.lastTime=performance.now();pageGuides.schedule();syncAudioScene();},
  onPreferences(){renderModal();},
  onStorageError(){toast('浏览器无法保存指引偏好，本次关闭仍然有效');}
 });
@@ -171,28 +223,35 @@ try { const draft=localStorage.getItem('sango-custom-draft-v46');if(draft)ui.cus
 function saveCustomDraft(){try{localStorage.setItem('sango-custom-draft-v46',JSON.stringify(validateCustomBattle(ui.customBattle)));}catch{}}
 function refreshCustomDraft(){for(const key of ['ownTeam','enemyTeam'])ui.customBattle[key+'Roles']??=customRoles(ui.customBattle,key);saveCustomDraft();render();}
 if(ui.mode !== 'lobby')ui.modal=state.report?'report':state.pending?'encounter':null;
-try { ui.effectMode = localStorage.getItem('sango-effects-mode') === 'full' ? 'full' : 'clear'; } catch {}
+try { ui.effectMode = localStorage.getItem('sango-effects-mode') === 'clear' ? 'clear' : 'full'; } catch { ui.effectMode='full'; }
 let toastTimer;
 let battleFx = null;
 let battleArt = null;
 const commandCue = new CommandCue();
-function toast(text) { $('#toast').textContent = text; $('#toast').classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3400); }
-function save(silent = true) {
+function toast(text,cue='notify') { audio.play(cue,{priority:cue==='order'?7:cue==='error'?5:3}); $('#toast').textContent = text; $('#toast').classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3400); }
+async function save(silent = true) {
   if(state.campaign){updateCityBudgetAlerts(state);recordOfficerActivities(state);}
-  try { localStorage.setItem(storageKey(), state.campaign?serializeCampaign(state):JSON.stringify(state)); ui.savedAt = new Date(); if (!silent) toast(state.testScenario ? '战役进度已单独保存' : '进度已保存到此浏览器'); }
-  catch { toast('浏览器存储不可用，请在设置中导出存档'); }
+  try { await saveStorage.setItem(storageKey(), state.campaign?serializeCampaign(state):JSON.stringify(state)); ui.savedAt = new Date(); if (!silent) toast(state.testScenario ? '战役进度已单独保存' : '进度已保存到本机'); return true; }
+  catch { ui.paused=true;render();toast('本机存档写入失败，原存档已保留，请在设置中导出当前进度','error');return false; }
 }
 function openArchives(){
-  ui.paused=true;ui.archiveConfirm=null;const summary=archiveSummary(state);
+  ui.paused=true;ui.archiveConfirm=null;ui.archiveEntries=null;ui.archiveError=null;const summary=archiveSummary(state);
   ui.archiveName=summary.scenario+(summary.faction?' · '+summary.faction:'')+' · '+summary.progress;
   openModal('archives');
+  void refreshArchives();
 }
-function archiveListMarkup(){try{return archivesMarkup(listArchives(localStorage,validateSave),{canSave:ui.mode!=='lobby',name:ui.archiveName});}catch{return '<p>浏览器存储不可用，无法读取存档列表。可返回设置导出当前进度。</p>';}}
+async function refreshArchives(){
+ const request=ui.archiveRequest=(ui.archiveRequest||0)+1;
+ try{const entries=await listArchives(saveStorage,validateSave);if(request!==ui.archiveRequest)return;ui.archiveEntries=entries;ui.archiveError=null;}
+ catch{ui.archiveError='本机存储不可用，无法读取存档列表。可返回设置导出当前进度。';}
+ if(ui.modal==='archives')renderModal();
+}
+function archiveListMarkup(){return ui.archiveError?`<p>${ui.archiveError}</p>`:ui.archiveEntries?archivesMarkup(ui.archiveEntries,{canSave:ui.mode!=='lobby',name:ui.archiveName}):'<p role="status">正在读取存档…</p>';}
 function selectedArmy() { return armyById(state, ui.army) || state.armies.find(a => a.faction === playerFaction(state)); }
 function currentScenario() { const s=SCENARIOS.find(s => s.id === state.testScenario?.id),map=BATTLE_MAPS[state.testScenario?.customBattle?.mapId];return map?{...s,name:map.name}:s; }
 function historicalResume() {
   try {
-    const raw=localStorage.getItem(HISTORY_SAVE_KEY);
+    const raw=saveStorage.peek(HISTORY_SAVE_KEY);
     if(!raw)return null;
     const saved=validateSave(JSON.parse(raw)),scenario=SCENARIOS.find(s=>s.id===saved.testScenario?.id&&s.campaign);
     if(!scenario||(!saved.battle&&!saved.report))return null;
@@ -207,7 +266,7 @@ function showLobby(page = 'modes') {
 }
 function continueHistory() {
   try {
-    const raw=localStorage.getItem(HISTORY_SAVE_KEY);
+    const raw=saveStorage.peek(HISTORY_SAVE_KEY);
     if(!raw)return toast('尚无战役进度，请选择战役开始');
     const next=validateSave(JSON.parse(raw));
     if(!SCENARIOS.some(s=>s.id===next.testScenario?.id&&s.campaign))throw new Error('战役存档无效，请重新开始');
@@ -230,7 +289,7 @@ function launchScenario(id, seed, shieldPercent = 20, officerIds = null, customD
 }
 function exitScenario() {
   try {
-    const raw = localStorage.getItem(SAVE_KEY);
+    const raw = saveStorage.peek(SAVE_KEY);
     let next,warning='';
     try { next=raw?validateSave(JSON.parse(raw)):newGame(); }
     catch { next=newGame();warning='天下存档已过期或无法读取，已按当前规则创建新局。'; }
@@ -239,18 +298,18 @@ function exitScenario() {
   } catch (error) { toast(`天下存档读取失败：${error.message}`); }
 }
 function scenarioModal() {
-  return modalShell('战役试炼', 'BATTLE LAB · 独立测试', `<p class="modal-intro">选择战役即可布阵。试炼独立存档。切换或重开会重置试炼。</p><label class="scenario-seed" hidden>随机种子 <input id="scenario-seed" type="number" min="0" max="4294967295" step="1" placeholder="留空使用各战役固定种子"><small>用于比较布阵、战法与军略的影响</small></label><label class="scenario-seed">守方首发护盾 <input id="scenario-shield" type="number" min="0" max="100" step="1" value="${state.testScenario?.shieldPercent ?? 20}" aria-label="守方首发护盾百分比"><small>% 初始兵力 · 仅攻守城生效 · 预备队无护盾</small></label><div class="scenario-grid">${SCENARIOS.filter(s=>!s.campaign).map(s => `<article class="scenario-card"><div class="eyebrow">${s.kind} · ${s.difficulty}</div><h3>${s.name}</h3><p>${s.description}</p><div class="scenario-strength"><span>我军 <b>${fmt(s.own*s.ownTroops)}</b><small>${s.own} 队 · Lv.${s.level}</small></span><span>敌军 <b>${fmt(s.enemy*s.enemyTroops)}</b><small>${s.enemy} 队 · Lv.${s.enemyLevel}</small></span></div><p class="scenario-waves">${s.id==='officer-lab'?'默认六将，可在武将名录自选 1～6 人':s.waves.length ? s.waves.map((w,i)=>`第 ${i+1} 批：${w.count} 队 · ${w.tick ? battleDays(w.tick)+' 天到达' : '开局待命'}`).join('<br>') : `我军 ${Math.min(6,s.own)} 队、敌军 ${Math.min(6,s.enemy)} 队首发，无预备队`}</p><small class="scenario-goal">${s.goal}</small><button class="button primary full" data-action="launch-scenario" data-scenario="${s.id}">布阵</button><button class="button secondary full" data-action="preset-edit" data-scenario="${s.id}">编辑战役</button></article>`).join('')}</div>`, state.testScenario ? '<button class="button secondary" data-action="exit-scenario">返回</button>' : '', true);
+  return modalShell('战役试炼', '', `<label class="scenario-seed" hidden>随机种子 <input id="scenario-seed" type="number" min="0" max="4294967295" step="1" placeholder="留空使用各战役固定种子"></label><label class="scenario-seed">守方首发护盾 <input id="scenario-shield" type="number" min="0" max="100" step="1" value="${state.testScenario?.shieldPercent ?? 20}" aria-label="守方首发护盾百分比"><small>% · 仅攻守城</small></label><div class="scenario-grid">${SCENARIOS.filter(s=>!s.campaign).map(s => `<article class="scenario-card"><div class="eyebrow">${s.kind} · ${s.difficulty}</div><h3>${s.name}</h3><div class="scenario-strength"><span>我军 <b>${fmt(s.own*s.ownTroops)}</b><small>${s.own} 队 · Lv.${s.level}</small></span><span>敌军 <b>${fmt(s.enemy*s.enemyTroops)}</b><small>${s.enemy} 队 · Lv.${s.enemyLevel}</small></span></div><p class="scenario-waves">${s.id==='officer-lab'?'可选 1～6 人':s.waves.length ? s.waves.map((w,i)=>`第 ${i+1} 批：${w.count} 队 · ${w.tick ? battleDays(w.tick)+' 天到达' : '开局待命'}`).join('<br>') : `我军 ${Math.min(6,s.own)} 队、敌军 ${Math.min(6,s.enemy)} 队首发，无预备队`}</p><small class="scenario-goal">${s.goal}</small><button class="button primary full" data-action="launch-scenario" data-scenario="${s.id}">布阵</button><button class="button secondary full" data-action="preset-edit" data-scenario="${s.id}">编辑战役</button></article>`).join('')}</div>`, state.testScenario ? '<button class="button secondary" data-action="exit-scenario">返回</button>' : '', true);
 }
 function scenarioControls(b) {
   const s = currentScenario();
   if (!s) return '';
-  return `<div class="scenario-toolbar"><div><b>${s.campaign?'战役试玩':s.kind+'试炼'} · 种子 ${state.testScenario.seed}</b><small>${s.goal}</small></div><div><button class="button secondary" data-action="step-scenario" data-steps="1" title="推进1个战斗回合" ${isDeploying(b)||b.result?'disabled':''}>单步</button><button class="button secondary" data-action="step-scenario" data-steps="10" title="推进10个战斗回合" ${isDeploying(b)||b.result?'disabled':''}>十步</button><button class="button secondary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="${s.campaign?'campaign-lobby':'scenarios'}">切换战役</button><button class="button secondary" data-action="lobby">模式首页</button></div></div>`;
+  return `<div class="scenario-toolbar"><div><b>${esc(s.name)}</b></div><div><button class="button secondary" data-action="step-scenario" data-steps="1" title="推进1个战斗回合" ${isDeploying(b)||b.result?'disabled':''}>单步</button><button class="button secondary" data-action="step-scenario" data-steps="10" title="推进10个战斗回合" ${isDeploying(b)||b.result?'disabled':''}>十步</button><button class="button secondary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="${s.campaign?'campaign-lobby':'scenarios'}">切换战役</button><button class="button secondary" data-action="lobby">模式首页</button></div></div>`;
 }
 function siegeTerrain(b) {
   return [...(b.siege?.gate?[b.siege.gate]:[]),...(b.buildings||[])].map(g=>buildingMarker(b,g)).join('');
 }
 function buildingMarker(b,g) {
-  return `<button class="siege-gate side-${g.side} ${g.hp===0?'is-destroyed':''}" data-action="${g.type==='gate'?'inspect-gate':'inspect-building'}" data-building="${esc(g.id)}" style="${hexCellStyle(g.x,g.y)}" aria-label="${g.side===0?'我方':'敌方'}${esc(g.name)}，耐久${g.hp}/${g.maxHp}" title="${esc(buildingEffectText(g))}"><span class="unit-type">${g.type==='gate'?'門':({arrowTower:'箭',musicStage:'鼓',aidCamp:'医'})[g.kind]||'舍'}</span><span class="unit-name">${esc(g.name)}</span><span class="unit-health"><i style="width:${g.hp/g.maxHp*100}%"></i></span><span class="unit-number">${compact(g.hp)}/${compact(g.maxHp)}</span>${b.sides[0].focus===g.id&&b.sides[0].focusUntil>b.tick?'<span class="target-ring"></span>':''}</button>`;
+  return `<button class="siege-gate has-building-art side-${g.side} ${g.hp===0?'is-destroyed':''}" data-action="${g.type==='gate'?'inspect-gate':'inspect-building'}" data-building="${esc(g.id)}" style="${hexCellStyle(g.x,g.y)}" aria-label="${g.side===0?'我方':'敌方'}${esc(g.name)}，耐久${g.hp}/${g.maxHp}" title="${esc(g.name)} · ${fmt(g.hp)} / ${fmt(g.maxHp)}">${battleBuildingArtwork(g)}<span class="unit-name">${esc(g.name)}</span><span class="unit-health"><i style="width:${g.hp/g.maxHp*100}%"></i></span><span class="unit-number">${compact(g.hp)}/${compact(g.maxHp)}</span>${b.sides[0].focus===g.id&&b.sides[0].focusUntil>b.tick?'<span class="target-ring"></span>':''}</button>`;
 }
 function reinforcementPanel(b) {
   return '<div class="reinforcement-panel">'+[0,1].map(side=>'<h4>'+(side?'敌军':'我军')+'援军</h4>'+waveSummary(b,side).map(w=>`<div><b>${esc(state.armies.find(a=>a.id===w.armyId)?.name||'第'+w.wave+'批')} · ${w.total}队</b><small>${!w.arrived?'待抵达 · '+esc(arrivalLabel(w,b.sides.flatMap(s=>s.units),state.armies)):w.waiting?'已抵达 · '+w.waiting+'队等候补位':w.active?'已投入战斗':'已离场'}</small></div>`).join('')).join('')+(b.siege?`<h4>城门 ${fmt(b.siege.gate.hp)} / ${fmt(b.siege.gate.maxHp)}</h4><div class="meter"><i style="width:${b.siege.gate.hp/b.siege.gate.maxHp*100}%"></i></div>`:'')+'</div>';
@@ -312,13 +371,9 @@ function campaign() {
 }
 function battleHeader(b) {
   const stats = b.sides.map(s => ({ hp: s.units.reduce((n,u)=>n+u.hp,0),total:s.units.reduce((n,u)=>n+u.initial,0) }));
-  return `<div class="arena-header"><div class="arena-title"><h1>${currentScenario()?.name || (state.campaign?battleRecord(state,state.campaign.focusId)?.name:null) || cityById(state,b.cityId).name+'之战'}</h1><span>意图：${BATTLE_INTENTS[battleIntent(b)]}${isDeploying(b)?' · 战前可调整':' · 已锁定'} · ${BATTLE_TERRAINS[b.terrain]} · ${battleTimeText(b)}</span></div><div class="arena-strength" aria-label="双方剩余兵力">${stats.map((s,i)=>`<span class="side-${i}">${i?(currentScenario()?.enemyName||'敌军'):(currentScenario()?.ownName||'我军')} <b>${fmt(s.hp)}</b><i><em style="width:${s.hp/Math.max(1,s.total)*100}%"></em></i></span>`).join('')}</div><div class="battle-playback">${isBattleCouncil(b)?'<button class="button secondary" data-action="show-council">军议</button>':''}<button class="button secondary" data-action="lobby" aria-label="保存并返回模式首页">模式首页</button><button class="button primary" data-action="pause">${icon(ui.paused?'play':'pause')}${isDeploying(b)?'确认开战':isReinforcementCouncil(b)?'确认军议':ui.paused?'继续战斗':'暂停'}</button><button class="button secondary" data-action="speed" aria-label="切换战斗速度">${ui.speed}×</button><button class="button secondary" data-action="battle-panel" data-panel="tools" aria-label="战斗工具" aria-expanded="${ui.battlePanel==='tools'}">${icon('gear')}</button></div></div>`;
+  return `<div class="arena-header"><div class="arena-title"><h1>${currentScenario()?.name || (state.campaign?battleRecord(state,state.campaign.focusId)?.name:null) || cityById(state,b.cityId).name+'之战'}</h1><span>意图：${BATTLE_INTENTS[battleIntent(b)]}${isDeploying(b)?' · 战前可调整':' · 已锁定'} · ${BATTLE_TERRAINS[b.terrain]} · ${battleTimeText(b)}</span></div><div class="arena-strength" aria-label="双方剩余兵力">${stats.map((s,i)=>`<span class="side-${i}">${i?(currentScenario()?.enemyName||'敌军'):(currentScenario()?.ownName||'我军')} <b>${fmt(s.hp)}</b><i><em style="width:${s.hp/Math.max(1,s.total)*100}%"></em></i></span>`).join('')}</div><div class="battle-playback">${isBattleCouncil(b)?'<button class="button secondary" data-action="show-council">战前准备</button>':''}<button class="button secondary" data-action="lobby" aria-label="保存并返回模式首页">模式首页</button><button class="button primary" data-action="pause">${icon(ui.paused?'play':'pause')}${isDeploying(b)?'确认开战':isReinforcementCouncil(b)?'确认部署':ui.paused?'继续战斗':'暂停'}</button><button class="button secondary" data-action="speed" aria-label="切换战斗速度">${ui.speed}×</button><button class="button secondary" data-action="battle-panel" data-panel="tools" aria-label="战斗工具" aria-expanded="${ui.battlePanel==='tools'}">${icon('gear')}</button></div></div>`;
 }
 
-function tacticState(u,s,b) {
-  const detail=tacticCondition(u,s,b);
-  return s.passive?detail:'剩余 '+tacticUsesLeft(u,s)+'/'+tacticUseLimit(u,s)+' 次 · '+detail;
-}
 function tacticCondition(u,s,b) {return battleTacticConditions(b,u,s).join(' · ')||'等待目标与自动施放检查';}
 
 function tacticChips(u,b) {
@@ -329,24 +384,37 @@ function battleUnitMarkup(u, b) {
   const targeted = b.sides[0].focus === u.id && b.sides[0].focusUntil > b.tick;
   const health=Math.max(0,Math.min(100,u.hp/u.maxHp*100)),intent=Math.max(0,Math.min(100,(u.intent||0)/COMBAT.intentCap*100));
   const statuses=inspectionStatuses(b,u),summary=statuses.map(s=>`${s.name} · ${s.time}`).join('；');
-  return `${siegeFigureMarkup(u)}<span class="unit-type">${TROOPS[combatType(u)].icon}</span><span class="unit-map-caption" style="--troop-health:${health}%;" title="${esc(summary)}"><span class="map-portrait-row"><span class="map-portrait-ring">${avatar(u,true)}</span><span class="map-statuses">${statuses.slice(0,2).map(s=>`<span class="map-status ${s.tone}" title="${esc(s.name+' · '+s.time)}">${statusIcon(s.key)}</span>`).join('')}${statuses.length>2?`<span class="map-status-overflow">+${statuses.length-2}</span>`:''}</span><span class="map-troop-type">${TROOPS[combatType(u)].icon}</span></span><b>${esc(u.name)}</b><span class="map-troops">${Math.round(u.hp)}</span><span class="map-intent-pips" aria-label="战意 ${Math.round(u.intent||0)} / ${COMBAT.intentCap}">${Array.from({length:5},(_,i)=>`<span><span style="width:${Math.max(0,Math.min(100,(intent-i*20)*5))}%"></span></span>`).join('')}</span></span>${targeted ? '<span class="target-ring"></span>' : ''}`;
+  return `${siegeFigureMarkup(u)}<span class="unit-type">${TROOPS[combatType(u)].icon}</span>
+  <span class="unit-map-caption" style="--troop-health:${health}%;" title="${esc(summary)}">
+    <span class="map-portrait-row"><span class="map-portrait-ring">${avatar(u,true)}</span><span class="map-troop-type">${TROOPS[combatType(u)].icon}</span></span>
+    <b>${esc(u.name)}</b><span class="map-troops">${Math.round(u.hp)}</span>
+    <span class="map-statuses">${battleMapStatusMarkup(statuses)}</span>
+    <span class="map-intent-pips" aria-label="战意 ${Math.round(u.intent||0)} / ${COMBAT.intentCap}">${Array.from({length:5},(_,i)=>`<span><span style="width:${Math.max(0,Math.min(100,(intent-i*20)*5))}%"></span></span>`).join('')}</span>
+    <span class="unit-current-action" hidden></span>
+  </span>${targeted ? '<span class="target-ring"></span>' : ''}`;
 }
 function enemyCommandMarkup(b){
   const c=b.enemyCommand,last=c.lastCommand;
-  return '<div class="enemy-command-state"><b>敌军军略 '+Math.floor(c.commandProgress/COMMAND_RESOURCE.capacity*100)+'%</b><p>已掌握：'+(battleStratagems(b,1).map(k=>STRATAGEMS[k].name).join(' · ')||'暂无')+'</p><span>'+(last?'最近施放：'+(STRATAGEMS[last.key]?.name||last.key)+'':'蓄满后根据战况自动施放')+'</span></div>';
+  return '<div class="enemy-command-state"><b>敌军军略 '+Math.floor(c.commandProgress/COMMAND_RESOURCE.capacity*100)+'%</b><p>已掌握：'+(battleStratagems(b,1).map(k=>STRATAGEMS[k].name).join(' · ')||'暂无')+'</p><span>'+(last?'最近施放：'+(STRATAGEMS[last.key]?.name||last.key)+'':'蓄势中')+'</span></div>';
 }
 function battleSidebar(b) {
-  return `<aside class="battle-sidebar">${reinforcementPanel(b)}${enemyCommandMarkup(b)}<p class="terrain-note"><b>${esc(battleMap(b).name)}</b> · ${esc(battleMap(b).description)} ${TERRAIN_HELP[b.terrain]}</p><div class="section-heading"><h3>战场态势</h3></div><div class="battle-summary"><div><b>${activeUnits(b, 0).length}<small> / ${frontlineCapacity(b,0)}</small></b><span>我军在场</span></div><div><b>${b.sides[0].units.filter(u => u.status === 'reserve').length}</b><span>预备部队</span></div></div><div class="combo-summary"><span>我军连携 <b>${b.comboCounts?.[0]||0}</b></span><span>敌军连携 <b>${b.comboCounts?.[1]||0}</b></span></div><button class="button secondary full" data-action="unit-stats">部队详情</button><h4>前线诸将 <small>自动作战</small></h4><div class="frontline-list">${activeUnits(b, 0).map(u => `<div>${avatar(u, true, 'unit-stats')}<div><b><button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name}</button><span>${compact(u.hp)}</span></b><small>${esc(u.action)} · 战法 ${u.skillCasts || 0} 次</small><small>${TERRAIN_NAMES[unitTerrain(b,u)]} · 本场伤兵 ${battleWounded(u)} · 射程 ${attackRange(b,u)}</small><small class="intent-label">战意 <b>${u.intent || 0} / ${COMBAT.intentCap}</b></small>${tacticChips(u,b)}<div class="meter"><i style="width:${u.hp / u.maxHp * 100}%"></i></div></div></div>`).join('')}</div><h4>后备序列</h4><div class="reserve-list">${b.sides[0].units.filter(u => u.status === 'reserve').map(u => `<button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name}<small>${TROOPS[u.type].name} · 战意 ${u.intent || 0}</small></button>`).join('') || '<p class="muted">暂无待命预备队</p>'}</div><h4>战况记录</h4><div class="battle-logs">${b.logs.slice(0, 8).map(l => `<p><time>${String(l.tick).padStart(3, '0')}</time>${esc(l.text)}</p>`).join('')}</div></aside>`;
+  return `<aside class="battle-sidebar">${reinforcementPanel(b)}${enemyCommandMarkup(b)}<p class="terrain-note"><b>${esc(battleMap(b).name)}</b> · ${BATTLE_TERRAINS[b.terrain]}</p><div class="section-heading"><h3>战场态势</h3></div><div class="battle-summary"><div><b>${activeUnits(b, 0).length}<small> / ${frontlineCapacity(b,0)}</small></b><span>我军在场</span></div><div><b>${b.sides[0].units.filter(u => u.status === 'reserve').length}</b><span>预备部队</span></div></div><div class="combo-summary"><span>我军连携 <b>${b.comboCounts?.[0]||0}</b></span><span>敌军连携 <b>${b.comboCounts?.[1]||0}</b></span></div><button class="button secondary full" data-action="unit-stats">部队详情</button><h4>前线诸将 <small>自动作战</small></h4><div class="frontline-list">${activeUnits(b, 0).map(u => `<div>${avatar(u, true, 'unit-stats')}<div><b><button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name}</button><span>${compact(u.hp)}</span></b><small>${esc(u.action)} · 战法 ${u.skillCasts || 0} 次</small><small>${TERRAIN_NAMES[unitTerrain(b,u)]} · 本场伤兵 ${battleWounded(u)} · 射程 ${attackRange(b,u)}</small><small class="intent-label">战意 <b>${u.intent || 0} / ${COMBAT.intentCap}</b></small>${tacticChips(u,b)}<div class="meter"><i style="width:${u.hp / u.maxHp * 100}%"></i></div></div></div>`).join('')}</div><h4>后备序列</h4><div class="reserve-list">${b.sides[0].units.filter(u => u.status === 'reserve').map(u => `<button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name}<small>${TROOPS[u.type].name} · 战意 ${u.intent || 0}</small></button>`).join('') || '<p class="muted">暂无待命预备队</p>'}</div><h4>战况记录</h4><div class="battle-logs">${b.logs.slice(0, 8).map(l => `<p><time>${String(l.tick).padStart(3, '0')}</time>${esc(l.text)}</p>`).join('')}</div></aside>`;
+}
+function marchModeMetrics(army,mode){
+ const trait=armyStrategicTrait(army,mode==='light'?'lightMarch':'forcedMarch');
+ if(mode==='normal'||!trait)return '';
+ const r=trait.strategic,rows=[['速度','×'+r.speed],...(mode==='light'?[['携粮容量',Math.round(r.capacity*100)+'%']]:[['每日士气','−'+r.morale],['最低士气',r.minimum],['停行休整',r.recovery+'天']])];
+ return '<dl class="info-fields march-mode-metrics">'+rows.map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+value+'</dd></div>').join('')+'</dl>'+abilityButton('trait',trait.id,trait.name+'详情');
 }
 function commands(b) {
   const available=battleStratagems(b),intellect=commandIntellect(b),progress=(b.commandProgress||0)/COMMAND_RESOURCE.capacity;
-  const command = (action, symbol, name, hint, cost) => {
+  const command = (action, symbol, name, hint, cost, meta='') => {
     const cd = Math.max(0,(b.commandReady?.[action] || 0) - b.tick);
-    return `<button class="command-button" data-command="${action}" ${(isDeploying(b) || b.result || cost && b.commandProgress < COMMAND_RESOURCE.capacity || cd && action !== 'retreat' || b.sides[0].retreat || b.sides[0].stratagemUses?.[action]) ? 'disabled' : ''}>${icon(symbol)}<span><b>${name}</b><small>${hint}</small>${b.sides[0].stratagemUses?.[action]?'<small>本场已使用</small>':''}${cd ? `<small>冷却中</small>` : ''}</span><em>${cost ? '满条' : '免费'}</em></button>`;
+    return `<button class="command-button" data-command="${action}" ${(isDeploying(b) || b.result || cost && b.commandProgress < COMMAND_RESOURCE.capacity || cd && action !== 'retreat' || b.sides[0].retreat || b.sides[0].stratagemUses?.[action]) ? 'disabled' : ''}>${icon(symbol)}<span><b>${name}</b><small>${esc(hint)}</small>${meta?`<small class="command-meta">${esc(meta)}</small>`:''}${b.sides[0].stratagemUses?.[action]?'<small>本场已使用</small>':''}${cd ? `<small>冷却中</small>` : ''}</span><em>${cost ? '满条' : '免费'}</em></button>`;
   };
-  const strategies = Object.entries(STRATAGEMS).filter(([key])=>available.includes(key)).map(([key,s])=>command(key,s.icon,s.name,stratagemEffectText(battleStratagemSource(b,key)),s.cost)).join('');
-  const statuses=b.sides.flatMap((side,index)=>Object.entries(side.stratagemEffects||{}).filter(([field,p])=>side[field]>b.tick).map(([field,p])=>`<span class="army-buff ${index?'debuff':''}">${esc(STRATAGEMS[p.key].name)} · ${esc(stratagemEffectText(p))}<b>生效中</b></span>`)).join('');
-  return `<div class="command-heading"><div><span class="eyebrow">君主军略 · 施放范围见各项</span><b>${Math.floor(progress*100)}<small>%</small></b></div><p>${isDeploying(b) ? '开战后逐渐积累军略，蓄满即可施放。' : ui.focusMode ? '请点击战场上的敌军，集中攻击该目标。' : ui.paused ? '已暂停，满条可施放一次军略；进度与持续时间冻结。' : '可先暂停观察，再施放军略。'}</p></div><div class="command-resource"><span>军略</span><div class="meter" role="progressbar" aria-label="军略积累" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.floor(progress*100)}"><i style="width:${progress*100}%"></i></div><small>${!available.length?'暂无军略':progress>=1?'军略就绪':'蓄势中'}</small></div>${statuses ? `<div class="army-buffs">${statuses}</div>` : ''}<div class="command-row stratagem-options">${strategies || '<p class="muted">暂无可用军略。需由持有军略的军团长或军师提供。</p>'}</div><p class="basic-order-label">基础军令 · 全军撤退免费</p><div class="command-row tactical-orders">${command('retreat','wind','全军撤退','向己方边缘脱离',0)}</div>`;
+  const strategies = Object.entries(STRATAGEMS).filter(([key])=>available.includes(key)).map(([key,s])=>{const source=battleStratagemSource(b,key);return `<article class="stratagem-choice">${command(key,s.icon,s.name,stratagemEffectSummary(source),s.cost,(source?.name||'')+' · '+stratagemScopeText(s))}${abilityButton('stratagem',key,'详情',stratagemEffectText(source))}</article>`;}).join('');
+  const statuses=b.sides.flatMap((side,index)=>Object.entries(side.stratagemEffects||{}).filter(([field,p])=>side[field]>b.tick).map(([field,p])=>`<span class="army-buff ${index?'debuff':''}">${abilityButton('stratagem',p.key,STRATAGEMS[p.key].name,stratagemEffectText(p))}<b>${index?'敌军':'我军'} · 生效中</b></span>`)).join('');
+  return `<div class="command-heading"><div><span class="eyebrow">军略</span><b>${Math.floor(progress*100)}<small>%</small></b></div><p>${isDeploying(b) ? '战前筹备' : ui.focusMode ? '选择合围目标' : ui.paused ? '已暂停' : '交战中'}</p></div><div class="command-resource"><span>军略</span><div class="meter" role="progressbar" aria-label="军略积累" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.floor(progress*100)}"><i style="width:${progress*100}%"></i></div><small>${!available.length?'暂无军略':progress>=1?'军略就绪':'蓄势中'}</small></div>${statuses ? `<div class="army-buffs">${statuses}</div>` : ''}<div class="command-row stratagem-options">${strategies || '<p class="muted">暂无可用军略</p>'}</div><p class="basic-order-label">基础军令</p><div class="command-row tactical-orders">${command('retreat','wind','全军撤退','向己方边缘脱离',0)}</div>`;
 }
 function deploymentBoard(b) {
   return Array.from({length:GRID.rows*5},(_,i)=>`<button class="deployment-cell" data-deploy-x="${i%5}" data-deploy-y="${Math.floor(i/5)}" style="${hexCellStyle(i%5,Math.floor(i/5))}" aria-label="布阵第${i%5+1}列第${Math.floor(i/5)+1}行 · ${TERRAIN_NAMES[terrainAt(b,i%5,Math.floor(i/5))]}"></button>`).join('');
@@ -411,12 +479,14 @@ function updateBattle() {
   $('#battle-board').dataset.battleId=b.id;
   if(state.campaign&&$('#campaign-battle-bar'))$('#campaign-battle-bar').outerHTML=campaignBattleBar(state);
   $('#battle-header').innerHTML = battleHeader(b);
+  $('.battle-playback')?.insertAdjacentHTML('beforeend',audio.buttonMarkup());
   $('#battle-board').classList.toggle('clear-effects',ui.effectMode==='clear');
   $('#battle-board').style.setProperty('--battle-move-ms', Math.round(220/ui.speed)+'ms');
   $('#effects-mode').textContent = ui.effectMode==='clear' ? '清晰特效' : '完整特效';
   $('#effects-mode').setAttribute('aria-label','切换特效，当前'+(ui.effectMode==='clear'?'清晰模式':'完整模式'));
   $('#scenario-controls').innerHTML = scenarioControls(b);
   $('#siege-terrain').innerHTML = siegeTerrain(b);
+  decorateBattleBuildings($('#siege-terrain'));
   $('#battle-sidebar').innerHTML = battleSidebar(b);
   for(const side of [0,1]){const panel=$(side?'#enemy-battle-bonds':'#battle-bonds'),bondHtml=battleBondsMarkup(b,side);if(panel.innerHTML!==bondHtml){const scroll=panel.querySelector('.bond-list')?.scrollTop||0;panel.innerHTML=bondHtml;panel.querySelector('.bond-list').scrollTop=scroll;}}
   $('#battle-commands').innerHTML = '';
@@ -432,10 +502,12 @@ function updateBattle() {
   if (council) {
     if (deploying && !$('#deployment-grid').children.length) $('#deployment-grid').innerHTML = deploymentBoard(b);
     const chosen = b.sides[0].units.find(u=>u.id === ui.deploymentSelection);
-    $('#deployment-guide').innerHTML = battleCouncilMarkup(b,{appointments:ui.battleAppointmentDraft||{},armies:state.armies,destinations:state.campaign?retreatDestinations(state,b):[],open:$('#deployment-guide .battle-council details')?.open,retreatOpen:$('#deployment-guide .retreat-council')?.open,selected:ui.retreatBattleId===b.id?ui.retreatSelected:[]})+(deploying?`<b>${chosen ? `移动 ${chosen.name} · 点格子或我军部队` : '战前布阵'}</b><details class="deployment-help"><summary>布阵说明</summary><p>${BATTLE_MAPS[b.mapId]?.description||TERRAIN_HELP[b.terrain]} 点击部队或头像查看详情；拖动我军部队调整阵位，也可在详情中选择“调整站位”后点选格子。</p></details><div class="deployment-actions"><label>战斗意图 <select id="battle-intent" aria-label="战斗意图">${Object.entries(BATTLE_INTENTS).map(([id,name])=>`<option value="${id}" ${battleIntent(b)===id?'selected':''} ${id==='siege'&&b.siege?.attackerSide!==0?'disabled':''}>${name}</option>`).join('')}</select><small>开战后不可更改</small></label><label>地形 <select id="battle-terrain" aria-label="战场地形" ${currentScenario()?.campaign||state.campaign?'disabled':''}>${Object.entries(BATTLE_TERRAINS).map(([id,name])=>`<option value="${id}" ${b.terrain===id?'selected':''} ${id!=='river'&&b.sides.some(s=>s.units.some(u=>u.type==='ship'))?'disabled':''}>${name}</option>`).join('')}</select></label><button data-action="army">军团</button><button data-action="loadout">固定战法</button><button data-action="reset-deployment">重置阵型</button></div>`:'');
+    $('#deployment-guide').innerHTML = battleCouncilMarkup(b,{appointments:ui.battleAppointmentDraft||{},armies:state.armies,destinations:state.campaign?retreatDestinations(state,b):[],open:$('#deployment-guide .battle-council details')?.open,retreatOpen:$('#deployment-guide .retreat-council')?.open,selected:ui.retreatBattleId===b.id?ui.retreatSelected:[]})+(deploying?`<b>${chosen ? `移动 ${chosen.name} · 点格子或我军部队` : '战前布阵'}</b><div class="deployment-actions"><label>战斗意图 <select id="battle-intent" aria-label="战斗意图">${Object.entries(BATTLE_INTENTS).map(([id,name])=>`<option value="${id}" ${battleIntent(b)===id?'selected':''} ${id==='siege'&&b.siege?.attackerSide!==0?'disabled':''}>${name}</option>`).join('')}</select><small>开战后不可更改</small></label><label>地形 <select id="battle-terrain" aria-label="战场地形" ${currentScenario()?.campaign||state.campaign?'disabled':''}>${Object.entries(BATTLE_TERRAINS).map(([id,name])=>`<option value="${id}" ${b.terrain===id?'selected':''} ${id!=='river'&&b.sides.some(s=>s.units.some(u=>u.type==='ship'))?'disabled':''}>${name}</option>`).join('')}</select></label><button data-action="army">军团</button><button data-action="loadout">固定战法</button><button data-action="reset-deployment">重置阵型</button></div>`:'');
   }
   $('#battle-board').classList.toggle('select-target', ui.focusMode);
-  const live = b.sides.flatMap(s => s.units).filter(u => u.status === 'active'&&(deploying||u.side===0||!hidden(b,u)));
+  // Keep a visible casualty's identity until its recorded killing blow lands.
+  const priorIds=new Set([...$('#battle-units').children].map(el=>el.dataset.unit));
+  const live = b.sides.flatMap(s => s.units).filter(u => (u.status === 'active'||!ui.paused&&u.status==='defeated'&&priorIds.has(u.id)&&b.effects.some(e=>e.to===u.id))&&(deploying||u.side===0||!hidden(b,u)));
   for(const el of document.querySelectorAll('.decoy-marker'))el.remove();
   for(const d of [0,1].flatMap(side=>decoyTargets(b,side))){const el=document.createElement('div');el.className='decoy-marker side-'+d.side;el.style.cssText=hexCellStyle(d.x,d.y);el.textContent=detected(b,d,0)?'已识破':'疑兵';el.title=d.name+' · 耐久 '+d.hp+' · 无攻击力';$('#battle-units').append(el);}
   for(const label of [...$('#battle-unit-labels').querySelectorAll('.unit-nameplate')])if(!live.some(u=>u.id===label.dataset.inspect))label.remove();
@@ -454,7 +526,7 @@ function updateBattle() {
     for(const key of ['scorch','confuse','seal','ward','confuse','phalanx','shield','burn','haste','valor'])el.classList.toggle(`status-${key}`,hasStatus(b,u,key));
     el.draggable = deploying && u.side === 0;
     el.style.cssText = hexCellStyle(u.x,u.y);
-    el.innerHTML = battleUnitMarkup(u, b); el.title = `${u.name} · ${TROOPS[combatType(u)].name} · ${TERRAIN_NAMES[unitTerrain(b,u)]} · ${u.action} · 外圈：兵力比例 · 蓝色刻度：战意 · ${inspectionStatuses(b,u).map(s=>s.name+' '+s.time).join('；')} · 点击查看部队属性 · 战意 ${u.intent || 0}/${COMBAT.intentCap} · ${unitTactics(u).map(s=>`${s.name}：${tacticState(u,s,b)}`).join('；')}`;
+    el.innerHTML = battleUnitMarkup(u, b); el.title = `${u.name} · ${TROOPS[combatType(u)].name} · ${fmt(u.hp)} 人 · 战意 ${u.intent || 0} · ${u.action}`;
     el.setAttribute('aria-label', `${u.side ? '敌军' : '我军'}${u.name}，${TROOPS[combatType(u)].name}，兵力${u.hp}${visibleStatuses(b,u).map(s=>'，'+s.name+' '+s.time).join('')}，点击查看部队属性`);
     let label=[...$('#battle-unit-labels').querySelectorAll('.unit-nameplate')].find(e=>e.dataset.inspect===u.id);
     if(!label){label=document.createElement('button');label.dataset.action='unit-stats';label.dataset.inspect=u.id;$('.roster-side-'+u.side+' .roster-list').append(label);}
@@ -464,15 +536,22 @@ function updateBattle() {
     label.classList.toggle('stratagem-affected',affected.has(u.id));
     label.innerHTML=battleLabelMarkup(u,b);
     label.setAttribute('aria-label',`${u.side?'敌军':'我军'}${u.name}，${TROOPS[combatType(u)].name}，兵力 ${u.hp}，战意 ${u.intent||0}，点击查看部队情报`);
-    label.title=`${u.name} · ${u.action} · 点击查看部队情报`;
+    label.title=`${u.name} · ${u.action}`;
   }
   if(!battleLabels)battleLabels=new BattleLabels($('#battle-board'));
+  battleLabels.onHighlight=id=>{if(battleFx)battleFx.focusedUnit=id;};
   battleLabels.update(live);
   if (!battleFx) battleFx = new BattleEffects($('#battle-effects'), $('#skill-feed'), $('#tactic-result'), $('#ability-cues'));
+  battleFx.focusedUnit=battleLabels.highlighted;
+  battleFx.captionPositions=battleLabels.positions;
   battleFx.update(b, { paused: ui.paused || !!ui.modal, speed: ui.speed, mode: ui.effectMode });
+  for(const cue of battleAudio.read(b,{audible:ui.mode!=='lobby'&&!document.hidden}))battleFx.queueAudio(cue,()=>audio.play(cue.key,cue));
+  for(const cue of battleVoice.read(b,{audible:ui.mode!=='lobby'&&!document.hidden}))battleFx.queueAudio(cue,()=>{void audio.playOfficer(cue);});
+  syncAudioScene();
   if(!battleArt)battleArt=new BattleArt($('#battle-board'),battleFx);
   battleArt?.update(b,{paused:ui.paused||!!ui.modal||deploying,speed:ui.speed});
   battleFx.unitPosition=id=>{const u=battleArt?.units.get(id);return u?battleArt.position(u):null;};
+  battleFx.bodyAnchors=id=>battleArt?.bodies.get(id);
   art.decorate($('#app'));
   bondHover.refresh();
   const feedback = $('#stratagem-feedback');
@@ -481,7 +560,7 @@ function updateBattle() {
     const s=STRATAGEMS[enemy.key];
     feedback.dataset.enemy='true';
     clearTimeout(ui.commandFeedbackTimer);
-    feedback.innerHTML='<div class="stratagem-banner enemy"><span>敌军军略</span><b>'+s.name+'</b><strong>'+esc(stratagemEffectText(enemy.source).replaceAll('敌军','我方部队'))+'</strong></div>';
+    feedback.innerHTML='<div class="stratagem-banner enemy"><span>敌军军略</span><b>'+s.name+'</b><strong>'+esc(stratagemEffectSummary(enemy.source).replaceAll('敌军','我方部队'))+'</strong></div>';
     return;
   }
   if(feedback.dataset.enemy){feedback.innerHTML='';delete feedback.dataset.enemy;}
@@ -489,19 +568,22 @@ function updateBattle() {
     feedback.dataset.serial = String(b.commandSerial);
     const s = STRATAGEMS[b.lastCommand.key];
     if (s) {
-      feedback.innerHTML = `<div class="stratagem-banner ${s.side ? 'enemy' : ''}"><span>军略生效</span><b>${s.name}</b><strong>${esc(stratagemEffectText(b.lastCommand.source))}</strong><small>${b.lastCommand.source.duration ? `持续 ${b.lastCommand.source.duration} 日 · 暂停不计时` : '立即生效 · 军略进度已清空'}</small></div>`;
+      feedback.innerHTML = `<div class="stratagem-banner ${s.side ? 'enemy' : ''}"><span>军略生效</span><b>${s.name}</b><strong>${esc(stratagemEffectSummary(b.lastCommand.source))}</strong><small>${b.lastCommand.source.duration ? '生效中' : '立即生效'}</small></div>`;
       clearTimeout(ui.commandFeedbackTimer); ui.commandFeedbackTimer = setTimeout(()=>{ feedback.innerHTML=''; },3500);
     }
   }
 }
 function presentDomesticAlerts(){
- if(!state.campaign||state.campaign.allAI||ui.mode==='lobby'||ui.modal||ui.rewardMapReport)return false;
+ if(!state.campaign||state.finished||state.campaign.allAI||ui.mode==='lobby'||ui.modal||ui.rewardMapReport)return false;
  if(pendingDomesticProposals(state).length&&!ui.domesticProposalDeferred){ui.paused=true;ui.modal='domestic-proposals';return true;}
  const events=pendingDomesticAlerts(state);if(!events.length)return false;
  ui.paused=true;ui.domesticAlertIds=events.map(e=>e.id);ui.modal='domestic-alerts';return true;
 }
 let mapHoverCleanup;
+let mapMarchDay=null;
 function render() {
+  const marchPositions=captureArmyMarch($('#app'));
+  const advanceMarch=mapMarchDay===state.campaign?.day;mapMarchDay=null;
   mapHoverCleanup?.();mapHoverCleanup=null;
   const previousQuick=$('.map-quick-directory .city-directory-list'),previousQuickKind=$('.map-quick-directory nav [aria-pressed="true"]')?.dataset.kind;
   ui.mapQuickScrolls??={};if(previousQuick?.clientHeight&&previousQuickKind)ui.mapQuickScrolls[previousQuickKind]=previousQuick.scrollTop;
@@ -514,26 +596,31 @@ function render() {
   battleArt?.destroy();battleArt=null;
   battleFx?.destroy(); battleFx = null;
   const lobby=ui.mode==='lobby'||(!state.battle&&!!state.testScenario);
-  document.body.classList.toggle('battle-view',!!state.battle&&!lobby);
-  $('#app').innerHTML = lobby ? (['campaign','custom'].includes(ui.lobbyPage) ? campaignLobby(ui.historySelection,historicalResume(),ui.customBattle,ui.lobbyPage==='custom') : ui.lobbyPage==='national' ? nationalLobby(nationalResume(),ui.nationalDraft) : modeLobby()) : state.battle ? battle() : state.campaign ? strategicView(state,ui) : `${header()}<div class="app-body">${rail()}${campaign()}</div>`;
+  const ending=!!state.campaign&&!!state.finished&&!ui.endingMap&&!lobby;
+  document.body.classList.toggle('battle-view',!!state.battle&&!lobby&&!ending);
+  $('#app').innerHTML = lobby ? (['campaign','custom'].includes(ui.lobbyPage) ? campaignLobby(ui.historySelection,historicalResume(),ui.customBattle,ui.lobbyPage==='custom') : ui.lobbyPage==='national' ? nationalLobby(nationalResume(),ui.nationalDraft) : modeLobby()) : ending ? campaignEndingMarkup(state,ui) : state.battle ? battle() : state.campaign ? strategicView(state,ui) : `${header()}<div class="app-body">${rail()}${campaign()}</div>`;
   const quickList=$('.map-quick-directory .city-directory-list');if(quickList?.clientHeight)quickList.scrollTop=ui.mapQuickScrolls[ui.mapQuickKind||'city']||0;
-  if (state.battle&&!lobby) updateBattle();
+  if (state.battle&&!lobby&&!ending) updateBattle();
   if(scroll&&$('.arena-stage')){$('.arena-stage').scrollLeft=scroll.x;$('.arena-stage').scrollTop=scroll.y;}
   else if(state.battle&&!isDeploying(state.battle)&&$('.arena-stage')){const stage=$('.arena-stage');stage.scrollLeft=(stage.scrollWidth-stage.clientWidth)/2;stage.scrollTop=(stage.scrollHeight-stage.clientHeight)/2;}
   document.querySelectorAll('.roster-list,.battle-bonds .bond-list').forEach((el,i)=>{if(rosterScroll[i]){el.scrollLeft=rosterScroll[i].x;el.scrollTop=rosterScroll[i].y;}});
   renderModal();
   art.decorate();
   bondHover.refresh();
-  if(!ui.mapCommandView)attachStrategicMap($('#app'),ui,render);
-  if(state.campaign&&!state.battle&&!lobby)mapHoverCleanup=attachArmyHover($('#app').firstElementChild,state);
+  if(!ending&&!ui.mapCommandView)attachStrategicMap($('#app'),ui,render);
+  if(state.campaign&&!state.battle&&!lobby&&!ending)animateArmyMarch($('#app'),marchPositions,{advance:advanceMarch});
+  if(state.campaign&&!state.battle&&!lobby&&!ending)mapHoverCleanup=attachArmyHover($('#app').firstElementChild,state);
   const tools=$('#battle-tools .arena-tools')||$('.strategy-heading>div:last-child')||$('.mode-selection');
   if(tools&&!tools.querySelector('[data-action="art-mode"]')){const button=document.createElement('button');button.className='button secondary';button.dataset.action='art-mode';button.textContent=art.active?'人物美术':'默认美术';button.title='切换美术，不改变本局规则与存档';tools.append(button);}
+  const soundTools=$('.lobby-nav')||$('.battle-playback')||$('.world-toolbar')||$('.strategy-heading>div:last-child');
+  if(soundTools&&!soundTools.querySelector('[data-action="audio-toggle"]'))soundTools.insertAdjacentHTML('beforeend',audio.buttonMarkup());
+  syncAudioScene();
   pageGuides.schedule();
 }
 function modalShell(title, subtitle, body, footer = '', wide = false) {
   const inspection=state.battle&&['unit-stats','unit-officer','tactic-detail','battle-building','gate'].includes(ui.modal);
   const detail=isObjectDetail(ui);
-  return `<div class="modal-backdrop ${inspection?'battle-inspection':''} ${detail?'detail-inspection':''}"><section class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="${!detail}" aria-labelledby="modal-title"><header class="modal-header"><div><div class="eyebrow">${subtitle}</div><h2 id="modal-title">${title}</h2></div><button class="close-button" data-action="close" aria-label="关闭弹窗">×</button></header><div class="modal-body">${body}</div>${footer ? `<footer class="modal-footer">${footer}</footer>` : ''}</section></div>`;
+  return `<div class="modal-backdrop ${inspection?'battle-inspection':''} ${detail?'detail-inspection':''}"><section class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="${!detail}" aria-labelledby="modal-title"><header class="modal-header"><div>${subtitle?`<div class="eyebrow">${subtitle}</div>`:''}<h2 id="modal-title">${title}</h2></div><button class="close-button" data-action="close" aria-label="关闭弹窗">×</button></header><div class="modal-body">${body}</div>${footer ? `<footer class="modal-footer">${footer}</footer>` : ''}</section></div>`;
 }
 function loadoutUnits() {
   return state.battle ? state.battle.sides[0].units : state.armies.filter(a=>a.faction===playerFaction(state)&&(!state.campaign||canEditArmy(state,a))).flatMap(a=>a.units);
@@ -564,7 +651,7 @@ function campaignInspectionStatus(id){if(ui.scenarioInspect||ui.commandInspect)r
 function officerUnitModal(){
   const u=inspectionUnits().find(u=>u.id===ui.inspectUnit);if(!u)return modalShell('武将属性','暂无武将','');
   const profile=OFFICER_BY_ID[u.id]||u;
-  return modalShell(u.name+' · 武将属性','OFFICER · 人物与成长',
+  return modalShell(u.name+' · 武将属性','',
     campaignInspectionStatus(u.id)+'<div class="inspection-heading">'+avatar(u,false,null,'detail')+'<div><h3>'+esc(u.name)+(u.courtesy?' <small>字 '+esc(u.courtesy)+'</small>':'')+'</h3><p>'+growthLabel(u)+' · 忠诚 '+(state.campaign?.domestic.loyalty[u.id]??u.loyalty)+'</p></div></div><div class="officer-four">'+[['统率',u.leadership],['武力',u.force],['智力',u.intellect],['政治',u.politics],['魅力',u.charm??profile.charm]].map(([n,v])=>'<div><span>'+n+'</span><b>'+v+'</b></div>').join('')+'</div>'+treasureUnitMarkup(u,{manage:!!state.campaign&&campaignOfficers(state).some(r=>r.unit.id===u.id)})+campaignLearningMarkup(u)+passiveMarkup(u,inspectionBattle())+officerCommandMarkup(u.id,u)+officerProfileMarkup(u,state.battle?.relationshipScores||state.relationshipScores,state.battle?.relationshipTypes||state.relationshipTypes)+'<details class="profile-disclosure"><summary>人物生平</summary><p>'+esc(profile.biography||'暂无记录')+'</p></details>',
     (ui.personnelReturn?'<button class="button secondary" data-action="campaign-person-back">返回</button>':'')+'<button class="button secondary" data-action="unit-stats" data-inspect="'+u.id+'">部队</button><button class="button primary" data-action="close">关闭</button>',true);
 }
@@ -576,7 +663,7 @@ function campaignLearningMarkup(u){
 function tacticDetailModal(){
   const skill=TACTICS_BOOK[ui.inspectSkill],u=inspectionUnits().find(u=>u.id===ui.inspectUnit);if(!skill||!u)return '';
   const {unit,battle}=inspectContext(u);
-  return modalShell(skill.name,'TACTIC · '+u.name+' · '+CATEGORY_NAMES[skill.category]+'类',
+  return modalShell(skill.name,u.name+' · '+CATEGORY_NAMES[skill.category]+'类',
     (inspectionBattle()?battleTacticDetailMarkup(battle,unit,skill):'')+'<div class="info-strip">'+(skill.passive?'持续光环 · 占用一个战法槽':'战意 ≥ '+skill.threshold+' · 冷却 '+skill.cooldown+' 日 · '+(inspectionBattle()?'剩余 '+tacticUsesLeft(unit,skill)+'/'+tacticUseLimit(unit,skill)+' 次':'每场 '+skill.maxUses+' 次'))+'</div><h3>效果</h3><p>'+esc(skill.description)+'</p><p class="power-preview">'+esc(tacticPowerPreview(skill,statusPower(unit,skill,battle)))+'</p><details class="profile-disclosure"><summary>威力、成功率与暴击</summary><p>'+esc(skill.powerDescription)+'</p></details><p>地形：'+esc(skill.terrainDescription)+'</p>'+(skill.tradeoff?'<p>取舍：'+esc(skill.tradeoff)+'</p>':''),'<button class="button secondary" data-action="inspection-back">返回</button>');
 }
 function unitStatsModal() {
@@ -596,8 +683,8 @@ function unitStatsModal() {
   const states=[['原兵种',TROOPS[u.type].name],['当前形态',TROOPS[combatType(u)].name],['携带装备',equipmentNames(u)],['宝物',u.treasureId?esc(treasureDesign(u.treasureId).name):'未装备'],['士兵数',fmt(inBattle?u.hp:u.troops)],['带兵上限',fmt(troopCapacity(u))],...(inBattle?[['本场初始兵力',fmt(u.initial)]]:[]),['战意',`${u.intent||0} / ${COMBAT.intentCap}`],['普攻战意',`+${intentIncome(u).attack}`],['受击战意',`+${intentIncome(u).hit}`],...(u.tactics?.includes('camp')?[['修缮物资',`${Math.max(0,3-(u.tacticCasts?.camp||0))} / 3 组`]]:[]),['护盾',fmt(layers.reduce((n,l)=>n+l.amount,0))],['伤兵数',fmt(inBattle?battleWounded(u):u.wounded)]];
   if(inBattle&&u.status==='active')states.push(['所在格',TERRAIN_NAMES[unitTerrain(b,u)]]);
   const statuses=inBattle?statusCards(b,u):'<p class="muted">尚未交战</p>';
-  return modalShell(u.name+' · 部队属性','UNIT · '+(inBattle?'战场实时数值 · 已暂停':'出战预览'),
-    campaignInspectionStatus(u.id)+'<div class="loadout-toolbar"><label>选择部队<select id="inspect-unit">'+units.map(a=>'<option value="'+a.id+'" '+(a.id===u.id?'selected':'')+'>'+(inBattle?(a.side?'敌军 · ':'我军 · '):'')+a.name+' · '+TROOPS[combatType(a)].name+'</option>').join('')+'</select></label><button class="officer-entry" data-action="unit-officer" data-inspect="'+u.id+'">'+avatar(u,true)+'<span><small>所属武将</small><b>'+u.name+' →</b></span></button></div><div class="unit-state-grid">'+states.map(([name,value])=>'<div><span>'+name+'</span><b>'+value+'</b></div>').join('')+'</div><div class="inspection-section-heading"><h3>当前状态效果</h3></div>'+(inBattle&&!inspectionStatuses(b,u).length?'<p class="muted">暂无临时状态</p>':statuses)+passiveMarkup(u,b)+'<div class="inspection-section-heading"><h3>携带战法</h3></div>'+tacticChips(u,b)+'<div class="inspection-section-heading"><h3>当前战斗属性</h3></div><div class="attribute-grid">'+cards+'</div><details class="profile-disclosure"><summary>作战规则与减伤</summary><p>普攻间隔 '+precise(stats.attackInterval)+' 日；普攻 / 武技 / 谋略 / 持续减伤 '+mitigation('basic')+'% / '+mitigation('force')+'% / '+mitigation('intellect')+'% / '+mitigation('dot')+'%。控制时长减免 '+precise(stats.controlResistance*100)+'%。</p><p>同时邻接多支敌军时，一次普攻输出按敌军数量均分，再分别计算克制、减伤和护盾；强化普攻只消耗一次。远射与战法按各自目标规则结算。攻击、武技、谋略和攻城已计入现役兵力。治疗只能救治本场伤兵。攻击与受击积累战意，友军溃败会使在场部队失去战意，附近部队受影响更大；战意达标自动施法，按各项战法的消耗结算；各战法独立冷却，同队施法间隔至少 4 日，调息期间可普攻。不同来源护盾独立到期，同源刷新，优先消耗最早到期层。</p></details>',
+  return modalShell(u.name+' · 部队属性',(inBattle?'已暂停':'出战预览'),
+    campaignInspectionStatus(u.id)+'<div class="loadout-toolbar"><label>选择部队<select id="inspect-unit">'+units.map(a=>'<option value="'+a.id+'" '+(a.id===u.id?'selected':'')+'>'+(inBattle?(a.side?'敌军 · ':'我军 · '):'')+a.name+' · '+TROOPS[combatType(a)].name+'</option>').join('')+'</select></label><button class="officer-entry" data-action="unit-officer" data-inspect="'+u.id+'">'+avatar(u,true)+'<span><small>所属武将</small><b>'+u.name+' →</b></span></button></div><div class="unit-state-grid">'+states.map(([name,value])=>'<div><span>'+name+'</span><b>'+value+'</b></div>').join('')+'</div><div class="inspection-section-heading"><h3>当前状态效果</h3></div>'+(inBattle&&!inspectionStatuses(b,u).length?'<p class="muted">暂无临时状态</p>':statuses)+passiveMarkup(u,b)+'<div class="inspection-section-heading"><h3>携带战法</h3></div>'+tacticChips(u,b)+'<div class="inspection-section-heading"><h3>当前战斗属性</h3></div><div class="attribute-grid">'+cards+'</div><details class="profile-disclosure"><summary>减伤与普攻</summary><dl class="info-fields">'+[['普攻间隔',precise(stats.attackInterval)+' 日'],['普攻减伤',mitigation('basic')+'%'],['武技减伤',mitigation('force')+'%'],['谋略减伤',mitigation('intellect')+'%'],['持续减伤',mitigation('dot')+'%'],['控制减免',precise(stats.controlResistance*100)+'%']].map(([name,value])=>'<div><dt>'+name+'</dt><dd>'+value+'</dd></div>').join('')+'</dl></details>',
     (inBattle&&isDeploying(b)&&u.side===0&&['active','reserve'].includes(u.status)&&u.arrivalConfirmed!==false&&(u.arrivalTick||0)<=b.tick&&!detailPanels.hasSource?'<button class="button secondary" data-action="deployment-select" data-inspect="'+u.id+'">调整站位</button>':'')+'<button class="button primary" data-action="close">返回</button>',true);
 
 }
@@ -608,12 +695,10 @@ function loadoutModal() {
   const options=units.map(a=>'<option value="'+a.id+'" '+(a.id===u.id?'selected':'')+'>'+a.name+' · '+TROOPS[a.type].name+'</option>').join('');
   const cards=skills.map((skill,i)=>'<article class="loadout-card compact-loadout"><header><b>优先级 '+(i+1)+'</b><span class="type-badge '+skill.category+'">'+(skill.special?'★ 专属':skill.learningTier==='low'?'小战法':'大战法')+'</span></header><h3>'+esc(skill.name)+'</h3><footer>每场 '+skill.maxUses+' 次 · 门槛 '+skill.threshold+' · 施放消耗 '+skill.intentCost+' · 冷却 '+skill.cooldown+' 日</footer><button class="unit-inspect-link" data-action="tactic-detail" data-inspect="'+u.id+'" data-skill="'+skill.id+'">战法说明</button></article>').join('');
   const ledger=LEARNING_TROOPS.map(type=>{const p=u.tacticLearning.byTroop[type];return '<li><b>'+TROOPS[type].name+' · '+['C','B','A','S'][troopAptitude(u,type)]+'</b><p>小战法：'+p.low.map(id=>TACTICS_BOOK[id].name).join('、')+'；大战法：'+(p.high.map(id=>TACTICS_BOOK[id].name).join('、')||'无')+'</p></li>';}).join('');
-  return modalShell('部队固定战法','所有等级可用 · 适性与主将属性决定普通战法',
+  return modalShell('部队固定战法','',
     '<div class="loadout-toolbar"><label>选择部队<select id="loadout-unit">'+options+'</select></label><span>'+growthLabel(u)+' · '+TROOPS[u.type].name+'适性 '+grade+'</span></div>'+
-    '<p>S适性：武技小战法、谋略小战法、大战法各一项；A适性：一个小战法和一个大战法；B、C适性：一个小战法。</p>'+
-    '<p>小战法先比较武力与智力，再比较统率与政治；均相同时，魅力≥50选择谋略，否则选择武技。专属额外携带，不限兵种。</p>'+
     '<h3>本场携带 · '+skills.length+' 项</h3><div class="loadout-grid">'+cards+'</div>'+
-    '<details class="profile-disclosure"><summary>全部兵种固定配置</summary><ul>'+ledger+'</ul><p>升级兵种继承枪、戟、骑、弓适性与小战法，替换高级战法。携带船和兵器按当前形态使用战法，对应名额共享次数和冷却。</p></details>',
+    '<details class="profile-disclosure"><summary>全部兵种固定配置</summary><ul>'+ledger+'</ul></details>',
     '<button class="button primary" data-action="close">完成</button>',true);
 }
 
@@ -622,7 +707,7 @@ function armyModal() {
   const locked = !!state.battle || !!state.campaign&&!canEditArmy(state,army);
   const opts = Object.entries(TACTICS).map(([id, name]) => `<option value="${id}" ${army.tactic === id ? 'selected' : ''}>${name}</option>`).join('');
   const leaders = role => army.units.map(u => `<option value="${u.id}" ${army[role] === u.id ? 'selected' : ''}>${u.name}</option>`).join('');
-  return modalShell('整军经武', 'LEGION MANAGEMENT · 军团编制', `<div class="roster-overview"><div><b>${esc(army.name)}</b><span>${cityById(state, army.location).name} · ${fmt(armyTroops(army))} 人</span></div><div class="roster-controls"><label>主将<select data-role="leader" ${locked ? 'disabled' : ''}>${leaders('leader')}</select></label><label>军师<select data-role="advisor" ${locked ? 'disabled' : ''}>${leaders('advisor')}</select></label></div></div><div class="info-strip">${icon('help')}${locked ? '战斗期间编制锁定。' : '驻城部队独立保存；出征时编组最多10队，通常首发最多6队，奸雄任军团长时7队，其余进入预备。枪戟克骑、骑克弓、弓克枪。携船部队入水使用船形态，登岸恢复兵种；攻城位置可展开携带兵器。'}军团长提升攻防，军师提升谋略威力。战法后数字为战意门槛，★ 为专用战法。</div>${bondsMarkup(army.units,{army})}<section class="commander-repertoire"><h3>军团军略 · ${armyStratagems(army).length} 种</h3><p class="muted">指定名单内的持有者任军团长或军师时提供军略，重复只计一次。普通武将不解锁军略。开战从空条开始，在场智力计入任职特性后，每累计 12000 蓄满一条，使用后清空，不储存次数。</p>${armyCommanders(army).map(c=>`<div><b>${c.role==='leader'?'主将':'军师'} · ${c.name}</b><div class="repertoire-skills">${commanderStratagems(c).map(key=>`<span title="${esc(stratagemEffectText(selectStratagemSource(armyCommanders(army),key)))}">${STRATAGEMS[key].name}<small>满条施放 · ${stratagemEffectText(selectStratagemSource(armyCommanders(army),key))}</small></span>`).join('') || '暂无军略'}</div></div>`).join('')}</section><div class="roster-table"><div class="roster-table-head"><span>${[['first','首发'],['name','武将']].map(([k,n])=>sortButton('army',k,n,ui.armySort?.sort,ui.armySort?.direction)).join('')}</span><span>${[['leadership','统'],['force','武'],['intellect','智'],['politics','政']].map(([k,n])=>sortButton('army',k,n,ui.armySort?.sort,ui.armySort?.direction)).join('')}</span><span>${sortButton('army','type','所率兵种',ui.armySort?.sort,ui.armySort?.direction)}</span><span>${sortButton('army','formation','战场位置',ui.armySort?.sort,ui.armySort?.direction)}</span><span>${[['troops','兵力'],['wounded','伤兵']].map(([k,n])=>sortButton('army',k,n,ui.armySort?.sort,ui.armySort?.direction)).join('')}</span></div>${(ui.armySort?.sort?sortRows(army.units,ui.armySort.sort,ui.armySort.direction,(u,k)=>k==='type'?TROOPS[u.type].name:k==='formation'?({front:0,middle:1,back:2,left:3,right:4})[u.formation]:u[k]):army.units).map(u => `<div class="roster-row"><div><input type="checkbox" data-first="${u.id}" aria-label="${u.name}首发" ${u.first ? 'checked' : ''} ${locked ? 'disabled' : ''}>${avatar(u, true, 'unit-stats')}<div><button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name} · ${officerLevel(u)} 级 ↗</button><small title="${esc(unitTactics(u).map(s=>`${s.name}：${s.description}；门槛 ${s.threshold}；冷却 ${s.cooldown} 日`).join(' / '))}">${unitTactics(u).map(s=>`${s.special ? '★' : ''}${s.name} ${s.threshold}`).join(' · ')}</small></div></div><div class="stat-trio"><span>${u.leadership}</span><span>${u.force}</span><span>${u.intellect}</span><span>${u.politics}</span></div><select data-type="${u.id}" aria-label="${u.name}兵种" ${locked ? 'disabled' : ''}>${troopTypes().map(key=>[key,TROOPS[key]]).map(([key, t]) => `<option value="${key}" ${u.type === key ? 'selected' : ''} ${state.campaign&&!canTrain(cityById(state,army.location),key)?'disabled':''}>${t.name}${state.campaign&&!canTrain(cityById(state,army.location),key)?'（本城未解锁）':''}</option>`).join('')}</select><select data-formation="${u.id}" aria-label="${u.name}位置" ${locked ? 'disabled' : ''}>${Object.entries({ front: '前排', middle: '中排', back: '后排', left: '左翼', right: '右翼' }).map(([key, name]) => `<option value="${key}" ${u.formation === key ? 'selected' : ''}>${name}</option>`).join('')}</select><div class="troop-count"><b>${fmt(u.troops)}<small> / ${fmt(troopCapacity(u))}</small></b><small>伤兵 ${fmt(u.wounded)}</small></div></div>`).join('')}</div>`, `<button class="button secondary" data-action="loadout">固定战法</button><button class="button secondary" data-action="split" ${locked || state.pending ? 'disabled' : ''}>拆分军团</button><button class="button secondary" data-action="merge" ${locked || state.pending ? 'disabled' : ''}>合并军团</button><button class="button primary" data-action="close">完成编制</button>`, true);
+  return modalShell('整军经武', '', `<div class="roster-overview"><div><b>${esc(army.name)}</b><span>${cityById(state, army.location).name} · ${fmt(armyTroops(army))} 人</span></div><div class="roster-controls"><label>主将<select data-role="leader" ${locked ? 'disabled' : ''}>${leaders('leader')}</select></label><label>军师<select data-role="advisor" ${locked ? 'disabled' : ''}>${leaders('advisor')}</select></label></div></div>${locked?'<p class="info-strip">战斗中，编制锁定</p>':''}${bondsMarkup(army.units,{army})}<section class="commander-repertoire"><h3>军团军略 · ${armyStratagems(army).length} 种</h3>${armyCommanders(army).map(c=>`<div><b>${c.role==='leader'?'主将':'军师'} · ${c.name}</b><div class="repertoire-skills">${commanderStratagems(c).map(key=>abilityButton('stratagem',key,STRATAGEMS[key].name,stratagemEffectText(selectStratagemSource(armyCommanders(army),key)))).join('') || '暂无军略'}</div></div>`).join('')}</section><div class="roster-table"><div class="roster-table-head"><span>${[['first','首发'],['name','武将']].map(([k,n])=>sortButton('army',k,n,ui.armySort?.sort,ui.armySort?.direction)).join('')}</span><span>${[['leadership','统'],['force','武'],['intellect','智'],['politics','政']].map(([k,n])=>sortButton('army',k,n,ui.armySort?.sort,ui.armySort?.direction)).join('')}</span><span>${sortButton('army','type','所率兵种',ui.armySort?.sort,ui.armySort?.direction)}</span><span>${sortButton('army','formation','战场位置',ui.armySort?.sort,ui.armySort?.direction)}</span><span>${[['troops','兵力'],['wounded','伤兵']].map(([k,n])=>sortButton('army',k,n,ui.armySort?.sort,ui.armySort?.direction)).join('')}</span></div>${(ui.armySort?.sort?sortRows(army.units,ui.armySort.sort,ui.armySort.direction,(u,k)=>k==='type'?TROOPS[u.type].name:k==='formation'?({front:0,middle:1,back:2,left:3,right:4})[u.formation]:u[k]):army.units).map(u => `<div class="roster-row"><div><input type="checkbox" data-first="${u.id}" aria-label="${u.name}首发" ${u.first ? 'checked' : ''} ${locked ? 'disabled' : ''}>${avatar(u, true, 'unit-stats')}<div><button class="unit-inspect-link" data-action="unit-stats" data-inspect="${u.id}">${u.name} · ${officerLevel(u)} 级 ↗</button><small>${unitTactics(u).map(s=>`${s.special ? '★' : ''}${s.name} ${s.threshold}`).join(' · ')}</small></div></div><div class="stat-trio"><span>${u.leadership}</span><span>${u.force}</span><span>${u.intellect}</span><span>${u.politics}</span></div><select data-type="${u.id}" aria-label="${u.name}兵种" ${locked ? 'disabled' : ''}>${troopTypes().map(key=>[key,TROOPS[key]]).map(([key, t]) => `<option value="${key}" ${u.type === key ? 'selected' : ''} ${state.campaign&&!canTrain(cityById(state,army.location),key)?'disabled':''}>${t.name}${state.campaign&&!canTrain(cityById(state,army.location),key)?'（本城未解锁）':''}</option>`).join('')}</select><select data-formation="${u.id}" aria-label="${u.name}位置" ${locked ? 'disabled' : ''}>${Object.entries({ front: '前排', middle: '中排', back: '后排', left: '左翼', right: '右翼' }).map(([key, name]) => `<option value="${key}" ${u.formation === key ? 'selected' : ''}>${name}</option>`).join('')}</select><div class="troop-count"><b>${fmt(u.troops)}<small> / ${fmt(troopCapacity(u))}</small></b><small>伤兵 ${fmt(u.wounded)}</small></div></div>`).join('')}</div>`, `<button class="button secondary" data-action="loadout">固定战法</button><button class="button secondary" data-action="split" ${locked || state.pending ? 'disabled' : ''}>拆分军团</button><button class="button secondary" data-action="merge" ${locked || state.pending ? 'disabled' : ''}>合并军团</button><button class="button primary" data-action="close">完成编制</button>`, true);
 }
 const modalScroll=createModalScrollMemory();
 const detailPanels=createDetailPanels($('#overlay-root'));
@@ -637,6 +722,15 @@ function openMapInspection(kind,id){
  ui.mapObject=null;ui.infoReturn=ui.modal&&!isObjectDetail(ui)?ui.modal:ui.infoReturn;ui.infoHistory=[];ui.infoView={type:kind,id,objectOnly:true};
  openModal('campaign-info');
 }
+function openCityCommands(id,anchor,event,{keepDirectory=false}={}){
+ const rect=anchor?.getBoundingClientRect();
+ const x=keepDirectory?rect?.left-260:(event?.clientX||rect?.right||innerWidth/2)+12;
+ const y=(event?.clientY||rect?.top||innerHeight/2)+12;
+ ui.city=id;ui.strategyTab='city';ui.mapFocusKey=null;ui.mapPanelOpen=false;ui.mapDirectoryOpen=keepDirectory;
+ ui.modal=null;ui.textDetails=null;ui.infoReturn=null;ui.infoHistory=[];
+ ui.mapObject={kind:'city',id,x,y};render();
+ if(!event?.detail)document.querySelector('.city-command-grid button:not(:disabled)')?.focus({preventScroll:true});
+}
 function modalScrollKey(){
  if(ui.textDetails)return JSON.stringify(['detail',ui.textDetails.title,ui.textDetails.groups[0]?.name,ui.textDetailsTab||0]);
  const name=ui.modal;if(!name)return null;
@@ -650,69 +744,121 @@ function modalScrollKey(){
  ['unit-stats','unit-officer','tactic-detail'].includes(name)?[ui.inspectUnit,name==='tactic-detail'?ui.inspectSkill:null]:null,
  name==='encounter-flow'?[ui.encounterFlow?.id,ui.encounterFlow?.step]:null]);
 }
+function mapTargetContext(){return {scout:ui.scout||{},command:ui.officerPick||{},battle:state.battle};}
+function openMapTarget(kind){
+ if(!TARGET_TITLES[kind]||!state.campaign||state.campaign.allAI)return;
+ const candidates=mapTargetCandidates(state,kind,mapTargetContext());
+ let selected=kind==='scout-city'?ui.scout?.city:kind==='scout-target'?ui.scout?.target:kind==='relay'?ui.officerPick?.relay:kind==='retreat'?state.battle?.sides[0].retreatDestination:null;
+ if(kind==='diplomacy'){
+  // Preserve every unfinished form control across the map round trip.
+  ui.diplomacyForm=Object.fromEntries([...document.querySelectorAll('.diplomacy-panel input,.diplomacy-panel select')].map(el=>[el.id,el.value]));
+  selected=candidates.find(c=>c.owner===ui.diplomacyForm['diplomacy-target'])?.id;
+ }
+ const home=kind.startsWith('scout-')?ui.scout?.city:kind==='relay'?ui.officerPick?.city:ui.city;
+ const focus=mapNode(state,selected||home)||candidates[0];
+ ui.targetPick={kind,selected: selected||null,returnModal:ui.modal,battleForm:kind==='retreat'?{open:$('.retreat-council')?.open,councilOpen:$('.battle-council details')?.open,batch:$('[data-retreat-batch]')?.value}:null,mapUI:{city:focus?.id,strategyTab:'city',strategicMapView:focus?centeredMapView(focus,360,360):undefined,mapCameraManual:true}};
+ const source=document.querySelector('.map-command-screen')||detailPanels.panelRoot;
+ ui.targetPick.sourceScroll={x:window.scrollX,y:window.scrollY};ui.targetPick.sourceDetails=[...source.querySelectorAll('details')].map(el=>el.open);
+ openModal('map-target');
+ window.scrollTo(0,0);$('.map-target-screen h1')?.focus({preventScroll:true});
+}
+function renderMapTarget(){
+ const p=ui.targetPick,context=mapTargetContext(),candidates=mapTargetCandidates(state,p.kind,context),selected=candidates.find(n=>n.id===p.selected);
+ const map=targetMapMarkup(commandMap(state,p.mapUI),candidates.map(n=>n.id),selected?.id);
+ ui.mapCommandView=true;detailPanels.clear();$('#app').removeAttribute('inert');document.body.classList.remove('modal-open');
+ $('#app').innerHTML=`<main class="map-command-screen map-target-screen"><header><h1 tabindex="-1">${TARGET_TITLES[p.kind]}</h1></header><div class="command-target-layout"><div class="command-map">${map}</div><aside>${mapTargetSummary(state,p,selected,context)}<p>可选目标 ${candidates.length} 处</p><label class="strategy-field">查找目标<input type="search" data-map-target-search value="${esc(p.query||'')}" placeholder="输入名称定位地图"></label><div class="map-target-results">${mapTargetSearchMarkup(state,p.kind,candidates,p.query)}</div>${!candidates.length?'<p>当前没有合法目标。</p>':''}</aside></div><footer class="map-command-footer"><button class="button secondary" data-action="map-target-cancel">取消</button><button class="button primary" data-action="map-target-confirm" ${selected?'':'disabled'}>确认</button></footer></main>`;
+ attachStrategicMap($('#app'),p.mapUI,renderModal);
+ for(const node of document.querySelectorAll('[data-map-target]')){node.setAttribute('aria-pressed',String(node.dataset.mapTarget==='selected'));node.setAttribute('aria-disabled',String(node.dataset.mapTarget==='unavailable'));}
+}
+function finishMapTarget(confirm){
+ const p=ui.targetPick;if(!p)return;
+ if(confirm){
+  const n=mapTargetCandidates(state,p.kind,mapTargetContext()).find(n=>n.id===p.selected);if(!n){toast('请在地图上选择合法目标');return;}
+  if(p.kind==='scout-city'&&ui.scout.city!==n.id){ui.scout={city:n.id};}
+  if(p.kind==='scout-target')ui.scout.target=n.id;
+  if(p.kind==='relay')ui.officerPick.relay=n.id;
+  if(p.kind==='diplomacy')ui.diplomacyForm['diplomacy-target']=n.owner;
+  if(p.kind==='retreat'){const error=configureRetreatDestination(state,state.battle,n.id);if(error){toast(error,'error');return;}save();}
+ }
+ ui.targetPick=null;ui.modal=p.returnModal;render();
+ const source=document.querySelector('.map-command-screen')||detailPanels.panelRoot;
+ [...source.querySelectorAll('details')].forEach((el,i)=>{if(p.sourceDetails[i]!==undefined)el.open=p.sourceDetails[i];});
+ if(p.battleForm){if($('.retreat-council'))$('.retreat-council').open=!!p.battleForm.open;if($('.battle-council details'))$('.battle-council details').open=!!p.battleForm.councilOpen;if($('[data-retreat-batch]'))$('[data-retreat-batch]').value=p.battleForm.batch||'';}
+ if(p.kind==='diplomacy'){
+  for(const [id,value] of Object.entries(ui.diplomacyForm||{})){const el=document.getElementById(id);if(el)el.value=value;}
+  const label=document.querySelector('[data-diplomacy-target-label]');if(label)label.textContent=FACTIONS[ui.diplomacyForm?.['diplomacy-target']]?.name||'自主选择';
+ }
+ document.querySelector(`[data-action="map-target-open"][data-kind="${p.kind}"]`)?.focus({preventScroll:true});window.scrollTo(p.sourceScroll.x,p.sourceScroll.y);
+}
+document.addEventListener('input',event=>{
+ if(!event.target.matches('[data-map-target-search]')||!ui.targetPick)return;
+ const p=ui.targetPick;p.query=event.target.value;
+ document.querySelector('.map-target-results').innerHTML=mapTargetSearchMarkup(state,p.kind,mapTargetCandidates(state,p.kind,mapTargetContext()),p.query);
+});
 function renderModal() {
   const focusKey=detailPanels.panelRoot.contains(document.activeElement)?document.activeElement.dataset.controlKey:null;
-  const mapCommand=ui.modal==='campaign-picker'&&ui.officerPick?.step==='target'&&['march','expedition'].includes(ui.officerPick.task);
+  const mapCommand=ui.modal==='map-target'||ui.modal==='campaign-picker'&&ui.officerPick?.step==='target'&&['march','expedition','transfer'].includes(ui.officerPick.task);
   if(ui.mapCommandView&&!mapCommand){ui.mapCommandView=false;render();return;}
   modalScroll.capture(detailPanels.panelRoot);
+  if(ui.modal==='map-target'){renderMapTarget();return;}
   let html = '';
   if(ui.modal==='scout-report'){const report=scoutingReportMarkup(state,ui.scoutReport);html=modalShell(report.title,'沿路侦察报告',report.body,'<button class="button secondary" data-action="scout-open">返回侦察工作</button>',true);}
-  if(ui.modal==='treasures')html=modalShell('宝物','收藏 · 授予 · 装备',treasuresMarkup(state,ui.treasurePick),'',true);
-  if(ui.modal==='scouting')html=modalShell('侦察','斥候与周边敌情',scoutingMarkup(state,ui.scout),'',true);
-  if(ui.modal==='diplomacy-interruption'){const r=ui.diplomaticInterruption;html=modalShell('外交委任','执行时机',`<p>${esc(r.name)}正在办理内政。立即执行将中止当前事务；完成后执行会保留等待安排。</p>`,`<button class="button primary" data-action="diplomacy-assign-now" data-direction="${r.direction}" data-officer="${r.officerId}">立即执行</button><button class="button secondary" data-action="diplomacy-assign-after" data-direction="${r.direction}" data-officer="${r.officerId}">完成后执行</button><button class="button secondary" data-action="close">取消</button>`,true);}
+  if(ui.modal==='treasures')html=modalShell('宝物','',treasuresMarkup(state,ui.treasurePick),'',true);
+  if(ui.modal==='scouting')html=modalShell('侦察','',scoutingMarkup(state,ui.scout),'',true);
+  if(ui.modal==='diplomacy-interruption'){const r=ui.diplomaticInterruption;html=modalShell('外交委任','执行时机',`<p>${esc(r.name)}正在办理内政；立即执行将中止当前事务。</p>`,`<button class="button primary" data-action="diplomacy-assign-now" data-direction="${r.direction}" data-officer="${r.officerId}">立即执行</button><button class="button secondary" data-action="diplomacy-assign-after" data-direction="${r.direction}" data-officer="${r.officerId}">完成后执行</button><button class="button secondary" data-action="close">取消</button>`,true);}
   if(state.testScenario&&ui.mode!=='lobby'&&state.battle?.reinforcementCouncil==='pending'&&!ui.modal){ui.modal='reinforcement-arrival';ui.paused=true;}
-  if(ui.modal==='reinforcement-arrival')html=modalShell('援军抵达','战场暂停','<p>援军已加入后备，可进入军议调整后备顺序及撤离设置，在场部队保持原位。</p>','<button class="button primary" data-action="battle-reinforcement-council">军议</button><button class="button secondary" data-action="battle-reinforcement-continue">继续作战</button>',true);
+  if(ui.modal==='reinforcement-arrival')html=modalShell('援军抵达','战场暂停','<p>援军已加入后备</p>','<button class="button primary" data-action="battle-reinforcement-council">战前准备</button><button class="button secondary" data-action="battle-reinforcement-continue">继续作战</button>',true);
   if(state.campaign&&ui.mode!=='lobby'&&activeBattles(state).some(r=>r.battle.reinforcementCouncil==='pending')&&!ui.modal){ui.modal='campaign-encounters';ui.paused=true;}
   if(state.campaign&&ui.mode!=='lobby'&&state.battle?.deploymentLocked&&activeBattles(state).some(r=>r.awaiting&&!ui.encounterNotices?.has(r.id))&&!ui.modal){ui.modal='campaign-encounters';ui.encounterNotices??=new Set();for(const r of activeBattles(state).filter(r=>r.awaiting))ui.encounterNotices.add(r.id);}
   if (ui.mode!=='lobby' && state.report && !['scenarios','settings','archives','archive-confirm'].includes(ui.modal)) ui.modal = 'report';
   else if (ui.mode!=='lobby' && state.pending && !ui.modal) ui.modal = 'encounter';
   if (ui.modal === 'gate' && state.battle?.siege) {
     const g=state.battle.siege.gate;
-    html=modalShell('城门', 'SIEGE · 守方目标', `<p class="modal-intro">耐久 ${fmt(g.hp)} / ${fmt(g.maxHp)}。耐久归零，守方立即败北。</p><div class="info-strip">独立占据守方半场一格，不占部队出场名额；不移动、不攻击。攻方普通攻击可削减耐久，可用重兵合围提高攻击倾向。城门不承受部队战法，也不计入士兵伤亡。</div>`);
+    html=modalShell('城门', '', `<p class="modal-intro">耐久 ${fmt(g.hp)} / ${fmt(g.maxHp)}。耐久归零，守方立即败北。</p>`);
   }
   if(ui.modal==='battle-building'&&state.battle){
     const g=state.battle.buildings.find(a=>a.id===ui.battleBuilding);
-    if(g)html=modalShell(g.name,'战场设施 · '+(g.side?'敌军':'我军'),`<p class="modal-intro">耐久 ${fmt(g.hp)} / ${fmt(g.maxHp)}${g.level!==undefined?' · '+g.level+'级':''} · ${g.hp<=0?'已损毁':g.level===0?'施工中':'已建成'}</p><div class="info-strip">${esc(buildingEffectText(g)||'占据实际地点，可被攻击和修缮。')}${g.hp<=0?'；修复前停止发挥效果。':''}</div>`);
+    if(g)html=modalShell(g.name,'战场设施 · '+(g.side?'敌军':'我军'),`<p class="modal-intro">耐久 ${fmt(g.hp)} / ${fmt(g.maxHp)}${g.level!==undefined?' · '+g.level+'级':''} · ${g.hp<=0?'已损毁':g.level===0?'施工中':'已建成'}</p><div class="info-strip">${esc(buildingEffectText(g)||'可攻击 · 可修缮')}${g.hp<=0?' · 已停用':''}</div>`);
   }
   if (ui.modal === 'scenarios') html = scenarioModal();
-  if(ui.modal==='stratagem-picker'&&state.battle)html=modalShell('选择军略','范围军略需选择落点 · 战斗已暂停','<div class="stratagem-picker">'+commands(state.battle)+'</div>','<button class="button secondary" data-action="close">取消</button>',true);
-  if(ui.modal==='march-mode'){const a=state.armies.find(a=>a.id===ui.marchArmy);html=modalShell('行军方式','确认后生效',a?`<p>${a.name} · 士气 ${a.morale} · 携粮 ${Math.floor(a.supply)} / ${a.supplyCapacity}</p><p>${marchDescription(a)}</p><div class="button-row">${marchModes(a).map(m=>`<button class="button ${ui.marchChoice===m.id?'primary':'secondary'}" data-action="march-mode-select" data-mode="${m.id}">${m.name}</button>`).join('')}</div>`:'军团不存在','<button class="button secondary" data-action="close">取消</button><button class="button primary" data-action="march-mode-confirm">确认</button>',true);}
+  if(ui.modal==='stratagem-picker'&&state.battle)html=modalShell('选择军略','已暂停','<div class="stratagem-picker">'+commands(state.battle)+'</div>','<button class="button secondary" data-action="close">取消</button>',true);
+  if(ui.modal==='march-mode'){const a=state.armies.find(a=>a.id===ui.marchArmy);html=modalShell('行军方式','',a?`<p>${a.name} · 士气 ${a.morale} · 携粮 ${Math.floor(a.supply)} / ${a.supplyCapacity}</p>${marchModeMetrics(a,ui.marchChoice)}<div class="button-row">${marchModes(a).map(m=>`<button class="button ${ui.marchChoice===m.id?'primary':'secondary'}" data-action="march-mode-select" data-mode="${m.id}">${m.name}</button>`).join('')}</div>`:'军团不存在','<button class="button secondary" data-action="close">取消</button><button class="button primary" data-action="march-mode-confirm">确认</button>',true);}
   if(ui.modal==='domestic-interruption')html=modalShell('事务冲突','选择时机',interruptionMarkup(state,ui.interruption),`<button class="button secondary" data-action="campaign-command-return">返回</button><button class="button secondary" data-action="campaign-order-choice" data-choice="now">立即执行</button><button class="button primary" data-action="campaign-order-choice" data-choice="after">办完执行</button>`,true);
   if(ui.modal==='faction-battle')html=modalShell('战场','本势力交战',battlesPanel({...state,campaign:{...state.campaign,battles:state.campaign.battles.filter(r=>r.id===ui.directoryBattle),archive:[]}},isPlanning(state)),'<button class="button secondary" data-action="directory-back">返回</button>',true);
   if(ui.modal==='faction-directory')html=modalShell('本势力 · '+FACTION_DIRECTORIES[ui.factionDirectoryKind],'总览',factionDirectoryMarkup(state,ui.factionDirectoryKind,ui.factionDirectories[ui.factionDirectoryKind]),'',true);
-  if(ui.modal==='campaign-affairs')html=modalShell('势力事务','统一政令',factionAffairsMarkup(state,ui.affairsTab||'domestic'),'',true);
-  if(ui.modal==='campaign-battles')html=modalShell('战役','当前交战与历史回放',battlesPanel(state,isPlanning(state)),'',true);
+  if(ui.modal==='campaign-affairs')html=modalShell(ui.affairsTab==='diplomacy'?'外交':'内政','',factionAffairsMarkup(state,ui.affairsTab||'domestic'),'',true);
+  if(ui.modal==='campaign-battles')html=modalShell('战役','',battlesPanel(state,isPlanning(state)),'',true);
   if(ui.modal==='info-menu'){const info=campaignInfoMenu(ui.infoScope||'self');html=modalShell(info.title,'一览',info.body,'');}
   if(ui.modal==='campaign-info'){const info=campaignInfoMarkup(state,ui.infoView?.id?{...ui.infoView,objectOnly:true}:ui.infoView);html=modalShell(info.title,ui.infoView?.objectOnly?'对象详情':'天下情报 · 动向与详情',info.body,`${ui.infoHistory?.length?'<button class="button secondary" data-action="campaign-info-back">返回</button>':''}${['city','army'].includes(ui.infoView?.type)&&ui.infoView?.id?mapObjectActions(state,ui.infoView.type,ui.infoView.id):''}${ui.infoView?.objectOnly?'':'<button class="button secondary" data-action="campaign-info-home">返回名册</button>'}`,true);}
-  if(ui.modal==='domestic-alerts')html=modalShell('战略奏报','每日记录中的重要事项 · 已暂停',domesticAlertsMarkup(state,pendingDomesticAlerts(state)), '<button class="button primary" data-action="close">确认</button>',true);
+  if(ui.modal==='domestic-alerts')html=modalShell('战略奏报','已暂停',domesticAlertsMarkup(state,pendingDomesticAlerts(state)), '<button class="button primary" data-action="close">确认</button>',true);
   if(ui.modal==='domestic-proposals')html=modalShell('内政提案','恭候裁示 · 已暂停',domesticApprovalMarkup(state),'<button class="button secondary" data-action="close">返回</button>',true);
   if(ui.modal==='harvest-review'){const receipt=state.campaign.activity.nodes.find(n=>n.id===ui.harvestReviewId),nodes=state.campaign.activity.nodes.filter(n=>receipt?.result.nodeIds.includes(n.id));html=modalShell('本旬成果',`第 ${receipt?.result.turn||''} 旬 · 已暂停`,domesticAlertsMarkup(state,nodes),'<button class="button secondary" data-action="close">返回</button>',true);}
-  if(ui.modal==='activity-record'){const p=ui.activityRecord,node=state.campaign.activity.nodes.find(n=>n.id===p.nodeId),name=node.officerId?OFFICER_BY_ID[node.officerId].name:mapNode(state,node.siteId)?.name||'战略';html=modalShell(name+' · 每日记录','原始记录 · 已暂停',node.officerId?officerActivityMarkup(state,node.officerId,p.beforeDay,node.id):siteActivityMarkup(state,node.siteId,p.beforeDay,node.id),`<button class="button secondary" data-action="close">${p.returnModal==='harvest-review'?'返回成果':'返回奏报'}</button>`,true);}
-  if(ui.modal==='city-domestic')html=modalShell('城市内政','六方向 · 委任与办理进度',cityDomesticMarkup(state,ui.city),'<button class="button secondary" data-action="close">返回地图</button>',true);
+  if(ui.modal==='activity-record'){const p=ui.activityRecord,node=state.campaign.activity.nodes.find(n=>n.id===p.nodeId),name=node.officerId?OFFICER_BY_ID[node.officerId].name:mapNode(state,node.siteId)?.name||'战略';html=modalShell(name+' · 事项详情','已暂停',node.officerId?officerActivityMarkup(state,node.officerId,p.beforeDay,node.id):siteActivityMarkup(state,node.siteId,p.beforeDay,node.id),`<button class="button secondary" data-action="close">${p.returnModal==='harvest-review'?'返回成果':'返回奏报'}</button>`,true);}
+  if(ui.modal==='city-domestic')html=modalShell('城市内政','',cityDomesticMarkup(state,ui.city,ui),'<button class="button secondary" data-action="close">返回地图</button>',true);
   if(ui.modal==='city-personnel')html=modalShell((state.cities.find(c=>c.id===ui.personnelCity)?.name||'据点')+' · 武将','本据点人事',cityRosterMarkup(state,ui,ui.personnelCity),'',true);
   if(ui.modal==='campaign-personnel')html=modalShell('麾下武将','人事 · 全势力名册',campaignRosterMarkup(state,ui),'',true);
-  if(ui.modal==='campaign-picker'){const p=ui.officerPick,route=commandRoute(state,p),a=p.task==='expedition'?{...cityForce(state.cities.find(c=>c.id===p.city)),units:p.selected.map(id=>state.cities.find(c=>c.id===p.city).units.find(u=>u.id===id)).filter(Boolean),leader:p.leader,advisor:p.advisor,}:state.armies.find(a=>a.id===p.armyId);p.mapUI||={strategicMapView:ui.strategicMapView?{...ui.strategicMapView}:undefined};p.mapUI.city=p.destination||p.city;p.mapUI.army=p.armyId;p.mapUI.strategyTab=!p.destination&&p.task==='march'?'army':'city';const preview=a&&(route||p.mapRoute?.length)?{...a,location:route?.from||(p.task==='march'?(a.travel?.to||a.location):p.city),travel:null,route:route?.route||p.mapRoute,roadPolicy:p.policy}:a;const m=commandMarkup(state,ui,p.step==='target'?commandMap(state,p.mapUI,preview):'');if(mapCommand){ui.mapCommandView=true;detailPanels.clear();$('#app').removeAttribute('inert');document.body.classList.remove('modal-open');$('#app').innerHTML='<main class="map-command-screen"><header><h1>'+m.title+'</h1><p>'+m.subtitle+'</p></header>'+m.body+(m.footer?'<footer class="map-command-footer">'+m.footer+'</footer>':'')+'</main>';attachStrategicMap($('#app'),p.mapUI,renderModal);pageGuides.schedule();return;}html=modalShell(m.title,m.subtitle,m.body,m.footer,true);}
-  if(ui.modal==='military-flow'){const m=militaryFlowMarkup(state,ui.militaryFlow);html=modalShell(m.title,'军团调度 · 逐步下令',m.body,m.footer,true);}
-  if(ui.modal==='encounter-flow'){const m=encounterFlowMarkup(state,ui.encounterFlow);html=modalShell(m.title,'战线情报 · 战前准备',m.body,m.footer,true);}
+  if(ui.modal==='campaign-picker'){const p=ui.officerPick,route=commandRoute(state,p),a=p.task==='expedition'?{...cityForce(state.cities.find(c=>c.id===p.city)),units:p.selected.map(id=>state.cities.find(c=>c.id===p.city).units.find(u=>u.id===id)).filter(Boolean),leader:p.leader,advisor:p.advisor,}:state.armies.find(a=>a.id===p.armyId);p.mapUI||={strategicMapView:ui.strategicMapView&&Math.min(ui.strategicMapView.width,ui.strategicMapView.height)<=360?{...ui.strategicMapView}:centeredMapView(mapNode(state,p.city),360,360)};p.mapUI.city=p.destination||p.city;p.mapUI.army=p.armyId;p.mapUI.strategyTab=!p.destination&&p.task==='march'?'army':'city';const preview=a&&(route||p.mapRoute?.length)?{...a,location:route?.from||(p.task==='march'?(a.travel?.to||a.location):p.city),travel:null,route:route?.route||p.mapRoute,roadPolicy:p.policy}:a;const m=commandMarkup(state,ui,p.step==='target'?commandMap(state,p.mapUI,preview):'');if(mapCommand){ui.mapCommandView=true;detailPanels.clear();$('#app').removeAttribute('inert');document.body.classList.remove('modal-open');$('#app').innerHTML='<main class="map-command-screen"><header><h1>'+m.title+'</h1><p>'+m.subtitle+'</p></header>'+m.body+(m.footer?'<footer class="map-command-footer">'+m.footer+'</footer>':'')+'</main>';attachStrategicMap($('#app'),p.mapUI,renderModal);pageGuides.schedule();return;}html=modalShell(m.title,m.subtitle,m.body,m.footer,true);}
+  if(ui.modal==='military-flow'){const m=militaryFlowMarkup(state,ui.militaryFlow);html=modalShell(m.title,'',m.body,m.footer,true);}
+  if(ui.modal==='encounter-flow'){const m=encounterFlowMarkup(state,ui.encounterFlow);html=modalShell(m.title,'',m.body,m.footer,true);}
   if (ui.modal === 'army') html = armyModal();
   if (ui.modal === 'loadout') html = loadoutModal();
   if (ui.modal === 'unit-stats') html = unitStatsModal();
   if (ui.modal === 'unit-officer') html = officerUnitModal();
   if (ui.modal === 'tactic-detail') html = tacticDetailModal();
-  if (ui.modal === 'owned-officers') html = modalShell('麾下群英', 'OFFICERS · 武将名录', `<div class="field-sort-bar">${[['name','武将'],['leadership','统率'],['force','武力'],['intellect','智力'],['politics','政治'],['level','等级'],['loyalty','忠诚']].map(([k,n])=>sortButton('owned',k,n,ui.ownedSort?.sort,ui.ownedSort?.direction)).join('')}</div><div class="officer-grid">${sortRows(state.armies.filter(a=>a.faction===playerFaction(state)).flatMap(a=>a.units.map(u=>({a,u}))),ui.ownedSort?.sort,ui.ownedSort?.direction,({u},k)=>k==='loyalty'?state.campaign?.domestic.loyalty[u.id]??u.loyalty:u[k]).map(({a,u}) => `<article class="officer-card">${avatar(u,false,'unit-officer')}<div><h3>${u.name}<small>字 ${u.courtesy}</small></h3><span class="trait">${u.trait}</span><small class="officer-growth">${growthLabel(u)}</small></div><p>${unitTactics(u).map(s=>s.name).join(' · ')}<span>${TROOPS[u.type].name}</span></p><div class="officer-stats">${[['统率', u.leadership], ['武力', u.force], ['智力', u.intellect], ['政治', u.politics]].map(([n, v]) => `<div><b>${v}</b><small>${n}</small></div>`).join('')}</div><button class="button secondary full" data-action="unit-officer" data-inspect="${u.id}">属性</button><p class="officer-strategies">拥有军略：${officerStratagems(u.id).map(key=>STRATAGEMS[key].name).join(' · ') || '无'}<small>按明确人物名单持有，任军团长或军师时提供</small></p><footer>${esc(a.name)} · ${cityById(state, a.location).name}<span>忠诚 ${state.campaign?.domestic.loyalty[u.id]??u.loyalty}</span></footer></article>`).join('')}</div>`, '', true);
-  if(ui.modal==='scenario-setup'){const m=scenarioSetupMarkup(ui.scenarioSetup,ui.scenarioSetup.sourceArmy?state:{});html=modalShell(m.title,'军团编制 · 逐步下令',m.body,m.footer,true);}
-  if(ui.modal==='scenario-review'){const d=ui.customBattle,units=customParticipants(d).map(u=>({...u,name:OFFICER_BY_ID[u.id].name})),armies=customArmyColumns(d),columns=[{team:'ownTeam',label:'我军先遣',index:null},{team:'enemyTeam',label:'敌军先遣',index:null},...(d.reinforcements||[]).map((a,i)=>({team:a.side===0?'ownTeam':'enemyTeam',label:(a.side===0?'我军':'敌军')+' · '+a.name+' · '+arrivalLabel(a,units,armies),index:i}))];html=modalShell('战前核阅','参战军团',('<p>我方总预备兵 '+customTroopBudget(d).toLocaleString()+' 人 · 已编制 '+customBattleTotals(d,0).troops.toLocaleString()+' 人 · 可用 '+customReserveTroops(d).toLocaleString()+' 人</p>')+((d.events||[]).length?'<h3>定时战役事件</h3>'+(d.events||[]).map(e=>'<p>'+esc(battleEventSummary(e))+'<br>'+esc(BATTLE_EVENTS[e.kind].description)+'</p>').join(''):'')+columns.map(a=>{const p=newScenarioSetup(d,a.team,a.index);return '<h3>'+esc(a.label)+'</h3>'+combatComparison({},scenarioSetupUnits(p),p.roles,{prefix:a.label});}).join(''),'<button class="button secondary" data-action="close">返回编制</button><button class="button primary" data-action="scenario-launch-confirm">确认</button>',true);}
+  if (ui.modal === 'owned-officers') html = modalShell('麾下群英', '', `<div class="field-sort-bar">${[['name','武将'],['leadership','统率'],['force','武力'],['intellect','智力'],['politics','政治'],['level','等级'],['loyalty','忠诚']].map(([k,n])=>sortButton('owned',k,n,ui.ownedSort?.sort,ui.ownedSort?.direction)).join('')}</div><div class="officer-grid">${sortRows(state.armies.filter(a=>a.faction===playerFaction(state)).flatMap(a=>a.units.map(u=>({a,u}))),ui.ownedSort?.sort,ui.ownedSort?.direction,({u},k)=>k==='loyalty'?state.campaign?.domestic.loyalty[u.id]??u.loyalty:u[k]).map(({a,u}) => `<article class="officer-card">${avatar(u,false,'unit-officer')}<div><h3>${u.name}<small>字 ${u.courtesy}</small></h3><span class="trait">${u.trait}</span><small class="officer-growth">${growthLabel(u)}</small></div><p>${unitTactics(u).map(s=>s.name).join(' · ')}<span>${TROOPS[u.type].name}</span></p><div class="officer-stats">${[['统率', u.leadership], ['武力', u.force], ['智力', u.intellect], ['政治', u.politics]].map(([n, v]) => `<div><b>${v}</b><small>${n}</small></div>`).join('')}</div><button class="button secondary full" data-action="unit-officer" data-inspect="${u.id}">属性</button><p class="officer-strategies">拥有军略：${officerStratagems(u.id).map(key=>STRATAGEMS[key].name).join(' · ') || '无'}</p><footer>${esc(a.name)} · ${cityById(state, a.location).name}<span>忠诚 ${state.campaign?.domestic.loyalty[u.id]??u.loyalty}</span></footer></article>`).join('')}</div>`, '', true);
+  if(ui.modal==='scenario-setup'){const m=scenarioSetupMarkup(ui.scenarioSetup,ui.scenarioSetup.sourceArmy?state:{});html=modalShell(m.title,'',m.body,m.footer,true);}
+  if(ui.modal==='scenario-review'){const d=ui.customBattle,units=customParticipants(d).map(u=>({...u,name:OFFICER_BY_ID[u.id].name})),armies=customArmyColumns(d),columns=[{team:'ownTeam',label:'我军先遣',index:null},{team:'enemyTeam',label:'敌军先遣',index:null},...(d.reinforcements||[]).map((a,i)=>({team:a.side===0?'ownTeam':'enemyTeam',label:(a.side===0?'我军':'敌军')+' · '+a.name+' · '+arrivalLabel(a,units,armies),index:i}))];html=modalShell('战前核阅','参战军团',('<p>我方总预备兵 '+customTroopBudget(d).toLocaleString()+' 人 · 已编制 '+customBattleTotals(d,0).troops.toLocaleString()+' 人 · 可用 '+customReserveTroops(d).toLocaleString()+' 人</p>')+((d.events||[]).length?'<h3>定时战役事件</h3>'+(d.events||[]).map(e=>'<p>'+esc(battleEventSummary(e))+'</p>').join(''):'')+columns.map(a=>{const p=newScenarioSetup(d,a.team,a.index);return '<h3>'+esc(a.label)+'</h3>'+combatComparison({},scenarioSetupUnits(p),p.roles,{prefix:a.label});}).join(''),'<button class="button secondary" data-action="close">返回编制</button><button class="button primary" data-action="scenario-launch-confirm">确认</button>',true);}
   if(ui.modal==='scenario-army-info'){const a=selectedArmy(),units=state.battle?.sides[0].units||a.units;html=modalShell(a?.name||'参战军团','军团情报',combatComparison(state,units,state.battle?{commanders:state.battle.sides[0].commanders}:a),'<button class="button primary" data-action="close">返回战场</button>',true);}
-  if(ui.modal==='officers')html=modalShell('武将名录','OFFICERS · '+Object.keys(OFFICER_BY_ID).length+' 人',rosterMarkup({query:ui.catalogQuery,sort:ui.catalogSort,direction:ui.catalogDirection,kind:ui.catalogKind,page:ui.catalogPage,selected:ui.catalogSelected}),'<button class="button secondary" data-action="owned-officers">武将</button>',true);
+  if(ui.modal==='officers')html=modalShell('武将名录',Object.keys(OFFICER_BY_ID).length+' 人',rosterMarkup({query:ui.catalogQuery,sort:ui.catalogSort,direction:ui.catalogDirection,kind:ui.catalogKind,page:ui.catalogPage,selected:ui.catalogSelected}),'<button class="button secondary" data-action="owned-officers">武将</button>',true);
   if(ui.modal==='catalog-detail'){
     const u=OFFICER_BY_ID[ui.catalogInspect];
-    html=modalShell(u?.name||'武将资料','OFFICER · 人物档案',officerDetailMarkup(ui.catalogInspect,state.relationshipScores,state.relationshipTypes)+relationshipEditorMarkup(ui.catalogInspect,ui.relationshipPartner,state.relationshipScores,!!(state.battle&&!state.battle.result&&(state.battle.deploymentLocked||state.battle.tick>0)),state.relationshipTypes)+(u?passiveMarkup({...makeOfficer(u.id),level:1}):''),'<button class="button secondary" data-action="officers">返回</button>',true);
+    html=modalShell(u?.name||'武将资料','',officerDetailMarkup(ui.catalogInspect,state.relationshipScores,state.relationshipTypes)+relationshipEditorMarkup(ui.catalogInspect,ui.relationshipPartner,state.relationshipScores,!!(state.battle&&!state.battle.result&&(state.battle.deploymentLocked||state.battle.tick>0)),state.relationshipTypes)+(u?passiveMarkup({...makeOfficer(u.id),level:1}):''),'<button class="button secondary" data-action="officers">返回</button>',true);
   }
-  if (ui.modal === 'journal') html = modalShell('天下纪事', 'CHRONICLE · 军国大事', `<div class="journal">${intelligenceWorld(state).logs.map(l => `<div class="${l.type}"><span>第 ${l.turn} 旬</span><p>${esc(l.text)}</p></div>`).join('')}</div>`);
-  if (ui.modal === 'settings') html = modalShell('游戏设置', `ARCHIVES · ${currentScenario()?.name||'战略原型'}`, `<p class="modal-intro">存档保存在当前浏览器。可保存、读取，或导出、导入 JSON 备份。</p><div class="settings-actions"><button data-action="save" ${ui.mode==='lobby'?'disabled':''} title="新建命名存档或覆盖已有存档">${icon('save')}保存</button><button data-action="load" title="查看手动存档与自动存档">${icon('scroll')}读取</button><button data-action="export" title="下载 JSON 文件">${icon('flag')}导出</button><button data-action="import" title="选择 JSON 文件">${icon('home')}导入</button></div><div class="settings-divider"></div><div class="reset-row"><div><b>重新开始</b><p>${state.testScenario?'恢复本役预设布阵与兵力。':'回到建安五年，重新逐鹿中原。'}</p></div><button class="button danger" data-action="${state.testScenario?'retry-scenario':'reset-confirm'}">${state.testScenario?'重开本役':'新开一局'}</button></div>${pageGuides.settingsMarkup()}<input type="file" id="import-file" accept=".json,application/json" hidden>`);
-  if(ui.modal==='archives')html=modalShell('游戏存档','ARCHIVES · 游戏存档',archiveListMarkup(),'<button class="button secondary" data-action="settings">返回设置</button>',true);
-  if(ui.modal==='archive-confirm'&&ui.archiveConfirm){const q=ui.archiveConfirm;html=modalShell(q.kind==='delete'?'删除存档':'覆盖存档','ARCHIVES · 核阅确认',`<p>${q.kind==='delete'?'删除':'用当前进度替换'}「${esc(q.name)}」？</p><p class="muted">${q.kind==='delete'?'删除后无法恢复此手动存档。':'原存档内容会被当前进度替换。'}</p>`,`<button class="button secondary" data-action="archive-cancel">取消</button><button class="button ${q.kind==='delete'?'danger':'primary'}" data-action="archive-confirm">${q.kind==='delete'?'删除':'覆盖'}</button>`);}
-  if (ui.modal === 'reset') html = modalShell('再起风云', 'NEW CAMPAIGN', '<p class="modal-intro">新开一局会更新普通模式自动存档。手动存档会保留；可先在设置中保存当前进度。</p>', '<button class="button secondary" data-action="settings">返回存档</button><button class="button primary" data-action="reset">新局</button>');
+  if (ui.modal === 'journal') html = modalShell('天下纪事', '', `<div class="journal">${intelligenceWorld(state).logs.map(l => `<div class="${l.type}"><span>第 ${l.turn} 旬</span><p>${esc(l.text)}</p></div>`).join('')}</div>`);
+  if (ui.modal === 'settings') html = modalShell('游戏设置', currentScenario()?.name||'', `<div class="settings-actions"><button data-action="save" ${ui.mode==='lobby'?'disabled':''} title="新建命名存档或覆盖已有存档">${icon('save')}保存</button><button data-action="load" title="查看手动存档与自动存档">${icon('scroll')}读取</button><button data-action="export" title="下载 JSON 文件">${icon('flag')}导出</button><button data-action="import" title="选择 JSON 文件">${icon('home')}导入</button></div><div class="settings-divider"></div><div class="reset-row"><div><b>重新开始</b></div><button class="button danger" data-action="${state.testScenario?'retry-scenario':'reset-confirm'}">${state.testScenario?'重开本役':'新开一局'}</button></div>${pageGuides.settingsMarkup()}<input type="file" id="import-file" accept=".json,application/json" hidden>`);
+  if(ui.modal==='archives')html=modalShell('游戏存档','',archiveListMarkup(),'<button class="button secondary" data-action="settings">返回设置</button>',true);
+  if(ui.modal==='archive-confirm'&&ui.archiveConfirm){const q=ui.archiveConfirm;html=modalShell(q.kind==='delete'?'删除存档':'覆盖存档','',`<p>${q.kind==='delete'?'删除':'用当前进度替换'}「${esc(q.name)}」？</p><p class="muted">${q.kind==='delete'?'删除后无法恢复此手动存档。':'原存档内容会被当前进度替换。'}</p>`,`<button class="button secondary" data-action="archive-cancel">取消</button><button class="button ${q.kind==='delete'?'danger':'primary'}" data-action="archive-confirm">${q.kind==='delete'?'删除':'覆盖'}</button>`);}
+  if (ui.modal === 'reset') html = modalShell('再起风云', '', '<p class="modal-intro">将覆盖自动存档；手动存档保留。</p>', '<button class="button secondary" data-action="settings">返回存档</button><button class="button primary" data-action="reset">新局</button>');
   if (ui.modal === 'encounter' && state.pending) {
     const p = state.pending, city = cityById(state, p.cityId), attack = armyById(state, p.attackerId);
     const friendlyAttack = attack.faction === playerFaction(state), defenders = p.defenderIds.map(id => armyById(state, id));
@@ -720,29 +866,29 @@ function renderModal() {
     const ownN = own.reduce((n, a) => n + armyTroops(a), 0) + (city.owner === playerFaction(state) ? city.garrison : 0);
     const enemyN = enemy.reduce((n, a) => n + armyTroops(a), 0) + (city.owner !== playerFaction(state) && city.owner !== attack.faction ? city.garrison : 0);
     if (own[0]) ui.army = own[0].id;
-    html = modalShell('两军相逢', `${city.name} · ${friendlyAttack ? '我军进攻' : '敌军来袭'}`, `<div class="encounter-symbol">${icon('sword')}</div><h3 class="encounter-title">${city.name}之战</h3><p class="center muted">旗鼓相望，兵锋已至。请君主部署诸将。</p><div class="encounter-versus"><div><span class="faction-token cao">曹</span><b>曹操军</b><strong>${fmt(ownN)}</strong></div><span>VS</span><div><span class="faction-token yuan">${FACTIONS[friendlyAttack ? p.defenderFaction : attack.faction].short}</span><b>${FACTIONS[friendlyAttack ? p.defenderFaction : attack.faction].name}军</b><strong>${fmt(enemyN)}</strong></div></div><div class="info-strip">平原战场 · 通常每方最多6队同时作战，奸雄统军可达7队 · 其余部队列入预备队</div>`, `<button class="button secondary" data-action="loadout">固定战法</button><button class="button secondary" data-action="army" ${own.length ? '' : 'disabled'}>战前编制</button><button class="button primary" data-action="start-battle">${icon('sword')}进入战场</button>`);
+    html = modalShell('两军相逢', `${city.name} · ${friendlyAttack ? '我军进攻' : '敌军来袭'}`, `<div class="encounter-symbol">${icon('sword')}</div><h3 class="encounter-title">${city.name}之战</h3><p class="center muted"></p><div class="encounter-versus"><div><span class="faction-token cao">曹</span><b>曹操军</b><strong>${fmt(ownN)}</strong></div><span>VS</span><div><span class="faction-token yuan">${FACTIONS[friendlyAttack ? p.defenderFaction : attack.faction].short}</span><b>${FACTIONS[friendlyAttack ? p.defenderFaction : attack.faction].name}军</b><strong>${fmt(enemyN)}</strong></div></div><div class="info-strip">平原战场 · 通常每方最多6队同时作战，奸雄统军可达7队 · 其余部队列入预备队</div>`, `<button class="button secondary" data-action="loadout">固定战法</button><button class="button secondary" data-action="army" ${own.length ? '' : 'disabled'}>战前编制</button><button class="button primary" data-action="start-battle">${icon('sword')}进入战场</button>`);
   }
   if (ui.modal === 'report' && state.report) {
     const r = state.report, won = r.winner === 0;
-    html = modalShell(won ? '此战告捷' : r.winner === null ? '罢兵收军' : r.reason === '撤退' ? '全军收撤' : '此战失利', `${currentScenario()?.name || r.city+'之战'} · 战果呈报`, `<div class="report-seal ${won ? '' : 'lost'}">${won ? '捷' : r.winner === null ? '和' : '退'}</div><p class="center">${state.testScenario ? esc(r.reason) : r.captured ? `${r.city}现归${FACTIONS[r.owner].name}势力所有` : `${r.city}归属未变`} · 交战 ${battleDays(r.tick)} 天</p>${r.gate?`<div class="info-strip">${esc(r.reason)} · 城门耐久 ${fmt(r.gate.remaining)} / ${fmt(r.gate.initial)}</div>`:''}${battleAppointmentsMarkup(r.appointments,state.armies)}<table class="report-table"><thead><tr><th>战果</th><th>我军</th><th>敌军</th></tr></thead><tbody>${[['参战兵力', 'initial'], ['存活兵力', 'remaining'], ['伤兵', 'wounded'], ['阵亡', 'killed']].map(([name, key]) => `<tr><td>${name}</td><td>${fmt(r.stats[0][key])}</td><td>${fmt(r.stats[1][key])}</td></tr>`).join('')}</tbody></table><div class="info-strip">${state.testScenario ? '本场独立结算，战略进度不受影响。可重试本役，或返回选择其他战役。' : (won ? '战功：声望 +30，府库 +300。' : '未获胜的进攻军退回最近的己方城池。')+'伤兵在己方城池逐旬恢复。'}</div>${(r.growth||[]).some(g=>g.side===0)?`<h3 class="stats-section-title">武将成长</h3><div class="growth-report">${r.growth.filter(g=>g.side===0).map(g=>`<div><b>${esc(g.name)}</b><span>功绩 ${g.gained>=0?'+':'−'}${Math.abs(g.gained)} · ${g.after!==g.before?`${g.before} → ${g.after} 级`:`${g.after} 级`}</span><small>${esc(contributionText(g.contribution))} · 奖励 ${g.award}，扣罚 ${g.penalty||0}</small><small>${g.unlocked.length?`习得：${g.unlocked.map(esc).join("、")}`:g.after===10?"满级后继续积累功绩":"继续积累功绩"}</small></div>`).join("")}</div>`:""}${state.finished ? `<div class="campaign-complete"><b>${state.finished === 'victory' ? '中原已定，天下归心！' : '城池尽失，此番霸业未成。'}</b><p>可在设置中开启新的征程。</p></div>` : ''}`, currentScenario()?.campaign ? (state.testScenario?.customBattle?'<button class="button secondary" data-action="custom-edit">调整阵容</button>':'')+'<button class="button primary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="lobby">首页</button>' : state.testScenario ? '<button class="button primary" data-action="retry-scenario">重开本局</button><button class="button secondary" data-action="scenarios">选择战役</button><button class="button secondary" data-action="exit-scenario">返回天下</button>' : '<button class="button primary full" data-action="close-report">返回天下</button>');
+    html = modalShell(won ? '此战告捷' : r.winner === null ? '罢兵收军' : r.reason === '撤退' ? '全军收撤' : '此战失利', `${currentScenario()?.name || r.city+'之战'} · 战果呈报`, `<div class="report-seal ${won ? '' : 'lost'}">${won ? '捷' : r.winner === null ? '和' : '退'}</div><p class="center">${state.testScenario ? esc(r.reason) : r.captured ? `${r.city}现归${FACTIONS[r.owner].name}势力所有` : `${r.city}归属未变`} · 交战 ${battleDays(r.tick)} 天</p>${r.gate?`<div class="info-strip">${esc(r.reason)} · 城门耐久 ${fmt(r.gate.remaining)} / ${fmt(r.gate.initial)}</div>`:''}${battleAppointmentsMarkup(r.appointments,state.armies)}<table class="report-table"><thead><tr><th>战果</th><th>我军</th><th>敌军</th></tr></thead><tbody>${[['参战兵力', 'initial'], ['存活兵力', 'remaining'], ['伤兵', 'wounded'], ['阵亡', 'killed']].map(([name, key]) => `<tr><td>${name}</td><td>${fmt(r.stats[0][key])}</td><td>${fmt(r.stats[1][key])}</td></tr>`).join('')}</tbody></table><div class="info-strip">${state.testScenario ? '独立战役' : (won ? '声望 +30 · 府库 +300' : '退回己方城池')}</div>${(r.growth||[]).some(g=>g.side===0)?`<h3 class="stats-section-title">武将成长</h3><div class="growth-report">${r.growth.filter(g=>g.side===0).map(g=>`<div><b>${esc(g.name)}</b><span>功绩 ${g.gained>=0?'+':'−'}${Math.abs(g.gained)} · ${g.after!==g.before?`${g.before} → ${g.after} 级`:`${g.after} 级`}</span><small>${esc(contributionText(g.contribution))} · 奖励 ${g.award}，扣罚 ${g.penalty||0}</small><small>${g.unlocked.length?`习得：${g.unlocked.map(esc).join("、")}`:g.after===10?"满级后继续积累功绩":"继续积累功绩"}</small></div>`).join("")}</div>`:""}${state.finished ? `<div class="campaign-complete"><b>${state.finished === 'victory' ? '中原已定，天下归心！' : '城池尽失，此番霸业未成。'}</b><p>可在设置中开启新的征程。</p></div>` : ''}`, currentScenario()?.campaign ? (state.testScenario?.customBattle?'<button class="button secondary" data-action="custom-edit">调整阵容</button>':'')+'<button class="button primary" data-action="retry-scenario">同局重试</button><button class="button secondary" data-action="rematch-scenario">换局再战</button><button class="button secondary" data-action="lobby">首页</button>' : state.testScenario ? '<button class="button primary" data-action="retry-scenario">重开本局</button><button class="button secondary" data-action="scenarios">选择战役</button><button class="button secondary" data-action="exit-scenario">返回天下</button>' : '<button class="button primary full" data-action="close-report">返回天下</button>');
   }
   if (ui.modal === 'split') {
     const army = selectedArmy();
-    html = modalShell('分兵立营', 'NEW LEGION · 拆分军团', `<p class="modal-intro">选中的武将将组成新军团。两支军团都需保留至少一名有兵力的武将。</p><div class="split-list">${army.units.map(u => `<label><input type="checkbox" data-split="${u.id}" ${ui.selectedSplit.has(u.id) ? 'checked' : ''}>${avatar(u, true)}<b>${u.name}</b><span>${fmt(u.troops)} 人</span></label>`).join('')}</div>`, '<button class="button secondary" data-action="army">返回编制</button><button class="button primary" data-action="confirm-split">组建军团</button>');
+    html = modalShell('分兵立营', '', `<p class="modal-intro">双方至少各留一支有兵部队</p><div class="split-list">${army.units.map(u => `<label><input type="checkbox" data-split="${u.id}" ${ui.selectedSplit.has(u.id) ? 'checked' : ''}>${avatar(u, true)}<b>${u.name}</b><span>${fmt(u.troops)} 人</span></label>`).join('')}</div>`, '<button class="button secondary" data-action="army">返回编制</button><button class="button primary" data-action="confirm-split">组建军团</button>');
   }
   if (ui.modal === 'merge') {
     const army = selectedArmy(), others = state.armies.filter(a => a.id !== army.id && a.faction === playerFaction(state) && a.location === army.location && !a.route.length);
-    html = modalShell('合兵一处', 'MERGE LEGIONS', `<p class="modal-intro">将同城军团的全部武将、部队与粮草并入${esc(army.name)}。</p><div class="settings-actions">${others.map(a => `<button data-merge="${a.id}">${esc(a.name)}<span>${a.units.length} 名武将 · ${fmt(armyTroops(a))} 人 → 合并</span></button>`).join('') || '<p class="muted">同城暂无可合并的军团。</p>'}</div>`, '<button class="button secondary" data-action="army">返回编制</button>');
+    html = modalShell('合兵一处', '', `<p class="modal-intro">并入 ${esc(army.name)} · 全部部队及携粮</p><div class="settings-actions">${others.map(a => `<button data-merge="${a.id}">${esc(a.name)}<span>${a.units.length} 名武将 · ${fmt(armyTroops(a))} 人 → 合并</span></button>`).join('') || '<p class="muted">同城暂无可合并的军团。</p>'}</div>`, '<button class="button secondary" data-action="army">返回编制</button>');
   }
-  if(ui.modal==='campaign-encounters'&&state.campaign)html=modalShell('战线军议','全局暂停',activeBattles(state).filter(r=>r.awaiting||r.battle.reinforcementCouncil==='pending').map(r=>`<article class="strategy-battle-card"><h3>${r.battle.reinforcementCouncil?'援军抵达 · ':''}${esc(r.name)}</h3><p>${r.battle.reinforcementCouncil?'援军已加入后备，可调整顺序与撤离设置，在场部队保持原位。':'请确认本战指挥方式。'}</p>${siegeDefenseOptionsMarkup(state,r)}<button class="button primary" data-action="${r.battle.reinforcementCouncil?'campaign-focus':'campaign-prepare'}" data-battle="${r.id}">军议</button>${r.battle.reinforcementCouncil?`<button class="button secondary" data-action="reinforcement-continue" data-battle="${r.id}">继续作战</button>`:''}</article>`).join(''));
+  if(ui.modal==='campaign-encounters'&&state.campaign)html=modalShell('战斗准备','全局暂停',activeBattles(state).filter(r=>r.awaiting||r.battle.reinforcementCouncil==='pending').map(r=>`<article class="strategy-battle-card"><h3>${r.battle.reinforcementCouncil?'援军抵达 · ':''}${esc(r.name)}</h3><p>${r.battle.reinforcementCouncil?'援军已加入后备':'请确认本战指挥方式。'}</p>${siegeDefenseOptionsMarkup(state,r)}<button class="button primary" data-action="${r.battle.reinforcementCouncil?'campaign-focus':'campaign-prepare'}" data-battle="${r.id}">战前准备</button>${r.battle.reinforcementCouncil?`<button class="button secondary" data-action="reinforcement-continue" data-battle="${r.id}">继续作战</button>`:''}</article>`).join(''));
   if(ui.modal==='campaign-archive'&&state.campaign){const r=intelligenceWorld(state).campaign.archive.find(r=>r.id===ui.campaignHistory);if(r)html=modalShell(campaignBattleName(r),'战役战报',`<p>发生时间：${esc(campaignBattleDate(state,r.startedDay))}</p><p>结束时间：${esc(campaignBattleDate(state,r.endedDay))}</p><p>${r.winner?esc(FACTIONS[r.winner].name)+'获胜':'双方收兵'} · ${esc(r.reason)}</p><p class="muted">该战役仅保留战报摘要。</p>`,'',true);}
   if(ui.modal==='campaign-replay'&&state.campaign){const r=battleRecord(intelligenceWorld(state),ui.campaignHistory);if(r)html=modalShell(campaignBattleName(r),'历史回放 · 只读',replayMarkup(state,r,ui.replayIndex||0,ui.replayPlaying),'',true);}
   if(ui.modal==='campaign-history'&&state.campaign){const r=battleRecord(intelligenceWorld(state),ui.campaignHistory);if(r)html=modalShell(campaignBattleName(r),'每日快照 · 只读',snapshotMarkup(state,r,ui.campaignSnapshotDay,ui.snapshotSort),'',true);}
-  html=ui.textDetails?modalShell(ui.textDetails.title,'详情',detailTable(ui.textDetails,ui.textDetailsTab||0),'<button class="button secondary" data-action="close">返回</button>',true):compactDescriptions(html);
-  if(ui.modal==='settings')html=html.replace('存档保存在当前浏览器。',saveLocationText());
+  html=ui.textDetails?modalShell(ui.textDetails.title,'详情',detailTable(ui.textDetails,ui.textDetailsTab||0),'<button class="button secondary" data-action="close">返回</button>',true):html;
+  if(ui.modal==='settings')html=html.replace('存档保存在当前浏览器。',saveLocationText()).replace('<input type="file"',audio.settingsMarkup()+'<input type="file"');
   if(ui.mode!=='lobby'&&pendingArmyAppointments(state).length){
    ui.modal='postbattle-appointments';ui.paused=true;ui.postbattleAppointmentDraft??={};
-   html=modalShell('战后军团任命','补齐缺失职位', '<p>军团仍有剩余部队，请任命缺失的军团长、军师后继续。已有任命保持。</p>'+pendingArmyAppointments(state).map(p=>{const a=state.armies.find(a=>a.id===p.armyId);return appointmentFields(a,armyAppointmentCandidates(a),ui.postbattleAppointmentDraft[a.id]||a,{kind:'postbattle',locked:true});}).join(''),'',true);
+   html=modalShell('战后军团任命','补齐缺失职位', '<p>请补齐军团任命</p>'+pendingArmyAppointments(state).map(p=>{const a=state.armies.find(a=>a.id===p.armyId);return appointmentFields(a,armyAppointmentCandidates(a),ui.postbattleAppointmentDraft[a.id]||a,{kind:'postbattle',locked:true});}).join(''),'',true);
   }
   const overlay=detailPanels.render(html,detailContext());
   modalScroll.restore(detailPanels.panelRoot,html?modalScrollKey():null,overlay.restored);
@@ -752,6 +898,7 @@ function renderModal() {
   $('#app').toggleAttribute('inert',overlay.blocking);
   if(html){if(state.battle)ui.paused=true;const focus=focusKey&&[...detailPanels.panelRoot.querySelectorAll('[data-control-key]')].find(el=>el.dataset.controlKey===focusKey);(focus||detailPanels.panelRoot.querySelector('button:not([disabled])'))?.focus({preventScroll:true});}
   pageGuides.schedule();
+  syncAudioScene();
 }
 let musterRenderFrame=null;
 function renderMusterChange(el){
@@ -760,15 +907,33 @@ function renderMusterChange(el){
  if(musterRenderFrame!==null)cancelAnimationFrame(musterRenderFrame);
  musterRenderFrame=requestAnimationFrame(()=>{musterRenderFrame=null;renderModal();});
 }
-function openModal(name) { if(!['unit-stats','unit-officer','tactic-detail'].includes(name))ui.commandInspect=false;ui.textDetails=null;ui.textDetailsTab=0;ui.modal = name; if (state.battle) ui.paused = true; renderModal(); if (state.battle&&ui.mode!=='lobby') updateBattle(); }
-function closeModal() {if(ui.modal==='postbattle-appointments'){ui.modal=null;save();render();return;}
+function openModal(name) { ui.mapObject=null;document.querySelector('.map-object-menu')?.remove();if(!['unit-stats','unit-officer','tactic-detail'].includes(name))ui.commandInspect=false;ui.textDetails=null;ui.textDetailsTab=0;ui.modal = name; if (state.battle) ui.paused = true; renderModal(); if (state.battle&&ui.mode!=='lobby') updateBattle(); }
+function closeModal() {if(ui.modal==='map-target'){finishMapTarget(false);return;}if(ui.modal==='postbattle-appointments'){ui.modal=null;save();render();return;}
  if(!ui.textDetails&&isObjectDetail(ui)&&detailPanels.hasSource){restoreDetailSource(detailPanels.returnContext());renderModal();if(state.battle&&ui.mode!=='lobby')updateBattle();return;}
  if(ui.modal==='diplomacy-interruption'){ui.diplomaticInterruption=null;openModal('campaign-affairs');return;}
  if(ui.modal==='campaign-affairs'&&ui.diplomacyReportReturn){ui.diplomacyReportReturn=false;openModal('domestic-alerts');return;}
  if(ui.modal==='activity-record'){const target=ui.activityRecord?.returnModal||'domestic-alerts';ui.activityRecord=null;openModal(target);return;}
  if(ui.modal==='domestic-proposals'){ui.domesticProposalDeferred=true;ui.paused=true;} if(ui.modal==='domestic-alerts'){acknowledgeDomesticAlerts(state,ui.domesticAlertIds||[]);ui.domesticAlertIds=[];ui.paused=pendingDomesticProposals(state).length>0;ui.lastTime=performance.now();save();} if(ui.modal==='faction-battle'&&!ui.textDetails){openModal('faction-directory');return;}if(['campaign-history','campaign-replay','campaign-archive'].includes(ui.modal)&&ui.snapshotReturn&&!ui.textDetails){const target=ui.snapshotReturn;ui.snapshotReturn=null;openModal(target);return;} if(ui.modal==='campaign-info'&&!ui.textDetails){const target=ui.infoReturn;ui.infoReturn=null;if(target){openModal(target);return;}}  if(ui.textDetails){ui.textDetails=null;ui.textDetailsTab=0;renderModal();return;} if(ui.modal==='archive-confirm'){ui.archiveConfirm=null;openModal('archives');return;}if(ui.modal==='archives'){ui.modal=null;render();return;} if(ui.scenarioInspect){ui.scenarioInspect=false;openModal('scenario-setup');return;}if(ui.modal==='scenario-setup')ui.scenarioSetup=null; if(ui.militaryReturn&&['unit-stats','unit-officer','tactic-detail'].includes(ui.modal)){const target=ui.militaryReturn;ui.militaryReturn=null;openModal(target);return;} if(['military-flow','encounter-flow'].includes(ui.modal)){ui.militaryFlow=null;ui.encounterFlow=null;}  if(['unit-officer','unit-stats','tactic-detail'].includes(ui.modal)&&['campaign-picker','city-domestic','city-personnel','campaign-personnel'].includes(ui.personnelReturn)){openModal(ui.personnelReturn);return;} if(ui.modal==='domestic-interruption'&&ui.officerPick){ui.interruption=null;openModal('campaign-picker');return;} if(ui.modal==='campaign-picker'){ui.officerPick=null;ui.personnelReturn=null;if(ui.commandReturn){const target=ui.commandReturn;ui.commandReturn=null;openModal(target);return;}} if(ui.mode==='lobby'){ui.modal=null;render();return;} if (state.report) return closeReport(); ui.modal = state.pending ? 'encounter' : null; save(); render(); }
 function closeReport() { if (currentScenario()?.campaign) return showLobby(); if (state.testScenario) { ui.modal = 'scenarios'; renderModal(); return; } state.report = null; ui.modal = null; ui.city = selectedArmy()?.location || playerHome(state); save(); render(); }
-function act(action, el) {
+async function act(action, el) {
+  if(ui.archiveBusy)return;
+ if(action==='ending-export'){return act('export',el);}
+ if(action==='ending-map'){viewCampaignMap(state);ui.endingMap=true;ui.paused=true;ui.modal=null;render();return;}
+ if(action==='ending-show'){ui.endingMap=false;ui.modal=null;render();return;}
+ if(action==='ending-page'){ui[el.dataset.kind==='officers'?'endingOfficersPage':'endingEventsPage']=Number(el.dataset.page);render();return;}
+ if(action==='ending-new'){if(!await save())return;showLobby('national');return;}
+ if(action==='audio-toggle'){audio.setPreferences({muted:!audio.preferences.muted});if(!audio.preferences.muted)void audio.unlock().then(ok=>{if(ok)audio.play('confirm');});return;}
+ if(action==='audio-voice-preview'){
+  if(audio.preferences.muted||!audio.preferences.voice){toast('请先开启声音并调高武将语音音量','error');return;}
+  void audio.unlock().then(async ok=>{if(!ok)return toast('声音暂不可用','error');const played=await audio.playOfficer({...officerVoiceLine(OFFICER_BY_ID.cao,'start',{signature:true}),priority:10},{preview:true});if(!played)toast('中文语音暂不可用，请检查语音素材或设备中文语音设置','error');});return;
+ }
+ if(action==='audio-preview'){if(audio.preferences.muted){toast('请先开启声音','error');return;}if(!audio.preferences.sfx){toast('请先调高操作音效音量','error');return;}void audio.unlock().then(ok=>{if(ok)audio.play('order',{priority:7});else toast('声音暂不可用，请检查浏览器声音设置','error');});return;}
+ if(action==='map-target-open'){openMapTarget(el.dataset.kind);return;}
+ if(action==='map-target-confirm'){finishMapTarget(true);return;}
+ if(action==='map-target-cancel'){finishMapTarget(false);return;}
+ if(action==='transfer-relay-clear'){ui.officerPick.relay=null;renderModal();return;}
+ if(action==='diplomacy-target-clear'){document.getElementById('diplomacy-target').value='';document.querySelector('[data-diplomacy-target-label]').textContent='自主选择';return;}
+ if(action==='map-target-locate'){const n=mapNode(state,el.dataset.id);if(n&&ui.targetPick){ui.targetPick.mapUI.strategicMapView=centeredMapView(n,360,360);ui.targetPick.mapUI.mapFocusKey='place:'+ui.targetPick.mapUI.city;renderModal();}return;}
  if(action==='help')return pageGuides.open(null);
  if(action==='bond-overview'){ui.textDetails=bondOverview();ui.textDetailsTab=0;renderModal();return;}
  if(action==='ability-reference'||action==='tactic-detail'){const data=el.dataset.details?JSON.parse(el.dataset.details):abilityReference(action==='tactic-detail'?'tactic':el.dataset.kind,el.dataset.id||el.dataset.skill);if(data){if(action==='tactic-detail'){const u=inspectionUnits().find(u=>u.id===el.dataset.inspect),skill=TACTICS_BOOK[el.dataset.skill];if(u&&skill){const {unit,battle}=inspectContext(u);data.groups[0].rows.push(['威力','',tacticPowerPreview(skill,statusPower(unit,skill,battle))],['施放次数','',inspectionBattle()?'剩余 '+tacticUsesLeft(unit,skill)+'/'+tacticUseLimit(unit,skill)+' 次':'每场 '+skill.maxUses+' 次']);if(inspectionBattle())data.groups[0].rows.push(['当前限制','',tacticCondition(unit,skill,battle)]);}}if(el.dataset.effect)data.groups[0].rows.push(['当前效果','',el.dataset.effect]);ui.textDetails=data;ui.textDetailsTab=0;renderModal();}return;}
@@ -776,11 +941,12 @@ function act(action, el) {
  if(action==='treasure-open'){ui.treasurePick={officerId:el.dataset.officer||null};ui.scenarioInspect=false;return openModal('treasures');}
  if(action==='treasure-select'){ui.treasurePick={...ui.treasurePick,id:el.dataset.id,recipientId:null,equip:false};renderModal();return;}
  if(action==='treasure-cancel'){ui.treasurePick={officerId:ui.treasurePick?.officerId,filter:ui.treasurePick?.filter};renderModal();return;}
- if(['treasure-confirm','treasure-equip','treasure-unequip','treasure-store'].includes(action)){const p=ui.treasurePick||{},error=action==='treasure-confirm'?grantTreasure(state,p.id,p.recipientId,{equip:!!p.equip}):action==='treasure-store'?storeTreasure(state,el.dataset.id):equipTreasure(state,el.dataset.officer,action==='treasure-equip'?el.dataset.id:null);if(error)return toast(error);ui.treasurePick={officerId:p.officerId,filter:p.filter};save();renderModal();return;}
+ if(['treasure-confirm','treasure-equip','treasure-unequip','treasure-store'].includes(action)){const p=ui.treasurePick||{},error=action==='treasure-confirm'?grantTreasure(state,p.id,p.recipientId,{equip:!!p.equip}):action==='treasure-store'?storeTreasure(state,el.dataset.id):equipTreasure(state,el.dataset.officer,action==='treasure-equip'?el.dataset.id:null);if(error)return toast(error,'error');ui.treasurePick={officerId:p.officerId,filter:p.filter};save();renderModal();return;}
  if(action==='text-details'){ui.textDetails=JSON.parse(el.dataset.details);ui.textDetailsTab=0;renderModal();return;}
  if(action==='text-details-tab'){ui.textDetailsTab=Number(el.dataset.index);renderModal();return;}
- if(action==='map-city-inspect'){if(!cityVisible(state,el.dataset.town||ui.city)){ui.infoView={type:'city',id:el.dataset.town||ui.city,objectOnly:true};openModal('campaign-info');return;}ui.city=el.dataset.town||ui.city;ui.strategyTab=isJunction(state,ui.city)?'node':'city';ui.modal=null;ui.mapObject=null;ui.mapPanelOpen=false;render();$('#app [data-map-view="city"]')?.click();return;}
-  if(action==='map-object-close'){ui.mapObject=null;render();return true;}
+ if(action==='map-city-inspect'){if(!cityVisible(state,el.dataset.town||ui.city)){ui.infoView={type:'city',id:el.dataset.town||ui.city,objectOnly:true};openModal('campaign-info');return;}ui.city=el.dataset.town||ui.city;ui.strategyTab=isJunction(state,ui.city)?'node':'city';ui.modal=null;ui.mapObject=null;ui.mapPanelOpen=false;render();$('#app .national-world')?.dispatchEvent(new CustomEvent('map-inspect-city',{detail:{id:ui.city}}));return;}
+  if(action==='map-object-close'){const id=ui.mapObject?.id;ui.mapObject=null;render();document.querySelector(`.strategy-world [data-city="${id}"]`)?.focus({preventScroll:true});return true;}
+ if(action==='map-city-commands'){if(ui.mapObject?.kind==='city'){ui.mapObject.group=el.dataset.group||null;render();document.querySelector('.city-command-grid button:not(:disabled)')?.focus({preventScroll:true});}return true;}
  if(action==='map-object-manage'){if(el.dataset.kind==='army'){ui.army=el.dataset.id;ui.strategyTab='army';}else if(el.dataset.kind==='city'){ui.city=el.dataset.id;ui.strategyTab='city';}ui.modal=null;ui.mapObject=null;ui.mapPanelOpen=true;render();return true;}
  if(action==='city-domestic'){ui.city=el.dataset.town||ui.city;ui.mapObject=null;openModal('city-domestic');return true;}
  if(action==='combat-page'){setCombatPage(el.dataset.group,el.dataset.page);renderModal();return;}
@@ -798,7 +964,7 @@ function act(action, el) {
   if(action==='scenario-unit-disband'){const p=ui.scenarioSetup;if(p.sourceArmy)return;changeScenarioSetup(p,'selected',el.dataset.id,false);if(p.editorId===el.dataset.id)p.editorId=null;renderModal();return;}
   if(action==='scenario-unit-edit'||action==='scenario-unit-list'){const p=ui.scenarioSetup;if(action==='scenario-unit-edit'&&!p.selected.includes(el.dataset.id))return;Object.assign(p,{step:action==='scenario-unit-edit'?'formation':'unit-review',editorId:el.dataset.id||null,choosingMain:false});renderModal();return;}
   if(action==='scenario-unit-new'){Object.assign(ui.scenarioSetup,{editorId:null,step:'formation',choosingMain:false});renderModal();return;}
-  if(action==='scenario-unit-save'){const error=saveScenarioUnit(ui.scenarioSetup);if(error)toast(error);renderModal();return;}
+  if(action==='scenario-unit-save'){const error=saveScenarioUnit(ui.scenarioSetup);if(error)toast(error,'error');renderModal();return;}
   if(action==='scenario-setup-page'){ui.scenarioSetup.filter.page=Math.max(0,Number(el.dataset.page)||0);renderModal();return;}
   if(action==='scenario-setup-unit-detail'){ui.scenarioInspect=true;ui.personnelReturn=null;ui.inspectUnit=el.dataset.officer||el.dataset.id;return openModal('unit-stats');}
   if(action==='scenario-setup-detail'){ui.scenarioInspect=true;ui.personnelReturn=null;ui.inspectUnit=el.dataset.officer||el.dataset.id;return openModal('unit-officer');}
@@ -806,13 +972,13 @@ function act(action, el) {
   if(action==='scenario-setup-move'){const p=ui.scenarioSetup,ids=p.armySelected??p.selected,i=ids.indexOf(el.dataset.id),j=i+Number(el.dataset.offset);if(i>=0&&j>=0&&j<ids.length)[ids[i],ids[j]]=[ids[j],ids[i]];renderModal();return;}
   if(['scenario-setup-next','scenario-setup-back','scenario-setup-step'].includes(action)){
     const p=ui.scenarioSetup,steps=scenarioSetupSteps(p),index=steps.indexOf(p.step),error=scenarioSetupError(p);
-    if(action==='scenario-setup-next'&&error)return toast(error);
+    if(action==='scenario-setup-next'&&error)return toast(error,'error');
     const target=action==='scenario-setup-step'?steps.indexOf(el.dataset.step):index+(action==='scenario-setup-next'?1:-1);
     if(target>=0&&target<steps.length&&(action!=='scenario-setup-step'||target<index)){p.step=steps[target];setCombatPage('combat-本军',p.step==='commanders'?'appointments':'units');}renderModal();return;
   }
   if(action==='scenario-setup-confirm'){
-    const p=ui.scenarioSetup,error=scenarioSetupError(p);if(error)return toast(error);
-    try{if(p.sourceArmy){state=applyBattleSetup(state,p);save();}else{ui.customBattle=scenarioSetupDraft(p);saveCustomDraft();}ui.scenarioSetup=null;ui.modal=null;render();}catch(e){toast(e.message);}return;
+    const p=ui.scenarioSetup,error=scenarioSetupError(p);if(error)return toast(error,'error');
+    try{if(p.sourceArmy){state=applyBattleSetup(state,p);save();}else{ui.customBattle=scenarioSetupDraft(p);saveCustomDraft();}ui.scenarioSetup=null;ui.modal=null;render();}catch(e){toast(e.message,'error');}return;
   }
   if(action==='art-mode'){art.toggle();render();return;}
  if(action==='unit-workbench-preview'){const p=ui.modal==='scenario-setup'?ui.scenarioSetup:ui.officerPick;if(p){p.workbench={id:el.dataset.id,tab:el.dataset.tab||p.workbench?.tab||'unit'};renderModal();}return;}
@@ -822,7 +988,7 @@ function act(action, el) {
   if(action==='campaign-category'){ui.historySelection=el.dataset.category==='tactical'?'tactical-control-lv':'history-guandu';render();return;}
   if(action==='rematch-scenario')return launchScenario(state.testScenario.id,crypto.getRandomValues(new Uint32Array(1))[0],state.testScenario.shieldPercent,state.testScenario.officerIds||null,state.testScenario.customBattle);
   if(action==='historical-template'){ui.customBattle=historicalBattleDraft(el.dataset.history);refreshCustomDraft();document.querySelector('.custom-battle')?.scrollIntoView({behavior:'smooth',block:'start'});toast('已载入历史战役，可调整双方军团后开战');return;}
-  if(action==='launch-custom'){try{validateCustomBattle(ui.customBattle);openModal('scenario-review');}catch(e){toast(e.message);}return;}
+  if(action==='launch-custom'){try{validateCustomBattle(ui.customBattle);openModal('scenario-review');}catch(e){toast(e.message,'error');}return;}
   if(action==='scenario-launch-confirm')return launchScenario('custom-battle',ui.customBattle.seed,ui.customBattle.shieldPercent??20,null,ui.customBattle);
   if(action==='custom-setup'){showLobby('custom');return;}
   if(action==='preset-edit'){ui.customBattle=scenarioDraft(el.dataset.scenario);refreshCustomDraft();showLobby('custom');return;}
@@ -835,18 +1001,18 @@ function act(action, el) {
   if(action==='custom-event-remove'){ui.customBattle.events.splice(Number(el.dataset.index),1);refreshCustomDraft();return;}
   if(action==='battle-appointments-confirm'){
    const armyId=el.dataset.armyId,roles=ui.battleAppointmentDraft?.[armyId]||Object.fromEntries(['leader','advisor'].map(role=>[role,state.battle.sides[0].commanders.find(c=>c.armyId===armyId&&c.role===role)?.id??null]));
-   const error=state.campaign?appointEncounterRoles(state,armyId,roles):appointBattleRoles(state.battle,armyId,roles);if(error)return toast(error);delete ui.battleAppointmentDraft?.[armyId];save();updateBattle();return;
+   const error=state.campaign?appointEncounterRoles(state,armyId,roles):appointBattleRoles(state.battle,armyId,roles);if(error)return toast(error,'error');delete ui.battleAppointmentDraft?.[armyId];save();updateBattle();return;
   }
   if(action==='postbattle-appointments-confirm'){
    const armyId=el.dataset.armyId,a=state.armies.find(a=>a.id===armyId),error=confirmPostbattleAppointments(state,armyId,ui.postbattleAppointmentDraft?.[armyId]||{leader:a.leader,advisor:a.advisor});
-   if(error)return toast(error);delete ui.postbattleAppointmentDraft?.[armyId];ui.modal=null;save();render();return;
+   if(error)return toast(error,'error');delete ui.postbattleAppointmentDraft?.[armyId];ui.modal=null;save();render();return;
   }
-  if(action==='battle-reinforcement-council'){const error=openReinforcementCouncil(state.battle);if(error)return toast(error);ui.paused=true;ui.modal=null;save();render();return;}
-  if(action==='battle-reinforcement-continue'){const error=confirmReinforcementCouncil(state.battle);if(error)return toast(error);ui.modal=null;ui.paused=false;ui.lastTime=performance.now();save();render();return;}
+  if(action==='battle-reinforcement-council'){const error=openReinforcementCouncil(state.battle);if(error)return toast(error,'error');ui.paused=true;ui.modal=null;save();render();return;}
+  if(action==='battle-reinforcement-continue'){const error=confirmReinforcementCouncil(state.battle);if(error)return toast(error,'error');ui.modal=null;ui.paused=false;ui.lastTime=performance.now();save();render();return;}
   if(action==='custom-wave-add'){ui.customBattle.waves??=[];if(ui.customBattle.waves.length<4)ui.customBattle.waves.push({count:1,tick:(ui.customBattle.waves.at(-1)?.tick??0)+25});refreshCustomDraft();return;}
   if(action==='custom-wave-remove'){ui.customBattle.waves.splice(Number(el.dataset.index),1);refreshCustomDraft();return;}
   if(action==='custom-edit'){ui.customBattle=structuredClone(state.testScenario.customBattle);ui.customBattle.seed=state.testScenario.seed;saveCustomDraft();showLobby('custom');return;}
-  if(action==='custom-swap'){try{ui.customBattle=swapCustomBattle(ui.customBattle);refreshCustomDraft();}catch(e){toast(e.message);}return;}
+  if(action==='custom-swap'){try{ui.customBattle=swapCustomBattle(ui.customBattle);refreshCustomDraft();}catch(e){toast(e.message,'error');}return;}
   if(action==='lobby')return showLobby();
   if(action==='campaign-lobby')return showLobby('custom');
   if(action==='strategy'){ui.nationalDraft??={step:'scenario'};return showLobby('national');}
@@ -854,14 +1020,14 @@ function act(action, el) {
   if(action==='national-control'){ui.nationalDraft.allAI=!ui.nationalDraft.allAI;render();return;}
   if(action==='national-back'){ui.nationalDraft.step='scenario';render();window.scrollTo(0,0);return;}
   if(action==='select-national-faction'){if(!nationalScenario(ui.nationalDraft?.scenarioId)?.factions.includes(el.dataset.faction))return;ui.nationalDraft.faction=el.dataset.faction;render();return;}
-  if(action==='continue-national'){try{const raw=localStorage.getItem(SAVE_KEY);if(!raw)return toast('尚无普通模式存档');state=validateSave(JSON.parse(raw));restoreUI();}catch{toast('存档不兼容，请重新开始');}return;}
+  if(action==='continue-national'){try{const raw=saveStorage.peek(SAVE_KEY);if(!raw)return toast('尚无普通模式存档');state=validateSave(JSON.parse(raw));restoreUI();}catch{toast('存档不兼容，请重新开始');}return;}
   if(action==='launch-national'){const draft=ui.nationalDraft;if(draft?.step!=='faction'||!nationalScenario(draft.scenarioId)?.factions.includes(draft.faction))return;state=newGame(draft.scenarioId,draft.faction,{allAI:!!draft.allAI});ui.strategicMapView=null;ui.strategyTab='city';restoreUI();save();return;}
   if(action==='select-history'){ui.historySelection=el.dataset.scenario;render();document.querySelector(`[data-action="select-history"][data-scenario="${ui.historySelection}"]`)?.focus({preventScroll:true});return;}
   if(action==='launch-history')return launchScenario(el.dataset.scenario);
   if(action==='continue-history')return continueHistory();
   if(action==='inspect-building'){const b=state.battle,g=[...(b?.siege?.gate?[b.siege.gate]:[]),...(b?.buildings||[])].find(a=>a.id===el.dataset.building);if(g){ui.battleBuilding=g.id;openModal(g.type==='gate'?'gate':'battle-building');}return;}
   if (action === 'inspect-gate') {
-    if (ui.focusMode) { const error=issueCommand(state.battle,'focus','siege-gate'); if (!error) ui.focusMode=false; toast(error || '已提高城门的目标权重'); save(); updateBattle(); }
+    if (ui.focusMode) { const error=issueCommand(state.battle,'focus','siege-gate'); if (!error) ui.focusMode=false; toast(error || '已提高城门的目标权重',error?'error':'confirm'); save(); updateBattle(); }
     else openModal('gate');
     return;
   }
@@ -879,7 +1045,7 @@ function act(action, el) {
     const partner=$('#relationship-partner').value,raw=$('#relationship-score').value;
     const score=action==='relationship-reset'?relationshipInfo(ui.catalogInspect,partner,state.relationshipScores,state.relationshipTypes).base:raw.trim()===''?NaN:Number(raw);
     const error=setRelationshipScore(state,ui.catalogInspect,partner,score);
-    if(error)return toast(error);
+    if(error)return toast(error,'error');
     ui.relationshipPartner=partner;save();renderModal();toast('关系值已保存');return;
   }
   if(action==='catalog-detail'){ui.catalogInspect=el.dataset.id;return openModal('catalog-detail');}
@@ -902,7 +1068,7 @@ function act(action, el) {
   else if(action==='close-battle-panel') { ui.battlePanel=null; updateBattle(); }
   else if(action==='cancel-focus') { ui.focusMode=false; updateBattle(); }
   else if(action==='choose-stratagem') {ui.battlePanel=null;openModal('stratagem-picker');}
-  else if(action==='unit-stats'){if(ui.focusMode&&state.battle&&!isObjectDetail(ui)&&el.classList.contains('unit-nameplate')){const error=issueCommand(state.battle,'focus',el.dataset.inspect);if(!error)ui.focusMode=false;toast(error||'已提高该敌军的目标权重');save();updateBattle();return;}ui.inspectUnit=el.dataset.inspect||ui.inspectUnit;openModal('unit-stats');}
+  else if(action==='unit-stats'){if(ui.focusMode&&state.battle&&!isObjectDetail(ui)&&el.classList.contains('unit-nameplate')){const error=issueCommand(state.battle,'focus',el.dataset.inspect);if(!error)ui.focusMode=false;toast(error || '已提高该敌军的目标权重',error?'error':'confirm');save();updateBattle();return;}ui.inspectUnit=el.dataset.inspect||ui.inspectUnit;openModal('unit-stats');}
   else if(action==='deployment-select'){const u=state.battle?.sides[0].units.find(u=>u.id===el.dataset.inspect&&['active','reserve'].includes(u.status));if(!isDeploying(state.battle)||!u)return;closeModal();ui.deploymentSelection=u.id;updateBattle();}
   else if(action==='unit-officer'){ui.inspectUnit=el.dataset.inspect||ui.inspectUnit;openModal('unit-officer');}
   else if(action==='tactic-detail'){ui.inspectionReturn=ui.modal;ui.inspectUnit=el.dataset.inspect;ui.inspectSkill=el.dataset.skill;openModal('tactic-detail');}
@@ -915,18 +1081,18 @@ function act(action, el) {
   else if (action === 'order') { ui.order = true; toast('点击地图上的目的地，下达调遣令'); render(); }
   else if (action === 'cancel-order') { ui.order = false; render(); }
   else if (action === 'march') march(el.dataset.target);
-  else if (action === 'cancel-march') { const a = selectedArmy(); const error = orderArmy(state, a.id, a.location); if (error) toast(error); else { save(); render(); } }
+  else if (action === 'cancel-march') { const a = selectedArmy(); const error = orderArmy(state, a.id, a.location); if (error) toast(error,'error'); else { save(); render(); } }
   else if (action === 'next-turn') {
-    const error = advanceTurn(state); if (error) toast(error);
+    const error = advanceTurn(state); if (error) toast(error,'error');
     else { ui.modal = state.pending ? 'encounter' : null; save(); render(); if (state.finished) toast(state.finished === 'victory' ? '中原已定，剧本目标达成！' : '城池尽失，本局结束。'); }
   }
-  else if (action === 'recruit') { const error = state.campaign?recruitCampaign(state,selectedArmy()?.id):recruit(state, selectedArmy()?.id); toast(error || '兵员已补充，粮草已拨付'); save(); render(); }
-  else if (action === 'start-battle') { const error = startBattle(state); if (error) toast(error); else { ui.modal = null; ui.paused = true; ui.deploymentSelection = null; save(); render(); window.scrollTo(0, 0); } }
-  else if(action==='retreat-batch-apply'){const value=$('[data-retreat-batch]').value,ids=ui.retreatBattleId===state.battle?.id?ui.retreatSelected:[];const error=configureCouncilRetreat(state.battle,ids,value===''?null:Number(value));if(error)toast(error);else{syncCouncilDraft();save();}updateBattle();}
-  else if (action === 'pause' || action === 'tactical-pause') { if(ui.areaDraft){toast('请先确认或取消军略选区');return;} if(isReinforcementCouncil(state.battle)){confirmReinforcementCouncil(state.battle);ui.deploymentSelection=null;ui.paused=false;} else if (isDeploying(state.battle)) { const error=lockDeployment(state.battle);if(error){toast(error);return;} ui.deploymentSelection = null; ui.paused = false; } else ui.paused = !ui.paused; if(!ui.paused) ui.battlePanel=null; ui.lastTime = performance.now(); updateBattle(); save(); }
+  else if (action === 'recruit') { const error = state.campaign?recruitCampaign(state,selectedArmy()?.id):recruit(state, selectedArmy()?.id); toast(error || '兵员已补充，粮草已拨付',error?'error':'confirm'); save(); render(); }
+  else if (action === 'start-battle') { const error = startBattle(state); if (error) toast(error,'error'); else { ui.modal = null; ui.paused = true; ui.deploymentSelection = null; save(); render(); window.scrollTo(0, 0); } }
+  else if(action==='retreat-batch-apply'){const value=$('[data-retreat-batch]').value,ids=ui.retreatBattleId===state.battle?.id?ui.retreatSelected:[];const error=configureCouncilRetreat(state.battle,ids,value===''?null:Number(value));if(error)toast(error,'error');else{syncCouncilDraft();save();}updateBattle();}
+  else if (action === 'pause' || action === 'tactical-pause') { if(ui.areaDraft){toast('请先确认或取消军略选区');return;} if(isReinforcementCouncil(state.battle)){confirmReinforcementCouncil(state.battle);ui.deploymentSelection=null;ui.paused=false;} else if (isDeploying(state.battle)) { const error=lockDeployment(state.battle);if(error){toast(error,'error');return;} ui.deploymentSelection = null; ui.paused = false; } else ui.paused = !ui.paused; if(!ui.paused) ui.battlePanel=null; ui.lastTime = performance.now(); updateBattle(); save(); }
   else if(action==='show-council'){const council=$('.battle-council details');if(council){council.open=true;council.scrollIntoView({behavior:'smooth',block:'center'});}}
-  else if(action==='council-order'){const error=changeBattleCouncil(state.battle,{id:el.dataset.id,offset:Number(el.dataset.offset)});if(error)toast(error);else{ui.deploymentSelection=null;syncCouncilDraft();save();}updateBattle();}
-  else if (action === 'reset-deployment') { const error = resetDeployment(state.battle); if (error) toast(error); else { ui.deploymentSelection = null; updateBattle(); save(); } }
+  else if(action==='council-order'){const error=changeBattleCouncil(state.battle,{id:el.dataset.id,offset:Number(el.dataset.offset)});if(error)toast(error,'error');else{audio.play('confirm');ui.deploymentSelection=null;syncCouncilDraft();save();}updateBattle();}
+  else if (action === 'reset-deployment') { const error = resetDeployment(state.battle); if (error) toast(error,'error'); else { ui.deploymentSelection = null; updateBattle(); save(); } }
   else if (action === 'speed') { ui.speed = ui.speed === 4 ? .5 : ui.speed * 2; updateBattle(); }
   else if (action === 'effects-mode') { ui.effectMode = ui.effectMode === 'clear' ? 'full' : 'clear'; try { localStorage.setItem('sango-effects-mode',ui.effectMode); } catch {} updateBattle(); }
   else if (action === 'zoom-in') { ui.zoom = Math.min(2, ui.zoom + .25); render(); }
@@ -937,23 +1103,29 @@ function act(action, el) {
   else if(action==='archive-create'){
     if(ui.mode==='lobby')return;
     ui.archiveName=$('#archive-name')?.value||'';
-    try{writeArchive(localStorage,{name:ui.archiveName,data:state.campaign?serializeCampaign(state):JSON.stringify(state)},validateSave);renderModal();toast('手动存档已保存');}
+    ui.archiveBusy=true;
+    try{await writeArchive(saveStorage,{name:ui.archiveName,data:state.campaign?serializeCampaign(state):JSON.stringify(state)},validateSave);await refreshArchives();toast('手动存档已保存');}
     catch(error){toast(error.name==='QuotaExceededError'?'浏览器空间不足，请导出或删除不需要的手动存档':`保存失败：${error.message}`);}
+    finally{ui.archiveBusy=false;}
   }
   else if(action==='archive-load'){
-    try{const next=readArchive(localStorage,el.dataset.key,validateSave);state=next;restoreUI();save();toast('已读取所选存档，游戏已暂停');}
+    ui.archiveBusy=true;
+    try{const next=await readArchive(saveStorage,el.dataset.key,validateSave);state=next;restoreUI();if(await save())toast('已读取所选存档，游戏已暂停');}
     catch(error){toast(`读取失败：${error.message}`);}
+    finally{ui.archiveBusy=false;}
   }
   else if(action==='archive-overwrite'||action==='archive-delete'){
     if(action==='archive-overwrite'&&ui.mode==='lobby')return;
-    try{const entry=listArchives(localStorage,validateSave).find(x=>x.key===el.dataset.key&&!x.automatic);if(!entry)return;ui.archiveName=$('#archive-name')?.value||ui.archiveName;ui.archiveConfirm={key:entry.key,name:entry.name,kind:action==='archive-delete'?'delete':'overwrite'};openModal('archive-confirm');}
+    try{const entry=ui.archiveEntries?.find(x=>x.key===el.dataset.key&&!x.automatic);if(!entry)return;ui.archiveName=$('#archive-name')?.value||ui.archiveName;ui.archiveConfirm={key:entry.key,name:entry.name,kind:action==='archive-delete'?'delete':'overwrite'};openModal('archive-confirm');}
     catch(error){toast(`无法选择存档：${error.message}`);}
   }
   else if(action==='archive-cancel'){ui.archiveConfirm=null;openModal('archives');}
   else if(action==='archive-confirm'){
     const q=ui.archiveConfirm;if(!q)return;
-    try{if(q.kind==='delete')deleteArchive(localStorage,q.key);else{if(ui.mode==='lobby')return;writeArchive(localStorage,{key:q.key,name:q.name,data:state.campaign?serializeCampaign(state):JSON.stringify(state)},validateSave);}ui.archiveConfirm=null;openModal('archives');toast(q.kind==='delete'?'手动存档已删除':'手动存档已更新');}
+    ui.archiveBusy=true;
+    try{if(q.kind==='delete')await deleteArchive(saveStorage,q.key);else{if(ui.mode==='lobby')return;await writeArchive(saveStorage,{key:q.key,name:q.name,data:state.campaign?serializeCampaign(state):JSON.stringify(state)},validateSave);}ui.archiveConfirm=null;await refreshArchives();openModal('archives');toast(q.kind==='delete'?'手动存档已删除':'手动存档已更新');}
     catch(error){toast(error.name==='QuotaExceededError'?'浏览器空间不足，原存档已保留':`操作失败：${error.message}`);}
+    finally{ui.archiveBusy=false;}
   }
   else if (action === 'export') {
     const name=state.testScenario?`君临-${currentScenario()?.campaign?'战役':'试炼'}-${state.testScenario.id}.json`:`君临-第${state.turn}旬.json`;
@@ -964,10 +1136,10 @@ function act(action, el) {
   else if (action === 'reset') { closeModal();showLobby('national'); }
   else if (action === 'close-report') closeReport();
   else if (action === 'split') { ui.selectedSplit.clear(); openModal('split'); }
-  else if (action === 'confirm-split') { const error = state.campaign?splitCampaignArmy(state,selectedArmy().id,[...ui.selectedSplit]):splitArmy(state, selectedArmy().id, [...ui.selectedSplit]); if (error) toast(error); else { save(); openModal('army'); toast('新军团已组建，可在军团选择框中切换'); } }
+  else if (action === 'confirm-split') { const error = state.campaign?splitCampaignArmy(state,selectedArmy().id,[...ui.selectedSplit]):splitArmy(state, selectedArmy().id, [...ui.selectedSplit]); if (error) toast(error,'error'); else { save(); openModal('army'); toast('新军团已组建，可在军团选择框中切换'); } }
 }
-function march(target) { const error = orderArmy(state, selectedArmy()?.id, target); if (error) toast(error); else { ui.order = false; save(); render(); toast('军令已下达，结束回合后开始行军'); } }
-function restoreUI() {ui.battleAppointmentDraft={};ui.postbattleAppointmentDraft={}; ui.domesticProposalDeferred=false;ui.encounterNotices=new Set(); ui.areaDraft=null; ui.mode='map';ui.battlePanel=null; history.replaceState(null, '', location.pathname + location.search + (currentScenario()?.campaign ? '#historical-battle' : state.testScenario ? '#battle-lab' : '#strategy')); ui.army = (state.armies.find(a => a.faction === playerFaction(state) && a.units.some(u=>OFFICER_BY_ID[u.id]?.sourceId===FACTIONS[playerFaction(state)]?.leaderSourceId))||state.armies.find(a => a.faction === playerFaction(state)))?.id; ui.city = selectedArmy()?.location || playerHome(state); ui.paused = true; ui.modal = state.report ? 'report' : state.pending ? 'encounter' : null; ui.order = false; ui.focusMode = false; ui.deploymentSelection = null; ui.zoom = 1;ui.strategicMapView=null;ui.mapFocusKey=null;ui.mapCameraManual=false; render(); window.scrollTo(0, 0); }
+function march(target) { const error = orderArmy(state, selectedArmy()?.id, target); if (error) toast(error,'error'); else { ui.order = false; save(); render(); toast('军令已下达，结束回合后开始行军'); } }
+function restoreUI() {ui.endingMap=false;ui.endingOfficersPage=0;ui.endingEventsPage=0;ui.battleAppointmentDraft={};ui.postbattleAppointmentDraft={}; ui.domesticProposalDeferred=false;ui.encounterNotices=new Set(); ui.areaDraft=null; ui.mode='map';ui.battlePanel=null; history.replaceState(null, '', location.pathname + location.search + (currentScenario()?.campaign ? '#historical-battle' : state.testScenario ? '#battle-lab' : '#strategy')); ui.army = (state.armies.find(a => a.faction === playerFaction(state) && a.units.some(u=>OFFICER_BY_ID[u.id]?.sourceId===FACTIONS[playerFaction(state)]?.leaderSourceId))||state.armies.find(a => a.faction === playerFaction(state)))?.id; ui.city = selectedArmy()?.location || playerHome(state); ui.paused = true; ui.modal = state.report ? 'report' : state.pending ? 'encounter' : null; ui.order = false; ui.focusMode = false; ui.deploymentSelection = null; ui.zoom = 1;ui.strategicMapView=null;ui.mapFocusKey=null;ui.mapCameraManual=false; render(); window.scrollTo(0, 0); }
 document.addEventListener('contextmenu',event=>{
   const unit=event.target.closest('[data-unit]');
   if(!unit||!state.battle)return;
@@ -979,13 +1151,14 @@ document.addEventListener('keydown',event=>{
   event.preventDefault();ui.inspectUnit=unit.dataset.unit;openModal('unit-stats');
 });
 document.addEventListener('click', event => {
+  if(ui.mapObject&&!event.target.closest('.map-object-menu,[data-city],[data-action="map-quick-select"]')){ui.mapObject=null;document.querySelector('.map-object-menu')?.remove();}
   if(ui.areaDraft){
     const action=event.target.closest('[data-area-action]');
     if(action){
       if(action.disabled)return;
       if(action.dataset.areaAction==='cancel')ui.areaDraft=null;
       else if(action.dataset.areaAction==='rotate'){ui.areaDraft.rotation=ui.areaDraft.rotation===90?0:90;if(ui.areaDraft.point)ui.areaDraft.point.rotation=ui.areaDraft.rotation;}
-      else {const error=issueCommand(state.battle,ui.areaDraft.key,ui.areaDraft.point);if(error)toast(error);else{ui.areaDraft=null;toast('军略已施放');save();}}
+      else {const error=issueCommand(state.battle,ui.areaDraft.key,ui.areaDraft.point);if(error)toast(error,'error');else{ui.areaDraft=null;toast('军略已施放');save();}}
       updateBattle();return;
     }
     const board=event.target.closest('#battle-board');
@@ -1002,15 +1175,16 @@ document.addEventListener('click', event => {
     return;
   }
   const road=event.target.closest('[data-road-from]');
-  if(road&&ui.mapCommandView){const p=ui.officerPick,a=state.armies.find(a=>a.id===p.armyId),from=p.task==='march'?(a?.travel?.to||a?.location):p.city,path=p.mapRoute||[],at=path.at(-1)||from,x=road.dataset.roadFrom,y=road.dataset.roadTo,next=x===at?y:y===at?x:null;
+  if(ui.modal==='map-target'&&event.target.closest('[data-command-city]')){const id=event.target.closest('[data-command-city]').dataset.commandCity;if(!mapTargetCandidates(state,ui.targetPick.kind,mapTargetContext()).some(n=>n.id===id)){toast('此处不能作为当前目标');return;}ui.targetPick.selected=id;renderModal();return;}
+  if(road&&ui.modal==='campaign-picker'&&['march','expedition'].includes(ui.officerPick?.task)&&ui.mapCommandView){const p=ui.officerPick,a=state.armies.find(a=>a.id===p.armyId),from=p.task==='march'?(a?.travel?.to||a?.location):p.city,path=p.mapRoute||[],at=path.at(-1)||from,x=road.dataset.roadFrom,y=road.dataset.roadTo,next=x===at?y:y===at?x:null;
     if(!next){toast('请从出发点或已选路线末端，点击相连道路');return;}
     if(next===from||path.includes(next)){toast('路线不能重复经过同一地点；点目的地可重新规划');return;}
-    const error=selectCommandPoint(state,p,next);if(error)toast(error);renderModal();return;
+    const error=selectCommandPoint(state,p,next);if(error)toast(error,'error');renderModal();return;
   }
   const junction=event.target.closest('[data-junction]');
   if(junction){ui.city=junction.dataset.junction;ui.strategyTab='node';ui.mapPanelOpen=true;ui.mapObjectMenu=null;render();return;}
   const target=event.target.closest('[data-command-city]');
-  if(target&&ui.modal==='campaign-picker'){const p=ui.officerPick,id=target.dataset.commandCity,c=mapNode(state,id);if(p.task==='transfer'&&(id===p.city||c.owner!==playerFaction(state))){toast('请选择其它可调入的据点');return;}if(['march','expedition'].includes(p.task)){const error=selectCommandPoint(state,p,id);if(error)toast(error);}else p.destination=id;renderModal();return;}
+  if(target&&ui.modal==='campaign-picker'){const p=ui.officerPick,id=target.dataset.commandCity,c=mapNode(state,id);if(p.task==='transfer'&&(id===p.city||c.owner!==playerFaction(state))){toast('请选择其它可调入的据点');return;}if(['march','expedition'].includes(p.task)){const error=selectCommandPoint(state,p,id);if(error)toast(error,'error');}else {p.destination=id;if(p.relay===id)p.relay=null;}renderModal();return;}
   const transport=event.target.closest('[data-transport-officer]');
   if(transport&&state.campaign){openMapInspection('officer',transport.dataset.transportOfficer);render();return;}
   const legion=event.target.closest('[data-campaign-army]');
@@ -1018,7 +1192,7 @@ document.addEventListener('click', event => {
   const action = event.target.closest('[data-action]');
   if (action) { event.preventDefault(); if (!action.disabled) act(action.dataset.action, action); return; }
   const city = event.target.closest('[data-city]');
-  if (city) { ui.city = city.dataset.city; if(state.campaign){ui.strategyTab='city';ui.mapFocusKey=null;ui.mapDirectoryOpen=false;const onMap=!!city.closest('.strategy-world');ui.mapPanelOpen=!onMap;ui.mapObject=null;if(onMap&&!ui.order)openMapInspection('city',ui.city);else switchMapInspection('city',ui.city);} if (ui.order) march(ui.city); else render(); return; }
+  if (city) { if(state.campaign&&!ui.order){openCityCommands(city.dataset.city,city,event);return;}ui.city=city.dataset.city;if(ui.order)march(ui.city);else render();return; }
   const command = event.target.closest('[data-command]');
   if (command && !command.disabled && state.battle) {
     if (command.dataset.command === 'focus') { ui.focusMode = !ui.focusMode; ui.battlePanel=null; updateBattle(); return; }
@@ -1026,26 +1200,26 @@ document.addEventListener('click', event => {
       ui.areaDraft={key:command.dataset.command,battleId:state.battle.id,point:null,rotation:0};ui.paused=true;ui.battlePanel=null;ui.modal=null;renderModal();updateBattle();return;
     }
     ui.areaDraft=null;
-    const error = issueCommand(state.battle, command.dataset.command); if(!error){ui.battlePanel=null;if(ui.modal==='stratagem-picker'){ui.modal=null;renderModal();}} toast(error || '军令已传达'); save(); updateBattle(); return;
+    const error = issueCommand(state.battle, command.dataset.command); if(!error){ui.battlePanel=null;if(ui.modal==='stratagem-picker'){ui.modal=null;renderModal();}} toast(error || '军令已传达',error?'error':'confirm'); save(); updateBattle(); return;
   }
   const unit = event.target.closest('[data-unit]');
   if(unit&&state.battle&&isObjectDetail(ui)){ui.inspectUnit=unit.dataset.unit;openModal('unit-stats');return;}
   if (unit && isDeploying(state.battle)) {
     const target=activeUnits(state.battle,0).find(u=>u.id===unit.dataset.unit);
-    if(ui.deploymentSelection&&target&&target.id!==ui.deploymentSelection){const error=deployUnit(state.battle,ui.deploymentSelection,target.x,target.y);if(error)toast(error);else{ui.deploymentSelection=null;syncCouncilDraft();save();}updateBattle();return;}
+    if(ui.deploymentSelection&&target&&target.id!==ui.deploymentSelection){const error=deployUnit(state.battle,ui.deploymentSelection,target.x,target.y);if(error)toast(error,'error');else{audio.play('confirm');ui.deploymentSelection=null;syncCouncilDraft();save();}updateBattle();return;}
     ui.deploymentSelection=null;ui.inspectUnit=unit.dataset.unit;openModal('unit-stats');return;
   }
   const cell = event.target.closest('[data-deploy-x]');
   if (cell && isDeploying(state.battle)) { placeSelected(cell); return; }
-  if (unit && ui.focusMode && state.battle) { const error = issueCommand(state.battle, 'focus', unit.dataset.unit); if (!error) ui.focusMode = false; toast(error || '已提高该敌军的目标权重'); save(); updateBattle(); return; }
+  if (unit && ui.focusMode && state.battle) { const error = issueCommand(state.battle, 'focus', unit.dataset.unit); if (!error) ui.focusMode = false; toast(error || '已提高该敌军的目标权重',error?'error':'confirm'); save(); updateBattle(); return; }
   if(unit&&state.battle){ui.inspectUnit=unit.dataset.unit;openModal('unit-stats');return;}
   const merge = event.target.closest('[data-merge]');
-  if (merge) { const error = state.campaign?mergeCampaignArmies(state,selectedArmy().id,merge.dataset.merge):mergeArmies(state, selectedArmy().id, merge.dataset.merge); if (error) toast(error); else { save(); openModal('army'); toast('军团已合并'); } }
+  if (merge) { const error = state.campaign?mergeCampaignArmies(state,selectedArmy().id,merge.dataset.merge):mergeArmies(state, selectedArmy().id, merge.dataset.merge); if (error) toast(error,'error'); else { save(); openModal('army'); toast('军团已合并'); } }
 });
 function placeSelected(cell) {
   if (!ui.deploymentSelection) return toast('请拖动我军部队，或在详情中选择“调整站位”');
   const error = deployUnit(state.battle,ui.deploymentSelection,Number(cell.dataset.deployX),Number(cell.dataset.deployY));
-  if (error) toast(error); else { ui.deploymentSelection = null;syncCouncilDraft(); save(); updateBattle(); }
+  if (error) toast(error,'error'); else { audio.play('confirm'); ui.deploymentSelection = null;syncCouncilDraft(); save(); updateBattle(); }
 }
 document.addEventListener('dragstart',event=>{
  if(!isBattleCouncil(state.battle))return;
@@ -1060,7 +1234,7 @@ document.addEventListener('drop',event=>{
  if(!id||(!bench&&!cell&&!target))return;event.preventDefault();let error;
  if(bench)error=reserveDeploymentUnit(state.battle,id,row?.dataset.councilUnit);
  else {const u=target&&activeUnits(state.battle,0).find(u=>u.id===target.dataset.unit);error=deployUnit(state.battle,id,cell?Number(cell.dataset.deployX):u?.x,cell?Number(cell.dataset.deployY):u?.y);}
- if(error)toast(error);else{ui.deploymentSelection=null;syncCouncilDraft();save();}updateBattle();
+ if(error)toast(error,'error');else{audio.play('confirm');ui.deploymentSelection=null;syncCouncilDraft();save();}updateBattle();
 });
 document.addEventListener('dragend',()=>{ui.deploymentSelection=null;});
 document.addEventListener('input',event=>{
@@ -1087,7 +1261,7 @@ document.addEventListener('keydown',event=>{
 });
 document.addEventListener('compositionend',event=>{if(event.target.id==='map-quick-query'||event.target.id==='faction-directory-query'||event.target.id==='campaign-info-query'||event.target.id==='catalog-query'||event.target.dataset.personnelFilter==='query'||event.target.dataset.scenarioQuery)event.target.dispatchEvent(new Event('input',{bubbles:true}));});
 document.addEventListener('change', async event => {
- if(['scout-city','scout-officer','scout-target'].includes(event.target.id)){ui.scout??={};const field=event.target.id.slice(6);ui.scout[field]=event.target.value;if(field==='city')ui.scout.officer=null;if(field!=='target')ui.scout.target=null;renderModal();return;}
+ if(event.target.id==='scout-officer'){ui.scout??={};const field=event.target.id.slice(6);ui.scout[field]=event.target.value;if(field==='city')ui.scout.officer=null;if(field!=='target')ui.scout.target=null;renderModal();return;}
   const el = event.target, army = selectedArmy();
   if(el.hasAttribute('data-treasure-filter')){ui.treasurePick.filter=el.value;renderModal();return;}
  if(el.hasAttribute('data-treasure-recipient')){ui.treasurePick.recipientId=el.value||null;renderModal();return;}
@@ -1124,10 +1298,8 @@ document.addEventListener('change', async event => {
   }
   if(el.dataset.postbattleAppointmentRole){const id=el.dataset.armyId,a=state.armies.find(a=>a.id===id);ui.postbattleAppointmentDraft??={};ui.postbattleAppointmentDraft[id]??={leader:a.leader,advisor:a.advisor};ui.postbattleAppointmentDraft[id][el.dataset.postbattleAppointmentRole]=el.value||null;return;}
   if(el.dataset.expeditionRole){ui.officerPick[el.dataset.expeditionRole]=el.value||null;renderModal();return;}
-  if(el.id==='command-destination'){ui.officerPick.destination=el.value||null;delete ui.officerPick.route;renderModal();return;}
   if(el.id==='command-policy'){ui.officerPick.policy=el.value;renderModal();return;}
   if(el.hasAttribute('data-transfer-cycles')){ui.officerPick.cycles=Number(el.value);renderModal();return;}
-  if(el.hasAttribute('data-transfer-relay')){ui.officerPick.relay=el.value||null;renderModal();return;}
   if(el.dataset.transferCargo){ui.officerPick.cargo[el.dataset.transferCargo]=Number(el.value);renderModal();return;}
   if(el.id==='command-reinforce'){ui.officerPick.reinforce=el.checked;renderModal();return;}
   if(el.dataset.commandTroops){if(el.closest('.unit-muster'))changeCommandUnit(state,ui.officerPick,el.dataset.commandTroops,'troops',el.value);else (ui.officerPick.troops??={})[el.dataset.commandTroops]=Number(el.value);renderMusterChange(el);return;}
@@ -1151,8 +1323,8 @@ document.addEventListener('change', async event => {
   if(el.dataset.customWave){const w=ui.customBattle.waves[Number(el.dataset.index)];if(w)w[el.dataset.customWave]=el.dataset.customWave==='tick'?battleSteps(Number(el.value)):Number(el.value);refreshCustomDraft();return;}
  if(el.dataset.customOption){if(el.dataset.customOption==='terrain')delete ui.customBattle.mapId;if(el.dataset.customOption==='mapId'){if(el.value)ui.customBattle.terrain=BATTLE_MAPS[el.value].terrain;else delete ui.customBattle.mapId;}ui.customBattle[el.dataset.customOption]=['seed','gateHp','limit','shieldPercent','holdUntil','ownTroopBudget'].includes(el.dataset.customOption)?(['limit','holdUntil'].includes(el.dataset.customOption)?battleSteps(Number(el.value)):Number(el.value)):el.value;if(el.dataset.customOption==='battleKind'&&el.value==='field')delete ui.customBattle.holdUntil;refreshCustomDraft();return;}
   if(state.campaign&&el.dataset.domesticDirection){if(el.value)submitStrategicOrder({kind:'assign',cityId:el.dataset.town,direction:el.dataset.domesticDirection,officerIds:[el.value]});return;}
-  if(state.campaign&&el.dataset.cityBudgetKey){const error=setCityBudget(state,el.dataset.cityBudgetId,el.dataset.cityBudgetKey,Number(el.value));if(error)toast(error);else updateCityBudgetAlerts(state);save();render();return;}
-  if(state.campaign&&el.id==='campaign-governor'){const error=appointGovernor(state,el.dataset.town,el.value);if(error)toast(error);save();render();return;}
+  if(state.campaign&&el.dataset.cityBudgetKey){const error=setCityBudget(state,el.dataset.cityBudgetId,el.dataset.cityBudgetKey,Number(el.value));if(error)toast(error,'error');else updateCityBudgetAlerts(state);save();render();return;}
+  if(state.campaign&&el.id==='campaign-governor'){const error=appointGovernor(state,el.dataset.town,el.value);if(error)toast(error,'error');save();render();return;}
   if(state.campaign&&el.id==='campaign-replay-frame'){ui.replayIndex=Number(el.value);ui.replayPlaying=false;renderModal();return;}
   if(state.campaign&&el.id==='campaign-snapshot-day'){ui.campaignSnapshotDay=Number(el.value);renderModal();return;}
   if(state.campaign&&el.id==='relationship-type'&&activeBattles(state).length){toast('交战期间人物关系锁定');renderModal();return;}
@@ -1160,12 +1332,12 @@ document.addEventListener('change', async event => {
 
   if(el.id==='battle-terrain'){
     const error=configureBattleTerrain(state.battle,el.value);
-    if(error){toast(error);updateBattle();return;}
+    if(error){toast(error,'error');updateBattle();return;}
     ui.deploymentSelection=null;save();render();return;
   }
   if(el.id==='relationship-type'){
     const error=setRelationshipType(state,ui.catalogInspect,$('#relationship-partner').value,el.value);
-    if(error){renderModal();toast(error);return;}
+    if(error){renderModal();toast(error,'error');return;}
     save();renderModal();toast('当前关系已变更');return;
   }
   if(el.id==='relationship-partner'){ui.relationshipPartner=el.value;renderModal();return;}
@@ -1173,8 +1345,8 @@ document.addEventListener('change', async event => {
   if (el.id === 'army-select') { ui.army = el.value; ui.city = selectedArmy().location;ui.mapFocusKey=null; render(); return; }
   if (el.id === 'import-file') {
     const file = el.files?.[0]; if (!file) return;
-    if (file.size > 50_000_000) return toast('文件过大，请选择君临导出的存档');
-    try { const imported = validateSave(JSON.parse(await file.text())); state = imported; restoreUI(); save(); toast('存档导入成功'); }
+    if (file.size > MAX_SAVE_BYTES) return toast('文件过大，请选择君临导出的存档');
+    try { const imported = validateSave(JSON.parse(await file.text())); state = imported; restoreUI(); if(await save())toast('存档导入成功'); }
     catch (error) { toast(`导入失败：${error.message}`); }
     return;
   }
@@ -1185,14 +1357,13 @@ document.addEventListener('change', async event => {
    else ui.retreatSelected=el.checked?[...new Set([...ui.retreatSelected,el.dataset.retreatPick])]:ui.retreatSelected.filter(id=>id!==el.dataset.retreatPick);
    updateBattle();return;
   }
-  if(el.hasAttribute('data-retreat-destination')){const error=configureRetreatDestination(state,state.battle,el.value);if(error)toast(error);else save();updateBattle();return;}
   if(el.dataset.unitRetreat){
    const ids=el.dataset.unitRetreat?[el.dataset.unitRetreat]:ui.retreatBattleId===state.battle?.id?ui.retreatSelected:[];
    const error=configureCouncilRetreat(state.battle,ids,el.value===''?null:Number(el.value));
-   if(error)toast(error);else{syncCouncilDraft();save();}
+   if(error)toast(error,'error');else{syncCouncilDraft();save();}
    updateBattle();return;
   }
-  if(el.id==='battle-intent'){const error=configureBattleIntent(state.battle,el.value);if(error)toast(error);else save();updateBattle();return;}
+  if(el.id==='battle-intent'){const error=configureBattleIntent(state.battle,el.value);if(error)toast(error,'error');else save();updateBattle();return;}
   if(el.id==='inspect-unit'){ui.inspectUnit=el.value;renderModal();if(state.battle)updateBattle();return;}
   if(el.id==='loadout-unit'){ui.loadoutUnit=el.value;renderModal();return;}
 
@@ -1204,7 +1375,7 @@ document.addEventListener('change', async event => {
     if (el.checked && army.units.filter(u => u.first).length >= armyFrontlineCapacity(army)) { el.checked = false; return toast(`最多配置 ${armyFrontlineCapacity(army)} 名首发，请先取消另一名武将`); }
     army.units.find(u => u.id === el.dataset.first).first = el.checked;
   }
-  if (el.dataset.type) {if(state.campaign){const error=changeCampaignTroop(state,army.id,el.dataset.type,el.value);if(error){toast(error);renderModal();return;}}const u=army.units.find(u=>u.id===el.dataset.type);u.type=el.value;u.tactics=defaultTacticIds(u);toast('兵种已更换');}
+  if (el.dataset.type) {if(state.campaign){const error=changeCampaignTroop(state,army.id,el.dataset.type,el.value);if(error){toast(error,'error');renderModal();return;}}const u=army.units.find(u=>u.id===el.dataset.type);u.type=el.value;u.tactics=defaultTacticIds(u);toast('兵种已更换');}
   if (el.dataset.formation) army.units.find(u => u.id === el.dataset.formation).formation = el.value;
   save();
   if(el.dataset.role)renderModal();
@@ -1212,9 +1383,9 @@ document.addEventListener('change', async event => {
 });
 document.addEventListener('keydown', event => {
   const force=event.target.closest?.('.selection-map [data-action]');if(force&&(event.key==='Enter'||event.key===' ')){event.preventDefault();act(force.dataset.action,force);return;}
-  if (event.key === 'Escape') { if(ui.areaDraft){ui.areaDraft=null;updateBattle();return;} if(ui.textDetails){closeModal();return;} if(ui.mapObject&&!ui.modal){ui.mapObject=null;render();return;} if(document.querySelector('.task-trait-popover:popover-open')) return; if (ui.modal) closeModal(); else { ui.order = false; ui.focusMode = false;ui.deploymentSelection=null; ui.battlePanel=null; if(state.battle&&ui.mode!=='lobby') updateBattle(); else render(); } }
+  if (event.key === 'Escape') { if(ui.textDetails){closeModal();return;} if(ui.areaDraft){ui.areaDraft=null;updateBattle();return;} if(ui.mapObject&&!ui.modal){const id=ui.mapObject.id;ui.mapObject=null;render();document.querySelector(`.strategy-world [data-city="${id}"]`)?.focus({preventScroll:true});return;} if(document.querySelector('.task-trait-popover:popover-open')) return; if (ui.modal) closeModal(); else { ui.order = false; ui.focusMode = false;ui.deploymentSelection=null; ui.battlePanel=null; if(state.battle&&ui.mode!=='lobby') updateBattle(); else render(); } }
   if (event.key === ' ' && ui.mode!=='lobby' && state.battle && !ui.modal && !['INPUT', 'SELECT', 'BUTTON', 'TEXTAREA'].includes(document.activeElement.tagName)) { event.preventDefault(); act('pause'); }
-  if ((event.key === 'Enter' || event.key === ' ') && (event.target.dataset.roadFrom||event.target.dataset.junction||event.target.dataset.city||event.target.dataset.commandCity||event.target.dataset.campaignArmy||event.target.dataset.transportOfficer)) { event.preventDefault(); event.target.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+  if ((event.key === 'Enter' || event.key === ' ') && (event.target.dataset.roadFrom||event.target.dataset.junction||event.target.dataset.city||event.target.dataset.commandCity||event.target.dataset.campaignArmy||event.target.dataset.transportOfficer||event.target.dataset.scoutTask||event.target.matches?.('[data-map-battle-anchor]'))) { event.preventDefault(); event.target.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
   if (event.key === 'Tab' && (ui.modal||ui.textDetails)&&(!isObjectDetail(ui)||detailPanels.hasSource)) {
     const nodes = [...$('#overlay-root').querySelectorAll('button:not([disabled]), input:not([hidden]):not([disabled]), select:not([disabled]), summary')];
     if (!nodes.length) return;
@@ -1225,9 +1396,9 @@ document.addEventListener('keydown', event => {
 setInterval(() => {
   if(state.campaign){runCampaignClock();return;}
   if (ui.mode==='lobby' || !state.battle || ui.areaDraft || ui.paused || ui.modal || pageGuides.isOpen || document.hidden) return;
-  // Freeze battle time during a tactic cut-in, while its render clock runs.
-  // Reset pacing so the simulation never catches up in a burst afterwards.
-  if (battleFx?.isCinematicPlaying()) { ui.lastTime = performance.now(); return; }
+  // Finish the recorded action window before advancing another simulation step.
+  // Playback remains single-step and never catches up in a burst afterwards.
+  if (battleFx?.isPresentationPlaying()) return;
   if (state.battle.result) {
     // Let the killing blow and casualty numbers finish before replacing the board.
     if (!battleFx?.isBusy()) { settleBattle(state); ui.paused = true; ui.focusMode = false; ui.modal = 'report'; save(); render(); }
@@ -1241,12 +1412,14 @@ setInterval(() => {
 
 function submitStrategicOrder(command,choice=null){
  const result=requestStrategicOrder(state,command,choice);
- if(result.error){toast(result.error);return;}
+ if(result.error){toast(result.error,'error');return;}
  if(result.confirmation){ui.interruption=result.confirmation;openModal('domestic-interruption');return;}
- ui.modal=ui.commandReturn||(ui.modal==='city-domestic'?'city-domestic':null);ui.commandReturn=null;ui.officerPick=null;ui.interruption=null;ui.personnelReturn=null;toast(result.queued?'后续命令已保存，将在当前事务结束后执行':'新命令已生效');save();render();
+ ui.modal=ui.commandReturn||(ui.modal==='city-domestic'?'city-domestic':null);ui.commandReturn=null;ui.officerPick=null;ui.interruption=null;ui.personnelReturn=null;toast(result.queued?'后续命令已保存，将在当前事务结束后执行':'新命令已生效','order');save();render();
+ const speaker=command.leader||command.officerIds?.[0]||state.armies.find(a=>a.id===command.armyId)?.leader;
+ acknowledgeOfficer(speaker,!result.queued&&['expedition','march'].includes(command.kind)?'march':'acknowledge');
 }
 function handleCampaignAction(action,el){
- if(action==='observer-next'){const factions=nationalScenario(state.campaign.scenarioId).factions;const error=setObserverFaction(state,factions[(factions.indexOf(playerFaction(state))+1)%factions.length]);if(error)toast(error);else{ui.city=playerHome(state);ui.army=null;ui.mapObject=null;ui.mapFocusKey=null;}save();render();return true;}
+ if(action==='observer-next'){const factions=nationalScenario(state.campaign.scenarioId).factions;const error=setObserverFaction(state,factions[(factions.indexOf(playerFaction(state))+1)%factions.length]);if(error)toast(error,'error');else{ui.city=playerHome(state);ui.army=null;ui.mapObject=null;ui.mapFocusKey=null;}save();render();return true;}
  if(state.campaign.allAI&&/^(campaign-pick|campaign-order|campaign-command|campaign-clear-governor|campaign-project|campaign-relief|campaign-create-army|campaign-transfer|campaign-defense-|city-idle-assign|domestic-dismiss|domestic-assign|domestic-auto|domestic-proposal-|faction-priority-|faction-appoint|scout-|diplomacy-|treasure-grant|treasure-equip|treasure-store|treasure-remove|march-mode-|interruption-)/.test(action)){toast('全 AI 观战由 AI 安排军政事务');return true;}
  if(action==='activity-alert-record'){const node=state.campaign.activity.nodes.find(n=>n.id===el.dataset.node);if(!node||node.faction!==playerFaction(state))return true;ui.activityRecord={nodeId:node.id,beforeDay:node.day,returnModal:ui.modal};ui.paused=true;openModal('activity-record');return true;}
  if(action==='harvest-review'){const receipt=state.campaign.activity.nodes.find(n=>n.id===el.dataset.node&&n.phase==='harvest'&&n.faction===playerFaction(state));if(!receipt)return true;ui.harvestReviewId=receipt.id;ui.paused=true;openModal('harvest-review');return true;}
@@ -1273,16 +1446,16 @@ function handleCampaignAction(action,el){
   if(p.step==='select'&&action==='military-next'){
    const a=state.armies.find(a=>a.id===p.armyId),units=a.units.filter(u=>p.selected.includes(u.id));
    if(p.kind==='split'){if(!units.length||units.length===a.units.length||!units.some(u=>u.troops>0)||!a.units.some(u=>!p.selected.includes(u.id)&&u.troops>0)){toast('两支军团都须保留有兵力的部队');return true;}for(const role of ['leader','advisor'])if(!units.some(u=>u.id===p.roles[role]))p.roles[role]=units[0].id;}
-   else {const result=previewMilitaryFlow(state,p);if(result.error){toast(result.error);return true;}}
+   else {const result=previewMilitaryFlow(state,p);if(result.error){toast(result.error,'error');return true;}}
   }
   if(next>=0&&next<steps.length){p.step=steps[next];if(p.step==='commanders')setCombatPage('combat-本军','appointments');}renderModal();return true;
  }
- if(action==='military-confirm'){const result=previewMilitaryFlow(state,ui.militaryFlow);if(result.error){toast(result.error);return true;}state=result.state;ui.army=result.army.id;ui.militaryFlow=null;ui.modal=null;save();render();toast('军令已执行');return true;}
+ if(action==='military-confirm'){const result=previewMilitaryFlow(state,ui.militaryFlow);if(result.error){toast(result.error,'error');return true;}state=result.state;ui.army=result.army.id;ui.militaryFlow=null;ui.modal=null;save();render();toast('军令已执行');return true;}
  if(['campaign-manual','campaign-auto','campaign-prepare'].includes(action)||action==='campaign-focus'&&battleRecord(state,el.dataset.battle)?.awaiting){ui.encounterFlow={id:el.dataset.battle,step:0,control:action==='campaign-auto'?'auto':'manual'};ui.city=battleRecord(state,el.dataset.battle).cityId;ui.paused=true;openModal('encounter-flow');return true;}
  if(action==='encounter-select'){ui.encounterFlow={id:el.dataset.id,step:0,control:'manual'};ui.city=battleRecord(state,el.dataset.id).cityId;renderModal();return true;}
  if(action==='encounter-next'||action==='encounter-back'){ui.encounterFlow.step+=action==='encounter-next'?1:-1;renderModal();return true;}
- if(action==='encounter-confirm'){const p=ui.encounterFlow,error=chooseEncounter(state,p.id,p.control==='manual');if(error){toast(error);return true;}ui.paused=true;ui.modal=null;ui.encounterFlow=null;ui.battlePanel=null;save();render();return true;}
- if(action==='personnel-ransom'||action==='personnel-release'){const error=releaseCaptive(state,el.dataset.id,{ransom:action==='personnel-ransom'});if(error)toast(error);else{save();render();}return true;}
+ if(action==='encounter-confirm'){const p=ui.encounterFlow,error=chooseEncounter(state,p.id,p.control==='manual');if(error){toast(error,'error');return true;}ui.paused=true;ui.modal=null;ui.encounterFlow=null;ui.battlePanel=null;save();render();return true;}
+ if(action==='personnel-ransom'||action==='personnel-release'){const error=releaseCaptive(state,el.dataset.id,{ransom:action==='personnel-ransom'});if(error)toast(error,'error');else{save();render();}return true;}
   let error=null;
   if(action==='map-quick-open'){ui.mapQuickKind=el.dataset.kind;ui.mapDirectoryOpen=true;ui.mapPanelOpen=false;ui.mapObject=null;render();return true;}
   if(action==='map-city-filter'){ui.mapCityFilter=el.dataset.filter==='idle'?'idle':'all';ui.mapQuickResetScroll=true;render();return true;}
@@ -1291,7 +1464,8 @@ function handleCampaignAction(action,el){
   if(action==='map-quick-select'){
    const kind=el.dataset.kind,row=factionDirectoryRows(state,kind).find(r=>String(r.id)===el.dataset.id);if(!row){render();return true;}
    if(kind==='city')ui.city=row.id;else if(kind==='army')ui.army=row.id;else ui.directoryBattle=row.id;
-   ui.strategyTab=kind;ui.mapDirectoryOpen=true;ui.mapPanelOpen=false;ui.mapObject=null;ui.mapFocusKey=null;if(kind==='city'||kind==='army')switchMapInspection(kind,row.id);render();return true;
+   if(kind==='city'){openCityCommands(row.id,el,null,{keepDirectory:true});return true;}
+   ui.strategyTab=kind;ui.mapDirectoryOpen=true;ui.mapPanelOpen=false;ui.mapObject=null;ui.mapFocusKey=null;if(kind==='army')switchMapInspection(kind,row.id);render();return true;
   }
   if(action==='directory-back'){openModal('faction-directory');return true;}
   if(action==='faction-directory'){const kind=el.dataset.kind;if(!FACTION_DIRECTORIES[kind])return true;ui.factionDirectoryKind=kind;ui.factionDirectories??={};ui.factionDirectories[kind]??={};openModal('faction-directory');return true;}
@@ -1303,9 +1477,9 @@ function handleCampaignAction(action,el){
   }
   if(action==='scout-report'){ui.scoutReport={task:el.dataset.task,key:el.dataset.key};openModal('scout-report');return true;}
   if(action==='scout-open'){ui.scout={city:el.dataset.town||null};openModal('scouting');return true;}
-  if(action==='scout-dispatch'){const error=dispatchScout(state,el.dataset.city,el.dataset.officer,el.dataset.target);if(error)toast(error);else{ui.scout={city:el.dataset.city};save();render();}return true;}
-  if(action==='scout-recall'){const error=recallScout(state,el.dataset.officer);if(error)toast(error);else{save();render();}return true;}
-  if(action==='campaign-affairs'||action==='campaign-battles'){openModal(action);return true;}
+  if(action==='scout-dispatch'){const error=dispatchScout(state,el.dataset.city,el.dataset.officer,el.dataset.target);if(error)toast(error,'error');else{ui.scout={city:el.dataset.city};save();render();}return true;}
+  if(action==='scout-recall'){const error=recallScout(state,el.dataset.officer);if(error)toast(error,'error');else{save();render();}return true;}
+  if(action==='campaign-battles'){openModal(action);return true;}
   if(action==='info-menu-scope'){ui.infoScope=el.dataset.scope;renderModal();return true;}
   if(action==='info-reference'){ui.textDetails=el.dataset.kind==='bond'?bondOverview():abilityOverview(el.dataset.kind);ui.textDetailsTab=0;renderModal();return true;}
   if(action==='info-menu-list'){ui.infoReturn='info-menu';ui.infoHistory=[];ui.infoView={type:el.dataset.kind,scope:ui.infoScope||'self',query:''};openModal('campaign-info');return true;}
@@ -1317,7 +1491,7 @@ function handleCampaignAction(action,el){
    ui.infoView={scope:ui.infoView?.scope,type:el.dataset.kind||'city',id:el.dataset.id||null,page:el.dataset.page,query:'',objectOnly};openModal('campaign-info');return true;
   }
   if(action==='campaign-info-page'){ui.infoView.page=el.dataset.page;renderModal();return true;}
-  if(action==='campaign-activity-page'){if(ui.modal==='activity-record')ui.activityRecord.beforeDay=Number(el.dataset.day);else{ui.infoView.activityBefore=Number(el.dataset.day);ui.infoView.page='行动记录';}renderModal();return true;}
+  if(action==='campaign-activity-page'){if(ui.modal==='activity-record')ui.activityRecord.beforeDay=Number(el.dataset.day);else{ui.infoView.activityBefore=Number(el.dataset.day);ui.infoView.page='当前动态';}renderModal();return true;}
   if(action==='campaign-info-peer'){ui.infoView={...ui.infoView,type:el.dataset.kind,id:el.dataset.id};renderModal();return true;}
   if(action==='campaign-info-back'){ui.infoView=ui.infoHistory.pop()||{type:'city'};renderModal();return true;}
   if(action==='campaign-info-tab'||action==='campaign-info-home'){ui.infoView={scope:ui.infoView.scope,type:el.dataset.kind||ui.infoView.type,query:''};ui.infoHistory=[];renderModal();return true;}
@@ -1329,13 +1503,13 @@ function handleCampaignAction(action,el){
   if(action==='campaign-unit-detail'){ui.commandInspect=ui.modal==='campaign-picker';ui.personnelReturn=ui.commandInspect?'campaign-picker':null;ui.inspectUnit=el.dataset.officer||el.dataset.id;openModal('unit-stats');return true;}
   if(action==='campaign-person-detail'){ui.personnelReturn=['campaign-picker','campaign-personnel','city-personnel','city-domestic'].includes(ui.modal)?ui.modal:null;ui.inspectUnit=el.dataset.officer;openModal('unit-officer');return true;}
   if(action==='campaign-person-back'){openModal(ui.personnelReturn||'campaign-personnel');return true;}
-  if(action==='campaign-defense-prepare'){const r=battleRecord(state,el.dataset.battle);if(!canPrepareSiegeDefense(state,r)){toast('没有可临时编制的武将，请使用现有守军进入战前军议');return true;}ui.encounterFlow??={id:r.id,step:1,control:'manual'};ui.commandReturn='encounter-flow';ui.officerPick=newCommand(state,'defense',r.cityId);ui.officerPick.battleId=r.id;ui.personnel={city:r.cityId};openModal('campaign-picker');return true;}
+  if(action==='campaign-defense-prepare'){const r=battleRecord(state,el.dataset.battle);if(!canPrepareSiegeDefense(state,r)){toast('没有可临时编制的武将，请使用现有守军进入战前准备');return true;}ui.encounterFlow??={id:r.id,step:1,control:'manual'};ui.commandReturn='encounter-flow';ui.officerPick=newCommand(state,'defense',r.cityId);ui.officerPick.battleId=r.id;ui.personnel={city:r.cityId};openModal('campaign-picker');return true;}
   if(action==='campaign-defense-auto'){
-   const result=prepareAutoSiegeDefense(state,el.dataset.battle);if(result.error){toast(result.error);return true;}
+   const result=prepareAutoSiegeDefense(state,el.dataset.battle);if(result.error){toast(result.error,'error');return true;}
    state=result.state;ui.encounterFlow={id:el.dataset.battle,step:1,control:ui.encounterFlow?.control||'manual'};ui.modal='encounter-flow';ui.paused=true;save();render();return true;
   }
   if(action==='campaign-defense-relinquish'){
-   const error=relinquishSiegeDefense(state,el.dataset.battle);if(error){toast(error);return true;}
+   const error=relinquishSiegeDefense(state,el.dataset.battle);if(error){toast(error,'error');return true;}
    ui.encounterFlow=null;ui.modal=activeBattles(state).some(r=>r.awaiting)?'campaign-encounters':null;ui.paused=true;save();render();return true;
   }
   if(action==='map-route-continue'){continueCommandRoute(ui.officerPick);renderModal();return true;}
@@ -1343,7 +1517,7 @@ function handleCampaignAction(action,el){
   if(action==='map-route-end'){if(commandCanAdvance(state,ui.officerPick)){ui.officerPick.step='review';renderModal();}return true;}
   if(action==='march-mode-open'){if(el.dataset.army)ui.army=el.dataset.army;const a=selectedArmy();if(a){ui.marchArmy=a.id;ui.marchChoice=a.marchMode||'normal';openModal('march-mode');}return true;}
   if(action==='march-mode-select'){ui.marchChoice=el.dataset.mode;renderModal();return true;}
-  if(action==='march-mode-confirm'){const error=setArmyMarchMode(state,ui.marchArmy,ui.marchChoice);if(error)toast(error);else {ui.modal=null;save();}render();return true;}
+  if(action==='march-mode-confirm'){const error=setArmyMarchMode(state,ui.marchArmy,ui.marchChoice);if(error)toast(error,'error');else {ui.modal=null;save();}render();return true;}
   if(action==='campaign-pick'||action==='campaign-order'){
    ui.commandReturn=ui.modal==='city-domestic'?'city-domestic':null;ui.mapObject=null;
    if(action==='campaign-order'&&el.dataset.army)ui.army=el.dataset.army;
@@ -1352,7 +1526,7 @@ function handleCampaignAction(action,el){
    ui.personnel={city:ui.officerPick.city};ui.personnelReturn=null;openModal('campaign-picker');return true;
   }
   if(action==='campaign-unit-choose'||action==='campaign-unit-picker-back'){ui.officerPick.choosingMain=action==='campaign-unit-choose';renderModal();return true;}
-  if(action==='campaign-unit-disband'){const error=removeCommandUnit(state,ui.officerPick,el.dataset.id);if(error)toast(error);renderModal();return true;}
+  if(action==='campaign-unit-disband'){const error=removeCommandUnit(state,ui.officerPick,el.dataset.id);if(error)toast(error,'error');renderModal();return true;}
   if(action==='campaign-unit-edit'||action==='campaign-unit-list'){const p=ui.officerPick;Object.assign(p,{step:action==='campaign-unit-edit'?'formation':'unit-review',unitOfficer:el.dataset.id||null,choosingMain:false});renderModal();return true;}
   if(action==='campaign-unit-new'){const p=ui.officerPick;if(['unit-select','commanders','target','review'].includes(p.step)){p.armySelection=[...p.selected];if(p.formationPool)p.selected=[...p.formationPool];}Object.assign(p,{step:'formation',unitOfficer:null,choosingMain:false});renderModal();return true;}
   if(action==='campaign-command-cancel'){ui.officerPick=null;ui.personnelReturn=null;ui.interruption=null;closeModal();return true;}
@@ -1379,28 +1553,28 @@ function handleCampaignAction(action,el){
     else if(p.task==='transfer'){submitStrategicOrder({kind:'transfer',cityId:p.city,officerIds:chosen,target:p.destination,cargo:p.cargo,relay:p.relay,cycles:p.cycles});return true;}
     else if(['draft','defense'].includes(p.task)){const result=prepareCommandFormation(state,p);error=result.error;if(!error){state=result.state;ui.city=p.city;ui.strategyTab='city';}}
    }
-   if(error)toast(error);else {ui.modal=p.task==='defense'&&ui.encounterFlow?'encounter-flow':null;ui.commandReturn=null;ui.officerPick=null;ui.personnelReturn=null;toast('安排已生效');}save();render();return true;
+   if(error)toast(error,'error');else {ui.modal=p.task==='defense'&&ui.encounterFlow?'encounter-flow':null;ui.commandReturn=null;ui.officerPick=null;ui.personnelReturn=null;toast('安排已生效');}save();render();return true;
   }
-  if(action==='campaign-clear-governor'){error=appointGovernor(state,el.dataset.town,null);if(error)toast(error);save();render();return true;}
+  if(action==='campaign-clear-governor'){error=appointGovernor(state,el.dataset.town,null);if(error)toast(error,'error');save();render();return true;}
   if(action==='map-panel-toggle'){ui.mapObject=null;ui.mapPanelOpen=!ui.mapPanelOpen;ui.mapDirectoryOpen=false;render();return true;}
   if(action==='map-directory-toggle'){ui.mapObject=null;ui.mapDirectoryOpen=!ui.mapDirectoryOpen;render();return true;}
   if(action==='campaign-tab'){ui.strategyTab=el.dataset.tab;render();return true;}
   if(action==='faction-domestic'||action==='faction-diplomacy'||action==='diplomacy-review'){if(action==='diplomacy-review'){ui.diplomacyReportReturn=ui.modal==='domestic-alerts';ui.paused=true;}ui.affairsTab=action==='faction-domestic'?'domestic':'diplomacy';openModal('campaign-affairs');if(el.dataset.proposal)document.querySelector(`[data-diplomatic-proposal="${Number(el.dataset.proposal)}"]`)?.scrollIntoView({block:'center'});return true;}
-  if(action==='diplomacy-goal'){const error=setDiplomaticGoal(state,document.querySelector('#diplomacy-goal').value,document.querySelector('#diplomacy-target').value||null);if(error)toast(error);save();renderModal();return true;}
-  if(action==='diplomacy-budget'){const values=Object.fromEntries(['feeBudget','goldReserve','grainReserve','manpowerReserve'].map(k=>[k,Number(document.querySelector('#diplomacy-'+k).value)])),error=setDiplomaticBudget(state,values);if(error)toast(error);save();renderModal();return true;}
+  if(action==='diplomacy-goal'){const error=setDiplomaticGoal(state,document.querySelector('#diplomacy-goal').value,document.querySelector('#diplomacy-target').value||null);if(error)toast(error,'error');save();renderModal();return true;}
+  if(action==='diplomacy-budget'){const values=Object.fromEntries(['feeBudget','goldReserve','grainReserve','manpowerReserve'].map(k=>[k,Number(document.querySelector('#diplomacy-'+k).value)])),error=setDiplomaticBudget(state,values);if(error)toast(error,'error');save();renderModal();return true;}
   if(action==='diplomacy-assign'||action==='diplomacy-assign-now'||action==='diplomacy-assign-after'){
    const direction=el.dataset.direction,id=el.dataset.officer||document.querySelector('#diplomacy-officer-'+direction).value,result=assignDiplomat(state,id,direction,{choice:action==='diplomacy-assign-now'?'now':action==='diplomacy-assign-after'?'after':null});
    if(result.confirmation){ui.diplomaticInterruption=result.confirmation;openModal('diplomacy-interruption');return true;}
-   if(result.error)toast(result.error);save();ui.modal='campaign-affairs';ui.affairsTab='diplomacy';render();return true;
+   if(result.error)toast(result.error,'error');save();ui.modal='campaign-affairs';ui.affairsTab='diplomacy';render();return true;
   }
-  if(action==='diplomacy-dismiss'){const error=dismissDiplomat(state,el.dataset.officer);if(error)toast(error);save();render();return true;}
-  if(action==='diplomacy-cancel-order'){const error=cancelDiplomaticOrder(state,Number(el.dataset.order));if(error)toast(error);save();renderModal();return true;}
-  if(['diplomacy-approve','diplomacy-renegotiate','diplomacy-reject'].includes(action)){const id=Number(el.dataset.proposal),error=action==='diplomacy-approve'?approveDiplomaticProposal(state,id,Number(el.dataset.version)):decideDiplomaticProposal(state,id,action==='diplomacy-renegotiate'?'renegotiate':'reject');if(error)toast(error);else toast(action==='diplomacy-approve'?'已批准，后台将复核并履行':'已交执行武将处理');save();render();return true;}
+  if(action==='diplomacy-dismiss'){const error=dismissDiplomat(state,el.dataset.officer);if(error)toast(error,'error');save();render();return true;}
+  if(action==='diplomacy-cancel-order'){const error=cancelDiplomaticOrder(state,Number(el.dataset.order));if(error)toast(error,'error');save();renderModal();return true;}
+  if(['diplomacy-approve','diplomacy-renegotiate','diplomacy-reject'].includes(action)){const id=Number(el.dataset.proposal),error=action==='diplomacy-approve'?approveDiplomaticProposal(state,id,Number(el.dataset.version)):decideDiplomaticProposal(state,id,action==='diplomacy-renegotiate'?'renegotiate':'reject');if(error)toast(error,'error');else toast(action==='diplomacy-approve'?'已批准，后台将复核并履行':'已交执行武将处理');save();render();return true;}
   if(action==='domestic-proposals'){ui.domesticProposalDeferred=false;ui.paused=true;openModal('domestic-proposals');return true;}
-  if(action==='domestic-auto-approve'){const error=setDomesticAutoApprove(state,!state.campaign.domestic.autoApprove);if(error)toast(error);save();render();return true;}
-  if(action==='domestic-proposal-approve'||action==='domestic-proposal-reject'){const error=decideDomesticProposal(state,Number(el.dataset.proposal),action==='domestic-proposal-approve');if(error)toast(error);save();render();return true;}
-  if(action==='faction-affairs-tab'){ui.affairsTab=el.dataset.tab;renderModal();return true;}
-  if(action==='faction-priority-up'){const p=[...domesticPriority(state)],i=p.indexOf(el.dataset.direction);if(i>0){[p[i-1],p[i]]=[p[i],p[i-1]];const error=setDomesticPriority(state,p);if(error)toast(error);else save();}renderModal();return true;}
+  if(action==='domestic-auto-approve'){const error=setDomesticAutoApprove(state,!state.campaign.domestic.autoApprove);if(error)toast(error,'error');save();render();return true;}
+  if(action==='domestic-proposal-approve'||action==='domestic-proposal-reject'){const officer=pendingDomesticProposals(state).find(a=>a.proposal.id===Number(el.dataset.proposal))?.officerId,error=decideDomesticProposal(state,Number(el.dataset.proposal),action==='domestic-proposal-approve');if(error)toast(error,'error');save();render();if(!error&&action==='domestic-proposal-approve')acknowledgeOfficer(officer);return true;}
+
+  if(action==='faction-priority-up'){const p=[...domesticPriority(state)],i=p.indexOf(el.dataset.direction);if(i>0){[p[i-1],p[i]]=[p[i],p[i-1]];const error=setDomesticPriority(state,p);if(error)toast(error,'error');else save();}renderModal();return true;}
   if(action==='faction-appoint'){const result=fillFactionAppointments(state);toast(result.error||('已补齐 '+result.count+' 项委任'));save();renderModal();return true;}
   if(action==='campaign-archive'){ui.snapshotReturn=ui.modal;ui.campaignHistory=el.dataset.battle;openModal('campaign-archive');return true;}
   if(action==='campaign-replay'){ui.snapshotReturn=ui.modal;ui.campaignHistory=el.dataset.battle;ui.replayIndex=0;ui.replayPlaying=false;ui.paused=true;openModal('campaign-replay');return true;}
@@ -1412,9 +1586,9 @@ function handleCampaignAction(action,el){
   else if(action==='campaign-day'){
     ui.domesticProposalDeferred=false;
     ui.paused=true;
-    if(state.battle&&isBattleCouncil(state.battle))error='请先确认军议';
+    if(state.battle&&isBattleCouncil(state.battle))error='请先确认部署';
     else if(isPlanning(state))error='请先完成战略操作并点击进行';
-    else {advanceCampaignDay(state);ui.strategyTab=activeBattles(state).some(r=>r.awaiting)?'battles':ui.strategyTab;}
+    else {advanceCampaignDay(state);mapMarchDay=state.campaign.day;ui.strategyTab=activeBattles(state).some(r=>r.awaiting)?'battles':ui.strategyTab;}
   }
   else if(action==='campaign-manual') {error=chooseEncounter(state,el.dataset.battle,true);ui.paused=true;ui.modal=null;ui.battlePanel=null;}
   else if(action==='campaign-auto'){error=chooseEncounter(state,el.dataset.battle,false);ui.modal=null;ui.paused=activeBattles(state).some(r=>r.awaiting);}
@@ -1426,38 +1600,40 @@ function handleCampaignAction(action,el){
   else if(action==='campaign-create-army'){error=createCampaignArmy(state,el.dataset.town,[...document.querySelectorAll('[data-draft-officer]:checked')].map(x=>x.dataset.draftOfficer));if(!error){ui.army=state.armies.find(a=>a.location===el.dataset.town&&a.faction===playerFaction(state)&&!a.travel&&!a.route.length)?.id;ui.strategyTab='army';}}
   else if(action==='campaign-transfer'){const row=campaignOfficers(state).find(r=>r.unit.id===el.dataset.officer);submitStrategicOrder({kind:'transfer',cityId:row?.location,officerIds:[el.dataset.officer],target:document.querySelector('[data-transfer-target="'+el.dataset.officer+'"]').value});return true;}
   else return false;
-  if(error)toast(error);save();render();return true;
+  if(error)toast(error,'error');save();render();return true;
 }
 function runCampaignClock(){
   if(ui.mode==='lobby'||ui.paused||ui.modal||pageGuides.isOpen||document.hidden){ui.lastTime=performance.now();return;}
   if((isPlanning(state)&&!state.campaign.allAI)||state.finished){ui.paused=true;render();return;}
-  if(state.battle&&battleFx?.isCinematicPlaying()){ui.lastTime=performance.now();return;}
+  if(state.battle&&battleFx?.isPresentationPlaying())return;
   // Map playback advances one day every three seconds; battle speed is local
   // to watching combat and must not accelerate marching after returning here.
   const now=performance.now(),delay=state.battle?COMBAT.stepMs/ui.speed:3000;
   if(now-ui.lastTime<delay)return;ui.lastTime=now;
-  const marchPositions=new Map([...document.querySelectorAll('[data-map-army-anchor]')].map(el=>[el.dataset.scoutTask||el.dataset.campaignArmy||'transport:'+el.dataset.transportOfficer,{x:+el.dataset.x,y:+el.dataset.y}]));
   const previous=state.battle,day=state.campaign.day;
   const result=previous?advanceCampaignStep(state):advanceCampaignDay(state);
+  mapMarchDay=state.campaign.day;
   if(result.appointments||result.paused||result.encounter||result.reinforcement||result.deployment||result.planning||(isPlanning(state)&&!state.campaign.allAI)||state.finished)ui.paused=true;
   if(result.proposals)ui.domesticProposalDeferred=false;
   const domesticAlert=presentDomesticAlerts();
   if(domesticAlert||previous!==state.battle||!state.battle||result.encounter||result.reinforcement){if(result.encounter||result.reinforcement)ui.strategyTab='battles';render();}
   else updateBattle();
-  if(!state.battle&&!ui.paused&&!ui.modal)animateArmyMarch($('#app'),marchPositions);
   if(day!==state.campaign.day||result.encounter||result.reinforcement||result.deployment||previous!==state.battle)save();
 }
 
-document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
-window.addEventListener('pagehide', () => save());
-if (!isNativeApplication()&&'serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
-installNativeLifecycle({pauseAndSave(){ui.paused=true;save();},back(){
+document.addEventListener('visibilitychange', () => { void audio.setHidden(document.hidden); if (document.hidden){battleFx?.clearVoiceAudio();save();} });
+window.addEventListener('pagehide', () => {battleFx?.clearVoiceAudio();void audio.setHidden(true);save();});
+window.addEventListener('pageshow', () => {if(!document.hidden)void audio.setHidden(false);});
+if (!isNativeApplication()&&'serviceWorker' in navigator){navigator.serviceWorker.addEventListener('controllerchange',()=>{void audio.officerVoice.warmLibrary();},{once:true});navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(() => {});}
+installNativeLifecycle({pauseAndSave(){ui.paused=true;battleFx?.clearVoiceAudio();void audio.setHidden(true);return save();},back(){
  if(pageGuides.isOpen){pageGuides.close();return true;}
  const open=!!(ui.modal||ui.textDetails||ui.areaDraft||ui.mapObject||ui.order||ui.focusMode||ui.deploymentSelection||ui.battlePanel);
  if(open)document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
  return open;
 }}).catch(error=>console.error('Native lifecycle:',error));
 await art.init();
+audio.setLibrary(assetCatalog.music);
+audio.setVoiceLibrary(assetCatalog.voices);
 render();
 if (loadWarning) { save(); toast(loadWarning); }
 

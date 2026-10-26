@@ -5,7 +5,7 @@ import {newCampaign,cityIncome,settleCityEconomy,serializeCampaign,validateCampa
 import {cityBaseIncome,cityIncomeBreakdown,cityMaintenance} from '../economy.mjs';
 import {assignDomestic,ACTIONS,finishDomesticDay} from '../domestic.mjs';
 import {compareConstruction} from '../scripts/economy-balance-lib.mjs';
-import {cityDomesticMarkup} from '../strategic-view.mjs';
+import {campaignInfoMarkup} from '../campaign-info.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';
 
 test('built facilities retain their base production while a governor only adds operating income',()=>{
@@ -28,7 +28,7 @@ test('actual operation is accounted separately and monthly settlement never pays
  const result=cityIncomeBreakdown(s,c);assert.ok(result.work.gold>0);assert.deepEqual(result.base,base);
  assert.equal(result.operations.gold,result.work.gold);assert.equal(result.total.gold,base.gold+result.work.gold);
  const paid=structuredClone(s),paidCity=paid.cities.find(t=>t.id===c.id),gold=paid.gold,settlement=settleCityEconomy(paid,paidCity);assert.equal(paid.gold-gold,base.gold-settlement.paidGold);
- const saved=serializeCampaign(s);assert.match(cityDomesticMarkup(s,c.id),/城市建设基础／旬/);assert.match(cityDomesticMarkup(s,c.id),/本旬直接运营已入库/);assert.equal(serializeCampaign(s),saved);
+ const saved=serializeCampaign(s);assert.match(campaignInfoMarkup(s,{type:'city',id:c.id,page:'收支预算'}).body,/建设收入／旬/);assert.match(campaignInfoMarkup(s,{type:'city',id:c.id,page:'收支预算'}).body,/本旬运营入库/);assert.equal(serializeCampaign(s),saved);
  const beforeSettlement=s.gold,expected=s.cities.filter(t=>t.owner===s.campaign.playerFaction).reduce((n,t)=>n+cityIncome(s,t).gold-cityMaintenance(s,t).gold,0);advanceCampaignDay(s);
  assert.equal(s.gold-beforeSettlement,expected);assert.equal(s.campaign.day,11);assert.equal(cityIncomeBreakdown(s,c).work.gold,0);assert.deepEqual(cityBaseIncome(s,c),base);
  const completed=serializeCampaign(s);assert.equal(serializeCampaign(validateCampaign(JSON.parse(completed))),completed);

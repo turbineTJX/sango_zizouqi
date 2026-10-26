@@ -42,7 +42,7 @@ try{
    assert.equal(await page.evaluate(()=>equipmentArt.models.objects.get('unit-dun').key),'builtin:'+type);
    assert.equal(await page.evaluate(()=>equipmentArt.models.objects.get('unit-dun').tilt.rotation.y),side?Math.PI:0);
    assert.ok((await page.locator('[data-inspect="dun"].unit-nameplate').getAttribute('aria-label')).includes({ram:'冲车',siege:'投石车',tower:'井栏'}[type]));
-   const before=await page.evaluate(()=>localStorage.getItem('sango-historical-battle-v1'));await page.screenshot({path:out+'/'+label+'-'+stage+'-desktop.png'});assert.equal(await page.evaluate(()=>localStorage.getItem('sango-historical-battle-v1')),before);
+   const before=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1'));await page.screenshot({path:out+'/'+label+'-'+stage+'-desktop.png'});assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')),before);
   }
   await page.setViewportSize({width:390,height:844});await page.waitForTimeout(100);await page.screenshot({path:out+'/'+label+'-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await page.setViewportSize({width:1440,height:1000});
   // Simulate a WebGL failure: the exact vector equipment remains visible.
@@ -52,4 +52,4 @@ try{
   results.push({type,side,deploying:true,ready:true,desktop:true,mobile:true,fallback:true,recovered:true});
  }
  assert.deepEqual(errors,[]);writeFileSync(out+'/summary.json',JSON.stringify({results,errors},null,2));console.log('PASS equipment model transitions, specific silhouettes, fallback, recovery and desktop/mobile');
-}catch(error){if(page){await page.screenshot({path:out+'/failure.png'});console.log((await page.locator('body').innerText()).slice(-1800));console.log(await page.evaluate(async()=>{const raw=sessionStorage.getItem('equipment-model-fixture'),saved=localStorage.getItem('sango-historical-battle-v1');let validation;try{const {validateSave}=await import('./engine.mjs');validateSave(JSON.parse(raw));validation='valid';}catch(e){validation=e.message;}return {hash:location.hash,fixtureBytes:raw?.length,savedBytes:saved?.length,validation};}));}throw error;}finally{await browser?.close();server.kill();}
+}catch(error){if(page){await page.screenshot({path:out+'/failure.png'});console.log((await page.locator('body').innerText()).slice(-1800));console.log(await page.evaluate(async()=>{const raw=sessionStorage.getItem('equipment-model-fixture'),saved=await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1');let validation;try{const {validateSave}=await import('./engine.mjs');validateSave(JSON.parse(raw));validation='valid';}catch(e){validation=e.message;}return {hash:location.hash,fixtureBytes:raw?.length,savedBytes:saved?.length,validation};}));}throw error;}finally{await browser?.close();server.kill();}

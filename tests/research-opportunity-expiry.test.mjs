@@ -7,6 +7,8 @@ import {peacefulCities} from './helpers/field-campaign.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function fixture(key='master',expires=1){
  const s=peacefulCities(newCampaign(1)),c=s.cities.find(c=>c.id==='xuchang');
+ // Real recruitment demand makes military registry the ordinary first choice.
+ c.manpower=0;c.grain=20000;
  setDomesticAutoApprove(s,true);
  const u=s.campaign.idle.find(o=>o.location===c.id&&o.faction===c.owner).unit;
  // Isolate this real research action from alternative proposals; no custom

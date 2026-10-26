@@ -1,3 +1,4 @@
+import {chooseMapTarget} from './map-target-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -43,10 +44,10 @@ try{
  await campaignPage.setViewportSize({width:1440,height:1100});await campaignPage.locator('[data-action="settings"]').first().click();
  await campaignPage.locator('#import-file').setInputFiles({name:'retreat-campaign.json',mimeType:'application/json',buffer:Buffer.from(serializeCampaign(campaign))});
  await campaignPage.locator('.retreat-council summary').click();
- const destinations=retreatDestinations(campaign,record.battle),picker=campaignPage.locator('[data-retreat-destination]');
- assert.deepEqual(await picker.locator('option').evaluateAll(xs=>xs.map(x=>x.value).filter(Boolean)),destinations.map(c=>c.id));
- const destination=destinations.at(-1).id;await picker.selectOption(destination);assert.equal(await picker.inputValue(),destination);
- await campaignPage.reload();await campaignPage.locator('.retreat-council summary').click();assert.equal(await picker.inputValue(),destination);
+ const destinations=retreatDestinations(campaign,record.battle),picker=campaignPage.locator('[data-kind="retreat"][data-action="map-target-open"]');
+ await picker.click();assert.deepEqual((await campaignPage.locator('[data-map-target="eligible"],[data-map-target="selected"]').evaluateAll(xs=>xs.map(x=>x.dataset.commandCity))).sort(),destinations.map(c=>c.id).sort());await campaignPage.locator('[data-action="map-target-cancel"]').click();
+ const destination=destinations.at(-1);await chooseMapTarget(campaignPage,'[data-kind="retreat"][data-action="map-target-open"]',destination.id);assert.match(await picker.innerText(),new RegExp(destination.name));
+ await campaignPage.reload();await campaignPage.locator('.retreat-council summary').click();assert.match(await picker.innerText(),new RegExp(destination.name));
  await campaignPage.locator('.retreat-council').screenshot({path:out+'/campaign-desktop.png'});
  await campaignPage.setViewportSize({width:390,height:844});assert.ok(await campaignPage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await campaignPage.locator('.retreat-council').screenshot({path:out+'/campaign-mobile.png'});
  assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,checks:['individual','selected batch','all','formation cancel','reload','mobile','battle lock','legal campaign destinations','destination reload'],errors},null,2));

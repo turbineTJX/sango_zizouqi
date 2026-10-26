@@ -5,7 +5,7 @@ import {offensivePlans} from './strategic-intent.mjs';
 
 export const newFactionStrategy=(totalCities=0,ownedCities=0)=>({version:R.version,revision:0,updatedDay:0,neighbors:{},goal:null,trace:[],militarySignature:'',critical:false,victory:emptyVictory(totalCities,ownedCities)});
 const key=g=>g&&[g.kind,g.targetFaction,g.targetCity,g.staging].join(':');
-export function chooseFactionStrategy(context,profile,previous,candidates,{activePlan=null,force=false,algorithms=R.algorithms,admission=[]}={}){
+export function chooseFactionStrategy(context,profile,previous,candidates,{activePlan=null,force=false,algorithms=R.algorithms,admission=[],temperament=null}={}){
  const {victory}=planVictoryStrategy(context,previous.victory);
  const neighbors=Object.fromEntries(context.neighbors.map(f=>{const pressure=context.enemies.filter(a=>a.faction===f).reduce((n,a)=>n+a.power,0);
   return [f,{mode:context.hostile[f]?'defend':'peace',pressure,reason:context.hostile[f]?'保留边境守备':'维持现有和平关系'}];}));
@@ -29,8 +29,8 @@ export function chooseFactionStrategy(context,profile,previous,candidates,{activ
  // The fallback has no committed operation to protect. Do not let a previous
  // development/recovery choice suppress a better lawful military candidate.
  if(!force&&incumbent&&!['develop','recover'].includes(incumbent.kind)&&best.utility<incumbent.utility+R.switchMargin)best=incumbent;
- if(activePlan)best={id:previous.goal?.candidateId||'plan:'+activePlan.id,kind:'capture',targetFaction:candidates.find(c=>c.targetCity===activePlan.target)?.targetFaction||previous.goal?.targetFaction||null,
-  targetCity:activePlan.target,staging:activePlan.staging,ready:true,utility:previous.goal?.score||0,score:previous.goal?.score||0,reason:activePlan.reason,requirements:activePlan.requirements,forecast:previous.goal?.forecast||null,victoryValue:previous.goal?.victoryValue||null,military:previous.goal?.military||null};
+ if(activePlan)best={id:previous.goal?.planId===activePlan.id?previous.goal.candidateId:'plan:'+activePlan.id,kind:'capture',targetFaction:context.territory.cities.find(c=>c.id===activePlan.target)?.owner||null,
+  targetCity:activePlan.target,staging:activePlan.staging,ready:true,utility:previous.goal?.planId===activePlan.id?previous.goal.score:0,score:previous.goal?.planId===activePlan.id?previous.goal.score:0,reason:activePlan.reason,requirements:activePlan.requirements,forecast:previous.goal?.planId===activePlan.id?previous.goal.forecast:null,victoryValue:previous.goal?.planId===activePlan.id?previous.goal.victoryValue:null,military:activePlan.military};
  if(best.kind==='capture'){
   const target=context.territory.cities.find(c=>c.id===best.targetCity);
   if(target)victory.focus={province:target.province,targetCity:target.id,reason:'集中当前可行主攻，逐步占领全部城市取得胜利'};
@@ -40,7 +40,7 @@ export function chooseFactionStrategy(context,profile,previous,candidates,{activ
  const changed=key(best)!==key(previous.goal),goal={candidateId:best.id,kind:best.kind,targetFaction:best.targetFaction,targetCity:best.targetCity,staging:best.staging,
   status:activePlan?'running':best.ready?'ready':'preparing',score:best.utility,createdDay:changed?context.day:previous.goal.createdDay,reason:best.reason,
   planId:activePlan?.id||null,requirements:best.requirements||[],forecast:best.forecast||null,victoryValue:best.victoryValue||null,military:best.offensiveEvaluation?.military||best.military||null};
- const trace={day:context.day,reason:force?'军情或供给发生重大变化':'战略条件复核',selected:key(goal),victory:structuredClone(victory),algorithms:strategicAlgorithmProfile(algorithms),candidates:goals.slice(0,R.candidateLimit).map(g=>({candidateId:g.id,kind:g.kind,target:g.targetCity,score:g.utility,ready:g.ready,reason:g.reason,forecast:g.forecast||null,victoryValue:g.victoryValue||null,military:g.offensiveEvaluation?.military||null})),admission:structuredClone(admission.slice(0,R.candidateLimit*(R.forceVariants+1)))};
+ const trace={day:context.day,reason:force?'军情或供给发生重大变化':'战略条件复核',temperament:structuredClone(temperament),selected:key(goal),victory:structuredClone(victory),algorithms:strategicAlgorithmProfile(algorithms),candidates:goals.slice(0,R.candidateLimit).map(g=>({candidateId:g.id,kind:g.kind,target:g.targetCity,score:g.utility,ready:g.ready,reason:g.reason,forecast:g.forecast||null,victoryValue:g.victoryValue||null,military:g.offensiveEvaluation?.military||null})),admission:structuredClone(admission.slice(0,R.candidateLimit*(R.forceVariants+1)))};
  return {version:R.version,revision:previous.revision+1,updatedDay:context.day,neighbors,goal,
   trace:[...previous.trace,trace].slice(-R.traceLimit),militarySignature:context.militarySignature,critical:context.critical,victory};
 }

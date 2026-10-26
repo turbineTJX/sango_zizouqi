@@ -39,7 +39,7 @@ test('real automatic commands apply output, temporary duration, discounts and re
  ['marketYield','fair',(f,e)=>assert.equal(e.result.actual,Math.min(cityWorkLimit(f.s,f.c,'gold',2),Math.round(ACTIONS.fair.value*e.result.factor*(.7+f.u.politics/150))*2))],
  ['farmYield','cultivate',(f,e)=>assert.ok(e.result.actual>0&&e.result.actual<=cityWorkLimit(f.s,f.c,'grain',5))],
  ['merchantReach','merchants',(f,e)=>assert.equal(f.c.domestic.effects.find(x=>x.key==='gold').untilTurn,Math.floor((f.s.campaign.day-1)/10)+5)],
- ['partnershipDeal','partnership',(f,e)=>assert.equal(f.c.domestic.effects.find(x=>x.key==='discount:commerce').amount,Math.round((.2*e.result.factor+.15)*10000)/10000)],
+ ['partnershipDeal','partnership',(f,e)=>assert.equal(f.c.domestic.effects.find(x=>x.key==='discount:commerce').amount,Math.min(.5,Math.round((.3*(.7+f.u.politics/150)*e.result.factor+.15)*10000)/10000))],
  ['wallRepair','repair',(f,e)=>assert.equal(e.result.actual,Math.min(3000*e.result.factor*1.75,gateDurability(f.c).maxHp-1000))],
  ['patrolReadiness','patrol',(f,e)=>assert.equal(f.c.domestic.preparation.shield.until,f.s.campaign.day+60)],
  ['zhouDrill','exercise',(f,e)=>{assert.equal(f.c.domestic.preparation.intent.until,f.s.campaign.day+90);assert.equal(f.c.domestic.preparation.intent.amount,24);}],

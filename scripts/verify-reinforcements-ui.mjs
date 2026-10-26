@@ -20,7 +20,7 @@ try{
  page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(raw=>{if(!sessionStorage.getItem('reinforcement-fixture')){localStorage.setItem('sango-sovereign-v2',raw);sessionStorage.setItem('reinforcement-fixture','1');}},serializeCampaign(s));
- const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ const action=id=>page.locator(`[data-action="${id}"]`),saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
  const battle=async()=> (await saved()).campaign.battles.find(x=>x.id===r.id).battle;
  await page.goto('http://127.0.0.1:4206/#strategy');await page.locator('.strategy-battle-card').waitFor();
  assert.match(await page.locator('.modal').innerText(),/援军抵达/);
@@ -44,7 +44,7 @@ try{
  await page.locator('.council-unit').first().click();assert.equal(await page.locator('#inspect-unit').inputValue(),id);await page.locator('.close-button').click();
  assert.deepEqual((await battle()).sides[0].units.filter(u=>u.status==='active'),fronts);assert.equal((await battle()).tick,before.tick);
  await action('pause').first().click();assert.ok(await page.locator('#deployment-guide').isHidden());assert.equal((await battle()).reinforcementCouncil,null);
- await page.waitForFunction(tick=>JSON.parse(localStorage.getItem('sango-sovereign-v2')).campaign.battles[0].battle.tick>tick,before.tick);
+ await page.waitForFunction(async tick=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')).campaign.battles[0].battle.tick>tick,before.tick);
  if(await action('pause').count())await action('pause').first().click();validateCampaign(await saved());assert.deepEqual(errors,[]);
  const continued=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});continued.on('pageerror',e=>errors.push(e.message));
  await continued.addInitScript(raw=>localStorage.setItem('sango-sovereign-v2',raw),serializeCampaign(s));
@@ -53,7 +53,7 @@ try{
  assert.match(await continued.locator('[data-action="pause"]').first().innerText(),/暂停/);
  assert.ok(await continued.locator('#deployment-guide').isHidden());
  await continued.locator('[data-action="pause"]').first().click();
- const continuedSave=await continued.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+ const continuedSave=await continued.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
  assert.equal(continuedSave.campaign.battles[0].battle.reinforcementCouncil,null);validateCampaign(continuedSave);assert.deepEqual(errors,[]);
  console.log('Reinforcement UI passed: arrival, five reserves, reorder, frontline lock, withdrawal, details, reload, desktop/mobile and resume.');
 }catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}

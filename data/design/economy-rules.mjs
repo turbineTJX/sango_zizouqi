@@ -6,6 +6,13 @@ export const ECONOMY_RULES = {
     "grain": {"large": 18000, "small": 10000},
     "manpower": {"large": 18000, "small": 9000}
   },
+  // Unadministered cities keep small local stores, without recurring production.
+  "neutralOpening": {
+    "gold": {"large": 1000, "small": 500},
+    "grain": {"large": 3000, "small": 1500},
+    "manpower": {"large": 1000, "small": 500}
+  },
+  "occupation": {"goldRetention": 0.5, "grainRetention": 0.5, "manpowerRetention": 0.2},
   "budget": {"days": 10, "goldReserve": 500, "grainReserve": 0, "maxReserve": 1000000, "criticalFoodDays": 3},
   "income": {
     "gold": {
@@ -33,6 +40,7 @@ export const ECONOMY_RULES = {
     "metropolitanMax": 12,
     "externalLevels": {
       "city": {"commerce": 2, "farm": 2, "barracks": 2, "other": 3},
+      "junction": {"commerce": 2, "farm": 2, "barracks": 2, "other": 3},
       "gate": {"commerce": 1, "farm": 0, "barracks": 2, "other": 3},
       "port": {"commerce": 3, "farm": 1, "barracks": 1, "other": 3}
     },

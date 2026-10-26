@@ -21,6 +21,6 @@ try{
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:'outputs/single-unit-ui/mobile.png'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  await action('campaign-command-next').click();assert.equal(await page.locator(`[data-muster-unit="${id}"]`).count(),1);await action('campaign-command-back').click();assert.ok(await action('campaign-unit-new').first().isEnabled());await action('campaign-unit-new').first().click();assert.equal(await page.locator('[data-command-type]').count(),0);await action('campaign-unit-choose').click();await page.locator(`[data-personnel-choice="${id}"]`).click();await action('campaign-command-next').click();
  await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
- const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));assert.equal(saved.cities.find(c=>c.id==='xuchang').units.find(u=>u.id===id).troops,1000);assert.deepEqual(errors,[]);
+ const saved=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));assert.equal(saved.cities.find(c=>c.id==='xuchang').units.find(u=>u.id===id).troops,1000);assert.deepEqual(errors,[]);
  console.log('Single-unit ordinary UI passed: separate radio picker, single form, mobile and real city-unit commit.');
 }catch(e){await page.screenshot({path:'outputs/single-unit-ui/failure.png'});throw e;}finally{await browser.close();}

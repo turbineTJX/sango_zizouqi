@@ -37,7 +37,7 @@ try{
  await action('launch-custom').click();assert.match(await page.locator('.modal').innerText(),/荀攸队被消灭后/);await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();
  assert.match(await page.locator('.reinforcement-panel').innerText(),/待抵达 · 荀攸队被消灭后/);
  assert.match(await page.locator('.battle-council').innerText(),/荀攸队被消灭后/);
- const initial=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));validateSave(initial);
+ const initial=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));validateSave(initial);
  const fixture=generateBattle(draft);lockDeployment(fixture.battle);let before;
  while(!fixture.battle.reinforcementCouncil&&!fixture.battle.result){before=structuredClone(fixture);stepBattle(fixture.battle);}
  assert.equal(fixture.battle.reinforcementCouncil,'pending');validateSave(before);
@@ -45,7 +45,7 @@ try{
  await arrival.addInitScript(raw=>{if(!sessionStorage.getItem('conditional-arrival')){localStorage.setItem('sango-historical-battle-v1',raw);sessionStorage.setItem('conditional-arrival','1');}},JSON.stringify(before));
  await arrival.goto('http://127.0.0.1:4219/#historical-battle');await arrival.locator('[data-action="pause"]').first().click();
  await arrival.locator('[data-action="battle-reinforcement-council"]').click();assert.match(await arrival.locator('.battle-council').innerText(),/援军军议/);
- const getBattleSave=()=>arrival.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+ const getBattleSave=()=>arrival.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
  const pending=await getBattleSave();validateSave(pending);assert.equal(pending.battle.reinforcementCouncil,'open');
  assert.ok(pending.battle.sides[0].units.filter(u=>u.arrivalCondition).every(u=>u.arrivalConfirmed&&u.status==='reserve'));
  await arrival.reload();assert.match(await arrival.locator('.battle-council').innerText(),/援军军议/);assert.equal((await getBattleSave()).battle.tick,pending.battle.tick);

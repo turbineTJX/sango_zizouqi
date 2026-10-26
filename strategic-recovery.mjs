@@ -11,7 +11,11 @@ export function assessRecoveryCapacity({day,returnDays,cities},estimatedLosses){
  for(const [index,c] of cities.entries()){
   const men=index===cities.length-1?estimatedLosses-allocated:Math.floor(estimatedLosses*c.men/Math.max(1,total));allocated+=men;
   const gold=Math.ceil(men*c.trainingRate),currentCoverage=Math.min(coverage(c.gold,gold),coverage(c.manpower,men));
-  let cash=Math.floor(c.gold),reserves=Math.floor(c.manpower),food=Math.floor(c.grain),quota=c.quota,harvests=0,readyDay=null,projectedCoverage=0,refilled=0;
+  const stocks={gold:Math.floor(c.gold),manpower:Math.floor(c.manpower),grain:Math.floor(c.grain)};
+  function project(initial,{diagnostic=false}={}){
+  let cash=initial.gold,reserves=initial.manpower,food=initial.grain,quota=c.quota,harvests=0,readyDay=null,projectedCoverage=0,refilled=0,insolvent=false;
+  const minimum={...initial};
+  const measure=()=>{minimum.gold=Math.min(minimum.gold,cash);minimum.grain=Math.min(minimum.grain,food);minimum.manpower=Math.min(minimum.manpower,reserves);if(food<0||cash<0||reserves<0)insolvent=true;};
   const allowances={...c.workRemaining};
   for(let offset=0;offset<=deadline;offset++){
    if(offset){
@@ -26,19 +30,47 @@ export function assessRecoveryCapacity({day,returnDays,cities},estimatedLosses){
     }
     reserves=Math.min(Math.max(c.manpower,c.manpowerCapacity),reserves);food=Math.min(c.grainCapacity,food);
    }
-   if(food<0||cash<0){readyDay=null;projectedCoverage=0;break;}
+   measure();
    if(offset>=Math.ceil(returnDays)){
-    const amount=Math.min(men-refilled,quota,reserves,c.trainingRate?Math.floor(cash/c.trainingRate):men-refilled);
+    // A diagnostic ledger records the stock needed to use real recruitment
+    // quotas. It never declares those hypothetical resources available.
+    const amount=Math.max(0,Math.min(men-refilled,quota,...(diagnostic?[]:[reserves,c.trainingRate?Math.floor(cash/c.trainingRate):men-refilled])));
     cash-=Math.ceil(amount*c.trainingRate);reserves-=amount;quota-=amount;refilled+=amount;
     const ratio=Math.min(coverage(cash+Math.ceil(refilled*c.trainingRate),gold),coverage(reserves+refilled,men),coverage(quota+refilled,men));
     projectedCoverage=Math.max(projectedCoverage,ratio);
     if(readyDay===null&&refilled>=men)readyDay=day+offset;
+    measure();
    }
   }
-  rows.push({cityId:c.cityId,men,gold,currentCoverage:Math.max(0,currentCoverage),projectedCoverage:Math.max(0,projectedCoverage),readyDay});
+  return {readyDay:insolvent?null:readyDay,projectedCoverage:insolvent?0:Math.max(0,projectedCoverage),refilled,
+   required:Object.fromEntries(Object.keys(initial).map(k=>[k,Math.max(0,initial[k]-minimum[k])]))};
+  }
+  const actual=project(stocks),needed=actual.readyDay===null?project(stocks,{diagnostic:true}):actual;
+  const required=needed.required,shortfall=Object.fromEntries(Object.keys(stocks).map(k=>[k,Math.max(0,required[k]-stocks[k])]));
+  // Capacity truncation and recruitment quotas cannot be fixed by promising
+  // more stock. Recheck the proposed budget through the same capped ledger.
+  const repairable=actual.readyDay!==null||needed.refilled>=men&&project(Object.fromEntries(Object.keys(stocks).map(k=>[k,stocks[k]+shortfall[k]]))).readyDay!==null;
+  rows.push({cityId:c.cityId,men,gold,currentCoverage:Math.max(0,currentCoverage),projectedCoverage:actual.projectedCoverage,readyDay:actual.readyDay,required,shortfall,repairable});
  }
  const currentCoverage=Math.min(3,...rows.map(r=>r.currentCoverage)),projectedCoverage=Math.min(3,...rows.map(r=>r.projectedCoverage));
- return {version:1,horizonDays,currentCoverage,projectedCoverage,feasible:rows.every(r=>r.readyDay!==null),readyDay:rows.every(r=>r.readyDay!==null)?Math.max(day,...rows.map(r=>r.readyDay)):null,rows};
+ return {version:2,horizonDays,currentCoverage,projectedCoverage,feasible:rows.every(r=>r.readyDay!==null),readyDay:rows.every(r=>r.readyDay!==null)?Math.max(day,...rows.map(r=>r.readyDay)):null,rows};
+}
+
+export function recoveryFailureReason(recovery){
+ if(recovery.feasible)return null;
+ if(recovery.rows.some(r=>!r.repairable))return '预计返城后的整补期限或仓储容量不足';
+ const keys=[['grain','持续口粮'],['gold','补兵金'],['manpower','预备兵']].filter(([key])=>recovery.rows.some(r=>r.shortfall[key]>0)).map(([,name])=>name);
+ return '预计返城整补缺少'+keys.join('、');
+}
+
+// Raise the real preparation target by the measured missing stock. Never
+// replace existing route, salary or recruitment reservations with a smaller one.
+export function addRecoveryRequirements(requirements,recovery,city){
+ for(const row of recovery.rows){
+  const c=city(row.cityId);let r=requirements.find(r=>r.cityId===row.cityId);
+  if(!r){r={cityId:row.cityId,gold:0,grain:0,manpower:0};requirements.push(r);}
+  for(const key of ['gold','grain','manpower'])if(row.shortfall[key]>0)r[key]=Math.max(r[key],c[key]+row.shortfall[key]);
+ }
 }
 
 export function recoveryAdvantageRequirement(base,recovery,intelligence,day){
@@ -59,10 +91,11 @@ export function continuationAdvantageRequirement(base,recovery,intelligence,day)
 
 export function validRecoveryEvidence(v,day,city){
  const integer=n=>Number.isSafeInteger(n)&&n>=0,ratio=n=>Number.isFinite(n)&&n>=0;
- return v&&Object.keys(v).length===7&&v.version===1&&v.horizonDays===R.recovery.horizonDays&&ratio(v.currentCoverage)&&v.currentCoverage<=3&&ratio(v.projectedCoverage)&&v.projectedCoverage<=3&&typeof v.feasible==='boolean'
+ const stock=s=>s&&Object.keys(s).length===3&&['gold','grain','manpower'].every(k=>integer(s[k]));
+ return v&&Object.keys(v).length===7&&v.version===2&&v.horizonDays===R.recovery.horizonDays&&ratio(v.currentCoverage)&&v.currentCoverage<=3&&ratio(v.projectedCoverage)&&v.projectedCoverage<=3&&typeof v.feasible==='boolean'
   &&(v.readyDay===null?!v.feasible:integer(v.readyDay)&&v.readyDay>0&&v.readyDay<=day+R.recovery.maximumForecastDays)
   &&Array.isArray(v.rows)&&v.rows.length>0&&new Set(v.rows.map(r=>r.cityId)).size===v.rows.length
-  &&v.rows.every(r=>r&&Object.keys(r).length===6&&city(r.cityId)&&integer(r.men)&&integer(r.gold)&&ratio(r.currentCoverage)&&ratio(r.projectedCoverage)&&(r.readyDay===null||integer(r.readyDay)&&r.readyDay>0&&r.readyDay<=day+R.recovery.maximumForecastDays))
+  &&v.rows.every(r=>r&&Object.keys(r).length===9&&city(r.cityId)&&integer(r.men)&&integer(r.gold)&&ratio(r.currentCoverage)&&ratio(r.projectedCoverage)&&stock(r.required)&&stock(r.shortfall)&&typeof r.repairable==='boolean'&&(r.readyDay===null||r.repairable&&Object.values(r.shortfall).every(n=>n===0)&&integer(r.readyDay)&&r.readyDay>0&&r.readyDay<=day+R.recovery.maximumForecastDays))
   &&v.feasible===v.rows.every(r=>r.readyDay!==null)&&v.currentCoverage===Math.min(3,...v.rows.map(r=>r.currentCoverage))&&v.projectedCoverage===Math.min(3,...v.rows.map(r=>r.projectedCoverage))
   &&(v.readyDay===null||v.readyDay===Math.max(...v.rows.map(r=>r.readyDay)));
 }

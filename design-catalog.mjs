@@ -16,7 +16,7 @@ import {MERIT_RULES} from './data/design/progression.mjs';
 import {DOMESTIC_INCIDENT_RULES,DOMESTIC_INCIDENTS} from './data/design/domestic-incidents.mjs';
 import {validateStrategyDesigns} from './design-strategy-validation.mjs';
 import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
-import {DOMESTIC_ACTION_DESIGNS,DOMESTIC_DIRECTIONS,DOMESTIC_DIRECTION_STATS} from './data/design/domestic-actions.mjs';
+import {DOMESTIC_ACTION_DESIGNS,DOMESTIC_DIRECTIONS,DOMESTIC_DIRECTION_STATS,DOMESTIC_STAFFING_RULES} from './data/design/domestic-actions.mjs';
 import {NATIONAL_ROAD_DESIGNS,DEMO_ROAD_DESIGNS} from './data/design/roads.mjs';
 import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
 import {NATIONAL_MAP as MAP_SOURCE} from './data/national-map.mjs';
@@ -35,7 +35,7 @@ import TECHNOLOGIES from './data/design/technologies.mjs';
 import {CITY_TECHNOLOGY_PROFILES} from './data/design/city-technologies.mjs';
 import {validateTechnologyDesigns} from './technology-design-validation.mjs';
 import {DIPLOMACY_RULES,DIPLOMACY_AI,DIPLOMACY_WORK,DIPLOMACY_DIRECTIONS,DIPLOMACY_GOALS,DIPLOMACY_ACTIONS} from './data/design/diplomacy-rules.mjs';
-export const DESIGN_TABLES={battleMaps:BATTLE_MAPS,strategicPlanning:STRATEGIC_PLANNING_RULES,strategicSupport:STRATEGIC_SUPPORT_RULES,treasures:TREASURE_DESIGNS,treasureRules:TREASURE_RULES,domesticIncidents:{rules:DOMESTIC_INCIDENT_RULES,events:DOMESTIC_INCIDENTS},diplomacy:{rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,stratagemAttributes:STRATAGEM_ATTRIBUTE_RULES,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS};
+export const DESIGN_TABLES={battleMaps:BATTLE_MAPS,strategicPlanning:STRATEGIC_PLANNING_RULES,strategicSupport:STRATEGIC_SUPPORT_RULES,treasures:TREASURE_DESIGNS,treasureRules:TREASURE_RULES,domesticIncidents:{rules:DOMESTIC_INCIDENT_RULES,events:DOMESTIC_INCIDENTS},diplomacy:{rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,domesticStaffing:DOMESTIC_STAFFING_RULES,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,stratagemAttributes:STRATAGEM_ATTRIBUTE_RULES,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS};
 export function validateDesignTables(tables=DESIGN_TABLES){
  const errors=validateBattleMaps(tables.battleMaps),check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},exists=(table,id)=>Object.hasOwn(table,id),numeric=(n,min=0,max=Infinity)=>typeof n==='number'&&Number.isFinite(n)&&n>=min&&n<=max;
  const opening=tables.economy?.opening;
@@ -47,6 +47,10 @@ export function validateDesignTables(tables=DESIGN_TABLES){
  for(const key of ['gold','grain','manpower'])check(opening?.[key]&&Object.keys(opening[key]).sort().join(',')==='large,small'&&Object.values(opening[key]).every(n=>Number.isSafeInteger(n)&&n>0)&&opening[key].large>=opening[key].small,'economy.opening.'+key,'大小城开局资源须为正整数且大城不少于小城');
  if(opening?.grain)check(Object.values(opening.grain).every(n=>n<=tables.economy.capacity.grainBase+tables.economy.capacity.grainPerGranary),'economy.opening.grain','开局粮草不得超出一级粮仓容量');
  if(opening?.manpower)check(Object.values(opening.manpower).every(n=>n<=tables.economy.capacity.manpowerMax),'economy.opening.manpower','开局预备兵不得超出正常兵源上限');
+ const neutral=tables.economy?.neutralOpening,occupation=tables.economy?.occupation;
+ check(neutral&&Object.keys(neutral).sort().join(',')==='gold,grain,manpower','economy.neutralOpening','中立库存须配置金粮兵');
+ for(const key of ['gold','grain','manpower'])check(neutral?.[key]&&Object.keys(neutral[key]).sort().join(',')==='large,small'&&['large','small'].every(size=>Number.isSafeInteger(neutral[key][size])&&neutral[key][size]>=0&&neutral[key][size]<=opening?.[key]?.[size]*0.25)&&neutral[key].large>=neutral[key].small,'economy.neutralOpening.'+key,'中立大小城库存须为不超过势力开局库存四分之一的非负整数');
+ check(occupation&&Object.keys(occupation).sort().join(',')==='goldRetention,grainRetention,manpowerRetention'&&Object.values(occupation).every(n=>numeric(n,0)&&n<1),'economy.occupation','武力占领金粮兵保留比例须在0至1之间且不能全额保留');
  const attr=tables.stratagemAttributes;
  check(attr&&Object.keys(attr).sort().join(',')==='doublingPoints,max,min,reference'&&numeric(attr.reference,1,100)&&numeric(attr.doublingPoints,1,100)&&numeric(attr.min,.1,1)&&numeric(attr.max,1,2),'stratagemAttributes','军略属性折算参数无效');
  validateTreasureDesigns(tables,check);
@@ -57,6 +61,8 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(Object.keys(diplomacy.actions).sort().join(',')===Object.keys(DIPLOMACY_ACTIONS).sort().join(','),'diplomacy.actions','原子动作须有对应履约处理器');
   for(const [key,d]of Object.entries(diplomacy.directions))check(['charm','politics','intellect'].includes(d.stat)&&typeof d.name==='string'&&Object.keys(d).sort().join(',')==='days,fee,name,stat','diplomacy.directions.'+key,'方向须引用唯一主属性');
   check(diplomacy.rules.lightSpeed>diplomacy.rules.captiveSpeed&&diplomacy.rules.grainPrice>0&&diplomacy.rules.offerDays>0,'diplomacy.rules','外交行进、报价或期限无效');}
+ const staffing=tables.domesticStaffing;
+ check(staffing&&Object.keys(staffing).sort().join(',')===Object.keys(DOMESTIC_STAFFING_RULES).sort().join(',')&&Object.values(staffing).every(n=>Number.isSafeInteger(n)&&n>0)&&staffing.base===3&&staffing.maximum===10&&staffing.base+staffing.constructionBonusMaximum+staffing.technologyBonusMaximum===staffing.maximum,'domesticStaffing','岗位上限须从3扩容至10，门槛及加成须为正整数');
  const p=tables.progression;check(p&&p.costs?.length===9&&p.costs.every((n,i)=>Number.isSafeInteger(n)&&n>0&&(!i||n>p.costs[i-1]))&&numeric(p.battleDivisor,1),'progression','升级成本须逐级递增且兑换除数有效');
  check(new Set(Object.values(STATUS_DEFINITIONS).map(s=>s.name)).size===Object.keys(STATUS_DEFINITIONS).length,'statuses','状态名称不能重复');
  const ids=(list,table,path)=>{check(Array.isArray(list),path,'必须是ID数组');if(!Array.isArray(list))return;check(new Set(list).size===list.length,path,'重复ID');for(const id of list)check(exists(table,id),path,'未知引用 '+id);};

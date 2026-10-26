@@ -1,3 +1,4 @@
+import {chooseCommandTarget} from './map-target-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
@@ -6,7 +7,7 @@ const browser=await chromium.launch({channel:'msedge',headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 const out='outputs/personnel-ui';await mkdir(out,{recursive:true});
-const action=name=>page.locator(`[data-action="${name}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+const action=name=>page.locator(`[data-action="${name}"]`),saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
 try{
  await page.goto((process.env.GAME_URL||'http://127.0.0.1:4173')+'/');
  await action('strategy').click();await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await page.locator('[data-action="select-national-faction"][data-faction="cao"]').click();await page.locator('[data-action="launch-national"]').click();
@@ -40,7 +41,7 @@ try{
  await page.locator('[data-action="campaign-tab"][data-tab="officers"]').click();
  await page.locator('[data-action="campaign-pick"][data-task="transfer"]').click();
  const transfer=await page.locator('[data-personnel-choice]:not(:disabled)').first().getAttribute('data-personnel-choice');
- await page.locator(`[data-personnel-choice="${transfer}"]`).check();await action('campaign-command-next').click();await page.locator('#command-destination').selectOption('chenliu');await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
+ await page.locator(`[data-personnel-choice="${transfer}"]`).check();await action('campaign-command-next').click();await chooseCommandTarget(page,'chenliu');await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
  assert.equal((await saved()).campaign.idle.find(o=>o.unit.id===transfer).destination,'chenliu');
  await page.reload();await page.locator('.city-directory').waitFor();
  await page.locator('[data-action="campaign-tab"][data-tab="officers"]').click();

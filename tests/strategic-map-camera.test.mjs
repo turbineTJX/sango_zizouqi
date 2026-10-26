@@ -10,7 +10,7 @@ import {nationalArtMap} from '../national-map-view.mjs';
 test('national map starts locally and allows an explicit national overview',()=>{
  const s=newCampaign(1,'guandu-200'),before=JSON.stringify(s),ui={city:'xuchang'};
  const {view,focus}=operationMapView(s,ui);assert.equal(view.width,LOCAL_MAP_SIZE);assert.equal(view.x+view.width/2,focus.x);assert.equal(view.y+view.height/2,focus.y);assert.equal(mapDetailLevel(view),'metropolis');
- const html=nationalArtMap(s,ui);assert.match(html,/data-strategy-radar/);assert.match(html,/data-map-view="national"/);assert.equal(JSON.stringify(s),before);
+ const html=nationalArtMap(s,ui);assert.doesNotMatch(html,/data-strategy-radar|strategy-radar|radar-viewport/);assert.match(html,/data-map-view="national"/);assert.match(html,/data-map-view="selected"/);assert.equal(JSON.stringify(s),before);
  assert.deepEqual(clampMapView({x:-1,y:1000,width:1024,height:1024}),{x:0,y:0,width:1024,height:1024});
 });
 
@@ -26,10 +26,10 @@ test('opening a metropolis fits its real members at settlement scale on both des
   for(const n of members)assert.ok(n.x>=view.x&&n.x<=view.x+view.width&&n.y>=view.y&&n.y<=view.y+view.height,n.name);
   assert.equal(mapDetailLevel(metropolitanOverviewView(c,aspect)),'metropolis');
  }
- const groups=metropolitanMapGroups(s),group=groups.find(g=>g.center.id===c.id);assert.deepEqual(group.members.map(n=>n.id),members.map(n=>n.id));assert.deepEqual(group.counts,{small:1,gate:1,port:1});
+ const groups=metropolitanMapGroups(s),group=groups.find(g=>g.center.id===c.id);assert.deepEqual(group.members.map(n=>n.id),members.map(n=>n.id));assert.deepEqual(group.counts,{prefecture:1,gate:1,port:1});
  assert.equal(JSON.stringify(s),before);
 });
-test('manual radar navigation persists through rendering; changing operation city recenters',()=>{
+test('manual map navigation persists through rendering; changing operation city recenters',()=>{
  const s=newCampaign(1,'guandu-200'),ui={city:'xuchang'};operationMapView(s,ui);
  ui.mapCameraManual=true;ui.strategicMapView=centeredMapView({x:180,y:800});const expected={...ui.strategicMapView};
  assert.deepEqual(operationMapView(s,ui).view,expected);

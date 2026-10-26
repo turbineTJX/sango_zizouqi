@@ -5,6 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,roadLength,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,launchExpedition} from './helpers/auto-domestic-campaign.mjs';
 import {initializeStrategicAI,manageStrategicEconomy,planStrategicAI,strategicPower,strategicCapabilities,strategicTravelDays,safeStrategicTransportRoute,validateStrategicAI,expeditionTiming,evaluateOffensive,factionStrategicProfile,estimateStrategicEnemy} from '../strategic-ai.mjs';
+import {drawFactionTemperament} from '../strategic-temperament.mjs';
 import {cityForce} from '../city-units.mjs';
 import {makeOfficer} from '../engine.mjs';
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
@@ -122,7 +123,7 @@ test('offensive grain reservations include home rations and wait for actual supp
 });
 
 test('a threatened home preserves defense while its troops are already fighting',()=>{
- const {s,home,target,rear}=scene(),policy=s.campaign.ai.factions.yuan;policy.lastReviewTurn=s.turn;
+ const {s,home,target,rear}=scene(),policy=s.campaign.ai.factions.yuan;drawFactionTemperament(s.campaign.ai,'yuan',s.turn,factionStrategicProfile(s,'yuan'),0);policy.lastReviewTurn=s.turn;
  rear.owner='neutral';rear.domestic.owner='neutral'; // A separate easy objective remains available.
  const ids=home.units.slice(0,3).map(u=>u.id);
  assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:target.id,policy:'auto'},{faction:'yuan'}),null);
@@ -135,7 +136,7 @@ test('AI factions still fight each other on actual hostile arrival',()=>{
  const {s,home,target}=scene();target.owner='sunce';target.domestic.owner='sunce';
  // Keep a player city so the world does not end before the columns arrive.
  city(s,'xuchang').owner='cao';city(s,'xuchang').domestic.owner='cao';
- for(const p of Object.values(s.campaign.ai.factions))p.lastReviewTurn=s.turn;
+ for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),0);p.lastReviewTurn=s.turn;}
  const ids=home.units.slice(0,3).map(u=>u.id);
  assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:target.id,policy:'auto'},{faction:'yuan'}),null);
  beginExecution(s);for(let i=0;i<4&&!activeBattles(s).some(b=>b.battle.sides.every(side=>side.faction!=='cao'));i++){

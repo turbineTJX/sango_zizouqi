@@ -34,6 +34,8 @@ let referenceMatched=false;
 const owners=new Map(s.cities.map(c=>[c.id,c.owner])),seenArmies=new Set(s.armies.map(a=>a.id)),seenBattles=new Set(),revisions=new Map();
 const captures=[],departures=[],battles=[],hungerExamples=[],checkpoints=[],admissions=[],territoryHistory=[];
 let cityHungerDays=0,armyHungerDays=0,lastCaptureDay=startDay,lastBattleDay=startDay,lastDepartureDay=startDay,lastProgressDay=0,maxQuietDays=0;
+const dailyPerformance=[],storagePerformance=[];
+let maxObservedBattles=0;
 const atomicJSON=async(name,value)=>{const path=join(out,name);await writeFile(path+'.tmp',typeof value==='string'?value:JSON.stringify(value,null,2));await rename(path+'.tmp',path);};
 const counts=()=>Object.fromEntries(['neutral',...spec.factions].map(f=>[f,s.cities.filter(c=>c.owner===f).length]));
 const seconds=()=>Math.round((performance.now()-start)/1000);
@@ -56,22 +58,26 @@ function inspect(){
  if(s.finished){assert.equal(s.finished,'victory');assert.notEqual(s.cities[0].owner,'neutral');assert.ok(s.cities.every(c=>c.owner===s.cities[0].owner));}
 }
 async function saveCheckpoint({verifyContinuation=false}={}){
- const saved=serializeCampaign(s),copy=validateCampaign(JSON.parse(saved));assert.equal(serializeCampaign(copy),saved,'Current save cannot round-trip');
+ const saveStart=performance.now(),saved=serializeCampaign(s),serializeMs=performance.now()-saveStart,loadStart=performance.now(),copy=validateCampaign(JSON.parse(saved)),loadMs=performance.now()-loadStart;assert.equal(serializeCampaign(copy),saved,'Current save cannot round-trip');
+ storagePerformance.push({day:s.campaign.day,bytes:Buffer.byteLength(saved),nodes:s.campaign.activity.nodes.length,serializeMs,loadMs});
  if(verifyContinuation&&!s.finished){const replay=validateCampaign(JSON.parse(saved));advanceCampaignDay(copy);advanceCampaignDay(replay);assert.equal(serializeCampaign(copy),serializeCampaign(replay),'Reloaded daily continuations differ');}
  await atomicJSON('checkpoint-save.json',saved);checkpoints.push({day:s.campaign.day,roundTrip:true,continuation:verifyContinuation&&!s.finished,bytes:Buffer.byteLength(saved)});
 }
 async function progress(event='progress'){
  const row={event,day:s.campaign.day,elapsedGameDays:s.campaign.day-startDay,seconds:seconds(),territory:counts(),survivingFactions:spec.factions.filter(f=>s.cities.some(c=>c.owner===f)),captures:captures.length,departures:departures.length,battles:battles.length,activeBattles:activeBattles(s).length,activeOffensives:s.campaign.ai.plans.filter(p=>!['complete','cancelled','consolidate'].includes(p.phase)).length,cityHungerDays,armyHungerDays,quietDays:s.campaign.day-Math.max(lastCaptureDay,lastBattleDay,lastDepartureDay)};
  territoryHistory.push(row);await appendFile(join(out,'progress.jsonl'),JSON.stringify(row)+'\n');await atomicJSON('progress.json',row);console.log(JSON.stringify(row));lastProgressDay=s.campaign.day;
+ const ordered=dailyPerformance.map(x=>x.ms).sort((a,b)=>a-b);
+ await atomicJSON('performance-progress.json',{sourceHash,day:s.campaign.day,p95DayMs:ordered[Math.max(0,Math.ceil(ordered.length*.95)-1)]||0,maxConcurrentBattles:maxObservedBattles,storage:storagePerformance});
 }
 try{
  await atomicJSON('run-config.json',{scenario,scenarioName:spec.name,seed,requestedDays:days,startDay,startUTC,source:root,sourceHash,rulesVersion:RULES_VERSION,sourceHashes,checkpointDays,inputSave:args.save?resolve(args.save):null,scope:'Fresh ordinary scenario or exact current continuation. All AI, normal fog and incidents. Original victory requires every city to have one non-neutral owner. No injected war, resources, rosters, roads, actions or outcomes.'});
  inspect();await saveCheckpoint();await progress('start');
  while(s.campaign.day<endDay&&!s.finished){
   const before=s.campaign.day,replay=(before-startDay)%180===179?validateCampaign(JSON.parse(serializeCampaign(s))):null;
-  const result=advanceCampaignDay(s);assert.ok(s.campaign.day>before||s.finished,'Daily execution paused: '+JSON.stringify(result));
+  const dailyStart=performance.now(),concurrentBattles=activeBattles(s).length,result=advanceCampaignDay(s);dailyPerformance.push({day:before,ms:performance.now()-dailyStart,concurrentBattles,nodes:s.campaign.activity.nodes.length});assert.ok(s.campaign.day>before||s.finished,'Daily execution paused: '+JSON.stringify(result));
   if(replay){advanceCampaignDay(replay);assert.equal(serializeCampaign(replay),serializeCampaign(s),'Live daily execution differs from save continuation');checkpoints.push({day:s.campaign.day,liveContinuation:true});}
   inspect();
+  const concurrent=activeBattles(s).length;if(concurrent>maxObservedBattles){maxObservedBattles=concurrent;if(concurrent>=2)await atomicJSON('parallel-'+concurrent+'-save.json',serializeCampaign(s));}
   if(s.campaign.day===referenceDay){
    const actual=serializeCampaign(s);assert.ok(actual===referenceText,'Indexed run differs from full original checkpoint on day '+referenceDay);
    referenceMatched=true;console.log(JSON.stringify({event:'reference-match',day:referenceDay,sourceSave:resolve(args.reference),stateHash:createHash('sha256').update(actual).digest('hex')}));
@@ -86,6 +92,9 @@ try{
  const winner=s.finished?s.cities[0].owner:null;
  const result={status:s.finished?'unified':'limit',scenario,scenarioName:spec.name,seed,sourceHash,rulesVersion:RULES_VERSION,startUTC,endUTC:new Date().toISOString(),startDay,completedDay:s.campaign.day,elapsedGameDays:s.campaign.day-startDay,seconds:seconds(),reference:referenceText?{day:referenceDay,matched:referenceMatched,path:resolve(args.reference)}:null,winner,winnerName:winner?NATIONAL_FACTIONS[winner]?.name||winner:null,territory:counts(),cities:s.cities.length,captures:captures.length,newArmies:departures.length,settledBattles:battles.length,cityHungerDays,armyHungerDays,lastCaptureDay,lastBattleDay,lastDepartureDay,maxQuietDays,checkpoints,territoryHistory,recentAdmission:reasons,recentStrategies:Object.fromEntries(Object.entries(s.campaign.ai.factions).map(([f,p])=>[f,p.strategy])),captureEvents:captures,departures,battles,hungerExamples};
  await atomicJSON('unification-result.json',result);await atomicJSON('campaign-save.json',serializeCampaign(s));
+ const ordered=dailyPerformance.map(x=>x.ms).sort((a,b)=>a-b),p95=ordered[Math.max(0,Math.ceil(ordered.length*.95)-1)]||0;
+ await atomicJSON('performance.json',{sourceHash,scenario,seed,device:'Node '+process.version+' '+process.platform,p95DayMs:p95,maxDayMs:ordered.at(-1)||0,maxConcurrentBattles:Math.max(0,...dailyPerformance.map(x=>x.concurrentBattles)),daily:dailyPerformance,storage:storagePerformance});
+ if(args['require-unification']&&result.status!=='unified')process.exitCode=1;
  console.log(JSON.stringify({event:'finish',...Object.fromEntries(Object.entries(result).filter(([k])=>!['checkpoints','territoryHistory','recentAdmission','recentStrategies','captureEvents','departures','battles','hungerExamples'].includes(k)))}));
 }catch(error){
  await atomicJSON('failed-save.json',serializeCampaign(s));await atomicJSON('failure.json',{day:s.campaign.day,seconds:seconds(),error:error.stack,territory:counts(),lastCaptureDay,lastBattleDay,lastDepartureDay});throw error;

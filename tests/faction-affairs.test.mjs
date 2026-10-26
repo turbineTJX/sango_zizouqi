@@ -21,6 +21,6 @@ test('unified appointments use local officers once, preserve appointments and ar
  assert.equal(fillFactionAppointments(s).count,0);validateCampaign(JSON.parse(serializeCampaign(s)));
 });
 test('global menus describe unified policies and tabular battle states',()=>{
- const s=newCampaign(203,'guandu-200');assert.match(factionAffairsMarkup(s),/统一内政/);assert.match(factionAffairsMarkup(s),/最终方案须批准/);assert.match(factionAffairsMarkup(s,'diplomacy'),/diplomatic-direction/);
+ const s=newCampaign(203,'guandu-200');assert.match(factionAffairsMarkup(s),/<h3>内政<\/h3>/);assert.doesNotMatch(factionAffairsMarkup(s),/diplomacy-panel|city-budget|talent-panel|faction-affairs-tab/);assert.match(factionAffairsMarkup(s,'diplomacy'),/diplomatic-direction/);
  assert.match(battlesPanel(s,true),/<table class="battle-overview">/);
 });

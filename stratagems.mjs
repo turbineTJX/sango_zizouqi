@@ -28,6 +28,13 @@ export function stratagemProfile(key,holder,bondBonus=0){
 export function selectStratagemSource(commanders,key,bondBonus=0){
  return (commanders||[]).filter(c=>commanderStratagems(c).includes(key)).map(c=>stratagemProfile(key,c,bondBonus)).sort((a,b)=>b.power-a.power||Number(a.role!=='leader')-Number(b.role!=='leader')||a.id.localeCompare(b.id))[0]||null;
 }
+export function stratagemEffectSummary(p){
+ if(!p)return '无可用提供者';
+ const s=STRATAGEMS[p.key],effect=s.effect||p.key,percent=n=>(n*100).toFixed(1).replace(/\.0$/,'')+'%';
+ const text={shield:'护盾 '+percent(p.strength),heal:'救治上限 '+percent(p.strength),cleanse:'驱散异常 · 坚定 '+p.resolve+' 回合',forceReserve:'额外上阵 '+p.count+' 队',tacticRefresh:'恢复战法次数 · 冷却 −'+percent(p.strength),catastrophe:s.strikes+' 道雷火 · 敌我皆伤',blockade:'封锁敌军补位',firestorm:'灼烧 · 总火势 '+percent(p.strength),invincible:'无敌',ambush:'伏兵',stun:'眩晕',rapidAdvance:'神速',magicImmunity:'魔免',eightFormation:'异常阵地'}[effect];
+ const duration=s.disciplineDuration?commandProtectionDuration(0,p.power)+'～'+commandProtectionDuration(Infinity,p.power):p.duration;
+ return text+(duration?' · '+duration+' 回合':'');
+}
 export function stratagemEffectText(p){
  if(!p)return '无符合任职条件的提供者';const s=STRATAGEMS[p.key],e=s.effect||p.key,percent=n=>(n*100).toFixed(1).replace(/\.0$/,'')+'%';
  const cooldown=' · 冷却 '+p.cooldown+' 回合';

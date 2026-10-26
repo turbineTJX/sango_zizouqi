@@ -18,7 +18,7 @@ test('reports select exact daily facts independently of the capped event queue, 
  for(let i=0;i<35&&!pendingDomesticAlerts(s).some(e=>e.officerId===u.id&&e.phase==='complete');i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  const node=pendingDomesticAlerts(s).find(e=>e.officerId===u.id&&e.phase==='complete');assert.ok(node);assert.strictEqual(s.campaign.activity.nodes.find(n=>n.id===node.id),node);
  const day=officerActivityDays(s,u.id,{beforeDay:node.day}).rows[0];assert.equal(day.actions.find(a=>a.nodeId===node.id).action,node.text);
- assert.match(officerActivityMarkup(s,u.id,node.day,node.id),/activity-selected/);assert.match(domesticAlertsMarkup(s,[node]),/查看当日记录/);
+ assert.match(officerActivityMarkup(s,u.id,node.day,node.id),/activity-selected/);assert.match(domesticAlertsMarkup(s,[node]),/查看事项/);
  s.campaign.domestic.events=[];assert.ok(pendingDomesticAlerts(s).includes(node));
  acknowledgeDomesticAlerts(s,pendingDomesticAlerts(s).map(e=>e.id));assert.ok(!pendingDomesticAlerts(s).length);
  const saved=restore(s);assert.ok(!pendingDomesticAlerts(saved).length);assert.equal(saved.campaign.activity.nodes.find(n=>n.id===node.id).text,node.text);

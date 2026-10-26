@@ -73,7 +73,7 @@ test('shared income settlement preserves reserve stock and never charges it food
  const start={gold:s.gold,grain:c.grain,manpower:c.manpower},income=cityIncome(s,c),bill=cityMaintenance(s,c),result=settleCityEconomy(s,c);
  assert.equal(s.gold-start.gold,income.gold-bill.gold);assert.equal(c.grain-start.grain,income.grain);
  assert.equal(c.manpower,start.manpower+income.manpower);assert.ok(c.manpower>=c.domestic.reserved);assert.equal(result.paidGold,bill.gold);
- const ui=cityDomesticMarkup(s,c.id);assert.match(ui,/编制消耗金与预备兵/);assert.doesNotMatch(ui,/轮换归乡|预备兵口粮/);
+ const ui=cityDomesticMarkup(s,c.id);assert.ok(ui.includes('预备兵 '+c.manpower.toLocaleString('zh-CN')));assert.doesNotMatch(ui,/轮换归乡|预备兵口粮/);
 });
 test('player formation spends money and reserve manpower, including with zero grain; only actual soldiers eat',()=>{
  for(const kind of ['allocate','recruit']){

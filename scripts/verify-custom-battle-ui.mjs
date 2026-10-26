@@ -29,7 +29,7 @@ try{
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await page.locator('.custom-battle').screenshot({path:'outputs/custom-battle/mobile.png'});
   await action('launch-custom').click();await page.locator('#battle-board').waitFor();
-  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+  const saved=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
   assert.equal(saved.battle.sides[0].units[0].id,'jia');assert.equal(saved.battle.sides[0].units[0].type,'crossbow');assert.equal(saved.battle.sides[0].units[0].initial,2200);
   assert.equal(saved.battle.sides[1].units[0].id,'liao');assert.equal(saved.battle.sides[1].units[0].type,'cavalry');
   await page.reload();await page.locator('#battle-board').waitFor();
@@ -38,7 +38,7 @@ try{
   await action('continue-history').click();await page.locator('#battle-board').waitFor();
   await page.getByRole('button',{name:'战斗工具',exact:true}).click();
   await action('retry-scenario').click();await page.locator('#battle-board').waitFor();
-  const retry=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));
+  const retry=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
   assert.deepEqual(retry.testScenario,saved.testScenario);assert.deepEqual(retry.battle,saved.battle);
   assert.deepEqual(errors,[]);console.log('PASS: 双方选将/兵种/兵力、增减部队、移动布局、刷新续战和同局重试');
 }finally{await browser?.close();server.kill();}

@@ -4,6 +4,8 @@ import {hidden} from './battle-status-rules.mjs';
 import {art} from './art-assets.mjs';
 import {hexCenter} from './hex-grid.mjs';
 import {unitSpriteClips,unitModelKey} from './unit-appearance.mjs';
+import {castFrame,castPose,unitCastAction} from './battle-cast-animation.mjs';
+import {unitStatusMotion,troopFormation,troopAttackFrame} from './battle-unit-motion.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const smooth=t=>t*t*(3-2*t);
@@ -21,7 +23,7 @@ export function facingRow(dx,dy,side=0){
 export class BattleArt {
  constructor(board,fx=null){
   this.board=board;this.fx=fx;this.canvas=document.createElement('canvas');this.canvas.className='art-sprites';this.canvas.setAttribute('aria-hidden','true');board.prepend(this.canvas);this.ctx=this.canvas.getContext('2d');
-  this.units=new Map();this.clock=0;this.last=0;this.paused=true;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  this.units=new Map();this.bodies=new Map();this.clock=0;this.last=0;this.paused=true;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
   this.resize=new ResizeObserver(()=>this.measure());this.resize.observe(board);this.measure();
   this.frame=requestAnimationFrame(t=>this.draw(t));
  }
@@ -35,19 +37,25 @@ export class BattleArt {
   this.batch=batch;this.consumed=(b.effects||[]).length;
   const localEvents=events.filter(e=>!e.enchantment&&(!e.skill||!this.fx?.cinematics.some(c=>c.events.some(hit=>hit.from===e.from&&hit.label===e.label))));
   const live=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active'&&(!b.deploymentLocked||u.side===0||!hidden(b,u)));
-  for(const [id,u]of this.units)if(!live.some(v=>v.id===id)&&u.deadAt===undefined){if(paused)this.units.delete(id);else u.deadAt=this.clock;}
+  for(const [id,u]of this.units)if(!live.some(v=>v.id===id)&&u.deadAt===undefined){
+   if(paused)this.units.delete(id);else{
+    u.deadAt=this.clock;
+    const hits=this.fx?.actions.flatMap(a=>a.events.filter(e=>e.to===id&&e.damage>0).map(()=>a.start+a.duration*.52))||[];
+    u.deathFxAt=hits.length?Math.max(...hits):this.fx?.clock;
+   }
+  }
   for(const u of live){
    const old=this.units.get(u.id),pos=hexCenter(u.x,u.y),moved=old&&(old.x!==u.x||old.y!==u.y);
    const next={...old,id:u.id,type:combatType(u),baseType:u.type,side:u.side,x:u.x,y:u.y,pos,hp:u.hp,maxHp:u.maxHp};
    if(moved){next.from=paused?undefined:this.position(old);next.moveAt=paused?undefined:this.clock;next.facing=facingRow(pos.x-old.pos.x,pos.y-old.pos.y,u.side);}
-   const hit=localEvents.find(e=>e.from===u.id&&!e.ongoing&&e.damage>0);
+   const hit=localEvents.find(e=>e.from===u.id&&!e.ongoing&&e.damageKind!=='dot'&&!e.enchantment&&(e.skill||e.damage>0||e.shieldAbsorbed>0||e.skill===false&&!e.abilityKind));
    if(hit){next.attackAt=this.clock;next.target=hexCenter(hit.x,hit.y);next.facing=facingRow(next.target.x-pos.x,next.target.y-pos.y,u.side);}
    const received=localEvents.find(e=>e.to===u.id&&e.damage>0);
    if(received){next.hitAt=this.clock;next.hitFrom=hexCenter(received.fromX??u.x,received.fromY??u.y);}
    this.units.set(u.id,next);
   }
-  this.snapshot={terrain:b.terrain,mapId:b.mapId,gate:b.siege?.gate?{...b.siege.gate}:null,units:[...this.units.values()].filter(u=>u.deadAt===undefined).map(u=>({...u}))};
-  if(!this.models&&!this.modelLoading&&(Object.keys(art.pack.models||{}).length||this.snapshot.units.some(u=>unitModelKey(art.pack,u)))){
+  this.snapshot={terrain:b.terrain,mapId:b.mapId,gate:b.siege?.gate?{...b.siege.gate}:null,units:[...this.units.values()].map(u=>({...u}))};
+  if(this.board&&!this.models&&!this.modelLoading&&(Object.keys(art.pack.models||{}).length||this.snapshot.units.some(u=>unitModelKey(art.pack,u)))){
    this.modelLoading=true;
    import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead){try{this.models=new ModelLayer(this.board,art.pack);this.models.update(this.snapshot);}catch{this.board.dataset.modelStatus='fallback';}}}).catch(()=>{this.board.dataset.modelStatus='fallback';});
   }
@@ -57,56 +65,83 @@ export class BattleArt {
   for(const u of live){art.image(art.portraitURL(u.id));art.image(art.portraitURL(u.id,'battle'));}
  }
  position(u){
+  const charge=this.fx?.actions.find(a=>a.events.some(e=>e.from===u.id&&e.visual==='charge'&&(e.damage>0||e.shieldAbsorbed>0))&&a.end>this.fx.clock);
+  if(charge){
+   const e=charge.events.find(e=>e.from===u.id),from=hexCenter(e.fromX,e.fromY),t=this.reduced.matches?1:smooth(castFrame((this.fx.clock-charge.start)/charge.duration).flight);
+   if(from.x!==u.pos.x||from.y!==u.pos.y)return {x:from.x+(u.pos.x-from.x)*t,y:from.y+(u.pos.y-from.y)*t};
+  }
   const t=this.reduced.matches?1:smooth(clamp((this.clock-(u.moveAt??-10))/.48));
   return u.from?{x:u.from.x+(u.pos.x-u.from.x)*t,y:u.from.y+(u.pos.y-u.from.y)*t}:u.pos;
  }
  draw(time){
   if(this.dead)return;
   const dt=Math.min((time-(this.last||time))/1000,.08);this.last=time;
-  const cast=this.fx?.cinematics[0],cinematic=!!cast;
+  const cast=this.fx?.currentCinematic(),cinematic=!!cast;
   if(!this.paused&&!document.hidden&&!cinematic)this.clock+=dt*(this.speed||1);
   const c=this.ctx,w=this.width,h=this.height,cell=w/14.5;
-  c.clearRect(0,0,w,h);c.imageSmoothingEnabled=false;
+  this.bodies.clear();
+  c.clearRect(0,0,w,h);c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
   const elements=new Map([...this.board.querySelectorAll('[data-unit]')].map(el=>[el.dataset.unit,el]));
   const units=[...this.units.values()].sort((a,b)=>a.pos.y-b.pos.y);
-  const castP=cast?clamp((this.fx.clock-cast.start)/cast.duration):0;
   for(const u of units){
-   const dying=u.deadAt!==undefined,death=dying?clamp((this.clock-u.deadAt)/.6):0;
+   const dying=u.deadAt!==undefined,death=dying?u.deathFxAt!==undefined?clamp((this.fx.clock-u.deathFxAt)/600):clamp((this.clock-u.deadAt)/.6):0;
    if(death>=1){this.units.delete(u.id);continue;}
-   const actor=cast?.events.find(e=>e.from===u.id),victim=cast?.events.find(e=>e.to===u.id&&e.damage);
-   const moving=!cinematic&&u.moveAt!==undefined&&this.clock-u.moveAt<.48;
-   let ap=cinematic?(actor?clamp((castP-.32)/.5):1):clamp((this.clock-(u.attackAt??-10))/.65);
-   const attacking=ap<1&&(!cinematic||castP>=.32),target=actor?hexCenter(actor.x,actor.y):u.target;
+   const actions=this.fx?.currentActions()||[],casting=unitCastAction(actions,u.id),attack=casting?.action,actor=casting?.event;
+   const reaction=this.fx?.feedback?.reaction(u.id,this.fx.clock);
+   const hit=actions.find(a=>a.events.some(e=>e.to===u.id&&e.damage>0)),victim=reaction?.hit||hit?.events.find(e=>e.to===u.id&&e.damage>0);
+   const statuses=this.fx?.feedback?.statusesFor(u.id,this.fx.clock)||[],bodyTime=this.fx?this.fx.clock/1000:this.clock;
+   const state=unitStatusMotion(statuses,bodyTime,0,this.reduced.matches);
+   const moving=!cinematic&&!state.rooted&&u.moveAt!==undefined&&this.clock-u.moveAt<.48;
+   let ap=this.fx?(attack?clamp((this.fx.clock-attack.start)/attack.duration):1):clamp((this.clock-(u.attackAt??-10))/.65);
+   const attacking=ap<1&&!!actor&&!state.blocked,target=actor?hexCenter(actor.x,actor.y):u.target;
    const clips=unitSpriteClips(art.pack,u),key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
    const img=art.image(clip?.url),el=elements.get(u.id),model=this.models?.hasUnit(u.id);
+   const visualPosition=this.position(u);
+   if(el)el.style.translate=`${(visualPosition.x-u.pos.x)*w}px ${(visualPosition.y-u.pos.y)*h}px`;
    el?.classList.toggle('has-unit-art',!!img||!!model);
-   if(!img||model)continue;
-   let p=this.position(u),dx=target?target.x-p.x:(u.side?-1:1),dy=target?target.y-p.y:0;
-   const len=Math.hypot(dx*w,dy*h)||1,nx=dx*w/len,ny=dy*h/len,pose=attackPose(ap,u.type);
-   const recoilP=cinematic?(victim?clamp((castP-.56)/.22):0):clamp((this.clock-(u.hitAt??-10)-.3)/.24);
-   const recoil=this.reduced.matches?0:Math.sin(recoilP*Math.PI)*cell*.09;
-   let x=p.x*w+(this.reduced.matches?0:nx*pose.reach*cell)-nx*recoil,y=p.y*h+(this.reduced.matches?0:ny*pose.reach*cell)-ny*recoil;
+   if(el){
+    const gesture=actor?.skill?castPose(ap,actor.presentationKind):null;
+    el.style.setProperty('--cast-lift',this.reduced.matches?'0px':`${-(gesture?.lift||0)*cell+state.stance*cell}px`);
+    el.style.setProperty('--cast-lean',this.reduced.matches?'0rad':`${((gesture?.lean||0)+state.lean)*(u.side?-1:1)}rad`);
+    el.style.setProperty('--hit-flash',String(this.reduced.matches?0:reaction?.flash||0));
+   }
+   if(!img||model){this.bodies.set(u.id,this.models?.bodyAnchors(u.id)||[{x:visualPosition.x*w,y:visualPosition.y*h,size:cell*.72,facing:u.side?-1:1}]);continue;}
+   let p=visualPosition,dx=target?target.x-p.x:(u.side?-1:1),dy=target?target.y-p.y:0;
+   const len=Math.hypot(dx*w,dy*h)||1,nx=dx*w/len,ny=dy*h/len;
+   const recoilP=this.fx?.feedback?0:this.fx?(victim&&hit?clamp(((this.fx.clock-hit.start)/hit.duration-.52)/.25):0):clamp((this.clock-(u.hitAt??-10)-.3)/.24);
+   const recoil=this.reduced.matches?0:this.fx?.feedback?(reaction?.recoil||0)*cell:Math.sin(recoilP*Math.PI)*cell*.09;
+   const hitFrom=victim?hexCenter(victim.fromX,victim.fromY):null,hitDx=hitFrom?(hitFrom.x-p.x)*w:nx,hitDy=hitFrom?(hitFrom.y-p.y)*h:ny,hitLength=Math.hypot(hitDx,hitDy)||1;
+   let x=p.x*w-hitDx/hitLength*recoil,y=p.y*h-hitDy/hitLength*recoil;
    const row=Math.min(clip.rows-1,actor?facingRow(dx,dy,u.side):(u.facing??facingRow(0,0,u.side)));
    const size=cell*(combatFamily(u)==='cavalry'?.57:.5),sw=img.width/clip.columns,sh=img.height/clip.rows;
-   const formation=combatFamily(u)==='cavalry'?[[-.23,-.12],[.22,-.12],[0,.08]]:[[-.27,-.16],[0,-.16],[.27,-.16],[-.27,.08],[0,.08],[.27,.08]];
-   c.save();c.globalAlpha=1-death;
-   // Ground footprint and pennant make allegiance visible even with shared source sprites.
-   c.fillStyle=u.side?'#ae584a44':'#50b99d44';c.strokeStyle=u.side?'#eeb09a99':'#9fe2c599';c.lineWidth=1;
-   c.beginPath();c.ellipse(x,y-cell*.01,cell*.43,cell*.21,0,0,Math.PI*2);c.fill();c.stroke();
+   const formation=troopFormation(combatFamily(u)),anchors=[];
+   c.save();c.globalAlpha=(1-death)*state.opacity;
    if(!this.reduced.matches&&moving){c.fillStyle='#cdbb8750';for(let j=0;j<4;j++){c.beginPath();c.ellipse(x-nx*cell*.3-j*3,y+cell*.05+Math.sin(this.clock*11+j)*3,4+j*2,2+j,0,0,Math.PI*2);c.fill();}}
    for(let i=0;i<formation.length;i++){
-    const [ox,oy]=formation[i],phase=i*.47,elapsed=moving?(this.clock-(u.moveAt??0))*2.4:this.clock;
-    const frame=this.reduced.matches?0:attacking?Math.min(clip.frames-1,Math.floor(ap*clip.frames)):Math.floor((elapsed+phase)%clip.duration/clip.duration*clip.frames);
-    const bob=this.reduced.matches||!moving?0:Math.sin(elapsed*18+phase)*size*.035;
-    c.save();c.translate(x+ox*cell,y+oy*cell+cell*.03+bob);if(dying&&!this.reduced.matches)c.rotate((u.side?-1:1)*death*1.1);
-    c.drawImage(img,frame*sw,row*sh,sw,sh,-size/2,-size*.88,size,size);c.restore();
+    const [ox,oy]=formation[i],phase=i*.47,body=unitStatusMotion(statuses,bodyTime,i,this.reduced.matches);
+    const elapsed=bodyTime*body.gait,sp=troopAttackFrame(ap,i),gesture=attacking?(actor?.skill?castPose(sp,actor.presentationKind):attackPose(sp,u.type)):null;
+    const frame=this.reduced.matches||body.blocked?0:attacking?Math.min(clip.frames-1,Math.floor(sp*clip.frames)):Math.floor((elapsed+phase)%clip.duration/clip.duration*clip.frames);
+    const bob=this.reduced.matches||!moving?0:Math.sin(elapsed*18+phase)*size*.045;
+    const reach=this.reduced.matches?0:(gesture?.reach||0)*cell,lift=this.reduced.matches?0:(gesture?.lift||0)*cell;
+    const bx=x+ox*cell*body.spread+body.x*size+nx*reach,by=y+oy*cell*body.spread+cell*.03+bob+body.y*size+body.stance*size+ny*reach-lift;
+    anchors.push({x:bx,y:by,size,facing:nx>=0?1:-1});
+    const soldierRow=(row+body.turn)%clip.rows;
+    c.save();c.translate(bx,by);
+    if(!this.reduced.matches){c.rotate(((gesture?.lean||0)+body.lean)*(u.side?-1:1));c.scale(1+(gesture?.squash||0),1-(gesture?.squash||0));if(dying)c.rotate((u.side?-1:1)*death*1.1);}
+    if(body.tint){c.shadowColor=body.tint;c.shadowBlur=Math.min(3,size*.08);}
+    c.drawImage(img,frame*sw,soldierRow*sh,sw,sh,-size/2,-size*.88,size,size);c.shadowBlur=0;
+    if(reaction?.flash>0&&!this.reduced.matches){
+     c.filter='brightness(0) invert(1)';c.globalAlpha=(1-death)*reaction.flash*.85;
+     c.drawImage(img,frame*sw,soldierRow*sh,sw,sh,-size/2,-size*.88,size,size);
+    }
+    c.restore();
    }
+   this.bodies.set(u.id,anchors);
    c.imageSmoothingEnabled=true;c.strokeStyle='#d9c39a';c.lineWidth=1.3;c.beginPath();c.moveTo(x-cell*.35,y-cell*.12);c.lineTo(x-cell*.35,y-cell*.62);c.stroke();
-   c.fillStyle=u.side?'#ad493c':'#287763';c.beginPath();c.moveTo(x-cell*.35,y-cell*.62);c.lineTo(x-cell*.08,y-cell*.57);c.lineTo(x-cell*.35,y-cell*.43);c.fill();c.imageSmoothingEnabled=false;
-   if(recoil>.4){c.globalAlpha=(1-death)*.6;c.strokeStyle='#fff1c0';c.lineWidth=2;c.beginPath();c.arc(x,y-cell*.25,cell*.24,-.8,1.2);c.stroke();}
+   c.fillStyle=u.side?'#ad493c':'#287763';c.beginPath();c.moveTo(x-cell*.35,y-cell*.62);c.lineTo(x-cell*.08,y-cell*.57);c.lineTo(x-cell*.35,y-cell*.43);c.fill();
    c.restore();
   }
-  this.models?.draw(this.clock);this.frame=requestAnimationFrame(t=>this.draw(t));
+  this.models?.draw(this.clock,{position:u=>this.position(u),actions:this.fx?.currentActions()||[],hits:this.fx?.feedback?.hits,statuses:id=>this.fx?.feedback?.statusesFor(id,this.fx.clock)||[],clock:this.fx?.clock});this.frame=requestAnimationFrame(t=>this.draw(t));
  }
  destroy(){this.dead=true;cancelAnimationFrame(this.frame);this.resize.disconnect();this.models?.destroy();this.canvas.remove();}
 }

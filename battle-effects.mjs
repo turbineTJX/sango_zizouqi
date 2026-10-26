@@ -1,12 +1,16 @@
 import {ATTACK_ORBS} from './attack-orbs.mjs';
 import {hexCenter, HEX_GRID} from './hex-grid.mjs';
 import {outcomeLines} from './tactic-outcomes.mjs';
-import {art} from './art-assets.mjs';
+import {drawFeaturedBanner,drawBattleAtmosphere,cinematicViewport} from './battle-cinematic.mjs';
 import {BattleSignals} from './battle-signals.mjs';
 import {TACTICS_BOOK} from './tactics.mjs';
 import {AbilityCues,isHighlightedAbility} from './ability-cues.mjs';
 import {hidden} from './battle-status-rules.mjs';
 import {battleDay} from './player-time.mjs';
+import {scheduleBattleActions,observedUnitAction} from './battle-presentation.mjs';
+import {castPalette,castVisualEvents,drawCastSource,drawCastTarget} from './battle-cast-animation.mjs';
+import {BattleFeedback} from './battle-feedback.mjs';
+import {battleMapStatusMarkup} from './battle-labels.mjs';
 // Presentation-only effects. All hits and casualties come from engine events.
 
 const COLORS = {
@@ -25,12 +29,17 @@ export class BattleEffects {
   constructor(canvas, feed, result = null, cues = null) {
     this.canvas = canvas; this.ctx = canvas.getContext('2d'); this.feed = feed;
     this.signals = new BattleSignals();
+    this.feedback = new BattleFeedback();
     this.cues = new AbilityCues(cues);
     this.items = []; this.notices = []; this.clock = 0; this.lastFrame = 0;
-    this.cinematics = []; this.battleId = null; this.result = result; this.resultKey = null;
+    this.cinematics = []; this.actions=[];this.sounds=[]; this.battleId = null; this.result = result; this.resultKey = null;
     this.batch = null; this.consumed = 0; this.paused = true; this.speed = 1; this.destroyed = false; this.mode = 'clear';
-    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.motionPreference=matchMedia('(prefers-reduced-motion: reduce)');this.reduced=this.motionPreference.matches;
+    this.onMotionPreference=e=>{this.reduced=e.matches;};this.motionPreference.addEventListener?.('change',this.onMotionPreference);
     this.resize = new ResizeObserver(() => this.resizeCanvas()); this.resize.observe(canvas);
+    this.stage=canvas.parentElement?.parentElement;
+    this.onPan=()=>{this.manualPanUntil=this.clock+5000;};
+    this.stage?.addEventListener?.('pointerdown',this.onPan,{passive:true});this.stage?.addEventListener?.('wheel',this.onPan,{passive:true});
     this.resizeCanvas(); this.frame = requestAnimationFrame(time => this.draw(time));
   }
   resizeCanvas() {
@@ -42,26 +51,33 @@ export class BattleEffects {
   }
   update(battle, { paused, speed, mode = 'clear' }) {
     if (this.battleId !== battle.id) {
-      this.items = []; this.cinematics = []; this.batch = null;
+      this.items = []; this.cinematics = []; this.actions=[];this.sounds=[];this.healthFrom=null;this.healthTo=null;this.focusedUnit=null; this.batch = null;
+      this.feedback.reset();
       this.cues.reset();
       this.notices.forEach(n => n.element.remove()); this.notices = [];
       this.resultKey = null;
       if(this.result){this.result.textContent='战斗记录 · 暂停查看';this.result.disabled=true;}
       this.battleId = battle.id;
     }
-    if (speed !== this.speed) for (const e of this.items) {
-      const ratio = this.speed / speed;
-      e.start = this.clock - (this.clock - e.start) * ratio;
-      e.duration *= ratio;
-    }
+    // Finish an already visible action at its current pace. Speed changes
+    // affect the next batch, without skipping a projectile or its impact.
     this.paused = paused; this.speed = speed; this.mode = mode;
+    const changed=this.batch!==`${battle.id}:${battle.tick}`;
     this.signals.update(battle,this.clock);
     const batch = `${battle.id}:${battle.tick}`;
+    this.tick=battle.tick;
     if (this.batch !== batch) {
       // Stepping through paused turns must not queue historical hits for playback.
-      if (paused) { this.items = []; this.cinematics = []; }
+      if (paused) { this.items = []; this.cinematics = [];this.actions=[]; }
+      this.healthFrom=this.healthTo;
+      this.healthTo=new Map(battle.sides.flatMap(s=>s.units).map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
+      this.healthFrom ||= this.healthTo;
+      this.actions=this.actions.filter(a=>a.end>this.clock);
       this.batch = batch; this.consumed = 0;
-    }
+    }else this.healthTo=new Map(battle.sides.flatMap(s=>s.units).map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
+    this.unitActions=new Map(battle.sides.flatMap(s=>s.units).filter(u=>u.status==='active'&&(u.side===0||!hidden(battle,u))).map(u=>[u.id,observedUnitAction(battle,u)]));
+    this.root=this.canvas.parentElement?.closest?.('.battle-layout');
+    this.elements=[...(this.root?.querySelectorAll('.unit-nameplate,[data-unit]')||[])];
     // Commands may append new effects while paused at the same simulation tick.
     const added = battle.effects.slice(this.consumed);this.consumed = battle.effects.length;
     const tacticalNotes=new Map(added.filter(e=>['拦截中断','突入后阵'].includes(e.text)).map(e=>[`${e.from}:${e.label}`,e.text]));
@@ -70,17 +86,18 @@ export class BattleEffects {
       const key=`${e.from}:${e.label}`,notes=terrainNotes.get(key)||new Set();
       notes.add(e.terrain);terrainNotes.set(key,notes);
     }
-    const casts = new Map(),traits = new Map();
+    const casts = new Map(),traits = new Map(),fresh=[];
     for (const event of added) {
       if(event.phase==='cast'||event.intentOnly) continue; // Ignore obsolete windup events restored from older saves.
       const source = battle.sides.flatMap(s => s.units).find(u => u.id === event.from);
       if(event.abilityKind==='trait'&&source?.side===1&&hidden(battle,source))continue;
       const target = battle.sides.flatMap(s => s.units).find(u => u.id === event.to) || (battle.siege?.gate.id === event.to ? battle.siege.gate : null);
-      const e = { ...event, ...(event.intentDrained!==undefined?{text:''}:{}), tick:battle.tick, targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
+      const e = { ...event, ...(event.intentDrained!==undefined?{text:''}:{}), tick:battle.tick, targetSide:target?.side,targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
       e.duration = (e.combo ? 1000 : 650) / speed;
+      if(e.damageKind==='dot')e.ongoing=true;
       e.tacticalNote=tacticalNotes.get(`${e.from}:${e.label}`);
       e.terrainNote=[...(terrainNotes.get(`${e.from}:${e.label}`)||[])].join('；');
-      this.items.push(e);
+      this.items.push(e);fresh.push(e);
       if(e.abilityKind==='trait'){
         const key=`${e.side}:${e.from}:${e.traitId}`;
         if(!traits.has(key))traits.set(key,[]);traits.get(key).push(e);
@@ -91,32 +108,64 @@ export class BattleEffects {
         casts.get(key).push(e);
       }
     }
-    // Only major tactics and links hold the simulation. A link shares its
-    // originating cast's cut-in, including all damage and result information.
+    // Major tactics receive a featured treatment. A link shares its originating
+    // action window, including all actual damage and result information.
     const groups=[...casts.values()],linked=new Set();
     for(const events of traits.values()){this.notice(events);this.cues.push(events,this.clock);if(isHighlightedAbility(events[0]))this.showResult(events);}
-    for(const events of groups){this.notice(events);if(!events[0].combo)this.cues.push(events,this.clock);}
+    for(const events of groups){this.notice(events);if(paused&&!events[0].combo)this.cues.push(events,this.clock);}
     for(const events of groups.filter(events=>!events[0].combo)){
       const e=events[0];if(e.enchantment)continue;e.showCastLabel=isHighlightedAbility(e);
       const combo=groups.find(group=>group[0].combo&&group[0].from===e.from&&group[0].side===e.side);
       if(combo)linked.add(combo);
       const merged=combo?[...events,...combo]:events;
       if(paused||!isMajorCast(merged)){if(isHighlightedAbility(e))this.showResult(events);continue;}
-      this.queueCinematic(merged);
+      // The common action timeline below schedules skills and basic attacks
+      // together, preserving the order in which the engine recorded them.
     }
     for(const events of groups.filter(events=>events[0].combo&&!linked.has(events))){
-      if(!paused&&isMajorCast(events))this.queueCinematic(events);
+      if(!paused&&isMajorCast(events))events[0].showCastLabel=true;
     }
+    const pendingOrders=this.signals.orders.filter(o=>!o.scheduled),orderEvents=new Set();
+    for(const order of pendingOrders){
+      order.events=fresh.filter(e=>e.side===order.side&&(e.label===order.name||order.key==='heal'&&e.label==='救治伤兵'));
+      for(const e of order.events)orderEvents.add(e);
+      for(const target of order.targets)target.healing=order.events.filter(e=>e.to===target.id).reduce((n,e)=>n+(e.healing||0),0);
+    }
+    if(!paused){
+      const clock=Math.max(this.clock,...this.actions.map(a=>a.end));
+      for(const action of scheduleBattleActions(fresh.filter(e=>!orderEvents.has(e)),{clock,speed,isMajor:isMajorCast})){
+        for(const e of action.events){e.start=action.start;e.duration=action.duration;e.cinematic=action.major;e.presentationKind=action.kind;}
+        action.announced=action.events[0].abilityKind==='trait';this.actions.push(action);if(action.major)this.cinematics.push(action);
+      }
+    }
+    let orderStart=Math.max(this.clock,...this.actions.map(a=>a.end),...this.signals.orders.filter(o=>o.scheduled).map(o=>o.start+o.duration));
+    for(const order of pendingOrders){
+      order.start=orderStart;order.scheduled=true;orderStart+=order.duration;
+      if(order.events.length){
+        const action={events:order.events,start:order.start,duration:order.duration,end:order.start+order.duration,important:true,major:false,announced:true};
+        for(const e of action.events){e.start=action.start;e.duration=action.duration;e.militaryOrder=true;e.presentationKind=order.key==='heal'?'heal':order.group==='control'?'control':'support';}
+        this.actions.push(action);
+      }
+    }
+    const orders=this.signals.orders.filter(o=>!o.feedbackSeen);
+    this.feedback.update(this.signals.units,this.actions,orders,this.clock,{silent:changed&&paused,tick:battle.tick});
+    for(const order of orders)order.feedbackSeen=true;
     this.syncCinematicState();
+    this.syncPresentation();
     this.cues.advance(this.clock);
     this.items = this.items.slice(-100);
   }
-  queueCinematic(events) {
-    for(const event of events)event.cinematic=true;
-    const duration=clamp(1900/Math.sqrt(this.speed),1400,2300),previous=this.cinematics.at(-1);
-    this.cinematics.push({events,duration,start:previous?previous.start+previous.duration:this.clock});
+  currentActions(){return this.actions.filter(a=>a.start<=this.clock&&a.end>this.clock);}
+  currentCinematic(){return this.cinematics.find(a=>a.start<=this.clock&&a.end>this.clock);}
+  isCinematicPlaying() { return !!this.currentCinematic(); }
+  isPresentationPlaying(){return this.actions.some(a=>a.end>this.clock)||this.signals.orders.some(o=>o.start+o.duration>this.clock);}
+  queueAudio(cue,play){
+    const action=cue.from?this.actions.find(a=>a.events.some(e=>e.tick===this.tick&&e.from===cue.from&&e.label===cue.label)):null;
+    const order=cue.key==='order'?this.signals.orders.find(o=>o.side===cue.side&&o.serial===cue.serial):null;
+    const start=order?order.start+order.duration*.12:action?action.start+action.duration*(cue.voice?.08:.52):cue.terminal||['rout','victory','defeat','draw','order'].includes(cue.key)?Math.max(this.clock,...this.actions.map(a=>a.end)):this.clock;
+    this.sounds.push({start,play,voice:!!cue.voice});
   }
-  isCinematicPlaying() { return this.cinematics.length > 0; }
+  clearVoiceAudio(){this.sounds=this.sounds.filter(sound=>!sound.voice);}
   syncCinematicState() {
     this.canvas.parentElement?.classList.toggle('tactic-cinematic', this.isCinematicPlaying());
   }
@@ -147,44 +196,79 @@ export class BattleEffects {
       this.notices.splice(index,1)[0].element.remove();
     }
   }
-  isBusy() { return this.isCinematicPlaying() || this.items.some(e => this.clock - e.start < e.duration); }
-  destroy() { this.destroyed = true; cancelAnimationFrame(this.frame); this.resize.disconnect(); this.items = []; this.cinematics = []; this.cues.reset();this.syncCinematicState(); this.notices.forEach(n=>n.element.remove()); this.notices = []; }
+  isBusy() { return this.isPresentationPlaying() || this.items.some(e => this.clock - e.start < e.duration); }
+  destroy() { this.destroyed = true; cancelAnimationFrame(this.frame); this.resize.disconnect();this.motionPreference.removeEventListener?.('change',this.onMotionPreference);this.stage?.removeEventListener?.('pointerdown',this.onPan);this.stage?.removeEventListener?.('wheel',this.onPan); this.items = []; this.cinematics = [];this.actions=[];this.sounds=[]; this.cues.reset();this.syncCinematicState(); this.notices.forEach(n=>n.element.remove()); this.notices = []; }
   clearEffects() {
     const latest = new Map();
     for (const e of this.items) {
-      const key = `hit:${e.to}`;
+      if(this.clock<e.start||this.clock>=e.start+e.duration)continue;
+      const key = `hit:${e.tick}:${e.from}:${e.to}:${e.label}`;
       latest.set(key,e);
     }
-    return [...latest.values()].slice(-12);
+    return [...latest.values()].slice(-32);
   }
-  damageSummaries() {
-    const totals = new Map();
-    for (const e of this.items) {
-      if (!e.damage) continue;
-      const old = totals.get(e.to);
-      if (old?.tick === e.tick) { old.damage += e.damage; old.duration = Math.max(old.duration,e.duration); old.intentBlock=[...new Set([...(old.intentBlock?.split('／')||[]),e.intentBlock].filter(Boolean))].join('／'); }
-      else totals.set(e.to,{...e});
+  relatedUnitIds(){
+    const related=new Set(this.focusedUnit?[this.focusedUnit]:[]);
+    const target=this.unitActions?.get(this.focusedUnit)?.targetId;if(target)related.add(target);
+    for(const action of this.currentActions())if(action.events.some(e=>e.from===this.focusedUnit||e.to===this.focusedUnit))for(const e of action.events){related.add(e.from);related.add(e.to);}
+    return related;
+  }
+  syncPresentation(){
+    const playing=this.isPresentationPlaying(),active=this.currentActions(),related=this.relatedUnitIds();
+    const statusMarkup=new Map();
+    for(const u of this.signals.units)u.statuses=this.feedback.statusesFor(u.id,this.clock);
+    for(const u of this.signals.units)statusMarkup.set(u.id,battleMapStatusMarkup(u.statuses));
+    if(!this.paused)for(const action of active)if(!action.announced){
+      action.announced=true;this.cues.push(action.events,this.clock);
+      if(action.important&&this.stage?.clientWidth<this.width&&this.clock>=(this.manualPanUntil||0)){
+        const e=action.events[0],points=[e.fromX,...action.events.map(hit=>hit.x)].filter(Number.isFinite).map(x=>(x+.5)/HEX_GRID.width*this.width);
+        if(points.length)this.stage.scrollTo({left:clamp((Math.min(...points)+Math.max(...points))/2-this.stage.clientWidth/2,0,this.width-this.stage.clientWidth),behavior:this.reduced?'auto':'smooth'});
+      }
     }
-    return [...totals.values()];
+    this.root?.classList.toggle('observing-unit',!!this.focusedUnit);
+    for(const el of this.elements||[]){
+      const id=el.dataset.unit||el.dataset.inspect,source=active.find(a=>a.events[0].from===id),target=active.find(a=>a.events.some(e=>e.to===id&&e.from!==id));
+      el.classList.toggle('observation-related',related.has(id));
+      el.classList.toggle('acting-source',playing&&!!source);el.classList.toggle('acting-target',playing&&!!target);
+      const info=this.unitActions?.get(id),tag=el.querySelector?.('.unit-current-action');
+      const statuses=el.querySelector?.('.map-statuses'),statusHtml=statusMarkup.get(id);
+      if(statuses&&statusHtml!==undefined&&statuses.innerHTML!==statusHtml)statuses.innerHTML=statusHtml;
+      if(tag){
+        tag.textContent=this.focusedUnit===id?(playing&&source?.important?source.events[0].label:[info?.text,info?.targetName].filter(Boolean).join(' → ')):'';
+        tag.hidden=!tag.textContent;
+      }
+      const actual=this.healthTo?.get(id);if(!actual)continue;
+      let hp=actual.hp;
+      if(playing){
+        hp=this.healthFrom?.get(id)?.hp??actual.hp;
+        for(const action of this.actions)if(this.clock>=action.start+action.duration*.52)for(const e of action.events)if(e.to===id&&e.tick===this.tick){hp+=e.healing||0;hp-=e.damage||0;}
+        hp=clamp(hp,0,actual.maxHp);
+      }
+      const caption=el.querySelector?.('.unit-map-caption');caption?.style.setProperty('--troop-health',100*hp/Math.max(1,actual.maxHp)+'%');
+      const troops=el.querySelector?.('.map-troops');if(troops)troops.textContent=Math.round(hp).toString();
+      const roster=el.querySelector?.('[data-roster-troops]');if(roster)roster.textContent=hp>=10000?(hp/10000).toFixed(1)+'万':Math.round(hp).toLocaleString('zh-CN');
+      const bar=el.querySelector?.('.label-health em');if(bar)bar.style.width=100*hp/Math.max(1,actual.maxHp)+'%';
+      if(el.dataset.unit&&actual.hp===0)el.classList.toggle('playback-fallen',!playing||hp<=0);
+    }
   }
-  drawOrb(e,p,from,to,cell){
+  drawFocus(cell){
+    if(!this.focusedUnit)return;
+    for(const id of this.relatedUnitIds()){
+      const p=this.unitPosition?.(id);if(!p)continue;
+      const c=this.ctx;c.save();c.globalAlpha=id===this.focusedUnit ? .9 : .5;c.strokeStyle='#f5e4b2';c.lineWidth=1.5;
+      c.beginPath();c.ellipse(p.x*this.width,p.y*this.height+cell*.1,cell*.42,cell*.19,0,0,Math.PI*2);c.stroke();c.restore();
+    }
+  }
+  drawOrb(e,p,from,to,cell,showNumber=true){
     const profile=ATTACK_ORBS[e.attackOrb]||Object.values(ATTACK_ORBS).find(o=>o.name===e.label);
     const color=profile?.color||'#d7c490';
-    if(e.enchantment){this.ring(from.x,from.y,cell*.42,color,1.5,1-p);if(p>.2)this.label('装填 3 次',from.x,from.y-cell*.58,color,1-p,clamp(cell*.22,10,14));return;}
-    this.drawNormal(e,p,from,to,cell,this.mode==='clear'||this.reduced);
-    const t=Math.min(1,p*3),x=from.x+(to.x-from.x)*t,y=from.y+(to.y-from.y)*t;
-    if(!this.reduced)this.glow(x,y,cell*.18,color,(1-p)*.65);
-    if(p>.3){this.ring(to.x,to.y,cell*.35,color,1.5,1-p);this.label(profile.name,to.x,to.y+cell*.55,color,1-p,clamp(cell*.22,10,14));}
+    if(e.enchantment){drawCastSource(this,{...e,presentationKind:'support'},p,from,cell);return;}
+    this.drawNormal(e,p,from,to,cell,this.mode==='clear'||this.reduced,showNumber);
+    const t=clamp((p-.24)/.28),x=from.x+(to.x-from.x)*t,y=from.y+(to.y-from.y)*t;
+    if(!this.reduced&&p>=.24&&p<.52)this.glow(x,y,cell*.23,color,.85);
   }
   drawClear(e, p, from, to, cell) {
-    const color = e.side ? '#f0ac9a' : '#a1dcc7', c = this.ctx;
-    if (p < .5 && e.from !== e.to && !this.reduced) {
-      const t = ease(Math.min(1,p*3)), x=from.x+(to.x-from.x)*t, y=from.y+(to.y-from.y)*t;
-      // A short travelling stroke communicates direction without a permanent beam.
-      this.line(x-(to.x-from.x)*.07,y-(to.y-from.y)*.07,x,y,color,1.5,(1-p)*.7);
-    }
-    c.globalAlpha=(1-p)*.65;c.strokeStyle=color;c.lineWidth=e.combo?2:1;
-    const r=cell*(e.combo?.43:.36);c.strokeRect(to.x-r,to.y-r,r*2,r*2);
+    // Persistent statuses already act on the troop body. No generic halo.
   }
   point(x, y) { const p=hexCenter(x,y); return {x:p.x*this.width,y:p.y*this.height}; }
   line(x1, y1, x2, y2, color, width = 2, alpha = 1) {
@@ -209,200 +293,84 @@ export class BattleEffects {
       c.fillStyle = '#fff4ce'; c.fillRect(px - 1, py - 1, 2, 2);
     }
   }
-  label(text, x, y, color, alpha, size = 18) {
-    const c = this.ctx; c.globalAlpha = alpha; c.font = `bold ${size}px "Microsoft YaHei",sans-serif`;
+  label(text, x, y, color, alpha, size = 12) {
+    size=Math.min(size,16);
+    const c = this.ctx; c.globalAlpha = alpha; c.font = `500 ${size}px "Microsoft YaHei",sans-serif`;
     c.textAlign = 'center'; c.textBaseline = 'middle';
     const half = c.measureText(text).width / 2 + 5;
     x = clamp(x, half, this.width - half); y = clamp(y, size, this.height - size);
-    c.lineWidth = 4; c.strokeStyle = '#101c22'; c.strokeText(text, x, y); c.fillStyle = color; c.fillText(text, x, y);
+    c.lineWidth = 2.5; c.strokeStyle = '#101c22'; c.strokeText(text, x, y); c.fillStyle = color; c.fillText(text, x, y);
   }
-  drawImpact(e, p, from, to, color, accent, cell) {
-    const c = this.ctx, reach = clamp(p / .3, 0, 1), q = clamp((p - .15) / .85, 0, 1);
-    const px = from.x + (to.x - from.x) * ease(reach), py = from.y + (to.y - from.y) * ease(reach);
-    c.lineCap = 'round';
-    if (e.visual === 'charge') {
-      const angle = Math.atan2(to.y - from.y, to.x - from.x), nx = -Math.sin(angle), ny = Math.cos(angle);
-      for (let i = -2; i <= 2; i++) this.line(from.x + nx * i * 6, from.y + ny * i * 6, px + nx * i * 6, py + ny * i * 6, i === 0 ? color : accent, i === 0 ? 5 : 2, (1 - p) * .85);
-      this.glow(px, py, cell * .65, color, .7 * (1 - p));
-      this.ring(to.x, to.y, cell * (q * 1.7 + .1), accent, 4 * (1 - q), .8 * (1 - q));
-    } else if (e.visual === 'fire') {
-      this.line(from.x, from.y, px, py, accent, 2.5, (1 - p) * .7);
-      this.glow(px, py, cell * .6, color, .85 * (1 - p));
-      if (p > .13) {
-        this.glow(to.x, to.y, cell * 1.8, accent, Math.sin(q * Math.PI) * .65);
-        for (let i = 0; i < 11; i++) {
-          const spread = (i - 5) * cell * .15, height = cell * (1.1 + (i * 3 % 5) * .12) * Math.sin(q * Math.PI);
-          c.globalAlpha = (1 - q) * .8; c.fillStyle = i % 2 ? accent : color;
-          c.beginPath(); c.moveTo(to.x + spread - 7, to.y + 12);
-          c.quadraticCurveTo(to.x + spread - 13, to.y - height * .4, to.x + spread + Math.sin(p * 8 + i) * 7, to.y - height);
-          c.quadraticCurveTo(to.x + spread + 12, to.y - height * .2, to.x + spread + 7, to.y + 12); c.fill();
-        }
-      }
-    } else if (e.visual === 'shockwave') {
-      for (let i = 0; i < 3; i++) {
-        const t = clamp(p * 1.4 - i * .16, 0, 1);
-        this.ring(to.x, to.y, cell * (t * 2.2 + .15), i % 2 ? accent : color, (1 - t) * 4 + 1, (1 - t) * .8);
-      }
-      this.line(from.x, from.y, to.x, to.y, color, 3, (1 - p) * .6);
-    } else if (e.visual === 'banner') {
-      this.glow(from.x, from.y, cell * 1.5, accent, .4 * (1 - p));
-      c.save(); c.translate(from.x, from.y); c.globalAlpha = 1 - p; c.strokeStyle = color; c.lineWidth = 2;
-      c.strokeRect(-cell * .45, -cell * 1.55, cell * .9, cell * 1.2);
-      c.font = `${cell * .65}px serif`; c.fillStyle = color; c.textAlign = 'center'; c.fillText('令', 0, -cell * .67); c.restore();
-      this.line(from.x, from.y, to.x, to.y, accent, 6 * (1 - p), .7 * (1 - p));
-      this.ring(to.x, to.y, cell * (q * 1.5 + .2), color, 3, 1 - q);
-    } else if (e.visual === 'volley') {
-      for (let i = 0; i < 7; i++) {
-        const t = clamp(p * 2.5 - i * .08, 0, 1), offset = (i - 3) * 6;
-        const ax = from.x + (to.x - from.x) * t + offset * t, ay = from.y + (to.y - from.y) * t - Math.sin(t * Math.PI) * cell * 1.4;
-        if (t < 1) this.line(ax - (to.x - from.x) * .06, ay - (to.y - from.y) * .06 - 7, ax, ay, color, 2, .9);
-        else this.line(to.x + offset - 3, to.y - cell * .6, to.x + offset, to.y + 8, accent, 2, 1 - p);
-      }
-    } else {
-      c.save(); c.translate(to.x, to.y); c.rotate(-.7 + p * .5);
-      for (let i = 0; i < 2; i++) {
-        c.globalAlpha = Math.max(0, 1 - p * 1.15); c.lineWidth = (i ? 3 : 8) * (1 - p) + 1; c.strokeStyle = i ? color : accent;
-        c.beginPath(); c.ellipse(0, 0, cell * (1 + p), cell * .42, i * 1.8, -.2, Math.PI * 1.2 * ease(Math.min(1, p * 4))); c.stroke();
-      }
-      c.restore();
-      this.line(from.x, from.y, to.x, to.y, color, 2, (1 - p) * .4);
-    }
-    if (p > .16) { this.particles(to.x, to.y, q, color, e.x + e.y, e.visual === 'fire' ? 22 : 14, cell * 1.7); this.glow(to.x, to.y, cell * .6, '#fff6d5', Math.max(0, .4 - q)); }
-    this.label(e.label, to.x, to.y - cell * (1.05 + p * .25), color, Math.min(1, (1 - p) * 3), clamp(cell * .32, 12, 20));
+  drawImpact(e,p,from,to,color,accent,cell){
+    drawCastTarget(this,e,p,from,to,cell);
   }
-  drawCombo(e,p,to,cell) {
-    const color=e.side?'#ffb087':'#ffe7a0',accent=e.side?'#e96850':'#ecc34d';
-    const fade=Math.min(1,(1-p)*3),reach=ease(clamp(p/.3,0,1));
-    for(const actor of e.combo.actors) {
+  drawCombo(e,p,to,cell){
+    const fade=Math.min(1,p*8,(1-p)*3),color='#ffe4a0';
+    // Partners acknowledge the cast with a local gesture. No actor-to-target beams.
+    for(const actor of e.combo.actors||[]){
       const from=this.point(actor.x,actor.y);
-      this.glow(from.x,from.y,cell*.85,accent,.45*fade);
-      this.ring(from.x,from.y,cell*.5,color,2,fade);
-      this.line(from.x,from.y,from.x+(to.x-from.x)*reach,from.y+(to.y-from.y)*reach,accent,7,fade*.45);
-      this.line(from.x,from.y,from.x+(to.x-from.x)*reach,from.y+(to.y-from.y)*reach,color,2.5,fade);
+      drawCastSource(this,{...e,presentationKind:'support'},p,from,cell*.8);
     }
-    this.glow(to.x,to.y,cell*2.1,accent,.35*fade);
-    for(let i=0;i<e.combo.level;i++)this.ring(to.x,to.y,cell*(.45+i*.35+p*1.1),i%2?accent:color,3,fade*(1-i*.18));
-    if(p>.12)this.particles(to.x,to.y,p,color,e.x+e.y,24,cell*2.4);
-    this.label(e.label,to.x,to.y-cell*.7,color,fade,clamp(cell*.58,17,32));
-    this.label('效果 +'+e.combo.bonus+'%',to.x,to.y+cell*.35,color,fade,clamp(cell*.32,11,18));
-  }
-  drawLocalSkill(e,p,from,to,cell) {
-    const [color,accent]=COLORS[e.visual]||COLORS.slash,fade=Math.min(1,(1-p)*2);
-    // One small footprint per target; even critical minor tactics stay local.
-    const radius=cell*(this.reduced?.4:.22+ease(p)*.38);
-    this.glow(to.x,to.y,cell*.65,accent,Math.sin(p*Math.PI)*.22);
-    this.ring(to.x,to.y,radius,color,1.5,fade*.8);
-    if(!this.reduced){
-      if(e.from!==e.to&&p<.45){const t=ease(clamp(p/.45));this.glow(from.x+(to.x-from.x)*t,from.y+(to.y-from.y)*t,cell*.15,color,fade*.65);}
-      if(p>.25)this.particles(to.x,to.y,(p-.25)/.75,color,e.x+e.y,5,cell*.48);
-    }
-    if(e.showCastLabel)this.label(e.label,from.x,from.y-cell*.72,color,fade,clamp(cell*.26,11,17));
-    if(p>.35){
-      const text=[e.healing?'+'+e.healing:'',e.text&&!e.damage&&!e.healing&&(e.text!==e.label||isHighlightedAbility(e))?e.text:''].filter(Boolean).join(' · ');
-      if(text)this.label(text,to.x,to.y+cell*.36,color,fade,clamp(cell*.22,10,14));
-      if(this.mode!=='clear'&&e.damage)this.label(damageLabel(e),to.x,to.y-cell*(.6+p*.2),'#fff1b4',fade,clamp(cell*.26,11,17));
+    if(p>=.52){
+      const q=clamp((p-.52)/.48);
+      if(!this.reduced&&q<.5)this.particles(to.x,to.y,q*2,color,e.x+e.y,3,cell*.25);
     }
   }
-  drawNormal(e, p, from, to, cell, compact = false) {
-    const c=this.ctx,color=e.critical?'#ffdb82':e.side?'#efb9a0':'#d9ebd2';
+  drawLocalSkill(e,p,from,to,cell){
+    drawCastTarget(this,e,p,from,to,cell);
+    const [color]=castPalette(e),fade=Math.min(1,(1-p)*2);
+    if(e.showCastLabel&&this.focusedUnit===e.from)this.label(e.label,from.x,from.y-cell*.72,color,fade,10);
+    if(p>.52){
+      const text=e.text&&!e.damage&&!e.healing&&(e.text!==e.label||isHighlightedAbility(e))?e.text:'';
+      if(text&&this.focusedUnit===e.to)this.label(text,to.x,to.y+cell*.36,color,fade,10);
+    }
+  }
+  drawNormal(e, p, from, to, cell, compact = false, showNumber=true) {
     const ranged=['archer','crossbow','ship','siege'].includes(e.troop);
-    if(!this.reduced&&p>.16&&p<.56){
-      const t=clamp((p-.16)/.4),angle=Math.atan2(to.y-from.y,to.x-from.x);
-      if(ranged){
-        const count=compact?2:4;
-        for(let i=0;i<count;i++){
-          const q=clamp(t-i*.06),off=(i-(count-1)/2)*cell*.08;
-          const x=from.x+(to.x-from.x)*q+off,y=from.y+(to.y-from.y)*q-Math.sin(q*Math.PI)*cell*.7;
-          const a=Math.atan2(to.y-from.y-Math.cos(q*Math.PI)*cell*.7*Math.PI,to.x-from.x);
-          this.line(x-Math.cos(a)*cell*.22,y-Math.sin(a)*cell*.22,x,y,'#fff1c4',2,.95);
-          this.line(x,y,x-Math.cos(a-.55)*6,y-Math.sin(a-.55)*6,color,1,.9);
-        }
-      }else if(p>.3){
-        c.save();c.translate(to.x,to.y-cell*.15);c.rotate(angle-.7);
-        c.strokeStyle=color;c.lineWidth=e.critical?4:2;c.globalAlpha=Math.sin(t*Math.PI);
-        c.beginPath();c.ellipse(0,0,cell*.42,cell*.25,0,-1.5,-1.5+ease(t)*3.8);c.stroke();c.restore();
-      }
-    }
-    if(p>.48){
-      const q=clamp((p-.48)/.52);
-      if(!this.reduced){this.particles(to.x,to.y-cell*.12,q,color,e.x+e.y,compact?4:8,cell*.42);this.glow(to.x,to.y-cell*.12,cell*.3,color,Math.max(0,.45-q));}
-      if(!compact)this.label(damageLabel(e),to.x,to.y-cell*(.65+q*.35),color,(1-q)*1.2,clamp(cell*(e.critical?.36:.27),11,e.critical?24:18));
+    drawCastTarget(this,{...e,presentationKind:ranged?'volley':'strike'},p,from,to,cell);
+    if(showNumber&&!compact&&p>.52){
+      const q=clamp((p-.52)/.48),color=e.critical?'#ffdb82':'#fff0d9';
+      this.label(damageLabel(e),to.x,to.y-cell*(.8+q*.35),color,(1-q)*1.2,e.critical?14:12);
     }
   }
   drawCutIn(cast,p,color,accent) {
-    const c=this.ctx,e=cast.events[0],critical=cast.events.some(hit=>hit.critical);
-    const stage=this.canvas.parentElement?.parentElement;
-    const width=Math.min(this.width,stage?.clientWidth||this.width),offset=stage?.scrollLeft||0;
-    const enter=this.reduced?1:ease(clamp(p/.14)),leave=this.reduced?0:ease(clamp((p-.43)/.15));
-    const alpha=clamp((.59-p)/.1),height=Math.min(this.height*.66,300),top=(this.height-height)*.43;
-    const portrait=art.image(art.portraitURL(e.from,'battle')),wide=portrait&&portrait.width>portrait.height*1.15;
-    c.save();c.translate(offset+(1-enter)*width*.15-leave*width*.08,top);c.globalAlpha=alpha;
-    const bg=c.createLinearGradient(0,0,width,height);bg.addColorStop(0,critical?'#391d24':'#102f32');bg.addColorStop(.6,'#101b25');bg.addColorStop(1,'#07141aee');c.fillStyle=bg;
-    c.beginPath();c.moveTo(0,height*.06);c.lineTo(width,height*.01);c.lineTo(width,height*.9);c.lineTo(0,height);c.closePath();c.fill();
-    const artWidth=wide?width:width*.43;
-    c.save();c.beginPath();c.moveTo(0,0);c.lineTo(artWidth+20,0);c.lineTo(artWidth-20,height);c.lineTo(0,height);c.closePath();c.clip();
-    if(portrait){
-      const scale=(wide?Math.min(artWidth/portrait.width,height/portrait.height):Math.max(artWidth/portrait.width,height/portrait.height))*(1+(this.reduced||wide?0:(1-enter)*.1)),iw=portrait.width*scale,ih=portrait.height*scale;
-      c.drawImage(portrait,wide?0:(artWidth-iw)/2,(height-ih)/2,iw,ih);
-    }else{
-      c.fillStyle='#254849';c.fillRect(0,0,artWidth,height);c.fillStyle=color;c.font=`bold ${height*.43}px serif`;c.textAlign='center';c.fillText(e.name?.slice(0,1)||'将',artWidth*.48,height*.68);
-    }
-    c.restore();
-    if(wide){const shade=c.createLinearGradient(width*.38,0,width,0);shade.addColorStop(0,'#06131900');shade.addColorStop(1,'#061319ec');c.fillStyle=shade;c.fillRect(width*.38,0,width*.62,height);}
-    c.globalAlpha=alpha*.18;c.strokeStyle=accent;c.lineWidth=1;
-    for(let i=0;i<13;i++){const y=height*(i/13);c.beginPath();c.moveTo(width*.48,y);c.lineTo(width,y-height*.1);c.stroke();}
-    this.line(0,height*.06,width,height*.01,accent,2,alpha*.9);this.line(0,height,width,height*.9,accent,2,alpha*.8);
-    const x=width*.7;
-    // Labels use the canvas coordinate system; translate back for its clamping helper.
-    c.restore();c.save();
-    const shift=offset+(1-enter)*width*.15-leave*width*.08;
-    this.label(`${e.side?'敌军':'我军'} · ${e.name}`,shift+x,top+height*.24,'#efe3cb',alpha,clamp(width*.024,13,21));
-    const title=e.label||'战法发动',font=Math.min(clamp(width*.068,25,52),width*.48/Math.max(title.length,1));
-    this.label(title,shift+x,top+height*.51,color,alpha,font);
-    this.label(cast.events.some(hit=>hit.combo||hit.comboLevel>=2)?'连  携  发  动':critical?'暴  击':'大  战  法',shift+x,top+height*.76,critical?'#ffca72':'#baaa85',alpha,clamp(width*.025,14,23));
-    c.restore();
+    const e=cast.events[0],linked=cast.events.some(hit=>hit.combo||hit.comboLevel>=2),critical=cast.events.some(hit=>hit.critical);
+    drawFeaturedBanner(this,{id:e.from,name:e.name,title:e.label||'战法发动',side:e.side,kind:'战法',
+      subtitle:linked?'连 携 发 动':critical?'大 战 法 · 暴 击':'大 战 法',color,accent},p);
   }
   drawCinematic(cast, cell) {
     const c = this.ctx, e = cast.events[0];
     this.showResult(cast.events);
     const p = clamp((this.clock - cast.start) / cast.duration, 0, 1);
     const fade = Math.min(1, p * 10 + .3, (1 - p) * 7);
-    const [color, accent] = COLORS[e.visual] || COLORS.slash;
-    const from = this.point(e.fromX, e.fromY);
+    const [color,accent]=castPalette(e),from=this.point(e.fromX,e.fromY);
     c.save();
-    c.globalAlpha = fade * (p<.46?.48:.16); c.fillStyle = '#061313'; c.fillRect(0, 0, this.width, this.height);
-    this.glow(from.x, from.y, cell * 1.4, accent, fade * .42);
-    this.ring(from.x, from.y, cell * (.58 + (this.reduced ? 0 : Math.min(p, .28))), color, 3, fade);
-    this.label(e.name, from.x, from.y + cell * .72, color, fade, clamp(cell * .25, 12, 18));
-    // A brief reveal precedes the impact; reduced motion keeps a static focus.
-    const impact = clamp((p - .46) / .54, 0, 1);
-    if (p >= .46) {
-      const totals = new Map();
-      for (const hit of cast.events) {
-        const to = this.point(hit.x, hit.y), origin = this.point(hit.fromX, hit.fromY);
-        if (this.reduced) this.ring(to.x, to.y, cell * .55, color, 2, fade);
-        else if (hit.combo) this.drawCombo(hit, impact, to, cell);
-        else this.drawImpact({...hit, label: ''}, impact, origin, to, color, accent, cell);
-        const key = hit.to || `${hit.x}:${hit.y}`;
-        const total = totals.get(key) || { ...hit, damage: 0, texts: new Set() };
-        total.damage += hit.damage || 0;
-        total.critical ||= hit.critical;
-        total.intentBlock ||= hit.intentBlock;
-        if (hit.text) total.texts.add(hit.text);
-        totals.set(key, total);
-      }
-      if (impact > .18) for (const hit of totals.values()) {
-        const to = this.point(hit.x, hit.y);
-        const text = [hit.damage ? damageLabel(hit) : '', ...hit.texts].filter(Boolean).join(' · ');
-        if (text) this.label(text, to.x, to.y - cell * .72, '#fff1b4', fade, clamp(cell * .44, 16, 28));
-      }
+    drawBattleAtmosphere(this,p,color);
+    drawCastSource(this,e,p,from,cell);
+    const totals=new Map();
+    for(const hit of castVisualEvents(cast.events)){
+      const to=this.point(hit.x,hit.y),origin=this.point(hit.fromX,hit.fromY);
+      if(hit.combo){this.drawCombo(hit,p,to,cell);continue;}
+      drawCastTarget(this,hit,p,origin,to,cell);
+      const key=hit.to||`${hit.x}:${hit.y}`;
+      const total=totals.get(key)||{...hit,damage:0,healing:0,texts:new Set()};
+      total.damage+=hit.damage||0;total.healing+=hit.healing||0;
+      total.critical||=hit.critical;total.intentBlock||=hit.intentBlock;
+      if(hit.text&&(/免疫|未命中|未生效|未成功|无效/.test(hit.text)||hit.tacticUseChange))total.texts.add(hit.text);
+      totals.set(key,total);
     }
-    if(p<.59)this.drawCutIn(cast,p,color,accent);
-    else {
+    if(p>.55)for(const hit of totals.values()){
+      const to=this.point(hit.x,hit.y),flag=this.captionPositions?.get(hit.to);
+      const text=[...hit.texts].filter(Boolean).join(' / ');
+      if(text&&this.focusedUnit===hit.to)this.label(text,flag?flag.x+flag.width/2:to.x,flag?flag.y-9:to.y-cell*.82,'#d4c59e',fade,10);
+    }
+    if(this.mode!=='clear'&&!this.reduced&&p<.52)this.drawCutIn(cast,p,color,accent);
+    else if(this.mode!=='clear'&&!this.reduced){
+      const viewport=cinematicViewport(this);
       const band=clamp(this.height*.1,38,56);
-      c.globalAlpha=fade*.9;c.fillStyle='#0b1d23';c.fillRect(0,0,this.width,band);
-      this.line(0,band,this.width,band,accent,1,fade);
-      this.label(`${e.name} · ${e.label}${cast.events.some(hit=>hit.critical)?' · 暴击':''}`,this.width/2,band*.5,color,fade,clamp(this.width*.025,15,26));
+      c.globalAlpha=fade*.9;c.fillStyle='#0b1d23';c.fillRect(viewport.left,0,viewport.width,band);
+      this.line(viewport.left,band,viewport.left+viewport.width,band,accent,1,fade);
+      this.label(`${e.name} · ${e.label}`,viewport.left+viewport.width/2,band*.5,color,fade,14);
     }
     c.restore();
   }
@@ -410,40 +378,50 @@ export class BattleEffects {
     if (this.destroyed) return;
     const delta = this.lastFrame ? Math.min(80, time - this.lastFrame) : 0; this.lastFrame = time;
     if (!this.paused && !document.hidden) this.clock += delta;
+    if(!this.paused&&!document.hidden){const ready=this.sounds.filter(s=>s.start<=this.clock);this.sounds=this.sounds.filter(s=>s.start>this.clock);for(const sound of ready)sound.play();}
     const c = this.ctx; c.clearRect(0, 0, this.width, this.height);
     this.items = this.items.filter(e => this.clock - e.start < e.duration);
     this.cinematics = this.cinematics.filter(cast => this.clock - cast.start < cast.duration);
     this.syncCinematicState();
+    this.syncPresentation();
     this.cues.advance(this.clock);
     const cell = Math.min(this.width / HEX_GRID.width, this.height / HEX_GRID.height);
     const clear = this.mode === 'clear' || this.reduced;
+    const showTransient=!this.paused||this.isPresentationPlaying()||this.feedback.hits.some(e=>this.clock>=e.start&&this.clock<e.end)||this.feedback.changes.some(e=>this.clock>=e.start&&this.clock<e.end);
     this.signals.draw(this,cell);
-    // Paused inspection keeps persistent status cues but hides transient hits.
-    for (const e of this.isCinematicPlaying() || (clear && this.paused) ? [] : clear ? this.clearEffects() : this.items) {
+    if(showTransient)this.drawFocus(cell);
+    // A fresh paused snapshot hides saved hits; pausing live playback keeps
+    // the current presentation frame available for inspection.
+    const visible=this.isCinematicPlaying()||!showTransient?[]:clear?this.clearEffects():this.items;
+    const castSources=new Set();
+    for (const e of castVisualEvents(visible)) {
+      if(this.clock<e.start||this.clock>=e.start+e.duration)continue;
+      if(e.militaryOrder)continue; // The independent order channel renders this cast.
       c.save();
+      if(this.focusedUnit&&!this.relatedUnitIds().has(e.from)&&!this.relatedUnitIds().has(e.to)){c.restore();continue;}
       const p = clamp((this.clock - e.start) / e.duration, 0, 1), from = this.point(e.fromX, e.fromY), to = this.point(e.x, e.y);
       const [color, accent] = COLORS[e.visual] || COLORS.slash;
-      if(e.enchantment||e.attackOrb)this.drawOrb(e,p,from,to,cell);
-      else if(e.skill&&!e.cinematic&&!e.combo&&!e.ongoing)this.drawLocalSkill(e,p,from,to,cell);
+      if(e.enchantment||e.attackOrb)this.drawOrb(e,p,from,to,cell,false);
+      else if(e.skill&&!e.cinematic&&!e.combo&&!e.ongoing){
+        const key=[e.from,e.label,e.start].join(':');
+        if(!castSources.has(key)){drawCastSource(this,e,p,from,cell);castSources.add(key);}
+        this.drawLocalSkill(e,p,from,to,cell);
+      }
       else if (clear || e.abilityKind==='trait'&&!isHighlightedAbility(e)) {
-        if(e.damage&&!e.skill)this.drawNormal(e,p,from,to,cell,true);else this.drawClear(e,p,from,to,cell);
-        if(e.ongoing&&e.healing)this.label('+'+e.healing,to.x,to.y-cell*.5,'#b9ebd9',1-p,clamp(cell*.25,10,15));
+        if(!e.skill&&!e.ongoing&&!e.abilityKind)this.drawNormal(e,p,from,to,cell,true,false);else this.drawClear(e,p,from,to,cell);
       }
       else if(e.combo)this.drawCombo(e,p,to,cell);
-      else if (!e.skill) this.drawNormal(e, p, from, to, cell);
+      else if (!e.skill&&!e.ongoing) this.drawNormal(e, p, from, to, cell,false,false);
       else {
         this.drawImpact(e, p, from, to, color, accent, cell);
         if(e.comboLevel)this.ring(to.x,to.y,cell*(.7+p*1.3),'#ffe28c',3,(1-p)*.8);
-        if (p > .2 && (e.damage || e.text)) this.label([e.damage?damageLabel(e):'',e.text].filter(Boolean).join(' · '), to.x, to.y - cell * (.2 + p * .4), e.comboLevel?'#ffe38a':'#fff1b4', Math.min(1, (1 - p) * 2), clamp(cell * (e.comboLevel?.52:.43), 14, e.comboLevel?30:26));
+        if (p > .52 && e.text&&this.focusedUnit===e.to) this.label(e.text, to.x, to.y - cell * (.2 + p * .4), '#d4c59e', Math.min(1, (1 - p) * 2), 10);
       }
       c.restore();
     }
-    if (clear && !this.paused && !this.isCinematicPlaying()) for (const e of this.damageSummaries()) {
-      const to=this.point(e.x,e.y),p=clamp((this.clock-e.start)/e.duration,0,1);
-      if(p>.48)this.label(damageLabel(e),to.x,to.y-cell*(.65+(p-.48)*.45),e.critical?'#ffdc87':e.side?'#f5b5a5':'#b9ebd9',(1-p)*1.7,clamp(cell*(e.critical?.32:.25),11,e.critical?22:17));
-    }
-    if (this.cinematics[0]) this.drawCinematic(this.cinematics[0], cell);
-    else if(!this.paused)this.cues.draw(this,cell);
+    const cinematic=this.currentCinematic();if(cinematic)this.drawCinematic(cinematic, cell);
+    else if(!this.paused&&!this.isPresentationPlaying())this.cues.draw(this,cell);
+    if(showTransient)this.feedback.draw(this,cell);
     this.signals.drawOrders(this,cell);
     this.frame = requestAnimationFrame(t => this.draw(t));
   }

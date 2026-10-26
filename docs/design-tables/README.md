@@ -2,6 +2,8 @@
 
 机制与能力设计请先读[当前规则总览](../README.md)和[能力设计指南](../能力设计指南.md)。
 
+[规则来源一览表](规则来源一览表.md)登记各领域的实际配置与处理器；design:check会检查来源存在、追溯完整及运行时没有导入未定稿底稿。
+
 可编辑设计底稿目录已建立，见[待接入设计表目录](待接入设计表目录.md)。经济收入、容量及自动内政用人数值现已接入 `economy-rules.mjs`，见[经济规则一览表](经济规则一览表.md)。现有配置已填入，可逐表继续设计；标为待接入的表尚未改变游戏行为。
 
 
@@ -11,21 +13,20 @@
 | --- | --- | --- |
 | [特技一览表](特技一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 当前接入67项特性（52普通、15专属） |
 | [内政命令特性](内政命令特性一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 已接入50项，修改既有命令的实际成果、工期或费用；持有者见正式分配 |
-| [战法一览表](战法一览表.md) | [tactics.mjs](../../data/design/tactics.mjs) | 75项效果定义；标明当前携带兵种／16名将专属／未配置效果库，以及门槛、冷却、次数和效果参数 |
-| [军略一览表](军略一览表.md) | [stratagems.mjs](../../data/design/stratagems.mjs) | 20项；效果、持续时间、普通／专属池、专属来源 |
-| [兵种一览表](兵种一览表.md) | [troops.mjs](../../data/design/troops.mjs) | 9种；基础属性、攻城系数、克制 |
+| [战法一览表](战法一览表.md) | [tactics.mjs](../../data/design/tactics.mjs) | 82项效果定义；标明当前携带兵种／16名将专属／未配置效果库，以及门槛、冷却、次数和效果参数 |
+| [军略一览表](军略一览表.md) | [stratagems.mjs](../../data/design/stratagems.mjs) | 15项；固定人物资格、实际统智效果、持续时间与来源 |
+| [兵种一览表](兵种一览表.md) | [troops.mjs](../../data/design/troops.mjs) | 20种部队及携带装备形态；基础属性、攻城系数、克制 |
 | [武将一览表](武将一览表.md) | [officers.mjs](../../data/design/officers.mjs) | 832名；五维、适性、身份、关系、默认部队资料 |
 | [剧本与开局配置](剧本与开局配置一览表.md) | [national-scenarios.mjs](../../data/design/national-scenarios.mjs)、[reference-scenario.mjs](../../data/design/reference-scenario.mjs) | 七个剧本；群雄集结保留37个来源势力，历史剧本按年代适配人物与领地 |
 | [城市一览表](城市一览表.md) | [cities.mjs](../../data/design/cities.mjs) | 全国123据点（76城、12关、35港）及入门地图9据点；大城、小城明确分类 |
 | [能力分配一览表](能力分配一览表.md) | [assignments.mjs](../../data/design/assignments.mjs) | 武将的特技／军略／专属战法，以及各兵种固定三项普通战法 |
-| [内政动作库](内政动作一览表.md) | [domestic-actions.mjs](../../data/design/domestic-actions.mjs) | 各方向41项动作；9项建设动作引用建筑表 |
-| [城市建筑](建筑一览表.md) | [buildings.mjs](../../data/design/buildings.mjs) | 9种；名称、方向、费用、工期 |
-| [大地图道路](大地图道路一览表.md) | [roads.mjs](../../data/design/roads.mjs) | 全国280条、入门16条连接；含实际野外路口，行程长度独立维护 |
+| [内政动作库](内政动作一览表.md) | [domestic-actions.mjs](../../data/design/domestic-actions.mjs) | 各方向43项动作；建设动作引用建筑表 |
+| [城市建筑](建筑一览表.md) | [buildings.mjs](../../data/design/buildings.mjs) | 12种；名称、方向、费用、工期 |
+| [大地图道路](大地图道路一览表.md) | [roads.mjs](../../data/design/roads.mjs) | 全国283条、入门16条连接；含实际野外路口，行程长度独立维护 |
 | [移动规则](移动规则一览表.md) | [movement-rules.mjs](../../data/design/movement-rules.mjs) | 道路代价、军团及人才运输移动参数 |
 | [战场地图](战场地形与地图模板一览表.md) | [battle-maps.mjs](../../data/design/battle-maps.mjs)、[battle-terrain.mjs](../../data/design/battle-terrain.mjs) | 已接入15张普通地图、6张历史地图；实际地形、山壁与通路 |
 | 内部设计备注 | [notes.mjs](../../data/design/notes.mjs) | 稀有度、设计定位、理由、后续待办；不被游戏导入 |
 | [历史战役与援军](历史战役与援军一览表.md) | [historical-battles.mjs](../../data/design/historical-battles.mjs) | 六张历史地图、双方真实先遣及援军军团，共用自定义生成器；每军团最多十队 |
-| [战役预设](战役预设一览表.md) | [battles.mjs](../../data/design/battles.mjs) | 当前无旧预设；独立入口使用自定义编辑器和历史地图模板 |
 | [战斗验证对照](战斗验证对照表.md) | [battle-validation.mjs](../../data/design/battle-validation.mjs) | 同预算对照、固定开发与独立验证种子 |
 
 军团特技另有[筛选一览表](军团特技一览表.md)，与总表、分配表使用同一数据源。

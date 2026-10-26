@@ -48,6 +48,7 @@ export const ATLAS_JUNCTION_POINTS = {
  'town-10:town-12':[1076,566], 'chenliu:town-10':[1079,599],
  'chenliu:town-12':[1012,553], 'chenliu:xuchang':[998,613],
  'runan:xuchang':[1001,668], 'wan:xuchang':[941,671],
+ 'atlas-qiao:xuchang':[1005,625],
  'town-29:wan':[925,725], 'town-20:town-21':[593,606],
  'town-20:town-22':[538,515], 'town-23:town-24':[1285,748],
  'town-24:town-25':[1337,797], 'town-32:town-34':[944,1080],

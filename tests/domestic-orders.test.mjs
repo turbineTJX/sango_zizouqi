@@ -18,7 +18,7 @@ test('deferred reassignment persists and switches after real completion with det
  assert.equal(requestStrategicOrder(s,{kind:'assign',cityId:c.id,officerIds:[id],direction:'commerce'},'after').queued,true);
  assert.equal(s.gold,gold);assert.equal(s.campaign.domestic.seed,oldSeed);assert.equal(assignmentFor(s,id).direction,'technology');
  const copy=restore(s);advance(s,61);advance(copy,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.equal(assignmentFor(s,id).direction,'commerce');
- const done=s.campaign.domestic.workHistory[id].find(r=>r.actionId===actionId);assert.equal(done.status,'completed');assert.ok(c.workshop>0);restore(s);
+ assert.ok(!s.campaign.domestic.workHistory[id]?.some(r=>r.actionId===actionId));assert.ok(c.workshop>0);restore(s);
 });
 test('queued departure reserves the exact garrison and leaves only after its action completes',()=>{
  const {s,army,id}=busyFixture(),count=army.units.length;
@@ -26,7 +26,7 @@ test('queued departure reserves the exact garrison and leaves only after its act
  assert.equal(army.route.length,0);assert.ok(splitCampaignArmy(s,army.id,[id]));assert.equal(s.armies.filter(a=>a.faction==='cao').length,0);
  beginDomesticTurn(s);assert.equal(army.units.length,count);restore(s);
  const copy=restore(s);advance(s,61);advance(copy,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.equal(assignmentFor(s,id),undefined);assert.ok(s.cities.find(c=>c.id==='chenliu').units.some(u=>u.id===id));
- assert.ok(s.campaign.domestic.events.some(e=>e.phase==='order-done'));restore(s);
+ assert.ok(!s.campaign.domestic.events.some(e=>e.phase==='order-done'&&e.day<51));restore(s);
 });
 test('waiting departure prevents idle members from picking new work across turns',()=>{
  const {s,army,id}=busyFixture(),other=army.units.find(u=>u.id!==id).id;

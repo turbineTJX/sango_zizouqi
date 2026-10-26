@@ -14,5 +14,16 @@ function index(nodes){
  return value;
 }
 export const activityBySource=(nodes,key)=>index(nodes).source.get(key);
-export const activityByFaction=(nodes,key)=>(index(nodes).faction.get(key)||[]).slice();
+export function activityByFaction(nodes,key,throughSequence=Infinity){
+ const bucket=index(nodes).faction.get(key)||[];if(throughSequence===Infinity)return bucket.slice();let low=0,high=bucket.length;
+ while(low<high){const mid=(low+high)>>>1;if(bucket[mid].sequence<=throughSequence)low=mid+1;else high=mid;}
+ return bucket.slice(0,low);
+}
 export const activityByDay=(nodes,key)=>(index(nodes).day.get(key)||[]).slice();
+// Validated ledgers append in nondecreasing day order. Select a recent window
+// without walking the full retained history; return a detached array as above.
+export function activitySinceDay(nodes,day){
+ let low=0,high=nodes.length;
+ while(low<high){const mid=(low+high)>>>1;if(nodes[mid].day<day)low=mid+1;else high=mid;}
+ return nodes.slice(low);
+}

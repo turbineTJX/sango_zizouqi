@@ -1,3 +1,4 @@
+import {chooseCommandTarget} from './map-target-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
@@ -6,7 +7,7 @@ const browser=await chromium.launch({channel:'msedge',headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 const out='outputs/command-flow-ui';await mkdir(out,{recursive:true});
-const action=name=>page.locator(`[data-action="${name}"]`),saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));
+const action=name=>page.locator(`[data-action="${name}"]`),saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
 const pick=task=>page.locator(`.city-command-hub [data-task="${task}"]`).click();
 const next=()=>action('campaign-command-next').click();
 try{
@@ -39,9 +40,9 @@ try{
  assert.ok((await saved()).cities.find(c=>c.id==='xuchang').units.some(u=>u.id===draft));assert.equal((await saved()).armies.length,0);
  await page.locator('[data-action="campaign-tab"][data-tab="city"]').click();
  await pick('expedition');await page.locator('[data-personnel-choice]:not(:disabled)').first().check();await next();await page.locator('#command-reinforce').check();await next();const leader=await page.locator('[data-expedition-role=leader]:checked').inputValue();assert.ok(leader);assert.equal(await page.locator('[data-expedition-role=deputy]').count(),0);await page.screenshot({path:out+'/expedition-commanders.png',fullPage:true});for(const tab of ['units','tactics','traits','strategy','relations','appointments']){await page.locator('[data-group="combat-本军"][data-page="'+tab+'"]').click();assert.equal(await page.locator('[data-group="combat-本军"][data-page="'+tab+'"]').getAttribute('aria-pressed'),'true');assert.ok(await page.locator('.combat-page:not([hidden]) .personnel-table:visible').evaluateAll(tables=>tables.every(t=>t.querySelectorAll('thead th').length<=6)));}assert.equal(await page.locator('[data-expedition-role=deputy]').count(),0);await next();
- await page.locator('#command-destination').selectOption('chenliu');
+ await chooseCommandTarget(page,'chenliu');
  await page.screenshot({path:out+'/march-map.png',fullPage:true});await next();
- const beforeMarch=await saved();await action('campaign-command-back').click();assert.equal(await page.locator('#command-destination').inputValue(),'chenliu');await next();assert.deepEqual(await saved(),beforeMarch);
+ const beforeMarch=await saved();await action('campaign-command-back').click();assert.equal(await page.locator('[data-map-target="selected"]').getAttribute('data-command-city'),'chenliu');await next();assert.deepEqual(await saved(),beforeMarch);
  await action('campaign-pick-confirm').click();
  if(await action('campaign-order-choice').count())await page.locator('[data-action="campaign-order-choice"][data-choice="after"]').click();
  assert.equal(await page.locator('.modal').count(),0);
@@ -50,7 +51,7 @@ try{
  await page.screenshot({path:out+'/mobile-direction.png',fullPage:true});
  await page.locator('[data-action="campaign-command-direction"][data-direction="agriculture"]').click();
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
- await page.screenshot({path:out+'/mobile-picker.png'});await action('campaign-command-cancel').click();await pick('expedition');const mobileUnit=(await saved()).cities.find(c=>c.id==='xuchang').units.find(u=>u.troops>0);await page.locator(`[data-personnel-choice="${mobileUnit.id}"]`).check();await next();await next();await next();await page.locator('#command-destination').selectOption('chenliu');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:out+'/mobile-map.png'});
+ await page.screenshot({path:out+'/mobile-picker.png'});await action('campaign-command-cancel').click();await pick('expedition');const mobileUnit=(await saved()).cities.find(c=>c.id==='xuchang').units.find(u=>u.troops>0);await page.locator(`[data-personnel-choice="${mobileUnit.id}"]`).check();await next();await next();await next();await chooseCommandTarget(page,'chenliu');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:out+'/mobile-map.png'});
  assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,errors},null,2));
  console.log('Command flow passed: selection, detail return, back, cancel, map selection, formation, submission, reload, mobile.');
 }catch(e){await page.screenshot({path:out+'/failure.png',fullPage:true});throw e;}finally{await browser.close();}

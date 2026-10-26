@@ -8,6 +8,7 @@ import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {cityNeedsAgriculture,cityNeedsCommerce} from './economy.mjs';
 import {plannedOfficer,domesticIntentWeight} from './strategic-intent.mjs';
 import {diplomaticAssignment} from './diplomacy-relations.mjs';
+import {domesticStaffing} from './domestic-staffing.mjs';
 import {assignDomestic,assignmentFor,setDomesticPriority} from './domestic.mjs';
 import {appointGovernor} from './strategic-campaign.mjs';
 import {DIRECTIONS} from './domestic-designs.mjs';
@@ -22,7 +23,7 @@ import {passiveList} from './passives.mjs';
 import {makeOfficer,newGame,validateSave,log} from './engine.mjs';
 import {nationalScenario,talentScenarioEntry} from './national-scenarios.mjs';
 import {relationshipInfo,changeRelationshipScore} from './relationships.mjs';
-import {TALENT_RULES,clamp,talentTurn,talentKey,talentQuality,righteousness,relation,servingPeople,factionLord,isLord,nearby,localContact,legalRoad,cityBesieged,refreshTalentDemand,talentContext,willingness,projectNeed,progressFor,talentEligibility,TALENT_REASONS} from './talent-core.mjs';
+import {TALENT_RULES,clamp,talentTurn,talentKey,talentQuality,righteousness,relation,servingPeople,factionLord,isLord,nearby,localContact,legalRoad,cityBesieged,refreshTalentDemand,talentContext,willingness,projectNeed,progressFor,talentEligibility,persuasionEligibility,persuasionTargets,TALENT_REASONS} from './talent-core.mjs';
 
 const data=s=>s.campaign.talent;
 const day=s=>s.campaign.day;
@@ -64,17 +65,18 @@ export function discoverTalent(s,id,faction){
 }
 export function unknownTalent(s,cityId,faction){return s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&!data(s).knowledge[faction]?.[p.id]?.locationConfirmed&&localContact(s,cityId,p.cityId));}
 export function talentCandidates(s,c,mode){
- const context=talentContext(s),t=data(s),ids=mode==='hire'?s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&nearby(s,c.id,p.cityId)&&t.knowledge[c.owner]?.[p.id]?.locationConfirmed).map(p=>p.id):s.campaign.idle.filter(o=>o.faction!==c.owner&&o.faction!=='neutral'&&!o.destination&&!o.retreating&&nearby(s,c.id,o.location)&&(s.campaign.domestic.loyalty[o.unit.id]??85)<70).map(o=>o.unit.id),f=context.factions[c.owner]||{N:0,D:1};
+ const context=talentContext(s,mode==='persuade'?c.owner:null),t=data(s),ids=mode==='hire'?s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&nearby(s,c.id,p.cityId)&&t.knowledge[c.owner]?.[p.id]?.locationConfirmed).map(p=>p.id):persuasionTargets(s,c.owner).filter(o=>nearby(s,c.id,o.location)).map(o=>o.unit.id),f=context.factions[c.owner]||{N:0,D:1};
+ const eligible=(id,city,kind)=>kind==='persuade'?persuasionEligibility(s,id,c.owner,city,context):talentEligibility(s,id,c.owner,city,kind,context);
  const candidates=[];
  for(const id of ids){
-  const check=talentEligibility(s,id,c.owner,c.id,mode,context);if(!check.ok)continue;
+  const check=eligible(id,c.id,mode);if(!check.ok)continue;
   const saved=t.projects[talentKey(id,c.owner)],p=saved?.state==='CLOSED'?null:saved,need=projectNeed(id,mode);if(p?.progress>=need||p?.lastAttemptTurn===talentTurn(s))continue;
   if(s.campaign.domestic.assignments.some(a=>s.cities.find(c=>c.id===a.cityId)?.owner===c.owner&&a.action?.targetId===id&&['hire','persuade'].includes(a.action.key)))continue;
   const score=(mode==='hire'?70:45)+Math.floor(15*(p?.progress||0)/need)+clamp((check.Q-70)/2,0,15)+(mode==='hire'&&check.W>=80?5:0);
   candidates.push({id,score,check,progress:p?.progress||0,created:p?.createdOrder??Number.MAX_SAFE_INTEGER});
  }
  // Existing projects get first use of the faction's paid parallel slots.
- const all=Object.values(t.projects).filter(p=>p.factionId===c.owner&&p.state!=='CLOSED'&&p.progress>0&&p.progress<projectNeed(p.personId,p.mode)&&talentEligibility(s,p.personId,c.owner,p.cityId,p.mode,context).ok).sort((a,b)=>talentQuality(OFFICER_BY_ID[b.personId])-talentQuality(OFFICER_BY_ID[a.personId])||a.createdOrder-b.createdOrder);
+ const all=Object.values(t.projects).filter(p=>p.factionId===c.owner&&p.state!=='CLOSED'&&p.progress>0&&p.progress<projectNeed(p.personId,p.mode)&&eligible(p.personId,p.cityId,p.mode).ok).sort((a,b)=>talentQuality(OFFICER_BY_ID[b.personId])-talentQuality(OFFICER_BY_ID[a.personId])||a.createdOrder-b.createdOrder);
  const limit=Math.max(1,f.D-f.N),active=s.campaign.domestic.assignments.filter(a=>s.cities.find(c=>c.id===a.cityId)?.owner===c.owner&&['hire','persuade'].includes(a.action?.key)).map(a=>a.action.targetId);
  const reserved=new Set([...active,...all.map(p=>p.personId)].slice(0,limit));
  return candidates.filter(x=>reserved.has(x.id)||reserved.size<limit).sort((a,b)=>Number(b.progress>0)-Number(a.progress>0)||b.score-a.score||a.created-b.created||a.id.localeCompare(b.id));
@@ -92,7 +94,7 @@ export function completeTalentProject(s,a,c,factor){
  const actor=servingPeople(s).get(a.officerId)?.unit,actual=s.campaign.domestic.people.find(x=>x.id===p.personId)?.cityId||servingPeople(s).get(p.personId)?.location;
  if(actor?.mission&&actual!==actor.mission.location){p.state='PAUSED';p.reason='range';return {actual:0,details:'接洽对象已经离开，未产生远程接洽进度'};}
  const check=talentEligibility(s,p.personId,c.owner,c.id,p.mode);
- if(!check.ok||(p.mode==='persuade'&&servingPeople(s).get(p.personId)?.faction!==p.targetFaction)){p.state='PAUSED';p.reason=check.ok?'invalid':check.reason;return {actual:0,details:`接洽中止：${TALENT_REASONS[p.reason]}，不退已付费用`};}
+ if(!check.ok||(p.mode==='persuade'&&servingPeople(s).get(p.personId)?.faction!==p.targetFaction)){p.state='PAUSED';p.reason=check.ok?'invalid':check.reason;p.nextAttemptDay=day(s)+(p.mode==='persuade'?30:20)+1;return {actual:0,details:`接洽中止：${TALENT_REASONS[p.reason]}，不退已付费用`};}
  const gain=Math.min(Math.floor(progressFor(factor)*workQuantity(factor,workProfile(a.action.traitIds,ACTIONS[a.action.key]))),Math.max(0,projectNeed(p.personId,p.mode)-p.progress));p.progress+=gain;p.lastContactDay=day(s);p.lastDecayDay=day(s);
  p.nextAttemptDay=day(s)+(factor<1?(p.mode==='hire'?20:30):0)+1;
  if(gain&&a.officerId!==p.personId){const info=relationshipInfo(a.officerId,p.personId,s.relationshipScores,s.relationshipTypes);if(info.type!=='disliked'&&info.score<65)changeRelationshipScore({relationshipScores:s.relationshipScores,relationshipTypes:s.relationshipTypes},a.officerId,p.personId,1);}
@@ -236,8 +238,11 @@ export function refreshTalentProjects(s){
  const t=data(s),context=talentContext(s);
  for(const p of Object.values(t.projects)){
   if(p.state==='CLOSED')continue;
-  if(s.campaign.domestic.people.some(x=>x.id===p.personId))p.mode='hire';
-  const check=talentEligibility(s,p.personId,p.factionId,p.cityId,p.mode,context,{ignoreCooldown:p.progress>=projectNeed(p.personId,p.mode)});
+  if(p.mode==='persuade'&&day(s)<p.nextAttemptDay){p.state='PAUSED';continue;}
+  if(s.campaign.domestic.people.some(x=>x.id===p.personId)&&t.knowledge[p.factionId]?.[p.personId]?.locationConfirmed)p.mode='hire';
+  // Private changes are learned when a real contact or signing is settled,
+  // never by polling the rival's current loyalty or willingness each day.
+  const check=p.mode==='persuade'?persuasionEligibility(s,p.personId,p.factionId,p.cityId):talentEligibility(s,p.personId,p.factionId,p.cityId,p.mode,context,{ignoreCooldown:p.progress>=projectNeed(p.personId,p.mode)});
   if(check.ok&&p.state==='PAUSED')report(s,'project-resumed',p.personId,`${OFFICER_BY_ID[p.personId].name}的接洽项目可以恢复。`,p.factionId);
   p.state=check.ok?'ACTIVE':'PAUSED';p.reason=check.reason;
   if(day(s)-p.lastContactDay>=120&&day(s)-p.lastDecayDay>=30){const ticks=Math.floor((day(s)-Math.max(p.lastDecayDay,p.lastContactDay+90))/30);if(ticks>0){p.progress=Math.max(0,p.progress-ticks*6);p.lastDecayDay+=Math.max(0,p.lastContactDay+90-p.lastDecayDay)+ticks*30;}}
@@ -277,9 +282,9 @@ export function prepareEnemyDomestic(s){
   // Additional civil officers perform real autonomous work, using the same
   // recommendation scores and costs as player appointments. Never reassign work.
   for(let slot=1;slot<ECONOMY_RULES.ai.economicWorkersPerDirection;slot++)for(const direction of ['agriculture','commerce','military']){
-   if(s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.direction===direction).length>slot)continue;
+   if(s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.direction===direction).length>slot||!domesticStaffing(s,c.id,direction).remaining)continue;
    const best=rankOfficerCandidates(s,units.filter(u=>!assigned.has(u.id)),{task:'domestic',city:c.id,direction}).find(x=>x.recommendation.available);
-   if(best){assignDomestic(s,c.id,direction,best.unit.id,{scheduled:true,faction:c.owner});assigned.add(best.unit.id);}
+   if(best&&!assignDomestic(s,c.id,direction,best.unit.id,{scheduled:true,faction:c.owner}))assigned.add(best.unit.id);
   }
  }
 }

@@ -38,7 +38,7 @@ for(const [index,type] of LEARNING_TROOPS.entries())for(const level of [1,3,5,8,
  runs.push({type,terrain,level,seed,ticks:b.tick,winner:b.result.winner,casts:b.sides.map(s=>s.units.reduce((n,u)=>n+u.skillCasts,0)),slots:b.sides.map(s=>s.units.map(u=>u.tactics.length))});
 }
 assert.deepEqual(hashes(),source,'Audit source changed while running');
-const result={rulesVersion:RULES_VERSION,passed:true,battles:runs.length,checks:['九兵种、多等级、独立战斗种子','非均分兵力、双方固定军略规则','S三项、A两项、B/C一项，全部等级可用','AI重布阵幂等、不更换固定战法','合法占位、只施放固定战法、配置记录不变','第20步JSON存档续战与最终结果一致'],source,runs};
-const output=`docs/tactic-learning-rules${RULES_VERSION}`;
+const result={rulesVersion:RULES_VERSION,passed:true,battles:runs.length,checks:['现行兵种、多等级、独立战斗种子','非均分兵力、双方固定军略规则','S三项、A两项、B/C一项，全部等级可用','AI重布阵幂等、不更换固定战法','合法占位、只施放固定战法、配置记录不变','第20步JSON存档续战与最终结果一致'],source,runs};
+const output=`work/tactic-learning-rules${RULES_VERSION}`;
 mkdirSync(output,{recursive:true});writeFileSync(`${output}/audit.json`,JSON.stringify(result,null,2));
 console.log(JSON.stringify({passed:true,battles:runs.length,checks:result.checks}));

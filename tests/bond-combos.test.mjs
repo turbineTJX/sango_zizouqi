@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
-import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
+import {lockDeployment,stepBattle,validateSave,makeOfficer} from '../engine.mjs';
 import {BOND_DESIGNS as D} from '../data/design/bonds.mjs';
 import {OFFICER_DESIGNS as O} from '../data/design/officers.mjs';
-import {sideBonds,bondDamage,bondDefenseIgnore,bondFinisherCritical,bondAttributes} from '../bonds.mjs';
+import {sideBonds,bondDamage,bondDefenseIgnore,bondFinisherCritical,bondAttributes,bondProtection} from '../bonds.mjs';
 import {hasStatus,setStatus,shieldAmount,unitTactics} from '../tactics.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
 import {validBondState} from '../bond-events.mjs';
@@ -128,4 +128,14 @@ test('all new offensive statuses respect full Valor while saved cooldowns and gu
 
 test('six combinations continue identically from real battle saves with their trigger records intact',()=>{
  for(const key of Object.keys(teams)){const x=scene(key);for(const u of x.b.sides.flatMap(s=>s.units)){delete u.statuses.root;u.cooldown=0;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,0]));}for(let i=0;i<18&&!x.b.result;i++)stepBattle(x.b);const copy=validateSave(structuredClone(x.state));for(let i=0;i<20&&!x.b.result;i++){stepBattle(x.b);stepBattle(copy.battle);}assert.deepEqual(x.state,copy);}
+});
+
+import {BOND_ASSIGNMENTS} from '../data/design/bond-assignments.mjs';
+import {pulseBondCombos} from '../bond-combos.mjs';
+test('Escort support stops outside its radius and ignores withdrawing sources',()=>{
+ const ids=Object.entries(BOND_ASSIGNMENTS).filter(([,a])=>a.bondEscort).slice(0,3).map(([id])=>id),units=ids.map((id,i)=>({...makeOfficer(id,3000,0,10),side:0,hp:3000,maxHp:3000,status:'active',x:i+2,y:3,statuses:{},bondState:{}}));
+ const b={tick:0,sides:[{units},{units:[]}]},target={...makeOfficer('person-1',3000,0,1),side:0,hp:1200,maxHp:3000,status:'active',x:3,y:4,statuses:{},bondState:{}};b.sides[0].units.push(target);assert.ok(sideBonds(b,0).bondEscort?.tier);assert.equal(bondProtection(b,target,'basic'),1);
+ const api={signal:()=>{}};for(const u of units.filter(u=>u!==target))pulseBondCombos(b,u,null,api);assert.ok(shieldAmount(b,target)>0);assert.equal(target.hp,1200);
+ target.statuses={};target.x=13;b.tick=6;for(const u of units.filter(u=>u!==target))pulseBondCombos(b,u,null,api);assert.equal(shieldAmount(b,target),0);
+ target.x=3;for(const u of units.filter(u=>u!==target)){u.withdrawing=true;pulseBondCombos(b,u,null,api);}assert.equal(shieldAmount(b,target),0);
 });

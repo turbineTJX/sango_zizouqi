@@ -11,6 +11,7 @@ import {historicalBattleDraft} from '../historical-battle-library.mjs';
 import {armyRoleScore,appointArmyRoles,recommendArmyAppointments,settleArmyAppointments} from '../army-appointments.mjs';
 import {officerRecommendation} from '../officer-recommendation.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
+import {planEnemyArmy} from '../battle-ai.mjs';
 import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {fateRoll} from '../officer-fates.mjs';
@@ -96,6 +97,19 @@ test('a shared council preserves the human deployment and never exposes unarrive
  for(const u of c.battle.sides[1].units.filter(u=>u.arrivalConfirmed===false))Object.assign(u,{hp:1,leadership:1,intellect:1});
  planBattleCouncilsAI(a.battle,[0,1]);planBattleCouncilsAI(c.battle,[1,0]);
  assert.deepEqual(a.battle.sides[0],c.battle.sides[0]);
+});
+
+test('simultaneous councils erase single side preview positions and water forms before either AI evaluates',()=>{
+ const team=(ids)=>ids.map((id,i)=>({id,type:['spear','cavalry','halberd','archer','spear','archer'][i],troops:3000,level:10,equipment:{siege:null,ship:'ship'}}));
+ for(const terrain of ['river','land']){
+  const a=generateBattle({terrain,battleKind:'field',seed:70761021,limit:480,shieldPercent:0,ownTeam:team(['cao','liao','chu','jia','dun','yu']),enemyTeam:team(['shao','yan','wen','he','ju','tian'])});
+  const b=structuredClone(a),seed=a.battle.seed;
+  planEnemyArmy(b.battle,0);planEnemyArmy(b.battle,1);
+  planBattleCouncilsAI(a.battle,[0,1]);planBattleCouncilsAI(b.battle,[1,0]);
+  assert.deepEqual(a.battle,b.battle);assert.equal(a.battle.seed,seed);
+  const once=structuredClone(a.battle);planBattleCouncilsAI(a.battle,[0,1]);assert.deepEqual(a.battle,once,'reopening the same AI council cannot create another reaction pass');
+  assert.equal(lockDeployment(a.battle),null);validateSave(structuredClone(a));
+ }
 });
 
 test('a withdrawing commander leaves a vacancy until real battle settlement and save reload does not appoint early',()=>{

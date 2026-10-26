@@ -20,7 +20,7 @@ test('fixed own AI projects only legal positions, changes neither enemy state no
 });
 test('player command decisions read current public state without spending gauge or advancing RNG',()=>{
  const b=xiapiState(adaptedPlans.find(p=>p.id==='concentrated-center'),DEV_SEEDS[0]).battle;b.commandProgress=COMMAND_RESOURCE.capacity;
- const before=structuredClone(b);playerCommand(b);assert.deepEqual(b,before);
+ const before=structuredClone(b),order=playerCommand(b);assert.equal(order.key,'ambush','the current legal commander strategy is considered');assert.deepEqual(b,before);
 });
 test('a legal tactical battle records actual hits and orders and resumes identically at the saved boundary',()=>{
  const row=simulateXiapi(adaptedPlans.find(p=>p.id==='concentrated-center'),DEV_SEEDS[0],{replay:true});

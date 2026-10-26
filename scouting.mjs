@@ -12,6 +12,7 @@ import {updateVision,visionPosition,armyObservation,directPointVisible} from './
 import {cityPersonnel} from './city-personnel.mjs';
 import {plannedOfficer} from './strategic-intent.mjs';
 import {scoutAssignments,scoutAssignment,scoutOperator,scoutingPosition,scoutVisionProxy,scoutRoute,scoutingNeighborhood} from './scouting-state.mjs';
+import {activitySinceDay} from './activity-query-index.mjs';
 export {scoutAssignments,scoutAssignment,scoutRoute,scoutTargets} from './scouting-state.mjs';
 const copy=x=>structuredClone(x);
 export function initializeScouting(s){s.campaign.scouting={version:1,seed:(s.seed^0x731ca4b9)>>>0,nextId:1,tasks:[]};}
@@ -38,9 +39,9 @@ function storeContact(s,t,kind,id,data){
  contact.report={day:s.campaign.day,receivedDay:s.campaign.day,data};
  if(kind!=='node'&&!directPointVisible(s,kind==='army'?visionPosition(s,data):mapNode(s,id),t.faction)){
   const day=s.campaign.day,r=PROGRESSION.scouting,turn=Math.floor((day-1)/10),nodes=s.campaign.activity.nodes;
-  const previous=nodes.filter(n=>n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
+  const previous=activitySinceDay(nodes,day-r.freshDays+1).filter(n=>n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
   if(!previous.some(n=>day-n.day<r.freshDays)){
-   const used=nodes.filter(n=>n.result.scouting?.faction===t.faction&&n.officerId===t.officerId&&n.result.scouting.turn===turn).reduce((n,x)=>n+x.result.growth.gained,0),amount=Math.min(r.information,Math.max(0,r.maximumPerTurn-used));
+   const used=activitySinceDay(nodes,turn*10+1).filter(n=>n.result.scouting?.faction===t.faction&&n.officerId===t.officerId&&n.result.scouting.turn===turn).reduce((n,x)=>n+x.result.growth.gained,0),amount=Math.min(r.information,Math.max(0,r.maximumPerTurn-used));
    if(amount){settleOfficerMerit(s,scoutOperator(s,t).unit,{sourceId:`scout-information:${t.faction}:${key}:${day}`,amount,faction:t.faction,cityId:t.homeCity,reason:`取得${data.name}有效情报`});nodes.at(-1).result.scouting={faction:t.faction,key,turn};}
   }
  }
@@ -91,9 +92,9 @@ export function advanceScouting(s){
   }
   if(!t.route.length)t.phase='watch';
   if(t.phase==='watch'){
-   const day=s.campaign.day,turn=Math.floor((day-1)/10),r=PROGRESSION.scouting,nodes=s.campaign.activity.nodes,key='watch:'+t.targetCity;
-   const duplicate=nodes.some(n=>n.day===day&&n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
-   const used=nodes.filter(n=>n.result.scouting?.faction===t.faction&&n.officerId===t.officerId&&n.result.scouting.turn===turn).reduce((n,x)=>n+x.result.growth.gained,0),amount=Math.min(r.watchPerDay,Math.max(0,r.maximumPerTurn-used));
+   const day=s.campaign.day,turn=Math.floor((day-1)/10),r=PROGRESSION.scouting,nodes=s.campaign.activity.nodes,recent=activitySinceDay(nodes,turn*10+1),key='watch:'+t.targetCity;
+   const duplicate=recent.some(n=>n.day===day&&n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
+   const used=recent.filter(n=>n.result.scouting?.faction===t.faction&&n.officerId===t.officerId&&n.result.scouting.turn===turn).reduce((n,x)=>n+x.result.growth.gained,0),amount=Math.min(r.watchPerDay,Math.max(0,r.maximumPerTurn-used));
    if(!duplicate&&amount){settleOfficerMerit(s,o.unit,{sourceId:`scout-watch:${t.faction}:${t.targetCity}:${day}`,amount,faction:t.faction,cityId:t.homeCity,reason:`维持${mapNode(s,t.targetCity).name}驻察`});nodes.at(-1).result.scouting={faction:t.faction,key,turn};}
   }
  }

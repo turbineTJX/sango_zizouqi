@@ -10,8 +10,7 @@ export default {
       "id": "commerce",
       "name": "市场",
       "parameters": {
-        "description": "每级增加100金／旬",
-        "maximumLevel": 5
+        "description": "每级增加100金／旬"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -20,8 +19,7 @@ export default {
       "id": "farm",
       "name": "农田",
       "parameters": {
-        "description": "每级增加770粮／旬",
-        "maximumLevel": 5
+        "description": "每级增加770粮／旬"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -30,8 +28,7 @@ export default {
       "id": "granary",
       "name": "粮仓",
       "parameters": {
-        "description": "库容+10000、每日发送能力+120",
-        "maximumLevel": 5
+        "description": "库容+10000、每日发送能力+120"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -40,8 +37,7 @@ export default {
       "id": "workshop",
       "name": "工坊",
       "parameters": {
-        "description": "每级提高每日研发效率",
-        "maximumLevel": 5
+        "description": "每级提高每日研发效率"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -50,8 +46,7 @@ export default {
       "id": "barracks",
       "name": "兵营",
       "parameters": {
-        "description": "预备兵收入+294／旬、征募额度+1000",
-        "maximumLevel": 5
+        "description": "预备兵收入+294／旬、征募额度+1000"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -60,8 +55,7 @@ export default {
       "id": "clinic",
       "name": "医馆",
       "parameters": {
-        "description": "每级每队每日额外恢复6名真实伤兵",
-        "maximumLevel": 5
+        "description": "每级每队每日额外恢复6名真实伤兵"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -70,8 +64,7 @@ export default {
       "id": "drill",
       "name": "校场",
       "parameters": {
-        "description": "每级守城首发战意+3，最高15",
-        "maximumLevel": 5
+        "description": "每级守城首发战意+3，最高15"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -80,8 +73,7 @@ export default {
       "id": "walls",
       "name": "城防工事",
       "parameters": {
-        "description": "耐久上限+3000、守城首发护盾比例+2%",
-        "maximumLevel": 5
+        "description": "耐久上限+3000、守城首发护盾比例+2%"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"
@@ -90,8 +82,7 @@ export default {
       "id": "hall",
       "name": "招贤馆",
       "parameters": {
-        "description": "每级提高探索、登用成功把握",
-        "maximumLevel": 5
+        "description": "每级提高探索、登用成功把握"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"

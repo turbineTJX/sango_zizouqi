@@ -31,6 +31,10 @@ export function metropolitanMembers(s,node){
  const center=metropolitanCenter(s,node),t=topology(s);
  return t.members.get(center.id)||[node];
 }
+export function metropolitanMemberCounts(s,node){
+ const center=metropolitanCenter(s,node),members=metropolitanMembers(s,center);
+ return {prefecture:members.filter(n=>n.id!==center.id&&(n.kind==='junction'||n.kind==='city')).length,gate:members.filter(n=>n.kind==='gate').length,port:members.filter(n=>n.kind==='port').length};
+}
 export const constructionSites=(s,c)=>c.citySize==='large'?metropolitanMembers(s,c):[c];
 export const buildingSiteName=(s,siteId)=>topology(s).byId.get(siteId)?.name||siteId;
 export const projectSiteId=c=>c.project?.siteId||c.id;

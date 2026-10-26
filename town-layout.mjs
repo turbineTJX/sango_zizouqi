@@ -1,5 +1,23 @@
 import {RIVERS,MOUNTAINS} from './national-geography.mjs';
-import {TOWN_SITES} from './town-art.mjs';
+import {TOWN_SITES,TOWN_FRAME} from './town-art.mjs';
+import {CITY_DESIGNS} from './data/design/cities.mjs';
+
+export const TOWN_MAP_SCALE=.06;
+const footprint=place=>place.kind==='junction'?.38:place.kind==='gate'?.58:place.kind==='port'?.65:place.citySize==='small'?.72:1;
+// Keep atlas anchors fixed and reserve countryside between city footprints.
+// Authored neighbors make this stable across ownership, construction and saves.
+function mapScale(place){
+ const base=TOWN_MAP_SCALE*footprint(place);
+ if(place.kind!=='city')return Math.floor(base*10000)/10000;
+ let density=1;
+ const height=2*Math.max(Math.abs(TOWN_FRAME.y),Math.abs(TOWN_FRAME.y+TOWN_FRAME.height));
+ for(const other of CITY_DESIGNS){
+  if(other.id===place.id||other.kind!=='city')continue;
+  const separation=Math.max(Math.abs(place.x-other.x)/TOWN_FRAME.width,Math.abs(place.y-other.y)/height);
+  density=Math.min(density,.6*separation/((base+TOWN_MAP_SCALE*footprint(other))/2));
+ }
+ return Math.floor(base*density*10000)/10000;
+}
 
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const round=n=>Math.round(n*100)/100;
@@ -24,15 +42,14 @@ function nearestLine(point,lines){
 export function townLayout(place){
  const seed=hash(place.id),river=nearestLine(place,RIVERS),mountain=nearestLine(place,MOUNTAINS);
  const region=place.kind==='port'?'river':place.province==='凉州'?'frontier':place.kind==='gate'||mountain.distance<20||['益州','南中'].includes(place.province)?'mountain':river.distance<22||['扬州','荆南','交州'].includes(place.province)?'river':'plain';
- const kind=['gate','port'].includes(place.kind)?place.kind:place.citySize==='large'?'large':'small';
- const footprint=place.kind==='gate'?.58:place.kind==='port'?.65:place.citySize==='small'?.72:1;
+ const kind=place.kind==='junction'?'prefecture':['gate','port'].includes(place.kind)?place.kind:place.citySize==='large'?'large':'small',spaceKind=kind==='prefecture'?'small':kind;
  const flip=region==='river'?river.x>place.x:!!(seed&1),spreadX=.88+(seed%5)*.025,spreadY=.84+((seed>>>4)%5)*.035;
  const sites=Object.fromEntries(Object.entries(TOWN_SITES).map(([key,site])=>{
   const local=hash(place.id+':'+key),jitterX=(local%17)-8,jitterY=((local>>>8)%13)-6;
   const extras={large:{arrowTower:[-167,9,65],musicStage:[132,-14,64],aidCamp:[-142,128,65]},small:{arrowTower:[-137,5,58],musicStage:[111,-11,56],aidCamp:[-122,116,55]},gate:{arrowTower:[-148,16,64],musicStage:[67,-9,60],aidCamp:[-135,144,57]},port:{arrowTower:[-83,-3,62],musicStage:[169,71,57],aidCamp:[-31,111,58]}};
-  const [baseX,baseY,width]=SPACE_SITES[kind][key]||extras[kind][key];
+  const [baseX,baseY,width]=SPACE_SITES[spaceKind][key]||extras[spaceKind][key];
   const x=baseX*(flip?-1:1)*spreadX+jitterX*.6,y=baseY*spreadY+jitterY*.6;
   return [key,{...site,x:round(x),y:round(y),width:round(width*(.96+(local%5)*.012))}];
  }));
- return {kind,region,flip,mapScale:round(.13*footprint),sites};
+ return {kind,region,flip,mapScale:mapScale(place),sites};
 }

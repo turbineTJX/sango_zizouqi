@@ -4,7 +4,7 @@ import {mkdir} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,COMMAND_RESOURCE} from '../engine.mjs';
-import {selectStratagemSource,stratagemEffectText} from '../stratagems.mjs';
+import {selectStratagemSource,stratagemEffectSummary,stratagemEffectText} from '../stratagems.mjs';
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const port=4197,server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port)},stdio:'pipe',windowsHide:true});let browser;
 try{
@@ -13,7 +13,7 @@ try{
  const entry=id=>({id,type:'spear',troops:5000,level:10});const state=createScenario('custom-battle',7311,20,null,{seed:7311,terrain:'land',ownTeam:['cao','person-366','yu','liao'].map(entry),enemyTeam:['shao','wen','yan','tian'].map(entry),ownTeamRoles:{leader:'cao',advisor:'person-366'}});lockDeployment(state.battle);
  while(!state.battle.result&&state.battle.commandProgress<COMMAND_RESOURCE.capacity)stepBattle(state.battle);assert.equal(state.battle.result,null);
  const load=async()=>{await page.goto(`http://127.0.0.1:${port}`);await page.locator('[data-action="settings"]').first().click();await page.locator('#import-file').setInputFiles({name:'commands.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(state))});};
- await load();await page.locator('[data-action="choose-stratagem"]').click();assert.match(await page.locator('[data-command="cao-wuchao"]').innerText(),/号令如山.*魔免/s);assert.ok((await page.locator('[data-command="swift"]').innerText()).includes(stratagemEffectText(selectStratagemSource(state.battle.sides[0].commanders,'swift'))));await page.locator('[data-command="swift"]').click();
+ await load();await page.locator('[data-action="choose-stratagem"]').click();assert.match(await page.locator('[data-command="cao-wuchao"]').innerText(),/号令如山.*魔免/s);assert.ok((await page.locator('[data-command="swift"]').innerText()).includes(stratagemEffectSummary(selectStratagemSource(state.battle.sides[0].commanders,'swift'))));await page.locator('[data-command="swift"]').click();
  const choose=async u=>{const r=await page.locator('#battle-board').boundingBox();await page.mouse.click(r.x+(u.x+(u.y&1)*.5+.5)/14.5*r.width,r.y+(u.y*.75+.5)/6.25*r.height);};
  await choose({x:0,y:0});assert.ok(await page.locator('[data-area-action="confirm"]').isDisabled());
  const target=state.battle.sides[0].units.find(u=>u.status==='active');await choose(target);

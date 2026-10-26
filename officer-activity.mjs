@@ -7,12 +7,13 @@ import {constructionSiteAvailable} from './metropolitan-areas.mjs';
 import {activityNodeEntry,validateActivityNodes} from './activity-nodes.mjs';
 import {diplomaticAssignment} from './diplomacy-relations.mjs';
 import {DIPLOMACY_DIRECTIONS} from './data/design/diplomacy-rules.mjs';
+import {compactActivityState} from './activity-retention.mjs';
 
-export const ACTIVITY_VERSION=2;
+export const ACTIVITY_VERSION=3;
 export const domesticWorkplace=def=>!def?null:def.kind==='build'?def.value:['research','trial'].includes(def.kind)?'workshop':def.kind==='heal'?'clinic':def.kind==='recruit'?'barracks':def.kind==='repair'||def.kind==='prepare'&&def.value==='shield'?'walls':def.kind==='prepare'?'drill':def.kind==='rescue'&&def.value==='mold'||def.kind==='trade'&&def.value==='buy'?'granary':def.direction==='agriculture'?'farm':def.direction==='talent'?'hall':def.direction==='military'?'walls':'commerce';
 const clamp=n=>Math.max(0,Math.min(100,Math.floor(n)));
 
-// One read-only projection supplies the daily ledger and building occupants.
+// One read-only projection supplies current officer status and building occupants.
 export function officerActivities(s,{all=true}={}){
  const byId=new Map(),assignments=new Map((s.campaign.domestic?.assignments||[]).map(a=>[a.officerId,a]));
  const battles=new Map();for(const r of s.campaign.battles.filter(r=>!r.settled))for(const id of r.armyIds)battles.set(id,r);
@@ -67,20 +68,21 @@ export function officerActivities(s,{all=true}={}){
  return byId;
 }
 
-export function initializeOfficerActivities(s){s.campaign.activity={version:ACTIVITY_VERSION,records:{},nodes:[],nextSequence:1};recordOfficerActivities(s);}
+export function initializeOfficerActivities(s){s.campaign.activity={version:ACTIVITY_VERSION,records:{},nodes:[],meritTotals:{},compactedDay:0,nextSequence:1};recordOfficerActivities(s);}
 export function recordOfficerActivities(s,{all=true}={}){
  const ledger=s.campaign.activity;if(!ledger)return;
  const day=s.campaign.day;
  for(const [id,{id:unusedId,name:unusedName,...snapshot}] of officerActivities(s,{all})){
   const history=ledger.records[id]??=[],last=history.at(-1);
-  if(last&&JSON.stringify(last.snapshot)===JSON.stringify(snapshot)){if(last.toDay!==day)last.toDay=day;continue;}
-  history.push({fromDay:day,toDay:day,sequence:ledger.nextSequence++,snapshot});
+  if(last&&JSON.stringify(last.snapshot)===JSON.stringify(snapshot)){last.fromDay=day;last.toDay=day;continue;}
+  ledger.records[id]=[{fromDay:day,toDay:day,sequence:ledger.nextSequence++,snapshot}];
  }
+ compactActivityState(s);
 }
 
-// Expand saved intervals into individual days only for the requested UI page.
+// Civil details show one current state or the specifically requested pending fact.
 export function officerActivityDays(s,id,{beforeDay=s.campaign.day,limit=30}={}){
- const end=Math.min(s.campaign.day,Math.max(1,beforeDay)),start=Math.max(1,end-limit+1),history=s.campaign.activity?.records[id]||[],rows=[];
+ const end=Math.min(s.campaign.day,Math.max(1,beforeDay)),start=end,history=s.campaign.activity?.records[id]||[],rows=[];
  const nodes=(s.campaign.activity?.nodes||[]).filter(n=>n.officerIds.includes(id));
  for(let day=end;day>=start;day--){const actions=[...history.filter(r=>r.fromDay<=day&&r.toDay>=day).map(r=>({...r.snapshot,sequence:r.sequence})),...nodes.filter(n=>n.day===day).map(n=>activityNodeEntry(s,n))].sort((a,b)=>a.sequence-b.sequence);rows.push({day,actions});}
  const live=officerActivities(s).get(id);
@@ -89,13 +91,16 @@ export function officerActivityDays(s,id,{beforeDay=s.campaign.day,limit=30}={})
 }
 
 export function validateOfficerActivities(s){
- const ledger=s.campaign.activity,fail=x=>{if(!x)throw Error('武将每日行动记录无效');},int=n=>Number.isSafeInteger(n)&&n>=1&&n<=s.campaign.day;
- fail(ledger?.version===ACTIVITY_VERSION&&ledger.records&&typeof ledger.records==='object'&&!Array.isArray(ledger.records));
+ const ledger=s.campaign.activity,fail=(x,message='武将行动记录无效')=>{if(!x)throw Error(message);},int=n=>Number.isSafeInteger(n)&&n>=1&&n<=s.campaign.day;
+ fail(ledger?.version===ACTIVITY_VERSION&&ledger.records&&typeof ledger.records==='object'&&!Array.isArray(ledger.records),'当前动态存档版本不兼容，请重新开始');
+ fail(ledger.meritTotals&&typeof ledger.meritTotals==='object'&&!Array.isArray(ledger.meritTotals));
+ fail(Number.isSafeInteger(ledger.compactedDay)&&ledger.compactedDay>=1&&ledger.compactedDay<=s.campaign.day);
+ for(const [faction,people]of Object.entries(ledger.meritTotals)){fail(typeof faction==='string'&&people&&typeof people==='object'&&!Array.isArray(people));for(const [id,row]of Object.entries(people))fail(OFFICER_BY_ID[id]&&row&&Object.keys(row).sort().join(',')==='battle,domestic,other'&&Object.values(row).every(Number.isSafeInteger));}
  fail(Object.keys(ledger.records).length===Object.keys(OFFICER_BY_ID).length);
  const sequences=validateActivityNodes(s,fail);
  for(const [id,history] of Object.entries(ledger.records)){
-  fail(Object.hasOwn(OFFICER_BY_ID,id)&&Array.isArray(history)&&history.length>0);let last=null;
-  for(const r of history){const v=r.snapshot;fail(int(r.fromDay)&&int(r.toDay)&&r.toDay>=r.fromDay&&(!last?r.fromDay===1:r.fromDay>=last.toDay&&r.fromDay<=last.toDay+1));
+  fail(Object.hasOwn(OFFICER_BY_ID,id)&&Array.isArray(history)&&history.length===1);let last=null;
+  for(const r of history){const v=r.snapshot;fail(int(r.fromDay)&&int(r.toDay)&&r.toDay===r.fromDay);
    fail(Number.isSafeInteger(r.sequence)&&r.sequence>0&&r.sequence<ledger.nextSequence&&!sequences.has(r.sequence)&&(!last||r.sequence>last.sequence));sequences.add(r.sequence);
    fail(v&&['faction','code','place','action'].every(k=>typeof v[k]==='string'&&v[k].length<=200)&&typeof v.paused==='boolean'&&[v.siteId,v.fromId,v.toId].every(id=>id===null||!!mapNode(s,id))&&(v.buildingKey===null||!!BUILDINGS[v.buildingKey]));
    fail(v.progress===null||Number.isInteger(v.progress)&&v.progress>=0&&v.progress<=100);fail((v.fromId===null)===(v.toId===null)&&(v.progress===null)===(v.fromId===null));last=r;

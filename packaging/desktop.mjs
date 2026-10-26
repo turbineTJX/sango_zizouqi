@@ -2,6 +2,7 @@ import {app,BrowserWindow,protocol,Menu,screen,ipcMain,dialog} from 'electron';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve,join,extname,sep} from 'node:path';
 import {serveAssets} from '../asset-server.mjs';
+import {MAX_SAVE_BYTES} from '../save-storage.mjs';
 
 protocol.registerSchemesAsPrivileged([{scheme:'sango',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:true}}]);
 app.setName('三国 · 君临');
@@ -14,7 +15,7 @@ else{
  app.on('second-instance',()=>{if(window){if(window.isMinimized())window.restore();window.show();window.focus();}});
  app.whenReady().then(()=>{
   const code=join(__dirname,'code'),art=app.isPackaged?join(process.resourcesPath,'art'):join(__dirname,'art');
-  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.bin':'application/octet-stream','.webmanifest':'application/manifest+json'};
+  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.bin':'application/octet-stream','.webmanifest':'application/manifest+json'};
   protocol.handle('sango',async request=>{
    try{
     const url=new URL(request.url);if(url.hostname!=='game'||request.method!=='GET')return new Response('Forbidden',{status:403});
@@ -34,7 +35,7 @@ else{
   Menu.setApplicationMenu(null);
   ipcMain.handle('sango:export-save',async(event,payload)=>{
    if(!event.senderFrame?.url.startsWith('sango://game/')||typeof payload?.name!=='string'||typeof payload.data!=='string'||
-    !/^[^\\/:*?"<>|\x00-\x1f]+\.json$/.test(payload.name)||Buffer.byteLength(payload.data)>64*1024*1024)throw Error('Invalid save export');
+    !/^[^\\/:*?"<>|\x00-\x1f]+\.json$/.test(payload.name)||Buffer.byteLength(payload.data)>MAX_SAVE_BYTES)throw Error('Invalid save export');
    JSON.parse(payload.data);let path;
    if(process.env.SANGO_VERIFY==='1'){const out=join(app.getPath('userData'),'exports');await mkdir(out,{recursive:true});path=join(out,payload.name);}
    else{const result=await dialog.showSaveDialog(window,{title:'导出君临存档',defaultPath:join(app.getPath('documents'),payload.name),filters:[{name:'JSON 存档',extensions:['json']}]});if(result.canceled)return false;path=result.filePath;}

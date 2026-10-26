@@ -43,7 +43,7 @@ try{
  await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  await page.locator('.custom-battle').screenshot({path:output+'/editor-mobile.png',animations:'disabled'});
  await action('launch-custom').click();assert.match(await page.locator('.modal').innerText(),/我方总预备兵 8,000 人/);await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();
- const save=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));const initial=await save();validateSave(initial);assert.equal(initial.testScenario.customBattle.ownTroopBudget,8000);
+ const save=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));const initial=await save();validateSave(initial);assert.equal(initial.testScenario.customBattle.ownTroopBudget,8000);
  await page.reload();await page.locator('#battle-board').waitFor();validateSave(await save());assert.equal((await save()).testScenario.customBattle.ownTroopBudget,8000);
  assert.deepEqual(errors,[]);console.log('PASS shared finite pool, aptitude defaults, manual choices, bounded sliders, cancellation, reinforcement quota, launch validation, reload, desktop/mobile and battle saves');
 }catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}

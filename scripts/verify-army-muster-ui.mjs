@@ -1,3 +1,4 @@
+import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdirSync} from 'node:fs';
@@ -48,14 +49,14 @@ try{
  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-custom-draft-v46')));assert.equal(saved.ownTeam[0].troops,2345);validateCustomBattle(saved);
  // Ordinary city units use the same roster, draft isolation and final allocation.
  const campaign=newCampaign(33,'guandu-200'),city=campaign.cities.find(c=>c.id==='xuchang'),unit=city.units[0],save=serializeCampaign(campaign);
- await page.evaluate(save=>localStorage.setItem('sango-sovereign-v2',save),save);await page.goto('http://127.0.0.1:4223/#strategy');await page.reload();
- const cityBefore=await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),digest=value=>createHash('sha256').update(value).digest('hex');
+ await importSaveFixture(page,save);await page.goto('http://127.0.0.1:4223/#strategy');await page.reload();
+ const cityBefore=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),digest=value=>createHash('sha256').update(value).digest('hex');
  const openCity=async()=>{await page.locator('.faction-navigation [data-kind="city"]').click();await page.locator('.city-directory-item[data-id="xuchang"]').click();await page.locator('[data-action="map-quick-manage"][data-id="xuchang"]').click();await page.locator('.city-command-hub [data-task="draft"]').click();};
  await openCity();const cityNumber=()=>page.locator(`[data-command-troops="${unit.id}"]`);await cityNumber().fill('1000');await cityNumber().press('Enter');await settle();
  await page.locator(`[data-muster-unit="${unit.id}"] .unit-muster-name`).click();await page.locator('#modal-panel-root [data-action="close"]').first().click();assert.equal(await cityNumber().inputValue(),'1000');
- await page.locator('#modal-panel-root [data-action="close"]').first().click();assert.equal(digest(await page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'))),digest(cityBefore));
+ await page.locator('#modal-panel-root [data-action="close"]').first().click();assert.equal(digest(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'))),digest(cityBefore));
  await openCity();await cityNumber().fill('1000');await cityNumber().press('Enter');await settle();await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
- const result=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-sovereign-v2')));validateCampaign(result);assert.equal(result.cities.find(c=>c.id==='xuchang').units.find(u=>u.id===unit.id).troops,1000);
+ const result=await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));validateCampaign(result);assert.equal(result.cities.find(c=>c.id==='xuchang').units.find(u=>u.id===unit.id).troops,1000);
  assert.deepEqual(errors,[]);console.log('PASS army muster: manual counts, keyboard focus, sliders, bounds, details/scroll, isolated cancellation, confirmed custom/city allocation and desktop/mobile layout');
 }catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}
 finally{await browser?.close();server.kill();}

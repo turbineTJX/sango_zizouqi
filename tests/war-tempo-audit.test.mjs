@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {warTempoReport} from '../scripts/war-tempo-report.mjs';
+import {warTempoReport,observedJointParticipation} from '../scripts/war-tempo-report.mjs';
+
+test('actual joint participation requires two arrived living real armies on the same side',()=>{
+ const unit=(armyId,extra={})=>({armyId,hp:1000,status:'active',arrivalConfirmed:true,...extra});
+ const r={id:'b1',armyIds:['a1','a2','a3','a4','a5','a6','a7','city:x'],battle:{tick:20,sides:[{faction:'cao',units:[unit('a1'),unit('a1'),unit('a2',{status:'reserve'}),unit('a3',{arrivalConfirmed:false}),unit('a4',{arrivalTick:21}),unit('a5',{hp:0}),unit('a6',{withdrawing:true}),unit('a7',{retreatDispatched:true}),unit('city:x')]},{faction:'yuan',units:[unit('a3')]}]}};
+ assert.deepEqual(observedJointParticipation(r),[{battleId:'b1',side:0,faction:'cao',armyIds:['a1','a2']}]);
+ r.battle.sides[0].units.find(u=>u.armyId==='a2').status='withdrawn';assert.deepEqual(observedJointParticipation(r),[]);
+});
 
 test('natural war audit separates completed early, middle and late turns and army departures from battles',()=>{
  const operation=(day,id,refs,phase='attack')=>({day,id,phase,faction:'a',tasks:[{id:'assault',refs}]});

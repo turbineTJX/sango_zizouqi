@@ -6,20 +6,25 @@ import {randomBytes} from 'node:crypto';
 import {build as bundle} from 'esbuild';
 import {build as buildElectron,Platform,Arch} from 'electron-builder';
 import sharp from 'sharp';
-import {ROOT,buildCodeRelease,sha256} from './release-lib.mjs';
+import {ROOT,buildCodeRelease,sha256,packedDataPlugin} from './release-lib.mjs';
 import {buildArtArchive} from './build-art-pack.mjs';
 
 const target=process.argv[2]||'all';
 if(!['windows','android','all','prepare-android'].includes(target))throw Error('Usage: build-native.mjs windows | android | all | prepare-android [--code-only]');
 if(process.argv.includes('--with-art')&&process.argv.includes('--code-only'))throw Error('Choose --with-art or --code-only');
 const withArt=process.argv.includes('--with-art');
+const verifyAndroid=process.argv.includes('--verify-android');
 const exists=async path=>{try{await access(path);return true;}catch{return false;}};
 const packageInfo=JSON.parse(await readFile(join(ROOT,'package.json'),'utf8'));
 const release=join(ROOT,'dist','native-'+Date.now()),stage=join(ROOT,'.local','native-build-'+Date.now());
 await mkdir(stage,{recursive:true});await mkdir(release,{recursive:true});
-const code=join(release,'code'),{manifest}=await buildCodeRelease(code);
+const code=join(release,'code'),{manifest,pack}=await buildCodeRelease(code);
 if(withArt){const art=await buildArtArchive(join(release,'art','art.pack'));manifest.codeOnly=false;manifest.art={id:art.id,revision:art.revision,sha256:art.sha256,bytes:art.bytes};await writeFile(join(code,'release.json'),JSON.stringify(manifest,null,2)+'\n');}
 const webFiles=[...Object.keys(manifest.files),'release.json','sw.js','licenses'];
+if(verifyAndroid){
+ await bundle({stdin:{contents:"export {newCampaign,serializeCampaign,validateCampaign,advanceCampaignDay,activeBattles} from './strategic-campaign.mjs';export {officerActivityDays} from './officer-activity.mjs';",resolveDir:ROOT,loader:'js'},bundle:true,platform:'browser',format:'esm',target:'es2022',outfile:join(code,'verify-runtime.js'),plugins:[packedDataPlugin(pack)]});
+ webFiles.push('verify-runtime.js');
+}
 async function copyWeb(out){await mkdir(out,{recursive:true});for(const path of webFiles)await cp(join(code,path),join(out,path),{recursive:true});}
 const icon=await sharp(await readFile(join(ROOT,'icon.svg'))).resize(256,256).png().toBuffer();
 await writeFile(join(stage,'icon.png'),icon);
@@ -66,7 +71,8 @@ async function android(){
  const dependencies=Object.fromEntries(Object.entries(packageInfo.devDependencies).filter(([name])=>name.startsWith('@capacitor/')&&name!=='@capacitor/cli'));
  await writeFile(join(mobile,'package.json'),JSON.stringify({name:'sango-sovereign-android',version:packageInfo.version,private:true,dependencies},null,2));
  await writeFile(join(mobile,'capacitor.config.json'),JSON.stringify({appId:'com.sango.sovereign',appName:'三国 · 君临',webDir:'www',
-  server:{hostname:'localhost',androidScheme:'https'},android:{allowMixedContent:false,adjustMarginsForEdgeToEdge:'auto',minWebViewVersion:120,webContentsDebuggingEnabled:false}},null,2));
+  server:{hostname:'localhost',androidScheme:'https'},android:{allowMixedContent:false,minWebViewVersion:120,webContentsDebuggingEnabled:verifyAndroid},
+  plugins:{SystemBars:{insetsHandling:'native',initialViewportFitValueHint:'contain'}}},null,2));
  const cap=join(ROOT,'node_modules','@capacitor','cli','bin','capacitor');
  await run(process.execPath,[cap,'add','android'],{cwd:mobile});
  const project=join(mobile,'android');
@@ -124,9 +130,9 @@ async function android(){
  await writeFile(properties,'storeFile='+key.replaceAll('\\','/')+'\nstorePassword='+secret.password+'\nkeyAlias='+secret.alias+'\nkeyPassword='+secret.password+'\n',{mode:0o600});
  await writeFile(join(project,'app/build.gradle'),gradle+`\ndef signingProps = new Properties()\nsigningProps.load(new FileInputStream(rootProject.file('sango-signing.properties')))\nandroid { signingConfigs { playtest { storeFile file(signingProps['storeFile']); storePassword signingProps['storePassword']; keyAlias signingProps['keyAlias']; keyPassword signingProps['keyPassword'] } }; buildTypes { release { signingConfig signingConfigs.playtest } } }\n`);
  await run(process.env.ComSpec||'cmd.exe',['/d','/c','gradlew.bat','--no-daemon','assembleRelease'],{cwd:project,env:environment});
- const filename='sango-'+packageInfo.version+'-android.apk';await copyFile(join(project,'app/build/outputs/apk/release/app-release.apk'),join(release,filename));
+ const filename='sango-'+packageInfo.version+'-android'+(verifyAndroid?'-verification':'')+'.apk';await copyFile(join(project,'app/build/outputs/apk/release/app-release.apk'),join(release,filename));
  await run(process.env.ComSpec||'cmd.exe',['/d','/c',join(sdk,'build-tools','36.0.0','apksigner.bat'),'verify','--verbose',join(release,filename)],{env:environment});
- const bytes=await readFile(join(release,filename));artifacts.android={file:filename,bytes:bytes.length,sha256:sha256(bytes),minSdk:26,signed:true};
+ const bytes=await readFile(join(release,filename));artifacts.android={file:filename,bytes:bytes.length,sha256:sha256(bytes),minSdk:26,signed:true,verification:verifyAndroid};
 }
 
 if(target==='windows'||target==='all')await windows();

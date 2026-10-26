@@ -2,12 +2,18 @@ import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {resolve,dirname,relative,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {RULES_VERSION} from '../combat-rules.mjs';
+import {readRuntimeVersions} from './rule-source-contract.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const manifest=JSON.parse(readFileSync(join(root,'docs/current-docs.json'),'utf8'));
 const walk=dir=>readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(join(dir,e.name)):[join(dir,e.name)]);
 const actual=walk(join(root,'docs')).filter(p=>p.endsWith('.md')).map(p=>relative(root,p).replaceAll('\\','/'));
 const errors=[];
+const versions=readRuntimeVersions(root);
+if(JSON.stringify(manifest.runtimeVersions)!==JSON.stringify(versions))errors.push('运行时版本已变化，请复核文档并同步 current-docs.json 的 runtimeVersions。');
+const overview=readFileSync(join(root,'docs/当前版本验收与体验目标.md'),'utf8');
+const versionLine=`游戏规则${versions.rules}、AI结构${versions.ai}、战略结构${versions.strategy}、战略存档${versions.campaign}、内政结构${versions.domestic}`;
+if(!overview.slice(0,500).includes(versionLine))errors.push('验收总览的当前版本行与运行时不一致。');
 if(manifest.rulesVersion!==RULES_VERSION)errors.push('规则版本已变化，请复核文档并更新 docs/current-docs.json。');
 for(const p of actual)if(!manifest.files.includes(p))errors.push('未纳入当前文档清单：'+p+'；请确认不是旧报告重新生成。');
 for(const p of manifest.files)if(!existsSync(join(root,p)))errors.push('文档清单引用不存在文件：'+p);
@@ -16,6 +22,7 @@ const stale=[/历史(?:实现|资料|说明|设计|验证记录|版本)[:：]/,/
 const files=[...actual,'README.md','技能设计表.md','AGENTS.md'];
 for(const p of files){
  const text=readFileSync(join(root,p),'utf8');
+ if(['README.md','AGENTS.md'].includes(p))for(const m of text.matchAll(/当前(?:战斗)?规则(?:版本)?(?:为)?\s*(\d+)/g))if(Number(m[1])!==RULES_VERSION)errors.push('当前规则版本标注失效：'+p+' '+m[0]);
  for(const pattern of stale)if(pattern.test(text))errors.push('发现失效条文：'+p+' '+pattern);
  for(const m of text.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)){
   let target=m[1].split('#')[0];

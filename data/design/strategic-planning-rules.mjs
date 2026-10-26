@@ -1,13 +1,15 @@
 // Decision parameters only. All spending, movement and outcomes use shared rules.
 export const STRATEGIC_PLANNING_RULES=Object.freeze({
- version:10,traceLimit:12,candidateLimit:8,pairLimit:32,forceVariants:3,assemblyDays:10,
+ version:13,traceLimit:12,candidateLimit:8,pairLimit:32,forceVariants:3,assemblyDays:10,
  switchMargin:20,peacePressureRatio:.65,
  preparationTurns:2,preparationPenalty:12,uncertaintyPerDay:2,maximumUncertainty:20,
  peacePriority:35,defensePriority:100,resourcePriority:1.3,
  victory:Object.freeze({territoryValue:24,endgameValue:24,regionalValue:18,completionValue:24,eliminationValue:35,connectionValue:20,corridorValue:6,maxCorridors:3,focusValue:12,focusSwitchMargin:20,maxBonus:140,observedStockShare:.35,observedStockGoldPerPoint:100,maxObservedStockBonus:120}),
  opposition:Object.freeze({emergencyPowerPerMan:1.35,citySupportShare:.5,fieldSupportShare:.75,cityResponseDays:1,minimumBattleDays:4,maxBattleDays:8,neutralContestDays:2,staleMarginPerDay:.04,maxStaleMargin:.3,lossFactor:.6}),
  recovery:Object.freeze({horizonDays:20,maximumForecastDays:180,freshIntelligenceDays:3,maximumAdvantageRelief:.5,minimumAdvantage:1.2,bufferLosses:1,maximumCostRelief:2}),
- tempo:Object.freeze({earlyLastTurn:20,campaignLastTurn:60,campaignUnits:3,jointUnits:10,jointCities:4,jointFundedCities:2,maxOperations:2,columnUnits:6,campaignAssemblyDays:20,jointAssemblyDays:30,executionBufferDays:10,continuationMargin:.2,minimumContinuationAdvantage:1.1}),
+ tempo:Object.freeze({earlyLastTurn:20,campaignLastTurn:60,campaignUnits:3,jointUnits:10,jointCities:4,jointFundedCities:2,maxOperations:2,columnUnits:6,campaignAssemblyDays:20,jointAssemblyDays:30,executionBufferDays:10,repairTurns:2,contactWindowDays:2,continuationMargin:.2,minimumContinuationAdvantage:1.1}),
+ temperament:Object.freeze({baseChance:Object.freeze({1:.12,2:.18,3:.35,4:.65}),judgmentWeight:.2,politicsWeight:.1,quietAfterTurns:3,quietPerTurn:.025,maximumQuietBonus:.15,minimumChance:.05,maximumChance:.85,earlyFactor:.35,maximumLossShare:.55,
+  ratioRelief:Object.freeze({cautious:.2,balanced:.35,bold:.5}),minimumAdvantage:Object.freeze({cautious:1.15,balanced:1.05,bold:1}),valueTolerance:Object.freeze({cautious:10,balanced:24,bold:40})}),
  assessment:Object.freeze({horizonSteps:64,powerScale:100,reserveShare:.7,maxSustain:.3,maxControl:.25,
   damageEffects:Object.freeze({cleave:1.9,riposte:1.1,blight:.9,bombard:2.1,tremor:.75,broadside:1.6,undertow:1,plague:1.5,navalRam:1.7,ram:1.1,ambush:1,scatter:1.8,strike:1.3,thrust:1.1,rush:1.5,terror:1.5,repeat:1.9,retreatShot:.9,wildfire:1.5}),
   healingEffects:Object.freeze({bandage:.06,purify:.05,regrowth:.11,boarding:.1,screen:.05}),

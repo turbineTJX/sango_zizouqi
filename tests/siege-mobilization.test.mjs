@@ -10,6 +10,7 @@ import {currentDomesticWork} from '../strategic-orders.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
 import {trainingCost} from '../troop-training.mjs';
 import {syncResourceTotals} from '../city-resources.mjs';
+import {cityCaptureResources} from '../city-resources.mjs';
 import {dispatchScout,scoutTargets} from '../scouting.mjs';
 import {fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
 import {newCommand,commandMarkup,changeCommandUnit,removeCommandUnit,prepareCommandFormation} from '../strategic-command.mjs';
@@ -92,8 +93,9 @@ test('a newly selected resident can change troop count before confirming its ini
 });
 
 test('player may relinquish an unmustered city without a ghost battle, casualties or merit',()=>{
- const {s,c,a}=siegeMobilizationFixture({allAI:false});advanceCampaignStep(s);const r=pending(s),gold=c.gold,men=c.manpower,grain=c.grain;
- assert.equal(relinquishSiegeDefense(s,r.id),null);assert.equal(c.owner,a.faction);assert.equal(c.gold,gold);assert.equal(c.manpower,men);assert.equal(c.grain,grain);
+ const {s,c,a}=siegeMobilizationFixture({allAI:false});advanceCampaignStep(s);const r=pending(s),receipt=cityCaptureResources(c);
+ assert.equal(relinquishSiegeDefense(s,r.id),null);assert.equal(c.owner,a.faction);assert.equal(c.gold,receipt.retained.gold);assert.equal(c.manpower,receipt.retained.manpower);assert.equal(c.grain,receipt.retained.grain);
+ assert.deepEqual(s.campaign.activity.nodes.find(n=>n.category==='occupation'&&n.cityId===c.id&&n.phase==='captured').result.resources,receipt);
  assert.equal(activeBattles(s).length,0);assert.equal(s.campaign.archive.length,0);assert.equal(a.location,c.id);assert.equal(a.task,'驻守');
  assert.equal(s.armies.some(x=>x.defense),false);assert.ok(relinquishSiegeDefense(s,r.id));reload(s);
 });

@@ -12,6 +12,17 @@ import {setStatus} from '../tactics.mjs';
 import {allLearnedTacticIds} from '../tactic-learning.mjs';
 import {equipmentEntry} from './helpers/current-battle.mjs';
 import {buildingCombatState} from '../building-rules.mjs';
+import {TROOP_DESIGNS} from '../data/design/troops.mjs';
+
+test('land troops have native detail without a local pack and explicit models retain priority',()=>{
+ for(const [type,definition]of Object.entries(TROOP_DESIGNS)){
+  if(!['spear','halberd','cavalry','archer'].includes(definition.family))continue;
+  const own=Object.freeze({type,side:0}),enemy=Object.freeze({type,side:1});
+  assert.equal(unitModelKey({models:{}},own),`builtin:troop:${type}:0`);
+  assert.equal(unitModelKey({models:{}},enemy),`builtin:troop:${type}:1`);
+  assert.equal(unitModelKey({models:{[type]:{format:'glb'}}},own),type);
+ }
+});
 
 test('native models distinguish covered ram, throwing arm and tall siege tower',()=>{
  const models=['ram','siege','tower'].map(createSiegeModel),sizes=models.map(m=>new Box3().setFromObject(m).getSize(new Vector3()));
@@ -38,6 +49,6 @@ for(const type of ['ram','siege','tower'])test(`${type}: real deployment, shooti
   const copy=validateSave(structuredClone(state));
   for(let i=0;i<12&&tower.hp===1000;i++){stepBattle(b,{aiSides:[]});stepBattle(copy.battle,{aiSides:[]});assert.deepEqual(copy.battle,b);}assert.ok(tower.hp<1000);
   tower.hp=0;setStatus(b,foe,'stasis',100,{sourceId:foe.id,sourceName:foe.name});stepBattle(b,{aiSides:[]});visual.update(b,{paused:true,speed:1});
-  assert.equal(u.formType,null);assert.equal(siegeFigureMarkup(u),'');assert.equal(visual.units.get(u.id).type,u.type);assert.equal(unitModelKey({models:{}},visual.units.get(u.id)),null);validateSave(state);
+  assert.equal(u.formType,null);assert.equal(siegeFigureMarkup(u),'');assert.equal(visual.units.get(u.id).type,u.type);assert.equal(unitModelKey({models:{}},visual.units.get(u.id)),`builtin:troop:${u.type}:0`);validateSave(state);
  }finally{art.enabled=previous;}
 });

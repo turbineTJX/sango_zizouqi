@@ -9,7 +9,7 @@ import {OFFICER_MASTER_RECORDS,OFFICER_MASTER_COLUMNS,OFFICER_TRAIT_SLOTS} from 
 import {skillRoute,PASSIVES} from '../passives.mjs';
 
 test('officer exports include every assigned trait and its domain without a five-trait limit',()=>{
- const labels={battle:'战斗',command:'指挥',domestic:'内政',movement:'行旅',diplomacy:'外交'};
+ const labels={battle:'战斗',command:'指挥',domestic:'内政',movement:'行旅',diplomacy:'外交',personnel:'人事'};
  const max=Math.max(...OFFICER_CATALOG.map(u=>skillRoute(u).length));assert.equal(OFFICER_TRAIT_SLOTS,max);assert.ok(max>5);
  const fields=new Set(GAME_COLUMNS.map(c=>c.key)),masterFields=new Set(OFFICER_MASTER_COLUMNS.map(c=>c.key));
  for(const u of OFFICER_CATALOG){

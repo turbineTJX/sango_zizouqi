@@ -2,7 +2,8 @@ import {gateDurability} from '../building-durability.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,dailySupply,supplyConnection,settleCityEconomy,serializeCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,dailyConsumption,roadLength} from './helpers/auto-domestic-campaign.mjs';
-import {initializeStrategicAI,manageStrategicEconomy,planStrategicAI,strategicCityBudget} from '../strategic-ai.mjs';
+import {initializeStrategicAI,manageStrategicEconomy,planStrategicAI,strategicCityBudget,factionStrategicProfile} from '../strategic-ai.mjs';
+import {drawFactionTemperament} from '../strategic-temperament.mjs';
 import {cityBudget,cityGoldCommitment} from '../city-budget.mjs';
 import {forecastArmySupply,cityDailyFood} from '../city-logistics.mjs';
 import {cityForce} from '../city-units.mjs';
@@ -24,7 +25,7 @@ function scene(){
  for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:7.5};
  source.units=[{...makeOfficer('shao',1000,0,3),homeCity:source.id}];
  initializeVision(s);initializeStrategicAI(s);
- for(const p of Object.values(s.campaign.ai.factions))p.lastReviewTurn=s.turn;
+ for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),Math.max(0,s.turn-1));p.lastReviewTurn=s.turn;}
  for(const p of Object.values(s.campaign.diplomacy.policies))p.feeBudget=0;
  return {s,source,rear,front,player};
 }
@@ -138,7 +139,7 @@ test('a quiet AI city operates for twelve real economic cycles without exhaustin
   s.campaign.day=day;s.turn=Math.floor((day-1)/10)+1;
   // Isolate peaceful economic operation, while using real work, fees, drafts,
   // daily consumption and settlement. No stock top-ups or prescribed outcomes.
-  for(const p of Object.values(s.campaign.ai.factions))p.lastReviewTurn=s.turn;
+  for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),Math.max(0,s.turn-1));p.lastReviewTurn=s.turn;}
   if((day-1)%10===0){manageStrategicEconomy(s);beginDomesticTurn(s);}
   planStrategicAI(s);dailySupply(s);finishDomesticDay(s);
   if(day%10===0)settleCityEconomy(s,source);

@@ -57,7 +57,7 @@ test('domestic appointment exposes six simple directions and keeps commerce and 
  const html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
  for(const [id,name,stat] of [['commerce','商业','政治'],['agriculture','农业','政治'],['military','军务','统率'],['martial','武备','武力'],['technology','技术','智力'],['talent','人才','魅力']]){
   assert.equal((html.match(new RegExp('data-direction="'+id+'"','g'))||[]).length,1);
-  assert.ok(html.includes('<b>'+name+'</b><small>'+stat+'＋适用特性</small>'));
+  assert.match(html,new RegExp('<b>'+name+' · \\d+ / \\d+ 人</b><small>'+stat+'＋适用特性</small>'));
  }
  assert.doesNotMatch(html,/当前重点|参考需求|成功把握|请选择具体事务/);
 });

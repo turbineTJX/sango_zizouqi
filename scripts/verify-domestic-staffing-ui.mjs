@@ -1,0 +1,52 @@
+import {spawn} from 'node:child_process';
+import {createRequire} from 'node:module';
+import {mkdir,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {newCampaign,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
+import {assignDomestic} from '../domestic.mjs';
+import {cityPersonnel} from '../city-personnel.mjs';
+import {expandDomesticStaffing} from '../domestic-staffing.mjs';
+import {setBuildingLevel} from '../tests/building-fixtures.mjs';
+import {PAGE_GUIDE_STORAGE_KEY} from '../page-guides.mjs';
+import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
+
+const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
+const port='4337',out='outputs/domestic-staffing-ui',errors=[];
+const s=newCampaign(7,'heroes-251'),c=s.cities.find(c=>c.id==='xuchang'),ids=cityPersonnel(s,c.id).map(o=>o.unit.id);
+for(const id of ids.slice(0,2))assert.equal(assignDomestic(s,c.id,'commerce',id),null);
+validateCampaign(JSON.parse(serializeCampaign(s)));
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
+let browser,page;
+try{
+ await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',code=>no(Error('server '+code)));});
+ await mkdir(out,{recursive:true});browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
+ page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(({raw,key})=>{if(!localStorage.getItem('staffing-fixture')){localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('staffing-fixture','1');}localStorage.setItem(key,JSON.stringify({version:1,enabled:false,seen:[]}));},{raw:serializeCampaign(s),key:PAGE_GUIDE_STORAGE_KEY});
+ await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();
+ const openCity=async()=>{if(!await page.locator('#national-city-search').isVisible())await page.locator('[data-map-view="settlements"]').click();await page.locator('#national-city-search').selectOption(c.id);await page.locator('.city-command-menu [data-action="city-domestic"]').click();await page.locator('.domestic-workbench').waitFor();};
+ const saved=()=>page.evaluate(async()=>JSON.parse(await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
+ const commerce=()=>page.locator('.domestic-workbench .domestic-direction[data-direction="commerce"]');
+ await openCity();assert.match(await commerce().locator('.duty-badge').innerText(),/2 \/ 3 人/);
+ await commerce().locator('[data-action="campaign-pick"]').click();await page.locator(`[data-personnel-choice="${ids[2]}"]`).check();
+ assert.match(await page.locator('.task-personnel-heading').innerText(),/已选 1 \/ 1 人/);
+ assert.equal(await page.locator('[data-personnel-choice]:enabled:not(:checked)').count(),0);
+ await page.locator('[data-action="campaign-pick-confirm"]').click();await page.locator('.domestic-workbench').waitFor();
+ assert.match(await commerce().locator('.duty-badge').innerText(),/3 \/ 3 人/);assert.equal(await commerce().locator('[data-action="campaign-pick"]').isDisabled(),true);
+ await commerce().scrollIntoViewIfNeeded();await page.screenshot({path:out+'/full-desktop.png'});
+ for(const width of [390,320]){await page.setViewportSize({width,height:844});await commerce().scrollIntoViewIfNeeded();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);}
+ await page.screenshot({path:out+'/full-mobile.png'});
+ await commerce().locator('[data-action="domestic-dismiss"]').first().click();await page.locator('.domestic-workbench').waitFor();
+ assert.match(await commerce().locator('.duty-badge').innerText(),/2 \/ 3 人/);assert.equal(await commerce().locator('[data-action="campaign-pick"]').isDisabled(),false);
+ const snapshot=await saved();validateCampaign(snapshot);assert.equal(snapshot.campaign.day,1);
+ await page.reload();await page.locator('.national-world').waitFor();await openCity();assert.match(await commerce().locator('.duty-badge').innerText(),/2 \/ 3 人/);
+ const developed=newCampaign(7,'heroes-251'),city=developed.cities.find(x=>x.id==='xuchang');
+ for(const key of ['workshop','hall','drill','clinic'])setBuildingLevel(city,key,5);
+ city.domestic.techs=['taxation','cultivation','militaryRegistry','efficientConstruction','militarySupply','militaryHouseholds','siegeEngineering','baier','tigerCavalry'];expandDomesticStaffing(city);
+ validateCampaign(JSON.parse(serializeCampaign(developed)));
+ await importSaveFixture(page,serializeCampaign(developed));await openCity();
+ assert.match(await page.locator('[data-domestic-capacity]').innerText(),/每方向上限 10 人/);assert.equal(await page.locator('.domestic-workbench .domestic-direction .duty-badge').filter({hasText:'0 / 10 人'}).count(),6);
+ await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:out+'/expanded-desktop.png'});
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/expanded-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);
+ assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,openingLimit:3,expandedLimit:10,checks:['remaining selection','full direction disabled','dismiss releases slot','reload','expansion','320/390 mobile'],errors},null,2));
+ console.log('Domestic staffing UI passed: 3/10 slots, selection limit, full/dismiss, reload and desktop/mobile.');
+}catch(error){if(page)await page.screenshot({path:out+'/failure.png'});console.error(errors);throw error;}finally{await browser?.close();server.kill();}

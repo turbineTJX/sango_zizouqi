@@ -1,5 +1,5 @@
 import {atlasPoint,ATLAS_COAST,ATLAS_FRONTIER,ATLAS_HIGHLANDS,ATLAS_PROVINCES} from './data/design/ancient-atlas.mjs';
-// One aspect-preserving projection for terrain, cities, roads and radar.
+// One aspect-preserving projection for terrain, cities and roads.
 // River courses are traced/adapted from the supplied scan, not historical GIS.
 const points=ps=>ps.map(atlasPoint);
 export const polygonPath=ps=>'M'+ps.map(p=>p.join(' ')).join('L')+'Z';

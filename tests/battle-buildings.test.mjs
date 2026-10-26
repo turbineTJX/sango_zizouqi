@@ -150,3 +150,10 @@ test('real sieges load and save the new original-site facilities and continue de
  const copy=restore(s),other=copy.campaign.battles.find(x=>x.id===r.id);for(let i=0;i<12;i++){advanceCampaignStep(s);advanceCampaignStep(copy);}assert.deepEqual(r.battle,other.battle);restore(s);
  const tower=r.battle.buildings.find(a=>a.kind==='arrowTower');tower.hp=0;writeBattleBuildingDamage(s,r.battle);assert.equal(buildingDurability(c,'arrowTower').hp,0);assert.equal(campaignBattleBuildings(s,c.id,1).find(a=>a.kind==='arrowTower').hp,0);
 });
+
+test('current facility saves reject invalid identity, side, durability, future damage and occupied cells',()=>{
+ const {s,b,own}=scene('arrowTower');validateSave(structuredClone(s));
+ for(const mutate of [a=>a.hp=a.maxHp+1,a=>a.side=2,a=>a.type='halberd',a=>a.kind='',a=>a.lastDamagedTick=b.tick+1,a=>{a.x=own.x;a.y=own.y;}]){
+  const bad=structuredClone(s);mutate(bad.battle.buildings[0]);assert.throws(()=>validateSave(bad));
+ }
+});

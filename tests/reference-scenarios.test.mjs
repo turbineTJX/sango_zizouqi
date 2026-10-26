@@ -10,7 +10,7 @@ const added=NATIONAL_SCENARIOS.filter(s=>s.rosterDistribution==='reference');
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 for(const spec of added){
  test(`${spec.name}: every selectable ruler owns a city and keeps unique real officers in their declared homes`,()=>{
-  const w=nationalWorld(spec.id),roster=nationalRoster(spec.id,w.cities);assert.equal(w.cities.length,76);assert.equal(w.junctions.length,70);assert.equal(w.roads.length,280);
+  const w=nationalWorld(spec.id),roster=nationalRoster(spec.id,w.cities);assert.equal(w.cities.length,76);assert.equal(w.junctions.length,71);assert.equal(w.roads.length,283);
   assert.equal(new Set(roster.map(r=>r.id)).size,roster.length);
   const s=newCampaign(217,spec.id),actual=[...s.cities.flatMap(c=>c.units.map(u=>({id:u.id,faction:c.owner,cityId:c.id}))),...s.campaign.idle.map(o=>({id:o.unit.id,faction:o.faction,cityId:o.location}))];
   assert.deepEqual(actual.sort((a,b)=>a.id.localeCompare(b.id)),[...roster].sort((a,b)=>a.id.localeCompare(b.id)));

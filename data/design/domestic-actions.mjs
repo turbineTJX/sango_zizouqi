@@ -1,4 +1,5 @@
 // Authoritative design data. Edit here; no generated overview edits.
+export const DOMESTIC_STAFFING_RULES=Object.freeze({base:3,maximum:10,initialBuildingLevels:5,buildingLevelsPerSlot:5,constructionBonusMaximum:4,technologiesPerSlot:3,technologyBonusMaximum:3});
 export const DOMESTIC_OUTCOME_RULES=Object.freeze({baseChance:.48,abilityFactor:.004,minChance:.12,maxChance:.94,criticalShare:.15,partialChance:.15,partialCeiling:.98,partialFactor:.45,criticalFactor:1.2});
 export const DOMESTIC_DIRECTIONS = {
   "commerce": "商业",

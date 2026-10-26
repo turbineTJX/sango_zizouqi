@@ -1,3 +1,4 @@
+import {ensureWatchtowerPosition,watchtowerPositionValid} from './regional-watchtower.mjs';
 import {recordTreasureWork} from './treasures.mjs';
 import {buildingDurability,gateDurability,initializeBuildingDurability,buildingWorkQuote,buildingWorkMode,beginBuildingWork,restoreBuilding,transferBuildingDurability,validateBuildingDurability,completeTechnologyBuilding} from './building-durability.mjs';
 import {cityGoldCommitment} from './city-budget.mjs';
@@ -33,11 +34,12 @@ import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {domesticEffects} from './passives.mjs';
 import {relationshipInfo} from './relationships.mjs';
-import {cityReserve,addCityGold,isLord,reassuranceCap,talentEligibility,talentKey,refreshTalentDemand} from './talent-core.mjs';
+import {cityReserve,addCityGold,isLord,reassuranceCap,talentEligibility,talentKey,refreshTalentDemand,persuasionTargets} from './talent-core.mjs';
 import {initializeTalent,unknownTalent,discoverTalent,talentCandidates,startTalentProject,completeTalentProject,finishTalentDay,resolveTalentOffers,prepareEnemyDomestic,refreshTalentProjects,validateTalent} from './talent-lifecycle.mjs';
 import {domesticAbility,cooperationProfile,growCooperationRelationship} from './domestic-cooperation.mjs';
 
 import {DIRECTIONS,BUILDINGS,ACTIONS} from './domestic-designs.mjs';
+import {domesticAssignmentError,expandDomesticStaffing,validDomesticStaffingExpansion,domesticStaffingLimit} from './domestic-staffing.mjs';
 import {DOMESTIC_OUTCOME_RULES as OUTCOMES} from './data/design/domestic-actions.mjs';
 export {DIRECTIONS,BUILDINGS,ACTIONS};
 export const actionName=(c,key)=>ACTIONS[key].kind==='build'?(c.project?.key===ACTIONS[key].value&&c.project.mode==='repair'?'修复':c[ACTIONS[key].value]?'扩建':'新建')+BUILDINGS[ACTIONS[key].value].name:ACTIONS[key].name;
@@ -79,12 +81,12 @@ export function cityMilitary(s,c){
 }
 export function domesticRandom(s){const d=s.campaign.domestic;d.seed=(Math.imul(d.seed,1664525)+1013904223)>>>0;return d.seed/4294967296;}
 export function initializeDomestic(s){
- s.campaign.domestic={version:23,autoApprove:false,priorities:Object.fromEntries([...new Set(s.cities.map(c=>c.owner))].filter(f=>f!=='neutral').map(f=>[f,Object.keys(DIRECTIONS)])),seed:(s.seed^0x51a9c72d)>>>0,nextId:1,assignments:[],events:[],orders:[],workHistory:{},people:[],loyalty:{},cooperation:{},cooperationGrowth:{},lastOpportunityTurn:0,lastFinishedDay:0};
+ s.campaign.domestic={version:25,autoApprove:false,priorities:Object.fromEntries([...new Set(s.cities.map(c=>c.owner))].filter(f=>f!=='neutral').map(f=>[f,Object.keys(DIRECTIONS)])),seed:(s.seed^0x51a9c72d)>>>0,nextId:1,assignments:[],events:[],orders:[],workHistory:{},people:[],loyalty:{},cooperation:{},cooperationGrowth:{},lastOpportunityTurn:0,lastFinishedDay:0};
  initializeDomesticIncidents(s);
  const occupied=new Set([...preparedUnits(s).map(u=>u.id),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)]);
  for(const c of s.cities){
   Object.assign(c,{workshop:0,clinic:0,drill:0,hall:0,arrowTower:0,musicStage:0,aidCamp:0});
-  c.domestic={owner:c.owner,techs:[],research:null,effects:[],opportunities:[],reserved:0,cooldowns:{},preparation:{intent:null,shield:null}};
+  c.domestic={owner:c.owner,techs:[],research:null,watchtowerPosition:null,staffingExpansion:{construction:0,technology:0},effects:[],opportunities:[],reserved:0,cooldowns:{},preparation:{intent:null,shield:null}};
   c.domestic.buildingSites=Object.fromEntries(Object.keys(BUILDINGS).map(key=>[key,[]]));
   c.domestic.production={turn:1,gold:0,grain:0,manpower:0};
   initializeBuildingDurability(c);
@@ -108,13 +110,15 @@ const accessible=(s,c)=>!besieged(s,c.id)&&cityRoads(s).some(([a,b])=>{const n=a
 const tradeAccessible=(s,c,def)=>def.value==='sell'?!besieged(s,c.id):accessible(s,c);
 const grainReserve=(s,c)=>Math.max(c.budget.grainReserve,assignedTrait(s,c,'reserveGrain','agriculture')?cityFoodReserve(s,c,20):0,1500,plannedGrain(s,c.id)+cityFoodReserve(s,c,ECONOMY_RULES.ai.foodReserveDays),Math.ceil(([...s.cities.filter(x=>x.owner===c.owner).flatMap(x=>x.units),...s.armies.filter(a=>a.faction===c.owner).flatMap(a=>a.units)].reduce((n,u)=>n+u.troops/100+u.wounded/200,0))*10));
 function stats(s,c){const units=[...c.units,...localArmies(s,c).flatMap(a=>a.units)];return {units,need:units.filter(u=>canRefill(c,u)).reduce((n,u)=>n+Math.max(0,troopCapacity(u)-u.troops-u.wounded),0),wounded:units.reduce((n,u)=>n+u.wounded,0)};}
-function foreignTargets(s,c){return s.campaign.idle.filter(o=>o.faction!==c.owner&&o.faction!=='neutral'&&!o.destination&&!o.retreating&&near(s,c,o.location)&&!s.cities.some(t=>t.governor===o.unit.id));}
+function foreignTargets(s,c){return persuasionTargets(s,c.owner).filter(o=>near(s,c,o.location)&&!s.cities.some(t=>t.id===o.location&&t.governor===o.unit.id));}
 function ownTargets(s,c){return [...c.units,...s.campaign.idle.filter(o=>o.faction===c.owner&&o.location===c.id&&!o.destination&&!o.retreating).map(o=>o.unit),...localArmies(s,c).flatMap(a=>a.units)];}
 export function actionChance(s,c,u,def,target=null,{traits=true}={}){
  const ability=domesticAbility(u,def),work=traits?workProfile(workTraitIds(u),def,typeof target==='string'?target:null):{};
  let p=OUTCOMES.baseChance+ability*OUTCOMES.abilityFactor+(traits?taskTraitBonus(u,def,'chance'):0)+workChance(work,def)-(def.risk||0)+(def.kind==='trial'?c.workshop*.035:0)+(['explore','hire'].includes(def.kind)?c.hall*.025:0);
 
- if(def.kind==='persuade')p-=((s.campaign.domestic.loyalty[target?.unit.id]??85)/100)*.25;
+ // Loyalty is private. The shared invitation preview uses the same conservative
+ // prior on both sides; real acceptance is checked after the actual journey.
+ if(def.kind==='persuade')p-=.85*.25;
  if(['hire','persuade','reassure'].includes(def.kind)&&target){const id=target.unit?.id||target.id;if(id!==u.id&&!(def.kind==='hire'&&isLord(s,u.id,c.owner)))p+=(relationshipInfo(u.id,id,s.relationshipScores,s.relationshipTypes).score-50)*.003;}
  return Math.max(OUTCOMES.minChance,Math.min(OUTCOMES.maxChance,p));
 }
@@ -123,8 +127,19 @@ const pendingActions=(s,except=null)=>s.campaign.domestic.assignments.filter(a=>
 const targetBusy=(s,id)=>pendingActions(s).some(a=>a.action.targetId===id&&['hire','persuade','reassure'].includes(ACTIONS[a.action.key].kind));
 function technologyPriority(s,c,id){const t=TECHS[id];let score=t.tier===1?60:45;if(t.income.gold)score+=c.gold<3000?25:10;if(t.income.grain)score+=c.grain<cityFoodReserve(s,c,20)?35:15;if(t.income.manpower)score+=c.manpower<reserveRecruitmentTarget(s,c)?25:10;if(t.troopId&&c.units.some(u=>TROOPS[u.type].family===TROOPS[t.troopId].family))score+=20;if(t.militaryDiscount)score+=c.units.length*3;if(Object.values(BUILDINGS).some(b=>b.technology===id)&&observedHostileArmies(s,c.owner).some(a=>near(s,c,a.travel?.to||a.location)))score+=20;return score;}
 const reservedForUnit=(s,c,id)=>pendingActions(s).filter(a=>a.cityId===c.id&&ACTIONS[a.action.key].kind==='recruit').reduce((sum,a)=>sum+(a.action.recipients.find(r=>r.id===id)?.amount||0),0);
+let candidateQueryScope=null;
+export function withDomesticCandidateQueries(evaluate){
+ if(candidateQueryScope)return evaluate();candidateQueryScope=new WeakMap();
+ try{return evaluate();}finally{candidateQueryScope=null;}
+}
 export function actionCandidates(s,assignment,options={}){
- return withCitySupplyQueries(s,()=>domesticActionCandidates(s,assignment,options));
+ if(!candidateQueryScope)return withCitySupplyQueries(s,()=>domesticActionCandidates(s,assignment,options));
+ let cache=candidateQueryScope.get(s);if(!cache){cache={actual:new Set(s.campaign.domestic.assignments),values:new Map()};candidateQueryScope.set(s,cache);}
+ // Real assignments exclude their own pending action by identity. A synthetic
+ // candidate with the same fields must not inherit that exclusion.
+ const key=JSON.stringify([assignment,options,cache.actual.has(assignment)]);
+ if(!cache.values.has(key))cache.values.set(key,withCitySupplyQueries(s,()=>domesticActionCandidates(s,assignment,options)));
+ return cache.values.get(key).map(pick=>({...pick}));
 }
 function domesticWorkBudget(s,c,assignment,{ignoreFunds=false}={}){
  if(ignoreFunds)return {gold:Infinity,grain:Infinity,manpower:Infinity};
@@ -281,6 +296,8 @@ export function assignDomestic(s,cityId,direction,officerId,{scheduled=false,fac
  const o=residentOfficer(s,officerId);if(!o||o.location!==cityId||o.faction!==c.owner)return '请选择仍在本城的武将';
  if(o.unit.scouting)return '该武将正在负责侦察，请先停止侦察';
  const existing=assignmentFor(s,officerId);if(existing?.cityId===cityId&&existing.direction===direction)return null;
+ const capacityError=domesticAssignmentError(s,cityId,direction,[officerId]);if(capacityError)return capacityError;
+ expandDomesticStaffing(c);
  cancelDomestic(s,officerId);
  if(s.campaign.diplomacy)s.campaign.diplomacy.assignments=s.campaign.diplomacy.assignments.filter(a=>a.officerId!==officerId);
  const a={id:s.campaign.domestic.nextId++,cityId,direction,officerId,action:null,proposal:null,lastTurn:0,lastKey:null,failures:0,waiting:'下一旬执行时自主选择事务'};
@@ -343,6 +360,7 @@ function start(s,a,c,pick,{approved=false,siteId:approvedSite=null}={}){
  }
  if(def.kind==='heal')action.recipients=stats(s,c).units.filter(u=>u.wounded).map(u=>({id:u.id,amount:u.wounded}));
  if(def.kind==='research'){
+  if(pick.targetId==='watchtower'&&s.campaign.scenarioId&&!ensureWatchtowerPosition(s,c,()=>domesticRandom(s))){a.waiting='所属区域暂无可用的瞭望塔工地';return;}
   if(!c.domestic.research)c.domestic.research={type:pick.targetId,progress:0,spent:pick.cost,workedDays:0};
   action.researchRoll=domesticRandom(s);action.researchActual=0;
  }
@@ -439,7 +457,7 @@ function complete(s,a,c){
  let result=factor>=1?'成功':factor>0?'部分达成':'失败',details='',actual=0,refund=0,saleFee=0,reward=null;
  if(!valid){details=['hire','persuade'].includes(def.kind)?completeTalentProject(s,a,c,0).details:'目标或执行条件已失效，没有新增成果';if(def.kind==='research'&&c.domestic.research?.type===x.targetId){actual=x.researchActual;details=`研究目标或机会已失效，本轮停止；累计已完成${Number(c.domestic.research.progress.toFixed(2))}%，保留实际进度与已付费用，下轮接续不重复收费`;}if(def.kind==='recruit'){release(s,c,x);if(x.recruitMode==='replenish')refund=x.cost-x.baseCost;}else if(x.key==='buy')refund=Math.max(0,x.cost-def.cost+300);addCityGold(s,c,refund);}
  else switch(def.kind){
-  case 'build':if(factor>=1){const before=cityBaseIncome(s,c),level=localBuildingLevel(c,def.value,x.siteId),mode=c.project.mode,beforeHp=c.project.startedHp;restoreBuilding(c,def.value,x.siteId,1);creditWorkMerit(s,a,c,c.project,buildingDurability(c,def.value,x.siteId).hp-c.project.meritOriginHp);if(mode==='build'){c[def.value]++;if(x.siteId!==c.id)c.domestic.buildingSites[def.value].push(x.siteId);}c.project=null;const after=cityBaseIncome(s,c);reward={kind:'building',mode,beforeHp,afterHp:buildingDurability(c,def.value,x.siteId).hp,maxHp:buildingDurability(c,def.value,x.siteId).maxHp,buildingKey:def.value,siteId:x.siteId,beforeLevel:level,afterLevel:localBuildingLevel(c,def.value,x.siteId),incomeDelta:Object.fromEntries(['gold','grain','manpower'].map(k=>[k,after[k]-before[k]]))};refund=Math.floor(x.cost*(factor>1?(work.criticalRefund??.15):(work.completionRefund||0)));if(refund)addCityGold(s,c,refund);details=`${buildingSiteName(s,x.siteId)}的${BUILDINGS[def.value].name}${mode==='repair'?'已修复':'已建成'}，${c.name}设施合计${c[def.value]}级，实际花费${x.cost-refund}金${refund?'，节省'+refund+'金':''}`;}
+  case 'build':if(factor>=1){const before=cityBaseIncome(s,c),level=localBuildingLevel(c,def.value,x.siteId),mode=c.project.mode,beforeHp=c.project.startedHp;restoreBuilding(c,def.value,x.siteId,1);creditWorkMerit(s,a,c,c.project,buildingDurability(c,def.value,x.siteId).hp-c.project.meritOriginHp);if(mode==='build'){c[def.value]++;if(x.siteId!==c.id)c.domestic.buildingSites[def.value].push(x.siteId);}c.project=null;expandDomesticStaffing(c);const after=cityBaseIncome(s,c);reward={kind:'building',mode,beforeHp,afterHp:buildingDurability(c,def.value,x.siteId).hp,maxHp:buildingDurability(c,def.value,x.siteId).maxHp,buildingKey:def.value,siteId:x.siteId,beforeLevel:level,afterLevel:localBuildingLevel(c,def.value,x.siteId),incomeDelta:Object.fromEntries(['gold','grain','manpower'].map(k=>[k,after[k]-before[k]]))};refund=Math.floor(x.cost*(factor>1?(work.criticalRefund??.15):(work.completionRefund||0)));if(refund)addCityGold(s,c,refund);details=`${buildingSiteName(s,x.siteId)}的${BUILDINGS[def.value].name}${mode==='repair'?'已修复':'已建成'}，${c.name}设施合计${c[def.value]}级，实际花费${x.cost-refund}金${refund?'，节省'+refund+'金':''}`;}
    else {x.remaining=work.setbackDays??Math.ceil(def.days*ECONOMY_RULES.work.constructionSetbackShare);c.project.remaining=x.remaining/10;details=`工程受阻，保留进度，延长${x.remaining}天，不追加费用`; }break;
   case 'cash':{const raw=Math.round(def.value*factor*economicWorkScale(domesticAbility(o.unit,def))*(1+technologyIncomeBonus(c,'gold')));actual=creditCityWork(s,c,'gold',raw>x.cost?boost(raw,cityWorkRemaining(s,c,'gold',productionCapacity)):raw,productionCapacity);addCityGold(s,c,actual);details=`收入${actual}金，净${actual>=x.cost?'收益':'亏损'}${Math.abs(actual-x.cost)}金`;break;}
   case 'effect':if(factor)addEffect(c,def.value,boost(managementPower(o.unit,def)*factor,1,n=>Math.round(n*10000)/10000),turn(s),work.duration||0);details=factor?`未来${3+(work.duration||0)}次旬末产出获得加成`:'未获得额外产出加成';break;
@@ -447,7 +465,7 @@ function complete(s,a,c){
   case 'grain':actual=creditCityWork(s,c,'grain',boost(def.value*factor*economicWorkScale(domesticAbility(o.unit,def))*(1+technologyIncomeBonus(c,'grain')),Math.min(grainCapacity(c)-c.grain,cityWorkRemaining(s,c,'grain',productionCapacity))),productionCapacity);c.grain+=actual;details=`额外入仓${actual}粮`;break;
   case 'trade':if(factor&&tradeAccessible(s,c,def)){if(def.value==='sell'){actual=Math.max(0,Math.min(x.amount,Math.floor(c.grain-grainReserve(s,c))));c.grain-=actual;const gold=Math.floor(actual*.18*(factor>1?1.1:1)*(1+(work.price||0))*incidentModifiers(s,a).quantity);saleFee=Math.min(def.cost,gold);addCityGold(s,c,gold-saleFee);details=`售粮${actual}，货款${gold}金，扣除手续费${saleFee}金，实收${gold-saleFee}金`;}else{actual=Math.max(0,Math.min(Math.floor(grainCapacity(c)-c.grain),Math.floor(x.amount*Math.min(1,factor*incidentModifiers(s,a).quantity))));c.grain+=actual;refund=Math.floor((x.cost-def.cost+300)*(1-actual/1200));addCityGold(s,c,refund);details=`购入${actual}粮，退还未成交货款${refund}金`;}}else {if(def.value==='buy'){refund=Math.max(0,x.cost-def.cost+300);addCityGold(s,c,refund);}details=def.value==='sell'?'未成交，未收取手续费':'未成交，仅损失联络费用';}break;
   case 'rescue':{const events=c.domestic.opportunities.filter(e=>(e.kind===def.value||hasStrategicTrait(o.unit,'reserveGrain')&&['disaster','mold'].includes(e.kind))&&e.expires>=day(s));if(events.length&&factor){for(const e of events){changed||=Math.min(1,factor)>(e.saved||0);e.saved=Math.max(e.saved||0,Math.min(1,factor));}details='减少本次真实灾情损失';}else details='未挽回额外损失';break;}
-  case 'research':actual=x.researchActual;if(c.domestic.research?.type===x.targetId&&c.domestic.research.progress>=TECHS[x.targetId].requiredProgress){c.domestic.techs.push(x.targetId);completeTechnologyBuilding(c,x.targetId);c.domestic.research=null;changed=true;reward={kind:'technology',technologyId:x.targetId};details=`掌握${TECHS[x.targetId].name}：${TECHS[x.targetId].description}`;}else details=`${actual>0?'本轮研制有所进展，增加'+Number(actual.toFixed(2)):'本轮研制未成，未有进展'}，已完成${Number(c.domestic.research.progress.toFixed(2))}%，下轮接续不重复收费`;break;
+  case 'research':actual=x.researchActual;if(c.domestic.research?.type===x.targetId&&c.domestic.research.progress>=TECHS[x.targetId].requiredProgress){c.domestic.techs.push(x.targetId);expandDomesticStaffing(c);completeTechnologyBuilding(c,x.targetId,s);c.domestic.research=null;changed=true;reward={kind:'technology',technologyId:x.targetId};details=`掌握${TECHS[x.targetId].name}：${TECHS[x.targetId].description}`;}else details=`${actual>0?'本轮研制有所进展，增加'+Number(actual.toFixed(2)):'本轮研制未成，未有进展'}，已完成${Number(c.domestic.research.progress.toFixed(2))}%，下轮接续不重复收费`;break;
     case 'recruit':{
    if(x.recruitMode==='reserve'){
     actual=creditCityWork(s,c,'manpower',boost(def.reserveValue*economicWorkScale(domesticAbility(o.unit,def))*factor*(1+technologyIncomeBonus(c,'manpower')),Math.min(ECONOMY_RULES.capacity.manpowerMax-c.manpower,cityWorkRemaining(s,c,'manpower',productionCapacity)),Math.floor),productionCapacity);
@@ -503,7 +521,7 @@ export function completeBattleBuildingWork(s,cityIds){
   const p=c.project;if(!p||p.mode!=='build')continue;
   const durability=buildingDurability(c,p.key,p.siteId);if(durability.hp!==durability.maxHp)continue;
   const before=cityBaseIncome(s,c),level=localBuildingLevel(c,p.key,p.siteId),a=s.campaign.domestic.assignments.find(a=>a.action?.id===p.actionId);
-  c[p.key]++;if(p.siteId!==c.id)c.domestic.buildingSites[p.key].push(p.siteId);
+  c[p.key]++;if(p.siteId!==c.id)c.domestic.buildingSites[p.key].push(p.siteId);expandDomesticStaffing(c);
   const after=cityBaseIncome(s,c),reward={kind:'building',mode:'build',buildingKey:p.key,siteId:p.siteId,beforeLevel:level,afterLevel:localBuildingLevel(c,p.key,p.siteId),beforeHp:p.startedHp,afterHp:durability.hp,maxHp:durability.maxHp,incomeDelta:Object.fromEntries(['gold','grain','manpower'].map(k=>[k,after[k]-before[k]]))};
   emit(s,a||{cityId:c.id},'complete',`${buildingSiteName(s,p.siteId)}的${BUILDINGS[p.key].name}在战场修缮后达到完整耐久，工程完成。`,{siteId:p.siteId,reward});
   if(a){a.lastKey=a.action.key;a.action=null;a.waiting='工程已完成，下一旬重新评估';}
@@ -511,10 +529,11 @@ export function completeBattleBuildingWork(s,cityIds){
  }
 }
 export function reconcileDomestic(s){
+ for(const c of s.cities)expandDomesticStaffing(c);
  // Completed facilities in a captured small city remain there and change administrator.
  for(const c of s.cities)for(const [key,sites] of Object.entries(c.domestic.buildingSites)){
   c.domestic.buildingSites[key]=sites.filter(id=>{const host=s.cities.find(n=>n.id===id);if(!host||host.owner===c.owner)return true;
-   transferBuildingDurability(c,host,key,id);c[key]=Math.max(0,c[key]-1);host[key]++;
+   transferBuildingDurability(c,host,key,id);c[key]=Math.max(0,c[key]-1);host[key]++;expandDomesticStaffing(host);
    const lostGrain=Math.max(0,c.grain-grainCapacity(c));c.grain=Math.min(c.grain,grainCapacity(c));
    emit(s,{cityId:c.id},'event',`${host.name}的${BUILDINGS[key].name}随城池失守移交当地，${c.name}设施总等级减少1${lostGrain?'，仓储容量减少，损失'+lostGrain+'粮':''}。`,{siteId:id,building:key,lostGrain});return false;
   });
@@ -536,7 +555,7 @@ export function finishDomesticDay(s){
    if(m.phase==='return'){if(m.route.length||m.location!==m.homeCity)continue;if(!m.workDone)complete(s,a,c);a.action=null;a.waiting='已返城，下一旬重新评估';delete u.mission;continue;}
    if(m.phase==='outbound'||m.phase==='work'&&s.campaign.day<m.workStartDay)continue;
   }
-  const kind=ACTIONS[x.key].kind,siteBlocked=['build','repair'].includes(kind)&&!constructionSiteAvailable(s,c,x.siteId);
+  const kind=ACTIONS[x.key].kind,siteBlocked=['build','repair'].includes(kind)&&!constructionSiteAvailable(s,c,x.siteId)||kind==='research'&&x.targetId==='watchtower'&&c.domestic.watchtowerPosition&&!constructionSiteAvailable(s,c,c.domestic.watchtowerPosition.siteId);
   if(kind==='build'){const a=buildingDurability(c,ACTIONS[x.key].value,x.siteId);x.remaining=Math.max(x.remaining,Math.ceil(Math.max(0,a.maxHp-a.hp-1)/c.project.hpPerDay));}
   if(besieged(s,c.id)||siteBlocked){if(!x.paused){x.paused=true;emit(s,a,'pause',`${buildingSiteName(s,x.siteId)}工地或道路受阻，${ACTIONS[x.key].name}暂停。`,{siteId:x.siteId});}continue;}
   if(x.paused){x.paused=false;emit(s,a,'resume',`${buildingSiteName(s,x.siteId)}恢复通行，继续${ACTIONS[x.key].name}。`,{siteId:x.siteId});}
@@ -576,12 +595,16 @@ export function validateDomestic(s){
  const fail=(ok,msg='内政存档无效')=>{if(!ok)throw new Error(msg);},int=(v,max=1e9)=>Number.isSafeInteger(v)&&v>=0&&v<=max,num=(v,max=1e9)=>Number.isFinite(v)&&v>=0&&v<=max;
  validateTalent(s);
  validateBuildingDurability(s,fail);validateDomesticIncidents(s,fail);
- const d=s.campaign.domestic;fail(d?.version===23&&typeof d.autoApprove==='boolean','内政存档版本不兼容，请重新开始');fail(d.priorities&&typeof d.priorities==='object'&&!Array.isArray(d.priorities)&&Object.keys(d.priorities).every(f=>FACTIONS[f])&&s.cities.filter(c=>c.owner!=='neutral').every(c=>Array.isArray(d.priorities[c.owner])),'内政势力优先级无效');for(const priority of Object.values(d.priorities))fail(Array.isArray(priority)&&priority.length===Object.keys(DIRECTIONS).length&&new Set(priority).size===priority.length&&priority.every(x=>DIRECTIONS[x]),'内政优先级无效');fail(int(d.seed,0xffffffff)&&int(d.nextId)&&int(d.lastOpportunityTurn,turn(s))&&d.lastFinishedDay===day(s)-1,'内政日期或随机状态无效');
+ const d=s.campaign.domestic;fail(d?.version===25&&typeof d.autoApprove==='boolean','内政存档版本不兼容，请重新开始');fail(d.priorities&&typeof d.priorities==='object'&&!Array.isArray(d.priorities)&&Object.keys(d.priorities).every(f=>FACTIONS[f])&&s.cities.filter(c=>c.owner!=='neutral').every(c=>Array.isArray(d.priorities[c.owner])),'内政势力优先级无效');for(const priority of Object.values(d.priorities))fail(Array.isArray(priority)&&priority.length===Object.keys(DIRECTIONS).length&&new Set(priority).size===priority.length&&priority.every(x=>DIRECTIONS[x]),'内政优先级无效');fail(int(d.seed,0xffffffff)&&int(d.nextId)&&int(d.lastOpportunityTurn,turn(s))&&d.lastFinishedDay===day(s)-1,'内政日期或随机状态无效');
  const map=x=>!!x&&typeof x==='object'&&!Array.isArray(x);
  const occupiedSites=new Set();
  for(const c of s.cities){
+  fail(validDomesticStaffingExpansion(c),'内政扩容记录无效');
+  for(const direction of Object.keys(DIRECTIONS))fail(d.assignments.filter(a=>a.cityId===c.id&&a.direction===direction).length<=domesticStaffingLimit(c),'内政委任超过人数上限');
   if(c.domestic.research)fail(validWorkMerit(c.domestic.research),'研究功绩记录无效');
   const sites=constructionSites(s,c),validSite=id=>typeof id==='string'&&sites.some(n=>n.id===id);
+  fail(c.domestic.watchtowerPosition===null||s.campaign.scenarioId&&watchtowerPositionValid(s,c,c.domestic.watchtowerPosition),'区域瞭望塔位置无效');
+  if(s.campaign.scenarioId&&(c.domestic.techs.includes('watchtower')||c.domestic.research?.type==='watchtower'))fail(c.domestic.watchtowerPosition!==null,'区域瞭望塔缺少实际位置');
   fail(map(c.domestic?.buildingSites)&&Object.keys(c.domestic.buildingSites).length===Object.keys(BUILDINGS).length,'都市圈设施地点无效');
   for(const key of Object.keys(BUILDINGS)){const records=c.domestic.buildingSites[key];fail(Array.isArray(records)&&records.length<=c[key]&&records.every(id=>id!==c.id&&validSite(id))&&(key!=='walls'||records.length===0),'都市圈设施记录无效');
    for(const site of constructionSites(s,c)){

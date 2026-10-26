@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {scoutingMarkup,scoutingReportMarkup} from '../scouting-view.mjs';
+import {mapTargetCandidates} from '../map-target-picker.mjs';
 import {residentOfficer} from '../city-personnel.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';
 import {assignDomestic,cancelDomestic,finishDomesticDay} from '../domestic.mjs';
@@ -50,7 +51,7 @@ test('army sight uses the higher actual leader/advisor intellect, follows appoin
  assert.equal(source.radius,32);assert.deepEqual({x:source.x,y:source.y},visionPosition(s,own));assert.match(fogMarkup(s),/r="32"/);
  assert.match(armyHoverMarkup(s,own),/视野半径<\/th><td>32/);
  assert.match(armyDetailSections(own).find(x=>x.id==='command').html,/大地图视野半径<\/dt><dd>32/);
- assert.match(strategicView(s,{army:own.id,strategyTab:'army'}),/大地图视野半径 32/);
+ assert.match(strategicView(s,{army:own.id,strategyTab:'army'}),/视野半径 32/);
  assert.equal(serializeCampaign(s),before,'viewing sight cannot change or roll state');
  own.disbanded=true;assert.ok(!visionSources(s).some(v=>v.object?.id===own.id));own.disbanded=false;
  own.units.forEach(u=>u.troops=0);assert.ok(!visionSources(s).some(v=>v.object?.id===own.id),'an empty army is not a sight source');
@@ -94,7 +95,8 @@ test('national geography is explored while enemy city contents, armies and roste
  assert.equal(s.campaign.vision.explored,'national');assert.equal(view.cities.length,s.cities.length);assert.equal(view.cities.find(x=>x.id===c.id).owner,c.owner);assert.equal(view.cities.find(x=>x.id===c.id).grain,null);
  assert.ok(!campaignInfoIndex(s).army.some(a=>a.id===enemy.id));assert.ok(!campaignInfoIndex(s).officer.some(r=>r.unit.id===enemy.leader));assert.ok(!armyMapMarkers(s,{}).includes(`data-campaign-army="${enemy.id}"`));
  assert.ok(!view.campaign.domestic.orders.some(q=>q.target==='secret-target'));
- const map=nationalArtMap(s,{city:'xuchang'},null);assert.ok(map.includes(`data-city="${c.id}"`));assert.ok(map.includes('world-fog-mask'));assert.ok(map.includes('radar-fog-mask'));assert.ok(!map.includes(`data-campaign-army="${enemy.id}"`));
+ const map=nationalArtMap(s,{city:'xuchang'},null);assert.ok(map.includes(`data-city="${c.id}"`));assert.ok(map.includes('world-fog-mask'));assert.ok(!map.includes('radar-fog-mask'));assert.ok(!map.includes(`data-campaign-army="${enemy.id}"`));
+ assert.ok(map.includes('city-location-model'),'unscouted cities retain a neutral town appearance');
  assert.match(campaignInfoMarkup(s,{type:'city',id:c.id}).body,/尚未侦察/);assert.match(cityHoverMarkup(s,c),/未确认/);assert.equal(serializeCampaign(s),before);
 });
 
@@ -187,10 +189,10 @@ test('save validation rejects missing work, future sight expiry and invalid scou
 
 test('scouting selects a city, its resident officer and only a nearby endpoint in order',()=>{
  const s=quietGame(),{city,officer}=scout(s),targets=scoutTargets(s,city.id),target=targets[0];assert.ok(target);
- const select=(html,id)=>html.match(new RegExp('<select id="'+id+'"[^>]*>[\\s\\S]*?</select>'))[0];
+ const select=(html,id)=>html.match(new RegExp('<(?:select|button)[^>]*id="'+id+'"[^>]*>[\\s\\S]*?</(?:select|button)>'))[0];
  const initial=scoutingMarkup(s);assert.match(select(initial,'scout-officer'),/disabled/);assert.match(select(initial,'scout-target'),/disabled/);assert.doesNotMatch(select(initial,'scout-city'),/selected/);
  const cityOnly=scoutingMarkup(s,{city:city.id,target:target.id});assert.doesNotMatch(select(cityOnly,'scout-officer'),/selected/);assert.match(select(cityOnly,'scout-target'),/disabled/);
- const assigned=scoutingMarkup(s,{city:city.id,officer:officer.unit.id});assert.doesNotMatch(select(assigned,'scout-target'),/disabled/);assert.ok(targets.every(n=>select(assigned,'scout-target').includes('value="'+n.id+'"')));
+ const assigned=scoutingMarkup(s,{city:city.id,officer:officer.unit.id});assert.doesNotMatch(select(assigned,'scout-target'),/disabled/);assert.deepEqual(mapTargetCandidates(s,'scout-target',{scout:{city:city.id,officer:officer.unit.id}}).map(n=>n.id),targets.map(n=>n.id));
  const other=s.cities.find(c=>c.owner==='cao'&&c.id!==city.id),foreignOfficer=scoutCandidates(s,other.id)[0];assert.ok(foreignOfficer);
  assert.match(dispatchScout(s,city.id,foreignOfficer.unit.id,target.id),/本城/);assert.match(select(scoutingMarkup(s,{city:city.id,officer:foreignOfficer.unit.id,target:target.id}),'scout-target'),/disabled/);
  const ready=scoutingMarkup(s,{city:city.id,officer:officer.unit.id,target:target.id});assert.match(ready,/斥候路线/);assert.doesNotMatch(ready.match(/<button[^>]*data-action="scout-dispatch"[^>]*>/)[0],/disabled/);

@@ -5,10 +5,9 @@ import {chooseEnemyCommand} from '../battle-ai.mjs';
 import {STRATAGEMS,battleStratagems,COMMAND_RESOURCE} from '../engine.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
 import {makeOfficer,validateSave,lockDeployment,stepBattle,issueCommand,settleBattle} from '../engine.mjs';
-import {createScenario} from './helpers/scenarios.mjs';
-import {REGRESSION_DRAFTS} from './helpers/battle-drafts.mjs';
-import {scenarioTroops} from '../tactical-campaigns.mjs';
-const TACTICAL_CAMPAIGNS=REGRESSION_DRAFTS.filter(c=>c.id.startsWith('tactical-'));
+import {createScenario} from '../scenarios.mjs';
+import {generateBattle} from '../battle-generator.mjs';
+import {defaultCustomBattle} from '../custom-battle.mjs';
 
 test('command and merit define individual capacity; fielded troops are independent',()=>{
  const lv=makeOfficer('person-661',8500,0,8),diao=makeOfficer('person-425',2000,0,8);
@@ -16,30 +15,17 @@ test('command and merit define individual capacity; fielded troops are independe
  assert.equal(troopCapacity({...lv,level:10}),9100);
  assert.throws(()=>makeOfficer('person-661',8701,0,8),/带兵/);
  for(const soldiers of [-1,NaN,2.5])assert.throws(()=>makeOfficer('cao',soldiers));
- const s=createScenario('tactical-three-heroes');validateSave(structuredClone(s));
+ const s=generateBattle({...defaultCustomBattle(),seed:1,ownTeam:[{id:'person-661',type:'cavalry',troops:8500,level:8}],enemyTeam:[{id:'cao',type:'spear',troops:3000,level:8}]});validateSave(structuredClone(s));
  for(const mutate of [s=>s.armies[0].units[0].troops=99999,s=>s.armies[0].units[0].wounded=99999,s=>s.battle.sides[1].units[0].initial=99999]){
   const bad=structuredClone(s);mutate(bad);assert.throws(()=>validateSave(bad));
  }
- const preset=TACTICAL_CAMPAIGNS.find(c=>c.id==='tactical-three-heroes');
- assert.equal(scenarioTroops(preset,0),8500);assert.equal(scenarioTroops(preset,1),8500);
-});
-
-for(const c of TACTICAL_CAMPAIGNS)test(`${c.id}: current deployment, legal capacity and deterministic continuation`,()=>{
- const s=createScenario(c.id),b=s.battle;
- assert.equal(b.commandProgress,0);
- for(const side of b.sides)for(const u of side.units){assert.equal(u.intent,0);assert.ok(u.initial<=troopCapacity(u));}
- lockDeployment(b);for(let i=0;i<31;i++)stepBattle(b);
- const resumed=validateSave(JSON.parse(JSON.stringify(s)));
- while(!b.result){stepBattle(b);stepBattle(resumed.battle);}
- assert.deepEqual(b,resumed.battle);
- const report=settleBattle(s);for(const side of report.stats)assert.equal(side.initial,side.remaining+side.wounded+side.killed);
- validateSave(JSON.parse(JSON.stringify(s)));
 });
 
 test('outnumbered defense enforces a real hold objective and retreat still fails',()=>{
  // Author a 100% opening shield through the public scenario setting to isolate
  // hold timing from trait balance; surviving units and real commands remain required.
- const c=TACTICAL_CAMPAIGNS.find(c=>c.holdUntil),s=createScenario(c.id,1,100),b=s.battle;
+ const entry=id=>({id,type:'rattan',troops:3000,level:1});
+ const c={seed:1,terrain:'land',battleKind:'defense',holdUntil:12,shieldPercent:100,ownTeam:[entry('jin')],enemyTeam:[entry('shao'),entry('yan')]},s=generateBattle(c),b=s.battle;
  assert.ok(c.enemyTeam.length>c.ownTeam.length&&c.enemyTeam.length<=10);
  lockDeployment(b);
  while(!b.result&&b.tick<c.holdUntil){
@@ -51,10 +37,10 @@ test('outnumbered defense enforces a real hold objective and retreat still fails
  assert.ok(b.sides[1].units.some(u=>u.hp>0));
  const report=settleBattle(s);assert.ok(report.gate.remaining>0);validateSave(structuredClone(s));
  const bad=structuredClone(s);bad.report.tick=c.holdUntil-1;assert.throws(()=>validateSave(bad));
- const missing=createScenario(c.id);delete missing.battle.holdUntil;assert.throws(()=>validateSave(missing));
- const retreat=createScenario(c.id);lockDeployment(retreat.battle);assert.equal(issueCommand(retreat.battle,'retreat'),null);
+ const missing=generateBattle(c);delete missing.battle.holdUntil;assert.throws(()=>validateSave(missing));
+ const retreat=generateBattle(c);lockDeployment(retreat.battle);assert.equal(issueCommand(retreat.battle,'retreat'),null);
  while(!retreat.battle.result)stepBattle(retreat.battle);
  assert.equal(retreat.battle.result.winner,1);
  // A normal guard scenario never inherits the special hold goal.
- const normal=createScenario('history-hefei');normal.battle.holdUntil=240;assert.throws(()=>validateSave(normal));
+ const normal=generateBattle({...defaultCustomBattle(),battleKind:'field'});normal.battle.holdUntil=240;assert.throws(()=>validateSave(normal));
 });

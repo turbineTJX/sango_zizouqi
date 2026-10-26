@@ -43,7 +43,7 @@ test('budget, voluntary spending and player/AI proposals protect payroll and exp
   assert.equal(b.fundingShortages.gold,0,'settlement income covers wages without a false before-harvest warning');
   assert.equal(cityGoldCommitment(s,c).total,120);assert.equal(cityReserve(s,c),120);
   const a={officerId:units[0].id,cityId:c.id,direction:'construction',action:null,proposal:null};s.campaign.domestic.assignments=[a];
-  assert.deepEqual(actionCandidates(s,a),[]);assert.match(cityBudgetMarkup(s,c),/官员俸禄 3 人，共 120 金／旬/);
+  assert.deepEqual(actionCandidates(s,a),[]);assert.match(cityBudgetMarkup(s,c),/俸禄 3 人 · 120 金／旬/);
   c.units.forEach(u=>u.level=10);c.gold=0;
   assert.equal(cityBudget(s,c,{includeWork:false}).fundingShortages.gold,100);
   updateCityBudgetAlerts(s);assert.equal(c.budget.warning,'gold');

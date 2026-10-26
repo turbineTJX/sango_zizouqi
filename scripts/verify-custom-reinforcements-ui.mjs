@@ -22,7 +22,7 @@ try{
  const before=structuredClone(d);await action('custom-swap').click();d=await page.evaluate(()=>JSON.parse(localStorage.getItem('sango-custom-draft-v46')));assert.deepEqual(d,swapCustomBattle(before));
  await page.screenshot({path:output+'/editor-desktop.png',fullPage:true,animations:'disabled'});
  await action('launch-custom').click();assert.match(await page.locator('.modal').innerText(),/河北中军/);await action('scenario-launch-confirm').click();await page.locator('#battle-board').waitFor();
- const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1'))),initial=await saved();validateSave(initial);
+ const saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1'))),initial=await saved();validateSave(initial);
  assert.equal(initial.armies.length,5);assert.equal(initial.battle.sides[0].units.length,22);assert.equal(initial.battle.sides[1].units.length,14);
  await page.locator('.council-unit').first().click();await page.locator('.close-button').click();validateSave(await saved());
  await page.reload();await page.locator('#battle-board').waitFor();assert.equal((await saved()).testScenario.customBattle.reinforcements.length,3);
@@ -34,9 +34,9 @@ try{
  await arrival.addInitScript(raw=>localStorage.setItem('sango-historical-battle-v1',raw),JSON.stringify(fixture));await arrival.goto('http://127.0.0.1:4207/#historical-battle');await arrival.locator('[data-action="pause"]').first().click();
  await arrival.locator('[data-action="battle-reinforcement-council"]').waitFor();await arrival.locator('[data-action="battle-reinforcement-council"]').click();
  assert.match(await arrival.locator('.battle-council').innerText(),/援军军议/);assert.ok(await arrival.locator('#deployment-grid').isHidden());
- const state=await arrival.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));assert.equal(state.battle.tick,4);assert.equal(state.battle.reinforcementCouncil,'open');validateSave(state);
+ const state=await arrival.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));assert.equal(state.battle.tick,4);assert.equal(state.battle.reinforcementCouncil,'open');validateSave(state);
  await arrival.screenshot({path:output+'/arrival-council.png',fullPage:true,animations:'disabled'});await arrival.locator('[data-action="pause"]').first().click();
- const resumed=await arrival.evaluate(()=>JSON.parse(localStorage.getItem('sango-historical-battle-v1')));assert.equal(resumed.battle.reinforcementCouncil,null);assert.equal(resumed.testScenario.customBattle.reinforcements.length,1);assert.deepEqual(errors,[]);
+ const resumed=await arrival.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));assert.equal(resumed.battle.reinforcementCouncil,null);assert.equal(resumed.testScenario.customBattle.reinforcements.length,1);assert.deepEqual(errors,[]);
  console.log('PASS multi-army editor, isolated edits, complete swap, review, deployment, reload, mobile and standalone reinforcement council');
 }catch(e){if(page)await page.screenshot({path:output+'/failure.png',fullPage:true,animations:'disabled'});throw e;}
 finally{await browser?.close();server.kill();}

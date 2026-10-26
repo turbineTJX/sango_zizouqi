@@ -6,7 +6,9 @@ export function unitModelKey(pack,u){
  const type=combatType(u),siege=siegeAppearance(u);
  if(pack.models?.[type])return type;
  if(siege)return 'builtin:'+siege;
- const family=combatFamily(u);return family==='ship'&&pack.models?.[family]?family:null;
+ const family=combatFamily(u);
+ if(['spear','halberd','cavalry','archer'].includes(family))return `builtin:troop:${type}:${u.side===1?1:0}`;
+ return family==='ship'&&pack.models?.[family]?family:null;
 }
 export function unitSpriteClips(pack,u){
  // A generic catapult atlas cannot stand in for a ram or a siege tower.

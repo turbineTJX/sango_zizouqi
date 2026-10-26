@@ -22,5 +22,6 @@ test('hard control and DOT take precedence over buffs; icons, stacks and hit cou
   assert.ok(list.some(s=>s.key==='attackHaste'));
   for(const s of list){assert.ok(s.description);assert.match(statusIcon(s.key),/<svg.*<path/);}
   assert.notEqual(statusIcon('confuse'),statusIcon('burn'));assert.notEqual(statusIcon('burn'),statusIcon('plague'));
-  assert.ok(STATUS_DISPLAY.stealth&&STATUS_DISPLAY.decoy&&!STATUS_DISPLAY.stun);
+  assert.ok(STATUS_DISPLAY.stealth&&STATUS_DISPLAY.decoy&&STATUS_DISPLAY.stun);
+  assert.equal(STATUS_DISPLAY.stun.name,'眩晕');
 });

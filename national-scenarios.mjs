@@ -105,4 +105,9 @@ export function nationalRoster(id,cities){
  }
  return [...placed.values()];
 }
-export function campaignDate(s){const spec=nationalScenario(s.campaign?.scenarioId);if(!spec)return `第 ${s.campaign.day} 天`;const d=s.campaign.day-1;return `${spec.year+Math.floor(d/360)} 年 ${Math.floor(d%360/30)+1} 月 ${d%30+1} 日`;}
+export function campaignDate(s,{period=false}={}){
+ const spec=nationalScenario(s.campaign?.scenarioId),d=s.campaign.day-1,part=['上旬','中旬','下旬'][Math.floor(d%30/10)];
+ if(!spec&&!period)return `第 ${s.campaign.day} 天`;
+ const year=(spec||nationalScenario('guandu-200')).year+Math.floor(d/360),month=Math.floor(d%360/30)+1;
+ return period?`${year}年${month}月${part}`:`${year} 年 ${month} 月 ${d%30+1} 日`;
+}

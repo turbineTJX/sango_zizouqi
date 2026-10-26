@@ -22,13 +22,15 @@ try{
  assert.deepEqual(await current.application.evaluate(({BrowserWindow})=>{const prefs=BrowserWindow.getAllWindows()[0].webContents.getLastWebPreferences();return {nodeIntegration:prefs.nodeIntegration,contextIsolation:prefs.contextIsolation,sandbox:prefs.sandbox};}),{nodeIntegration:false,contextIsolation:true,sandbox:true});
  const report=current.page.locator('#overlay-root').getByRole('button',{name:'确认',exact:true});
  if(await report.isVisible())await report.click();
- expected=JSON.parse(await current.page.evaluate(()=>localStorage.getItem('sango-sovereign-v2')));
- await current.page.locator('[data-action="settings"]').first().click();assert.match(await current.page.locator('.modal').innerText(),/本机应用/);
+ expected=JSON.parse(await current.page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
+ await current.page.locator('[data-action="settings"]').first().click();
+ for(const action of ['save','load','export','import'])await current.page.locator('.modal [data-action="'+action+'"]').waitFor();
+ assert.equal(await current.page.evaluate(()=>typeof window.sangoDesktop?.exportSave),'function');
  await current.page.locator('[data-action="export"]').click();await current.page.getByText('存档已导出',{exact:true}).waitFor();
  const files=await readdir(join(userData,'exports'));assert.equal(files.length,1);const saveFile=join(userData,'exports',files[0]);assert.deepEqual(JSON.parse(await readFile(saveFile,'utf8')),expected);
- await current.page.locator('#import-file').setInputFiles(saveFile);await current.page.locator('.sovereign-hud').waitFor();
+ await current.page.locator('#import-file').setInputFiles(saveFile);await current.page.getByText('存档导入成功',{exact:true}).waitFor();await current.page.locator('.sovereign-hud').waitFor();
  await current.application.close();current=null;
- current=await launch();await current.page.goto('sango://game/#strategy');await current.page.reload();await current.page.locator('.sovereign-hud').waitFor({timeout:60000});assert.deepEqual(JSON.parse(await current.page.evaluate(()=>localStorage.getItem('sango-sovereign-v2'))),expected);
+ current=await launch();await current.page.goto('sango://game/#strategy');await current.page.reload();await current.page.locator('.sovereign-hud').waitFor({timeout:60000});assert.deepEqual(JSON.parse(await current.page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'))),expected);
  assert.deepEqual(errors,[]);await writeFile(join(out,'result.json'),JSON.stringify({passed:true,executablePath,userData,checks:['packaged executable starts','stable application origin','sandboxed renderer','export and import','save survives process restart'],errors},null,2));console.log('Desktop native release verified: '+out);
 }catch(error){
  if(current)console.error(await current.page.locator('#overlay-root').innerText().catch(()=>''));

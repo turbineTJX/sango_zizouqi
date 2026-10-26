@@ -5,13 +5,22 @@ import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
 import {NATIONAL_ROAD_DESIGNS} from './data/design/roads.mjs';
 import {ROAD_DISTANCE_DESIGNS} from './data/design/road-distances.mjs';
 import {factionsHostile} from './diplomacy-relations.mjs';
+import {withRoadMetricQueries,inheritRoadMetricQueries} from './road-metrics.mjs';
 
 export const edgeKey=(a,b)=>typeof a==='string'&&typeof b==='string'?(a<b?a+':'+b:b+':'+a):[a,b].sort().join(':');
 export const roadSegment=(s,a,b)=>s.roadSegments?.[edgeKey(a,b)];
 // All non-city locations share node rules; their kind selects the battlefield.
 export const isJunction=(s,id)=>!!s.junctions?.some(n=>n.id===id);
-export const nodeKindName=n=>({port:'港口',gate:'关卡',junction:'野外路口'}[n?.kind]||'城市');
+export const nodeKindName=n=>({port:'港口',gate:'关卡',junction:'府'}[n?.kind]||'城市');
 const cityRoadCache=new WeakMap();
+const pathQueryScopes=new WeakMap();
+const queryOrigins=new WeakMap();
+export function inheritRoadQueries(origin,view){queryOrigins.set(view,origin);inheritRoadMetricQueries(origin,view);return view;}
+const pathScope=s=>pathQueryScopes.get(s)||pathQueryScopes.get(queryOrigins.get(s));
+export function withRoadQueries(s,evaluate){
+ if(pathScope(s))return withRoadMetricQueries(s,evaluate);pathQueryScopes.set(s,{paths:new Map(),adj:null,junctions:new Set((s.junctions||[]).map(n=>n.id))});
+ try{return withRoadMetricQueries(s,evaluate);}finally{pathQueryScopes.delete(s);}
+}
 export function cityRoads(s){
   if(!s.junctions)return s.roads;
   if(cityRoadCache.has(s.roads))return cityRoadCache.get(s.roads);
@@ -31,15 +40,20 @@ export function cityRoads(s){
   cityRoadCache.set(s.roads,result);return result;
 }
 export function adjacentCityPath(s,a,b){
+ const scope=pathScope(s),key=a+':'+b;
+ if(scope?.paths.has(key)){const path=scope.paths.get(key);return path?[...path]:null;}
   if(!cityRoads(s).some(([x,y])=>x===a&&y===b||x===b&&y===a))return null;
+ let adj=scope?.adj;
+ if(!adj){adj=new Map();for(const [x,y]of s.roads)if(!roadSegment(s,x,y)?.trail){if(!adj.has(x))adj.set(x,[]);if(!adj.has(y))adj.set(y,[]);adj.get(x).push(y);adj.get(y).push(x);}if(scope)scope.adj=adj;}
   const queue=[{id:a,path:[]}],seen=new Set([a]);
   while(queue.length){const current=queue.shift();
-    for(const [x,y] of s.roads){const next=x===current.id?y:y===current.id?x:null;
-      if(!next||seen.has(next)||roadSegment(s,x,y)?.trail)continue;
-      const path=[...current.path,next];if(next===b)return path;
-      if(isJunction(s,next)){seen.add(next);queue.push({id:next,path});}
+    for(const next of adj.get(current.id)||[]){
+      if(seen.has(next))continue;
+      const path=[...current.path,next];if(next===b){scope?.paths.set(key,path);return [...path];}
+      if(scope?scope.junctions.has(next):isJunction(s,next)){seen.add(next);queue.push({id:next,path});}
     }
   }
+  scope?.paths.set(key,null);
   return null;
 }
 export const junctionBlocked=(s,id,faction)=>isJunction(s,id)&&s.armies.some(a=>!a.disbanded&&factionsHostile(s,a.faction,faction)&&!a.travel&&a.location===id&&a.units.some(u=>u.troops>0));

@@ -78,8 +78,38 @@ test('officer production writes to the configured art checkout and returns actua
  await writeFile(join(root,'officers/art-direction.json'),JSON.stringify(direction));await writeFile(join(root,'officers/identities.json'),'{}');
  await writeFile(join(root,'officers/receipts.json'),'{}');
  const result=JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',"const {officerArtJobs}=await import('./scripts/officer-art.mjs');const jobs=await officerArtJobs(['cao']);console.log(JSON.stringify(jobs.map(({output,outputFile,referenceFile})=>({output,outputFile,referenceFile}))));"],{cwd:PROJECT_ROOT,env:{...process.env,SANGO_ASSET_ROOT:root},windowsHide:true,encoding:'utf8'}));
- assert.equal(result.length,11);assert.equal(result[0].output,'assets/officers/generated/v3/cao/portrait.png');assert.equal(result[0].outputFile,join(root,'officers/generated/v3/cao/portrait.png'));assert.equal(result[0].referenceFile,null);
+ assert.equal(result.length,3);assert.equal(result[0].output,'assets/officers/generated/v4/cao/neutral.png');assert.equal(result[0].outputFile,join(root,'officers/generated/v4/cao/neutral.png'));assert.equal(result[0].referenceFile,null);
  assert.deepEqual(JSON.parse(await readFile(join(root,'officers/manifest.json'),'utf8')).officers,{});
+});
+
+test('old active batches retain candidates while resuming exactly three master tasks',async t=>{
+ const {root}=await fixture(t),officers=join(root,'officers');
+ await writeFile(join(officers,'art-direction.json'),JSON.stringify({styleVersion:'test',priority:['cao'],profiles:{cao:{identity:'曹操',signature:'测试',role:{primary:'ruler',secondary:[],evidence:'人物身份',bearing:'沉稳领袖'}}}}));
+ await writeFile(join(officers,'identities.json'),'{}');await writeFile(join(officers,'receipts.json'),'{}');await mkdir(join(officers,'batches'));
+ const jobs=[{id:'cao:portrait',officerId:'cao',scene:'portrait',candidate:{file:'old-candidate.png',referenceSha256:'actual-old-reference'},attempts:[{file:'old-candidate.png'}]}];
+ await writeFile(join(officers,'batches/index.json'),JSON.stringify({version:1,active:'batch-0001',batches:['batch-0001']}));
+ await writeFile(join(officers,'batches/batch-0001.json'),JSON.stringify({version:1,id:'batch-0001',status:'active',formatVersion:'scene-neutral-v3',officerIds:['cao'],jobs}));
+ const run=args=>execFileSync(process.execPath,['scripts/officer-art-batch.mjs',...args],{cwd:PROJECT_ROOT,env:{...process.env,SANGO_ASSET_ROOT:root},windowsHide:true,encoding:'utf8'});
+ run(['status']);const first=JSON.parse(await readFile(join(officers,'batches/batch-0001.json'),'utf8'));
+ assert.equal(first.formatVersion,'pose-reuse-v4');assert.deepEqual(first.previousFormat.jobs,jobs);assert.deepEqual(first.jobs.map(j=>j.scene),['neutral','work','command']);assert.equal(first.jobs[0].status,'pending');assert.equal(first.jobs[1].status,'blocked-master');assert.ok(first.jobs.every(j=>!j.candidate));
+ run(['plan','--limit','3']);assert.deepEqual(JSON.parse(await readFile(join(officers,'batches/batch-0001.json'),'utf8')).previousFormat,first.previousFormat);
+ assert.deepEqual((await readdir(join(officers,'batches'))).sort(),['batch-0001.json','index.json']);
+});
+
+test('new transparent standing masters provide actual pose references and validated crop metadata',async t=>{
+ const {root}=await fixture(t),officers=join(root,'officers');
+ await writeFile(join(officers,'art-direction.json'),JSON.stringify({styleVersion:'test',priority:['cao'],profiles:{cao:{identity:'曹操',signature:'测试',role:{primary:'ruler',secondary:[],evidence:'人物身份',bearing:'沉稳领袖'}}}}));
+ await writeFile(join(officers,'identities.json'),'{}');await writeFile(join(officers,'receipts.json'),'{}');
+ const original=resolve(PROJECT_ROOT,'assets/officers/generated/v4/person-37/neutral.png'),prompt=join(root,'prompt.txt'),crops=join(root,'crops.json');
+ await writeFile(prompt,'Actual test prompt');await writeFile(crops,JSON.stringify({face:[.27,.005,.46,.276]}));
+ const env={...process.env,SANGO_ASSET_ROOT:root};
+ execFileSync(process.execPath,['scripts/officer-art.mjs','import','cao','neutral',original,'--approve','--prompt-file',prompt,'--crop-file',crops],{cwd:PROJECT_ROOT,env,windowsHide:true,encoding:'utf8'});
+ const manifest=JSON.parse(await readFile(join(officers,'manifest.json'),'utf8'));assert.deepEqual(Object.keys(manifest.officers.cao),['neutral']);
+ const sources=sanitizeOfficerArt(manifest);assert.deepEqual(sources.cao.neutral.crops.face,[.27,.005,.46,.276]);
+ const jobs=JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',"const {officerArtJobs}=await import('./scripts/officer-art.mjs');console.log(JSON.stringify(await officerArtJobs(['cao'])));"],{cwd:PROJECT_ROOT,env,windowsHide:true,encoding:'utf8'}));
+ assert.deepEqual(jobs.map(j=>j.status),['complete','pending','pending']);
+ for(const j of jobs.slice(1)){assert.equal(j.referenceFile,join(officers,'generated/v4/cao/neutral.png'));assert.equal(j.referenceSha256,manifest.officers.cao.neutral.sha256);assert.deepEqual(j.dependsOn,['cao:neutral']);}
+ const pack=await validateAssetPack(root);assert.ok(pack.files.has(manifest.officers.cao.neutral.url));assert.ok(![...pack.files].some(([url])=>/identity|receipts|crops/.test(url)));
 });
 test('simulation modules cannot transitively import the art catalog or workspace',async()=>{
  const visited=new Set(),forbidden=/^(?:asset-catalog|asset-workspace|asset-server|art-assets|art-battle|art-models|town-art|local-art-server)\.mjs$/;

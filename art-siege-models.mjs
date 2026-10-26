@@ -7,17 +7,21 @@ export function createSiegeModel(type){
  const box=(x,y,z,w,h,d,material=wood)=>{const m=new T.Mesh(new T.BoxGeometry(w,h,d),material);m.position.set(x,y,z);root.add(m);return m;};
  const beam=(a,c,width=.1,material=edge)=>{const p=new T.Vector3(...a),q=new T.Vector3(...c),v=q.clone().sub(p),m=new T.Mesh(new T.BoxGeometry(width,v.length(),width),material);m.position.copy(p.add(q).multiplyScalar(.5));m.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),v.normalize());root.add(m);return m;};
  box(0,.35,0,1.6,.18,.92);
- for(const x of [-.6,.6])for(const z of [-.57,.57]){const wheel=new T.Mesh(new T.CylinderGeometry(.23,.23,.12,12),metal);wheel.rotation.x=Math.PI/2;wheel.position.set(x,.23,z);root.add(wheel);}
+ for(const x of [-.6,.6])for(const z of [-.57,.57]){const wheel=new T.Mesh(new T.CylinderGeometry(.23,.23,.12,12),metal);wheel.name='wheel';wheel.rotation.x=Math.PI/2;wheel.position.set(x,.23,z);root.add(wheel);}
  if(type==='ram'){
   for(const x of [-.55,.55])for(const z of [-.38,.38])beam([x,.4,z],[x,1.05,z],.1);
   for(const x of [-.7,.7]){beam([x,1.05,-.52],[x,1.4,0],.1);beam([x,1.4,0],[x,1.05,.52],.1);}
   const roof=box(0,1.15,-.23,1.75,.09,.59);roof.rotation.x=-.6;
   const other=box(0,1.15,.23,1.75,.09,.59);other.rotation.x=.6;
-  const log=new T.Mesh(new T.CylinderGeometry(.12,.12,1.95,10),edge);log.rotation.z=Math.PI/2;log.position.set(.12,.75,0);root.add(log);box(1.13,.75,0,.2,.25,.25,metal);
+  const log=new T.Mesh(new T.CylinderGeometry(.12,.12,1.95,10),edge);log.rotation.z=Math.PI/2;log.position.set(.12,.75,0);root.add(log);const head=box(1.13,.75,0,.2,.25,.25,metal);
+  const striker=new T.Group();striker.name='ram-striker';striker.add(log,head);root.add(striker);
   for(const x of [-.45,.45])beam([x,1.2,0],[x,.75,0],.035,metal);
  }else if(type==='siege'){
   for(const z of [-.28,.28]){beam([-.5,.4,z],[0,1.2,z]);beam([.5,.4,z],[0,1.2,z]);}
+  const armStart=root.children.length;
   beam([-.55,.72,0],[.82,1.95,0],.14);box(-.55,.72,0,.36,.36,.36,metal);box(.83,1.97,0,.5,.08,.4,edge);
+  const arm=new T.Group();arm.name='siege-arm';arm.position.set(0,1.2,0);
+  for(const part of root.children.slice(armStart)){part.position.sub(arm.position);arm.add(part);}root.add(arm);
   beam([0,1.2,-.43],[0,1.2,.43],.13,metal);
  }else if(type==='tower'){
   for(const x of [-.55,.55])for(const z of [-.35,.35])beam([x,.4,z],[x,2.1,z],.13);
