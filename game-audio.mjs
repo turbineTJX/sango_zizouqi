@@ -9,7 +9,7 @@ const clamp=n=>Math.max(0,Math.min(1,n));
 export function audioPreferences(value){
  return {muted:typeof value?.muted==='boolean'?value.muted:DEFAULTS.muted,...Object.fromEntries(['music','sfx','voice'].map(key=>[key,typeof value?.[key]==='number'&&Number.isFinite(value[key])?clamp(value[key]):DEFAULTS[key]])),track:Object.hasOwn(AUDIO_TRACKS,value?.track)?value.track:'auto'};
 }
-const speaker='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M11 4 5 9H2v6h3l6 5Z"/><path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>';
+const speaker='<svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="M11 4 5 9H2v6h3l6 5Z"/><path class="audio-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="audio-muted-mark" d="m16 9 6 6m0-6-6 6"/></svg>';
 export class GameAudio{
  constructor({storage,contextFactory,onChange=()=>{},onError=()=>{},onVoice=()=>{}}={}){
   this.storage=storage;this.contextFactory=contextFactory||(()=>{const Audio=globalThis.AudioContext||globalThis.webkitAudioContext;return Audio?new Audio({latencyHint:'interactive'}):null;});this.onChange=onChange;this.onError=onError;
@@ -143,7 +143,7 @@ export class GameAudio{
  }
  buttonMarkup(){
   const muted=this.preferences.muted;
-  return `<button class="button secondary audio-toggle" data-action="audio-toggle" aria-pressed="${muted}" aria-label="${muted?'开启声音':'静音'}" title="${muted?'开启声音':'静音；音量可在设置中调整'}">${speaker}<span>${muted?'已静音':'声音'}</span></button>`;
+  return `<button class="button secondary toolbar-icon-button audio-toggle" data-action="audio-toggle" aria-pressed="${muted}" aria-label="${muted?'开启声音':'静音'}" title="${muted?'开启声音':'静音；音量可在设置中调整'}">${speaker}</button>`;
  }
  settingsMarkup(){
   const p=this.preferences;

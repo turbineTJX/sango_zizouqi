@@ -302,3 +302,8 @@ body:has(.strategy-map-first){overflow:hidden}
 .campaign-journal-content{margin-top:14px;min-height:100px}.campaign-journal-row{padding:12px 0;border-bottom:1px solid #b6ac8255}.campaign-journal-row time{font-size:12px;color:#c8bc99}.campaign-journal-row p{margin:5px 0;line-height:1.7}.campaign-journal-content .strategy-panel-body{padding:0}.campaign-journal .pending-orders{margin:0}
 @media(max-width:700px){.strategy-map-first .map-information{left:96px;right:auto;bottom:66px;width:auto;max-height:none;overflow:visible}.strategy-map-first .map-information .national-search,.strategy-map-first .map-information .national-legend>div{max-width:calc(100vw - 112px)}.strategy-map-first .map-information>details>summary{padding:8px 12px}}
 @media(max-height:650px) and (orientation:landscape){.strategy-map-first .map-information{left:112px;bottom:58px}.strategy-map-first .map-information .national-search,.strategy-map-first .map-information .national-legend>div{max-width:calc(100vw - 136px)}}
+
+/* Compact global tools keep the same touch targets at every map size. */
+.world-toolbar button.toolbar-icon-button{width:44px;min-width:44px;height:44px;min-height:44px;padding:10px;display:inline-flex;align-items:center;justify-content:center}
+.strategy-map-first .world-toolbar button.toolbar-icon-button{min-height:44px;padding:10px}
+@media(max-width:700px){.world-toolbar{grid-template-columns:repeat(3,44px);grid-auto-rows:44px;gap:4px}}

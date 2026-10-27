@@ -7,7 +7,7 @@ import {ROOT} from './release-lib.mjs';
 
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 if(!process.argv[2])throw Error('Pass the portable EXE');
-const out=join(ROOT,'.local','verify-portable-'+Date.now());await mkdir(out,{recursive:true});
+const out=join(process.env.SANGO_BUILD_ROOT?resolve(process.env.SANGO_BUILD_ROOT):ROOT,'.local','verify-portable-'+Date.now());await mkdir(out,{recursive:true});
 const executable=resolve(process.argv[2]),port=4220;
 const child=spawn(executable,['--remote-debugging-port='+port],{windowsHide:true,stdio:'ignore',env:{...process.env,SANGO_VERIFY:'1',SANGO_USER_DATA:join(out,'profile')}});
 let browser;

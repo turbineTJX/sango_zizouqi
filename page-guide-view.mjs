@@ -1,5 +1,6 @@
 import {PAGE_GUIDES,createGuidePreferences} from './page-guides.mjs';
 import {resolveGuideTargets,visibleGuideRect,placeGuideCard} from './page-guide-targets.mjs';
+import {icon} from './ui-icons.mjs';
 const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const mapCaptions=[
@@ -113,8 +114,8 @@ export function createPageGuideView({root,storage,getTopic,decorate=()=>{},onOpe
    let button=host?.querySelector('[data-guide-current]');
    if(!id){button?.remove();continue;}
    if(!host)continue;
-   if(!button){button=doc.createElement('button');button.type='button';button.className='page-guide-trigger';button.dataset.guideAction='open';button.dataset.guideCurrent='';button.textContent='指引';host.insertBefore(button,host.querySelector('.close-button'));}
-   button.dataset.guideId=id;button.setAttribute('aria-label','查看'+PAGE_GUIDES[id].title+'指引');
+   if(!button){button=doc.createElement('button');button.type='button';button.className='page-guide-trigger';button.dataset.guideAction='open';button.dataset.guideCurrent='';if(host.matches('.world-toolbar')){button.classList.add('toolbar-icon-button');button.innerHTML=icon('help');}else button.textContent='指引';host.insertBefore(button,host.querySelector('.close-button'));}
+   button.dataset.guideId=id;button.setAttribute('aria-label','查看'+PAGE_GUIDES[id].title+'指引');button.title='查看'+PAGE_GUIDES[id].title+'指引';
   }
   if(active){
    if(active.id===null)keepBackgroundInert();

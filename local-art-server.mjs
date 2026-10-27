@@ -4,8 +4,10 @@ const mime={'.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':
 export async function loadLocalArt(root,enabled=true){
  if(!enabled)return null;
  try{return JSON.parse(await readFile(resolve(root,'.local/art/manifest.json'),'utf8'));}catch{}
+ return loadPlaytestArt(resolve(root,'art/playtest'));
+}
+export async function loadPlaytestArt(directory){
  try{
-  const directory=resolve(root,'art/playtest');
   const pack=JSON.parse(await readFile(resolve(directory,'manifest.json'),'utf8'));
   if(pack.formatVersion!==1||pack.public?.version!==1||!pack.files) return null;
   const files={};

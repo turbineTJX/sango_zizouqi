@@ -45,6 +45,9 @@ try{
  const filtered=await page.locator('.modal-body tbody').innerText();assert.match(filtered,/曹操/);assert.doesNotMatch(filtered,/夏侯惇/);
  await page.locator('.modal-header [data-action="close"]').click();await page.locator('[data-action="scout-open"]').click();
  await page.locator('.map-command-screen header [data-action="close"]').click();assert.equal(await page.locator('.national-world .ancient-atlas-terrain').count(),1,'return from a command page restores real terrain in one render');
+ // Measure background save validation after the newly restored map has finished
+ // preparing its unrelated movement texture.
+ await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
  const archives=await page.evaluate(async raw=>{
   const {ArchiveReader}=await import('/archive-reader.mjs'),{openSaveStorage}=await import('/save-storage.mjs'),{writeArchive,listArchives,readArchive}=await import('/save-archives.mjs'),{validateGameSave}=await import('/game-save-validation.mjs'),{serializeCampaign}=await import('/strategic-campaign.mjs');
   const reader=new ArchiveReader(),options={inspect:(...args)=>reader.inspect(...args)},store=await openSaveStorage({database:'sango-ui-performance-archives'});
@@ -55,7 +58,7 @@ try{
    return {count:rows.length,valid:rows.every(r=>!r.error),same:serializeCampaign(loaded)===raw,maxFrameMs:Math.max(...frames.filter(t=>t>0))};
   }finally{running=false;reader.destroy();store.close();}
  },raw);
- assert.equal(archives.count,3);assert.ok(archives.valid&&archives.same);assert.ok(archives.maxFrameMs<250,'complete save validation runs outside the UI thread');
+ assert.equal(archives.count,3);assert.ok(archives.valid&&archives.same);assert.ok(archives.maxFrameMs<250,'complete save validation runs outside the UI thread: '+archives.maxFrameMs+'ms');
  const entry=([id,type])=>({id,type,level:10,troops:4000,retreatAt:null});
  const battle=createScenario('custom-battle',20261026,null,null,{seed:20261026,terrain:'land',ownTeam:[['cao','spear'],['dun','spear'],['liao','cavalry'],['chu','halberd'],['yu','crossbow'],['jia','archer']].map(entry),enemyTeam:[['shao','spear'],['yan','cavalry'],['wen','halberd'],['he','longbow'],['ju','archer'],['tian','spear']].map(entry)});
  planBattleCouncilsAI(battle.battle,[0,1]);lockDeployment(battle.battle);

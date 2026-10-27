@@ -9,6 +9,8 @@ import {decodeDataPack,loadDataPack} from '../packaging/data-pack.mjs';
 import {buildArtArchive} from '../scripts/build-art-pack.mjs';
 import {readAssetArchive,validateArchiveEntries} from '../asset-archive.mjs';
 import {serveAssets} from '../asset-server.mjs';
+import {buildDesktopArt} from '../scripts/build-desktop-art.mjs';
+import {loadPlaytestArt,serveLocalArt} from '../local-art-server.mjs';
 
 async function directory(t){const base=resolve(tmpdir()),dir=await mkdtemp(join(base,'sango-release-'));t.after(()=>{assert.equal(dirname(resolve(dir)),base);assert.ok(basename(dir).startsWith('sango-release-'));return rm(dir,{recursive:true,force:true});});return dir;}
 test('all compiled tables retain their exact current values and a reproducible data revision',async()=>{
@@ -63,4 +65,16 @@ test('published officer manifests keep presentation fields and omit embedded pro
  const text=Buffer.from(pack.files.get('officers/manifest.json')).toString(),manifest=JSON.parse(text);
  assert.doesNotMatch(text,/private|productionQueue|identityReference|prompt/);
  assert.equal(manifest.officers.cao.portrait.fit,'contain');assert.equal(manifest.officers.cao.portrait.transparent,true);assert.equal(manifest.officers.cao.portrait.sha256,sha256(image));
+});
+test('desktop artwork copies declared public and playtest files, preserves sources and verifies actual bytes',async t=>{
+ const dir=await directory(t),source=join(dir,'assets'),playtestRoot=join(dir,'playtest'),out=join(dir,'desktop-art');
+ await mkdir(source,{recursive:true});await mkdir(join(playtestRoot,'files'),{recursive:true});
+ await writeFile(join(source,'manifest.json'),JSON.stringify({version:1,id:'test',revision:'1',town:{}}));
+ const bytes=Buffer.from('playtest portrait'),sha=sha256(bytes),id=sha.slice(0,24)+'.jpg';
+ const manifest={formatVersion:1,public:{version:1,id:'local-playtest',portraits:{cao:'/local-art/files/'+id}},files:{[id]:'files/'+id},sources:{[id]:{source:'strategy/portraits',sha256:sha,bytes:bytes.length}}};
+ await writeFile(join(playtestRoot,'manifest.json'),JSON.stringify(manifest));await writeFile(join(playtestRoot,'files',id),bytes);await writeFile(join(playtestRoot,'private.png'),'not declared');
+ const built=await buildDesktopArt(out,{assetRoot:source,playtestRoot});assert.equal(built.playtestFiles,1);assert.equal(Object.keys(built.files).length,3);assert.equal(built.files['playtest/files/'+id].sha256,sha);
+ assert.deepEqual((await loadPlaytestArt(join(out,'playtest'))).sources,manifest.sources);
+ let status,body;await serveLocalArt('/local-art/files/'+id,{writeHead(code){status=code;},end(value){body=value;}},await loadPlaytestArt(join(out,'playtest')));assert.equal(status,200);assert.deepEqual(body,bytes);
+ await writeFile(join(playtestRoot,'files',id),'changed');await assert.rejects(buildDesktopArt(join(dir,'bad'),{assetRoot:source,playtestRoot}),/checksum mismatch/);
 });

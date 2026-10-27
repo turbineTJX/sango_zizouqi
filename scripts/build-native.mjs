@@ -8,6 +8,7 @@ import {build as buildElectron,Platform,Arch} from 'electron-builder';
 import sharp from 'sharp';
 import {ROOT,buildCodeRelease,sha256,packedDataPlugin} from './release-lib.mjs';
 import {buildArtArchive} from './build-art-pack.mjs';
+import {buildDesktopArt} from './build-desktop-art.mjs';
 
 const target=process.argv[2]||'all';
 if(!['windows','android','all','prepare-android'].includes(target))throw Error('Usage: build-native.mjs windows | android | all | prepare-android [--code-only]');
@@ -17,10 +18,12 @@ const withInstaller=process.argv.includes('--installer');
 const verifyAndroid=process.argv.includes('--verify-android');
 const exists=async path=>{try{await access(path);return true;}catch{return false;}};
 const packageInfo=JSON.parse(await readFile(join(ROOT,'package.json'),'utf8'));
-const release=join(ROOT,'dist','native-'+Date.now()),stage=join(ROOT,'.local','native-build-'+Date.now());
+const buildRoot=process.env.SANGO_BUILD_ROOT?resolve(process.env.SANGO_BUILD_ROOT):ROOT;
+const release=join(buildRoot,'dist','native-'+Date.now()),stage=join(buildRoot,'.local','native-build-'+Date.now());
 await mkdir(stage,{recursive:true});await mkdir(release,{recursive:true});
 const code=join(release,'code'),{manifest,pack}=await buildCodeRelease(code);
-if(withArt){const art=await buildArtArchive(join(release,'art','art.pack'));manifest.codeOnly=false;manifest.art={id:art.id,revision:art.revision,sha256:art.sha256,bytes:art.bytes};await writeFile(join(code,'release.json'),JSON.stringify(manifest,null,2)+'\n');}
+let art;
+if(withArt){art=target==='windows'?await buildDesktopArt(join(release,'art')):await buildArtArchive(join(release,'art','art.pack'));manifest.codeOnly=false;manifest.art={format:art.format||'archive',id:art.id,revision:art.revision,sha256:art.sha256,bytes:art.bytes};await writeFile(join(code,'release.json'),JSON.stringify(manifest,null,2)+'\n');}
 const webFiles=[...Object.keys(manifest.files),'release.json','sw.js','licenses'];
 if(verifyAndroid){
  await bundle({stdin:{contents:"export {newCampaign,serializeCampaign,validateCampaign,advanceCampaignDay,activeBattles} from './strategic-campaign.mjs';export {officerActivityDays} from './officer-activity.mjs';",resolveDir:ROOT,loader:'js'},bundle:true,platform:'browser',format:'esm',target:'es2022',outfile:join(code,'verify-runtime.js'),plugins:[packedDataPlugin(pack)]});
@@ -141,6 +144,6 @@ async function android(){
 if(target==='windows'||target==='all')await windows();
 if(target==='android'||target==='all'||target==='prepare-android')await android();
 await writeFile(join(release,'native-release.json'),JSON.stringify({formatVersion:1,gameVersion:manifest.gameVersion,rulesVersion:manifest.rulesVersion,
- revision:manifest.revision,codeOnly:!withArt,artifacts},null,2)+'\n');
-await writeFile(join(release,'试玩说明.txt'),'三国 · 君临 '+manifest.gameVersion+'\nWindows：双击 EXE，无需安装 Node.js。F11 切换全屏。此试玩版未做 Windows 发布者签名。\nAndroid：安装 APK 后从桌面图标启动；支持 Android 8.0 以上，需要系统 WebView 120 或更新版本。\n首次启动和游玩均无需联网。存档保存在本机应用中，可在设置导出与导入 JSON。替换 EXE 或使用相同签名覆盖安装 APK 会保留应用数据；卸载 Android 应用会删除本机存档。规则变化导致存档不兼容时须重新开始。\n此包默认使用姓名与内置地图图形，不含独立美术目录或生产记录。\nAPK 已完成编译及签名校验，设备上的运行情况须另行实测。\n');
+ revision:manifest.revision,codeOnly:!withArt,...(art?{art}:{}),artifacts},null,2)+'\n');
+await writeFile(join(release,'试玩说明.txt'),'三国 · 君临 '+manifest.gameVersion+'\nWindows：双击 EXE，无需安装 Node.js。F11 切换全屏。此试玩版未做 Windows 发布者签名。\nAndroid：安装 APK 后从桌面图标启动；支持 Android 8.0 以上，需要系统 WebView 120 或更新版本。\n首次启动和游玩均无需联网。存档保存在本机应用中，可在设置导出与导入 JSON。替换 EXE 或使用相同签名覆盖安装 APK 会保留应用数据；卸载 Android 应用会删除本机存档。规则变化导致存档不兼容时须重新开始。\n'+(withArt?'本包包含公开清单内的原创图像、音乐、语音，以及保留来源记录的试玩头像、动画和模型；不含美术生产工作目录。':'此包使用姓名与内置地图图形，不含独立美术目录或生产记录。')+'\nAPK 已完成编译及签名校验，设备上的运行情况须另行实测。\n');
 console.log('Native release: '+release);

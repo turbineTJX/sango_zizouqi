@@ -48,7 +48,22 @@ export function prepareMapCameraPreview(svg){
     const response=await fetch(href,{signal:abort.signal});return response.ok?dataURL(await response.blob()):null;
    })());
   }
-  await Promise.all([...copy.querySelectorAll('image[href]')].map(async node=>{const resource=resources.get(node.getAttribute('href'));if(resource){const value=await resource;if(value)node.setAttribute('href',value);else node.removeAttribute('href');}}));
+  // A building atlas can occur hundreds of times. Embed each geometry once:
+  // repeating its base64 payload can exceed the browser's SVG string limit.
+  const resolved=new Map(await Promise.all([...resources].map(async([href,task])=>[href,await task])));
+  const embedded=document.createElementNS(ns,'defs'),definitions=new Map();copy.prepend(embedded);
+  for(const node of [...copy.querySelectorAll('image[href]')]){
+   const href=node.getAttribute('href');if(!resources.has(href))continue;
+   const value=resolved.get(href);if(!value){node.removeAttribute('href');continue;}
+   const geometry=['width','height','preserveAspectRatio'].map(name=>node.getAttribute(name)),key=JSON.stringify([href,...geometry]);
+   let id=definitions.get(key);
+   if(!id){
+    id='camera-resource-'+definitions.size;definitions.set(key,id);
+    const definition=document.createElementNS(ns,'image');definition.id=id;definition.setAttribute('href',value);
+    ['width','height','preserveAspectRatio'].forEach((name,i)=>{if(geometry[i]!==null)definition.setAttribute(name,geometry[i]);});embedded.append(definition);
+   }
+   const use=document.createElementNS(ns,'use');for(const attribute of node.attributes)if(attribute.name!=='href')use.setAttribute(attribute.name,attribute.value);use.setAttribute('href','#'+id);node.replaceWith(use);
+  }
   if(disposed)return;
   const source=new Image();source.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(new XMLSerializer().serializeToString(copy));await source.decode();
   const bitmap=typeof createImageBitmap==='function'?await createImageBitmap(source).catch(()=>null):null;

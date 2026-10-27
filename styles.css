@@ -314,6 +314,19 @@ table.info-directory { display:table; width:100%; }
 #stratagem-area-overlay .area-hit { fill:#ffdf7033; stroke:#fff1a6; stroke-width:.08; }
 .stratagem-area-controls { position:sticky; top:0; z-index:60; display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:12px; background:#263139; color:#fff0cc; border:1px solid #c7a85b; }
 .stratagem-area-controls[hidden] { display:none; }
+.toolbar-icon-button { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+.arena-header .toolbar-icon-button,.arena-dock .toolbar-icon-button,.arena-panel>header .toolbar-icon-button { width:44px; min-width:44px; height:44px; min-height:44px; padding:10px; }
+.toolbar-icon-button .icon,.arena-header .toolbar-icon-button .icon { width:22px; height:22px; }
+.stratagem-area-actions { display:flex; gap:10px; align-items:center; flex-shrink:0; }
+.stratagem-area-controls .stratagem-area-action { width:52px; min-width:52px; height:52px; min-height:52px; flex:0 0 52px; padding:10px; border:2px solid #e4c67e; border-radius:5px; box-shadow:0 2px 5px #0004; }
+.stratagem-area-action-icon { display:block; width:26px; height:26px; flex-shrink:0; pointer-events:none; }
+.stratagem-area-rotate { background:#3b423c; color:#ffe2a0; }
+.stratagem-area-confirm { background:#e7c477; color:#252e29; }
+.stratagem-area-controls .stratagem-area-action:hover:not(:disabled) { background:#526056; border-color:#fff0bc; filter:none; }
+.stratagem-area-controls .stratagem-area-confirm:hover:not(:disabled) { background:#f5d992; }
+.stratagem-area-controls .stratagem-area-action:active:not(:disabled) { box-shadow:inset 0 2px 5px #0005; }
+.stratagem-area-controls .stratagem-area-action:focus-visible { outline:3px solid #fff0bc; outline-offset:3px; }
+.stratagem-area-controls .stratagem-area-action:disabled { box-shadow:none; }
 .deployment-preview{display:flex;flex-wrap:wrap;align-items:center;gap:10px;flex-basis:100%;padding:10px;border:1px solid #bfa362;background:#243330;color:#f5dfad;font:14px/1.6 var(--sans)}
 .deployment-preview span{flex:1;min-width:120px}.deployment-preview button{min-height:40px}
 #deployment-guide .deployment-preview .button{min-width:64px;min-height:44px;padding:8px 12px;font-size:13px;flex:0 0 auto}

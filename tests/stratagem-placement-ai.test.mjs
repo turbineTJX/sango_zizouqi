@@ -28,6 +28,7 @@ test('AI excludes burning, untargetable and reserve units, and skips unusable ar
 });
 test('heal highlights only real wounded and confirmation is disabled without useful targets',()=>{
  const b=fixture(),s=STRATAGEMS.heal;
+ b.sides[0].units.push(unit('person-668',0,0,0));b.sides[0].commanders=[{id:'person-668',role:'advisor'}];
  let preview=areaPreview(b,s,{point:{x:2,y:2}});assert.deepEqual(preview.targetIds,[]);assert.match(preview.controls,/data-area-action="confirm" disabled/);
  const u=b.sides[0].units[0];u.hp=700;u.battleDamage=300;
  preview=areaPreview(b,s,{point:{x:2,y:2}});assert.deepEqual(preview.targetIds,['own']);assert.doesNotMatch(preview.controls,/data-area-action="confirm" disabled/);

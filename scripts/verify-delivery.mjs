@@ -43,7 +43,7 @@ try{
  const android=process.argv.find(a=>a.startsWith('--android-apk='))?.slice(14),androidSave=process.argv.find(a=>a.startsWith('--android-save='))?.slice(15);
  if(android){if(!androidSave)throw Error('Android acceptance requires --android-save=<natural current save>');await run('android-device',['scripts/verify-android-device.mjs','--apk='+android,'--save='+androidSave,'--install=true']);}
  if(process.argv.includes('--desktop')){
-  const log=await run('desktop-build',['scripts/build-native.mjs','windows','--code-only','--installer']),directory=log.match(/Native release: (.+)/)?.[1]?.trim();
+  const log=await run('desktop-build',['scripts/build-native.mjs','windows',process.argv.includes('--with-art')?'--with-art':'--code-only','--installer']),directory=log.match(/Native release: (.+)/)?.[1]?.trim();
   if(!directory)throw Error('未找到本次桌面发行目录');
   const manifest=JSON.parse(await readFile(join(directory,'native-release.json'),'utf8'));
   await run('desktop-container',['scripts/verify-desktop-release.mjs',join(directory,'win-unpacked','SangoSovereign.exe')]);

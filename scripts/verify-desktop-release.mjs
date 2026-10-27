@@ -1,13 +1,13 @@
 import {createRequire} from 'node:module';
 import {mkdir,writeFile,readdir,readFile} from 'node:fs/promises';
-import {resolve,join} from 'node:path';
+import {resolve,join,dirname} from 'node:path';
 import assert from 'node:assert/strict';
 import {ROOT} from './release-lib.mjs';
 import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
 
 const {_electron}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 if(!process.argv[2])throw Error('Pass the built win-unpacked/SangoSovereign.exe');
-const executablePath=resolve(process.argv[2]),out=join(ROOT,'.local','verify-desktop-'+Date.now()),userData=join(out,'profile');await mkdir(out,{recursive:true});
+const executablePath=resolve(process.argv[2]),out=join(process.env.SANGO_BUILD_ROOT?resolve(process.env.SANGO_BUILD_ROOT):ROOT,'.local','verify-desktop-'+Date.now()),userData=join(out,'profile');await mkdir(out,{recursive:true});
 const environment={...process.env,SANGO_VERIFY:'1',SANGO_USER_DATA:userData};
 const errors=[],initial=serializeCampaign(newCampaign(7));let expected;
 async function launch(){const application=await _electron.launch({executablePath,env:environment,timeout:60000}),page=await application.firstWindow();page.on('pageerror',error=>errors.push(error.message));await page.locator('#app [data-action]').first().waitFor({timeout:60000});return {application,page};}
@@ -20,6 +20,12 @@ try{
  assert.equal(await current.page.evaluate(()=>location.origin),'sango://game');
  assert.equal(await current.page.evaluate(()=>typeof window.require),'undefined');
  assert.deepEqual(await current.application.evaluate(({BrowserWindow})=>{const prefs=BrowserWindow.getAllWindows()[0].webContents.getLastWebPreferences();return {nodeIntegration:prefs.nodeIntegration,contextIsolation:prefs.contextIsolation,sandbox:prefs.sandbox};}),{nodeIntegration:false,contextIsolation:true,sandbox:true});
+ const release=JSON.parse(await readFile(join(dirname(dirname(executablePath)),'native-release.json'),'utf8'));
+ if(!release.codeOnly){
+  const files=release.art.files,paths=['manifest.json',...[/^town\/.+\.png$/, /^officers\/.+\.png$/, /^music\/.+\.ogg$/, /^voices\/.+\.wav$/, /^playtest\/files\/.+\.jpg$/, /^playtest\/files\/.+\.glb$/, /^playtest\/files\/.+\.png$/].map(pattern=>Object.keys(files).find(path=>pattern.test(path)))];
+  for(const path of paths){assert.ok(path,'each artwork kind is present');const response=await current.page.evaluate(async path=>{const url=path.startsWith('playtest/files/')?'/local-art/files/'+path.split('/').at(-1):'/assets/'+path,r=await fetch(url),bytes=await r.arrayBuffer();return {status:r.status,bytes:bytes.byteLength,sha256:Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('')};},path);assert.deepEqual(response,{status:200,...files[path]},path);}
+  const publicArt=await current.page.evaluate(async()=>await(await fetch('/local-art/manifest.json')).json());assert.equal(publicArt.id,'local-playtest');assert.ok(Object.keys(publicArt.portraits).length>0);assert.ok(Object.keys(publicArt.models).length>0);
+ }
  const report=current.page.locator('#overlay-root').getByRole('button',{name:'确认',exact:true});
  if(await report.isVisible())await report.click();
  expected=JSON.parse(await current.page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));

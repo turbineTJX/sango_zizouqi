@@ -49,6 +49,6 @@
 
 逐项测试使用正式 createScenario → lockDeployment → stepBattle 自动施放流程，不调用手动军略、不注入进度或战意。合法固定阵容和兵力，冻结无关行动以隔离触发条件；刷新军略所需的战法消耗来自实际交战。四个种子分为开发与独立验证，交换双方；每项8次成功自动施放、2次条件不足保留进度，并检查实际效果、冷却及施放前后的确定性读档。八阵、奇兵、整备、雷火另验证真实再充能后不会突破每场限次。
 
-当前120次自动施放、30次条件不足验证全部通过。修正全军魔免将避战友军计为可用目标的边界，避免反复选择被共同施放器拒绝的空目标军略。逐项原始结果与验证存档见[AI验收表](../outputs/stratagem-ai-every/result.md)及同目录 result.json、saves/；这属于机制验收，不作为战役平衡结论。
+逐项原始结果与验证存档由 `npm run audit:stratagem-ai` 写入本机 `outputs/stratagem-ai-every/`，不纳入 Git；须以当前源码重新运行的记录为准。这属于机制验收，不作为战役平衡结论。
 
 回归入口 npm run test:stratagem-ai；复测及生成逐项记录 npm run audit:stratagem-ai。

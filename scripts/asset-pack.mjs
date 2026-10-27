@@ -47,12 +47,17 @@ export async function bundleAssetPack(out,root=ASSET_ROOT){
  await mkdir(out,{recursive:true});
  for(const [url,source] of pack.files){
   const target=assetFile(url,resolve(out));await mkdir(dirname(target),{recursive:true});
-  if(url===pack.catalog.officers)await writeFile(target,JSON.stringify(pack.officers,null,2)+'\n');
+  if(url===pack.catalog.officers)await writeFile(target,JSON.stringify(publishedOfficerManifest(pack.officers),null,2)+'\n');
   else await copyFile(source,target);
  }
  await writeFile(resolve(out,'manifest.json'),JSON.stringify(pack.catalog,null,2)+'\n');
  await validateAssetPack(out);
  return pack;
+}
+export function publishedOfficerManifest(raw){
+ const officers={version:1,id:'original-officers',officers:sanitizeOfficerArt(raw)};
+ for(const [id,scenes]of Object.entries(officers.officers))for(const [scene,entry]of Object.entries(scenes))entry.sha256=raw.officers[id][scene].sha256;
+ return officers;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const [command='check',destination]=process.argv.slice(2);
