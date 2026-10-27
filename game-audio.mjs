@@ -28,6 +28,7 @@ export class GameAudio{
     if(this.context.state!=='running')await this.context.resume();
     this.active=!this.hidden&&!this.destroyed&&this.context.state==='running';this.unavailable=!this.active;
     if(this.active&&!this.timer){this.restartMusic();this.timer=setInterval(()=>this.schedule(),75);}
+    if(this.active&&globalThis.navigator?.serviceWorker?.controller)void this.officerVoice.warmLibrary();
     return this.active;
    }catch{this.unavailable=true;this.active=false;if(!this.graph){try{await this.context?.close();}catch{}this.context=null;}return false;}
    finally{this.onChange();}
@@ -69,7 +70,7 @@ export class GameAudio{
   }else this.adoptMusic(null,scene,epoch);
  }
  setLibrary(catalog){this.library=sanitizeMusicCatalog(catalog);this.buffers.clear();if(this.active)this.restartMusic();}
- setVoiceLibrary(catalog){this.officerVoice.setLibrary(catalog);void this.officerVoice.warmLibrary();}
+ setVoiceLibrary(catalog){this.officerVoice.setLibrary(catalog);if(globalThis.navigator?.serviceWorker?.controller)void this.officerVoice.warmLibrary();}
  playOfficer(line,options){return this.officerVoice.play(line,options);}
  stopOfficerSpeech(){this.officerVoice.stop();}
  async loadMusic(scene){

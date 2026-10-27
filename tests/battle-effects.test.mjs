@@ -202,6 +202,19 @@ test('impact sounds follow their scheduled action, stay silent during pause and 
  assert.equal(heard,1);fx.update(b,{paused:false,speed:4});fx.draw(fx.lastFrame+50);assert.equal(heard,1);
 });
 
+test('tactic voices follow the cast window and missing presentations never queue a stray voice',t=>{
+ const {fx}=scene(t),b=battle();let heard=0;
+ fx.update(b,{paused:false,speed:1});fx.queueAudio({key:'voice',voice:true,from:'liao',label:'八百破阵'},()=>heard++);
+ const action=fx.actions[0];assert.equal(fx.sounds[0].start,action.start+action.duration*.08);
+ const count=fx.sounds.length;
+ fx.queueAudio({key:'voice',voice:true,from:'missing',label:'旧战法'},()=>heard++);
+ fx.queueAudio({key:'order',voice:true,side:0,serial:999},()=>heard++);assert.equal(fx.sounds.length,count);
+ fx.clock=action.start+action.duration*.1;fx.draw(100);assert.equal(heard,1);
+ b.tick++;b.effects=[event()];fx.update(b,{paused:true,speed:1});
+ fx.queueAudio({key:'voice',voice:true,from:'liao',label:'八百破阵'},()=>heard++);assert.equal(fx.sounds.length,0);
+ fx.update(b,{paused:false,speed:1});fx.draw(200);assert.equal(heard,1);
+});
+
 test('new control markers appear at impact instead of revealing a queued result during the windup',t=>{
  const {fx}=scene(t),victim={id:'shao',side:1,name:'袁绍',status:'active',hp:3000,maxHp:3000,statuses:{}};
  const b={id:'control',tick:0,sides:[{units:[]},{units:[victim]}],effects:[]};fx.update(b,{paused:true,speed:1});

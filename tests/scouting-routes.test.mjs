@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {scoutRoute,scoutTargets} from '../scouting-state.mjs';
+import {scoutRoute,scoutTargets,validScoutRoute} from '../scouting-state.mjs';
 
 function world(edges){
  const ids=[...new Set(edges.flat())],cities=ids.filter(id=>id.startsWith('city')).map((id,i)=>({id,name:id,x:i*100,y:0,units:[]}));
@@ -31,4 +31,20 @@ test('scope and paths use public geography without consulting hidden ownership o
  const s=world([['city-a','local'],['local','city-b']]),before=scoutTargets(s,'city-a').map(n=>n.id),path=scoutRoute(s,'city-a','city-b');
  s.cities[1].owner='enemy';s.cities[1].units=[{id:'secret',troops:999999}];s.armies=[{location:'local',route:['secret-target']}];
  assert.deepEqual(scoutTargets(s,'city-a').map(n=>n.id),before);assert.deepEqual(scoutRoute(s,'city-a','city-b'),path);
+});
+
+test('custom scout waypoints follow local roads and reject loops and city transit',()=>{
+ const s=world([['city-a','local'],['local','city-b'],['city-a','alternate'],['alternate','local'],['city-b','beyond'],['beyond','city-c']]);
+ assert.deepEqual(scoutRoute(s,'city-a','city-b',['alternate']),['alternate','local','city-b']);
+ assert.equal(validScoutRoute(s,'city-a','city-b',['alternate','local','city-b']),true);
+ assert.equal(scoutRoute(s,'city-a','city-b',['city-c']),null);
+ assert.equal(scoutRoute(s,'city-a','city-b',['local','alternate']),null);
+ assert.equal(validScoutRoute(s,'city-a','local',['local','city-b','local']),false);
+ assert.equal(validScoutRoute(s,'city-a','beyond',['local','city-b','beyond']),false);
+});
+
+test('waypoint paths avoid visiting a later waypoint early even when that leg is cheaper',()=>{
+ const s=world([['city-a','first'],['city-a','later'],['later','first'],['later','city-b']]);
+ s.roadSegments['city-a:first'].distance=50;
+ assert.deepEqual(scoutRoute(s,'city-a','city-b',['first','later']),['first','later','city-b']);
 });

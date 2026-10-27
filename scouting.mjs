@@ -1,6 +1,8 @@
 import {mapNode,mapNodes} from './map-node-data.mjs';
+import {observeBanditCamps,knownBanditCamps,banditCamp} from './bandit-state.mjs';
 import {roadCost} from './road-metrics.mjs';
 import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
+import {CAMPAIGN_TIME} from './combat-rules.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {NATIONAL_FACTIONS as FACTIONS} from './national-scenarios.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
@@ -11,13 +13,13 @@ import {settleOfficerMerit} from './campaign-merit.mjs';
 import {updateVision,visionPosition,armyObservation,directPointVisible} from './strategic-vision.mjs';
 import {cityPersonnel} from './city-personnel.mjs';
 import {plannedOfficer} from './strategic-intent.mjs';
-import {scoutAssignments,scoutAssignment,scoutOperator,scoutingPosition,scoutVisionProxy,scoutRoute,scoutingNeighborhood} from './scouting-state.mjs';
+import {scoutAssignments,scoutAssignment,scoutOperator,scoutingPosition,scoutVisionProxy,scoutRoute,scoutingNeighborhood,validScoutRoute} from './scouting-state.mjs';
 import {activitySinceDay} from './activity-query-index.mjs';
 export {scoutAssignments,scoutAssignment,scoutRoute,scoutTargets} from './scouting-state.mjs';
 const copy=x=>structuredClone(x);
 export function initializeScouting(s){s.campaign.scouting={version:1,seed:(s.seed^0x731ca4b9)>>>0,nextId:1,tasks:[]};}
 export function scoutingDurationRange(intellect){
- const r=MOVEMENT_RULES.scouting,max=Math.max(r.minimumDays,Math.ceil(r.baseMaximumDays+Math.max(0,Math.min(100,intellect||0))/100*r.intellectExtension));
+ const r=MOVEMENT_RULES.scouting,days=CAMPAIGN_TIME.daysPerTurn,max=Math.max(r.minimumDays,Math.ceil((r.baseMaximumDays+Math.max(0,Math.min(100,intellect||0))/100*r.intellectExtension)/days)*days);
  return {min:Math.max(r.minimumDays,max-r.randomSpread),max};
 }
 function randomDuration(s,intellect){const state=s.campaign.scouting,range=scoutingDurationRange(intellect);state.seed=(Math.imul(state.seed,1664525)+1013904223)>>>0;return range.min+Math.floor(state.seed/4294967296*(range.max-range.min+1));}
@@ -37,7 +39,7 @@ function storeContact(s,t,kind,id,data){
  const key=kind+':'+id;let contact=t.contacts.find(c=>c.key===key),first=!contact;
  if(first){contact={key,kind,id,name:data.name,firstDay:s.campaign.day,report:null};t.contacts.push(contact);}
  contact.report={day:s.campaign.day,receivedDay:s.campaign.day,data};
- if(kind!=='node'&&!directPointVisible(s,kind==='army'?visionPosition(s,data):mapNode(s,id),t.faction)){
+ if(kind!=='node'&&!directPointVisible(s,kind==='army'?visionPosition(s,data):mapNode(s,kind==='bandit'?data.nodeId:id),t.faction)){
   const day=s.campaign.day,r=PROGRESSION.scouting,turn=Math.floor((day-1)/10),nodes=s.campaign.activity.nodes;
   const previous=activitySinceDay(nodes,day-r.freshDays+1).filter(n=>n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
   if(!previous.some(n=>day-n.day<r.freshDays)){
@@ -53,11 +55,13 @@ function scan(s,t){
  illuminate(s,t);const p=scoutingPosition(s,t),radius=MOVEMENT_RULES.vision.scout,near=v=>Math.hypot(p.x-v.x,p.y-v.y)<=radius;
  for(const c of mapNodes(s))if(near(c)&&c.owner!==t.faction)storeContact(s,t,c.units?'city':'node',c.id,c.units?observedCity(c):copy(c));
  for(const a of s.armies)if(!a.disbanded&&a.faction!==t.faction&&near(visionPosition(s,a)))storeContact(s,t,'army',a.id,armyObservation(s,a));
+ observeBanditCamps(s,t.faction,near);
+ for(const c of knownBanditCamps(s,t.faction))if(c.clearedDay===null&&near(mapNode(s,c.nodeId)))storeContact(s,t,'bandit',c.id,copy(c));
 }
-export function dispatchScout(s,cityId,officerId,target,{faction=playerFaction(s),scheduled=false}={}){
+export function dispatchScout(s,cityId,officerId,target,{faction=playerFaction(s),scheduled=false,route:requestedRoute}={}){
  if(s.finished||!scheduled&&s.campaign.phase!=='planning'||mapNode(s,cityId)?.owner!==faction)return '请在筹划阶段从己方城市指派侦察负责人';
  if(s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===cityId))return '围城期间不能指派侦察';
- const o=scoutCandidates(s,cityId,faction).find(o=>o.unit.id===officerId),route=mapNode(s,target)&&scoutRoute(s,cityId,target);
+ const o=scoutCandidates(s,cityId,faction).find(o=>o.unit.id===officerId),route=mapNode(s,target)&&(requestedRoute?(validScoutRoute(s,cityId,target,requestedRoute)?[...requestedRoute]:null):scoutRoute(s,cityId,target));
  if(!o)return '请选择本城未任职且没有其它任务或待执行命令的武将';
  if(!route?.length)return '请选择本城周边据点或相邻城市，斥候不能穿过其它城市继续侦察';
  const t={id:'scout-'+s.campaign.scouting.nextId++,officerId,faction,homeCity:cityId,targetCity:target,location:cityId,route,progress:0,phase:'outbound',paused:false,lastDay:s.campaign.day-1,contacts:[]};
@@ -106,12 +110,11 @@ export function validateScouting(s){
  const ids=new Set(),officers=new Set();
  for(const t of v.tasks){const o=scoutOperator(s,t);fail(typeof t.id==='string'&&/^scout-\d+$/.test(t.id)&&Number(t.id.slice(6))<v.nextId&&!ids.has(t.id)&&!officers.has(t.officerId)&&Object.hasOwn(FACTIONS,t.faction)&&mapNode(s,t.homeCity)?.units&&mapNode(s,t.targetCity)&&mapNode(s,t.location)&&['outbound','watch'].includes(t.phase)&&typeof t.paused==='boolean'&&integer(t.lastDay,0,s.campaign.day)&&Array.isArray(t.route)&&t.route.length<=mapNodes(s).length&&Number.isFinite(t.progress)&&t.progress>=0&&o?.unit.scouting===t.id&&o.faction===t.faction&&o.location===t.homeCity&&!o.destination&&!o.retreating&&!o.unit.mission);
   const nearby=scoutingNeighborhood(s,t.homeCity);fail(nearby.has(t.location)&&scoutRoute(s,t.homeCity,t.targetCity)?.length&&(t.location===t.homeCity||scoutRoute(s,t.homeCity,t.location)?.length));
-  ids.add(t.id);officers.add(t.officerId);let from=t.location;const seen=new Set([from]);for(const to of t.route){fail(!seen.has(to)&&Number.isFinite(roadCost(s,from,to)));seen.add(to);from=to;}
-  fail([t.location,...t.route].every((id,index,list)=>nearby.has(id)&&(id===t.homeCity||id===t.targetCity&&index===list.length-1||!s.cities.some(c=>c.id===id))));
-  fail(t.route.length?t.phase==='outbound'&&t.progress<roadCost(s,t.location,t.route[0])&&from===t.targetCity:t.progress===0&&t.phase==='watch'&&t.location===t.targetCity);
+  ids.add(t.id);officers.add(t.officerId);
+  fail(t.route.length?validScoutRoute(s,t.homeCity,t.targetCity,t.route,t.location)&&t.phase==='outbound'&&t.progress<roadCost(s,t.location,t.route[0]):t.progress===0&&t.phase==='watch'&&t.location===t.targetCity);
   fail(!s.campaign.domestic.assignments.some(a=>a.officerId===t.officerId)&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(t.officerId))&&!s.campaign.diplomacy.assignments.some(a=>a.officerId===t.officerId)&&!s.cities.some(c=>c.governor===t.officerId));
   fail(Array.isArray(t.contacts)&&t.contacts.length<=mapNodes(s).length+200&&new Set(t.contacts.map(c=>c.key)).size===t.contacts.length);
-  for(const c of t.contacts){fail(['city','node','army'].includes(c.kind)&&c.key===c.kind+':'+c.id&&typeof c.name==='string'&&integer(c.firstDay,1,s.campaign.day)&&(c.kind==='army'?typeof c.id==='string'&&/^a\d+$/.test(c.id):!!mapNode(s,c.id))&&c.report);
+  for(const c of t.contacts){fail(['city','node','army','bandit'].includes(c.kind)&&c.key===c.kind+':'+c.id&&typeof c.name==='string'&&integer(c.firstDay,1,s.campaign.day)&&(c.kind==='army'?typeof c.id==='string'&&/^a\d+$/.test(c.id):c.kind==='bandit'?!!banditCamp(s,c.id):!!mapNode(s,c.id))&&c.report);
    for(const r of [c.report]){fail(integer(r.day,c.firstDay,s.campaign.day)&&r.data?.id===c.id&&typeof r.data.name==='string');if(c.kind==='army')fail(Array.isArray(r.data.units)&&r.data.route?.length===0&&r.data.target===null&&r.data.supplyLine===null);else if(c.kind==='city')fail(Array.isArray(r.data.units)&&Number.isFinite(r.data.grain));}
    if(c.report)fail(integer(c.report.receivedDay,c.report.day,s.campaign.day));
   }

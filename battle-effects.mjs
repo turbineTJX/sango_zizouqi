@@ -11,6 +11,8 @@ import {scheduleBattleActions,observedUnitAction} from './battle-presentation.mj
 import {castPalette,castVisualEvents,drawCastSource,drawCastTarget} from './battle-cast-animation.mjs';
 import {BattleFeedback} from './battle-feedback.mjs';
 import {battleMapStatusMarkup} from './battle-labels.mjs';
+import {BattleTextCache} from './battle-text-cache.mjs';
+import {presentationStyle} from './presentation-style.mjs';
 // Presentation-only effects. All hits and casualties come from engine events.
 
 const COLORS = {
@@ -30,24 +32,26 @@ export class BattleEffects {
     this.canvas = canvas; this.ctx = canvas.getContext('2d'); this.feed = feed;
     this.signals = new BattleSignals();
     this.feedback = new BattleFeedback();
+    this.textCache=new BattleTextCache();this.onFonts=()=>{this.textCache.clear();this.invalidate();};document.fonts?.addEventListener?.('loadingdone',this.onFonts);
     this.cues = new AbilityCues(cues);
     this.items = []; this.notices = []; this.clock = 0; this.lastFrame = 0;
     this.cinematics = []; this.actions=[];this.sounds=[]; this.battleId = null; this.result = result; this.resultKey = null;
     this.batch = null; this.consumed = 0; this.paused = true; this.speed = 1; this.destroyed = false; this.mode = 'clear';
     this.motionPreference=matchMedia('(prefers-reduced-motion: reduce)');this.reduced=this.motionPreference.matches;
-    this.onMotionPreference=e=>{this.reduced=e.matches;};this.motionPreference.addEventListener?.('change',this.onMotionPreference);
+    this.onMotionPreference=e=>{this.reduced=e.matches;this.invalidate();};this.motionPreference.addEventListener?.('change',this.onMotionPreference);
     this.resize = new ResizeObserver(() => this.resizeCanvas()); this.resize.observe(canvas);
     this.stage=canvas.parentElement?.parentElement;
-    this.onPan=()=>{this.manualPanUntil=this.clock+5000;};
+    this.onPan=()=>{this.manualPanUntil=this.clock+5000;this.invalidate();};
     this.stage?.addEventListener?.('pointerdown',this.onPan,{passive:true});this.stage?.addEventListener?.('wheel',this.onPan,{passive:true});
-    this.resizeCanvas(); this.frame = requestAnimationFrame(time => this.draw(time));
+    this.onVisibility=()=>{this.lastFrame=0;this.invalidate();};document.addEventListener?.('visibilitychange',this.onVisibility);this.resizeCanvas();this.invalidate();
   }
+  invalidate(){if(!this.destroyed&&!this.frame&&!document.hidden)this.frame=requestAnimationFrame(t=>{this.frame=0;if(this.resetClock){this.lastFrame=t;this.resetClock=false;}this.draw(t);});}
   resizeCanvas() {
     const rect = this.canvas.getBoundingClientRect();
     this.width = rect.width; this.height = rect.height;
     const ratio = Math.min(devicePixelRatio || 1, 2);
     this.canvas.width = Math.round(rect.width * ratio); this.canvas.height = Math.round(rect.height * ratio);
-    this.ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    this.ctx.setTransform(ratio, 0, 0, ratio, 0, 0);this.invalidate();
   }
   update(battle, { paused, speed, mode = 'clear' }) {
     if (this.battleId !== battle.id) {
@@ -61,7 +65,7 @@ export class BattleEffects {
     }
     // Finish an already visible action at its current pace. Speed changes
     // affect the next batch, without skipping a projectile or its impact.
-    this.paused = paused; this.speed = speed; this.mode = mode;
+    if(this.paused!==paused)this.resetClock=true;this.paused = paused; this.speed = speed; this.mode = mode;this.invalidate();
     const changed=this.batch!==`${battle.id}:${battle.tick}`;
     this.signals.update(battle,this.clock);
     const batch = `${battle.id}:${battle.tick}`;
@@ -162,6 +166,9 @@ export class BattleEffects {
   queueAudio(cue,play){
     const action=cue.from?this.actions.find(a=>a.events.some(e=>e.tick===this.tick&&e.from===cue.from&&e.label===cue.label)):null;
     const order=cue.key==='order'?this.signals.orders.find(o=>o.side===cue.side&&o.serial===cue.serial):null;
+    // A voice needs its actual presentation window. Paused snapshots and
+    // discarded actions must not turn into an unrelated line on resume.
+    if(cue.voice&&(cue.from&&!action||cue.key==='order'&&!order))return;
     const start=order?order.start+order.duration*.12:action?action.start+action.duration*(cue.voice?.08:.52):cue.terminal||['rout','victory','defeat','draw','order'].includes(cue.key)?Math.max(this.clock,...this.actions.map(a=>a.end)):this.clock;
     this.sounds.push({start,play,voice:!!cue.voice});
   }
@@ -197,7 +204,7 @@ export class BattleEffects {
     }
   }
   isBusy() { return this.isPresentationPlaying() || this.items.some(e => this.clock - e.start < e.duration); }
-  destroy() { this.destroyed = true; cancelAnimationFrame(this.frame); this.resize.disconnect();this.motionPreference.removeEventListener?.('change',this.onMotionPreference);this.stage?.removeEventListener?.('pointerdown',this.onPan);this.stage?.removeEventListener?.('wheel',this.onPan); this.items = []; this.cinematics = [];this.actions=[];this.sounds=[]; this.cues.reset();this.syncCinematicState(); this.notices.forEach(n=>n.element.remove()); this.notices = []; }
+  destroy() { this.destroyed = true;this.textCache.clear();document.fonts?.removeEventListener?.('loadingdone',this.onFonts);document.removeEventListener?.('visibilitychange',this.onVisibility); cancelAnimationFrame(this.frame); this.resize.disconnect();this.motionPreference.removeEventListener?.('change',this.onMotionPreference);this.stage?.removeEventListener?.('pointerdown',this.onPan);this.stage?.removeEventListener?.('wheel',this.onPan); this.items = []; this.cinematics = [];this.actions=[];this.sounds=[]; this.cues.reset();this.syncCinematicState(); this.notices.forEach(n=>n.element.remove()); this.notices = []; }
   clearEffects() {
     const latest = new Map();
     for (const e of this.items) {
@@ -234,8 +241,8 @@ export class BattleEffects {
       const statuses=el.querySelector?.('.map-statuses'),statusHtml=statusMarkup.get(id);
       if(statuses&&statusHtml!==undefined&&statuses.innerHTML!==statusHtml)statuses.innerHTML=statusHtml;
       if(tag){
-        tag.textContent=this.focusedUnit===id?(playing&&source?.important?source.events[0].label:[info?.text,info?.targetName].filter(Boolean).join(' → ')):'';
-        tag.hidden=!tag.textContent;
+        const text=this.focusedUnit===id?(playing&&source?.important?source.events[0].label:[info?.text,info?.targetName].filter(Boolean).join(' → ')):'';if(tag.textContent!==text)tag.textContent=text;
+        if(tag.hidden===!!tag.textContent)tag.hidden=!tag.textContent;
       }
       const actual=this.healthTo?.get(id);if(!actual)continue;
       let hp=actual.hp;
@@ -244,10 +251,10 @@ export class BattleEffects {
         for(const action of this.actions)if(this.clock>=action.start+action.duration*.52)for(const e of action.events)if(e.to===id&&e.tick===this.tick){hp+=e.healing||0;hp-=e.damage||0;}
         hp=clamp(hp,0,actual.maxHp);
       }
-      const caption=el.querySelector?.('.unit-map-caption');caption?.style.setProperty('--troop-health',100*hp/Math.max(1,actual.maxHp)+'%');
-      const troops=el.querySelector?.('.map-troops');if(troops)troops.textContent=Math.round(hp).toString();
-      const roster=el.querySelector?.('[data-roster-troops]');if(roster)roster.textContent=hp>=10000?(hp/10000).toFixed(1)+'万':Math.round(hp).toLocaleString('zh-CN');
-      const bar=el.querySelector?.('.label-health em');if(bar)bar.style.width=100*hp/Math.max(1,actual.maxHp)+'%';
+      const caption=el.querySelector?.('.unit-map-caption');presentationStyle(caption,'--troop-health',100*hp/Math.max(1,actual.maxHp)+'%');
+      const troops=el.querySelector?.('.map-troops');if(troops&&troops.textContent!==Math.round(hp).toString())troops.textContent=Math.round(hp).toString();
+      const roster=el.querySelector?.('[data-roster-troops]');if(roster){const text=hp>=10000?(hp/10000).toFixed(1)+'万':Math.round(hp).toLocaleString('zh-CN');if(roster.textContent!==text)roster.textContent=text;}
+      const bar=el.querySelector?.('.label-health em');presentationStyle(bar,'width',100*hp/Math.max(1,actual.maxHp)+'%');
       if(el.dataset.unit&&actual.hp===0)el.classList.toggle('playback-fallen',!playing||hp<=0);
     }
   }
@@ -295,6 +302,11 @@ export class BattleEffects {
   }
   label(text, x, y, color, alpha, size = 12) {
     size=Math.min(size,16);
+    const ratio=this.width?this.canvas.width/this.width:1,entry=this.textCache?.get(String(text),size,color,Math.max(1,ratio));
+    if(entry){
+      const half=entry.width/2;x=clamp(x,half,this.width-half);y=clamp(y,size,this.height-size);
+      this.ctx.globalAlpha=alpha;this.ctx.drawImage(entry.canvas,x-half,y-entry.height/2,entry.width,entry.height);return;
+    }
     const c = this.ctx; c.globalAlpha = alpha; c.font = `500 ${size}px "Microsoft YaHei",sans-serif`;
     c.textAlign = 'center'; c.textBaseline = 'middle';
     const half = c.measureText(text).width / 2 + 5;
@@ -423,6 +435,6 @@ export class BattleEffects {
     else if(!this.paused&&!this.isPresentationPlaying())this.cues.draw(this,cell);
     if(showTransient)this.feedback.draw(this,cell);
     this.signals.drawOrders(this,cell);
-    this.frame = requestAnimationFrame(t => this.draw(t));
+    if(!this.paused)this.invalidate();
   }
 }

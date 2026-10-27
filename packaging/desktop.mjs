@@ -23,8 +23,8 @@ else{
     if(pathname==='/local-art/manifest.json')return Response.json({version:1,id:'builtin',label:'默认图形'});
     if(pathname.startsWith('/assets/')){
      let status=404,headers={},bytes='Not found';
-     await serveAssets(pathname,{writeHead(code,values){status=code;headers=values;},end(value){bytes=value;}},art);
-     return new Response(bytes,{status,headers});
+     await serveAssets(pathname,{writeHead(code,values){status=code;headers=values;},end(value){bytes=value;}},art,request.headers);
+     return new Response(status===304?null:bytes,{status,headers});
     }
     const path=resolve(code,'.'+(pathname==='/'?'/index.html':pathname)),tail=path.slice(code.length+1);
     if(!path.startsWith(code+sep)||tail.split(/[\\/]/).some(part=>part.startsWith('.'))||!mime[extname(path)])return new Response('Forbidden',{status:403});

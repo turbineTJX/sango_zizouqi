@@ -1,5 +1,5 @@
 import {fundCities} from './resource-fixtures.mjs';
-import {assignDomestic,beginDomesticTurn,assignmentFor} from '../domestic.mjs';
+import {ACTIONS,assignDomestic,beginDomesticTurn,assignmentFor} from '../domestic.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
@@ -8,7 +8,21 @@ import {cityPersonnel} from '../city-personnel.mjs';
 import {prepareEnemyDomestic} from '../talent-lifecycle.mjs';
 import {cityNeedsAgriculture} from '../economy.mjs';
 import {campaignRosterMarkup} from '../strategic-roster.mjs';
+import {makeOfficer} from '../engine.mjs';
 const scene=()=>newCampaign(42,'heroes-251');
+
+test('related traits add fifty once regardless of count and never change real attributes',()=>{
+ const s=scene(),p={task:'domestic',city:'xuchang',direction:'commerce'},single=makeOfficer('person-263',0),multiple=makeOfficer('person-420',0),plain=makeOfficer('person-472',0);
+ for(const u of [single,multiple])u.politics=60;plain.politics=95;
+ const before=JSON.stringify([single,multiple,plain]),a=officerRecommendation(s,single,p),b=officerRecommendation(s,multiple,p),c=officerRecommendation(s,plain,p);
+ assert.equal(a.traits.length,1);assert.ok(b.traits.length>1);assert.equal(c.traits.length,0);
+ assert.equal(a.score,110);assert.equal(b.score,110);assert.equal(c.score,95);
+ for(const [key,def]of Object.entries(ACTIONS))if(def.direction===p.direction)s.cities.find(c=>c.id===p.city).domestic.cooldowns[key]=1000;
+ const ranked=rankOfficerCandidates(s,[plain,single,multiple],p);assert.equal(ranked.at(-1).unit.id,plain.id);assert.equal(JSON.stringify([single,multiple,plain]),before);
+ p.direction='technology';single.intellect=60;multiple.intellect=60;
+ assert.ok(officerRecommendation(s,single,p).traits.length>1);assert.equal(officerRecommendation(s,single,p).score,110);assert.equal(officerRecommendation(s,multiple,p).score,110);
+ p.direction='martial';single.force=60;assert.equal(officerRecommendation(s,single,p).traits.length,0);assert.equal(officerRecommendation(s,single,p).score,60);
+});
 test('commerce and agriculture no longer recommend deleted numerical traits',()=>{
  const s=scene(),c=s.cities.find(c=>c.id==='xuchang');c.commerce=5;c.farm=5;c.granary=5;c.grain=10000;fundCities(s,2500);
  const units=['person-533','person-107'].map(id=>s.cities.flatMap(c=>cityPersonnel(s,c.id)).find(o=>o.unit.id===id).unit);

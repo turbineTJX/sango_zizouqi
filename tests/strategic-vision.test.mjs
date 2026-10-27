@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
-import {scoutingMarkup,scoutingReportMarkup} from '../scouting-view.mjs';
+import {scoutSelection,scoutingMarkup,scoutingReportMarkup} from '../scouting-view.mjs';
 import {mapTargetCandidates} from '../map-target-picker.mjs';
 import {residentOfficer} from '../city-personnel.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';
@@ -116,7 +116,7 @@ test('responsible officer stays working in the city while a simulated scout trav
 });
 
 test('intellect controls randomized illumination duration, without an intelligence acquisition wait',()=>{
- assert.deepEqual(scoutingDurationRange(0),{min:1,max:2});assert.deepEqual(scoutingDurationRange(100),{min:4,max:6});
+ assert.deepEqual(scoutingDurationRange(0),{min:10,max:20});assert.deepEqual(scoutingDurationRange(31),{min:20,max:40});assert.deepEqual(scoutingDurationRange(100),{min:40,max:60});
  const base=quietGame(),{city,officer}=scout(base),target=scoutTargets(base,city.id).find(c=>c.units&&c.owner!=='cao'),durations=[];
  for(const intellect of [0,100]){const s=JSON.parse(serializeCampaign(base)),u=residentOfficer(s,officer.unit.id).unit;u.intellect=intellect;assert.equal(dispatchScout(s,city.id,u.id,target.id),null);
   const spots=s.campaign.vision.factions.cao.scouted;assert.ok(spots.length);durations.push(spots[0].expiresDay-spots[0].seenDay);assert.ok(durations.at(-1)>=scoutingDurationRange(intellect).min&&durations.at(-1)<=scoutingDurationRange(intellect).max);
@@ -125,12 +125,28 @@ test('intellect controls randomized illumination duration, without an intelligen
  assert.ok(durations[1]>durations[0]);
 });
 
-test('scouting a fractional-distance road endpoint retains a valid, deterministic save',()=>{
- const s=newCampaign(2027,'all-heroes-251'),faction='force-41',home='town-11',target='town-10';
+test('custom scouting routes persist, use real scout speed, and retain sight through a ten-day turn',()=>{
+ const s=newCampaign(203,'guandu-200'),city=s.cities.find(c=>c.id==='town-10'),officer=scoutCandidates(s,city.id)[0],target='town-9',via='junction:town-10:town-9',route=scoutRoute(s,city.id,target,['junction:atlas-pengcheng:town-10',via,'junction:town-8:town-9']);
+ assert.ok(route.includes(via));const before=serializeCampaign(s);
+ assert.ok(dispatchScout(s,city.id,officer.unit.id,target,{route:[target]}));assert.equal(serializeCampaign(s),before);
+ const markup=scoutingMarkup(s,{city:city.id,officer:officer.unit.id,target,route});const cost=route.reduce((n,id,i)=>n+roadCost(s,i?route[i-1]:city.id,id),0);
+ assert.match(markup,new RegExp('预计 '+Math.ceil(cost/105)+' 天抵达'));
+ assert.equal(dispatchScout(s,city.id,officer.unit.id,target,{route}),null);assert.deepEqual(scoutAssignment(s,officer.unit.id).route,route);
+ const saved=serializeCampaign(s),resumed=validateCampaign(JSON.parse(saved));assert.deepEqual(scoutAssignment(resumed,officer.unit.id).route,route);
+ const step=state=>{advanceScouting(state);state.campaign.day++;updateVision(state);};
+ step(s);step(resumed);assert.equal(serializeCampaign(s),serializeCampaign(resumed));
+ const task=scoutAssignment(s,officer.unit.id),spot={...s.campaign.vision.factions.cao.scouted[0]};assert.equal(task.location,via);assert.ok(task.progress>0,'105 daily points continue onto the next road');
+ assert.equal(recallScout(s,officer.unit.id),null);assert.equal(recallScout(resumed,officer.unit.id),null);
+ for(let i=0;i<10;i++){step(s);step(resumed);}
+ assert.equal(serializeCampaign(s),serializeCampaign(resumed));assert.ok(s.campaign.vision.factions.cao.scouted.some(v=>v.id===spot.id),'sight survives the next planning turn after the scout stops');
+});
+
+test('scouting a port road endpoint clamps floating point progress and retains a valid, deterministic save',()=>{
+ const s=newCampaign(2027,'all-heroes-251'),faction='force-41',home='town-11',target='atlas-zhongli';
  assert.ok(scoutCandidates(s,home,faction).some(o=>o.unit.id==='person-613'));
  assert.equal(dispatchScout(s,home,'person-613',target,{faction}),null);advanceScouting(s);
  const t=scoutAssignment(s,'person-613');assert.equal(t.phase,'watch');assert.equal(t.location,target);
- const from='junction:town-10:town-11',endpoint=scoutVisionProxy(s,{location:from,route:[target],progress:roadCost(s,from,target)});
+ const from='atlas-huai-port',endpoint=scoutVisionProxy(s,{location:from,route:[target],progress:roadCost(s,from,target)+1e-8});
  assert.equal(endpoint.travel.progress,roadDistance(s,from,target));
  assert.ok(s.campaign.vision.factions[faction].scouted.every(v=>!v.travel||v.travel.progress<=roadDistance(s,v.travel.from,v.travel.to)));
  const saved=serializeCampaign(s),resumed=validateCampaign(JSON.parse(saved));assert.equal(serializeCampaign(resumed),saved);
@@ -187,15 +203,20 @@ test('save validation rejects missing work, future sight expiry and invalid scou
 });
 
 
-test('scouting selects a city, its resident officer and only a nearby endpoint in order',()=>{
- const s=quietGame(),{city,officer}=scout(s),targets=scoutTargets(s,city.id),target=targets[0];assert.ok(target);
+test('scouting selects a home city, then a local officer, and offers only nearby endpoints',()=>{
+ const s=quietGame(),{city,officer}=scout(s),targets=scoutTargets(s,city.id),target=targets[0],before=serializeCampaign(s);assert.ok(target);
  const select=(html,id)=>html.match(new RegExp('<(?:select|button)[^>]*id="'+id+'"[^>]*>[\\s\\S]*?</(?:select|button)>'))[0];
- const initial=scoutingMarkup(s);assert.match(select(initial,'scout-officer'),/disabled/);assert.match(select(initial,'scout-target'),/disabled/);assert.doesNotMatch(select(initial,'scout-city'),/selected/);
- const cityOnly=scoutingMarkup(s,{city:city.id,target:target.id});assert.doesNotMatch(select(cityOnly,'scout-officer'),/selected/);assert.match(select(cityOnly,'scout-target'),/disabled/);
- const assigned=scoutingMarkup(s,{city:city.id,officer:officer.unit.id});assert.doesNotMatch(select(assigned,'scout-target'),/disabled/);assert.deepEqual(mapTargetCandidates(s,'scout-target',{scout:{city:city.id,officer:officer.unit.id}}).map(n=>n.id),targets.map(n=>n.id));
+ const initial=scoutingMarkup(s);assert.match(select(initial,'scout-officer'),/disabled/);assert.match(select(initial,'scout-target'),/disabled/);assert.doesNotMatch(select(initial,'scout-city'),/disabled|selected/);
+ assert.equal(scoutSelection(s,{officer:officer.unit.id,target:target.id}).route,null,'officer alone cannot select a city or unlock a route');
+ const cityOnly=scoutingMarkup(s,{city:city.id,target:target.id});assert.doesNotMatch(select(cityOnly,'scout-officer'),/disabled|selected/);assert.match(select(cityOnly,'scout-target'),/disabled/);assert.ok(select(cityOnly,'scout-city').includes('value="'+city.id+'" selected'));
+ const assigned=scoutingMarkup(s,{city:city.id,officer:officer.unit.id});assert.doesNotMatch(select(assigned,'scout-target'),/disabled/);assert.equal(scoutSelection(s,{city:city.id,officer:officer.unit.id}).city.id,city.id);assert.deepEqual(scoutSelection(s,{city:city.id,officer:officer.unit.id}).targets.map(n=>n.id),targets.map(n=>n.id));
  const other=s.cities.find(c=>c.owner==='cao'&&c.id!==city.id),foreignOfficer=scoutCandidates(s,other.id)[0];assert.ok(foreignOfficer);
- assert.match(dispatchScout(s,city.id,foreignOfficer.unit.id,target.id),/本城/);assert.match(select(scoutingMarkup(s,{city:city.id,officer:foreignOfficer.unit.id,target:target.id}),'scout-target'),/disabled/);
- const ready=scoutingMarkup(s,{city:city.id,officer:officer.unit.id,target:target.id});assert.match(ready,/斥候路线/);assert.doesNotMatch(ready.match(/<button[^>]*data-action="scout-dispatch"[^>]*>/)[0],/disabled/);
+ assert.match(dispatchScout(s,city.id,foreignOfficer.unit.id,target.id),/本城/);assert.ok(!select(cityOnly,'scout-officer').includes('value="'+foreignOfficer.unit.id+'"'));
+ for(const cityId of [city.id,s.cities.find(c=>c.owner!=='cao').id,'missing']){
+  const wrong=scoutSelection(s,{city:cityId,officer:foreignOfficer.unit.id,target:target.id});assert.equal(wrong.officer,undefined);assert.equal(wrong.route,null);
+ }
+ const ready=scoutingMarkup(s,{city:city.id,officer:officer.unit.id,target:target.id});assert.match(ready,/拖动中转点改线/);assert.doesNotMatch(ready.match(/<button[^>]*data-action="scout-dispatch"[^>]*>/)[0],/disabled/);
+ assert.equal(serializeCampaign(s),before,'selection and route previews cannot change the game');
 });
 
 test('scouts can stop at neighboring cities but cannot cross them or follow a distant port chain',()=>{

@@ -21,6 +21,7 @@ export function treasuresMarkup(s,p={}){
  let form='';if(selected){
   form='<section class="treasure-grant"><h3>授予 '+esc(treasureDesign(selected.id).name)+'</h3><p>来源：'+esc(mapNode(s,at.cityId)?.name)+' · '+esc(at.officer?.unit.name||'城市库藏')+'</p><label>接收武将<select data-treasure-recipient><option value="">请选择未出征的武将</option>'+recipients.map(o=>'<option value="'+o.unit.id+'" '+(o.unit.id===p.recipientId?'selected':'')+'>'+esc(o.unit.name)+' · '+esc(mapNode(s,o.location)?.name)+'</option>').join('')+'</select></label>';
   form+='<label><input type="checkbox" data-treasure-equip '+(p.equip?'checked':'')+'>同时装备</label>';
+  if(to)form+='<p class="treasure-grant-preview" role="status">'+esc(at.officer?.unit.name||mapNode(s,at.cityId)?.name+'库藏')+' → '+esc(to.unit.name)+' · 确认后立即授予'+(p.equip?'并装备':'，保留为收藏')+'</p>';
   if(to&&p.equip&&to.unit.treasureId&&to.unit.treasureId!==selected.id)form+='<p>将替换 '+esc(treasureDesign(to.unit.treasureId).name)+'，原宝物仍由'+esc(to.unit.name)+'收藏。</p>';
   form+=(error?'<p role="status">'+esc(error)+'</p>':'')+'<button class="button primary" data-action="treasure-confirm" '+(!planning||!to||error?'disabled':'')+'>确认授予</button> <button class="button secondary" data-action="treasure-cancel">取消</button></section>';
  }

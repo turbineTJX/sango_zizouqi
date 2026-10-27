@@ -27,7 +27,7 @@ export function withServingPeopleQueries(evaluate){
 export function servingPeople(s){
  if(servingQueryScope?.has(s))return servingQueryScope.get(s);
  const result=new Map(cityUnitRows(s).map(o=>[o.unit.id,o]));
- for(const a of s.armies)for(const unit of a.units)result.set(unit.id,{unit,faction:a.faction,location:a.location,army:a});
+ for(const a of s.armies)if(!a.banditCampId)for(const unit of a.units)result.set(unit.id,{unit,faction:a.faction,location:a.location,army:a});
  for(const o of s.campaign.idle)result.set(o.unit.id,o);
  // A dissolved army can hold returnees until its current encounter settles.
  for(const a of s.armies)for(const o of a.returningOfficers||[])result.set(o.unit.id,o);

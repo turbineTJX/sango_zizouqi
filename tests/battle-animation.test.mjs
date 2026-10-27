@@ -13,7 +13,8 @@ test('melee anticipates then strikes and recovers; ranged troops stay in formati
 
 test('presentation consumes appended real events once, resets per battle and preserves snapshots',()=>{
  const visual=Object.create(BattleArt.prototype);
- Object.assign(visual,{units:new Map(),clock:0,reduced:{matches:false}});
+ let invalidations=0;
+ Object.assign(visual,{units:new Map(),clock:0,reduced:{matches:false},invalidate(){invalidations++;}});
  const previous=art.enabled;art.enabled=false;
  try{
  const unit={id:'cao',status:'active',type:'spear',side:0,x:1,y:2,hp:100,maxHp:100};
@@ -26,6 +27,7 @@ test('presentation consumes appended real events once, resets per battle and pre
  b.effects.pop();assert.equal(JSON.stringify(b),before);
  unit.status='defeated';b.tick++;b.effects=[];visual.update(b,{paused:false,speed:1});assert.equal(visual.units.get('cao').deadAt,.2);
  b.id='two';visual.update(b,{paused:true,speed:1});assert.equal(visual.units.size,0);
+ assert.equal(invalidations,6,'each changed presentation requests a render, including paused updates');
  }finally{art.enabled=previous;}
 });
 

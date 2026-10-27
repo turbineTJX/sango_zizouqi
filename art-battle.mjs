@@ -6,6 +6,7 @@ import {hexCenter} from './hex-grid.mjs';
 import {unitSpriteClips,unitModelKey} from './unit-appearance.mjs';
 import {castFrame,castPose,unitCastAction} from './battle-cast-animation.mjs';
 import {unitStatusMotion,troopFormation,troopAttackFrame} from './battle-unit-motion.mjs';
+import {presentationStyle} from './presentation-style.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const smooth=t=>t*t*(3-2*t);
@@ -24,12 +25,15 @@ export class BattleArt {
  constructor(board,fx=null){
   this.board=board;this.fx=fx;this.canvas=document.createElement('canvas');this.canvas.className='art-sprites';this.canvas.setAttribute('aria-hidden','true');board.prepend(this.canvas);this.ctx=this.canvas.getContext('2d');
   this.units=new Map();this.bodies=new Map();this.clock=0;this.last=0;this.paused=true;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  this.onAssetReady=()=>{this.invalidate();this.fx?.invalidate?.();};this.modelPack=art.pack;this.modelGeneration=0;
   this.resize=new ResizeObserver(()=>this.measure());this.resize.observe(board);this.measure();
-  this.frame=requestAnimationFrame(t=>this.draw(t));
+  this.onVisibility=()=>{this.last=0;this.invalidate();};document.addEventListener?.('visibilitychange',this.onVisibility);this.invalidate();
  }
- measure(){const r=this.board.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);this.width=r.width;this.height=r.height;this.canvas.width=Math.round(r.width*d);this.canvas.height=Math.round(r.height*d);this.ctx.setTransform(d,0,0,d,0,0);}
+ measure(){const r=this.board.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);this.width=r.width;this.height=r.height;this.canvas.width=Math.round(r.width*d);this.canvas.height=Math.round(r.height*d);this.ctx.setTransform(d,0,0,d,0,0);this.invalidate();}
+ invalidate(){if(!this.dead&&!this.frame&&!document.hidden)this.frame=requestAnimationFrame(t=>{this.frame=0;if(this.resetClock){this.last=t;this.resetClock=false;}this.draw(t);});}
  update(b,{paused,speed}){
-  this.paused=paused;this.speed=speed;
+  if(this.modelPack!==art.pack){this.modelPack=art.pack;this.modelGeneration++;this.models?.destroy();this.models=null;this.modelLoading=false;}
+  if(this.paused!==paused)this.resetClock=true;this.paused=paused;this.speed=speed;this.invalidate();
   if(this.battleId!==b.id){this.units.clear();this.batch=null;this.battleId=b.id;this.consumed=0;}
   const batch=b.id+':'+b.tick,first=this.batch===null,changed=this.batch!==batch;
   if(changed)this.consumed=0;
@@ -54,15 +58,16 @@ export class BattleArt {
    if(received){next.hitAt=this.clock;next.hitFrom=hexCenter(received.fromX??u.x,received.fromY??u.y);}
    this.units.set(u.id,next);
   }
-  this.snapshot={terrain:b.terrain,mapId:b.mapId,gate:b.siege?.gate?{...b.siege.gate}:null,units:[...this.units.values()].map(u=>({...u}))};
+  this.snapshot={terrain:b.terrain,mapId:b.mapId,...(b.mapData?{mapData:b.mapData}:{}),gate:b.siege?.gate?{...b.siege.gate}:null,units:[...this.units.values()].map(u=>({...u}))};
   if(this.board&&!this.models&&!this.modelLoading&&(Object.keys(art.pack.models||{}).length||this.snapshot.units.some(u=>unitModelKey(art.pack,u)))){
    this.modelLoading=true;
-   import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead){try{this.models=new ModelLayer(this.board,art.pack);this.models.update(this.snapshot);}catch{this.board.dataset.modelStatus='fallback';}}}).catch(()=>{this.board.dataset.modelStatus='fallback';});
+   const generation=this.modelGeneration;
+   import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead&&generation===this.modelGeneration){try{this.models=new ModelLayer(this.board,art.pack);this.models.onChange=()=>this.invalidate();this.models.update(this.snapshot);this.invalidate();}catch{this.board.dataset.modelStatus='fallback';}}}).catch(()=>{if(!this.dead&&generation===this.modelGeneration)this.board.dataset.modelStatus='fallback';});
   }
   this.models?.update(this.snapshot);
   // Preload while deployed so the first cast never waits on an image request.
-  art.image(art.pack.criticals?.default);
-  for(const u of live){art.image(art.portraitURL(u.id));art.image(art.portraitURL(u.id,'battle'));}
+  art.image(art.pack.criticals?.default,this.onAssetReady);
+  for(const u of live){art.image(art.portraitURL(u.id),this.onAssetReady);art.image(art.portraitURL(u.id,'battle'),this.onAssetReady);}
  }
  position(u){
   const charge=this.fx?.actions.find(a=>a.events.some(e=>e.from===u.id&&e.visual==='charge'&&(e.damage>0||e.shieldAbsorbed>0))&&a.end>this.fx.clock);
@@ -83,10 +88,11 @@ export class BattleArt {
   c.clearRect(0,0,w,h);c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
   const elements=new Map([...this.board.querySelectorAll('[data-unit]')].map(el=>[el.dataset.unit,el]));
   const units=[...this.units.values()].sort((a,b)=>a.pos.y-b.pos.y);
+  const actions=this.fx?.currentActions()||[];
   for(const u of units){
    const dying=u.deadAt!==undefined,death=dying?u.deathFxAt!==undefined?clamp((this.fx.clock-u.deathFxAt)/600):clamp((this.clock-u.deadAt)/.6):0;
    if(death>=1){this.units.delete(u.id);continue;}
-   const actions=this.fx?.currentActions()||[],casting=unitCastAction(actions,u.id),attack=casting?.action,actor=casting?.event;
+   const casting=unitCastAction(actions,u.id),attack=casting?.action,actor=casting?.event;
    const reaction=this.fx?.feedback?.reaction(u.id,this.fx.clock);
    const hit=actions.find(a=>a.events.some(e=>e.to===u.id&&e.damage>0)),victim=reaction?.hit||hit?.events.find(e=>e.to===u.id&&e.damage>0);
    const statuses=this.fx?.feedback?.statusesFor(u.id,this.fx.clock)||[],bodyTime=this.fx?this.fx.clock/1000:this.clock;
@@ -95,15 +101,17 @@ export class BattleArt {
    let ap=this.fx?(attack?clamp((this.fx.clock-attack.start)/attack.duration):1):clamp((this.clock-(u.attackAt??-10))/.65);
    const attacking=ap<1&&!!actor&&!state.blocked,target=actor?hexCenter(actor.x,actor.y):u.target;
    const clips=unitSpriteClips(art.pack,u),key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
-   const img=art.image(clip?.url),el=elements.get(u.id),model=this.models?.hasUnit(u.id);
+   const img=art.image(clip?.url,this.onAssetReady),el=elements.get(u.id),model=this.models?.hasUnit(u.id);
    const visualPosition=this.position(u);
-   if(el)el.style.translate=`${(visualPosition.x-u.pos.x)*w}px ${(visualPosition.y-u.pos.y)*h}px`;
+   presentationStyle(el,'translate',`${(visualPosition.x-u.pos.x)*w}px ${(visualPosition.y-u.pos.y)*h}px`);
    el?.classList.toggle('has-unit-art',!!img||!!model);
-   if(el){
+   // These CSS channels animate only the vector/portrait fallback. Models and
+   // sprites already apply the same motion in their own renderers.
+   if(el&&!img&&!model){
     const gesture=actor?.skill?castPose(ap,actor.presentationKind):null;
-    el.style.setProperty('--cast-lift',this.reduced.matches?'0px':`${-(gesture?.lift||0)*cell+state.stance*cell}px`);
-    el.style.setProperty('--cast-lean',this.reduced.matches?'0rad':`${((gesture?.lean||0)+state.lean)*(u.side?-1:1)}rad`);
-    el.style.setProperty('--hit-flash',String(this.reduced.matches?0:reaction?.flash||0));
+    presentationStyle(el,'--cast-lift',this.reduced.matches?'0px':`${-(gesture?.lift||0)*cell+state.stance*cell}px`);
+    presentationStyle(el,'--cast-lean',this.reduced.matches?'0rad':`${((gesture?.lean||0)+state.lean)*(u.side?-1:1)}rad`);
+    presentationStyle(el,'--hit-flash',this.reduced.matches?0:reaction?.flash||0);
    }
    if(!img||model){this.bodies.set(u.id,this.models?.bodyAnchors(u.id)||[{x:visualPosition.x*w,y:visualPosition.y*h,size:cell*.72,facing:u.side?-1:1}]);continue;}
    let p=visualPosition,dx=target?target.x-p.x:(u.side?-1:1),dy=target?target.y-p.y:0;
@@ -141,7 +149,7 @@ export class BattleArt {
    c.fillStyle=u.side?'#ad493c':'#287763';c.beginPath();c.moveTo(x-cell*.35,y-cell*.62);c.lineTo(x-cell*.08,y-cell*.57);c.lineTo(x-cell*.35,y-cell*.43);c.fill();
    c.restore();
   }
-  this.models?.draw(this.clock,{position:u=>this.position(u),actions:this.fx?.currentActions()||[],hits:this.fx?.feedback?.hits,statuses:id=>this.fx?.feedback?.statusesFor(id,this.fx.clock)||[],clock:this.fx?.clock});this.frame=requestAnimationFrame(t=>this.draw(t));
+  this.models?.draw(this.clock,{position:u=>this.position(u),actions,hits:this.fx?.feedback?.hits,statuses:id=>this.fx?.feedback?.statusesFor(id,this.fx.clock)||[],clock:this.fx?.clock});if(!this.paused)this.invalidate();
  }
- destroy(){this.dead=true;cancelAnimationFrame(this.frame);this.resize.disconnect();this.models?.destroy();this.canvas.remove();}
+ destroy(){this.dead=true;art.releaseImageListener(this.onAssetReady);document.removeEventListener?.('visibilitychange',this.onVisibility);cancelAnimationFrame(this.frame);this.resize.disconnect();this.models?.destroy();this.canvas.remove();}
 }

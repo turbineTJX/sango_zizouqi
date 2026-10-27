@@ -1,6 +1,8 @@
 import {preparePostbattleAppointments,pendingArmyAppointments,confirmPostbattleAppointments} from './postbattle-appointments.mjs';
 import {planArrivalAppointmentsAI,appointBattleRoles} from './battle-appointments.mjs';
 export {pendingArmyAppointments,confirmPostbattleAppointments} from './postbattle-appointments.mjs';
+import {initializeBandits,validateBandits,banditCamp} from './bandit-state.mjs';
+import {banditDefender,settleBanditBattle,deliverBanditLoot} from './bandits.mjs';
 import {initializeScouting,advanceScouting,validateScouting,reconcileScouting} from './scouting.mjs';
 import {initializeTreasures,finishTreasureTurn,treasureCaptureCandidates,settleBattleTreasures,manageTreasuresAI,validateTreasures} from './treasures.mjs';
 import {canEquip,validEquipment,equipmentCost,emptyEquipment} from './troop-equipment.mjs';
@@ -61,7 +63,7 @@ import {initializeDiplomacy,advanceDiplomacy,planDiplomaticAI,validateDiplomacy,
 import {factionsHostile,diplomaticProtection,diplomaticPassage,diplomaticAssignment} from './diplomacy-relations.mjs';
 
 // A day consists of a fixed number of real combat steps, never wall-clock time.
-export const CAMPAIGN = Object.freeze({version:63, daysPerTurn:10, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
+export const CAMPAIGN = Object.freeze({version:65, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
 import {gateDurability,buildingWorkMode,buildingWorkQuote,beginBuildingWork,buildingDurability,restoreBuilding,campaignBattleBuildings,writeBattleBuildingDamage,validateBattleBuildingSources} from './building-durability.mjs';
 import {updateCityBudgetAlerts,validateCityBudget} from './city-budget.mjs';
 import {initializeCityResources,syncResourceTotals,settleCityCaptureResources} from './city-resources.mjs';
@@ -118,7 +120,7 @@ export function newCampaign(seed=521200,scenarioId=null,faction='cao',{allAI=fal
     s.campaign.idle.push({unit:{...makeOfficer(source.id,0,0,1,seed),homeCity:home},faction,location:home,destination:null,remainingDays:0});
   }
   initializeCityResources(s);s.armies.forEach(a=>a.detached=false);materializeGarrisons(s);consolidateCityArmies(s);initializeDomestic(s);
-  s.logs=[];log(s,'城内部队独立编制，出征时组建最多十队的军团，战场同时上阵六队。','event');syncResources(s);initializeDiplomacy(s);initializeScouting(s);initializeOfficerActivities(s);initializeTreasures(s);manageTreasuresAI(s);initializeVision(s);updateCityBudgetAlerts(s);return s;
+  s.logs=[];log(s,'城内部队独立编制，出征时组建最多十队的军团，战场同时上阵六队。','event');syncResources(s);initializeDiplomacy(s);initializeScouting(s);initializeOfficerActivities(s);initializeTreasures(s);manageTreasuresAI(s);initializeBandits(s);initializeVision(s);updateCityBudgetAlerts(s);return s;
 }
 function initializeNationalCampaign(s,scenarioId){
   const spec=nationalScenario(scenarioId);Object.assign(s,nationalWorld(scenarioId));
@@ -143,7 +145,7 @@ function initializeNationalCampaign(s,scenarioId){
     const leader=units.find(u=>u.id==='cao'||OFFICER_BY_ID[u.id].sourceId===FACTIONS[c.owner]?.leaderSourceId)||units[0];
     s.armies.push({id:`a${s.nextId++}`,name:`${c.name}初始兵员`,faction:c.owner,location:c.id,homeCity:c.id,route:[],target:null,travel:null,task:'驻守',morale:80,tactic:'balanced',leader:leader.id,advisor:[...units].sort((a,b)=>b.intellect-a.intellect)[0].id,units,supply:units.length*600,supplyCapacity:armySupplyCapacity(units),hunger:0,supplyIn:0,supplyLine:null,cooldownDay:0,stationary:c.kind!=='city',detached:false});
   }
-  consolidateCityArmies(s);initializeDomestic(s);initializeStrategicAI(s);s.logs=[];s.campaign.lastNotice=s.campaign.allAI?`${spec.name} · 全 AI 观战`:`${spec.name} · ${FACTIONS[playerFaction(s)].name}`;log(s,`${spec.era}，${spec.name}。统一全部 ${s.cities.length} 座城市，成就霸业。`,'event');syncResources(s);initializeDiplomacy(s);initializeScouting(s);initializeOfficerActivities(s);initializeTreasures(s);manageTreasuresAI(s);initializeVision(s);updateCityBudgetAlerts(s);return s;
+  consolidateCityArmies(s);initializeDomestic(s);initializeStrategicAI(s);s.logs=[];s.campaign.lastNotice=s.campaign.allAI?`${spec.name} · 全 AI 观战`:`${spec.name} · ${FACTIONS[playerFaction(s)].name}`;log(s,`${spec.era}，${spec.name}。统一全部 ${s.cities.length} 座城市，成就霸业。`,'event');syncResources(s);initializeDiplomacy(s);initializeScouting(s);initializeOfficerActivities(s);initializeTreasures(s);manageTreasuresAI(s);initializeBandits(s);initializeVision(s);updateCityBudgetAlerts(s);return s;
 }
 function materializeGarrisons(s){
   const used=new Set([...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id)]),pool=Object.keys(OFFICER_BY_ID).filter(id=>!used.has(id));let index=0;
@@ -158,6 +160,7 @@ export function consolidateCityArmies(s){
   c.units.push(...a.units);c.grain=Math.min(grainCapacity(c),round(c.grain+a.supply));s.armies=s.armies.filter(x=>x!==a);
  }
  if(s.campaign.activity)settleMeritCapacity(s);
+ if(s.campaign.bandits)deliverBanditLoot(s);
 }
 export function setObserverFaction(s,faction){
  if(!s.campaign.allAI||!nationalScenario(s.campaign.scenarioId)?.factions.includes(faction))return '请选择本剧本的观战势力';
@@ -460,7 +463,7 @@ function disband(s,a){
   const r=armyBattle(s,a.id);
   const returning=[];
   if(r)for(const u of r.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id&&!u.retreatDispatched))desert(u,u.hp);
-  for(const unit of a.units){const home=s.cities.find(c=>c.id===unit.homeCity&&c.owner===a.faction)||s.cities.find(c=>c.owner===a.faction);returning.push({unit:{...copy(unit),troops:0,wounded:0,homeCity:home?.id||a.location},faction:a.faction,location:a.location,destination:home?.id||null,remainingDays:home?Math.max(1,Math.ceil(Math.hypot(city(s,a.location).x-home.x,city(s,a.location).y-home.y)/70)):0});}
+  for(const unit of a.units){if(unit.generatedOfficer)continue;const home=s.cities.find(c=>c.id===unit.homeCity&&c.owner===a.faction)||s.cities.find(c=>c.owner===a.faction);returning.push({unit:{...copy(unit),troops:0,wounded:0,homeCity:home?.id||a.location},faction:a.faction,location:a.location,destination:home?.id||null,remainingDays:home?Math.max(1,Math.ceil(Math.hypot(city(s,a.location).x-home.x,city(s,a.location).y-home.y)/70)):0});}
   for(const o of returning)if(o.destination)startPersonnelJourney(s,o);
   if(r){a.disbanded=true;a.returningOfficers=returning;a.units.forEach(u=>{u.troops=0;u.wounded=0;});}else {s.campaign.idle.push(...returning);s.armies=s.armies.filter(x=>x!==a);}
   log(s,`第 ${s.campaign.day} 天：${a.name}缺粮五日，部队解散，武将返城。`,'war');
@@ -506,12 +509,26 @@ export function beginExecution(s){
   const resume=battleRecord(s,s.campaign.resumeId);if(resume&&!resume.settled){s.campaign.focusId=resume.id;s.battle=resume.battle;resume.control='manual';}
   s.campaign.lastNotice=s.campaign.allAI?`第 ${s.campaign.day} 天：各势力由 AI 办理本旬军政，观战继续。`:`第 ${s.campaign.day} 天：正在执行本旬命令。`;syncResources(s);return null;
 }
-export function campaignBattleTerrain(s,from,to){if(s.campaign.scenarioId){const places=[city(s,from),city(s,to)];if(places.some(c=>c?.kind==='port'))return 'river';if(places.some(c=>c?.kind==='gate'))return 'hill';if(places.some(c=>['南中','巴蜀'].includes(c?.province)))return 'forest';return 'land';}if([from,to].includes('baima'))return 'river';if([from,to].includes('jinyang'))return 'hill';if([from,to].includes('wan'))return 'forest';if([from,to].includes('runan'))return 'marsh';return 'land';}
+export function campaignBattleTerrain(s,from,to,{siteId=null}={}){
+ if(s.campaign.scenarioId){
+  const site=city(s,siteId||(from===to?to:null)),places=[city(s,from),city(s,to)];
+  if(site?.kind==='port')return 'river';
+  if(site?.kind==='gate')return 'hill';
+  // A battle on a road follows that road, including a land approach to a port.
+  // Carrying ships, a nearby river or an endpoint's name cannot change it.
+  const ground=siteId?null:chosenRoad(s,from,to)?.terrain;
+  if(ground==='water')return 'river';
+  if(ground==='mountain')return 'hill';
+  if(places.some(c=>['南中','巴蜀'].includes(c?.province)))return 'forest';
+  return 'land';
+ }
+ if([from,to].includes('baima'))return 'river';if([from,to].includes('jinyang'))return 'hill';if([from,to].includes('wan'))return 'forest';if([from,to].includes('runan'))return 'marsh';return 'land';
+}
 import {fieldBattleMapId} from './data/design/battle-maps.mjs';
-export function campaignBattleMapId(s,from,to,{siteId=null,terrain=campaignBattleTerrain(s,from,to)}={}){
- const site=siteId?city(s,siteId):null;
- const kind=site?.kind||[city(s,from),city(s,to)].find(n=>['port','gate'].includes(n?.kind))?.kind;
- return fieldBattleMapId(terrain,siteId||[from,to].sort().join(':'),kind);
+export function campaignBattleMapId(s,from,to,{siteId=null,terrain=campaignBattleTerrain(s,from,to,{siteId})}={}){
+ const placeId=siteId||(from===to?to:null),site=placeId?city(s,placeId):null;
+ const kind=site?.kind;
+ return fieldBattleMapId(terrain,placeId||[from,to].sort().join(':'),kind);
 }
 // Coalition membership comes from a signed, specific military task. Original
 // factions remain on strategic armies; the combat engine still has two sides.
@@ -519,6 +536,7 @@ function supportsFaction(s,a,faction,enemy){const task=a.diplomaticTask;return !
 export function campaignBattleSide(s,r,a){const joined=r.battle.sides.findIndex(x=>x.units.some(u=>u.armyId===a.id));if(joined>=0)return joined;const exact=r.battle.sides.findIndex(x=>x.faction===a.faction);if(exact>=0)return exact;return r.battle.sides.findIndex((x,i)=>supportsFaction(s,a,x.faction,r.battle.sides[1-i].faction)||r.armies.some(ally=>r.battle.sides[i].units.some(u=>u.armyId===ally.id)&&supportsFaction(s,ally,a.faction,r.battle.sides[1-i].faction)));}
 function makeEncounter(s,attacker,defenders,cityId,kind,point){
   const previous=armyBattle(s,attacker.id);if(previous)return previous;
+  const campId=defenders.find(a=>a.banditCampId)?.banditCampId;
   const defendingFaction=kind==='siege'?city(s,cityId).owner:defenders[0]?.faction;
   defenders=defenders.filter(a=>a.faction===defendingFaction||supportsFaction(s,a,defendingFaction,attacker.faction));
   const proxy=newGame(s.seed+s.nextId*997);if(s.campaign.scenarioId)Object.assign(proxy,nationalWorld(s.campaign.scenarioId));proxy.campaign={playerFaction:s.campaign.allAI?attacker.faction:playerFaction(s)};proxy.relationshipScores=copy(s.relationshipScores);proxy.relationshipTypes=copy(s.relationshipTypes);
@@ -540,18 +558,20 @@ function makeEncounter(s,attacker,defenders,cityId,kind,point){
     b.sides[0].units=guards.map(u=>({...u,side:0,status:'reserve',x:-1,y:-1}));
   }
   b.sides[attackSide].faction=attackFaction;b.sides[1-attackSide].faction=defenseFaction||real.owner;
-  b.terrain=members.some(a=>a.units.some(u=>u.troops>0&&u.type==='ship'))?'river':campaignBattleTerrain(s,attacker.travel?.from||attacker.location,attacker.travel?.to||cityId);
-  b.mapId=campaignBattleMapId(s,attacker.travel?.from||attacker.location,attacker.travel?.to||cityId,{siteId:kind==='siege'||!attacker.travel?cityId:null,terrain:b.terrain});
+  const encounterFrom=attacker.travel?.from||attacker.location,encounterTo=attacker.travel?.to||cityId,encounterSite=kind==='siege'||!attacker.travel?cityId:null;
+  b.terrain=campaignBattleTerrain(s,encounterFrom,encounterTo,{siteId:encounterSite});
+  b.mapId=campaignBattleMapId(s,encounterFrom,encounterTo,{siteId:encounterSite,terrain:b.terrain});
   // Rebuild legal positions after selecting the map-derived terrain.
   for(const side of b.sides)for(const u of side.units){u.status='reserve';u.x=-1;u.y=-1;u.supplyPenalty=hungerPenalty(members.find(a=>a.id===u.armyId)||{hunger:0});}
   if(kind==='siege'){
     const side=1-attackSide;b.siege={attackerSide:attackSide,gate:{id:'siege-gate',name:'城门',type:'gate',side,x:side===0?1:12,y:4,hp:gateDurability(real).hp,maxHp:gateDurability(real).maxHp,source:{cityId:real.id,siteId:real.id,key:'walls'},initialHp:gateDurability(real).hp}};
   }
-  b.buildingSiteId=kind==='siege'||isJunction(s,cityId)&&!attacker.travel?cityId:null;
+  b.buildingSiteId=!campId&&(kind==='siege'||isJunction(s,cityId)&&!attacker.travel)?cityId:null;
   if(b.buildingSiteId)b.buildings=campaignBattleBuildings(s,cityId,1-attackSide,b.sides.map(side=>side.faction));
   initializeBattleSlots(b,{aiSides:b.sides.map((side,i)=>isAIControlled(s,side.faction)?i:null).filter(i=>i!==null)});
   if(kind==='siege')b.domesticOpening={...siegeOpening(real,s.campaign.day),applied:false,side:1-attackSide};
   const r={id,name:kind==='siege'?`${real.name}攻守战`:isJunction(s,cityId)&&!attacker.travel?`${real.name}${real.kind==='port'?'港口战':real.kind==='gate'?'关卡战':'遭遇战'}`:`${city(s,attacker.travel?.from||attacker.location).name}道遭遇战`,cityId,kind,point:copy(point),attackSide,armyIds:members.map(a=>a.id),armies:copy(members),startedDay:s.campaign.day,endedDay:null,control:'auto',awaiting:members.some(a=>isPlayerControlled(s,a.faction))||isPlayerControlled(s,real.owner)&&kind==='siege',settled:false,battle:b,templates:{},snapshots:[],report:null};
+  if(campId){r.banditCampId=campId;r.name=banditCamp(s,campId).name+'讨伐战';banditCamp(s,campId).battleId=r.id;}
   members.forEach(a=>{a.task='交战';a.route=[];a.target=null;});
   s.campaign.battles.push(r);initializeRetreatDestinations(s,r);captureDay(s,r);if(!r.awaiting)lockDeployment(b,{validateCount:false});
   log(s,`第 ${s.campaign.day} 天：${needsSiegeDefense(r)?`${real.name}敌军抵城，等待编制守军或放弃守城。`:`${r.name}爆发。`}`,'war');return r;
@@ -608,6 +628,8 @@ function moveArmies(s){
     const c=city(s,destination);
     if(isJunction(s,destination)){
       if(defenders.length){makeEncounter(s,a,defenders,destination,'field',armyPosition(s,a));continue;}
+      const bandits=!a.route.length&&banditDefender(s,destination);if(bandits){makeEncounter(s,a,[bandits],destination,'field',armyPosition(s,a));continue;}
+      if(a.banditTarget&&!a.route.length){const route=findCampaignRoute(s,destination,a.homeCity,a.faction);if(route){a.route=route;a.target=route.length?a.homeCity:null;a.task='讨贼返城';}delete a.banditTarget;continue;}
       if(!a.route.length){a.target=null;a.task=({gate:'关卡驻守',port:'港口驻守'}[c.kind]||'府驻守');}
       continue;
     }
@@ -686,7 +708,7 @@ function settleEncounter(s,r){
     }
     const a=army(s,u.armyId),source=a?.units.find(x=>x.id===u.id);if(u.retreatDispatched||!source||a.disbanded)continue;
     source.troops=u.hp;source.wounded+=wounded;
-    if(u.participated||battleMerit(u,false).score>0){const merit=battleMeritResult(u,b),g=settleOfficerMerit(s,source,{sourceId:`battle:${r.id}`,amount:merit.net,faction:b.sides[side].faction,cityId:r.cityId,category:'battle',reason:'战果结算'});growth.push({id:u.id,side,name:u.name,...merit,...g});}
+    if(OFFICER_BY_ID[u.id]&&(u.participated||battleMerit(u,false).score>0)){const merit=battleMeritResult(u,b),g=settleOfficerMerit(s,source,{sourceId:`battle:${r.id}`,amount:merit.net,faction:b.sides[side].faction,cityId:r.cityId,category:'battle',reason:'战果结算'});growth.push({id:u.id,side,name:u.name,...merit,...g});}
   }
   const buildingChanges=writeBattleBuildingDamage(s,b);
   completeBattleBuildingWork(s,[...new Set([...(b.siege?.gate?[b.siege.gate]:[]),...b.buildings].map(a=>a.source?.cityId).filter(Boolean))]);
@@ -695,8 +717,9 @@ function settleEncounter(s,r){
     c.garrison=b.sides.flatMap(x=>x.units).filter(u=>u.armyId===`city:${c.id}`).reduce((n,u)=>n+u.hp,0);
     if(b.result.winner===r.attackSide){const previous=c.owner,resources=settleCityCaptureResources(c);c.owner=r.armies[0].faction;recordOccupation(s,c,previous,r.id,r.armies,resources);noteTalentCityCapture(s,previous,c.owner,r.id);displaceCityOfficers(s,c.id,previous,r.id);c.garrison=0;c.governor=null;reconcileDomestic(s);refreshTalentDemand(s);}
   }
-  for(const id of r.armyIds){const a=army(s,id);if(!a||a.disbanded)continue;const side=campaignBattleSide(s,r,a);const lost=b.result.winner!==side&&(b.result.winner!==null||side===r.attackSide);if(!r.diplomaticCeasefire)a.morale=Math.max(25,Math.min(100,a.morale+(lost?-18:8)));returnArmy(s,a,r,lost);}
+  for(const id of r.armyIds){const a=army(s,id);if(!a||a.disbanded||a.banditCampId)continue;const side=campaignBattleSide(s,r,a);const lost=b.result.winner!==side&&(b.result.winner!==null||side===r.attackSide);if(!r.diplomaticCeasefire)a.morale=Math.max(25,Math.min(100,a.morale+(lost?-18:8)));returnArmy(s,a,r,lost);}
   r.settled=true;r.awaiting=false;r.endedDay=s.campaign.day;r.report={winner:b.result.winner,reason:b.result.reason,stats,growth,buildings:buildingChanges};
+  if(r.banditCampId)settleBanditBattle(s,r);
   for(let side=0;side<2;side++)for(const faction of new Set([b.sides[side].faction,...r.armies.filter(a=>b.sides[side].units.some(u=>u.armyId===a.id)).map(a=>a.faction)])){
    const units=b.sides[side].units.filter(u=>(r.armies.find(a=>a.id===u.armyId)?.faction||b.sides[side].faction)===faction),leader=r.armies.find(a=>a.faction===faction)?.leader||units.find(u=>!u.cityGuard)?.id||null;
    if(!units.length)continue;const st={faction,initial:0,remaining:0,wounded:0,killed:0,escaped:0};for(const u of units){const wounded=battleWounded(u),escaped=u.battleDeserted||0;st.initial+=u.initial;st.remaining+=u.hp;st.wounded+=wounded;st.escaped+=escaped;st.killed+=u.initial-u.hp-wounded-escaped;}
@@ -859,6 +882,7 @@ export function validateCampaign(value){
   const battleIds=new Set(),engaged=new Set();
   function checkBattle(r,b){const base=newGame();if(c.scenarioId){Object.assign(base,nationalWorld(c.scenarioId));base.campaign={scenarioId:c.scenarioId,playerFaction:c.playerFaction};}base.armies=copy(r.armies).map(a=>({...a,faction:b.sides.find(side=>side.units.some(u=>u.armyId===a.id))?.faction||a.faction,supply:Math.ceil(a.supply),route:[],target:null}));base.relationshipScores=copy(b.relationshipScores);base.relationshipTypes=copy(b.relationshipTypes);base.pendingAppointments=[];base.battle=copy(b);validateSave(base,{strategic:true});for(const u of b.sides.flatMap(x=>x.units))fail(u.supplyPenalty===undefined||[0,.1,.2,.35].includes(u.supplyPenalty),'缺粮效果无效');}
   for(const r of c.battles){fail(r&&typeof r.id==='string'&&!battleIds.has(r.id)&&typeof r.name==='string'&&r.name.length<100&&['field','siege'].includes(r.kind)&&city(value,r.cityId)&&num(r.point?.x,1024)&&num(r.point?.y,1024));battleIds.add(r.id);
+    if(r.banditCampId){const camp=banditCamp(value,r.banditCampId);fail(camp&&camp.nodeId===r.cityId&&r.kind==='field'&&r.armies.some(a=>a.banditCampId===camp.id&&a.faction==='neutral'),'贼寨战斗来源无效');if(r.settled)fail(r.report?.banditResolved===true&&(!r.report.banditLoot||camp.receipt?.battleId===r.id&&JSON.stringify(r.report.banditLoot)===JSON.stringify(camp.receipt)),'贼寨结算凭据无效');}
     fail(integer(r.startedDay,c.day)&&r.startedDay>=1&&typeof r.settled==='boolean'&&typeof r.awaiting==='boolean'&&['auto','manual'].includes(r.control)&&[0,1].includes(r.attackSide));
     fail(Array.isArray(r.armyIds)&&new Set(r.armyIds).size===r.armyIds.length&&Array.isArray(r.armies)&&r.armies.length===r.armyIds.length&&r.armies.every(a=>r.armyIds.includes(a.id)));
     fail(r.settled?integer(r.endedDay,c.day)&&r.endedDay>=r.startedDay&&!!r.battle.result:r.endedDay===null);
@@ -878,7 +902,7 @@ export function validateCampaign(value){
   fail(c.resumeId===null||battleIds.has(c.resumeId));
   fail(value.gold===value.cities.filter(c=>c.owner===playerFaction(value)).reduce((n,c)=>n+c.gold,0),'金库汇总不一致');
   fail(value.grain===Math.floor(value.cities.filter(c=>c.owner===playerFaction(value)).reduce((n,c)=>n+c.grain,0)),'粮仓汇总不一致');
-  validateTreasures(value,fail);validateDomestic(value);validateDiplomacy(value);validateStrategicOrders(value);validateOfficerActivities(value);validateVision(value);validateScouting(value);if(c.scenarioId)validateStrategicAI(value);value.battle=c.focusId?battleRecord(value,c.focusId).battle:null;value.pending=null;value.report=null;return value;
+  validateTreasures(value,fail);validateDomestic(value);validateDiplomacy(value);validateStrategicOrders(value);validateOfficerActivities(value);validateVision(value);validateBandits(value,fail);validateScouting(value);if(c.scenarioId)validateStrategicAI(value);value.battle=c.focusId?battleRecord(value,c.focusId).battle:null;value.pending=null;value.report=null;return value;
 }
 
 export function setArmyMarchMode(s,id,mode,{faction=playerFaction(s),scheduled=false}={}){

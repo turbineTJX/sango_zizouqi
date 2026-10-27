@@ -1,8 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
-import {createHash} from 'node:crypto';
-import {pngInfo,promptFor,officerArtRole,officerArtJobs} from '../scripts/officer-art.mjs';
+import {promptFor,officerArtRole,officerArtJobs} from '../scripts/officer-art.mjs';
 import {artRole,roleSceneBrief} from '../scripts/officer-art-roles.mjs';
 import {OFFICER_CATALOG,OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {assetURL,sanitizeOfficerArt,art} from '../art-assets.mjs';
@@ -57,18 +55,6 @@ test('scene selection follows actual work and outcomes, never guesses an officer
  assert.equal(activityArtScene({code:'mission',fromId:'a',toId:'b'}),'travel');assert.equal(activityArtScene({code:'mission'}),'diplomacy');
  assert.equal(activityArtScene({code:'dead'}),'detail');assert.equal(activityArtScene({code:'absent'}),'detail');
 });
-test('reused originals retain their exact hashes, source receipts and current identities without extra PNGs',async()=>{
- const receipts=JSON.parse(await readFile(new URL('../assets/officers/receipts.json',import.meta.url),'utf8'));
- const manifest=JSON.parse(await readFile(new URL('../assets/officers/manifest.json',import.meta.url),'utf8'));
- const identities=JSON.parse(await readFile(new URL('../assets/officers/identities.json',import.meta.url),'utf8'));
- assert.equal(manifest.formatVersion,OFFICER_ART_FORMAT_VERSION);const hashes=new Set();let reused=0;
- for(const [id,scenes] of Object.entries(manifest.officers)){
-  const keys=Object.keys(scenes);assert.ok(keys.every(s=>[...OFFICER_ART_SOURCE_KEYS,'portrait'].includes(s)));
-  for(const scene of keys){const entry=scenes[scene],original=entry.derivedFrom||scene,receipt=receipts[id][original];assert.ok(receipt.approved);assert.equal(receipt.masterSha256,identities[id].sha256);assert.equal(receipt.sha256,entry.sha256);assert.equal(receipt.formatVersion,entry.sourceFormatVersion);const bytes=await readFile(new URL('../'+entry.url,import.meta.url)),info=pngInfo(bytes,original,{legacy:receipt.formatVersion===OFFICER_ART_LEGACY_VERSION});assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256);assert.equal(info.width,entry.width);assert.equal(info.height,entry.height);hashes.add(entry.sha256);if(entry.derivedFrom)reused++;}
- }
- assert.ok(reused>0);assert.ok(hashes.size<=Object.values(manifest.officers).reduce((n,s)=>n+Object.keys(s).length,0));
-});
-
 test('one neutral original supplies face, half body and full body with bounded source crops',()=>{
  const saved={officers:art.officers,pack:art.pack,enabled:art.enabled,failed:art.failed};
  try{

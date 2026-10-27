@@ -1,6 +1,7 @@
 import {residentOfficer} from './city-personnel.mjs';
 import {assignDomestic,assignmentFor,ACTIONS,DIRECTIONS} from './domestic.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
+import {withPlanningQueries} from './planning-queries.mjs';
 
 // A staffing promise owns no resources and is fulfilled only by real arrival,
 // the shared appointment operation and an actual completed work attempt.
@@ -18,8 +19,8 @@ export function progressStrategicStaffing(s){
   if(o.unit.scouting)continue;
   let a=assignmentFor(s,p.officerId);
   if(!a){
-   const directions=Object.keys(DIRECTIONS).filter(d=>!s.campaign.domestic.assignments.some(a=>a.cityId===c.id&&a.direction===d));
-   const ranked=directions.flatMap(direction=>rankOfficerCandidates(s,[o.unit],{task:'domestic',city:c.id,direction}).filter(x=>x.recommendation.available).map(x=>({...x,direction})))
+   const directions=Object.keys(DIRECTIONS);
+   const ranked=withPlanningQueries(s,()=>directions.flatMap(direction=>rankOfficerCandidates(s,[o.unit],{task:'domestic',city:c.id,direction}).filter(x=>x.recommendation.available).map(x=>({...x,direction}))))
     .sort((a,b)=>Number(b.direction===p.direction)-Number(a.direction===p.direction)||b.recommendation.score-a.recommendation.score||a.direction.localeCompare(b.direction));
    if(!ranked.length)continue;
    p.direction=ranked[0].direction;

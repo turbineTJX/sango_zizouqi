@@ -15,14 +15,14 @@ function front(){
  target.gold=0;target.manpower=0;
  rear.owner='cao';rear.domestic.owner='cao';rear.x=16;rear.y=0;rear.gold=0;rear.manpower=0;
  s.roads=[[home.id,target.id],[target.id,rear.id]];
- for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:7.5};
+ for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:1};
  initializeVision(s);return f;
 }
 const proposal=({home,target},units=home.units.slice(0,3))=>({faction:'yuan',staging:home,target,groups:[{c:home,units,days:0}],assaultDays:1,siegeDays:2});
 function relief(f,{troops=6000,moving=false}={}){
  const {s,rear,target}=f,u={...makeOfficer('gao',troops,0,3),homeCity:rear.id};
  const a={...cityForce(rear),id:'a'+s.nextId++,cityForce:false,units:[u],leader:u.id,advisor:u.id,supply:900,supplyCapacity:900,route:[],target:null};
- if(moving)a.travel={from:rear.id,to:target.id,road:'main',progress:7};
+ if(moving)a.travel={from:rear.id,to:target.id,road:'main',progress:.9};
  s.armies.push(a);return a;
 }
 
@@ -56,7 +56,7 @@ test('observed approaching relief counts fully while armies too late on real roa
 test('potential city relief retains half its garrison and includes arrival during the siege',()=>{
  const f=front(),{s,rear,target}=f;rear.units=[{...makeOfficer('gao',4000,0,3),homeCity:rear.id}];
  // Arrival is later than the one-day assault, but inside its battle window.
- s.roadSegments[[target.id,rear.id].sort().join(':')].distance=40;
+ s.roadSegments[[target.id,rear.id].sort().join(':')].distance=8;
  const result=evaluateOffensive(s,proposal(f)),row=result.opposition.reinforcements.find(r=>r.id==='city-force:'+rear.id);
  assert.ok(row);assert.ok(row.eta>1);assert.ok(row.eta<=result.opposition.window);
  assert.equal(row.power,strategicPower(s,cityForce(rear),{opponents:proposal(f).groups[0].units})*.5);

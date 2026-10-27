@@ -59,6 +59,17 @@ test('ruler willingness cannot waive actual supply home guards or casualty repla
  assert.equal(temperamentTolerance(intent(),.8,{feasible:true}).active,false,'extreme expected casualties do not get a risk exception');
 });
 
+test('unopposed occupation retains its high unification value and rewards a smaller sufficient force',()=>{
+ const f=marginalFront(),willing=intent(f.profile),defended=evaluateOffensive(f.s,{...f.proposal,temperament:willing});
+ f.target.units=[];f.target.gold=0;f.target.manpower=0;initializeVision(f.s);
+ const before=serializeCampaign(f.s),empty=evaluateOffensive(f.s,{...f.proposal,temperament:willing});
+ assert.equal(empty.accepted,true);assert.equal(empty.estimatedLosses,0);assert.ok(empty.score>defended.score);
+ const small=evaluateOffensive(f.s,{...f.proposal,groups:[{c:f.home,units:f.home.units.slice(0,1),days:0}],temperament:willing});
+ assert.equal(small.accepted,true);assert.equal(small.estimatedLosses,0);assert.ok(small.score>empty.score);
+ assert.ok(small.consumedGrain<empty.consumedGrain);assert.equal(small.victoryValue.score,empty.victoryValue.score);
+ assert.equal(serializeCampaign(f.s),before,'evaluation cannot create the conquest or spend its reward');
+});
+
 test('a committed operation retains its ruler preference when the next turn draws a different willingness',()=>{
  const {s,home,rear}=planningFront();s.turn=21;s.campaign.day=201;home.grain=2500;rear.grain=20000;
  const courier={...makeOfficer('gao',0,0,3),homeCity:rear.id};s.campaign.domestic.people=s.campaign.domestic.people.filter(o=>o.id!==courier.id);

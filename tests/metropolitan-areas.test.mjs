@@ -30,13 +30,15 @@ test('every prefecture, small city, pass and port belongs to exactly one nearest
  const s=newCampaign(81,'guandu-200'),members=s.cities.filter(c=>c.citySize==='large').flatMap(c=>metropolitanMembers(s,c));
  const expected=[...s.cities,...s.junctions];
  assert.equal(members.length,expected.length);assert.equal(new Set(members.map(n=>n.id)).size,expected.length);
- const c=mapNode(s,'jinyang');assert.deepEqual(new Set(metropolitanMembers(s,c).map(n=>n.kind)),new Set(['city','gate','port']));
+ const c=mapNode(s,'jinyang');assert.deepEqual(new Set(metropolitanMembers(s,c).map(n=>n.kind)),new Set(['city','port']));
+ assert.equal(metropolitanCenter(s,mapNode(s,'town-43')).id,'ye','壶关按经长子的新道路距离归入邺，而非旧晋阳直连');
  for(const n of metropolitanMembers(s,c))assert.equal(metropolitanCenter(s,n).id,c.id);
  const before=serializeCampaign(s);for(const n of expected)metropolitanMembers(s,n);assert.equal(serializeCampaign(s),before);
 });
 test('automatic site selection can use the main city, small city, gate and port; walls stay at home',()=>{
  const s=newCampaign(81,'guandu-200','yuan'),c=mapNode(s,'jinyang');
- const sites=availableConstructionSites(s,c,'workshop');assert.equal(sites.length,4);
+ const sites=availableConstructionSites(s,c,'workshop');assert.equal(sites.length,3);
+ assert.ok(availableConstructionSites(s,mapNode(s,'ye'),'workshop').some(x=>x.node.kind==='gate'));
  let sum=0;const total=sites.reduce((n,x)=>n+x.weight,0);
  for(const x of sites){assert.equal(chooseConstructionSite(s,c,'workshop',(sum+x.weight/2)/total),x.node.id);sum+=x.weight;}
  assert.deepEqual(availableConstructionSites(s,c,'walls').map(x=>x.node.id),[c.id]);

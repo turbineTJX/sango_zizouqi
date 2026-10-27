@@ -1,4 +1,6 @@
 import {BATTLE_MAPS} from './data/design/battle-maps.mjs';
+import {MAP_CATEGORIES,BUILTIN_MAP_CATEGORIES} from './data/design/battle-map-categories.mjs';
+import {BANDIT_RULES} from './data/design/bandits.mjs';
 import {validateBattleMaps} from './battle-map-validation.mjs';
 import {validateTreasureDesigns} from './treasure-design-validation.mjs';
 import {TREASURE_DESIGNS,TREASURE_RULES,EYE_ACTIONS} from './data/design/treasures.mjs';
@@ -16,7 +18,7 @@ import {MERIT_RULES} from './data/design/progression.mjs';
 import {DOMESTIC_INCIDENT_RULES,DOMESTIC_INCIDENTS} from './data/design/domestic-incidents.mjs';
 import {validateStrategyDesigns} from './design-strategy-validation.mjs';
 import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
-import {DOMESTIC_ACTION_DESIGNS,DOMESTIC_DIRECTIONS,DOMESTIC_DIRECTION_STATS,DOMESTIC_STAFFING_RULES} from './data/design/domestic-actions.mjs';
+import {DOMESTIC_ACTION_DESIGNS,DOMESTIC_DIRECTIONS,DOMESTIC_DIRECTION_STATS,DOMESTIC_STAFFING_RULES,DOMESTIC_RECOMMENDATION_RULES} from './data/design/domestic-actions.mjs';
 import {NATIONAL_ROAD_DESIGNS,DEMO_ROAD_DESIGNS} from './data/design/roads.mjs';
 import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
 import {NATIONAL_MAP as MAP_SOURCE} from './data/national-map.mjs';
@@ -34,10 +36,16 @@ import {DESIGN_FIELDS,DESIGN_EFFECTS,ENGINE_TRAIT_IDS} from './data/design/schem
 import TECHNOLOGIES from './data/design/technologies.mjs';
 import {CITY_TECHNOLOGY_PROFILES} from './data/design/city-technologies.mjs';
 import {validateTechnologyDesigns} from './technology-design-validation.mjs';
-import {DIPLOMACY_RULES,DIPLOMACY_AI,DIPLOMACY_WORK,DIPLOMACY_DIRECTIONS,DIPLOMACY_GOALS,DIPLOMACY_ACTIONS} from './data/design/diplomacy-rules.mjs';
-export const DESIGN_TABLES={battleMaps:BATTLE_MAPS,strategicPlanning:STRATEGIC_PLANNING_RULES,strategicSupport:STRATEGIC_SUPPORT_RULES,treasures:TREASURE_DESIGNS,treasureRules:TREASURE_RULES,domesticIncidents:{rules:DOMESTIC_INCIDENT_RULES,events:DOMESTIC_INCIDENTS},diplomacy:{rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,domesticStaffing:DOMESTIC_STAFFING_RULES,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,stratagemAttributes:STRATAGEM_ATTRIBUTE_RULES,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS};
+import {DIPLOMACY_RULES,DIPLOMACY_AI,DIPLOMACY_CITY_EXCHANGE,DIPLOMACY_WORK,DIPLOMACY_DIRECTIONS,DIPLOMACY_GOALS,DIPLOMACY_ACTIONS} from './data/design/diplomacy-rules.mjs';
+export const DESIGN_TABLES={bandits:BANDIT_RULES,battleMaps:BATTLE_MAPS,battleMapCategories:{purposes:MAP_CATEGORIES,assignments:BUILTIN_MAP_CATEGORIES},strategicPlanning:STRATEGIC_PLANNING_RULES,strategicSupport:STRATEGIC_SUPPORT_RULES,treasures:TREASURE_DESIGNS,treasureRules:TREASURE_RULES,domesticIncidents:{rules:DOMESTIC_INCIDENT_RULES,events:DOMESTIC_INCIDENTS},diplomacy:{rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,cityExchange:DIPLOMACY_CITY_EXCHANGE,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,domesticStaffing:DOMESTIC_STAFFING_RULES,domesticRecommendation:DOMESTIC_RECOMMENDATION_RULES,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,stratagemAttributes:STRATAGEM_ATTRIBUTE_RULES,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS};
 export function validateDesignTables(tables=DESIGN_TABLES){
  const errors=validateBattleMaps(tables.battleMaps),check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},exists=(table,id)=>Object.hasOwn(table,id),numeric=(n,min=0,max=Infinity)=>typeof n==='number'&&Number.isFinite(n)&&n>=min&&n<=max;
+ const categories=tables.battleMapCategories;
+ check(categories&&Object.keys(categories.purposes||{}).sort().join(',')==='field,gate,naval,port,siege'&&Object.entries(categories.purposes).every(([id,c])=>c.id===id&&c.scene===id&&typeof c.name==='string'&&c.name.length>0),'battleMapCategories','分类须按野战、攻城、关卡、港口、水战用途定义');
+ check(categories&&Object.keys(categories.assignments||{}).sort().join(',')===Object.keys(tables.battleMaps).sort().join(',')&&Object.values(categories.assignments).every(id=>Object.hasOwn(categories.purposes,id)),'battleMapCategories','每张内置地图须明确分配有效用途分类');
+ const bandits=tables.bandits;
+ check(bandits&&Number.isSafeInteger(bandits.maximumCamps)&&numeric(bandits.maximumCamps,1,40)&&Number.isSafeInteger(bandits.nodeDensity)&&bandits.nodeDensity>=1&&Number.isSafeInteger(bandits.minGenerals)&&Number.isSafeInteger(bandits.maxGenerals)&&bandits.minGenerals>=1&&bandits.maxGenerals>=bandits.minGenerals&&bandits.maxGenerals<=6&&bandits.minTroops>=100&&bandits.maxTroops>=bandits.minTroops&&bandits.maxTroops<=1500&&numeric(bandits.abilityMinimum,0,1)&&numeric(bandits.abilityMaximum,bandits.abilityMinimum,1)&&numeric(bandits.talentChance,0,1),'bandits','固定贼寨须使用有界人数、兵力、能力及奖励参数');
+ check(bandits&&['minTroops','maxTroops','goldMinimum','goldMaximum','grainMinimum','grainMaximum','aiMaximumUnits','aiMaximumDays','aiReserveUnits'].every(k=>Number.isSafeInteger(bandits[k])&&bandits[k]>0)&&bandits.goldMaximum>=bandits.goldMinimum&&bandits.grainMaximum>=bandits.grainMinimum&&numeric(bandits.aiAdvantage,1,3),'bandits','兵力、库存和AI预算限制须为有界整数');
  const opening=tables.economy?.opening;
  const baggage=tables.economy?.capacity;
  check(Number.isSafeInteger(baggage?.armyFoodDays)&&numeric(baggage.armyFoodDays,10,40)&&Number.isSafeInteger(baggage?.minimumUnitGrain)&&numeric(baggage.minimumUnitGrain,100,3000),'economy.capacity','军团携粮窗口和最低容量须为有界整数');
@@ -55,13 +63,16 @@ export function validateDesignTables(tables=DESIGN_TABLES){
  check(attr&&Object.keys(attr).sort().join(',')==='doublingPoints,max,min,reference'&&numeric(attr.reference,1,100)&&numeric(attr.doublingPoints,1,100)&&numeric(attr.min,.1,1)&&numeric(attr.max,1,2),'stratagemAttributes','军略属性折算参数无效');
  validateTreasureDesigns(tables,check);
  const diplomacy=tables.diplomacy;
- check(diplomacy&&Object.keys(diplomacy).sort().join(',')==='actions,ai,directions,goals,rules,work','diplomacy','外交设计字段未接入');
+ check(diplomacy&&Object.keys(diplomacy).sort().join(',')==='actions,ai,cityExchange,directions,goals,rules,work','diplomacy','外交设计字段未接入');
  if(diplomacy){for(const group of ['rules','ai']){const source=group==='rules'?DIPLOMACY_RULES:DIPLOMACY_AI;check(Object.keys(diplomacy[group]).sort().join(',')===Object.keys(source).sort().join(','),'diplomacy.'+group,'未接入字段');for(const [key,n]of Object.entries(diplomacy[group]))check(numeric(n,0),'diplomacy.'+group+'.'+key,'参数须为非负有限数');}
+  check(diplomacy.cityExchange&&Object.keys(diplomacy.cityExchange).sort().join(',')==='aiMinimumTurn,minimumConnectionGain','diplomacy.cityExchange','换城门槛字段未接入');
+  for(const [key,value]of Object.entries(diplomacy.cityExchange||{}))check(Number.isSafeInteger(value)&&value>0,'diplomacy.cityExchange.'+key,'换城门槛须为正整数');
   for(const [key,w]of Object.entries(diplomacy.work))check(Object.keys(w).sort().join(',')==='days,fee'&&Number.isSafeInteger(w.days)&&w.days>0&&Number.isSafeInteger(w.fee)&&w.fee>=0,'diplomacy.work.'+key,'工期或接洽费无效');
   check(Object.keys(diplomacy.actions).sort().join(',')===Object.keys(DIPLOMACY_ACTIONS).sort().join(','),'diplomacy.actions','原子动作须有对应履约处理器');
   for(const [key,d]of Object.entries(diplomacy.directions))check(['charm','politics','intellect'].includes(d.stat)&&typeof d.name==='string'&&Object.keys(d).sort().join(',')==='days,fee,name,stat','diplomacy.directions.'+key,'方向须引用唯一主属性');
   check(diplomacy.rules.lightSpeed>diplomacy.rules.captiveSpeed&&diplomacy.rules.grainPrice>0&&diplomacy.rules.offerDays>0,'diplomacy.rules','外交行进、报价或期限无效');}
  const staffing=tables.domesticStaffing;
+ check(tables.domesticRecommendation&&Object.keys(tables.domesticRecommendation).join(',')==='relatedTraitBonus'&&tables.domesticRecommendation.relatedTraitBonus===50,'domesticRecommendation','有相关特性时统一按50点对应主属性计入推荐，多项不重复');
  check(staffing&&Object.keys(staffing).sort().join(',')===Object.keys(DOMESTIC_STAFFING_RULES).sort().join(',')&&Object.values(staffing).every(n=>Number.isSafeInteger(n)&&n>0)&&staffing.base===3&&staffing.maximum===10&&staffing.base+staffing.constructionBonusMaximum+staffing.technologyBonusMaximum===staffing.maximum,'domesticStaffing','岗位上限须从3扩容至10，门槛及加成须为正整数');
  const p=tables.progression;check(p&&p.costs?.length===9&&p.costs.every((n,i)=>Number.isSafeInteger(n)&&n>0&&(!i||n>p.costs[i-1]))&&numeric(p.battleDivisor,1),'progression','升级成本须逐级递增且兑换除数有效');
  check(new Set(Object.values(STATUS_DEFINITIONS).map(s=>s.name)).size===Object.keys(STATUS_DEFINITIONS).length,'statuses','状态名称不能重复');

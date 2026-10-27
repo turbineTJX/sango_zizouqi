@@ -7,6 +7,8 @@ import {createHash} from 'node:crypto';
 import {createServer} from 'node:http';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
+import sharp from 'sharp';
+import {OFFICER_ART_FORMAT_VERSION,OFFICER_ART_LEGACY_VERSION} from '../officer-art-scenes.mjs';
 import {publicAssetURL,assetCatalog,applyAssetCatalog,catalogAssetURLs} from '../asset-catalog.mjs';
 import {assetFile,resolveAssetRoot,PROJECT_ROOT} from '../asset-workspace.mjs';
 import {serveAssets} from '../asset-server.mjs';
@@ -100,7 +102,9 @@ test('new transparent standing masters provide actual pose references and valida
  const {root}=await fixture(t),officers=join(root,'officers');
  await writeFile(join(officers,'art-direction.json'),JSON.stringify({styleVersion:'test',priority:['cao'],profiles:{cao:{identity:'曹操',signature:'测试',role:{primary:'ruler',secondary:[],evidence:'人物身份',bearing:'沉稳领袖'}}}}));
  await writeFile(join(officers,'identities.json'),'{}');await writeFile(join(officers,'receipts.json'),'{}');
- const original=resolve(PROJECT_ROOT,'assets/officers/generated/v4/person-37/neutral.png'),prompt=join(root,'prompt.txt'),crops=join(root,'crops.json');
+ const original=join(root,'test-neutral.png'),prompt=join(root,'prompt.txt'),crops=join(root,'crops.json');
+ // Contract pixels are generated in the temporary pack; no production artwork is required or changed.
+ await sharp({create:{width:1536,height:2560,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).png().toFile(original);
  await writeFile(prompt,'Actual test prompt');await writeFile(crops,JSON.stringify({face:[.27,.005,.46,.276]}));
  const env={...process.env,SANGO_ASSET_ROOT:root};
  execFileSync(process.execPath,['scripts/officer-art.mjs','import','cao','neutral',original,'--approve','--prompt-file',prompt,'--crop-file',crops],{cwd:PROJECT_ROOT,env,windowsHide:true,encoding:'utf8'});
@@ -110,6 +114,23 @@ test('new transparent standing masters provide actual pose references and valida
  assert.deepEqual(jobs.map(j=>j.status),['complete','pending','pending']);
  for(const j of jobs.slice(1)){assert.equal(j.referenceFile,join(officers,'generated/v4/cao/neutral.png'));assert.equal(j.referenceSha256,manifest.officers.cao.neutral.sha256);assert.deepEqual(j.dependsOn,['cao:neutral']);}
  const pack=await validateAssetPack(root);assert.ok(pack.files.has(manifest.officers.cao.neutral.url));assert.ok(![...pack.files].some(([url])=>/identity|receipts|crops/.test(url)));
+});
+
+test('reused originals retain exact hashes and identity receipts inside an isolated art pack',async t=>{
+ const {root}=await fixture(t),officers=join(root,'officers'),original=join(officers,'generated/v3/cao/detail.png');
+ const bytes=await sharp({create:{width:512,height:768,channels:4,background:{r:30,g:50,b:70,alpha:1}}}).png().toBuffer(),sha256=digest(bytes);
+ await mkdir(join(officers,'generated/v3/cao'),{recursive:true});await mkdir(join(officers,'identity'),{recursive:true});
+ await writeFile(original,bytes);await writeFile(join(officers,'identity/cao.png'),bytes);
+ await writeFile(join(officers,'identities.json'),JSON.stringify({cao:{approved:true,sha256}}));
+ const receipt={approved:true,sha256,masterSha256:sha256,formatVersion:OFFICER_ART_LEGACY_VERSION,styleVersion:'test',width:512,height:768};
+ await writeFile(join(officers,'receipts.json'),JSON.stringify({cao:{detail:receipt}}));
+ await writeFile(join(officers,'art-direction.json'),JSON.stringify({styleVersion:'test',profiles:{},priority:['cao']}));
+ const env={...process.env,SANGO_ASSET_ROOT:root},before=(await readdir(join(officers,'generated/v3/cao'))).sort();
+ execFileSync(process.execPath,['--input-type=module','-e',"const {officerArtSnapshot}=await import('./scripts/officer-art.mjs');await officerArtSnapshot();"],{cwd:PROJECT_ROOT,env,windowsHide:true,encoding:'utf8'});
+ const manifest=JSON.parse(await readFile(join(officers,'manifest.json'),'utf8')),neutral=manifest.officers.cao.neutral;
+ assert.equal(manifest.formatVersion,OFFICER_ART_FORMAT_VERSION);assert.equal(neutral.derivedFrom,'detail');assert.equal(neutral.sha256,sha256);
+ assert.equal(digest(await readFile(original)),sha256);assert.deepEqual(JSON.parse(await readFile(join(officers,'receipts.json'),'utf8')).cao.detail,receipt);
+ assert.deepEqual((await readdir(join(officers,'generated/v3/cao'))).sort(),before);
 });
 test('simulation modules cannot transitively import the art catalog or workspace',async()=>{
  const visited=new Set(),forbidden=/^(?:asset-catalog|asset-workspace|asset-server|art-assets|art-battle|art-models|town-art|local-art-server)\.mjs$/;

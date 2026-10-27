@@ -12,7 +12,7 @@ import {edgeKey} from '../road-network.mjs';
 import {RIVERS,LAKES,LAND_PATH,polyline} from '../national-geography.mjs';
 
 test('the supplied atlas projects all places and junctions without stretching the scan',()=>{
- assert.equal(Object.keys(ATLAS_CITY_POINTS).length,123);assert.equal(Object.keys(ATLAS_JUNCTION_POINTS).length,24);
+ assert.equal(Object.keys(ATLAS_CITY_POINTS).length,129);assert.equal(Object.keys(ATLAS_JUNCTION_POINTS).length,24);
  const origin=atlasPoint([0,0]),east=atlasPoint([100,0]),south=atlasPoint([0,100]);assert.ok(Math.abs(east[0]-origin[0]-south[1]+origin[1])<.11);
  assert.equal(atlasPoint([0,ATLAS_REFERENCE.height])[1],1024);
  for(const c of CITY_DESIGNS){const expected=atlasPosition(ATLAS_CITY_POINTS[c.id]);assert.deepEqual({x:c.x,y:c.y},expected);assert.deepEqual({x:NATIONAL_MAP.cities.find(n=>n.id===c.id).x,y:NATIONAL_MAP.cities.find(n=>n.id===c.id).y},expected);assert.ok(c.x>0&&c.x<1024&&c.y>0&&c.y<1024);}
@@ -24,7 +24,7 @@ test('the supplied atlas projects all places and junctions without stretching th
 });
 test('atlas reprojection preserves every authored travel length and supports current deterministic saves',()=>{
  for(const scenario of ['guandu-200','heroes-251']){
-  const s=newCampaign(217,scenario);assert.equal(s.cities.length,76);assert.equal(s.junctions.length,71);assert.equal(s.roads.length,283);
+  const s=newCampaign(217,scenario);assert.equal(s.cities.length,76);assert.equal(s.junctions.length,77);assert.equal(s.roads.length,249);
   assert.equal(Object.keys(ROAD_DISTANCE_DESIGNS).length,s.roads.length);
   for(const [a,b] of s.roads)assert.equal(roadDistance(s,a,b),ROAD_DISTANCE_DESIGNS[edgeKey(a,b)]);
   const saved=serializeCampaign(s);assert.equal(serializeCampaign(validateCampaign(JSON.parse(saved))),saved);

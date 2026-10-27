@@ -5,7 +5,7 @@ import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {build} from 'esbuild';
 import {ROOT,buildCodeRelease,packedDataPlugin} from './release-lib.mjs';
-import {newCampaign,serializeCampaign,beginExecution,advanceCampaignStep,validateCampaign} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,beginExecution,advanceCampaignStep,advanceCampaignDay,validateCampaign} from '../strategic-campaign.mjs';
 import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
 
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
@@ -19,6 +19,24 @@ const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedg
 page.on('pageerror',error=>errors.push(error.message));
 const state=newCampaign(7),initial=serializeCampaign(state);
 async function preferences(context){await context.addInitScript(raw=>{localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},initial);}
+async function workerDay(){return page.evaluate(raw=>new Promise((resolve,reject)=>{
+ const worker=new Worker(new URL('./campaign-worker.mjs',location.href),{type:'module'});
+ worker.onerror=event=>{worker.terminate();reject(Error(event.message));};
+ worker.onmessage=({data})=>{if(data.error){worker.terminate();reject(Error(data.error));}else if(data.id===1)worker.postMessage({id:2,state:data.state,operation:'day'});else{worker.terminate();resolve(JSON.stringify({...data.state,battle:null}));}};
+ worker.postMessage({runtimeData:globalThis[Symbol.for('sango.runtime-data')]});worker.postMessage({id:1,state:JSON.parse(raw),operation:'begin'});
+}),initial);}
+async function workerArchive(){return page.evaluate(raw=>new Promise((resolve,reject)=>{
+ const worker=new Worker(new URL('./campaign-worker.mjs',location.href),{type:'module'}),archive=JSON.stringify({version:1,name:'离线快照',savedAt:1,data:raw});
+ const result={};worker.onerror=event=>{worker.terminate();reject(Error(event.message));};
+ worker.onmessage=({data})=>{
+  if(data.id===3){worker.terminate();if(!data.error)reject(Error('corrupt archive accepted'));else resolve(result);return;}
+  if(data.error){worker.terminate();reject(Error(data.error));return;}
+  if(data.id===1){result.summary=data.archive;worker.postMessage({id:2,operation:'archive',raw:archive,manual:true,includeState:true});}
+  else{result.loaded=JSON.stringify({...data.archive.state,battle:null});worker.postMessage({id:3,operation:'archive',raw:'{}',manual:true});}
+ };
+ worker.postMessage({runtimeData:globalThis[Symbol.for('sango.runtime-data')]});worker.postMessage({id:1,operation:'archive',raw:archive,manual:true,includeState:false});
+}),initial);}
+function checkArchive(result){assert.equal(result.loaded,initial,'packed archive load retains complete current state');assert.equal(result.summary.name,'离线快照');assert.ok(result.summary.summary.mode);assert.equal(result.summary.state,undefined,'archive lists only transfer the validated summary');}
 try{
  for(let i=0;i<100;i++){try{if((await fetch(base)).ok)break;}catch{}await new Promise(ok=>setTimeout(ok,100));}
  await preferences(context);await page.goto(base+'/#strategy');await page.locator('.sovereign-hud').waitFor({timeout:60000});
@@ -29,16 +47,22 @@ try{
  const checkpoint=serializeCampaign(simulation),continued=validateCampaign(JSON.parse(checkpoint));for(let i=0;i<24;i++)advanceCampaignStep(continued);
  const packedRun=await page.evaluate(async()=>{const runtime=await import('./verify-runtime.js'),state=runtime.newCampaign(7);runtime.beginExecution(state);for(let i=0;i<48;i++)runtime.advanceCampaignStep(state);const checkpoint=runtime.serializeCampaign(state),continued=runtime.validateCampaign(JSON.parse(checkpoint));for(let i=0;i<24;i++)runtime.advanceCampaignStep(continued);return {checkpoint,continued:runtime.serializeCampaign(continued)};});
  assert.equal(packedRun.checkpoint,checkpoint);assert.equal(packedRun.continued,serializeCampaign(continued));
+ const workerExpected=newCampaign(7);beginExecution(workerExpected);advanceCampaignDay(workerExpected);
+ assert.equal(await workerDay(),serializeCampaign(workerExpected),'packed worker installs verified data before the engine and matches common begin/day handlers');
+ checkArchive(await workerArchive());
  const settings=page.locator('[data-action="settings"]');await settings.first().click();
  const download=page.waitForEvent('download');await page.locator('[data-action="export"]').click();const exported=await download,saveFile=join(directory,'save.json');await exported.saveAs(saveFile);
  const raw=await readFile(saveFile,'utf8');assert.deepEqual(JSON.parse(raw),JSON.parse(initial));
  await page.locator('#import-file').setInputFiles(saveFile);await page.locator('.sovereign-hud').waitFor();await page.reload();await page.locator('.sovereign-hud').waitFor();
  await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
- await context.setOffline(true);await page.reload();await page.locator('.sovereign-hud').waitFor();await context.setOffline(false);
+ await context.setOffline(true);await page.reload();await page.locator('.sovereign-hud').waitFor();
+ assert.equal(await workerDay(),serializeCampaign(workerExpected),'a newly created worker and its engine also run after offline reload');
+ checkArchive(await workerArchive());
+ await context.setOffline(false);
  const mobile=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true,serviceWorkers:'block'});await preferences(mobile);const phone=await mobile.newPage();phone.on('pageerror',error=>errors.push(error.message));await phone.goto(base+'/#strategy');await phone.locator('.sovereign-hud').waitFor();
  assert.ok(await phone.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await phone.screenshot({path:join(directory,'mobile.png'),fullPage:true});await mobile.close();
  const broken=await browser.newContext({serviceWorkers:'block'});await preferences(broken);await broken.route('**/game-data.bin',async route=>{const bytes=Buffer.from(pack.bytes);bytes[30]^=1;await route.fulfill({status:200,body:bytes,contentType:'application/octet-stream'});});
  const failed=await broken.newPage();await failed.goto(base);await failed.getByText('游戏文件缺失、损坏或版本不一致，请重新安装。已有存档仍保留。',{exact:false}).waitFor();assert.equal(await failed.evaluate(()=>localStorage.getItem('sango-sovereign-v2')),initial);await broken.close();
- assert.deepEqual(errors,[]);await writeFile(join(directory,'result.json'),JSON.stringify({passed:true,revision:manifest.revision,checks:['source / packed campaign parity','export and import','reload persistence','offline reload','touch viewport','corrupt data rejected without losing saves'],errors},null,2));
+ assert.deepEqual(errors,[]);await writeFile(join(directory,'result.json'),JSON.stringify({passed:true,revision:manifest.revision,checks:['source / packed campaign parity','packed background begin/day parity','background archive summary, exact load and corrupt rejection online / offline','export and import','reload persistence','offline reload and new background worker','touch viewport','corrupt data rejected without losing saves'],errors},null,2));
  console.log('Packed release UI passed (simulation and deterministic continuation included): '+directory);
 }finally{await browser.close();server.kill();}

@@ -48,6 +48,7 @@ export function nationalWorld(id){
  for(const c of cities)if(['atlas-pengcheng','atlas-fuling','atlas-yuzhang','atlas-panyu','atlas-longbian','atlas-wuchang','atlas-zhongli','atlas-hefei','atlas-guangling','atlas-jingkou','atlas-houguan','atlas-xunyang','atlas-baling','atlas-linchuan'].includes(c.id))c.water=true;
  for(const c of cities){const parent=NATIONAL_MAP.portParents[c.id]||(gateParents[c.sourceId]?key(gateParents[c.sourceId]):null),owner=owners[c.id]||owners[parent];c.owner=allowed.includes(owner)?owner:'neutral';}
  const network=buildRoadNetwork(cities,NATIONAL_MAP.roads);
+ for(const c of cities)if(c.kind==='city'&&network.roads.some(e=>e.includes(c.id)&&cities.some(p=>p.kind==='port'&&p.id===e.find(id=>id!==c.id))))c.water=true;
  // Ports and passes are road nodes, never economic or officer residence cities.
  const nodes=cities.filter(c=>c.kind!=='city').map(({id,name,kind,x,y,province,sourceId})=>({id,name,kind,x,y,province,sourceId,owner:'neutral'}));
  return {cities:cities.filter(c=>c.kind==='city'),...network,junctions:[...network.junctions,...nodes]};

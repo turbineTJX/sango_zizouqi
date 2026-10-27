@@ -92,8 +92,9 @@ try{
  await page.screenshot({path:out+'/scouting-desktop.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/scouting-mobile.png'});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  assert.equal(await page.locator('#overlay-root').getAttribute('inert'),null,'coach leaves the actual form interactive');
- await page.locator('#scout-city').focus();await page.keyboard.press('Tab');assert.ok(await page.evaluate(()=>document.querySelector('#overlay-root').contains(document.activeElement)));
- await page.keyboard.press('Escape');assert.equal(await page.locator('.scouting').count()>0||await page.locator('#modal-title').innerText()==='侦察',true);
+ await page.locator('#scout-city').selectOption('xuchang');assert.equal(await page.locator('#scout-officer').inputValue(),'');
+ const firstScout=await page.locator('#scout-officer option').evaluateAll(ns=>ns.find(n=>n.value)?.value);await page.locator('#scout-officer').selectOption(firstScout);assert.equal(await page.locator('#scout-officer').inputValue(),firstScout);
+ await page.keyboard.press('Escape');assert.equal(await page.locator('.scouting-screen').count(),1);
  assert.equal(await saved(page),before);await page.keyboard.press('Escape');
  await action(page,'settings').first().click();await expectGuide(page,'设置与存档');await closeGuide(page);
  await page.locator('[data-guide-action="toggle"]').click();assert.equal(await page.locator('[data-guide-action="toggle"]').getAttribute('aria-pressed'),'false');
@@ -117,14 +118,14 @@ try{
  await domesticPage.locator('[data-action="map-quick-open"][data-kind="city"]').first().click();
  await domesticPage.locator('[data-action="map-quick-select"][data-id="xuchang"]').click();
  await domesticPage.locator('[data-action="city-idle-assign"][data-town="xuchang"]').click();await expectGuide(domesticPage,'城市内政');
- const appointButton=domesticPage.locator('#modal-panel-root .domestic-direction [data-action="campaign-pick"]:not([disabled])').first();
- await expectSpotlight(domesticPage,'.domestic-direction [data-action="campaign-pick"]:not([disabled])');
+ const appointButton=domesticPage.locator('#modal-panel-root .domestic-direction [data-action="domestic-direction-open"]').first();
+ await expectSpotlight(domesticPage,'.domestic-direction [data-action="domestic-direction-open"]');
  assert.equal(await domesticPage.locator('.page-guide-shade').count(),0);
  assert.equal(await domesticPage.locator('#overlay-root').getAttribute('inert'),null);
  await domesticPage.screenshot({path:out+'/domestic-companion-desktop.png'});
- await domesticPage.setViewportSize({width:390,height:844});await expectSpotlight(domesticPage,'.domestic-direction [data-action="campaign-pick"]:not([disabled])');
+ await domesticPage.setViewportSize({width:390,height:844});await expectSpotlight(domesticPage,'.domestic-direction [data-action="domestic-direction-open"]');
  await domesticPage.screenshot({path:out+'/domestic-companion-mobile.png'});
- await appointButton.click();await expectGuide(domesticPage,'内政委任');assert.equal(await guide(domesticPage).getAttribute('data-guide-step'),'1');
+ await appointButton.click();await domesticPage.locator('.domestic-slots .empty:not([disabled])').first().click();await expectGuide(domesticPage,'内政委任');assert.equal(await guide(domesticPage).getAttribute('data-guide-step'),'1');
  const candidate=domesticPage.locator('[data-personnel-choice]:not([disabled])').first();await candidate.check();
  await domesticPage.waitForFunction(()=>document.querySelector('.page-guide-coach')?.dataset.guideStep==='2');
  await expectSpotlight(domesticPage,'[data-action="campaign-pick-confirm"]');
@@ -147,17 +148,15 @@ try{
  assert.equal(await draftPage.locator('#modal-panel-root .modal-body').evaluate(el=>el.scrollTop),scrollBefore);
  checks.push('muster draft retained and not submitted by help');console.log('PASS '+checks.at(-1));
 
- const routeState=newCampaign(42);fundCities(routeState,40000);for(const n of routeState.campaign.activity.nodes)n.read=true;
+ const routeState=newCampaign(42,'guandu-200');fundCities(routeState,40000);for(const n of routeState.campaign.activity.nodes)n.read=true;
  const routePage=await pageFor({unseen:['routes'],save:serializeCampaign(routeState)});await routePage.goto(base+'/#strategy');await routePage.locator('.sovereign-hud').waitFor();
- await routePage.locator('[data-action="map-quick-open"][data-kind="city"]').first().click();
- await routePage.locator('[data-action="map-quick-select"][data-id="xuchang"]').click();
- await routePage.locator('[data-action="map-quick-manage"][data-kind="city"][data-id="xuchang"]').click();
- await routePage.locator('.city-command-hub [data-task="expedition"]').click();
+ await routePage.locator('.map-search summary').click();await routePage.locator('#national-city-search').selectOption('xuchang');
+ await routePage.locator('[data-action="map-city-commands"][data-group="military"]').click();await routePage.locator('.city-command-grid [data-task="expedition"]').click();
  await action(routePage,'campaign-command-next').click();await routePage.locator('[data-command-army-unit]').first().check();
  await action(routePage,'campaign-command-next').click();await action(routePage,'campaign-command-next').click();await expectGuide(routePage,'大地图选路');await closeGuide(routePage);
- await routePage.locator('[data-command-city="chenliu"]').first().click();await routePage.locator('[data-action="map-route-end"]').waitFor();const routeBefore=await saved(routePage);
- await routePage.locator('.map-command-screen [data-guide-action="open"]').click();await expectGuide(routePage,'大地图选路');await expectSpotlight(routePage,'.map-point-menu');await closeGuide(routePage);
- assert.equal(await routePage.locator('.map-point-menu h3').innerText(),'陈留');assert.equal(await saved(routePage),routeBefore);
+ await routePage.locator('[data-command-city="chenliu"]').first().press('Enter');await routePage.locator('[data-action="campaign-command-next"]').waitFor();const routeBefore=await saved(routePage);
+ await routePage.locator('.map-command-screen [data-guide-action="open"]').click();await expectGuide(routePage,'大地图选路');await expectSpotlight(routePage,'.strategy-city.selected [data-map-glyph],.map-metropolis.selected [data-map-glyph]');await closeGuide(routePage);
+ assert.match(await routePage.locator('.command-target-layout > aside').innerText(),/陈留/);assert.equal(await saved(routePage),routeBefore);
  checks.push('full-screen route guide leaves destination and unsubmitted military order intact');console.log('PASS '+checks.at(-1));
 
  const s=newCampaign(7);fundCities(s,40000);const c=s.cities.find(c=>c.id==='xuchang'),officer=s.campaign.idle.find(o=>o.location===c.id);

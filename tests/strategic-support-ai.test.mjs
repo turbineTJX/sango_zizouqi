@@ -22,7 +22,7 @@ function scene({alternative=false}={}){
  for(const c of [source,front,rear]){c.owner='yuan';c.domestic.owner='yuan';}enemy.owner='cao';enemy.domestic.owner='cao';
  for(const [c,x,y]of [[source,0,0],[node,10,0],[front,20,0],[rear,10,10],[enemy,30,0]])Object.assign(c,{x,y});front.grain=900;rear.grain=0;source.grain=20000;
  s.roads=[[source.id,node.id],[node.id,front.id],[enemy.id,node.id],...(alternative?[[source.id,rear.id],[rear.id,front.id]]:[])];
- for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:7.5};
+ for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:1};
  source.units=['shao','yan','he','ju','tian'].map((id,i)=>({...makeOfficer(id,3000,i,3),homeCity:source.id}));front.units=[{...makeOfficer('wen',1000,0,3),homeCity:front.id}];enemy.units=[{...makeOfficer('cao',1000,0,3),homeCity:enemy.id}];
  const client=fieldFromCity(s,front.id),foe=fieldFromCity(s,enemy.id);foe.location=node.id;
  initializeVision(s);initializeStrategicAI(s);for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),0);p.lastReviewTurn=s.turn;}for(const p of Object.values(s.campaign.diplomacy.policies))p.feeBudget=0;
@@ -90,7 +90,7 @@ test('AI grain convoys actually hand off at an intermediate receiving node even 
 
 test('a water corridor guard buys legal ships with city gold before actual departure',()=>{
  const {s,source,front,enemy,node,foe}=scene(),port=s.junctions.find(n=>n.kind==='port');node.kind='port';Object.assign(port,{x:15,y:0});source.water=true;foe.location=port.id;
- s.roads=[[source.id,node.id],[node.id,port.id],[port.id,front.id],[enemy.id,port.id]];for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:7.5};initializeVision(s);const gold=source.gold;planStrategicAI(s);
+ s.roads=[[source.id,node.id],[node.id,port.id],[port.id,front.id],[enemy.id,port.id]];for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:1};initializeVision(s);const gold=source.gold;planStrategicAI(s);
  const guard=s.armies.find(a=>a.faction==='yuan'&&a.target===port.id);assert.ok(guard);assert.ok(guard.units.every(u=>u.equipment.ship));assert.ok(source.gold<gold);assert.ok(source.gold>=500);
 });
 

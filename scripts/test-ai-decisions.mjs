@@ -16,19 +16,20 @@ const expected=Object.entries(AI_DECISION_TESTS).flatMap(([domain,cases])=>{
 });
 const files=[...new Set(expected.map(c=>resolve(root,c.file)))];
 for(const file of files)await readFile(file);
-const passed=new Set(),failed=[],skipped=[],events=[];
+const passed=new Set(),failed=[],skipped=[],events=[],diagnostics=[];
 const key=(file,name)=>file+'\0'+name;
 for await(const event of run({files,concurrency:4,isolation:'process'})){
+ if(['test:stderr','test:diagnostic'].includes(event.type))diagnostics.push({type:event.type,...event.data});
  if(!['test:pass','test:fail'].includes(event.type))continue;
  const d=event.data,file=d.file?relative(root,d.file).replaceAll('\\','/'):null;
- const row={type:event.type,file,name:d.name,skip:!!d.skip,todo:!!d.todo,error:d.details?.error?.stack||null};events.push(row);
+ const row={type:event.type,file,name:d.name,skip:!!d.skip,todo:!!d.todo,error:d.details?.error?.stack||null,...(event.type==='test:fail'?{details:d.details}: {})};events.push(row);
  if(d.skip||d.todo)skipped.push(row);
  else if(event.type==='test:pass')passed.add(key(file,d.name));
  else failed.push(row);
 }
 const domains=Object.fromEntries(Object.entries(AI_DECISION_TESTS).map(([domain,cases])=>[domain,cases.map(c=>({...c,passed:passed.has(key(c.file,c.name))}))]));
 const missing=expected.filter(c=>!passed.has(key(c.file,c.name)));
-const report={decisionDomains:Object.keys(domains).length,files:files.length,passed:passed.size,failed,skipped,missing,domains,events};
+const report={decisionDomains:Object.keys(domains).length,files:files.length,passed:passed.size,failed,skipped,missing,domains,events,diagnostics};
 await writeFile(resolve(out,'unit-tests.json'),JSON.stringify(report,null,2));
 for(const row of [...failed,...missing])console.error(JSON.stringify(row));
 console.log(JSON.stringify({decisionDomains:report.decisionDomains,files:report.files,passed:report.passed,failed:failed.length,requiredTestsMissing:missing.length,report:resolve(out,'unit-tests.json')}));

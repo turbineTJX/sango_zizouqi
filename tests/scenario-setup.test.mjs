@@ -6,6 +6,7 @@ import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {saveScenarioUnit,newScenarioSetup,newBattleSetup,changeScenarioSetup,scenarioSetupError,scenarioSetupDraft,scenarioSetupUnits,scenarioSetupMarkup,applyBattleSetup} from '../scenario-setup.mjs';
 test('shared custom setup is an isolated draft and applies all commander and unit fields',()=>{
  const d=defaultCustomBattle(),before=JSON.stringify(d),p=newScenarioSetup(d,'ownTeam');
+ assert.doesNotMatch(scenarioSetupMarkup(p).body,/command-steps|下令步骤/);
  changeScenarioSetup(p,'selected','person-255',true);changeScenarioSetup(p,'level','person-255',8);changeScenarioSetup(p,'troops','person-255',4000);changeScenarioSetup(p,'type','person-255','halberd');
  changeScenarioSetup(p,'role','advisor','person-255');changeScenarioSetup(p,'tactic',null,'defensive');
  assert.equal(scenarioSetupError(p),'');assert.equal(JSON.stringify(d),before);

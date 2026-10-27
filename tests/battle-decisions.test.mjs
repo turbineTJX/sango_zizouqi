@@ -13,12 +13,12 @@ import {officerRecommendation} from '../officer-recommendation.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
 import {planEnemyArmy} from '../battle-ai.mjs';
 import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,approachFieldContact} from './helpers/field-campaign.mjs';
 import {fateRoll} from '../officer-fates.mjs';
 import {canOccupy} from '../battlefield.mjs';
 
 function encounter(){
- const s=newCampaign(1);fieldFromCity(s,'xuchang',{target:'guandu'});fieldFromCity(s,'guandu',{target:'xuchang'});
+ const s=newCampaign(1);const first=fieldFromCity(s,'xuchang',{target:'guandu'}),second=fieldFromCity(s,'guandu',{target:'xuchang'});approachFieldContact(s,first,second);
  beginExecution(s);for(let i=0;i<30&&!activeBattles(s).length;i++)advanceCampaignDay(s);
  const r=activeBattles(s)[0];assert.ok(r);assert.equal(chooseEncounter(s,r.id,true),null);lockDeployment(r.battle);
  return {s,r,b:r.battle,a:s.armies.find(a=>a.id===r.armyIds.find(id=>s.armies.find(a=>a.id===id)?.faction==='cao'))};

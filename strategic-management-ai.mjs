@@ -3,7 +3,7 @@ import {isAIControlled} from './player-faction.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
 import {activePlans} from './strategic-intent.mjs';
 import {marchModes,armyStrategicTrait} from './strategic-traits.mjs';
-import {roadCost,roadDistance,movementPoints,marchItinerary} from './strategic-movement.mjs';
+import {remainingMarchDays,marchItinerary} from './strategic-movement.mjs';
 import {canEditArmy,armyBattle,setArmyMarchMode,CAMPAIGN} from './strategic-campaign.mjs';
 import {newMilitaryFlow,applyMilitaryFlow} from './army-management.mjs';
 
@@ -19,13 +19,12 @@ export function armyManagementFacts(s,faction){
   const units=a.units.filter(u=>u.troops>0),free=!a.diplomaticWithdrawal&&!a.diplomaticTask&&!a.units.some(u=>protectedIds.has(u.id));
   const roles=Object.fromEntries(['leader','advisor'].map(role=>[role,rankOfficerCandidates(view,units,{task:'role',role,city:a.location})[0]?.unit.id||null]));
   const mode=a.marchMode||'normal',from=a.travel?.to||a.location,path=a.travel?a.route.slice(a.route[0]===from?1:0):a.route;
-  const remaining=a.travel?roadCost(view,a.travel.from,a.travel.to,a.travel.road||'main')*(1-a.travel.progress/Math.max(1,roadDistance(view,a.travel.from,a.travel.to))):0;
-  const journeyDays=speed=>(path.length?marchItinerary(view,from,path,speed,a.roadPolicy||'auto').days:0)+Math.ceil(Math.max(0,remaining)/Math.max(1,speed));
-  const days=journeyDays(movementPoints({...a,marchMode:'normal'}));
+  const journeyDays=force=>(path.length?marchItinerary(view,from,path,force,a.roadPolicy||'auto').days:0)+remainingMarchDays(view,force);
+  const days=journeyDays({...a,marchMode:'normal'});
   const forced=armyStrategicTrait(a,'forcedMarch')?.strategic,food=Math.ceil(a.units.reduce((n,u)=>n+u.troops/100+u.wounded/200,0));
   // The minimum eligible morale gives a conservative speed for the entire trip.
   // Require completion before the real daily morale cost ends forced marching.
-  const forcedDays=forced?journeyDays(movementPoints({...a,marchMode:'forced',morale:forced.minimum})):days;
+  const forcedDays=forced?journeyDays({...a,marchMode:'forced',morale:forced.minimum}):days;
   const forcedAvailableDays=forced?Math.max(0,Math.floor((a.morale-forced.minimum)/forced.morale)+1):0;
   const home=view.cities.find(c=>c.id===a.location&&c.owner===faction),safe=path.every(id=>view.cities.find(c=>c.id===id)?.owner===faction||view.junctions.some(n=>n.id===id))&&!view.armies.some(e=>e.faction!==faction&&path.includes(e.location));
   return {id:a.id,location:a.location,unitIds:a.units.map(u=>u.id),liveIds:units.map(u=>u.id),roles,currentRoles:{leader:a.leader,advisor:a.advisor},

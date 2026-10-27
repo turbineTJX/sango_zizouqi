@@ -2,7 +2,7 @@ import {TROOP_DESIGNS} from './data/design/troops.mjs';
 // Shared by targeting, simulation and UI; keep all intent sources on one cap.
 export const COMBAT = Object.freeze({ stepMs:700, damageScale:1.05, intentCap:100 });
 // Calendar pacing is independent of per-hit damage and playback speed.
-export const CAMPAIGN_TIME = Object.freeze({stepsPerDay:24,maxBattleDays:30});
+export const CAMPAIGN_TIME = Object.freeze({daysPerTurn:10,stepsPerDay:24,maxBattleDays:30});
 // Per basic attack / surviving direct hit. No passive regeneration or decay.
 const BASE_INTENT = Object.freeze(Object.fromEntries(Object.entries({
   spear:[3,2], halberd:[3,2], cavalry:[5,1], archer:[3,1],

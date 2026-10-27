@@ -44,11 +44,11 @@ test('army presentation stays anchored to the real army and provides a portrait 
 
 test('marching company faces its road destination and is anchored to real segment progress',()=>{
  const s=newCampaign(203,'guandu-200'),a=fieldFromCity(s,'xuchang');
- a.target='luoyang';a.route=['luoyang'];a.travel={from:'xuchang',to:'luoyang',progress:27.5,road:'main'};
+ a.target='town-44';a.route=['town-44'];a.location='luoyang';a.travel={from:'luoyang',to:'town-44',progress:10,road:'main'};
  const before=JSON.stringify(s),html=armyMapMarkers(s,{army:a.id});
- assert.match(html,/army-march-company.*scale\(-1 1\)/);assert.match(html,/许昌 → 洛阳/);assert.match(html,/，行军，/);
- const from=s.cities.find(c=>c.id==='xuchang'),to=s.cities.find(c=>c.id==='luoyang');
- const distance=s.roadSegments[['xuchang','luoyang'].sort().join(':')].distance,p=a.travel.progress/distance;
+ assert.match(html,/army-march-company.*scale\(1 1\)/);assert.match(html,/洛阳 → 虎牢关/);assert.match(html,/，行军，/);
+ const from=s.cities.find(c=>c.id==='luoyang'),to=s.junctions.find(c=>c.id==='town-44');
+ const distance=s.roadSegments[['luoyang','town-44'].sort().join(':')].distance,p=a.travel.progress/distance;
  assert.ok(html.includes(`data-x="${from.x+(to.x-from.x)*p}" data-y="${from.y+(to.y-from.y)*p}"`));
  assert.equal(JSON.stringify(s),before);
 });

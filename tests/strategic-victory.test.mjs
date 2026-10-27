@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {planVictoryStrategy} from '../strategic-victory.mjs';
 import {strategicContext} from '../strategic-context.mjs';
-import {planStrategicAI,evaluateOffensive} from '../strategic-ai.mjs';
+import {planStrategicAI,evaluateOffensive,validateStrategicAI} from '../strategic-ai.mjs';
 import {newCampaign,advanceCampaignDay,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
 import {NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
 import {initializeVision,updateVision} from '../strategic-vision.mjs';
@@ -127,6 +127,9 @@ test('final objectives and score evidence survive deterministic ordinary all AI 
  for(const edit of [x=>delete x.campaign.ai.factions.cao.strategy.victory,x=>x.campaign.ai.factions.cao.strategy.victory.ownedCities++,x=>x.campaign.ai.factions.cao.strategy.victory.objective='survive',x=>x.campaign.ai.factions.cao.strategy.trace[0].victory.remainingCities=-1]){
   const bad=JSON.parse(saved);edit(bad);assert.throws(()=>validateCampaign(bad),/战略AI/);
  }
- const malformed=JSON.parse(saved),capture=Object.values(malformed.campaign.ai.factions).find(p=>p.strategy.goal.victoryValue);
- assert.ok(capture);capture.strategy.goal.victoryValue.score=1e9;assert.throws(()=>validateCampaign(malformed),/战略AI/);
+ // Score validation uses a genuinely admitted controlled operation; ordinary
+ // day-one rulers may legally spend the slower opening on development.
+ const controlled=planningFront().s;planStrategicAI(controlled);
+ const malformed=JSON.parse(serializeCampaign(controlled)),capture=Object.values(malformed.campaign.ai.factions).find(p=>p.strategy.goal.victoryValue);
+ assert.ok(capture);capture.strategy.goal.victoryValue.score=1e9;assert.throws(()=>validateStrategicAI(malformed),/战略AI/);
 });

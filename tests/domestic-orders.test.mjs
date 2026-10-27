@@ -25,7 +25,7 @@ test('queued departure reserves the exact garrison and leaves only after its act
  assert.equal(requestStrategicOrder(s,{...expeditionFrom(army),target:'chenliu',policy:'main'},'after').queued,true);
  assert.equal(army.route.length,0);assert.ok(splitCampaignArmy(s,army.id,[id]));assert.equal(s.armies.filter(a=>a.faction==='cao').length,0);
  beginDomesticTurn(s);assert.equal(army.units.length,count);restore(s);
- const copy=restore(s);advance(s,61);advance(copy,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.equal(assignmentFor(s,id),undefined);assert.ok(s.cities.find(c=>c.id==='chenliu').units.some(u=>u.id===id));
+ const copy=restore(s);advance(s,61);advance(copy,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.equal(assignmentFor(s,id),undefined);assert.ok(s.armies.some(a=>a.units.some(u=>u.id===id)&&a.target==='chenliu'));
  assert.ok(!s.campaign.domestic.events.some(e=>e.phase==='order-done'&&e.day<51));restore(s);
 });
 test('waiting departure prevents idle members from picking new work across turns',()=>{

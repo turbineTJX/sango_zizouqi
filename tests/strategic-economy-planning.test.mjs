@@ -54,7 +54,14 @@ test('long consolidation keeps its real defense check but releases the main fron
  const {s,target,old,next}=consolidationFront();
  assert.equal(old.phase,'consolidate');assert.ok(s.campaign.day>old.deadline);
  const current=offensivePlans(s).find(p=>p.faction==='yuan');assert.ok(current);assert.notEqual(current.id,old.id);assert.equal(current.target,next.id);
- assert.ok(old.officerIds.some(id=>!current.officerIds.includes(id)&&!plannedOfficer(s,id)));
+ const released=old.officerIds.filter(id=>!current.officerIds.includes(id));assert.ok(released.length);
+ for(const id of released){
+  const staffing=s.campaign.ai.staffing.find(p=>p.officerId===id);
+  // Released personnel may now take a real staffing job in the same review.
+  // Only its new saved promise and actual journey may own this reservation.
+  if(staffing){assert.equal(staffing.createdDay,s.campaign.day);assert.equal(staffing.phase,'travel');assert.ok(s.campaign.idle.some(o=>o.unit.id===id&&o.destination===staffing.cityId&&o.journey?.route.length));}
+  assert.equal(plannedOfficer(s,id),!!staffing);
+ }
  assert.equal(s.campaign.ai.cities[target.id].role,'recovery');validateStrategicAI(s);
 });
 

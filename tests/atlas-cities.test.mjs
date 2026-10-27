@@ -7,7 +7,7 @@ import {applyAtlasLayout} from '../data/design/atlas-layout.mjs';
 import {nationalWorld,NATIONAL_MAP_COUNTS} from '../national-scenarios.mjs';
 import {newCampaign,findCampaignRoute,transferOfficer,appointGovernor,assignDomestic,serializeCampaign,validateCampaign,orderCampaignArmy,beginExecution,advanceCampaignDay,activeBattles,cityIncome} from './helpers/auto-domestic-campaign.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,marchTestTurns} from './helpers/field-campaign.mjs';
 import {nationalLobby} from '../national-lobby.mjs';
 
 test('reference cities extend the real city roster and same-city labels keep one Three Kingdoms name',()=>{
@@ -19,7 +19,7 @@ test('reference cities extend the real city roster and same-city labels keep one
   for(const entry of ATLAS_CITY_ADDITIONS){const c=s.cities.find(c=>c.id===entry.id);assert.ok(c);assert.ok(c.domestic&&c.grain>=0&&c.manpower>=0);assert.ok(findCampaignRoute(s,'xuchang',c.id));assert.ok(!s.junctions.some(n=>n.id===entry.id));}
   for(const gate of ATLAS_GATE_ADDITIONS){assert.ok(world.junctions.some(n=>n.id===gate.id));assert.ok(!world.cities.some(n=>n.id===gate.id));}
  }
- assert.match(nationalLobby(null),/76 座城市/);assert.match(nationalLobby(null),/42 大城 · 34 小城 · 12 关隘 · 35 港口/);
+ assert.match(nationalLobby(null),/76 座城市/);assert.match(nationalLobby(null),/42 大城 · 34 小城 · 12 关隘 · 41 港口/);
 });
 test('the atlas legend classifies squares as large cities and circles as small cities, including Jingxing',()=>{
  const s=newCampaign(217,'guandu-200');
@@ -47,7 +47,7 @@ test('an existing officer really travels to an added city, becomes governor and 
 test('an undefended added city is occupied by real marching and participates in the victory condition',()=>{
  const s=newCampaign(217,'guandu-200'),c=s.cities.find(c=>c.id==='atlas-qiao');c.owner='neutral';c.units=[];
  const a=fieldFromCity(s,'xuchang');assert.equal(orderCampaignArmy(s,a.id,c.id),null);
- for(let i=0;i<15&&c.owner!==a.faction;i++){s.campaign.ai.lastPlanDay=s.campaign.day;if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
+ for(let i=0,limit=marchTestTurns(s,a)*10;i<limit&&c.owner!==a.faction;i++){s.campaign.ai.lastPlanDay=s.campaign.day;if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  assert.equal(c.owner,a.faction);assert.equal(a.location,c.id);assert.ok(!activeBattles(s).some(b=>b.cityId===c.id));
  const v=newCampaign(217,'guandu-200');v.armies=[];for(const c of v.cities){c.owner='cao';c.units=[];}v.cities.find(c=>c.id==='atlas-longbian').owner='neutral';v.campaign.ai.lastPlanDay=v.campaign.day;beginExecution(v);advanceCampaignDay(v);assert.ok(!v.finished);
 });

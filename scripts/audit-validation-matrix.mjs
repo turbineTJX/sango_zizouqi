@@ -4,7 +4,7 @@ import {createWriteStream} from 'node:fs';
 import {resolve,join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {spawn} from 'node:child_process';
-import {warTempoReport} from './war-tempo-report.mjs';
+import {mergeCampaignWindows} from './war-tempo-report.mjs';
 
 const args=Object.fromEntries(process.argv.slice(2).map(a=>a.replace(/^--/,'').split('=')));
 assert.ok(args.snapshot,'Pass an immutable snapshot directory');
@@ -23,25 +23,13 @@ else matrix={config,createdAt:new Date().toISOString(),status:'running',cases:sc
 let writes=Promise.resolve();
 function publish(){matrix.updatedAt=new Date().toISOString();const bytes=JSON.stringify(matrix,null,2);writes=writes.then(async()=>{await writeFile(matrixPath+'.tmp',bytes);await rename(matrixPath+'.tmp',matrixPath);});return writes;}
 
-export function mergeCampaignWindows(windows){
- const first=windows[0],last=windows.at(-1),departures=new Map(),battles=new Map(),starts=new Map(),hunger=new Map(),joint=new Map(),captures=[],planTrace=[];
- for(const run of windows){
-  for(const row of run.departures)if(!departures.has(row.id))departures.set(row.id,row);
-  for(const row of run.battles)battles.set(row.id,{id:row.id,startedDay:row.startedDay,endedDay:row.endedDay});
-  for(const row of run.battleStarts)starts.set(row.id,row);
-  for(const row of run.hunger)if(row.day>=run.metrics.startDay&&row.day<run.metrics.completedDay)hunger.set(`${row.day}:${row.kind}:${row.id}`,row);
-  for(const row of run.jointParticipation||[])joint.set(`${row.day}:${row.battleId}:${row.side}`,row);
-  captures.push(...run.captures);planTrace.push(...run.planTrace.map(p=>({id:p.id,day:p.day,faction:p.faction,phase:p.phase,tasks:p.tasks})));
- }
- const merged={metrics:{startDay:first.metrics.startDay,completedDay:last.metrics.completedDay},departures:[...departures.values()],battles:[...battles.values()],battleStarts:[...starts.values()],hunger:[...hunger.values()],jointParticipation:[...joint.values()],captures,planTrace};
- return {finished:last.metrics.finished,completedDay:last.metrics.completedDay,departures:merged.departures.filter(a=>!a.existingAtStart).length,settledBattles:merged.battles.length,captures:captures.length,cityHungerDays:merged.hunger.filter(h=>h.kind==='city').length,armyHungerDays:merged.hunger.filter(h=>h.kind==='army').length,deterministicCheckpoints:windows.reduce((n,r)=>n+r.metrics.deterministicCheckpoints,0),tempo:warTempoReport(merged)};
-}
 async function runPhase(row,endTurn){
  const previous=row.phases.at(-1);if(previous?.finished||previous?.throughTurn>=endTurn)return;
  const from=previous?.completedDay||1,days=endTurn*10+1-from;if(days<=0)return;
  const base=join(out,`${row.scenario}-${row.seed}`,`through-${endTurn}`),directory=await exists(base)?base+'-retry-'+Date.now():base;await mkdir(directory,{recursive:true});
  row.status='running';row.running={throughTurn:endTurn,out:directory};await publish();
- const script=join(runtime,'scripts/audit-all-ai-decisions.mjs'),command=[script,'--source='+runtime,'--scenario='+row.scenario,'--seed='+row.seed,'--days='+days,'--out='+directory];
+ assert.ok(Number.isInteger(days/10),'Stage boundaries must cover complete strategic turns');
+ const script=join(runtime,'scripts/audit-all-ai-decisions.mjs'),command=[script,'--source='+runtime,'--scenario='+row.scenario,'--seed='+row.seed,'--turns='+days/10,'--out='+directory];
  if(previous)command.push('--save='+join(previous.out,'campaign-save.json'));
  console.log(JSON.stringify({event:'phase-start',scenario:row.scenario,seed:row.seed,throughTurn:endTurn}));
  const log=createWriteStream(join(directory,'run.log'));

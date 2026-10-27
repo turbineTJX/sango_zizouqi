@@ -60,7 +60,7 @@ function check(s,q){
   const o=residentOfficer(s,id);if(!o||o.faction!==faction||o.location!==q.cityId)return '武将已离开原据点';
   if(q.kind==='dismiss'&&!assignmentFor(s,id))return '武将已解除委任';
   if(q.kind==='transfer'){
-   if(isAIControlled(s,faction)&&o.cityUnit&&o.unit.troops>0){const guard=strategicDepartureError(s,q);if(guard)return guard;}
+   if(isAIControlled(s,faction)&&(o.cityUnit&&o.unit.troops>0||s.campaign.ai?.staffing.some(p=>p.officerId===id))){const guard=strategicDepartureError(s,q);if(guard)return guard;}
    const error=transferOfficer(s,id,q.target,{scheduled:true,cargo:q.cargo,relay:q.relay,cycles:q.cycles,route:q.route,checkOnly:true,faction});if(error)return error;
    if(s.cities.some(c=>c.governor===id))return '请先解除太守任命';
    const path=q.route||(q.relay?[...findCampaignRoute(s,o.location,q.relay,faction),...findCampaignRoute(s,q.relay,q.target,faction)]:findCampaignRoute(s,o.location,q.target,faction));if(!path)return '调任道路不通';

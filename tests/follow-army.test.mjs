@@ -8,7 +8,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,armyPosition,orderCampaignArmy,recruitCityUnits} from './helpers/auto-domestic-campaign.mjs';
 import {newGame,startBattle,deployUnit,lockDeployment,issueCommand,armyCommanders,armyStratagems,battleStratagems} from '../engine.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,approachFieldContact} from './helpers/field-campaign.mjs';
 import {fateRoll,resolveOfficerLoss} from '../officer-fates.mjs';
 import {campaignInfoDetail} from '../campaign-info.mjs';
 import {movementPoints} from '../strategic-movement.mjs';
@@ -20,6 +20,7 @@ function fixture(seed=1,{emptyFollower=false}={}){
  for(const u of [...a.units,...d.units])u.retreatAt=null;
  a.units.find(u=>u.id==='cao').troops=emptyFollower?0:1000;
  if(emptyFollower)for(const u of a.units)if(u.id!=='cao')u.troops=1000;
+ approachFieldContact(s,a,d);
  beginExecution(s);
  for(let i=0;i<30&&!activeBattles(s).length;i++)advanceCampaignDay(s);
  const r=activeBattles(s)[0];assert.ok(r);assert.equal(chooseEncounter(s,r.id,true),null);

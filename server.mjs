@@ -25,7 +25,7 @@ createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     if(await serveLocalArt(pathname,res,localArt))return;
-    if(await serveAssets(pathname,res,ASSET_ROOT))return;
+    if(await serveAssets(pathname,res,ASSET_ROOT,req.headers))return;
     const path = resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
     const relative = path.slice(root.length + 1);
     if (!path.startsWith(root + sep) || relative.split(/[\\/]/).some(p => p.startsWith('.')) || !mime[extname(path)]) {

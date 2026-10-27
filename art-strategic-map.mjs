@@ -1,8 +1,9 @@
+import {prepareMapCameraPreview} from './map-camera-preview.mjs';
 import {fogMarkup,intelligenceWorld,cityIntelligence} from './strategic-vision.mjs';
 import {citySoldierLabel} from './city-budget.mjs';
 import {cityStaffBadge} from './domestic-feedback.mjs';
 import {clampMapView,centeredMapView,MIN_MAP_SIZE,mapDetailLevel,MAP_DETAIL_NAMES,metropolitanMemberView,metropolitanOverviewView} from './strategic-map-camera.mjs';
-import {cityBuildingCard,citySceneMarkup,CITY_DETAIL_THRESHOLD,CITY_INTERIOR_SIZE} from './city-scene.mjs';
+import {cityBuildingCard,citySceneMarkup,cityCompactMarkup,CITY_DETAIL_THRESHOLD,CITY_INTERIOR_SIZE} from './city-scene.mjs';
 import {TOWN_FRAME} from './town-art.mjs';
 import {mapDetailBlend} from './map-detail-level.mjs';
 import {armyMapMarkers,battleMapMarkers,ARMY_CARD} from './strategic-army-markers.mjs';
@@ -17,6 +18,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const THEATER_VIEW={x:190,y:95,width:570,height:690};
 export const NATIONAL_VIEW={x:0,y:0,width:1024,height:1024};
 const terrainLayers=new Map();
+const geographySources=new WeakMap();
 let previewSeason=null,previewGeneration=0;
 function prepareTerrain(svg){
  const terrain=svg.querySelector('.ancient-atlas-terrain');if(!terrain)return;
@@ -45,7 +47,10 @@ function prepareTerrain(svg){
  const cached=terrainLayers.get(season);
  // Retain vector detail in isolated SVG images. The browser can reuse their
  // rendering without relaying out thousands of decorative paths on zoom.
- terrain.innerHTML=cached.layers.map(({cls,url})=>`<g class="${cls}"><image href="${url}" width="1024" height="1024" pointer-events="none"/></g>`).join('')+cached.provinces;
+ if(terrain.dataset.isolated!=='true'){
+  terrain.innerHTML=cached.layers.map(({cls,url})=>`<g class="${cls}"><image href="${url}" width="1024" height="1024" pointer-events="none"/></g>`).join('')+cached.provinces;
+  terrain.dataset.isolated='true';
+ }
  const images=[...terrain.querySelectorAll('image')];
  // Keep one season of movement previews in memory. Full vector detail returns
  // when the gesture stops; panning and zooming reuse already decoded textures.
@@ -83,9 +88,9 @@ export function mapBattlePosition(s,r,anchors){
   if(!best||distance<best.distance){const p=anchors[from],q=anchors[to];best={distance,x:p.x+(q.x-p.x)*t,y:p.y+(q.y-p.y)*t};}
  }return best||anchors[r.cityId]||{x:512,y:512};
 }
-export function strategicArtMap(s,ui,army){
+export function strategicArtMap(s,ui,army,options){
  s=intelligenceWorld(s);
- if(s.campaign?.scenarioId)return nationalArtMap(s,ui,army);
+ if(s.campaign?.scenarioId)return nationalArtMap(s,ui,army,options);
  if(!s.cities.every(c=>MAP_CITIES[c.id]))return null;
  const anchors=MAP_CITIES,v=ui.strategicMapView||THEATER_VIEW,connection=army?supplyConnection(s,army):null;
  const line=(a,b,cls)=>`<path d="M${a.x} ${a.y}L${b.x} ${b.y}" class="${cls}"/>`;
@@ -100,14 +105,19 @@ export function strategicArtMap(s,ui,army){
  ${armyMapMarkers(s,ui,a=>mapArmyPosition(s,a,anchors))}
  ${battleMapMarkers(s,r=>mapBattlePosition(s,r,anchors))}${fogMarkup(s,'theater-fog',o=>mapArmyPosition(s,o,anchors))}</svg>`;
 }
+const mapControllers=new WeakMap();
+export function detachStrategicMap(root){mapControllers.get(root)?.();mapControllers.delete(root);}
 export function attachStrategicMap(root,ui,onFailure){
+ detachStrategicMap(root);
+ const bindings=new AbortController();
+ const listen=(node,event,handler,options={})=>node?.addEventListener(event,handler,{...options,signal:bindings.signal});
  const svg=root.querySelector('.strategy-world-art');if(!svg)return;
  const national=svg.dataset.national==='true';
  const terrainPreview=national?prepareTerrain(svg):null;
  let buildingCard=null;
  const closeBuilding=()=>{buildingCard?.remove();buildingCard=null;};
  const [x,y,width,height]=svg.getAttribute('viewBox').split(/\s+/).map(Number);
- let view={x,y,width,height},drag=null,frame=0,animation=null,previewTimer=0;
+ let view={x,y,width,height},drag=null,frame=0,animation=null,previewTimer=0,cameraPreview=null,previewClick=null;
  const commandMap=!!svg.closest('.map-command-screen'),workspace=svg.closest('.strategy-map-first');
  const detailLabel=root.querySelector('[data-map-detail-label]');
  const detailButtons=[...root.querySelectorAll('[data-map-view="metropolis"],[data-map-view="settlements"],[data-map-view="city"]')];
@@ -118,10 +128,16 @@ export function attachStrategicMap(root,ui,onFailure){
  const nodes=[...svg.querySelectorAll('.national-node')].sort((a,b)=>priority(b)-priority(a)).map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,selected:node.classList.contains('selected'),city:node.classList.contains('node-city'),staff:!!node.querySelector('.map-staff-status'),labels:[...node.querySelectorAll('.map-city-banner,.national-place-name,.map-city-strength,.map-city-grain,.map-staff-status')]}));
  const glyphs=[...svg.querySelectorAll('[data-map-glyph]')].filter(node=>!node.closest('[data-metropolis-focus]')).map(node=>({node,place:node.closest('.node-city,.node-metropolitan-site')}));
  const banners=[...svg.querySelectorAll('.map-city-banner')];
- const geography=[...svg.querySelectorAll('.geography-labels text')].map(node=>({node,size:+(node.getAttribute('font-size')||node.parentElement.getAttribute('font-size')||13)}));
+ const geography=[...svg.querySelectorAll('.geography-labels text')].map(node=>{
+  const size=+(node.getAttribute('font-size')||node.parentElement.getAttribute('font-size')||13);
+  node.style.fontSize=(size*1.25)+'px';node.style.letterSpacing='2px';node.style.strokeWidth='1.4px';
+  if(!geographySources.has(node))geographySources.set(node,node.getAttribute('transform')||'');
+  return {node,x:+node.getAttribute('x'),y:+node.getAttribute('y'),transform:geographySources.get(node)};
+ });
  const metropolises=[...svg.querySelectorAll('[data-metropolis-focus]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({node,glyph:node.querySelector('[data-map-glyph]'),x:+node.dataset.x,y:+node.dataset.y,hidden:false}));
  const markers=[...svg.querySelectorAll('[data-map-army-anchor]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-army-glyph]'),card:node.querySelector('[data-map-army-card]'),line:node.querySelector('.army-location-line')}));
  const encounters=[...svg.querySelectorAll('[data-map-battle-anchor]')].map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-battle-glyph]')}));
+ const bandits=[...svg.querySelectorAll('.bandit-map-marker')].map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-glyph]'),line:node.querySelector('[data-bandit-location]')}));
  // Opacity is not inherited. Set it on each visual layer instead of changing
  // root custom properties, which restyle every mountain, building and road.
  const opacityLayers=national?[
@@ -146,7 +162,10 @@ export function attachStrategicMap(root,ui,onFailure){
   animation?.remove();animation=null;
   if(national)view=clampMapView(view);else {view.x=clamp(view.x,0,1024-view.width);view.y=clamp(view.y,0,1024-view.height);}
   if(manual)ui.mapCameraManual=true;
-  ui.strategicMapView={...view};svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',Math.min(view.width,view.height)<=420);svg.classList.toggle('map-overview',Math.min(view.width,view.height)>=720);
+  ui.strategicMapView={...view};
+  if(continuous&&Math.min(view.width,view.height)>90&&cameraPreview?.ready()){cameraPreview(view);return;}
+  cameraPreview?.(false);
+  svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',Math.min(view.width,view.height)<=420);svg.classList.toggle('map-overview',Math.min(view.width,view.height)>=720);
   const level=mapDetailLevel(view),blend=mapDetailBlend(view),overview=Math.min(view.width,view.height)>=720,close=national&&level==='interior';
   for(const layer of opacityLayers){const value=layer.value(blend);if(value!==layer.last){for(const node of layer.nodes){node.style.setProperty('opacity',value,'important');node.style.display=value?'':'none';}layer.last=value;}}
   if(national){if(svg.dataset.mapDetail!==level)svg.dataset.mapDetail=level;for(const key of Object.keys(MAP_DETAIL_NAMES))svg.classList.toggle('map-layer-'+key,key===level);}
@@ -183,9 +202,13 @@ export function attachStrategicMap(root,ui,onFailure){
   }
   const pixelScale=(overview?.9:Math.min(1.45,Math.max(1.05,screenHeight/720)))/(Math.min(screenWidth/view.width,screenHeight/view.height)||1);
   for(const banner of banners)attr(banner,'height',overview?'18':'38');for(const glyph of glyphs)attr(glyph.node,'transform',`${glyph.place&&glyph.place===cityFocus?'translate(0 20) ':''}scale(${pixelScale})`);
-  for(const {node,size} of geography){
-   node.style.fontSize=(size*pixelScale*1.25)+'px';node.style.letterSpacing=(2*pixelScale)+'px';node.style.strokeWidth=(1.4*pixelScale)+'px';
+  const placedBandits=[];
+  for(const marker of bandits){
+   const choices=[[20,-24],[-28,-24],[20,35],[-28,35],[55,-45],[-65,-45],[55,65],[-65,65]],clear=([dx,dy])=>!placedBandits.some(p=>Math.abs(marker.x/pixelScale+dx-p.x)<72&&Math.abs(marker.y/pixelScale+dy-p.y)<48),[dx,dy]=choices.find(clear)||choices.at(-1);
+   placedBandits.push({x:marker.x/pixelScale+dx,y:marker.y/pixelScale+dy});attr(marker.glyph,'transform',`translate(${dx*pixelScale} ${dy*pixelScale}) scale(${pixelScale})`);attr(marker.line,'x2',dx*pixelScale);attr(marker.line,'y2',dy*pixelScale);
   }
+  // Scale shaped text instead of changing its font and laying it out per frame.
+  for(const {node,x,y,transform} of geography)attr(node,'transform',`${transform} translate(${x} ${y}) scale(${pixelScale}) translate(${-x} ${-y})`);
   const labels=[];
   for(const item of nodes){
    const {node,staff,selected,city}=item,show=visible(item,Math.max(40,100*pixelScale));
@@ -237,7 +260,7 @@ export function attachStrategicMap(root,ui,onFailure){
  const scheduleApply=()=>{
   if(national)view=clampMapView(view);
   ui.mapCameraManual=true;ui.strategicMapView={...view};
-  const restore=()=>{if(!svg.isConnected)return;if(drag||frame){previewTimer=setTimeout(restore,180);return;}terrainPreview?.(false);svg.classList.remove('map-camera-moving');};
+  const restore=()=>{if(!svg.isConnected)return;if(drag||frame){previewTimer=setTimeout(restore,180);return;}apply(true,false,false);};
   clearTimeout(previewTimer);previewTimer=setTimeout(restore,180);
   if(!frame)frame=requestAnimationFrame(()=>{frame=0;if(svg.isConnected)apply(true,false,true);});
  };
@@ -277,19 +300,23 @@ export function attachStrategicMap(root,ui,onFailure){
   const ratio=bounds.width/bounds.height;
   view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y},Math.max(CITY_INTERIOR_SIZE,CITY_INTERIOR_SIZE*ratio),Math.max(CITY_INTERIOR_SIZE,CITY_INTERIOR_SIZE/ratio));apply(true,true);
  };
- svg.addEventListener('map-inspect-city',event=>inspectCity(event.detail?.id));
- for(const b of root.querySelectorAll('[data-map-view]'))b.addEventListener('click',()=>{
+ listen(svg,'map-inspect-city',event=>inspectCity(event.detail?.id));
+ for(const b of root.querySelectorAll('[data-map-view]'))listen(b,'click',()=>{
   const key=b.dataset.mapView;if(key==='in'||key==='out')zoom(key==='in'?.8:1.25);
   else if(key==='city')inspectCity(placeId(selectedPlace()));
   else if(key==='settlements'){const metro=metropolisForSelection();if(metro)expandMetropolis(metro.dataset.metropolisFocus);}
   else if(key==='metropolis'){const metro=metropolisForSelection();if(metro){view=metropolitanOverviewView({x:+metro.dataset.x,y:+metro.dataset.y},bounds.width/bounds.height);apply();}}
-  else if(key==='territory'){svg.classList.toggle('hide-territory');ui.mapTerritoryHidden=svg.classList.contains('hide-territory');b.setAttribute('aria-pressed',String(!ui.mapTerritoryHidden));}else if(key==='selected')focus();else {view={...(key==='national'?NATIONAL_VIEW:THEATER_VIEW)};apply();}
+  else if(key==='territory'){
+   if(svg.dataset.cameraViewBox)apply(true,false,false);
+   svg.classList.toggle('hide-territory');ui.mapTerritoryHidden=svg.classList.contains('hide-territory');b.setAttribute('aria-pressed',String(!ui.mapTerritoryHidden));
+   cameraPreview?.destroy();cameraPreview=prepareMapCameraPreview(svg);
+  }else if(key==='selected')focus();else {view={...(key==='national'?NATIONAL_VIEW:THEATER_VIEW)};apply();}
  });
- for(const [selector,key] of [['.map-search','mapSearchOpen'],['.national-legend','mapLegendOpen']])root.querySelector(selector)?.addEventListener('toggle',e=>{ui[key]=e.target.open;scheduleApply();});
- root.querySelector('#national-city-search')?.addEventListener('change',e=>{const node=svg.querySelector(`[data-city="${e.target.value}"],[data-command-city="${e.target.value}"],[data-junction="${e.target.value}"]`);if(!node)return;ui.mapSearchOpen=false;const search=root.querySelector('.map-search');if(search)search.open=false;view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y},360*bounds.width/bounds.height,360);apply();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));});
+ for(const [selector,key] of [['.map-search','mapSearchOpen'],['.national-legend','mapLegendOpen']])listen(root.querySelector(selector),'toggle',e=>{ui[key]=e.target.open;scheduleApply();});
+ listen(root.querySelector('#national-city-search'),'change',e=>{const node=svg.querySelector(`[data-city="${e.target.value}"],[data-command-city="${e.target.value}"],[data-junction="${e.target.value}"]`);if(!node)return;ui.mapSearchOpen=false;const search=root.querySelector('.map-search');if(search)search.open=false;view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y},360*bounds.width/bounds.height,360);apply();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));});
  const inspectMetropolis=e=>{const node=e.target.closest?.('[data-metropolis-focus]');if(!node||svg.dataset.mapDetail!=='metropolis')return;e.preventDefault();e.stopPropagation();closeBuilding();expandMetropolis(node.dataset.metropolisFocus);};
- svg.addEventListener('click',inspectMetropolis);
- svg.addEventListener('wheel',e=>{
+ listen(svg,'click',inspectMetropolis);
+ listen(svg,'wheel',e=>{
   e.preventDefault();if(!e.deltaY)return;
   const p=point(svg,e),displayed=svg.viewBox.animVal;
   // Several inputs can arrive before painting. Map the cursor onto the
@@ -297,7 +324,7 @@ export function attachStrategicMap(root,ui,onFailure){
   const anchor={x:view.x+(p.x-displayed.x)/displayed.width*view.width,y:view.y+(p.y-displayed.y)/displayed.height*view.height};
   zoom(e.deltaY<0?.88:1.14,anchor,true);
  },{passive:false});
- svg.addEventListener('dblclick',e=>{const city=e.target.closest('.node-city,.node-metropolitan-site');if(!city||e.target.closest('[data-city-building],[data-map-building]'))return;e.preventDefault();inspectCity(city.dataset.city||city.dataset.junction);});
+ listen(svg,'dblclick',e=>{const city=e.target.closest('.node-city,.node-metropolitan-site');if(!city||e.target.closest('[data-city-building],[data-map-building]'))return;e.preventDefault();inspectCity(city.dataset.city||city.dataset.junction);});
  const inspectBuilding=e=>{
   const site=e.target.closest?.('[data-map-building],.is-town-focused .map-city-scene [data-city-building]');if(!site||(!site.dataset.mapBuilding&&!svg.classList.contains('map-close'))||svg.closest('.map-command-screen'))return;
   e.preventDefault();e.stopPropagation();closeBuilding();
@@ -306,24 +333,45 @@ export function attachStrategicMap(root,ui,onFailure){
   buildingCard.dataset.cityId=model.id;
   buildingCard.dataset.compact=String(!!site.dataset.mapBuilding);
   (workspace||root.querySelector('.national-map-stage')).append(buildingCard);art.decorate(buildingCard);
-  buildingCard.querySelector('[data-city-card-close]').addEventListener('click',()=>{closeBuilding();site.focus();});
+  listen(buildingCard.querySelector('[data-city-card-close]'),'click',()=>{closeBuilding();site.focus();});
  };
- svg.addEventListener('click',inspectBuilding);
- svg.addEventListener('keydown',e=>{if(e.key==='Escape'){closeBuilding();return;}if(['Enter',' '].includes(e.key)){inspectMetropolis(e);inspectBuilding(e);}});
- root.addEventListener('keydown',e=>{if(e.key==='Escape')closeBuilding();});
- svg.addEventListener('contextmenu',e=>e.preventDefault());
- svg.addEventListener('pointerdown',e=>{if(![0,2].includes(e.button)||(e.button===0&&e.target.closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action],[data-metropolis-focus]')))return;closeBuilding();ui.mapObject=null;root.querySelector('.map-object-menu')?.remove();const m=svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
- svg.addEventListener('pointermove',e=>{if(!drag)return;view={...drag.view,x:drag.view.x-(e.clientX-drag.x)/drag.scaleX,y:drag.view.y-(e.clientY-drag.y)/drag.scaleY};scheduleApply();});
- for(const event of ['pointerup','pointercancel','lostpointercapture'])svg.addEventListener(event,()=>{drag=null;});
+ listen(svg,'click',inspectBuilding);
+ listen(svg,'keydown',e=>{if(e.key==='Escape'){closeBuilding();return;}if(['Enter',' '].includes(e.key)){inspectMetropolis(e);inspectBuilding(e);}});
+ listen(root,'keydown',e=>{if(e.key==='Escape')closeBuilding();});
+ listen(svg,'contextmenu',e=>e.preventDefault());
+ listen(svg,'pointerdown',e=>{
+  previewClick=null;if(!svg.dataset.cameraViewBox)return;apply(true,false,false);
+  if(e.button===0)previewClick={x:e.clientX,y:e.clientY,target:document.elementFromPoint(e.clientX,e.clientY)};
+ },{capture:true});
+ listen(svg,'click',e=>{
+  const hit=previewClick;previewClick=null;
+  if(hit&&e.target===svg&&hit.target!==svg&&hit.target?.isConnected&&Math.hypot(e.clientX-hit.x,e.clientY-hit.y)<4){e.stopImmediatePropagation();hit.target.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,clientX:e.clientX,clientY:e.clientY}));}
+ },{capture:true});
+ listen(svg,'pointerdown',e=>{if(![0,2].includes(e.button)||(e.button===0&&(previewClick?.target||e.target).closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action],[data-metropolis-focus]')))return;closeBuilding();ui.mapObject=null;root.querySelector('.map-object-menu')?.remove();const m=svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
+ listen(svg,'pointermove',e=>{if(!drag)return;view={...drag.view,x:drag.view.x-(e.clientX-drag.x)/drag.scaleX,y:drag.view.y-(e.clientY-drag.y)/drag.scaleY};scheduleApply();});
+ for(const event of ['pointerup','pointercancel','lostpointercapture'])listen(svg,event,()=>{drag=null;});
  const keyboard=e=>{
   if(e.target!==svg)return;
   if(e.key==='Home'){e.preventDefault();focus();}
   else if(['+','=','-'].includes(e.key)){e.preventDefault();zoom(e.key==='-'?1.25:.8,undefined,e.repeat);}
   else if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();view.x+=e.key==='ArrowLeft'?-view.width*.1:e.key==='ArrowRight'?view.width*.1:0;view.y+=e.key==='ArrowUp'?-view.height*.1:e.key==='ArrowDown'?view.height*.1:0;apply();}
  };
- svg.addEventListener('keydown',keyboard);
+ listen(svg,'keydown',keyboard);
+ listen(document,'sango-art-ready',event=>{
+  if(event.detail==='officers'){art.decorate(root);return;}
+  cameraPreview?.(false);cameraPreview?.destroy();cameraPreview=null;
+  for(const place of places){
+   if(!place.source||!place.compact)continue;
+   place.compact.outerHTML=cityCompactMarkup(JSON.parse(place.source.textContent),{season:ui.mapSeason});
+   place.compact=place.node.querySelector('.map-city-model');place.scene?.replaceChildren();
+   place.sites=[];place.interactive=null;place.mapInteractive=null;place.mapSites=[...place.node.querySelectorAll('[data-map-building]')];
+  }
+  apply(false);if(national)cameraPreview=prepareMapCameraPreview(svg);
+ });
  apply(false);
+ if(national)cameraPreview=prepareMapCameraPreview(svg);
  const sizeObserver=new ResizeObserver(()=>{if(!svg.isConnected)sizeObserver.disconnect();else {bounds=svg.getBoundingClientRect();if(!national)fitTheater();apply(false);}});
  sizeObserver.observe(svg);
+ mapControllers.set(root,()=>{bindings.abort();sizeObserver.disconnect();cancelAnimationFrame(frame);clearTimeout(previewTimer);animation?.remove();cameraPreview?.destroy();closeBuilding();});
  if(matchMedia('(prefers-reduced-motion: reduce)').matches)svg.querySelectorAll('animateTransform').forEach(n=>n.remove());
 }

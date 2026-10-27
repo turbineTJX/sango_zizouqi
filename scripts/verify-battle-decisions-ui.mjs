@@ -8,13 +8,13 @@ import {lockDeployment,stepBattle,openReinforcementCouncil,validateSave} from '.
 import {pendingArmyAppointments} from '../postbattle-appointments.mjs';
 import {recommendArmyAppointments} from '../army-appointments.mjs';
 import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from '../tests/helpers/auto-domestic-campaign.mjs';
-import {fieldFromCity} from '../tests/helpers/field-campaign.mjs';
+import {fieldFromCity,approachDestination} from '../tests/helpers/field-campaign.mjs';
 import {pendingActivityReports,acknowledgeActivityReports} from '../activity-nodes.mjs';
 
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const out='outputs/player-ai-decisions/battle-ui',port='4224',origin='http://127.0.0.1:'+port;
 await mkdir(out,{recursive:true});
-const s=newCampaign(1);fieldFromCity(s,'xuchang',{target:'guandu'});fieldFromCity(s,'guandu',{target:'xuchang'});beginExecution(s);
+const s=newCampaign(1),approaching=fieldFromCity(s,'xuchang',{target:'guandu'});approachDestination(s,approaching,.1);fieldFromCity(s,'guandu',{target:'xuchang'});beginExecution(s);
 for(let i=0;i<30&&!activeBattles(s).length;i++)advanceCampaignDay(s);
 const r=activeBattles(s)[0];chooseEncounter(s,r.id,true);lockDeployment(r.battle);
 for(const u of r.battle.sides.flatMap(s=>s.units)){u.cooldown=999;u.skillReady=Object.fromEntries(u.tactics.map(id=>[id,999]));}

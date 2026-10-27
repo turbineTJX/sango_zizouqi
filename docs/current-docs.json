@@ -1,6 +1,8 @@
 {
   "rulesVersion": 129,
   "files": [
+    "docs/战场自定义编辑器.md",
+    "docs/战略地图性能.md",
     "docs/当前版本验收与体验目标.md",
     "docs/名将历史协作与战斗定位.md",
     "docs/AI架构与决策评价方法.md",
@@ -110,11 +112,13 @@
     "docs/发行封包与试玩发布.md",
     "docs/design-tables/势力战略规划一览表.md",
     "docs/玩家决策与AI统一接口.md",
-    "docs/design-tables/规则来源一览表.md"
+    "docs/design-tables/规则来源一览表.md",
+    "docs/固定贼寨与讨伐.md",
+    "docs/design-tables/固定贼寨与随机贼将一览表.md"
   ],
   "runtimeVersions": {
     "rules": 129,
-    "campaign": 63,
+    "campaign": 65,
     "ai": 17,
     "strategy": 13,
     "domestic": 25

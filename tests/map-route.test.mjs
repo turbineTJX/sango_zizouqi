@@ -1,25 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignStep} from './helpers/auto-domestic-campaign.mjs';
-import {newCommand,selectCommandPoint,continueCommandRoute,backCommandRoute,commandRoute,commandMarkup} from '../strategic-command.mjs';
+import {newCommand,selectCommandPoint,editCommandWaypoint,commandRoute,commandMarkup} from '../strategic-command.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {validMapRoute,campaignRoads} from '../strategic-movement.mjs';
 import {fieldFromCity,expeditionFrom} from './helpers/field-campaign.mjs';
 import {busyFixture} from './helpers/domestic-orders.mjs';
 
-test('point selection keeps a route draft, supports return, and has four choices',()=>{
+test('choose a destination directly and drag a waypoint while preserving the destination and game state',()=>{
  const s=newCampaign(203,'guandu-200'),a=fieldFromCity(s,'xuchang'),p=newCommand(s,'march',a.location,{armyId:a.id}),before=serializeCampaign(s),mid='junction:chenliu:xuchang';
- assert.equal(selectCommandPoint(s,p,mid),null);const first=[...p.route];
- assert.equal((commandMarkup(s,{officerPick:p},'').body.match(/data-action="(?:map-route-continue|map-route-end|map-route-back|campaign-command-cancel)"/g)||[]).length,4);
- continueCommandRoute(p);assert.equal(p.destination,null);assert.deepEqual(p.mapRoute,first);
- assert.equal(selectCommandPoint(s,p,'chenliu'),null);assert.deepEqual(p.route,[...first,'chenliu']);
- backCommandRoute(p);assert.equal(p.destination,mid);assert.deepEqual(p.route,first);assert.deepEqual(p.mapRoute,[]);
+ assert.equal(selectCommandPoint(s,p,'chenliu'),null);const first=[...p.route];assert.ok(first.includes(mid));
+ const markup=commandMarkup(s,{officerPick:p},'');assert.doesNotMatch(markup.body,/继续选路|设为终点|道路消耗|每日行动力/);assert.match(markup.footer,/确认终点/);
+ const alternate=s.junctions.find(n=>{const draft=structuredClone(p);return n.id!==mid&&editCommandWaypoint(s,draft,.5,n.id)&&JSON.stringify(draft.route)!==JSON.stringify(first);});assert.ok(alternate);
+ assert.equal(editCommandWaypoint(s,p,.5,alternate.id),true);assert.equal(p.destination,'chenliu');assert.ok(p.route.includes(alternate.id));assert.notDeepEqual(p.route,first);
+ const edited=structuredClone(p);assert.equal(editCommandWaypoint(s,p,.5,'missing'),false);assert.deepEqual(p,edited);
+ assert.equal(selectCommandPoint(s,p,mid),null);assert.equal(p.destination,mid);assert.deepEqual(p.waypoints,[]);
  assert.equal(serializeCampaign(s),before);
- continueCommandRoute(p);assert.ok(selectCommandPoint(s,p,'xuchang'));assert.equal(p.destination,null);
+ assert.ok(selectCommandPoint(s,p,'xuchang'));assert.equal(p.destination,mid);
 });
 test('manual marching route is issued exactly and deterministic after saving',()=>{
  const s=newCampaign(203,'guandu-200'),a=fieldFromCity(s,'xuchang'),p=newCommand(s,'march',a.location,{armyId:a.id});
- selectCommandPoint(s,p,'junction:chenliu:xuchang');continueCommandRoute(p);selectCommandPoint(s,p,'chenliu');
+ selectCommandPoint(s,p,'chenliu');assert.equal(editCommandWaypoint(s,p,.5,'junction:chenliu:xuchang'),true);
  const route=[...p.route];assert.deepEqual(commandRoute(s,p).route,route);
  assert.equal(requestStrategicOrder(s,{kind:'march',armyId:a.id,target:p.destination,route}).applied,true);assert.deepEqual(a.route,route);
  const copy=validateCampaign(JSON.parse(serializeCampaign(s)));beginExecution(s);beginExecution(copy);advanceCampaignStep(s);advanceCampaignStep(copy);assert.equal(serializeCampaign(s),serializeCampaign(copy));

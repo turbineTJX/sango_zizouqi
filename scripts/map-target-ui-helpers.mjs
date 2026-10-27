@@ -15,7 +15,6 @@ export async function chooseMapTarget(page,field,id){
 export async function chooseCommandTarget(page,id){
  const pin=page.locator(`.national-world [data-command-city="${id}"]`);
  const point=await pin.evaluate(el=>({x:+el.dataset.x,y:+el.dataset.y}));
- await page.locator('[data-map-view="settlements"]').click();
  await panMapTo(page,point);
  await pin.locator('.city-size-mark,.atlas-gate-outline,.junction-banner').first().click();
 }

@@ -1,3 +1,4 @@
+import {approachDestination} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,assignDomestic,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
@@ -34,7 +35,7 @@ test('Yuan expedition uses the real march and battle flow with the player on sid
  const edge=s.roads.flatMap(([a,b])=>[[a,b],[b,a]]).find(([from,to])=>s.cities.some(c=>c.id===from&&c.owner==='yuan'&&c.units.length)&&s.cities.some(c=>c.id===to&&c.owner==='cao'));
  assert.ok(edge);const c=s.cities.find(c=>c.id===edge[0]),ids=c.units.slice(0,6).map(u=>u.id);
  assert.equal(launchExpedition(s,{cityId:c.id,target:edge[1],officerIds:ids,leader:ids[0],advisor:ids[0],policy:'auto'}),null);
- const armyId=s.armies.at(-1).id;let encounter;
+ const armyId=s.armies.at(-1).id;approachDestination(s,s.armies.at(-1));let encounter;
  for(let i=0;i<20&&!encounter;i++){
   if(s.campaign.phase==='planning')beginExecution(s);
   advanceCampaignDay(s);encounter=activeBattles(s).find(r=>r.armyIds.includes(armyId));

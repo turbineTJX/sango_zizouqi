@@ -1,6 +1,16 @@
 // Player-facing page help. Opening help never issues a game command.
 const guide=(title,group,summary,steps,tips,{autoShow=true}={})=>({title,group,summary,steps,tips,autoShow});
 export const PAGE_GUIDES={
+ maps:guide('战场地图编辑器','开始游戏','按战场用途组织地图，每个格子的地形独立绘制。',[
+  ['选择用途与模板','从野战、攻城、关卡、港口、水战选择模板，或新建地图和自己的分类。'],
+  ['绘制并校验','选择地形后点击或拖刷格子，可填充、撤销和预览；保存前检查部署、接敌及撤离通道。'],
+  ['保存与开战','保存到本机地图库，或导出地图包；“用于战役”返回配置双方，开战后按地图快照继续。']
+ ],['分类不限制格子地形。山壁不可穿越，水面需要携船。','修改或删除地图库原图不改变已经开始的战役。'],{autoShow:false}),
+ bandits:guide('贼寨讨伐','出征与补给','侦察发现固定贼寨，派出真实部队讨伐。',[
+  ['核阅情报','查看探报日期、贼将与兵力。失去视野后保留最后一次报告。'],
+  ['编组出征','选择派出城，沿现有编制、任命和地图选路流程下令；部队实际抵达后进入战前军议。'],
+  ['带回收获','获胜后的钱粮随幸存部队返城入库。宝物与人才有机会获得，并按各自实际流程处理。']
+ ],['真实消耗粮草并承担伤亡。','部队途经道路不会自动讨伐贼寨。'],{autoShow:false}),
  ending:guide('整局回顾','战事与记录','核阅本方完整纪事中的战绩、疆域和人物贡献。',[
   ['回看征途','交战、伤亡和武将功绩依据实际结算；空城接收计入疆域变动。参战与伤兵按各场累加，可能包含重复人员。'],
   ['保留终局','导出最终存档，或在设置中建立命名存档。返回地图仍可再次打开整局回顾。'],
@@ -35,7 +45,7 @@ export const PAGE_GUIDES={
  ],['编制不扣粮，现役士兵日常耗粮；战损消耗现役士兵，不直接扣城仓预备兵。','已编制部队的在城武将仍可办理内政；实际出征、在途和事务冲突须另行判断。','设施损毁会影响实际产出，查看建筑可核对地点、耐久与施工状态。']),
  domestic:guide('城市内政','经营与人事','玩家定方向和人选，武将根据本城需要拟定具体事务。',[
   ['选择方向','商业、农业看政治，军务看统率，武备看武力，技术看智力，人才看魅力。'],
-  ['委任负责人','核对实际驻地、当前任职与事务，使用推荐理由挑选合适人选。'],
+  ['委任负责人','进入方向详情查看岗位，空槽可委任；已任岗位显示头像、当前任务与相关特性。选人按对应属性＋相关特性50点推荐，多项不重复加分。'],
   ['审批提案','需要支用金粮或兵源的事项先提交提案，核阅人员、地点、费用与时间后同意或暂缓。'],
   ['观察办理','查看工作进度、工程地点、成果与受阻原因；重要结果进入奏报与每日记录。']
  ],['不需要逐项手动选择建设或运营事务，负责人会自动拟案。','普通事务可能成功、部分奏效或失败；工程受阻保留已付费用与进度。','每城资源产能与设施上限有限，增加武将不能无限新增收入。']),
@@ -75,11 +85,12 @@ export const PAGE_GUIDES={
   ['安排其他工作','内政与城内部队编制分别判断，出征或调任前核对任职限制与事务冲突。']
  ],['正在负责侦察的人不能同时任太守。','太守的效果按真实在城状态计算，不能由已经外出的人员继续提供。']),
  scouting:guide('侦察','出征与补给','负责人留在城内，独立斥候沿路取得真实情报。',[
-  ['选派出城','点击地图点选，在大地图选择己方派出城并确认；被围城时不能派遣。'],
-  ['选负责人','从本城未任职、没有其他工作或待执行命令的合法武将中选择。'],
-  ['选周边终点','在大地图点选金色标记的本城周边路口、港口、关卡或相邻城市，确认后返回，再指派侦察。'],
+  ['选派出城市','先选择己方城市；从城市菜单进入时已预选该城。'],
+  ['选执行人','只列出派出城内可执行侦察的武将，由你选择。'],
+  ['选周边终点','从终点框或地图选择本城周边路口、港口、关卡或相邻城市。'],
+  ['拖动改线','拖动路线中转点到其它道路节点，派遣后沿所选道路侦察。'],
   ['看情报与期限','经过即可获得遇到的据点和军团情报，查看报告日期与已点亮区域的保留期限。']
- ],['更换派出城或武将会清空后续选择，需要重新选择。','斥候不能穿过城市去更远处侦察；智力影响随机视野持续时间。','停止侦察立即释放负责人，已点亮区域按原期限保留。']),
+ ],['更换城市会清空执行人、终点与路线；更换执行人会清空终点与路线，不自动选人。','斥候不能穿过城市去更远处侦察；智力影响视野保留的回合数，每回合十天。','停止侦察立即释放负责人，已点亮区域按原期限保留。']),
  scoutReport:guide('侦察报告','出征与补给','使用带日期的情报判断出征风险。',[
   ['看发现对象','核对沿途遇到的据点、驻军或军团。'],
   ['看情报日期','失去视野后保留的是过去的记录，兵力、资源与归属可能已变化。'],
@@ -93,7 +104,7 @@ export const PAGE_GUIDES={
  expedition:guide('编组出征','出征与补给','出征军团来自实际驻城部队，军令生效后才出现在大地图。',[
   ['选择部队','先核阅部队编制，再从已编部队中选择本次出征成员，每军团最多十队。'],
   ['任命指挥','安排军团长和军师，核对实际军略与任职效果。'],
-  ['选路与补给','逐点选择行军路线，核阅出征用度、携粮和本城留守后确认。'],
+  ['选路与补给','选择终点，拖动中转点改线，核阅携粮和本城留守后确认。'],
   ['处理工作冲突','有人正在办事时选择立即执行或完成当前事务后执行，等待军令会保存。']
  ],['选队与核阅仍是草稿，取消不支用资源。','空闲战力足够时优先使用空闲人手，给本城保留能产粮与赚钱的人。','出阵顺序与战场站位在战前会议调整。']),
  commanders:guide('军团任命','出征与补给','任职决定军团的指挥效果与可用军略。',[
@@ -101,9 +112,9 @@ export const PAGE_GUIDES={
   ['任军师','根据谋略能力、特性与持有军略选择，查看当前军团能够使用的军略。'],
   ['核阅军团','查看人员、兵力、羁绊与实际效果，再继续选路或确认。']
  ],['军团长与军师中较高的智力决定大地图视野范围，实际军团范围内的敌情持续更新。','军略按明确人物名单固定分配，任军团长或军师才提供，同名不按人数叠加。','没有军略资格的人不会因高智力或升级自动获得军略。']),
- routes:guide('大地图选路','出征与补给','沿真实道路逐段选择，核阅后下令。',[
-  ['点选下一点','从出发地或当前路线末端选择相连地点，查看路线与道路用度。'],
-  ['继续或设终点','“继续行进”选择下一点；“设为终点”完成路线，返回可回到上一点。'],
+ routes:guide('大地图选路','出征与补给','选择终点，拖动中转点改线，核阅后下令。',[
+  ['选择终点','直接在地图选择目的地，自动显示可通行路线与预计天数。'],
+  ['拖动中转点','拖动路线上的圆点到其它道路节点，终点保持不变；重置路线可恢复默认道路。'],
   ['核阅下令','检查经由路口、终点、行军用度与人员状态，最终确认后生效。']
  ],['缩放、拖动与定位只改变视野，不选择目的地或下达军令。','敌军可拦截通行并切断粮道，绕路也会增加真实路程与耗粮。','无实际守军的城市抵达即占领；城门本身不算守军。']),
  transport:guide('调任与运输','出征与补给','人员与物资沿真实道路到达友城，不能瞬移调拨。',[
@@ -118,8 +129,8 @@ export const PAGE_GUIDES={
  ],['等待期间不为相关武将开下一项事务，也不会提前生成等待出征的军团。','取消或返回不等于提交任一执行方案。']),
  diplomacy:guide('外交','经营与人事','玩家决定方向与底线，使臣实际接洽，最终方案由玩家批准。',[
   ['设定方向','选择重点势力、外交方向与预算，查看当前关系和有效条约。'],
-  ['安排使臣','委任真实可用武将，费用与行资由出发城市支付。'],
-  ['核阅方案','查看完整条款、收支城、期限和履行方式，再批准、交回商议或拒绝。'],
+  ['安排使臣','展开“负责人”，先选派出城市，再选本城使臣，核阅当前方针后委任。'],
+  ['核阅方案','先看双方给予的内容和期限；“条款与进度”可查看收支城与履行方式，再批准、交涉或否决。'],
   ['检查履行','批准后仍须真实签署和运输，查看条约、货队与重要奏报。']
  ],['设置方向、预算或关闭页面都不等于批准最终方案。','外交交易不是共用资源账户，钱粮兵源按双方约定城市真实收支。']),
  intelligence:guide('情报一览','经营与人事','查询城市、军团、人物与势力，区分当前观察和旧记录。',[
@@ -129,7 +140,7 @@ export const PAGE_GUIDES={
  ],['查看详情不会派兵、推进日期或更新隐藏实时数据。','敌方失去视野后显示已保存情报，不能据此认为敌军一直停留原处。']),
  armies:guide('军团与节点','出征与补给','实际在外军团负责行军、驻守与补给，节点只负责通行与驻军。',[
   ['查看实际状态','核对军团位置、现役兵力、伤兵、携粮、粮道和当前军令。'],
-  ['调整去向','筹划阶段用“调动军团”选路线；可编辑时再安排拆分、合并或任职。'],
+  ['调整去向','筹划阶段选终点；整军时直接调整编制和任命，确认页比较调整前后。'],
   ['返回友城','补兵、改兵种和装备需在真实驻扎的己方城市办理。']
  ],['城内部队与在外军团是不同概念，城池驻兵数字不包含在外军队。','路口、港口、关卡不能独立征兵或委任内政，驻点军团仍是真实军团。']),
  marchMode:guide('行军方式','出征与补给','根据军团长资格与辎重条件选择实际行军方式。',[
@@ -149,7 +160,7 @@ export const PAGE_GUIDES={
  ],['战前整备不能把未到达援军提前投入战场。','实际参战守城人员会中断当前事务，未参战人员按围城暂停规则处理。']),
  deployment:guide('战前布阵','战斗','开战前安排首发、站位和撤离条件。',[
   ['安排首发','通常同时上阵六队，奸雄任军团长的所属军团可用第七名额，其余进入后备。'],
-  ['调整阵位','拖动我军部队，或从详情选“调整站位”后点合法格子；近战护前，远程留出射击空间。'],
+  ['调整阵位','先拖动我军部队，或从详情选“调整站位”，再选合法格子或本方交换对象；预览后确认，取消保留原位置。'],
   ['安排撤离','按实际剩余现役人数设置撤离条件，留空表示不自动撤离。'],
   ['确认开战','核对出阵顺序、战斗意图与合法部署，确认后开始；开战后阵位和意图锁定。']
  ],['地形会影响移动与战斗，水面、近战牵制和远程最小射程都须考虑。','撤离须实际走到出口，离场后本场不再参战，后备按合法空位补入。']),
@@ -262,12 +273,12 @@ export function pageGuideId(ui,state){
   }
   return 'intelligence';
  }
- const modals={'postbattle-appointments':'commanders',scouting:'scouting','scout-report':'scoutReport','city-domestic':'domestic','domestic-proposals':'proposals','city-personnel':'personnel','campaign-personnel':'personnel',officers:'personnel','owned-officers':'personnel','catalog-detail':'officer','unit-officer':'officer','unit-stats':'unit','tactic-detail':'tactics',loadout:'tactics','stratagem-picker':'stratagems','battle-building':'buildings',gate:'buildings','domestic-alerts':'reports','activity-record':'reports','harvest-review':'harvest','domestic-interruption':'interruption','diplomacy-interruption':'interruption','campaign-battles':'battles','campaign-encounters':'encounter','faction-battle':'battles','encounter-flow':'encounter',encounter:'encounter','reinforcement-arrival':'reinforcements','march-mode':'marchMode','military-flow':'armies',army:'armies','scenario-army-info':'armies','scenario-review':'custom','info-menu':'intelligence',journal:'reports',report:'battleReport','campaign-history':'replay','campaign-replay':'replay','campaign-archive':'replay',settings:'saves',archives:'saves',scenarios:'custom'};
+ const modals={'bandit-camp':'bandits','postbattle-appointments':'commanders',scouting:'scouting','scout-report':'scoutReport','city-domestic':'domestic','domestic-direction':'domestic','domestic-proposals':'proposals','city-personnel':'personnel','campaign-personnel':'personnel',officers:'personnel','owned-officers':'personnel','catalog-detail':'officer','unit-officer':'officer','unit-stats':'unit','tactic-detail':'tactics',loadout:'tactics','stratagem-picker':'stratagems','battle-building':'buildings',gate:'buildings','domestic-alerts':'reports','activity-record':'reports','harvest-review':'harvest','domestic-interruption':'interruption','diplomacy-interruption':'interruption','campaign-battles':'battles','campaign-encounters':'encounter','faction-battle':'battles','encounter-flow':'encounter',encounter:'encounter','reinforcement-arrival':'reinforcements','march-mode':'marchMode','military-flow':'armies',army:'armies','scenario-army-info':'armies','scenario-review':'custom','info-menu':'intelligence',journal:'reports',report:'battleReport','campaign-history':'replay','campaign-replay':'replay','campaign-archive':'replay',settings:'saves',archives:'saves',scenarios:'custom'};
  if(modal==='treasures')return 'treasures';
  if(['split','merge'].includes(modal))return 'armies';
  if(['reset','archive-confirm'].includes(modal))return 'saves';
  if(modal)return modals[modal]||null;
- if(ui.mode==='lobby')return ['campaign','custom'].includes(ui.lobbyPage)?'custom':ui.lobbyPage==='national'?(ui.nationalDraft?.step==='faction'?'factions':'scenarios'):'modes';
+ if(ui.mode==='lobby')return ui.lobbyPage==='maps'?'maps':['campaign','custom'].includes(ui.lobbyPage)?'custom':ui.lobbyPage==='national'?(ui.nationalDraft?.step==='faction'?'factions':'scenarios'):'modes';
  if(state.campaign&&state.finished&&!ui.endingMap)return 'ending';
  if(state.battle)return state.battle.reinforcementCouncil?'reinforcements':!state.battle.deploymentLocked?'deployment':'combat';
  if(ui.mapPanelOpen)return ui.strategyTab==='city'?'city':['army','node'].includes(ui.strategyTab)?'armies':ui.strategyTab==='battles'?'battles':'map';

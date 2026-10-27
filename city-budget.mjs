@@ -9,6 +9,7 @@ import {playerFaction,isPlayerControlled} from './player-faction.mjs';
 import {diplomaticAssetReserve} from './diplomacy-relations.mjs';
 import {trainingCost} from './troop-training.mjs';
 import {DIPLOMACY_RULES,DIPLOMACY_DIRECTIONS} from './data/design/diplomacy-rules.mjs';
+import {withPlanningQueries} from './planning-queries.mjs';
 
 const fmt=n=>Math.ceil(n).toLocaleString('zh-CN');
 let budgetQueryScope=null;
@@ -101,10 +102,15 @@ export function setCityBudget(s,cityId,key,value,{faction=playerFaction(s),sched
  c.budget[key]=value;return null;
 }
 export function updateCityBudgetAlerts(s){
- const supplies=citySupplyBudgets(s),supplyForecast=forecastArmySupply(s,{supplies});
+ // Compare all budgets against one unchanged world, then publish warnings only
+ // after the read scope closes. Notices never change stock or appointments.
+ const budgets=withPlanningQueries(s,()=>{
+  const supplies=citySupplyBudgets(s),supplyForecast=forecastArmySupply(s,{supplies});
+  return new Map(s.cities.filter(c=>c.owner===playerFaction(s)).map(c=>[c,cityBudget(s,c,{supplies,supplyForecast})]));
+ });
  for(const c of s.cities){
-  if(c.owner!==playerFaction(s)){c.budget.warning='';continue;}
-  const b=cityBudget(s,c,{supplies,supplyForecast}),warning=['gold','grain'].filter(k=>b.fundingShortages[k]>0).map(k=>k==='grain'&&b.fundingDaysSupply!==null&&b.fundingDaysSupply<=ECONOMY_RULES.budget.criticalFoodDays?'grain-critical':k).join(',');
+  if(!budgets.has(c)){c.budget.warning='';continue;}
+  const b=budgets.get(c),warning=['gold','grain'].filter(k=>b.fundingShortages[k]>0).map(k=>k==='grain'&&b.fundingDaysSupply!==null&&b.fundingDaysSupply<=ECONOMY_RULES.budget.criticalFoodDays?'grain-critical':k).join(',');
   if(!warning){c.budget.warning='';continue;}
   if(warning===c.budget.warning)continue;
   c.budget.warning=warning;c.budget.warningSequence++;

@@ -58,7 +58,20 @@ test('a destroyed watchtower stops its sight until genuine military repairs rest
  beginExecution(s);assert.equal(c.project.key,'watchtower');assert.equal(assignmentFor(s,u.id).action.key,'repair');for(let i=0;i<30&&!buildingDurability(c,'watchtower').hp;i++)days(s,1);assert.ok(buildingDurability(c,'watchtower').hp>0);assert.equal(cityVisionRadius(c,22),32);restore(s);
 });
 test('destroyed facilities cease production and become operational after actual repair',()=>{
- const {s,c}=fixture({key:'commerce',level:1,hp:0});assert.equal(productiveBuildingLevel(s,c,'commerce'),0);beginExecution(s);days(s,1);assert.equal(buildingDurability(c,'commerce').hp,100);assert.equal(productiveBuildingLevel(s,c,'commerce'),1);restore(s);
+ const {s,c}=fixture({key:'commerce',level:1,hp:0});assert.equal(productiveBuildingLevel(s,c,'commerce'),0);beginExecution(s);days(s,1);assert.equal(buildingDurability(c,'commerce').hp,Math.round(1000/ACTIONS.build_commerce.days));assert.equal(productiveBuildingLevel(s,c,'commerce'),1);restore(s);
+});
+
+test('market construction spans multiple turns and resumes paid progress deterministically',()=>{
+ const {s,c,u}=fixture({key:'commerce',level:1});beginExecution(s);
+ assert.equal(assignmentFor(s,u.id).action.remaining,30);
+ const id=assignmentFor(s,u.id).action.id,site=c.project.siteId;
+ days(s,1);assert.equal(buildingDurability(c,'commerce',site).hp,1033);
+ days(s,9);assert.equal(c.commerce,1);assert.ok(c.project);assert.equal(buildingDurability(c,'commerce',site).hp,1333);
+ const saved=serializeCampaign(s),copy=restore(s);assert.equal(serializeCampaign(copy),saved);
+ for(let i=0;i<90&&c.commerce===1;i++){days(s,1);days(copy,1);assert.equal(serializeCampaign(s),serializeCampaign(copy));}
+ assert.equal(c.commerce,2);assert.equal(c.project,null);
+ const completed=s.campaign.domestic.events.find(e=>e.actionId===id&&e.phase==='complete');
+ assert.ok(completed&&completed.day>=30);restore(s);
 });
 test('construction and gate durability cannot be forged in saves',()=>{
  const {s,c}=fixture();beginExecution(s);days(s,2);

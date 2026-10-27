@@ -5,13 +5,13 @@ import {PROGRESSION} from './progression.mjs';
 import {settleOfficerMerit,transportMerit} from './campaign-merit.mjs';
 import {cityBudget} from './city-budget.mjs';
 import {withPlanningQueries} from './planning-queries.mjs';
-import {DIPLOMACY_RULES as R,DIPLOMACY_AI as AI,DIPLOMACY_WORK as WORK,DIPLOMACY_DIRECTIONS as DIRECTIONS,DIPLOMACY_GOALS as GOALS,DIPLOMACY_ACTIONS as ACTIONS} from './data/design/diplomacy-rules.mjs';
+import {DIPLOMACY_RULES as R,DIPLOMACY_AI as AI,DIPLOMACY_CITY_EXCHANGE as EXCHANGE,DIPLOMACY_WORK as WORK,DIPLOMACY_DIRECTIONS as DIRECTIONS,DIPLOMACY_GOALS as GOALS,DIPLOMACY_ACTIONS as ACTIONS} from './data/design/diplomacy-rules.mjs';
 import {diplomaticAssignment,diplomaticPair,diplomaticClauses,activeDiplomaticClause,factionsHostile,diplomaticProtection,diplomaticPassage,militaryAidRestricted,diplomaticAssetReserve} from './diplomacy-relations.mjs';
 import {FACTIONS} from './engine.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {playerFaction,isAIControlled,isPlayerControlled} from './player-faction.mjs';
 import {servingPeople,factionLord,addCityGold} from './talent-core.mjs';
-import {mapNode,mapNodes,isJunction} from './road-network.mjs';
+import {mapNode,mapNodes,isJunction,cityRoads} from './road-network.mjs';
 import {roadCost} from './road-metrics.mjs';
 import {residentOfficer,cityPersonnel} from './city-personnel.mjs';
 import {assignmentFor,cancelDomestic,pendingDomesticOrder,cityFoodReserve,grainCapacity,reservedMen,reconcileDomestic} from './domestic.mjs';
@@ -125,6 +125,20 @@ function deployOptions(s,f,enemy,recipient,defendCity=null){
  }return options.sort((a,b)=>a.days-b.days||b.troops-a.troops);
 }
 const hasRenewal=(s,old,c,exclude=null)=>s.campaign.diplomacy.contracts.some(p=>p.id!==exclude&&p.status==='signed'&&!p.failure&&p.clauses.some(x=>x.renews===old&&x.kind===c.kind&&x.from===c.from&&x.to===c.to&&['waiting','active'].includes(x.status)));
+function cityExchange(view,ours,theirs){
+ // Only public roads and this faction's dated ownership projection are used.
+ // Each side must gain actual connections to its retained territory.
+ const edges=cityRoads(view),neighbors=id=>edges.flatMap(([a,b])=>a===id?[b]:b===id?[a]:[]);
+ const available=x=>x.cities.filter(c=>c.id!==x.city.id&&!c.units.some(u=>u.mission)&&!view.campaign.battles.some(b=>!b.settled&&b.cityId===c.id));
+ const pairs=[];
+ for(const c of available(ours))for(const t of available(theirs)){
+  if(!cityIntelligence(view,t.id,ours.faction).visible)continue;
+  const links=(id,owner)=>neighbors(id).filter(n=>n!==c.id&&n!==t.id&&town(view,n)?.owner===owner).length;
+  const ownGain=links(t.id,ours.faction)-links(c.id,ours.faction),otherGain=links(c.id,theirs.faction)-links(t.id,theirs.faction);
+  if(ownGain>=EXCHANGE.minimumConnectionGain&&otherGain>=EXCHANGE.minimumConnectionGain)pairs.push({c,t,gain:ownGain+otherGain});
+ }
+ return pairs.sort((a,b)=>b.gain-a.gain||a.c.id.localeCompare(b.c.id)||a.t.id.localeCompare(b.t.id))[0]||null;
+}
 export function diplomaticCandidates(s,a){
  return withPlanningQueries(s,()=>readDiplomaticCandidates(s,a));
 }
@@ -149,7 +163,7 @@ function readDiplomaticCandidates(s,a){
    if(goal==='withdraw'&&policy.goal==='withdraw'){const foreign=view.armies.find(a=>a.faction===other&&!a.travel&&ours.cities.some(c=>c.id===a.location)&&!armyBattle(view,a.id)),home=foreign&&theirs.cities.map(c=>({c,path:diplomaticRoute(view,foreign.location,c.id,other,f,'military')})).find(x=>x.path);if(home){clauses=[leg('withdraw',other,f,{armyId:foreign.id,targetId:home.c.id,deadline:s.campaign.day+strategicTravelDays(view,foreign,home.path)+30}),leg('militaryPass',f,other,{route:[foreign.location,...home.path],duration:60,armyIds:[foreign.id]})];priority=40;}}
    const enemy=[...new Set(ours.threats.map(a=>a.faction))].find(e=>e!==other&&factionsHostile(s,other,e));
    if(['alliance','aid'].includes(goal)&&(enemy||policy.goal!=='auto')){const foe=enemy||factions(view).find(e=>![f,other].includes(e)&&factionsHostile(s,f,e)&&factionsHostile(s,other,e));if(foe){const defend=goal==='aid'&&ours.threats.length?ours.cities.find(c=>ours.threats.some(a=>a.travel?.to===c.id||a.location===c.id)):null,force=deployOptions(view,other,foe,f,defend)[0];if(force){const permissionDays=Math.max(R.militaryBaseDuration,force.days*2+R.militaryServiceDays+R.militaryGraceDays);clauses=[...mutual('nonaggression',f,other,permissionDays),leg('militaryPass',f,other,{route:force.route,duration:permissionDays,officerIds:force.officerIds,troopCap:force.troops}),leg('deploy',other,f,{...force,deadline:s.campaign.day+routeDays(s,a.homeCity,path)+WORK.military.days+force.days+R.militaryGraceDays,duration:R.militaryServiceDays}),leg('restrictAid',other,f,{enemy:foe,duration:permissionDays})];if(defend)clauses.push(leg('station',f,other,{cityId:defend.id,officerIds:force.officerIds,troopCap:force.troops,duration:permissionDays}));else clauses.push(leg('spoils',other,f,{enemy:foe,cityId:force.targetId}));if(factionsHostile(s,f,other))clauses.unshift(leg('peace',f,other,{duration:90}));if(!factionsHostile(s,other,foe))clauses.push(leg('declare',other,f,{enemy:foe}));if(goal==='alliance')clauses.push(leg('alliance',f,other,{duration:180,enemy:foe}));if(ours.gold>=500)clauses.push(leg('gold',f,other,{amount:500,milestone:'arrival'}));if(ours.grain>=2000&&grainCapacity(theirs.city)-theirs.city.grain>=2000)clauses.push(leg('grain',f,other,{amount:2000}));priority=45+ours.pressure/Math.max(1,ours.power)*20;}}}
-   if(goal==='border'&&policy.goal!=='auto'){const c=ours.cities.filter(c=>c!==ours.city&&!c.units.some(u=>u.mission)).sort((a,b)=>a.commerce-b.commerce||a.id.localeCompare(b.id))[0],t=theirs.cities.filter(c=>c!==theirs.city).sort((a,b)=>a.commerce-b.commerce||a.id.localeCompare(b.id))[0];if(c&&t){clauses=[leg('city',f,other,{cityId:c.id}),leg('city',other,f,{cityId:t.id}),leg('peace',f,other,{duration:30})];priority=30;}}
+   if(goal==='border'&&policy.goal==='border'&&(!isAIControlled(s,f)||s.turn>=EXCHANGE.aiMinimumTurn)){const pair=cityExchange(view,ours,theirs);if(pair){clauses=[leg('city',f,other,{cityId:pair.c.id}),leg('city',other,f,{cityId:pair.t.id}),leg('peace',f,other,{duration:30})];priority=30;}}
    if(!clauses.length)continue;
    // Peace serves recovery or another front. A safe unification direction
    // should not be locked forever by automatic protective renewals.
@@ -225,9 +239,10 @@ function beginMission(s,unit,{faction,homeCity,targetCity,other,projectId,purpos
 function diplomaticWork(clauses){return clauses.map(c=>WORK[c.kind]||WORK[['deploy','declare','withdraw'].includes(c.kind)?'military':['city','spoils'].includes(c.kind)?'city':'resource']).reduce((a,b)=>({days:Math.max(a.days,b.days),fee:Math.max(a.fee,b.fee)}),WORK.resource);}
 export function prepareDiplomaticProposal(s,a,candidate){
  const d=s.campaign.diplomacy,actor=servingPeople(s).get(a.officerId),f=a.faction,other=candidate.other;if(!actor||actor.unit.mission||actor.unit.scouting||!lordCity(s,f)||!candidate.targetCity)return null;
+ if(isAIControlled(s,f)&&s.turn<EXCHANGE.aiMinimumTurn&&candidate.clauses.some(c=>c.kind==='city')){a.waiting='开局以安定领地为先，暂不主动换城';return null;}
  const policy=d.policies[f],turn=Math.floor((s.campaign.day-1)/10);if(policy.feeTurn!==turn){policy.feeTurn=turn;policy.fees=0;}
  const work=diplomaticWork(candidate.clauses),fee=diplomaticFee(work.fee,actor.unit,a.direction);if(policy.fees+fee>policy.feeBudget||town(s,actor.location).gold<fee+Math.max(town(s,actor.location).budget.goldReserve,policy.goldReserve)){a.waiting='办事经费不足';return null;}
- const p={id:d.nextId++,version:1,factions:[f,other],officerId:a.officerId,direction:a.direction,goal:candidate.goal,sites:{[f]:lordCity(s,f).id,[other]:candidate.targetCity},clauses:copy(candidate.clauses),status:'outbound',approvals:{},createdDay:s.campaign.day,expiresDay:s.campaign.day+routeDays(s,a.homeCity,candidate.path)+work.days+R.offerDays,progress:0,workDays:work.days,expenses:{[f]:fee},attempts:0,reason:candidate.reason,score:candidate.score,escrow:[],receivers:{},meetingCity:candidate.targetCity};
+ const p={id:d.nextId++,version:1,factions:[f,other],officerId:a.officerId,direction:a.direction,goal:candidate.goal,sites:{[f]:lordCity(s,f).id,[other]:candidate.targetCity},clauses:copy(candidate.clauses),status:'outbound',approvals:{},createdDay:s.campaign.day,expiresDay:s.campaign.day+routeDays(s,a.homeCity,candidate.path)+Math.ceil(work.days/diplomaticRate(actor.unit,a.direction))+R.offerDays,progress:0,workDays:work.days,expenses:{[f]:fee},attempts:0,reason:candidate.reason,score:candidate.score,escrow:[],receivers:{},meetingCity:candidate.targetCity};
  if(p.clauses.some(c=>['grain','manpower','prisoner','city'].includes(c.kind)))p.clauses.push(...mutual('tradePass',f,other,90),...mutual('envoyPass',f,other,90));
  p.visitPermit={officerId:a.officerId,untilDay:p.expiresDay+routeDays(s,a.homeCity,candidate.path)+30};
  p.clauses=p.clauses.map((c,i)=>({...c,id:i+1}));for(const c of p.clauses)if(c.deploymentId==='proposed')c.deploymentId=p.clauses.find(x=>x.kind==='deploy').id;const error=clauseError(s,p,{requester:f});if(error){a.waiting=error;return null;}
@@ -246,7 +261,7 @@ function beginReturn(s,u){
 export function approveDiplomaticProposal(s,id,version,{faction=playerFaction(s),automatic=false}={}){const p=s.campaign.diplomacy.proposals.find(p=>p.id===id),f=faction;if(s.finished||!(automatic?isAIControlled(s,f):isPlayerControlled(s,f))||!p||p.status!=='pending'||!p.factions.includes(f)||p.version!==Number(version)||p.expiresDay<s.campaign.day)return '方案已失效，请重新交涉';const error=clauseError(s,p,{requester:f});if(error)return error;p.approvals[f]={version:p.version,day:s.campaign.day,controller:automatic?'ai':'player',terms:terms(p)};if(!automatic)closePendingReports(s,p);emit(s,p,'approved',`${automatic?FACTIONS[f].name:'玩家'}批准${GOALS[p.goal]}最终方案。`,{faction:f});if(p.factions.every(f=>p.approvals[f]?.version===p.version))p.status='approved';return null;}
 export function decideDiplomaticProposal(s,id,decision,{faction=playerFaction(s),automatic=false}={}){const p=s.campaign.diplomacy.proposals.find(p=>p.id===id),f=faction;if(s.finished||!(automatic?isAIControlled(s,f):isPlayerControlled(s,f))||!p||!p.factions.includes(f)||p.status!=='pending')return '方案已处理';const u=servingPeople(s).get(p.officerId)?.unit;
  if(!['renegotiate','reject'].includes(decision))return '方案处理方式无效';if(!automatic)closePendingReports(s,p);
- if(decision==='renegotiate'){p.version++;p.approvals={};p.status='negotiating';p.progress=0;p.attempts++;p.expiresDay=s.campaign.day+R.offerDays;emit(s,p,'returned','玩家要求继续交涉。',{faction:f});}
+ if(decision==='renegotiate'){p.version++;p.approvals={};p.status='negotiating';p.progress=0;p.attempts++;p.expiresDay=s.campaign.day+Math.ceil(p.workDays/diplomaticRate(u,p.direction))+R.offerDays;emit(s,p,'returned','玩家要求继续交涉。',{faction:f});}
  else {p.status='rejected';emit(s,p,'rejected','玩家否决本次外交方案。',{faction:f});if(u)beginReturn(s,u);}recordOfficerActivities(s);return null;
 }
 function reviewFinalProposal(s,p){

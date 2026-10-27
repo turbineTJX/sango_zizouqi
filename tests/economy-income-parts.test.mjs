@@ -34,10 +34,11 @@ test('actual operation is accounted separately and monthly settlement never pays
  const completed=serializeCampaign(s);assert.equal(serializeCampaign(validateCampaign(JSON.parse(completed))),completed);
 });
 
-test('economic construction efficiency includes actual delays, labor, net cost and permanent base gain',()=>{
+test('economic construction preserves the longer market labor cost and equal real investment',()=>{
  const result=compareConstruction(Array.from({length:32},(_,i)=>9001+i*137));
  for(const row of result){
-  assert.ok(row.efficiencySpread<.1,JSON.stringify(row));assert.ok(row.costEfficiencySpread<.1,JSON.stringify(row));
+  assert.ok(row.engineeringSpread<.1,JSON.stringify(row));assert.ok(row.costEfficiencySpread<.1,JSON.stringify(row));
+  const market=row.commands.find(c=>c.key==='build_commerce');for(const other of row.commands.filter(c=>c.key!=='build_commerce'))assert.ok(market.meanValuePerOfficerDay<other.meanValuePerOfficerDay*.5,'market expansion must consume its longer actual labor time');
   for(const c of row.commands)for(const r of c.runs){
    assert.ok(r.days>=r.nominalDays);assert.equal(r.charged,500);assert.equal(r.spent+r.refund,r.charged);
    assert.ok(r.baseValue>99&&r.baseValue<101);assert.ok(r.spent>0);

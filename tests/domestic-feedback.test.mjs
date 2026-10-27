@@ -22,7 +22,7 @@ test('real domestic completion produces a persistent report, acknowledgement pre
  const key=Object.keys(ACTIONS).find(k=>ACTIONS[k].kind==='build'&&ACTIONS[k].direction==='commerce');
  for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='commerce'&&k!==key)c.domestic.cooldowns[k]=1000;
  assignDomestic(s,c.id,'commerce',u.id);beginExecution(s);
- for(let i=0;i<35&&!pendingDomesticAlerts(s).some(e=>e.officerId===u.id);i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
+ for(let i=0;i<ACTIONS[key].days*4&&!pendingDomesticAlerts(s).some(e=>e.officerId===u.id&&['complete','failure'].includes(e.phase));i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  const events=pendingDomesticAlerts(s);assert.ok(events.some(e=>e.officerId===u.id&&['complete','failure'].includes(e.phase)));
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));assert.deepEqual(pendingDomesticAlerts(restored),events);
  acknowledgeDomesticAlerts(restored,events.map(e=>e.id));assert.equal(pendingDomesticAlerts(validateCampaign(JSON.parse(serializeCampaign(restored)))).length,0);

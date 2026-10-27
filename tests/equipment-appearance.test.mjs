@@ -40,7 +40,7 @@ for(const type of ['ram','siege','tower'])test(`${type}: real deployment, shooti
  Object.assign(u,{x:3,y:3});Object.assign(foe,{x:8,y:6,cooldown:999});setStatus(b,foe,'root',100,{sourceId:foe.id,sourceName:foe.name});
  for(const a of [u,foe])a.skillReady=Object.fromEntries(allLearnedTacticIds(a).map(id=>[id,999]));
  const tower={id:'target',name:'箭塔',kind:'arrowTower',type:'building',side:1,x:type==='ram'?4:6,y:3,hp:1000,maxHp:1000,...buildingCombatState('arrowTower',1)};b.buildings=[tower];
- const visual=Object.create(BattleArt.prototype);Object.assign(visual,{units:new Map(),clock:0,reduced:{matches:false},modelLoading:true});
+ const visual=Object.create(BattleArt.prototype);Object.assign(visual,{units:new Map(),clock:0,reduced:{matches:false},modelLoading:true,invalidate(){}});
  const previous=art.enabled;art.enabled=false;
  try{
   assert.equal(siegeFigureMarkup(u),'');stepBattle(b,{aiSides:[]});assert.equal(u.formType,type);

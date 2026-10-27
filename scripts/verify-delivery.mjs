@@ -31,6 +31,9 @@ try{
  await run('module-syntax',['scripts/check-module-syntax.mjs']);
  await run('source-offline-manifest',['scripts/source-offline-manifest.mjs','--check']);
  await run('source-first-offline',['scripts/verify-source-offline-ui.mjs']);
+ await run('map-performance',['scripts/verify-map-performance-ui.mjs']);
+ await run('campaign-responsiveness',['scripts/verify-campaign-responsiveness-ui.mjs']);
+ await run('ui-performance',['scripts/verify-ui-performance.mjs']);
  await run('campaign-ending',['scripts/verify-campaign-ending-ui.mjs']);
  await run('release-browser',['scripts/verify-release-ui.mjs']);
  await run('natural-large-save',['scripts/verify-save-storage-ui.mjs']);

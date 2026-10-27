@@ -12,6 +12,6 @@ export function modeLobby() {
   </main>`;
 }
 
-export function campaignLobby(selectedId, resume, customDraft=defaultCustomBattle()) {
- return `<main class="campaign-lobby custom-workspace"><header class="lobby-nav"><a class="lobby-brand" href="#" data-action="lobby"><span>君</span>三国 · 君临</a><button class="button secondary" data-action="lobby">返回</button></header>${resume?`<section class="lobby-resume"><b>${resume.name}</b><button class="button secondary" data-action="continue-history" ${resume.invalid?'disabled':''}>${resume.invalid?'重新开始':resume.finished?'查看战报':'继续战役'}</button></section>`:''}${historicalBattleLibrary()}${customBattleMarkup(customDraft)}</main>`;
+export function campaignLobby(selectedId, resume, customDraft=defaultCustomBattle(),showCustom=false,mapLibrary) {
+ return `<main class="campaign-lobby custom-workspace"><header class="lobby-nav"><a class="lobby-brand" href="#" data-action="lobby"><span>君</span>三国 · 君临</a><button class="button secondary" data-action="battle-map-editor">地图编辑器</button><button class="button secondary" data-action="lobby">返回</button></header>${resume?`<section class="lobby-resume"><b>${resume.name}</b><button class="button secondary" data-action="continue-history" ${resume.invalid?'disabled':''}>${resume.invalid?'重新开始':resume.finished?'查看战报':'继续战役'}</button></section>`:''}${historicalBattleLibrary()}${customBattleMarkup(customDraft,mapLibrary)}</main>`;
 }

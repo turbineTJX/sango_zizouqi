@@ -37,7 +37,7 @@ try{
   const original=window.matchMedia;let reduced=false;window.matchMedia=()=>({matches:reduced});
   try{
    const layer=Object.create(ModelLayer.prototype),root=new Group(),victim=new Group(),body=new MeshStandardMaterial({color:0x507766}),originalColor=body.color.clone();
-   Object.assign(layer,{board:{clientWidth:700,clientHeight:400,classList:{toggle(){}}},pack:{},renderer:{setSize(){},render(){}},camera:{updateProjectionMatrix(){}},
+   Object.assign(layer,{board:{clientWidth:700,clientHeight:400,classList:{toggle(){}}},scene:new Group(),pack:{},renderer:{setSize(){},render(){}},camera:{updateProjectionMatrix(){}},
     objects:new Map([['healer',{root,tilt:new Group(),width:1,height:1}],['ally',{root:victim,tilt:new Group(),width:1,height:1,flashMaterials:[{material:body,color:originalColor,emissive:body.emissive.clone(),intensity:body.emissiveIntensity}]}]]),
     wanted:new Map([['healer',{x:2,y:3,size:.8,key:'archer',unit:{id:'healer',side:0}}],['ally',{x:6,y:3,size:.8,key:'spear',unit:{id:'ally',side:0}}]])});
    const action={start:0,duration:1000,events:[{from:'healer',to:'ally',skill:true,healing:80,presentationKind:'heal',fromX:2,fromY:3}]};

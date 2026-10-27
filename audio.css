@@ -4,7 +4,7 @@
 .officer-voice [data-voice-name]{color:#e7c68c;white-space:nowrap;font-size:12px}
 .officer-voice[data-side="1"]{border-left-color:#c97376}
 .officer-voice[data-side="1"] [data-voice-name]{color:#f2b5b8}
-@media(max-width:560px){.officer-voice{width:max-content;bottom:calc(64px + env(safe-area-inset-bottom,0px));padding:8px 12px;gap:8px;font-size:13px}.officer-voice [data-voice-name]{font-size:11px}}
+@media(max-width:560px){.officer-voice{width:max-content;bottom:calc(64px + env(safe-area-inset-bottom,0px));padding:8px 12px;flex-direction:column;align-items:flex-start;gap:2px;font-size:13px}.officer-voice [data-voice-name]{font-size:11px;white-space:normal}}
 .audio-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
 .audio-heading h3{font-size:17px;margin:0 0 6px}
 .audio-heading p{font-size:13px;color:var(--muted,#736a57);margin:0;line-height:1.6}

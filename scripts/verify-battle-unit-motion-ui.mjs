@@ -40,7 +40,7 @@ try{
   playModelClip(obj,'attack',.4);result.nativeAttackClip=weapon.rotation.z>.5;const attackAngle=weapon.rotation.z;playModelClip(obj,'attack',.4);result.deterministicClip=weapon.rotation.z===attackAngle;
   playModelClip(obj,'stun',.4);result.missingStunStopsAttack=weapon.rotation.z===0;
   const layer=Object.create(ModelLayer.prototype),body=new T.Group(),tilt=new T.Group(),unit={id:'u',side:0};
-  Object.assign(layer,{board:{clientWidth:700,clientHeight:400,classList:{toggle(){}}},pack:{},renderer:{setSize(){},render(){}},camera:{updateProjectionMatrix(){}},objects:new Map([['u',{root:body,tilt,width:1,height:1}]]),wanted:new Map([['u',{key:'spear',x:3,y:3,size:.8,unit}]])});
+  Object.assign(layer,{board:{clientWidth:700,clientHeight:400,classList:{toggle(){}}},scene:new T.Group(),pack:{},renderer:{setSize(){},render(){}},camera:{updateProjectionMatrix(){}},objects:new Map([['u',{root:body,tilt,width:1,height:1}]]),wanted:new Map([['u',{key:'spear',x:3,y:3,size:.8,unit}]])});
   layer.draw(0,{actions:[],clock:200,statuses:()=>[{key:'stun'}]});const first=body.rotation.z;
   layer.draw(0,{actions:[],clock:700,statuses:()=>[{key:'stun'}]});result.nativeStunBody=body.rotation.z!==first;
   layer.draw(0,{actions:[],clock:700,statuses:()=>[]});result.statusClears=body.rotation.z===0;

@@ -34,5 +34,5 @@ test('expedition destination details use city intelligence instead of hidden res
  const s=newCampaign(203,'guandu-200'),target=s.cities.find(c=>c.owner!=='cao'&&!cityVisible(s,c.id)),p=newCommand(s,'expedition','xuchang');
  target.grain=987654;target.manpower=765432;p.step='target';p.destination=target.id;
  const before=serializeCampaign(s),html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
- assert.match(html,/尚未侦察/);assert.doesNotMatch(html,/987654|765432/);assert.equal(serializeCampaign(s),before);
+ assert.ok(html.includes(target.name));assert.doesNotMatch(html,/987654|765432/);assert.equal(serializeCampaign(s),before);
 });

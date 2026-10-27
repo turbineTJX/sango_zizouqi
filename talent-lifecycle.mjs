@@ -10,7 +10,7 @@ import {plannedOfficer,domesticIntentWeight} from './strategic-intent.mjs';
 import {diplomaticAssignment} from './diplomacy-relations.mjs';
 import {domesticStaffing} from './domestic-staffing.mjs';
 import {assignDomestic,assignmentFor,setDomesticPriority} from './domestic.mjs';
-import {appointGovernor} from './strategic-campaign.mjs';
+import {appointGovernor,disbandCityUnits} from './strategic-campaign.mjs';
 import {DIRECTIONS} from './domestic-designs.mjs';
 import {playerFaction,isAIControlled} from './player-faction.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
@@ -64,6 +64,22 @@ export function discoverTalent(s,id,faction){
  return true;
 }
 export function unknownTalent(s,cityId,faction){return s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&!data(s).knowledge[faction]?.[p.id]?.locationConfirmed&&localContact(s,cityId,p.cityId));}
+// Invitations and local volunteers move the same real person from its actual
+// location, using the existing personnel journey rather than a duplicate.
+function moveFreeTalentIntoService(s,free,unit,faction,homeCity){
+ s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p!==free);
+ unit.homeCity=homeCity;const recruit={unit,faction,location:free.cityId,destination:free.cityId===homeCity?null:homeCity,remainingDays:0};
+ if(recruit.destination)startPersonnelJourney(s,recruit);s.campaign.idle.push(recruit);return recruit;
+}
+export function welcomeBanditTalent(s,id,faction,homeCity,campName){
+ const free=s.campaign.domestic.people.find(p=>p.id===id&&p.status==='FREE'&&!p.travel),home=mapNode(s,homeCity);if(!free||home?.owner!==faction)return false;
+ const r=record(s,id);if(r.hardWaitUntilDay>day(s)||(r.rejoinBlocks[faction]||0)>day(s)||Object.values(data(s).projects).some(p=>p.personId===id&&p.state!=='CLOSED'))return false;
+ const unit=free.unit||makeOfficer(id,0,0,1,s.seed);if(r.meritFaction&&r.meritFaction!==faction)retainFactionMerit(unit);
+ const recruit=moveFreeTalentIntoService(s,free,unit,faction,homeCity);s.campaign.domestic.loyalty[id]=80;
+ Object.assign(r,{meritFaction:faction,idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+91,voluntaryFaction:faction});
+ for(const knowledge of Object.values(data(s).knowledge))if(knowledge[id])knowledge[id].locationConfirmed=false;
+ report(s,'signed',id,`${unit.name}闻${campName}已平，前来投效${home.name}${recruit.destination?'，正沿道路赴任':''}。`,faction,{banditVolunteer:true});refreshTalentDemand(s,true);return true;
+}
 export function talentCandidates(s,c,mode){
  const context=talentContext(s,mode==='persuade'?c.owner:null),t=data(s),ids=mode==='hire'?s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&nearby(s,c.id,p.cityId)&&t.knowledge[c.owner]?.[p.id]?.locationConfirmed).map(p=>p.id):persuasionTargets(s,c.owner).filter(o=>nearby(s,c.id,o.location)).map(o=>o.unit.id),f=context.factions[c.owner]||{N:0,D:1};
  const eligible=(id,city,kind)=>kind==='persuade'?persuasionEligibility(s,id,c.owner,city,context):talentEligibility(s,id,c.owner,city,kind,context);
@@ -126,8 +142,9 @@ export function resolveTalentOffers(s,cancel){
   if(existing)report(s,'changed-side',p.personId,`${unit.name}接受其他势力邀请，离开本方。`,existing.faction);
   cancel(s,p.personId,'接受新势力邀请');
   if(existing)s.campaign.idle=s.campaign.idle.filter(o=>o!==existing);
-  s.campaign.domestic.people=s.campaign.domestic.people.filter(x=>x.id!==p.personId);
-  unit.homeCity=p.cityId;const recruit={unit,faction:p.factionId,location,destination:location===p.cityId?null:p.cityId,remainingDays:0};if(recruit.destination)startPersonnelJourney(s,recruit);s.campaign.idle.push(recruit);
+  let recruit;
+  if(free)recruit=moveFreeTalentIntoService(s,free,unit,p.factionId,p.cityId);
+  else {unit.homeCity=p.cityId;recruit={unit,faction:p.factionId,location,destination:location===p.cityId?null:p.cityId,remainingDays:0};if(recruit.destination)startPersonnelJourney(s,recruit);s.campaign.idle.push(recruit);}
   s.campaign.domestic.loyalty[p.personId]=free?80:65;
   const r=record(s,p.personId);Object.assign(r,{idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+91+(location===p.cityId?0:2),voluntaryFaction:p.factionId});
   for(const other of Object.values(t.projects).filter(x=>x.personId===p.personId)){if(other!==p&&other.state!=='CLOSED'){const o=servingPeople(s).get(other.executorId),penalty=Math.max(0,PROGRESSION.failures.talentProject-other.meritPenalty);if(o?.faction===other.factionId&&penalty)settleOfficerMerit(s,o.unit,{sourceId:`talent-project-failed:${other.createdOrder}`,amount:-penalty,faction:other.factionId,cityId:other.cityId,category:'talent',reason:'接洽项目未能签约'});}if(other!==p&&other.state!=='CLOSED')report(s,'project-closed',p.personId,`${unit.name}已接受其他势力邀请，接洽项目结束。`,other.factionId);other.state='CLOSED';other.reason=other===p?'signed':'other-faction';}
@@ -184,7 +201,6 @@ export function processTalentDefeats(s,cancel){
 function hasDuty(s,o){
  if(diplomaticAssignment(s,o.unit.id))return true;
  if(o.unit.mission||o.unit.scouting)return true;
- if(o.cityUnit&&o.unit.troops+o.unit.wounded>0)return true;
  if(isLord(s,o.unit.id,o.faction))return true;
  if(o.army&&!o.army.disbanded&&o.army.units.some(u=>u.troops+u.wounded>0))return true;
  if(o.army&&!cityPersonnel(s,o.location).some(x=>x.unit.id===o.unit.id))return false;
@@ -217,7 +233,14 @@ export function finishTalentDay(s,cancel){
    // Offsite missions keep their original resident container until return.
    // A due resignation waits for that real return instead of freeing a second
    // copy at the mission location while leaving the employee in the home city.
-   if(!o.army&&!o.destination&&!o.retreating&&!o.unit.mission){if(o.cityUnit){const c=s.cities.find(c=>c.id===o.location);c.units=c.units.filter(u=>u.id!==o.unit.id);}cancel(s,o.unit.id,'辞官');for(const c of s.cities)if(c.governor===o.unit.id)c.governor=null;freeOfficer(s,o);}
+   if(!o.army&&!o.destination&&!o.retreating&&!o.unit.mission){
+    let leaving=o;
+    // A prepared garrison is not employment. Return its real soldiers through
+    // the shared disband operation before freeing the officer; a siege or a
+    // pending expedition can defer the departure, never erase the soldiers.
+    if(o.cityUnit){if(disbandCityUnits(s,o.location,[o.unit.id],{scheduled:true,faction:o.faction}))continue;leaving=s.campaign.idle.find(x=>x.unit.id===o.unit.id);}
+    cancel(s,o.unit.id,'辞官');for(const c of s.cities)if(c.governor===o.unit.id)c.governor=null;freeOfficer(s,leaving);
+   }
   }
  }
  for(const p of s.campaign.domestic.people){

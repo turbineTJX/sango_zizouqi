@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,canEditArmy,splitCampaignArmy,mergeCampaignArmies,recruitCampaign,changeCampaignTroop} from './helpers/auto-domestic-campaign.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {CAMPAIGN,newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,canEditArmy,splitCampaignArmy,mergeCampaignArmies,recruitCampaign,changeCampaignTroop} from './helpers/auto-domestic-campaign.mjs';
+import {fieldFromCity,approachFieldContact} from './helpers/field-campaign.mjs';
 import {mapNode,isJunction} from '../road-network.mjs';
 import {roadDistance,roadCost} from '../strategic-movement.mjs';
 import {retreatDestinations,nearestRetreat,redirectRetreat,dispatchWithdrawn} from '../strategic-retreat.mjs';
-import {advancePersonnel,transportProxy} from '../personnel-movement.mjs';
+import {advancePersonnel,transportProxy,TRANSPORT_SPEED} from '../personnel-movement.mjs';
 import {canRallyAt} from '../army-rally.mjs';
 import {lockDeployment,battleWounded,issueCommand} from '../engine.mjs';
 import {militaryFlowMarkup,newMilitaryFlow,previewMilitaryFlow,encounterFlowMarkup} from '../military-flow.mjs';
@@ -37,12 +37,24 @@ for(const kind of ['junction','port','gate'])test(`${kind}: actual withdrawal ra
  const {s,n,a,r,b}=scene(kind),nodeBefore=structuredClone(n);
  const destinations=retreatDestinations(s,b);assert.equal(destinations[0].id,n.id);
  assert.ok(destinations.every(d=>canRallyAt(s,d.id,a.faction)));
+ const before={grain:a.supply,capacity:a.supplyCapacity,troops:a.units.reduce((sum,u)=>sum+u.troops,0)},group=r.id+':'+a.id;
+ const distance=nearestRetreat(s,a.faction,a.location,a.travel&&{from:a.travel.from,to:a.travel.to,fraction:a.travel.progress/roadDistance(s,a.travel.from,a.travel.to)}).path.cost;
+ assert.ok(distance>0,'withdrawal starts on the road, before the rally point');
  const departed=withdraw(s,b),ids=departed.map(u=>u.id);
- const convoys=s.campaign.idle.filter(o=>ids.includes(o.unit.id));assert.ok(convoys.length);
- const cargo=convoys.reduce((sum,o)=>sum+o.cargo.grain,0),capacity=convoys.reduce((sum,o)=>sum+o.retreatFormation.capacity,0);
+ const convoys=s.campaign.idle.filter(o=>ids.includes(o.unit.id)),arrived=s.armies.filter(a=>a.retreatGroup===group);
+ const arrivedIds=arrived.flatMap(a=>a.units.map(u=>u.id));
+ assert.deepEqual([...convoys.map(o=>o.unit.id),...arrivedIds].sort(),[...ids].sort(),'each withdrawn officer is either travelling or already rallied');
+ if(distance<=TRANSPORT_SPEED/CAMPAIGN.stepsPerDay){assert.equal(convoys.length,0);assert.equal(arrived.length,1,'a short remaining road is completed in the departure step');}
+ else {assert.equal(convoys.length,ids.length);assert.equal(arrived.length,0,'a longer remaining road must still be travelled');}
+ const cargo=convoys.reduce((sum,o)=>sum+o.cargo.grain,0)+arrived.reduce((sum,a)=>sum+a.supply,0),capacity=convoys.reduce((sum,o)=>sum+o.retreatFormation.capacity,0)+arrived.reduce((sum,a)=>sum+a.supplyCapacity,0);
+ const source=s.armies.find(x=>x.id===a.id);
+ assert.equal((source?.supply||0)+cargo,before.grain);assert.equal((source?.supplyCapacity||0)+capacity,before.capacity);
+ assert.equal((source?.units.reduce((sum,u)=>sum+u.troops,0)||0)+departed.reduce((sum,u)=>sum+u.hp,0),before.troops);
+ const people=[...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units),...s.campaign.idle.map(o=>o.unit)];
+ for(const id of ids)assert.equal(people.filter(u=>u.id===id).length,1,'withdrawal cannot duplicate personnel');
  const copy=restore(s);
- for(const state of [s,copy])for(let i=0;i<40&&state.campaign.idle.some(o=>ids.includes(o.unit.id));i++){
-  for(const o of [...state.campaign.idle].filter(o=>ids.includes(o.unit.id)))advancePersonnel(state,o,[],1/24);
+ for(const state of [s,copy]){
+  let steps=0;do{advanceCampaignStep(state);assert.ok(++steps<=40,'withdrawn units must actually reach the node');}while(state.campaign.idle.some(o=>ids.includes(o.unit.id)));
  }
  assert.equal(serializeCampaign(s),serializeCampaign(copy));
  const rallied=s.armies.find(a=>ids.every(id=>a.units.some(u=>u.id===id)));assert.ok(rallied);assert.equal(rallied.location,n.id);assert.equal(rallied.supply,cargo);assert.equal(rallied.supplyCapacity,capacity);

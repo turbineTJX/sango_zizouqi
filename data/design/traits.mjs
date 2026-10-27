@@ -592,7 +592,7 @@ export const TRAIT_DESIGNS = {
       ],
       "setbackDays": 1
     },
-    "description": "本次市场建设受阻时，追加工期由5天改为1天；正常建设工期与费用不变。"
+    "description": "本次市场建设受阻时，追加工期由正常工期的50%改为1天；正常建设工期与费用不变。"
   },
   "farmYield": {
     "name": "精耕",

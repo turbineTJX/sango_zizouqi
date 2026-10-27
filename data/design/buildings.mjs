@@ -4,7 +4,7 @@ export const BUILDING_DESIGNS = {
     "name": "市场",
     "direction": "commerce",
     "cost": 500,
-    "days": 10,
+    "days": 30,
     "description": "每级增加100金／旬",
     "projectName": "发展商业",
     "projectDescription": "每级增加 100 金／旬",

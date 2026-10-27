@@ -3,15 +3,17 @@ import {spawn} from 'node:child_process';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,serializeCampaign} from '../tests/helpers/auto-domestic-campaign.mjs';
-import {fieldFromCity} from '../tests/helpers/field-campaign.mjs';
+import {fieldFromCity,approachFieldContact} from '../tests/helpers/field-campaign.mjs';
 import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
+import {metropolitanCenter,metropolitanMembers} from '../metropolitan-areas.mjs';
+import {metropolitanSiteName} from '../city-classification.mjs';
 
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const out='outputs/strategic-map-presentation-ui',march=newCampaign(203,'guandu-200'),city=march.cities.find(c=>c.id==='xuchang');
 for(let i=0;i<2;i++){const id=city.units[0].id;assert.equal(launchExpedition(march,{kind:'expedition',cityId:city.id,officerIds:[id],leader:id,advisor:id,target:'chenliu',policy:'auto'}),null);}
 assert.equal(beginExecution(march),null);
 const armyId=march.armies.find(a=>a.faction==='cao').id;
-const encounter=newCampaign(1);fieldFromCity(encounter,'xuchang',{target:'guandu'});fieldFromCity(encounter,'guandu',{target:'xuchang'});beginExecution(encounter);let encounterBefore;
+const encounter=newCampaign(1),attack=fieldFromCity(encounter,'xuchang',{target:'guandu'}),defend=fieldFromCity(encounter,'guandu',{target:'xuchang'});approachFieldContact(encounter,attack,defend);beginExecution(encounter);let encounterBefore;
 for(let i=0;i<30&&!activeBattles(encounter).length;i++){if(encounter.campaign.phase==='planning')beginExecution(encounter);encounterBefore=serializeCampaign(encounter);advanceCampaignDay(encounter);}
 assert.ok(activeBattles(encounter).length);
 await mkdir(out,{recursive:true});
@@ -63,7 +65,8 @@ try{
  await page.emulateMedia({reducedMotion:'reduce'});
  const reduced=await page.evaluate(async()=>{const {animateArmyMarch}=await import('/strategic-army-markers.mjs');const root=document.createElement('div');root.innerHTML='<svg><g data-map-army-anchor data-campaign-army="reduced" data-x="10" data-y="0" data-map-day="2" data-map-session="test" data-march-edge="a:b:main" data-march-path="[]"></g></svg>';animateArmyMarch(root,new Map([['reduced',{x:0,y:0,day:1,session:'test',edge:'a:b:main',path:[{x:0,y:0},{x:10,y:0}]}]]));return root.querySelector('g').getAnimations().length;});
  assert.equal(reduced,0);assert.deepEqual(errors,[]);
- await page.locator('.modal .close-button').click();await importSaveFixture(page,serializeCampaign(newCampaign(203,'red-cliffs-208')));
+ const detailsCampaign=newCampaign(203,'red-cliffs-208');
+ await page.locator('.modal .close-button').click();await importSaveFixture(page,serializeCampaign(detailsCampaign));
  assert.equal(await page.locator('.sovereign-identity small').textContent(),'208年1月上旬');
  await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:out+'/date-desktop.png'});
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/date-mobile.png'});
@@ -73,7 +76,8 @@ try{
  await page.locator('.map-search>summary').click();await page.locator('#national-city-search').selectOption('jinyang');await page.locator('.city-command-menu [data-action="campaign-info-detail"]').click();
  assert.equal(await page.locator('.metropolitan-table').count(),0);
  await page.locator('[data-action="campaign-info-page"][data-page="都市圈"]').click();
- assert.deepEqual(await page.locator('.metropolitan-table tbody tr td:nth-child(2)').allTextContents(),['主城','府','关卡','港口']);
+ const detailsCity=detailsCampaign.cities.find(c=>c.id==='jinyang'),detailsCenter=metropolitanCenter(detailsCampaign,detailsCity),detailsMembers=metropolitanMembers(detailsCampaign,detailsCity);
+ assert.deepEqual(await page.locator('.metropolitan-table tbody tr').evaluateAll(rows=>rows.map(row=>({id:row.dataset.metropolitanMember,columns:[...row.cells].map(cell=>cell.textContent)}))),detailsMembers.map(node=>({id:node.id,columns:[node.name,metropolitanSiteName(node,detailsCenter)]})));
  assert.equal(await page.locator('.metropolitan-table').getByText('小城',{exact:true}).count(),0);
  await page.screenshot({path:out+'/metropolis-desktop.png'});
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/metropolis-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);

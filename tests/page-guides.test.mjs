@@ -9,7 +9,7 @@ test('opening game, scenario and faction selection never interrupts with automat
  const storage=memory(),p=createGuidePreferences(storage);
  assert.equal(p.enabled,false);assert.equal(p.shouldShow('map'),false);
  p.setEnabled(true);
- const pages=[{mode:'lobby'},{mode:'lobby',lobbyPage:'national'},{mode:'lobby',lobbyPage:'national',nationalDraft:{step:'faction'}}];
+ const pages=[{mode:'lobby'},{mode:'lobby',lobbyPage:'maps'},{mode:'lobby',lobbyPage:'national'},{mode:'lobby',lobbyPage:'national',nationalDraft:{step:'faction'}}];
  function check(preferences){
   for(const ui of pages){
    const id=pageGuideId(ui,{});
@@ -72,6 +72,7 @@ test('page resolution follows visible page, task and battle phase without mutati
  assert.equal(pageGuideId({modal:'campaign-affairs',affairsTab:'diplomacy'},{}),'diplomacy');
  for(const type of ['city','faction'])assert.equal(pageGuideId({modal:'campaign-info',infoView:{type,id:'own',page:'收支预算'}},{}),'budget');
  assert.equal(pageGuideId({mode:'lobby',lobbyPage:'national',nationalDraft:{step:'faction'}},{}),'factions');
+ assert.equal(pageGuideId({mode:'lobby',lobbyPage:'maps'},{}),'maps');
  assert.equal(pageGuideId({mode:'map'},{battle:{deploymentLocked:false}}),'deployment');
  assert.equal(pageGuideId({mode:'map'},{battle:{deploymentLocked:true}}),'combat');
  assert.equal(pageGuideId({mode:'map'},{battle:{deploymentLocked:true,reinforcementCouncil:'open'}}),'reinforcements');

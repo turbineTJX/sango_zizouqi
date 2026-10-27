@@ -14,7 +14,8 @@ export async function sourceOfflineManifest(root){
  const links=[...html.matchAll(/<(?:script|link)\b[^>]*(?:src|href)="([^"]+)"/g)].map(m=>m[1]).filter(path=>!/^\w+:|^\/\/|^#/.test(path));
  const scripts=links.filter(path=>/\.(?:mjs|js)$/.test(path)),styles=links.filter(path=>path.endsWith('.css'));
  const inputs=new Set(['index.html','sw.js',...links.map(path=>relative(root,resolve(root,path)).replaceAll('\\','/'))]);
- for(const paths of [scripts,styles]){
+ const pending=[scripts,styles],seenWorkers=new Set();
+ for(const paths of pending){
   if(!paths.length)continue;
   const result=await build({absWorkingDir:root,entryPoints:paths,bundle:true,write:false,metafile:true,logLevel:'silent',platform:'browser',format:'esm',outdir:resolve(root,'.offline-output'),alias,
    external:['@capacitor/*'],loader:{'.svg':'file','.png':'file','.webp':'file','.woff2':'file'}});
@@ -22,6 +23,13 @@ export async function sourceOfflineManifest(root){
    const name=relative(root,resolve(root,path)).replaceAll('\\','/');
    if(name.startsWith('../')||name.startsWith('node_modules/')||name.startsWith('assets/'))throw Error('源码离线依赖无法直接发布：'+name);
    inputs.add(name);
+   if(/\.(mjs|js)$/.test(name)){
+    const source=await readFile(resolve(root,name),'utf8');
+    for(const match of source.matchAll(/new\s+Worker\(new\s+URL\(['"]([^'"]+)['"]\s*,\s*import\.meta\.url\)/g)){
+     const worker=resolve(dirname(resolve(root,name)),match[1]);
+     if(!seenWorkers.has(worker)){seenWorkers.add(worker);pending.push([worker]);}
+    }
+   }
   }
  }
  const manifest=JSON.parse(await readFile(resolve(root,'manifest.webmanifest'),'utf8'));

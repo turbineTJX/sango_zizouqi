@@ -7,6 +7,8 @@ const cwd=fileURLToPath(new URL('..',import.meta.url));
 test('strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values',()=>{
  for(const [edit,needle] of [
   [d=>d.roadNetwork.trailCost=0,'小路代价'],
+  [d=>d.roadNetwork.geography.terrain['chenliu:wan']='water','水路必须在两个真实港口之间'],
+  [d=>d.roads.push(['atlas-guangling','atlas-jingkou']),'道路必须实际落实地理增删'],
   [d=>d.roadNetwork.bypasses.push([...d.roadNetwork.bypasses[0]]),'重复小路'],
   [d=>d.roadNetwork.bypasses[0][1]='missing-city','引用的官道不存在'],
   [d=>d.roads.push([...d.roads[0]].reverse()),'重复的双向道路'],
@@ -47,7 +49,7 @@ test('edited action/building/road/movement records drive real autonomous work, r
  assert.equal(w.ACTIONS.build_commerce.cost,777);assert.equal(w.ACTIONS.build_commerce.days,17);assert.equal(e.PROJECTS.commerce.cost,777);assert.equal(e.PROJECTS.commerce.turns,1.7);
  const s=e.newCampaign(42,'heroes-251');assert.deepEqual(e.findCampaignRoute(s,'town-1','town-42'),['town-42']);
  assert.equal(m.roadCost(s,'town-1','town-42','main'),m.roadDistance(s,'town-1','town-42')*2);
- assert.equal(m.movementPoints({leader:'u',morale:80,hunger:0,units:[{id:'u',troops:1000,type:'cavalry',leadership:80}]}),65.4);
+ assert.equal(m.movementPoints({leader:'u',morale:80,hunger:0,units:[{id:'u',troops:1000,type:'cavalry',leadership:80}]}),Math.round(65.4*M.army.landSpeedFactor*1000)/1000);
  assert.equal(p.lightPersonnelSpeed({id:'dun'}),90);assert.equal(p.personnelSpeed({destination:'ye',unit:{id:'dun',troops:1000}}),130);
  const c=s.cities.find(c=>c.id==='xuchang');c.commerce=1;const {addCityGold}=await import('./city-resources.mjs');addCityGold(s,c,20000-c.gold);
  for(const [id,a] of Object.entries(w.ACTIONS))if(a.direction==='commerce'&&id!=='fair')c.domestic.cooldowns[id]=1000;

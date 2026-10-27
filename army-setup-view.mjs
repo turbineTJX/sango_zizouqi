@@ -11,10 +11,6 @@ import {troopAptitude} from './tactic-learning.mjs';
 import {commanderComparison} from './combat-comparison.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const FORMATIONS={front:'前排',middle:'中排',back:'后排',left:'左翼',right:'右翼'};
-export function setupTrail(steps,step,action){
- const labels={'unit-select':'选择部队',officers:'选择武将',formation:'编制部队','unit-review':'部队管理',commanders:'编组军团',review:'核阅结果'},index=steps.indexOf(step);
- return `<nav class="command-steps" aria-label="下令步骤">${steps.map((key,i)=>`<button data-action="${action}" data-step="${key}" ${i>=index?'disabled':''} aria-current="${i===index?'step':'false'}"><small>${i+1}</small>${labels[key]||key}</button>`).join('')}</nav>`;
-}
 // Mode adapters provide legal troop choices and draft event attributes. The view
 // never changes a city, army, save, or battle.
 export function equipmentMarkup(u,typeAttribute,equipmentCity=null){return '<div class="unit-equipment">'+['siege','ship'].map(slot=>'<label>'+(slot==='siege'?'兵器':'船')+'<select '+typeAttribute.replace(/type$/,slot)+'="'+u.id+'" data-control-key="'+typeAttribute.replace(/type$/,slot)+'-'+u.id+'" aria-label="'+esc(u.name)+(slot==='siege'?'兵器':'船')+'"><option value="">无</option>'+equipmentTypes(slot).filter(id=>!equipmentCity||canEquip(equipmentCity,id)||u.equipment?.[slot]===id).map(id=>'<option value="'+id+'" '+(u.equipment?.[slot]===id?'selected':'')+'>'+TROOPS[id].name+' · 每千人 '+trainingCost(id,1000,equipmentCity)+' 金</option>').join('')+'</select></label>').join('')+'</div>';}

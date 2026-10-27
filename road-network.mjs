@@ -84,7 +84,7 @@ export function buildRoadNetwork(cities,cityRoads,{requireLengths=true}={}){
   for(const [a,b] of roads){
     const key=edgeKey(a,b),distance=ROAD_DISTANCE_DESIGNS[key];
     if(!Number.isFinite(distance)||distance<=0){if(requireLengths)throw new Error(`道路缺少行程长度：${key}`);continue;}
-    roadSegments[key]={...roadSegments[key],distance};
+    roadSegments[key]={...roadSegments[key],distance,...(DESIGN.geography.terrain[key]?{terrain:DESIGN.geography.terrain[key]}:{})};
   }
   return {roads,junctions,roadSegments};
 }

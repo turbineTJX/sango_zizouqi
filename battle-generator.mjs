@@ -9,7 +9,7 @@ import {BATTLE_MAPS} from './data/design/battle-maps.mjs';
 // through the same validation, officer creation, learning and deployment rules.
 export function generateBattle(input,{id='custom-battle',name='自由对战',officerIds}={}){
   const draft=validateCustomBattle(input),state=newGame(draft.seed);
-  if(draft.mapId)name=BATTLE_MAPS[draft.mapId].name;
+  if(draft.mapId)name=(draft.mapData||BATTLE_MAPS[draft.mapId]).name;
   state.testScenario={id,seed:draft.seed,shieldPercent:draft.shieldPercent,customBattle:structuredClone(draft),...(officerIds?{officerIds}:{})};
   const [own,enemy]=state.armies;
   const columns=[{army:own,key:'ownTeam',side:0},{army:enemy,key:'enemyTeam',side:1},...draft.reinforcements.map((a,i)=>({army:{...structuredClone(a.side===0?own:enemy),id:'a'+(i+3),name:a.name},key:a.side===0?'ownTeam':'enemyTeam',side:a.side,reinforcement:a,index:i}))];
@@ -37,7 +37,7 @@ export function generateBattle(input,{id='custom-battle',name='自由对战',off
     }
     index+=wave.count;
   });
-  if(draft.mapId){b.mapId=draft.mapId;b.terrain=null;}
+  if(draft.mapId){b.mapId=draft.mapId;if(draft.mapData)b.mapData=structuredClone(draft.mapData);b.terrain=null;}
   configureBattleTerrain(b,draft.terrain);b.maxTicks=draft.limit;
   if(draft.holdUntil)b.holdUntil=draft.holdUntil;
   if(draft.battleKind!=='field'){

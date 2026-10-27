@@ -164,3 +164,22 @@ test('an empty army does not protect an idle officer from a due resignation',()=
  const s=scene(),a=s.cities.find(c=>c.owner==='cao'&&c.units.length&&!c.units.some(u=>u.id==='cao'));for(const u of a.units){u.troops=0;u.wounded=0;}a.route=[];a.travel=null;const u=a.units[0],r=s.campaign.talent.records[u.id];r.idleDays=240;r.idleTurns=24;r.leaveAtDay=10;r.graceUntilDay=1;s.campaign.domestic.loyalty[u.id]=10;s.campaign.day=10;
  finishTalentDay(s,cancelDomestic);assert.ok(!servingPeople(s).has(u.id));assert.ok(s.campaign.domestic.people.some(p=>p.id===u.id));
 });
+
+test('prepared garrison strength alone is idle employment while a real appointment prevents idle days',()=>{
+ for(const appointed of [false,true]){
+  const s=scene(),c=s.cities.find(c=>c.id==='xuchang'),u=c.units.find(u=>!isLord(s,u.id,c.owner)&&u.id!==c.governor&&!assignmentFor(s,u.id));assert.ok(u?.troops>0);
+  const r=s.campaign.talent.records[u.id];r.graceUntilDay=1;
+  if(appointed)assert.equal(assignDomestic(s,c.id,'commerce',u.id),null);
+  finishTalentDay(s,cancelDomestic);assert.equal(r.idleDays,appointed?0:1);assert.equal(r.workedDays,appointed?1:0);assert.ok(c.units.includes(u));
+ }
+});
+
+test('an idle prepared officer resignation returns every soldier and wounded man without freeing a duplicate',()=>{
+ const s=scene(),c=s.cities.find(c=>c.id==='xuchang'),u=c.units.find(u=>!isLord(s,u.id,c.owner)&&u.id!==c.governor&&!assignmentFor(s,u.id));assert.ok(u);
+ u.wounded=17;const men=u.troops+u.wounded,before=c.manpower,r=s.campaign.talent.records[u.id];
+ Object.assign(r,{graceUntilDay:1,idleDays:240,idleTurns:24,leaveAtDay:10});s.campaign.domestic.loyalty[u.id]=10;s.campaign.day=10;
+ const copy=JSON.parse(serializeCampaign(s));for(const world of [s,copy])finishTalentDay(world,cancelDomestic);
+ assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(c.manpower,before+men);assert.equal(servingPeople(s).has(u.id),false);
+ const free=s.campaign.domestic.people.filter(p=>p.id===u.id);assert.equal(free.length,1);assert.equal(free[0].unit.troops,0);assert.equal(free[0].unit.wounded,0);
+ assert.equal(s.campaign.idle.some(o=>o.unit.id===u.id),false);
+});

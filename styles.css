@@ -314,6 +314,12 @@ table.info-directory { display:table; width:100%; }
 #stratagem-area-overlay .area-hit { fill:#ffdf7033; stroke:#fff1a6; stroke-width:.08; }
 .stratagem-area-controls { position:sticky; top:0; z-index:60; display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:12px; background:#263139; color:#fff0cc; border:1px solid #c7a85b; }
 .stratagem-area-controls[hidden] { display:none; }
+.deployment-preview{display:flex;flex-wrap:wrap;align-items:center;gap:10px;flex-basis:100%;padding:10px;border:1px solid #bfa362;background:#243330;color:#f5dfad;font:14px/1.6 var(--sans)}
+.deployment-preview span{flex:1;min-width:120px}.deployment-preview button{min-height:40px}
+#deployment-guide .deployment-preview .button{min-width:64px;min-height:44px;padding:8px 12px;font-size:13px;flex:0 0 auto}
+.deployment-cell.deploy-preview{outline:3px solid #ffe2a0;background:#e7c26755}
+.battle-board.deployment-targeting #deployment-grid{z-index:30;pointer-events:none}
+.deployment-targeting .deployment-cell{pointer-events:auto}
 .stratagem-area-effect { flex-basis:100%; min-width:0; overflow-wrap:anywhere; line-height:1.6; color:#ead7a6; }
 
 .battle-unit.stratagem-affected,.unit-nameplate.stratagem-affected { outline:3px solid #ffe58b; outline-offset:3px; box-shadow:0 0 16px #ffd65d99; }

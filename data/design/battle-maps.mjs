@@ -87,7 +87,7 @@ export const BATTLE_MAPS={
  ]),[[[0,4],[4,4],[7,4],[10,4],[13,4]],[[6,0],[6,1],[6,3],[7,5],[8,7]]]),
 };
 
-export function battleMap(b){return BATTLE_MAPS[b.mapId]||BATTLE_MAPS[DEFAULT_BATTLE_MAPS[b.terrain||'land']];}
+export function battleMap(b){return b.mapData||BATTLE_MAPS[b.mapId]||BATTLE_MAPS[DEFAULT_BATTLE_MAPS[b.terrain||'land']];}
 
 // Stable selection by actual place/road, independent of seed, faction or RNG.
 export function fieldBattleMapId(terrain,placeId,kind){

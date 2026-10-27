@@ -25,7 +25,7 @@ const network=buildRoadNetwork(layout.cities,layout.roads,{requireLengths:false}
 const world={cities:layout.cities,...network},distances={};
 for(const [a,b] of network.roads){const key=edgeKey(a,b),x=mapNode(world,a),y=mapNode(world,b);distances[key]=ROAD_DISTANCE_DESIGNS[key]??network.roadSegments[key]?.distance??Math.max(30,Math.round(Math.hypot(x.x-y.x,x.y-y.y)*.5));}
 NATIONAL_MAP.cities=structuredClone(layout.cities);NATIONAL_MAP.roads=structuredClone(layout.roads);
-NATIONAL_MAP.source.note='城池名单、规模、坐标与新增道路参考用户提供古地图；方框为大城、圆圈为小城，未高亮的保留城池按小城适配；同城保留三国古名，晚期新城按三国区域旧治适配。原有连接继承参考项目，关隘、港口和新增区域路网为游戏设计；行程长度独立维护。';
+NATIONAL_MAP.source.note='城池名单、规模与地形参考用户提供古地图；同城保留三国古名。山脊禁行、关隘和渡河港口由道路网络设计表约束，水路只连接港口；渡口两岸点位及路线为地理游戏适配，非历史GIS。行程长度独立维护。';
 await writeFile(citiesPath,'// Authoritative city design; atlas inventory synchronized by scripts/reconstruct-ancient-atlas.mjs\nexport const CITY_DESIGNS = '+JSON.stringify(layout.cities,null,2)+';\n\n'+demoCity);
 await writeFile(roadsPath,'// Authoritative road design; atlas links synchronized by scripts/reconstruct-ancient-atlas.mjs\nexport const NATIONAL_ROAD_DESIGNS = '+JSON.stringify(layout.roads,null,2)+';\n\n'+demoRoad);
 await writeFile(junctionPath,junctionSource);

@@ -14,7 +14,7 @@ export function diplomaticDay(s,{validate=false}={}){
  assert.ok(s.campaign.day>day,'actual day must advance');
  if(validate)validateCampaign(JSON.parse(serializeCampaign(s)));
 }
-export function untilDiplomatic(s,predicate,limit=120){for(let i=0;i<limit&&!predicate();i++)diplomaticDay(s);assert.ok(predicate(),JSON.stringify(s.campaign.diplomacy.proposals.map(p=>({id:p.id,status:p.status,goal:p.goal})))+' / '+JSON.stringify(s.campaign.diplomacy.contracts.map(p=>({id:p.id,status:p.status,failure:p.failure}))));validateCampaign(JSON.parse(serializeCampaign(s)));}
+export function untilDiplomatic(s,predicate,limit=120){for(let i=0;i<limit&&!predicate();i++)diplomaticDay(s);assert.ok(predicate(),JSON.stringify(s.campaign.diplomacy.proposals.map(p=>({id:p.id,status:p.status,goal:p.goal})))+' / '+JSON.stringify(s.campaign.diplomacy.contracts.map(p=>({id:p.id,status:p.status,failure:p.failure,deploy:p.clauses.filter(c=>c.kind==='deploy')}))));validateCampaign(JSON.parse(serializeCampaign(s)));}
 export function proposeDiplomatic(s,{goal='peace',direction='negotiation',other='sunce',clauses=null}={}){
  assert.equal(setDiplomaticGoal(s,goal,other),null);
  const officers=diplomaticOfficerCandidates(s,'cao',direction).map(o=>{const path=diplomaticRoute(s,o.location,lordCity(s,other).id,'cao',other);let at=o.location,cost=0;for(const next of path||[]){cost+=roadCost(s,at,next);at=next;}return {...o,path,cost};}).filter(o=>o.path).sort((a,b)=>a.cost-b.cost||b.score-a.score);

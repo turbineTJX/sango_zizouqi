@@ -18,17 +18,20 @@ export function archiveSummary(state){
  const scenario=SCENARIOS.find(s=>s.id===state.testScenario?.id);
  return {mode:scenario?.campaign?'战役模式':'演武试炼',scenario:scenario?.name||'独立战斗',faction:'',progress:state.report?'战役结束':state.battle?`${state.battle.deploymentLocked?'战斗':'布阵'} · 第 ${battleDay(state.battle.tick)} 天`:'待命'};
 }
-export async function readArchive(storage,key,validate){
+export function inspectArchiveRaw(raw,manual,validate){
+ const value=JSON.parse(raw);let payload=value,name,savedAt;
+ if(manual){
+  if(value?.version!==1||typeof value.name!=='string'||!Number.isFinite(value.savedAt)||typeof value.data!=='string')throw Error('存档不兼容或已损坏，请重新开始');
+  payload=JSON.parse(value.data);name=cleanName(value.name)||'未命名存档';savedAt=value.savedAt;
+ }
+ const state=validate(payload);return {state,summary:archiveSummary(state),...(manual?{name,savedAt}:{})};
+}
+export async function readArchive(storage,key,validate,{inspect}={}){
  if(!validKey(key))throw new Error('无效存档');
  const raw=await storage.getItem(key);if(!raw)throw new Error('存档已不存在');
- const value=JSON.parse(raw);
- if(key.startsWith(ARCHIVE_PREFIX)){
-  if(value?.version!==1||typeof value.name!=='string'||!Number.isFinite(value.savedAt)||typeof value.data!=='string')throw new Error('存档不兼容或已损坏，请重新开始');
-  return validate(JSON.parse(value.data));
- }
- return validate(value);
+ return (inspect?await inspect(raw,key.startsWith(ARCHIVE_PREFIX),true):inspectArchiveRaw(raw,key.startsWith(ARCHIVE_PREFIX),validate)).state;
 }
-export async function listArchives(storage,validate){
+export async function listArchives(storage,validate,{inspect}={}){
  const versions=storage.entryVersions&&storage.getItemWithVersion?await storage.entryVersions():null;
  const all=versions?[...versions.keys()]:storage.keys?await storage.keys():Array.from({length:storage.length},(_,i)=>storage.key(i));
  const keys=all.filter(validKey);
@@ -39,7 +42,9 @@ export async function listArchives(storage,validate){
   if(cached&&cached.token===token)return {...await cached.row};
   const automatic=AUTOMATIC_SAVES.find(x=>x.key===key),entry={key,automatic:!!automatic,name:automatic?.name||'无法识别的手动存档',savedAt:null};
   const row=(async()=>{try{
-   const read=versions?await storage.getItemWithVersion(key):{raw:await storage.getItem(key)},value=JSON.parse(read.raw);
+   const read=versions?await storage.getItemWithVersion(key):{raw:await storage.getItem(key)};
+   if(inspect){const checked=await inspect(read.raw,!automatic,false);return {...entry,...(!automatic?{name:checked.name,savedAt:checked.savedAt}:{}),...checked.summary,error:null};}
+   const value=JSON.parse(read.raw);
    if(!automatic){entry.name=cleanName(value?.name)||'未命名存档';entry.savedAt=Number.isFinite(value?.savedAt)?value.savedAt:null;if(value?.version!==1||typeof value.name!=='string'||!Number.isFinite(value.savedAt)||typeof value.data!=='string')throw new Error('invalid archive');}
    return {...entry,...archiveSummary(validate(automatic?value:JSON.parse(value.data))),error:null};
   }catch{cache?.delete(key);return {...entry,error:'版本不兼容或数据损坏，请重新开始'};}})();
@@ -48,9 +53,9 @@ export async function listArchives(storage,validate){
  }));
  return rows.sort((a,b)=>Number(b.automatic)-Number(a.automatic)||(b.savedAt||0)-(a.savedAt||0)||a.key.localeCompare(b.key));
 }
-export async function writeArchive(storage,{name,data,key=null},validate){
+export async function writeArchive(storage,{name,data,key=null},validate,{inspect}={}){
  const title=cleanName(name);if(!title)throw new Error('请输入存档名称');
- validate(JSON.parse(data));
+ if(inspect)await inspect(data,false,false);else validate(JSON.parse(data));
  if(key&&(!validKey(key)||!key.startsWith(ARCHIVE_PREFIX)||await storage.getItem(key)===null))throw new Error('请选择已有手动存档');
  const target=key||ARCHIVE_PREFIX+crypto.randomUUID();
  // One atomic write: quota failures leave the previous save intact.

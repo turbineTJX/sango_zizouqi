@@ -2,6 +2,13 @@
 import {OFFICER_ART_ASSET_KEYS,OFFICER_ART_SOURCE_KEYS,OFFICER_ART_SOURCE_FALLBACKS,OFFICER_ART_VIEWS,officerArtView,validArtCrop} from './officer-art-scenes.mjs';
 import {assetCatalog,applyAssetCatalog} from './asset-catalog.mjs';
 const builtin={version:1,id:'builtin',label:'默认图形',portraits:{},criticals:{},troops:{},models:{},effects:{},backgrounds:{}};
+const MAX_CACHED_IMAGES=64;
+async function readArtJSON(url){
+ for(let attempt=0;attempt<2;attempt++)try{
+  const response=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(8000)});
+  return response.ok?await response.json():null;
+ }catch(error){if(attempt)throw error;await new Promise(resolve=>setTimeout(resolve,250));}
+}
 export function assetURL(value){return typeof value==='string'&&(/^(?:\.\/|\/)?assets\/officers\/generated\/v[1-9]\d*\/[a-z0-9-]+\/(?:neutral|work|portrait|detail|domestic|inspection|training|diplomacy|command|travel|report|report-concern|battle)\.png$/.test(value)||/^\/local-art\/files\/[a-f0-9]{24}\.(png|jpe?g|webp|glb|obj)$/.test(value))?value:null;}
 export function sanitizeOfficerArt(raw){
  if(raw?.version!==1||raw.id!=='original-officers')return {};
@@ -31,24 +38,27 @@ export function sampleCurve(keys,time,axis='y'){
  const a=keys[next-1],b=keys[next],dt=b.time-a.time,t=(time-a.time)/dt;
  return (2*t**3-3*t*t+1)*a.value[axis]+(t**3-2*t*t+t)*dt*a.outSlope[axis]+(-2*t**3+3*t*t)*b.value[axis]+(t**3-t*t)*dt*b.inSlope[axis];
 }
-export const art={pack:{...builtin},officers:{},enabled:true,images:new Map(),failed:new Set(),cropFrames:new Map(),cropObserver:null,
- async init(){
+export const art={pack:{...builtin},_officers:{},hasOfficerArt:false,enabled:true,images:new Map(),imageListeners:new Map(),failed:new Set(),cropFrames:new Map(),cropObserver:null,
+ get officers(){return this._officers;},
+ set officers(value){this._officers=value;this.hasOfficerArt=Object.values(value).some(s=>s.portrait||s.detail||OFFICER_ART_SOURCE_KEYS.some(k=>s[k]));},
+ async init({onChange=()=>{}}={}){
+  const generation=this.generation=(this.generation||0)+1;
   try{this.enabled=localStorage.getItem('sango-art-mode')!=='builtin';}catch{}
-  this.pack={...builtin};this.officers={};this.images.clear();this.failed.clear();
+  this.pack={...builtin};this.officers={};this.images.clear();this.imageListeners.clear();this.failed.clear();
+  applyAssetCatalog({version:1,id:'none'});
   await Promise.allSettled([
-   (async()=>{const r=await fetch('./local-art/manifest.json',{cache:'no-store',signal:AbortSignal.timeout(2000)});if(r.ok)this.pack=sanitizePack(await r.json());})(),
+   (async()=>{const raw=await readArtJSON('./local-art/manifest.json');if(raw&&generation===this.generation){const pack=sanitizePack(raw);if(pack.id!=='builtin'){this.pack=pack;onChange('pack');}}})(),
    (async()=>{
-    applyAssetCatalog({version:1,id:'none'});
-    const catalog=await fetch('./assets/manifest.json',{cache:'no-store',signal:AbortSignal.timeout(2000)});
-    if(!catalog.ok)return;
-    applyAssetCatalog(await catalog.json());
+    const catalog=await readArtJSON('./assets/manifest.json');
+    if(!catalog||generation!==this.generation)return;
+    applyAssetCatalog(catalog);onChange('catalog');
     if(!assetCatalog.officers)return;
-    const r=await fetch(assetCatalog.officers,{cache:'no-store',signal:AbortSignal.timeout(2000)});if(r.ok)this.officers=sanitizeOfficerArt(await r.json());
+    const raw=await readArtJSON(assetCatalog.officers);if(raw&&generation===this.generation){this.officers=sanitizeOfficerArt(raw);onChange('officers');}
    })()
   ]);
  },
  toggle(){this.enabled=!this.enabled;try{localStorage.setItem('sango-art-mode',this.enabled?'local':'builtin');}catch{}},
- get active(){return this.enabled&&(this.pack.id!=='builtin'||Object.values(this.officers).some(s=>s.portrait||s.detail||OFFICER_ART_SOURCE_KEYS.some(k=>s[k])));},
+ get active(){return this.enabled&&(this.pack.id!=='builtin'||this.hasOfficerArt);},
  resolvePortrait(id,scene='roster'){
   if(!this.active)return null;
   const scenes=Object.hasOwn(this.officers,id)?this.officers[id]:{},key=scene==='roster'?'portrait':scene,source=OFFICER_ART_VIEWS[scene]?.source||scene;
@@ -57,10 +67,21 @@ export const art={pack:{...builtin},officers:{},enabled:true,images:new Map(),fa
   const found=candidates.find(([,entry])=>assetURL(entry?.url)&&!this.failed.has(entry.url));return found?{...found[1],scene:found[0],view:officerArtView(found[1],found[0],scene)}:null;
  },
  portraitURL(id,scene='roster'){return this.resolvePortrait(id,scene)?.url||null;},
- image(url){
+ releaseImageListener(listener){for(const [url,listeners]of this.imageListeners){listeners.delete(listener);if(!listeners.size)this.imageListeners.delete(url);}},
+ trimImages(protectedURL){
+  for(const [url,img]of this.images){if(this.images.size<=MAX_CACHED_IMAGES)break;if(url!==protectedURL&&img.complete&&!this.imageListeners.has(url))this.images.delete(url);}
+ },
+ image(url,onReady){
   if(!this.active||!assetURL(url)||this.failed.has(url))return null;
-  if(!this.images.has(url)){const img=new Image();img.onload=()=>{};img.onerror=()=>{this.failed.add(url);};img.src=url;this.images.set(url,img);}
-  const img=this.images.get(url);return img.complete&&img.naturalWidth?img:null;
+  let img=this.images.get(url);
+  if(!img){
+   img=new Image();this.images.set(url,img);
+   const finish=failed=>{if(this.images.get(url)!==img)return;if(failed)this.failed.add(url);const listeners=this.imageListeners.get(url);this.imageListeners.delete(url);this.trimImages(url);for(const listener of listeners||[])listener();};
+   img.onload=()=>finish(false);img.onerror=()=>finish(true);img.src=url;
+  }else {this.images.delete(url);this.images.set(url,img);}
+  if(img.complete&&img.naturalWidth){this.trimImages(url);return img;}
+  if(onReady){if(!this.imageListeners.has(url))this.imageListeners.set(url,new Set());this.imageListeners.get(url).add(onReady);}
+  return null;
  },
  decorate(root=document){
   for(const [el] of this.cropFrames)if(!el.isConnected){this.cropObserver?.unobserve(el);this.cropFrames.delete(el);}

@@ -35,9 +35,9 @@ try{
  await page.locator('.modal [data-action="campaign-order"]').click();
  for(const n of nodes){
   const target=page.locator(`[data-command-city="${n.id}"]`).first();await target.focus();await target.press('Enter');
-  const popup=page.locator('.map-point-menu[role="group"]');assert.match(await popup.innerText(),new RegExp(n.name));
-  assert.match(await popup.innerText(),/关卡|港口/);assert.doesNotMatch(await popup.innerText(),/NaN|undefined/);
-  await page.locator('[data-action="map-route-back"]').click();
+  const summary=page.locator('.command-target-layout > aside');assert.match(await summary.innerText(),new RegExp(n.name));
+  assert.match(await summary.innerText(),/预计.*天抵达/);assert.doesNotMatch(await summary.innerText(),/NaN|undefined/);
+  assert.equal(await page.locator('[data-action="campaign-command-next"]').isEnabled(),true);
  }
  assert.deepEqual(errors,[]);
  console.log('PASS desktop/mobile: 76 cities, 70 nodes, port/pass panels without domestic actions, route selection, no runtime errors');

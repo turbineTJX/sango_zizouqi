@@ -59,12 +59,14 @@ test('candidate scopes reuse only read-only connectivity while each duration and
 
 test('coordinated mixed land and water timing matches real ship speeds and daily road arrivals',()=>{
  const {s,home,rear}=planningFront(),ports=[{id:'timing-port-a',name:'水路甲',kind:'port',x:1,y:0},{id:'timing-port-b',name:'水路乙',kind:'port',x:2,y:0}];
- s.junctions=ports;s.roads=[[home.id,ports[0].id],[ports[0].id,ports[1].id],[ports[1].id,rear.id]];
+ // Keep the saved nationwide nodes (including camp observations) while the
+ // controlled journey uses only these three real land/water road legs.
+ s.junctions.push(...ports);s.roads=[[home.id,ports[0].id],[ports[0].id,ports[1].id],[ports[1].id,rear.id]];
  for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:edge.includes(home.id)||edge.includes(rear.id)?7.5:150};
  const u=home.units[0];u.equipment.ship='ship';const path=[...ports.map(p=>p.id),rear.id];
  assert.equal(launchExpedition(s,{cityId:home.id,officerIds:[u.id],leader:u.id,advisor:u.id,target:rear.id,route:path,policy:'auto'},{scheduled:true,faction:'yuan'}),null);
  const army=s.armies.find(a=>a.units.some(v=>v.id===u.id)),expected=strategicColumnTravelDays(s,army,path),start=s.campaign.day;
- assert.notEqual(expected,strategicTravelDays(s,army,path),'a water leg cannot use its land troop speed');
+ assert.equal(expected,strategicTravelDays(s,army,path),'ordinary and coordinated timing use the same actual ship speeds');
  for(let i=0;i<60&&army.location!==rear.id;i++){s.campaign.ai.lastPlanDay=s.campaign.day;if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  assert.equal(army.location,rear.id);assert.equal(s.campaign.day-start,expected);
 });
@@ -118,4 +120,21 @@ test('an imminent real home threat still cancels a preparing attack instead of w
  const {s,home,target,p}=waitingFront(),units=target.units;
  const army={...cityForce(target),id:'a'+s.nextId++,units,route:[home.id],target:home.id,travel:{from:target.id,to:home.id,road:'main',progress:0},supply:9000,supplyCapacity:9000};delete army.cityForce;target.units=[];units.forEach(u=>u.troops=30000);s.armies.push(army);initializeVision(s);
  next(s);assert.equal(p.phase,'cancelled');assert.ok(!s.armies.some(a=>a.faction==='yuan'&&a.target===target.id));
+});
+
+test('an unrelated distant city threat does not recall an offensive that cannot reach its defense',()=>{
+ const {s,home,target,rear}=planningFront();
+ planStrategicAI(s);const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.equal(p.phase,'attack');
+ // The attacker's source is home. Rear is a separate, distant own city; the
+ // observed enemy is already about to reach it, beyond this army's rescue ETA.
+ rear.units=[];rear.gold=0;rear.manpower=0;s.roads.push([target.id,rear.id]);
+ s.roadSegments[[home.id,rear.id].sort().join(':')]={distance:3000};
+ s.roadSegments[[target.id,rear.id].sort().join(':')]={distance:3000};
+ const u={...makeOfficer('gao',6000,0,3),homeCity:target.id};
+ const a={...cityForce(target),id:'a'+s.nextId++,units:[u],leader:u.id,advisor:u.id,route:[],target:rear.id,
+  travel:{from:target.id,to:rear.id,road:'main',progress:2999.9},supply:9000,supplyCapacity:9000};delete a.cityForce;s.armies.push(a);
+ initializeVision(s);next(s);
+ assert.equal(p.phase,'attack',p.reason);assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.target===target.id));
+ assert.ok(s.campaign.ai.decisions.some(d=>d.target===rear.id&&d.reason.includes('守备仍有缺口')),'the threatened city still receives a real defense assessment');
+ validateStrategicAI(s);
 });

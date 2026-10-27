@@ -65,10 +65,13 @@ test('management ability changes only the actually completed effect and respects
  const rows=[];
  for(const ability of [50,90]){
   const {s,c,u}=fixture(ability,10,true);for(const [id,def]of Object.entries(ACTIONS))if(def.direction==='commerce'&&id!=='merchants')c.domestic.cooldowns[id]=10000;
-  c.units=[];s.armies=[];s.campaign.idle=s.campaign.idle.filter(o=>o.location!==c.id||o.faction!==c.owner);s.campaign.idle.push({unit:u,faction:c.owner,location:c.id,destination:null,remainingDays:0});
+  // This checks one completed effect, independently of national AI staffing.
+  for(const city of s.cities)city.units=[];s.armies=[];s.campaign.idle=[{unit:u,faction:c.owner,location:c.id,destination:null,remainingDays:0}];
   assert.equal(assignDomestic(s,c.id,'commerce',u.id,{scheduled:true,faction:c.owner}),null);
   const before=c.gold;beginDomesticTurn(s);const a=assignmentFor(s,u.id);assert.equal(a.action.key,'merchants');assert.equal(c.gold,before-ACTIONS.merchants.cost);assert.equal(c.domestic.effects.length,0);
   for(let i=0;i<9;i++){finishDomesticDay(s);s.campaign.day++;assert.equal(c.domestic.effects.length,0);}
+  assert.equal(s.campaign.domestic.assignments.length,1);
+  s.campaign.domestic.seed=1; // Same successful common roll for both abilities.
   finishDomesticDay(s);const completed=s.campaign.domestic.events.find(e=>e.officerId===u.id&&e.result.factor!==undefined);
   assert.ok(completed.result.factor>0);rows.push(c.domestic.effects.find(e=>e.key==='gold').amount);
   assert.ok(rows.at(-1)<=1);assert.equal(c.gold,before-ACTIONS.merchants.cost,'future income is not paid on effect completion');

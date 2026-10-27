@@ -3,6 +3,7 @@ import {recordTreasureWork} from './treasures.mjs';
 import {buildingDurability,gateDurability,initializeBuildingDurability,buildingWorkQuote,buildingWorkMode,beginBuildingWork,restoreBuilding,transferBuildingDurability,validateBuildingDurability,completeTechnologyBuilding} from './building-durability.mjs';
 import {cityGoldCommitment} from './city-budget.mjs';
 import {cityFoodRequirement,cityDailyFood,withCitySupplyQueries} from './city-logistics.mjs';
+import {withPlanningQueries} from './planning-queries.mjs';
 import {BASE_TROOPS,cityHasWater,canEquip} from './troop-equipment.mjs';
 import {TECHS,canResearch,localTechnologies,technologyAllowed,cityTroopUnlocked,technologyIncomeBonus,technologyConstructionDiscount,technologyMilitaryMultiplier} from './city-technology.mjs';
 export {TECHS};
@@ -133,7 +134,7 @@ export function withDomesticCandidateQueries(evaluate){
  try{return evaluate();}finally{candidateQueryScope=null;}
 }
 export function actionCandidates(s,assignment,options={}){
- if(!candidateQueryScope)return withCitySupplyQueries(s,()=>domesticActionCandidates(s,assignment,options));
+ if(!candidateQueryScope)return withPlanningQueries(s,()=>actionCandidates(s,assignment,options));
  let cache=candidateQueryScope.get(s);if(!cache){cache={actual:new Set(s.campaign.domestic.assignments),values:new Map()};candidateQueryScope.set(s,cache);}
  // Real assignments exclude their own pending action by identity. A synthetic
  // candidate with the same fields must not inherit that exclusion.
@@ -565,7 +566,7 @@ export function finishDomesticDay(s){
   if(ACTIONS[x.key].kind==='grain'&&hasStrategicTrait(u,'farmTroops')){const troopUnits=farmTroops(s,c,u),rule=strategicTraits(u,'farmTroops')[0].strategic;x.farmSource=u.id;x.farmRate=rule.bonus;x.farmDays++;x.farmContribution+=Math.min(1,troopUnits.reduce((n,v)=>n+v.troops,0)/rule.requiredTroops);}
   const coop=cooperationFor(s,a),beforeRemaining=x.remaining,modifier=incidentModifiers(s,a),beforeHp=['build','repair'].includes(kind)?buildingDurability(c,c.project.key,c.project.siteId).hp:0,beforeResearch=c.domestic.research?.progress||0;
   if(kind==='build'){const normal=Math.min(x.remaining,modifier.progress),progress=Math.min(x.remaining,normal+(coop?.success?Math.min(10,x.remaining)*coop.gain:0));if(coop)settleCooperation(s,a,c,coop,normal,progress,'施工进度（天）');x.remaining=Math.max(0,Math.round((x.remaining-progress)*10000)/10000);}else x.remaining=Math.max(0,x.remaining-1);
-  if(kind==='build')restoreBuilding(c,ACTIONS[x.key].value,x.siteId,c.project.hpPerDay*(beforeRemaining-x.remaining),{finish:false});
+  if(kind==='build')restoreBuilding(c,ACTIONS[x.key].value,x.siteId,Math.round(c.project.hpPerDay*beforeRemaining)-Math.round(c.project.hpPerDay*x.remaining),{finish:false});
   if(kind==='repair'){const def=ACTIONS[x.key],work=workProfile(x.traitIds,def,x.targetId),factor=workFactor(outcome(x.repairRoll,effectiveDomesticChance(s,a)),work),quantity=x.traitIds.reduce((n,id)=>Math.max(n,WORK_TRAITS[id].quantity||0),0),record=buildingDurability(c,x.buildingKey),normal=Math.min(record.maxHp-record.hp,c.project.hpPerDay*factor*(1+quantity)*workQuantity(factor,work)*modifier.progress),extra=coop?.success&&!coop.applied?1+coop.gain*(work.cooperationMultiplier||1):1,raw=normal*extra+x.repairCarry,rounded=Math.round(raw),actual=restoreBuilding(c,x.buildingKey,c.id,rounded);x.repairCarry=actual<rounded?0:Math.round((raw-rounded)*10000)/10000;x.repairActual+=actual;if(coop&&!coop.applied)settleCooperation(s,a,c,coop,Math.round(normal),actual,'建筑耐久');if(record.hp===record.maxHp)x.remaining=0;}
   if(kind==='research')advanceResearch(s,a,c);
   if(['build','repair'].includes(kind)){const hp=buildingDurability(c,c.project.key,c.project.siteId).hp;creditWorkMerit(s,a,c,c.project,hp-c.project.meritOriginHp,coop?.success&&coop.actual>0?coop:incidentSupport(s,a,(hp-beforeHp)/modifier.progress,hp-beforeHp));}

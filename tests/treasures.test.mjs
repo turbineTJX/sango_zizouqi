@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {TREASURE_DESIGNS,TREASURE_RULES} from '../data/design/treasures.mjs';
 import {newCampaign,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,transferOfficer} from '../strategic-campaign.mjs';
 import {treasureRecord,treasureOfficerRows,treasureResident,manageTreasuresAI,grantTreasure,equipTreasure,storeTreasure,recordTreasureWork,finishTreasureTurn,settleBattleTreasures,treasureCaptureCandidates,validateTreasures} from '../treasures.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,approachFieldContact} from './helpers/field-campaign.mjs';
 import {advancePersonnel,isTransport,personnelSpeed,TRANSPORT_SPEED} from '../personnel-movement.mjs';
 import {hasStrategicTrait} from '../strategic-traits.mjs';
 import {defaultCustomBattle,validateCustomBattle} from '../custom-battle.mjs';
@@ -118,7 +118,7 @@ test('Eye applies only to the actual completed eligible primary actor and record
  recordTreasureWork(s,{id:'work:eye',key:'fair',officerId:actor,faction:'cao',cityId:'xuchang',factor:1,productive:true,finished:true});finishTreasureTurn(s);const e=s.campaign.treasures.events.find(e=>e.kind==='discovery');assert.equal(e.probability,.04);assert.equal(e.workSource.officerId,actor);assert.equal(e.workSource.key,'fair');validateTreasures(s,fail);
 });
 test('real normal-mode encounter settles physical treasures once and resumes from the same snapshot',()=>{
- const s=newCampaign(11);for(const c of s.cities)for(const u of c.units)u.retreatAt=null;const own=fieldFromCity(s,'xuchang',{target:'guandu'});fieldFromCity(s,'guandu',{target:'xuchang'});storage(s,'brightArmor','xuchang');const item=treasureRecord(s,'brightArmor');Object.assign(item,{state:'person',holderId:own.units[0].id,cityId:null});own.units[0].treasureId='brightArmor';beginExecution(s);
+ const s=newCampaign(11);for(const c of s.cities)for(const u of c.units)u.retreatAt=null;const own=fieldFromCity(s,'xuchang',{target:'guandu'}),enemy=fieldFromCity(s,'guandu',{target:'xuchang'});approachFieldContact(s,own,enemy);storage(s,'brightArmor','xuchang');const item=treasureRecord(s,'brightArmor');Object.assign(item,{state:'person',holderId:own.units[0].id,cityId:null});own.units[0].treasureId='brightArmor';beginExecution(s);
  let r;for(let i=0;i<25&&!r;i++){advanceCampaignDay(s);r=activeBattles(s)[0];}assert.ok(r);chooseEncounter(s,r.id,false);const copy=restore(s);
  for(let i=0;i<120&&!r.settled;i++){for(const state of [s,copy]){if(state.campaign.phase==='planning')beginExecution(state);for(const fight of activeBattles(state).filter(r=>r.awaiting))chooseEncounter(state,fight.id,false);advanceCampaignDay(state);}}
  assert.ok(r.settled);assert.ok(Array.isArray(r.report.treasures));assert.ok(r.report.treasures.length<=1);assert.equal(serializeCampaign(s),serializeCampaign(copy));restore(s);

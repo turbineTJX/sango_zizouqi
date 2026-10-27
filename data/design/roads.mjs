@@ -1,10 +1,6 @@
 // Authoritative road design; atlas links synchronized by scripts/reconstruct-ancient-atlas.mjs
 export const NATIONAL_ROAD_DESIGNS = [
   [
-    "town-1",
-    "town-2"
-  ],
-  [
     "town-2",
     "town-3"
   ],
@@ -29,22 +25,6 @@ export const NATIONAL_ROAD_DESIGNS = [
     "ye"
   ],
   [
-    "town-5",
-    "town-8"
-  ],
-  [
-    "town-5",
-    "town-12"
-  ],
-  [
-    "ye",
-    "town-12"
-  ],
-  [
-    "ye",
-    "chenliu"
-  ],
-  [
     "town-8",
     "town-9"
   ],
@@ -53,28 +33,12 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-10"
   ],
   [
-    "town-9",
-    "town-11"
-  ],
-  [
-    "town-10",
-    "town-11"
-  ],
-  [
     "town-10",
     "town-12"
   ],
   [
     "town-10",
     "chenliu"
-  ],
-  [
-    "town-11",
-    "runan"
-  ],
-  [
-    "town-11",
-    "town-23"
   ],
   [
     "town-11",
@@ -98,10 +62,6 @@ export const NATIONAL_ROAD_DESIGNS = [
   ],
   [
     "xuchang",
-    "luoyang"
-  ],
-  [
-    "xuchang",
     "wan"
   ],
   [
@@ -114,19 +74,11 @@ export const NATIONAL_ROAD_DESIGNS = [
   ],
   [
     "wan",
-    "town-19"
-  ],
-  [
-    "wan",
     "town-29"
   ],
   [
     "town-18",
     "town-20"
-  ],
-  [
-    "town-19",
-    "town-29"
   ],
   [
     "town-19",
@@ -137,24 +89,8 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-21"
   ],
   [
-    "town-20",
-    "town-22"
-  ],
-  [
-    "town-21",
-    "town-22"
-  ],
-  [
-    "town-21",
-    "town-37"
-  ],
-  [
     "town-23",
     "town-24"
-  ],
-  [
-    "town-23",
-    "town-26"
   ],
   [
     "town-23",
@@ -165,56 +101,16 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-25"
   ],
   [
-    "town-26",
-    "town-27"
-  ],
-  [
-    "town-26",
-    "town-28"
-  ],
-  [
-    "town-27",
-    "town-28"
-  ],
-  [
-    "town-27",
-    "town-31"
-  ],
-  [
     "town-27",
     "town-32"
   ],
   [
     "town-28",
     "town-30"
-  ],
-  [
-    "town-28",
-    "town-31"
-  ],
-  [
-    "town-28",
-    "town-32"
   ],
   [
     "town-29",
     "town-30"
-  ],
-  [
-    "town-30",
-    "town-31"
-  ],
-  [
-    "town-31",
-    "town-32"
-  ],
-  [
-    "town-31",
-    "town-33"
-  ],
-  [
-    "town-31",
-    "town-36"
   ],
   [
     "town-32",
@@ -229,10 +125,6 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-35"
   ],
   [
-    "town-33",
-    "town-36"
-  ],
-  [
     "town-34",
     "town-35"
   ],
@@ -241,28 +133,12 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-39"
   ],
   [
-    "town-38",
-    "town-39"
-  ],
-  [
     "town-39",
     "town-40"
   ],
   [
-    "town-39",
-    "town-41"
-  ],
-  [
-    "town-40",
-    "town-41"
-  ],
-  [
     "town-41",
     "town-42"
-  ],
-  [
-    "jinyang",
-    "town-43"
   ],
   [
     "ye",
@@ -301,19 +177,7 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-48"
   ],
   [
-    "town-18",
-    "town-48"
-  ],
-  [
-    "town-37",
-    "town-49"
-  ],
-  [
     "town-49",
-    "town-50"
-  ],
-  [
-    "town-38",
     "town-50"
   ],
   [
@@ -377,10 +241,6 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-64"
   ],
   [
-    "luoyang",
-    "town-65"
-  ],
-  [
     "town-18",
     "town-66"
   ],
@@ -435,10 +295,6 @@ export const NATIONAL_ROAD_DESIGNS = [
   [
     "town-29",
     "town-79"
-  ],
-  [
-    "town-30",
-    "town-80"
   ],
   [
     "town-31",
@@ -621,32 +477,12 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-22"
   ],
   [
-    "atlas-jincheng",
-    "town-20"
-  ],
-  [
-    "atlas-jincheng",
-    "atlas-longxi"
-  ],
-  [
     "atlas-longxi",
     "town-21"
   ],
   [
-    "atlas-longxi",
-    "atlas-xiping"
-  ],
-  [
     "atlas-chengle",
     "atlas-pingcheng"
-  ],
-  [
-    "atlas-chengle",
-    "atlas-suifang"
-  ],
-  [
-    "atlas-suifang",
-    "atlas-lishi"
   ],
   [
     "atlas-suifang",
@@ -690,10 +526,6 @@ export const NATIONAL_ROAD_DESIGNS = [
   ],
   [
     "atlas-linshi",
-    "town-5"
-  ],
-  [
-    "atlas-linshi",
     "atlas-donglai"
   ],
   [
@@ -722,23 +554,7 @@ export const NATIONAL_ROAD_DESIGNS = [
   ],
   [
     "atlas-qiao",
-    "town-11"
-  ],
-  [
-    "atlas-qiao",
     "town-10"
-  ],
-  [
-    "atlas-fuling",
-    "town-39"
-  ],
-  [
-    "atlas-fuling",
-    "town-36"
-  ],
-  [
-    "atlas-fuling",
-    "town-33"
   ],
   [
     "atlas-yuzhang",
@@ -773,10 +589,6 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-41"
   ],
   [
-    "atlas-longbian",
-    "town-42"
-  ],
-  [
     "atlas-liucheng",
     "atlas-feiru"
   ],
@@ -809,30 +621,6 @@ export const NATIONAL_ROAD_DESIGNS = [
     "town-4"
   ],
   [
-    "atlas-wuchang",
-    "town-28"
-  ],
-  [
-    "atlas-wuchang",
-    "town-27"
-  ],
-  [
-    "atlas-wuchang",
-    "town-78"
-  ],
-  [
-    "atlas-wuchang",
-    "town-74"
-  ],
-  [
-    "atlas-zhongli",
-    "town-11"
-  ],
-  [
-    "atlas-zhongli",
-    "atlas-hefei"
-  ],
-  [
     "atlas-zhongli",
     "atlas-guangling"
   ],
@@ -851,14 +639,6 @@ export const NATIONAL_ROAD_DESIGNS = [
   [
     "atlas-guangling",
     "town-60"
-  ],
-  [
-    "atlas-guangling",
-    "town-23"
-  ],
-  [
-    "atlas-guangling",
-    "atlas-jingkou"
   ],
   [
     "atlas-jingkou",
@@ -886,10 +666,6 @@ export const NATIONAL_ROAD_DESIGNS = [
   ],
   [
     "atlas-xunyang",
-    "atlas-wuchang"
-  ],
-  [
-    "atlas-xunyang",
     "town-74"
   ],
   [
@@ -898,19 +674,11 @@ export const NATIONAL_ROAD_DESIGNS = [
   ],
   [
     "atlas-baling",
-    "town-31"
-  ],
-  [
-    "atlas-baling",
     "town-32"
   ],
   [
     "atlas-baling",
     "town-84"
-  ],
-  [
-    "atlas-baling",
-    "atlas-wuchang"
   ],
   [
     "atlas-linchuan",
@@ -927,10 +695,6 @@ export const NATIONAL_ROAD_DESIGNS = [
   [
     "atlas-leling",
     "town-5"
-  ],
-  [
-    "atlas-leling",
-    "atlas-linshi"
   ],
   [
     "atlas-donglai",
@@ -975,6 +739,106 @@ export const NATIONAL_ROAD_DESIGNS = [
   [
     "atlas-jingxing",
     "jinyang"
+  ],
+  [
+    "town-44",
+    "xuchang"
+  ],
+  [
+    "town-21",
+    "town-48"
+  ],
+  [
+    "town-48",
+    "town-50"
+  ],
+  [
+    "town-49",
+    "town-38"
+  ],
+  [
+    "atlas-jincheng",
+    "atlas-jincheng-port"
+  ],
+  [
+    "atlas-zhongli",
+    "atlas-huai-port"
+  ],
+  [
+    "town-10",
+    "atlas-zhongli"
+  ],
+  [
+    "town-26",
+    "town-61"
+  ],
+  [
+    "town-30",
+    "town-79"
+  ],
+  [
+    "atlas-jincheng-port",
+    "atlas-jincheng-east-port"
+  ],
+  [
+    "atlas-jincheng-east-port",
+    "town-20"
+  ],
+  [
+    "atlas-jincheng-east-port",
+    "atlas-longxi"
+  ],
+  [
+    "atlas-huai-port",
+    "atlas-huainan-port"
+  ],
+  [
+    "atlas-huainan-port",
+    "town-11"
+  ],
+  [
+    "atlas-huainan-port",
+    "atlas-hefei"
+  ],
+  [
+    "atlas-suifang",
+    "town-67"
+  ],
+  [
+    "atlas-wuchang",
+    "town-27"
+  ],
+  [
+    "atlas-xunyang",
+    "atlas-wuchang"
+  ],
+  [
+    "atlas-baling",
+    "atlas-wuchang"
+  ],
+  [
+    "town-39",
+    "atlas-jiangzhou-port"
+  ],
+  [
+    "atlas-jiangzhou-port",
+    "atlas-nanjin-port"
+  ],
+  [
+    "atlas-nanjin-port",
+    "town-41"
+  ],
+  [
+    "atlas-nanjin-port",
+    "atlas-fuling"
+  ],
+  [
+    "town-80",
+    "town-31"
+  ],
+  [
+    "atlas-wuchang",
+    "town-75"
   ]
 ];
 

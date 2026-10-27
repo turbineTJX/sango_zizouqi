@@ -31,7 +31,7 @@ test('mountain walls block both infantry and ship carriers; bridges connect oppo
 test('ordinary encounters select stable site and road maps independently of seed, faction and travel direction',()=>{
  const s=newCampaign(217,'guandu-200'),same=newCampaign(9381,'guandu-200');
  for(const kind of ['port','gate']){
-  const site=s.junctions.find(n=>n.kind===kind),terrain=campaignBattleTerrain(s,'xuchang',site.id);
+  const site=s.junctions.find(n=>n.kind===kind),terrain=campaignBattleTerrain(s,'xuchang',site.id,{siteId:site.id});
   const id=campaignBattleMapId(s,'xuchang',site.id,{siteId:site.id,terrain});
   assert.equal(id,kind==='port'?'river-harbor':'hill-pass');
   assert.equal(campaignBattleMapId(same,'ye',site.id,{siteId:site.id,terrain}),id);

@@ -1,3 +1,4 @@
+import {releaseWorkerSource} from './release-worker-source.mjs';
 import {readFile,writeFile,mkdir,copyFile} from 'node:fs/promises';
 import {resolve,dirname} from 'node:path';
 import {pathToFileURL,fileURLToPath} from 'node:url';
@@ -72,6 +73,7 @@ export async function buildCodeRelease(out){
  await build({stdin:{contents:`import {loadDataPack} from './packaging/data-pack.mjs'; export async function loadReleaseData(){const tables=await loadDataPack(new URL('./game-data.bin',import.meta.url),${JSON.stringify(pack.metadata)});globalThis[Symbol.for('sango.runtime-data')]={revision:${JSON.stringify(pack.metadata.revision)},tables};}`,resolveDir:ROOT,loader:'js'},
   bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:resolve(out,'data-loader.js'),legalComments:'external'});
  await bundleBrowser(pack,{outfile:resolve(out,'app.js'),metafile:true});
+ await bundleBrowser(pack,{entryPoints:[resolve(ROOT,'campaign-worker.mjs')],outfile:resolve(out,'campaign-worker.mjs')});
  const original=await readFile(resolve(ROOT,'index.html'),'utf8');
  const styles=[...original.matchAll(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/g)].map(match=>match[1]);
  await build({stdin:{contents:styles.map(path=>`@import ${JSON.stringify(path)};`).join('\n'),resolveDir:ROOT,loader:'css'},
@@ -97,7 +99,7 @@ export async function buildCodeRelease(out){
   const bytes=await readFile(resolve(out,file));files[file]={bytes:bytes.length,sha256:sha256(bytes)};
  }
  const revision=sha256(JSON.stringify(files));
- const sw=`const CACHE='sango-release-${revision}';const FILES=${JSON.stringify(['./',...Object.keys(files).map(file=>'./'+file),'./release.json'])};self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('sango-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));self.addEventListener('fetch',event=>{if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin||/\\/(?:assets|local-art)\\//.test(new URL(event.request.url).pathname))return;event.respondWith(fetch(event.request).catch(()=>caches.match(event.request)));});\n`;
+ const sw=releaseWorkerSource(revision,['./',...Object.keys(files).map(file=>'./'+file),'./release.json']);
  await writeFile(resolve(out,'sw.js'),sw);
  const manifest={formatVersion:1,gameVersion:pack.metadata.gameVersion,rulesVersion:RULES_VERSION,revision,codeOnly:true,data:pack.metadata,files};
  await writeFile(resolve(out,'release.json'),JSON.stringify(manifest,null,2)+'\n');

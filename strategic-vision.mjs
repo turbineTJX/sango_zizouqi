@@ -1,3 +1,5 @@
+import {observeBanditCamps,knownBanditCamps} from './bandit-state.mjs';
+import {generatedOfficer,validGeneratedOfficer} from './generated-officers.mjs';
 import {campaignDate} from './national-scenarios.mjs';
 import {mapNode} from './map-node-data.mjs';
 import {BUILDING_DESIGNS} from './data/design/buildings.mjs';
@@ -21,7 +23,7 @@ const queryScopes=new WeakMap();
 // projected world across an appointment, payment, movement or observation.
 export function withIntelligenceQueries(s,evaluate){
  s=s[origin]||s;if(queryScopes.has(s))return evaluate();
- queryScopes.set(s,{sources:new Map(),views:new Map(),armies:new Map(),unknown:new Map()});
+ queryScopes.set(s,{sources:new Map(),views:new Map(),supplyViews:new Map(),armies:new Map(),unknown:new Map()});
  try{return evaluate();}finally{queryScopes.delete(s);}
 }
 const clone=x=>structuredClone(x);
@@ -86,6 +88,7 @@ export function updateVision(s){
  for(const [f,record]of Object.entries(vision.factions)){
   record.scouted=record.scouted.filter(v=>v.expiresDay>s.campaign.day);
   const sources=visionSources(s,f),visible=p=>pointVisible(s,p,f,sources);
+  observeBanditCamps(s,f,p=>sources.some(v=>['army','scout'].includes(v.kind)&&Math.hypot(v.x-p.x,v.y-p.y)<=v.radius));
   for(const c of s.cities){const tower=regionalWatchtower(c);if(tower&&(c.owner===f||visible(tower)))record.towers[c.id]={day:s.campaign.day,data:clone(tower)};
    else if(record.towers?.[c.id]?.data.owner===f)record.towers[c.id]={day:s.campaign.day,data:{...record.towers[c.id].data,owner:c.owner}};
   }
@@ -126,14 +129,17 @@ function unknownCity(c,owner,scope=null){
  for(const key of ['gold','grain','manpower',...Object.keys(BUILDING_DESIGNS),'order','hunger','garrison'])data[key]=null;
  scope?.unknown.set(key,data);return data;
 }
+function projectedCity(s,c,faction,visible,scope){
+ if(c.owner===faction||visible)return c;
+ const i=s.campaign.vision.factions[faction]?.cities[c.id];return i?.data||unknownCity(c,i?.owner||'neutral',scope);
+}
 // The same city value as intelligenceWorld, without projecting other cities,
 // armies, personnel or history. Views remain read-only and never persist here.
 export function cityObservation(s,id,faction=playerFaction(s)){
  if(!visionEnabled(s)||s[perspective]===faction)return mapNode(s,id);
  s=s[origin]||s;const c=mapNode(s,id);
- if(!c||!s.cities.includes(c)||c.owner===faction||cityVisible(s,id,faction))return c;
- const i=s.campaign.vision.factions[faction]?.cities[id];
- return i?.data||unknownCity(c,i?.owner||'neutral',queryScopes.get(s));
+ if(!c||!s.cities.includes(c))return c;
+ return projectedCity(s,c,faction,c.owner===faction||cityVisible(s,id,faction),queryScopes.get(s));
 }
 function observedBattle(s,r,faction){
  if(r.battle.sides.some(x=>x.faction===faction))return r;
@@ -141,6 +147,7 @@ function observedBattle(s,r,faction){
  const battle={...r.battle,logs:[]};
  return {...r,battle,templates:{},snapshots:[{day:s.campaign.day,tick:battle.tick,data:battle}],report:r.report?{reason:r.report.reason,winner:r.report.winner,growth:[],stats:[]}:null};
 }
+function observedBattles(s,faction,sources){return s.campaign.battles.filter(r=>battleVisible(s,r,faction,sources)).map(r=>observedBattle(s,r,faction));}
 // The army projection is also used by read-only threat assessments. Preserve
 // the caller's perspective without building unrelated city and history views.
 export function observedArmies(s,faction=playerFaction(s)){
@@ -150,15 +157,30 @@ export function observedArmies(s,faction=playerFaction(s)){
  const sources=visionSources(s,faction);
  const result=s.armies.filter(a=>armyVisible(s,a,faction,sources)).map(a=>a.faction===faction?a:armyObservation(s,a));scope?.armies.set(faction,result);return result;
 }
+// Depot routing reads geography, legal city/army observations, battles and
+// passage permissions. It never needs a personnel directory or work history.
+// Keep this contract narrow; it is not a world for decisions or execution.
+export function supplyRoutingWorld(s,faction){
+ if(!visionEnabled(s)||s[perspective]===faction)return s;
+ return withIntelligenceQueries(s,()=>readSupplyRoutingWorld(s,faction));
+}
+function readSupplyRoutingWorld(s,faction){
+ const base=s[origin]||s,scope=queryScopes.get(base);
+ if(scope?.supplyViews.has(faction))return scope.supplyViews.get(faction);
+ const sources=visionSources(base,faction),result={
+  cities:base.cities.map(c=>projectedCity(base,c,faction,c.owner===faction||pointVisible(base,c,faction,sources),scope)),armies:observedArmies(s,faction),
+  roads:base.roads,junctions:base.junctions,roadSegments:base.roadSegments,
+  campaign:{day:base.campaign.day,scenarioId:base.campaign.scenarioId,playerFaction:faction,
+   battles:s[perspective]===faction?s.campaign.battles:observedBattles(base,faction,sources),diplomacy:base.campaign.diplomacy}
+ };
+ inheritRoadQueries(base,result);scope?.supplyViews.set(faction,result);return result;
+}
 // All UI consumers use this read-only projection; never pass it to a mutation.
 export function intelligenceWorld(s,faction=playerFaction(s)){
  if(!visionEnabled(s)||s[perspective]===faction)return s;
  s=s[origin]||s;const scope=queryScopes.get(s);if(scope?.views.has(faction))return scope.views.get(faction);
  const record=s.campaign.vision.factions[faction],sources=visionSources(s,faction),visibleCities=new Set(s.cities.filter(c=>cityVisible(s,c.id,faction,sources)).map(c=>c.id));
- const cities=s.cities.map(c=>{
-  if(c.owner===faction||visibleCities.has(c.id))return c;
-  const i=record?.cities[c.id];return i?.data?i.data:unknownCity(c,i?.owner||'neutral',scope);
- });
+ const cities=s.cities.map(c=>projectedCity(s,c,faction,visibleCities.has(c.id),scope));
  const armies=s.armies.filter(a=>armyVisible(s,a,faction,sources)).map(a=>a.faction===faction?a:armyObservation(s,a));
  const idle=s.campaign.idle.filter(o=>o.faction===faction||!o.unit.mission&&!o.destination&&!o.retreating&&visibleCities.has(o.location));
  const ownIds=new Set([...s.cities.filter(c=>c.owner===faction).flatMap(c=>c.units),...s.armies.filter(a=>a.faction===faction).flatMap(a=>a.units),...s.campaign.idle.filter(o=>o.faction===faction).map(o=>o.unit)].map(u=>u.id));
@@ -170,7 +192,7 @@ export function intelligenceWorld(s,faction=playerFaction(s)){
  const projectedActivity=activity?{...activity,meritTotals:{[faction]:activity.meritTotals[faction]||{}},records:Object.fromEntries(Object.entries(activity.records).filter(([id])=>ownIds.has(id))),
   get nodes(){return projectedNodes??=activityByFaction(activityNodes,faction,throughSequence);},
   set nodes(value){projectedNodes=value;}}:activity;
- const campaign={...s.campaign,playerFaction:faction,idle,scouting:{...s.campaign.scouting,tasks:scoutAssignments(s).filter(t=>t.faction===faction)},battles:s.campaign.battles.filter(r=>battleVisible(s,r,faction,sources)).map(r=>observedBattle(s,r,faction)),archive:(s.campaign.archive||[]).filter(r=>record?.battles.includes(r.id)),
+ const campaign={...s.campaign,bandits:s.campaign.bandits?{version:s.campaign.bandits.version,camps:knownBanditCamps(s,faction),observations:{[faction]:s.campaign.bandits.observations[faction]||{}}}:undefined,playerFaction:faction,idle,scouting:{...s.campaign.scouting,tasks:scoutAssignments(s).filter(t=>t.faction===faction)},battles:observedBattles(s,faction,sources),archive:(s.campaign.archive||[]).filter(r=>record?.battles.includes(r.id)),
   personnelEvents:s.campaign.personnelEvents.filter(e=>ownIds.has(e.officerId)),ai:s.campaign.ai?{...s.campaign.ai,factions:{},plans:[],supports:[],decisions:[]}:undefined,
   domestic:{...s.campaign.domestic,loyalty:Object.fromEntries(Object.entries(s.campaign.domestic.loyalty).filter(([id])=>ownIds.has(id))),priorities:{[faction]:s.campaign.domestic.priorities[faction]},orders:s.campaign.domestic.orders.filter(q=>q.faction===faction),assignments:s.campaign.domestic.assignments.filter(a=>ownIds.has(a.officerId)),people:s.campaign.domestic.people.filter(p=>p.fate&&(p.fate.originalFaction===faction||p.fate.captor===faction))},
   activity:projectedActivity};
@@ -204,7 +226,7 @@ export function validateVision(s){
   fail(Array.isArray(r.scouted)&&r.scouted.length<=10000&&Number.isSafeInteger(r.nextSightId)&&r.nextSightId>=1&&new Set(r.scouted.map(v=>v.id)).size===r.scouted.length);
   for(const sight of r.scouted)fail(Number.isSafeInteger(sight.id)&&sight.id>=1&&sight.id<r.nextSightId&&Object.hasOwn(OFFICER_BY_ID,sight.officerId)&&Number.isFinite(sight.x)&&Number.isFinite(sight.y)&&Number.isSafeInteger(sight.seenDay)&&sight.seenDay>=1&&sight.seenDay<=s.campaign.day&&Number.isSafeInteger(sight.expiresDay)&&sight.expiresDay>sight.seenDay&&sight.expiresDay<=s.campaign.day+MOVEMENT_RULES.scouting.baseMaximumDays+MOVEMENT_RULES.scouting.intellectExtension&&mapNode(s,sight.location)&&(!sight.travel||Number.isFinite(roadCost(s,sight.travel.from,sight.travel.to))&&sight.travel.from===sight.location&&Number.isFinite(sight.travel.progress)&&sight.travel.progress>=0&&sight.travel.progress<=roadDistance(s,sight.travel.from,sight.travel.to)));
   fail(r.armies&&typeof r.armies==='object'&&!Array.isArray(r.armies)&&Object.keys(r.armies).length<=200);
-  for(const [id,i]of Object.entries(r.armies))fail(/^a\d+$/.test(id)&&Number.isSafeInteger(i.day)&&i.day>=1&&i.day<=s.campaign.day&&Number.isSafeInteger(i.receivedDay)&&i.receivedDay>=i.day&&i.receivedDay<=s.campaign.day&&i.data?.id===id&&(i.data.faction==='neutral'||Object.hasOwn(FACTIONS,i.data.faction))&&Array.isArray(i.data.units)&&i.data.units.every(u=>Object.hasOwn(OFFICER_BY_ID,u.id)&&Number.isFinite(u.troops)&&u.troops>=0)&&i.data.route?.length===0&&i.data.target===null&&i.data.supplyLine===null);
+  for(const [id,i]of Object.entries(r.armies))fail(/^a\d+$/.test(id)&&Number.isSafeInteger(i.day)&&i.day>=1&&i.day<=s.campaign.day&&Number.isSafeInteger(i.receivedDay)&&i.receivedDay>=i.day&&i.receivedDay<=s.campaign.day&&i.data?.id===id&&(i.data.faction==='neutral'||Object.hasOwn(FACTIONS,i.data.faction))&&Array.isArray(i.data.units)&&i.data.units.every(u=>(Object.hasOwn(OFFICER_BY_ID,u.id)||validGeneratedOfficer(u))&&Number.isFinite(u.troops)&&u.troops>=0)&&i.data.route?.length===0&&i.data.target===null&&i.data.supplyLine===null);
   fail(r.chronicle.every(l=>Number.isSafeInteger(l.turn)&&l.turn>=1&&typeof l.type==='string'&&typeof l.text==='string'&&l.text.length<2000));
  }
  fail(s.cities.every(c=>c.owner==='neutral'||Object.hasOwn(v.factions,c.owner)));

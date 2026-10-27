@@ -5,9 +5,20 @@ import {playerFaction} from './player-faction.mjs';
 import {canEditArmy,changeCampaignTroop,recruitCampaign,splitCampaignArmy,mergeCampaignArmies} from './strategic-campaign.mjs';
 import {TACTICS} from './engine.mjs';
 import {appointArmyRoles} from './army-appointments.mjs';
-export const militarySteps=p=>p.kind==='adjust'?['configure','unit-review','commanders','review']:p.kind==='split'?['select','configure','unit-review','commanders','review']:['select','review'];
+export const militarySteps=p=>p.kind==='adjust'?['configure','commanders','review']:p.kind==='split'?['select','configure','commanders','review']:['select','review'];
 export function newMilitaryFlow(s,armyId,kind='purpose'){
  const a=s.armies.find(a=>a.id===armyId);return {armyId,kind,step:kind==='purpose'?'purpose':militarySteps({kind})[0],selected:[],target:null,roles:{leader:a?.leader,advisor:a?.advisor,},units:Object.fromEntries((a?.units||[]).map(u=>[u.id,{type:u.type,equipment:structuredClone(u.equipment),formation:u.formation,first:u.first}])),tactic:a?.tactic};
+}
+export function militarySelectionError(s,p){
+ const a=s.armies.find(a=>a.id===p.armyId);if(!a)return '请选择军团';
+ if(p.kind==='merge'){
+  const b=s.armies.find(b=>b.id===p.target&&b.id!==a.id&&b.faction===a.faction&&b.location===a.location&&canEditArmy(s,b));
+  return !b?'请选择同地可合并军团':a.units.length+b.units.length>10?'合并后最多十队，请调整选择':null;
+ }
+ const units=a.units.filter(u=>p.selected.includes(u.id));
+ if(!units.length||units.length!==p.selected.length)return '请选择本军部队';
+ if(p.kind==='split'&&(!units.some(u=>u.troops>0)||!a.units.some(u=>!p.selected.includes(u.id)&&u.troops>0)))return '两支军团都须保留有兵力的部队';
+ return null;
 }
 export function previewMilitaryFlow(s,p,{faction=playerFaction(s),scheduled=false,...budget}={}){
  return executeMilitaryFlow(structuredClone(s),p,{faction,scheduled,...budget});

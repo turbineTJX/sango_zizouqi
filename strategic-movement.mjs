@@ -15,15 +15,24 @@ export function movementPoints(a){
   const command=RULES.army.command.base+Math.max(0,Math.min(100,leader.leadership||0))*RULES.army.command.perPoint;
   const morale=RULES.army.morale.base+Math.max(0,Math.min(100,a.morale))*RULES.army.morale.perPoint;
   const hunger=1-(RULES.army.hunger.find(r=>r.inclusive?a.hunger>=r.minimum:a.hunger>r.minimum)?.penalty||0);
-  return Math.round(base*command*morale*hunger*marchFactor(a)*1000)/1000;
+  const terrain=a.travel?.terrain==='water'?1:RULES.army.landSpeedFactor;
+  return Math.round(base*terrain*command*morale*hunger*marchFactor(a)*1000)/1000;
 }
 // Armies settle one road leg per day; unused movement does not carry across a node.
 export function marchItinerary(s,from,path,speed,policy='auto'){
  const legs=[];let at=from;
  for(const to of path){const road=chosenRoad(s,at,to,policy),cost=road?.cost??Infinity;
-  legs.push({from:at,to,name:road?.name||'不可通行',distance:roadDistance(s,at,to),cost,days:speed>0?Math.ceil(cost/speed):Infinity});at=to;
+  const daily=typeof speed==='number'?speed:movementPoints({...speed,travel:{terrain:road?.terrain}});
+  legs.push({from:at,to,name:road?.name||'不可通行',distance:roadDistance(s,at,to),cost,days:daily>0?Math.ceil(cost/daily):Infinity});at=to;
  }
  return {legs,cost:legs.reduce((n,r)=>n+r.cost,0),days:legs.reduce((n,r)=>n+r.days,0)};
+}
+export function remainingMarchDays(s,a){
+ if(!a.travel)return 0;
+ const t=a.travel,road=chosenRoad(s,t.from,t.to,t.road||'main');
+ if(!road)return Infinity;
+ const speed=movementPoints({...a,travel:{...t,terrain:road.terrain}}),cost=road.cost*Math.max(0,1-t.progress/roadDistance(s,t.from,t.to));
+ return speed>0?Math.ceil(cost/speed):cost===0?0:Infinity;
 }
 // A controller may opt into this conservative dispatch condition. Actual losses
 // after departure are still resolved by the shared personnel movement engine.

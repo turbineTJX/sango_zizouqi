@@ -7,6 +7,9 @@ const cwd=fileURLToPath(new URL('..',import.meta.url));
 test('design validation rejects invalid references, unsupported effects and misspelled fields',()=>{
  assert.deepEqual(validateDesignTables(),[]);
  for(const [edit,needle] of [
+  [d=>d.battleMapCategories.purposes.gate.scene='hill','用途定义'],
+  [d=>delete d.battleMapCategories.assignments['hill-pass'],'用途分类'],
+  [d=>d.battleMapCategories.assignments['river-harbor']='river','用途分类'],
   [d=>d.strategicPlanning.assessment.horizonSteps=10000,'静态效果预算'],
   [d=>d.strategicPlanning.assessment.reserveShare=1.1,'折扣和效果上限'],
   [d=>d.strategicPlanning.assessment.damageEffects.unknown=1,'效果须存在'],

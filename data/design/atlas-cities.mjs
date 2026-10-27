@@ -81,7 +81,16 @@ export const ATLAS_GATE_ADDITIONS = [
  {id:'atlas-yanmen',sourceId:1033,name:'雁门关',point:[894,328],province:'并州',neighbors:['jinyang']},
  {id:'atlas-jundu',sourceId:1034,name:'军都关',point:[1028,225],province:'幽州',neighbors:['town-3']},
 ];
-export const ATLAS_ADDITIONS = [...ATLAS_CITY_ADDITIONS.map(c=>({...c,kind:'city'})),...ATLAS_GATE_ADDITIONS.map(c=>({...c,kind:'gate'}))];
+// River crossing nodes have no city economy or invented opening garrison.
+export const ATLAS_PORT_ADDITIONS = [
+ {id:'atlas-jincheng-port',sourceId:1100,name:'金城港',point:[455,535],province:'凉州',neighbors:[]},
+ {id:'atlas-huai-port',sourceId:1101,name:'淮水港',point:[1140,710],province:'扬州',neighbors:[]},
+ {id:'atlas-jincheng-east-port',sourceId:1102,name:'金城东港',point:[489,535],province:'凉州',neighbors:[]},
+ {id:'atlas-huainan-port',sourceId:1103,name:'淮南港',point:[1145,736],province:'扬州',neighbors:[]},
+ {id:'atlas-jiangzhou-port',sourceId:1104,name:'江州港',point:[606,942],province:'益州',neighbors:[]},
+ {id:'atlas-nanjin-port',sourceId:1105,name:'南津港',point:[606,966],province:'益州',neighbors:[]},
+];
+export const ATLAS_ADDITIONS = [...ATLAS_CITY_ADDITIONS.map(c=>({...c,kind:'city'})),...ATLAS_GATE_ADDITIONS.map(c=>({...c,kind:'gate'})),...ATLAS_PORT_ADDITIONS.map(c=>({...c,kind:'port'}))];
 export const ATLAS_REPLACED_ROADS = [['town-3','jinyang']];
 export const ATLAS_NAME_SOURCES = [
  ['建业／建康','https://www.xwzf.gov.cn/zjxw/xwgk/lsyg/'],

@@ -1,6 +1,6 @@
 import {gateDurability} from '../building-durability.mjs';
 import {initializeTacticLearning} from '../tactic-learning.mjs';
-import {peacefulCities,fieldCampaign as newCampaign,approachDestination} from './helpers/field-campaign.mjs';
+import {peacefulCities,fieldCampaign as newCampaign,approachDestination,approachFieldContact,marchTestTurns} from './helpers/field-campaign.mjs';
 import {initializeTalent} from '../talent-lifecycle.mjs';
 import {learnFixtureTactics} from './helpers/learn-tactics.mjs';
 import test from 'node:test';
@@ -44,13 +44,13 @@ for(const owner of ['neutral','yuan'])test(`a ${owner} city with intact walls an
   const s=newCampaign(),a=s.armies[0],target=s.cities.find(c=>c.id==='guandu');
   s.armies=[a];target.units=[];target.garrison=0;target.owner=owner;target.domestic.owner=owner;target.governor=null;gateDurability(target).hp=15000;
   initializeTalent(s);assert.equal(orderCampaignArmy(s,a.id,target.id),null);beginExecution(s);
-  for(let i=0;i<40&&target.owner!==a.faction;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
+  for(let i=0,limit=marchTestTurns(s,a)*10;i<limit&&target.owner!==a.faction;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
   assert.equal(target.owner,a.faction);assert.equal(gateDurability(target).hp,15000);
   assert.equal(s.campaign.battles.filter(r=>r.cityId===target.id).length,0);
   assert.equal(a.travel,null);assert.equal(a.location,target.id);resume(s);
 });
 test('head-on marching armies meet on the road without passing through each other',()=>{
-  const s=newCampaign();s.armies=s.armies.filter(a=>['a1','a2'].includes(a.id));initializeTalent(s);const foe=s.armies[1];foe.location='guandu';foe.route=['xuchang'];foe.target='xuchang';orderCampaignArmy(s,'a1','guandu');beginExecution(s);runTo(s,10,{auto:false});
+  const s=newCampaign();s.armies=s.armies.filter(a=>['a1','a2'].includes(a.id));initializeTalent(s);const foe=s.armies[1];foe.location='guandu';foe.route=['xuchang'];foe.target='xuchang';orderCampaignArmy(s,'a1','guandu');approachFieldContact(s,s.armies[0],foe);beginExecution(s);runTo(s,10,{auto:false});
   const r=activeBattles(s)[0];assert.equal(r.kind,'field');assert.equal(r.armyIds.length,2);const [a,b]=s.armies;assert.ok(Math.abs(armyPosition(s,a).x-armyPosition(s,b).x)<.01);assert.ok(Math.abs(armyPosition(s,a).y-armyPosition(s,b).y)<.01);resume(s);
 });
 test('delegating locks deployment; takeover does not rewind date, RNG, casualties or cooldowns',()=>{

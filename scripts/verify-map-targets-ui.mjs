@@ -6,6 +6,7 @@ import {newCampaign,serializeCampaign,advanceCampaignDay,beginExecution,activeBa
 import {retreatDestinations} from '../strategic-retreat.mjs';
 import {fieldFromCity,approachDestination} from '../tests/helpers/field-campaign.mjs';
 import {setDomesticAutoApprove} from '../domestic.mjs';
+import {scoutCandidates,scoutTargets} from '../scouting.mjs';
 import {chooseMapTarget,locateMapTarget,chooseCommandTarget} from './map-target-ui-helpers.mjs';
 
 const out='outputs/map-targets-ui',port='4317';mkdirSync(out,{recursive:true});
@@ -23,32 +24,33 @@ try{
  const s=newCampaign(81,'guandu-200');await load(s);
  // Geography selection and camera navigation never issue a command.
  await page.locator('[data-action="scout-open"]').first().click();const beforeScout=await saved();
- await page.locator('#scout-city').click();assert.equal(await page.locator('[data-action="map-target-confirm"]').isDisabled(),true);
- const pin=await locateMapTarget(page,'xuchang');assert.equal(await page.locator('[data-action="map-target-confirm"]').isDisabled(),true);
- await pin.locator('.city-size-mark').click();assert.equal(await saved(),beforeScout);
+ assert.equal(await page.locator('#scout-city').inputValue(),'');assert.equal(await page.locator('#scout-officer').isDisabled(),true);assert.equal(await page.locator('[data-action="scout-dispatch"]').isDisabled(),true);
+ await page.locator('#scout-city').selectOption('xuchang');
+ const officer=scoutCandidates(s,'xuchang')[0],endpoint=scoutTargets(s,'xuchang')[0];await page.locator('#scout-officer').selectOption(officer.unit.id);
+ await page.locator('[data-map-view="national"]').click();assert.equal(await page.locator('#scout-officer').inputValue(),officer.unit.id);assert.equal(await saved(),beforeScout);
+ await page.locator('#scout-target').selectOption(endpoint.id);assert.equal(await saved(),beforeScout);
  await page.screenshot({path:out+'/scout-city-desktop.png'});
  await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
- await page.screenshot({path:out+'/scout-city-mobile.png',fullPage:true});await page.keyboard.press('Escape');assert.match(await page.locator('#scout-city').innerText(),/选择派出城市/);assert.equal(await saved(),beforeScout);
- await chooseMapTarget(page,'#scout-city','xuchang');assert.match(await page.locator('#scout-city').innerText(),/许昌/);assert.equal(await saved(),beforeScout);
- await page.keyboard.press('Escape');await page.setViewportSize({width:1440,height:1000});checks.push('map click, locate-only search, cancel/Escape, confirm-only draft, desktop/mobile');
+ await page.screenshot({path:out+'/scout-city-mobile.png',fullPage:true});await page.keyboard.press('Escape');assert.equal(await page.locator('.scouting-screen').count(),0);assert.equal(await saved(),beforeScout);
+ await page.setViewportSize({width:1440,height:1000});checks.push('city-first scout/local officer/endpoint draft, camera-only navigation, cancel/Escape, desktop/mobile');
  // A real relay officer and his actual city exercise a transport draft.
- await page.locator('#national-city-search').selectOption('luoyang');
- await page.locator('.modal [data-action="campaign-pick"][data-task="transfer"]').click();
+ await page.locator('.map-search summary').click();await page.locator('#national-city-search').selectOption('luoyang');
+ await page.locator('[data-action="map-city-commands"][data-group="personnel"]').click();await page.locator('.city-command-grid [data-action="campaign-pick"][data-task="transfer"]').click();
  await page.locator('[data-personnel-choice="person-195"]').check();await page.locator('[data-action="campaign-command-next"]').click();
  assert.equal(await page.locator('.map-command-screen').count(),1);assert.equal(await page.locator('#command-destination').count(),0);
  await chooseCommandTarget(page,'chenliu');
  for(const [key,value] of Object.entries({gold:23,grain:47,manpower:10})){const field=page.locator(`[data-transfer-cargo="${key}"]`);await field.fill(String(value));await field.blur();}
- const beforeTransport=await saved();await page.locator('[data-kind="relay"]').click();
+ const beforeTransport=await saved();await page.locator('.transport-options>summary').click();await page.locator('[data-kind="relay"]').click();
  for(const id of ['luoyang','chenliu'])assert.equal(await page.locator(`[data-command-city="${id}"]`).getAttribute('data-map-target'),'unavailable');
  const relay=await locateMapTarget(page,'xuchang');await relay.locator('.city-size-mark').click();await page.keyboard.press('Escape');
- assert.match(await page.locator('[data-kind="relay"]').innerText(),/选择接力据点/);
+ assert.match(await page.locator('[data-kind="relay"]').innerText(),/选择接力城/);
  await chooseMapTarget(page,'[data-kind="relay"]','xuchang');assert.match(await page.locator('[data-kind="relay"]').innerText(),/许昌/);
  for(const [key,value] of Object.entries({gold:23,grain:47,manpower:10}))assert.equal(await page.locator(`[data-transfer-cargo="${key}"]`).inputValue(),String(value));
  assert.equal(await saved(),beforeTransport);await page.screenshot({path:out+'/transport-desktop.png',fullPage:true});
  await page.locator('[data-action="campaign-command-next"]').click();assert.match(await page.locator('.modal-body').innerText(),/接力：许昌/);assert.equal(await saved(),beforeTransport);
  await page.locator('[data-action="campaign-command-cancel"]').click();checks.push('transfer uses full map; relay excludes endpoints; cargo and selections survive round trip; review/cancel spends nothing');
  // Diplomacy keeps goal, budget and officer fields until the original confirm.
- await page.locator('[data-action="faction-diplomacy"]').first().click();await page.locator('#diplomacy-goal').selectOption('buyGrain');await page.locator('.diplomacy-panel>details').first().locator('summary').click();await page.locator('#diplomacy-feeBudget').fill('321');
+ await page.locator('[data-action="faction-diplomacy"]').first().click();await page.locator('#diplomacy-goal').selectOption('buyGrain');await page.locator('.diplomatic-budget-settings>summary').click();await page.locator('#diplomacy-feeBudget').fill('321');
  const beforeDiplomacy=await saved(),foreign=s.cities.find(c=>c.owner==='sunce');
  await chooseMapTarget(page,'[data-kind="diplomacy"]',foreign.id);
  assert.equal(await page.locator('#diplomacy-goal').inputValue(),'buyGrain');assert.equal(await page.locator('#diplomacy-feeBudget').inputValue(),'321');assert.equal(await page.locator('#diplomacy-target').inputValue(),'sunce');assert.equal(await saved(),beforeDiplomacy);
@@ -64,7 +66,7 @@ try{
  await page.locator('.retreat-council summary').click();await page.locator('[data-retreat-batch]').fill('123');const beforeRetreat=await saved();
  const destinations=retreatDestinations(war,r.battle),next=destinations.find(n=>n.id!==r.battle.sides[0].retreatDestination);assert.ok(next);
  await page.locator('[data-kind="retreat"]').click();
- assert.deepEqual((await page.locator('[data-map-target="eligible"],[data-map-target="selected"]').evaluateAll(ns=>ns.map(n=>n.dataset.commandCity))).sort(),destinations.map(n=>n.id).sort());
+ assert.deepEqual((await page.locator('[data-map-target="eligible"],[data-map-target="selected"]').evaluateAll(ns=>[...new Set(ns.map(n=>n.dataset.commandCity))])).sort(),destinations.map(n=>n.id).sort());
  const destinationPin=await locateMapTarget(page,next.id);await destinationPin.locator('.city-size-mark,.atlas-gate-outline,.junction-banner').first().focus();await page.keyboard.press('Enter');assert.equal(await saved(),beforeRetreat);
  await page.keyboard.press('Escape');assert.equal(await page.locator('[data-retreat-batch]').inputValue(),'123');assert.equal(await saved(),beforeRetreat);
  await page.setViewportSize({width:390,height:844});await page.locator('[data-kind="retreat"]').click();await locateMapTarget(page,next.id);

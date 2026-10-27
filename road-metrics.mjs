@@ -22,7 +22,9 @@ function calculateRoads(s,a,b){
  const scope=scopes.get(s);
  if(scope?!scope.edges.has(edge(a,b)):!s.roads.some(([x,y])=>x===a&&y===b||x===b&&y===a))return [];
  const x=scope?.nodes.get(a)||mapNode(s,a),y=scope?.nodes.get(b)||mapNode(s,b),distance=roadDistance(s,a,b),data=segment(s,a,b);
- const terrain=x.kind==='port'&&y.kind==='port'?'water':x.kind==='gate'||y.kind==='gate'?'mountain':'land';
+ const terrain=data?.terrain||(x.kind==='port'&&y.kind==='port'?'water':x.kind==='gate'||y.kind==='gate'?'mountain':'land');
+ // Embarkation and landing are physical port nodes, never arbitrary banks.
+ if(terrain==='water'&&(x.kind!=='port'||y.kind!=='port'))return [];
  return Object.entries(RULES.roadVariants).map(([id,r])=>({id,name:data?.trail?'乡野小路':r.names[terrain],cost:Math.ceil(distance*r.costFactors[terrain]*(data?.costFactor||1)),terrain,offset:r.offset}));
 }
 export function campaignRoads(s,a,b){return variants(s,a,b).map(r=>({...r}));}

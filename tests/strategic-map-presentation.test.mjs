@@ -1,3 +1,4 @@
+import {approachFieldContact} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,activeBattles} from './helpers/auto-domestic-campaign.mjs';
@@ -38,9 +39,10 @@ test('view refresh resumes the visible position without restarting, while a load
 });
 
 test('map labels expose waiting, marching and actual battle state without mutating simulation',()=>{
- const s=newCampaign(1),a=fieldFromCity(s,'xuchang',{target:'guandu'});fieldFromCity(s,'guandu',{target:'xuchang'});
+ const s=newCampaign(1),a=fieldFromCity(s,'xuchang',{target:'guandu'}),enemy=fieldFromCity(s,'guandu',{target:'xuchang'});
  assert.match(armyMapMarkers(s,{}),/待出发/);beginExecution(s);advanceCampaignDay(s);
  assert.match(armyMapMarkers(s,{}),/army-heading/);assert.match(armyMapMarkers(s,{}),/data-march-path/);
+ approachFieldContact(s,a,enemy);
  for(let i=0;i<30&&!activeBattles(s).length;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  const r=activeBattles(s)[0];assert.ok(r);const before=JSON.stringify(s),html=battleMapMarkers(s);
  assert.match(html,/data-map-battle-glyph/);assert.match(html,/尚未开战/);assert.match(html,/encounter-troops/);assert.match(armyMapMarkers(s,{}),/is-fighting/);

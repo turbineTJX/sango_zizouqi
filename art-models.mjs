@@ -1,4 +1,5 @@
 import {combatFamily} from './troop-equipment.mjs';
+import {NativeModelBatches} from './native-model-batches.mjs';
 import * as T from './vendor/three/three.module.js';
 import {GLTFLoader} from './vendor/three/loaders/GLTFLoader.js';
 import {OBJLoader} from './vendor/three/loaders/OBJLoader.js';
@@ -15,16 +16,18 @@ const hitWhite=new T.Color(0xffffff);
 
 export class ModelLayer {
  constructor(board,pack){
-  this.board=board;this.pack=pack;this.scene=new T.Scene();this.cache=new Map();this.objects=new Map();this.wanted=new Map();
+  this.board=board;this.pack=pack;this.scene=new T.Scene();this.cache=new Map();this.objects=new Map();this.wanted=new Map();this.batches=new NativeModelBatches(this.scene);this.scene.matrixWorldAutoUpdate=false;
   this.renderer=new T.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));this.renderer.setClearColor(0,0);this.renderer.outputColorSpace=T.SRGBColorSpace;this.renderer.toneMapping=T.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.1;this.renderer.domElement.className='art-models';this.renderer.domElement.setAttribute('aria-hidden','true');board.prepend(this.renderer.domElement);
   this.camera=new T.OrthographicCamera(0,1,1,0,.1,1000);this.camera.position.z=500;
   this.scene.add(new T.HemisphereLight(0xf5eedb,0x555f4b,2));const sun=new T.DirectionalLight(0xffeed4,3);sun.position.set(-100,250,300);this.scene.add(sun);
   const fill=new T.DirectionalLight(0xb9cbd1,.8);fill.position.set(200,60,-100);this.scene.add(fill);
   this.renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();this.failed=true;this.board.dataset.modelStatus='fallback';this.board.classList.remove('has-gate-model');this.renderer.domElement.style.display='none';for(const o of this.objects.values())o.root.visible=false;});
+  this.measure=()=>{this.viewport={w:board.clientWidth,h:board.clientHeight,compact:(board.parentElement?.clientWidth||board.clientWidth)<600};this.onChange?.();};
+  this.resize=new ResizeObserver(this.measure);this.resize.observe(board);if(board.parentElement)this.resize.observe(board.parentElement);this.measure();
  }
  async load(key){
   if(!this.cache.has(key))this.cache.set(key,(async()=>{
-   if(key.startsWith('builtin:troop:')){const [, ,type,side]=key.split(':');return createTroopModel(type,Number(side));}
+   if(key.startsWith('builtin:troop:')){const [, ,type,side]=key.split(':'),model=createTroopModel(type,Number(side));await this.batches.prepare(model,()=>this.dead);if(this.dead){dispose(model);return null;}return model;}
    if(key.startsWith('builtin:'))return createSiegeModel(key.slice(8));
    const def=this.pack.models[key];if(!def)return null;let obj;
    if(def.format==='glb'){const gltf=await new GLTFLoader().loadAsync(def.url);obj=gltf.scene;obj.animations=gltf.animations;}
@@ -57,16 +60,15 @@ export class ModelLayer {
    const box=new T.Box3().setFromObject(tilt),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());
    if(model.userData.nativeTroop)tilt.position.set(-center.x,-box.min.y,-center.z);else tilt.position.sub(center);
    const clips=model.animations||[],mixer=clips.length?new T.AnimationMixer(model):null;
-   this.scene.add(root);this.objects.set(id,{root,tilt,model,clips,mixer,key:def.key,width:size.x,height:size.y,flashMaterials});this.board.dataset.modelStatus='ready';this.board.dataset.modelCount=String(this.objects.size);
+   this.scene.add(root);this.objects.set(id,{root,tilt,model,clips,mixer,key:def.key,width:size.x,height:size.y,flashMaterials});this.board.dataset.modelStatus='ready';this.board.dataset.modelCount=String(this.objects.size);this.onChange?.();
   });}
  }
  hasUnit(id){return !this.failed&&this.objects.has('unit-'+id);}
  bodyAnchors(id){const obj=this.objects.get('unit-'+id);return obj?.model?.userData.nativeTroop?troopModelAnchors(obj,this.h):null;}
  draw(clock,presentation=null){
-  if(this.dead||this.failed)return;const w=this.board.clientWidth,h=this.board.clientHeight;if(!w||!h)return;
+  if(this.dead||this.failed)return;const {w,h,compact} = this.viewport||{w:this.board.clientWidth,h:this.board.clientHeight,compact:(this.board.parentElement?.clientWidth||this.board.clientWidth)<600};if(!w||!h)return;
   if(this.w!==w||this.h!==h){this.w=w;this.h=h;this.renderer.setSize(w,h,false);this.camera.right=w;this.camera.top=h;this.camera.updateProjectionMatrix();}
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const compact=(this.board.parentElement?.clientWidth||w)<600;
   const hits=presentation?.hits||actionImpacts(presentation?.actions||[]);
   for(const [id,obj]of this.objects){const d=this.wanted.get(id);if(!d)continue;let p=hexCenter(d.x,d.y);const u=d.unit,moving=u?.moveAt!==undefined&&clock-u.moveAt<.48;
    const death=u?.deadAt!==undefined?Math.max(0,Math.min(1,u.deathFxAt!==undefined?((presentation?.clock??0)-u.deathFxAt)/600:(clock-u.deadAt)/.6)):0;
@@ -114,9 +116,10 @@ export class ModelLayer {
    }
   }
   this.board.classList.toggle('has-gate-model',this.objects.has('gate'));
+  this.scene.updateMatrixWorld(true);this.batches?.update(this.objects);
   this.renderer.render(this.scene,this.camera);
  }
- destroy(){this.dead=true;for(const promise of this.cache.values())promise.then(obj=>{if(obj)dispose(obj);});for(const obj of this.objects.values())obj.flashMaterials?.forEach(f=>f.material.dispose());this.objects.clear();this.renderer.dispose();this.renderer.forceContextLoss();this.renderer.domElement.remove();}
+ destroy(){this.dead=true;this.resize?.disconnect();this.batches?.destroy();for(const promise of this.cache.values())promise.then(obj=>{if(obj)dispose(obj);});for(const obj of this.objects.values())obj.flashMaterials?.forEach(f=>f.material.dispose());this.objects.clear();this.renderer.dispose();this.renderer.forceContextLoss();this.renderer.domElement.remove();}
 }
 export function cloneAnimatedModel(source){
  const clone=source.clone(true),original=[],copied=[];source.traverse(n=>original.push(n));clone.traverse(n=>copied.push(n));

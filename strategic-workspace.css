@@ -166,7 +166,7 @@ body:has(.strategy-map-first){overflow:hidden}
 .diplomatic-budgets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.diplomatic-budgets input{max-width:100%;width:100%;box-sizing:border-box}.diplomacy-panel .personnel-table{min-width:480px}.diplomatic-proposal ul{padding-left:20px}.diplomatic-terms section{min-width:0}.diplomatic-proposal h3{margin:0}.diplomatic-proposal small{overflow-wrap:anywhere}@media(max-width:700px){.diplomatic-budgets{grid-template-columns:minmax(0,1fr)}}
 .war-fog{pointer-events:none}.fog-city .map-city-scene{filter:saturate(.35)}
 .city-location-model .town-foundation{filter:saturate(.12) brightness(.8);opacity:.76}
-.scout-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.scout-fields{display:grid;grid-template-columns:1fr;gap:14px;margin:0 0 14px}
 .scout-fields label{display:flex;flex-direction:column;gap:8px;min-width:0}
 .scout-fields select{width:100%;min-width:0;padding:10px;background:#172a2c;color:#f2dfb5;border:1px solid #7f775a;border-radius:3px}
 .scout-fields select:disabled{opacity:.5;cursor:not-allowed}
@@ -178,6 +178,18 @@ body:has(.strategy-map-first){overflow:hidden}
 @media(max-width:600px){.strategy-map-first .city-budget-alerts{top:auto;bottom:65px;left:104px;right:8px;max-height:55px;gap:4px;padding:5px 8px;font-size:11px}.city-budget .personnel-table,.city-budget .personnel-table tbody{display:block;width:100%}.city-budget .personnel-table thead{display:none}.city-budget .personnel-table tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:6px 0;border-bottom:1px solid #7b7257}.city-budget .personnel-table tbody th{grid-column:1/-1;text-align:left}.city-budget .personnel-table td{display:flex;flex-direction:column;white-space:normal;border:0}.city-budget .personnel-table td:before{content:attr(data-label);font-size:10px;color:#c4bda8}}
 
 .scout-contact-list{flex-basis:100%;min-width:0}.scout-contact-list p{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.scout-duration{color:#e8cd8b}.scout-missions article>b{max-width:100%;overflow-wrap:anywhere}
+.scouting-screen>header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.scouting-workbench .scout-route{border:0;background:none;padding:0;margin:8px 0}
+.scouting-workbench .scout-duration{font-size:14px;margin:10px 0}
+.scouting-workbench [data-action="scout-dispatch"]{display:block;width:100%;margin:14px 0}
+.scout-missions article{padding:10px;gap:6px}.scout-missions article>span{min-width:0;font-size:14px;flex-basis:100%}.scout-missions article>small{width:auto;flex:1}
+.scout-missions article>button{padding:5px 12px;min-height:34px}.scout-missions summary{font-size:14px}
+.route-edit-hint{display:block;color:#c1b99b;font-size:13px;margin:8px 0}
+.route-draft-line{fill:none;stroke:#ffe099;stroke-width:3;stroke-dasharray:7 4;vector-effect:non-scaling-stroke;pointer-events:none}
+.route-handle{cursor:grab;touch-action:none}.route-handle.dragging{cursor:grabbing}
+.route-handle-touch{fill:transparent;stroke:none}.route-handle-hit{fill:#1c302ae6;stroke:#ffe099;stroke-width:1.5;vector-effect:non-scaling-stroke}.route-handle-dot{fill:#ffe099;pointer-events:none}
+.route-handle.pinned .route-handle-hit{fill:#9b6e2a}.route-handle:is(.snapped,:focus-visible) .route-handle-hit{stroke:#fff;stroke-width:3}
+.map-route-editor{pointer-events:none}.map-route-editor .route-handle{pointer-events:all}
 
 .domestic-proposals{margin:12px 0;padding:14px;border:1px solid var(--line,#675d42);border-radius:8px;background:rgba(173,136,61,.08)}
 .domestic-proposals>header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.domestic-proposals h3{margin:0}.domestic-proposal{padding:14px 0;border-top:1px solid var(--line,#675d42)}.domestic-proposal p{line-height:1.8;overflow-wrap:anywhere}.domestic-proposal-actions{display:flex;gap:10px;flex-wrap:wrap}
@@ -258,6 +270,23 @@ body:has(.strategy-map-first){overflow:hidden}
 @media(prefers-reduced-motion:reduce){.is-playing-march :is(.army-leg-front,.army-leg-back,.army-soldier,.army-march-flag),.strategy-page .map-encounter .encounter-sparks{animation:none}}
 
 .finance-detail{display:grid;gap:18px;min-width:0}.finance-detail h3{margin:0 0 10px}.finance-detail p{line-height:1.7}.finance-cities{max-width:100%}
+.decision-context{color:#bfb79d;font-size:14px;margin:0 0 14px}
+.decision-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:14px 0}
+.decision-facts>div{min-width:0}.decision-facts dt{font-size:13px;color:#bfb79d}.decision-facts dd{margin:3px 0 0;font-size:18px;overflow-wrap:anywhere}
+.decision-details{margin:16px 0;padding-top:12px;border-top:1px solid #9b895743}.decision-details>summary{cursor:pointer;color:#e6c988;font-size:15px}
+.decision-details:not([open]){padding-bottom:4px}.decision-details[open]>summary{margin-bottom:12px}
+.decision-changes{display:grid;grid-template-columns:1fr 1fr;gap:16px}.decision-changes>section{min-width:0;border:1px solid #9b895743;padding:14px;border-radius:4px}
+.decision-changes h4{margin:0 0 10px;color:#bfb79d;font-size:14px}.army-snapshot+ .army-snapshot{margin-top:12px;padding-top:12px;border-top:1px solid #9b895743}
+.army-snapshot p{margin:6px 0}.army-snapshot small{color:#bfb79d;overflow-wrap:anywhere}
+.decision-risk{display:block;margin:10px 0;color:#e8b67d;font-size:13px}
+.command-decree>h3{margin:0 0 12px}.command-decree>p{margin:8px 0}.command-decree .decision-details{line-height:1.6}
+.transport-fields{display:grid;grid-template-columns:1fr;gap:10px}.transport-fields .strategy-field{gap:5px;margin:0}.transport-fields small{font-size:12px;color:#bfb79d}
+.command-map+aside .transport-cargo{margin:0;padding:0;border:0}.transport-cargo>.strategy-field{margin:12px 0}.transport-cargo .route-itinerary{margin:14px 0}
+.diplomatic-offer-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}.diplomatic-offer-summary p{margin:0;font-size:14px;line-height:1.6}.diplomatic-offer-summary b{display:block;margin-bottom:4px;color:#c7b883;font-size:13px}
+.diplomacy-panel .diplomatic-goals{margin:18px 0}.diplomacy-panel .diplomatic-proposal{padding:12px}.diplomatic-proposal .diplomatic-decisions{margin-top:12px}.diplomatic-proposal header h3{font-size:18px}.diplomatic-proposal header>b{font-size:13px;white-space:nowrap}
+.diplomacy-panel .diplomatic-staff,.diplomacy-panel .diplomatic-budget-settings{padding:10px 0;border-top:1px solid #9b895743}
+.diplomacy-panel .diplomatic-staff>summary,.diplomacy-panel .diplomatic-budget-settings>summary{cursor:pointer}
+@media(max-width:700px){.decision-changes,.diplomatic-offer-summary{grid-template-columns:1fr}.decision-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.decision-changes{gap:10px}.decision-changes>section{padding:10px}.command-decree{padding:16px;line-height:1.5}.diplomatic-proposal header{gap:5px}}
 @media(max-width:600px){.detail-inspection.modal-backdrop:has(.finance-detail) .modal{max-height:84dvh}}
 @media(max-width:600px){.detail-inspection.modal-backdrop:has(.metropolitan-table) .modal{max-height:84dvh}}
 

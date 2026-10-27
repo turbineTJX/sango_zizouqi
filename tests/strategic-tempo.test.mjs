@@ -96,7 +96,7 @@ test('a funded large faction gathers actual troops and launches multiple columns
   c.units=Array.from({length:7},(_,n)=>({...makeOfficer(ids[at++],3000,n,3),homeCity:c.id}));
  }
  target.units.forEach(u=>u.troops=6500);target.gold=0;target.manpower=0;target.commerce=10;
- s.roads=[[home.id,target.id],...sources.slice(1).map(c=>[c.id,home.id])];for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:7.5};
+ s.roads=[[home.id,target.id],...sources.slice(1).map(c=>[c.id,home.id])];for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:1};
  for(const policy of Object.values(s.campaign.diplomacy.policies))policy.feeBudget=0;
  s.turn=61;s.campaign.day=601;
  initializeVision(s);initializeStrategicAI(s);planStrategicAI(s);
@@ -113,7 +113,7 @@ test('a funded large faction gathers actual troops and launches multiple columns
  const retained=grainFloors.map(r=>({...r,grain:r.grain-columns.filter(a=>a.homeCity===r.cityId&&!departedBefore.has(a.id)).reduce((n,a)=>n+a.supplyCapacity,0)}));
  assert.ok(retained.some(r=>r.grain>2500),'this fixture must need a sustained reserve beyond the home minimum');
  for(const r of retained)assert.ok(p.requirements.find(q=>q.cityId===r.cityId).grain>=r.grain,'actual loading releases the shipped grain and retains the sustained recovery reserve');
- assert.ok(columns.length>=2);assert.ok(columns.every(a=>a.target===target.id&&a.units.length<=6));
+ assert.ok(columns.length>=2);assert.ok(columns.every(a=>a.units.length<=6&&(a.target===target.id||s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.includes(a.id)))));
  assert.ok(new Set(columns.map(a=>a.homeCity)).size>1,'joint armies retain distinct real replenishment bases');
  for(const a of columns)assert.ok(a.units.every(u=>p.origins.some(g=>g.cityId===a.homeCity&&g.officerIds.includes(u.id))));
  assert.equal(new Set(columns.flatMap(a=>a.units.map(u=>u.id))).size,selected.length);validateStrategicAI(s);
@@ -141,7 +141,7 @@ test('a mature second front uses different real depots and officers while preser
  }
  Object.assign(second,{owner:'cao',x:-16,y:8,gold:0,manpower:0});second.domestic.owner='cao';second.units=[{...makeOfficer(ids[at++],1000,0,3),homeCity:second.id}];
  target.gold=0;target.manpower=0;
- s.roads=[[home.id,target.id],...sources.slice(1).map(c=>[home.id,c.id]),[rear.id,second.id]];for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:7.5};
+ s.roads=[[home.id,target.id],...sources.slice(1).map(c=>[home.id,c.id]),[rear.id,second.id]];for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:1};
  for(const policy of Object.values(s.campaign.diplomacy.policies))policy.feeBudget=0;
  s.turn=61;s.campaign.day=601;
  initializeVision(s);initializeStrategicAI(s);planStrategicAI(s);
@@ -158,7 +158,7 @@ test('a mature second front uses different real depots and officers while preser
  assert.equal(s.campaign.ai.factions.yuan.strategy.goal.planId,primary.id);validateStrategicAI(s);
 });
 
-function concentratedFront({rearDistance=7.5,oneDepot=false}={}){
+function concentratedFront({rearDistance=1,oneDepot=false}={}){
  const {s,home,target,rear}=planningFront(),sources=[home,rear,...s.cities.filter(c=>![home,target,rear].includes(c)).slice(0,2)];
  const enemyIds=new Set(target.units.map(u=>u.id)),ids=Object.keys(OFFICER_BY_ID).filter(id=>!enemyIds.has(id));let at=0;
  for(const [i,c]of sources.entries()){
@@ -167,7 +167,7 @@ function concentratedFront({rearDistance=7.5,oneDepot=false}={}){
  }
  target.units.forEach(u=>u.troops=oneDepot?6500:3500);target.gold=0;target.manpower=0;target.commerce=10;
  s.roads=[[home.id,target.id],...sources.slice(1).map(c=>[c.id,home.id])];
- for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:e.includes(target.id)?7.5:rearDistance};
+ for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:e.includes(target.id)?1:rearDistance};
  for(const policy of Object.values(s.campaign.diplomacy.policies))policy.feeBudget=0;
  s.campaign.allAI=true;s.turn=61;s.campaign.day=601;initializeVision(s);initializeStrategicAI(s);
  return {s,home,target,sources};
@@ -185,6 +185,20 @@ test('a forward depot can launch more than ten real units as separate legal colu
  assert.equal(before-home.grain,armies.reduce((n,a)=>n+a.supply,0));validateStrategicAI(s);
 });
 
+test('middle game concentration can use more than ten arrived units through legal ten-unit armies',()=>{
+ const {s,home,target}=concentratedFront({oneDepot:true});s.turn=21;s.campaign.day=201;initializeStrategicAI(s);
+ const before=home.grain;planStrategicAI(s);const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');
+ assert.ok(p);assert.equal(p.phase,'attack');assert.equal(p.columns,null,'middle game keeps central assembly instead of late game synchronized departure schedules');
+ assert.ok(p.officerIds.length>10);assert.equal(p.columnUnits,10);
+ const armies=s.armies.filter(a=>a.faction==='yuan'&&a.target===target.id),ids=new Set(armies.map(a=>a.id));
+ assert.ok(armies.length>=2);assert.ok(armies.every(a=>a.units.length<=10));
+ assert.equal(before-home.grain,armies.reduce((n,a)=>n+a.supply,0));validateStrategicAI(s);
+ const copy=JSON.parse(serializeCampaign(s));
+ for(let i=0;i<15&&!s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.filter(id=>ids.has(id)).length>=2);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
+ assert.ok(s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.filter(id=>ids.has(id)).length>=2));
+ assert.equal(serializeCampaign(s),serializeCampaign(copy));
+});
+
 test('a stalled mature front transfers actual rear troops before reconsidering an attack',()=>{
  const {s,home,target,sources}=concentratedFront({rearDistance:1600}),before=home.units.reduce((n,u)=>n+u.troops,0),troops=s.cities.reduce((n,c)=>n+c.units.reduce((m,u)=>m+u.troops,0),0);
  planStrategicAI(s);const g=s.campaign.ai.factions.yuan.strategy.goal;
@@ -200,6 +214,41 @@ test('a stalled mature front transfers actual rear troops before reconsidering a
  assert.equal(serializeCampaign(resumed),serializeCampaign(s),'preparation and real troop transfers survive a deterministic reload');
 });
 
+test('a stalled middle game front concentrates real troops before the late game without counting arrivals early',()=>{
+ const {s,home,target}=concentratedFront({rearDistance:1600});s.turn=21;s.campaign.day=201;initializeStrategicAI(s);
+ const before=home.units.reduce((n,u)=>n+u.troops,0);planStrategicAI(s);
+ const g=s.campaign.ai.factions.yuan.strategy.goal;
+ assert.match(g.candidateId,/^capture-assembly:/);assert.equal(g.status,'preparing');
+ assert.ok(s.campaign.idle.some(o=>o.destination===home.id&&o.unit.troops>0));
+ assert.equal(home.units.reduce((n,u)=>n+u.troops,0),before);
+ assert.equal(s.armies.some(a=>a.faction==='yuan'&&a.target===target.id),false);
+ assert.equal(g.planId,null);validateStrategicAI(s);
+ const copy=JSON.parse(serializeCampaign(s));
+ for(let i=0;i<3;i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
+ assert.equal(serializeCampaign(s),serializeCampaign(copy));
+ for(let i=0;i<45&&!s.campaign.battles.some(b=>b.cityId===target.id);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
+ assert.ok(s.campaign.battles.some(b=>b.cityId===target.id),'actually arrived troops must reach a real defended-city battle after the next turn review');
+ assert.equal(serializeCampaign(s),serializeCampaign(copy));
+});
+
+test('early game capacity does not enable the middle game concentration fallback',()=>{
+ const {s}=concentratedFront({rearDistance:1600});s.turn=20;s.campaign.day=191;initializeStrategicAI(s);planStrategicAI(s);
+ assert.equal(s.campaign.ai.factions.yuan.strategy.goal.candidateId.startsWith('capture-assembly:'),false);
+});
+
+test('an observed empty city does not acquire a fictional siege after the expedition departs',()=>{
+ const {s,home,target}=planningFront();s.campaign.allAI=true;
+ home.units=[{...makeOfficer('person-715',1400,0,1),type:'archer',homeCity:home.id}];home.grain=40000;home.gold=20000;
+ target.owner='neutral';target.domestic.owner='neutral';target.units=[];target.gold=0;target.manpower=0;gateDurability(target).hp=15000;
+ s.roads=[[home.id,target.id]];s.roadSegments[[home.id,target.id].sort().join(':')]={distance:30};
+ initializeVision(s);initializeStrategicAI(s);planStrategicAI(s);
+ const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.ok(p);assert.equal(p.phase,'attack');
+ const copy=JSON.parse(serializeCampaign(s));
+ for(let i=0;i<3;i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
+ assert.equal(p.phase,'attack',p.reason);assert.equal(p.military.estimatedLosses,0);assert.equal(p.military.recovery.feasible,true);
+ assert.equal(serializeCampaign(s),serializeCampaign(copy));validateStrategicAI(s);
+});
+
 test('forward concentration cannot promise missing grain or transfer across an unsafe road',()=>{
  for(const blocked of ['grain','route']){
   const {s,home,sources}=concentratedFront({rearDistance:1600});
@@ -207,37 +256,41 @@ test('forward concentration cannot promise missing grain or transfer across an u
   else for(const c of sources.slice(1)){c.owner='cao';c.domestic.owner='cao';}
   updateVision(s);planStrategicAI(s);
   assert.equal(s.campaign.ai.factions.yuan.strategy.goal.candidateId.startsWith('capture-assembly:'),false);
-  assert.equal(s.campaign.idle.some(o=>o.faction==='yuan'&&o.destination===home.id&&o.unit.troops>0),false);
+  assert.equal(s.campaign.idle.some(o=>o.faction==='yuan'&&o.destination===home.id&&o.unit.troops>0),false,JSON.stringify(s.campaign.ai.decisions.slice(0,6)));
  }
 });
 
 test('a ready lawful attack cannot be displaced by optional forward concentration',()=>{
  const {s,home,target,sources}=concentratedFront({rearDistance:1600}),open=s.cities.find(c=>![...sources,target].includes(c));
  const source=sources[1];open.x=source.x-4;open.y=source.y;
- s.roads.push([source.id,open.id]);s.roadSegments[[source.id,open.id].sort().join(':')]={distance:7.5};
+ s.roads.push([source.id,open.id]);s.roadSegments[[source.id,open.id].sort().join(':')]={distance:1};
  const cleanup=registerStrategicAlgorithm('goalEvaluator',{id:'test-ready-before-concentration-v1',run:({candidate:c})=>({score:c.kind==='capture'?(c.ready?10:100):0})});
  try{
   setStrategicAlgorithms(s,{goalEvaluator:'test-ready-before-concentration-v1'});updateVision(s);planStrategicAI(s);
   const goal=s.campaign.ai.factions.yuan.strategy.goal;
   assert.equal(goal.targetCity,open.id);assert.ok(goal.planId);assert.notEqual(goal.status,'preparing');
   assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.target===open.id));
-  assert.equal(s.campaign.idle.some(o=>o.faction==='yuan'&&o.destination===home.id&&o.unit.troops>0),false);
+  assert.equal(goal.requirements.some(r=>r.cityId===home.id&&r.defensePower>0),false);
+  // Ordinary staffing may transfer a real city unit to an economic vacancy.
+  // The prohibited detour here is military concentration for the other target.
+  assert.equal(s.campaign.ai.decisions.some(d=>d.faction==='yuan'&&d.kind==='transfer'&&d.target===home.id&&d.reason.includes('主攻准备')),false);
   validateStrategicAI(s);
  }finally{cleanup();}
 });
 
 test('real carried grain bridges a finite unsupported camp without requiring every route segment to supply the whole trip',()=>{
  const {s,home,target,rear}=planningFront();home.grain=50000;rear.grain=0;target.grain=0;
+ home.units[0].troops=1000;home.units[0].type='cavalry';home.units[0].equipment.siege=null;
  const a={...cityForce(home),units:[home.units[0]],roadPolicy:'main'},junction={id:'bridge-junction',kind:'junction',name:'测试路口',x:4,y:0};
  s.junctions=[junction];s.roads=[[home.id,junction.id],[junction.id,target.id]];
- for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:100};updateVision(s);
+ for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:91};updateVision(s);
  assert.equal(supplyConnection(s,{...a,location:target.id},{siegeEndpoint:target.id}),null,'the enemy camp really lies beyond the current supply range');
- const route=[junction.id,target.id],before=serializeCampaign(s),r=forecastRouteSupply(s,a,route,60,{attack:true});
+ const route=[junction.id,target.id],before=serializeCampaign(s),r=forecastRouteSupply(s,a,route,170,{attack:true});
  assert.ok(r.feasible,'partial real resupply plus carried grain should cover the unsupported outward leg, camp and return');assert.ok(r.delivered>0);
  assert.ok(r.sourceRequirements.every(x=>x.cityId===home.id));assert.equal(serializeCampaign(s),before);
- assert.equal(forecastRouteSupply(s,a,route,100,{attack:true}).feasible,false,'carry must not support an indefinite isolated siege');
- home.grain=900;assert.equal(forecastRouteSupply(s,a,route,60,{attack:true}).feasible,false,'loading carry and home rations cannot reuse the depot stock');
- target.grain=1000000;assert.equal(forecastRouteSupply(s,a,route,60,{attack:true}).feasible,false,'enemy stores cannot become supply');
+ a.units[0].troops=3000;assert.equal(forecastRouteSupply(s,a,route,170,{attack:true}).feasible,false,'larger real ration demand cannot reuse the same minimum carry');a.units[0].troops=1000;
+ home.grain=900;assert.equal(forecastRouteSupply(s,a,route,170,{attack:true}).feasible,false,'loading carry and home rations cannot reuse the depot stock');
+ target.grain=1000000;assert.equal(forecastRouteSupply(s,a,route,170,{attack:true}).feasible,false,'enemy stores cannot become supply');
 });
 
 test('sustained refill capacity reduces a long operation burden within a bound without altering losses or food',()=>{

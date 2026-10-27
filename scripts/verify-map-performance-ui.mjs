@@ -4,10 +4,11 @@ import {createRequire} from 'node:module';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
+import {PERFORMANCE_BUDGETS} from './performance-budgets.mjs';
 
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const baseline=process.argv.includes('--baseline'),out='outputs/map-performance-ui',port='4319';
-const sourceSignature=()=>createHash('sha256').update(['city-scene.mjs','town-layout.mjs','town-art.mjs','road-network-view.mjs','national-map-view.mjs','metropolitan-map.mjs','city-scene.css','strategic-workspace.css'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
+const sourceSignature=()=>createHash('sha256').update(['art-strategic-map.mjs','map-camera-preview.mjs','strategic-dom.mjs','city-scene.mjs','town-layout.mjs','town-art.mjs','road-network-view.mjs','national-map-view.mjs','metropolitan-map.mjs','city-scene.css','strategic-workspace.css'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
 const signature=sourceSignature();
 mkdirSync(out,{recursive:true});
 const save=serializeCampaign(newCampaign(81,'guandu-200'));
@@ -23,7 +24,7 @@ try{
  await page.goto(`http://127.0.0.1:${port}/#strategy`);
  const main=page.locator('.national-world');await main.waitFor();
  if(process.env.MAP_PROFILE_CSS)await page.addStyleTag({content:process.env.MAP_PROFILE_CSS});
- if(!baseline)await main.locator('.ancient-atlas-terrain[data-preview-ready="true"]').waitFor();
+ if(!baseline){await main.locator('.ancient-atlas-terrain[data-preview-ready="true"]').waitFor();await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');}
  await page.locator('[data-map-view="selected"]').click();
  const saved=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  const cdp=await page.context().newCDPSession(page);await cdp.send('Performance.enable');
@@ -32,7 +33,7 @@ try{
   const frames=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   const box=svg.getBoundingClientRect(),clientX=box.x+box.width/2,clientY=box.y+box.height/2;
   const wheel=deltaY=>svg.dispatchEvent(new WheelEvent('wheel',{deltaY,clientX,clientY,bubbles:true,cancelable:true}));
-  const view=()=>Object.fromEntries(['x','y','width','height'].map(k=>[k,svg.viewBox.baseVal[k]]));
+  const view=()=>svg.dataset.cameraViewBox?Object.fromEntries(svg.dataset.cameraViewBox.split(' ').map((n,i)=>[['x','y','width','height'][i],+n])):Object.fromEntries(['x','y','width','height'].map(k=>[k,svg.viewBox.baseVal[k]]));
   const mutations=[];const observer=new MutationObserver(records=>mutations.push(...records));observer.observe(svg,{attributes:true,subtree:true,childList:true});
   const initialView=view(),start=performance.now();for(let i=0;i<12;i++)wheel(-100);
   const eventMs=performance.now()-start;
@@ -55,8 +56,9 @@ try{
  assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),saved);
  assert.deepEqual(errors,[]);
  if(!baseline){
+  assert.ok(result.frameP95<=PERFORMANCE_BUDGETS.desktop.mapFrameP95Ms,'desktop camera frame budget exceeded: '+result.frameP95);
   assert.ok(Math.abs(result.burstView.height-result.initialView.height*.88**12)<.001,'coalescing retains every wheel zoom step');
-  assert.equal(result.burstUpdates,1,'wheel events in one frame share one camera update');
+  assert.equal(result.burstUpdates,0,'a wheel burst transforms the cached layer without laying out the root SVG');
   assert.equal(result.animationCount,0,'continuous wheel zoom does not restart SVG animations');
   assert.ok(result.sceneCount<10,'zooming does not build panoramas for all surrounding settlements');
   await page.waitForFunction(()=>[...document.querySelectorAll('.ancient-atlas-terrain>g>image')].every(el=>el.getAttribute('href').startsWith('data:image/svg+xml')));
@@ -73,12 +75,18 @@ try{
  await page.screenshot({path:`${out}/${baseline?'before':'after'}.png`});
  if(!baseline){
   const settle=()=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  for(let i=0;i<2;i++){
+   await page.locator('[data-map-view="territory"]').click();
+   await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
+  }
   const view=()=>main.evaluate(el=>({x:el.viewBox.baseVal.x,y:el.viewBox.baseVal.y}));
   const beforeDrag=await view(),box=await main.boundingBox();
   await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down({button:'right'});
   await page.mouse.move(box.x+box.width/2+60,box.y+box.height/2+35,{steps:8});await page.waitForTimeout(300);
   assert.ok(await main.locator('.ancient-atlas-terrain').evaluate(el=>[...el.querySelectorAll('image')].every(image=>image.getAttribute('href').startsWith('blob:'))),'a held gesture must not return to vector terrain during an input pause');
   assert.ok(await main.evaluate(el=>el.classList.contains('map-camera-moving')),'held gestures retain the movement rendering mode');
+  assert.ok(await main.locator('[data-camera-vectors]').evaluate(el=>el.style.display==='none'),'held gestures reuse a texture instead of laying out all map vectors');
+  await page.screenshot({path:`${out}/movement.png`});
   await page.mouse.up({button:'right'});await settle();await page.waitForFunction(()=>[...document.querySelectorAll('.ancient-atlas-terrain>g>image')].every(el=>el.getAttribute('href').startsWith('data:image/svg+xml')));
   assert.equal(await main.evaluate(el=>el.classList.contains('map-camera-moving')),false,'full terrain rendering returns after the gesture');
   assert.notDeepEqual(await view(),beforeDrag);
@@ -93,7 +101,7 @@ try{
   await page.locator('.world-commands').evaluate(el=>{el.scrollTop=0;});await page.screenshot({path:`${out}/compact-landscape.png`});
   assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),saved);
   assert.deepEqual(errors,[]);
-  result.checks=['wheel coalescing without lost steps','no continuous SVG animation','bounded scene loading','terrain pixel comparison','main-map drag and return to operation focus','removed scenery and zoom buttons','camera leaves save untouched'];
+  result.checks=['wheel coalescing without lost steps','no continuous SVG animation','bounded scene loading','terrain pixel comparison','cached movement texture and vector restoration','main-map drag and return to operation focus','removed scenery and zoom buttons','camera leaves save untouched'];
  }
  writeFileSync(`${out}/${baseline?'before':'after'}.json`,JSON.stringify(result,null,2));
  console.log(JSON.stringify(result));

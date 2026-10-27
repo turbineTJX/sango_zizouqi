@@ -1,4 +1,4 @@
-import {intelligenceWorld,withIntelligenceQueries} from './strategic-vision.mjs';
+import {supplyRoutingWorld,withIntelligenceQueries} from './strategic-vision.mjs';
 import {withRoadQueries} from './road-network.mjs';
 import {cityRecurringIncome} from './economy.mjs';
 import {dailyConsumption,supplyConnection} from './strategic-campaign.mjs';
@@ -26,8 +26,10 @@ export function citySupplyBudgets(s){
  if(!s.armies.some(a=>!a.disbanded)){const empty=[];if(scope)scope.supplies=empty;return empty;}
  const views=new Map();
  const result=s.armies.filter(a=>!a.disbanded).map(a=>{
-  if(!views.has(a.faction)){const view=intelligenceWorld(s,a.faction);views.set(a.faction,{view,empty:{...view,cities:view.cities.map(c=>c.grain>0?c:{...c,grain:1})}});}
-  const {view,empty}=views.get(a.faction);return {army:a,link:supplyConnection(view,a)||supplyConnection(empty,a),need:dailyConsumption(s,a)};
+  if(!views.has(a.faction))views.set(a.faction,{view:supplyRoutingWorld(s,a.faction),empty:null});
+  const entry=views.get(a.faction),link=supplyConnection(entry.view,a);
+  if(!link)entry.empty??={...entry.view,cities:entry.view.cities.map(c=>c.grain>0?c:{...c,grain:1})};
+  return {army:a,link:link||supplyConnection(entry.empty,a),need:dailyConsumption(s,a)};
  });
  if(scope)scope.supplies=result;return result;
 }

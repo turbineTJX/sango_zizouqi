@@ -1,5 +1,13 @@
 import {canOccupy,blockedTerrain} from './battlefield.mjs';
 
+export function previewBattlePlacement(b,unitId,x,y){
+ if(!b)return {error:'请选择战场'};
+ const copy=structuredClone(b),error=deployBattleUnit(copy,unitId,x,y);
+ if(error)return {error};
+ const swapped=b.sides[0].units.find(u=>u.id!==unitId&&u.status==='active'&&u.x===x&&u.y===y);
+ return {battleId:b.id,unitId,x,y,swapId:swapped?.id||null};
+}
+
 // One placement operation for the UI and either background controller.
 export function deployBattleUnit(b,unitId,x,y,side=0){
  if(!b||b.deploymentLocked||b.tick!==0||b.result)return '开战后位置锁定，暂停也不能移动部队';

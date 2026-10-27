@@ -21,9 +21,11 @@ self.addEventListener('fetch',event=>{
    return cached||fetch(event.request);
   })());return;
  }
- if(url.pathname.includes('/assets/'))event.respondWith((async()=>{
-  const cache=await caches.open(ART_CACHE);
-  try{const response=await fetch(event.request);if(response.ok)await cache.put(event.request,response.clone());return response;}
-  catch(error){const cached=await cache.match(event.request);if(cached)return cached;throw error;}
- })());
+ if(url.pathname.includes('/assets/')){
+  const network=fetch(event.request);
+  // Persist a separate clone while delivering the image/audio immediately.
+  // Cache quota or disk failures must not turn a successful load into a failure.
+  event.waitUntil(network.then(response=>{if(response.ok){const copy=response.clone();return caches.open(ART_CACHE).then(cache=>cache.put(event.request,copy));}}).catch(()=>{}));
+  event.respondWith(network.catch(async error=>{const cached=await (await caches.open(ART_CACHE)).match(event.request);if(cached)return cached;throw error;}));
+ }
 });

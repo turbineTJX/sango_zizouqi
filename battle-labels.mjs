@@ -26,7 +26,12 @@ export class BattleLabels{
   this.positions=new Map();this.resize=new ResizeObserver(()=>this.layout());this.resize.observe(board);
  }
  highlight(id){this.highlighted=id;for(const el of this.root.querySelectorAll('.unit-nameplate,[data-unit]'))el.classList.toggle('roster-highlight',(el.dataset.inspect||el.dataset.unit)===id);this.onHighlight?.(id);}
- update(units){if(!units.some(u=>u.id===this.highlighted))this.highlighted=null;this.highlight(this.highlighted);this.layout();}
+ update(units){
+  if(!units.some(u=>u.id===this.highlighted))this.highlighted=null;this.highlight(this.highlighted);
+  const nodes=[...this.board.querySelectorAll('[data-unit]')];
+  const key=JSON.stringify(nodes.map(el=>[el.dataset.unit,el.style.left,el.style.top,el.querySelector('.unit-map-caption')?.textContent]));
+  if(key!==this.layoutKey){this.layoutKey=key;this.layout();}
+ }
  layout(){
   const board=this.board.getBoundingClientRect();if(!board.width||!board.height)return;
   const entries=[...this.board.querySelectorAll('[data-unit]')].map(el=>{

@@ -24,6 +24,7 @@ export function officerActivities(s,{all=true}={}){
  const state=(faction,siteId,code,action,buildingKey=null,paused=false)=>({faction: faction||'neutral',siteId:siteId||null,fromId:null,toId:null,progress:null,buildingKey,paused,code,place:siteId?town(siteId):'—',action});
  const journey=(faction,fromId,toId,progress,code,action)=>({...state(faction,fromId,code,action),fromId,toId,progress:clamp(progress),place:town(fromId)+' → '+town(toId)+'（途中）'});
  function person(unit,faction,location,{army=null,idle=null,returning=false}={}){
+  if(unit.generatedOfficer)return;
   const id=unit.id,a=assignments.get(id),x=a?.action,def=x&&ACTIONS[x.key],m=unit.mission;
   let v;
   if(m){

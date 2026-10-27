@@ -4,7 +4,7 @@ export const NATIONAL_MAP = {
     "project": "sango_infinity-main",
     "file": "Build/Content/Scenario/Scenario.json",
     "sha256": "c0eb75d9c9a47f053fddb8f7d7f30ab05db9c561e4afec8b28761a39d096762b",
-    "note": "城池名单、规模、坐标与新增道路参考用户提供古地图；方框为大城、圆圈为小城，未高亮的保留城池按小城适配；同城保留三国古名，晚期新城按三国区域旧治适配。原有连接继承参考项目，关隘、港口和新增区域路网为游戏设计；行程长度独立维护。"
+    "note": "城池名单、规模与地形参考用户提供古地图；同城保留三国古名。山脊禁行、关隘和渡河港口由道路网络设计表约束，水路只连接港口；渡口两岸点位及路线为地理游戏适配，非历史GIS。行程长度独立维护。"
   },
   "cities": [
     {
@@ -593,7 +593,7 @@ export const NATIONAL_MAP = {
       "sourceId": 50,
       "name": "葭萌关",
       "x": 433,
-      "y": 568.5,
+      "y": 523.4,
       "kind": "gate",
       "province": "益州",
       "subtitle": "益州 · 险要关隘",
@@ -604,7 +604,7 @@ export const NATIONAL_MAP = {
       "sourceId": 51,
       "name": "涪水关",
       "x": 388.6,
-      "y": 590,
+      "y": 567.1,
       "kind": "gate",
       "province": "益州",
       "subtitle": "益州 · 险要关隘",
@@ -636,8 +636,8 @@ export const NATIONAL_MAP = {
       "id": "town-54",
       "sourceId": 54,
       "name": "高唐港",
-      "x": 770.6,
-      "y": 352.9,
+      "x": 769.2,
+      "y": 305.1,
       "kind": "port",
       "province": "冀州",
       "subtitle": "冀州 · 水陆港口",
@@ -659,7 +659,7 @@ export const NATIONAL_MAP = {
       "sourceId": 56,
       "name": "白马港",
       "x": 711.7,
-      "y": 373.7,
+      "y": 359.1,
       "kind": "port",
       "province": "冀州",
       "subtitle": "冀州 · 水陆港口",
@@ -713,8 +713,8 @@ export const NATIONAL_MAP = {
       "id": "town-61",
       "sourceId": 61,
       "name": "濡须港",
-      "x": 842,
-      "y": 475.6,
+      "x": 828.1,
+      "y": 544.2,
       "kind": "port",
       "province": "青徐",
       "subtitle": "青徐 · 水陆港口",
@@ -757,8 +757,8 @@ export const NATIONAL_MAP = {
       "id": "town-65",
       "sourceId": 65,
       "name": "解县港",
-      "x": 595.2,
-      "y": 381.3,
+      "x": 620.2,
+      "y": 364,
       "kind": "port",
       "province": "司隶",
       "subtitle": "司隶 · 水陆港口",
@@ -845,8 +845,8 @@ export const NATIONAL_MAP = {
       "id": "town-73",
       "sourceId": 73,
       "name": "皖口港",
-      "x": 839.2,
-      "y": 580.3,
+      "x": 821.2,
+      "y": 556.7,
       "kind": "port",
       "province": "扬州",
       "subtitle": "扬州 · 水陆港口",
@@ -867,8 +867,8 @@ export const NATIONAL_MAP = {
       "id": "town-75",
       "sourceId": 75,
       "name": "陆口港",
-      "x": 801.1,
-      "y": 596.2,
+      "x": 802.5,
+      "y": 615.6,
       "kind": "port",
       "province": "扬州",
       "subtitle": "扬州 · 水陆港口",
@@ -900,8 +900,8 @@ export const NATIONAL_MAP = {
       "id": "town-78",
       "sourceId": 78,
       "name": "夏口港",
-      "x": 720.7,
-      "y": 612.2,
+      "x": 722.1,
+      "y": 585.1,
       "kind": "port",
       "province": "荆北",
       "subtitle": "荆北 · 水陆港口",
@@ -955,8 +955,8 @@ export const NATIONAL_MAP = {
       "id": "town-83",
       "sourceId": 83,
       "name": "江津港",
-      "x": 631.9,
-      "y": 614.3,
+      "x": 634.7,
+      "y": 586.5,
       "kind": "port",
       "province": "荆北",
       "subtitle": "荆北 · 水陆港口",
@@ -1435,13 +1435,75 @@ export const NATIONAL_MAP = {
       "subtitle": "冀州 · 小城",
       "owner": "neutral",
       "citySize": "small"
+    },
+    {
+      "id": "atlas-jincheng-port",
+      "sourceId": 1100,
+      "name": "金城港",
+      "x": 349.8,
+      "y": 370.9,
+      "kind": "port",
+      "province": "凉州",
+      "subtitle": "凉州 · 水陆港口",
+      "owner": "neutral"
+    },
+    {
+      "id": "atlas-huai-port",
+      "sourceId": 1101,
+      "name": "淮水港",
+      "x": 824.7,
+      "y": 492.2,
+      "kind": "port",
+      "province": "扬州",
+      "subtitle": "扬州 · 水陆港口",
+      "owner": "neutral"
+    },
+    {
+      "id": "atlas-jincheng-east-port",
+      "sourceId": 1102,
+      "name": "金城东港",
+      "x": 373.3,
+      "y": 370.9,
+      "kind": "port",
+      "province": "凉州",
+      "subtitle": "凉州 · 水陆港口",
+      "owner": "neutral"
+    },
+    {
+      "id": "atlas-huainan-port",
+      "sourceId": 1103,
+      "name": "淮南港",
+      "x": 828.1,
+      "y": 510.3,
+      "kind": "port",
+      "province": "扬州",
+      "subtitle": "扬州 · 水陆港口",
+      "owner": "neutral"
+    },
+    {
+      "id": "atlas-jiangzhou-port",
+      "sourceId": 1104,
+      "name": "江州港",
+      "x": 454.5,
+      "y": 653.1,
+      "kind": "port",
+      "province": "益州",
+      "subtitle": "益州 · 水陆港口",
+      "owner": "neutral"
+    },
+    {
+      "id": "atlas-nanjin-port",
+      "sourceId": 1105,
+      "name": "南津港",
+      "x": 454.5,
+      "y": 669.7,
+      "kind": "port",
+      "province": "益州",
+      "subtitle": "益州 · 水陆港口",
+      "owner": "neutral"
     }
   ],
   "roads": [
-    [
-      "town-1",
-      "town-2"
-    ],
     [
       "town-2",
       "town-3"
@@ -1467,22 +1529,6 @@ export const NATIONAL_MAP = {
       "ye"
     ],
     [
-      "town-5",
-      "town-8"
-    ],
-    [
-      "town-5",
-      "town-12"
-    ],
-    [
-      "ye",
-      "town-12"
-    ],
-    [
-      "ye",
-      "chenliu"
-    ],
-    [
       "town-8",
       "town-9"
     ],
@@ -1491,28 +1537,12 @@ export const NATIONAL_MAP = {
       "town-10"
     ],
     [
-      "town-9",
-      "town-11"
-    ],
-    [
-      "town-10",
-      "town-11"
-    ],
-    [
       "town-10",
       "town-12"
     ],
     [
       "town-10",
       "chenliu"
-    ],
-    [
-      "town-11",
-      "runan"
-    ],
-    [
-      "town-11",
-      "town-23"
     ],
     [
       "town-11",
@@ -1536,10 +1566,6 @@ export const NATIONAL_MAP = {
     ],
     [
       "xuchang",
-      "luoyang"
-    ],
-    [
-      "xuchang",
       "wan"
     ],
     [
@@ -1552,19 +1578,11 @@ export const NATIONAL_MAP = {
     ],
     [
       "wan",
-      "town-19"
-    ],
-    [
-      "wan",
       "town-29"
     ],
     [
       "town-18",
       "town-20"
-    ],
-    [
-      "town-19",
-      "town-29"
     ],
     [
       "town-19",
@@ -1575,24 +1593,8 @@ export const NATIONAL_MAP = {
       "town-21"
     ],
     [
-      "town-20",
-      "town-22"
-    ],
-    [
-      "town-21",
-      "town-22"
-    ],
-    [
-      "town-21",
-      "town-37"
-    ],
-    [
       "town-23",
       "town-24"
-    ],
-    [
-      "town-23",
-      "town-26"
     ],
     [
       "town-23",
@@ -1603,56 +1605,16 @@ export const NATIONAL_MAP = {
       "town-25"
     ],
     [
-      "town-26",
-      "town-27"
-    ],
-    [
-      "town-26",
-      "town-28"
-    ],
-    [
-      "town-27",
-      "town-28"
-    ],
-    [
-      "town-27",
-      "town-31"
-    ],
-    [
       "town-27",
       "town-32"
     ],
     [
       "town-28",
       "town-30"
-    ],
-    [
-      "town-28",
-      "town-31"
-    ],
-    [
-      "town-28",
-      "town-32"
     ],
     [
       "town-29",
       "town-30"
-    ],
-    [
-      "town-30",
-      "town-31"
-    ],
-    [
-      "town-31",
-      "town-32"
-    ],
-    [
-      "town-31",
-      "town-33"
-    ],
-    [
-      "town-31",
-      "town-36"
     ],
     [
       "town-32",
@@ -1667,10 +1629,6 @@ export const NATIONAL_MAP = {
       "town-35"
     ],
     [
-      "town-33",
-      "town-36"
-    ],
-    [
       "town-34",
       "town-35"
     ],
@@ -1679,28 +1637,12 @@ export const NATIONAL_MAP = {
       "town-39"
     ],
     [
-      "town-38",
-      "town-39"
-    ],
-    [
       "town-39",
       "town-40"
     ],
     [
-      "town-39",
-      "town-41"
-    ],
-    [
-      "town-40",
-      "town-41"
-    ],
-    [
       "town-41",
       "town-42"
-    ],
-    [
-      "jinyang",
-      "town-43"
     ],
     [
       "ye",
@@ -1739,19 +1681,7 @@ export const NATIONAL_MAP = {
       "town-48"
     ],
     [
-      "town-18",
-      "town-48"
-    ],
-    [
-      "town-37",
-      "town-49"
-    ],
-    [
       "town-49",
-      "town-50"
-    ],
-    [
-      "town-38",
       "town-50"
     ],
     [
@@ -1815,10 +1745,6 @@ export const NATIONAL_MAP = {
       "town-64"
     ],
     [
-      "luoyang",
-      "town-65"
-    ],
-    [
       "town-18",
       "town-66"
     ],
@@ -1873,10 +1799,6 @@ export const NATIONAL_MAP = {
     [
       "town-29",
       "town-79"
-    ],
-    [
-      "town-30",
-      "town-80"
     ],
     [
       "town-31",
@@ -2059,32 +1981,12 @@ export const NATIONAL_MAP = {
       "town-22"
     ],
     [
-      "atlas-jincheng",
-      "town-20"
-    ],
-    [
-      "atlas-jincheng",
-      "atlas-longxi"
-    ],
-    [
       "atlas-longxi",
       "town-21"
     ],
     [
-      "atlas-longxi",
-      "atlas-xiping"
-    ],
-    [
       "atlas-chengle",
       "atlas-pingcheng"
-    ],
-    [
-      "atlas-chengle",
-      "atlas-suifang"
-    ],
-    [
-      "atlas-suifang",
-      "atlas-lishi"
     ],
     [
       "atlas-suifang",
@@ -2128,10 +2030,6 @@ export const NATIONAL_MAP = {
     ],
     [
       "atlas-linshi",
-      "town-5"
-    ],
-    [
-      "atlas-linshi",
       "atlas-donglai"
     ],
     [
@@ -2160,23 +2058,7 @@ export const NATIONAL_MAP = {
     ],
     [
       "atlas-qiao",
-      "town-11"
-    ],
-    [
-      "atlas-qiao",
       "town-10"
-    ],
-    [
-      "atlas-fuling",
-      "town-39"
-    ],
-    [
-      "atlas-fuling",
-      "town-36"
-    ],
-    [
-      "atlas-fuling",
-      "town-33"
     ],
     [
       "atlas-yuzhang",
@@ -2211,10 +2093,6 @@ export const NATIONAL_MAP = {
       "town-41"
     ],
     [
-      "atlas-longbian",
-      "town-42"
-    ],
-    [
       "atlas-liucheng",
       "atlas-feiru"
     ],
@@ -2247,30 +2125,6 @@ export const NATIONAL_MAP = {
       "town-4"
     ],
     [
-      "atlas-wuchang",
-      "town-28"
-    ],
-    [
-      "atlas-wuchang",
-      "town-27"
-    ],
-    [
-      "atlas-wuchang",
-      "town-78"
-    ],
-    [
-      "atlas-wuchang",
-      "town-74"
-    ],
-    [
-      "atlas-zhongli",
-      "town-11"
-    ],
-    [
-      "atlas-zhongli",
-      "atlas-hefei"
-    ],
-    [
       "atlas-zhongli",
       "atlas-guangling"
     ],
@@ -2289,14 +2143,6 @@ export const NATIONAL_MAP = {
     [
       "atlas-guangling",
       "town-60"
-    ],
-    [
-      "atlas-guangling",
-      "town-23"
-    ],
-    [
-      "atlas-guangling",
-      "atlas-jingkou"
     ],
     [
       "atlas-jingkou",
@@ -2324,10 +2170,6 @@ export const NATIONAL_MAP = {
     ],
     [
       "atlas-xunyang",
-      "atlas-wuchang"
-    ],
-    [
-      "atlas-xunyang",
       "town-74"
     ],
     [
@@ -2336,19 +2178,11 @@ export const NATIONAL_MAP = {
     ],
     [
       "atlas-baling",
-      "town-31"
-    ],
-    [
-      "atlas-baling",
       "town-32"
     ],
     [
       "atlas-baling",
       "town-84"
-    ],
-    [
-      "atlas-baling",
-      "atlas-wuchang"
     ],
     [
       "atlas-linchuan",
@@ -2365,10 +2199,6 @@ export const NATIONAL_MAP = {
     [
       "atlas-leling",
       "town-5"
-    ],
-    [
-      "atlas-leling",
-      "atlas-linshi"
     ],
     [
       "atlas-donglai",
@@ -2413,6 +2243,106 @@ export const NATIONAL_MAP = {
     [
       "atlas-jingxing",
       "jinyang"
+    ],
+    [
+      "town-44",
+      "xuchang"
+    ],
+    [
+      "town-21",
+      "town-48"
+    ],
+    [
+      "town-48",
+      "town-50"
+    ],
+    [
+      "town-49",
+      "town-38"
+    ],
+    [
+      "atlas-jincheng",
+      "atlas-jincheng-port"
+    ],
+    [
+      "atlas-zhongli",
+      "atlas-huai-port"
+    ],
+    [
+      "town-10",
+      "atlas-zhongli"
+    ],
+    [
+      "town-26",
+      "town-61"
+    ],
+    [
+      "town-30",
+      "town-79"
+    ],
+    [
+      "atlas-jincheng-port",
+      "atlas-jincheng-east-port"
+    ],
+    [
+      "atlas-jincheng-east-port",
+      "town-20"
+    ],
+    [
+      "atlas-jincheng-east-port",
+      "atlas-longxi"
+    ],
+    [
+      "atlas-huai-port",
+      "atlas-huainan-port"
+    ],
+    [
+      "atlas-huainan-port",
+      "town-11"
+    ],
+    [
+      "atlas-huainan-port",
+      "atlas-hefei"
+    ],
+    [
+      "atlas-suifang",
+      "town-67"
+    ],
+    [
+      "atlas-wuchang",
+      "town-27"
+    ],
+    [
+      "atlas-xunyang",
+      "atlas-wuchang"
+    ],
+    [
+      "atlas-baling",
+      "atlas-wuchang"
+    ],
+    [
+      "town-39",
+      "atlas-jiangzhou-port"
+    ],
+    [
+      "atlas-jiangzhou-port",
+      "atlas-nanjin-port"
+    ],
+    [
+      "atlas-nanjin-port",
+      "town-41"
+    ],
+    [
+      "atlas-nanjin-port",
+      "atlas-fuling"
+    ],
+    [
+      "town-80",
+      "town-31"
+    ],
+    [
+      "atlas-wuchang",
+      "town-75"
     ]
   ],
   "forces": {

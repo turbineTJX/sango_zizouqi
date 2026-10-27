@@ -1,6 +1,6 @@
 import {newCampaign,findCampaignRoute} from './auto-domestic-campaign.mjs';
 import {cityForce} from '../../city-units.mjs';
-import {roadDistance,roadCost,movementPoints} from '../../strategic-movement.mjs';
+import {roadDistance,roadCost,movementPoints,chosenRoad,marchItinerary} from '../../strategic-movement.mjs';
 // Explicit already-mobilized forces for road/combat fixtures. The game itself
 // starts with city units; these fixtures remove each deployed unit from its city.
 export function fieldFromCity(s,cityId,{id,ids,target=null}={}){
@@ -21,6 +21,24 @@ export function approachDestination(s,a,days=1){
  const from=a.location,to=a.route[0],length=roadDistance(s,from,to);
  a.travel={from,to,road:'main',progress:Math.max(0,length-movementPoints(a)*days*length/roadCost(s,from,to))};
  return a;
+}
+
+// Battle mechanism fixtures begin just before legal contact. Full journey
+// tests and natural campaign audits never use this positioning helper.
+export function approachFieldContact(s,a,b,fraction=.5){
+ if(a.route[0]!==b.location||b.route[0]!==a.location)throw Error('Fixture requires opposing armies on the same road');
+ for(const [index,army]of [a,b].entries()){
+  const from=army.location,to=army.route[0],road=chosenRoad(s,from,to),length=roadDistance(s,from,to);
+  const speed=movementPoints({...army,travel:{terrain:road.terrain}}),gap=Math.min(length/4,speed*length/road.cost/2);
+  army.travel={from,to,road:road.id,progress:length*(index?1-fraction:fraction)-gap};
+ }
+}
+
+// Whole-turn observation budget derived from this actual army and route.
+export function marchTestTurns(s,a){
+ const days=marchItinerary(s,a.location,a.route,a,a.roadPolicy||'auto').days;
+ if(!Number.isFinite(days))throw Error('Fixture army cannot traverse its saved route');
+ return Math.ceil(days/10)+1;
 }
 
 export const expeditionFrom=a=>({kind:'expedition',cityId:a.location,officerIds:a.units.filter(u=>u.troops>0).slice(0,10).map(u=>u.id),leader:a.units.find(u=>u.troops>0).id,advisor:a.units.find(u=>u.troops>0).id,policy:'auto'});

@@ -22,8 +22,11 @@ export function mapTargetCandidates(s,kind,{scout={},command={},battle}={}){
 }
 export function targetMapMarkup(markup,ids,selected){
  const allowed=new Set(ids);
- return markup.replaceAll('data-junction=','data-command-city=').replaceAll('data-city=','data-command-city=').replaceAll('data-campaign-army=','data-command-army=').replaceAll('data-transport-officer=','data-command-transport=').replaceAll('data-action="campaign-focus"','data-command-battle')
+ return markup.replaceAll('data-action="bandit-open"','').replaceAll('data-bandit-node=','data-command-city=').replaceAll('data-junction=','data-command-city=').replaceAll('data-city=','data-command-city=').replaceAll('data-campaign-army=','data-command-army=').replaceAll('data-transport-officer=','data-command-transport=').replaceAll('data-action="campaign-focus"','data-command-battle')
  .replace(/data-command-city="([^"]+)"/g,(attribute,id)=>`${attribute} data-map-target="${id===selected?'selected':allowed.has(id)?'eligible':'unavailable'}"`);
+}
+export function syncMapTargetAttributes(root){
+ for(const node of root.querySelectorAll('[data-map-target]')){node.setAttribute('aria-pressed',String(node.dataset.mapTarget==='selected'));node.setAttribute('aria-disabled',String(node.dataset.mapTarget==='unavailable'));}
 }
 export function mapTargetSummary(s,pick,candidate,context){
  if(!candidate)return '<p role="status">请选择目标</p>';

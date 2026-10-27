@@ -1,5 +1,5 @@
 import {resolveCampaignDecisions} from './helpers/resolve-campaign-decisions.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NATIONAL_MAP_COUNTS,NATIONAL_SCENARIOS,nationalWorld,nationalRoster} from '../national-scenarios.mjs';
@@ -8,6 +8,7 @@ const restored=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function startTestSiege(s){
  const ids=s.cities.find(c=>c.id==='chenliu').units.slice(0,6).map(u=>u.id);
  assert.equal(launchExpedition(s,{cityId:'chenliu',officerIds:ids,leader:ids[0],advisor:ids[1]||ids[0],target:'ye',policy:'auto'}),null);
+ approachDestination(s,s.armies.at(-1));
 }
 function toDay(s,day){for(let guard=0;s.campaign.day<day&&guard<300&&!s.finished;guard++){if(s.campaign.phase==='planning')beginExecution(s);resolveCampaignDecisions(s);advanceCampaignDay(s);}return s;}
 // These long combat fixtures exercise the original four-force layouts. The

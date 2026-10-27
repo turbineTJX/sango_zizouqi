@@ -14,6 +14,7 @@ const start=async(scenario,faction)=>{await action('strategy').click();await pag
 const archives=async()=>{await action('settings').first().click();await action('save').click();};
 const create=async name=>{await page.locator('#archive-name').fill(name);await action('archive-create').click();await row(name).waitFor();};
 const row=name=>page.locator('.archive-card').filter({has:page.locator('h3',{hasText:name})});
+const loaded=async(faction,name)=>{await page.locator('.sovereign-identity h1').filter({hasText:name}).waitFor();await page.locator('.archive-card').first().waitFor({state:'detached'});await page.waitForFunction(async faction=>{const {readSavedGame}=await import('/save-storage.mjs');return JSON.parse(await readSavedGame('sango-sovereign-v2')).campaign.playerFaction===faction;},faction);assert.equal(await page.locator('.sovereign-identity h1').innerText(),name);};
 try{
  await page.goto(process.env.GAME_URL||'http://127.0.0.1:4329');await action('load').click();await page.locator('.archive-empty').first().waitFor();assert.equal(await page.locator('.archive-empty').count(),2);await action('close').click();
  await start('guandu-200','yuan');await archives();await create('袁绍 · 北方开局');assert.equal(await row('袁绍 · 北方开局').count(),1);
@@ -21,10 +22,10 @@ try{
  await action('close').click();await action('lobby').first().click();await start('heroes-251','sunce');await archives();await create('孙策 · 江东开局');assert.equal(await page.locator('.archive-card').count(),3);
  assert.equal((await snapshot())[key],first[key]);await page.screenshot({path:`${out}/desktop.png`,fullPage:true});
  await row('袁绍 · 北方开局').locator('[data-action="archive-overwrite"]').click();await action('archive-cancel').click();assert.equal((await snapshot())[key],first[key]);
- await row('袁绍 · 北方开局').locator('[data-action="archive-load"]').click();assert.equal(await page.locator('.sovereign-identity h1').innerText(),'袁绍');
+ await row('袁绍 · 北方开局').locator('[data-action="archive-load"]').click();await loaded('yuan','袁绍');
  await page.reload();await page.locator('.strategy-page').waitFor();assert.equal(await page.locator('.sovereign-identity h1').innerText(),'袁绍');
- await action('lobby').first().click();await action('load').click();assert.equal(await action('archive-create').count(),0);await row('孙策 · 江东开局').locator('[data-action="archive-load"]').click();assert.equal(await page.locator('.sovereign-identity h1').innerText(),'孙策');
- await archives();await row('袁绍 · 北方开局').locator('[data-action="archive-overwrite"]').click();await action('archive-confirm').click();assert.equal(JSON.parse(JSON.parse((await snapshot())[key]).data).campaign.playerFaction,'sunce');
+ await action('lobby').first().click();await action('load').click();assert.equal(await action('archive-create').count(),0);await row('孙策 · 江东开局').locator('[data-action="archive-load"]').click();await loaded('sunce','孙策');
+ await archives();await row('袁绍 · 北方开局').locator('[data-action="archive-overwrite"]').click();await action('archive-confirm').click();await page.getByText('手动存档已更新',{exact:true}).waitFor();assert.equal(JSON.parse(JSON.parse((await snapshot())[key]).data).campaign.playerFaction,'sunce');
  await row('袁绍 · 北方开局').locator('[data-action="archive-delete"]').click();await action('archive-cancel').click();assert.ok((await snapshot())[key]);
  await row('袁绍 · 北方开局').locator('[data-action="archive-delete"]').click();await action('archive-confirm').click();assert.equal((await snapshot())[key],undefined);
  await page.evaluate(async()=>{const {writeSavedGame}=await import('/save-storage.mjs');await writeSavedGame('sango-manual-save-v1:broken','{');});await action('close').click();await archives();assert.equal(await row('无法识别').locator('[data-action="archive-load"]').isDisabled(),true);

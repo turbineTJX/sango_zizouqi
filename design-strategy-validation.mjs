@@ -5,12 +5,18 @@ export function validateStrategyDesigns(t){
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
  const planning=t.strategicPlanning;
- if(fields(planning,['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','switchMargin','peacePressureRatio','preparationTurns','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority','resourcePriority','victory','opposition','recovery','tempo','temperament','assessment','algorithms'],'strategicPlanning')){
+ if(fields(planning,['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','switchMargin','peacePressureRatio','preparationTurns','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority','resourcePriority','victory','opposition','recovery','tempo','temperament','assessment','algorithms','personnel'],'strategicPlanning')){
   for(const key of ['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','preparationTurns'])check(Number.isSafeInteger(planning[key])&&planning[key]>0,'strategicPlanning.'+key,'须为正整数');
   check(planning.pairLimit>=planning.candidateLimit&&planning.pairLimit<=64,'strategicPlanning.pairLimit','边境枚举须覆盖候选且不超过64组');
   for(const key of ['switchMargin','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority'])check(num(planning[key],0),'strategicPlanning.'+key,'须为非负数');
   check(planning.candidateLimit<=16&&planning.forceVariants<=4&&planning.preparationTurns<=3&&planning.traceLimit<=30,'strategicPlanning','候选、推演或记录超出有限规划上限');
   check(num(planning.peacePressureRatio,.1,3)&&num(planning.resourcePriority,1,2),'strategicPlanning','战略比例无效');
+  if(fields(planning.personnel,['frontKeepOfficers','frontGuardUnits','frontGuardTroops','frontMilitaryWeight','rearCivilianWeight','frontDepartureWeight'],'strategicPlanning.personnel')){
+   const p=planning.personnel;
+   for(const key of ['frontKeepOfficers','frontGuardUnits'])check(Number.isSafeInteger(p[key])&&num(p[key],1,4),'strategicPlanning.personnel.'+key,'前线保留人数须为1至4');
+   check(Number.isSafeInteger(p.frontGuardTroops)&&num(p.frontGuardTroops,100,10000),'strategicPlanning.personnel.frontGuardTroops','前线守备人数须为有界整数');
+   for(const key of ['frontMilitaryWeight','rearCivilianWeight','frontDepartureWeight'])check(num(p[key],0,1),'strategicPlanning.personnel.'+key,'人才调配权重须为0至1');
+  }
   if(fields(planning.temperament,['baseChance','judgmentWeight','politicsWeight','quietAfterTurns','quietPerTurn','maximumQuietBonus','minimumChance','maximumChance','earlyFactor','maximumLossShare','ratioRelief','minimumAdvantage','valueTolerance'],'strategicPlanning.temperament')){
    const p=planning.temperament;
    for(const key of ['judgmentWeight','politicsWeight','quietPerTurn','maximumQuietBonus','minimumChance','maximumChance','earlyFactor','maximumLossShare'])check(num(p[key],0,1),'strategicPlanning.temperament.'+key,'概率与比例须为0至1');
@@ -181,7 +187,23 @@ export function validateStrategyDesigns(t){
   check(visited.size===cities.length,key,'地图不连通：'+cities.filter(c=>!visited.has(c.id)).map(c=>c.id).join('、'));
  }
  const network=t.roadNetwork;
- if(fields(network,['trailCost','bypasses','nodeNames','nodePositions'],'roadNetwork')){
+ if(fields(network,['trailCost','bypasses','nodeNames','nodePositions','geography'],'roadNetwork')){
+  const geo=network.geography,edgeKey=e=>[...e].sort().join(':');
+  if(fields(geo,['remove','add','terrain'],'roadNetwork.geography')){
+   for(const kind of ['remove','add']){
+    check(Array.isArray(geo[kind]),'roadNetwork.geography.'+kind,'地理连接须为道路数组');
+    const seen=new Set();
+    for(const edge of geo[kind]||[]){const valid=Array.isArray(edge)&&edge.length===2&&edge[0]!==edge[1]&&edge.every(id=>t.cities.some(c=>c.id===id)),key=valid?edgeKey(edge):'';
+     check(valid&&!seen.has(key),'roadNetwork.geography.'+kind,'地理道路引用无效或重复');seen.add(key);
+     check(kind==='add'?t.roads.some(e=>edgeKey(e)===key):!t.roads.some(e=>edgeKey(e)===key),'roadNetwork.geography.'+kind,'道路必须实际落实地理增删');
+    }
+   }
+   for(const [key,terrain] of Object.entries(geo.terrain||{})){
+    const edge=t.roads.find(e=>edgeKey(e)===key);
+    check(['land','mountain','water'].includes(terrain)&&!!edge,'roadNetwork.geography.terrain.'+key,'地理路段须存在且地形有效');
+    check(terrain!=='water'||edge?.every(id=>t.cities.some(c=>c.id===id&&c.kind==='port')),'roadNetwork.geography.terrain.'+key,'水路必须在两个真实港口之间，上下船不能绕过港口');
+   }
+  }
   check(num(network.trailCost,1),'roadNetwork.trailCost','小路代价须不低于官道');
   check(Array.isArray(network.bypasses),'roadNetwork.bypasses','须为三据点数组');
   const expectedNames=new Set(Object.keys(network.nodePositions||{}));
@@ -214,7 +236,8 @@ export function validateStrategyDesigns(t){
   check(num(r.offset,-Infinity),path+'.offset','曲线偏移须为有限数');
   for(const part of ['names','costFactors'])if(fields(r[part],['land','mountain','water'],path+'.'+part))for(const terrain of ['land','mountain','water'])check(part==='names'?typeof r[part][terrain]==='string'&&r[part][terrain].length>0:num(r[part][terrain],Number.EPSILON),path+'.'+part+'.'+terrain,'无效道路名称或代价系数');
  }
- if(fields(m.army,['speedByTroop','command','morale','hunger'],'movement.army')){
+ if(fields(m.army,['landSpeedFactor','speedByTroop','command','morale','hunger'],'movement.army')){
+  check(num(m.army.landSpeedFactor,Number.EPSILON,1),'movement.army.landSpeedFactor','陆路军团速度倍率须大于0且不超过1');
   if(fields(m.army.speedByTroop,Object.keys(t.troops),'movement.army.speedByTroop'))for(const id of Object.keys(t.troops))check(num(m.army.speedByTroop[id],Number.EPSILON),'movement.army.speedByTroop.'+id,'兵种行军速度须大于0');
   for(const key of ['command','morale'])if(fields(m.army[key],['base','perPoint'],'movement.army.'+key))for(const field of ['base','perPoint'])check(num(m.army[key][field]),'movement.army.'+key+'.'+field,'系数须为非负数');
   check(Array.isArray(m.army.hunger),'movement.army.hunger','缺粮规则须为数组');let previous=Infinity;

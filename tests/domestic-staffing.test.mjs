@@ -7,7 +7,8 @@ import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';
 import {cityDomesticMarkup} from '../strategic-view.mjs';
 import {newCommand,commandCanAdvance} from '../strategic-command.mjs';
-import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';
+import {campaignOfficers,pickerReason,campaignRosterMarkup} from '../strategic-roster.mjs';
+import {domesticDirectionMarkup} from '../domestic-direction-view.mjs';
 import {officerRecommendation} from '../officer-recommendation.mjs';
 import {busyFixture} from './helpers/domestic-orders.mjs';
 import {setBuildingLevel} from './building-fixtures.mjs';
@@ -114,8 +115,30 @@ test('UI and recommendations share vacancies and selected candidates cannot exce
  assert.equal(commandCanAdvance(s,p),true);assert.match(pickerReason(s,campaignOfficers(s).find(o=>o.unit.id===ids[3]),p),/上限/);
  p.selected.push(ids[3]);assert.equal(commandCanAdvance(s,p),false);
  appoint(s,c,'commerce',[ids[2]]);assert.equal(officerRecommendation(s,cityPersonnel(s,c.id).find(o=>o.unit.id===ids[3]).unit,{task:'domestic',city:c.id,direction:'commerce'}).available,false);
- assert.match(cityDomesticMarkup(s,c.id),/3 \/ 3 人/);assert.match(cityDomesticMarkup(s,c.id),/disabled[^>]*data-task="domestic"[^>]*data-direction="commerce"/);
+ assert.match(cityDomesticMarkup(s,c.id),/3 \/ 3 人/);assert.match(cityDomesticMarkup(s,c.id),/data-action="domestic-direction-open"[^>]*data-direction="commerce"/);
+ assert.equal((domesticDirectionMarkup(s,c.id,'commerce').match(/data-domestic-slot=/g)||[]).length,3);assert.doesNotMatch(domesticDirectionMarkup(s,c.id,'commerce'),/class="domestic-slot empty"/);
 });
+
+test('picker shows total occupancy once while checked officers remain removable at capacity',()=>{
+ const {s,c,ids}=fixture();appoint(s,c,'commerce',ids.slice(0,2));const p=newCommand(s,'domestic',c.id,{direction:'commerce'});p.selected=[ids[2]];
+ const before=serializeCampaign(s),html=campaignRosterMarkup(s,{personnel:{city:c.id}},p);
+ assert.match(html,/人数 <b>3\/3<\/b>/);assert.doesNotMatch(html,/人数已达上限|请减少人选|含待执行委任/);
+ const choice=id=>html.match(new RegExp('<input[^>]*data-personnel-choice="'+id+'"[^>]*>'))[0];
+ assert.match(choice(ids[2]),/checked/);assert.doesNotMatch(choice(ids[2]),/disabled/);assert.match(choice(ids[3]),/disabled/);
+ p.selected=[];const reopened=campaignRosterMarkup(s,{personnel:{city:c.id}},p);assert.match(reopened,/人数 <b>2\/3<\/b>/);assert.doesNotMatch(reopened.match(new RegExp('<input[^>]*data-personnel-choice="'+ids[3]+'"[^>]*>'))[0],/disabled/);assert.equal(serializeCampaign(s),before);
+});
+
+test('direction detail shows real portraits, work, traits, reservations and vacancies without changing saves',()=>{
+ const s=newCampaign(7,'heroes-251','sunce'),c=s.cities.find(c=>c.id==='town-9'),id='person-420';assert.equal(assignDomestic(s,c.id,'commerce',id),null);beginDomesticTurn(s);
+ const before=serializeCampaign(s),html=domesticDirectionMarkup(s,c.id,'commerce'),upper=cityDomesticMarkup(s,c.id);
+ assert.match(html,/data-art-portrait="person-420"/);assert.match(html,/data-domestic-officer="person-420"/);assert.match(html,/相关特性/);assert.match(html,new RegExp(actionNameForTest(s,id)));
+ assert.equal((html.match(/data-domestic-slot=/g)||[]).length,3);assert.equal((html.match(/class="domestic-slot empty"/g)||[]).length,2);
+ assert.doesNotMatch(upper,/data-art-portrait="person-420"|data-action="domestic-dismiss"|domestic-slot-work/);assert.equal(serializeCampaign(s),before);
+ const busy=busyFixture(),ids=cityPersonnel(busy.s,busy.c.id).map(o=>o.unit.id).filter(x=>x!==busy.id);appoint(busy.s,busy.c,'commerce',ids.slice(0,2));
+ assert.ok(requestStrategicOrder(busy.s,{kind:'assign',cityId:busy.c.id,direction:'commerce',officerIds:[busy.id]},'after').queued);
+ const queued=domesticDirectionMarkup(busy.s,busy.c.id,'commerce');assert.match(queued,/人数 <b>3\/3<\/b>/);assert.match(queued,/待任/);assert.match(queued,/data-action="campaign-cancel-order"/);assert.doesNotMatch(queued,/class="domestic-slot empty"/);
+});
+function actionNameForTest(s,id){return ACTIONS[assignmentFor(s,id).action.key].name;}
 
 test('save validation rejects overfilled directions, forged expansion and previous domestic versions',()=>{
  const {s,c,ids}=fixture();appoint(s,c,'commerce',ids.slice(0,3));

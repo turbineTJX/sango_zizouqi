@@ -1,3 +1,4 @@
+import {patchMarkup,forgetMarkup} from './strategic-dom.mjs';
 // Viewing an object leaves its source list available for the next selection.
 export const isObjectDetail=view=>!!view.textDetails||['unit-stats','unit-officer','tactic-detail','gate','battle-building','catalog-detail','scenario-army-info','campaign-history','campaign-archive','campaign-replay'].includes(view.modal)||view.modal==='campaign-info'&&!!view.infoView?.id;
 
@@ -14,7 +15,7 @@ export function createDetailPanels(root){
   render(html,context){
    const detail=!!html&&isObjectDetail(context);
    if(detail&&!source&&rendered&&!isObjectDetail(rendered)&&panelRoot.firstElementChild){
-    source={context:rendered};
+    source={context:rendered};forgetMarkup(panelRoot);
     const backdrop=panelRoot.firstElementChild;
     const positions=[backdrop,...backdrop.querySelectorAll('*')].filter(el=>el.scrollTop||el.scrollLeft).map(el=>({el,top:el.scrollTop,left:el.scrollLeft}));
     for(const [oldClass,newClass]of Object.entries(aliases))for(const el of backdrop.querySelectorAll('.'+oldClass)){el.classList.replace(oldClass,newClass);}
@@ -30,10 +31,10 @@ export function createDetailPanels(root){
     for(const [oldClass,newClass]of Object.entries(aliases))for(const el of backdrop.querySelectorAll('.'+newClass))el.classList.replace(newClass,oldClass);
     const title=backdrop.querySelector('#detail-source-title');if(title)title.id='modal-title';
     const dialog=backdrop.querySelector('[role="dialog"]');if(dialog){dialog.setAttribute('aria-labelledby','modal-title');dialog.setAttribute('aria-modal','true');}
-    panelRoot.replaceChildren(backdrop);for(const p of positions){p.el.scrollTop=p.top;p.el.scrollLeft=p.left;}restored=true;
+    panelRoot.replaceChildren(backdrop);forgetMarkup(panelRoot);for(const p of positions){p.el.scrollTop=p.top;p.el.scrollLeft=p.left;}restored=true;
    }
    if(!detail){source=null;sourceRoot.replaceChildren();}
-   if(!restored)panelRoot.innerHTML=html;
+   if(!restored){if(rendered?.modal===context.modal)patchMarkup(panelRoot,html);else{panelRoot.innerHTML=html;forgetMarkup(panelRoot);}}
    returning=false;
    rendered=html?context:null;
    return {detail,restored,blocking:!!html&&(!detail||!!source)};

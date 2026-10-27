@@ -2,6 +2,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,transferOfficer,appointGovernor,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {campaignOfficers,pickerReason,cityRosterMarkup,campaignRosterMarkup} from '../strategic-roster.mjs';
+import {cityStaffStatus} from '../domestic-feedback.mjs';
+import {assignDomestic} from '../domestic.mjs';
+
+test('standby counts and filters include prepared garrisons without confusing formation with an actual appointment',()=>{
+ const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),u=c.units.find(u=>cityStaffStatus(s,c).idle.some(o=>o.unit.id===u.id));assert.ok(u);
+ const expected=cityStaffStatus(s,c).idle.map(o=>o.unit.id).sort(),before=serializeCampaign(s);
+ const rows=campaignOfficers(s);assert.deepEqual(rows.filter(r=>r.location===c.id&&r.availableIdle).map(r=>r.unit.id).sort(),expected);
+ const html=cityRosterMarkup(s,{personnel:{status:'待命'}},c.id);assert.match(html,new RegExp('待命 '+expected.length+' ·'));assert.ok(html.includes('data-officer="'+u.id+'"'));assert.equal(serializeCampaign(s),before);
+ assert.equal(assignDomestic(s,c.id,'commerce',u.id),null);assert.equal(campaignOfficers(s).find(r=>r.unit.id===u.id).availableIdle,false);
+ assert.ok(!cityRosterMarkup(s,{personnel:{status:'待命'}},c.id).includes('data-officer="'+u.id+'"'));
+});
 test('personnel census covers every owned officer once and tracks real transfer locations',()=>{
  const s=newCampaign(203,'guandu-200'),rows=campaignOfficers(s);
  const expected=[...s.cities.filter(c=>c.owner==='cao').flatMap(c=>c.units.map(u=>u.id)),...s.armies.filter(a=>a.faction==='cao').flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.filter(o=>o.faction==='cao').map(o=>o.unit.id)];

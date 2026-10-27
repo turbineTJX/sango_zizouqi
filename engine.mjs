@@ -36,8 +36,10 @@ import {NATIONAL_FACTIONS,nationalWorld} from './national-scenarios.mjs';
 import {battleBuildings,pulseBattleBuildings,validBuildingCombatState,combatBuildingRule,buildingTargetValue} from './building-rules.mjs';
 import {ATTACK_ORBS} from './attack-orbs.mjs';
 import {OFFICER_BY_ID,officerProfile,PROFILE_FIELDS,RELATION_LIST_FIELDS} from './officer-catalog.mjs';
+import {generatedOfficer,validGeneratedOfficer} from './generated-officers.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {validateCustomBattle} from './custom-battle.mjs';
+import {validateMapDocument} from './battle-map-document.mjs';
 import {arrivalConditionMet,sameArrivalCondition} from './reinforcement-arrival.mjs';
 import {applyBattleEvents,validBattleEventStatus} from './battle-events.mjs';
 import {relationshipInfo,validRelationshipScores,validRelationshipTypes} from './relationships.mjs';
@@ -287,7 +289,7 @@ function garrisonUnits(city) {
   return Array.from({ length: count }, (_, i) => ({ id: `g-${city.id}-${i}`, name: `${city.name}${['守将', '校尉', '都尉', '偏将', '参军', '牙将'][i]}`, courtesy: '守军', leadership: 72, force: 70, intellect: 65, politics:65, skill: '据险固守', trait: '守土有责', equipment:emptyEquipment(),type: types[i], formation: types[i] === 'archer' ? 'back' : 'front', troops: Math.floor(city.garrison / count) + (i === 0 ? city.garrison % count : 0), wounded: 0, first: true }));
 }
 export function combatUnit(u, armyId, side, morale) {
-  return { ...structuredClone(u), ...officerProfile(u.id), level:u.level??1,merit:u.merit??0,skillRouteType:u.skillRouteType||u.type,formType:null,formReadyTick:0,passiveState:initialPassiveState(),traitState:{},bondState:{},participated:false,contribution:emptyContribution(),attackCarry:0,armyId, side, retreatAt:u.retreatAt??null,withdrawing:false,disengage:null,hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, intentRoutApplied:false, tacticRecoveryUntil:0, cast: null, skillReady:{}, tacticCasts:{}, tacticRestored:{}, tacticCommandRestored:{}, tacticUseBonus:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
+  return { ...structuredClone(u), ...(generatedOfficer(u)||officerProfile(u.id)), level:u.level??1,merit:u.merit??0,skillRouteType:u.skillRouteType||u.type,formType:null,formReadyTick:0,passiveState:initialPassiveState(),traitState:{},bondState:{},participated:false,contribution:emptyContribution(),attackCarry:0,armyId, side, retreatAt:u.retreatAt??null,withdrawing:false,disengage:null,hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, intentRoutApplied:false, tacticRecoveryUntil:0, cast: null, skillReady:{}, tacticCasts:{}, tacticRestored:{}, tacticCommandRestored:{}, tacticUseBonus:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
 }
 export function configureUnitTactics(state,unitId,ids) {
   if(state.battle&&!isDeploying(state.battle))return '开战后战法锁定，暂停也不能更换';
@@ -354,7 +356,8 @@ export function configureBattleTerrain(b,terrain) {
 
   if(b.terrain===terrain)return null;
   b.terrain=terrain;
-  if(b.mapId&&BATTLE_MAPS[b.mapId]?.terrain!==terrain)delete b.mapId;
+  if(b.mapData&&b.mapData.terrain!==terrain){delete b.mapData;delete b.mapId;}
+  if(b.mapId&&!b.mapData&&BATTLE_MAPS[b.mapId]?.terrain!==terrain)delete b.mapId;
   // Reset both armies so changing water lanes cannot strand either side.
   const units=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active');
   for(const u of units){u.status='reserve';u.x=-1;u.y=-1;u.moveProgress=0;}
@@ -1536,7 +1539,7 @@ export function validateSave(value, { strategic = false } = {}) {
     require(u.retreatAt===undefined||validRetreatAt(u.retreatAt),'撤离设置无效');
     require(u.meritCapacity===undefined||number(u.meritCapacity,troopCapacity({...u,level:10}))&&u.meritCapacity>troopCapacity(u),'降级整编上限无效');
     require(u.troops+u.wounded<=(u.meritCapacity||troopCapacity(u)),'现役与伤兵总数超过武将带兵上限');
-    const profile=officerProfile(u.id);
+    const profile=generatedOfficer(u)||officerProfile(u.id);
     for(const key of PROFILE_FIELDS)require(u[key]===profile[key],'武将人物资料不匹配');
     const relation=u.relations;
     require(relation&&typeof relation==='object'&&!Array.isArray(relation)&&Object.keys(relation).length===6,'人物关系数据无效');
@@ -1550,8 +1553,9 @@ export function validateSave(value, { strategic = false } = {}) {
       const keys=['name','courtesy','leadership','force','intellect','politics','charm','skill','trait','loyalty'];
       for(const key of keys)require(u[key]===source[key],'武将基础数据不匹配');
     } else {
-      require((combat && /^g-[a-z]+-\d$/.test(u.id)) && text(u.name, 20) && text(u.skill) && number(u.leadership, 100) && number(u.force, 100) && number(u.intellect, 100) && number(u.politics,100), '守军数据无效');
+      require(strategic&&validGeneratedOfficer(u)||(combat && /^g-[a-z]+-\d$/.test(u.id)) && text(u.name, 20) && text(u.skill) && number(u.leadership, 100) && number(u.force, 100) && number(u.intellect, 100) && number(u.politics,100), '守军或随机贼将数据无效');
     }
+    for(const key of ['spoilsGold','spoilsGrain'])require(u[key]===undefined||number(u[key]),'战利品须为非负整数');
   }
   const armyIds = new Set();
   for (const army of value.armies) {
@@ -1578,7 +1582,9 @@ export function validateSave(value, { strategic = false } = {}) {
     require(validRelationshipScores(b.relationshipScores,b.relationshipTypes),'战场人物关系值无效');
     for(const field of ['relationshipScores','relationshipTypes'])require(b.result||Object.keys({...value[field],...b[field]}).every(key=>value[field][key]===b[field][key]),'战场与存档人物关系值或类型不一致');
     require(b.gridType==='hex'&&Object.hasOwn(BATTLE_TERRAINS,b.terrain),'战场网格或地形无效');
-    require(!b.mapId||Object.hasOwn(BATTLE_MAPS,b.mapId)&&BATTLE_MAPS[b.mapId].terrain===b.terrain,'战役地图无效');
+    if(b.mapData){const document=validateMapDocument(b.mapData);require(!!scenario&&document.id===b.mapId&&document.terrain===b.terrain,'自定义战场地图无效');require(JSON.stringify(document)===JSON.stringify(validateMapDocument(value.testScenario.customBattle.mapData)),'战场地图与开局快照不一致');}
+    require(!b.mapId||b.mapData||Object.hasOwn(BATTLE_MAPS,b.mapId)&&BATTLE_MAPS[b.mapId].terrain===b.terrain,'战役地图无效');
+    if(scenario)require(!!b.mapData===!!value.testScenario.customBattle.mapData,'战场缺少自定义地图快照');
     if(scenario)require((b.mapId||null)===(value.testScenario.customBattle.mapId||null),'战役地图与开局不一致');
     const battleLimit=scenario?.limit||(strategic?CAMPAIGN_TIME.stepsPerDay*CAMPAIGN_TIME.maxBattleDays:240);
     require(scenario ? b.maxTicks === scenario.limit : strategic ? b.maxTicks === battleLimit : b.maxTicks === undefined, '战斗时限无效');

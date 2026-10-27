@@ -1,5 +1,5 @@
 import {fundCities} from './resource-fixtures.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,approachDestination,marchTestTurns} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,prepareSiegeUnits,launchExpedition,prepareCityUnits,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,assignDomestic} from './helpers/auto-domestic-campaign.mjs';
@@ -28,7 +28,7 @@ test('invalid commander and duplicate selection cannot partially create a field 
 });
 test('arrival at a friendly destination returns individual units and removes the expedition instance',()=>{
  const s=newCampaign(5,'guandu-200'),q=order(s);assert.equal(launchExpedition(s,q),null);const id=s.armies[0].id;
- for(let n=0;n<12&&s.armies.some(a=>a.id===id);n++)advance(s);
+ for(let n=0,limit=marchTestTurns(s,s.armies[0])*10;n<limit&&s.armies.some(a=>a.id===id);n++)advance(s);
  assert.ok(!s.armies.some(a=>a.id===id));for(const id of q.officerIds)assert.ok(town(s,q.target).units.some(u=>u.id===id));reload(s);
 });
 test('a deferred expedition stores composition, creates no army early, and launches after real work completes',()=>{
@@ -50,6 +50,7 @@ test('real sieges build temporary defense from city units and resume determinist
  // Shared movement, economy, recruitment, diplomacy and combat still run.
  const advanceSiege=world=>{world.campaign.ai.lastPlanDay=world.campaign.day;advance(world);};
  assert.equal(launchExpedition(s,order(s,'chenliu','ye')),null);
+ approachDestination(s,s.armies.at(-1));
  for(let n=0;n<20&&!r;n++){advanceSiege(s);r=activeBattles(s).find(r=>r.armies.some(a=>a.defense));}
  assert.ok(r);const guard=s.armies.find(a=>a.defense&&r.armyIds.includes(a.id));assert.ok(guard);
  assert.ok(town(s,guard.location).units.every(u=>u.mission||u.troops===0),'only absent or zero-strength units remain outside the temporary defense');
@@ -66,7 +67,7 @@ test('departure can prepare an idle officer atomically and invalid departure spe
  assert.ok(requestStrategicOrder(s,q,'now').applied);assert.ok(s.armies.some(a=>a.units.some(u=>u.id===id&&u.troops>0)));assert.ok(!s.campaign.idle.some(o=>o.unit.id===id));reload(s);
 });
 test('awaiting siege permits real idle-officer preparation without starting battle or changing source',()=>{
- const s=newCampaign(5);fieldFromCity(s,'guandu',{target:'xuchang'});let r;
+ const s=newCampaign(5);approachDestination(s,fieldFromCity(s,'guandu',{target:'xuchang'}));let r;
  for(let n=0;n<30&&!r;n++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);r=activeBattles(s).find(r=>r.awaiting&&r.kind==='siege'&&town(s,r.cityId).owner==='cao'&&s.campaign.idle.some(o=>o.location===r.cityId&&o.faction==='cao'));if(!r)for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);}
  assert.ok(r);const c=town(s,r.cityId),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction==='cao'),before=serializeCampaign(s);
  const result=prepareSiegeUnits(s,r.id,[o.unit.id],{},true);assert.equal(result.error,undefined);assert.equal(serializeCampaign(s),before);

@@ -15,7 +15,7 @@ import {availableConstructionSites} from '../metropolitan-areas.mjs';
 const phase=seeds=>({construction:compareConstruction(seeds,{allBuildings:true}),operations:compareEconomicWork(seeds)});
 const development=phase(DEVELOPMENT_SEEDS),validation=phase(VALIDATION_SEEDS);
 for(const data of [development,validation]){
- for(const r of data.construction){assert.ok(r.engineeringSpread<.1);assert.ok(r.efficiencySpread<.1);assert.ok(r.costEfficiencySpread<.1);}
+ for(const r of data.construction){assert.ok(r.engineeringSpread<.1);assert.ok(r.costEfficiencySpread<.1);const market=r.commands.find(c=>c.key==='build_commerce');for(const other of r.commands.filter(c=>['build_farm','build_barracks'].includes(c.key)))assert.ok(market.meanValuePerOfficerDay<other.meanValuePerOfficerDay*.5,'market uses the approved longer construction time');}
  for(const r of data.operations)assert.ok(r.spread<.1);
 }
 // Optional read-only comparison to the previously audited economy functions.

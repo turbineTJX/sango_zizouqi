@@ -59,7 +59,8 @@ test('AI city adjacency expands every port/pass leg instead of treating separate
  const pair=cityRoads(s).find(([from,to])=>adjacentCityPath(s,from,to)?.some(id=>['gate','port'].includes(mapNode(s,id).kind)));
  assert.ok(pair);const [from,to]=pair,path=adjacentCityPath(s,from,to);assert.ok(path.length>1);
  assert.ok(path.slice(0,-1).every(id=>isJunction(s,id)));
- assert.equal(strategicTravelDays(s,a,[to],from),marchItinerary(s,from,path,movementPoints(a)).days);
+ for(const u of a.units)u.equipment.ship='ship';
+ assert.equal(strategicTravelDays(s,a,[to],from),marchItinerary(s,from,path,a).days);
 });
 
 test('a port/pass garrison blocks the actual supply corridor but an empty node does not',()=>{

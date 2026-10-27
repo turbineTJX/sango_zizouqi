@@ -1,4 +1,4 @@
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
 import {busyFixture} from './helpers/domestic-orders.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import test from 'node:test';
@@ -51,7 +51,7 @@ test('current status follows actual marching and transfer progress',()=>{
  beginExecution(s);advanceCampaignDay(s);assert.ok(a.travel);assert.match(status(s,'army',a.id),/当前路段进度/);assert.match(status(s,'unit',ids[0]),/沿道路行军/);
 });
 test('siege status includes the live battlefield state of a real defending unit',()=>{
- const s=newCampaign(5);fieldFromCity(s,'guandu',{target:'xuchang'});let battle;
+ const s=newCampaign(5);approachDestination(s,fieldFromCity(s,'guandu',{target:'xuchang'}));let battle;
  for(let i=0;i<20&&!battle;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);advanceCampaignDay(s);battle=activeBattles(s).find(b=>b.armies.some(a=>a.defense));}
  assert.ok(battle);const army=s.armies.find(a=>a.defense&&battle.armyIds.includes(a.id)),unit=battle.battle.sides.flatMap(side=>side.units).find(u=>u.armyId===army.id);
  const before=JSON.stringify(s);assert.match(status(s,'city',battle.cityId),/正在遭受围攻/);const html=status(s,'unit',unit.id);assert.match(html,/战场实时兵力/);assert.ok(html.includes(String(Math.round(unit.hp))));assert.match(html,/当前战斗行动/);assert.match(status(s,'faction',army.faction),/当前战事/);assert.equal(JSON.stringify(s),before);

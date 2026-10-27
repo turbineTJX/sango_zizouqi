@@ -46,5 +46,27 @@ function localScoutPaths(s,from){
   for(const next of t.adj.get(x.id)){if(allowed.has(next.id)&&!seen.has(next.id))pending.push({id:next.id,cost:x.cost+next.cost,path:[...x.path,next.id]});}
  }t.paths.set(from,paths);return paths;
 }
-export function scoutRoute(s,from,to){const path=localScoutPaths(s,from).get(to);return path?[...path]:null;}
+export function validScoutRoute(s,home,to,route,from=home){
+ const t=scoutingTopology(s),nearby=scoutingNeighborhood(s,home);
+ if(!localScoutPaths(s,home).has(to)||!Array.isArray(route)||!route.length||route.at(-1)!==to||!nearby.has(from)||from!==home&&t.cities.has(from))return false;
+ const seen=new Set([from]);let at=from;
+ for(const id of route){if(seen.has(id)||!nearby.has(id)||t.cities.has(id)&&id!==to||!Number.isFinite(roadCost(s,at,id)))return false;seen.add(id);at=id;}
+ return true;
+}
+export function scoutRoute(s,from,to,via=[]){
+ if(!via.length){const path=localScoutPaths(s,from).get(to);return path?[...path]:null;}
+ const t=scoutingTopology(s),allowed=scoutingNeighborhood(s,from),route=[];
+ if(!localScoutPaths(s,from).has(to)||via.some(id=>!allowed.has(id)||t.cities.has(id)))return null;
+ let at=from;
+ const stops=[...via,to];
+ for(let i=0;i<stops.length;i++){
+  const end=stops[i],pending=[{id:at,cost:0,path:[]}],seen=new Set([from,...route,...stops.slice(i+1)]);seen.delete(at);let leg=null;
+  while(pending.length){pending.sort((a,b)=>a.cost-b.cost||a.id.localeCompare(b.id));const x=pending.shift();if(seen.has(x.id))continue;seen.add(x.id);if(x.id===end){leg=x.path;break;}
+   if(x.id!==at&&t.cities.has(x.id))continue;
+   for(const next of t.adj.get(x.id)||[])if(allowed.has(next.id)&&!seen.has(next.id))pending.push({id:next.id,cost:x.cost+next.cost,path:[...x.path,next.id]});
+  }
+  if(!leg?.length)return null;route.push(...leg);at=end;
+ }
+ return validScoutRoute(s,from,to,route)?route:null;
+}
 export function scoutTargets(s,cityId){const paths=localScoutPaths(s,cityId);return mapNodes(s).filter(n=>paths.has(n.id));}

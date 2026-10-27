@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,findCampaignRoute,orderCampaignArmy,beginExecution,advanceCampaignStep,advanceCampaignDay,validateCampaign,serializeCampaign,supplyConnection,transferOfficer,activeBattles,chooseEncounter} from './helpers/auto-domestic-campaign.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,marchTestTurns,approachDestination} from './helpers/field-campaign.mjs';
 import {mapNode,isJunction,edgeKey,adjacentCityPath,cityRoads} from '../road-network.mjs';
 import {ROAD_NETWORK_DESIGN} from '../data/design/road-network.mjs';
 import {NATIONAL_ROAD_DESIGNS} from '../data/design/roads.mjs';
@@ -10,7 +10,7 @@ import {advancePersonnel,transportEnemy} from '../personnel-movement.mjs';
 import {roadCost,roadDistance,marchItinerary} from '../strategic-movement.mjs';
 import {commandMarkup,newCommand} from '../strategic-command.mjs';
 
-const world=()=>newCampaign(217,'guandu-200');
+const world=(seed=217)=>newCampaign(seed,'guandu-200');
 const mid=(a,b)=>'junction:'+edgeKey(a,b);
 test('junctions create cross-road bypasses without adding cities or bypassing passes',()=>{
  const s=world();assert.equal(s.cities.length,NATIONAL_MAP_COUNTS.city);assert.equal(s.junctions.filter(n=>n.kind==='junction').length,24);
@@ -30,16 +30,20 @@ test('Xuchang and Qiao connect through a real countryside junction with north an
  assert.equal(roadDistance(s,'xuchang',id)+roadDistance(s,id,'atlas-qiao'),30);
  for(const neighbor of [mid('chenliu','xuchang'),mid('runan','xuchang')])assert.deepEqual(findCampaignRoute(s,id,neighbor),[neighbor]);
  const a=fieldFromCity(s,'xuchang');assert.equal(orderCampaignArmy(s,a.id,id),null);beginExecution(s);
- for(let i=0;i<10&&a.location!==id;i++)advanceCampaignDay(s);
- assert.equal(a.location,id);assert.equal(a.travel,null);assert.equal(a.task,'府驻守');
+ for(let i=0,limit=marchTestTurns(s,a)*10;i<limit&&a.location!==id;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
+ assert.equal(a.location,id);assert.equal(a.travel,null);
+ const camp=s.campaign.bandits.camps.find(c=>c.nodeId===id);
+ if(camp){assert.equal(a.task,'交战');assert.ok(activeBattles(s).some(b=>b.banditCampId===camp.id&&b.armyIds.includes(a.id)));}
+ else assert.equal(a.task,'府驻守');
  assert.ok(!s.cities.some(c=>c.id===id));
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));
- advanceCampaignDay(s);advanceCampaignDay(restored);assert.equal(serializeCampaign(s),serializeCampaign(restored));
+ for(const state of [s,restored]){for(const b of activeBattles(state).filter(b=>b.awaiting))chooseEncounter(state,b.id,false);advanceCampaignDay(state);}
+ assert.equal(serializeCampaign(s),serializeCampaign(restored));
 });
 test('a real order arrives at a junction without creating an occupation or city economy',()=>{
  const s=world(),a=fieldFromCity(s,'xuchang'),id=mid('xuchang','chenliu'),before=structuredClone(s.junctions);
  assert.equal(orderCampaignArmy(s,a.id,id),null);beginExecution(s);
- for(let i=0;i<10&&a.location!==id;i++)advanceCampaignDay(s);
+ for(let i=0,limit=marchTestTurns(s,a)*10;i<limit&&a.location!==id;i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  assert.equal(a.location,id);assert.equal(a.travel,null);assert.equal(a.target,null);assert.equal(a.task,'府驻守');
  assert.deepEqual(s.junctions,before);assert.ok(!s.cities.some(c=>c.id===id));
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));
@@ -69,15 +73,15 @@ test('convoys pass unoccupied junctions but lose cargo to an actual junction gar
 test('junction defenders trigger a real field battle and the battle save validates',()=>{
  const s=world(),a=fieldFromCity(s,'xuchang'),e=fieldFromCity(s,'ye'),id=mid('xuchang','chenliu');
  e.location=id;e.cooldownDay=999;
- assert.equal(orderCampaignArmy(s,a.id,id),null);beginExecution(s);e.route=[];e.target=null;
- for(let i=0;i<10&&!activeBattles(s).some(b=>b.cityId===id);i++)advanceCampaignDay(s);const battle=activeBattles(s).find(b=>b.cityId===id);
+ assert.equal(orderCampaignArmy(s,a.id,id),null);approachDestination(s,a);beginExecution(s);e.route=[];e.target=null;
+ for(let i=0,limit=marchTestTurns(s,a)*10;i<limit&&!activeBattles(s).some(b=>b.cityId===id);i++)advanceCampaignDay(s);const battle=activeBattles(s).find(b=>b.cityId===id);
  assert.ok(battle);assert.equal(battle.kind,'field');assert.equal(battle.battle.siege,undefined);
  validateCampaign(JSON.parse(serializeCampaign(s)));
  chooseEncounter(s,battle.id,false);advanceCampaignDay(s);validateCampaign(JSON.parse(serializeCampaign(s)));
 });
 test('command target and review display junctions as field locations',()=>{
  const s=world(),a=fieldFromCity(s,'xuchang'),p=newCommand(s,'march','xuchang',{armyId:a.id});p.destination=s.junctions[0].id;
- const html=commandMarkup(s,{officerPick:p},'').body;assert.match(html,/府/);assert.doesNotMatch(html,/NaN|undefined/);
+ const html=commandMarkup(s,{officerPick:p},'').body;assert.ok(html.includes(s.junctions[0].name));assert.doesNotMatch(html,/NaN|undefined/);
  p.step='review';const review=commandMarkup(s,{officerPick:p},'').body;assert.ok(review.includes(s.junctions[0].name));assert.doesNotMatch(review,/—.*路口/);
 });
 test('junction topology is validated and old campaign versions are rejected',()=>{

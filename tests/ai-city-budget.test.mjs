@@ -22,7 +22,7 @@ function scene(){
  player.owner='cao';player.domestic.owner='cao';
  Object.assign(source,{x:0,y:0});Object.assign(rear,{x:-8,y:0});Object.assign(front,{x:8,y:0,grain:0});
  s.roads=[[source.id,front.id],[source.id,rear.id]];
- for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:7.5};
+ for(const e of s.roads)s.roadSegments[[...e].sort().join(':')]={distance:1};
  source.units=[{...makeOfficer('shao',1000,0,3),homeCity:source.id}];
  initializeVision(s);initializeStrategicAI(s);
  for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),Math.max(0,s.turn-1));p.lastReviewTurn=s.turn;}

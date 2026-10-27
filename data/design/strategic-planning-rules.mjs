@@ -4,6 +4,7 @@ export const STRATEGIC_PLANNING_RULES=Object.freeze({
  switchMargin:20,peacePressureRatio:.65,
  preparationTurns:2,preparationPenalty:12,uncertaintyPerDay:2,maximumUncertainty:20,
  peacePriority:35,defensePriority:100,resourcePriority:1.3,
+ personnel:Object.freeze({frontKeepOfficers:2,frontGuardUnits:2,frontGuardTroops:2000,frontMilitaryWeight:.6,rearCivilianWeight:.4,frontDepartureWeight:.35}),
  victory:Object.freeze({territoryValue:24,endgameValue:24,regionalValue:18,completionValue:24,eliminationValue:35,connectionValue:20,corridorValue:6,maxCorridors:3,focusValue:12,focusSwitchMargin:20,maxBonus:140,observedStockShare:.35,observedStockGoldPerPoint:100,maxObservedStockBonus:120}),
  opposition:Object.freeze({emergencyPowerPerMan:1.35,citySupportShare:.5,fieldSupportShare:.75,cityResponseDays:1,minimumBattleDays:4,maxBattleDays:8,neutralContestDays:2,staleMarginPerDay:.04,maxStaleMargin:.3,lossFactor:.6}),
  recovery:Object.freeze({horizonDays:20,maximumForecastDays:180,freshIntelligenceDays:3,maximumAdvantageRelief:.5,minimumAdvantage:1.2,bufferLosses:1,maximumCostRelief:2}),

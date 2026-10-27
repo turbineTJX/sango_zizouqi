@@ -8,10 +8,10 @@ import {sourceOfflineManifest,writeSourceOfflineManifest} from '../scripts/sourc
 test('offline dependencies include transitive cycles, dynamic modules and CSS resources without caching unrelated files',async t=>{
  const base=resolve(tmpdir()),root=await mkdtemp(join(base,'sango-offline-'));
  t.after(async()=>{assert.equal(dirname(resolve(root)),base);assert.ok(basename(root).startsWith('sango-offline-'));await rm(root,{recursive:true,force:true});});
- const files={'index.html':'<link href="./screen.css" rel="stylesheet"><script type="module" src="./app.js"></script>','app.js':"import './one.mjs';export const later=()=>import('./nested/two.mjs');export const native=()=>import('@capacitor/app');",'one.mjs':"import './nested/two.mjs';",'nested/two.mjs':"import '../one.mjs';",'screen.css':"body{background:url('./paper.svg')}",'paper.svg':'<svg/>','manifest.webmanifest':'{"icons":[]}','sw.js':'// worker','private.json':'not a runtime dependency'};
+ const files={'index.html':'<link href="./screen.css" rel="stylesheet"><script type="module" src="./app.js"></script>','app.js':"import './one.mjs';export const worker=()=>new Worker(new URL('./worker.mjs',import.meta.url),{type:'module'});export const later=()=>import('./nested/two.mjs');export const native=()=>import('@capacitor/app');",'worker.mjs':"export const task=()=>import('./nested/worker-engine.mjs');",'nested/worker-engine.mjs':'export const engine=1;','one.mjs':"import './nested/two.mjs';",'nested/two.mjs':"import '../one.mjs';",'screen.css':"body{background:url('./paper.svg')}",'paper.svg':'<svg/>','manifest.webmanifest':'{"icons":[]}','sw.js':'// worker','private.json':'not a runtime dependency'};
  await mkdir(join(root,'nested'));for(const [file,body]of Object.entries(files))await writeFile(join(root,file),body);
  const first=await writeSourceOfflineManifest(root);
- for(const path of ['app.js','one.mjs','nested/two.mjs','screen.css','paper.svg'])assert.ok(first.files.includes('./'+path),path);
+ for(const path of ['app.js','one.mjs','nested/two.mjs','worker.mjs','nested/worker-engine.mjs','screen.css','paper.svg'])assert.ok(first.files.includes('./'+path),path);
  assert.ok(!first.files.includes('./private.json'));assert.ok(!first.files.some(p=>p.includes('capacitor')));
  await writeSourceOfflineManifest(root,{check:true});await writeFile(join(root,'nested/two.mjs'),"import '../one.mjs';export const changed=1;");
  assert.notEqual((await sourceOfflineManifest(root)).revision,first.revision);await assert.rejects(writeSourceOfflineManifest(root,{check:true}),/清单已过期/);

@@ -9,7 +9,7 @@ import {lockDeployment,stepBattle,validateSave,battleCommanders,commandIntellect
 import {holdsLine,isTargetable} from '../engagement.mjs';
 import {readyTactic} from '../tactics.mjs';
 import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
-import {fieldFromCity} from './helpers/field-campaign.mjs';
+import {fieldFromCity,approachFieldContact} from './helpers/field-campaign.mjs';
 import {deployUnit,combatUnit,makeOfficer,issueCommand} from '../engine.mjs';
 import {retreatDestinations,configureRetreatDestination,dispatchWithdrawn} from '../strategic-retreat.mjs';
 import {advancePersonnel,transportProxy,validatePersonnelJourney} from '../personnel-movement.mjs';
@@ -85,7 +85,7 @@ test('a freed slot waits for actual reserve arrival and a withdrawing force cann
 });
 
 test('ordinary campaign retains withdrawn soldiers and wounded without drawing a destroyed-officer fate',()=>{
- const s=newCampaign(1),a=fieldFromCity(s,'xuchang',{target:'guandu'}),enemy=fieldFromCity(s,'guandu',{target:'xuchang'});
+ const s=newCampaign(1),a=fieldFromCity(s,'xuchang',{target:'guandu'}),enemy=fieldFromCity(s,'guandu',{target:'xuchang'});approachFieldContact(s,a,enemy);
  for(const u of [...a.units,...enemy.units])u.retreatAt=null;a.units.find(u=>u.id==='cao').troops=1000;a.units.find(u=>u.id==='cao').retreatAt=500;
  beginExecution(s);for(let i=0;i<30&&!activeBattles(s).length;i++)advanceCampaignDay(s);
  const r=activeBattles(s)[0];assert.ok(r);chooseEncounter(s,r.id,true);
@@ -123,7 +123,7 @@ test('focus beyond an engaged front line requires disengagement, never an illega
 });
 
 function campaignEncounter(){
- const s=newCampaign(1);fieldFromCity(s,'xuchang',{target:'guandu'});fieldFromCity(s,'guandu',{target:'xuchang'});
+ const s=newCampaign(1);const first=fieldFromCity(s,'xuchang',{target:'guandu'}),second=fieldFromCity(s,'guandu',{target:'xuchang'});approachFieldContact(s,first,second);
  beginExecution(s);for(let i=0;i<30&&!activeBattles(s).length;i++)advanceCampaignDay(s);
  const r=activeBattles(s)[0];chooseEncounter(s,r.id,true);return {s,r,b:r.battle};
 }
@@ -184,6 +184,9 @@ test('returning to a city and marching again cannot reenter the original ongoing
  for(let i=0;i<240&&s.campaign.idle.some(o=>o.unit.id===u.id);i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignStep(s);}
  const home=s.cities.find(c=>c.units.some(v=>v.id===u.id));assert.ok(home);assert.equal(r.settled,false);
  const returning=fieldFromCity(s,home.id,{ids:[u.id],target:'guandu'});
+ // Stage the next actual contact; this case checks the reentry guard, not a full new campaign journey.
+ const original=s.armies.find(a=>r.armyIds.includes(a.id)&&a.faction===returning.faction&&a.travel);assert.ok(original);
+ returning.location=original.travel.from;returning.route=[original.travel.to];returning.travel=structuredClone(original.travel);
  for(let i=0;i<240&&!returning.task.includes('已撤离');i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignStep(s);}
  assert.match(returning.task,/已撤离/);assert.equal(b.sides[0].units.filter(v=>v.id===u.id).length,1);assert.ok(!r.armyIds.includes(returning.id));
  validateCampaign(JSON.parse(serializeCampaign(s)));

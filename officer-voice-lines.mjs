@@ -2,10 +2,10 @@ import {OFFICER_BY_ID} from './officer-catalog.mjs';
 
 // Presentation copy only. Profiles and line selection never draw game randomness.
 export const VOICE_PROFILES={
- commander:{rate:1,pitch:.84,gender:'male'},
- warrior:{rate:1.1,pitch:.78,gender:'male'},
- scholar:{rate:.96,pitch:.96,gender:'male'},
- female:{rate:1.02,pitch:1.04,gender:'female'}
+ commander:{rate:1,pitch:.84,gender:'male',preferredVoices:['Kangkang','Yunyang','Yunjian','Yunxi']},
+ warrior:{rate:1.1,pitch:.78,gender:'male',preferredVoices:['Yunjian','Yunfeng','Kangkang','Yunxi']},
+ scholar:{rate:.96,pitch:.96,gender:'male',preferredVoices:['Yunxi','Yunyang','Kangkang','Yunjian']},
+ female:{rate:1.02,pitch:1.04,gender:'female',preferredVoices:['Yaoyao','Xiaoxiao','Xiaoyi','Huihui']}
 };
 const LINES={
  commander:{start:['全军听令，进军！','诸将随我，迎敌！'],tactic:['一鼓作气，破敌！','趁势而进！'],order:['号令已下，诸军协力！','依计行事！'],heal:['整顿队伍，再战！'],rout:['稳住阵脚！'],retreat:['收拢兵马，撤！'],victory:['此战告捷，犒赏三军！'],defeat:['保存实力，来日再战。'],draw:['鸣金收兵，择日再战。'],acknowledge:['得令，即刻办理。','此事交给我。'],march:['兵马已备，即刻启程！'],complete:['主公，所托之事已成。'],discovered:['主公，访得一位贤才。'],recruit:['愿为主公效力。'],scout:['前方军情，已探明。']},

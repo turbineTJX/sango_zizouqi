@@ -26,7 +26,7 @@ function scene(){
  Object.assign(home,{owner:'yuan',x:0,y:0});Object.assign(target,{owner:'cao',x:8,y:0,gateHp:6000});Object.assign(rear,{x:-8,y:0});
  home.domestic.owner='yuan';target.domestic.owner='cao';s.roads=[[home.id,target.id],[home.id,rear.id]];
  // This compact front tests decisions and contact, not national travel time.
- for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:7.5};
+ for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:1};
  home.units=['shao','yan','wen','he','ju','tian'].map((id,i)=>({...makeOfficer(id,3000,i,3),homeCity:home.id}));
  target.units=['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,1000,i,3),homeCity:target.id}));
   // A rear base is friendly; a high wall alone no longer blocks occupation.
@@ -35,7 +35,7 @@ function scene(){
  rear.owner='yuan';rear.domestic.owner='yuan';gateDurability(rear).hp=1000000;home.gold=6000;target.gold=6000;target.manpower=0;rear.gold=6000;syncResourceTotals(s);initializeVision(s);initializeStrategicAI(s);
  return {s,home,target,rear};
 }
-const men=s=>s.cities.flatMap(c=>c.units).concat(s.armies.flatMap(a=>a.units)).reduce((n,u)=>n+u.troops+u.wounded,0);
+const men=s=>s.cities.flatMap(c=>c.units).concat(s.armies.flatMap(a=>a.units),s.campaign.idle.map(o=>o.unit)).reduce((n,u)=>n+u.troops+u.wounded,0);
 const grain=s=>s.cities.reduce((n,c)=>n+c.grain,0)+s.armies.reduce((n,a)=>n+a.supply,0);
 const assess=({s,home,target},units=home.units.slice(0,3))=>evaluateOffensive(s,{faction:'yuan',staging:home,target,groups:[{c:home,units,days:0}],assaultDays:1,siegeDays:target.units.length?2:0});
 
@@ -81,7 +81,7 @@ test('valuable civil workers and a development-minded lord increase the opportun
 test('occupation value is rejected when surviving troops cannot hold against nearby counterattack',()=>{
  const setup=scene(),{s,home,target,rear}=setup;target.units=[];target.commerce=10;assert.ok(assess(setup,home.units.slice(0,1)).accepted);
  // The threat borders the objective only, so it is a post-capture concern.
- s.roads=[[home.id,target.id],[target.id,rear.id]];rear.owner='cao';rear.units=['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,6000,i,3),homeCity:rear.id}));
+ s.roads=[[home.id,target.id],[target.id,rear.id]];s.roadSegments[[target.id,rear.id].sort().join(':')]={distance:1};rear.owner='cao';rear.units=['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,6000,i,3),homeCity:rear.id}));
  const result=assess(setup,home.units.slice(0,1));assert.equal(result.accepted,false);assert.match(result.reason,/优势|反攻/);
 });
 
@@ -194,8 +194,8 @@ test('rescue uses arrival times and does not count a late column as successful r
 });
 test('hungry marching columns reverse continuous road progress once without teleporting',()=>{
  const {s,home,target}=scene();const ids=home.units.slice(0,3).map(u=>u.id);assert.equal(launchExpedition(s,{cityId:home.id,officerIds:ids,leader:ids[0],advisor:ids[1],target:target.id,policy:'auto'},{faction:'yuan'}),null);
- const a=s.armies[0],length=roadLength(s,home.id,target.id);Object.assign(a,{hunger:1,supply:0,travel:{from:home.id,to:target.id,progress:2,road:'main'}});planStrategicAI(s);
- assert.deepEqual(a.travel,{from:target.id,to:home.id,progress:length-2,road:'main'});assert.deepEqual(a.route,[home.id]);const returning=structuredClone(a.travel);next(s);assert.deepEqual(a.travel,returning);
+ const a=s.armies[0],length=roadLength(s,home.id,target.id);Object.assign(a,{hunger:1,supply:0,travel:{from:home.id,to:target.id,progress:length/2,road:'main'}});planStrategicAI(s);
+ assert.deepEqual(a.travel,{from:target.id,to:home.id,progress:length/2,road:'main'});assert.deepEqual(a.route,[home.id]);const returning=structuredClone(a.travel);next(s);assert.deepEqual(a.travel,returning);
 });
 test('shared recruitment spends one city quota and the AI treasury only, preserving planned grain',()=>{
  const {s,home}=scene();home.units.forEach(u=>u.troops=1000);const before={men:men(s),gold:home.gold,player:s.gold,grain:home.grain,pop:home.manpower,equipment:Object.fromEntries(home.units.map(u=>[u.id,structuredClone(u.equipment)]))};manageStrategicEconomy(s);

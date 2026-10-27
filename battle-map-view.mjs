@@ -6,10 +6,10 @@ const cached=new Map();
 
 // This layer depicts actual terrain cells. It has no simulation or RNG state.
 export function battleMapArtwork(b,{prefix='battlefield'}={}){
- const m=battleMap(b),key=(b.mapId||b.terrain||'land')+':'+prefix;
+ const m=battleMap(b),key=JSON.stringify(m)+':'+prefix;
  if(cached.has(key))return cached.get(key);
  const result=battleEnvironmentArtwork(m,{prefix});
- cached.set(key,result);return result;
+ if(cached.size>=64)cached.delete(cached.keys().next().value);cached.set(key,result);return result;
 }
 
 export function battleMapPreview(b){

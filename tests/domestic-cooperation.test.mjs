@@ -12,6 +12,7 @@ import {makeOfficer,lockDeployment} from '../engine.mjs';
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
 import {troopCapacity} from '../troop-capacity.mjs';
 import {strategicView} from '../strategic-view.mjs';
+import {domesticDirectionMarkup} from '../domestic-direction-view.mjs';
 
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function setup(seed=1,keys=['fair'],count=2){
@@ -34,8 +35,9 @@ function example(keys,predicate,prepare=()=>{},target=11){
 
 test('same city/direction retains multiple officers, reassigns only the selected person, and renders independent rows',()=>{
  const {s,c,officers}=setup(1,['fair'],3);assert.equal(s.campaign.domestic.assignments.length,3);restore(s);
- const html=strategicView(s,{city:c.id,strategyTab:'city'});assert.equal((html.match(/data-domestic-officer=/g)||[]).length,3);assert.match(html,/data-task="domestic" data-town="xuchang" data-direction="commerce"/);
+ const html=domesticDirectionMarkup(s,c.id,'commerce');assert.equal((html.match(/data-domestic-officer=/g)||[]).length,3);assert.equal((html.match(/data-action="domestic-dismiss"/g)||[]).length,3);assert.doesNotMatch(html,/data-action="campaign-pick"/);
  const id=officers[0].unit.id,other=assignmentFor(s,officers[1].unit.id);assert.equal(assignDomestic(s,c.id,'agriculture',id),null);assert.equal(s.campaign.domestic.assignments.length,3);assert.strictEqual(assignmentFor(s,officers[1].unit.id),other);
+ assert.match(domesticDirectionMarkup(s,c.id,'commerce'),/data-task="domestic" data-town="xuchang" data-direction="commerce"/);
  assert.equal(dismissDomestic(s,id),null);assert.equal(s.campaign.domestic.assignments.length,2);restore(s);
 });
 

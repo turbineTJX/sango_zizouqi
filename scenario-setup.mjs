@@ -11,7 +11,7 @@ import {highestAptitudeTroop,battleTroopTypes} from './troop-choice.mjs';
 import {taskPickerMarkup} from './strategic-roster.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
 import {sortRows} from './list-sort.mjs';
-import {unitManagementMarkup,unitCommanderField,unitFormationMarkup,unitReviewMarkup,commanderSetupMarkup,setupTrail,FORMATIONS} from './army-setup-view.mjs';
+import {unitManagementMarkup,unitCommanderField,unitFormationMarkup,unitReviewMarkup,commanderSetupMarkup,FORMATIONS} from './army-setup-view.mjs';
 import {bondsMarkup} from './bond-display.mjs';
 import {combatComparison} from './combat-comparison.mjs';
 import {commandersAt} from './battle-appointments.mjs';
@@ -105,7 +105,7 @@ export function scenarioSetupMarkup(p,context={}){
   else if(!Number.isInteger(troops)||troops<1000||troops>max)editorError='兵力须为1000～'+max+'人';
  }
  let pagination='';
- let body=setupTrail(steps.filter(x=>x!=='formation'),p.step==='formation'?'unit-review':p.step,'scenario-setup-step');
+ let body='';
  if(p.step==='formation'&&p.choosingMain){
   const blocked=new Set(p.sourceArmy?[]:p.blockedOfficers||[]),all=(p.sourceArmy?p.selected:Object.keys(OFFICER_BY_ID)).map(id=>({unit:scenarioSetupOfficer(p,id),status:blocked.has(id)?'已在另一方阵容':'可参军'})),pick={task:'expedition',single:true,selected:p.editorId?[p.editorId]:[]};
   const ranked=rankOfficerCandidates(context,all.map(r=>r.unit),pick),recs=new Map(ranked.map(r=>[r.unit.id,r.recommendation]));
