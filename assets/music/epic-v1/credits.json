@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "title": "三国·君临原创配乐",
+  "composition": "Original melodies and arrangements authored for this project; no reference-game music is included.",
+  "rendering": "FluidSynth 2.6.1",
+  "soundfont": {
+    "name": "GeneralUser GS v2.0.3",
+    "author": "S. Christian Collins",
+    "source": "https://github.com/mrbumpy409/GeneralUser-GS",
+    "license": "*** GeneralUser GS v2.0.3 ***\r\n***      License v2.0     ***\r\n\r\n** License of the complete work **\r\nYou may use GeneralUser GS without restriction for your own music creation,\r\nprivate or commercial. This SoundFont bank is provided to the community free of\r\ncharge. Please feel free to use it in your software projects, and to modify the\r\nSoundFont bank or its packaging to suit your needs.\r\n\r\n** License of contained samples **\r\nGeneralUser GS inherits the usage rights of the samples contained within, all of\r\nwhich allow full use in music production, including the ability to make profit\r\nfrom musical recordings created with GeneralUser GS.\r\n\r\nMany of the samples are original, but some were taken from other banks freely\r\n(and legally) available on the Internet from various SoundFont websites. Because\r\nGeneralUser GS originated as a personal project with no intention for\r\npublication, I cannot be 100% sure where all of the samples originated, although\r\nI do know that none of them came from commercially published SoundFont packages\r\nor sample CDs. Regardless, many \"free\" SoundFonts available on the web may\r\nindeed contain samples of questionable origin. My understanding of the\r\ncopyrights of all samples is only as good as the information provided by the\r\noriginal sources. If you become aware of any restricted samples being used in\r\nGeneralUser GS, please let me know so I can replace them.\r\n\r\nThis uncertainty may concern you if you intend to use GeneralUser GS in a\r\ncommercial software product. That being said, I have never received any\r\ncomplaint regarding sample ownership since I published the original GeneralUser\r\nGS back in 2000, and as far as I am aware, neither have any of the companies\r\ncreating commercial software products using GeneralUser GS.\r\n\r\n** More info **\r\nIf you plan to feature GeneralUser GS on your own website, please do not link\r\ndirectly to my download files. Either link to my website, or provide your own\r\nlocal copy instead.\r\n\r\nI hope you enjoy GeneralUser GS! This SoundFont bank is the product of many\r\nyears of hard work.\r\n\r\nYou can find updates to GeneralUser GS and more of my virtual instruments at:\r\nhttp://www.schristiancollins.com\r\n\r\nI can be reached via the contact page on my website here:\r\nhttps://www.schristiancollins.com/contact\r\n\r\nThank you!\r\n-~Chris\r\n"
+  },
+  "tracks": [
+    {
+      "id": "lobby",
+      "name": "汉末山河",
+      "scene": "首页 · 天下主题",
+      "seconds": 93.65850340136055,
+      "bpm": 82,
+      "peak": 0.732417643070221,
+      "rms": 0.14976859092712402,
+      "bytes": 1234822,
+      "scoreSha256": "bed289cbc197d28fcd7e017a99644ef275bba16676dd1cb818cf87efb72e2de0"
+    },
+    {
+      "id": "spring",
+      "name": "春水入江",
+      "scene": "春 · 内政",
+      "seconds": 98.46156462585034,
+      "bpm": 78,
+      "peak": 0.7594783306121826,
+      "rms": 0.1493404358625412,
+      "bytes": 1256988,
+      "scoreSha256": "8b7bc1e51db0d0edbd1cb05c8575062b65d60d4d8e230b795a151d716286f546"
+    },
+    {
+      "id": "summer",
+      "name": "夏野旌旗",
+      "scene": "夏 · 内政",
+      "seconds": 81.70215419501133,
+      "bpm": 94,
+      "peak": 0.694776713848114,
+      "rms": 0.14990130066871643,
+      "bytes": 1052061,
+      "scoreSha256": "4e5ce684d4b733011a023c1138217ec154224be38023cd5ae8bd37d1e4459375"
+    },
+    {
+      "id": "autumn",
+      "name": "秋原怀远",
+      "scene": "秋 · 内政",
+      "seconds": 109.71430839002268,
+      "bpm": 70,
+      "peak": 0.6974391937255859,
+      "rms": 0.15002717077732086,
+      "bytes": 1595401,
+      "scoreSha256": "4c3544dde4f3ed7655e3bd405111d4c835464ce5dc1c7173641bb0a37d266913"
+    },
+    {
+      "id": "winter",
+      "name": "朔雪孤城",
+      "scene": "冬 · 内政",
+      "seconds": 123.87097505668935,
+      "bpm": 62,
+      "peak": 0.8403543829917908,
+      "rms": 0.14865179359912872,
+      "bytes": 1514666,
+      "scoreSha256": "84ebb757ace4bcfa2721f31917394d742657d6986b4e702376ff7e6857a6369d"
+    },
+    {
+      "id": "march",
+      "name": "万里征尘",
+      "scene": "军团行军",
+      "seconds": 78.36736961451247,
+      "bpm": 98,
+      "peak": 0.7279953360557556,
+      "rms": 0.14983722567558289,
+      "bytes": 1016144,
+      "scoreSha256": "d0a096a892f7391a498037baf6ff163542155303e64ea7c0da7f01a4ba60ba84"
+    },
+    {
+      "id": "council",
+      "name": "帐前筹策",
+      "scene": "战前军议",
+      "seconds": 103.78380952380952,
+      "bpm": 74,
+      "peak": 0.6554096937179565,
+      "rms": 0.14970152080059052,
+      "bytes": 1401890,
+      "scoreSha256": "3c5e6ef5e1373139cd1cf07bac66496f1f1e38cef79c114ee58fd32f1f71db42"
+    },
+    {
+      "id": "diplomacy",
+      "name": "玉帛纵横",
+      "scene": "外交",
+      "seconds": 101.05267573696145,
+      "bpm": 76,
+      "peak": 0.6899806261062622,
+      "rms": 0.1499929279088974,
+      "bytes": 1505055,
+      "scoreSha256": "a8f774c6e7ec70baddacaa7e66d0982d707dcec07bc544aeb44f4a8edd6e4ade"
+    },
+    {
+      "id": "encounter",
+      "name": "烽火初起",
+      "scene": "接敌",
+      "seconds": 54.33963718820862,
+      "bpm": 106,
+      "peak": 0.7724619507789612,
+      "rms": 0.14955885708332062,
+      "bytes": 695889,
+      "scoreSha256": "62811841d52aeb0cfb3fa4dd8fc8e395a692dfdc68f4a8e6ee8bef04e8f9fd01"
+    },
+    {
+      "id": "battle",
+      "name": "阵云鏖兵",
+      "scene": "交战 · 相持",
+      "seconds": 66.20684807256235,
+      "bpm": 116,
+      "peak": 0.698531448841095,
+      "rms": 0.14978960156440735,
+      "bytes": 865851,
+      "scoreSha256": "8ec3b98051ecadf9c0da933cc904e87c0eb6da208467451f5968c433de1012d6"
+    },
+    {
+      "id": "advantage",
+      "name": "长驱破阵",
+      "scene": "交战 · 优势",
+      "seconds": 62.95079365079365,
+      "bpm": 122,
+      "peak": 0.7336817383766174,
+      "rms": 0.14970237016677856,
+      "bytes": 837151,
+      "scoreSha256": "7a7ca1f3f8584bd2ab8e52fce5afe9742cf159ef722cae0bbc6d27acb4dde16f"
+    },
+    {
+      "id": "disadvantage",
+      "name": "危城不屈",
+      "scene": "交战 · 劣势",
+      "seconds": 81.70215419501133,
+      "bpm": 94,
+      "peak": 0.7080873847007751,
+      "rms": 0.14950072765350342,
+      "bytes": 1105880,
+      "scoreSha256": "86ee7e5532f63008b5af6bd325dd241a773b29a81f8433c99b32948e7c5eb296"
+    },
+    {
+      "id": "decisive",
+      "name": "逐鹿决胜",
+      "scene": "交战 · 决战",
+      "seconds": 75,
+      "bpm": 128,
+      "peak": 0.700279712677002,
+      "rms": 0.15001234412193298,
+      "bytes": 979682,
+      "scoreSha256": "a5496b4b9b2c84f22e511bd9e00ba3606d92778d04efa69c3fa61328d1c4da4e"
+    }
+  ]
+}

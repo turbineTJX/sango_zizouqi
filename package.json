@@ -38,6 +38,7 @@
     "audio:compose": "node scripts/render-orchestral-music.mjs",
     "art:check": "node scripts/asset-pack.mjs check",
     "art:bundle": "node scripts/asset-pack.mjs bundle",
+    "art:export-playtest": "node scripts/export-playtest-art.mjs",
     "verify:asset-pack": "node scripts/verify-asset-pack-ui.mjs",
     "test:asset-pack": "node --test tests/asset-pack.test.mjs tests/art.test.mjs tests/city-scene.test.mjs tests/art-strategic-map.test.mjs",
     "test:page-guides": "node --test tests/page-guides.test.mjs",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "active": "batch-0014",
+  "active": null,
   "batches": [
     "batch-0001",
     "batch-0002",
@@ -15,6 +15,7 @@
     "batch-0011",
     "batch-0012",
     "batch-0013",
-    "batch-0014"
+    "batch-0014",
+    "batch-0015"
   ]
 }

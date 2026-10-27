@@ -818,19 +818,1389 @@
         "sharedWith": [],
         "sha256": "fb70b08cfe6fac1668a439262353859b4f34b85ab4d193cfede58615d8b73aab"
       }
+    },
+    "person-40": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。",
+        "bearing": "地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。"
+      },
+      "identity": "Original visual age around 34, sturdy ordinary military leader with a BROAD SQUARISH RECTANGULAR clean-shaven face, HIGH fairly wide cheekbones, substantial straight wide jaw and BROAD FLAT-ROUNDED chin. Moderate-high forehead, rather CLOSE-SET NARROW horizontal dark eyes with pronounced but relaxed upper lids, thick almost straight black eyebrows entirely at rest, LONG STRAIGHT fairly BROAD nose bridge with a compact blunt tip, medium-wide CLOSED mouth and level corners. NO moustache or beard. Preserve his exact own legacy face geometry; release the stern brow and open mouth. Low practical rounded grey IRON helmet with simple short cheek pieces and a narrow worn bronze brow band, NO plume, horn, crest or jewels. Muted dark iron lamellar cuirass over a desaturated charcoal tunic, modest TERRACOTTA shoulder cloth knotted low at chest, compact close-fitting shoulder protection, plain brown belt and dark boots. Normal broad-shouldered human proportions. DISTINCT from Wang Shuang broader round cheeks, shorter wider nose and full beard, and Wang Zhong long narrow hollow-cheeked tapered face.",
+      "signature": "宽方长脸、近眼距细长眼、较长宽直鼻、方圆下颌，无须；低灰铁盔与赭红肩巾。朴素佩剑始终留鞘。",
+      "designNote": "视觉年龄、体态、甲胄和配色为原创美术设定；面部结构参考本人原头像，取消夸张神态与高缨。",
+      "faceReference": {
+        "officerId": "person-40",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0687_区星_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "4f8b1484c059fdb0b5772458a2236f880dae58de7725eebc1d2450229ebc23cb"
+      }
+    },
+    "person-41": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。",
+        "bearing": "结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。"
+      },
+      "identity": "Original visual age around 38, strongly built broad-shouldered ordinary man, normal human head/body proportions. SHORTER VERY BROAD SQUARE-ROUND face with FULL CHEEKS, thick broad lower jaw and substantial rounded square chin under a SHORT DENSE FULL BLACK BEARD. Moderately low broad forehead, medium-wide-set ordinary DARK ALMOND EYES relaxed and naturally open, thick level nearly STRAIGHT eyebrows with no raised inner ends. SHORT-MEDIUM VERY BROAD NOSE with rounded low blunt tip and wide nostrils, WIDE relaxed CLOSED mouth with medium-full lips under a dense broad moustache. Preserve the original officer’s face and heavy beard, but entirely remove his scream, bulging eyes and aggressive brow. Low simple dull IRON helmet with modest cheek guards and a plain muted grey cloth lining and soft blue-grey CLOTH helmet cover / tail behind the upper helmet, consistent across every pose; this is fabric, NO feather plume or crest. Weathered dark BROWN short shoulder cloak, NAVY-GREY tunic, heavy but practical dark iron compact lamellar cuirass and close shoulder armor, broad plain brown leather belt, brown wrist guards and dark riding boots. No fur mountain, monster armor, dangling trophies or ornate weapons. DISTINCT from Ou Xing longer clean-shaven rectangular face and long straight nose, and Wang Zhong narrow long face with small pointed beard.",
+      "signature": "短宽方圆脸、丰颊宽颌、短阔钝鼻、浓横髭与短密全须；低素铁盔、深褐肩披与藏灰蓝军衣，结实体型。佩刀留鞘。",
+      "designNote": "参考本人原头像辨识特征，平静闭口；身高九尺和重兵器为演义描述，不以夸大比例描绘。",
+      "faceReference": {
+        "officerId": "person-41",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0205_王双_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "dc4e97e521dc98143d3f4d9c47cb99a8ec5f61d604bd74f2fdc9c1722dc3a5f6"
+      }
+    },
+    "person-42": {
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。",
+        "bearing": "普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。"
+      },
+      "identity": "Original visual age around 44, ordinary healthy lean-to-average military man with a LONG NARROW gently TRIANGULAR face, HIGH open forehead and modestly receding hairline, high angular cheekbones, slightly HOLLOW lower cheeks, narrow tapering jaw and SMALL POINTED chin. Medium-wide-set rather LONG dark eyes with naturally hooded upper lids, fine slightly curved relaxed eyebrows with level inner ends; do NOT copy worried raised inner brows. LONG relatively NARROW STRAIGHT nose with slightly drooping rounded tip, small-to-medium CLOSED mouth and level resting corners. A neat medium-thin dark moustache, SHORT NARROW pointed chin beard and sparse jaw beard, not the thick full beard of Wang Shuang. Preserve his own legacy narrow face, forehead, nose and facial hair with an upright head rather than a worried tilt. SIMPLE LOW GREY-BROWN wrapped cloth headband tied discreetly at back, black hair visible, NO scholar crown or helmet plume. Muted OCHRE-OLIVE military tunic, plain grey-brown short shoulder cape, compact worn dark iron lamellar cuirass visible beneath cape, modest leather bracers, simple dark cloth-and-leather belt and plain dark boots. Normal healthy body, not emaciated. DISTINCT from Ou Xing broad clean-shaven jaw and Wang Shuang full square-round bearded face.",
+      "signature": "长窄三角脸、高额头与较窄下颌，长窄鼻、低垂自然眼睑，薄髭短尖须；低灰褐布巾、灰褐肩披与赭橄榄军衣。佩剑留鞘。",
+      "designNote": "年龄、体态与服装为原创选择。原头像只指导本人面部结构，取消担忧倾头和怪相，不把传记挨饿经历画成病弱。",
+      "faceReference": {
+        "officerId": "person-42",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0543_王忠_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "f64122f179fa604f9a34a272dfac4ea5623ce2747ab441efb6ab813d5c30d6bc"
+      }
+    },
+    "person-52": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "名册史条记地方官有政绩，扬州刺史与张辽等协同合淝防务，并预见关羽北上；后任魏郡太守、凉州刺史。演义无记载。按地方行政主职兼军务判断分类，不据兵种或能力。",
+        "bearing": "成熟干练的地方长官，稳健站立、清醒观察；政务以印信与公文，指挥为防务协调和判断，不披武将重甲。"
+      },
+      "identity": "Original visual age 46, sturdy but ordinary provincial administrator. Medium-long oval face, broad tall forehead, gently prominent cheekbones, moderately broad tapering jaw, firm rounded chin. Thick gently curved dark eyebrows, narrow calm almond eyes, straight medium-broad nose with rounded tip, level closed lips. Neat full black moustache joining short jaw beard and distinct modest pointed chin beard with a few grey hairs. Black hair pulled back into a small dull-gold fan-shaped topknot clasp. Muted brick-red full-length civil robe, grey-olive wide lapels and trim, off-white inner collar, dark brown sash and plain dark shoes. No armor or weapon. Face proportional traits follow his exact original portrait but relaxed brows and mouth. Costume and visual age are original art direction.",
+      "signature": "宽额浓眉、直阔鼻、黑髭与短尖须；小型暗金束发冠、砖红官袍和灰橄榄宽缘。",
+      "faceReference": {
+        "officerId": "person-52",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0689_温恢_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "e286bd85a0ba351f7aacebc4019dfc3c0aa1ad21cf4cf83a6cae3ed50e5bb4e3"
+      },
+      "designNote": "面部比例依据本人原头像目视提取；视觉年龄和衣装为原创选择，正史与演义证据分列。"
+    },
+    "person-53": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "specialist"
+        ],
+        "evidence": "名册史条记清谈家、玄学代表，著老子道德论及论语集解，宫廷长大；演义条记任尚书并为曹爽进言。主为朝廷文臣学者，特殊职能为编纂经注，不虚构统军。",
+        "bearing": "身形修长的宫廷文臣，衣饰讲究而克制；研究编纂用一份薄册，军务为政治联络或文书辅助，无甲胄兵器。"
+      },
+      "identity": "Original visual age 34, slim refined court scholar. Long narrow angular oblong face, high slim cheekbones, tapering lower jaw and small firm chin. Fine gently arching eyebrows, slender slightly hooded almond eyes, high long straight nose and narrow closed lips. Very faint fine moustache and a tiny dark pointed chin tuft only, clean jaw cheeks. Black hair in a high small bun wrapped with muted blue silk and short ribbon ends. Deep indigo full-length civil robe with subtle dark cloud woven pattern, teal blue lapels and sash, light grey inner collar, simple dark blue shoes. No gold crown, armor, weapon or large feather fan. Maintain original portrait facial proportions with relaxed neutral expression; age and costume are art choices.",
+      "signature": "修长棱形脸、细眉长直鼻、小颏须；蓝绸束髻、深靛暗纹文袍与青蓝襟带。",
+      "faceReference": {
+        "officerId": "person-53",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0492_何晏_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "940ede81a7b0e64c5d0e10504ad3536fe7d2fd39fc26609ffcbb864b0136adbd"
+      },
+      "designNote": "面部比例依据本人原头像目视提取；视觉年龄和衣装为原创选择，正史与演义证据分列。"
+    },
+    "person-54": {
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册为刘表幕僚；史条记论治理时世与谋策、后任光禄勋；演义记为刘琮分析曹操南下并劝降，以及观马相术。以谋臣军政判断为主、朝廷文务为次，不据兵种判断为武将。",
+        "bearing": "成熟精明但表情放松的谋臣，宽颧方颌和短髭；蓝袍紫襟，研判与联络低幅手势，不穿甲不冲锋，不普遍套羽扇或书生拢袖。"
+      },
+      "identity": "Original visual age 48, solid mature strategist of average build. Medium-length broad angular face, pronounced broad cheekbones, straight substantial square jaw and broad firm chin. Dense nearly straight dark eyebrows, compact almond eyes with calm lids, high straight medium-wide nose with broad round tip, thin level closed mouth. Neat narrow horizontal black moustache, clean chin and jaw, no goatee. Black hair drawn into a small flared bronze-gold topknot crown with one muted blue stone and short blue cords. Muted medium-deep blue full-length robe with restrained dark woven speckled pattern, violet inner lapel and muted teal collar trim, dark navy sash, plain dark shoes. No armor or weapon. Preserve exact original broad facial proportions while softening scowl into calm neutral. Costume and age are original visual design.",
+      "signature": "宽颧方颌、直浓眉、阔鼻短横髭、下颏无须；蓝石暗金冠、蓝袍紫襟青边。",
+      "faceReference": {
+        "officerId": "person-54",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0040_蒯越_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "017fb542890d61df98f30263e7772e0738e12b16cc4c1c1787e3d2e7b220e05b"
+      },
+      "designNote": "面部比例依据本人原头像目视提取；视觉年龄和衣装为原创选择，正史与演义证据分列。"
+    },
+    "person-46": {
+      "name": "王平",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "史：街亭撤退阻敌追击，后任汉中太守、前将军、镇北大将军，负责汉中防守；演：马谡辅佐及北伐忠义之士。",
+        "bearing": "朴实稳重的守御统帅，甲胄军装，不作文士拢袖、执笔捧书。"
+      },
+      "identity": "Mature Chinese male military commander, visual age about 45. Medium-long broad OBLONG face, substantial square-rounded jaw and broad chin, gently high cheekbones, moderately spaced almond dark eyes with softly weighted upper lids, thick gently arched eyebrows relaxed. Medium-long straight broad nose with rounded compact tip. Neat black moustache extending slightly upward at corners, connected short trim chin-and-jaw beard, no long hanging beard. Warm weathered tan skin. Low dark iron helmet with modest worn brass brow ornament and neck guards, no tall plume; slate iron lamellar cuirass with modest dull bronze shoulder pieces, desaturated indigo collar and shoulder cloth, blue-grey skirt panels, plain dark belt, brown wrist guards and dark boots. A plain sheathed sword secured at the left hip. Solid normal human build and proportions. His own original face geometry, no severe expression.",
+      "signature": "宽长方圆脸、较宽直鼻、短整齐连鬓颌须与轻翘髭；灰铁甲、旧铜饰、低盔、靛青肩布。",
+      "designNote": "视觉年龄与衣装为原创美术设定；面部结构按本人原头像，原头像高红缨简化为低盔，表情放松。",
+      "faceReference": {
+        "officerId": "person-46",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0152_王平_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "70313d26665b946c0d06fe064b74a780d76685c5fd90d92663558af34705e8f3"
+      }
+    },
+    "person-47": {
+      "name": "王甫",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "史：刘璋时代州书佐，夷陵从军战败而亡，喜论人物；演：关羽随军司马、建狼烟台与麦城守备联络。",
+        "bearing": "严谨沉着的文职随军司马，处理军务联络与名册，保持官袍，不强加战甲或战斗兵器。"
+      },
+      "identity": "Middle-aged Chinese male civil military secretary, visual age about 40. LONG SLIM OVAL face with high angular cheekbones, narrow tapered lower jaw and small rounded chin. Medium-set narrow almond dark eyes, straight angular black brows at rest, long slim straight nose with defined small tip, thin neat black moustache with slightly descending outer ends, NO chin beard or cheek beard. Warm olive tan complexion. Tall simple black rectangular official cap with restrained woven texture, flat top, plain headband. Desaturated ochre-olive silk official robe with subtle small woven pattern, dark green cross collar and understated dull gold edge, narrow green chin ties, black sash and low plain dark shoes; normal slim upright build. No armor, no sword. Distinct own original slender face, mustache only.",
+      "signature": "修长窄椭圆脸、高颧、长细鼻、细髭而无颌须；高黑方冠、赭橄榄官袍与深绿领缘。",
+      "designNote": "服饰与视觉年龄为原创美术设定；脸型和髭依据本人原头像，不锁定挑眉或严厉神情。",
+      "faceReference": {
+        "officerId": "person-47",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0309_王甫_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "f11ff1ecd081c439b311d8c632999036bec246cbbecb7d925e2d515afcbbc9f5"
+      }
+    },
+    "person-48": {
+      "name": "王门",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "史：公孙瓒武将，后向袁绍示好，率万余兵攻公孙瓒，受田予论辩后撤兵；演无记载。",
+        "bearing": "普通领兵武将，军职站姿及甲胄，克制观察与装备检查，不画成书生。"
+      },
+      "identity": "Chinese male field officer, visual age about 37. LONG ANGULAR relatively NARROW face, distinct sharp cheekbones, shallow cheeks, tapering angular jaw and projecting small chin. Dark long slightly upturned almond eyes moderately wide-set, slim gently arched black eyebrows relaxed, LONG prominent high straight nose bridge with a slightly lifted pointed tip. Fine thin almost horizontal moustache, small narrow short chin goatee and sparse close-trimmed jawline beard. Warm medium tan skin. Low pale silver-grey engraved iron helmet with simple raised central brow device, a small short amber cord tassel contained close to the helmet, no long crest. Pale grey metal lamellar armor with green binding and simple compact shoulder plates over muted sage-green tunic, green collar cord, dark grey split skirt and trousers, brown belt and greaves, dark boots. Plain fully sheathed sword at hip. Athletic ordinary human proportions, not bulky. Preserve own original long angular face.",
+      "signature": "窄长棱角脸、长高鼻梁及微翘鼻尖、细髭与短窄颏须；浅银铁盔、绿缘灰甲、鼠尾草绿内衫。",
+      "designNote": "面部特征按本人原头像；简化夸张盔缨与甲饰，原创普通武将衣装，神态放松。",
+      "faceReference": {
+        "officerId": "person-48",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0135_王门_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "324b4674da5733583d6f177fff1b21e0bf3602809365e92cab34dbcb6ab89fae"
+      }
+    },
+    "person-43": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-43 王昶，名册为魏国征南大将军、王浑之父。演义记252年统攻江陵，友军战败后撤退；史条目记太子文学、开拓荒地、兖州刺史、镇压毌丘俭叛乱，后为骠骑将军和司空，并著治论及兵书。以统军与军政组织为主、治理著述为次；不以能力或兵种判型。",
+        "bearing": "成熟稳重的军政统帅，身穿青蓝袍及实用紧凑铁铜轻甲，低素冠和护腕；工作检查军需调配，指挥为低位持简短指挥杖、平静研判。不画成通用拢袖书生或怒目冲锋武人。"
+      },
+      "identity": "Original visual age 52. Own source face: fairly LONG RECTANGULAR face tapering gently to angular jaw and a small rounded chin, broad upper forehead, moderate flat cheekbones, somewhat hollow lower cheeks. Strong dense dark nearly straight eyebrows with slight outer slope, ordinary medium narrow horizontal almond eyes with relaxed lids, fairly close eye spacing. High long straight nose with a medium broad rounded tip, medium thin closed lips. Dark horizontal moustache descending subtly at corners, short dark chin beard tapering to a restrained point, sparse short beard along jaw, slight grey at chin. Normal mature cheek lines. Keep face geometry but release original tense inner brows. Black hair combed back, compact LOW rectangular deep blue cloth crown with restrained dull bronze edge and single straight pin, no tall fantasy crest. Muted teal-blue fitted robe, plain worn iron and dull bronze lamellar cuirass with small practical shoulder plates, charcoal sash, plain brown wrist guards, dark cloth trousers and dark boots. One plain fully sheathed sword at belt. No beast-head armor, ornate gold, plume or gems.",
+      "signature": "长方脸收窄下颌、小圆颏；浓平眉、较近横眼、高长鼻，细横髭接短尖颏须。低青蓝素冠、青蓝袍配铁铜轻甲。",
+      "faceReference": {
+        "officerId": "person-43",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0308_王昶_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "253270130f2f68febeed917094745e14c7a9dbc43495a4fd1afc195ee4a4f6b9"
+      },
+      "designNote": "视觉年龄、服装与配色为原创美术设定；本人原头像用于面部比例和胡须辨识，原图怒眉或侧睨不锁定。"
+    },
+    "person-44": {
+      "role": {
+        "primary": "strategist",
+        "secondary": [],
+        "evidence": "稳定ID person-44 王韬，名册为司马昭参谋。演义记253年铁龙山被围缺水时，引用耿恭祈祷得水故事进言，协助司马昭应对危机；史条目明确没有记载。按演义中的随军参谋职责设计，不把演义故事称为史实，不凭兵种或能力赋予猛将身份。",
+        "bearing": "青年至壮年的随军参谋，利落务实的窄袖灰藕色袍服、轻便肩衣和低小金属灰冠，无甲无兵器。工作低位查看一份路线资料，指挥安静观察并向旁侧主将提供建议。面容端正中性，不画诡笑或祈水魔法。"
+      },
+      "identity": "Original visual age 32. Broad slightly LONG OVAL face with broad high forehead and prominent high cheekbones, fuller upper cheek and solid gently squared lower jaw, pronounced ROUNDED chin. Ordinary small to medium almond eyes, normal eye spacing, thick gently curved almost horizontal eyebrows, relaxed lids. Fairly high long straight nose with rounded substantial tip. Full lower lip and medium width CLOSED mouth with level corners. CLEAN SHAVEN chin and upper lip, short narrow dark sideburns only. Black hair slicked back into topknot under small low rectangular iron-grey crown with two short flat side tabs and plain central inset; preserve own source face, not source upward smirk or angled brow tension. Fitted muted dusty mauve-grey robe with narrow sleeves, quiet layered grey collar and plain grey shoulder overvest, charcoal sash, small leather dispatch wallet secured at waist, dark trousers and plain dark shoes. No armor, weapon, feather fan, ornate gold, plume or magic effects.",
+      "signature": "宽额高颧的长椭圆脸、结实下颌与圆颏，小杏眼、高直圆头鼻，清面无须仅短鬓。低铁灰小冠、灰藕色窄袖随军参谋袍。",
+      "faceReference": {
+        "officerId": "person-44",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0131_王韬_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "e5c0509d15ae69ddfe66db463b93651ee4bb82c75a1372946cbf4448f49d4251"
+      },
+      "designNote": "视觉年龄、服装与配色为原创美术设定；本人原头像用于面部比例和胡须辨识，原图怒眉或侧睨不锁定。"
+    },
+    "person-45": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "specialist"
+        ],
+        "evidence": "稳定ID person-45 王惇，名册为吴国武将。演义以被孙綝杀死人物登场；史条目记219年受命购买贡马，256年与孙虑谋诛孙綝而事泄被害（保留名册叙述）。据吴将身份保持武职，购马职责仅作为补给实务方向，不虚构统帅战绩，也不以兵种或能力判型。",
+        "bearing": "壮实而克制的吴国军官，淡青灰短披、墨绿军袍与实用铁甲护腕，低小铜冠。工作检查军需皮具的扣带，指挥安静观察军情；无马匹、刑杀场面、书生拢袖或凶狠吼叫。"
+      },
+      "identity": "Original visual age 43. BROAD angular near-square face, wide forehead, prominent high broad cheekbones, full lower cheeks, strong fairly wide angular jaw and broad short chin. Thick dark horizontal eyebrows, slightly CLOSE-set ordinary medium round-almond eyes with relaxed lids. Strong medium-length broad nose with a wide rounded tip. Full dark thick moustache extending laterally with slightly raised ends, connected dense short beard around mouth and lower cheeks, central short triangular chin beard; beard remains close to face. Mouth naturally CLOSED with relaxed level corners. Short dark hair under compact low rectangular dull-bronze cap with short straight pin, no elaborate crown. Pale blue-grey short shoulder cloak tied at upper chest, practical worn iron lamellar cuirass, muted dark green military tunic and skirt panels, leather bracers, dark trousers and plain dark boots. One plain fully sheathed sword at belt, no drawn blade. Own broad bearded face distinct from Wang Chang long narrow jaw and Wang Tao clean-shaven oval face. No ornate beast armor, fantasy spikes, plume or gems.",
+      "signature": "宽方脸、高宽颧、宽短颏，浓平眉、略近杏圆眼和宽圆鼻；浓横髭接短络腮与短三角颏须。低铜冠、淡青灰短披、墨绿军袍铁甲。",
+      "faceReference": {
+        "officerId": "person-45",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0618_王惇_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "dbdcc6f14096995538d9c0afcc8b1c4ea0da71ca3f8ddb584ea1be63e49c4d15"
+      },
+      "designNote": "视觉年龄、服装与配色为原创美术设定；本人原头像用于面部比例和胡须辨识，原图怒眉或侧睨不锁定。"
+    },
+    "person-49": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial",
+          "civil"
+        ],
+        "evidence": "名册 person-49 王凌：史载任兖州刺史，同张辽牵制孙权，任征东将军活跃对吴战线，241年击败全琮；后任司空、太尉。演义无另载。以实际统军战绩定为战场统帅，兼军职与地方治理，不从兵种能力推断。",
+        "bearing": "资深边防统帅，甲胄军姿稳健，军需与部署均小幅自然动作，闭口沉静；不能画成通用案前书生。"
+      },
+      "identity": "Visual age about 50, lean sturdy military commander. Preserve the exact reference: LONG OBLONG angular face, high cheekbones, lean lower cheeks, long tapering jaw and narrow chin; dark moderately spaced almond eyes with clear upper lids, thick slightly arched black eyebrows relaxed rather than shouting, long high straight nose with a narrow rounded tip. Thin dark moustache turns downward at mouth corners, long narrow pointed black goatee with a few grey strands and sparse jawline beard. Lips naturally CLOSED. Rounded weathered steel helmet with distinct curving brow plates and simple cheek guards, small dull jade brow stud, compact faded blue-grey plume bending backward; ENTIRE plume in frame. Dark iron lamellar cuirass with bronze fastenings, muted dusty PLUM shoulder cape tied at upper chest, desaturated grey-green underrobe and dark military boots, plain leather belt and one fully sheathed sword. Natural human proportions, no exaggerated shoulder armor.",
+      "signature": "长瘦棱角脸、长直窄鼻、浓眉、细垂八字须与窄长山羊须；灰铁盔、灰蓝短缨和灰紫肩披。",
+      "designNote": "Visual age, dress, and body are original art decisions; face geometry is extracted from the exact officer legacy portrait. Historical versus novel role evidence is separated.",
+      "faceReference": {
+        "officerId": "person-49",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0620_王淩_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "c33496d771066a60f7452a43a9fcc3962ba1e67a2420e190993224a6c959c2ce"
+      }
+    },
+    "person-50": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册 person-50 王累：刘璋从事。史载反对迎接刘备，倒吊城门劝谏；演义另写自断绳索而亡。以从事与直谏职责确定文官身份，三母图不表现死亡或倒吊情节，不虚构前线战绩。",
+        "bearing": "刚正务实的益州从事，体格结实而端正，文职紫袍与简朴发冠；自然闭口，面部放松但有定见，军务场景保持谏议联络职责。"
+      },
+      "identity": "Visual age about 45. Preserve exact original portrait geometry: BROAD SQUARE face, broad forehead, angular high cheekbones, full mid-cheeks, substantial squared jaw with rounded chin, slightly deep-set narrow dark eyes at ordinary spacing. Thick almost STRAIGHT black eyebrows at rest, broad straight medium-length nose with rounded broad tip. Dense black HORIZONTAL moustache with long slightly outward ends, small dark soul patch and a narrow divided pointed GOATEE reaching below chin; clean cheeks. Lips CLOSED and level, no scowl. Black hair brushed tightly back to small topknot with a low dark narrow ornament and silver transverse hairpin, no tall official hat. Desaturated deep PURPLE patterned outer robe with restrained woven diamond texture, pale slate-blue crossed collar and charcoal inner robe, plain brown sash, dark cloth shoes. Upright solid middle-aged body, no armor or weapon.",
+      "signature": "方阔脸、浓直眉、宽直鼻、横向长八字胡与分叉长尖须；低发髻银横簪、暗紫菱纹袍和灰蓝领。",
+      "designNote": "Visual age, dress, and body are original art decisions; face geometry is extracted from the exact officer legacy portrait. Historical versus novel role evidence is separated.",
+      "faceReference": {
+        "officerId": "person-50",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0244_王累_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "9f6b266efd207905cf3f7c3b66d0fbb5bba018aa148a35655b8e8f93d6a98d95"
+      }
+    },
+    "person-51": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "ruler"
+        ],
+        "evidence": "名册 person-51 王朗：经学家、会稽太守，入魏后任御史大夫、司空、司徒。史实为寿终；演义另有随曹真出军与诸葛亮论战而死。采用史载高级文臣及地方主事职责，指挥场景为军务建议，不把演义论战当作武勇履历。",
+        "bearing": "年长持重的朝廷重臣，宽额长须、棕色高冠与灰褐官袍，体态端正；办事审阅与军务建议动作克制，无抓须怒辩或冲锋甲胄。"
+      },
+      "identity": "Visual age about 62. Exact own portrait face: broad LONG RECTANGULAR face with gently rounded lower jaw, high broad forehead, broad upper cheeks and a narrow rounded chin behind beard. Heavy broad arched grey-black eyebrows relaxed, NARROW heavy-lidded eyes with moderate spacing, long prominent slightly convex nose with a round downward tip. Short connected grey-black moustache, small soul patch, pointed long grey-black beard narrowing below chin, sparse grey jaw whiskers. Natural CLOSED mouth, level corners, dignified calm. Tall broad flat-topped brown official crown with clearly separated vertical panels and worn dull GOLD edge ribs, narrow gold brow band with a small muted green central stone, short horizontal pin ends; no imperial bead curtain. Muted TAUPE-OLIVE brown overrobe with wide cuffs, dark green crossed collar, warm ochre inner layer, simple broad sash and dark cloth shoes. Normal older upright human proportions; no armor, sword or feather fan.",
+      "signature": "宽长脸、重眉窄眼、长凸鼻、灰黑尖长须；棕金竖棱高冠、小绿眉饰、灰褐袍与深绿交领。",
+      "designNote": "Visual age, dress, and body are original art decisions; face geometry is extracted from the exact officer legacy portrait. Historical versus novel role evidence is separated.",
+      "faceReference": {
+        "officerId": "person-51",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0051_王朗_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "7e55d8684e8b4afc479892c67d3f5e0857def2684c6b7b57edf9de7a4de3f45d"
+      }
+    },
+    "jia": {
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册史条为荀彧推举接替戏志才的曹操谋臣；演义记官渡前十胜论、建议先讨吕布及诸次战略判断。以军政谋划为主，不把谋臣通用画成武人；演义疾病不作为固定病容。",
+        "bearing": "青年成熟谋臣，修长清瘦但健康；蓝袍金缘、银色小冠，观察与低位研判，闭口自然。"
+      },
+      "identity": "Original visual age32, slim healthy male strategist. Long slender angular inverted-triangle face, broad high forehead, high narrow cheekbones, tapered lower jaw and small firm pointed chin. Dark nearly straight medium-thick brows, narrow focused almond eyes relaxed at rest, high straight slim nose with small rounded tip, medium thin closed lips. Clean shaven cheeks, upper lip and chin, absolutely no beard or moustache. Black hair pulled into a compact topknot under a small tall SILVER rectangular openwork crown with dark geometric inlay and short hairpin. Muted medium BLUE silk full-length civil robe with narrow muted GOLD woven lapel borders, pale grey-green inner collar, navy sash and dark shoes. No armor, weapon, fan, wine cup or sickly appearance. Distinct exact original facial proportions, relaxed expression; visual age and costume are original design.",
+      "signature": "高额长窄脸、高颧尖颏、无须；银色长方小冠、蓝袍窄金缘。",
+      "faceReference": {
+        "officerId": "jia",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0043_郭嘉_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "33358d112cc4b5df2402711c27d8a73e01dc4ec8a3feda2f500f93e4503bbe33"
+      },
+      "designNote": "脸部特征来自本人原头像目视提取；视觉年龄和服装是原创设定。"
+    },
+    "person-65": {
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "名册演义条为高定先锋猛将，身高九尺、使方天戟，与魏延等作战，归降后任牙门将军；史条无记载。按小说武勇战职设计，不虚构正史事迹。",
+        "bearing": "高大结实的南中先锋，披甲、红头带与粗壮四肢，长发和短厚络腮须。办事检查护具或军需，始终保留武职仪态，不捧经卷、不执笔。"
+      },
+      "identity": "Original visual age38, very tall large strongly built muscular southern frontier warrior with broad shoulders. Broad long rectangular rugged face, prominent cheekbones, broad squared jaw, strong square chin, heavy gently arched dark eyebrows, ordinary spaced narrow almond eyes at rest, broad straight nose with wide rounded tip. Dense thick black moustache joining short thick square beard and neat jaw beard. Long thick slightly wavy BLACK shoulder-length hair held by a RED cloth forehead band with one small dull bronze center badge, no crown. Red short shoulder cape tied at center chest over practical muted steel-grey lamellar cuirass and shoulder guards, grey cloth inner collar, leather bracers, dark trousers, shin guards and sturdy dark boots. A single plain long-shaft fangtian halberd as personal prop, bronze-steel crescent side blade and spear tip, no oversized fantasy spikes. Calm closed mouth, relaxed brow, not shouting as in original. No scholarly costume. Visual age and armor design are art choices.",
+      "signature": "长阔方脸、浓眉阔鼻、黑络腮短须与披肩长发；红头带红短披、灰铁甲、方天戟。",
+      "faceReference": {
+        "officerId": "person-65",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0480_鄂焕_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "e273b05732476c953981c2bb9b225a96c2d066a58832fff8f2b59ef2e41f5181"
+      },
+      "designNote": "脸部特征来自本人原头像目视提取；视觉年龄和服装是原创设定。"
+    },
+    "person-66": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册为董卓武将，演义条记与李傕合军攻长安、后来互战；史条区分妻妒致反目的缘由。以军队将领和部队组织为主，不能因拥帝掌权画成帝王或文臣。",
+        "bearing": "成熟精干的军中将领，银盔紫缨、青绿围领与甲胄，观察布防与低位军需检查；表情沉静，不套暴怒叙事。"
+      },
+      "identity": "Original visual age42, sturdy lean military commander. Long narrow angular face, medium high forehead and pronounced cheekbones, tapering firm jaw and small squared chin. Thick almost straight dark brows, close medium-narrow almond eyes calm at rest, long high straight nose with slightly hooked rounded tip, thin level closed lips. Thin black horizontal moustache, distinct long narrow pointed BLACK goatee, clean cheeks. Silver-grey iron helmet with restrained embossed scrollwork, small muted BLUE brow stone, short full PURPLE plume and layered neck guard. Muted BLUE-GREEN neck scarf and padded tunic beneath steel lamellar armor, sculpted restrained round metal shoulder plates, leather belt, navy cloth skirt panels over dark trousers and dark boots. Plain sword fully sheathed at hip. No crown, civil robe, drawn sword or feather fan. Preserve original portrait long lean features and small goatee, neutral brows. Age and costume adaptation are original visual design.",
+      "signature": "长窄棱脸、长高鼻、细髭长尖颏须；银盔蓝石紫缨、青绿围领与钢灰甲。",
+      "faceReference": {
+        "officerId": "person-66",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0236_郭汜_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "bc397ab44edc0028955767da68b5116c18b4ff5fdb742b8f51db6f50829fceb0"
+      },
+      "designNote": "脸部特征来自本人原头像目视提取；视觉年龄和服装是原创设定。"
+    },
+    "person-55": {
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-55 蒯良，蒯越之兄、刘表幕僚。演义记向袁绍求援、对孙坚及江东的策略建议；史条目记刘表聚兵时主张信义仁爱之治。分类军政谋臣，以具体筹划和治理主张为依据，不把演义天象说法当作史实或法术，不凭兵种能力分类。",
+        "bearing": "成熟稳健的荆州谋臣，深蓝袍、绿色内襟和暗赭红缘边，低小弧冠；办事核阅消息资料，军务时平静进言，无甲无兵器，不作法、不扮冲锋统帅。"
+      },
+      "identity": "Original visual age 45. Own source face is LONG angular tapering face with wide high upper cheekbones, slightly hollow lower cheeks, narrow angular jaw and pointed small chin. Broad tall forehead. Ordinary medium narrow almond eyes, normal spacing, strong thick almost horizontal brows with subtle outer angle, relaxed glabella. Medium long straight nose with broad nostril wings and a rounded tip. Thin medium width closed lips. Fine horizontal dark moustache and a DISTINCT compact sharply tapering dark goatee extending below chin, sparse short jaw hair. Black swept-back hair, small low arched dull-bronze cap with two rounded ridges and a straight pin, no tall imperial crown. Deep muted navy broad robe, dark warm russet-red lapels, muted green inner collar and front underrobe, charcoal sash, small dispatch wallet attached at waist, plain dark trousers and cloth shoes. No armor, sword, feather fan, gems or magic. Keep source face structure while releasing stern inner eyebrows.",
+      "signature": "长角脸、高颧凹下颊和尖小颏，细横髭接明显短尖山羊须；低双弧铜冠，深蓝袍配暗赭红襟与绿色内领。",
+      "faceReference": {
+        "officerId": "person-55",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0041_蒯良_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "8ce2cd1802b481ee306c1d651fb70a565d0d3abc036e9acfb79d62731cdf6554"
+      },
+      "designNote": "视觉年龄衣装为原创美术选择，原头像用于本人面部辨识；原图紧张眉间和表演神态不锁定。"
+    },
+    "person-56": {
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "稳定ID person-56 贾华，名册为吴国武将。演义记护卫孙权征合淝及甘露寺埋伏任务，史条目明确没有记载。按护卫和在岗军官的演义职责设计，不把情节声称史实，不从兵种能力推断。",
+        "bearing": "年轻实务军官、护卫型武将，素铁盔、短蓝布盔尾、暗赭红短披和紧凑铁甲护腕，稳健警戒；办事检查护具扣带，指挥观察听令，嘴唇闭合、不怒吼挥刀，不画埋伏伤害情节。"
+      },
+      "identity": "Original visual age 30. Own face is relatively SHORT broad OVAL with smooth full upper cheeks, wide forehead, firm gently squared jaw tapering to small round chin. Ordinary medium large clear rounded-almond eyes with normal spacing, thin to medium nearly straight dark brows, relaxed lids. Medium straight nose with a small rounded narrow tip. Medium full closed lips and clean-shaven chin and upper lip, short narrow sideburns only. Rounded dull-iron military helmet with short cheek plates, small upswept temple guards, a simple circular brow fastener and short tied muted blue cloth tail. Keep the compact low-relief shoulder plates from approved neutral master; no tall plume, horns or large fantasy crest. Muted rusty red short shoulder cloak tied at upper chest, compact worn iron lamellar armor, grey-green military tunic, brown leather bracers, dark sash, dark trousers and plain dark boots. One plain fully sheathed sword secured at belt. Strong youthful guard bearing without exaggerated bodybuilder shape.",
+      "signature": "短宽椭圆清面、饱满上颊与小圆颏，较大杏圆眼、圆小鼻尖，无须；素铁盔短蓝布盔尾、暗赭红短披与灰绿军装铁甲。",
+      "faceReference": {
+        "officerId": "person-56",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0596_贾华_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "eeca4980a12ab56fda306ffe3e17aab267f89ee73bee36759c5994e11732fa1b"
+      },
+      "designNote": "视觉年龄衣装为原创美术选择，原头像用于本人面部辨识；原图紧张眉间和表演神态不锁定。 站立实稿已审阅，盔侧短上扬护额与小型肩甲浮饰按实际图保留，不再要求动作图重设装备。"
+    },
+    "person-57": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-57 华核，吴国之臣、韦昭好友。演义记主张加强防御和以德治民、劝谏孙皓；史条目记文章学识受重视，任右国史，与韦昭薛莹编吴书，屡次上书进谏并荐举人才。按文臣史官职责分类，不因防御建议改成披甲将军，不从能力兵种推断。",
+        "bearing": "端正务实的文臣史官，棕褐布袍、深蓝灰内襟和白领，朴素棕布束发。办事核阅编史资料，军事界面仍以文职身份安静听取情况、提供防御建议；无甲无兵器，不作夸张悲愤或隐士法师。"
+      },
+      "identity": "Original visual age 40. Own source face is broad slightly LONG OVAL with a high broad forehead, gently high cheekbones and full rounded cheeks, substantial rounded lower jaw and broad rounded chin. Thick slightly arched dark brows, ordinary medium-large rounded almond eyes, normal eye spacing. Medium length straight fairly broad nose with a broad rounded tip. Distinct medium-full closed lips with relaxed level corners. CLEAN SHAVEN upper lip and chin, only short sideburns. Dark hair brushed back into a simple cloth-bound topknot, brown soft cloth tie loop, NO metal crown. Plain muted warm brown layered robe and modest shoulder overvest, deep slate-blue inner lapel, narrow white inner collar, dark cloth sash, dark trousers and plain cloth shoes. No armor, weapon, feather fan, walking stick or ostentatious ornament. Preserve original rounded cheeks and clean face, not upward gaze or tense brows.",
+      "signature": "宽长椭圆脸、饱满圆颊和宽圆颏，粗微弧眉、较大杏眼、宽圆鼻尖与丰闭唇；清面无须、棕布束发，褐袍蓝灰襟白领。",
+      "faceReference": {
+        "officerId": "person-57",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0467_华覈_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "16136cbad471d6b509bb99555ebb0ac7330f96f77ac8ca83aad86d2ce77e7439"
+      },
+      "designNote": "视觉年龄衣装为原创美术选择，原头像用于本人面部辨识；原图紧张眉间和表演神态不锁定。"
+    },
+    "person-58": {
+      "name": "贾逵",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "史：弘农太守、豫州刺史，整顿运河并在征吴洞浦战胜吕范；演：识破周鲂诈降、救援曹休。",
+        "bearing": "兼有州郡治理职责的军务统帅，保留轻甲和稳健军姿，办事检查调配而非通用捧书。"
+      },
+      "identity": "Chinese male commander and provincial governor, visual age about 42. Medium-long ANGULAR OBLONG face, high cheekbones, firm nearly square lower jaw and broad compact chin, deep moderately close-set almond dark eyes, thick black brows with mild angular arch entirely relaxed. Medium-long straight nose with broad compact tip. Short neat BLACK MOUSTACHE only, pointed outer ends, NO chin beard. Smooth swept-back black hair tied in a compact topknot with a SMALL low plain dull-bronze crown, no helmet. Practical dark olive iron lamellar half-armor over a charcoal tunic, muted ochre-brown shoulder drape resting close to body, narrow white inner collar with muted red simple neck tie, brown belt, wrist guards, dark boots, plain fully sheathed sword at hip. Normal sturdy upright human build, not bulky.",
+      "signature": "棱角长方脸、方圆下颌、近眼距深眼、短黑髭无颌须；低铜冠发髻、橄榄轻甲、赭褐肩披。",
+      "designNote": "面部几何参考本人原头像，解除原图眉间紧张；年龄衣装为原创设定。",
+      "faceReference": {
+        "officerId": "person-58",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0196_贾逵_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "3a11dc44eb9fa30bba3fe1732c0c788895c071c5d78ed3ba423aed77e460533c"
+      }
+    },
+    "person-59": {
+      "name": "何仪",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "史：黄巾领兵者，拥数万兵，196年受曹操进攻后率军投降；演：与黄邵何曼等作乱，后为许褚所捕。",
+        "bearing": "民军出身的年轻领兵武将，实用旧甲与围巾，装备检查和军需动作，不作文臣。"
+      },
+      "identity": "Chinese male Yellow Turban field officer, visual age about 29. Relatively broad SOFT OVAL face, full smooth cheeks, gently tapering broad rounded jaw and smooth rounded chin, moderately spaced medium almond dark eyes, short straight relaxed brows, fairly short medium-width straight nose and blunt rounded tip. Small CLOSED mouth, NO moustache, NO beard. Youthful medium tan skin. Practical low rounded worn silver-grey iron helmet with thick OFF-WHITE FUR edging and neck protection, one SHORT modest blue-grey plume close to crown, no tall crest. Muted ochre olive cloth tunic under simple brown leather brigandine with TWO broad worn silver horizontal chest bands, desaturated TEAL scarf wrapped close to shoulders and tied low without flying tails, plain brown belt and wrist wraps, dark trousers and boots, plain sheathed short sword. Normal young athletic human build, not massive.",
+      "signature": "年轻宽柔椭圆脸、圆颊短钝鼻、无须；白毛边低盔、短蓝灰缨、青绿围巾及朴素旧皮铁甲。",
+      "designNote": "面部结构参考本人原头像，短缨与近身围巾为便于裁剪的原创简化。",
+      "faceReference": {
+        "officerId": "person-59",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0414_何仪_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "9363b4034c4aa25307b4b4c19d624dfb0bbdfe2fbfb86ba0722072b29f706211"
+      }
+    },
+    "person-60": {
+      "name": "华歆",
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "史：豫章太守，后仕孙策曹操，魏御史大夫、司徒，清廉；演：使者、朝廷高级官员，负面情节不作为夸张反派表情依据。",
+        "bearing": "中老年朝廷文臣，素净深袍、高冠、端正平静，军务视图仍为文职联络辅助，无甲无兵器。"
+      },
+      "identity": "Older Chinese male high civil official, visual age about 56. Long lean RECTANGULAR TRAPEZOID face, prominent cheekbones and hollow lower cheeks, broad firm jaw tapering to a pointed chin partly covered by a NARROW medium-length pointed BLACK-and-GREY GOATEE. Deep moderately close-set narrow almond eyes, thick nearly horizontal brows relaxed, long high slightly aquiline nose, thin neat moustache with downward outer tips separated from the narrow goatee. Long narrow sideburns, warm tan skin with subtle age lines. Tall squared dark CHARCOAL OFFICIAL CAP with two raised side panels and a recessed flat central top, understated woven ribbing. Muted charcoal-purple subtly patterned official robe, pale grey-lilac inner collar and dark violet lapel trim, simple black sash and low dark shoes. Slim normal upright build. No armor or weapon. Calm open natural eyes, glabella smooth, mouth gently CLOSED, no villain scowl.",
+      "signature": "瘦长矩形脸、高长微鹰鼻、细髭与黑灰窄尖颏须；双侧高缘方黑冠、炭紫素官袍。",
+      "designNote": "保留本人原头像脸型与窄须，放松眉间；不将演义负面叙述画成凶恶表情。",
+      "faceReference": {
+        "officerId": "person-60",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0195_华歆_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "e49630f7a3c2d206e59249081288b8e693f80f187bda73e2e78b0f3139776af5"
+      }
+    },
+    "person-76": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册史条记太子舍人、巡视各地、黄门侍郎，后任安南将军和南中都督并平定三郡，兼地方行政与军队统领；演义为建宁太守守土降服情节。按军政统领为主、文务为次，不固定表演丧服哭泣。",
+        "bearing": "成熟而相对年轻的地方军事长官，完整银盔金缘蓝缨、蓝灰甲胄，组织军务与军需核查，站姿稳健表情自然。"
+      },
+      "identity": "Original visual age34, healthy lean athletic military governor. Medium-long angular oval face, broad high forehead, moderately broad cheekbones, tapering jaw and small firm squared chin. Dark straight medium-thick eyebrows, ordinary spaced narrow almond eyes relaxed, medium straight nose with firm rounded tip, thin level closed lips. Very fine short moustache and SMALL short pointed chin tuft, clean cheeks and jaw. Silver-grey rounded segmented helmet with distinctive GOLD wide eyebrow band and small central crest, modest full BLUE plume and blue chin cords. Muted BLUE-GREY steel lamellar armor with restrained gold edging over pale grey cloth collar, blue-grey cloth skirt panels, dark belt, dark trousers and black boots. Simple sword fully sheathed at hip. No cape, crown or scholar robe. Preserve exact original portrait facial proportions; visual age and body/costume extension are original art choices.",
+      "signature": "中长棱形椭圆脸、直眉细髭小颏须；金眉带银盔蓝缨、蓝灰甲。",
+      "faceReference": {
+        "officerId": "person-76",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0312_霍弋_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "84df160793d26fc55dc2b7d35fd7ee3c8aad91eb809e70ac4995860a085505ba"
+      },
+      "designNote": "面部特征依据本人原头像，视觉年龄和服装延伸为原创设定；正史与演义分列。"
+    },
+    "person-77": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "名册史条记从曹操讨张鲁、任夏侯渊司马；演义条记汉中及多次协同防诸葛亮北伐、陇西对姜维。军队部署和守备判断为主，谋划为次；不把演义眉心中箭设为固定伤容。",
+        "bearing": "成熟坚实的守边军中将领，毛缘铁盔、青缨与青系带，蓝甲深赭短披；低位调度与补给检查，不作书生拢袖或夸张怒目。"
+      },
+      "identity": "Original visual age49, solid mature military commander of average broad build. Medium-long broad angular oval face, full upper cheeks and broad cheekbones, strong moderately square jaw and broad chin. Dense nearly horizontal dark brows, moderately close compact almond eyes calm, medium broad straight nose with blunt rounded tip, medium thin naturally closed mouth. Thick short dark moustache joining a neatly trimmed short full beard ending in a BROAD short pointed chin, clean upper cheekbones. Iron segmented helmet with dark BROWN FUR rim and short TEAL plume, TEAL chin cords. Deep muted BLUE lamellar armor with weathered grey-bronze edging and square shoulder guards, dark earthy RUST-BROWN short shoulder cloak, blue padded inner clothing, brown belt, dark trousers and boots. Sheathed plain sword. No royal crown, scholar robe, arrow wound or drawn weapon. Preserve original broad face and short full beard. Visual age and full costume are original art direction.",
+      "signature": "宽颧厚颊方颌、平浓眉、短厚髭与宽尖短须；毛缘铁盔青缨青系带、蓝甲赭短披。",
+      "faceReference": {
+        "officerId": "person-77",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0206_郭淮_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "5308c245105b44685c3442e47eb6867e840df8501ed1920f2ac9dac3c034d2f5"
+      },
+      "designNote": "面部特征依据本人原头像，视觉年龄和服装延伸为原创设定；正史与演义分列。"
+    },
+    "person-78": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册演义条记随司马懿任先锋并讨公孙渊；史条记有男子气概、历荆州兖州刺史。以军职先锋的武人仪态为主并保留地方行政次职，不凭兵种分类；病发与宴饮故事不是固定动作。",
+        "bearing": "精干稳健的先锋将官，铜盔红缨、红短披和铁甲；办事检查军需或护具，军务保持克制军姿，不用文弱书生模板。"
+      },
+      "identity": "Original visual age36, healthy lean athletic vanguard officer. Long narrow oval-angular face, medium-high forehead, high slim cheekbones, tapering jaw and modest firm chin. Medium-thick slightly arched dark eyebrows, ordinarily spaced dark almond eyes at rest, medium-long straight nose with modest broad rounded tip, thin naturally closed lips. Faint narrow short moustache and a small SHORT triangular dark chin beard only, clean jaw cheeks. Bronze-brown iron helmet with small restrained raised center crest and RED plume, grey-purple cloth neck collar. Muted dark STEEL lamellar armor and bronze trim, short deep RED shoulder cloak tied at center chest, leather belt, charcoal cloth skirt panels, dark trousers and boots. Plain sheathed sword at hip. No crown, long goatee, feather fan or scholar robe. Exact original facial proportions with relaxed brows, age and armor extension are original visual choices.",
+      "signature": "长窄椭圆棱脸、高颧短三角颏须；铜盔红缨、红短披灰紫领和钢灰甲。",
+      "faceReference": {
+        "officerId": "person-78",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0238_夏侯威_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "a4df96f09e0f6795e60e808481fbdee1c2f6136d754625788a8011323c6ec1ff"
+      },
+      "designNote": "面部特征依据本人原头像，视觉年龄和服装延伸为原创设定；正史与演义分列。"
+    },
+    "person-67": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "specialist"
+        ],
+        "evidence": "稳定ID person-67 乐就，袁术武将。演义记讨吕布时督战并负责七军联络、后守寿春；史条目记袁术弃军后奉命与桥、李豊、梁纲等留守，败后被斩。按军职及联络督战职责设计，不因结局画恐惧或刑杀场面，不凭兵种能力分类。",
+        "bearing": "壮年军官，朴素黄褐布头巾、灰铁甲与暗紫缘边，军职站姿清楚。办事检查军情传递皮袋，指挥观察听令，不捧书执笔或大幅挥击。"
+      },
+      "identity": "Original visual age 34. Own face is LONG RECTANGULAR with wide forehead, flat prominent upper cheekbones, slightly hollow lower cheeks, strong square jaw and broad rounded chin. Thick dark nearly straight eyebrows, ordinary medium narrow almond eyes with relaxed lids and normal spacing. Medium-long straight nose with a fairly narrow rounded tip, medium thin closed lips. CLEAN SHAVEN face except short dark sideburns. Black hair under a mustard-yellow soft cloth cap with small tied top and short hanging rear flap, muted purple lining at rear, no helmet or metal crown. Practical worn iron lamellar cuirass, grey-green fitted military tunic, subdued ochre front cloth panel, dull purple edge trim, brown wrist guards, charcoal sash, dark trousers and plain dark boots. One plain fully sheathed sword at waist. Keep source strong rectangular clean face, release original frowning brow and tense side gaze. No gold beast ornaments, plume or magic.",
+      "signature": "长方清面、方下颌宽圆颏，浓平眉、长直细圆头鼻，仅短鬓；黄褐软布巾、灰铁甲与暗紫缘边。",
+      "faceReference": {
+        "officerId": "person-67",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0140_乐就_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "51f02f53ab01ac12f6a8b57239caa214c272535a19874b9a771afd8fda14d51a"
+      },
+      "designNote": "视觉年龄、配色、军装为原创选择；本人原头像用于面部比例、须发与头饰辨识，不锁定皱眉或怒目。"
+    },
+    "person-68": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "稳定ID person-68 霍峻，原刘表将后仕刘备。演义记守葭萌关及多次求援；史条目记在刘璋军围攻中孤军守关一整年、反击斩向存，后任梓潼太守且早于汉中战去世。以实际据守和军队组织为主，不把演义后期守关情节全当史实，不凭兵种能力判型。",
+        "bearing": "壮实而沉着的关隘守将，暗铁盔、短蓝布盔尾与青蓝军装披肩，实用密片甲和赭红缘边。工作检查小型军需木牌，指挥自然低持短木杖、观察布防；无怒目吼叫、书生拢袖。"
+      },
+      "identity": "Original visual age 38. Own face is fairly BROAD PENTAGONAL, broad forehead, high full cheekbones, solid lower cheeks, strong angular jaw tapering to a short rounded chin. Dense dark almost horizontal brows, ordinary medium rounded-almond eyes fairly close together, relaxed eyelids. Medium length fairly broad straight nose with rounded tip and full nostril wings. Thick dark horizontal moustache turning subtly upward at ends, dense short pointed triangular chin beard and very short jaw hair. Medium closed lips and calm level corners. Plain rounded dark iron helmet with subtle engraved brow band, central small fastener and short muted blue tied cloth tuft, practical short cheek plates. Muted teal-blue tunic and close shoulder cloak, compact iron lamellar armor with rusty-red edging and brown leather fasteners, brown bracers, charcoal sash, dark trousers and plain dark boots. One simple fully sheathed sword secured at belt. No tall fantasy crest, horns, shiny gold or beast ornaments. Retain source broad face and moustache while smoothing inner brow tension.",
+      "signature": "宽五角脸、实颊收角下颌和短圆颏，较近杏圆眼、宽圆鼻，粗横髭微翘接短三角颏须；暗铁盔短蓝尾、青蓝披甲赭边。",
+      "faceReference": {
+        "officerId": "person-68",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0311_霍峻_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "8db6db0dc5e7b5b6b9733c68a91859aeac397ecd1ec5ed5b1142500f4f9655f4"
+      },
+      "designNote": "视觉年龄、配色、军装为原创选择；本人原头像用于面部比例、须发与头饰辨识，不锁定皱眉或怒目。"
+    },
+    "person-69": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "稳定ID person-69 郝昭，魏国武将。演义记守陈仓抗诸葛亮及后续病死叙述；史条目记镇压西平麴英叛乱、抗诸葛亮守陈仓有功，不久病死，并明确无再次袭城导致死亡的记载。以守城组织和临阵军务职责设计，史实和演义分开，不凭兵种能力判型。",
+        "bearing": "沉着务实的守城统帅，深绿军服、实用铁甲及赭红缘边，铁盔短暗赭盔缨。工作检查小型木制城防连接件，指挥低位靠剑鞘判断布防；无烈焰病弱、夸张怒容或书生姿态。"
+      },
+      "identity": "Original visual age 39. Own face is a LONG broad HEXAGONAL face with wide upper forehead, high prominent cheekbones, slightly hollow long lower cheeks, tapering angular jaw and a narrow pointed chin. Dense dark gently arched brows, ordinary long horizontal almond eyes slightly close set, relaxed lids. High fairly long SLENDER STRAIGHT nose with narrow rounded tip. Thin dark horizontal moustache extending outward and slightly upward at ends, DISTINCT narrow longer sharply pointed chin goatee with subtly separated tips, sparse short beard along jaw. Thin closed mouth, level relaxed lips. Dull iron rounded helmet with simple broad central brow plate, short cheek and neck guards and a modest SHORT muted ochre horsehair tuft attached at crown, not a huge flowing plume. Dark muted green military tunic, worn iron lamellar cuirass and layered practical shoulder collar edged rusty red, brown leather bracers, charcoal sash and dark trousers, plain dark boots. One simple fully sheathed sword at belt. No cape, gold ornaments, horns, gems or magic. Preserve own angular long face and distinctive longer chin goatee; release fierce eyebrows of source.",
+      "signature": "宽长六角脸、高颧凹下颊、收窄尖颏，近横眼、高长细直鼻，外展细髭与较长尖分叉颏须；铁盔短赭缨、深绿军服铁甲赭边。",
+      "faceReference": {
+        "officerId": "person-69",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0077_郝昭_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "612a34ef7a870a73086eb44128bb07afade2b8939f2b4a2be260846a2c8ed73b"
+      },
+      "designNote": "视觉年龄、配色、军装为原创选择；本人原头像用于面部比例、须发与头饰辨识，不锁定皱眉或怒目。"
+    },
+    "person-70": {
+      "name": "乐进",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "史：身材瘦小而骁勇果断，与张辽于禁张郃徐晃齐名，官渡斩淳于琼；演：曹操部将、合淝守将。",
+        "bearing": "身形精悍的前线武将，军装甲胄及紧凑稳健站姿，办事仍检查军用装备。"
+      },
+      "identity": "Chinese male veteran field officer, visual age about40. Compact SHORT SLIM athletic stature, ordinary human proportions, not a tall giant. Rather narrow angular elongated face with defined high cheekbones, firm tapering jaw and compact pointed-rounded chin, deep fairly wide-set narrow almond dark eyes, thick gently arched brows entirely relaxed, long straight fairly broad nose with defined blunt tip. Neat short black moustache connected to a SHORT close-trimmed pointed chin-and-jaw beard. Warm weathered medium tan skin. Low dark worn bronze helmet with engraved curved brow and short cheek guards, a SHORT muted olive cord tassel close to crown, no long plume. Practical dark bronze-brown lamellar armor, compact shoulder plates, close-wrapped muted ochre scarf tied low at chest, olive-brown tunic sleeves, leather wrist guards, brown belt, dark trousers and boots, one plain fully sheathed sword at left hip. His exact own original face, smooth relaxed glabella and closed mouth.",
+      "signature": "精悍瘦小、窄长棱角脸、较宽直鼻、短连颌黑须；低旧铜盔、近身赭黄围巾、铜褐甲。",
+      "designNote": "脸型参考本人原头像，原头像高缨简化；体态依据传记瘦小而精悍，服装为原创设定。",
+      "faceReference": {
+        "officerId": "person-70",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0078_乐进_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "ed007b3a0e7ce8c08ed1202b131bf5d1e3d4be0719d0cd3e396eb6ac2ce8717a"
+      }
+    },
+    "person-71": {
+      "name": "乐𬘭",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "史：魏国武将、乐进之子，刚毅且容貌与父相似，死后追卫尉；演：曹真副先锋、讨公孙渊并任扬州刺史。",
+        "bearing": "年轻军职将领，紧凑军姿和实用甲胄，兼任军政仍保持领兵职责，不作文士。"
+      },
+      "identity": "NEW DISTINCT ORIGINAL IDENTITY, no verified own legacy portrait is available for this stable ID. Chinese male field officer, visual age about31. Compact lean sturdy human build. Medium-long RECTANGULAR face with a somewhat broad forehead and high cheekbones, firm nearly square jaw and broad flat-rounded chin; moderately wide-set clear medium almond dark eyes, medium-thick straight resting brows, medium-length straight nose with relatively broad blunt tip. Small neat SHORT BLACK MOUSTACHE and a tiny squared short chin patch, clean cheeks and jawline; no long full beard. Warm medium tan skin. Low plain charcoal iron helmet with a STRAIGHT simple brow band and dull bronze rim, NO plume or tassel, short neck guards. Charcoal-bronze lamellar cuirass with compact plain shoulder protection over dark olive tunic sleeves, desaturated brick-red wool neck scarf wrapped CLOSE under armor collar, dark belt, brown wrist guards, dark split skirt panels, trousers and boots. Plain fully sheathed sword at hip. Family resemblance is an original editorial interpretation only; do not borrow another officer face. Neutral open eyes, smooth glabella, closed loose mouth.",
+      "signature": "原创青年矩形脸、方圆下颌、平眉、短髭与小方颏须；无缨低灰铁盔、砖红近身颈巾、炭铜甲。",
+      "designNote": "稳定ID原头像映射为空；已发现名为乐琳的本地文件但未验证稳定ID，不将其或父亲头像作实际生成输入。采用独立原创且须目视审阅的本人身份。",
+      "faceReference": null
+    },
+    "person-72": {
+      "name": "郭图",
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册身份为袁绍、袁谭参谋；史：曾进言拥护献帝；演：主战、策划和幕府议事，后依袁谭。",
+        "bearing": "中年幕府谋臣，文袍高冠、平静研判与文书联络，无甲无武器，不把演义争权情节画成奸恶怪相。"
+      },
+      "identity": "Chinese male adviser, visual age about46. LONG SOFT OVAL face with broad upper cheeks and gently tapering lower jaw, small pointed chin under a NARROW medium-length black goatee with a few grey strands, thin neat moustache with gently descending outer ends, clean cheeks. Moderately spaced heavy-lidded almond dark eyes, gently angled medium-thick eyebrows fully relaxed, long narrow straight nose bridge with rounded small tip, medium-width CLOSED mouth with level corners. Warm light tan skin. Tall OCHRE pleated official cap with rounded rectangular top, plain brown headband and one SMALL muted green central jade piece. Muted olive-gold fine patterned official robe with mustard edge, deep muted purple collar and thin rust-red inner cord, plain brown sash, dark low shoes. Normal slim human build, no armor or weapon. Exact own original face geometry with no smirk or suspicious sideways glare.",
+      "signature": "长柔椭圆脸、宽上颊窄下颌、细髭及黑灰窄颏须；赭色褶高冠、小绿玉饰、橄榄金官袍与紫领。",
+      "designNote": "本人原头像面部结构及冠色作辨识参考，衣装为原创延伸，演义负面情节不锁定表情。",
+      "faceReference": {
+        "officerId": "person-72",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0079_郭图_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "7e436db292d6a7562272aa78ca6de7d95ab05732721d0a59fcc8bd6ef9056aae"
+      }
+    },
+    "person-61": {
+      "role": {
+        "primary": "strategist",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册 person-61 贾诩为李傕、郭汜、张绣、曹操历任参谋；演义栏详记长安、张绣夜袭、劝降及渭水离间等谋略，史栏记阎忠以张良陈平相许。依据持续参谋身份与谋议职责归为谋士，兼文臣；不从能力或兵种推断。",
+        "bearing": "审慎持重的中年谋士，文职衣袍与朴素短肩披，低幅度查看消息和研判；保持从容中性，不以阴险笑容或武将甲胄塑造人物。"
+      },
+      "identity": "Visual age about 48. Exact own legacy face geometry: LONG NARROW angular oblong face with high sharp cheekbones and slightly hollow cheeks, long tapering jaw and narrow pointed chin. Moderately close-set small deep dark almond eyes, thick black diagonally arched eyebrows now RELAXED; long prominent high STRAIGHT NARROW nose with a compact downward rounded tip. Thin neat black moustache angles gently down from upper lip, narrow long triangular goatee and sparse jaw whiskers. Thin naturally CLOSED mouth. Swept-back black hair with a distinct angular high hairline, compact topknot, SMALL dull-gold fan-shaped crown ornament with three short vertical lobes; slim dark green headband, no tall court hat. Muted MUSTARD OCHRE short shoulder cloak fastened with thin dark-green cords at upper chest, slate-grey crossed collar, dark charcoal fitted robe underneath, plain brown cloth sash, narrow sleeves and dark cloth shoes. Slender upright ordinary human figure, NO armor or weapon.",
+      "signature": "长窄棱角脸、深眼长直窄鼻、细八字须与尖长山羊须；小金扇冠、绿系带、暗赭黄短肩披和灰黑文袍。",
+      "faceReference": {
+        "officerId": "person-61",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0042_贾诩_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "1953ad494dff172b1e8ca6b4ed16383da07b812716090c00a8992f079c17a4a5"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-62": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册 person-62 郭奕为郭嘉之子，史栏记继承其后并任太子文学，王昶评价其理解力强且博学，裴松之对负面评价有异议。按太子文学这一文职身份与学识记录设计，不因父亲谋士身份虚构统军战绩。",
+        "bearing": "年轻端整的宫廷文学官，赤赭文袍、低发髻与短红巾带，持册和消息联络动作自然，军务场景保持文职辅助；不傲慢斜笑或穿将领甲胄。"
+      },
+      "identity": "Visual age about 28. Own original reference has a SLIM LONG RECTANGULAR-OVAL youthful face, high broad forehead and asymmetric loose forelock, clear angular cheekbones, narrow defined jaw and pointed chin. Ordinary-spaced dark almond eyes with slightly lifted outer corners, rather long dark eyebrows with a mild natural arch, long straight slender nose with rounded compact tip. Very thin short black moustache and sparse short POINTED goatee with light jaw stubble, no broad full beard. Lips naturally CLOSED and level, eyebrows at rest, head LEVEL rather than copied dramatic tilt. Black hair swept back into a small high topknot bound by a muted RED cloth tie with TWO SHORT relaxed tails, not flying ribbons. Desaturated BURNT VERMILION robe with restrained dark red woven pattern, pale grey-white crossed collar, charcoal inner lapel, simple dark sash and plain dark cloth shoes. Slender normal human build, no armor or weapon.",
+      "signature": "年轻瘦长方椭圆脸、细长鼻、稀薄短八字须与小尖须；低发髻短红带、赭红纹袍和灰白领。",
+      "faceReference": {
+        "officerId": "person-62",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0310_郭奕_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "dec7ffa6ec6648c2f73db788fa548a6a6ec0e9ff90ebd990aa73de00896a351e"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-63": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册 person-63 郭援为袁尚武将；史载任河东太守并与高干计划攻略曹军平阳，渡汾水前遭钟繇与马超部攻击，被庞德斩首；演义无另载。以实际军事组织与进攻任务确定统帅兼武职，不从兵种能力推断。",
+        "bearing": "体格厚实的北地军职将领，皮毛护缘、铁甲和蓝巾保留实用性；所有母图闭口放松，军需检查与部署保持武职，不复制原头像怒吼怪相。"
+      },
+      "identity": "Visual age about 40. Preserve own reference facial structure while removing the roar: BROAD SHORT TRAPEZOID face, wide full cheeks and high cheekbones, very broad lower jaw, rounded blunt chin hidden by beard. Ordinary-spaced large dark eyes now RELAXED and almond-rounded rather than bulging; coarse thick black eyebrows at rest; SHORT BROAD STRAIGHT nose with broad rounded tip and substantial nostrils. Broad dense black moustache connects to THICK FULL short bushy beard across both jaw sides and chin, coarse sideburns; naturally CLOSED medium-wide mouth. Practical dark iron helmet edged with dense dark-grey FUR at brow and cheek sides, a compact dark blue plume bent backward and entirely in frame, no horns. Weathered dark iron and muted silver lamellar cuirass, thick charcoal fur collar, desaturated deep BLUE neck scarf and modest shoulder cloth, dark charcoal underrobe, leather wrist guards, plain brown belt, dark boots, ONE plain fully sheathed saber. Broad strong stocky human proportions, not giant or monster.",
+      "signature": "短阔梯形脸、宽圆鼻、厚八字胡与满颊短络腮须；暗铁皮毛缘盔、短蓝缨、蓝巾和灰黑甲。",
+      "faceReference": {
+        "officerId": "person-63",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0787_郭援_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "c529a0d38080511986be8995fb254c04ded719804d0ab747b7939f9df3838fcc"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-88": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册史条记安西将军驻长安、北伐前召回中央，明确未与诸葛亮交战；演义则有自请指挥迎击与被俘情节。以驻地军事长官为主，行政为次，不把演义无经验或失败作夸张表情。",
+        "bearing": "体格结实、脸较宽圆的驻军长官，束发小金冠、铜灰甲和红短披；低位军需检查与部署观察，表情普通沉稳。"
+      },
+      "identity": "Original visual age34, stocky sturdy military governor. Short-medium BROAD rounded-rectangular face, broad forehead, full rounded cheeks, wide squared-round jaw and broad short blunt chin. Thick gently arched dark brows, close narrow almond eyes calm, medium-long straight broad nose with rounded tip, broad thin naturally closed lips. CLEAN-SHAVEN upper lip chin and cheeks, no moustache or beard. Black hair in compact swept-back topknot with small flared GOLD clasp, one muted red stone and thin red cords. Bronze-grey lamellar armor with restrained dull gold trim, pale grey collar and short dark RED shoulder cape tied center chest, dark brown belt, charcoal cloth panels, dark trousers and boots. Plain sword sheathed. No helmet, long goatee or scholar robe. Preserve his distinct broad clean-shaven face; visual age and full costume are original choices.",
+      "signature": "宽圆短脸、丰颊阔短颏、无须；红石小金束发冠、铜灰甲红短披。",
+      "faceReference": {
+        "officerId": "person-88",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0278_夏侯楙_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "1ff15bfdb47fc649dddc5ed836a5ebf69656184e6f13b162c0373c56fbf7b3ad"
+      },
+      "designNote": "本人原头像脸部比例为基准；视觉年龄和服饰为原创设定；正史演义分列，家族人物不虚构军功官职。"
+    },
+    "person-89": {
+      "role": {
+        "primary": "specialist",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册身份为夏侯文宁之女、曹文叔妻，史与演义均侧重守节、家族与继嗣，没有统兵或前线作战证据。特殊职能按家族事务与物资照料、联络作美术适配，不虚构官职与战功。原头像正常面容，作原创视觉身份，不把历史自伤行为制作为本套动作。",
+        "bearing": "仪态坚定而平静的成年世家女性，紫色长袍与淡绿内领，素银发饰。办事以家族物资与函件整理，军务用途仅作阵后联络照料的展示适配，始终保持本职无甲无兵器，不做献媚或痛苦表情。"
+      },
+      "identity": "Original visual age29, healthy adult noblewoman of ordinary slim build. Medium-long softly tapered OVAL face, moderately broad forehead, smooth modest cheekbones, gentle rounded jaw and small softly pointed chin. Fine almost straight black brows, medium-large almond dark eyes with ordinary slightly wide spacing, small straight delicate nose with rounded tip, small naturally closed lips. Natural healthy complexion with restrained minimal makeup. Black hair in small high rounded bun with simple SILVER hairpin, long smooth side ponytail falling over her RIGHT shoulder, tied low with small silver flower clasp. Muted LAVENDER-PURPLE full-length cross-collar robe with subtle pale floral woven pattern, pale SAGE-GREEN inner collar, deep violet lapel trim, soft silver-grey sash, long violet skirt and simple dark cloth flats. Normal intact original-portrait face anatomy; no wound, bandage or disfigurement. No armor, weapon, crown, fan or sexualized clothing. Facial structure follows her own exact original portrait; age and costume extension are original artistic design, not a factual likeness claim.",
+      "signature": "柔和中长椭圆脸、平细眉清亮杏眼、柔尖颏；银簪小髻右肩黑长发、紫花纹袍淡绿领。",
+      "faceReference": {
+        "officerId": "person-89",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0780_夏侯令女_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "178b04f3c2a0a386f56e00d02976e91fea922295b8ccf0b4bc8ce68b6ad378b4"
+      },
+      "designNote": "本人原头像脸部比例为基准；视觉年龄和服饰为原创设定；正史演义分列，家族人物不虚构军功官职。"
+    },
+    "person-90": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "名册史条记晋侍中、司空、尚书令及制定晋律、升太宰；演义侧重为司马昭出谋与政权转移，军政筹谋为次。按朝廷文臣法务为主，不把暗杀情节变为持刀刺客或冲锋武人。",
+        "bearing": "成熟精明的朝廷文臣，黑灰官袍、白灰几何内领与小型金冠；法务公文与政治联络低幅动作，闭口自然，不画阴笑怒目或杀人道具。"
+      },
+      "identity": "Original visual age46, mature civil statesman of ordinary lean build. Medium-long angular rectangular face, broad medium-high forehead, sharp cheekbones, moderately tapering jaw and small firm pointed chin. Thick gently arched dark brows, close narrow almond eyes relaxed, high medium-long straight nose with slightly angular tip, thin level closed mouth. Fine sparse horizontal black moustache and a SMALL slender pointed chin goatee with short neat jaw stubble, much shorter than Guo Si beard. Dark hair swept into compact topknot with small wavy GOLD clasp and one tiny red bead. Deep CHARCOAL-BLACK full-length civil robe with subtle grey cloud pattern, pale GREY-WHITE geometric inner collar and narrow dull gold edging, dark sash, dark grey skirt panels and plain black shoes. No armor, weapon, helmet, fan or assassin pose. Preserve original angular face and restrained facial hair. Age and costume extension are original art direction.",
+      "signature": "中长矩形棱脸、高颧细髭小尖颏须；波形小金冠红珠、黑灰暗纹袍白灰几何领。",
+      "faceReference": {
+        "officerId": "person-90",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0235_贾充_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "c10a6111069a476ad61f90866b1c9b58b8fac8410cb2e36e135ab76efa2fc223"
+      },
+      "designNote": "本人原头像脸部比例为基准；视觉年龄和服饰为原创设定；正史演义分列，家族人物不虚构军功官职。"
+    },
+    "person-73": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册 person-73 郭马为吴合浦太守、修允私兵队长；史栏记率私兵赴任、拒绝分割部队并在广州起事，陶濬陶璜等奉命镇压，演义无另载。按带领私兵与军事组织职责定为统帅兼武职，不从阵营兵种或能力推断。",
+        "bearing": "地方军职首领，实际军甲和稳健军姿；军需检查与部署动作克制，不能以文官捧册替代，也不以怒相表现其起事身份。"
+      },
+      "identity": "Visual age about 42. Preserve own original portrait: LONG fairly broad RECTANGULAR face with high prominent forehead and strongly RECEDING front hairline, prominent cheekbones, lean lower cheeks, strong angular jaw and rounded-square chin. Moderately close-set NARROW dark almond eyes, moderately thick curved black brows relaxed, long straight broad-based nose with slightly blunt rounded tip. Neat black moustache with downward ends, distinct small chin goatee, dense close-cropped black beard along jaw sides and long thick sideburns, not a massive bushy beard. Natural CLOSED lips. Black wavy hair swept directly BACK from high forehead, gathered low behind, no helmet or crown, a few grey temple hairs. Weathered SILVER-grey plate and lamellar armor with dark TEAL-green edging and compact rounded shoulder guards carrying subtle scrolling embossing, one dull BRASS chest clasp, muted dark-green underrobe, brown practical belt, dark boots, ONE sheathed plain saber. Broad shoulders but normal lean-strong human build.",
+      "signature": "高额后退发际、后梳黑发，无盔冠；长方脸、窄眼长鼻、贴颊须和小颏须；青绿缘银灰甲与黄铜胸扣。",
+      "faceReference": {
+        "officerId": "person-73",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0143_郭马_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "201edf3dc9c4b807d208da5fc64186c7a05161680243d7a4530f7d5786d7f617"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-74": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册 person-74 郝萌为吕布武将；演义栏记濮阳作战及护卫求援使者，史栏记联络袁术、起兵后与曹性决斗并被高顺所杀。以武将作战与护卫职责归为武勇将领，兼军事带队；采用常态任职时期，不表现最后受伤情节。",
+        "bearing": "实用轻甲与低盔的职业武将，站立、检查护具和临阵观察均保持军职；神态中性、双手自然完整，不做反派怒相。"
+      },
+      "identity": "Visual age about 37. Exact legacy face: SLIM LONG OBLONG-RECTANGULAR face, fairly high cheekbones, lean cheeks, narrow defined square-tapering jaw and small rounded chin. Ordinary-spaced narrow dark eyes under thick straight low black eyebrows, relaxed rather than tense. Long medium-narrow straight nose with compact rounded tip. Sparse short thin black moustache, small separate pointed black chin beard, clean upper cheeks and no full jaw beard. CLOSED medium mouth with level corners. LOW simple dark grey-TEAL iron helmet with a single curved central ridge and short straight cheek pieces, compact faded COPPER-BROWN horsehair tail flowing only a little backward, entirely in frame, no high metal crest. Pale grey-green neck cloth folded naturally around collar and behind shoulders; worn dark teal square-lamellar cuirass and modest smooth rounded shoulder protection, grey-green underrobe, practical leather wrist guards and brown belt, dark boots. One sheathed saber, normal lean athletic proportions.",
+      "signature": "瘦长方脸、低直浓眉、长直鼻、稀疏短须与小尖颏须；低青灰盔、短褐缨、浅灰绿颈巾和青铁方片甲。",
+      "faceReference": {
+        "officerId": "person-74",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0691_郝萌_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "7a1e2b17ce5ebf241506ac8a40d3945cee4994c7b552c4792fb7b71d80efae4a"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-75": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "名册 person-75 郭攸之为蜀侍中，出师表中与费祎、董允同被称诚实忠义之士并受命留守成都；史栏记其稳重、人品学识，并无指挥近卫队或升官记载。按宫廷文职与咨询职责设计，不将董允军职误归本人。",
+        "bearing": "稳重忠直的宫廷侍中，蓝紫纹袍与高黑镂架冠，办事核对宫务、军务界面保持留守与联络咨询角色，不披甲持兵器。"
+      },
+      "identity": "Visual age about 43. Preserve own original portrait: LONG NARROW oblong face with high forehead, prominent high cheekbones, lean cheeks and a long gently tapering jaw with small rounded chin. Moderately spaced narrow slightly deep dark eyes, long slender gently arched black eyebrows relaxed; LONG STRAIGHT NARROW nose with small rounded downward tip. Fine narrow moustache angled gently down at ends, small wispy pointed goatee under chin, very light jaw whiskers, not a bushy beard. Naturally CLOSED lips and level head. TALL dark BLACK-TEAL open lattice official crown with distinct narrow upright ribs and open spaces, flat dark brow cap underneath, thin dark-green chin tie knotted low at throat; entire crown ribs visible. PALE powder-blue/LAVENDER-grey brocade robe with subtle dark blue woven motifs, broad dark blue crossed lapel, pale green inner crossed collar, dark teal cloth sash and dark simple shoes. Normal slender upright body, no armor, blade or feather fan.",
+      "signature": "长窄脸、细弧眉、长直窄鼻、细八字须和稀尖须；高黑镂架冠与绿颏带，淡蓝紫纹袍和深蓝交领。",
+      "faceReference": {
+        "officerId": "person-75",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0248_郭攸之_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "2d899353180d06f73895fb0c37631d095756263c7723a36c41d7213f768271f6"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "yuanxia": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "稳定ID yuanxia 夏侯渊，曹操重臣。演义记曹操举兵时从军、弓术出众、平凉州、先锋入汉中并守定军山；史条目记官渡确保兵粮、善奇袭。以统军和军需组织为主、武勇为次，弓箭作为演义武艺的美术标志，不把演义单挑结局或弓术排名称史实，不从兵种能力分类。",
+        "bearing": "成熟实务的军队统帅，暗铁盔短青蓝缨、青蓝短披和深蓝军装铁甲，深色护腕；工作检查补给皮袋，指挥低持短木杖观察部署。可保留小箭囊与背挂弓，但不拉弓射击，不因急躁叙述画怒容。",
+        "propExceptions": "演义明确弓术表现，可在固定装备中保留一只小箭囊及背挂未张弓，始终贴身，不做射击动作。"
+      },
+      "identity": "Original visual age 46. Own face is LONG strong ANGULAR RECTANGULAR with broad high upper cheekbones, long slightly hollow lower cheeks, firm tapering jaw and a small pronounced rounded chin. Broad forehead. Dense dark almost straight eyebrows, ordinary long almond eyes slightly close-set, relaxed lids. High straight fairly broad nose with a substantial rounded tip. Dark moustache extending downward at corners, connected dark pointed chin beard distinctly LONGER than short goatee, sparse short jaw beard. Medium thin naturally closed lips. Rounded dark iron helmet with simple ridged central brow plate, practical cheek guards and modest muted teal-blue tied tuft. Dark navy military tunic, worn iron lamellar cuirass, rusty brown leather edging, close teal-blue short cloak tied at upper chest, brown leather bracers, charcoal sash, dark trousers and plain dark boots. One plain fully sheathed sword secured at belt. Small arrow quiver and a low-profile undrawn bow secured tightly to BACK; never held across face, no arrow drawn. Preserve own strong long face and chin beard while releasing original brow tension. No gold beast ornaments or huge fantasy crest.",
+      "signature": "长角方脸、高颧长下颊、收颌小圆颏；下垂髭接较长尖颏须。暗铁盔青蓝缨、青蓝短披深蓝铁甲，小箭囊背挂弓。",
+      "faceReference": {
+        "officerId": "yuanxia",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0006_夏侯渊_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "cad76d27354008e8c33babf90f1bc3ecd168903552c2961118e317eb3d4638ce"
+      },
+      "designNote": "视觉年龄和衣装配色为原创选择，原头像只作本人脸型、须发和头饰辨识输入；原图怒眉和侧睨不锁定。"
+    },
+    "person-80": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "specialist"
+        ],
+        "evidence": "稳定ID person-80 夏侯恩，曹操亲信。演义记为曹操保管青釭宝剑、长阪出阵被赵云所杀失剑；史条目明确没有记载。按护卫、掌剑职责设计，持剑标志基于演义，不把小说事迹当史实；不凭兵种能力判型。",
+        "bearing": "年轻利落的护卫军官，素铁盔短暗紫缨、暗紫披肩与灰黑铁甲。青釭始终入鞘固定腰侧，工作检查剑鞘携行扣带，指挥保持警戒观察；不画劫掠、死亡、怒吼挥剑或华丽法术。",
+        "propExceptions": "本人演义职能是保管青釭，可保留一把完整入鞘佩剑；不添加刻字和发光特效，不拔刃。"
+      },
+      "identity": "Original visual age 28. Own face is LEAN LONG OVAL with high fairly flat cheekbones, slightly hollow lower cheeks, angular tapering narrow jaw and a small pointed-rounded chin. Broad upper forehead. Dense medium dark gently sloping brows, ordinary narrow almond eyes fairly close-set with relaxed lids. High long SLENDER straight nose with a small defined rounded tip. Medium-full closed mouth, prominent lower lip with level resting corners. CLEAN SHAVEN chin and upper lip, short dark sideburns only. Plain rounded silver-grey iron helmet with simple low brow band and short cheek plates, small modest dark purple tied tuft at crown, no huge plume. Muted deep purple short cloak, grey-black fitted military tunic and compact iron lamellar armor, restrained dull metal edging, dark brown wrist guards, charcoal sash, dark trousers and dark boots. ONE complete dark blue sword scabbard with simple dull bronze fittings secured at left hip, Qinggang sword fully sheathed. No ornate gold, beast masks, carved letters, glow or drawn blade. Preserve source lean clean face, relax sharp brows and side glare.",
+      "signature": "清面长窄椭圆脸、高颧微凹下颊、小尖圆颏，高长细鼻和较丰下唇；素铁盔短紫缨、深紫披肩灰黑铁甲，腰侧整把入鞘青釭。",
+      "faceReference": {
+        "officerId": "person-80",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0313_夏侯恩_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "a69fda0d80bb4a0c6fa5dded7f8b5a12f20c274fc3cc88f8a07e91f0d311064d"
+      },
+      "designNote": "视觉年龄和衣装配色为原创选择，原头像只作本人脸型、须发和头饰辨识输入；原图怒眉和侧睨不锁定。"
+    },
+    "person-81": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "稳定ID person-81 夏侯和，夏侯渊四子。演义记与夏侯惠同任行军司马及五丈原军务；史条目记有辩才、任河南尹太常、与朱抚出使成都且不从钟会叛乱。以史实文职和使者职责为主、演义军务参谋为次，不因魏将之子或能力兵种改画猛将。",
+        "bearing": "青年成熟文官使者，墨黑布冠、暗赭黄外袍与红色内襟，整齐布腰带。工作核阅小印匣，军务时平静听取部署并提供建议，保持文职衣装，无甲无兵器，不作夸张辩论手势。"
+      },
+      "identity": "Original visual age 30. Own face is a fairly LONG OVAL with broad high forehead, moderate high cheekbones, smooth slightly full upper cheeks, tapering narrow lower jaw and small rounded chin. Ordinary medium long almond eyes, normal spacing, medium dark gently arched brows with relaxed lids. High fairly long straight nose with medium rounded tip. Medium full closed lips, level calm corners. CLEAN SHAVEN upper lip and chin, short sideburns only. Black hair contained in a tall but compact folded BLACK CLOTH official cap with plain dull silver brow band and simple flat central clasp, no military helmet, plume or imperial crown. Muted warm ochre-yellow outer robe, dark red inner robe and lapels with restrained geometric dull trim, grey-white inner collar, dark cloth sash, dark trousers and plain cloth shoes. No armor, weapon, fan or ornate gems. Preserve own oval tapered jaw and clean face while releasing brow tension and source sidelong glare.",
+      "signature": "长椭圆清面、宽高额与收窄下颌小圆颏，长杏眼、高直圆头鼻和较丰闭唇；墨黑折布冠素银额带，暗赭黄外袍红内襟。",
+      "faceReference": {
+        "officerId": "person-81",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0245_夏侯和_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "50db6ebc46f2afbcd76d702f793d2c0e6bf9554fb1e8fdadd39f335c362e74b1"
+      },
+      "designNote": "视觉年龄和衣装配色为原创选择，原头像只作本人脸型、须发和头饰辨识输入；原图怒眉和侧睨不锁定。"
+    },
+    "person-82": {
+      "name": "夏侯惠",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "史：自幼才学受称赞，历任乐安太守，屡与钟毓论战意见多被采用；演：受司马懿提拔任行军司马，属军务辅助。",
+        "bearing": "年轻学识官员兼随军司马，端正而有实际军务联络感；采用红蓝官袍，不因原头像甲片而虚构冲锋武人职责。"
+      },
+      "identity": "Young Chinese male administrative official and military secretary, visual age about30. SLIM LONG HEART-OVAL face, high defined cheekbones, narrow tapering jaw and small pointed-rounded chin, medium-wide-set clear almond dark eyes, fine gently arched long eyebrows fully relaxed, long slim straight nose bridge and small pointed tip, small CLOSED mouth, NO facial hair. Warm light tan skin. Swept-back black hair tied neatly into a compact topknot with SMALL LOW red-lacquer and dull-bronze two-pronged crown, short navy chin cord, no tall crest. Civil official robe of muted deep BRICK-RED with dark NAVY collar and sleeve edges, narrow restrained dull-gold piping, plain dark belt and low dark shoes, slim normal upright human build. No armor or weapon; original face geometry remains distinct. Smooth glabella, natural quiet eyes.",
+      "signature": "青年瘦长心形椭圆脸、细长鼻与细眉、无须；小红铜发冠、砖红官袍、海军蓝领袖。",
+      "designNote": "依据史实太守才学及演义行军司马确定文职辅助。面部结构按本人原头像；原创衣装保留红蓝配色而不照搬甲胄。",
+      "faceReference": {
+        "officerId": "person-82",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0246_夏侯惠_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "2b18e9743a5872d1d19cf2ed8df278b81b07e01ef004b15b626dbeef5d47f64d"
+      }
+    },
+    "person-83": {
+      "name": "夏侯玄",
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "名册身份清谈家，史为曹爽执政时高级官员并随曹爽伐蜀；政治活动与议论为主要身份。",
+        "bearing": "年轻高官与清谈名士，沉稳文职站姿、绿金文袍，军务图保持建议与联络，不强加甲胄兵器。"
+      },
+      "identity": "Chinese male senior civil official and discussion scholar, visual age about34. BROAD SQUARE-OVAL face with full upper cheeks, firm broad rounded jaw and flat-rounded chin, moderately wide-set medium almond dark eyes, short thick fairly straight eyebrows at rest, moderately short straight medium-width nose with rounded blunt tip, medium-wide closed mouth, absolutely NO moustache or beard. Medium tan skin. Smooth black hair neatly tied at top with a narrow upright DEEP-RED official crown post and one small round DULL GOLD medallion at base, no helmet. Muted jade-olive GREEN silk robe with restrained small dull gold woven pattern, ochre-gold cross collar edge, thin white inner collar, plain brown sash and dark low shoes. Normal broad-faced but SLIM upright human build. No armor or weapon. Exact own original facial geometry, relaxed normal eyes and smooth glabella.",
+      "signature": "青年宽方椭圆脸、平圆下颌、短钝鼻与较粗平眉、无须；窄红冠柱小金饰、暗玉绿金纹官袍。",
+      "designNote": "面部按本人原头像，衣装沿用绿金辨识配色作原创全身延伸；视觉年龄为美术设定。",
+      "faceReference": {
+        "officerId": "person-83",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0247_夏侯玄_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "9e4e8d7b396da831b3cfcfed161786201dec91481f23b96333949b4f4ef1b663"
+      }
+    },
+    "person-84": {
+      "name": "夏侯尚",
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "史：随曹彰平代郡反叛，攻略上庸任征南大将军，江陵击败诸葛瑾；演：汉中、襄阳、江陵战事将领。",
+        "bearing": "军职统帅，朴素实用甲胄，稳健观察与军需检查；不作书生捧书姿态。"
+      },
+      "identity": "Chinese male military commander, visual age about40. Medium-long BROAD SQUARE-OBLONG face with strong cheekbones, substantial firm rounded-square jaw and broad compact chin, deep moderately close-set narrow almond dark eyes, thick nearly straight black eyebrows entirely relaxed, medium-long straight broad nose with compact rounded tip. Neat thin BLACK MOUSTACHE with slightly upward pointed ends, NO chin or cheek beard. Warm weathered tan skin. Low dark BRONZE rounded engraved helmet with short cheek guards, a SHORT small off-white wool tuft tucked close to crown, no long plume. Dark brown leather-and-bronze lamellar cuirass, compact rounded bronze shoulder protection, close-wrapped COPPER-OCHRE short shoulder cloth knotted low on chest, dark olive sleeves, brown belt and wrist guards, charcoal skirt panels, trousers and full dark boots, one plain fully sheathed sword at hip. Normal sturdy athletic human build. Own exact face, no frown or shout.",
+      "signature": "宽方长脸、圆方下颌、较宽直鼻、细翘黑髭无颏须；低铜盔短白毛缨、铜赭肩巾、深棕铜皮甲。",
+      "designNote": "脸型和髭按本人原头像，长白缨缩短以保证全身裁剪，衣装为原创延伸。",
+      "faceReference": {
+        "officerId": "person-84",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0207_夏侯尚_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "6c53f56fbb2ad364cebd9ba856eff91601491fc82f6d769173c9c1e034e2ae08"
+      }
+    },
+    "person-101": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册为黄巾武将，演义记领兵攻北海、杀宗宝并与救援军作战；史条仅记所部被太史慈借兵击败，不含关羽斩杀。武勇与部队带领为依据，不由黄巾阵营或兵种推出宗教道士形象。",
+        "bearing": "成熟粗壮的黄巾军中武人，黄巾头布、浓髭与皮革护具，蓝灰布衣；检查军需和护腕、观察阵位，闭口沉稳，不诵经作法或捧书执笔。"
+      },
+      "identity": "Original visual age43, sturdy broad-shouldered rebel military leader with naturally weathered healthy skin. Medium-long broad rectangular face, prominent broad cheekbones, wide squared jaw and broad blunt chin. Dense almost straight slightly sloping black brows, medium-close compact almond eyes at rest, medium broad straight nose with blunt rounded tip, broad naturally closed mouth. Thick BLACK long horizontal moustache curving slightly down at ends, short coarse dark sideburns and neat jaw stubble, NO pointed chin goatee. Yellow-ochre cloth headwrap tied with two modest loose short tails, no helmet or crown. Brown worn LEATHER sleeveless vest with simple metal studs/buckles over muted BLUE-GREY long-sleeve tunic and ash-grey cloth inner layer, dark leather wristguards and belt, charcoal trousers and heavy dark boots. A single plain dao fully sheathed at hip. No scholar robe, fan, religious staff or magic. Preserve original rugged broad moustached face. Visual age and full clothing are original extensions.",
+      "signature": "中长阔方脸、高颧阔颌、粗长横髭而无尖颏须；赭黄头巾、褐皮背心蓝灰衣。",
+      "faceReference": {
+        "officerId": "person-101",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0255_管亥_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "6fd131ccf3b27780d51dc76ad17aad4d8eedfae168d08f2d5731709654361464"
+      },
+      "designNote": "面部特征取本人原头像；视觉年龄和全身衣装是原创延伸，正史与演义证据分列。"
+    },
+    "person-102": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "名册史条记曹叡太子文学、幽州刺史，镇压公孙渊及东方远征，后任镇东将军防吴；演义记与文钦举兵及不同死亡情节。按军政统领为主文职为次，不固定表现逃亡或死亡。",
+        "bearing": "成熟挺拔的军政将领，铁盔橄榄青缨、粗黑髭、深灰甲和铜褐短披、青斜带。自然军姿与军需调配，保留本职甲胄，不一律捧经卷。"
+      },
+      "identity": "Original visual age45, mature athletic military governor of average strong build. Medium-long broad angular RECTANGULAR face, broad forehead, pronounced high cheekbones, strong broad jaw and blunt firm chin. Thick nearly straight dark brows, medium-close narrow almond eyes calm, high medium-long straight broad nose with rounded tip, medium thin level closed lips. Distinct THICK black horizontal moustache turning gently down at ends, clean chin and cheeks, NO goatee. Steel-grey segmented helmet with broad squared geometric brow band and central rectangular silver buckle, modest OLIVE-GREEN plume and bronze-brown ear/neck plates. Dark grey square-plate lamellar armor over pale grey collar, muted COPPER-BROWN short shoulder cloak with very restrained woven motifs, diagonal muted TEAL cloth sash, dark belt trousers and black boots. Plain sheathed sword. No crown, beard, scholar robe or fan. Preserve original angular moustached face; age and full armor are original art choices.",
+      "signature": "中长方棱脸、阔颌粗横髭无颏须；宽方眉带铁盔橄榄缨、深灰甲铜褐披青斜带。",
+      "faceReference": {
+        "officerId": "person-102",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0172_毌丘俭_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "ae570574976afbfdecda1e569261aa8078c397b22e27107c4930bb3f6b89ea77"
+      },
+      "designNote": "面部特征取本人原头像；视觉年龄和全身衣装是原创延伸，正史与演义证据分列。"
+    },
+    "person-103": {
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "名册史条为魏国武将，参加毌丘俭文钦举兵，败后与兄同行并携毌丘重逃吴；演义无记载。以军中武职为准，不因缺少单挑或统率描写虚构谋臣、统帅或战功。",
+        "bearing": "成熟精干的军中武将，清洁无须长椭圆脸、青缨铁盔和蓝围巾、铁甲；办事为护具检查和军需，军务为安静警戒，不套书生仪态。"
+      },
+      "identity": "Original visual age36, lean athletic adult military officer. Medium-long oblong OVAL face, medium high forehead, high modest cheekbones, moderately broad tapering jaw and firm rounded-pointed chin. Medium thick almost horizontal eyebrows, ordinarily spaced narrow almond eyes relaxed, high straight medium-width nose with rounded tip, medium-wide closed mouth and slightly full lower lip. CLEAN-SHAVEN face, no moustache beard or stubble. Muted green-grey iron helmet with modest curved brow edge, small TEAL forehead stone, moderate TEAL plume and layered dull-bronze ear/neck plates. Dark STEEL lamellar armor and simple shoulder guards, muted SKY-BLUE cloth scarf knotted at neck over teal inner collar, blue-grey padded tunic, dark belt trousers and sturdy black boots. Plain sheathed sword at hip. No crown, goatee, huge cloak, scholar robe or fan. Preserve exact original clean-shaven oblong face; visual age and full figure costume are original.",
+      "signature": "中长椭圆脸、平眉直鼻宽嘴、无须；青石铁盔青缨、浅蓝围巾与钢灰甲。",
+      "faceReference": {
+        "officerId": "person-103",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0283_毌丘秀_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "121ae4488a9ef8bfbd3a13929fd011198e05ac446bb796dded62fc2656348d88"
+      },
+      "designNote": "面部特征取本人原头像；视觉年龄和全身衣装是原创延伸，正史与演义证据分列。"
+    },
+    "person-85": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册 person-85 夏侯德仅演义栏记其为夏侯惇之侄、夏侯尚之兄，汉中攻防时守天荡山兵粮并出战，营地被严颜火攻后阵亡；史栏无记载且亲属关系不确定。采用演义守将的军事组织与作战职责，明确不宣称为史载事迹。",
+        "bearing": "天荡山守将的实用军职甲胄，稳健站立、核对军需与安静部署；不因神态中性改成文臣，也不表现轻敌怒吼。"
+      },
+      "identity": "Visual age about 38. Exact own legacy portrait geometry: fairly LONG broad ANGULAR RECTANGULAR face, high flat cheekbones, firm lower cheeks, broad square-tapering jaw and rounded firm chin. Moderately spaced narrow dark almond eyes, thick almost straight BLACK eyebrows relaxed, medium-long STRAIGHT fairly broad nose with compact rounded tip. Very thin SHORT dark moustache, small sparse pointed vertical black GOATEE on chin, mostly clean cheek sides. Naturally CLOSED medium lips with level corners. Low dark STEEL helmet with a distinct SILVER curling brow plate and cheek guards, SMALL dull-gold LEAF-shaped central crest, compact muted RED plume bending backward, entire plume visible. Dark iron lamellar armor with modest bronze-gold fittings, desaturated CRIMSON shoulder cape tied at upper chest, dark charcoal-grey underrobe, practical brown belt and dark boots, ONE fully sheathed plain saber. Normal strong adult proportions, no giant shoulders.",
+      "signature": "长阔棱角脸、直浓眉、短薄八字须与窄尖颏须；银眉缘低铁盔、小金叶饰、红短缨和暗红肩披。",
+      "faceReference": {
+        "officerId": "person-85",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0314_夏侯德_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "3f7804075cfaa09740875e68c74a3554013f8bb7378a707b27633b44bd8c90cb"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "dun": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册 dun 夏侯惇为曹操重臣，演义栏记多次参战、救援曹操和军队撤退等情节；史栏明确失去左眼称盲夏侯、曹丕时为大将军。以重臣统军与大将军职责归为战场统帅，兼武职。视觉时点按本人准确原头像采用双眼可见的早期阶段，这是原创美术时点选择，不否认史栏失眼记载。",
+        "bearing": "沉稳干练的重臣统帅，青蓝肩披、深铁甲和金饰低盔；军需组织与部署均保持军职仪态。面部放松闭口，既不狂怒也不文弱。"
+      },
+      "identity": "Visual age about 42, ORIGINAL PORTRAIT PHASE with BOTH EYES VISIBLE as shown in the exact source; fixed artistic snapshot before his recorded left-eye loss. Preserve the source face, do not invent an eyepatch or scar. LONG SQUARISH OBLONG face, broad flat high cheekbones, strong rectangular lower jaw and firm squared-rounded chin. Moderately spaced narrow dark eyes under THICK almost straight low BLACK eyebrows, relaxed not frowning; long straight prominent nose with narrow high bridge and moderately broad rounded tip. Broad neat black moustache with sharp outward-and-down tips, connected pointed triangular black CHIN BEARD with sparse short jaw whiskers. Naturally CLOSED lips. Dark iron helmet with GOLD angular brow frame and a large upright DIAMOND central plate with cross-shaped internal ribs, slim gold-edged cheek plates and compact BUFF-tan horsehair plume bent backward, entire plume in frame. Worn dark iron-brown lamellar cuirass over charcoal navy underrobe, desaturated BLUE-TEAL shoulder cape tied at upper chest, practical brown belt and dark boots, ONE sheathed plain saber. Broad-shouldered sturdy normal human proportions.",
+      "signature": "长方阔颌脸、平直低浓眉、长直鼻、阔八字须与三角尖须；双眼可见的原头像阶段；金菱饰深铁盔、浅褐短缨和青蓝肩披。",
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face.",
+      "faceReference": {
+        "officerId": "dun",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0007_夏侯惇_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "ed90da746a63c59973e9bec92c4c0c2d955b9e6ec1db132232fbf9bda8dad22c"
+      }
+    },
+    "person-87": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册 person-87 夏侯霸为夏侯渊之子；演义记北伐时任先锋、出战及归蜀后随姜维出军，史栏记为夏侯渊次子并在蜀任车骑将军。采用史载高级武将和演义先锋职责作美术主次，不把演义长子说法当成史实。",
+        "bearing": "历战武将，银盔、绿短缨与绿肩披保持实用性，办事检查护具、军务沉着观察；完整自然军姿，无书生读卷或夸张冲锋。"
+      },
+      "identity": "Visual age about 47. Preserve exact own legacy face: LONG NARROW DIAMOND-OBLONG face with high angular cheekbones, lean lower cheeks, tapering defined jaw and narrow rounded-point chin. Ordinary-spaced dark almond eyes with clear lids, moderately thick gently ARCHED black eyebrows now relaxed; long prominent STRAIGHT SLENDER nose with compact rounded tip. Thin long horizontal black moustache with gently downward ends, neatly trimmed short dark jaw beard connected to a narrow POINTED chin beard, no massive bushy whiskers. CLOSED natural lips, level head. Distinct ornate SILVER helmet with scalloped curling brow ridge and engraved curving plates, simple silver cheek pieces, compact faded OLIVE-GREEN plume swept backward and fully visible, no gold diamond crest. Muted OLIVE-GREEN shoulder cape knotted at upper chest, warm rust-orange neck scarf, worn silver-dark iron lamellar cuirass over sage-brown underrobe, plain brown belt, dark military boots, ONE fully sheathed saber. Lean strong ordinary human proportions.",
+      "signature": "长窄菱形脸、高颧长细直鼻、细长横须与修整尖颏须；卷纹银盔、灰绿短缨、绿肩披和锈橙颈巾。",
+      "faceReference": {
+        "officerId": "person-87",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0080_夏侯霸_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "8b77b43ce5f4cc4a4d926467cd1433cf7ff3506bb03a9414a3c419c1aa91d6ca"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-91": {
+      "role": {
+        "primary": "civil",
+        "secondary": [],
+        "evidence": "稳定ID person-91 何植，吴国司徒，孙皓叔父。演义记受询晋军来袭对策却无答复；史条目记外戚掌权、受书问策并在亡吴后降晋。按朝廷文臣职务设计，不用奸笑或惊恐表现负面评价，不虚构前线统军身份，不凭兵种能力判型。",
+        "bearing": "中年略壮的朝廷高官，低小布冠、紫蓝袍及暗金橄榄领，文职仪态。工作核阅小印匣，军务场景平静听取消息，始终无甲无兵器，不画无能滑稽或阴险神态。"
+      },
+      "identity": "Original visual age 50. Own face is fairly SHORT BROAD WEDGE-SQUARE, wide high forehead and broad full upper cheeks tapering gently to solid rounded lower jaw and small round chin. Slight receding hairline and black slicked-back hair. Dense short almost straight brows, ordinary small narrow almond eyes fairly close-set with relaxed lids. Medium-short broad straight nose with broad rounded tip. Fine short horizontal dark moustache, short sparse jaw beard, slightly fuller but SHORT under the chin; two thin CAP TIES drape below chin, they are not long beard strands. Medium thin closed lips with level relaxed corners; no smug smile. Low small dark-brown cloth cap with dull bronze edging, tiny subdued blue central inset and a short pin. Muted violet-blue civil robe with olive-gold quiet patterned collar and front border, charcoal cloth sash, plain dark trousers and cloth shoes. Normal mature sturdy body, no caricature obesity. No armor, sword, feather fan, imperial crown or magic. Preserve broad tapering face and pointed chin beard, release original narrowed glare.",
+      "signature": "短宽楔方脸、饱满上颊收圆下颌、小圆颏；短细髭与短颊颏须，颏下双细线为冠带。低褐布冠、紫蓝袍暗金橄榄领。",
+      "faceReference": {
+        "officerId": "person-91",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0619_何植_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "fb31db55bd7acafa1f3961a02d4000db13944b9224152e7e4a5a5e3a69beb882"
+      },
+      "designNote": "视觉年龄与具体衣装为原创设定，面部比例、须发和头饰取自本人原头像；原图怒眉、奸笑或夸张手势不锁定。 站立QA复核：颏下双细条为冠带，不是长山羊须；按本人原头像及已审阅实稿保持短须。"
+    },
+    "person-92": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-92 何进，东汉大将军及何皇后异母兄。演义记命卢植皇甫嵩等平黄巾、参与朝廷权力处置和召集地方军力；史条目记由宦官帮助外戚得权。按大将军军政组织身份为主、朝政事务为次，不由曾营肉店添加屠刀，不画刺杀情节，也不凭兵种能力判型。",
+        "bearing": "中年厚实的大将军，铁盔浅灰短缨、深青蓝军装和紧凑铁甲，暗金缘边克制显示官阶；办事核对军令印匣，指挥低持短杖组织军务，保持沉稳闭口，不作轻浮举手或豪笑。"
+      },
+      "identity": "Original visual age 47. Own face is BROAD ROUND-SQUARE with wide forehead, full thick cheeks, broad heavy rounded jaw and short broad chin. Thick dark gently arched eyebrows, ordinary small to medium almond eyes with normal spacing, relaxed eyelids. Short strong BROAD nose with broad rounded tip. Thick dark moustache with subtly curled ends and a full short rounded dark beard along jaw and chin, central beard slightly pointed but NOT a narrow long goatee. Medium full closed lips, calm level corners. Broad sturdy neck, stocky ordinary strong torso and slightly full abdomen, no exaggerated muscle. Rounded worn iron helmet with dull bronze brow band, practical short cheek guards and modest short grey-white tuft, no huge plume. Deep navy-teal military tunic and short close mantle with dull gold edging, compact iron lamellar cuirass and layered shoulder guards, dark bracers, broad charcoal sash, dark trousers and dark boots. One plain fully sheathed sword at belt. No butcher knife, meat prop, ornate emperor crown or magical glow. Keep own rounded full-bearded face and robust body, relax raised brows and grin of source.",
+      "signature": "宽圆方脸、厚颊宽短颏，宽短圆鼻；粗髭微卷接短浓圆络腮须，厚实体态。铁盔浅灰缨、深青蓝铁甲暗金缘。",
+      "faceReference": {
+        "officerId": "person-92",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0530_何进_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "9aa63d64dd08600dffdda85bd0fef0691c878e18aaca53731d6745e5a8e43edb"
+      },
+      "designNote": "视觉年龄与具体衣装为原创设定，面部比例、须发和头饰取自本人原头像；原图怒眉、奸笑或夸张手势不锁定。"
+    },
+    "person-93": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "civil"
+        ],
+        "evidence": "稳定ID person-93 贺齐，吴国武将。演义无记载；史条目记平定山越及各地反叛、新设县郡、与陆逊平鄱阳反叛、任安东后将军及徐州牧，又明确喜好豪华装扮并使部队穿上等军装。以统军军政职责分类，豪华衣装为本人有依据的美术例外，不把曹休撤退传说升级为必然战果，不凭兵种能力判型。",
+        "bearing": "壮年吴军统帅，深红织锦短披、精良铁甲与克制鎏金缘边，红铁盔浅灰缨，重视装备整齐。工作检查军需皮袋扣具，指挥低持精致短杖；豪华仍是实用军装，不画帝王袍冠、奇幻金甲或浮夸骄笑。",
+        "propExceptions": "传记明确喜豪华军装，可保留较精良布料、深红纹样和少量鎏金甲缘及指挥杖端饰，避免通用低配军服。"
+      },
+      "identity": "Original visual age 37. Own face is relatively SHORT broad OVAL, broad high upper cheeks and fairly high cheekbones tapering to a strong narrow lower jaw and small rounded chin. Thick nearly straight dark eyebrows, ordinary medium horizontal almond eyes slightly close-set, relaxed lids. Medium high straight nose with fairly broad rounded tip. Medium-full closed lips, prominent lower lip and level resting corners. CLEAN SHAVEN chin and upper lip, short dark sideburns only. Deep crimson lacquered iron helmet with restrained dull gold brow band and practical cheek guards, one small subdued central metal fastener, modest SHORT grey-white horsehair tuft. Rich but muted dark red patterned military tunic and short silk shoulder cloak, well-made iron lamellar cuirass with tasteful gilt edge trim, dark leather bracers, charcoal sash, dark trousers and plain dark boots. One refined fully sheathed sword at waist. Patterning is geometric textile ornament without written characters. No imperial crown, huge crest, magic or glaring gold fantasy plate. Preserve own clean short oval face, not stern original brow tension.",
+      "signature": "短宽椭圆清面、高颧收颌小圆颏，近横杏眼、直圆鼻、较丰下唇；深红铁盔灰缨、深红织锦短披和精良铁甲鎏金缘。",
+      "faceReference": {
+        "officerId": "person-93",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0506_贺齐_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "6b82c82757de6a34264124da380cfbb27ef49299acff82ba624189b00f9b01ec"
+      },
+      "designNote": "视觉年龄与具体衣装为原创设定，面部比例、须发和头饰取自本人原头像；原图怒眉、奸笑或夸张手势不锁定。"
+    },
+    "person-94": {
+      "name": "贾范",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "演：公孙渊副将，劝谏不宜自立抗魏，因谏被杀；史无记载。军职身份及军务判断来自名册演义传记。",
+        "bearing": "兼具军务劝谏职责的中年军职人员，轻甲、近身肩披、稳健军姿，办事检查军需，不作文士拢袖。"
+      },
+      "identity": "Chinese male military deputy and adviser, visual age about40. Long angular RECTANGULAR face with broad forehead, defined high cheekbones, tapered firm narrow jaw and small flat-pointed chin. Deep moderately close-set narrow almond eyes, thick gently angled dark eyebrows completely relaxed, long straight fairly slim nose with compact pointed-rounded tip, medium-wide CLOSED mouth with level corners. Absolutely NO moustache or beard. Warm tan skin. Black swept-back hair in compact topknot with a LOW flared rectangular green-and-bronze crown, small central green jade, no plume or helmet. Practical muted brown-red and dark bronze lamellar half-armor, short deep GREEN shoulder cloth resting close and tied low, green/white collar ties, olive-brown sleeves, leather wrist guards, plain dark belt, dark skirt panels/trousers and boots, one fully sheathed plain sword. Normal lean sturdy human build, own face geometry with smooth glabella.",
+      "signature": "无须长矩形棱角脸、较窄下颌、长细直鼻、浓眉；低绿铜方冠、近身深绿肩披、褐红轻甲。",
+      "designNote": "面部按本人原头像，放松明显眉间紧张；军职服装是原创延伸，身份依据只记演义。",
+      "faceReference": {
+        "officerId": "person-94",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0315_贾范_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "a32948aaa2a8c27952257e05a84fbe27615befbdcd6af8c135bc8f1558e2ae30"
+      }
+    },
+    "person-95": {
+      "name": "花鬘",
+      "role": {
+        "primary": "specialist",
+        "secondary": [],
+        "evidence": "名册记其为京剧中的孟获之女，受关索远征军俘获并与其成婚；正史及三国演义无记载，未记载独立领军官职。",
+        "bearing": "南中戏曲人物，以实用氏族服装、接洽和现场观察表现专门角色，军务界面为演出改编，不虚构将军职位。"
+      },
+      "identity": "Young adult Chinese woman from a SOUTHERN clan in fictional opera, visual age about24. Medium-long HEART-OVAL face, softly defined high cheekbones and full upper cheeks, small narrow rounded chin, moderately wide-set large almond dark eyes, long fine gently arched black eyebrows at rest, long slim straight nose with small rounded tip, medium full CLOSED lips relaxed with level corners. Warm medium tan skin. Long dark gently wavy hair resting behind shoulders, neat simple thin GOLD headband with one small central muted RED stone and small gold earrings, no crown or plume. Practical full-coverage deep muted RED leather-and-cloth travel tunic, brown FUR collar, compact SILVER-GREY protective shoulder pieces as a costume motif from her own portrait, plain brown waist belt, forearm leather wraps, layered short dark skirt over fitted dark trousers, practical flat dark leather boots. No exposed midriff, no cleavage, no heels, no weapon. Normal athletic adult human build, own original face geometry, natural quiet eyes and relaxed mouth.",
+      "signature": "青年心形椭圆脸、杏眼细眉长细鼻；红石细金头带、深色长发、棕毛领与暗红旅行服、小灰银护肩。",
+      "designNote": "面部与金带毛领辨识参考本人原头像，全身衣装与界面联络动作是原创美术改编，不主张史实官职或统帅经历。",
+      "faceReference": {
+        "officerId": "person-95",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0783_花鬘_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "6f789183f79dd48039a65c9bd30960edd516217c88fc0555d53b3c42e6d0a856"
+      }
+    },
+    "person-96": {
+      "name": "华雄",
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "史：董卓都尉，阳人与孙坚军交战而死；演：董卓军先锋，汜水关连斩敌将，后为关羽所杀；名册形容身高九尺。",
+        "bearing": "高大壮实的前线武将，实际甲胄与稳健警戒，神态平静而非怒吼，办事检查军需装备。"
+      },
+      "identity": "Tall strongly built Chinese male front-line warrior, visual age about38, broad shoulders and substantial ATHLETIC build with normal human anatomy and proportions, not a fantasy giant. Broad ANGULAR HEXAGONAL face, high solid cheekbones, wide firm jaw narrowing to a projecting compact chin, deep medium-spaced dark almond eyes with normal softly weighted upper lids, thick gently arched black brows relaxed, medium-long straight BROAD nose with blunt rounded tip. Thick neat BLACK MOUSTACHE with upturned ends, connected SHORT full black chin-and-jaw beard, no long hanging beard. Warm weathered tan skin. Low blue-grey IRON helmet with short cheek/neck guards and modest dull silver brow medallion, one SHORT compact warm amber tuft tucked close to crown, no huge plume/horns. Dark iron lamellar cuirass and compact shoulder protection, desaturated TEAL shoulder cloth with thin muted orange trim knotted close to chest, dark olive-brown sleeves, brown wrist guards/belt, charcoal skirt panels/trousers and dark sturdy boots, one plain fully sheathed sword at hip. Own exact face, smooth relaxed glabella and naturally CLOSED mouth.",
+      "signature": "高大壮实、宽棱角六边脸、宽钝直鼻、浓髭短连颌须；低蓝灰铁盔、短琥珀缨、青绿橙缘肩巾。",
+      "designNote": "高大体态按名册文学描述进行正常人体美术设定，面部依本人原头像，简化高缨并去除凶厉神态。",
+      "faceReference": {
+        "officerId": "person-96",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0008_华雄_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "054a2ea619a223b81d4afacfe4553a1c35477d3f4b8a42829be476b535424274"
+      }
+    },
+    "person-97": {
+      "role": {
+        "primary": "specialist",
+        "secondary": [],
+        "evidence": "名册 person-97 关彝为关兴庶子，关统无子后承袭汉寿亭侯爵位；演义与史栏分别记蜀亡后在钟会之乱或庞会报复中遇害，未记本人统兵或武勇战绩。按承爵宗族成员这一特定身份设计，不能仅凭关羽后裔、盔甲原头像或兵种把其定成猛将。",
+        "bearing": "承袭武勋爵位的年轻贵族，保留本人原头像轻甲、盔与绿肩披，举止规整自然；办事核对随身封套，军务界面表现随行联络与安静听取安排，不虚构前线冲锋经历。",
+        "propExceptions": "轻甲、低盔与绿肩披来自本人原头像的视觉身份，不代表额外编造统军战绩；朴素佩剑始终在鞘内。"
+      },
+      "identity": "Visual age about 24. Exact own legacy face: young CLEAN-SHAVEN LONG RECTANGULAR-OVAL face, moderately broad forehead, high smooth cheekbones, lean lower cheeks, firm tapering jaw with small rounded chin. Ordinary-spaced narrow dark almond eyes, THICK almost straight black eyebrows relaxed and level, long straight medium-width nose with a rounded compact tip. Medium closed mouth with straight level corners, NO moustache or beard. Low dark STEEL helmet with pointed modest cheek plates and overlapping neck scales, rectangular BRASS central brow clasp and simple narrow gold-brown brow band, compact dark RED plume swept backward, all plume in frame. Muted FOREST-GREEN shoulder cape knotted at upper chest over practical grey-green dark iron lamellar armor, pale grey inner crossed collar, restrained bronze fastenings, plain brown belt and dark boots. One fully sheathed plain sword; slender normal young adult build, no oversized weapons.",
+      "signature": "年轻无须长方椭圆脸、浓直眉和长直鼻；低铁盔、方铜眉扣与暗红短缨，深绿肩披和灰绿轻甲。",
+      "faceReference": {
+        "officerId": "person-97",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0468_关彝_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "1c713a917e6a3dfc99862d9c12202a25075cba870a3dec57835e2bf37c71b70c"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-98": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "specialist"
+        ],
+        "evidence": "名册 person-98 韩胤为袁术幕僚，史与演义均记出使吕布促成或迎接婚事，因陈珪劝阻而被拘送许昌处刑。以幕僚与外交使者职责定文职，次类型为使节专项职责；不把其结局表现在常态母图中。",
+        "bearing": "中年外交幕僚，高紫金官冠与紫袍黄领，体态略丰而举止从容；公文核对、来往联络与军事场所的文职接洽均自然闭口，不保留原头像的戏剧化斜笑。"
+      },
+      "identity": "Visual age about 52. Preserve exact own legacy portrait geometry: BROAD ROUND-OVAL face, broad high forehead, full rounded cheeks, soft rounded jaw and broad blunt rounded chin. Small NARROW HEAVY-LIDDED dark eyes at moderately wide spacing, THIN gently curved arched black eyebrows at rest, short-medium broad nose with softly rounded tip. THIN neat BLACK moustache with long outward-downward ends, clean chin and cheek sides, NO goatee or jaw beard. Naturally CLOSED small-medium mouth with LEVEL corners, no smile and head level. Tall slightly tapered PURPLE official cap with simple GOLD vertical ribs, broad gold brow band with one tiny dark-green central stud, no bead curtain or large wings. Muted plum-PURPLE robe with broad OCHRE-YELLOW crossed collar/lapels and pale grey-white inner collar, simple dark sash and dark cloth shoes. Modestly full middle-aged normal human build, no armor or weapon.",
+      "signature": "圆阔椭圆脸、细弧眉、小重睑眼、圆鼻、细长八字胡而无颏须；紫金高冠、紫袍和赭黄交领。",
+      "faceReference": {
+        "officerId": "person-98",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0280_韩胤_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "5950bbbdabc34f73dd4402e90ee26bf391a7e45dce9c652863095cc125e9f92c"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-100": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist"
+        ],
+        "evidence": "名册 person-100 桓阶先为孙坚属臣后仕曹操；史载交涉取回孙坚遗体、进言立曹丕、任尚书负责人事及曹丕时任尚书令，演义另写禅让情节。以高级文官、人事与外交职责为主，继承人建议为政治谋议的次类型；并无前线武勇依据。",
+        "bearing": "精干沉着的中年尚书，低小金冠、白颏带和紫灰纹袍，核对任用记录与文职军务咨询动作克制；神态稳重，不强加甲胄兵器。"
+      },
+      "identity": "Visual age about 46. Exact source face: LONG SLIM ANGULAR OBLONG face, high broad forehead, sharply defined high cheekbones, slightly hollow lower cheeks, long tapering jaw and narrow rounded-point chin. Moderately spaced dark almond eyes with clear upper lids, thick gently arched black eyebrows relaxed, LONG HIGH STRAIGHT NARROW nose with compact rounded downward tip. Neat medium-thin dark moustache with downward ends, close-cropped black jaw beard joining a narrow long POINTED goatee; no massive whiskers. Naturally CLOSED medium lips and level head. Black hair neatly swept back into compact topknot with SMALL open bronze-gold crown ornament shaped like two short upright squared flaps; thin pale grey-WHITE chin cord tied low at side of neck, no tall cap. Muted LAVENDER-GREY/PURPLE fine-patterned overrobe, broad dark MAROON crossed lapel with subtle gold woven trim, pale sage-green inner collar, simple charcoal sash, dark cloth shoes. Lean upright normal middle-aged body, no armor, weapon or fan.",
+      "signature": "瘦长棱角脸、高颧长直窄鼻、修整八字须与尖长颏须；低小金冠和白颏带，紫灰纹袍、暗红襟与浅青领。",
+      "faceReference": {
+        "officerId": "person-100",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0693_桓阶_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "b12dabae99196236de9d8e98913ff95242d48e33d66d3c416fcca1fff4385ed2"
+      },
+      "designNote": "Original costume and visual age; exact own legacy face geometry reviewed. No borrowed face."
+    },
+    "person-113": {
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "名册为白波头目，演义记护卫献帝、任征东将军、与杨奉领军及后续参战，史条区分其最终逃亡被杀的叙述。按部队统领兼武职仪态，不用黄巾阵营推成宗教施法者。",
+        "bearing": "成熟稳健的白波军将领，黄布包头小顶结、细横髭、赭黄短披和铁甲，站姿稳健，军需检查与低位部署动作，闭口不怒吼。"
+      },
+      "identity": "Original visual age44, sturdy mature military leader. Medium-long broad RECTANGULAR face, broad forehead, high broad cheekbones, broad straight jaw and broad flat-rounded chin. Thick almost straight dark brows, narrow slightly hooded horizontal almond eyes calm, high medium-long straight nose with broad rounded tip, broad thin naturally closed lips. Neat THIN BLACK long horizontal moustache with slightly upturned tips, clean chin and jaw, no beard. YELLOW-OCHRE full cloth headwrap with small cloth-covered topknot nub and two modest short tails. Muted OCHRE-YELLOW short shoulder mantle knotted at center chest over dark STEEL-GREY lamellar armor with simple brown edging, grey inner collar, leather bracers/belt, dark trousers and black boots. Plain sheathed dao at hip. No crown, fan, religious staff or scholar robe. Preserve distinct original broad face and thin moustache; visual age and full costume are original extensions.",
+      "signature": "中长宽方脸、阔颧平圆颏、细长横髭无颏须；包头黄巾小顶结、赭黄短披铁灰甲。",
+      "faceReference": {
+        "officerId": "person-113",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0317_韩暹_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "f26f1791da4f8bfa60f96555b47e231d40d3e7a334d7b2f39d2728accab64d73"
+      },
+      "designNote": "本人原头像脸部比例为基准，视觉年龄和全身衣装是原创延伸；史演证据分列。"
+    },
+    "person-114": {
+      "role": {
+        "primary": "civil",
+        "secondary": [
+          "strategist",
+          "specialist"
+        ],
+        "evidence": "名册史条记吴尚书、中书令、太子太傅及乾象历注，文臣教育历法著述为主；演义有赤壁送诈降书、口辩及推举陆逊，谋臣使者为次。区分史与演，不据智力或兵种把学者强改武人。",
+        "bearing": "成熟文臣学者，褐色布束发和赭褐长袍、淡蓝内领，短满须；办事为历法经注整理，军务为使者文书联络，不着甲不持武器，闭口自然。"
+      },
+      "identity": "Original visual age47, healthy mature civil scholar of ordinary broad build. Medium-long broad OVAL-RECTANGULAR face, high broad forehead, prominent cheekbones, strong moderately broad jaw and broad chin. Thick dark slightly curved brows relaxed, compact almond eyes ordinary spaced, high medium-long straight nose with broad rounded tip, medium thin closed mouth. Thick dark moustache joining a neatly trimmed moderately SHORT FULL beard around jaw and modest broad pointed chin end. Black hair drawn into a topknot wrapped with plain BROWN cloth, two small horizontal cloth bow loops, NO metal crown. Muted RUST-BROWN full-length cross-collar civil robe with restrained dark woven pattern, pale BLUE inner collar, dark teal-grey sash, dark trousers and simple brown cloth shoes. No armor, weapon, feather fan, wine cup or astronomical machinery. Preserve his distinct broad face/full beard and simple cloth topknot. Age and full costume are art choices.",
+      "signature": "中长宽椭矩脸、阔鼻浓髭短满须；褐布髻双小结、赭褐袍淡蓝领。",
+      "faceReference": {
+        "officerId": "person-114",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0173_阚泽_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "8e3a112d73894ae88c1950c27c47c962d128fab6c6fcdecb60c42922c8317edd"
+      },
+      "designNote": "本人原头像脸部比例为基准，视觉年龄和全身衣装是原创延伸；史演证据分列。"
+    },
+    "person-115": {
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "名册为黄巾武将；演义记宛城领军作战，史条记率残兵抵抗、请求投降及被俘。武职作战和带领残部为据，不因阵营画道士或把结局做成箭伤、处刑动作。",
+        "bearing": "精干成熟的黄巾军将领，额系黄带银小饰、黑高马尾，黄短披与深褐甲；办事检查军需皮袋，指挥为安静警戒，不作书生读卷，不夸张狞笑。"
+      },
+      "identity": "Original visual age37, lean athletic adult military officer. Medium-long NARROW angular rectangular face, high slim cheekbones, tapering jaw and small firm pointed chin. Medium-thick gently arched dark brows, close narrow almond eyes at rest, high long straight slightly hooked nose with small rounded tip, medium thin closed lips. Fine thin dark moustache and SMALL slender pointed chin goatee only, clean jaw cheeks. Long black hair pulled into high compact ponytail with ordinary short loose ends; YELLOW cloth forehead band bearing one small SILVER triangular center clasp. Bright but restrained OCHRE-YELLOW short shoulder scarf knotted to one side over dark BROWN lamellar armor and red-brown shoulder plates, grey-blue inner collar, leather bracers/belt, dark trousers and boots. Plain dao fully sheathed at hip. No metal helmet or crown, full headwrap, huge flying cape, scholar robe or religious staff. Preserve own original slender moustached face; age and full costume are original visual design.",
+      "signature": "长窄方棱脸、高颧小尖颏、细髭小尖须；黄额带银三角扣黑高马尾、黄短披深褐甲。",
+      "faceReference": {
+        "officerId": "person-115",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0524_韩忠_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "f456a8e0310ca8b777be939df75ce668f5bbd37474c793720044f79c364f29a3"
+      },
+      "designNote": "本人原头像脸部比例为基准，视觉年龄和全身衣装是原创延伸；史演证据分列。"
     }
   },
   "qa": [
-    "人物主类型与传记依据明确，11场景的姿态、服饰、道具均符合本人职责；中性不等于书生拢袖，武人不默认执笔捧书，文臣不因兵种字段强加护甲或冲锋",
-    "脸型、年龄、胡须、头饰、主色与身份参考一致",
-    "不同人物须在脸型、眼距、眉形、鼻梁、颧骨、下颌、嘴形或胡须中具有可见差异，不能仅靠冠饰与服色区分；比对同名既有头像提取面部结构，不继承夸张表情",
-    "神态中性克制，嘴唇闭合、眉眼自然，无怒吼、大笑、惊慌、鬼脸或紧绷五官",
-    "手势幅度小、关节舒适、头肩比例正常，无前伸手掌、挥击、扭身与夸张透视",
-    "场景通过画幅、坐立、视线与道具区别，不为了表情差异牺牲自然感",
-    "头像、透明全身立绘、半身与横幅各自独立构图",
-    "立绘完整头饰至双脚并具备真实透明背景",
-    "手部、五官与装备结构正确，无文字水印与其他主体人物",
-    "原图和界面显示均不以裁切伪造构图差异"
+    "原头像本人辨识度、脸型与五官保持一致",
+    "同人三母图服装和体型一致",
+    "神态中性、手势舒适且符合人物职责",
+    "新母图真实透明、完整头饰与双脚",
+    "头像、半身和全身裁剪均清晰完整",
+    "实际参考路径、哈希与提示词记录完整"
   ],
   "formatVersion": "scene-neutral-v3",
   "acting": {
@@ -1503,6 +2873,364 @@
           "completedAt": "2026-10-07T16:05:55.576Z"
         }
       }
+    }
+  },
+  "production": {
+    "formatVersion": "pose-reuse-v4",
+    "sources": [
+      "neutral",
+      "work",
+      "command"
+    ],
+    "faceReference": "exact-officer-sangokushi11",
+    "poseReference": "approved-neutral-master",
+    "views": "runtime-crops-and-shared-backgrounds"
+  },
+  "sourceActing": {
+    "person-37": {
+      "neutral": "自然站立，一手松放身侧，另一手轻放腰部；保持本人文官袍服。",
+      "work": "轻微侧身，一手低位查看薄册，另一手自然托住册底；不执笔，不加桌案。",
+      "command": "轻微侧身听取意见，一只手在腰部小幅示意，另一手自然垂下；保持文臣军事建议身份，无甲无兵器。"
+    },
+    "person-38": {
+      "neutral": "自然军姿，双手舒适低放；佩剑留在鞘内。",
+      "work": "自然站姿低头检查一枚小军需木牌，一手低持木牌另一手放松；不写字捧书。",
+      "command": "四分之三朝前站立，一手低位持简短指挥杖，另一手靠近腰侧；舰队统帅气质，无挥击伸指。"
+    },
+    "person-39": {
+      "neutral": "自然舒适站姿，一手低位靠近腰带，另一手垂下；低冠官袍，嘴唇自然闭合。",
+      "work": "轻微侧身，一手低位拿单个闭合公文封套，另一手自然松放；不加桌案或其它道具。",
+      "command": "自然站立侧转听取军务，一手低位轻放腰侧另一手舒适下垂；保持文职，无甲无武器。"
+    },
+    "person-40": {
+      "neutral": "近正面稳定站立，目光平静，双手舒适低放，佩剑在鞘内。",
+      "work": "略侧身，一手低位检查一枚小军需木牌，另一手自然靠近腰带；保持武职甲胄，不拿书册不执笔。",
+      "command": "微侧身平静观察，一手低位轻持简短朴素木指挥杖，另一手自然下垂，不指点挥舞。"
+    },
+    "person-41": {
+      "neutral": "自然稳健站姿，双手松放，嘴唇闭合、眉眼舒适；不怒吼，不持多件兵器。",
+      "work": "自然站姿低头查看护腕，右手低位轻扶左腕皮扣，保持双手手指与关节清楚舒适。",
+      "command": "四分之三站立，左手轻扶腰侧刀鞘而不拔刀，右手松放身侧，抬眼安静观察军情。"
+    },
+    "person-42": {
+      "neutral": "头部平正、肩部放松自然站立，双手舒适低放，短披与布头巾保留；不做担忧倾头。",
+      "work": "略侧身，一手低位托住一只小型闭合军需皮袋，另一手轻触袋扣检查；不捧书不执笔。",
+      "command": "自然侧转听取军情，右手在腰侧做小幅向下收拢示意，左手轻放腰带；不前伸手掌或皱眉。"
+    },
+    "person-52": {
+      "neutral": "自然稳立，右手低位轻搭腰带，左手舒适垂下；完整双手双脚，不持书。",
+      "work": "轻侧身审视单个小型闭合公文封套，右手在腰部低持，左手自然托底；表现地方行政，不执笔或加桌案。",
+      "command": "四分之三站立沉静判断防务，左手低持一枚简洁调度木牌贴近腰部，右手松放身侧；文官防务协调，无甲无武器。"
+    },
+    "person-53": {
+      "neutral": "近正面自然站立，双手舒适低放，一手轻靠衣带，闭口；不作拢袖礼。",
+      "work": "轻侧身低眼看一册小薄经注册，左手低位托册，右手轻搭单页边；自然双手，不加桌案、笔墨或漂浮文字。",
+      "command": "微侧身听取联络消息，右手在腰部自然低持单个窄公文封套，左手放松垂下；保持朝廷文职辅助，无甲无兵器。"
+    },
+    "person-54": {
+      "neutral": "稳健自然站姿，双手低放，右手轻触腰带、左手垂下；不捧书，不皱眉。",
+      "work": "轻微侧身查看一份折起的窄幅路线札，左手低位持札，右手轻触折边；谋臣研判，只有一份小道具，无桌案环境。",
+      "command": "四分之三侧转观察，右手低位轻持一根短木图筹靠近身体，左手自然放在腰侧；沉静部署辅助，不伸臂指点、不着甲。"
+    },
+    "person-46": {
+      "neutral": "近正面稳定军姿，双手低位松放，佩剑留鞘，头部平正。",
+      "work": "微侧身，一手低位拿一枚小军需木牌，另一只空手松放腰侧，保持完整甲胄；不拿书册，不加桌案。",
+      "command": "四分之三站立，目光平视前方，一手在腰部低持一根短朴素木指挥杖，另一手松放；不挥舞、不伸指，佩剑留鞘。"
+    },
+    "person-47": {
+      "neutral": "自然直立，双臂舒适垂放身侧，双手可见，官袍和高黑冠完整。",
+      "work": "微侧身，一手在腰部低持单个闭合薄公文封套，另一手轻托封套底部，面容可见；无桌案不执笔。",
+      "command": "自然侧转听取军情，一只空手在腰侧做轻微向下收拢示意，另一只空手自然垂下；文职军务联络气质，不持兵器，不加甲。"
+    },
+    "person-48": {
+      "neutral": "近正面稳健自然站姿，双臂低位舒适放松，剑在鞘内。",
+      "work": "轻微侧身，右手低位轻扶左护腕皮扣检查装备，两手结构清楚自然，不作战斗动作，不捧书。",
+      "command": "四分之三稳站，左手轻靠腰带及剑鞘顶部而不拔剑，右手低位持单个小型朴素闭合军令牌，平视观察，无挥击或伸指。"
+    },
+    "person-43": {
+      "neutral": "自然稳健近正面站立，一手低位轻靠腰带，另一手舒适下垂，佩剑完整入鞘。",
+      "work": "轻微侧身，一手低位持单枚小军需木牌查看，另一手自然放松靠近腰带；保留甲胄与统帅仪态，不捧书执笔。",
+      "command": "四分之三自然站姿，一手低位轻持简短朴素木指挥杖且贴近身体，另一手舒适下垂；平静观察部署，不伸指挥击。"
+    },
+    "person-44": {
+      "neutral": "头部平正自然站立，双臂舒适低放，灰藕色窄袖袍服，无甲无兵器。",
+      "work": "轻微侧身，一手在腰部低位持一份小型闭合路线资料封套，另一手轻托封套下端，自然低眼查看；不加桌案，不执笔。",
+      "command": "轻微侧转，抬眼平静观察并向画外主将提供意见，一手自然低靠腰带另一手舒适下垂；保持参谋身份，无兵器、无羽扇，不画祈祷动作。"
+    },
+    "person-45": {
+      "neutral": "近正面稳健自然站立，双手舒适低放，佩剑完整入鞘，短披安静贴身。",
+      "work": "轻微侧身，一手在腰侧低位持一只小型军需皮具袋，另一手轻触袋扣检查；保留甲胄护腕和武职仪态，不画书册执笔或马匹。",
+      "command": "四分之三站姿平静观察军情，一手低位轻靠腰侧剑鞘而不拔出，另一手舒适下垂；自然闭口，不前伸手掌，不挥击。"
+    },
+    "person-49": {
+      "neutral": "近正面自然军姿，一手轻放腰带旁，另一手舒适下垂；佩剑留鞘，完整盔缨。",
+      "work": "轻微左三分之四站姿，一手在腰前低位持单枚小军需木牌检查，另一手松放身侧；保留甲胄和军职仪态，不加书册桌案。",
+      "command": "轻微右三分之四稳健站姿，一手低位松握短朴素木指挥杖，杖靠近外侧大腿，另一手轻放腰侧；平静观察部署，不挥杖伸指。"
+    },
+    "person-50": {
+      "neutral": "近正面端正自然站立，双手舒适低放且可见，不拢袖遮手；无兵器。",
+      "work": "轻微右三分之四站姿，左手腰前低持单个闭合薄公文封套，右手自然轻触封套边缘核对；无文字无桌案，保持从事文官。",
+      "command": "轻微左三分之四站立听取军务，一手舒适靠近腰带，另一只空手在腰下做很小的收拢示意；谏议联络仪态，双手自然，不伸指不披甲。"
+    },
+    "person-51": {
+      "neutral": "近正面自然端正站立，右手轻靠腰带，左手舒适低放；完整高冠与鞋，闭口不抓须。",
+      "work": "轻微左三分之四站姿，在腰前自然打开单本薄册，一手托册底另一手轻扶侧缘；低头幅度很小，脸清晰，书页无可读文字，不加桌案。",
+      "command": "轻微右三分之四站立，右手低位持一份窄小闭合军务封套贴近大腿，左手自然靠近腰带；抬眼安静研判，保持文职重臣与高冠官袍。"
+    },
+    "jia": {
+      "neutral": "自然站立，右手轻靠腰带，左手自然下垂，无道具。",
+      "work": "轻侧身低位审阅一份小型闭合军情札，双手自然持边；不加桌案。",
+      "command": "四分之三朝前，抬眼沉静观察，左手低位轻持一根短木图筹，右手放松垂下；谋臣无甲无兵器。"
+    },
+    "person-65": {
+      "neutral": "高大武人自然稳立，左手低位轻持一柄完整方天戟贴近身侧，戟头和杆尾都在画内，右手放松，不怒吼。",
+      "work": "略侧身低眼检查左前臂皮护扣，右手低位轻触扣带，双手自然；保留甲胄，不持书笔。",
+      "command": "稳定轻侧转观察前方，双手舒适低持同一柄方天戟贴近身侧，不挥击不突刺，完整戟头杆尾和双脚。"
+    },
+    "person-66": {
+      "neutral": "自然稳健军姿，双手低位放松，佩剑留鞘内，紫缨全留画内。",
+      "work": "略侧身低眼查看一枚小型军需木牌，左手低持木牌，右手轻靠腰带；保留头盔甲胄，不阅书。",
+      "command": "微侧转平静观察阵位，右手在腰部低位持短木指挥杖，左手松放身侧；佩剑在鞘内，不伸臂。"
+    },
+    "person-55": {
+      "neutral": "平正头部、自然近正面站立，双手空着舒适低放，不拿卷册，无甲无兵器。",
+      "work": "轻微侧身，一手在腰部低位持一份小型闭合军情封套，另一手轻托封套底部，安静核阅；不加桌案，不执笔。",
+      "command": "轻微侧转向画外主将平静进言，一手低靠腰带，另一手舒适下垂，双手空着，无兵器羽扇或法术。"
+    },
+    "person-56": {
+      "neutral": "近正面稳健自然军姿，双手空着舒适低放，佩剑完整入鞘，披肩贴身。",
+      "work": "略侧身低头检查自己护腕，一手低位轻扶另一只手腕的皮扣，关节与手指自然；不捧书执笔，保留甲胄护卫仪态。",
+      "command": "自然四分之三侧站警戒，一手低位靠近腰侧剑鞘但不拔剑，另一手舒适下垂，抬眼安静观察听令，不怒目伸指。"
+    },
+    "person-57": {
+      "neutral": "头部平正近正面自然站立，双臂空着舒适低放，保持朴素史官布袍，无甲无兵器。",
+      "work": "轻微侧身，一手在腰前低位持一册小型薄编史文稿，另一手轻托册底，平静核阅；不加桌案或笔砚，不堆书卷。",
+      "command": "微侧身平静听取军情并提出防御建议，一手低靠布腰带，另一手舒适下垂，双手空着；保持史官文臣衣装，无甲无兵器。"
+    },
+    "person-58": {
+      "neutral": "近正面稳站，双手低位自然松放，轻甲与肩披贴身，佩剑留鞘。",
+      "work": "微侧身，一手低位轻持单个小型闭合调运令牌，另一手自然垂放；体现军需与运河调配，无桌案不捧书。",
+      "command": "轻微四分之三站立，一手在腰部低持朴素短木指挥杖，另一手自然靠近腰带，目光平视部署方向。"
+    },
+    "person-59": {
+      "neutral": "稳定自然站姿，双手舒适低放，近身围巾不飘动，佩剑留鞘。",
+      "work": "轻微侧身，双手低位检查单个小型闭合皮革军需袋，一手托袋另一手轻触袋扣，不读书不写字。",
+      "command": "微侧身平静观察，左手低位轻靠腰带，右手轻持一根短朴素木令棍，保持自然手腕，不挥击。"
+    },
+    "person-60": {
+      "neutral": "头部平正自然站立，两只空手舒适低放，完整高冠与双脚，神态平静。",
+      "work": "微侧身，一手在腰侧低持单个闭合公文封套，另一手轻托底边，不加桌案，眉眼放松。",
+      "command": "自然侧站听取军务，一只空手低位轻靠腰带，另一只空手自然下垂，保持无甲文臣辅助仪态。"
+    },
+    "person-76": {
+      "neutral": "自然稳健军姿，双手舒适低放，一手靠近腰带，佩剑留鞘内。",
+      "work": "略侧身低头查看一枚军需木牌，左手在腰部低持、右手轻触边缘，保持盔甲，不捧书。",
+      "command": "四分之三站立抬眼观察路线，右手低位持一根短木指挥杖，左手自然下垂；不伸臂指点。"
+    },
+    "person-77": {
+      "neutral": "稳定自然军姿，头平正双手低放，毛缘盔青缨完整、佩剑在鞘。",
+      "work": "略侧身检查一个小型闭合军需皮袋，左手低位托袋、右手轻触扣带，完整盔甲，不执笔或阅书。",
+      "command": "轻侧转沉静观察阵位，左手在腰部低持一根短木图筹，右手放松，保持军中将领仪态。"
+    },
+    "person-78": {
+      "neutral": "自然稳立，右手轻靠腰带，左手垂放，闭口、佩剑留鞘内，红缨完整。",
+      "work": "低位检查左护腕扣带，右手轻触扣边，轻微低头，保留盔甲武职气质，无书笔桌案。",
+      "command": "微侧转平静观察前方，左手轻靠佩剑鞘上端但不拔剑，右手自然下垂，不挥击不伸掌。"
+    },
+    "person-67": {
+      "neutral": "近正面自然稳健军姿，双手空着舒适低放，完整黄布头巾及双脚，佩剑在鞘。",
+      "work": "略侧身，一手腰侧低位持一只小型闭合军情传递皮袋，另一手轻触袋扣核对，保持军职甲装，不捧书执笔。",
+      "command": "四分之三侧站平静观察并协调军情，一手低靠腰侧剑鞘而不拔刀，另一手自然下垂，不伸指挥击。"
+    },
+    "person-68": {
+      "neutral": "平正头部近正面自然军姿，双手空着舒适低放，甲装贴身，佩剑完整入鞘。",
+      "work": "轻微侧身，一手在腰部低位持单枚小军需木牌核对，另一手自然靠腰，保留守关统帅甲胄仪态，无桌案书卷。",
+      "command": "微侧转平静观察布防，一手在腰部低位自然持短朴素木指挥杖且贴身，另一手舒适下垂，佩剑仍在鞘，不挥舞指点。"
+    },
+    "person-69": {
+      "neutral": "自然稳健近正面站立，双手空着舒适低放，盔甲完整，佩剑留在鞘内，不怒目挑眉。",
+      "work": "略侧身，一手在腰前低位持一枚小型木制城防楔形连接件，另一手轻触边缘检查，保持军职甲装，无大器械或桌案。",
+      "command": "四分之三站姿平静判断城防，一手低靠入鞘佩剑的鞘口，另一手舒适下垂，抬眼观察，不拔剑挥击不伸指。"
+    },
+    "person-70": {
+      "neutral": "近正面稳定小幅军姿，双手低位放松，佩剑留鞘，保持精悍瘦小体态。",
+      "work": "微侧身，右手低位轻触左护腕皮扣检查军用装备，双手结构自然清楚，无书无桌案。",
+      "command": "轻微侧转平视布防方向，右手低位持短朴素木指挥杖，左手靠近腰带，稳健不挥击。"
+    },
+    "person-71": {
+      "neutral": "稳定自然军姿，双手舒适垂放，佩剑留鞘，头部平正。",
+      "work": "微侧身，一手在腰部低持单枚小军需令牌，另一手自然松放；保持实用甲胄不读书。",
+      "command": "微侧身，左手轻靠腰带或剑鞘顶部，右手低位轻持短朴素木令棍，目光平视，闭口不挥击。"
+    },
+    "person-72": {
+      "neutral": "自然稳站，双手舒适低放，完整赭冠和双脚，不拢袖作揖。",
+      "work": "微侧身，一手低位持单个闭合薄公文封套，另一手轻托底边，眉眼放松，无桌案不执笔。",
+      "command": "轻微四分之三侧转听取军情，一只空手低位轻靠腰带，另一只自然下垂，谋臣文袍无甲无兵器。"
+    },
+    "person-61": {
+      "neutral": "近正面自然站立，右手轻靠腰带，左手舒适下垂；双手可见，嘴唇闭合，肩披自然垂落。",
+      "work": "轻微左三分之四站姿，一手在腰前低位持单份闭合薄消息封套，另一手自然扶封套底；谋士核对情报，脸部清晰，不执笔不加桌案。",
+      "command": "轻微右三分之四站姿，一手低位自然持一枚小木制路线筹，另一手轻靠腰带，抬眼平静研判部署；不挥扇，不伸指，不披甲。"
+    },
+    "person-62": {
+      "neutral": "头部平正、近正面自然站立，双手松放且可见；短红发带自然贴近发髻，文袍不飞扬。",
+      "work": "轻微右三分之四站姿，腰前低位自然打开一本小薄册，一手托底一手轻扶页边；太子文学核对记录，脸部清楚，书页无可读文字，不加桌案。",
+      "command": "轻微左三分之四站立，右手低持单个闭合薄公文封套靠近外侧大腿，左手轻放腰带；平静听取军务，保持文职联络身份，无甲无兵器。"
+    },
+    "person-63": {
+      "neutral": "近正面自然稳健军姿，双手舒适低放，佩刀始终留鞘；嘴唇完全闭合，眉眼放松，完整蓝缨与双脚。",
+      "work": "轻微左三分之四站姿，一手在腰前低位持单只小型闭合军需皮袋，另一手轻触袋扣检查；双手自然清楚，保留甲胄军职，不写字捧书。",
+      "command": "轻微右三分之四稳健站姿，一手低位松握朴素短木指挥杖贴近身侧，另一手轻靠腰带；闭口平静观察部署，不挥击怒吼或拔刀。"
+    },
+    "person-88": {
+      "neutral": "自然稳健军姿，双手舒适低放，一手靠近腰带，佩剑留鞘；不披头盔。",
+      "work": "略侧身低位查看一枚小型军需木牌，左手低持、右手轻触牌边；保持军职甲胄，不捧书。",
+      "command": "四分之三侧转观察部署，右手在腰部低持短木指挥杖，左手自然下垂，闭口、不指点挥舞。"
+    },
+    "person-89": {
+      "neutral": "自然直立，右手轻靠腰带，左手舒适垂放，闭口平静，不作夸张拢袖礼。",
+      "work": "轻侧身低位整理一个小型闭合家用布袋，左手在腰部托袋、右手轻触袋口束绳；不执笔加桌案。",
+      "command": "轻侧转沉静听取联络消息，右手低持一份小型折起函件，左手自然垂放；家族联络照料身份，无甲无兵器无军旗。"
+    },
+    "person-90": {
+      "neutral": "自然稳立，右手轻靠腰带，左手舒适垂放，不拿文书。",
+      "work": "略侧身低位检查一份闭合法务公文封套，双手自然持边，不执笔不加桌案。",
+      "command": "轻侧转平静听取军政联络消息，左手低位拿一枚简洁公文木牍，右手自然下垂；文臣辅助，无甲无兵器。"
+    },
+    "person-73": {
+      "neutral": "近正面稳定自然军姿，右手轻靠腰带，左手舒适下垂；黑发后梳、无盔冠，佩刀留鞘。",
+      "work": "轻微右三分之四站姿，一手在腰前低位拿单枚小军需木牌，另一手自然下垂，目光平静核对；保持甲胄与军职，无书册桌案。",
+      "command": "轻微左三分之四站姿，一手低位松握简短朴素木指挥杖贴近大腿，另一手自然靠腰带；安静判断部署，不伸臂指点或拔刀。"
+    },
+    "person-74": {
+      "neutral": "近正面自然军姿，双手舒适低放，完整低盔与短褐缨；佩刀留鞘、嘴唇闭合。",
+      "work": "轻微左三分之四站姿，右手在腰前低位轻扶左护腕皮扣检查，双手清楚且关节舒适；保留武职甲胄，不拿书册，不加桌案。",
+      "command": "轻微右三分之四稳健站姿，左手轻放腰侧刀鞘但不拔刀，右手空手自然下垂；抬眼安静观察军情，不怒吼挥击或前伸指点。"
+    },
+    "person-75": {
+      "neutral": "近正面端正自然站立，右手舒适靠近腰带，左手自然低放且可见；高镂冠完整，闭口沉静。",
+      "work": "轻微右三分之四站姿，左手在腰前低位持单份闭合薄公文封套，右手轻扶封套下缘核对宫务；脸部清晰，不执笔不加桌案。",
+      "command": "身体向左侧转约45度，右手在髋部低位持单个窄小闭合军务联络封套贴近外侧大腿，左手自然靠腰带；头部和目光向左听取军务，仍可看清面孔。保持宫廷文官咨询仪态，无甲无兵器，不伸掌指点，与站立图有明确方向和手势差异。"
+    },
+    "yuanxia": {
+      "neutral": "头部平正、自然稳定军姿，双手空着舒适低放，弓与小箭囊固定贴背，佩剑入鞘，不拉弓不瞪眼。",
+      "work": "略侧身，一手腰部低位持一只小型闭合军需皮袋，另一手轻触袋扣核对，保留统帅甲装与背挂弓箭，无书卷桌案。",
+      "command": "四分之三站姿平静观察部署，一手低位轻持简短木指挥杖且贴身，另一手舒适下垂，弓箭固定贴背不取用，佩剑在鞘。"
+    },
+    "person-80": {
+      "neutral": "自然稳定近正面军姿，双手空着舒适低放，整把青釭佩剑固定腰侧入鞘，不拔剑不手举兵器。",
+      "work": "略侧身低眼，一手在腰侧低位轻扶剑鞘，另一手检查鞘口携行皮带扣，保持双手自然，绝不露刃；不捧书执笔。",
+      "command": "四分之三自然警戒站姿，一手低靠腰带，另一手舒适下垂，青釭保持入鞘固定腰侧，抬眼平静观察听令。"
+    },
+    "person-81": {
+      "neutral": "头部平正自然站立，双手空着舒适低放，完整黑布冠与双鞋，无甲无兵器。",
+      "work": "微侧身，一手在腰部低位持一只小型闭合素印匣，另一手轻扶匣盖检查，保持文官使者仪态，无桌案。",
+      "command": "略侧身平静听取军情和进言，一手低靠布腰带，另一手舒适下垂，双手空着，保持文职无甲无兵器。"
+    },
+    "person-82": {
+      "neutral": "端正自然站立，双手舒适垂放，完整低发冠与双脚，不作拢袖礼。",
+      "work": "微侧身，一手低位持单个闭合薄公文封套，另一手轻托底边；随军文书联络，无甲无武器。",
+      "command": "微侧站听取军务，一只空手在腰侧轻微向下收拢示意，另一只自然垂放，不指点不加甲。"
+    },
+    "person-83": {
+      "neutral": "自然稳定站姿，双手舒适低放，文袍完整，头部平正。",
+      "work": "微侧身，一手低位轻持单枚闭合公文封套，另一手自然靠近腰带，不执笔不加桌案。",
+      "command": "轻微四分之三站姿平静听取意见，双手低位自然分开，一手轻靠腰带，另一手松放，无甲无兵器。"
+    },
+    "person-84": {
+      "neutral": "稳定军姿，双手自然低放，佩剑留鞘，头部平正闭口。",
+      "work": "微侧身，一手低位拿单个小型闭合军需木牌，另一手松放腰侧；保持甲胄，不读书不执笔。",
+      "command": "轻微侧转平视部署方向，右手低位持一根短朴素木指挥杖，左手轻靠腰带，佩剑留鞘不挥击。"
+    },
+    "person-101": {
+      "neutral": "自然稳健武人站姿，双手低放，一手轻靠腰带，朴素单刀留在鞘内。",
+      "work": "轻微低头检查左皮护腕扣带，右手低位轻触扣边；保留皮甲军衣，不持书笔。",
+      "command": "微侧转观察前方，左手低位靠近刀鞘而不拔刀，右手舒适垂下，闭口不怒吼。"
+    },
+    "person-102": {
+      "neutral": "自然稳立军姿，双手舒适低放，佩剑留鞘，橄榄缨完整。",
+      "work": "略侧身低位查看一枚小型军需木牌，左手持牌、右手轻触边缘；保留甲胄，无书笔桌案。",
+      "command": "四分之三侧转观察阵位，右手低位持短木指挥杖，左手自然垂放，不指点挥击。"
+    },
+    "person-103": {
+      "neutral": "自然挺立军姿，右手轻靠腰带，左手舒适垂放，佩剑在鞘，青缨完整。",
+      "work": "低位检查左护腕扣带，右手轻触皮扣，轻微低头，保持甲胄军职气质，不阅书。",
+      "command": "轻侧转平静观察前方，一手低位轻扶佩剑鞘上端而不拔剑，另一手自然下垂，不挥击伸掌。"
+    },
+    "person-85": {
+      "neutral": "近正面稳定军姿，双手舒适低放，一只手轻靠腰带，佩刀留鞘，完整红盔缨与双脚。",
+      "work": "轻微左三分之四站姿，一手在腰前低位持单枚小军需木牌检查，另一手自然松放；天荡山兵粮守将仪态，保持甲胄，不写字捧书。",
+      "command": "轻微右三分之四站姿，一手低位松握朴素短木指挥杖贴近外侧大腿，另一手轻放腰带，闭口平静判断营防；不挥杖伸指。"
+    },
+    "dun": {
+      "neutral": "近正面自然稳健军姿，右手轻放腰带旁，左手舒适低放；佩刀留鞘，嘴唇闭合，保持双眼可见的固定原头像阶段。",
+      "work": "轻微右三分之四站姿，腰前低位一手持单个小型闭合军需皮封套，另一手自然轻触封扣检查；保持深铁甲与重臣统帅仪态，无书册桌案。",
+      "command": "身体向左轻转约30度，一手低位持简短朴素木指挥杖贴近外侧大腿，另一手轻靠腰带；抬眼安静研判部署，不挥击伸指，固定同一双眼可见脸部。"
+    },
+    "person-87": {
+      "neutral": "近正面自然稳健站立，双手舒适低放，佩刀留鞘；完整银盔绿缨、双脚和自然闭口面孔。",
+      "work": "轻微左三分之四站姿，右手在腰前低位轻扶左护腕皮扣核对护具，双手手指清晰舒适；保持武将甲胄，不执笔不捧卷。",
+      "command": "轻微右三分之四站姿，一手轻扶腰侧刀鞘但不拔刀，另一只空手自然下垂，抬眼平静观察军情；文武职责保持武将，不怒吼挥击。"
+    },
+    "person-91": {
+      "neutral": "头部平正自然站立，双手空着舒适低放，文职官袍，无甲无兵器。",
+      "work": "微侧身，一手在腰前低位持一只小型闭合素印匣，另一手轻扶匣盖，安静核阅，不加桌案。",
+      "command": "略侧身平静听取军务消息，一手低靠布腰带另一手舒适下垂，双手空着，保持文臣司徒衣装，无甲无兵器。"
+    },
+    "person-92": {
+      "neutral": "近正面自然稳健军姿，双手空着舒适低放，闭口，佩剑完整入鞘，披肩贴身。",
+      "work": "略侧身，一手在腰部低位持一只小型闭合军令印匣，另一手轻触匣扣核对，保留大将军甲装，无书卷执笔。",
+      "command": "四分之三站姿平静观察组织军务，一手低位轻持简短木指挥杖，另一手舒适下垂，佩剑在鞘，不伸指挥击。"
+    },
+    "person-93": {
+      "neutral": "近正面自然稳健站立，双手空着舒适低放，精良红色军装与鎏金甲缘保留，佩剑在鞘，不骄笑。",
+      "work": "微侧身，一手腰部低位持小型闭合军需皮袋，另一手轻触金属袋扣检查，保持统帅军装品质，不捧书执笔。",
+      "command": "四分之三站立平静观察部署，一手低位持短木指挥杖且有克制暗金端饰，另一手舒适下垂，无挥击伸指，佩剑仍在鞘。"
+    },
+    "person-94": {
+      "neutral": "稳定近正面军姿，双手舒适低放，佩剑留鞘，绿肩披贴身。",
+      "work": "微侧身，一手低位拿单个小型闭合军需木牌，另一手自然松放腰侧；军职仪态不捧书。",
+      "command": "微侧转平视军情，右手低位轻持短朴素木指挥杖，左手自然靠近腰带，闭口不伸指。"
+    },
+    "person-95": {
+      "neutral": "自然稳定站姿，双臂低放且双手分别可见，长发近身，表情平静闭口。",
+      "work": "轻微侧身，双手低位检查单个小型闭合旅行皮袋，一手托底另一手轻触袋扣，不加桌案或书册。",
+      "command": "轻微侧站平静观察与听取消息，一只空手低位轻靠腰带，另一手自然垂放，保持本人氏族服饰，无武器。"
+    },
+    "person-96": {
+      "neutral": "近正面稳健军姿，双手低位舒适松放，佩剑留鞘，保持高大正常人体比例。",
+      "work": "轻微侧身，右手低位轻扶左护腕皮扣检查装备，双手结构自然，不读书不执笔。",
+      "command": "微侧转平视部署方向，右手低位持短朴素木指挥杖，左手轻靠腰带，剑留鞘，不挥击怒吼。"
+    },
+    "person-97": {
+      "neutral": "近正面规整自然站立，双手舒适低放，一只手轻靠腰带，嘴唇闭合；轻甲完整、佩剑留鞘，不作猛将摆姿。",
+      "work": "轻微左三分之四站姿，一手在腰前低位持单个小型闭合皮封套，另一手自然轻扶封扣；承爵贵族核对联络物件，双手自然，不执笔不加桌案。",
+      "command": "身体和头部向右侧转约35度，一手轻放腰带、另一只空手自然低放；安静听取军务安排，保持原头像轻甲与同人面孔，姿态与站立图区分，无指挥杖或挥击动作。"
+    },
+    "person-98": {
+      "neutral": "头部平正、近正面从容自然站立，双手舒适低放且可见，一手轻靠腰带；闭口嘴角平直，无夸张微笑或拢袖礼。",
+      "work": "轻微右三分之四站姿，在腰前低位一手持单个窄小闭合使者封套，另一手轻扶封套下缘，核对来往公文；无文字桌案或枷锁。",
+      "command": "身体与头部向左侧转约35度，右手低位持同人文职联络用的小型闭合皮公文袋贴近外侧大腿，左手自然靠腰带；平静听取军务联络，保持官袍，无甲无兵器。"
+    },
+    "person-100": {
+      "neutral": "近正面端正自然站立，右手轻靠腰带，左手舒适低放且可见；小金冠完整、白颏带保留，闭口沉静。",
+      "work": "轻微左三分之四站姿，腰前低位自然打开单本小薄任用记录册，一手托底一手轻扶侧缘；人事文官核对记录，脸部清晰，书页无可读文字，不加桌案。",
+      "command": "身体与头部向右轻转约35度，右手低持一个窄小闭合军务公文封套贴近大腿，左手自然轻放腰带；安静听取军务建议，保持文职衣装，无甲无武器，不伸指。"
+    },
+    "person-113": {
+      "neutral": "自然稳健军姿，双手舒适低放，单刀在鞘，黄布顶结和双脚完整。",
+      "work": "略侧身低位查看一枚小型军需木牌，左手持牌、右手轻触边缘；铁甲军职，不持书笔。",
+      "command": "四分之三侧转沉静观察前方，右手低位轻持短木指挥杖，左手自然垂放，闭口不挥击。"
+    },
+    "person-114": {
+      "neutral": "自然稳立，一手轻靠腰带，另一手舒适垂放，不捧书。",
+      "work": "轻侧身低位审阅一册小型历法经注薄册，左手托册、右手轻触页边，不加桌案或天文仪器。",
+      "command": "微侧身平静听取联络消息，右手低位拿一份小型闭合函件，左手自然垂放；使者文职辅助，无甲无兵器。"
+    },
+    "person-115": {
+      "neutral": "自然站立军姿，双手低放，右手轻靠腰带，左手垂下，单刀留在鞘内。",
+      "work": "略侧身低位检查单个小型闭合军需皮袋，左手托袋、右手轻触扣带；不捧书执笔。",
+      "command": "轻侧转平静观察前方，一手低位靠近刀鞘上端而不拔刀，另一手自然垂下，不指点挥击。"
     }
   }
 }

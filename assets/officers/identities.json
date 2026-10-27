@@ -423,5 +423,533 @@
     "source": "approved-original-character",
     "tool": "built-in-imagegen",
     "referenceRecord": ".local/officer-art-results/batch-0014/person-39-portrait-02.json"
+  },
+  "person-40": {
+    "approved": true,
+    "sha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-41": {
+    "approved": true,
+    "sha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-42": {
+    "approved": true,
+    "sha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-52": {
+    "approved": true,
+    "sha256": "bcdc12df95acf32a76ddc60a1ec36a3cae31ab5e0ebd37fa70c0d4349e1fe871",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-53": {
+    "approved": true,
+    "sha256": "adb2aa4c3ccaf1e29d494695ac62bf666a01e8a6de3dc651e2165439f18516d7",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-54": {
+    "approved": true,
+    "sha256": "d35f7acd46b8499102e1d453bab88cd0d17490fc7f15255df9a01c03be283715",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-46": {
+    "approved": true,
+    "sha256": "630874697fbf3f2ed93e844bac425c66891ac772c5b512b294894209d22be122",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-47": {
+    "approved": true,
+    "sha256": "1e5395979b1b2b9ebfedac30a20cac3ec1a0a8ff90c49a95843a24fa977975e3",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-48": {
+    "approved": true,
+    "sha256": "2afcca454cc72e3ec1ae85e17ca00e01d052639ee09a7e7a105fd9f81e8e04a1",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-43": {
+    "approved": true,
+    "sha256": "9e6ef64d12fe0d41565ab58fa5fda66ac20925f29bd958a27892163371fc3a59",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-44": {
+    "approved": true,
+    "sha256": "8f6f8a4e97d7acbec23805a8bdc6954bc5fafb18b0fc5bd578eee90cccd71b4e",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-45": {
+    "approved": true,
+    "sha256": "0fa2ef8b3b0ba4ea5c8a1e0ce359744ea9ce97330af1c75d77b508c80016a555",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-49": {
+    "approved": true,
+    "sha256": "6462675f758a9f67ec3c906d7b7d07617de482808577e8ec22f73d5d4934229c",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-50": {
+    "approved": true,
+    "sha256": "773ba8f2293e818cbe89cc95f325e8a492159194e1b975ea42149a0822a922f6",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-51": {
+    "approved": true,
+    "sha256": "d88473a3447a8ff871680875f50eec24f045c358fbf51e09960d5ccc1235a3ed",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "jia": {
+    "approved": true,
+    "sha256": "89b84b970ae87612de33e12069c1397cd6996e925bbde6f0d788c35a81dbb8ea",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-65": {
+    "approved": true,
+    "sha256": "e705ced4fe66b112e206c1be0005fa051659344cc7c6dc747b16fc44190ef1a0",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-66": {
+    "approved": true,
+    "sha256": "c6c45d83b8ec3d68834400bb8a827c3bd07f9fdc77272d11432e22c548270aa9",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-55": {
+    "approved": true,
+    "sha256": "b0263575205f24fca17fe175e49dcf818b3cc58873a34cb2c27df2f274cd7127",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-56": {
+    "approved": true,
+    "sha256": "69f4ad08aeaec7cb458b88cfa3e1c5e25207d20fce50a64b99d44b3b59cfe341",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-57": {
+    "approved": true,
+    "sha256": "587a34ba54e973906ea87398c8acf87dfdc8b4b520c168a89d7d77194fe54b9a",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-58": {
+    "approved": true,
+    "sha256": "2c5aab8d50354a22c00be5f3e8bdb09cd3eb69647cc8e33c0d0fcdb3326c7c35",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-59": {
+    "approved": true,
+    "sha256": "dd34736f19c181fdac186d8ae7b7bce7dde9749849a5337855946e9398c60315",
+    "width": 977,
+    "height": 1609,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-60": {
+    "approved": true,
+    "sha256": "bcd00381e8e7615fda4b83e4ecbcef9b46d0c108c6fba225cb9a23f69f87aeae",
+    "width": 971,
+    "height": 1620,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-76": {
+    "approved": true,
+    "sha256": "e78b6e3c59501e0e0852040fd75c3e5507734a876f657c07248da634b65547c9",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-77": {
+    "approved": true,
+    "sha256": "2332098295ff1225bf281667d458efd5848d15e561e731334f0974079c358b63",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-78": {
+    "approved": true,
+    "sha256": "2697a55bb451d65fed6cd5f4928d80939ac1997cc68391db38a6c5a466c81a41",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-67": {
+    "approved": true,
+    "sha256": "f888dbe138fd91eb72fbe38387e7ca83c92675380a2c3ea5f4ebc04cd729626f",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-68": {
+    "approved": true,
+    "sha256": "343c626360dcc39f7b6e09d0694275943cc1252f8144b820dd81a1391e375681",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-69": {
+    "approved": true,
+    "sha256": "14b91641268c65091492489508038e2cb6fc859a632a1aed469abc0ef188b893",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-70": {
+    "approved": true,
+    "sha256": "18c8c13e2f544e20db8691d905814acc4615482d17ba4f41a40aa4e0a1a9883b",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-71": {
+    "approved": true,
+    "sha256": "a33702091ffea70285e22aec8c6a4813b05920705b7919aa6b83fda067f33ec8",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-72": {
+    "approved": true,
+    "sha256": "f70fa2da1be4ef6cfa1efa2638dcfae48fb48b96cda904456dd117e21fb89987",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-61": {
+    "approved": true,
+    "sha256": "61a32e3b6dbf9090855ef4aedb3a9dc3d5664547bc6d521c58d889f1a61595ba",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-62": {
+    "approved": true,
+    "sha256": "dd8414b7609102546ad1f24862d45903e549234bda04d15b9675327caf0a3a7c",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-63": {
+    "approved": true,
+    "sha256": "e11b133d475a70fb127b775b3cf9e87172a66cbc67f19f8639f6041881d4a5ca",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-88": {
+    "approved": true,
+    "sha256": "5332427f5d0c9c360747b29fc04d72b9e6d59c865f95e94fcfe6a999129fe711",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-89": {
+    "approved": true,
+    "sha256": "69387e3829d3bf9802a214b78567f67962f41605a62133b06463b9d6895bdbcb",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-90": {
+    "approved": true,
+    "sha256": "dfe12e966af4382dab6ab30331fab341cf1615fbefa63d0805393a2315275ab9",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-73": {
+    "approved": true,
+    "sha256": "8c3b568ed7a7bcc5ca91eaae242c08a26aa9d38bada62134090232f9e0946d54",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-74": {
+    "approved": true,
+    "sha256": "ccfc822a7474bc2a0b89b099eb94adcbd49f03b058b0b2e736f714809250ddd1",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-75": {
+    "approved": true,
+    "sha256": "7c65a61995a0fd097725cc76ecffeba4e8793bdc54b81078f8e4d8340c8d316a",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "yuanxia": {
+    "approved": true,
+    "sha256": "4b80b9b08b4eb9b89f3d75050576a75550b4538127ab432e42e497f2da95bf2d",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-80": {
+    "approved": true,
+    "sha256": "276409d36c2fa8111aef062fe34f3f969f8135dad7e96d9a7c5c7e4d4cb4f887",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-81": {
+    "approved": true,
+    "sha256": "700556558a2ef4e19c3d6ba06aa3df020248352a87d9af0efb5b78804696eb80",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-82": {
+    "approved": true,
+    "sha256": "05e05ce2be16896aec973b4762948ea3ee7f47411a3372baf092989333bcf1e7",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-83": {
+    "approved": true,
+    "sha256": "a7f99cdc48a25179dad9acbc8fbcb7e2abeda602c85a55ea406fdda001d6219c",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-84": {
+    "approved": true,
+    "sha256": "e3974b6f13f803f59c5059f5359c066453ffeb64731ea7a5f0a7161914ef9709",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-101": {
+    "approved": true,
+    "sha256": "848acf87e490b132626845f76b638644beac82e9cddb717c9f6dd5908e7c394e",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-102": {
+    "approved": true,
+    "sha256": "ac8c8e9ab047d6909b648e57b32ef402533b2e0074ef9ee35ebb0fb30dc2cb64",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-103": {
+    "approved": true,
+    "sha256": "88f4f1f4eec94a9be725281a47c0046f8f22fc1d20d6769b0e7e72611b0fc7d3",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-85": {
+    "approved": true,
+    "sha256": "49163df9a5bdccf5415f2e7f6339745b124132ff8d000d869e81e93a279d957f",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "dun": {
+    "approved": true,
+    "sha256": "702f0b3c5e2183f259bec34ece1099482ae0a15b01f30ca6033921433aa2bf0d",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-87": {
+    "approved": true,
+    "sha256": "368a8a31753df972f196f230a57a21cb80a82799efa5ab9f9cb8357b1e05f1c4",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-91": {
+    "approved": true,
+    "sha256": "4eb4ccef2edff3f721199c20d2ff953ceef429ac32d5577b3050be57a8b86dff",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-92": {
+    "approved": true,
+    "sha256": "e142a322be16062a4cd92949071f86011be155c931483ae75834ddcbdd44a353",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-93": {
+    "approved": true,
+    "sha256": "1e456fed74bfa353d9e9e72d4c5fdea19f7a91c496f75144f8e53ba5c61e2492",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-94": {
+    "approved": true,
+    "sha256": "41137c3cf6ba84a2846e26e8de2258b15cea398fe093a0a6c086177d674dc1d2",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-95": {
+    "approved": true,
+    "sha256": "80b793ca6126de5276267d6e69e4d78f2e11781574fa101491a3e67b2ca13b14",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-96": {
+    "approved": true,
+    "sha256": "e49636d31193e9e05958d1bab9925ec2585f974b54dc19a383896effaaee88b5",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-97": {
+    "approved": true,
+    "sha256": "6fb9aac7795deea55675dba0d9baa796da07d5ff98e497d9cecdcf2e470a7dbc",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-98": {
+    "approved": true,
+    "sha256": "5d21b9a02747cfa578ef309179c3617c3f917c51df8fe4f0740201033a68272f",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-100": {
+    "approved": true,
+    "sha256": "d97a3abb1ab3b6c5b8f5a5fdcd6c9c8c1adef334732e4883295f39f3876fd619",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-113": {
+    "approved": true,
+    "sha256": "30b0026659d14d0ee48b177008f37e59ec4f9544680f636b2c09f38c97e878c9",
+    "width": 972,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-114": {
+    "approved": true,
+    "sha256": "3d92035bc4e755cb79387fa6190e996b2983f74e83888d1b77f686747776e90d",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
+  },
+  "person-115": {
+    "approved": true,
+    "sha256": "47b7b353f6b7477f66669faa8f4a42a5f2fe44cb53bae4ad33f9273cde92c2f5",
+    "width": 971,
+    "height": 1619,
+    "source": "approved-original-character",
+    "tool": "built-in-imagegen"
   }
 }

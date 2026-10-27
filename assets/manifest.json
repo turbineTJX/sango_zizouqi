@@ -1,7 +1,7 @@
 {
   "version": 1,
   "id": "original-sango",
-  "revision": "1",
+  "revision": "1-music-epic1-e1bada08-voice-011d6547",
   "officers": "./assets/officers/manifest.json",
   "town": {
     "art": {
@@ -24,5 +24,671 @@
       "gate": "./assets/town/han-space-gate.webp",
       "port": "./assets/town/han-space-port.webp"
     }
-  }
+  },
+  "music": {
+    "lobby": {
+      "url": "./assets/music/epic-v1/lobby.ogg",
+      "loopStart": 0,
+      "loopEnd": 93.65850340136055,
+      "sha256": "235e2a5a64b5d6a92382ac4cdf9a308e7405e443929da54afbefee046fa3fa83"
+    },
+    "spring": {
+      "url": "./assets/music/epic-v1/spring.ogg",
+      "loopStart": 0,
+      "loopEnd": 98.46156462585034,
+      "sha256": "b819313cc8ed7773e81c3f14970dd21ed943ac45af70ef19407e405f326fd475"
+    },
+    "summer": {
+      "url": "./assets/music/epic-v1/summer.ogg",
+      "loopStart": 0,
+      "loopEnd": 81.70215419501133,
+      "sha256": "eb7be4a7c21d91bfbdc8871a15e6ded6b8f73cbd1d8f9633cd66dc3e49a7faa3"
+    },
+    "autumn": {
+      "url": "./assets/music/epic-v1/autumn.ogg",
+      "loopStart": 0,
+      "loopEnd": 109.71430839002268,
+      "sha256": "4c3061598a7f2e9ec2fb6020c8f44dcf5af29c3b0d43e138f526fa81e163fd93"
+    },
+    "winter": {
+      "url": "./assets/music/epic-v1/winter.ogg",
+      "loopStart": 0,
+      "loopEnd": 123.87097505668935,
+      "sha256": "52edc037f04d063941720170a4c65ded7b0d3fdb83a3e238d5f93e1b89512aca"
+    },
+    "march": {
+      "url": "./assets/music/epic-v1/march.ogg",
+      "loopStart": 0,
+      "loopEnd": 78.36736961451247,
+      "sha256": "335df87492dc35cdb16b45a9ec6942fadbaa70fdb529fb4fb2c4507817a45d5f"
+    },
+    "council": {
+      "url": "./assets/music/epic-v1/council.ogg",
+      "loopStart": 0,
+      "loopEnd": 103.78380952380952,
+      "sha256": "1b933de582ae07ce4b597c3d1a20c58ea13ff785ebdbd2415a6b7ac9ab768f08"
+    },
+    "diplomacy": {
+      "url": "./assets/music/epic-v1/diplomacy.ogg",
+      "loopStart": 0,
+      "loopEnd": 101.05267573696145,
+      "sha256": "77f0c3a938750fedf3b5fb9ee6bfc50ad35dbe39ddaafb0d5de6e51edfd81402"
+    },
+    "encounter": {
+      "url": "./assets/music/epic-v1/encounter.ogg",
+      "loopStart": 0,
+      "loopEnd": 54.33963718820862,
+      "sha256": "2a5fe7fc92b3e2bf186c6ec349940a5dba6d25568aab9937be4674c7cf1ecdbb"
+    },
+    "battle": {
+      "url": "./assets/music/epic-v1/battle.ogg",
+      "loopStart": 0,
+      "loopEnd": 66.20684807256235,
+      "sha256": "5982b475f9cd774794e5d2520d166833e38e8abc7570bf2e8199b6fc3553693d"
+    },
+    "advantage": {
+      "url": "./assets/music/epic-v1/advantage.ogg",
+      "loopStart": 0,
+      "loopEnd": 62.95079365079365,
+      "sha256": "11cfdc262c91103e283f049deafeceef461b0878f51de861c0b92e2ca8db5edb"
+    },
+    "disadvantage": {
+      "url": "./assets/music/epic-v1/disadvantage.ogg",
+      "loopStart": 0,
+      "loopEnd": 81.70215419501133,
+      "sha256": "7b1bca169e3849ee2c2bcca1160058299920ff2a8b4414e7879385b318d10881"
+    },
+    "decisive": {
+      "url": "./assets/music/epic-v1/decisive.ogg",
+      "loopStart": 0,
+      "loopEnd": 75,
+      "sha256": "c8b5c24486dbf721facb03773bb72c641922763a554c1ad8f1c73907489f07db"
+    }
+  },
+  "musicCredits": "./assets/music/epic-v1/credits.json",
+  "voices": {
+    "commander-start-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-start-0.wav",
+      "text": "全军听令，进军！",
+      "duration": 2.1445,
+      "sha256": "ec2aca5ca697ed8a712ce37ed31f9858a734028fd68240663f4e6dabe214da66"
+    },
+    "commander-start-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-start-1.wav",
+      "text": "诸将随我，迎敌！",
+      "duration": 1.9460625,
+      "sha256": "34a7ad9f476410b9048f377587636cda64b34ac77f1a9004edcca2c82922c0ca"
+    },
+    "commander-tactic-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-tactic-0.wav",
+      "text": "一鼓作气，破敌！",
+      "duration": 1.806375,
+      "sha256": "1ec46507e688e2e06b35a451062f8a0b313e4ee91c2a045a6bf1a035a4225e1e"
+    },
+    "commander-tactic-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-tactic-1.wav",
+      "text": "趁势而进！",
+      "duration": 1.0081875,
+      "sha256": "b1d4aee868819c0f583432193ef9ef68be7b47b16b2f7bb3096bfb91c915c564"
+    },
+    "commander-order-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-order-0.wav",
+      "text": "号令已下，诸军协力！",
+      "duration": 2.3429375,
+      "sha256": "628272a74de335b2165c4d7de668f3db84817f9eddd4c444ef83b627f040bf98"
+    },
+    "commander-order-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-order-1.wav",
+      "text": "依计行事！",
+      "duration": 0.947875,
+      "sha256": "cf7140076c92738929152e91ee836a7f92ca27702647454d23b9fc13141ecf2e"
+    },
+    "commander-heal-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-heal-0.wav",
+      "text": "整顿队伍，再战！",
+      "duration": 1.843,
+      "sha256": "38b8108e67008172a2c2bb33fdeaa88788bbd54deff581984311d3e79e7b72f0"
+    },
+    "commander-rout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-rout-0.wav",
+      "text": "稳住阵脚！",
+      "duration": 1.010875,
+      "sha256": "6bf626b3df6bc0e19f1c01dd73fa3c5b4af5c39d3ee9b189bf567dcf5927f36c"
+    },
+    "commander-retreat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-retreat-0.wav",
+      "text": "收拢兵马，撤！",
+      "duration": 1.734375,
+      "sha256": "c26632c0eecf44063cfb4a51642975d987b47f0afff71ac598bf242ebee01888"
+    },
+    "commander-victory-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-victory-0.wav",
+      "text": "此战告捷，犒赏三军！",
+      "duration": 2.431375,
+      "sha256": "eb682ad2f3692d68c7e80e559ae613a2d60af36fad5ffe370873c7687ea007cb"
+    },
+    "commander-defeat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-defeat-0.wav",
+      "text": "保存实力，来日再战。",
+      "duration": 2.2320625,
+      "sha256": "4313d590c0984d5be538a8a019a10ffac0302c973e1bfbabbb3a3ffd839ac101"
+    },
+    "commander-draw-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-draw-0.wav",
+      "text": "鸣金收兵，择日再战。",
+      "duration": 2.4031875,
+      "sha256": "3f9508b618cb8ffc81f27b33f71fff08886c04ede9b28e1bf6525782c7076ae9"
+    },
+    "commander-acknowledge-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-acknowledge-0.wav",
+      "text": "得令，即刻办理。",
+      "duration": 1.82225,
+      "sha256": "472a50d71559ad15be150ef8836946cda1ec2fb3e4064ce256fe57026f694f3a"
+    },
+    "commander-acknowledge-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-acknowledge-1.wav",
+      "text": "此事交给我。",
+      "duration": 1.3024375,
+      "sha256": "d6a7d2555556f71a616041d975d2162140b605ec750a098ba99d35a902f26a5b"
+    },
+    "commander-march-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-march-0.wav",
+      "text": "兵马已备，即刻启程！",
+      "duration": 2.36,
+      "sha256": "09afa2f4ed008924ead1650f3692ce797bba2e12f568a92018aec3c541e8079a"
+    },
+    "commander-complete-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-complete-0.wav",
+      "text": "主公，所托之事已成。",
+      "duration": 2.446125,
+      "sha256": "6df30ddded6f667ca2c1207a9395e13ae01b32e5a619f79f9205b73ee4d84491"
+    },
+    "commander-discovered-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-discovered-0.wav",
+      "text": "主公，访得一位贤才。",
+      "duration": 2.5231875,
+      "sha256": "8cd5806207819f06d24789c76504633b575ed37107dd91704faddd4efd845a70"
+    },
+    "commander-recruit-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-recruit-0.wav",
+      "text": "愿为主公效力。",
+      "duration": 1.4155625,
+      "sha256": "92a1d941f94dcde5f98eff292638d171b589bff59d157a09b4aa71620605d9f1"
+    },
+    "commander-scout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/commander-scout-0.wav",
+      "text": "前方军情，已探明。",
+      "duration": 2.366375,
+      "sha256": "07efd93f92aeec7dd041cc46df6ce00e2181063cbf2ee3a42d6cce4bb04eb9ff"
+    },
+    "warrior-start-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-start-0.wav",
+      "text": "将士们，随我杀！",
+      "duration": 1.744625,
+      "sha256": "bd6d0e0684e4f55eecbf527c457fc56954342c4e7d101fd7bef8c8558535c467"
+    },
+    "warrior-start-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-start-1.wav",
+      "text": "敌军在前，冲！",
+      "duration": 1.643125,
+      "sha256": "6d1119d307373c6185d3c2468944c41ae505ef9169ad61d97eeba3ed686d738e"
+    },
+    "warrior-tactic-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-tactic-0.wav",
+      "text": "看我破阵！",
+      "duration": 0.85575,
+      "sha256": "bc6204b53528e7b9cf0f89076896f471599d8fb20ea6233e3b6062c7955e432b"
+    },
+    "warrior-tactic-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-tactic-1.wav",
+      "text": "吃我一击！",
+      "duration": 0.9000625,
+      "sha256": "3740dc4d4bb0210c04c2373db925290b94107be4ccb4b5a263326bb354a72ffe"
+    },
+    "warrior-order-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-order-0.wav",
+      "text": "众将听令，奋勇向前！",
+      "duration": 2.2964375,
+      "sha256": "cc808a3721e6e7cd5a15d24ee55f0a0ae57f2d36ddad5d55c439ab1bad4eecad"
+    },
+    "warrior-order-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-order-1.wav",
+      "text": "随我杀出一条路！",
+      "duration": 1.5945625,
+      "sha256": "91107714ac58053e83374ff51f6bda89846963d3f890d3c69c5ac96cdaa9fbed"
+    },
+    "warrior-heal-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-heal-0.wav",
+      "text": "打起精神，再来！",
+      "duration": 1.848875,
+      "sha256": "fe5807fc93c00b0e62d6a59f6438c214c3459c3aeaa3d158bafde44a237af3e3"
+    },
+    "warrior-rout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-rout-0.wav",
+      "text": "莫慌，有我在！",
+      "duration": 1.520875,
+      "sha256": "a21429c25a4a5b40260873a2b4763b1003496158cf386ea7bb32d040d838452b"
+    },
+    "warrior-retreat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-retreat-0.wav",
+      "text": "我来断后，快撤！",
+      "duration": 1.652875,
+      "sha256": "fde04d8f57e0d591e272b814707450f21dcc8291f39fed32810679221ac51583"
+    },
+    "warrior-victory-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-victory-0.wav",
+      "text": "痛快！此战大胜！",
+      "duration": 2.19575,
+      "sha256": "54a6136eee1784f21ce5480531c491e44552050c7bec946b4889dddbd7bc9da2"
+    },
+    "warrior-defeat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-defeat-0.wav",
+      "text": "今日且退，定要再战！",
+      "duration": 2.13525,
+      "sha256": "09c31ce38a723e6a3232b6eaa9835571e645788a42e503d2a46ae196dcdab28c"
+    },
+    "warrior-draw-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-draw-0.wav",
+      "text": "先收兵，再分高下！",
+      "duration": 2.0116875,
+      "sha256": "095fa42a4776534690eaa46440116005c505d5150b706bb55d6fc20158b5300e"
+    },
+    "warrior-acknowledge-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-acknowledge-0.wav",
+      "text": "领命，包在我身上！",
+      "duration": 1.89925,
+      "sha256": "270099c509645f97b72f40d5c884b37244c5d52134214d4e4e3fa031d4327c2f"
+    },
+    "warrior-acknowledge-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-acknowledge-1.wav",
+      "text": "得令！",
+      "duration": 0.47525,
+      "sha256": "b531d5ec1e6461d5ff7129d6bf2d20ce33ee77aec9a21e13c6a1aa39d54da439"
+    },
+    "warrior-march-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-march-0.wav",
+      "text": "整军出发！",
+      "duration": 0.952,
+      "sha256": "3af86e2005b4c5d6dab0ce691e69f02fce8e6a85547b7122399e1c364a0fef77"
+    },
+    "warrior-complete-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-complete-0.wav",
+      "text": "主公，事情办妥了！",
+      "duration": 1.9385625,
+      "sha256": "17808111541e8c31e5227a5378d7847a39ed67fc069621d95894ad2d37d0f0ca"
+    },
+    "warrior-discovered-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-discovered-0.wav",
+      "text": "访得人才，请主公过目！",
+      "duration": 2.2315,
+      "sha256": "34dc47c725fc1dfaf325dff097857c677408d569acd5e398b89b279e4160abf0"
+    },
+    "warrior-recruit-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-recruit-0.wav",
+      "text": "愿随主公征战！",
+      "duration": 1.3655,
+      "sha256": "84a7c2d7c262b4ad50c990ca70846178afaadcacc11eff9aa0912a3507967977"
+    },
+    "warrior-scout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/warrior-scout-0.wav",
+      "text": "军情已明，请主公定夺。",
+      "duration": 2.577625,
+      "sha256": "836449d86430cc060f6387a9b5f5d20deb39f48733bf6a632cb349bd5f9cc873"
+    },
+    "scholar-start-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-start-0.wav",
+      "text": "审势而动，依计进军。",
+      "duration": 2.3035,
+      "sha256": "329c2fe2322adb756bbe14d390d1c99614db0d2389060446e9b7597bf5eced01"
+    },
+    "scholar-start-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-start-1.wav",
+      "text": "阵势已定，诸军进发。",
+      "duration": 2.4074375,
+      "sha256": "15970ea49e42594093f81df0fde9db94e9a2d9617cfbed0a07235a9e0b07f00f"
+    },
+    "scholar-tactic-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-tactic-0.wav",
+      "text": "此计，可破敌军。",
+      "duration": 1.8600625,
+      "sha256": "632ed8e5bf477a3050d5e158e13c6dd5ccf94f10313805f740c576c49af8494b"
+    },
+    "scholar-tactic-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-tactic-1.wav",
+      "text": "时机已至。",
+      "duration": 1.0489375,
+      "sha256": "744858d6e7df5b706ac77e9271c86ab97a92ccac6297535e939ff9087f6f1634"
+    },
+    "scholar-order-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-order-0.wav",
+      "text": "诸军听令，依计而行。",
+      "duration": 2.3046875,
+      "sha256": "dbba88cc67a96855e0cce6854eaa6cd88c0eb7bf7aed214c3ef5f9859c484fa1"
+    },
+    "scholar-order-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-order-1.wav",
+      "text": "攻其不备，就在此时。",
+      "duration": 2.3040625,
+      "sha256": "dd4e86d0c35f61d35b3775ec78c1f74e9734edb642f73c5ec036704093d4132e"
+    },
+    "scholar-heal-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-heal-0.wav",
+      "text": "休整伤卒，重振军心。",
+      "duration": 2.50625,
+      "sha256": "f4bdb2b615cef2787ff856cea4b1612ee12aa52ff68eb5c6f5c40ab75a88b956"
+    },
+    "scholar-rout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-rout-0.wav",
+      "text": "稳守阵线，勿乱方寸。",
+      "duration": 2.3335625,
+      "sha256": "9fc460ae5b0326ff34bb22b5c59be1da60f5941f293d908660fd66df2cce44b2"
+    },
+    "scholar-retreat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-retreat-0.wav",
+      "text": "暂避锋芒，有序退兵。",
+      "duration": 2.3635625,
+      "sha256": "a4789f6edc2b2337f2f718d8f35b6e10c96a1bd3520a2699be1377e0ff8c9054"
+    },
+    "scholar-victory-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-victory-0.wav",
+      "text": "诸军用命，方有此胜。",
+      "duration": 2.2895625,
+      "sha256": "18230ac7bca03925a25bfd1426243441f420353467979db12a9eac71c1081d78"
+    },
+    "scholar-defeat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-defeat-0.wav",
+      "text": "此番失利，当另谋良策。",
+      "duration": 2.467875,
+      "sha256": "c322f6db782202bffab03902f817a7a3e062211063e4925ad99fe4133e3b3d2d"
+    },
+    "scholar-draw-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-draw-0.wav",
+      "text": "胜负未分，暂且收兵。",
+      "duration": 2.5164375,
+      "sha256": "7af25c5d7aecd15462277387ec356a4c6f22b7a77bea9d7fe76ddede53ca7aa5"
+    },
+    "scholar-acknowledge-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-acknowledge-0.wav",
+      "text": "谨遵主公之命。",
+      "duration": 1.425875,
+      "sha256": "679be4488e83e943328f4ef44433ff7f2be454bbe1e05a15e0b700760a0c78bc"
+    },
+    "scholar-acknowledge-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-acknowledge-1.wav",
+      "text": "臣即刻着手。",
+      "duration": 1.3230625,
+      "sha256": "c989c3a82b9d894f4062d2d4670f31c2e9cde05f4ae9e83dda5a9ac7c406f065"
+    },
+    "scholar-march-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-march-0.wav",
+      "text": "粮秣齐备，可以进军。",
+      "duration": 2.2840625,
+      "sha256": "12b7685d500fa9bbb01a89bfc8d93157f30d5ac4cd597e6443c8492c294ae767"
+    },
+    "scholar-complete-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-complete-0.wav",
+      "text": "主公，所议之事已经办成。",
+      "duration": 2.7895625,
+      "sha256": "929841ae4bbc74d17603203e6d5e4a52945cbb7d0b2bc0fa2a22dec20a8a373b"
+    },
+    "scholar-discovered-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-discovered-0.wav",
+      "text": "访得贤士，或可为主公所用。",
+      "duration": 2.861375,
+      "sha256": "3256519d2d8171e0f187c6aac120cee0a33a8acf6a86c23609d86d3a3f19f90e"
+    },
+    "scholar-recruit-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-recruit-0.wav",
+      "text": "愿尽绵薄之力。",
+      "duration": 1.408625,
+      "sha256": "80a27951a53a0da3b29b3bc54f55bb486e9a26bb7311f1e21fae11bf3860b136"
+    },
+    "scholar-scout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/scholar-scout-0.wav",
+      "text": "探报已至，请主公过目。",
+      "duration": 2.4696875,
+      "sha256": "49dbc5701111e78baaa0fa20d03b8a63c687c321066c62f4385fea5f529e1f56"
+    },
+    "female-start-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-start-0.wav",
+      "text": "诸位随我，迎敌！",
+      "duration": 1.8959375,
+      "sha256": "b1ef95c2c9b9c809c75c69848dc1bbf52f16cea034a40cc60988af6b4dc4662f"
+    },
+    "female-start-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-start-1.wav",
+      "text": "同心协力，定可破敌！",
+      "duration": 2.3568125,
+      "sha256": "850103e9261da634f9709d8cd6bb62eab87d1d61c613bad3291f1f0164880050"
+    },
+    "female-tactic-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-tactic-0.wav",
+      "text": "休想挡住我！",
+      "duration": 1.3864375,
+      "sha256": "b7640cff06c0971149523ec76ff00f90ab6a3b03e3bf10fe15512a88265d856e"
+    },
+    "female-tactic-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-tactic-1.wav",
+      "text": "看准时机，出击！",
+      "duration": 1.9494375,
+      "sha256": "ae608125810200601a022abf742ac23fdf8cae8b91e0cadd15569235c5f4d57f"
+    },
+    "female-order-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-order-0.wav",
+      "text": "听我号令，合力破敌！",
+      "duration": 2.2691875,
+      "sha256": "7fbfef24d3daa1037f3e190ad781fc3e604227ebc175d320a54882e9dbba6908"
+    },
+    "female-order-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-order-1.wav",
+      "text": "依计行事！",
+      "duration": 0.9541875,
+      "sha256": "1a713a7db7cfb34fff872edaefc835e8f82336696b364e5150c94a31d02992a8"
+    },
+    "female-heal-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-heal-0.wav",
+      "text": "救护伤卒，振作起来。",
+      "duration": 2.3665,
+      "sha256": "2df193a530e3388e955e13a778c87a8f51a67752418f022ae74fdf0a5f4f881b"
+    },
+    "female-rout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-rout-0.wav",
+      "text": "稳住，我们还能再战！",
+      "duration": 2.362875,
+      "sha256": "3c3518e62f546b37c2ba21504c4be93e1d6b5dfc84554ec8f7273e89274574a1"
+    },
+    "female-retreat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-retreat-0.wav",
+      "text": "保护伤卒，有序撤退！",
+      "duration": 2.314375,
+      "sha256": "f6d4337b2e6c503c4d4cf735f5cdfddb293a9b36f38fdee135cffdf44dfabd18"
+    },
+    "female-victory-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-victory-0.wav",
+      "text": "齐心协力，终于得胜！",
+      "duration": 2.2404375,
+      "sha256": "254da08bc5408971a56b76d3e7937a5cfb671adfb3d236fe32aca0685d3aa161"
+    },
+    "female-defeat-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-defeat-0.wav",
+      "text": "暂且退兵，再寻良机。",
+      "duration": 2.400625,
+      "sha256": "47e1cee94387ab7fffee2bcb6e7a91559e24e9cb1fa43666aba22eb9fd27c352"
+    },
+    "female-draw-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-draw-0.wav",
+      "text": "鸣金收兵。",
+      "duration": 1.0335,
+      "sha256": "30d8d98302e1e5708e82075d5e7e95915e8d7a2bca193f67ec026fc71aaa54ec"
+    },
+    "female-acknowledge-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-acknowledge-0.wav",
+      "text": "领命，定当尽心。",
+      "duration": 2.00125,
+      "sha256": "2b71d636dd09f3dc18f98f36f06de7db09f7c07c51986b69d77640a5d8ce2936"
+    },
+    "female-acknowledge-1": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-acknowledge-1.wav",
+      "text": "这就去办。",
+      "duration": 0.91325,
+      "sha256": "2a59575b971d9b0242dd206a34e0f072d9e77279dfb00a1cc1070cd2b5e1a753"
+    },
+    "female-march-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-march-0.wav",
+      "text": "诸事已备，即刻出发。",
+      "duration": 2.3104375,
+      "sha256": "931ae71a92a128c63a8ae3fc3ca6d7e3275f8590274ee5575fbbf5c6ff2b9210"
+    },
+    "female-complete-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-complete-0.wav",
+      "text": "主公，事情已经办妥。",
+      "duration": 2.4479375,
+      "sha256": "c99f99a5b493e81061ddaed8d49780cee61ab6350f4cb77197198cfcc5ec58d8"
+    },
+    "female-discovered-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-discovered-0.wav",
+      "text": "访得一位贤才，请主公过目。",
+      "duration": 2.9490625,
+      "sha256": "cbf251b6117239d9cc63a78e7ea00e65fa75e06626a50af7773f32136ec3bdf4"
+    },
+    "female-recruit-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-recruit-0.wav",
+      "text": "愿为主公尽力。",
+      "duration": 1.363625,
+      "sha256": "80c14a70abc3a36bed694b52ace8525d2cfa7d9914301cefecebfbd9667b61c9"
+    },
+    "female-scout-0": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/female-scout-0.wav",
+      "text": "前方探报已经送到。",
+      "duration": 2.060625,
+      "sha256": "80b8a2505b06ec63b769d3f6c0017226c974846335db4ce0bd2ccb467c860eb4"
+    },
+    "signature-cao": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-cao.wav",
+      "text": "诸军随我，共定天下！",
+      "duration": 2.3945625,
+      "sha256": "f87d490350ae1215a7b4893fb721573fdf0b7022e815089106e60c27543e85f5"
+    },
+    "signature-jia": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-jia.wav",
+      "text": "胜机已现，正当用计。",
+      "duration": 2.4276875,
+      "sha256": "007515bba203946112e3433eab68c1a626f01888889f6ec8099fb71b1da0e700"
+    },
+    "signature-liao": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-liao.wav",
+      "text": "将士用命，随我破敌！",
+      "duration": 2.07475,
+      "sha256": "51777b0b60d89dcd72d9279abd6c6c5948cf0328b54a7fd999baacf0558e5785"
+    },
+    "signature-person-99": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-99.wav",
+      "text": "关某在此，谁敢阻挡！",
+      "duration": 2.0930625,
+      "sha256": "6f82f31612a5f5895822210aaf7a04a68f6273b3161dc0ffc9102b156db2e185"
+    },
+    "signature-person-186": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-186.wav",
+      "text": "老将尚能破敌！",
+      "duration": 1.4685625,
+      "sha256": "23a9f079b99ca41a6145ab9e8595edad979222383669a456f168cabafb19d4cb"
+    },
+    "signature-person-226": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-226.wav",
+      "text": "沉住气，胜机就在眼前。",
+      "duration": 2.7430625,
+      "sha256": "1651c793d6052a2a2080e635f81799dc7b8632191c905da3c45dac8a20634d20"
+    },
+    "signature-person-246": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-246.wav",
+      "text": "诸军协力，一举破敌！",
+      "duration": 2.241375,
+      "sha256": "c52e9abd87604bcd5e56e8209292c1363b6b9923e195459318ba10d784f13fa2"
+    },
+    "signature-person-290": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-290.wav",
+      "text": "依计行事，自可制敌。",
+      "duration": 2.178875,
+      "sha256": "02633e9cc3a0dd1bd694cd73e702ab6cfa35c57f4c68fbc5f9c48b36845371c9"
+    },
+    "signature-person-371": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-371.wav",
+      "text": "江东儿郎，随我出战！",
+      "duration": 2.1183125,
+      "sha256": "192c55c8e711c9ecca28ce74660d9a7e39c31af963140d4bfd97aca0753006ef"
+    },
+    "signature-person-396": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-396.wav",
+      "text": "云在此，诸位勿忧！",
+      "duration": 1.83925,
+      "sha256": "6e5a3da26f101095cd8d757d62529984b285b6196a7ae5e3a5b55cc5144a8037"
+    },
+    "signature-person-425": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-425.wav",
+      "text": "愿以此计，助诸军破敌。",
+      "duration": 2.48625,
+      "sha256": "060889410d28869e02cd19a367a5fb39b5bc6b88b92e33a369d10e8fb8bb9fdd"
+    },
+    "signature-person-433": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-433.wav",
+      "text": "燕人张飞在此！",
+      "duration": 1.409,
+      "sha256": "16673de8d579df9c7dd964c114ffa130133882a255f40be74cd16f8527b9eb7c"
+    },
+    "signature-person-516": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-516.wav",
+      "text": "西凉铁骑，随我冲锋！",
+      "duration": 2.262,
+      "sha256": "a850509a25903bf8db3b9863e39855c1dc24ee38e644e1c8023c111cef012fbb"
+    },
+    "signature-person-558": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-558.wav",
+      "text": "且看此计，如何破敌。",
+      "duration": 2.35225,
+      "sha256": "0a9822254623e3e932013a2905aecd093eb2393b3634bac83d1dbe7666e19f86"
+    },
+    "signature-person-603": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-603.wav",
+      "text": "静待其变，乘隙而击。",
+      "duration": 2.3660625,
+      "sha256": "bf5bf013ee8f4711d866356ea2c05dc8027380e8351fc7aa6e2759332c8b6f07"
+    },
+    "signature-person-636": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-636.wav",
+      "text": "诸位同心，护佑百姓！",
+      "duration": 2.312625,
+      "sha256": "d2845e489f7fea75e77562e6ca1ed7559625d6aed31d3e005d4a4bbb9139e6c9"
+    },
+    "signature-person-661": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/signature-person-661.wav",
+      "text": "谁能挡我！",
+      "duration": 0.972375,
+      "sha256": "9218a881b5798cbfdaf8f7098f4560fb292f92afc5af868f9be974b89cfff293"
+    },
+    "ruler-acknowledge": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/ruler-acknowledge.wav",
+      "text": "此事即刻着手。",
+      "duration": 1.492625,
+      "sha256": "a46ebf8825e347bcd1d0ec8363d025f63525f9e9377507d8d12a7bcbb48a622b"
+    },
+    "ruler-complete": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/ruler-complete.wav",
+      "text": "此事已成，诸位辛苦。",
+      "duration": 2.5114375,
+      "sha256": "27115aea11e991740288a2c4ff402df3c627493551b212f875b4ab5d1494c7f2"
+    },
+    "ruler-discovered": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/ruler-discovered.wav",
+      "text": "访得贤才，当以礼相待。",
+      "duration": 2.514125,
+      "sha256": "175b518e405d7f99216955b6ecae7a30ef8a38b5171d45d7f64545547d2190b6"
+    },
+    "ruler-scout": {
+      "url": "./assets/voices/synth-cn-v2-1bcd7b1d/ruler-scout.wav",
+      "text": "军情已明，可以定夺。",
+      "duration": 2.5345625,
+      "sha256": "c178803ee57c50c480ab01d4dd5c8d7ccda8638d2beb62843e2f6d5a786174c2"
+    }
+  },
+  "voiceCredits": "./assets/voices/synth-cn-v2-1bcd7b1d/credits.json"
 }

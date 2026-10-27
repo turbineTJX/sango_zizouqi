@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "kind": "synthesized-speech",
+  "language": "zh-CN",
+  "source": "Windows installed Mandarin speech synthesis",
+  "text": "Original Sango game dialogue",
+  "profiles": {
+    "commander": {
+      "rate": 1,
+      "pitch": 0.84,
+      "gender": "male"
+    },
+    "warrior": {
+      "rate": 1.1,
+      "pitch": 0.78,
+      "gender": "male"
+    },
+    "scholar": {
+      "rate": 0.96,
+      "pitch": 0.96,
+      "gender": "male"
+    },
+    "female": {
+      "rate": 1.02,
+      "pitch": 1.04,
+      "gender": "female"
+    }
+  },
+  "clips": 93
+}

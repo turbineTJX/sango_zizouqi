@@ -1,0 +1,698 @@
+{
+  "version": 1,
+  "id": "batch-0015",
+  "status": "complete",
+  "formatVersion": "pose-reuse-v4",
+  "styleVersion": "han-neutral-v2",
+  "officerIds": [
+    "person-40",
+    "person-41",
+    "person-42"
+  ],
+  "jobs": [
+    {
+      "id": "person-40:neutral",
+      "officerId": "person-40",
+      "name": "区星",
+      "scene": "neutral",
+      "label": "站立母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。",
+        "bearing": "地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-40",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0687_区星_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "4f8b1484c059fdb0b5772458a2236f880dae58de7725eebc1d2450229ebc23cb"
+      },
+      "output": "assets/officers/generated/v4/person-40/neutral.png",
+      "reference": "assets/officers/identity/person-40.png",
+      "referenceSha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+      "identitySha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+      "prompt": "Use case: identity-preserve\n人物：区星 / person-40\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：武勇将领。依据：稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。。人物仪态：地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 34, sturdy ordinary military leader with a BROAD SQUARISH RECTANGULAR clean-shaven face, HIGH fairly wide cheekbones, substantial straight wide jaw and BROAD FLAT-ROUNDED chin. Moderate-high forehead, rather CLOSE-SET NARROW horizontal dark eyes with pronounced but relaxed upper lids, thick almost straight black eyebrows entirely at rest, LONG STRAIGHT fairly BROAD nose bridge with a compact blunt tip, medium-wide CLOSED mouth and level corners. NO moustache or beard. Preserve his exact own legacy face geometry; release the stern brow and open mouth. Low practical rounded grey IRON helmet with simple short cheek pieces and a narrow worn bronze brow band, NO plume, horn, crest or jewels. Muted dark iron lamellar cuirass over a desaturated charcoal tunic, modest TERRACOTTA shoulder cloth knotted low at chest, compact close-fitting shoulder protection, plain brown belt and dark boots. Normal broad-shouldered human proportions. DISTINCT from Wang Shuang broader round cheeks, shorter wider nose and full beard, and Wang Zhong long narrow hollow-cheeked tapered face. 宽方长脸、近眼距细长眼、较长宽直鼻、方圆下颌，无须；低灰铁盔与赭红肩巾。朴素佩剑始终留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，自然稳定站立，面容清晰；头饰顶部留白约3%，头部居中并位于画面上部，手臂舒适低放，标志物靠近身体。\n职责：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物母图动作：近正面稳定站立，目光平静，双手舒适低放，佩剑在鞘内。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-40\\neutral.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\identity\\person-40.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-40/neutral-01.png",
+        "sha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.6001180624776963,
+        "prompt": "Use case: historical-scene\n人物：区星 / person-40\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：武勇将领。依据：稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。。人物仪态：地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 34, sturdy ordinary military leader with a BROAD SQUARISH RECTANGULAR clean-shaven face, HIGH fairly wide cheekbones, substantial straight wide jaw and BROAD FLAT-ROUNDED chin. Moderate-high forehead, rather CLOSE-SET NARROW horizontal dark eyes with pronounced but relaxed upper lids, thick almost straight black eyebrows entirely at rest, LONG STRAIGHT fairly BROAD nose bridge with a compact blunt tip, medium-wide CLOSED mouth and level corners. NO moustache or beard. Preserve his exact own legacy face geometry; release the stern brow and open mouth. Low practical rounded grey IRON helmet with simple short cheek pieces and a narrow worn bronze brow band, NO plume, horn, crest or jewels. Muted dark iron lamellar cuirass over a desaturated charcoal tunic, modest TERRACOTTA shoulder cloth knotted low at chest, compact close-fitting shoulder protection, plain brown belt and dark boots. Normal broad-shouldered human proportions. DISTINCT from Wang Shuang broader round cheeks, shorter wider nose and full beard, and Wang Zhong long narrow hollow-cheeked tapered face. 宽方长脸、近眼距细长眼、较长宽直鼻、方圆下颌，无须；低灰铁盔与赭红肩巾。朴素佩剑始终留鞘。\n新建本人物的原创视觉身份，不借用其他人物的脸型；外貌与视觉年龄是美术设定，不宣称史实外貌。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，自然稳定站立，面容清晰；头饰顶部留白约3%，头部居中并位于画面上部，手臂舒适低放，标志物靠近身体。\n职责：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物母图动作：近正面稳定站立，目光平静，双手舒适低放，佩剑在鞘内。\nInput image 1 is ONLY this exact officer’s own original Romance of the Three Kingdoms XI face reference. Preserve his recognizable facial geometry, forehead, eye spacing and shape, cheekbones, nose, jaw and facial hair. Make an original semirealistic hand-painted full-length figure in the project palette and the individual costume described above. Remove shouting, fearful or angry expressions from the reference: relaxed brows, closed mouth, normal dark eyes, upright head. Full-length standing figure only, complete headwear and both feet, realistic proportions, comfortably separated natural hands near body, all weapons sheathed. Center the head in the upper part of the image with 4% clear space above headwear and below both feet. Genuine transparent alpha background, no scene, ground plane, text, watermark, inset portrait or collage. Target tall 1536x2560. Clear face detail is needed for runtime head-and-shoulders crops.",
+        "referenceSha256": null,
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-40-neutral-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0687_区星_1.jpg",
+            "sha256": "4f8b1484c059fdb0b5772458a2236f880dae58de7725eebc1d2450229ebc23cb",
+            "role": "sangokushi11-face"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+          "file": "assets/officers/candidates/batch-0015/person-40/neutral-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-40:work",
+      "officerId": "person-40",
+      "name": "区星",
+      "scene": "work",
+      "label": "办事母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [
+        "person-40:neutral"
+      ],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。",
+        "bearing": "地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v4/person-40/work.png",
+      "reference": "assets/officers/generated/v4/person-40/neutral.png",
+      "referenceSha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+      "identitySha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+      "prompt": "Use case: identity-preserve\n人物：区星 / person-40\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：武勇将领。依据：稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。。人物仪态：地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 34, sturdy ordinary military leader with a BROAD SQUARISH RECTANGULAR clean-shaven face, HIGH fairly wide cheekbones, substantial straight wide jaw and BROAD FLAT-ROUNDED chin. Moderate-high forehead, rather CLOSE-SET NARROW horizontal dark eyes with pronounced but relaxed upper lids, thick almost straight black eyebrows entirely at rest, LONG STRAIGHT fairly BROAD nose bridge with a compact blunt tip, medium-wide CLOSED mouth and level corners. NO moustache or beard. Preserve his exact own legacy face geometry; release the stern brow and open mouth. Low practical rounded grey IRON helmet with simple short cheek pieces and a narrow worn bronze brow band, NO plume, horn, crest or jewels. Muted dark iron lamellar cuirass over a desaturated charcoal tunic, modest TERRACOTTA shoulder cloth knotted low at chest, compact close-fitting shoulder protection, plain brown belt and dark boots. Normal broad-shouldered human proportions. DISTINCT from Wang Shuang broader round cheeks, shorter wider nose and full beard, and Wang Zhong long narrow hollow-cheeked tapered face. 宽方长脸、近眼距细长眼、较长宽直鼻、方圆下颌，无须；低灰铁盔与赭红肩巾。朴素佩剑始终留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧身办理本职事务，以自然低位手势和个人道具区别站立母图；人物居中，不绘制桌案、建筑或环境背景。\n职责：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军需调配或城防事务，呈现组织军务的职责。\n该人物母图动作：略侧身，一手低位检查一枚小军需木牌，另一手自然靠近腰带；保持武职甲胄，不拿书册不执笔。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-40\\work.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-40\\neutral.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-40/work-01.png",
+        "sha256": "701a9f823390d13ddba34ddc91b0ab072f5bd8a37668b385390686bf3c2066d7",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.5913772407857516,
+        "prompt": "Use case: identity-preserve\n人物：区星 / person-40\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：武勇将领。依据：稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。。人物仪态：地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 34, sturdy ordinary military leader with a BROAD SQUARISH RECTANGULAR clean-shaven face, HIGH fairly wide cheekbones, substantial straight wide jaw and BROAD FLAT-ROUNDED chin. Moderate-high forehead, rather CLOSE-SET NARROW horizontal dark eyes with pronounced but relaxed upper lids, thick almost straight black eyebrows entirely at rest, LONG STRAIGHT fairly BROAD nose bridge with a compact blunt tip, medium-wide CLOSED mouth and level corners. NO moustache or beard. Preserve his exact own legacy face geometry; release the stern brow and open mouth. Low practical rounded grey IRON helmet with simple short cheek pieces and a narrow worn bronze brow band, NO plume, horn, crest or jewels. Muted dark iron lamellar cuirass over a desaturated charcoal tunic, modest TERRACOTTA shoulder cloth knotted low at chest, compact close-fitting shoulder protection, plain brown belt and dark boots. Normal broad-shouldered human proportions. DISTINCT from Wang Shuang broader round cheeks, shorter wider nose and full beard, and Wang Zhong long narrow hollow-cheeked tapered face. 宽方长脸、近眼距细长眼、较长宽直鼻、方圆下颌，无须；低灰铁盔与赭红肩巾。朴素佩剑始终留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧身办理本职事务，以自然低位手势和个人道具区别站立母图；人物居中，不绘制桌案、建筑或环境背景。\n职责：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军需调配或城防事务，呈现组织军务的职责。\n该人物母图动作：略侧身，一手低位检查一枚小军需木牌，另一手自然靠近腰带；保持武职甲胄，不拿书册不执笔。\nUse case: identity-preserve. The sole input is THIS officer’s own approved neutral full-body master. Preserve exactly his face geometry, facial hair, headwear, clothing cut, cloth colors and patterns, armor pieces, sheathed weapon, body proportions and overall painterly finish. Change only the small occupational action described above. Keep brows relaxed and mouth closed; do not transfer a stern or worried expression. Produce one complete tall transparent full-body figure, complete headwear and both feet with safe margins, target 1536x2560. Keep face in upper center, small props close to torso and hands anatomically comfortable. No scene, table, ground plane, caption, watermark, inset or collage. No drawn weapon or exaggerated action. The UI will crop this source for head-and-shoulders, half-body and full-figure views.",
+        "referenceSha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-40-work-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-40\\neutral.png",
+            "sha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+            "role": "approved-neutral-master"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "701a9f823390d13ddba34ddc91b0ab072f5bd8a37668b385390686bf3c2066d7",
+          "file": "assets/officers/candidates/batch-0015/person-40/work-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-40:command",
+      "officerId": "person-40",
+      "name": "区星",
+      "scene": "command",
+      "label": "指挥母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [
+        "person-40:neutral"
+      ],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "commander",
+        "secondary": [
+          "martial"
+        ],
+        "evidence": "稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。",
+        "bearing": "地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v4/person-40/command.png",
+      "reference": "assets/officers/generated/v4/person-40/neutral.png",
+      "referenceSha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+      "identitySha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+      "prompt": "Use case: identity-preserve\n人物：区星 / person-40\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：武勇将领。依据：稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。。人物仪态：地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 34, sturdy ordinary military leader with a BROAD SQUARISH RECTANGULAR clean-shaven face, HIGH fairly wide cheekbones, substantial straight wide jaw and BROAD FLAT-ROUNDED chin. Moderate-high forehead, rather CLOSE-SET NARROW horizontal dark eyes with pronounced but relaxed upper lids, thick almost straight black eyebrows entirely at rest, LONG STRAIGHT fairly BROAD nose bridge with a compact blunt tip, medium-wide CLOSED mouth and level corners. NO moustache or beard. Preserve his exact own legacy face geometry; release the stern brow and open mouth. Low practical rounded grey IRON helmet with simple short cheek pieces and a narrow worn bronze brow band, NO plume, horn, crest or jewels. Muted dark iron lamellar cuirass over a desaturated charcoal tunic, modest TERRACOTTA shoulder cloth knotted low at chest, compact close-fitting shoulder protection, plain brown belt and dark boots. Normal broad-shouldered human proportions. DISTINCT from Wang Shuang broader round cheeks, shorter wider nose and full beard, and Wang Zhong long narrow hollow-cheeked tapered face. 宽方长脸、近眼距细长眼、较长宽直鼻、方圆下颌，无须；低灰铁盔与赭红肩巾。朴素佩剑始终留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧转研判或部署，保持本人的文武职责；自然低位持兵器、指挥物或本职道具，人物居中，不绘制军帐、战场或环境背景。\n职责：参与军团部署，表现本人实际指挥或辅助职责。在路线图、阵位图或营地前研判，近处轻触图筹即可。\n该人物母图动作：微侧身平静观察，一手低位轻持简短朴素木指挥杖，另一手自然下垂，不指点挥舞。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-40\\command.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-40\\neutral.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-40/command-01.png",
+        "sha256": "a88d22e278479ee0f08e25a5044bdac16ca1945d218da4b0452eed05b7e5e4b5",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.5915286355577974,
+        "prompt": "Use case: identity-preserve\n人物：区星 / person-40\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：战场统帅；次类型：武勇将领。依据：稳定ID person-40 区星：名册史条记东汉末自称将军、以一万多兵力围长沙，为孙坚镇压；演义另记十常侍与孙坚讨伐情节。按实际举兵和军事组织身份为地方武装统领，兼武职仪态；不从兵种或能力判断。。人物仪态：地方军事统领，实用甲胄与朴素肩巾，站立稳健、军需与部署动作克制；不表现成文臣、怪相反派或戏剧化叛乱者。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 34, sturdy ordinary military leader with a BROAD SQUARISH RECTANGULAR clean-shaven face, HIGH fairly wide cheekbones, substantial straight wide jaw and BROAD FLAT-ROUNDED chin. Moderate-high forehead, rather CLOSE-SET NARROW horizontal dark eyes with pronounced but relaxed upper lids, thick almost straight black eyebrows entirely at rest, LONG STRAIGHT fairly BROAD nose bridge with a compact blunt tip, medium-wide CLOSED mouth and level corners. NO moustache or beard. Preserve his exact own legacy face geometry; release the stern brow and open mouth. Low practical rounded grey IRON helmet with simple short cheek pieces and a narrow worn bronze brow band, NO plume, horn, crest or jewels. Muted dark iron lamellar cuirass over a desaturated charcoal tunic, modest TERRACOTTA shoulder cloth knotted low at chest, compact close-fitting shoulder protection, plain brown belt and dark boots. Normal broad-shouldered human proportions. DISTINCT from Wang Shuang broader round cheeks, shorter wider nose and full beard, and Wang Zhong long narrow hollow-cheeked tapered face. 宽方长脸、近眼距细长眼、较长宽直鼻、方圆下颌，无须；低灰铁盔与赭红肩巾。朴素佩剑始终留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧转研判或部署，保持本人的文武职责；自然低位持兵器、指挥物或本职道具，人物居中，不绘制军帐、战场或环境背景。\n职责：参与军团部署，表现本人实际指挥或辅助职责。在路线图、阵位图或营地前研判，近处轻触图筹即可。\n该人物母图动作：微侧身平静观察，一手低位轻持简短朴素木指挥杖，另一手自然下垂，不指点挥舞。\nUse case: identity-preserve. The sole input is THIS officer’s own approved neutral full-body master. Preserve exactly his face geometry, facial hair, headwear, clothing cut, cloth colors and patterns, armor pieces, sheathed weapon, body proportions and overall painterly finish. Change only the small occupational action described above. Keep brows relaxed and mouth closed; do not transfer a stern or worried expression. Produce one complete tall transparent full-body figure, complete headwear and both feet with safe margins, target 1536x2560. Keep face in upper center, small props close to torso and hands anatomically comfortable. No scene, table, ground plane, caption, watermark, inset or collage. No drawn weapon or exaggerated action. The UI will crop this source for head-and-shoulders, half-body and full-figure views.",
+        "referenceSha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-40-command-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-40\\neutral.png",
+            "sha256": "c9dba8734c5291dd315e1710f16738148f3cd437a700f01081f9b8e51ec0eedc",
+            "role": "approved-neutral-master"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "a88d22e278479ee0f08e25a5044bdac16ca1945d218da4b0452eed05b7e5e4b5",
+          "file": "assets/officers/candidates/batch-0015/person-40/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-41:neutral",
+      "officerId": "person-41",
+      "name": "王双",
+      "scene": "neutral",
+      "label": "站立母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。",
+        "bearing": "结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-41",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0205_王双_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "dc4e97e521dc98143d3f4d9c47cb99a8ec5f61d604bd74f2fdc9c1722dc3a5f6"
+      },
+      "output": "assets/officers/generated/v4/person-41/neutral.png",
+      "reference": "assets/officers/identity/person-41.png",
+      "referenceSha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+      "identitySha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+      "prompt": "Use case: identity-preserve\n人物：王双 / person-41\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。。人物仪态：结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 38, strongly built broad-shouldered ordinary man, normal human head/body proportions. SHORTER VERY BROAD SQUARE-ROUND face with FULL CHEEKS, thick broad lower jaw and substantial rounded square chin under a SHORT DENSE FULL BLACK BEARD. Moderately low broad forehead, medium-wide-set ordinary DARK ALMOND EYES relaxed and naturally open, thick level nearly STRAIGHT eyebrows with no raised inner ends. SHORT-MEDIUM VERY BROAD NOSE with rounded low blunt tip and wide nostrils, WIDE relaxed CLOSED mouth with medium-full lips under a dense broad moustache. Preserve the original officer’s face and heavy beard, but entirely remove his scream, bulging eyes and aggressive brow. Low simple dull IRON helmet with modest cheek guards and a plain muted grey cloth lining and soft blue-grey CLOTH helmet cover / tail behind the upper helmet, consistent across every pose; this is fabric, NO feather plume or crest. Weathered dark BROWN short shoulder cloak, NAVY-GREY tunic, heavy but practical dark iron compact lamellar cuirass and close shoulder armor, broad plain brown leather belt, brown wrist guards and dark riding boots. No fur mountain, monster armor, dangling trophies or ornate weapons. DISTINCT from Ou Xing longer clean-shaven rectangular face and long straight nose, and Wang Zhong narrow long face with small pointed beard. 短宽方圆脸、丰颊宽颌、短阔钝鼻、浓横髭与短密全须；低素铁盔、深褐肩披与藏灰蓝军衣，结实体型。佩刀留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，自然稳定站立，面容清晰；头饰顶部留白约3%，头部居中并位于画面上部，手臂舒适低放，标志物靠近身体。\n职责：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物母图动作：自然稳健站姿，双手松放，嘴唇闭合、眉眼舒适；不怒吼，不持多件兵器。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-41\\neutral.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\identity\\person-41.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-41/neutral-01.png",
+        "sha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.4955303556059639,
+        "prompt": "Use case: historical-scene\n人物：王双 / person-41\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。。人物仪态：结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 38, strongly built broad-shouldered ordinary man, normal human head/body proportions. SHORTER VERY BROAD SQUARE-ROUND face with FULL CHEEKS, thick broad lower jaw and substantial rounded square chin under a SHORT DENSE FULL BLACK BEARD. Moderately low broad forehead, medium-wide-set ordinary DARK ALMOND EYES relaxed and naturally open, thick level nearly STRAIGHT eyebrows with no raised inner ends. SHORT-MEDIUM VERY BROAD NOSE with rounded low blunt tip and wide nostrils, WIDE relaxed CLOSED mouth with medium-full lips under a dense broad moustache. Preserve the original officer’s face and heavy beard, but entirely remove his scream, bulging eyes and aggressive brow. Low simple dull IRON helmet with modest cheek guards and a plain muted grey cloth lining, NO plume or crest. Weathered dark BROWN short shoulder cloak, NAVY-GREY tunic, heavy but practical dark iron compact lamellar cuirass and close shoulder armor, broad plain brown leather belt, brown wrist guards and dark riding boots. No fur mountain, monster armor, dangling trophies or ornate weapons. DISTINCT from Ou Xing longer clean-shaven rectangular face and long straight nose, and Wang Zhong narrow long face with small pointed beard. 短宽方圆脸、丰颊宽颌、短阔钝鼻、浓横髭与短密全须；低素铁盔、深褐肩披与藏灰蓝军衣，结实体型。佩刀留鞘。\n新建本人物的原创视觉身份，不借用其他人物的脸型；外貌与视觉年龄是美术设定，不宣称史实外貌。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，自然稳定站立，面容清晰；头饰顶部留白约3%，头部居中并位于画面上部，手臂舒适低放，标志物靠近身体。\n职责：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物母图动作：自然稳健站姿，双手松放，嘴唇闭合、眉眼舒适；不怒吼，不持多件兵器。\nInput image 1 is ONLY this exact officer’s own original Romance of the Three Kingdoms XI face reference. Preserve his recognizable facial geometry, forehead, eye spacing and shape, cheekbones, nose, jaw and facial hair. Make an original semirealistic hand-painted full-length figure in the project palette and the individual costume described above. Remove shouting, fearful or angry expressions from the reference: relaxed brows, closed mouth, normal dark eyes, upright head. Full-length standing figure only, complete headwear and both feet, realistic proportions, comfortably separated natural hands near body, all weapons sheathed. Center the head in the upper part of the image with 4% clear space above headwear and below both feet. Genuine transparent alpha background, no scene, ground plane, text, watermark, inset portrait or collage. Target tall 1536x2560. Clear face detail is needed for runtime head-and-shoulders crops.",
+        "referenceSha256": null,
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-41-neutral-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0205_王双_1.jpg",
+            "sha256": "dc4e97e521dc98143d3f4d9c47cb99a8ec5f61d604bd74f2fdc9c1722dc3a5f6",
+            "role": "sangokushi11-face"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+          "file": "assets/officers/candidates/batch-0015/person-41/neutral-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-41:work",
+      "officerId": "person-41",
+      "name": "王双",
+      "scene": "work",
+      "label": "办事母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [
+        "person-41:neutral"
+      ],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。",
+        "bearing": "结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v4/person-41/work.png",
+      "reference": "assets/officers/generated/v4/person-41/neutral.png",
+      "referenceSha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+      "identitySha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+      "prompt": "Use case: identity-preserve\n人物：王双 / person-41\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。。人物仪态：结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 38, strongly built broad-shouldered ordinary man, normal human head/body proportions. SHORTER VERY BROAD SQUARE-ROUND face with FULL CHEEKS, thick broad lower jaw and substantial rounded square chin under a SHORT DENSE FULL BLACK BEARD. Moderately low broad forehead, medium-wide-set ordinary DARK ALMOND EYES relaxed and naturally open, thick level nearly STRAIGHT eyebrows with no raised inner ends. SHORT-MEDIUM VERY BROAD NOSE with rounded low blunt tip and wide nostrils, WIDE relaxed CLOSED mouth with medium-full lips under a dense broad moustache. Preserve the original officer’s face and heavy beard, but entirely remove his scream, bulging eyes and aggressive brow. Low simple dull IRON helmet with modest cheek guards and a plain muted grey cloth lining and soft blue-grey CLOTH helmet cover / tail behind the upper helmet, consistent across every pose; this is fabric, NO feather plume or crest. Weathered dark BROWN short shoulder cloak, NAVY-GREY tunic, heavy but practical dark iron compact lamellar cuirass and close shoulder armor, broad plain brown leather belt, brown wrist guards and dark riding boots. No fur mountain, monster armor, dangling trophies or ornate weapons. DISTINCT from Ou Xing longer clean-shaven rectangular face and long straight nose, and Wang Zhong narrow long face with small pointed beard. 短宽方圆脸、丰颊宽颌、短阔钝鼻、浓横髭与短密全须；低素铁盔、深褐肩披与藏灰蓝军衣，结实体型。佩刀留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧身办理本职事务，以自然低位手势和个人道具区别站立母图；人物居中，不绘制桌案、建筑或环境背景。\n职责：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军粮、补给或装备；保留本人的护腕、军装及军职气质，不默认案前执笔。\n该人物母图动作：自然站姿低头查看护腕，右手低位轻扶左腕皮扣，保持双手手指与关节清楚舒适。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-41\\work.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-41\\neutral.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-41/work-02.png",
+        "sha256": "649e44675d76edb8b7bb7a822e9893184130d2b3583136b76d7b59362b7d8d3b",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.5140488623446215,
+        "prompt": "Use case: precise-object-edit. Input image 1 is the EDIT TARGET: Wang Shuang’s full-body transparent working pose while checking the wrist strap. Input image 2 is his APPROVED NEUTRAL MASTER and the reference for headwear only. Change ONLY ONE missing costume detail: restore the same soft blue-grey CLOTH helmet cover / trailing cloth tail behind the upper helmet as visibly present in image 2. It is plain fabric, NOT a feather plume. Preserve exactly the edit target’s face, closed mouth, looking-down eye direction, metal helmet outline, short full black beard, armor, cloak, colors, wrist-checking pose, hands, body proportions and complete feet. Do not alter anything else. Return the complete single full-body figure on genuine transparent alpha background, tall 1536x2560 composition, no text or inset. Maintain original hand anatomy and small natural action.",
+        "referenceSha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-41-work-r02-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\.codex\\generated_images\\01a16d39-b906-77e0-a544-154d67a04fc9\\exec-2d898ce4-f242-40b5-bc13-d8351ad738df.png",
+            "sha256": "8a728d09862a94cd4cd412d9e3c638e177bec9b19fdf7c0943e4c4a882954f9f",
+            "role": "edit-target-first-work-candidate"
+          },
+          {
+            "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-41\\neutral.png",
+            "sha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+            "role": "approved-neutral-master"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "8a728d09862a94cd4cd412d9e3c638e177bec9b19fdf7c0943e4c4a882954f9f",
+          "file": "assets/officers/candidates/batch-0015/person-41/work-01.png"
+        },
+        {
+          "sha256": "649e44675d76edb8b7bb7a822e9893184130d2b3583136b76d7b59362b7d8d3b",
+          "file": "assets/officers/candidates/batch-0015/person-41/work-02.png"
+        }
+      ]
+    },
+    {
+      "id": "person-41:command",
+      "officerId": "person-41",
+      "name": "王双",
+      "scene": "command",
+      "label": "指挥母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [
+        "person-41:neutral"
+      ],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "martial",
+        "secondary": [
+          "commander"
+        ],
+        "evidence": "稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。",
+        "bearing": "结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v4/person-41/command.png",
+      "reference": "assets/officers/generated/v4/person-41/neutral.png",
+      "referenceSha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+      "identitySha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+      "prompt": "Use case: identity-preserve\n人物：王双 / person-41\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。。人物仪态：结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 38, strongly built broad-shouldered ordinary man, normal human head/body proportions. SHORTER VERY BROAD SQUARE-ROUND face with FULL CHEEKS, thick broad lower jaw and substantial rounded square chin under a SHORT DENSE FULL BLACK BEARD. Moderately low broad forehead, medium-wide-set ordinary DARK ALMOND EYES relaxed and naturally open, thick level nearly STRAIGHT eyebrows with no raised inner ends. SHORT-MEDIUM VERY BROAD NOSE with rounded low blunt tip and wide nostrils, WIDE relaxed CLOSED mouth with medium-full lips under a dense broad moustache. Preserve the original officer’s face and heavy beard, but entirely remove his scream, bulging eyes and aggressive brow. Low simple dull IRON helmet with modest cheek guards and a plain muted grey cloth lining and soft blue-grey CLOTH helmet cover / tail behind the upper helmet, consistent across every pose; this is fabric, NO feather plume or crest. Weathered dark BROWN short shoulder cloak, NAVY-GREY tunic, heavy but practical dark iron compact lamellar cuirass and close shoulder armor, broad plain brown leather belt, brown wrist guards and dark riding boots. No fur mountain, monster armor, dangling trophies or ornate weapons. DISTINCT from Ou Xing longer clean-shaven rectangular face and long straight nose, and Wang Zhong narrow long face with small pointed beard. 短宽方圆脸、丰颊宽颌、短阔钝鼻、浓横髭与短密全须；低素铁盔、深褐肩披与藏灰蓝军衣，结实体型。佩刀留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧转研判或部署，保持本人的文武职责；自然低位持兵器、指挥物或本职道具，人物居中，不绘制军帐、战场或环境背景。\n职责：参与军团部署，表现本人实际指挥或辅助职责。在营地判断路线、阵位或布防，军事地图可以使用，文书不是贯穿全套的主道具。\n该人物母图动作：四分之三站立，左手轻扶腰侧刀鞘而不拔刀，右手松放身侧，抬眼安静观察军情。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-41\\command.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-41\\neutral.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-41/command-01.png",
+        "sha256": "401e90e2e86609a3fae540f838bce374757de896f34d8670f98ad0e0288b94fc",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.48913233620580526,
+        "prompt": "Use case: identity-preserve\n人物：王双 / person-41\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：战场统帅。依据：稳定ID person-41 王双：名册记魏武将；史条记诸葛亮第二次北伐时率骑兵追击而战死。小说另有大剃刀、弓箭与流星锤及战魏延情节；不与濡须之战的同名王双混淆，夸张兵器重量不当作体型依据。。人物仪态：结实的武勇将领兼骑兵带队者，实用军装、近身装备检查与沉稳军姿；不用吼叫、巨人比例、怪兽肩甲表现勇武。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 38, strongly built broad-shouldered ordinary man, normal human head/body proportions. SHORTER VERY BROAD SQUARE-ROUND face with FULL CHEEKS, thick broad lower jaw and substantial rounded square chin under a SHORT DENSE FULL BLACK BEARD. Moderately low broad forehead, medium-wide-set ordinary DARK ALMOND EYES relaxed and naturally open, thick level nearly STRAIGHT eyebrows with no raised inner ends. SHORT-MEDIUM VERY BROAD NOSE with rounded low blunt tip and wide nostrils, WIDE relaxed CLOSED mouth with medium-full lips under a dense broad moustache. Preserve the original officer’s face and heavy beard, but entirely remove his scream, bulging eyes and aggressive brow. Low simple dull IRON helmet with modest cheek guards and a plain muted grey cloth lining, NO plume or crest. Weathered dark BROWN short shoulder cloak, NAVY-GREY tunic, heavy but practical dark iron compact lamellar cuirass and close shoulder armor, broad plain brown leather belt, brown wrist guards and dark riding boots. No fur mountain, monster armor, dangling trophies or ornate weapons. DISTINCT from Ou Xing longer clean-shaven rectangular face and long straight nose, and Wang Zhong narrow long face with small pointed beard. 短宽方圆脸、丰颊宽颌、短阔钝鼻、浓横髭与短密全须；低素铁盔、深褐肩披与藏灰蓝军衣，结实体型。佩刀留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧转研判或部署，保持本人的文武职责；自然低位持兵器、指挥物或本职道具，人物居中，不绘制军帐、战场或环境背景。\n职责：参与军团部署，表现本人实际指挥或辅助职责。在营地判断路线、阵位或布防，军事地图可以使用，文书不是贯穿全套的主道具。\n该人物母图动作：四分之三站立，左手轻扶腰侧刀鞘而不拔刀，右手松放身侧，抬眼安静观察军情。\nUse case: identity-preserve. The sole input is THIS officer’s own approved neutral full-body master. Preserve exactly his face geometry, facial hair, headwear, clothing cut, cloth colors and patterns, armor pieces, sheathed weapon, body proportions and overall painterly finish. Change only the small occupational action described above. Keep brows relaxed and mouth closed; do not transfer a stern or worried expression. Produce one complete tall transparent full-body figure, complete headwear and both feet with safe margins, target 1536x2560. Keep face in upper center, small props close to torso and hands anatomically comfortable. No scene, table, ground plane, caption, watermark, inset or collage. No drawn weapon or exaggerated action. The UI will crop this source for head-and-shoulders, half-body and full-figure views.\nEssential costume continuity: retain the soft blue-grey CLOTH helmet cover and trailing cloth tail behind the upper helmet exactly as the neutral master input. It is fabric, not a feather plume; do not omit it.",
+        "referenceSha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-41-command-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-41\\neutral.png",
+            "sha256": "5b188216d756cbc023923ef4b4669576629d910f8b386a2dcd9d417454d1fa59",
+            "role": "approved-neutral-master"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "401e90e2e86609a3fae540f838bce374757de896f34d8670f98ad0e0288b94fc",
+          "file": "assets/officers/candidates/batch-0015/person-41/command-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-42:neutral",
+      "officerId": "person-42",
+      "name": "王忠",
+      "scene": "neutral",
+      "label": "站立母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。",
+        "bearing": "普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": {
+        "officerId": "person-42",
+        "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0543_王忠_1.jpg",
+        "source": "existing-local-officer-portrait",
+        "localOnly": true,
+        "sharedWith": [],
+        "sha256": "f64122f179fa604f9a34a272dfac4ea5623ce2747ab441efb6ab813d5c30d6bc"
+      },
+      "output": "assets/officers/generated/v4/person-42/neutral.png",
+      "reference": "assets/officers/identity/person-42.png",
+      "referenceSha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+      "identitySha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+      "prompt": "Use case: identity-preserve\n人物：王忠 / person-42\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：无。依据：稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。。人物仪态：普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 44, ordinary healthy lean-to-average military man with a LONG NARROW gently TRIANGULAR face, HIGH open forehead and modestly receding hairline, high angular cheekbones, slightly HOLLOW lower cheeks, narrow tapering jaw and SMALL POINTED chin. Medium-wide-set rather LONG dark eyes with naturally hooded upper lids, fine slightly curved relaxed eyebrows with level inner ends; do NOT copy worried raised inner brows. LONG relatively NARROW STRAIGHT nose with slightly drooping rounded tip, small-to-medium CLOSED mouth and level resting corners. A neat medium-thin dark moustache, SHORT NARROW pointed chin beard and sparse jaw beard, not the thick full beard of Wang Shuang. Preserve his own legacy narrow face, forehead, nose and facial hair with an upright head rather than a worried tilt. SIMPLE LOW GREY-BROWN wrapped cloth headband tied discreetly at back, black hair visible, NO scholar crown or helmet plume. Muted OCHRE-OLIVE military tunic, plain grey-brown short shoulder cape, compact worn dark iron lamellar cuirass visible beneath cape, modest leather bracers, simple dark cloth-and-leather belt and plain dark boots. Normal healthy body, not emaciated. DISTINCT from Ou Xing broad clean-shaven jaw and Wang Shuang full square-round bearded face. 长窄三角脸、高额头与较窄下颌，长窄鼻、低垂自然眼睑，薄髭短尖须；低灰褐布巾、灰褐肩披与赭橄榄军衣。佩剑留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，自然稳定站立，面容清晰；头饰顶部留白约3%，头部居中并位于画面上部，手臂舒适低放，标志物靠近身体。\n职责：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物母图动作：头部平正、肩部放松自然站立，双手舒适低放，短披与布头巾保留；不做担忧倾头。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-42\\neutral.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\identity\\person-42.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-42/neutral-01.png",
+        "sha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.5885344540787215,
+        "prompt": "Use case: historical-scene\n人物：王忠 / person-42\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：无。依据：稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。。人物仪态：普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 44, ordinary healthy lean-to-average military man with a LONG NARROW gently TRIANGULAR face, HIGH open forehead and modestly receding hairline, high angular cheekbones, slightly HOLLOW lower cheeks, narrow tapering jaw and SMALL POINTED chin. Medium-wide-set rather LONG dark eyes with naturally hooded upper lids, fine slightly curved relaxed eyebrows with level inner ends; do NOT copy worried raised inner brows. LONG relatively NARROW STRAIGHT nose with slightly drooping rounded tip, small-to-medium CLOSED mouth and level resting corners. A neat medium-thin dark moustache, SHORT NARROW pointed chin beard and sparse jaw beard, not the thick full beard of Wang Shuang. Preserve his own legacy narrow face, forehead, nose and facial hair with an upright head rather than a worried tilt. SIMPLE LOW GREY-BROWN wrapped cloth headband tied discreetly at back, black hair visible, NO scholar crown or helmet plume. Muted OCHRE-OLIVE military tunic, plain grey-brown short shoulder cape, compact worn dark iron lamellar cuirass visible beneath cape, modest leather bracers, simple dark cloth-and-leather belt and plain dark boots. Normal healthy body, not emaciated. DISTINCT from Ou Xing broad clean-shaven jaw and Wang Shuang full square-round bearded face. 长窄三角脸、高额头与较窄下颌，长窄鼻、低垂自然眼睑，薄髭短尖须；低灰褐布巾、灰褐肩披与赭橄榄军衣。佩剑留鞘。\n新建本人物的原创视觉身份，不借用其他人物的脸型；外貌与视觉年龄是美术设定，不宣称史实外貌。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，自然稳定站立，面容清晰；头饰顶部留白约3%，头部居中并位于画面上部，手臂舒适低放，标志物靠近身体。\n职责：透明全身人物立绘，完整头饰至双脚，自然稳定站姿。\n该人物母图动作：头部平正、肩部放松自然站立，双手舒适低放，短披与布头巾保留；不做担忧倾头。\nInput image 1 is ONLY this exact officer’s own original Romance of the Three Kingdoms XI face reference. Preserve his recognizable facial geometry, forehead, eye spacing and shape, cheekbones, nose, jaw and facial hair. Make an original semirealistic hand-painted full-length figure in the project palette and the individual costume described above. Remove shouting, fearful or angry expressions from the reference: relaxed brows, closed mouth, normal dark eyes, upright head. Full-length standing figure only, complete headwear and both feet, realistic proportions, comfortably separated natural hands near body, all weapons sheathed. Center the head in the upper part of the image with 4% clear space above headwear and below both feet. Genuine transparent alpha background, no scene, ground plane, text, watermark, inset portrait or collage. Target tall 1536x2560. Clear face detail is needed for runtime head-and-shoulders crops.",
+        "referenceSha256": null,
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-42-neutral-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\三国策略\\assets\\local_only\\xsyg_face_portraits\\source\\0543_王忠_1.jpg",
+            "sha256": "f64122f179fa604f9a34a272dfac4ea5623ce2747ab441efb6ab813d5c30d6bc",
+            "role": "sangokushi11-face"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+          "file": "assets/officers/candidates/batch-0015/person-42/neutral-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-42:work",
+      "officerId": "person-42",
+      "name": "王忠",
+      "scene": "work",
+      "label": "办事母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [
+        "person-42:neutral"
+      ],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。",
+        "bearing": "普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v4/person-42/work.png",
+      "reference": "assets/officers/generated/v4/person-42/neutral.png",
+      "referenceSha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+      "identitySha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+      "prompt": "Use case: identity-preserve\n人物：王忠 / person-42\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：无。依据：稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。。人物仪态：普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 44, ordinary healthy lean-to-average military man with a LONG NARROW gently TRIANGULAR face, HIGH open forehead and modestly receding hairline, high angular cheekbones, slightly HOLLOW lower cheeks, narrow tapering jaw and SMALL POINTED chin. Medium-wide-set rather LONG dark eyes with naturally hooded upper lids, fine slightly curved relaxed eyebrows with level inner ends; do NOT copy worried raised inner brows. LONG relatively NARROW STRAIGHT nose with slightly drooping rounded tip, small-to-medium CLOSED mouth and level resting corners. A neat medium-thin dark moustache, SHORT NARROW pointed chin beard and sparse jaw beard, not the thick full beard of Wang Shuang. Preserve his own legacy narrow face, forehead, nose and facial hair with an upright head rather than a worried tilt. SIMPLE LOW GREY-BROWN wrapped cloth headband tied discreetly at back, black hair visible, NO scholar crown or helmet plume. Muted OCHRE-OLIVE military tunic, plain grey-brown short shoulder cape, compact worn dark iron lamellar cuirass visible beneath cape, modest leather bracers, simple dark cloth-and-leather belt and plain dark boots. Normal healthy body, not emaciated. DISTINCT from Ou Xing broad clean-shaven jaw and Wang Shuang full square-round bearded face. 长窄三角脸、高额头与较窄下颌，长窄鼻、低垂自然眼睑，薄髭短尖须；低灰褐布巾、灰褐肩披与赭橄榄军衣。佩剑留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧身办理本职事务，以自然低位手势和个人道具区别站立母图；人物居中，不绘制桌案、建筑或环境背景。\n职责：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军粮、补给或装备；保留本人的护腕、军装及军职气质，不默认案前执笔。\n该人物母图动作：略侧身，一手低位托住一只小型闭合军需皮袋，另一手轻触袋扣检查；不捧书不执笔。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-42\\work.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-42\\neutral.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-42/work-01.png",
+        "sha256": "60965eaf842ba63276518d3da2d77cf39bd112ac5d799de7e1625e9b7fca4d62",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.594218119155319,
+        "prompt": "Use case: identity-preserve\n人物：王忠 / person-42\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：无。依据：稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。。人物仪态：普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 44, ordinary healthy lean-to-average military man with a LONG NARROW gently TRIANGULAR face, HIGH open forehead and modestly receding hairline, high angular cheekbones, slightly HOLLOW lower cheeks, narrow tapering jaw and SMALL POINTED chin. Medium-wide-set rather LONG dark eyes with naturally hooded upper lids, fine slightly curved relaxed eyebrows with level inner ends; do NOT copy worried raised inner brows. LONG relatively NARROW STRAIGHT nose with slightly drooping rounded tip, small-to-medium CLOSED mouth and level resting corners. A neat medium-thin dark moustache, SHORT NARROW pointed chin beard and sparse jaw beard, not the thick full beard of Wang Shuang. Preserve his own legacy narrow face, forehead, nose and facial hair with an upright head rather than a worried tilt. SIMPLE LOW GREY-BROWN wrapped cloth headband tied discreetly at back, black hair visible, NO scholar crown or helmet plume. Muted OCHRE-OLIVE military tunic, plain grey-brown short shoulder cape, compact worn dark iron lamellar cuirass visible beneath cape, modest leather bracers, simple dark cloth-and-leather belt and plain dark boots. Normal healthy body, not emaciated. DISTINCT from Ou Xing broad clean-shaven jaw and Wang Shuang full square-round bearded face. 长窄三角脸、高额头与较窄下颌，长窄鼻、低垂自然眼睑，薄髭短尖须；低灰褐布巾、灰褐肩披与赭橄榄军衣。佩剑留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧身办理本职事务，以自然低位手势和个人道具区别站立母图；人物居中，不绘制桌案、建筑或环境背景。\n职责：办理城务、补给或研究等内政事务；依人物职责选择实际工作。检查军粮、补给或装备；保留本人的护腕、军装及军职气质，不默认案前执笔。\n该人物母图动作：略侧身，一手低位托住一只小型闭合军需皮袋，另一手轻触袋扣检查；不捧书不执笔。\nUse case: identity-preserve. The sole input is THIS officer’s own approved neutral full-body master. Preserve exactly his face geometry, facial hair, headwear, clothing cut, cloth colors and patterns, armor pieces, sheathed weapon, body proportions and overall painterly finish. Change only the small occupational action described above. Keep brows relaxed and mouth closed; do not transfer a stern or worried expression. Produce one complete tall transparent full-body figure, complete headwear and both feet with safe margins, target 1536x2560. Keep face in upper center, small props close to torso and hands anatomically comfortable. No scene, table, ground plane, caption, watermark, inset or collage. No drawn weapon or exaggerated action. The UI will crop this source for head-and-shoulders, half-body and full-figure views.",
+        "referenceSha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-42-work-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-42\\neutral.png",
+            "sha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+            "role": "approved-neutral-master"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "60965eaf842ba63276518d3da2d77cf39bd112ac5d799de7e1625e9b7fca4d62",
+          "file": "assets/officers/candidates/batch-0015/person-42/work-01.png"
+        }
+      ]
+    },
+    {
+      "id": "person-42:command",
+      "officerId": "person-42",
+      "name": "王忠",
+      "scene": "command",
+      "label": "指挥母图",
+      "size": [
+        1536,
+        2560
+      ],
+      "format": "透明全身母图",
+      "transparent": true,
+      "dependsOn": [
+        "person-42:neutral"
+      ],
+      "status": "complete",
+      "reusedFrom": null,
+      "role": {
+        "primary": "martial",
+        "secondary": [],
+        "evidence": "稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。",
+        "bearing": "普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。"
+      },
+      "roleNeedsReview": false,
+      "identityNeedsReview": false,
+      "sourceFaceReference": null,
+      "output": "assets/officers/generated/v4/person-42/command.png",
+      "reference": "assets/officers/generated/v4/person-42/neutral.png",
+      "referenceSha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+      "identitySha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+      "prompt": "Use case: identity-preserve\n人物：王忠 / person-42\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：无。依据：稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。。人物仪态：普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 44, ordinary healthy lean-to-average military man with a LONG NARROW gently TRIANGULAR face, HIGH open forehead and modestly receding hairline, high angular cheekbones, slightly HOLLOW lower cheeks, narrow tapering jaw and SMALL POINTED chin. Medium-wide-set rather LONG dark eyes with naturally hooded upper lids, fine slightly curved relaxed eyebrows with level inner ends; do NOT copy worried raised inner brows. LONG relatively NARROW STRAIGHT nose with slightly drooping rounded tip, small-to-medium CLOSED mouth and level resting corners. A neat medium-thin dark moustache, SHORT NARROW pointed chin beard and sparse jaw beard, not the thick full beard of Wang Shuang. Preserve his own legacy narrow face, forehead, nose and facial hair with an upright head rather than a worried tilt. SIMPLE LOW GREY-BROWN wrapped cloth headband tied discreetly at back, black hair visible, NO scholar crown or helmet plume. Muted OCHRE-OLIVE military tunic, plain grey-brown short shoulder cape, compact worn dark iron lamellar cuirass visible beneath cape, modest leather bracers, simple dark cloth-and-leather belt and plain dark boots. Normal healthy body, not emaciated. DISTINCT from Ou Xing broad clean-shaven jaw and Wang Shuang full square-round bearded face. 长窄三角脸、高额头与较窄下颌，长窄鼻、低垂自然眼睑，薄髭短尖须；低灰褐布巾、灰褐肩披与赭橄榄军衣。佩剑留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧转研判或部署，保持本人的文武职责；自然低位持兵器、指挥物或本职道具，人物居中，不绘制军帐、战场或环境背景。\n职责：参与军团部署，表现本人实际指挥或辅助职责。在营地判断路线、阵位或布防，军事地图可以使用，文书不是贯穿全套的主道具。\n该人物母图动作：自然侧转听取军情，右手在腰侧做小幅向下收拢示意，左手轻放腰带；不前伸手掌或皱眉。",
+      "outputFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-42\\command.png",
+      "referenceFile": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-42\\neutral.png",
+      "candidate": {
+        "file": "assets/officers/candidates/batch-0015/person-42/command-01.png",
+        "sha256": "92d6efc00b2536471208967896b6d090b445144a524e01d2024e834c19f377c8",
+        "width": 971,
+        "height": 1619,
+        "transparentFraction": 0.5774667329071804,
+        "prompt": "Use case: identity-preserve\n人物：王忠 / person-42\n原创汉末三国策略游戏的半写实手绘人物，参考三国志系列人物像的克制、沉稳和自然比例：细墨线、柔和笔触、低饱和青绿与暖赭、自然布帛和铁铜，面容清晰，柔和均衡光线。表情尽量中性，眉眼放松、嘴唇自然闭合，动作幅度小、手部舒适。同一人物只制作站立、办事、指挥三张可复用母图，头像、半身和横幅由界面裁剪与共享背景组合，不为每种界面重新作画。完整头饰，无文字、水印、边框和拼图，只有一名主体人物。\n人物类型：主类型：武勇将领；次类型：无。依据：稳定ID person-42 王忠：名册为曹操武将，史条记攻击娄圭后归顺曹操，演义另有与刘岱攻徐州及受罚情节。按军职将领设计，不从能力、兵种或挨饿旧事推导外貌。。人物仪态：普通成熟武职将领，朴素护甲与布头巾；军需、接洽和指挥均保留军职体态。不给饥饿、受罚旧事添加惊恐、消瘦病态或滑稽表现。。中性仅限制表情和动作幅度，不能改变人物职业气质；具体个人动作也必须符合该类型。\n身份：Original visual age around 44, ordinary healthy lean-to-average military man with a LONG NARROW gently TRIANGULAR face, HIGH open forehead and modestly receding hairline, high angular cheekbones, slightly HOLLOW lower cheeks, narrow tapering jaw and SMALL POINTED chin. Medium-wide-set rather LONG dark eyes with naturally hooded upper lids, fine slightly curved relaxed eyebrows with level inner ends; do NOT copy worried raised inner brows. LONG relatively NARROW STRAIGHT nose with slightly drooping rounded tip, small-to-medium CLOSED mouth and level resting corners. A neat medium-thin dark moustache, SHORT NARROW pointed chin beard and sparse jaw beard, not the thick full beard of Wang Shuang. Preserve his own legacy narrow face, forehead, nose and facial hair with an upright head rather than a worried tilt. SIMPLE LOW GREY-BROWN wrapped cloth headband tied discreetly at back, black hair visible, NO scholar crown or helmet plume. Muted OCHRE-OLIVE military tunic, plain grey-brown short shoulder cape, compact worn dark iron lamellar cuirass visible beneath cape, modest leather bracers, simple dark cloth-and-leather belt and plain dark boots. Normal healthy body, not emaciated. DISTINCT from Ou Xing broad clean-shaven jaw and Wang Shuang full square-round bearded face. 长窄三角脸、高额头与较窄下颌，长窄鼻、低垂自然眼睑，薄髭短尖须；低灰褐布巾、灰褐肩披与赭橄榄军衣。佩剑留鞘。\n输入图仅作该人物身份与服饰参考，不锁定原图动作或表情。\n固定脸型、年龄、胡须、头饰、体型、主色与标志物，身份参考不锁定皱眉或动作。重新设计自然姿态与取景，只做细微神态差异。禁止怒吼、露齿、大笑、瞪眼、挑眉、鬼脸、抓须扶额、向镜头伸掌、大幅挥击、伸臂指点、扭身、飞扬披风和夸张透视；手臂靠近身体，头肩与五官比例正常。中性与自然优先于表情差异。\n画幅：1536×2560，透明全身母图，真实透明背景。\n母图构图：完整头饰至双脚，轻微侧转研判或部署，保持本人的文武职责；自然低位持兵器、指挥物或本职道具，人物居中，不绘制军帐、战场或环境背景。\n职责：参与军团部署，表现本人实际指挥或辅助职责。在营地判断路线、阵位或布防，军事地图可以使用，文书不是贯穿全套的主道具。\n该人物母图动作：自然侧转听取军情，右手在腰侧做小幅向下收拢示意，左手轻放腰带；不前伸手掌或皱眉。\nUse case: identity-preserve. The sole input is THIS officer’s own approved neutral full-body master. Preserve exactly his face geometry, facial hair, headwear, clothing cut, cloth colors and patterns, armor pieces, sheathed weapon, body proportions and overall painterly finish. Change only the small occupational action described above. Keep brows relaxed and mouth closed; do not transfer a stern or worried expression. Produce one complete tall transparent full-body figure, complete headwear and both feet with safe margins, target 1536x2560. Keep face in upper center, small props close to torso and hands anatomically comfortable. No scene, table, ground plane, caption, watermark, inset or collage. No drawn weapon or exaggerated action. The UI will crop this source for head-and-shoulders, half-body and full-figure views.",
+        "referenceSha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+        "resultRecord": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\.local\\officer-art-results\\pose-reuse-v4\\batch-0015\\person-42-command-result.json",
+        "referenceInputs": [
+          {
+            "file": "C:\\Users\\tao50\\Documents\\ChatGPT\\sango\\sango_zizouqi\\assets\\officers\\generated\\v4\\person-42\\neutral.png",
+            "sha256": "dce73234a32cc12dc7a1a33221f381a5ee6d07a1984370861cbcb3f3b25d29ee",
+            "role": "approved-neutral-master"
+          }
+        ],
+        "crops": {
+          "face": [
+            0.27,
+            0.005,
+            0.46,
+            0.276
+          ],
+          "half": [
+            0,
+            0,
+            1,
+            0.64
+          ]
+        },
+        "tool": "built-in-imagegen"
+      },
+      "attempts": [
+        {
+          "sha256": "92d6efc00b2536471208967896b6d090b445144a524e01d2024e834c19f377c8",
+          "file": "assets/officers/candidates/batch-0015/person-42/command-01.png"
+        }
+      ]
+    }
+  ]
+}

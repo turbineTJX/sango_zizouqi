@@ -3,7 +3,18 @@ import {resolve,extname} from 'node:path';
 const mime={'.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.glb':'model/gltf-binary','.obj':'text/plain; charset=utf-8'};
 export async function loadLocalArt(root,enabled=true){
  if(!enabled)return null;
- try{return JSON.parse(await readFile(resolve(root,'.local/art/manifest.json'),'utf8'));}catch{return null;}
+ try{return JSON.parse(await readFile(resolve(root,'.local/art/manifest.json'),'utf8'));}catch{}
+ try{
+  const directory=resolve(root,'art/playtest');
+  const pack=JSON.parse(await readFile(resolve(directory,'manifest.json'),'utf8'));
+  if(pack.formatVersion!==1||pack.public?.version!==1||!pack.files) return null;
+  const files={};
+  for(const [id,path] of Object.entries(pack.files)){
+   if(!/^[a-f0-9]{24}\.(?:png|jpe?g|webp|glb|obj)$/.test(id)||path!=='files/'+id)return null;
+   files[id]=resolve(directory,path);
+  }
+  return {...pack,files};
+ }catch{return null;}
 }
 export async function serveLocalArt(pathname,res,pack){
  if(!pathname.startsWith('/local-art/'))return false;
