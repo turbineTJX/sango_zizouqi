@@ -9,7 +9,7 @@ import {stratagemProfile} from '../stratagems.mjs';
 const unit=(id,type='spear')=>({id,type,level:10,troops:3000});
 function scenario(ids){return createScenario('custom-battle',773,20,null,{seed:773,terrain:'land',ownTeam:ids.map(id=>unit(id)),enemyTeam:['person-661','person-433','person-371'].map(id=>unit(id))});}
 test('rare roster is genuinely scarce and personal budgets range from one to six',()=>{
- assert.equal(Object.keys(BOND_DESIGNS).length,31);
+ assert.equal(Object.keys(BOND_DESIGNS).length,33);
  for(const [id,d] of Object.entries(BOND_DESIGNS).filter(([,d])=>d.category==='rare')){
   const holders=Object.values(BOND_ASSIGNMENTS).filter(a=>a[id]);assert.ok(holders.length>=3&&holders.length<=4);assert.ok(holders.every(a=>a[id]===1));assert.deepEqual(d.thresholds,[1,2,3]);
  }

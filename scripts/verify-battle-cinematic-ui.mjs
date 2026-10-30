@@ -14,7 +14,7 @@ planBattleCouncilsAI(initial.battle,[0,1]);lockDeployment(initial.battle);
 const charged=structuredClone(initial);
 while(charged.battle.commandProgress<COMMAND_RESOURCE.capacity&&!charged.battle.result)stepBattle(charged.battle,{aiSides:[]});
 assert.ok(!charged.battle.result);validateSave(charged);
-const port=4346,out='work/battle-cinematic-body-20261026';await mkdir(out,{recursive:true});
+const port=4346,out=process.env.SANGO_BATTLE_UI_OUT||'work/battle-cinematic-body-20261026';await mkdir(out,{recursive:true});
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port)},stdio:'pipe',windowsHide:true});let browser;
 try{
  await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',code=>no(Error('server '+code)));});
@@ -33,7 +33,7 @@ try{
   await page.locator('#battle-board').waitFor();await page.waitForTimeout(300);
  }
  await load(charged);assert.equal(await page.evaluate(()=>fx.mode),'full');
- await page.clock.install({time:new Date('2026-10-26T01:00:00Z')});await page.clock.pauseAt(new Date('2026-10-26T01:00:00.100Z'));
+ await page.clock.install({time:new Date('2026-10-26T01:00:00Z')});await page.clock.pauseAt(new Date('2026-10-26T01:01:00Z'));
  await page.locator('[data-action="choose-stratagem"]').click();await page.locator('[data-command="cao-wuchao"]').click();
  const command=await page.evaluate(()=>({name:fx.signals.orders[0]?.name,source:fx.signals.orders[0]?.source,tick:actualBattle.tick}));
  assert.equal(command.source.name,'曹操');assert.equal(command.tick,charged.battle.tick);
@@ -47,7 +47,11 @@ try{
   await page.clock.runFor(50);
  }
  await sharp(Buffer.concat(frames),{raw:{width:info.width,height:info.height*frames.length,channels:4,pageHeight:info.height}}).gif({loop:0,delay:frames.map((_,i)=>i===frames.length-1?600:50),colours:128,effort:3}).toFile(out+'/military-order.gif');
- await page.locator('[data-action="pause"]').click();await load(initial);await page.locator('[data-action="pause"]').click();
+ assert.ok(await page.locator('#tactic-result').isHidden());
+ await page.locator('[data-action="pause"]').click();await page.clock.runFor(400);
+ const labels=await page.locator('.unit-map-caption').evaluateAll(xs=>xs.map(el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,name:el.querySelector('b').textContent};}));
+ for(let i=0;i<labels.length;i++)for(let j=0;j<i;j++){const a=labels[i],b=labels[j];assert.ok(a.x+a.w<=b.x+1||b.x+b.w<=a.x+1||a.y+a.h<=b.y+1||b.y+b.h<=a.y+1,JSON.stringify({a,b}));}
+ await load(initial);await page.locator('[data-action="pause"]').click();
  let found=false;
  for(let i=0;i<1500;i++){
   await page.clock.runFor(50);

@@ -1,6 +1,10 @@
 // Read-only body choreography, shared by soldier atlases and native models.
 // Offsets are fractions of a soldier's body, never new battlefield positions.
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
+export function casualtyFrame(progress,{reduced=false,defeated=true}={}){
+ const p=clamp(progress),ease=n=>{const q=clamp(n);return q*q*(3-2*q);};
+ return {opacity:defeated?1-ease((p-.62)/.38):1-p,fall:reduced||!defeated?0:ease(p/.7)};
+}
 const groups={
  protection:['shield','commandInvincible','guardInvincible','peachInvincible','magicImmune','ward','resolve','guard'],
  brace:['phalanx','bulwark','camp','anchored','emplaced'],

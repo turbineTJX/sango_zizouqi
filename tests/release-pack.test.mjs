@@ -10,6 +10,7 @@ import {buildArtArchive} from '../scripts/build-art-pack.mjs';
 import {readAssetArchive,validateArchiveEntries} from '../asset-archive.mjs';
 import {serveAssets} from '../asset-server.mjs';
 import {buildDesktopArt} from '../scripts/build-desktop-art.mjs';
+import {buildAndroidArt} from '../scripts/build-android-art.mjs';
 import {loadPlaytestArt,serveLocalArt} from '../local-art-server.mjs';
 
 async function directory(t){const base=resolve(tmpdir()),dir=await mkdtemp(join(base,'sango-release-'));t.after(()=>{assert.equal(dirname(resolve(dir)),base);assert.ok(basename(dir).startsWith('sango-release-'));return rm(dir,{recursive:true,force:true});});return dir;}
@@ -75,6 +76,13 @@ test('desktop artwork copies declared public and playtest files, preserves sourc
  await writeFile(join(playtestRoot,'manifest.json'),JSON.stringify(manifest));await writeFile(join(playtestRoot,'files',id),bytes);await writeFile(join(playtestRoot,'private.png'),'not declared');
  const built=await buildDesktopArt(out,{assetRoot:source,playtestRoot});assert.equal(built.playtestFiles,1);assert.equal(Object.keys(built.files).length,3);assert.equal(built.files['playtest/files/'+id].sha256,sha);
  assert.deepEqual((await loadPlaytestArt(join(out,'playtest'))).sources,manifest.sources);
+ const web=join(dir,'android-www'),mobile=await buildAndroidArt(out,web,built);
+ assert.equal(mobile['local-art/files/'+id].sha256,sha);
+ assert.deepEqual(JSON.parse(await readFile(join(web,'local-art/manifest.json'),'utf8')),manifest.public);
+ assert.deepEqual(JSON.parse(await readFile(join(web,'local-art/sources.json'),'utf8')),manifest.sources);
+ assert.deepEqual((await readdir(web)).sort(),['assets','local-art']);
+ assert.deepEqual(await readdir(join(web,'assets')),['manifest.json']);
  let status,body;await serveLocalArt('/local-art/files/'+id,{writeHead(code){status=code;},end(value){body=value;}},await loadPlaytestArt(join(out,'playtest')));assert.equal(status,200);assert.deepEqual(body,bytes);
+ await writeFile(join(out,'playtest/files',id),'tampered');await assert.rejects(buildAndroidArt(out,join(dir,'bad-mobile'),built),/checksum mismatch/);
  await writeFile(join(playtestRoot,'files',id),'changed');await assert.rejects(buildDesktopArt(join(dir,'bad'),{assetRoot:source,playtestRoot}),/checksum mismatch/);
 });

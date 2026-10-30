@@ -33,7 +33,7 @@ test('intent cap permits every tactic but a capped enemy loses high-threshold ac
 
 test('only the current rule version loads, and intent is validated without normalization',()=>{
   const state=createScenario('field');assert.deepEqual(validateSave(structuredClone(syncFixtureLearning(state))),state);
-  for(const version of [undefined,3,4,5,6,7,RULES_VERSION+1]){const s=structuredClone(state);s.rulesVersion=version;assert.throws(()=>validateSave(s),/规则版本/);}
+  for(const version of [undefined,3,4,5,6,7,RULES_VERSION-1,RULES_VERSION+1]){const s=structuredClone(state);s.rulesVersion=version;assert.throws(()=>validateSave(s),/规则版本/);}
   for(const intent of [-1,1.5,101,160]){const s=structuredClone(state);s.battle.sides[0].units[0].intent=intent;assert.throws(()=>validateSave(s),/战意/);}
 });
 

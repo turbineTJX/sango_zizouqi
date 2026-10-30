@@ -7,16 +7,18 @@ import {battleUnitSummary,battleTacticConditions,battleTacticDetailMarkup} from 
 const unit=(id,type,troops=3000)=>({id,type,troops,level:10});
 export const scenario=()=>createScenario('custom-battle',73000009,20,null,{seed:73000009,terrain:'land',ownTeam:[unit('person-396','cavalry',6000),unit('person-646','spear',1500),unit('person-123','halberd',1500)],enemyTeam:[unit('jin','spear'),unit('yuanxia','archer'),unit('person-610','crossbow')]});
 test('inspection during real combat is read-only and preserves deterministic continuation',()=>{
- const s=scenario(),b=s.battle;lockDeployment(b);let exhausted=false,cooldown=false,action=false;
+ const s=scenario(),b=s.battle;lockDeployment(b);let exhausted=false,cooldown=false,action=false,exhaustionSummary=false;
  for(let i=0;i<100&&!b.result;i++){
   stepBattle(b);const before=JSON.stringify(s);
   for(const u of b.sides.flatMap(side=>side.units)){
    const rows=battleUnitSummary(b,u);action||=rows.some(([key])=>key==='最近作用对象');assert.ok(!rows.some(([key])=>key==='在场羁绊'));
+   const skills=unitTactics(u).filter(skill=>!skill.passive);
+   if(u.status==='active'&&!b.result&&skills.length&&skills.every(skill=>battleTacticConditions(b,u,skill).includes('本场次数已用尽'))){assert.match(rows.find(([key])=>key==='战法')[1],/次数已用尽.*继续普攻/);exhaustionSummary=true;}
    for(const skill of unitTactics(u)){const reasons=battleTacticConditions(b,u,skill).join(' ');exhausted||=reasons.includes('次数已用尽');cooldown||=reasons.includes('冷却中');assert.doesNotMatch(battleTacticDetailMarkup(b,u,skill),/NaN|undefined/);}
   }
   assert.equal(JSON.stringify(s),before);
  }
- assert.ok(exhausted);assert.ok(cooldown);assert.ok(action);const copy=validateSave(structuredClone(s));for(let i=0;i<10&&!b.result;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
+ assert.ok(exhausted);assert.ok(cooldown);assert.ok(action);assert.ok(exhaustionSummary);const copy=validateSave(structuredClone(s));for(let i=0;i<10&&!b.result;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);
 });
 test('deployment and reserve inspection never claims a live grid position or cast readiness',()=>{
  const s=scenario(),u=s.battle.sides[0].units[0];assert.match(battleTacticConditions(s.battle,u,unitTactics(u)[0]).join(' '),/战前布阵/);

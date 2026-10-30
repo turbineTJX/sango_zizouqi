@@ -21,11 +21,11 @@ export function sampleTroopPose({type='spear',family='spear',progress=1,time=0,i
  const p=clamp(progress),mounted=family==='cavalry',ranged=family==='archer',magic=['heal','shield','support','control','fire'].includes(kind);
  const active=p<1&&!state.blocked&&!reduced&&death<=0,weight=active?window(p,0,.12)*(1-window(p,.78,1)):0;
  const ready=active?window(p,(index%2)*.012,.24)*(1-window(p,.58,1)):0;
- const strike=active?window(p,.24,.52)*(1-window(p,.57,1)):0;
+ const strike=active?window(p,.3,.52)*(1-window(p,.62,.98)):0;
  const draw=active&&!magic?window(p,0,.22)*(1-window(p,.24,.31)):0;
  const walk=moving&&!state.rooted&&!reduced&&death<=0?easePose(moveProgress/.1)*(1-window(moveProgress,.84,1)):0;
  const cycle=moveProgress*(mounted?1.5:1)+index*.067,phase=cycle*TAU,pace=clamp(state.gait??1,.45,1.4);
- const impact=reduced?0:clamp(reaction/ .17),guard=reduced?0:clamp(guardImpact);
+ const impact=reduced?0:clamp(reaction/.22,0,1.4),guard=reduced?0:clamp(guardImpact);
  const pose={bodyX:state.lean||0,bodyY:0,bodyZ:0,bodyDrop:-(state.stance||0)*.45,bodyForward:0,headX:0,headZ:0,
   arms:[{x:Math.sin(phase+Math.PI)*.28*walk,y:0,z:0},{x:Math.sin(phase)*.28*walk,y:0,z:0}],
   forearms:[-.28,-.28],weaponTilt:0,legs:[],horseLegs:[],horseBob:0,neck:0,tail:0,bowDraw:0,arrowVisible:true,flag:0,fall:0};
@@ -49,12 +49,12 @@ export function sampleTroopPose({type='spear',family='spear',progress=1,time=0,i
   }else if(family==='halberd'){
    pose.arms[1].x=.5*ready-1.65*strike;pose.arms[1].y=-.5*ready+.9*strike;pose.arms[1].z=-.3*ready+.35*strike;
    pose.arms[0].x=-.2*weight;pose.forearms[1]=-.28-.5*ready+.16*strike;
-   pose.bodyY=-.28*ready+.48*strike;pose.bodyX+=.08*strike;pose.bodyDrop-=.035*ready;
+   pose.bodyY=-.32*ready+.56*strike;pose.bodyX+=.1*strike;pose.bodyDrop-=.05*ready;
    pose.weaponTilt=1.1*strike+.15*ready;
   }else{
    pose.arms[1].x=.32*ready-1.45*strike;pose.arms[1].y=.08*ready;pose.arms[1].z=.12*strike;
    pose.arms[0].x=-.3*weight;pose.forearms[1]=-.28-.18*ready-.12*strike;
-   pose.bodyX-=.04*ready;pose.bodyX+=.13*strike;pose.bodyY=-.1*ready+.18*strike;pose.bodyForward=.065*strike;
+   pose.bodyX-=.06*ready;pose.bodyX+=.17*strike;pose.bodyY=-.13*ready+.22*strike;pose.bodyForward=.12*strike;pose.bodyDrop-=.035*ready;
    pose.weaponTilt=1.35*strike-.12*ready;
   }
  }
@@ -80,7 +80,7 @@ export function sampleTroopPose({type='spear',family='spear',progress=1,time=0,i
    pose.horseLegs.push(solveLeg(foot.z*walk,foot.lift*walk,.82+bob,{upper:.36,lower:.39,ankle:.07}));
   }
  }
- if(death>0&&!reduced){pose.fall=easePose(death)*1.35;pose.headX+=easePose(death)*.2;}
+ if(death>0&&!reduced){pose.fall=easePose(death/.7)*1.35;pose.headX+=easePose(death/.7)*.2;}
  return pose;
 }
 

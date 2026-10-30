@@ -8,7 +8,8 @@ import {tacticUsesLeft} from './tactic-tempo.mjs';
 import {learnedTacticIds} from './tactic-learning.mjs';
 import {canOccupy,unitTerrain} from './battlefield.mjs';
 import {deployBattleUnit} from './battle-deployment.mjs';
-import {hexDistance} from './hex-grid.mjs';
+import {planReserveEntriesAI} from './reserve-entry.mjs';
+import {hexDistance,sideCell} from './hex-grid.mjs';
 import {unitAttributes,isRear} from './unit-stats.mjs';
 import {validLoadout,configureTactics,unitTactics,hasStatus,NEGATIVE_STATUSES,recoverableWounded} from './tactics.mjs';
 import {isMelee} from './engagement.mjs';
@@ -88,7 +89,7 @@ export function planEnemyArmy(b,side=1){
   // Visible enemy lanes inform flanking. Avoid spear/halberd concentrations
   // first, then approach exposed ranged troops; never inspect future RNG.
   const enemies=b.sides[1-side].units.filter(u=>u.status==='active'&&u.hp>0&&isTargetable(b,u));
-  const lane=(y,predicate)=>enemies.filter(predicate).reduce((n,u)=>n+u.hp/(1+Math.abs(y-u.y)),0);
+  const lane=(y,predicate)=>enemies.filter(predicate).reduce((n,u)=>n+u.hp/(1+Math.abs(y-sideCell(u,side).y)),0);
   const counters=u=>['spear','halberd'].includes(combatFamily(u));
   wingRows.sort((a,c)=>lane(a,counters)-lane(c,counters)||lane(c,isRear)-lane(a,isRear));
   const supportCore=active.filter(u=>['spear','halberd','cavalry'].includes(combatFamily(u))).sort(byStrength)[0];
@@ -97,14 +98,13 @@ export function planEnemyArmy(b,side=1){
   // cover an actual friendly position instead of an unrelated preferred cell.
   for(const u of [...active].sort((a,c)=>Number(hasTrait(a,'formationSupport'))-Number(hasTrait(c,'formationSupport'))||Number(isRear(a))-Number(isRear(c))||a.id.localeCompare(c.id))){
     const preferredY=combatFamily(u)==='ship'?[3,4][front++%2]:combatFamily(u)==='cavalry'?wingRows[wing++%4]:isRear(u)?frontRows[rear++%6]:frontRows[front++%6];
-    const ownX=x=>side===1?x:13-x;
-    const preferredX=ownX(combatFamily(u)==='ship'?10:combatFamily(u)==='cavalry'?10:combatFamily(u)==='siege'?12:isRear(u)?11:9);
+    const preferredX=combatFamily(u)==='ship'?3:combatFamily(u)==='cavalry'?3:combatFamily(u)==='siege'?1:isRear(u)?2:4;
     const candidates=[];
-    for(let col=9;col<14;col++)for(let y=0;y<8;y++){
-      const x=ownX(col);
+    for(let col=0;col<5;col++)for(let row=0;row<8;row++){
+      const {x,y}=sideCell({x:col,y:row},side);
       if(!canOccupy(b,u,x,y)||occupied.has(`${x},${y}`))continue;
       const ground=unitTerrain(b,{...u,x,y});
-      let score=Math.abs(x-preferredX)*4+Math.abs(y-preferredY)*2;
+      let score=Math.abs(col-preferredX)*4+Math.abs(row-preferredY)*2;
       if(hasTrait(u,'formationSupport')&&supportCore&&u!==supportCore){
         const core=placements.find(p=>p.u===supportCore)||supportCore;
         score+=Math.max(0,hexDistance({x,y},core)-1)*20;
@@ -116,12 +116,13 @@ export function planEnemyArmy(b,side=1){
       if(ground==='marsh')score+=3;
       candidates.push({x,y,score});
     }
-    candidates.sort((a,c)=>a.score-c.score||(side===1?a.x-c.x:c.x-a.x)||a.y-c.y);
+    candidates.sort((a,c)=>a.score-c.score||sideCell(c,side).x-sideCell(a,side).x||sideCell(a,side).y-sideCell(c,side).y);
     const cell=candidates[0];if(cell){placements.push({u,...cell});occupied.add(`${cell.x},${cell.y}`);}
   }
   if(placements.length!==active.length)return;
   for(const u of active){u.status='reserve';u.x=-1;u.y=-1;}
   for(const {u,x,y} of placements){const error=deployBattleUnit(b,u.id,x,y,side);if(error)throw Error(error);}
+  planReserveEntriesAI(b,side);
 }
 
 // Fixed trigger order, independent of troop strength, expected benefit or RNG.

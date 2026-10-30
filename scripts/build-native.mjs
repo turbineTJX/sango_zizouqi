@@ -1,4 +1,4 @@
-import {mkdir,readFile,writeFile,copyFile,cp,readdir,access} from 'node:fs/promises';
+import {mkdir,readFile,writeFile,copyFile,cp,readdir,access,symlink} from 'node:fs/promises';
 import {resolve,join,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {spawn} from 'node:child_process';
@@ -7,8 +7,8 @@ import {build as bundle} from 'esbuild';
 import {build as buildElectron,Platform,Arch} from 'electron-builder';
 import sharp from 'sharp';
 import {ROOT,buildCodeRelease,sha256,packedDataPlugin} from './release-lib.mjs';
-import {buildArtArchive} from './build-art-pack.mjs';
 import {buildDesktopArt} from './build-desktop-art.mjs';
+import {buildAndroidArt} from './build-android-art.mjs';
 
 const target=process.argv[2]||'all';
 if(!['windows','android','all','prepare-android'].includes(target))throw Error('Usage: build-native.mjs windows | android | all | prepare-android [--code-only]');
@@ -23,7 +23,7 @@ const release=join(buildRoot,'dist','native-'+Date.now()),stage=join(buildRoot,'
 await mkdir(stage,{recursive:true});await mkdir(release,{recursive:true});
 const code=join(release,'code'),{manifest,pack}=await buildCodeRelease(code);
 let art;
-if(withArt){art=target==='windows'?await buildDesktopArt(join(release,'art')):await buildArtArchive(join(release,'art','art.pack'));manifest.codeOnly=false;manifest.art={format:art.format||'archive',id:art.id,revision:art.revision,sha256:art.sha256,bytes:art.bytes};await writeFile(join(code,'release.json'),JSON.stringify(manifest,null,2)+'\n');}
+if(withArt){art=await buildDesktopArt(join(release,'art'));manifest.codeOnly=false;manifest.art={format:art.format,id:art.id,revision:art.revision,sha256:art.sha256,bytes:art.bytes};await writeFile(join(code,'release.json'),JSON.stringify(manifest,null,2)+'\n');}
 const webFiles=[...Object.keys(manifest.files),'release.json','sw.js','licenses'];
 if(verifyAndroid){
  await bundle({stdin:{contents:"export {newCampaign,serializeCampaign,validateCampaign,advanceCampaignDay,activeBattles} from './strategic-campaign.mjs';export {officerActivityDays} from './officer-activity.mjs';",resolveDir:ROOT,loader:'js'},bundle:true,platform:'browser',format:'esm',target:'es2022',outfile:join(code,'verify-runtime.js'),plugins:[packedDataPlugin(pack)]});
@@ -73,9 +73,11 @@ function run(file,args,options={}){
 }
 async function android(){
  const mobile=join(stage,'mobile');await copyWeb(join(mobile,'www'));
- if(withArt)await copyFile(join(release,'art','art.pack'),join(mobile,'www','art.pack'));
+ if(withArt){const files=await buildAndroidArt(join(release,'art'),join(mobile,'www'),art);await writeFile(join(release,'android-art.json'),JSON.stringify({formatVersion:1,files},null,2)+'\n');}
  const dependencies=Object.fromEntries(Object.entries(packageInfo.devDependencies).filter(([name])=>name.startsWith('@capacitor/')&&name!=='@capacitor/cli'));
  await writeFile(join(mobile,'package.json'),JSON.stringify({name:'sango-sovereign-android',version:packageInfo.version,private:true,dependencies},null,2));
+ // Capacitor resolves its platform from the staged project, even on another drive.
+ await symlink(join(ROOT,'node_modules'),join(mobile,'node_modules'),process.platform==='win32'?'junction':'dir');
  await writeFile(join(mobile,'capacitor.config.json'),JSON.stringify({appId:'com.sango.sovereign',appName:'三国 · 君临',webDir:'www',
   server:{hostname:'localhost',androidScheme:'https'},android:{allowMixedContent:false,minWebViewVersion:120,webContentsDebuggingEnabled:verifyAndroid},
   plugins:{SystemBars:{insetsHandling:'native',initialViewportFitValueHint:'contain'}}},null,2));

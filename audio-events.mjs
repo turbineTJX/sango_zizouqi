@@ -1,12 +1,14 @@
 import {hidden} from './battle-status-rules.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
+import {BattleTransitionReader} from './battle-transition-events.mjs';
 
 // One reader survives DOM rebuilds. Restored battles and revisited battles begin
 // at their current position; audio never replays saved effects or commands.
 export class BattleAudioReader{
- constructor(){this.snapshots=new WeakMap();this.current=null;}
+ constructor(){this.snapshots=new WeakMap();this.current=null;this.transitions=new BattleTransitionReader();}
  read(b,{audible=true}={}){
-  if(!b){this.current=null;return [];}
+  if(!b){this.current=null;this.transitions.reset();return [];}
+  const transitions=this.transitions.read(b,{silent:!audible});
   const units=b.sides.flatMap(s=>s.units),byId=new Map(units.map(u=>[u.id,u])),old=this.current===b?this.snapshots.get(b):null,effects=b.effects||[];
   this.current=b;
   const visible=u=>!u||u.side!==1||!hidden(b,u);
@@ -27,7 +29,11 @@ export class BattleAudioReader{
    const group=(e.skill||e.combo)?`${e.from}:${e.label}:${key}`:key;
    if(seen.has(group))continue;seen.add(group);push(key,pan,(e.skill||e.combo)?5:e.critical?4:1,e);
   }
-  if(units.some(u=>u.status==='defeated'&&old.status.get(u.id)==='active'&&!u.isDecoy&&visible(u)))push('rout',0,6);
+  // One sound per transition kind per batch; several arrivals form one signal.
+  for(const kind of ['rout','retreat','exit','entry']){
+   const e=transitions.find(e=>e.kind===kind);if(!e)continue;
+   cues.push({key:kind==='entry'?'reinforcement':kind==='exit'?'withdraw':kind,pan:Math.max(-.65,Math.min(.65,(e.x/13-.5)*1.2)),priority:8,transition:kind,unitId:e.id});
+  }
   if(b.result&&!old.result)push(b.result.winner===0?'victory':b.result.winner===1?'defeat':'draw',0,10);
   // Prioritize a decisive cue; a whole damage batch cannot become an audio wall.
   return cues.sort((a,b)=>b.priority-a.priority).slice(0,3);

@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign,validateCampaign,assignDomestic} from './helpers/auto-domestic-campaign.mjs';
 import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';
-import {changeCommandUnit,removeCommandUnit,newCommand,prepareCommandFormation,commandCanAdvance,commandRoute,commandMarkup,commandSteps} from '../strategic-command.mjs';
+import {changeCommandUnit,removeCommandUnit,newCommand,prepareCommandFormation,commandCanAdvance,commandReadinessError,commandRoute,commandMarkup,commandSteps} from '../strategic-command.mjs';
 test('inline city roster edits enlist existing units and validate the same allocation on a copy',()=>{
  const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),u=c.units[0],p=newCommand(s,'draft',c.id),before=serializeCampaign(s);
  assert.equal(changeCommandUnit(s,p,u.id,'troops',1000),null);
@@ -43,7 +43,7 @@ test('target is an explicit decision and routes follow transfer ownership rules'
 
 test('ordinary formation owns officer selection and army selection lists compiled units',()=>{
  const s=newCampaign(203,'guandu-200'),p=newCommand(s,'expedition','xuchang');
- assert.equal(p.step,'unit-review');assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/campaign-unit-new/);p.step='formation';assert.ok(!commandSteps(p).includes('officers'));
+ assert.equal(p.step,'unit-select');assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').footer,/campaign-unit-list/);p.step='formation';assert.ok(!commandSteps(p).includes('officers'));
  const row=campaignOfficers(s).find(r=>!pickerReason(s,r,p));p.selected=[row.unit.id];p.unitOfficer=row.unit.id;
  let html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
  assert.doesNotMatch(html,/data-personnel-choice/);assert.match(html,/data-command-type/);p.choosingMain=true;assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/type="radio"/);p.choosingMain=false;
@@ -68,7 +68,7 @@ test('army composition displays current work and puts idle units first without c
  assignDomestic(s,c.id,'commerce',u.id);beginDomesticTurn(s);assert.ok(assignmentFor(s,u.id).action);
  const p=newCommand(s,'expedition',c.id);p.step='unit-select';p.selected=[];p.formationPool=[];
  const before=serializeCampaign(s),html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
- assert.match(html,/事务尚余/);assert.match(html,/当前空闲，优先出征/);assert.equal(serializeCampaign(s),before);
+ assert.match(html,/事务余/);assert.match(html,/待命/);assert.equal(serializeCampaign(s),before);
  const ids=[...html.matchAll(/data-command-army-unit="([^"]+)"/g)].map(m=>m[1]);assert.notEqual(ids[0],u.id);assert.ok(ids.includes(u.id));
 });
 
@@ -92,4 +92,23 @@ test('removing an uncommitted new unit does not create a reserve refund',()=>{
  const s=newCampaign(203,'guandu-200'),p=newCommand(s,'draft','xuchang');const row=campaignOfficers(s).find(r=>!pickerReason(s,r,p));
  p.selected=[row.unit.id];p.troops[row.unit.id]=1000;const before=serializeCampaign(s);
  assert.equal(removeCommandUnit(s,p,row.unit.id),'');assert.deepEqual(p.selected,[]);assert.equal(p.disbandIds,undefined);assert.equal(serializeCampaign(s),before);
+});
+
+
+test('readiness reports the actual missing role and selection limit without changing state',()=>{
+ const s=newCampaign(203,'guandu-200'),p=newCommand(s,'expedition','xuchang'),before=serializeCampaign(s);
+ assert.match(commandReadinessError(s,p),/请选择出征部队/);
+ p.selected=[s.cities.find(c=>c.id===p.city).units[0].id];p.step='commanders';
+ assert.equal(commandReadinessError(s,p),'请选择军团长');p.leader=p.selected[0];
+ assert.equal(commandReadinessError(s,p),'请选择军师');p.advisor=p.selected[0];assert.equal(commandCanAdvance(s,p),true);
+ p.step='unit-select';p.selected=Array.from({length:11},(_,i)=>'candidate-'+i);assert.match(commandReadinessError(s,p),/超出 1 队/);
+ assert.equal(serializeCampaign(s),before);
+});
+
+
+test('transport readiness identifies the missing resource before spending it',()=>{
+ const s=newCampaign(203,'guandu-200'),p=newCommand(s,'transfer','luoyang'),c=s.cities.find(c=>c.id===p.city);
+ p.selected=['person-195'];p.step='target';p.destination='chenliu';p.cargo.grain=c.grain+7;
+ const before=serializeCampaign(s);assert.equal(commandReadinessError(s,p),'粮还差 7');assert.equal(commandCanAdvance(s,p),false);assert.equal(serializeCampaign(s),before);
+ p.cargo.grain=0;assert.equal(commandCanAdvance(s,p),true);
 });

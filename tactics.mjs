@@ -8,7 +8,8 @@ import {describeTacticTempo,tacticUsesLeft,tacticReadyAt,useRecoveryTargets} fro
 import {learnedTacticIds} from './tactic-learning.mjs';
 import {attackOrbDescription} from './attack-orbs.mjs';
 import {EXPANDED_ROLES} from './expanded-tactics.mjs';
-import {hexDistance, hexNeighbors, hexBeyond} from './hex-grid.mjs';
+import {hexDistance, hexNeighbors, hexBeyond, approachNeighbors} from './hex-grid.mjs';
+import {tacticShapeTargets,positionedSupportTargets} from './tactic-positioning.mjs';
 import {unitAttributes,isRear,battleSupplyPenalty} from './unit-stats.mjs';
 import {blockedTerrain,canOccupy,gateTarget} from './battlefield.mjs';
 import {COMBAT} from './combat-rules.mjs';
@@ -21,7 +22,7 @@ import {FAMOUS_OFFICERS,famousTacticId,famousTacticDescription} from './famous-o
 import {TACTIC_DESIGNS} from './data/design/tactics.mjs';
 import {TROOP_TACTIC_POOLS,INTELLECT_TACTIC_POOLS,OFFICER_ASSIGNMENTS} from './data/design/assignments.mjs';
 export const TACTICS_BOOK=structuredClone(TACTIC_DESIGNS);
-for(const s of Object.values(TACTICS_BOOK)){s.tempoDescription=describeTacticTempo(s);s.description+='；'+s.tempoDescription;}
+for(const s of Object.values(TACTICS_BOOK)){s.tempoDescription=describeTacticTempo(s);s.description+='；'+s.tempoDescription;if(s.geometry)s.description+=`；锁定出手时的覆盖格，蓄势${s.geometry.delay}回合后命中仍在格内的敌军，移出可躲避；自身被控、位移或撤离会中断，已耗次数及战意不返还`;}
 for(const [id,s] of Object.entries(TACTICS_BOOK)){s.id=id;s.category ||= 'force';s.terrainDescription=terrainTacticDescription(s);s.power=tacticPowerProfile(s);s.powerDescription=tacticPowerDescription(s);}
 export const TROOP_TACTICS=structuredClone(TROOP_TACTIC_POOLS);
 export const INTELLECT_TACTICS=structuredClone(INTELLECT_TACTIC_POOLS);
@@ -130,7 +131,7 @@ export function routeTo(b,u,target,max=3,{range=1,charging=true,ignoreZoc=false,
     if(distance(p,target)<=range&&(ignoreZoc||!requireStrike||canStrikeFrom(b,u,target,p,charging)))return p.path;
     if(!ignoreZoc&&interceptorsAt(b,u,p,charging).length)continue;
     if(p.path.length>=max)continue;
-    for(const [x,y] of hexNeighbors(p)) {
+    for(const [x,y] of approachNeighbors(p,target,u.side)) {
       const key=`${x},${y}`;
       const inDefenseLine=inLine({x,y});
       if(!seen.has(key)&&inDefenseLine&&openCell(b,x,y,u)) {seen.add(key);queue.push({x,y,path:[...p.path,{x,y}]});}
@@ -194,15 +195,16 @@ export function supportApproach(b,u) {
 }
 export function basicSupportTargets(b,u,s) {
   const allies=living(b,u.side).filter(a=>distance(u,a)<=s.range);
-  if(s.effect==='rally')return allies.filter(a=>a!==u&&a.intent<=COMBAT.intentCap-15).sort((a,c)=>a.intent-c.intent||idOrder(a,c)).slice(0,1);
+  if(s.effect==='rally')return positionedSupportTargets(u,s,allies.filter(a=>a!==u&&a.intent<=COMBAT.intentCap-15).sort((a,c)=>a.intent-c.intent||idOrder(a,c))).slice(0,1);
   if(s.effect==='relay'){
     const value=a=>recoverableWounded(a)/20+unitTactics(a).filter(k=>tacticUsesLeft(a,k)>0).reduce((n,k)=>n+Math.min(2,Math.max(0,(a.skillReady?.[k.id]||0)-b.tick)),0);
     return allies.filter(a=>a!==u&&value(a)>0).sort((a,c)=>value(c)-value(a)||idOrder(a,c)).slice(0,1);
   }
-  if(s.effect==='screen')return allies.filter(a=>recoverableWounded(a)>=a.maxHp*.02||threatened(b,a)&&!shieldLayers(b,a).some(l=>l.source===u.id+':'+s.id)).sort((a,c)=>recoverableWounded(c)/c.maxHp-recoverableWounded(a)/a.maxHp||a.hp/a.maxHp-c.hp/c.maxHp||idOrder(a,c)).slice(0,1);
+  if(s.effect==='screen')return positionedSupportTargets(u,s,allies.filter(a=>recoverableWounded(a)>=a.maxHp*.02||threatened(b,a)&&!shieldLayers(b,a).some(l=>l.source===u.id+':'+s.id)).sort((a,c)=>recoverableWounded(c)/c.maxHp-recoverableWounded(a)/a.maxHp||a.hp/a.maxHp-c.hp/c.maxHp||idOrder(a,c))).slice(0,1);
   return [];
 }
 export function areaTacticTargets(b,u,s,target,range) {
+  if(s.geometry)return tacticShapeTargets(b,u,s,target,living(b,1-u.side).concat(decoyTargets(b,1-u.side)).filter(e=>isTargetable(b,e)&&distance(u,e)<=range&&distance(u,e)>=(s.minRange||0)),range);
   return [target,...living(b,1-u.side).concat(decoyTargets(b,1-u.side)).filter(e=>!hasStatus(b,e,'stasis')).filter(t=>t!==target&&distance(target,t)<=(s.effect==='scatter'?2:1)&&distance(u,t)<=range).sort(idOrder)].slice(0,s.effect==='tremor'?1:['scatter','bombard'].includes(s.effect)?3:2);
 }
 export function supportUtility(b,u,a,s){
@@ -227,9 +229,10 @@ export function supportUtility(b,u,a,s){
 // Selection and resolution share this list: the chosen anchor always receives the effect.
 export function famousTargets(b,u,s,target=null){
   const pool=living(b,s.mode==='support'?u.side:1-u.side).filter(a=>(s.mode==='support'||isTargetable(b,a))&&distance(u,a)<=s.range&&(!s.excludeSelf||a!==u));
-  if(s.mode==='support')return pool.filter(a=>supportUtility(b,u,a,s)>0)
-    .sort((a,c)=>supportUtility(b,u,c,s)-supportUtility(b,u,a,s)||idOrder(a,c)).slice(0,s.targets||1);
+  if(s.mode==='support')return positionedSupportTargets(u,s,pool.filter(a=>supportUtility(b,u,a,s)>0)
+    .sort((a,c)=>supportUtility(b,u,c,s)-supportUtility(b,u,a,s)||idOrder(a,c))).slice(0,s.targets||1);
   if(!target)return [];
+  if(s.geometry)return tacticShapeTargets(b,u,s,target,pool,s.range);
   return [target,...pool.filter(a=>a!==target&&distance(target,a)<=(s.radius??0))
     .sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp||idOrder(a,c))].slice(0,s.targets||1);
 }
@@ -269,7 +272,7 @@ function famousTarget(b,u,s,enemies){
     if(opening.highIntent)value+=20;
     return value;
   };
-  return enemies.filter(e=>distance(u,e)<=s.range).sort((a,c)=>score(c)-score(a)||distance(u,a)-distance(u,c)||idOrder(a,c))[0]||null;
+  return enemies.filter(e=>distance(u,e)<=s.range&&(!s.geometry||famousTargets(b,u,s,e).includes(e))).sort((a,c)=>score(c)-score(a)||distance(u,a)-distance(u,c)||idOrder(a,c))[0]||null;
 }
 export function expandedSupportTargets(b,u,s){
   let allies=living(b,u.side).filter(a=>distance(u,a)<=s.range);
@@ -351,8 +354,8 @@ export function tacticTarget(b,u,s,range) {
     case 'suppress':return inRange.sort((a,c)=>Number(hasStatus(b,a,'slow'))-Number(hasStatus(b,c,'slow'))||Number(threatened(b,c))-Number(threatened(b,a))||distance(u,a)-distance(u,c)||idOrder(a,c))[0]||null;
     case 'pierce':return inRange.sort((a,c)=>Number(hasStatus(b,a,'armorBreak'))-Number(hasStatus(b,c,'armorBreak'))||unitAttributes(c,b).defense-unitAttributes(a,b).defense||idOrder(a,c))[0]||null;
     case 'strike':return inRange.sort((a,c)=>Number(exposedTarget(b,c))-Number(exposedTarget(b,a))||idOrder(a,c))[0]||null;
-    case 'thrust':{
-      const lined=e=>{const p=hexBeyond(u,e);return enemies.some(t=>t.x===p.x&&t.y===p.y);};
+    case 'cleave':case 'thrust':{
+      const lined=e=>tacticShapeTargets(b,u,s,e,enemies,s.geometry.reach).length;
       return inRange.sort((a,c)=>Number(lined(c))-Number(lined(a))||idOrder(a,c))[0]||null;
     }
     case 'bombard':case 'tremor':case 'broadside':case 'undertow':case 'scatter':case 'wildfire':{
@@ -394,6 +397,7 @@ export function lureCell(b,u,target) {
   return hexNeighbors(target).map(([x,y])=>({x,y})).filter(p=>openCell(b,p.x,p.y,target)&&distance(p,u)<distance(target,u)).sort((a,c)=>distance(a,u)-distance(c,u))[0];
 }
 export function readyTactic(b,u,range) {
+  if(u.tacticAim)return null;
   if(hasStatus(b,u,'stun'))return null;
   if(u.withdrawing||u.disengage||b.sides[u.side].retreat)return null;
   if(hasStatus(b,u,'seal') || hasStatus(b,u,'stealth') || (u.tacticRecoveryUntil||0)>b.tick)return null;

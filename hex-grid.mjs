@@ -1,6 +1,19 @@
 // Pointy-top hexagons, odd rows shifted right. Stored x/y remain offset coordinates.
 export const HEX_GRID = { cols:14, rows:8, width:14.5, height:6.25 };
 export const HEX_ASPECT = HEX_GRID.width * Math.sqrt(3) / (HEX_GRID.height * 2);
+// Side 0 is the reference frame. Rotating BOTH axes preserves odd-row hex
+// adjacency; reflecting x alone does not. This transform is its own inverse.
+export const sideCell = ({x,y},side) => side===1?{x:HEX_GRID.cols-1-x,y:HEX_GRID.rows-1-y}:{x,y};
+export function compareSideCells(a,b,side) {
+  const p=sideCell(a,side),q=sideCell(b,side);
+  return p.x-q.x||p.y-q.y;
+}
+export function approachNeighbors(origin,target,side) {
+  return hexNeighbors(origin).sort((a,b)=>{
+    const p={x:a[0],y:a[1]},q={x:b[0],y:b[1]};
+    return hexDistance(p,target)-hexDistance(q,target)||compareSideCells(p,q,side);
+  });
+}
 export const toAxial = ({x,y}) => ({q:x-(y-(y&1))/2,r:y});
 export const fromAxial = ({q,r}) => ({x:q+(r-(r&1))/2,y:r});
 export function hexDistance(a,b) {

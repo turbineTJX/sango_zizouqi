@@ -145,7 +145,7 @@ test('malformed battle, pending encounter, map, and report data fail closed', ()
 test('left and right formations deploy on opposite flanks', () => {
   const s = newGame(); s.armies[0].units[0].formation = 'left'; s.armies[0].units[1].formation = 'right';
   orderArmy(s, 'a1', 'guandu'); advanceTurn(s); startBattle(s);
-  assert.equal(s.battle.sides[0].units[0].y, 0); assert.equal(s.battle.sides[0].units[1].y, 7);
+  assert.equal(s.battle.sides[0].units[0].y, 1); assert.equal(s.battle.sides[0].units[1].y, 6);
   validateSave(JSON.parse(JSON.stringify(s)));
 });
 test('daylight limit ends a stalemate in a draw without capturing the city', () => {
@@ -182,12 +182,16 @@ test('source-stat Guandu fights stay within the 240-step daylight limit and allo
     assert.ok(own.filter(u => u.skillCasts >= 2).length >= 1, 'Sustained combat provides a second casting opportunity');
   }
 });
-test('a ready skill resolves damage and enters cooldown in the same step', () => {
-  const s=duel(),b=s.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
-  a.intent=100;a.cooldown=99;const hp=d.hp;
+test('a ready shaped skill spends its use before damage resolves at the saved aim deadline', () => {
+  const {state:s,b,u:a,target:d}=currentBattle('thrust','spear');
+  for(const u of b.sides.flatMap(s=>s.units))u.statuses.root={until:999};
+  a.intent=100;a.cooldown=99;a.skillReady.thrust=0;const hp=d.hp;
   stepBattle(b);
-  assert.equal(a.cast,null);assert.equal(a.skillCasts,1);assert.ok(d.hp<hp);
-  assert.equal(a.skillReady.thrust,b.tick+unitTactics(a)[0].cooldown);
+  assert.equal(a.cast,null);assert.equal(a.skillCasts,1);assert.equal(d.hp,hp);assert.ok(a.tacticAim);
+  assert.equal(a.skillReady.thrust,b.tick+TACTICS_BOOK.thrust.cooldown);
+  const resume=validateSave(structuredClone(syncFixtureLearning(s))),deadline=a.tacticAim.resolveAt;
+  while(b.tick<deadline){stepBattle(b);stepBattle(resume.battle);}
+  assert.deepEqual(resume.battle,b);assert.ok(d.hp<hp);
   assert.ok(b.effects.some(e=>e.from===a.id&&e.skill&&e.phase==='impact'));
   assert.ok(b.effects.every(e=>e.phase!=='cast'));
 });

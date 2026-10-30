@@ -23,6 +23,8 @@ export class BattleLabels{
   this.leave=e=>{if(!this.root.contains(e.relatedTarget))this.highlight(null);};
   this.root.addEventListener('pointerover',this.enter);this.root.addEventListener('focusin',this.enter);
   this.root.addEventListener('pointerleave',this.leave);this.root.addEventListener('focusout',this.leave);
+  this.moved=e=>{if(!e.target.matches?.('[data-unit]')||!['left','top'].includes(e.propertyName)||this.motionFrame)return;this.motionFrame=requestAnimationFrame(()=>{this.motionFrame=0;this.layout();});};
+  this.root.addEventListener('transitionend',this.moved);
   this.positions=new Map();this.resize=new ResizeObserver(()=>this.layout());this.resize.observe(board);
  }
  highlight(id){this.highlighted=id;for(const el of this.root.querySelectorAll('.unit-nameplate,[data-unit]'))el.classList.toggle('roster-highlight',(el.dataset.inspect||el.dataset.unit)===id);this.onHighlight?.(id);}
@@ -36,10 +38,10 @@ export class BattleLabels{
   const board=this.board.getBoundingClientRect();if(!board.width||!board.height)return;
   const entries=[...this.board.querySelectorAll('[data-unit]')].map(el=>{
    const caption=el.querySelector('.unit-map-caption');if(!caption)return null;
-   const rect=el.getBoundingClientRect();return {id:el.dataset.unit,el,caption,rect,x:rect.left-board.left+rect.width/2,y:rect.bottom-board.top+3,width:caption.offsetWidth,height:caption.offsetHeight};
+   const rect=el.getBoundingClientRect();return {id:el.dataset.unit,el,caption,rect,x:rect.left-board.left+rect.width/2,y:rect.top-board.top+rect.height/2,width:caption.offsetWidth,height:caption.offsetHeight};
   }).filter(Boolean);
-  this.positions=placeBattleCaptions(entries,board.width,board.height,this.positions);
+  const next=placeBattleCaptions(entries,board.width,board.height,this.positions);this.positions.clear();for(const [id,p]of next)this.positions.set(id,p);
   for(const e of entries){const p=this.positions.get(e.id);e.caption.style.left=(p.x-(e.rect.left-board.left))+'px';e.caption.style.top=(p.y-(e.rect.top-board.top))+'px';e.caption.style.transform='none';}
  }
- destroy(){this.resize.disconnect();this.root.removeEventListener('pointerover',this.enter);this.root.removeEventListener('focusin',this.enter);this.root.removeEventListener('pointerleave',this.leave);this.root.removeEventListener('focusout',this.leave);}
+ destroy(){this.resize.disconnect();cancelAnimationFrame(this.motionFrame);this.root.removeEventListener('transitionend',this.moved);this.root.removeEventListener('pointerover',this.enter);this.root.removeEventListener('focusin',this.enter);this.root.removeEventListener('pointerleave',this.leave);this.root.removeEventListener('focusout',this.leave);}
 }

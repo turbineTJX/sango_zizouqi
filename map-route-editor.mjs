@@ -19,6 +19,7 @@ export function editRouteWaypoint(draft,from,target,index,id,build){
 }
 export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],candidates,edit,onError}){
  const svg=root.querySelector('.strategy-world-art');if(!svg||!route?.length)return;
+ const bindings=new AbortController();
  const ns='http://www.w3.org/2000/svg',create=(tag,attrs,parent)=>{const n=document.createElementNS(ns,tag);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);parent.append(n);return n;};
  const inverse=svg.getScreenCTM().inverse(),locations=new Map([...svg.querySelectorAll('[data-command-city]')].map(el=>{const m=inverse.multiply(el.getScreenCTM());return [el.dataset.commandCity,{x:m.e,y:m.f}];}));
  const position=id=>locations.get(id)||mapNode(s,id);
@@ -35,7 +36,7 @@ export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],cand
   if(i>0)add(i,a,`${mapNode(s,points[i]).name} · 拖动改线`,waypoints.includes(points[i]));
  }
  const sizeHandles=()=>{
-  if(!svg.isConnected){resize.disconnect();changes.disconnect();return;}
+  if(!svg.isConnected){resize.disconnect();changes.disconnect();bindings.abort();return;}
   const m=svg.getScreenCTM(),unit=Math.hypot(m.a,m.b)||1;
   for(const h of origin.keys())for(const [cls,r]of [['touch',18],['hit',8],['dot',3]])h.querySelector('.route-handle-'+cls).setAttribute('r',r/unit);
  };
@@ -49,7 +50,7 @@ export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],cand
  };
  layer.addEventListener('pointerdown',e=>{
   const h=e.target.closest('[data-route-handle]');if(!h||e.button!==0)return;e.preventDefault();e.stopPropagation();
-  drag={handle:h,index:Number(h.dataset.routeHandle),start:{x:e.clientX,y:e.clientY}};h.classList.add('dragging');h.setPointerCapture(e.pointerId);
+  drag={handle:h,index:Number(h.dataset.routeHandle),pointerId:e.pointerId,start:{x:e.clientX,y:e.clientY}};h.classList.add('dragging');h.setPointerCapture(e.pointerId);
  });
  layer.addEventListener('pointermove',e=>{if(!drag)return;e.preventDefault();const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const id=nearest(e),at=id?position(id):p.matrixTransform(svg.getScreenCTM().inverse());drag.handle.setAttribute('transform',`translate(${at.x} ${at.y})`);drag.handle.classList.toggle('snapped',!!id);});
  layer.addEventListener('pointerup',e=>{
@@ -60,6 +61,13 @@ export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],cand
  });
  const cancel=()=>{if(drag){restore(drag.handle);drag=null;}};
  layer.addEventListener('pointercancel',cancel);layer.addEventListener('lostpointercapture',cancel);
+ root.ownerDocument.addEventListener('keydown',e=>{
+  if(!svg.isConnected){bindings.abort();return;}
+  if(e.key!=='Escape'||!drag)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  const {handle,pointerId}=drag;cancel();
+  if(handle.hasPointerCapture(pointerId))handle.releasePointerCapture(pointerId);
+ },{capture:true,signal:bindings.signal});
  svg.addEventListener('click',e=>{if(suppressClick||e.target.closest('[data-route-handle]')){e.preventDefault();e.stopPropagation();}},true);
  layer.addEventListener('keydown',e=>{
   const h=e.target.closest('[data-route-handle]');if(!h)return;

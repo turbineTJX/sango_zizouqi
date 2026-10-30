@@ -5,6 +5,7 @@ import {tacticUsesLeft,tacticUseLimit,tacticReadyAt} from './tactic-tempo.mjs';
 import {TERRAIN_NAMES,unitTerrain} from './battlefield.mjs';
 import {hidden} from './battle-status-rules.mjs';
 import {battleArrivalLabel} from './reinforcement-arrival.mjs';
+import {frontlineCapacity} from './army-trait-rules.mjs';
 const esc=v=>String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=v=>Number((v||0).toFixed(2));
 import {retreatLabel} from './battle-retreat.mjs';
@@ -40,8 +41,16 @@ export function battleUnitSummary(b,u){
  for(const [key,label]of [['peachFury','桃园奋战'],['peachInvincible','桃园无敌']])if((u.statuses?.[key]?.until||0)>b.tick)rows.push([label,'生效中']);
  rows.push(['撤离',retreatLabel(u.retreatAt)]);
  if(u.withdrawing&&u.status==='active')rows.push(['撤离状态','前往己方出口，途中仍可受击；离场后本场不再入场']);
- if(reserve&&!b.result)rows.push(['入场条件',side.retreat?'撤退中，不再入场':u.arrivalConfirmed===false||(u.arrivalTick||0)>b.tick?'援军尚未抵达 · '+battleArrivalLabel(b,u):side.blockadeUntil>b.tick?'援路受阻':isDeploying(b)?'战前预备队':'等待合法空位，按补位规则入场']);
- if(u.status==='active'&&!b.result&&!isDeploying(b))rows.push(['攻击',u.cooldown>0?'准备中':'就绪'],['战法',u.tacticRecoveryUntil>b.tick?'调息中':'可行动']);
+ if(reserve&&!b.result){
+  const active=side.units.filter(v=>v.status==='active'&&v.hp>0).length;
+  rows.push(['入场条件',side.retreat?'撤退中，不再入场':u.arrivalConfirmed===false||(u.arrivalTick||0)>b.tick?'援军尚未抵达 · '+battleArrivalLabel(b,u):side.blockadeUntil>b.tick?'援路受阻':isDeploying(b)?'战前预备队':active>=frontlineCapacity(b,u.side)?`在场 ${active} 队，暂无出场名额；待撤离或溃败产生空缺`:'等待本军团出场名额及合法入口']);
+ }
+ if(u.status==='active'&&!b.result&&!isDeploying(b)){
+  const skills=unitTactics(u).filter(s=>!s.passive),remaining=skills.filter(s=>tacticUsesLeft(u,s)>0);
+  let tactic=!skills.length?'未携带主动战法':!remaining.length?'本场次数已用尽 · 继续普攻':u.tacticRecoveryUntil>b.tick?'调息中':null;
+  if(!tactic){const ready=readyTactic(b,u,attackRange(b,u));tactic=ready?'即将施放 · '+ready.skill.name:battleTacticConditions(b,u,remaining[0]).join('；')||'等待可用目标';}
+  rows.push(['攻击',u.cooldown>0?'准备中':'就绪'],['战法',tactic]);
+ }
  const targets=[...new Set((b.effects||[]).filter(e=>e.from===u.id&&e.phase==='impact').map(e=>e.to))];
  if(targets.length)rows.push(['最近作用对象',targets.map(id=>b.sides.flatMap(s=>s.units).find(x=>x.id===id)?.name||b.buildings?.find(a=>a.id===id)?.name||(id===b.siege?.gate.id?'城门':id)).join('、')]);
  return rows;

@@ -8,7 +8,8 @@ export const TACTIC_DESIGNS = {
     "range": 1,
     "effect": "cleave",
     "visual": "slash",
-    "description": "横扫相邻最多三队敌军，各造成武技伤害；相邻攻击造成的实际兵力伤害按30%救治自身已有伤兵、25%转为自身护盾；每次施放救治和护盾各不超过兵力上限8%，护盾持续6回合，同源不叠加；护盾吸收、疑兵及城门伤害不计",
+    "description": "朝目标方向横扫连续三个相邻格的扇形，最多命中三队敌军，各造成武技伤害；背向敌军不受波及。相邻攻击造成的实际兵力伤害按30%救治自身已有伤兵、25%转为自身护盾；每次施放救治和护盾各不超过兵力上限8%，护盾持续6回合，同源不叠加；护盾吸收、疑兵及城门伤害不计",
+    "geometry": {"kind":"fan","reach":1,"maxTargets":3,"delay":1},
     "role": "近身群攻",
     "tradeoff": "敌军分散或不贴身时收益低",
     "learningTier": "high",
@@ -447,7 +448,8 @@ export const TACTIC_DESIGNS = {
     "cooldown": 28,
     "effect": "rally",
     "visual": "banner",
-    "description": "为 2 格内一队其他友军增加战意，恢复量与谋略威力有关；仅在友军缺少至少 15 战意时发动",
+    "description": "为2格内一队其他友军增加战意，优先同一横排前方最近的合资格友军，其次前方其他友军，再按实际站位与战意选择；恢复量与谋略威力有关，仅在友军缺少至少15战意时发动",
+    "supportPosition": "front",
     "category": "intellect",
     "range": 2,
     "learningTier": "low",
@@ -600,7 +602,8 @@ export const TACTIC_DESIGNS = {
     "cooldown": 30,
     "effect": "screen",
     "visual": "banner",
-    "description": "为 3 格内一队受损友军救治伤兵，恢复量与友军兵力上限、谋略威力有关，附加 4% 护盾 6回合；无伤兵时仅保护接敌者，不复活；施放后重置普攻间隔",
+    "description": "为3格内一队合资格友军救治伤兵，优先同列其他友军；恢复量与友军兵力上限、谋略威力有关，附加4%护盾6回合；无伤兵时仅保护接敌者，不复活；施放后重置普攻间隔",
+    "supportPosition": "column",
     "category": "intellect",
     "range": 3,
     "learningTier": "low",
@@ -634,7 +637,8 @@ export const TACTIC_DESIGNS = {
     "cooldown": 26,
     "effect": "scatter",
     "visual": "volley",
-    "description": "攻击射程内最多 3 支相邻敌军，单队伤害较低",
+    "description": "以射程内目标为中心，攻击其2格内且仍在自身射程内的最多3队敌军，单队伤害较低",
+    "geometry": {"kind":"burst","radius":2,"maxTargets":3,"delay":2},
     "learningTier": "high",
     "tempoRole": "进阶交锋",
     "intentCost": 0,
@@ -667,7 +671,8 @@ export const TACTIC_DESIGNS = {
     "cooldown": 18,
     "effect": "thrust",
     "visual": "slash",
-    "description": "刺击相邻目标（武技伤害），波及其身后一格敌军（伤害较低）；优先可贯穿的阵列",
+    "description": "沿相邻目标方向刺击连续两格，最多命中两队敌军；第二队伤害较低，山壁截断贯穿；优先可贯穿的阵列",
+    "geometry": {"kind":"line","reach":2,"maxTargets":2,"delay":1},
     "learningTier": "high",
     "tempoRole": "进阶交锋",
     "intentCost": 0,
@@ -1531,7 +1536,8 @@ export const TACTIC_DESIGNS = {
     "targets": 2,
     "shield": 0.08,
     "ward": 20,
-    "description": "为2格内最多两队友军提供兵力上限8%的护盾与减伤20%；护盾持续8回合、减伤持续5回合。"
+    "description": "为2格内最多两队合资格友军提供兵力上限8%的护盾与减伤20%，优先同列其他友军；护盾持续8回合、减伤持续5回合。",
+    "supportPosition": "column"
   },
   "rattan-wall": {
     "id": "rattan-wall",
@@ -1629,6 +1635,7 @@ export const TACTIC_DESIGNS = {
     "range": 5,
     "scale": 2,
     "targetRear": true,
-    "description": "集中射击5格内敌军，优先合法后排；仍遵守嘲讽和近战拦截。"
+    "description": "沿5格内目标方向贯穿射击，最多命中三队敌军，主目标以外的伤害为50%；优先合法后排，山壁截断射线，仍遵守嘲讽和近战拦截。",
+    "geometry": {"kind":"line","reach":5,"maxTargets":3,"secondaryScale":0.5,"delay":2}
   }
 };

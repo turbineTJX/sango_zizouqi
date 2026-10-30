@@ -14,6 +14,7 @@ import {advancePersonnel} from '../personnel-movement.mjs';
 import {forecastStrategicPreparation} from '../strategic-forecast.mjs';
 import {actionCandidates,assignDomestic,assignmentFor} from '../domestic.mjs';
 import {chooseFactionStrategy,newFactionStrategy} from '../strategic-policy.mjs';
+import {registerStrategicAlgorithm,setStrategicAlgorithms} from '../strategic-algorithms.mjs';
 
 test('a ruler selects one main front and capture leaves bind actual armies, not speculative rewards',()=>{
  const {s,target,home}=planningFront(),gold=home.gold;planStrategicAI(s);
@@ -22,6 +23,31 @@ test('a ruler selects one main front and capture leaves bind actual armies, not 
  assert.equal(p.phase,'attack');assert.equal(p.tasks.find(t=>t.id==='assault').status,'running');
  assert.ok(p.tasks.find(t=>t.id==='assault').refs.some(ref=>s.armies.some(a=>'army:'+a.id===ref)));
  assert.equal(home.gold,gold);assert.equal(target.owner,'cao');validateStrategicAI(s);
+});
+
+test('bounded target selection preserves different cities instead of filling its shortlist with one roster family',()=>{
+ const {s,home,target,rear}=planningFront(),context=strategicContext(s,'yuan'),previous=newFactionStrategy();
+ const variants=Array.from({length:12},(_,i)=>({candidateId:'roster:'+i,kind:'capture',targetFaction:'cao',targetCity:target.id,staging:home.id,ready:true,score:120-i,reason:'legal alternative roster',requirements:[]}));
+ const alternative={candidateId:'different-front',kind:'capture',targetFaction:'cao',targetCity:rear.id,staging:home.id,ready:true,score:90,reason:'another legal target',requirements:[]};
+ const result=chooseFactionStrategy(context,{style:'balanced'},previous,[...variants,alternative]);
+ assert.equal(result.goal.candidateId,'roster:0');
+ const captures=result.trace.at(-1).candidates.filter(c=>c.kind==='capture');
+ assert.deepEqual(captures.map(c=>c.candidateId),['roster:0','different-front']);
+ const better=chooseFactionStrategy(context,{style:'balanced'},previous,[...variants,{...alternative,score:150}]);
+ assert.equal(better.goal.candidateId,'different-front','a later source/target pair must still get compared');
+ assert.equal(variants.length,12);assert.ok(variants.every(c=>!Object.hasOwn(c,'utility')));
+ // Exercise the actual planner too: three roster variants per city used to
+ // stop the search before the fourth geographical choice was considered.
+ const f=planningFront(),targets=f.s.cities.filter(c=>![f.home.id,f.rear.id].includes(c.id)).slice(0,4),seen=[];
+ f.target.owner='neutral';f.target.domestic.owner='neutral';f.target.units=[];
+ f.s.roads=[[f.home.id,f.rear.id],...targets.map(c=>[f.home.id,c.id])];
+ for(const [i,c]of targets.entries()){c.units=[];c.owner='neutral';c.domestic.owner='neutral';c.x=8+i;c.y=0;f.s.roadSegments[[f.home.id,c.id].sort().join(':')]={distance:1};}
+ initializeVision(f.s);
+ const cleanup=registerStrategicAlgorithm('goalEvaluator',{id:'test-target-breadth-v1',run:({candidate})=>{if(candidate.kind==='capture')seen.push(candidate.targetCity);return {score:candidate.kind==='capture'?100:0};}});
+ try{assert.equal(setStrategicAlgorithms(f.s,{goalEvaluator:'test-target-breadth-v1'}),null);planStrategicAI(f.s);
+  for(const c of targets)assert.ok(seen.includes(c.id),'planner must compare target '+c.id);
+  assert.ok(seen.length>8,'fixture must exceed the former early-stop budget');
+ }finally{cleanup();}
 });
 test('force selection repairs post-capture defense shortfalls by considering larger legal groups',()=>{
  const {s,home,target,rear}=planningFront();target.units=[];target.commerce=10;rear.owner='cao';rear.domestic.owner='cao';rear.x=16;
@@ -44,6 +70,22 @@ test('a preparing objective waits for real gold delivery and the next ten-day re
  assert.equal(home.gold,initialGold+cargo);const revision=s.campaign.ai.factions.yuan.strategy.revision;
  for(let day=2;day<=10;day++){s.campaign.day=day;planStrategicAI(s);assert.equal(s.campaign.ai.factions.yuan.strategy.revision,revision);assert.equal(s.campaign.ai.plans.filter(p=>p.faction==='yuan').length,0);}
  s.campaign.day=11;s.turn=2;updateVision(s);planStrategicAI(s);assert.ok(s.campaign.ai.plans.some(p=>p.faction==='yuan'&&p.phase==='attack'));
+});
+
+test('operation deadlines budget forecast preparation once without extending during execution',()=>{
+ const setup=()=>{const f=planningFront();f.target.units=[];f.s.roadSegments[[f.home.id,f.target.id].sort().join(':')]={distance:45};initializeVision(f.s);return f;};
+ const immediate=setup();planStrategicAI(immediate.s);const first=immediate.s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.ok(first);
+ // Replace only the bounded preparation predictor; all actual troops, costs,
+ // routes, admission and commands still pass the real planner and executor.
+ const cleanup=registerStrategicAlgorithm('preparationPredictor',{id:'test-deadline-ready-v1',run:({context,horizonDays})=>({feasible:true,readyDay:context.day+horizonDays,reason:'bounded preparation forecast'})});
+ try{
+  const delayed=setup();assert.equal(setStrategicAlgorithms(delayed.s,{preparationPredictor:'test-deadline-ready-v1'}),null);planStrategicAI(delayed.s);
+  const p=delayed.s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.ok(p);assert.deepEqual(p.officerIds,first.officerIds);
+  assert.ok(p.deadline>first.deadline&&p.deadline<=first.deadline+20,'initial patience may already cover part of the forecast wait');assert.equal(delayed.home.grain,immediate.home.grain,'forecast grants no extra grain');
+  const deadline=p.deadline,copy=JSON.parse(serializeCampaign(delayed.s));validateStrategicAI(copy);
+  for(const world of [delayed.s,copy]){world.campaign.day++;planStrategicAI(world);assert.equal(world.campaign.ai.plans.find(q=>q.id===p.id).deadline,deadline);}
+  assert.equal(serializeCampaign(delayed.s),serializeCampaign(copy));
+ }finally{cleanup();}
 });
 test('hidden enemy stocks, orders and battle RNG never enter strategic or diplomatic assessments',()=>{
  const s=newCampaign(417,'guandu-200'),f='yuan',source=s.cities.find(c=>c.owner==='cao'&&c.units.length&&!strategicContext(s,f).reports.some(r=>r.id===c.id&&r.visible));

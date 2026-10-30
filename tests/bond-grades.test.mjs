@@ -1,3 +1,4 @@
+import {deployUnmarkedStarters} from './helpers/unmarked-deployment.mjs';
 import {bondLineup} from './helpers/bond-lineups.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {BOND_DESIGNS as D} from '../data/design/bonds.mjs';import {BOND_ASSIGNMENTS as A,BOND_TRIPLE_OFFICERS as triples} from '../data/design/bond-assignments.mjs';import {OFFICER_DESIGNS as O} from '../data/design/officers.mjs';
@@ -5,9 +6,9 @@ import {bondDamage,bondProtection,bondAttributes,sideBonds} from '../bonds.mjs';
 import {unitAttributes} from '../unit-stats.mjs';import {createScenario} from '../scenarios.mjs';import {lockDeployment,stepBattle,validateSave,deployUnit} from '../engine.mjs';import {DESIGN_TABLES,validateDesignTables} from '../design-catalog.mjs';
 const id=n=>Object.values(O).find(o=>o.name===n).id;
 const team=(names,type='spear')=>names.map(name=>({id:id(name),level:10,troops:4000,type}));
-const scene=(names,side=0,type='spear')=>{names=bondLineup(({公孙瓒:'bondSwift',郝昭:'bondBulwark',黄忠:'bondVolley',夏侯惇:'bondLastStand'})[names[0]],names.filter(n=>!['黄忠','韩当'].includes(n)||names[0]==='黄忠'));const own=team(names,type),enemy=team(['曹操','刘备','关羽','张飞']);const s=createScenario('custom-battle',9181,20,null,{seed:9181,terrain:'land',ownTeam:side?enemy:own,enemyTeam:side?own:enemy});lockDeployment(s.battle);return s;};
-test('rarity uses twenty-five common pools and six specified scarce rosters, with fewer than ten triple-label exceptions',()=>{
- assert.equal(Object.values(D).filter(d=>d.grade==='basic').length,25);assert.equal(Object.values(D).filter(d=>d.grade==='advanced').length,6);
+const scene=(names,side=0,type='spear')=>{names=bondLineup(({公孙瓒:'bondSwift',郝昭:'bondBulwark',黄忠:'bondVolley',夏侯惇:'bondLastStand'})[names[0]],names.filter(n=>!['黄忠','韩当'].includes(n)||names[0]==='黄忠'));const own=team(names,type),enemy=team(['曹操','刘备','关羽','张飞']);const s=createScenario('custom-battle',9181,20,null,{seed:9181,terrain:'land',ownTeam:side?enemy:own,enemyTeam:side?own:enemy});deployUnmarkedStarters(s.battle);lockDeployment(s.battle);return s;};
+test('rarity uses twenty-seven common pools and six specified scarce rosters, with fewer than ten triple-label exceptions',()=>{
+ assert.equal(Object.values(D).filter(d=>d.grade==='basic').length,27);assert.equal(Object.values(D).filter(d=>d.grade==='advanced').length,6);
  assert.ok(Object.entries(A).every(([id,a])=>Object.keys(a).length>=1&&Object.keys(a).length<=(triples.includes(id)?3:2)));
  assert.ok(Object.values(A).filter(a=>Object.keys(a).length===3).length<10);
  for(const [key,d]of Object.entries(D)){const holders=Object.entries(A).filter(([,a])=>a[key]);if(d.grade==='advanced'){assert.ok(holders.length>=3&&holders.length<=8);assert.deepEqual(holders.map(([id])=>id).sort(),[...d.roster].sort());}else assert.ok(holders.length>=20);}
@@ -15,7 +16,7 @@ test('rarity uses twenty-five common pools and six specified scarce rosters, wit
  const bad=structuredClone(DESIGN_TABLES);const plain=id('王肃');bad.bondAssignments[plain]={bondScholar:1,bondSteady:1,bondMuster:1};assert.ok(validateDesignTables(bad).some(e=>e.includes('指定稀有武将可有三种')));
  const inflated=structuredClone(DESIGN_TABLES);inflated.bondAssignments[plain].bondWisdom=1;assert.ok(validateDesignTables(inflated).some(e=>e.includes('指定稀有武将')));
  const invalid=structuredClone(DESIGN_TABLES);invalid.bonds.bondLastStand.grade='rare';assert.ok(validateDesignTables(invalid).some(e=>e.includes('定位')));
- assert.deepEqual(bondOverview().groups.map(g=>g.rows.length),[25,6]);
+ assert.deepEqual(bondOverview().groups.map(g=>g.rows.length),[27,6]);
  assert.match(JSON.stringify(bondReference('bondValor')),/战意严格低于自身/);assert.match(JSON.stringify(bondReference('bondValor')),/治疗、护盾和增益正常生效/);assert.match(JSON.stringify(bondReference('bondBeauty')),/削减命中目标24战意/);assert.match(JSON.stringify(bondReference('bondBeauty')),/全场在场敌军各有70%/);
 });
 test('simple synergies retain real limits: Swift changes move without removing root or adding range',()=>{

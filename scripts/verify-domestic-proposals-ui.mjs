@@ -37,9 +37,12 @@ try{
  await action('close').last().click();assert.equal((await saved()).campaign.day,1);
  for(let i=0;i<3&&await page.locator('#overlay-root .modal-backdrop').count();i++)await action('close').last().click();
  await action('domestic-proposals').first().click();assert.equal(await page.locator('.domestic-proposal').count(),2);
+ await action('domestic-auto-approve').first().click();state=await saved();assert.equal(state.campaign.domestic.autoApprove,true);assert.equal(state.cities.find(c=>c.id==='xuchang').gold,40000);assert.equal(await page.locator('.domestic-proposal').count(),2);assert.equal(await action('domestic-auto-approve').getAttribute('aria-checked'),'true');
+ await page.reload();await page.locator('.domestic-proposal').first().waitFor();assert.equal(await page.locator('.domestic-proposal').count(),2);assert.equal((await saved()).campaign.domestic.autoApprove,true);
+ await action('domestic-auto-approve').first().click();assert.equal((await saved()).campaign.domestic.autoApprove,false);
  await action('domestic-proposal-reject').first().click();assert.equal((await saved()).cities.find(c=>c.id==='xuchang').gold,40000);
  state=await saved();const approved=state.campaign.domestic.assignments.find(a=>a.proposal).proposal;
- await action('domestic-proposal-approve').first().click();state=await saved();
+ await action('domestic-proposal-approve-page').click();state=await saved();assert.equal(state.campaign.domestic.autoApprove,false);
  assert.equal(state.cities.find(c=>c.id==='xuchang').gold,40000-approved.pick.cost);assert.ok(state.campaign.domestic.assignments.some(a=>a.action));
  await action('domestic-auto-approve').first().click();assert.equal((await saved()).campaign.domestic.autoApprove,true);
  await page.screenshot({path:out+'/decided-mobile.png',fullPage:true});

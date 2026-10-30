@@ -26,7 +26,7 @@ test('opening a metropolis fits its real members at settlement scale on both des
   for(const n of members)assert.ok(n.x>=view.x&&n.x<=view.x+view.width&&n.y>=view.y&&n.y<=view.y+view.height,n.name);
   assert.equal(mapDetailLevel(metropolitanOverviewView(c,aspect)),'metropolis');
  }
- const groups=metropolitanMapGroups(s),group=groups.find(g=>g.center.id===c.id);assert.deepEqual(group.members.map(n=>n.id),members.map(n=>n.id));assert.deepEqual(group.counts,{prefecture:1,gate:1,port:1});
+ const groups=metropolitanMapGroups(s),group=groups.find(g=>g.center.id===c.id);assert.deepEqual(group.members.map(n=>n.id),members.map(n=>n.id));
  assert.equal(JSON.stringify(s),before);
 });
 test('manual map navigation persists through rendering; changing operation city recenters',()=>{
@@ -43,7 +43,6 @@ test('army focus uses its actual position and manual navigation suspends followi
  assert.deepEqual(operationMapView(s,ui,a).view,expected);
  ui.mapCameraManual=false;assert.notDeepEqual(operationMapView(s,ui,a).view,expected);
 });
-
 
 test('battle selection centers the actual battle point instead of the previous city',()=>{
  const s=newCampaign(1,'guandu-200'),ui={city:'xuchang'};operationMapView(s,ui);

@@ -5,7 +5,12 @@ export function validateStrategyDesigns(t){
  const fields=(r,keys,path)=>{if(!r||typeof r!=='object'||Array.isArray(r)){errors.push(path+'：必须为记录');return false;}for(const key of Object.keys(r))check(keys.includes(key),path,'未接入字段 '+key);return true;};
  const economy=t.economy;
  const planning=t.strategicPlanning;
- if(fields(planning,['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','switchMargin','peacePressureRatio','preparationTurns','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority','resourcePriority','victory','opposition','recovery','tempo','temperament','assessment','algorithms','personnel'],'strategicPlanning')){
+ if(fields(planning,['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','switchMargin','peacePressureRatio','preparationTurns','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority','resourcePriority','victory','opposition','recovery','tempo','temperament','assessment','algorithms','personnel','concentration'],'strategicPlanning')){
+  if(fields(planning.concentration,['partialUnits','minimumGapProgress','stallDays','restDays'],'strategicPlanning.concentration')){
+   const p=planning.concentration;
+   check(Number.isSafeInteger(p.partialUnits)&&num(p.partialUnits,1,6)&&num(p.minimumGapProgress,.05,.5),'strategicPlanning.concentration','分步集结须限制实际队数与最小缺口改善');
+   for(const k of ['stallDays','restDays'])check(Number.isSafeInteger(p[k])&&num(p[k],10,30),'strategicPlanning.concentration.'+k,'停滞与调动保护须为有界天数');
+  }
   for(const key of ['version','traceLimit','candidateLimit','pairLimit','forceVariants','assemblyDays','preparationTurns'])check(Number.isSafeInteger(planning[key])&&planning[key]>0,'strategicPlanning.'+key,'须为正整数');
   check(planning.pairLimit>=planning.candidateLimit&&planning.pairLimit<=64,'strategicPlanning.pairLimit','边境枚举须覆盖候选且不超过64组');
   for(const key of ['switchMargin','preparationPenalty','uncertaintyPerDay','maximumUncertainty','peacePriority','defensePriority'])check(num(planning[key],0),'strategicPlanning.'+key,'须为非负数');

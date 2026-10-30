@@ -4,17 +4,18 @@ import {hidden} from './battle-status-rules.mjs';
 import {art} from './art-assets.mjs';
 import {hexCenter} from './hex-grid.mjs';
 import {unitSpriteClips,unitModelKey} from './unit-appearance.mjs';
-import {castFrame,castPose,unitCastAction} from './battle-cast-animation.mjs';
-import {unitStatusMotion,troopFormation,troopAttackFrame} from './battle-unit-motion.mjs';
+import {castFrame,castPose,unitCastAction,actorCastProgress} from './battle-cast-animation.mjs';
+import {unitStatusMotion,troopFormation,troopAttackFrame,casualtyFrame} from './battle-unit-motion.mjs';
 import {presentationStyle} from './presentation-style.mjs';
+import {transitionFrame} from './battle-transitions.mjs';
 
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const smooth=t=>t*t*(3-2*t);
 const ranged=type=>TROOP_DESIGNS[type]?.range>1;
 // All animation state lives here; positions, hits and casualties remain engine-owned.
 export function attackPose(progress,type){
- const p=clamp(progress),strike=Math.sin(clamp((p-.2)/.36)*Math.PI);
- return {reach:ranged(type)?-Math.sin(p*Math.PI)*.045:(p<.2?-.06*Math.sin(p/.2*Math.PI):strike*(type==='cavalry'?.3:.18)),recoil:Math.sin(clamp((p-.48)/.32)*Math.PI)*.08};
+ const p=clamp(progress),pose=castPose(p,type==='cavalry'?'charge':'strike');
+ return {reach:ranged(type)?-Math.sin(p*Math.PI)*.045:pose.reach,recoil:Math.sin(clamp((p-.52)/.32)*Math.PI)*.08};
 }
 export function facingRow(dx,dy,side=0){
  if(Math.abs(dx)+Math.abs(dy)<.0001)return side?1:3;
@@ -42,10 +43,16 @@ export class BattleArt {
   const localEvents=events.filter(e=>!e.enchantment&&(!e.skill||!this.fx?.cinematics.some(c=>c.events.some(hit=>hit.from===e.from&&hit.label===e.label))));
   const live=b.sides.flatMap(s=>s.units).filter(u=>u.status==='active'&&(!b.deploymentLocked||u.side===0||!hidden(b,u)));
   for(const [id,u]of this.units)if(!live.some(v=>v.id===id)&&u.deadAt===undefined){
+   const actual=b.sides.flatMap(s=>s.units).find(v=>v.id===id);
+   if(actual?.status==='active'&&actual.side===1&&hidden(b,actual)){this.units.delete(id);continue;}
    if(paused)this.units.delete(id);else{
+    u.defeated=actual?.status==='defeated'&&actual.hp<=0;
     u.deadAt=this.clock;
-    const hits=this.fx?.actions.flatMap(a=>a.events.filter(e=>e.to===id&&e.damage>0).map(()=>a.start+a.duration*.52))||[];
-    u.deathFxAt=hits.length?Math.max(...hits):this.fx?.clock;
+    const transition=this.fx?.transitions?.items.findLast(e=>e.id===id&&['rout','exit'].includes(e.kind));
+    const fatal=this.fx?.actions.find(a=>a.events.some(e=>e.to===id&&e.defeated));
+    u.deathFxAt=transition?.start??(fatal?fatal.start+fatal.duration*.52:this.fx?.clock);
+    u.deathDuration=transition?.duration??600;
+    if(transition?.kind==='exit'){u.x=actual.x;u.y=actual.y;u.pos=hexCenter(actual.x,actual.y);u.from=undefined;}
    }
   }
   for(const u of live){
@@ -70,6 +77,11 @@ export class BattleArt {
   for(const u of live){art.image(art.portraitURL(u.id),this.onAssetReady);art.image(art.portraitURL(u.id,'battle'),this.onAssetReady);}
  }
  position(u){
+  const transition=this.fx?.transitions?.forUnit(u.id,this.fx.clock);
+  if(transition&&['entry','exit'].includes(transition.kind)){
+   const frame=transitionFrame(transition,this.fx.clock,{reduced:this.reduced.matches});
+   return {x:u.pos.x+frame.offsetX/14.5,y:u.pos.y};
+  }
   const charge=this.fx?.actions.find(a=>a.events.some(e=>e.from===u.id&&e.visual==='charge'&&(e.damage>0||e.shieldAbsorbed>0))&&a.end>this.fx.clock);
   if(charge){
    const e=charge.events.find(e=>e.from===u.id),from=hexCenter(e.fromX,e.fromY),t=this.reduced.matches?1:smooth(castFrame((this.fx.clock-charge.start)/charge.duration).flight);
@@ -90,15 +102,18 @@ export class BattleArt {
   const units=[...this.units.values()].sort((a,b)=>a.pos.y-b.pos.y);
   const actions=this.fx?.currentActions()||[];
   for(const u of units){
-   const dying=u.deadAt!==undefined,death=dying?u.deathFxAt!==undefined?clamp((this.fx.clock-u.deathFxAt)/600):clamp((this.clock-u.deadAt)/.6):0;
+   const dying=u.deadAt!==undefined,death=dying?u.deathFxAt!==undefined?clamp((this.fx.clock-u.deathFxAt)/(u.deathDuration||600)):clamp((this.clock-u.deadAt)/.6):0;
+   const transition=this.fx?.transitions?.forUnit(u.id,this.fx.clock),arrival=transition?transitionFrame(transition,this.fx.clock,{reduced:this.reduced.matches}):null;
+   const casualty=casualtyFrame(death,{reduced:this.reduced.matches,defeated:u.defeated!==false});
+   if(arrival&&transition.kind!=='rout')casualty.opacity=arrival.opacity;
    if(death>=1){this.units.delete(u.id);continue;}
    const casting=unitCastAction(actions,u.id),attack=casting?.action,actor=casting?.event;
    const reaction=this.fx?.feedback?.reaction(u.id,this.fx.clock);
    const hit=actions.find(a=>a.events.some(e=>e.to===u.id&&e.damage>0)),victim=reaction?.hit||hit?.events.find(e=>e.to===u.id&&e.damage>0);
    const statuses=this.fx?.feedback?.statusesFor(u.id,this.fx.clock)||[],bodyTime=this.fx?this.fx.clock/1000:this.clock;
    const state=unitStatusMotion(statuses,bodyTime,0,this.reduced.matches);
-   const moving=!cinematic&&!state.rooted&&u.moveAt!==undefined&&this.clock-u.moveAt<.48;
-   let ap=this.fx?(attack?clamp((this.fx.clock-attack.start)/attack.duration):1):clamp((this.clock-(u.attackAt??-10))/.65);
+   const moving=!!arrival?.walking||!cinematic&&!state.rooted&&u.moveAt!==undefined&&this.clock-u.moveAt<.48;
+   let ap=this.fx?(attack?actorCastProgress((this.fx.clock-attack.start)/attack.duration,actor):1):clamp((this.clock-(u.attackAt??-10))/.65);
    const attacking=ap<1&&!!actor&&!state.blocked,target=actor?hexCenter(actor.x,actor.y):u.target;
    const clips=unitSpriteClips(art.pack,u),key=attacking?'attack':moving?'move':'idle',clip=clips?.[key]||clips?.idle;
    const img=art.image(clip?.url,this.onAssetReady),el=elements.get(u.id),model=this.models?.hasUnit(u.id);
@@ -120,14 +135,14 @@ export class BattleArt {
    const recoil=this.reduced.matches?0:this.fx?.feedback?(reaction?.recoil||0)*cell:Math.sin(recoilP*Math.PI)*cell*.09;
    const hitFrom=victim?hexCenter(victim.fromX,victim.fromY):null,hitDx=hitFrom?(hitFrom.x-p.x)*w:nx,hitDy=hitFrom?(hitFrom.y-p.y)*h:ny,hitLength=Math.hypot(hitDx,hitDy)||1;
    let x=p.x*w-hitDx/hitLength*recoil,y=p.y*h-hitDy/hitLength*recoil;
-   const row=Math.min(clip.rows-1,actor?facingRow(dx,dy,u.side):(u.facing??facingRow(0,0,u.side)));
+   const row=Math.min(clip.rows-1,arrival?facingRow(arrival.facing,0,u.side):actor?facingRow(dx,dy,u.side):(u.facing??facingRow(0,0,u.side)));
    const size=cell*(combatFamily(u)==='cavalry'?.57:.5),sw=img.width/clip.columns,sh=img.height/clip.rows;
    const formation=troopFormation(combatFamily(u)),anchors=[];
-   c.save();c.globalAlpha=(1-death)*state.opacity;
+   c.save();c.globalAlpha=casualty.opacity*state.opacity;
    if(!this.reduced.matches&&moving){c.fillStyle='#cdbb8750';for(let j=0;j<4;j++){c.beginPath();c.ellipse(x-nx*cell*.3-j*3,y+cell*.05+Math.sin(this.clock*11+j)*3,4+j*2,2+j,0,0,Math.PI*2);c.fill();}}
    for(let i=0;i<formation.length;i++){
     const [ox,oy]=formation[i],phase=i*.47,body=unitStatusMotion(statuses,bodyTime,i,this.reduced.matches);
-    const elapsed=bodyTime*body.gait,sp=troopAttackFrame(ap,i),gesture=attacking?(actor?.skill?castPose(sp,actor.presentationKind):attackPose(sp,u.type)):null;
+    const elapsed=bodyTime*body.gait,sp=troopAttackFrame(ap,i),gesture=attacking?(actor?.skill?castPose(ap,actor.presentationKind):attackPose(ap,u.type)):null;
     const frame=this.reduced.matches||body.blocked?0:attacking?Math.min(clip.frames-1,Math.floor(sp*clip.frames)):Math.floor((elapsed+phase)%clip.duration/clip.duration*clip.frames);
     const bob=this.reduced.matches||!moving?0:Math.sin(elapsed*18+phase)*size*.045;
     const reach=this.reduced.matches?0:(gesture?.reach||0)*cell,lift=this.reduced.matches?0:(gesture?.lift||0)*cell;
@@ -135,21 +150,23 @@ export class BattleArt {
     anchors.push({x:bx,y:by,size,facing:nx>=0?1:-1});
     const soldierRow=(row+body.turn)%clip.rows;
     c.save();c.translate(bx,by);
-    if(!this.reduced.matches){c.rotate(((gesture?.lean||0)+body.lean)*(u.side?-1:1));c.scale(1+(gesture?.squash||0),1-(gesture?.squash||0));if(dying)c.rotate((u.side?-1:1)*death*1.1);}
+    if(!this.reduced.matches){c.rotate(((gesture?.lean||0)+body.lean)*(u.side?-1:1));c.scale(1+(gesture?.squash||0),1-(gesture?.squash||0));if(dying)c.rotate((u.side?-1:1)*casualty.fall*1.35);}
     if(body.tint){c.shadowColor=body.tint;c.shadowBlur=Math.min(3,size*.08);}
     c.drawImage(img,frame*sw,soldierRow*sh,sw,sh,-size/2,-size*.88,size,size);c.shadowBlur=0;
     if(reaction?.flash>0&&!this.reduced.matches){
-     c.filter='brightness(0) invert(1)';c.globalAlpha=(1-death)*reaction.flash*.85;
+     c.filter='brightness(0) invert(1)';c.globalAlpha=casualty.opacity*reaction.flash*.85;
      c.drawImage(img,frame*sw,soldierRow*sh,sw,sh,-size/2,-size*.88,size,size);
     }
     c.restore();
    }
    this.bodies.set(u.id,anchors);
+   c.save();c.translate(x-cell*.35,y);c.rotate(-casualty.fall*1.35);c.translate(-x+cell*.35,-y);
    c.imageSmoothingEnabled=true;c.strokeStyle='#d9c39a';c.lineWidth=1.3;c.beginPath();c.moveTo(x-cell*.35,y-cell*.12);c.lineTo(x-cell*.35,y-cell*.62);c.stroke();
    c.fillStyle=u.side?'#ad493c':'#287763';c.beginPath();c.moveTo(x-cell*.35,y-cell*.62);c.lineTo(x-cell*.08,y-cell*.57);c.lineTo(x-cell*.35,y-cell*.43);c.fill();
    c.restore();
+   c.restore();
   }
-  this.models?.draw(this.clock,{position:u=>this.position(u),actions,hits:this.fx?.feedback?.hits,statuses:id=>this.fx?.feedback?.statusesFor(id,this.fx.clock)||[],clock:this.fx?.clock});if(!this.paused)this.invalidate();
+  this.models?.draw(this.clock,{position:u=>this.position(u),actions,hits:this.fx?.feedback?.hits,statuses:id=>this.fx?.feedback?.statusesFor(id,this.fx.clock)||[],transition:id=>this.fx?.transitions?.forUnit(id,this.fx.clock),clock:this.fx?.clock});if(!this.paused)this.invalidate();
  }
  destroy(){this.dead=true;art.releaseImageListener(this.onAssetReady);document.removeEventListener?.('visibilitychange',this.onVisibility);cancelAnimationFrame(this.frame);this.resize.disconnect();this.models?.destroy();this.canvas.remove();}
 }

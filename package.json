@@ -5,6 +5,13 @@
   "type": "module",
   "description": "三国 · 君临：离线君主策略玩法原型",
   "scripts": {
+    "ai:iterate": "node scripts/ai-validation/cli.mjs",
+    "audit:ai-local-loop": "node scripts/ai-validation/local-campaign.mjs",
+    "test:ai-local-loop": "node --test tests/ai-local-campaign.test.mjs tests/strategic-victory.test.mjs tests/all-ai-campaign.test.mjs tests/national-campaign.test.mjs",
+    "test:ai-validation": "node --test tests/ai-validation.test.mjs tests/ai-repair-validation.test.mjs",
+    "battle:iterate": "node scripts/battle-validation/cli.mjs",
+    "test:battle-validation": "node --test tests/battle-validation.test.mjs tests/ai-validation.test.mjs",
+    "verify:ai-validation": "node --test --test-concurrency=1 tests/ai-validation-runtime.test.mjs",
     "test:map-editor": "node --test tests/battle-map-editor.test.mjs tests/custom-battle.test.mjs tests/battle-generator.test.mjs tests/battle-map-variety.test.mjs tests/terrain.test.mjs tests/historical-maps.test.mjs",
     "verify:map-editor": "node scripts/verify-battle-map-editor-ui.mjs",
     "test:geographic-roads": "node --test tests/geographic-roads.test.mjs tests/road-encounter-terrain.test.mjs tests/road-network.test.mjs tests/strategic-nodes.test.mjs tests/strategic-movement.test.mjs tests/ancient-atlas.test.mjs tests/atlas-cities.test.mjs",
@@ -21,7 +28,7 @@
     "audit:bandits": "node scripts/audit-bandits.mjs",
     "test:map-presentation": "node --test tests/strategic-map-presentation.test.mjs tests/strategic-hud.test.mjs tests/art-strategic-map.test.mjs tests/strategic-map-camera.test.mjs tests/strategic-vision.test.mjs tests/map-route.test.mjs tests/map-object-menu.test.mjs tests/campaign-info.test.mjs tests/prefectures.test.mjs tests/national-geography.test.mjs tests/city-scene.test.mjs tests/city-idle-directory.test.mjs",
     "verify:map-presentation": "node scripts/verify-strategic-map-presentation-ui.mjs",
-    "test:battle-readability": "node --test tests/troop-animation.test.mjs tests/battle-unit-motion.test.mjs tests/battle-cinematic.test.mjs tests/battle-presentation.test.mjs tests/battle-cast-animation.test.mjs tests/battle-feedback.test.mjs tests/battle-effects.test.mjs tests/battle-animation.test.mjs tests/battle-signals.test.mjs tests/ability-cues.test.mjs",
+    "test:battle-readability": "node --test tests/battle-experience-view.test.mjs tests/troop-animation.test.mjs tests/battle-unit-motion.test.mjs tests/battle-transitions.test.mjs tests/battle-cinematic.test.mjs tests/battle-presentation.test.mjs tests/battle-cast-animation.test.mjs tests/battle-feedback.test.mjs tests/battle-effects.test.mjs tests/battle-animation.test.mjs tests/battle-signals.test.mjs tests/ability-cues.test.mjs",
     "verify:battle-cinematic": "node scripts/verify-battle-cinematic-ui.mjs",
     "verify:battle-body": "node scripts/verify-battle-unit-motion-ui.mjs",
     "verify:battle-models": "node scripts/verify-battle-model-quality-ui.mjs",
@@ -43,6 +50,9 @@
     "test:asset-pack": "node --test tests/asset-pack.test.mjs tests/art.test.mjs tests/city-scene.test.mjs tests/art-strategic-map.test.mjs",
     "test:page-guides": "node --test tests/page-guides.test.mjs",
     "verify:page-guides-ui": "node scripts/verify-page-guides-ui.mjs",
+    "verify:player-interaction-ui": "node scripts/verify-player-interaction-ui.mjs",
+    "verify:interaction-continuity-ui": "node scripts/verify-interaction-continuity-ui.mjs",
+    "test:interaction-continuity": "node --test tests/interaction-continuity.test.mjs",
     "test:technology-upgrades": "node --test tests/technology-upgrades.test.mjs tests/equipment-fixed-actions.test.mjs tests/current-fixed-actions.test.mjs tests/troop-families.test.mjs tests/attributes.test.mjs tests/loadouts.test.mjs tests/terrain.test.mjs tests/expanded-troops.test.mjs tests/status-rules62.test.mjs tests/tactic-learning.test.mjs tests/tactic-tempo.test.mjs tests/intent-tempo.test.mjs tests/troop-output.test.mjs tests/ability-differentiation.test.mjs tests/stratagem-pools.test.mjs tests/command-specials.test.mjs tests/engine-command-phase.test.mjs tests/passives.test.mjs tests/custom-battle.test.mjs tests/ai-logic.test.mjs tests/ai-target-command.test.mjs tests/deployment-order.test.mjs tests/intent-rout.test.mjs tests/attack-orbs.test.mjs tests/battle-troop-budget.test.mjs tests/custom-reinforcements.test.mjs tests/scenario-setup.test.mjs tests/mechanism-fixes.test.mjs tests/siege-power.test.mjs tests/siege-supply.test.mjs tests/bond-playstyles.test.mjs tests/military-flow.test.mjs tests/strategic-command.test.mjs tests/city-expedition.test.mjs",
     "verify:technology-upgrades-ui": "node scripts/verify-technology-upgrades-ui.mjs",
     "test:war-fog": "node --test tests/scouting-routes.test.mjs tests/strategic-vision.test.mjs tests/strategic-ai-scouting.test.mjs tests/territorial-vision.test.mjs tests/regional-watchtower.test.mjs",
@@ -249,7 +259,13 @@
     "verify:campaign-ending": "node scripts/verify-campaign-ending-ui.mjs",
     "verify:android-device": "node scripts/verify-android-device.mjs",
     "verify:campaign-performance": "node scripts/verify-campaign-performance.mjs",
-    "verify:natural-completion": "node scripts/verify-completion-evidence.mjs"
+    "verify:natural-completion": "node scripts/verify-completion-evidence.mjs",
+    "docs:manual": "node scripts/build-player-manual.mjs",
+    "docs:manual:check": "node scripts/build-player-manual.mjs --check",
+    "verify:manual-ui": "node scripts/verify-player-manual-ui.mjs",
+    "docs:manual:watch": "node scripts/watch-player-manual.mjs",
+    "docs:manual:review": "node scripts/review-player-manual.mjs",
+    "test:manual": "node --test tests/player-manual-sync.test.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -8,11 +8,13 @@ import {AbilityCues,isHighlightedAbility} from './ability-cues.mjs';
 import {hidden} from './battle-status-rules.mjs';
 import {battleDay} from './player-time.mjs';
 import {scheduleBattleActions,observedUnitAction} from './battle-presentation.mjs';
-import {castPalette,castVisualEvents,drawCastSource,drawCastTarget} from './battle-cast-animation.mjs';
+import {castPalette,castVisualEvents,drawCastSource,drawCastTarget,actorCastProgress} from './battle-cast-animation.mjs';
 import {BattleFeedback} from './battle-feedback.mjs';
 import {battleMapStatusMarkup} from './battle-labels.mjs';
 import {BattleTextCache} from './battle-text-cache.mjs';
 import {presentationStyle} from './presentation-style.mjs';
+import {BattleBondEffects} from './battle-bond-effects.mjs';
+import {BattleTransitions} from './battle-transitions.mjs';
 // Presentation-only effects. All hits and casualties come from engine events.
 
 const COLORS = {
@@ -32,6 +34,8 @@ export class BattleEffects {
     this.canvas = canvas; this.ctx = canvas.getContext('2d'); this.feed = feed;
     this.signals = new BattleSignals();
     this.feedback = new BattleFeedback();
+    this.bonds = new BattleBondEffects();
+    this.transitions = new BattleTransitions();
     this.textCache=new BattleTextCache();this.onFonts=()=>{this.textCache.clear();this.invalidate();};document.fonts?.addEventListener?.('loadingdone',this.onFonts);
     this.cues = new AbilityCues(cues);
     this.items = []; this.notices = []; this.clock = 0; this.lastFrame = 0;
@@ -57,9 +61,12 @@ export class BattleEffects {
     if (this.battleId !== battle.id) {
       this.items = []; this.cinematics = []; this.actions=[];this.sounds=[];this.healthFrom=null;this.healthTo=null;this.focusedUnit=null; this.batch = null;
       this.feedback.reset();
+      this.bonds.reset();
+      this.transitions.reset();
       this.cues.reset();
       this.notices.forEach(n => n.element.remove()); this.notices = [];
       this.resultKey = null;
+      this.impactHealth=null;
       if(this.result){this.result.textContent='战斗记录 · 暂停查看';this.result.disabled=true;}
       this.battleId = battle.id;
     }
@@ -74,11 +81,12 @@ export class BattleEffects {
       // Stepping through paused turns must not queue historical hits for playback.
       if (paused) { this.items = []; this.cinematics = [];this.actions=[]; }
       this.healthFrom=this.healthTo;
-      this.healthTo=new Map(battle.sides.flatMap(s=>s.units).map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
+      this.healthTo=new Map([...battle.sides.flatMap(s=>s.units),...(battle.siege?[battle.siege.gate]:[])].map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
       this.healthFrom ||= this.healthTo;
+      this.impactHealth=new Map([...this.healthFrom].map(([id,u])=>[id,u.hp]));
       this.actions=this.actions.filter(a=>a.end>this.clock);
       this.batch = batch; this.consumed = 0;
-    }else this.healthTo=new Map(battle.sides.flatMap(s=>s.units).map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
+    }else this.healthTo=new Map([...battle.sides.flatMap(s=>s.units),...(battle.siege?[battle.siege.gate]:[])].map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
     this.unitActions=new Map(battle.sides.flatMap(s=>s.units).filter(u=>u.status==='active'&&(u.side===0||!hidden(battle,u))).map(u=>[u.id,observedUnitAction(battle,u)]));
     this.root=this.canvas.parentElement?.closest?.('.battle-layout');
     this.elements=[...(this.root?.querySelectorAll('.unit-nameplate,[data-unit]')||[])];
@@ -96,7 +104,7 @@ export class BattleEffects {
       const source = battle.sides.flatMap(s => s.units).find(u => u.id === event.from);
       if(event.abilityKind==='trait'&&source?.side===1&&hidden(battle,source))continue;
       const target = battle.sides.flatMap(s => s.units).find(u => u.id === event.to) || (battle.siege?.gate.id === event.to ? battle.siege.gate : null);
-      const e = { ...event, ...(event.intentDrained!==undefined?{text:''}:{}), tick:battle.tick, targetSide:target?.side,targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
+      const e = { ...event, ...(event.intentDrained!==undefined?{text:''}:{}), tick:battle.tick, targetSide:target?.side,targetInitial:target?.initial||target?.maxHp,targetName:target?.name || event.combo?.targetName || '', fromX: event.fromX ?? source?.x ?? event.x, fromY: event.fromY ?? source?.y ?? event.y, visual: event.visual || 'slash', name: event.name || source?.name || '', label: event.label || source?.skill || '', side: event.side ?? source?.side ?? 0, troop: event.troop || source?.type || 'spear', phase: event.phase || 'impact', start: this.clock };
       e.duration = (e.combo ? 1000 : 650) / speed;
       if(e.damageKind==='dot')e.ongoing=true;
       e.tacticalNote=tacticalNotes.get(`${e.from}:${e.label}`);
@@ -115,14 +123,13 @@ export class BattleEffects {
     // Major tactics receive a featured treatment. A link shares its originating
     // action window, including all actual damage and result information.
     const groups=[...casts.values()],linked=new Set();
-    for(const events of traits.values()){this.notice(events);this.cues.push(events,this.clock);if(isHighlightedAbility(events[0]))this.showResult(events);}
+    for(const events of traits.values()){this.notice(events);this.cues.push(events,this.clock);if(paused&&isHighlightedAbility(events[0]))this.showResult(events);}
     for(const events of groups){this.notice(events);if(paused&&!events[0].combo)this.cues.push(events,this.clock);}
     for(const events of groups.filter(events=>!events[0].combo)){
       const e=events[0];if(e.enchantment)continue;e.showCastLabel=isHighlightedAbility(e);
       const combo=groups.find(group=>group[0].combo&&group[0].from===e.from&&group[0].side===e.side);
       if(combo)linked.add(combo);
-      const merged=combo?[...events,...combo]:events;
-      if(paused||!isMajorCast(merged)){if(isHighlightedAbility(e))this.showResult(events);continue;}
+      if(paused){if(isHighlightedAbility(e))this.showResult(events);continue;}
       // The common action timeline below schedules skills and basic attacks
       // together, preserving the order in which the engine recorded them.
     }
@@ -146,13 +153,27 @@ export class BattleEffects {
     for(const order of pendingOrders){
       order.start=orderStart;order.scheduled=true;orderStart+=order.duration;
       if(order.events.length){
-        const action={events:order.events,start:order.start,duration:order.duration,end:order.start+order.duration,important:true,major:false,announced:true};
+        const action={events:order.events,start:order.start,duration:order.duration,end:order.start+order.duration,important:true,major:false,announced:true,order};
         for(const e of action.events){e.start=action.start;e.duration=action.duration;e.militaryOrder=true;e.presentationKind=order.key==='heal'?'heal':order.group==='control'?'control':'support';}
         this.actions.push(action);
+      }else{
+        this.actions.push({events:[],start:order.start,duration:order.duration,end:order.start+order.duration,important:true,major:false,announced:true,order});
       }
+    }
+    const units=battle.sides.flatMap(s=>s.units);
+    this.visibleActorIds=new Set(units.filter(u=>u.side===0||!hidden(battle,u)).map(u=>u.id));
+    // Attribute the crossing hit in raw engine order, before choreography groups
+    // multi-target actions or counterattacks into shared visual windows.
+    for(const e of fresh)if(e.to&&!e.combo){
+      const before=this.impactHealth?.get(e.to),after=Math.max(0,(before??0)+(e.healing||0)-(e.damage||0));
+      this.impactHealth?.set(e.to,after);
+      const target=units.find(u=>u.id===e.to);
+      if(before>0&&after===0&&target?.hp===0&&!target.isDecoy)e.defeated=true;
     }
     const orders=this.signals.orders.filter(o=>!o.feedbackSeen);
     this.feedback.update(this.signals.units,this.actions,orders,this.clock,{silent:changed&&paused,tick:battle.tick});
+    this.bonds.update(battle,fresh,this.actions,this.clock,{paused,speed,silent:changed&&paused});
+    this.transitions.update(battle,this.actions,this.clock,{speed,silent:changed&&paused||document.hidden});
     for(const order of orders)order.feedbackSeen=true;
     this.syncCinematicState();
     this.syncPresentation();
@@ -162,14 +183,17 @@ export class BattleEffects {
   currentActions(){return this.actions.filter(a=>a.start<=this.clock&&a.end>this.clock);}
   currentCinematic(){return this.cinematics.find(a=>a.start<=this.clock&&a.end>this.clock);}
   isCinematicPlaying() { return !!this.currentCinematic(); }
-  isPresentationPlaying(){return this.actions.some(a=>a.end>this.clock)||this.signals.orders.some(o=>o.start+o.duration>this.clock);}
+  isPresentationPlaying(){return this.bonds.isOpening(this.clock)||this.actions.some(a=>a.end>this.clock)||this.signals.orders.some(o=>o.start+o.duration>this.clock);}
+  stepDelay(standard){return Math.min(standard,this.actions.some(a=>a.major||a.order)?standard:480)/this.speed;}
   queueAudio(cue,play){
     const action=cue.from?this.actions.find(a=>a.events.some(e=>e.tick===this.tick&&e.from===cue.from&&e.label===cue.label)):null;
     const order=cue.key==='order'?this.signals.orders.find(o=>o.side===cue.side&&o.serial===cue.serial):null;
     // A voice needs its actual presentation window. Paused snapshots and
     // discarded actions must not turn into an unrelated line on resume.
     if(cue.voice&&(cue.from&&!action||cue.key==='order'&&!order))return;
-    const start=order?order.start+order.duration*.12:action?action.start+action.duration*(cue.voice?.08:.52):cue.terminal||['rout','victory','defeat','draw','order'].includes(cue.key)?Math.max(this.clock,...this.actions.map(a=>a.end)):this.clock;
+    const transition=cue.transition?this.transitions.items.find(e=>e.id===cue.unitId&&e.kind===cue.transition&&e.tick===this.tick):null;
+    if(cue.transition&&!transition)return;
+    const start=transition?transition.start:order?order.start+order.duration*.12:action?action.start+action.duration*(cue.voice?.08:.52):cue.terminal||['rout','victory','defeat','draw','order'].includes(cue.key)?Math.max(this.clock,...this.actions.map(a=>a.end),...this.transitions.items.map(e=>e.end)):this.clock;
     this.sounds.push({start,play,voice:!!cue.voice});
   }
   clearVoiceAudio(){this.sounds=this.sounds.filter(sound=>!sound.voice);}
@@ -203,7 +227,7 @@ export class BattleEffects {
       this.notices.splice(index,1)[0].element.remove();
     }
   }
-  isBusy() { return this.isPresentationPlaying() || this.items.some(e => this.clock - e.start < e.duration); }
+  isBusy() { return this.transitions.isPlaying(this.clock)||this.isPresentationPlaying() || this.items.some(e => this.clock - e.start < e.duration); }
   destroy() { this.destroyed = true;this.textCache.clear();document.fonts?.removeEventListener?.('loadingdone',this.onFonts);document.removeEventListener?.('visibilitychange',this.onVisibility); cancelAnimationFrame(this.frame); this.resize.disconnect();this.motionPreference.removeEventListener?.('change',this.onMotionPreference);this.stage?.removeEventListener?.('pointerdown',this.onPan);this.stage?.removeEventListener?.('wheel',this.onPan); this.items = []; this.cinematics = [];this.actions=[];this.sounds=[]; this.cues.reset();this.syncCinematicState(); this.notices.forEach(n=>n.element.remove()); this.notices = []; }
   clearEffects() {
     const latest = new Map();
@@ -222,19 +246,20 @@ export class BattleEffects {
   }
   syncPresentation(){
     const playing=this.isPresentationPlaying(),active=this.currentActions(),related=this.relatedUnitIds();
+    for(const action of this.actions)if(!action.resultShown&&this.clock>=action.start+action.duration*.52){action.resultShown=true;if(isHighlightedAbility(action.events[0]))this.showResult(action.events);}
     const statusMarkup=new Map();
     for(const u of this.signals.units)u.statuses=this.feedback.statusesFor(u.id,this.clock);
     for(const u of this.signals.units)statusMarkup.set(u.id,battleMapStatusMarkup(u.statuses));
     if(!this.paused)for(const action of active)if(!action.announced){
       action.announced=true;this.cues.push(action.events,this.clock);
-      if(action.important&&this.stage?.clientWidth<this.width&&this.clock>=(this.manualPanUntil||0)){
+      if(action.important&&action.events.length&&this.stage?.clientWidth<this.width&&this.clock>=(this.manualPanUntil||0)){
         const e=action.events[0],points=[e.fromX,...action.events.map(hit=>hit.x)].filter(Number.isFinite).map(x=>(x+.5)/HEX_GRID.width*this.width);
         if(points.length)this.stage.scrollTo({left:clamp((Math.min(...points)+Math.max(...points))/2-this.stage.clientWidth/2,0,this.width-this.stage.clientWidth),behavior:this.reduced?'auto':'smooth'});
       }
     }
     this.root?.classList.toggle('observing-unit',!!this.focusedUnit);
     for(const el of this.elements||[]){
-      const id=el.dataset.unit||el.dataset.inspect,source=active.find(a=>a.events[0].from===id),target=active.find(a=>a.events.some(e=>e.to===id&&e.from!==id));
+      const id=el.dataset.unit||el.dataset.inspect,source=active.find(a=>a.events[0]?.from===id),target=active.find(a=>a.events.some(e=>e.to===id&&e.from!==id));
       el.classList.toggle('observation-related',related.has(id));
       el.classList.toggle('acting-source',playing&&!!source);el.classList.toggle('acting-target',playing&&!!target);
       const info=this.unitActions?.get(id),tag=el.querySelector?.('.unit-current-action');
@@ -319,9 +344,10 @@ export class BattleEffects {
   drawCombo(e,p,to,cell){
     const fade=Math.min(1,p*8,(1-p)*3),color='#ffe4a0';
     // Partners acknowledge the cast with a local gesture. No actor-to-target beams.
-    for(const actor of e.combo.actors||[]){
+    for(const [index,actor]of (e.combo.actors||[]).entries()){
+      if(actor.id&&this.visibleActorIds&&!this.visibleActorIds.has(actor.id))continue;
       const from=this.point(actor.x,actor.y);
-      drawCastSource(this,{...e,presentationKind:'support'},p,from,cell*.8);
+      drawCastSource(this,{...e,from:actor.id,presentationKind:'support'},actorCastProgress(p,{partnerIndex:index}),from,cell*.8);
     }
     if(p>=.52){
       const q=clamp((p-.52)/.48);
@@ -352,7 +378,6 @@ export class BattleEffects {
   }
   drawCinematic(cast, cell) {
     const c = this.ctx, e = cast.events[0];
-    this.showResult(cast.events);
     const p = clamp((this.clock - cast.start) / cast.duration, 0, 1);
     const fade = Math.min(1, p * 10 + .3, (1 - p) * 7);
     const [color,accent]=castPalette(e),from=this.point(e.fromX,e.fromY);
@@ -434,7 +459,9 @@ export class BattleEffects {
     const cinematic=this.currentCinematic();if(cinematic)this.drawCinematic(cinematic, cell);
     else if(!this.paused&&!this.isPresentationPlaying())this.cues.draw(this,cell);
     if(showTransient)this.feedback.draw(this,cell);
+    this.bonds.draw(this,cell);
     this.signals.drawOrders(this,cell);
+    this.transitions.draw(this,cell);
     if(!this.paused)this.invalidate();
   }
 }

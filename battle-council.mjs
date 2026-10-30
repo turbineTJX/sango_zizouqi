@@ -7,7 +7,12 @@ import {shieldLayers,refreshShield,setStatus} from './tactics.mjs';
 import {validRetreatAt} from './battle-retreat.mjs';
 import {battleLabelMarkup} from './battle-labels.mjs';
 import {battleArrivalLabel} from './reinforcement-arrival.mjs';
+import {councilArrivals} from './battle-experience-view.mjs';
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function reserveBenchUnitMarkup(u,b,armies){
+ const waiting=u.arrivalConfirmed===false||(u.arrivalTick||0)>b.tick,p=u.reserveEntry;
+ return `<div class="reserve-card${councilArrivals(b).some(v=>v.id===u.id)?' reserve-new-arrival':''}">${councilArrivals(b).some(v=>v.id===u.id)?'<small class="reserve-new-label">刚抵达</small>':''}<button type="button" class="council-unit unit-nameplate side-0" draggable="true" data-council-unit="${esc(u.id)}" data-action="unit-stats" data-inspect="${esc(u.id)}" aria-label="后备部队${esc(u.name)}，兵力 ${Math.round(u.hp)}，点击查看部队属性">${battleLabelMarkup(u,b)}${waiting?`<small>待援 · ${esc(battleArrivalLabel(b,u,armies))}</small>`:''}</button><div class="reserve-entry-controls">${!b.deploymentLocked?`<button type="button" data-action="deployment-select" data-inspect="${esc(u.id)}" aria-label="${esc(u.name)}换上首发" ${waiting?'disabled':''}>换上首发</button>`:''}<small>${p?`${p.x+1}列 ${p.y+1}行`:'自动入场'}</small><button type="button" data-action="reserve-entry-select" data-inspect="${esc(u.id)}" aria-label="${esc(u.name)}入场位置" ${waiting?'disabled':''}>入场</button>${p?`<button type="button" data-action="reserve-entry-clear" data-inspect="${esc(u.id)}" aria-label="重置${esc(u.name)}入场位置" ${waiting?'disabled':''}>重置</button>`:''}</div></div>`;
+}
 export function retreatCouncilMarkup(b,{selected=[],retreatOpen=false,destinations=[]}={}){
  const units=b.sides[0].units.filter(u=>u.hp>0&&['active','reserve'].includes(u.status)&&!u.withdrawing),picked=new Set(selected);
  return `<details class="retreat-council" ${retreatOpen?'open':''}><summary>撤离设置</summary>
@@ -33,7 +38,7 @@ export function battleCouncilMarkup(b,{open=true,selected=[],retreatOpen=false,d
   const army=armies.find(a=>a.id===id)||{id,name:'军团'},roles=Object.fromEntries(['leader','advisor'].map(role=>[role,b.sides[0].commanders.find(c=>c.armyId===id&&c.role===role)?.id??null]));
   return appointmentFields(army,battleAppointmentCandidates(b,0,id),appointments[id]||roles);
  }).join('');
- return `<section class="battle-council"><h3>${reinforcement?'援军军议':'战前会议'} · 已上阵 ${units.filter(u=>u.status==='active').length}／${frontlineCapacity(b,0)}</h3>${reinforcement?'<p>援军已加入后备</p>':''}<details class="council-appointments" ${appointmentsOpen?'open':''}><summary>军团任命</summary>${appointmentMarkup}</details><details class="council-reserves" ${open?'open':''}><summary>后备部队 · ${units.filter(u=>u.status==='reserve'&&u.hp>0).length} 队</summary><div class="reserve-bench" data-reserve-bench>${units.filter(u=>u.status==='reserve'&&u.hp>0).map(u=>`<button type="button" class="council-unit unit-nameplate side-0" draggable="true" data-council-unit="${esc(u.id)}" data-action="unit-stats" data-inspect="${esc(u.id)}" aria-label="后备部队${esc(u.name)}，兵力 ${Math.round(u.hp)}，点击查看部队属性">${battleLabelMarkup(u,b)}${u.arrivalConfirmed===false||(u.arrivalTick||0)>b.tick?`<small>待援 · ${esc(battleArrivalLabel(b,u,armies))}</small>`:''}</button>`).join('')||`<span>${reinforcement?'后备队列为空':'暂无后备部队'}</span>`}</div></details>${retreatCouncilMarkup(b,{selected,retreatOpen,destinations})}</section>`;
+ return `<section class="battle-council"><h3>${reinforcement?'援军军议':'战前会议'} · 已上阵 ${units.filter(u=>u.status==='active').length}／${frontlineCapacity(b,0)}</h3>${reinforcement?'<p>援军已加入后备</p>':''}<details class="council-appointments" ${appointmentsOpen?'open':''}><summary>军团任命</summary>${appointmentMarkup}</details><details class="council-reserves" ${open?'open':''}><summary>后备部队 · ${units.filter(u=>u.status==='reserve'&&u.hp>0).length} 队</summary><div class="reserve-bench" data-reserve-bench>${units.filter(u=>u.status==='reserve'&&u.hp>0).map(u=>reserveBenchUnitMarkup(u,b,armies)).join('')||`<span>${reinforcement?'后备队列为空':'暂无后备部队'}</span>`}</div></details>${retreatCouncilMarkup(b,{selected,retreatOpen,destinations})}</section>`;
 
 }
 export function changeBattleCouncil(b,{tactic,id,offset,toId}={}){

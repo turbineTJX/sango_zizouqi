@@ -6,7 +6,7 @@ import sharp from 'sharp';
 
 // A controlled close view of the actual factory and animator. This checks
 // articulation and transitions; real combat/timing is verified by battle-models.
-const out='work/troop-animation-20261026',port=4350;await mkdir(out,{recursive:true});
+const out=process.env.SANGO_BATTLE_UI_OUT||'work/troop-animation-20261026',port=4350;await mkdir(out,{recursive:true});
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port)},stdio:'pipe',windowsHide:true});let browser;
 try{
  await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',code=>no(Error('server '+code)));});

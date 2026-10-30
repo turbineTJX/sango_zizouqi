@@ -124,8 +124,13 @@ export function attachStrategicMap(root,ui,onFailure){
  // The map is replaced when game state changes; camera movement reuses its nodes.
  const places=[...svg.querySelectorAll('.node-city,.node-metropolitan-site')].map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,source:node.querySelector('[data-city-model]'),scene:node.querySelector('[data-city-scene]'),compact:node.querySelector('.map-city-model'),mapSites:[...node.querySelectorAll('[data-map-building]')],sites:[],interactive:false,mapInteractive:null}));
  for(const place of places)place.modelScale=place.source?JSON.parse(place.source.textContent).layout.mapScale:+(place.compact?.dataset.modelScale||0);
- const priority=node=>node.classList.contains('selected')*4+node.classList.contains('node-city')*2+(node.dataset.citySize==='large');
- const nodes=[...svg.querySelectorAll('.national-node')].sort((a,b)=>priority(b)-priority(a)).map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,selected:node.classList.contains('selected'),city:node.classList.contains('node-city'),staff:!!node.querySelector('.map-staff-status'),labels:[...node.querySelectorAll('.map-city-banner,.national-place-name,.map-city-strength,.map-city-grain,.map-staff-status')]}));
+ const priority=node=>Number(node.dataset.mapTarget==='selected')*8+node.classList.contains('selected')*4+node.classList.contains('node-city')*2+(node.dataset.citySize==='large');
+ const nodes=[...svg.querySelectorAll('.national-node')].sort((a,b)=>priority(b)-priority(a)).map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,selected:node.dataset.mapTarget==='selected'||node.classList.contains('selected'),city:node.classList.contains('node-city'),staff:!!node.querySelector('.map-staff-status'),labels:[...node.querySelectorAll('.map-city-banner,.national-place-name,.map-city-strength,.map-city-grain,.map-staff-status')]}));
+ if(commandMap)for(const {node} of nodes){
+  const glyph=node.querySelector('[data-map-glyph]');
+  if(glyph&&!glyph.querySelector('.command-target-hit')){const hit=document.createElementNS('http://www.w3.org/2000/svg','circle');hit.setAttribute('class','command-target-hit');hit.setAttribute('r','20');glyph.prepend(hit);}
+ }
+ for(const {node} of nodes.filter(p=>p.node.dataset.mapTarget==='selected'))node.parentNode.append(node);
  const glyphs=[...svg.querySelectorAll('[data-map-glyph]')].filter(node=>!node.closest('[data-metropolis-focus]')).map(node=>({node,place:node.closest('.node-city,.node-metropolitan-site')}));
  const banners=[...svg.querySelectorAll('.map-city-banner')];
  const geography=[...svg.querySelectorAll('.geography-labels text')].map(node=>{
@@ -214,10 +219,13 @@ export function attachStrategicMap(root,ui,onFailure){
    const {node,staff,selected,city}=item,show=visible(item,Math.max(40,100*pixelScale));
    const display=show?'':'none';if(node.style.display!==display)node.style.display=display;
    if(!show||!blend.settlements)continue;
-   const x=item.x-(staff?39:27)*pixelScale,y=item.y+(node===cityFocus?20:0)+12*pixelScale,w=(staff?78:54)*pixelScale,h=(staff?55:overview?18:38)*pixelScale;
-   const hidden=!selected&&labels.some(r=>x<r.x+r.w+2*pixelScale&&x+w+2*pixelScale>r.x&&y<r.y+r.h+2*pixelScale&&y+h+2*pixelScale>r.y);
+   const x=item.x-(staff?39:27)*pixelScale,y=item.y+(node===cityFocus?20:0)+12*pixelScale,w=(staff?78:54)*pixelScale,h=(commandMap?20:staff?55:overview?18:38)*pixelScale;
+   const collides=dy=>labels.some(r=>x<r.x+r.w+2*pixelScale&&x+w+2*pixelScale>r.x&&y+dy*pixelScale<r.y+r.h+2*pixelScale&&y+(dy+h/pixelScale+2)*pixelScale>r.y);
+   const offset=commandMap?[0,-46,24,-70].find(dy=>!collides(dy)):0;
+   const hidden=!selected&&(commandMap?offset===undefined:collides(0));
+   if(commandMap)for(const el of item.labels)attr(el,'transform',`translate(0 ${offset||0})`);
    if(item.hidden!==hidden){for(const el of item.labels)el.style.visibility=hidden?'hidden':'';item.hidden=hidden;}
-   if(!hidden&&(!overview||city||selected))labels.push({x,y,w,h});
+   if(!hidden&&(!overview||city||selected))labels.push({x,y:y+(offset||0)*pixelScale,w,h});
   }
   // Labels must leave actual city and prefecture footprints unobscured, even
   // when their fixed screen size covers several nearby places on small screens.
@@ -266,14 +274,27 @@ export function attachStrategicMap(root,ui,onFailure){
  };
  let bounds=svg.getBoundingClientRect();
  const fitTheater=()=>{const aspect=bounds.width/bounds.height,height=Math.min(1024,view.height,1024/aspect);view=centeredMapView({x:view.x+view.width/2,y:view.y+view.height/2},height*aspect,height);};
+ // Resizing a command window crops at a readable zoom instead of squeezing
+ // all of its fixed-size city labels and hit targets into the smaller map.
+ const fitCommandViewport=()=>{
+  if(!national||!commandMap||!bounds.width||!bounds.height)return;
+  const previous=ui.commandMapViewport;
+  if(view.width<1024||view.height<1024){
+   const scale=previous?Math.min(previous.width/view.width,previous.height/view.height):Math.max(600,bounds.height)/view.height;
+   view=centeredMapView({x:view.x+view.width/2,y:view.y+view.height/2},bounds.width/scale,bounds.height/scale);
+  }
+  ui.commandMapViewport={width:bounds.width,height:bounds.height};
+ };
  if(!national)fitTheater();
- if(national&&view.width<1024&&bounds.width>bounds.height*1.1){const center={x:view.x+view.width/2,y:view.y+view.height/2};view=centeredMapView(center,Math.min(1024,view.height*bounds.width/bounds.height),view.height);}
+ if(commandMap)fitCommandViewport();
+ else if(national&&view.width<1024&&bounds.width>bounds.height*1.1){const center={x:view.x+view.width/2,y:view.y+view.height/2};view=centeredMapView(center,Math.min(1024,view.height*bounds.width/bounds.height),view.height);}
  const zoom=(factor,anchor={x:view.x+view.width/2,y:view.y+view.height/2},continuous=false)=>{
   const min=national?MIN_MAP_SIZE:150,ratio=clamp(factor,Math.max(min/view.width,min/view.height),Math.min(1024/view.width,1024/view.height)),width=view.width*ratio,height=view.height*ratio;
   view={x:anchor.x-(anchor.x-view.x)*width/view.width,y:anchor.y-(anchor.y-view.y)*height/view.height,width,height};if(continuous)scheduleApply();else apply(true,true);
  };
  const focus=()=>{
-  if(national)view=metropolitanOverviewView({x:+svg.dataset.focusX,y:+svg.dataset.focusY},bounds.width/bounds.height);
+  if(national&&commandMap){view=centeredMapView({x:+svg.dataset.focusX,y:+svg.dataset.focusY},360,360);delete ui.commandMapViewport;fitCommandViewport();}
+  else if(national)view=metropolitanOverviewView({x:+svg.dataset.focusX,y:+svg.dataset.focusY},bounds.width/bounds.height);
   else {view={...THEATER_VIEW};fitTheater();}ui.mapCameraManual=false;apply(false);
  };
  const nearestPlace=()=>{
@@ -370,7 +391,7 @@ export function attachStrategicMap(root,ui,onFailure){
  });
  apply(false);
  if(national)cameraPreview=prepareMapCameraPreview(svg);
- const sizeObserver=new ResizeObserver(()=>{if(!svg.isConnected)sizeObserver.disconnect();else {bounds=svg.getBoundingClientRect();if(!national)fitTheater();apply(false);}});
+ const sizeObserver=new ResizeObserver(()=>{if(!svg.isConnected)sizeObserver.disconnect();else {bounds=svg.getBoundingClientRect();if(!national)fitTheater();else if(commandMap)fitCommandViewport();apply(false);}});
  sizeObserver.observe(svg);
  mapControllers.set(root,()=>{bindings.abort();sizeObserver.disconnect();cancelAnimationFrame(frame);clearTimeout(previewTimer);animation?.remove();cameraPreview?.destroy();closeBuilding();});
  if(matchMedia('(prefers-reduced-motion: reduce)').matches)svg.querySelectorAll('animateTransform').forEach(n=>n.remove());

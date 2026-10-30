@@ -42,9 +42,12 @@ export function assertAiEffect(state,key,side){
  const status={shield:'shield',cleanse:'resolve',invincible:'commandInvincible',ambush:'stealth',stun:'stun',magicImmunity:'magicImmune',rapidAdvance:'rapidAdvance'}[s.effect];
  let evidence;
  if(status){
-  const applied=targets.filter(u=>hasStatus(b,u,status));assert.ok(applied.length,key+' has no actual status');
+  // Opening formations and other legal sources may already provide the same
+  // status. Check this command's provenance when testing its target boundary.
+  const fromCommand=u=>hasStatus(b,u,status)&&(status==='shield'?u.statuses.shield.layers.some(l=>l.sourceCommand===key&&l.until>b.tick):u.statuses[status].sourceCommand===key);
+  const applied=targets.filter(fromCommand);assert.ok(applied.length,key+' has no actual status');
   assert.ok(applied.some(u=>status==='shield'?u.statuses.shield.layers.some(l=>l.sourceCommand===key):u.statuses[status].sourceCommand===key));
-  if(record.target)for(const u of targetSide.units.filter(u=>u.status!=='active'||!stratagemAreaContains(s,record.target,u)))assert.ok(!hasStatus(b,u,status),key+' leaked outside its target area');
+  if(record.target)for(const u of targetSide.units.filter(u=>u.status!=='active'||!stratagemAreaContains(s,record.target,u)))assert.ok(!fromCommand(u),key+' leaked outside its target area');
   if(s.effect==='cleanse')assert.ok(own.units.every(u=>!hasStatus(b,u,'slow')));
   evidence={affected:applied.length,status,...(s.effect==='shield'?{shield:applied.reduce((n,u)=>n+shieldAmount(b,u),0)}:{})};
  }

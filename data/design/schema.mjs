@@ -27,6 +27,7 @@ export const DESIGN_FIELDS={
     "value"
   ],
   "tactics": [
+    "geometry", "supportPosition",
     "selfStatus", "selfStatusSteps", "regrowthFraction", "regrowthSteps", "targetRear", "meleeSustain", "statusKey", "remedy", "stasisDays", "stasisHealth", "stasisLockDays",
     "allyIntent",
     "allyIntentPriority",

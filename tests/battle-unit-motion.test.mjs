@@ -1,7 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {STATUS_DEFINITIONS} from '../data/design/battle-statuses.mjs';
-import {STATUS_BODY_CHANNELS,unitStatusMotion,troopFormation,troopAttackFrame,troopBodyAnchors,drawTroopStatuses} from '../battle-unit-motion.mjs';
+import {STATUS_BODY_CHANNELS,unitStatusMotion,troopFormation,troopAttackFrame,troopBodyAnchors,drawTroopStatuses,casualtyFrame} from '../battle-unit-motion.mjs';
+
+test('actual defeats fall while still visible; departures and reduced motion never topple',()=>{
+ const falling=casualtyFrame(.5);assert.equal(falling.opacity,1);assert.ok(falling.fall>.7);
+ assert.ok(casualtyFrame(.85).opacity>0&&casualtyFrame(.85).opacity<1);
+ assert.equal(casualtyFrame(1).opacity,0);
+ assert.equal(casualtyFrame(.5,{defeated:false}).fall,0);
+ assert.equal(casualtyFrame(.5,{reduced:true}).fall,0);
+});
 
 test('every real status has finite body choreography without modifying the source state',()=>{
  assert.deepEqual(Object.keys(STATUS_BODY_CHANNELS).sort(),Object.keys(STATUS_DEFINITIONS).sort());

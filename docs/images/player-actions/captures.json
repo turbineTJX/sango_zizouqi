@@ -1,0 +1,1670 @@
+{
+  "map": {
+    "title": "天下地图与进行按钮",
+    "file": "images/player-actions/map.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:26.169Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "city-menu": {
+    "title": "城市一级命令",
+    "file": "images/player-actions/city-menu.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:28.583Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "domestic": {
+    "title": "城市内政方向与岗位",
+    "file": "images/player-actions/domestic.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:30.182Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "direction": {
+    "title": "方向岗位与当前负责人",
+    "file": "images/player-actions/direction.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:30.583Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "appointment": {
+    "title": "按能力与特性选择内政负责人",
+    "file": "images/player-actions/appointment.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:30.994Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "appointment-selected": {
+    "title": "选择后直接确认任命",
+    "file": "images/player-actions/appointment-selected.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:31.395Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "governor": {
+    "title": "太守人选与确认",
+    "file": "images/player-actions/governor.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:36.507Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "budget": {
+    "title": "城市钱粮预算",
+    "file": "images/player-actions/budget.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:37.366Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "budget-draft": {
+    "title": "保留金粮修改后显示未保存",
+    "file": "images/player-actions/budget-draft.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:38.934Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "budget-saved": {
+    "title": "点击保存预算后统一生效",
+    "file": "images/player-actions/budget-saved.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:41.647Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "affairs": {
+    "title": "全势力优先级与补齐委任",
+    "file": "images/player-actions/affairs.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:45.313Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "personnel": {
+    "title": "人物名册筛选与查询",
+    "file": "images/player-actions/personnel.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:49.257Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "officer": {
+    "title": "武将详情与当前状态",
+    "file": "images/player-actions/officer.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:49.735Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "city-directory": {
+    "title": "自辖城市与空闲人员",
+    "file": "images/player-actions/city-directory.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:53.613Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "journal": {
+    "title": "按类别查阅日志",
+    "file": "images/player-actions/journal.webp",
+    "group": "civic",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:29:57.284Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "scout-source": {
+    "title": "侦察先确定派出城市",
+    "file": "images/player-actions/scout-source.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:12.130Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "scout-route": {
+    "title": "侦察终点路线及视野期限",
+    "file": "images/player-actions/scout-route.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:14.705Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "scout-landscape": {
+    "title": "手机横屏侦察与固定派遣按钮",
+    "file": "images/player-actions/scout-landscape.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-10-29T04:06:15.291Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "scout-running": {
+    "title": "侦察任务与停止入口",
+    "file": "images/player-actions/scout-running.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:17.882Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "transfer-person": {
+    "title": "调任选择来源城执行人",
+    "file": "images/player-actions/transfer-person.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:23.384Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "transfer-empty": {
+    "title": "人员调任终点与物资",
+    "file": "images/player-actions/transfer-empty.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:26.507Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "transport": {
+    "title": "运输物资与真实预计抵达",
+    "file": "images/player-actions/transport.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:27.166Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "transport-options": {
+    "title": "接力运输选项",
+    "file": "images/player-actions/transport-options.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:27.675Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "transport-relay": {
+    "title": "地图选择接力城后的预览",
+    "file": "images/player-actions/transport-relay.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:33.030Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "transport-review": {
+    "title": "运输核阅与最终下令",
+    "file": "images/player-actions/transport-review.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:06:35.437Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "transport-landscape": {
+    "title": "横屏运输参数与常驻摘要",
+    "file": "images/player-actions/transport-landscape.webp",
+    "group": "logistics",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-10-29T04:06:37.806Z",
+    "sourceHash": "b01d90beaa4967ec012f26b92534ea1078703c9e7bee41a16e40d4d2ffd7a710"
+  },
+  "troop-list": {
+    "title": "城内部队管理与新增解散",
+    "file": "images/player-actions/troop-list.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:14.779Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "troop-officer": {
+    "title": "单队编制内选择主将",
+    "file": "images/player-actions/troop-officer.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:15.467Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "troop-edit": {
+    "title": "兵种兵力与装备配置",
+    "file": "images/player-actions/troop-edit.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:15.987Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "troop-configured": {
+    "title": "单队确认后返回部队列表",
+    "file": "images/player-actions/troop-configured.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:16.526Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "troop-review": {
+    "title": "城内编制最终核阅",
+    "file": "images/player-actions/troop-review.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:17.040Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "expedition-select": {
+    "title": "出征选队与已选移除",
+    "file": "images/player-actions/expedition-select.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:23.056Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "expedition-landscape": {
+    "title": "横屏选队与对照",
+    "file": "images/player-actions/expedition-landscape.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-10-29T04:12:23.672Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "expedition-roles": {
+    "title": "军团长与军师任命",
+    "file": "images/player-actions/expedition-roles.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:24.389Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "expedition-route": {
+    "title": "出征目标与路线预览",
+    "file": "images/player-actions/expedition-route.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:27.702Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "expedition-review": {
+    "title": "出征最终费用与路线核阅",
+    "file": "images/player-actions/expedition-review.webp",
+    "group": "formation",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:30.250Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-adjust": {
+    "title": "调整军团编制",
+    "file": "images/player-actions/army-adjust.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:48.927Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-roles": {
+    "title": "整军中的指挥任命",
+    "file": "images/player-actions/army-roles.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:49.383Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-review": {
+    "title": "整军前后变化与费用",
+    "file": "images/player-actions/army-review.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:49.850Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-split": {
+    "title": "选择拆出的部队",
+    "file": "images/player-actions/army-split.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:52.446Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-split-review": {
+    "title": "新旧两军核阅",
+    "file": "images/player-actions/army-split-review.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:53.023Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-merge": {
+    "title": "选择同地合并军团",
+    "file": "images/player-actions/army-merge.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:55.985Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-merge-review": {
+    "title": "合并军团核阅",
+    "file": "images/player-actions/army-merge-review.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:56.455Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-recruit": {
+    "title": "选择需要补兵的队伍",
+    "file": "images/player-actions/army-recruit.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:59.062Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "army-recruit-review": {
+    "title": "补兵结果与真实用度",
+    "file": "images/player-actions/army-recruit-review.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:12:59.522Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "march-route": {
+    "title": "军团调动与返城选路",
+    "file": "images/player-actions/march-route.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:13:05.533Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "march-review": {
+    "title": "行军命令最终核阅",
+    "file": "images/player-actions/march-review.webp",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:13:07.978Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "diplomacy": {
+    "title": "外交待处理与目标方针",
+    "file": "images/player-actions/diplomacy.webp",
+    "group": "diplomacy",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:11.931Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "diplomacy-appoint": {
+    "title": "先选出发城市再选使臣",
+    "file": "images/player-actions/diplomacy-appoint.webp",
+    "group": "diplomacy",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:12.424Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "diplomacy-budget": {
+    "title": "外交预算与保存",
+    "file": "images/player-actions/diplomacy-budget.webp",
+    "group": "diplomacy",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:12.903Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "diplomacy-proposal": {
+    "title": "双方给予内容与批准交涉否决",
+    "file": "images/player-actions/diplomacy-proposal.webp",
+    "group": "diplomacy",
+    "sample": "实际谈判至待批准的购粮演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:20.117Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "diplomacy-terms": {
+    "title": "完整条款与实际履约条件",
+    "file": "images/player-actions/diplomacy-terms.webp",
+    "group": "diplomacy",
+    "sample": "实际谈判至待批准的购粮演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:20.515Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "diplomacy-approved": {
+    "title": "已批准仍待签署履约",
+    "file": "images/player-actions/diplomacy-approved.webp",
+    "group": "diplomacy",
+    "sample": "实际谈判至待批准的购粮演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:22.945Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "treasures": {
+    "title": "宝物收藏与可用操作",
+    "file": "images/player-actions/treasures.webp",
+    "group": "diplomacy",
+    "sample": "有两件真实登记宝物的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:24.356Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "treasure-grant": {
+    "title": "跨城立即授予及同时装备",
+    "file": "images/player-actions/treasure-grant.webp",
+    "group": "diplomacy",
+    "sample": "有两件真实登记宝物的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:24.822Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "treasure-equipped": {
+    "title": "已装备宝物的卸下与收回入口",
+    "file": "images/player-actions/treasure-equipped.webp",
+    "group": "diplomacy",
+    "sample": "有两件真实登记宝物的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:14:25.265Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "encounter": {
+    "title": "遭遇敌情与真实日期",
+    "file": "images/player-actions/encounter.webp",
+    "group": "defense",
+    "sample": "真实接敌的空城守备机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:21.567Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "defense": {
+    "title": "无现役守军时选择整备方式",
+    "file": "images/player-actions/defense.webp",
+    "group": "defense",
+    "sample": "真实接敌的空城守备机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:22.037Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "encounter-control": {
+    "title": "选择亲自指挥或自动作战",
+    "file": "images/player-actions/encounter-control.webp",
+    "group": "defense",
+    "sample": "真实接敌的空城守备机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:22.506Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "defense-confirm": {
+    "title": "放弃守城前确认失城后果",
+    "file": "images/player-actions/defense-confirm.webp",
+    "group": "defense",
+    "sample": "真实接敌的空城守备机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:23.839Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "defense-result": {
+    "title": "确认放弃后的实际城池归属",
+    "file": "images/player-actions/defense-result.webp",
+    "group": "defense",
+    "sample": "真实接敌的空城守备机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:27.979Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "defense-auto": {
+    "title": "自动编制后返回军议",
+    "file": "images/player-actions/defense-auto.webp",
+    "group": "defense",
+    "sample": "真实接敌的自动守备编制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:34.381Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "campaign-battle": {
+    "title": "普通模式进入真实战场",
+    "file": "images/player-actions/campaign-battle.webp",
+    "group": "defense",
+    "sample": "真实接敌的自动守备编制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:36.333Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "retreat-node": {
+    "title": "普通模式撤离地点与人数设置",
+    "file": "images/player-actions/retreat-node.webp",
+    "group": "defense",
+    "sample": "真实接敌的自动守备编制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:37.126Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "defense-manual": {
+    "title": "围城临编沿用本城部队表单",
+    "file": "images/player-actions/defense-manual.webp",
+    "group": "defense",
+    "sample": "真实接敌的手动守备编制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:45:41.965Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "proposals": {
+    "title": "提案费用时间与同意暂缓",
+    "file": "images/player-actions/proposals.webp",
+    "group": "proposals",
+    "sample": "本城已有负责人并形成付费提案的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:20.190Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "proposals-landscape": {
+    "title": "横屏提案操作",
+    "file": "images/player-actions/proposals-landscape.webp",
+    "group": "proposals",
+    "sample": "本城已有负责人并形成付费提案的演示存档",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-10-29T04:16:20.551Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "proposals-policy": {
+    "title": "后续自动同意与本页审批分开",
+    "file": "images/player-actions/proposals-policy.webp",
+    "group": "proposals",
+    "sample": "本城已有负责人并形成付费提案的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:21.042Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "proposals-approved": {
+    "title": "本页已处理的提案状态",
+    "file": "images/player-actions/proposals-approved.webp",
+    "group": "proposals",
+    "sample": "本城已有负责人并形成付费提案的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:21.555Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "bandit": {
+    "title": "贼寨情报与选择派出城",
+    "file": "images/player-actions/bandit.webp",
+    "group": "proposals",
+    "sample": "已通过真实侦察发现贼寨的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:24.687Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "bandit-expedition": {
+    "title": "讨伐沿用出征选队流程",
+    "file": "images/player-actions/bandit-expedition.webp",
+    "group": "proposals",
+    "sample": "已通过真实侦察发现贼寨的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:26.813Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "lobby": {
+    "title": "游戏模式选择",
+    "file": "images/player-actions/lobby.webp",
+    "group": "setup",
+    "sample": "开局与编辑器空白浏览器",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:49.012Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "scenarios": {
+    "title": "普通模式剧本",
+    "file": "images/player-actions/scenarios.webp",
+    "group": "setup",
+    "sample": "开局与编辑器空白浏览器",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:49.432Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "faction": {
+    "title": "势力选择与开始",
+    "file": "images/player-actions/faction.webp",
+    "group": "setup",
+    "sample": "开局与编辑器空白浏览器",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:49.919Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "custom": {
+    "title": "历史模板与自定义战役",
+    "file": "images/player-actions/custom.webp",
+    "group": "setup",
+    "sample": "独立战役编辑演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:51.152Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "custom-army": {
+    "title": "自定义战役单军编制",
+    "file": "images/player-actions/custom-army.webp",
+    "group": "setup",
+    "sample": "独立战役编辑演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:51.788Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "custom-review": {
+    "title": "自定义战役开战前核阅",
+    "file": "images/player-actions/custom-review.webp",
+    "group": "setup",
+    "sample": "独立战役编辑演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:52.381Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "map-editor": {
+    "title": "地图分类地形绘制与工具",
+    "file": "images/player-actions/map-editor.webp",
+    "group": "setup",
+    "sample": "独立战役编辑演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:52.901Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "map-library": {
+    "title": "已保存地图与导入导出",
+    "file": "images/player-actions/map-library.webp",
+    "group": "setup",
+    "sample": "独立战役编辑演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:53.474Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "map-preview": {
+    "title": "真实战场地图预览",
+    "file": "images/player-actions/map-preview.webp",
+    "group": "setup",
+    "sample": "独立战役编辑演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:16:53.979Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "battlefield": {
+    "title": "战前战场与双方部队",
+    "file": "images/player-actions/battlefield.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:20.830Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "council": {
+    "title": "首发后备与出阵顺序",
+    "file": "images/player-actions/council.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:21.311Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "battle-appointments": {
+    "title": "按实际军团任命指挥",
+    "file": "images/player-actions/battle-appointments.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:21.799Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "retreat-settings": {
+    "title": "单队和批量自动撤离人数",
+    "file": "images/player-actions/retreat-settings.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:22.433Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "battle-intent": {
+    "title": "开战前意图与重置阵型",
+    "file": "images/player-actions/battle-intent.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:22.990Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "reserve-position": {
+    "title": "为真实后备选择入场位置",
+    "file": "images/player-actions/reserve-position.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:23.510Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "battle-unit": {
+    "title": "部队实际属性与战法",
+    "file": "images/player-actions/battle-unit.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:24.203Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "deployment-preview": {
+    "title": "站位修改先预览再确认",
+    "file": "images/player-actions/deployment-preview.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:24.876Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "stratagem-list": {
+    "title": "可用军略的来源充能与次数",
+    "file": "images/player-actions/stratagem-list.webp",
+    "group": "battle",
+    "sample": "充能已满的范围军略机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:26.832Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "stratagem-area": {
+    "title": "军略范围落点旋转与实际目标",
+    "file": "images/player-actions/stratagem-area.webp",
+    "group": "battle",
+    "sample": "充能已满的范围军略机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:27.487Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "stratagem-landscape": {
+    "title": "横屏范围军略与施放按钮",
+    "file": "images/player-actions/stratagem-landscape.webp",
+    "group": "battle",
+    "sample": "充能已满的范围军略机制演示",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-10-29T04:17:28.076Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "stratagem-result": {
+    "title": "确认后执行军略并扣除资源",
+    "file": "images/player-actions/stratagem-result.webp",
+    "group": "battle",
+    "sample": "充能已满的范围军略机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:29.495Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "reinforcement": {
+    "title": "援军已抵达进入军议",
+    "file": "images/player-actions/reinforcement.webp",
+    "group": "battle",
+    "sample": "按真实到达时刻进入军议的援军演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:31.179Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "reinforcement-roles": {
+    "title": "援军与原军各自的合法指挥人选",
+    "file": "images/player-actions/reinforcement-roles.webp",
+    "group": "battle",
+    "sample": "按真实到达时刻进入军议的援军演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:17:31.646Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "captive": {
+    "title": "己方被俘武将与赎金",
+    "file": "images/player-actions/captive.webp",
+    "group": "captive",
+    "sample": "固定合法被俘结果的赎回机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:47:34.149Z",
+    "sourceHash": "c7163a0761eafed09d4dcda7cfa1c6d6e88edb46062c62f50a8a7f7f2ff6ac84"
+  },
+  "ransom-confirm": {
+    "title": "确认赎金与返城后果",
+    "file": "images/player-actions/ransom-confirm.webp",
+    "group": "captive",
+    "sample": "固定合法被俘结果的赎回机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:47:34.920Z",
+    "sourceHash": "c7163a0761eafed09d4dcda7cfa1c6d6e88edb46062c62f50a8a7f7f2ff6ac84"
+  },
+  "ransom-result": {
+    "title": "赎回后沿路返城",
+    "file": "images/player-actions/ransom-result.webp",
+    "group": "captive",
+    "sample": "固定合法被俘结果的赎回机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:47:36.410Z",
+    "sourceHash": "c7163a0761eafed09d4dcda7cfa1c6d6e88edb46062c62f50a8a7f7f2ff6ac84"
+  },
+  "timing": {
+    "title": "冲突事务的立即或完成后执行",
+    "file": "images/player-actions/timing.webp",
+    "group": "timing",
+    "sample": "有实际在办工程的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:18:48.032Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "waiting": {
+    "title": "完成后执行的等待安排",
+    "file": "images/player-actions/waiting.webp",
+    "group": "timing",
+    "sample": "有实际在办工程的演示存档",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:18:48.486Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "postbattle-roles": {
+    "title": "战后军团缺职时暂停补任",
+    "file": "images/player-actions/postbattle-roles.webp",
+    "group": "postbattle",
+    "sample": "控制伤亡以触发缺职的战后任命机制演示，非自然战果",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:19:02.977Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "battle-history": {
+    "title": "战场战史与战报入口",
+    "file": "images/player-actions/battle-history.webp",
+    "group": "postbattle",
+    "sample": "控制伤亡以触发缺职的战后任命机制演示，非自然战果",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:19:03.596Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "battle-report": {
+    "title": "实际伤亡人员与任命变化",
+    "file": "images/player-actions/battle-report.webp",
+    "group": "postbattle",
+    "sample": "控制伤亡以触发缺职的战后任命机制演示，非自然战果",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:19:04.038Z",
+    "sourceHash": "d9d4cade348efa7b4576a4dc311f22f4f0e1708881c46845f709c99a079c0dba"
+  },
+  "settings": {
+    "title": "声音表现与存档设置",
+    "file": "images/player-actions/settings.webp",
+    "group": "system",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:42.298Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "save-create": {
+    "title": "命名并新建手动存档",
+    "file": "images/player-actions/save-create.webp",
+    "group": "system",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:42.718Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "saves": {
+    "title": "自动档手动档与读取",
+    "file": "images/player-actions/saves.webp",
+    "group": "system",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:43.701Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "save-overwrite": {
+    "title": "覆盖指定存档前核对名称",
+    "file": "images/player-actions/save-overwrite.webp",
+    "group": "system",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:44.095Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "save-delete": {
+    "title": "删除存档前确认",
+    "file": "images/player-actions/save-delete.webp",
+    "group": "system",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:44.763Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "city-interior": {
+    "title": "近看城内建筑与施工",
+    "file": "images/player-actions/city-interior.webp",
+    "group": "extras",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:33.277Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "building-detail": {
+    "title": "建筑等级状态与负责人",
+    "file": "images/player-actions/building-detail.webp",
+    "group": "extras",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:33.702Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "talent": {
+    "title": "人才工作与人员动态",
+    "file": "images/player-actions/talent.webp",
+    "group": "extras",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:37.348Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "army-menu": {
+    "title": "军团管理与行军方式入口",
+    "file": "images/player-actions/army-menu.webp",
+    "group": "extras",
+    "sample": "实际军团长持有急行特性的演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:41.845Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "prisoner": {
+    "title": "关押敌方武将与释放入口",
+    "file": "images/player-actions/prisoner.webp",
+    "group": "captive",
+    "sample": "固定合法被俘结果的释放机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:47:38.088Z",
+    "sourceHash": "c7163a0761eafed09d4dcda7cfa1c6d6e88edb46062c62f50a8a7f7f2ff6ac84"
+  },
+  "release-confirm": {
+    "title": "释放俘虏前确认对象与后果",
+    "file": "images/player-actions/release-confirm.webp",
+    "group": "captive",
+    "sample": "固定合法被俘结果的释放机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:47:38.816Z",
+    "sourceHash": "c7163a0761eafed09d4dcda7cfa1c6d6e88edb46062c62f50a8a7f7f2ff6ac84"
+  },
+  "release-result": {
+    "title": "释放后返回更新的名册",
+    "file": "images/player-actions/release-result.webp",
+    "group": "captive",
+    "sample": "固定合法被俘结果的释放机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:47:40.204Z",
+    "sourceHash": "c7163a0761eafed09d4dcda7cfa1c6d6e88edb46062c62f50a8a7f7f2ff6ac84"
+  },
+  "save-transfer": {
+    "title": "导入导出当前进度",
+    "file": "images/player-actions/save-transfer.webp",
+    "group": "system",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:45.641Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "guide": {
+    "title": "按需查看当前页面指引",
+    "file": "images/player-actions/guide.webp",
+    "group": "system",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:47.881Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "ending": {
+    "title": "整局结果与地图回看",
+    "file": "images/player-actions/ending.webp",
+    "group": "system",
+    "sample": "控制最终归属后实际结算的结局页面演示，非自然统一",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:21:49.691Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "march-mode": {
+    "title": "行军方式速度代价与确认",
+    "file": "images/player-actions/march-mode.webp",
+    "group": "extras",
+    "sample": "实际军团长持有急行特性的演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:42.274Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "transport-cycles": {
+    "title": "具备往返运粮特性时选择批次",
+    "file": "images/player-actions/transport-cycles.webp",
+    "group": "extras",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:49.814Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "scout-contacts": {
+    "title": "任务收到的有日期情报",
+    "file": "images/player-actions/scout-contacts.webp",
+    "group": "extras",
+    "sample": "沿真实道路取得侦察情报的演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:53.976Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "scout-report": {
+    "title": "侦察报告的观察日期与具体情报",
+    "file": "images/player-actions/scout-report.webp",
+    "group": "extras",
+    "sample": "沿真实道路取得侦察情报的演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:22:55.775Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "reports": {
+    "title": "战略奏报与查看事项",
+    "file": "images/player-actions/reports.webp",
+    "group": "reports",
+    "sample": "实际内政逐日推进形成的旬报演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:24:02.095Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "harvest": {
+    "title": "旬收获与城仓净变化",
+    "file": "images/player-actions/harvest.webp",
+    "group": "reports",
+    "sample": "实际内政逐日推进形成的旬报演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:24:02.669Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "standalone-report": {
+    "title": "独立战役结果与重试选项",
+    "file": "images/player-actions/standalone-report.webp",
+    "group": "reports",
+    "sample": "默认独立战役经共同战斗处理器完整结算的演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:24:03.831Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "prisoner-exchange": {
+    "title": "外交交换俘虏的双方名单与批准",
+    "file": "images/player-actions/prisoner-exchange.webp",
+    "group": "prisonerExchange",
+    "sample": "双方固定合法被俘人员，经真实谈判形成的交换方案演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:25:25.116Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "direction-assigned": {
+    "title": "现任负责人及解除入口",
+    "file": "images/player-actions/direction-assigned.webp",
+    "group": "refinements",
+    "sample": "已实际委任负责人的操作演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:19.910Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "governor-assigned": {
+    "title": "现任太守与解除任命",
+    "file": "images/player-actions/governor-assigned.webp",
+    "group": "refinements",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:28.580Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "diplomat-assigned": {
+    "title": "已委任使臣与召回入口",
+    "file": "images/player-actions/diplomat-assigned.webp",
+    "group": "refinements",
+    "sample": "已实际委任外交负责人的操作演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:32.824Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "stratagem-army": {
+    "title": "无需选点的全军军略与基础撤退军令",
+    "file": "images/player-actions/stratagem-army.webp",
+    "group": "refinements",
+    "sample": "充能已满的全军军略机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:34.989Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "stratagem-army-result": {
+    "title": "全军型军略点击后直接生效",
+    "file": "images/player-actions/stratagem-army-result.webp",
+    "group": "refinements",
+    "sample": "充能已满的全军军略机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:35.520Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "custom-select": {
+    "title": "从编好的部队中选队",
+    "file": "images/player-actions/custom-select.webp",
+    "group": "refinements",
+    "sample": "独立战役单军编组操作演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:37.185Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "custom-roles": {
+    "title": "独立战役军团任命",
+    "file": "images/player-actions/custom-roles.webp",
+    "group": "refinements",
+    "sample": "独立战役单军编组操作演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:37.608Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "custom-army-review": {
+    "title": "单军编组核阅确认",
+    "file": "images/player-actions/custom-army-review.webp",
+    "group": "refinements",
+    "sample": "独立战役单军编组操作演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:32:38.049Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "troop-disband": {
+    "title": "待解散部队与实际返还兵员",
+    "file": "images/player-actions/troop-disband.webp",
+    "group": "disband",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:33:34.709Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "troop-disband-review": {
+    "title": "解散军令最终核阅",
+    "file": "images/player-actions/troop-disband-review.webp",
+    "group": "disband",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:33:35.307Z",
+    "sourceHash": "885f20f15f6b8703bc4139685fd4ecf9391e5cd8ef61d7ed5c3382a4f9b3ff54"
+  },
+  "intelligence-menu": {
+    "title": "按势力范围和对象类别查询",
+    "file": "images/player-actions/intelligence-menu.webp",
+    "group": "configuration",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:44:30.045Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "intelligence-directory": {
+    "title": "据点当前视野与带日期情报",
+    "file": "images/player-actions/intelligence-directory.webp",
+    "group": "configuration",
+    "sample": "官渡剧本演示开局",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:44:30.568Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "custom-editor": {
+    "title": "自定义战役的地图场景与军团入口",
+    "file": "images/player-actions/custom-editor.webp",
+    "group": "configuration",
+    "sample": "自定义战役配置演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:44:32.104Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  },
+  "custom-reinforcements": {
+    "title": "援军的阵营到达条件与军团编制",
+    "file": "images/player-actions/custom-reinforcements.webp",
+    "group": "configuration",
+    "sample": "自定义战役配置演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-10-29T04:44:32.657Z",
+    "sourceHash": "e7a2adfce987a8a5ae469bf9e50dfe94c25dd2da3fa77a8bbb52b20915a951dd"
+  }
+}

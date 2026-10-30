@@ -3,7 +3,7 @@ import {armySupplyCapacity} from './army-supply.mjs';
 import {intelligenceWorld} from './strategic-vision.mjs';
 import {isJunction} from './road-network.mjs';
 import {findCampaignRoute,supplyConnection,campaignBattleSide} from './strategic-campaign.mjs';
-import {strategicPower,strategicTravelDays,strategicCityBudget,strategicArrivalDays} from './strategic-ai.mjs';
+import {strategicPower,strategicTravelDays,strategicCityBudget,strategicArrivalDays,plannedCombatForce} from './strategic-ai.mjs';
 import {cityForce} from './city-units.mjs';
 import {factionsHostile} from './diplomacy-relations.mjs';
 import {activePlans} from './strategic-intent.mjs';
@@ -64,6 +64,43 @@ export function strategicSupportObjectives(s,faction){
  return [...objectives.values()].sort((a,b)=>b.priority-a.priority||b.power-a.power||key(a).localeCompare(key(b)));
 }
 
+// The same read-only selection is used before and after releasing a commitment.
+// A rescue must actually become feasible; an unrelated offensive is not a pool
+// of imaginary reinforcements or a reason to discard its preparation.
+function supportForcePlan(s,faction,q,availableUnits){
+ let need=q.power;const groups=[],view=intelligenceWorld(s,faction);
+ const incoming=s.armies.filter(a=>a.faction===faction&&a.target===q.target&&!inBattle(s,a)&&(a.travel||a.location!==q.target));for(const a of incoming)if(strategicArrivalDays(view,a,q.target)<=q.days)need-=strategicPower(s,a);
+ for(const o of s.campaign.domestic.orders.filter(o=>o.faction===faction&&o.kind==='expedition'&&o.target===q.target)){
+  const c=s.cities.find(c=>c.id===o.cityId),units=o.officerIds.map(id=>c?.units.find(u=>u.id===id));if(units.some(u=>!u))continue;
+  const path=o.route||findCampaignRoute(view,c.id,q.target,faction);if(!path)continue;
+  const wait=Math.max(0,...o.officerIds.map(id=>s.campaign.domestic.assignments.find(a=>a.officerId===id)?.action?.remaining||0));
+  const force={...cityForce(c),units,leader:o.leader,advisor:o.advisor};
+  if(wait+strategicTravelDays(s,force,path)<=q.days)need-=strategicPower(s,force);
+ }
+ if(need<=0)return {need,groups};
+ const sources=s.cities.filter(c=>c.owner===faction&&c.id!==q.target&&!s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===c.id)).map(c=>({c,path:findCampaignRoute(view,c.id,q.target,faction)})).filter(x=>x.path).map(x=>({...x,units:supportUnits(s,x.c,x.path,view,availableUnits)})).filter(x=>x.units.length).map(x=>({...x,days:strategicTravelDays(s,plannedCombatForce(s,x.c,x.units),x.path)})).sort((a,b)=>a.days-b.days||a.c.id.localeCompare(b.c.id));
+ for(const x of sources){
+  if(x.days>q.days||x.path.some((id,i)=>chosenRoad(view,i?x.path[i-1]:x.c.id,id)?.terrain==='water')&&x.units.some(u=>!u.equipment.ship))continue;
+  const units=[];for(const u of x.units){units.push(u);if(strategicPower(s,plannedCombatForce(s,x.c,units))>=need)break;}
+  const force=plannedCombatForce(s,x.c,units),days=strategicTravelDays(s,force,x.path);if(days>q.days)continue;
+  const budget=strategicCityBudget(s,x.c),equipmentGold=units.reduce((n,u)=>n+equipmentCost(u.equipment,x.c.units.find(o=>o.id===u.id).equipment,u.troops+u.wounded,x.c),0);
+  if(x.c.gold-equipmentGold<budget.goldNeed||x.c.grain<armySupplyCapacity(units)+budget.grainNeed||Math.ceil(food(units))*(days*2+R.guardFoodDays)>armySupplyCapacity(units))continue;
+  groups.push({...x,units,days});need-=strategicPower(s,force);if(need<=0)break;
+ }
+ return {need,groups};
+}
+function releasableSupportPlan(s,faction,q,availableUnits){
+ for(const p of activePlans(s).filter(p=>p.faction===faction&&['prepare','assemble'].includes(p.phase))){
+  // Do not recall an already travelling column in order to release a few
+  // remaining officers. Emergency city defense handles its own real threats.
+  if(!p.officerIds.length||!p.officerIds.every(id=>s.cities.some(c=>c.owner===faction&&c.units.some(u=>u.id===id))))continue;
+  const preview={...s,campaign:{...s.campaign,ai:{...s.campaign.ai,plans:s.campaign.ai.plans.filter(x=>x!==p)},domestic:{...s.campaign.domestic,
+   orders:s.campaign.domestic.orders.filter(o=>!(o.faction===faction&&o.kind==='expedition'&&o.officerIds.some(id=>p.officerIds.includes(id))))}}};
+  const result=supportForcePlan(preview,faction,q,availableUnits);
+  if(result.need<=0&&result.groups.some(g=>g.units.some(u=>p.officerIds.includes(u.id))))return p;
+ }
+ return null;
+}
 export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},released=false){
  const ai=s.campaign.ai,day=s.campaign.day,objectives=strategicSupportObjectives(s,faction),byKey=new Map(objectives.map(q=>[key(q),q]));
  for(const q of [...ai.supports].filter(q=>q.faction===faction)){
@@ -80,24 +117,8 @@ export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retr
  for(const q of objectives){
   const existing=ai.supports.find(x=>x.faction===faction&&key(x)===key(q));
   if(!existing&&ai.supports.filter(x=>x.faction===faction).length>=R.maxMissions)continue;
-  let need=q.power;const groups=[],view=intelligenceWorld(s,faction);
-  const incoming=s.armies.filter(a=>a.faction===faction&&a.target===q.target&&!inBattle(s,a)&&(a.travel||a.location!==q.target));for(const a of incoming)if(strategicArrivalDays(view,a,q.target)<=q.days)need-=strategicPower(s,a);
-  for(const o of s.campaign.domestic.orders.filter(o=>o.faction===faction&&o.kind==='expedition'&&o.target===q.target)){
-   const c=s.cities.find(c=>c.id===o.cityId),units=o.officerIds.map(id=>c?.units.find(u=>u.id===id));if(units.some(u=>!u))continue;
-   const path=o.route||findCampaignRoute(view,c.id,q.target,faction);if(!path)continue;
-   const wait=Math.max(0,...o.officerIds.map(id=>s.campaign.domestic.assignments.find(a=>a.officerId===id)?.action?.remaining||0));
-   if(wait+strategicTravelDays(s,{...cityForce(c),units,leader:o.leader},path)<=q.days)need-=strategicPower(s,{...cityForce(c),units});
-  }
-  if(need<=0)continue;
-  const sources=s.cities.filter(c=>c.owner===faction&&c.id!==q.target&&!s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===c.id)).map(c=>({c,path:findCampaignRoute(view,c.id,q.target,faction)})).filter(x=>x.path).map(x=>({...x,units:supportUnits(s,x.c,x.path,view,availableUnits)})).filter(x=>x.units.length).map(x=>({...x,days:strategicTravelDays(s,{...cityForce(x.c),units:x.units},x.path)})).sort((a,b)=>a.days-b.days||a.c.id.localeCompare(b.c.id));
-  for(const x of sources){
-   if(x.days>q.days||x.path.some((id,i)=>chosenRoad(view,i?x.path[i-1]:x.c.id,id)?.terrain==='water')&&x.units.some(u=>!u.equipment.ship))continue;
-   const units=[];for(const u of x.units){units.push(u);need-=strategicPower(s,{...cityForce(x.c),units:[u]});if(need<=0)break;}
-   const budget=strategicCityBudget(s,x.c),equipmentGold=units.reduce((n,u)=>n+equipmentCost(u.equipment,x.c.units.find(o=>o.id===u.id).equipment,u.troops+u.wounded,x.c),0);
-   if(x.c.gold-equipmentGold<budget.goldNeed||x.c.grain<armySupplyCapacity(units)+budget.grainNeed||food(units)*(x.days*2+R.guardFoodDays)>armySupplyCapacity(units)){need+=strategicPower(s,{...cityForce(x.c),units});continue;}
-   groups.push({...x,units});if(need<=0)break;
-  }
-  if(need>0){const optional=activePlans(s).find(p=>p.faction===faction&&['prepare','assemble'].includes(p.phase));if(optional&&cancelPlan&&!released){cancelPlan(s,optional,'增援或粮路告急，释放尚未出发的可选进攻承诺');return planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},true);}continue;}
+  const {need,groups}=supportForcePlan(s,faction,q,availableUnits);
+  if(need>0){const optional=cancelPlan&&!released&&releasableSupportPlan(s,faction,q,availableUnits);if(optional){cancelPlan(s,optional,'释放尚未出发的进攻部队，可及时组成足够的增援或护路军团');return planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},true);}continue;}
   const ids=[];for(const x of groups)if(commandUnits(s,x.c,x.units,q.target,q.kind,q.reason,{arrivalDeadline:day+q.days}))ids.push(...x.units.map(u=>u.id));
   if(ids.length){if(existing)existing.officerIds.push(...ids);else ai.supports.push({id:ai.nextSupportId++,faction,kind:q.kind,target:q.target,battleId:q.battleId,officerIds:ids,createdDay:day,lastNeededDay:day,deadline:day+R.missionDays});}
  }

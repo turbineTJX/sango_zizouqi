@@ -148,7 +148,8 @@ export const BOND_ASSIGNMENTS = {
     "bondCrusher": 1
   },
   "person-41": {
-    "bondBulwark": 1
+    "bondBulwark": 1,
+    "bondTigerFormation": 1
   },
   "person-42": {
     "bondGuard": 1,
@@ -258,7 +259,8 @@ export const BOND_ASSIGNMENTS = {
     "bondBulwark": 3
   },
   "person-70": {
-    "bondFinisher": 1
+    "bondFinisher": 1,
+    "bondTigerFormation": 2
   },
   "person-71": {
     "bondPower": 1
@@ -292,7 +294,8 @@ export const BOND_ASSIGNMENTS = {
     "bondCrusher": 1
   },
   "yuanxia": {
-    "bondRaid": 3
+    "bondRaid": 3,
+    "bondTigerFormation": 2
   },
   "person-80": {
     "bondCrusher": 1
@@ -317,7 +320,8 @@ export const BOND_ASSIGNMENTS = {
     "bondCrusher": 1
   },
   "dun": {
-    "bondLastStand": 1
+    "bondLastStand": 1,
+    "bondTigerFormation": 2
   },
   "person-87": {
     "bondCrusher": 1
@@ -364,7 +368,8 @@ export const BOND_ASSIGNMENTS = {
     "bondLure": 1
   },
   "person-99": {
-    "bondPeach": 1
+    "bondPeach": 1,
+    "bondTigerFormation": 3
   },
   "person-100": {
     "bondSteady": 1,
@@ -398,7 +403,8 @@ export const BOND_ASSIGNMENTS = {
     "bondSwift": 1
   },
   "person-108": {
-    "bondFinisher": 1
+    "bondFinisher": 1,
+    "bondTigerFormation": 2
   },
   "person-109": {
     "bondRaid": 1,
@@ -452,7 +458,8 @@ export const BOND_ASSIGNMENTS = {
     "bondSpirit": 1
   },
   "person-122": {
-    "bondFinisher": 1
+    "bondFinisher": 1,
+    "bondTigerFormation": 2
   },
   "person-123": {
     "bondGuard": 1,
@@ -463,7 +470,8 @@ export const BOND_ASSIGNMENTS = {
     "bondHaste": 3
   },
   "person-125": {
-    "bondLastStand": 1
+    "bondLastStand": 1,
+    "bondTigerFormation": 2
   },
   "person-126": {
     "bondGuard": 1,
@@ -489,7 +497,8 @@ export const BOND_ASSIGNMENTS = {
     "bondLure": 1
   },
   "person-132": {
-    "bondBulwark": 1
+    "bondBulwark": 1,
+    "bondTigerFormation": 1
   },
   "person-133": {
     "bondScholar": 1,
@@ -542,7 +551,8 @@ export const BOND_ASSIGNMENTS = {
     "bondChain": 1
   },
   "person-147": {
-    "bondPower": 2
+    "bondPower": 2,
+    "bondTigerFormation": 1
   },
   "person-148": {
     "bondGuard": 1
@@ -599,7 +609,8 @@ export const BOND_ASSIGNMENTS = {
     "bondVolley": 1
   },
   "person-164": {
-    "bondFire": 1
+    "bondFire": 1,
+    "bondDragonFormation": 3
   },
   "person-165": {
     "bondGuard": 1,
@@ -617,7 +628,8 @@ export const BOND_ASSIGNMENTS = {
     "bondGuard": 1
   },
   "person-169": {
-    "bondSteady": 1
+    "bondSteady": 1,
+    "bondDragonFormation": 1
   },
   "person-170": {
     "bondGuard": 1,
@@ -685,7 +697,8 @@ export const BOND_ASSIGNMENTS = {
     "bondGuard": 1
   },
   "person-188": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 1
   },
   "person-189": {
     "bondGuard": 1
@@ -725,16 +738,20 @@ export const BOND_ASSIGNMENTS = {
     "bondMuster": 1
   },
   "person-200": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 1
   },
   "person-201": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 1
   },
   "person-202": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 1
   },
   "person-203": {
-    "bondGuard": 1
+    "bondGuard": 1,
+    "bondDragonFormation": 1
   },
   "person-204": {
     "bondSwift": 1
@@ -827,7 +844,8 @@ export const BOND_ASSIGNMENTS = {
     "bondArmor": 2
   },
   "person-231": {
-    "bondSteady": 1
+    "bondSteady": 1,
+    "bondDragonFormation": 2
   },
   "person-232": {
     "bondScholar": 1,
@@ -846,7 +864,8 @@ export const BOND_ASSIGNMENTS = {
     "bondGuard": 1
   },
   "person-237": {
-    "bondPower": 2
+    "bondPower": 2,
+    "bondTigerFormation": 1
   },
   "person-238": {
     "bondGuard": 1,
@@ -925,7 +944,8 @@ export const BOND_ASSIGNMENTS = {
     "bondEscort": 1
   },
   "person-258": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 1
   },
   "person-259": {
     "bondEscort": 1,
@@ -939,7 +959,8 @@ export const BOND_ASSIGNMENTS = {
     "bondPower": 1
   },
   "person-262": {
-    "bondSteady": 1
+    "bondSteady": 1,
+    "bondDragonFormation": 2
   },
   "person-263": {
     "bondGuard": 1,
@@ -970,7 +991,8 @@ export const BOND_ASSIGNMENTS = {
     "bondSuppress": 1
   },
   "person-270": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 2
   },
   "person-271": {
     "bondPower": 1
@@ -1000,7 +1022,8 @@ export const BOND_ASSIGNMENTS = {
     "bondAntiHorse": 1
   },
   "person-279": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 2
   },
   "person-280": {
     "bondRaid": 1,
@@ -1062,7 +1085,8 @@ export const BOND_ASSIGNMENTS = {
     "bondAntiHorse": 1
   },
   "person-296": {
-    "bondSteady": 1
+    "bondSteady": 1,
+    "bondDragonFormation": 1
   },
   "person-297": {
     "bondPower": 1
@@ -1099,7 +1123,8 @@ export const BOND_ASSIGNMENTS = {
     "bondSuppress": 1
   },
   "person-307": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 2
   },
   "person-308": {
     "bondAntiHorse": 1
@@ -1179,7 +1204,8 @@ export const BOND_ASSIGNMENTS = {
     "bondGuard": 1
   },
   "person-332": {
-    "bondSwift": 1
+    "bondSwift": 1,
+    "bondTigerFormation": 1
   },
   "person-333": {
     "bondGuard": 1
@@ -1231,7 +1257,8 @@ export const BOND_ASSIGNMENTS = {
     "bondEscort": 1
   },
   "person-347": {
-    "bondFinisher": 1
+    "bondFinisher": 1,
+    "bondTigerFormation": 2
   },
   "person-348": {
     "bondEscort": 1,
@@ -1312,7 +1339,8 @@ export const BOND_ASSIGNMENTS = {
     "bondFire": 1
   },
   "person-371": {
-    "bondRaid": 2
+    "bondRaid": 2,
+    "bondTigerFormation": 2
   },
   "person-372": {
     "bondGuard": 1
@@ -1526,13 +1554,15 @@ export const BOND_ASSIGNMENTS = {
     "bondGuard": 1
   },
   "person-433": {
-    "bondPeach": 1
+    "bondPeach": 1,
+    "bondTigerFormation": 2
   },
   "person-434": {
     "bondEscort": 1
   },
   "person-435": {
-    "bondFinisher": 1
+    "bondFinisher": 1,
+    "bondTigerFormation": 1
   },
   "person-436": {
     "bondScholar": 1,
@@ -1582,7 +1612,8 @@ export const BOND_ASSIGNMENTS = {
     "bondSuppress": 1
   },
   "person-449": {
-    "bondGuard": 1
+    "bondGuard": 1,
+    "bondDragonFormation": 2
   },
   "person-450": {
     "bondEscort": 1
@@ -1599,7 +1630,8 @@ export const BOND_ASSIGNMENTS = {
     "bondAntiHorse": 1
   },
   "person-454": {
-    "bondGuard": 1
+    "bondGuard": 1,
+    "bondDragonFormation": 1
   },
   "person-455": {
     "bondScholar": 1,
@@ -1618,14 +1650,16 @@ export const BOND_ASSIGNMENTS = {
     "bondFire": 1
   },
   "person-459": {
-    "bondFinisher": 1
+    "bondFinisher": 1,
+    "bondTigerFormation": 1
   },
   "person-460": {
     "bondVolley": 1,
     "bondMuster": 1
   },
   "person-461": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 1
   },
   "person-462": {
     "bondScholar": 1,
@@ -1648,7 +1682,8 @@ export const BOND_ASSIGNMENTS = {
     "bondAntiHorse": 1
   },
   "person-468": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 2
   },
   "person-469": {
     "bondEscort": 1
@@ -2015,7 +2050,8 @@ export const BOND_ASSIGNMENTS = {
     "bondGuard": 1
   },
   "person-576": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 2
   },
   "person-577": {
     "bondPower": 1
@@ -2097,7 +2133,8 @@ export const BOND_ASSIGNMENTS = {
     "bondHaste": 1
   },
   "person-600": {
-    "bondEscort": 1
+    "bondEscort": 1,
+    "bondDragonFormation": 2
   },
   "person-601": {
     "bondGuard": 2,
@@ -2129,7 +2166,8 @@ export const BOND_ASSIGNMENTS = {
     "bondRaid": 1
   },
   "person-609": {
-    "bondSwift": 1
+    "bondSwift": 1,
+    "bondTigerFormation": 1
   },
   "person-610": {
     "bondGuard": 1,
@@ -2233,7 +2271,8 @@ export const BOND_ASSIGNMENTS = {
     "bondSuppress": 2
   },
   "person-641": {
-    "bondFinisher": 1
+    "bondFinisher": 1,
+    "bondTigerFormation": 1
   },
   "person-642": {
     "bondSpread": 1,
@@ -2265,7 +2304,8 @@ export const BOND_ASSIGNMENTS = {
     "bondPower": 1
   },
   "person-651": {
-    "bondFire": 1
+    "bondFire": 1,
+    "bondTigerFormation": 1
   },
   "person-652": {
     "bondEscort": 2,

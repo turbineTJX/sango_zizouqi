@@ -49,7 +49,7 @@ try{
    await page.locator('[data-action="inspect-gate"]').focus();await page.keyboard.press('Enter');assert.match(await page.locator('.modal').innerText(),/12,000/);await page.locator('.modal [data-action="close"]').first().click();assert.equal(await page.evaluate(()=>JSON.stringify(environmentBattle)),before);
   }
  }
- await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/mobile-river.png'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.setViewportSize({width:844,height:390});await page.screenshot({path:out+'/mobile-river.png'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  await page.emulateMedia({reducedMotion:'reduce'});await page.screenshot({path:out+'/reduced-motion.png'});
  const gallery=await browser.newPage({viewport:{width:1500,height:1100}}),ids=['plain-open','forest-stream','hill-pass','marsh-dykes','river-twin-bridges','river-harbor'];
  await gallery.setContent(`<!doctype html><meta charset="utf-8"><style>*{box-sizing:border-box}body{margin:0;padding:22px;background:#202b24;color:#dfd5b5;font:14px Microsoft YaHei,sans-serif}h1{font-size:20px;font-weight:500;margin:0 0 18px}.maps{display:grid;grid-template-columns:1fr 1fr;gap:18px}.battle-map-preview{margin:0;overflow:hidden;border:1px solid #afab7730;border-radius:6px;background:#29392b}.battle-map-preview>div{padding:10px 14px;display:flex;justify-content:space-between;font-size:13px}.battle-map-preview span{font-size:10px;opacity:.55}.battle-map-preview svg{display:block;width:100%;height:auto}</style><h1>战场环境 · 连续地表、林带、坡地与水岸</h1><div class="maps">${ids.map(mapId=>battleMapPreview({mapId})).join('')}</div>`);

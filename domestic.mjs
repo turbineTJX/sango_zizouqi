@@ -311,11 +311,14 @@ export function dismissDomestic(s,officerId,{scheduled=false,faction=playerFacti
 export const domesticConfidence=chance=>chance>=.85?'很高':chance>=.7?'较高':chance>=.5?'一般':chance>=.3?'较低':'很低';
 export const pendingDomesticProposals=s=>s.campaign.domestic.assignments.filter(a=>a.proposal&&isPlayerControlled(s,town(s,a.cityId)?.owner));
 const proposalExpenses=pick=>({gold:pick.cost,grain:ACTIONS[pick.key].kind==='heal'?200:ACTIONS[pick.key].kind==='trade'&&ACTIONS[pick.key].value==='sell'?pick.amount:0,manpower:pick.recruitMode==='replenish'?pick.amount:0});
-export function domesticProposalText(s,a){
+export function domesticProposalSummary(s,a){
  const p=a.proposal,c=town(s,a.cityId),u=domesticOfficer(s,a.officerId)?.unit,def=ACTIONS[p.pick.key],name=def.kind==='build'?(buildingWorkMode(c,def.value,p.siteId)==='repair'?'修缮':localBuildingLevel(c,def.value,p.siteId)?'扩建':'兴建')+BUILDINGS[def.value].name:def.kind==='research'?'研制「'+TECHS[p.pick.targetId].name+'」':def.name;
- const target=['hire','persuade','reassure'].includes(def.kind)?'（'+OFFICER_BY_ID[p.pick.targetId].name+'）':'';
+ return {name,officer:u?.name||OFFICER_BY_ID[a.officerId].name,site:buildingSiteName(s,p.siteId),target:['hire','persuade','reassure'].includes(def.kind)?OFFICER_BY_ID[p.pick.targetId].name:'',expenses:p.expenses,days:p.days,confidence:domesticConfidence(p.pick.chance),saleFee:p.pick.key==='sell'?def.cost:0};
+}
+export function domesticProposalText(s,a){
+ const p=domesticProposalSummary(s,a),target=p.target?'（'+p.target+'）':'';
  const expenses=Object.entries(p.expenses).filter(([,n])=>n>0).map(([key,n])=>n+({gold:'金',grain:'粮',manpower:'预备兵'})[key]).join('、');
- return `${u?.name||OFFICER_BY_ID[a.officerId].name} · ${buildingSiteName(s,p.siteId)} · ${name}${target}；费用 ${expenses||'无'}${p.pick.key==='sell'?'，成交后扣除'+def.cost+'金手续费':''}；耗时 ${p.days}天；成功率 ${domesticConfidence(p.pick.chance)}。`;
+ return `${p.officer} · ${p.site} · ${p.name}${target}；费用 ${expenses||'无'}${p.saleFee?'，成交后扣除'+p.saleFee+'金手续费':''}；耗时 ${p.days}天；成功率 ${p.confidence}。`;
 }
 export function decideDomesticProposal(s,id,approve){
  if(typeof approve!=='boolean')return '请选择同意或暂缓';
@@ -333,10 +336,10 @@ export function decideDomesticProposal(s,id,approve){
  emit(s,a,'proposal-approved',`${u.name}的${ACTIONS[p.pick.key].name}提案已同意。`,{proposalId:p.id,siteId:p.siteId});
  start(s,a,c,p.pick,{approved:true,siteId:p.siteId});recordOfficerActivities(s);return null;
 }
-export function setDomesticAutoApprove(s,enabled){
+export function setDomesticAutoApprove(s,enabled,{approvePending=true}={}){
  if(s.finished||typeof enabled!=='boolean')return '当前不能更改审批方式';
  s.campaign.domestic.autoApprove=enabled;
- if(enabled)for(const a of [...pendingDomesticProposals(s)]){const error=decideDomesticProposal(s,a.proposal.id,true);if(error){decideDomesticProposal(s,a.proposal.id,false);a.waiting=error;}}
+ if(enabled&&approvePending)for(const a of [...pendingDomesticProposals(s)]){const error=decideDomesticProposal(s,a.proposal.id,true);if(error){decideDomesticProposal(s,a.proposal.id,false);a.waiting=error;}}
  return null;
 }
 function start(s,a,c,pick,{approved=false,siteId:approvedSite=null}={}){
@@ -439,9 +442,11 @@ function advanceResearch(s,a,c){
  const x=a.action,r=c.domestic.research;if(r?.type!==x.targetId)return;
  const before=r.progress,coop=cooperationFor(s,a),rate=researchDailyRate(s,c,a),work=workProfile(x.traitIds,ACTIONS[x.key],x.targetId);
  const normal=Math.min(TECHS[r.type].requiredProgress-before,rate),extra=coop?.success&&coop.mode==='quantity'&&!coop.applied?1+coop.gain*(work.cooperationMultiplier||1):1;
+ // Compare equally rounded outcomes. Storage precision is not cooperation.
+ const normalProgress=Math.min(TECHS[r.type].requiredProgress,Math.round((before+normal)*10000)/10000);
  r.progress=Math.min(TECHS[r.type].requiredProgress,Math.round((before+normal*extra)*10000)/10000);r.workedDays++;
  x.researchActual=Math.round((x.researchActual+r.progress-before)*10000)/10000;
- if(coop&&!coop.applied)settleCooperation(s,a,c,coop,normal,r.progress-before,'研究进度');
+ if(coop&&!coop.applied)settleCooperation(s,a,c,coop,normalProgress-before,r.progress-before,'研究进度');
  if(r.progress>=TECHS[r.type].requiredProgress)x.remaining=0;
 }
 function complete(s,a,c){
@@ -567,7 +572,7 @@ export function finishDomesticDay(s){
   const coop=cooperationFor(s,a),beforeRemaining=x.remaining,modifier=incidentModifiers(s,a),beforeHp=['build','repair'].includes(kind)?buildingDurability(c,c.project.key,c.project.siteId).hp:0,beforeResearch=c.domestic.research?.progress||0;
   if(kind==='build'){const normal=Math.min(x.remaining,modifier.progress),progress=Math.min(x.remaining,normal+(coop?.success?Math.min(10,x.remaining)*coop.gain:0));if(coop)settleCooperation(s,a,c,coop,normal,progress,'施工进度（天）');x.remaining=Math.max(0,Math.round((x.remaining-progress)*10000)/10000);}else x.remaining=Math.max(0,x.remaining-1);
   if(kind==='build')restoreBuilding(c,ACTIONS[x.key].value,x.siteId,Math.round(c.project.hpPerDay*beforeRemaining)-Math.round(c.project.hpPerDay*x.remaining),{finish:false});
-  if(kind==='repair'){const def=ACTIONS[x.key],work=workProfile(x.traitIds,def,x.targetId),factor=workFactor(outcome(x.repairRoll,effectiveDomesticChance(s,a)),work),quantity=x.traitIds.reduce((n,id)=>Math.max(n,WORK_TRAITS[id].quantity||0),0),record=buildingDurability(c,x.buildingKey),normal=Math.min(record.maxHp-record.hp,c.project.hpPerDay*factor*(1+quantity)*workQuantity(factor,work)*modifier.progress),extra=coop?.success&&!coop.applied?1+coop.gain*(work.cooperationMultiplier||1):1,raw=normal*extra+x.repairCarry,rounded=Math.round(raw),actual=restoreBuilding(c,x.buildingKey,c.id,rounded);x.repairCarry=actual<rounded?0:Math.round((raw-rounded)*10000)/10000;x.repairActual+=actual;if(coop&&!coop.applied)settleCooperation(s,a,c,coop,Math.round(normal),actual,'建筑耐久');if(record.hp===record.maxHp)x.remaining=0;}
+  if(kind==='repair'){const def=ACTIONS[x.key],work=workProfile(x.traitIds,def,x.targetId),factor=workFactor(outcome(x.repairRoll,effectiveDomesticChance(s,a)),work),quantity=x.traitIds.reduce((n,id)=>Math.max(n,WORK_TRAITS[id].quantity||0),0),record=buildingDurability(c,x.buildingKey),normal=Math.min(record.maxHp-record.hp,c.project.hpPerDay*factor*(1+quantity)*workQuantity(factor,work)*modifier.progress),extra=coop?.success&&!coop.applied?1+coop.gain*(work.cooperationMultiplier||1):1,baseline=Math.min(record.maxHp-record.hp,Math.max(0,Math.round(normal+x.repairCarry))),raw=normal*extra+x.repairCarry,rounded=Math.round(raw),actual=restoreBuilding(c,x.buildingKey,c.id,rounded);x.repairCarry=actual<rounded?0:Math.round((raw-rounded)*10000)/10000;x.repairActual+=actual;if(coop&&!coop.applied)settleCooperation(s,a,c,coop,baseline,actual,'建筑耐久');if(record.hp===record.maxHp)x.remaining=0;}
   if(kind==='research')advanceResearch(s,a,c);
   if(['build','repair'].includes(kind)){const hp=buildingDurability(c,c.project.key,c.project.siteId).hp;creditWorkMerit(s,a,c,c.project,hp-c.project.meritOriginHp,coop?.success&&coop.actual>0?coop:incidentSupport(s,a,(hp-beforeHp)/modifier.progress,hp-beforeHp));}
   if(kind==='research'){const progress=c.domestic.research.progress-beforeResearch;creditWorkMerit(s,a,c,c.domestic.research,c.domestic.research.progress,coop?.success&&coop.actual>0?coop:incidentSupport(s,a,progress/modifier.progress,progress));}
@@ -630,7 +635,7 @@ export function validateDomestic(s){
  for(const a of d.assignments){
   fail(a.proposal===null||a.proposal&&typeof a.proposal==='object','提案状态无效');if(!a.proposal)continue;
   const p=a.proposal,x=p.pick,c=town(s,a.cityId),def=ACTIONS[x?.key];
-  fail(!a.action&&isPlayerControlled(s,c.owner)&&!d.autoApprove&&def?.direction===a.direction&&int(p.id)&&p.id<d.nextId&&!ids.has(p.id)&&int(p.createdDay,day(s))&&p.createdDay>0&&num(p.days,500)&&p.days>0&&typeof p.siteId==='string'&&constructionSites(s,c).some(n=>n.id===p.siteId),'内政提案无效');ids.add(p.id);
+  fail(!a.action&&isPlayerControlled(s,c.owner)&&def?.direction===a.direction&&int(p.id)&&p.id<d.nextId&&!ids.has(p.id)&&int(p.createdDay,day(s))&&p.createdDay>0&&num(p.days,500)&&p.days>0&&typeof p.siteId==='string'&&constructionSites(s,c).some(n=>n.id===p.siteId),'内政提案无效');ids.add(p.id);
   fail(int(x.cost)&&int(x.amount)&&num(x.chance,OUTCOMES.maxChance)&&x.chance>=OUTCOMES.minChance&&Number.isFinite(x.score)&&(x.targetId===null||typeof x.targetId==='string')&&(def.kind==='recruit'?['reserve','replenish'].includes(x.recruitMode):x.recruitMode===null),'提案事务无效');
   fail(p.expenses&&Object.keys(p.expenses).sort().join(',')==='gold,grain,manpower'&&Object.keys(proposalExpenses(x)).every(k=>int(p.expenses[k])&&p.expenses[k]===proposalExpenses(x)[k])&&Object.values(p.expenses).some(n=>n>0),'提案用度无效');
   if(['build','repair'].includes(def.kind)){claim(constructionSlots,c.id);fail(!c.project&&!occupiedSites.has(p.siteId)&&constructionSites(s,c).some(n=>n.id===p.siteId),'提案工地重复或无效');occupiedSites.add(p.siteId);if(def.value==='walls')fail(p.siteId===c.id,'城墙须建设在主城');}

@@ -35,7 +35,7 @@ try{
     await action('campaign-command-next').click();await action('campaign-command-next').click();await action('campaign-pick-confirm').click();
     const next=await saved();assert.ok(next.armies.find(a=>a.defense).units.some(u=>u.id===id&&u.troops===troops));assert.equal(next.campaign.battles[0].awaiting,true);
    }else{
-    await action('campaign-defense-relinquish').click();const next=await saved();assert.equal(next.cities.find(x=>x.id===c.id).owner,'yuan');assert.equal(next.campaign.battles.length,0);assert.equal(next.campaign.archive.length,0);
+    await action('campaign-defense-relinquish').click();await action('campaign-confirm-action').click();const next=await saved();assert.equal(next.cities.find(x=>x.id===c.id).owner,'yuan');assert.equal(next.campaign.battles.length,0);assert.equal(next.campaign.archive.length,0);
    }
    assert.deepEqual(errors,[]);console.log(`Siege mobilization UI passed: ${mode}, valid saves and narrow viewport.`);
   }catch(e){await page.screenshot({path:out+'/'+mode+'-failure.png',animations:'disabled'});throw e;}finally{await context.close();}

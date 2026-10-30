@@ -5,6 +5,14 @@ const colorFor=s=>({control:'#dbb3ff',damage:'#ffab70',debuff:'#f59fae',buff:'#9
 const amount=s=>s?.state?.amount||0;
 const statusCopy=s=>({...s,state:structuredClone(s.state||{}),sources:[...(s.sources||[])]});
 
+export function impactProfile(hit){
+ if(!(hit.damage>0))return {force:0,recoil:0,flash:0,duration:0};
+ if(hit.ongoing||hit.damageKind==='dot')return {force:.18,recoil:.025,flash:.22,duration:180};
+ const fraction=hit.damage/Math.max(1,hit.targetInitial||hit.damage*50);
+ const force=clamp(.3+Math.sqrt(fraction)*1.8+(hit.critical?.25:0)+(hit.defeated?.65:0),.3,1.5);
+ return {force,recoil:.035+force*.15,flash:.3+force*.4,duration:180+force*75};
+}
+
 // One receipt per actual action/target, including fully absorbed hits. Numeric
 // outcomes supplement event packets only when no packet carried that value.
 export function actionImpacts(actions){
@@ -13,7 +21,7 @@ export function actionImpacts(actions){
   for(const e of action.events){
    if(e.combo||!e.to)continue;
    const old=targets.get(e.to)||{...e,damage:0,healing:0,absorbed:0};
-   old.damage+=e.damage||0;old.healing+=e.healing||0;old.absorbed+=e.shieldAbsorbed||0;old.critical||=e.critical;
+   old.damage+=e.damage||0;old.healing+=e.healing||0;old.absorbed+=e.shieldAbsorbed||0;old.critical||=e.critical;old.defeated||=e.defeated;
    targets.set(e.to,old);
   }
   for(const row of action.events.find(e=>e.outcome)?.outcome||[]){
@@ -24,10 +32,10 @@ export function actionImpacts(actions){
  });
 }
 export function feedbackReaction(hits,id,clock){
- const hit=hits.filter(e=>e.to===id&&e.damage>0&&clock>=e.start&&clock<e.start+280).sort((a,b)=>b.start-a.start)[0];
+ const hit=hits.filter(e=>e.to===id&&e.damage>0&&clock>=e.start&&clock<e.start+impactProfile(e).duration).sort((a,b)=>b.start-a.start||impactProfile(b).force-impactProfile(a).force)[0];
  if(!hit)return null;
- const age=clock-hit.start;
- return {hit,flash:clamp(1-age/145),recoil:Math.sin(clamp(age/260)*Math.PI)*(hit.ongoing||hit.damageKind==='dot'?.04:hit.critical?.17:.115)};
+ const age=clock-hit.start,profile=impactProfile(hit),recover=clamp((age-55)/(profile.duration-55));
+ return {hit,flash:clamp(1-age/150)*profile.flash,recoil:Math.sin(clamp(age/80)*Math.PI/2)*(1-recover*recover*(3-2*recover))*profile.recoil};
 }
 export class BattleFeedback{
  constructor(){this.reset();}
@@ -89,9 +97,16 @@ export class BattleFeedback{
     const tag=[fx.focusedUnit?hit.name:'',hit.critical?'暴击':''].filter(Boolean).join(' · ');
     if(tag)fx.label(tag,x,y-cell*.23,color,fade,clamp(cell*.14,9,10));
     fx.label('−'+hit.damage,x,y,color,fade,clamp(cell*(hit.critical?.22:.18),11,hit.critical?15:13)*kick);
-    if(age<190&&!fx.reduced){
-     const flash=1-age/190;fx.glow(p.x,p.y-cell*.2,cell*.48,color,flash*.6);
-     for(let i=0;i<6;i++){const a=i*TAU/6+.3,r=cell*(.17+age/190*.24);fx.line(p.x+Math.cos(a)*r,p.y-cell*.2+Math.sin(a)*r*.7,p.x+Math.cos(a)*(r+cell*.13),p.y-cell*.2+Math.sin(a)*(r+cell*.13)*.7,color,hit.critical?3:2,flash);}
+    if(age<240&&!fx.reduced&&!hit.ongoing&&hit.damageKind!=='dot'){
+     const profile=impactProfile(hit),q=age/240,flash=(1-q)*(1-q),origin=fx.point(hit.fromX??hit.x,hit.fromY??hit.y),angle=Math.atan2(p.y-origin.y,p.x-origin.x);
+     for(const b of troopBodyAnchors(fx,hit.to,p,cell).slice(0,profile.force>1?3:2)){
+      const x=b.x,y=b.y-b.size*.4;fx.glow(x,y,b.size*.15,color,flash*profile.flash);
+      for(let i=0;i<(profile.force>1?4:2);i++){
+       const a=angle+(i-1.5)*.5,r=b.size*(.05+q*.65)*profile.force;
+       fx.line(x+Math.cos(a)*r,y+Math.sin(a)*r*.7,x+Math.cos(a)*(r+b.size*.13),y+Math.sin(a)*(r+b.size*.13)*.7,color,profile.force>1?2.2:1.4,flash);
+      }
+      if(profile.force>.8){c.globalAlpha=flash*.25;c.fillStyle='#c4ad83';c.beginPath();c.ellipse(b.x+Math.cos(angle)*q*b.size*.3,b.y,b.size*(.12+q*.3),b.size*.09,0,0,TAU);c.fill();}
+     }
     }
    }
    if(hit.healing>0)fx.label('+'+hit.healing,x,y,'#a9d3ae',fade,clamp(cell*.18,11,13)*kick);

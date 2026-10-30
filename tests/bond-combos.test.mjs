@@ -46,17 +46,17 @@ test('single primary maxima require six actual holders, and secondary bonds rema
 });
 
 test('Song uses real basic hits, feeds available tactic thresholds and preserves low-source support',()=>{
- for(const side of [0,1]){const x=scene('song',side),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});recipient.intent=90;x.u.intent=20;basic(x);assert.equal(recipient.intent,97);assert.equal(x.b.effects.filter(e=>e.text?.startsWith('战歌 ·')).length,1);assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
- const x=scene('song'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});recipient.intent=98;x.u.intent=20;basic(x);assert.equal(recipient.intent,100);assert.equal(shieldAmount(x.b,recipient),200);assert.equal(recipient.hp,4000);
+ for(const side of [0,1]){const x=scene('song',side),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});recipient.intent=90;x.u.intent=20;basic(x);assert.equal(recipient.intent,100);assert.equal(x.b.effects.filter(e=>e.text?.startsWith('战歌 ·')).length,1);assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
+ const x=scene('song'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});recipient.intent=98;x.u.intent=20;basic(x);assert.equal(recipient.intent,100);assert.equal(shieldAmount(x.b,recipient),320);assert.equal(recipient.hp,4000);
  const shielded=scene('song');Object.assign(shielded.us[4],{x:4,y:2});setStatus(shielded.b,shielded.enemy,'shield',5,{amount:4000,source:'test',label:'护盾'});basic(shielded);assert.equal(shielded.us[4].intent,0);assert.ok(!shielded.b.effects.some(e=>e.label==='战歌'));
 });
 
 test('contact attacks trigger Song once rather than per target, and reserves cannot receive it',()=>{
- const x=scene('song',0,'spear'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});Object.assign(x.enemy,{x:5,y:3});Object.assign(x.es[1],{x:4,y:4});const hits=basic(x);assert.equal(hits.length,2);assert.equal(recipient.intent,7);assert.equal(x.b.effects.filter(e=>e.label==='战歌').length,1);
- recipient.status='reserve';recipient.arrivalTick=99;basic(x);assert.equal(recipient.intent,7);
+ const x=scene('song',0,'spear'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2});Object.assign(x.enemy,{x:5,y:3});Object.assign(x.es[1],{x:4,y:4});const hits=basic(x);assert.equal(hits.length,2);assert.equal(recipient.intent,10);assert.equal(x.b.effects.filter(e=>e.label==='战歌').length,1);
+ recipient.status='reserve';recipient.arrivalTick=99;basic(x);assert.equal(recipient.intent,10);
 });
 test('Song settles a landed attack before retaliation can defeat its provider',()=>{
- const x=scene('song',0,'spear'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2,intent:40});Object.assign(x.enemy,{x:5,y:3});hp(x.u,1);setStatus(x.b,x.enemy,'riposte',5,{...source(x.enemy),lastTick:0});basic(x);assert.equal(x.u.status,'defeated');assert.equal(recipient.intent,40+7-INTENT_STATE.defeatLoss-INTENT_STATE.nearbyDefeatLoss);assert.equal(x.b.effects.filter(e=>e.label==='战歌').length,1);assert.equal(x.b.effects.find(e=>e.label==='战歌').intentGained,7);
+ const x=scene('song',0,'spear'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2,intent:40});Object.assign(x.enemy,{x:5,y:3});hp(x.u,1);setStatus(x.b,x.enemy,'riposte',5,{...source(x.enemy),lastTick:0});basic(x);assert.equal(x.u.status,'defeated');assert.equal(recipient.intent,40+10-INTENT_STATE.defeatLoss-INTENT_STATE.nearbyDefeatLoss);assert.equal(x.b.effects.filter(e=>e.label==='战歌').length,1);assert.equal(x.b.effects.find(e=>e.label==='战歌').intentGained,10);
 });
 
 test('Crusher rolls seeded armor break, drains only after a successful top-tier break, and does not refresh it',()=>{
@@ -70,7 +70,7 @@ test('Crusher rolls seeded armor break, drains only after a successful top-tier 
 
 test('Finisher guarantees real basic criticals only on broken armor at or below half strength',()=>{
  for(const side of [0,1])for(const amount of [2000,2001])for(const broken of [true,false]){const x=scene('finisher',side),u=x.us[1];Object.assign(x.u,{x:0,y:0});Object.assign(u,{x:4,y:3});hp(x.enemy,amount);if(broken)setStatus(x.b,x.enemy,'armorBreak',6,source(u));assert.equal(bondFinisherCritical(x.b,u,x.enemy),broken&&amount===2000);const hit=basic(x,u)[0];assert.equal(hit.bondCritical==='bondFinisher',broken&&amount===2000);if(hit.bondCritical){assert.equal(hit.critical,true);assert.equal(hit.critChance,1);}assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
- const x=scene('finisher',0,'spear'),u=x.us[1];Object.assign(x.u,{x:0,y:0});Object.assign(u,{x:4,y:3});Object.assign(x.enemy,{x:5,y:3});hp(x.enemy,2000);setStatus(x.b,x.enemy,'armorBreak',6,source(u));primeTactic(u,'thrust');stepBattle(x.b);assert.ok(x.b.effects.some(e=>e.from===u.id&&e.skill&&e.damage>0));assert.ok(!x.b.effects.some(e=>e.bondCritical));
+ const x=scene('finisher',0,'spear'),u=x.us[1];Object.assign(x.u,{x:0,y:0});Object.assign(u,{x:4,y:3});Object.assign(x.enemy,{x:5,y:3});hp(x.enemy,2000);setStatus(x.b,x.enemy,'armorBreak',6,source(u));primeTactic(u,'thrust');let landed=false;for(let i=0;i<12&&!landed;i++){u.cooldown=999;stepBattle(x.b);landed=x.b.effects.some(e=>e.from===u.id&&e.skill&&e.damage>0);}assert.ok(x.b.effects.some(e=>e.from===u.id&&e.skill&&e.damage>0));assert.ok(!x.b.effects.some(e=>e.bondCritical));
 });
 
 test('Doubt waits six rounds, rolls nearby enemies independently and cannot act outside legal attack range',()=>{

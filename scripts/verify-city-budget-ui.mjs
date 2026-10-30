@@ -38,7 +38,10 @@ try{
  await page.setViewportSize({width:390,height:844});await budget.scrollIntoViewIfNeeded();
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await page.screenshot({path:out+'/mobile.png'});
  assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),stored,'viewing and resizing never writes simulation');
- await page.setViewportSize({width:1440,height:1000});const setting=budget.locator('[data-city-budget-key="goldReserve"]');await setting.fill('900');await setting.press('Tab');
+ await page.setViewportSize({width:1440,height:1000});const setting=budget.locator('[data-city-budget-key="goldReserve"]'),grainSetting=budget.locator('[data-city-budget-key="grainReserve"]');await setting.fill('900');await setting.press('Tab');assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),stored,'budget typing does not save');
+ await grainSetting.fill('1.5');await budget.locator('[data-action="city-budget-save"]').click();assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),stored,'invalid grain never partially commits valid gold');assert.equal(await grainSetting.getAttribute('aria-invalid'),'true');
+ await budget.locator('[data-action="city-budget-reset"]').click();assert.equal(await setting.inputValue(),'500');assert.equal(await grainSetting.inputValue(),'0');assert.equal(await budget.locator('[data-budget-draft-status]').innerText(),'');
+ await setting.fill('900');await budget.locator('[data-action="city-budget-save"]').click();
  await page.waitForFunction(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')).cities.find(c=>c.id==='xuchang').budget.goldReserve===900);
  const changed=JSON.parse(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));assert.equal(changed.cities.find(c=>c.id==='xuchang').gold,200);assert.equal(changed.cities.find(c=>c.id==='chenliu').budget.goldReserve,500);
  await page.reload();await page.locator('.strategy-world').waitFor();assert.equal(await page.locator('.strategy-world [data-city="xuchang"] .map-city-soldiers text').textContent(),'3,000 / 9,000');

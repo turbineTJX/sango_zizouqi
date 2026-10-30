@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {castFrame,castPose,castProjectile,castVisualEvents,drawCastSource,drawCastTarget,unitCastAction} from '../battle-cast-animation.mjs';
+import {castFrame,castPose,castProjectile,castVisualEvents,drawCastSource,drawCastTarget,unitCastAction,actorCastProgress} from '../battle-cast-animation.mjs';
 
 test('windup, flight, impact and recovery share the recorded health and sound boundary',()=>{
  assert.deepEqual([0,.23,.24,.51,.52,.79,.8,1].map(p=>castFrame(p).phase),['windup','windup','release','release','impact','impact','recover','recover']);
@@ -11,6 +11,16 @@ test('windup, flight, impact and recovery share the recorded health and sound bo
   assert.ok(Math.abs(end.reach)+Math.abs(end.lift)+Math.abs(end.lean)<1e-10,'gesture settles without moving the real unit');
  }
  assert.ok(castPose(.38,'heal').lift>castPose(.38,'strike').lift);
+});
+test('physical lunges arrive on the actual hit, hold contact briefly and then settle',()=>{
+ for(const kind of ['strike','charge']){
+  assert.ok(castPose(.52,kind).reach>castPose(.38,kind).reach);
+  assert.equal(castPose(.52,kind).reach,castPose(.6,kind).reach);
+  assert.ok(castPose(.85,kind).reach<castPose(.6,kind).reach);
+  assert.equal(castPose(1,kind).reach,0);
+ }
+ const lead=actorCastProgress(.15,{partnerIndex:0}),next=actorCastProgress(.15,{partnerIndex:2});assert.ok(lead>next);
+ for(let partnerIndex=0;partnerIndex<4;partnerIndex++)assert.equal(actorCastProgress(.52,{partnerIndex}),.52);
 });
 
 test('even a battlefield-wide projectile has only a short moving tail and reaches the target at impact',()=>{

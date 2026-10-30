@@ -4,10 +4,11 @@ import {mkdirSync,writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign,validateCampaign} from '../strategic-campaign.mjs';
-import {scoutCandidates,scoutTargets} from '../scouting.mjs';
+import {scoutCandidates,scoutTargets,scoutRoute} from '../scouting.mjs';
 import {cityVisible,visionSources} from '../strategic-vision.mjs';
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
-const s=newCampaign(203,'guandu-200'),city=s.cities.find(c=>c.id==='town-8'),officers=scoutCandidates(s,city.id),officer=officers[0],target=s.cities.find(c=>c.id==='town-5'),via='junction:town-4:town-5',unknown=s.cities.find(c=>c.owner!=='cao'&&!cityVisible(s,c.id)&&!scoutTargets(s,city.id).some(n=>n.id===c.id)),out='outputs/scouting-route-ui',port='4235';
+const s=newCampaign(203,'guandu-200'),city=s.cities.find(c=>c.id==='town-8'),officers=scoutCandidates(s,city.id),officer=officers[0],target=s.cities.find(c=>c.id==='town-5'),via='town-57',unknown=s.cities.find(c=>c.owner!=='cao'&&!cityVisible(s,c.id)&&!scoutTargets(s,city.id).some(n=>n.id===c.id)),out='outputs/scouting-route-ui',port='4235';
+assert.ok(scoutRoute(s,city.id,target.id,[via]),'drag fixture must use a legal route in the current road network');
 mkdirSync(out,{recursive:true});validateCampaign(JSON.parse(serializeCampaign(s)));
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'off'},windowsHide:true,stdio:'pipe'});let browser;
 try{
@@ -32,9 +33,9 @@ try{
  await page.locator('#scout-officer').selectOption(officer.unit.id);assert.equal(await page.locator('#scout-target').isDisabled(),false);assert.equal(await page.locator(`[data-command-city="${unknown.id}"]`).getAttribute('data-map-target'),'unavailable');
  const endpoints=await page.locator('[data-map-target="eligible"]').evaluateAll(nodes=>nodes.map(n=>n.dataset.commandCity));assert.deepEqual(endpoints.sort(),scoutTargets(s,city.id).map(n=>n.id).sort());
  await page.locator('#scout-target').selectOption(target.id);await page.locator('#scout-officer').selectOption(officers[1].unit.id);assert.equal(await page.locator('#scout-target').inputValue(),'');assert.equal(await page.locator('[data-action="scout-dispatch"]').isDisabled(),true);
- await page.locator('#scout-officer').selectOption(officer.unit.id);await page.locator(`[data-command-city="${target.id}"]`).press('Enter');assert.equal(await page.locator('#scout-target').inputValue(),target.id);assert.match(await page.locator('.scout-route').innerText(),/预计.*天抵达/);
+ await page.locator('#scout-officer').selectOption(officer.unit.id);await page.locator(`[data-command-city="${target.id}"]`).press('Enter');assert.equal(await page.locator('#scout-target').inputValue(),target.id);assert.match(await page.locator('.scout-preview').innerText(),/预计抵达\s*\d+ 天/);
  const point=selector=>page.locator(selector).evaluate(el=>{const m=el.getScreenCTM();return {x:m.e,y:m.f};});
- const drag=async()=>{const handle=await point('[data-route-handle="0.5"]'),drop=await point(`[data-command-city="${via}"]`);await page.mouse.move(handle.x,handle.y);await page.mouse.down();await page.mouse.move(drop.x,drop.y,{steps:10});await page.mouse.up();assert.equal(await page.locator('.route-handle.pinned').count(),1);};
+ const drag=async()=>{const handle=await point('[data-route-handle="0.5"]'),drop=await point(`[data-command-city="${via}"]`);await page.mouse.move(handle.x,handle.y);await page.mouse.down();assert.equal(await page.locator('.route-handle.dragging').count(),1,'pointer must grab route handle');await page.mouse.move(drop.x,drop.y,{steps:10});await page.mouse.up();assert.equal(await page.locator('.route-handle.pinned').count(),1);};
  await drag();assert.equal(await page.locator('#scout-target').inputValue(),target.id);
  await page.locator('#scout-city').selectOption('xuchang');assert.equal(await page.locator('#scout-officer').inputValue(),'');assert.equal(await page.locator('#scout-target').inputValue(),'');assert.equal(await page.locator('#scout-target').isDisabled(),true);assert.equal(await page.locator('.map-route-editor').count(),0);assert.equal(await page.locator('[data-action="scout-dispatch"]').isDisabled(),true);
  assert.deepEqual((await page.locator('#scout-officer option').evaluateAll(nodes=>nodes.map(n=>n.value).filter(Boolean))).sort(),scoutCandidates(s,'xuchang').map(o=>o.unit.id).sort());

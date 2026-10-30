@@ -1,6 +1,6 @@
 import {grantReserveEntries,syncPeach} from './bond-reserves-peach.mjs';
 import {grantBondEquipment,validBondEquipment} from './bond-equipment.mjs';
-import {grantFormationEntries,formationBoost,validFormationEntry,routDamageBonus,routSpeedBonus} from './bond-battlefield.mjs';
+import {grantFormationEntries,formationBoost,validFormationEntry,routDamageBonus,routSpeedBonus,grantOpeningFormationEntries,openingFormationModifiers,validOpeningFormationEntries,validOpeningFormationShield,lockFormationChoice,formationChoice,validFormationChoice} from './bond-battlefield.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {BOND_ASSIGNMENTS} from './data/design/bond-assignments.mjs';
 import {troopFamily} from './troop-training.mjs';
@@ -51,13 +51,13 @@ export function sideBondDetails(b,side){
 export const sideBonds=(b,side)=>Object.fromEntries(Object.entries(sideBondDetails(b,side)).map(([id,{points,tier}])=>[id,{points,tier}]));
 export function activeBonds(b,u){
  if(!b||!bondOnField(u))return [];
- return Object.entries(sideBonds(b,u.side)).filter(([id,s])=>s.tier>0&&(BOND_DESIGNS[id].family?troopFamily(u.type)===BOND_DESIGNS[id].family:(bondLevels(u)[id]||0)>0)).map(([id,s])=>({id,...BOND_DESIGNS[id],...s}));
+ return Object.entries(sideBonds(b,u.side)).filter(([id,s])=>s.tier>0&&(BOND_DESIGNS[id].family?troopFamily(u.type)===BOND_DESIGNS[id].family:(bondLevels(u)[id]||0)>0)&&(!['formationTiles','openingFormation'].includes(BOND_DESIGNS[id].special)||formationChoice(b,u.side)?.id===id)).map(([id,s])=>({id,...BOND_DESIGNS[id],...s}));
 }
 export const topBond=(b,u,id)=>activeBonds(b,u).some(x=>x.id===id&&x.tier===x.thresholds.length);
 export function bondAttributes(b,u){
  const mods={};
  for(const d of activeBonds(b,u)){
-  if(d.family||['intentIncome','hitIntentDeny','swiftBurst','songAttack','crusherAttack','doubtPulse','lureAttack','fireAttack','chainAttack','valorIntent','spreadGuard','finishStrike','counterHorse','siegeStrike','nearAllySpeed','isolatedStrike','escort','physicalGuard','distantStrike','lastStand','entryPower','beautyHit','swornLink','reserveEntry','formationTiles','routMomentum'].includes(d.special))continue;
+ if(d.family||['intentIncome','hitIntentDeny','swiftBurst','songAttack','crusherAttack','doubtPulse','lureAttack','fireAttack','chainAttack','valorIntent','spreadGuard','finishStrike','counterHorse','siegeStrike','nearAllySpeed','isolatedStrike','escort','physicalGuard','distantStrike','lastStand','entryPower','beautyHit','swornLink','reserveEntry','formationTiles','openingFormation','routMomentum'].includes(d.special))continue;
   (mods[d.stat] ||= []).push({label:`${d.name} ${d.points}点`,factor:1+d.values[d.tier-1]});
   if(d.tier===d.thresholds.length&&d.extraValue)(mods[d.extra] ||= []).push({label:`${d.name}满档`,factor:1+d.extraValue});
  }
@@ -65,7 +65,8 @@ export function bondAttributes(b,u){
  for(const d of activeBonds(b,u))if(d.special==='swornLink')(mods.discipline ||= []).push({label:'桃园结义',factor:1+d.values[d.tier-1]});
  for(const d of activeBonds(b,u))if(d.special==='nearAllySpeed'&&adjacentBondAlly(b,u))(mods.attackSpeed ||= []).push({label:'聚势邻接',factor:1+d.values[d.tier-1]});
  for(const d of activeBonds(b,u))if(d.special==='lastStand'&&u.hp<=u.maxHp*d.hpThreshold)for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'背水反击',factor:1+d.values[d.tier-1]});
- const formation=formationBoost(b||{},u);if(formation)for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'军阵阵位',factor:1+formation});
+ const formation=formationBoost(b||{},u);if(formation)for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'天覆阵位',factor:1+formation});
+ for(const {stat,label,factor} of openingFormationModifiers(b||{},u))(mods[stat] ||= []).push({label,factor});
  if(bondOnField(u)&&(u.statuses?.peachFury?.until||0)>(b?.tick??Infinity)){for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'桃园奋战',factor:1+BOND_DESIGNS.bondPeach.furyPower});(mods.attackSpeed ||= []).push({label:'桃园奋战',factor:1+BOND_DESIGNS.bondPeach.furySpeed});}
  const swift=bondSwiftEffect(b,u);if(swift)(mods.move ||= []).push({label:'疾驰突进',factor:1+swift.moveBonus});
  const speed=b?routSpeedBonus(b,u):0;if(speed)(mods.attackSpeed ||= []).push({label:'破军乘胜',factor:1+speed});
@@ -126,12 +127,14 @@ export function grantBondEntries(b,side=null,entryOrder=[]){
  syncPeach(b);
  if(!b.deploymentLocked)return;
  for(const army of b.sides){
+  lockFormationChoice(b,b.sides.indexOf(army));
   const pending=army.units.filter(u=>bondOnField(u)&&!u.bondEntry&&(side===null||u.side===side));
   pending.sort((a,c)=>entryOrder.indexOf(a.id)-entryOrder.indexOf(c.id));
   grantReserveEntries(b,pending,b.sides.indexOf(army));
   if(!pending.length)continue;
   const sums=sideBonds(b,pending[0].side),tier=id=>sums[id]?.tier||0;
-  grantFormationEntries(b,pending,pending[0].side,tier('bondGuard'));
+  grantFormationEntries(b,pending,pending[0].side,formationChoice(b,pending[0].side)?.id==='bondGuard'?formationChoice(b,pending[0].side).tier:0);
+  grantOpeningFormationEntries(b,pending,pending[0].side);
   for(const u of pending){
    grantBondEquipment(b,u,sums);
    u.bondEntry={tick:b.tick};
@@ -141,7 +144,7 @@ export function grantBondEntries(b,side=null,entryOrder=[]){
 }
 export function validBondEntry(b,u){
  const e=u.bondEntry;
- if(!validFormationEntry(b,u)||!validBondEquipment(b,u))return false;
+ if(!validFormationChoice(b,u.side)||!validFormationEntry(b,u)||!validOpeningFormationEntries(b,u)||!validOpeningFormationShield(b,u)||!validBondEquipment(b,u))return false;
  // Reserves withdrawn by an army retreat never entered the field or received entry rewards.
  if(!e)return !b.deploymentLocked||u.status==='reserve'||u.status==='withdrawn'&&b.sides[u.side]?.retreat&&u.x===-1&&u.y===-1&&!u.participated;
  return b.deploymentLocked&&Object.keys(e).length===1&&Number.isInteger(e.tick)&&e.tick>=0&&e.tick<=b.tick;

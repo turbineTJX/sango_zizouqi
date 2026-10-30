@@ -1,4 +1,17 @@
 /* Compact identity flags leave the soldiers and their attack paths visible. */
+.bond-row{position:relative;display:flex;align-items:center;gap:6px;min-height:42px}
+.bond-row .bond-heading{min-width:0;flex:1;flex-direction:column;align-items:flex-start;gap:1px}
+.bond-row .bond-heading small{white-space:normal;line-height:1.2}
+.bond-icon{width:23px;height:23px;flex:none;vertical-align:middle;color:var(--bond-color,currentColor)}
+.bond-chip:not(.bond-lit) .bond-icon{color:#8b9699}
+.bond-lit>.bond-icon{filter:drop-shadow(0 0 3px color-mix(in srgb,var(--bond-color),transparent 55%))}
+.unit-trait-name .bond-icon{width:17px;height:17px;margin-right:3px}
+.bond-tier{position:absolute;left:11px;bottom:4px;display:flex;gap:2px}
+.bond-tier i{width:3px;height:5px;background:#63747666;transform:skewY(-18deg)}
+.bond-tier i.lit{background:var(--bond-color);box-shadow:0 0 3px var(--bond-color)}
+.bond-chip.bond-flashing{border-color:var(--bond-color);box-shadow:inset 3px 0 var(--bond-color)}
+.bond-chip.bond-flashing>.bond-icon{filter:drop-shadow(0 0 5px var(--bond-color))}
+@media(max-width:600px){.arena-page .battle-bonds .bond-row{gap:3px;flex-wrap:nowrap;min-height:35px}.arena-page .battle-bonds .bond-icon{width:20px;height:20px}.arena-page .battle-bonds .bond-tier{left:6px;bottom:3px;gap:1px}}
 .arena-page .battle-unit .unit-map-caption,
 .arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{
  display:grid;grid-template-columns:24px minmax(0,1fr);grid-template-rows:15px 14px 4px;
@@ -82,4 +95,162 @@
  .arena-page .ability-cues{height:50px}
  .arena-page .ability-body strong{font-size:12px;line-height:16px}
  .arena-page .ability-portrait{flex-basis:27px;line-height:40px}
+}
+/* Locked tactic cells and reserve preferences are actual combat state. */
+.hex-grid polygon.hex-tactic-aim{stroke:#ead68e;stroke-width:4;stroke-dasharray:8 5;fill:#c7a655;fill-opacity:.3}
+.hex-grid polygon.hex-tactic-aim.aim-side-1{stroke:#f1a786;fill:#b9543a;fill-opacity:.28}
+.reserve-card{display:flex;flex-direction:column;max-width:100%;gap:3px}
+.reserve-entry-controls{display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:11px}
+.reserve-entry-controls button{padding:4px 6px;min-height:28px;font-size:11px}
+.reserve-entry-controls small{white-space:nowrap}
+@media(max-width:600px){.reserve-entry-controls button{min-height:36px;min-width:36px}}
+
+/* One viewport for the battlefield; secondary decisions open above the dock. */
+body.battle-view{overflow:hidden}
+.battle-view #app{height:100dvh;min-height:0;display:flex;flex-direction:column}
+.arena-page.battle-page{height:100%;min-height:0;flex:1;padding:0 max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left))}
+.arena-page #battle-header{flex:none}
+.arena-page .arena-header{min-height:58px;gap:16px;flex-wrap:nowrap;padding:0}
+.arena-page .arena-title{flex:0 1 auto;min-width:0}
+.arena-title h1{font-size:20px}
+.arena-title>span{font-size:10px}
+.battle-header-tools,.arena-dock .battle-playback{display:flex;align-items:center;gap:6px;flex:none}
+.arena-page .battle-layout{display:grid;grid-template-columns:164px minmax(0,1fr) 164px;flex:1;height:auto;min-height:0;gap:8px;padding:4px 0}
+.arena-page #battle-unit-labels{display:contents}
+.arena-page .roster-side{height:auto;min-height:0;display:grid;grid-template-columns:minmax(0,96px) minmax(0,64px);grid-template-rows:24px minmax(0,1fr);gap:0 4px;align-items:stretch}
+.arena-page .roster-side-0{grid-column:1;grid-row:1}
+.arena-page .roster-side-1{grid-column:3;grid-row:1}
+.arena-page .roster-side>header{height:24px;padding:0;font-size:11px}
+.arena-page .roster-side>header small{display:none}
+.arena-page .roster-list{flex-direction:column;overflow:auto;min-height:0;gap:5px;padding:4px 0}
+.arena-page .roster-list .unit-nameplate{width:100%;min-width:0;min-height:62px;padding:4px;gap:3px}
+.arena-page .unit-nameplate .portrait.small{width:24px;height:32px;flex:none}
+.arena-page .unit-label-copy>b{font-size:11px}
+.arena-page .unit-label-copy>span{font-size:10px;flex-wrap:wrap;gap:2px}
+.arena-page .unit-label-copy>span>small{font-size:9px}
+.arena-page .roster-list .unit-order{display:none}
+.arena-page .battle-bonds .bond-panel h4{height:24px;font-size:10px}
+.arena-page .battle-bonds .bond-list{padding-top:4px;gap:4px}
+.arena-page .battle-bonds .bond-row{min-height:37px;padding:4px 2px;gap:3px}
+.arena-page .battle-bonds .bond-icon{width:18px;height:18px}
+.arena-page .battle-bonds .bond-heading{font-size:10px;gap:0}
+.arena-page .battle-bonds .bond-progress{font-size:9px}
+.arena-page .battle-layout .arena-stage{grid-column:2;grid-row:1;min-height:0;container-type:size;overflow:hidden;align-items:center;justify-content:center}
+.arena-page .battle-layout .arena-stage .battle-board{width:min(calc(100cqw - 12px),calc((100cqh - 52px) * var(--hex-aspect)));min-height:0;margin:auto;flex:none}
+.arena-page .ability-cues{position:absolute;top:60px;left:calc(50% - 180px);width:360px;height:40px;padding:0;z-index:5;pointer-events:none;gap:5px}
+.arena-page .ability-cue{pointer-events:auto;min-width:0}
+.arena-page .ability-cue:not(.active){visibility:hidden}
+.arena-page .ability-portrait{flex-basis:28px;line-height:36px}
+.arena-page .ability-body{padding:2px 4px}
+.arena-page .ability-body strong{font-size:12px;line-height:15px;margin:0}
+.arena-page .ability-kind{display:none}
+.arena-page .arena-context{height:22px;gap:10px;font-size:10px;min-width:0;overflow:hidden;white-space:nowrap}
+.arena-page .arena-dock{position:relative;z-index:12;align-items:center;min-height:60px;gap:8px;padding:6px 0 max(6px,env(safe-area-inset-bottom));background:#15292c;flex-shrink:0}
+.arena-dock .button{min-width:44px;min-height:44px;white-space:nowrap;padding:8px 12px;font-size:12px}
+.arena-page .command-cue{width:200px;min-height:44px;max-width:30%;gap:5px;padding:6px 12px;font-size:12px;letter-spacing:0}
+.arena-page .arena-panel{bottom:70px;right:12px;max-height:calc(100% - 135px)}
+.arena-page #deployment-guide{position:absolute;z-index:11;bottom:70px;right:12px;left:auto;width:min(520px,55%);max-height:60%;overflow:auto;display:block;padding:14px;background:#172c2af5;border:1px solid #8aa88b66;border-radius:7px;box-shadow:0 8px 30px #0007;overscroll-behavior:contain}
+.arena-page .council-close{float:right;position:sticky;top:0;z-index:2;width:36px;height:36px;padding:8px}
+.arena-page .battle-council{display:block}
+.arena-page .battle-council h3{margin:0 40px 10px 0}
+.arena-page .battle-council>details{margin:10px 0}
+.arena-page .battle-council summary{min-height:32px;cursor:pointer;padding:6px 0}
+.arena-page .deployment-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.arena-page #deployment-preview:empty{display:none}
+.arena-page #deployment-preview{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);z-index:13;max-width:calc(100% - 24px);width:max-content}
+.arena-page .deployment-preview{margin:0;padding:8px;background:#19352ff5;border:1px solid #b5ba88;border-radius:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.arena-page .deployment-preview button{min-height:40px;padding:7px 12px}
+.arena-page .reserve-bench{display:flex;flex-wrap:nowrap;overflow:auto;max-width:100%;align-items:stretch}
+.arena-page .reserve-card{flex:none;width:144px;padding:4px}
+.arena-page .reserve-bench .council-unit{display:flex;flex-wrap:wrap;width:100%;align-items:center;min-height:64px}
+.arena-page .reserve-bench .unit-label-copy{flex:1;min-width:0}
+.arena-page .reserve-bench .council-unit>small{flex-basis:100%;font-size:10px;line-height:1.4}
+.reserve-entry-controls{flex-wrap:wrap;justify-content:flex-start}
+.reserve-new-arrival{border:1px solid #cfba6e;border-radius:5px;background:#b69b3420}
+.reserve-new-label{color:#e6cd87;font-size:11px}
+.reinforcement-arrivals article{margin-bottom:16px}
+.reinforcement-arrivals h3{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.reinforcement-arrivals h3 small{font-size:12px;font-weight:normal}
+.arrival-units{display:flex;flex-wrap:wrap;gap:8px}
+.arrival-units .unit-nameplate{width:144px;pointer-events:none}
+.appointment-result{border-bottom:1px solid #8aa88b55;margin-bottom:20px;padding-bottom:12px}
+.appointment-result h2{color:#e0c68a;margin:0}
+.appointment-result p{font-size:12px}
+.battle-rotate-notice{display:none}
+/* Aiming uses the existing command dock space, preserving the battlefield. */
+.arena-page .stratagem-area-controls{position:absolute;top:auto;bottom:max(3px,env(safe-area-inset-bottom));left:6px;right:6px;height:48px;min-height:48px;padding:2px 8px;gap:10px;flex-wrap:nowrap;z-index:30;box-sizing:border-box}
+.arena-page:has(.stratagem-area-controls:not([hidden])) .arena-dock{visibility:hidden;pointer-events:none}
+.arena-page .stratagem-area-heading{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.arena-page .stratagem-area-heading b,.arena-page .stratagem-area-heading span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+.arena-page .stratagem-area-actions{gap:6px}
+.arena-page .stratagem-area-controls .button,.arena-page .stratagem-area-controls .ability-reference{min-height:44px;min-width:44px;white-space:nowrap;padding:6px 10px}
+.arena-page .stratagem-area-controls>button{min-width:44px;min-height:44px;align-self:center}
+.arena-page .stratagem-area-controls .stratagem-area-action{width:44px;min-width:44px;height:44px;min-height:44px;flex-basis:44px;padding:7px}
+.arena-page .arena-strength .strength-breakdown{display:block;font-size:9px;white-space:nowrap;font-weight:normal;line-height:12px}
+.arena-page .arena-strength b small{font-size:9px;font-weight:normal}
+.participation-report{padding:10px 0;font-size:13px;border-bottom:1px solid #8aa88b55}
+.participation-report p{line-height:1.6;margin:6px 0}
+.participation-report small{color:var(--muted)}
+.battle-view .campaign-battle-bar{flex:none;flex-direction:row;padding:4px 12px;min-height:32px}
+.battle-view .campaign-battle-bar .button{padding:5px 8px}
+
+/* Keep identities close to their soldiers, with details in the roster. */
+.arena-page .battle-unit .unit-map-caption,.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{width:66px;min-height:30px;padding:2px 4px;grid-template-columns:1fr;grid-template-rows:12px 11px 3px;gap:0}
+.arena-page .unit-map-caption .map-portrait-row{display:none}
+.arena-page .unit-map-caption>b{grid-column:1;grid-row:1;font:600 10px/12px var(--sans)}
+.arena-page .unit-map-caption .map-troops{grid-column:1;grid-row:2;font:600 10px/11px var(--sans)}
+.arena-page .unit-map-caption .map-intent-pips{grid-column:1;grid-row:3}
+.arena-page .unit-map-caption .map-statuses{display:none}
+.arena-page .roster-highlight .unit-map-caption .map-statuses{display:flex}
+.arena-page .roster-highlight{z-index:6}
+.arena-page .deployment-targeting #battle-units{z-index:31}
+
+@media(max-width:1000px){
+ .arena-page .battle-layout{grid-template-columns:88px minmax(0,1fr) 88px;gap:4px}
+ .arena-page .roster-side{grid-template-columns:1fr;grid-template-rows:20px minmax(0,1fr) minmax(0,1.1fr);gap:3px}
+ .arena-page .roster-side>header{height:20px}
+ .arena-page .battle-bonds{grid-column:1;grid-row:3}
+ .arena-page .battle-bonds .bond-panel h4{display:none}
+ .arena-page .roster-list .unit-nameplate{min-height:48px}
+ .arena-page .battle-bonds .bond-heading{flex-direction:row;font-size:10px}
+ .arena-page .battle-bonds .bond-row{min-height:32px}
+ .arena-page .arena-title h1{font-size:17px}
+ .arena-page .arena-strength{gap:10px;order:initial;flex-basis:auto}
+ .arena-page .arena-strength>span{min-width:70px;font-size:10px}
+ .arena-page .arena-strength b{font-size:16px}
+ .arena-page .arena-context .terrain-legend,.arena-page .arena-legend{display:none}
+}
+@media(max-height:540px) and (orientation:landscape){
+ .arena-page .battle-layout .arena-stage .battle-board{width:min(calc(100cqw - 12px),calc((100cqh - 24px) * var(--hex-aspect)))}
+ .arena-page .battle-unit .unit-map-caption,.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{width:54px;min-height:28px;grid-template-rows:11px 10px 3px;padding:2px 3px}
+ .arena-page .unit-map-caption>b{font-size:9px;line-height:11px}
+ .arena-page .unit-map-caption .map-troops{font-size:9px;line-height:10px}
+ .arena-page.battle-page{padding:0 max(6px,env(safe-area-inset-right)) 0 max(6px,env(safe-area-inset-left))}
+ .arena-page .arena-header{min-height:42px;gap:10px}
+ .arena-page .arena-title{display:flex;align-items:center;gap:8px}
+ .arena-page .arena-title h1{font-size:15px;letter-spacing:0}
+ .arena-page .arena-title>span{max-width:170px;overflow:hidden;text-overflow:ellipsis;font-size:9px;margin:0}
+ .arena-page .battle-header-tools .button{width:36px;height:36px;min-width:36px;min-height:36px;padding:8px}
+ .arena-page .arena-context{height:18px;font-size:9px}
+ .arena-page .arena-dock{min-height:50px;gap:6px;padding-top:3px;padding-bottom:max(3px,env(safe-area-inset-bottom))}
+ .arena-dock .battle-playback{gap:4px}
+ .arena-dock .button{padding:7px 10px;font-size:11px}
+ .arena-page .command-cue{width:140px;padding:5px 9px}
+ .arena-page .ability-cues{top:44px;height:32px;width:280px;left:calc(50% - 140px)}
+ .arena-page .ability-portrait{flex-basis:23px;line-height:28px}
+ .arena-page .ability-owner{font-size:8px}
+ .arena-page .ability-body strong{font-size:10px;line-height:12px}
+ .arena-page .arena-panel,.arena-page #deployment-guide{bottom:58px;max-height:calc(100% - 104px)}
+ .arena-page #deployment-preview{bottom:58px}
+ .battle-view .modal-backdrop{padding:6px max(6px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left))}
+ .battle-view .modal{max-height:100%;margin:0;display:flex;flex-direction:column}
+ .battle-view .modal-header,.battle-view .modal-footer{flex:none;padding:10px 16px}
+ .battle-view .modal-body{min-height:0;overflow:auto;padding:12px 16px}
+}
+@media(max-width:600px) and (orientation:portrait){
+ .battle-view .arena-page>:not(.battle-rotate-notice),.battle-view #app>.campaign-battle-bar,.battle-view #overlay-root,.battle-view #detail-source-root{display:none!important}
+ .battle-rotate-notice{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:30px;background:#142a2b;color:#e7d6ac;text-align:center}
+ .battle-rotate-notice h2,.battle-rotate-notice p{margin:0}
+ .battle-rotate-notice p{font-size:13px;color:#b5c8b7}
+ .rotate-device{font-size:48px;color:#d5bd80}
 }

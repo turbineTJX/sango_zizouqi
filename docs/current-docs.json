@@ -1,6 +1,8 @@
 {
-  "rulesVersion": 129,
+  "rulesVersion": 136,
   "files": [
+    "docs/AI自主迭代与验证规则.md",
+    "docs/战斗AI循环验证设计.md",
     "docs/战场自定义编辑器.md",
     "docs/战略地图性能.md",
     "docs/当前版本验收与体验目标.md",
@@ -10,6 +12,7 @@
     "docs/战争迷雾与武将侦察.md",
     "docs/README.md",
     "docs/游戏内页面指引.md",
+    "docs/玩家行动交互流程.md",
     "docs/多战役玩家操作空间实测.md",
     "docs/ZOC突破与远程优先-规则57.md",
     "docs/design-tables/README.md",
@@ -117,9 +120,9 @@
     "docs/design-tables/固定贼寨与随机贼将一览表.md"
   ],
   "runtimeVersions": {
-    "rules": 129,
+    "rules": 136,
     "campaign": 65,
-    "ai": 17,
+    "ai": 18,
     "strategy": 13,
     "domestic": 25
   }

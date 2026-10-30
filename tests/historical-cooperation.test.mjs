@@ -1,3 +1,4 @@
+import {deployUnmarkedStarters} from './helpers/unmarked-deployment.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
@@ -17,7 +18,7 @@ function scene(names,side=0){
  const own=names.map(([name,type,troops=1000])=>({id:id(name),type,troops,level:10,retreatAt:null}));
  const foe=['文聘','臧霸','王朗'].map(name=>({id:id(name),type:'spear',troops:5000,level:10,retreatAt:null}));
  const s=createScenario('custom-battle',1001,0,null,{seed:1001,mapId:'plain-open',terrain:'land',ownTeam:side?foe:own,enemyTeam:side?own:foe,battleKind:'field',shieldPercent:0}),b=s.battle;
- assert.equal(lockDeployment(b),null);
+ deployUnmarkedStarters(b);assert.equal(lockDeployment(b),null);
  for(const u of b.sides.flatMap(s=>s.units)){u.intent=0;u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));setStatus(b,u,'root',999);}
  const us=b.sides[side].units,es=b.sides[1-side].units,coords=[[4,2],[4,3],[3,3],[3,2],[3,4]];
  us.forEach((u,i)=>Object.assign(u,{x:coords[i][0],y:coords[i][1]}));es.forEach((u,i)=>Object.assign(u,{x:i<2?5+i:12,y:i<2?3:7}));
@@ -25,7 +26,7 @@ function scene(names,side=0){
  b.relationshipTypes=structuredClone(s.relationshipTypes);b.relationshipScores=structuredClone(s.relationshipScores);
  return {s,b,us,es,side};
 }
-function cast(x,u,tactic){primeTactic(u,tactic);stepBattle(x.b);return x.b.effects.filter(e=>e.combo);}
+function cast(x,u,tactic){primeTactic(u,tactic);stepBattle(x.b);while(u.tacticAim&&!x.b.result)stepBattle(x.b);return x.b.effects.filter(e=>e.combo);}
 const dealt=(x,u)=>x.b.effects.filter(e=>e.from===u.id&&e.skill).reduce((n,e)=>n+e.damage,0);
 function control(x){const y=structuredClone(x);y.us=y.b.sides[y.side].units;y.es=y.b.sides[1-y.side].units;y.b.comboWindows=[];return y;}
 function resume(x){const y=validateSave(structuredClone(x.s));for(let i=0;i<10&&!x.b.result;i++){stepBattle(x.b);stepBattle(y.battle);}assert.deepEqual(x.s,y);}
@@ -66,8 +67,8 @@ test('赵云邓芝与法正黄忠通过普通鼓舞接续真实大战法，不�
 test('真实攻击后的友军鼓舞形成接应掩护，增量对照成立',()=>{
  for(const side of [0,1]){
   const x=scene([['许褚','spear',5000],['郭嘉','archer']],side);Object.assign(x.us[0],{x:4,y:3});Object.assign(x.us[1],{x:3,y:3});
-  cast(x,x.us[0],'thrust');x.us[0].intent=0;const y=control(x),e=cast(x,x.us[1],'rally')[0];cast(y,y.us[1],'rally');
-  assert.equal(e.combo.kind,'cover');assert.ok(x.us[0].intent>y.us[0].intent);assert.equal(x.b.comboWindows[0].tick,1);resume(x);
+  cast(x,x.us[0],'thrust');const firstHit=x.b.tick;x.us[0].intent=0;const y=control(x),e=cast(x,x.us[1],'rally')[0];cast(y,y.us[1],'rally');
+  assert.equal(e.combo.kind,'cover');assert.ok(x.us[0].intent>y.us[0].intent);assert.equal(x.b.comboWindows[0].tick,firstHit);resume(x);
  }
 });
 
@@ -78,7 +79,7 @@ test('进攻击败原目标后仍可真实接应发动者，实际补次也记�
 });
 
 test('支援可接续三连携但不延长首发窗口，超过窗口及自身重复不续链',()=>{
- const x=scene([['曹操','spear'],['许褚','spear'],['典韦','halberd']]);Object.assign(x.us[2],{x:5,y:2});cast(x,x.us[0],'unique-cao');cast(x,x.us[1],'thrust');const e=cast(x,x.us[2],'cleave')[0];assert.equal(e.combo.level,3);assert.equal(e.combo.bonus,40);assert.equal(x.b.comboWindows[0].tick,1);
+ const x=scene([['曹操','spear'],['许褚','spear'],['典韦','halberd']]);Object.assign(x.us[2],{x:5,y:2});cast(x,x.us[0],'unique-cao');primeTactic(x.us[1],'thrust');primeTactic(x.us[2],'cleave');stepBattle(x.b);stepBattle(x.b);const e=x.b.effects.find(e=>e.from===x.us[2].id&&e.combo);assert.equal(e.combo.level,3);assert.equal(e.combo.bonus,40);assert.equal(x.b.comboWindows[0].tick,1);
  const y=scene([['曹操','spear'],['许褚','spear']]);cast(y,y.us[0],'unique-cao');for(let i=0;i<COMBO.window;i++)stepBattle(y.b);assert.equal(cast(y,y.us[1],'thrust').length,0);
  const z=scene([['郭嘉','archer'],['赵云','cavalry']]);cast(z,z.us[0],'rally');assert.equal(cast(z,z.us[0],'rally').length,0);
 });
@@ -98,7 +99,7 @@ test('支援排除无收益、三格外、后备、避战、撤离与已败提�
 
 test('当前关系概率仍控制支援连携，失败不放大也不重复消费支援窗口',()=>{
  const x=scene([['曹操','spear'],['许褚','spear']]);cast(x,x.us[0],'unique-cao');const key=relationshipKey(x.us[0].id,x.us[1].id);x.b.relationshipTypes[key]='disliked';x.b.relationshipScores[key]=0;
- const y=control(x);assert.equal(cast(x,x.us[1],'thrust').length,0);cast(y,y.us[1],'thrust');assert.equal(dealt(x,x.us[1]),dealt(y,y.us[1]));assert.equal(x.b.comboWindows.length,1);assert.equal(x.b.comboWindows[0].tick,2);assert.deepEqual(x.b.comboWindows[0].actors.map(a=>a.id),[x.us[1].id]);
+ const y=control(x);assert.equal(cast(x,x.us[1],'thrust').length,0);cast(y,y.us[1],'thrust');assert.equal(dealt(x,x.us[1]),dealt(y,y.us[1]));assert.equal(x.b.comboWindows.length,1);assert.equal(x.b.comboWindows[0].tick,x.b.tick);assert.deepEqual(x.b.comboWindows[0].actors.map(a=>a.id),[x.us[1].id]);
 });
 
 test('新增三名辅助的两羁绊上限合法，邓芝廖化实际普攻供主将接续',()=>{

@@ -54,8 +54,11 @@ test('diagonal spear thrust hits the next hex on the same axial line',()=>{
   const {b,a,d}=duel('thrust');
   const behind={...structuredClone(d),id:'behind',type:'crossbow',...hexBeyond(a,d)};
   for(const t of unitTactics(behind))behind.skillReady[t.id]=999;
+  // Geometry fixture: hold the targets through the real locked windup.
+  for(const u of [a,d,behind])u.statuses.root={until:999};
   assert.deepEqual({x:behind.x,y:behind.y},{x:5,y:5});
   b.sides[1].units.push(behind);complete(b,a);
+  while(a.tacticAim&&!b.result)stepBattle(b);
   assert.ok(d.hp<d.maxHp);assert.ok(behind.hp<behind.maxHp);
 });
 

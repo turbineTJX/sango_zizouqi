@@ -39,7 +39,7 @@ const withdraw=u=>Object.assign(u,{status:'withdrawn',x:-1,y:-1});
 function without(u,key){const copy={...u,bondGrowth:{...u.bondGrowth,levels:{...u.bondGrowth.levels}}};delete copy.bondGrowth.levels[key];return copy;}
 
 test('five new common rosters reach maximum with six actual troops while personal label and point budgets stay bounded',()=>{
- assert.equal(Object.keys(D).length,31);assert.equal(Object.values(D).filter(d=>d.grade==='basic').length,25);
+ assert.equal(Object.keys(D).length,33);assert.equal(Object.values(D).filter(d=>d.grade==='basic').length,27);
  for(const [key,names]of Object.entries(teams)){
   const holders=Object.entries(A).filter(([,a])=>a[key]);assert.ok(holders.length>=20);assert.equal(holders.filter(([,a])=>a[key]===3).length,1);
   assert.ok(holders.every(([,a])=>Object.keys(a).length>=1&&Object.keys(a).length<=2&&Object.values(a).reduce((n,v)=>n+v,0)<=6));
@@ -116,7 +116,7 @@ test('lower Intercept tiers can both succeed and fail with seeded, independently
 test('Intercept cannot proc from full shields, DOT, tactics, decoys, allies or sources outside the field',()=>{
  const shielded=scene('bondSuppress');setStatus(shielded.b,shielded.enemy,'shield',4,{amount:4000,source:'fixture',label:'护盾'});basic(shielded);assert.ok(shieldAmount(shielded.b,shielded.enemy)>0);assert.equal(hits(shielded)[0].intentDenied,undefined);assert.equal(shielded.enemy.intent,0);
  const fire=scene('bondSuppress');fire.enemy.intent=40;setStatus(fire.b,fire.enemy,'burn',3,{amount:5,sourceId:fire.u.id,sourceName:fire.u.name,sourceSkillName:'火攻'});stepBattle(fire.b);assert.ok(fire.enemy.hp<4000);assert.equal(fire.enemy.intent,40);assert.ok(!fire.b.effects.some(e=>e.intentDenied));
- const tactic=scene('bondSuppress');tactic.enemy.intent=40;primeTactic(tactic.u,'scatter');stepBattle(tactic.b);assert.equal(tactic.u.tacticCasts.scatter,1);assert.ok(tactic.b.effects.some(e=>e.from===tactic.u.id&&e.skill&&e.damage>0));assert.equal(tactic.enemy.intent,40+intentIncome(tactic.enemy).hit);assert.ok(!tactic.b.effects.some(e=>e.intentDenied));
+ const tactic=scene('bondSuppress');tactic.enemy.intent=40;primeTactic(tactic.u,'scatter');let landed=false;for(let i=0;i<12&&!landed;i++){tactic.u.cooldown=999;stepBattle(tactic.b);landed=tactic.b.effects.some(e=>e.from===tactic.u.id&&e.skill&&e.damage>0);}assert.equal(tactic.u.tacticCasts.scatter,1);assert.ok(tactic.b.effects.some(e=>e.from===tactic.u.id&&e.skill&&e.damage>0));assert.equal(tactic.enemy.intent,40+intentIncome(tactic.enemy).hit);assert.ok(!tactic.b.effects.some(e=>e.intentDenied));
  const x=scene('bondSuppress');assert.equal(bondHitIntentDenialChance(x.b,x.u,{...x.enemy,isDecoy:true}),0);assert.equal(bondHitIntentDenialChance(x.b,x.u,x.us[1]),0);withdraw(x.u);assert.equal(bondHitIntentDenialChance(x.b,x.u,x.enemy),0);
 });
 

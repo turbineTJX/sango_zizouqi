@@ -7,6 +7,7 @@ import {frontlineCapacity,validFrontline,armyMarchMultiplier} from '../army-trai
 import {movementPoints} from '../strategic-movement.mjs';
 import {newCampaign,launchExpedition,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,actionCandidates,ACTIONS} from '../domestic.mjs';
+import {setStatus,unitTactics} from '../tactics.mjs';
 
 const entry=id=>({id,type:'spear',troops:2000,level:1,retreatAt:null});
 // Use existing public officer IDs without duplicates across factions.
@@ -20,7 +21,10 @@ test('Jianxiong permits seven on either side, reserves refill and saves resume d
  for(const side of [0,1]){
   const s=scene(side),b=s.battle;assert.equal(frontlineCapacity(b,side),7);assert.equal(activeUnits(b,side).length,7);
   assert.equal(lockDeployment(b),null);validateSave(s);
-  const defeated=activeUnits(b,side)[0];defeated.battleDamage+=defeated.hp;defeated.hp=0;defeated.status='defeated';fillSlots(b,side);
+  const defeated=activeUnits(b,side)[0],attacker=activeUnits(b,1-side)[0];
+  for(const u of b.sides.flatMap(s=>s.units)){u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(t=>[t.id,999]));}
+  setStatus(b,defeated,'burn',1,{amount:20000,sourceId:attacker.id,sourceName:attacker.name,sourceSkillName:'测试灼烧'});
+  stepBattle(b);assert.equal(defeated.status,'defeated');fillSlots(b,side);
   assert.equal(activeUnits(b,side).length,7);assert.equal(frontlineCapacity(b,side),7);
   const copy=structuredClone(s);validateSave(copy);stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);
  }

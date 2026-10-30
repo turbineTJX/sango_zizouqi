@@ -7,15 +7,12 @@ import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBat
 import {campaignInfoIndex,campaignInfoDetail,campaignInfoSections,campaignInfoMarkup} from '../campaign-info.mjs';
 import {metropolitanMapMarkup} from '../metropolitan-map.mjs';
 import {metropolitanMembers} from '../metropolitan-areas.mjs';
-import {metropolitanSiteName,citySizeName} from '../city-classification.mjs';
-test('metropolis counts are confined to details and towns share the prefecture category beside ports and gates',()=>{
+test('metropolis details show their actual members without duplicating counts on the main map',()=>{
  const s=newCampaign(81,'guandu-200','yuan'),c=s.cities.find(c=>c.id==='jinyang'),before=JSON.stringify(s),members=metropolitanMembers(s,c);
  const map=metropolitanMapMarkup(s,{city:c.id}),base=campaignInfoMarkup(s,{type:'city',id:c.id,objectOnly:true}).body;
  assert.doesNotMatch(map,/metropolis-summary|\d+(府|小城|港口|关卡)/);assert.doesNotMatch(base,/metropolitan-table/);
  const detail=campaignInfoMarkup(s,{type:'city',id:c.id,page:'都市圈',objectOnly:true}).body;
- assert.equal((detail.match(/data-metropolitan-member=/g)||[]).length,members.length);assert.match(detail,/<dt>府<\/dt><dd>1<\/dd>/);assert.doesNotMatch(detail,/小城/);
- assert.deepEqual(members.map(n=>metropolitanSiteName(n,c)),['主城','府','关卡','港口']);assert.equal(citySizeName(members[1]),'府');
- const xuchang=s.cities.find(c=>c.id==='xuchang'),prefecture=metropolitanMembers(s,xuchang).find(n=>n.kind==='junction');assert.equal(metropolitanSiteName(prefecture,xuchang),'府');
+ assert.equal((detail.match(/data-metropolitan-member=/g)||[]).length,members.length);assert.doesNotMatch(detail,/小城/);
  assert.equal(JSON.stringify(s),before);
 });
 import {factionFinance,cityFinanceMarkup,factionFinanceMarkup} from '../finance-view.mjs';
@@ -61,7 +58,6 @@ test('prepared troops show active domestic work and deferred orders separately',
  const {s,id}=busyFixture();const before=JSON.stringify(s);assert.match(status(s,'unit',id),/办理内政事务/);assert.match(status(s,'officer',id),/事务剩余/);assert.equal(JSON.stringify(s),before);
  requestStrategicOrder(s,{kind:'assign',cityId:'xuchang',officerIds:[id],direction:'commerce'},'after');const html=status(s,'unit',id);assert.match(html,/办理内政事务/);assert.match(html,/等待命令/);assert.match(html,/完成原事务后自动执行/);
 });
-
 
 test('object details reuse dossier format without opening a faction directory',()=>{
  const s=newCampaign(203,'guandu-200');

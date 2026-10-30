@@ -8,7 +8,7 @@ import {learnedTacticIds} from '../tactic-learning.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { newGame, orderArmy, advanceTurn, startBattle, lockDeployment, stepBattle, issueCommand, validateSave, lowerIntent } from '../engine.mjs';
-import { TACTICS_BOOK, TROOP_TACTICS, unitTactics, hasStatus, tacticTarget } from '../tactics.mjs';
+import { TACTICS_BOOK, TROOP_TACTICS, unitTactics, hasStatus, tacticTarget, setStatus } from '../tactics.mjs';
 import { hexNeighbors } from '../hex-grid.mjs';
 import {powerFactor} from '../tactic-power.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
@@ -59,7 +59,8 @@ test('fire burns without intent feedback and ranged skills have distinct real ef
 test('thrust hits the unit directly behind; scatter hits several nearby targets',()=>{
   for(const [type,id] of [['spear','thrust'],['archer','scatter']]) {
     const {b,a,d}=scene(type);const back={...structuredClone(d),id:'back-test',x:type==='spear'?6:7};b.sides[1].units.push(back);
-    allowOnly(a,id);complete(b,a);assert.ok(d.hp<d.maxHp);assert.ok(back.hp<back.maxHp);
+    setStatus(b,d,'root',10);setStatus(b,back,'root',10);
+    allowOnly(a,id);complete(b,a);while(a.tacticAim&&!b.result)stepBattle(b);assert.ok(d.hp<d.maxHp);assert.ok(back.hp<back.maxHp);
     assert.equal(a.tacticCasts[id],1);
   }
 });

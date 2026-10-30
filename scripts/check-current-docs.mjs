@@ -3,6 +3,7 @@ import {resolve,dirname,relative,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {RULES_VERSION} from '../combat-rules.mjs';
 import {readRuntimeVersions} from './rule-source-contract.mjs';
+import {readManualState,renderManual,formatManualStatus} from './player-manual-sync.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const manifest=JSON.parse(readFileSync(join(root,'docs/current-docs.json'),'utf8'));
@@ -31,5 +32,11 @@ for(const p of files){
   if(!existsSync(resolve(root,dirname(p),target)))errors.push('失效链接：'+p+' → '+target);
  }
 }
+try{
+ const state=await readManualState(root),result=await renderManual(state,{check:true});
+ if(state.status.pending)errors.push(formatManualStatus(state.status));
+ if(result.outdated.length)errors.push('HTML 手册生成物需刷新：'+result.outdated.join('、')+'；运行 npm run docs:manual。');
+ if(result.valid)console.log(formatManualStatus(state.status));
+}catch(error){errors.push('HTML 手册代码关联检查失败：'+error.message);}
 if(errors.length){console.error(errors.join('\n'));process.exitCode=1;}
 else console.log(`当前规则${RULES_VERSION}：${actual.length}份文档清单、${files.length}份Markdown链接及失效条文检查通过。`);

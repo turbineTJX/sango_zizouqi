@@ -239,9 +239,9 @@ export function animateTroopModel(obj,{time=0,progress=1,moving=false,moveProgre
    }
    rig.arrow.visible=pose.arrowVisible;rig.arrow.position.z=-pull;
   }
-  if(i===0)obj.flagPose=pose.flag;
+  if(i===0){obj.flagPose=pose.flag;obj.flagDrop=pose.fall;}
  }
- const flag=obj.troopFlag||=obj.model.getObjectByName('standard-cloth');if(flag){flag.rotation.y=obj.flagPose*2;flag.rotation.z=obj.flagPose*.3;}
+ const flag=obj.troopFlag||=obj.model.getObjectByName('standard-cloth');if(flag){flag.rotation.y=obj.flagPose*2;flag.rotation.z=obj.flagPose*.3;flag.parent.rotation.z=-obj.flagDrop;}
 }
 export function troopModelAnchors(obj,height){
  if(!obj.troopRig?.length)return [];

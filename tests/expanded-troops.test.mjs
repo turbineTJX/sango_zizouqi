@@ -22,8 +22,10 @@ const wound=u=>Object.assign(u,{hp:u.maxHp-1000,battleDamage:1000,healed:0});
 
 test('cleave charges each victim once without charging the caster',()=>{
  const x=scene();x.a.x=2;x.d.x=5;
- const more=[[4,1],[3,2]].map(([xPos,y],i)=>({...structuredClone(x.d),id:'enemy-'+i,x:xPos,y}));x.b.sides[1].units.push(...more);
- primeTactic(x.u,'cleave');stepBattle(x.b);
+ const more=[[4,1],[4,3]].map(([xPos,y],i)=>({...structuredClone(x.d),id:'enemy-'+i,x:xPos,y}));x.b.sides[1].units.push(...more);
+ for(const u of x.b.sides.flatMap(s=>s.units))setStatus(x.b,u,'root',10);
+ primeTactic(x.u,'cleave');stepBattle(x.b);assert.ok(x.u.tacticAim);
+ while(x.u.tacticAim)stepBattle(x.b);
  assert.equal(x.b.effects.filter(e=>e.from===x.u.id&&e.damage>0).length,3);assert.equal(x.u.intent,TACTICS_BOOK.cleave.threshold-TACTICS_BOOK.cleave.intentCost);
  assert.ok([x.d,...more].every(u=>u.intent===2));assert.equal(x.b.sides[1].units[1].intent,0);
 });

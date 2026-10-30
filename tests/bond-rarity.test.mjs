@@ -1,3 +1,4 @@
+import {deployUnmarkedStarters} from './helpers/unmarked-deployment.mjs';
 import {bondLineup} from './helpers/bond-lineups.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -17,10 +18,11 @@ function scene(names,side=0,type='spear'){
  const team=names=>names.map(n=>({id:id(n),type,troops:4000,level:10}));
  const foes=['曹操','刘备','关羽','张飞'];
  const state=createScenario('custom-battle',9292,20,null,{seed:9292,terrain:'land',ownTeam:team(side?foes:names),enemyTeam:team(side?names:foes)});
- lockDeployment(state.battle);
+ deployUnmarkedStarters(state.battle);lockDeployment(state.battle);
  const b=state.battle,us=b.sides[side].units,u=us[0],target=b.sides[1-side].units[0];
  Object.assign(u,{x:4,y:3});Object.assign(target,{x:5,y:3});
  for(let i=1;i<us.length;i++)Object.assign(us[i],{x:0,y:i});
+ b.sides[1-side].units.slice(1).forEach((v,i)=>Object.assign(v,{x:12,y:i+1}));
  return {state,b,us,u,target};
 }
 test('common strategy and discipline bonuses do not silently grant rare curse equipment or immunity',()=>{

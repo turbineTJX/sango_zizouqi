@@ -2,7 +2,7 @@ import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.m
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario,SCENARIOS} from './helpers/scenarios.mjs';
-import {lockDeployment,stepBattle,validateSave,configureUnitTactics} from '../engine.mjs';
+import {lockDeployment,stepBattle,validateSave,configureUnitTactics,COMMAND_RESOURCE,deployUnit} from '../engine.mjs';
 import {recoverableWounded} from '../tactics.mjs';
 
 test('电脑自然充能后的军略在部队行动结束后下达，与玩家操作处于相同边界',()=>{
@@ -28,6 +28,9 @@ for(const healer of ['liu'])test(`自然击溃守军后，${healer}继续使用�
  SCENARIOS.push(fixture);t.after(()=>SCENARIOS.splice(SCENARIOS.indexOf(fixture),1));
  // Current legal troop kits: seed 2 leaves real wounded and one support use after defenders fall.
  const state=createScenario(fixture.id,2),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');
+ // Freeze the authored contact lanes; this tests post-defender support,
+ // independently of changes to automatic council deployment.
+ for(const [side,positions] of [[0,[['person-396',3,0],['person-636',3,3],['yu',1,3]]],[1,[['jin',9,3],['yuanxia',11,4],['person-610',11,3]]]])for(const [id,x,y] of positions)assert.equal(deployUnit(b,id,x,y,side),null);
  if(healer==='liu')learnFixtureTactics(b.sides[0].units.find(u=>u.id==='person-636'),['unique-person-636','phalanx','strike']);
 
  validateSave(structuredClone(syncFixtureLearning(state)));lockDeployment(b);
@@ -52,7 +55,7 @@ test('本步已结算战果时不再追加电脑军略，即使自然充能恰�
  while(b.tick<deadline-1){stepBattle(b);assert.equal(b.enemyCommand.commandSerial,0);}
  const resumed=validateSave(structuredClone(syncFixtureLearning(state)));
  stepBattle(b);stepBattle(resumed.battle);
- assert.ok(b.result);assert.equal(b.enemyCommand.commandProgress,12000);
+ assert.ok(b.result);assert.equal(b.enemyCommand.commandProgress,COMMAND_RESOURCE.capacity);
  assert.equal(b.enemyCommand.commandSerial,0);assert.equal(b.enemyCommand.lastCommand,null);
  assert.deepEqual(resumed.battle,b);
  const settled=structuredClone(b);stepBattle(b);assert.deepEqual(b,settled);

@@ -29,6 +29,21 @@ function event(phase = 'impact') {
 }
 function battle(e = event()) { return { id:'test', tick:1, sides:[{units:[]},{units:[]}], effects:[e] }; }
 
+test('transition audio shares the fatal impact and pause; local transitions do not stop the whole battle',t=>{
+ const {fx}=scene(t),u={id:'shao',side:1,name:'袁绍',type:'spear',x:5,y:3,status:'active',hp:315,maxHp:315,statuses:{}};
+ const b={id:'transition-audio',tick:1,deploymentLocked:true,sides:[{units:[]},{units:[u]}],effects:[]};
+ fx.update(b,{paused:true,speed:1});b.tick++;u.hp=0;u.status='defeated';b.effects=[{...event(),skill:false}];
+ fx.update(b,{paused:false,speed:1});let heard=0;
+ fx.queueAudio({key:'rout',transition:'rout',unitId:u.id},()=>heard++);
+ const transition=fx.transitions.items[0];assert.equal(fx.sounds[0].start,transition.start);
+ fx.clock=transition.start-1;fx.draw(100);assert.equal(heard,0);
+ fx.update(b,{paused:true,speed:1});fx.draw(200);assert.equal(heard,0);
+ fx.update(b,{paused:false,speed:1});fx.clock=transition.start;fx.draw(300);assert.equal(heard,1);
+ fx.clock=fx.actions[0].end+1;assert.equal(fx.isPresentationPlaying(),false);assert.equal(fx.isBusy(),true);
+ fx.queueAudio({key:'defeat'},()=>{});assert.equal(fx.sounds.at(-1).start,transition.end);
+ fx.clock=transition.end;assert.equal(fx.isBusy(),false);
+});
+
 test('real military orders queue separately and their status receipts share the title impact',t=>{
  const {fx}=scene(t),b=createScenario('history-guandu').battle;lockDeployment(b);
  fx.update(b,{paused:false,speed:1,mode:'full'});
@@ -350,15 +365,17 @@ test('reduced motion uses local static shapes and finishes without impact partic
   assert.equal(impacts,0);assert.ok(focus>0);assert.equal(fx.isBusy(),false);
 });
 
-test('result summary follows the active cast, survives expiry, and retains damage alongside control',t=>{
-  const {fx,feed}=scene(t);fx.result={};const b=battle({...event(),text:'混乱'});
-  b.effects.push({...event(),from:'cao',name:'曹操',label:TACTICS_BOOK['unique-person-661'].name,damage:0,text:'护盾'});
+test('result summary appears at impact, survives expiry, and retains damage alongside control',t=>{
+  const {fx,feed}=scene(t);fx.result={};const b=battle({...event(),text:'混乱',outcome:[{id:'shao',name:'袁绍',damage:315,changes:['混乱（3回合）']}]});
+  b.effects.push({...event(),from:'cao',name:'曹操',label:TACTICS_BOOK['unique-person-661'].name,damage:0,outcome:[{id:'shao',name:'袁绍',damage:0,changes:['护盾 300（5回合）']}]});
   fx.update(b,{paused:false,speed:4});fx.draw(50);
-  assert.match(fx.result.textContent,/张辽.*\n.*实际损兵 315.*混乱/);
+  assert.doesNotMatch(fx.result.textContent,/张辽|混乱/);
   assert.match(feed.children[1].children[3].children[0].textContent,/实际损兵 315.*混乱/);
-  for(let time=100;time<=1550;time+=50)fx.draw(time);
+  for(let time=100;time<=900;time+=50)fx.draw(time);
+  assert.match(fx.result.textContent,/张辽.*\n.*实际损兵 315.*混乱/);
+  for(let time=950;time<=2300;time+=50)fx.draw(time);
   assert.match(fx.result.textContent,/曹操/);
-  for(let time=1600;time<=3200;time+=50)fx.draw(time);
+  for(let time=2350;time<=3200;time+=50)fx.draw(time);
   assert.equal(fx.isBusy(),false);assert.match(fx.result.textContent,/曹操/);
 });
 
@@ -375,7 +392,7 @@ test('minor tactics including criticals stay local in both effect modes',t=>{
  for(const mode of ['clear','full']){
   const b=battle({...event(),label:'奋击',critical:true});b.id=mode;
   const before=JSON.stringify(b);fx.update(b,{paused:false,speed:1,mode});
-  assert.equal(fx.cinematics.length,0);assert.match(fx.result.textContent,/奋击/);
+  assert.equal(fx.cinematics.length,0);assert.doesNotMatch(fx.result.textContent,/奋击/);
   for(let i=0;i<8;i++)fx.draw(fx.lastFrame+50);
   assert.equal(JSON.stringify(b),before);
  }
@@ -387,7 +404,9 @@ test('a linked minor tactic and its multi-hit result get exactly one cut-in',t=>
  const b=battle(hit);b.effects.push({...hit,damage:100},{...hit,label:'二连携',damage:0,combo:{level:2,bonus:25,targetName:'袁绍',actors:[{name:'曹操',x:3,y:3},{name:'张辽',x:4,y:3}]}});
  const before=JSON.stringify(b);fx.update(b,{paused:false,speed:1});
  assert.equal(fx.cinematics.length,1);assert.equal(fx.cinematics[0].events.length,3);
- fx.draw(50);assert.match(fx.result.textContent,/连弩/);assert.match(fx.result.textContent,/415/);
+ fx.draw(50);assert.doesNotMatch(fx.result.textContent,/连弩/);
+ for(let time=100;time<=1100;time+=50)fx.draw(time);
+ assert.match(fx.result.textContent,/连弩/);assert.match(fx.result.textContent,/415/);
  for(let time=100;time<2200;time+=50)fx.draw(time);
  assert.equal(fx.isBusy(),false);assert.equal(JSON.stringify(b),before);
 });
@@ -411,4 +430,28 @@ test('real zero-intent combat only queues 100-intent tactics or genuine links',a
  }
  }
  assert.ok(small>0);assert.ok(big>0);assert.ok(links>0);
+});
+
+test('real killing blows drive body reactions on impact without adding words or changing combat',async t=>{
+ const {stepBattle}=await import('../engine.mjs'),{fx}=scene(t),b=createScenario('field',17).battle;
+ lockDeployment(b);fx.update(b,{paused:false,speed:4});let found=false;
+ while(!b.result&&b.tick<300){
+  stepBattle(b,{aiSides:[0,1]});const before=JSON.stringify(b);fx.update(b,{paused:false,speed:4});
+  const killing=fx.feedback.hits.find(h=>h.defeated);
+  if(killing){
+   found=true;const target=b.sides.flatMap(s=>s.units).find(u=>u.id===killing.to);assert.equal(target.hp,0);assert.equal(target.status,'defeated');
+   assert.notEqual(fx.feedback.reaction(killing.to,killing.start-1)?.hit,killing);
+   fx.clock=killing.start+40;const reaction=fx.feedback.reaction(killing.to,fx.clock);assert.ok(reaction.flash>0&&reaction.recoil>0);
+   const pending=fx.feedback.hits.filter(h=>h.end>fx.clock);fx.update(b,{paused:true,speed:1});fx.draw(100);fx.draw(500);
+   assert.deepEqual(fx.feedback.hits,pending);assert.equal(fx.clock,killing.start+40);assert.equal(JSON.stringify(b),before);break;
+  }
+  fx.clock=Math.max(fx.clock,...fx.actions.map(a=>a.end))+1;fx.syncPresentation();assert.equal(JSON.stringify(b),before);
+ }
+ assert.ok(found);
+});
+test('a hidden cooperation partner never gains a source glint or reveals its position',t=>{
+ const {fx}=scene(t),points=[];fx.visibleActorIds=new Set(['seen']);fx.point=(x,y)=>{points.push([x,y]);return {x,y};};
+ const e={from:'caster',to:'target',x:7,y:3,combo:{actors:[{id:'seen',x:2,y:3},{id:'hidden',x:11,y:5}]}};
+ const before=JSON.stringify(e);fx.drawCombo(e,.2,{x:400,y:200},60);
+ assert.deepEqual(points,[[2,3]]);assert.equal(JSON.stringify(e),before);
 });

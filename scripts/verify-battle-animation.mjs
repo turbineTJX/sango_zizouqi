@@ -42,7 +42,7 @@ try{
  await page.clock.runFor(50);
  const clock=await page.evaluate(()=>({fx:fx.clock,art:sprites.clock}));const frozen=await page.evaluate(()=>sprites.canvas.toDataURL());
  await page.clock.runFor(600);assert.deepEqual(await page.evaluate(()=>({fx:fx.clock,art:sprites.clock})),clock);assert.ok(await page.evaluate(()=>sprites.canvas.toDataURL())===frozen,'paused formation pixels must remain frozen');
- await page.setViewportSize({width:390,height:844});await page.clock.runFor(50);await page.screenshot({path:out+'/mobile.png'});
+ await page.setViewportSize({width:844,height:390});await page.clock.runFor(50);await page.screenshot({path:out+'/mobile.png'});
  await page.emulateMedia({reducedMotion:'reduce'});await page.locator('[data-action="pause"]').click();await page.clock.runFor(2400);
  assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({captured:[...captured],errors,paused:true,reducedMotion:true},null,2));
  console.log('Battle animation UI checks passed');

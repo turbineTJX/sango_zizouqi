@@ -18,14 +18,14 @@ import {frontlineCapacity,validFrontline,armyFrontlineCapacity} from './army-tra
 import {tickStratagemZones} from './stratagem-zones.mjs';
 import {arrivedReserves,refreshCandidates,needsCommandRefresh,commandRefresh,validStratagemEvents} from './stratagem-events.mjs';
 import {commandProtectionDuration,commandBlocksDamage} from './command-protection.mjs';
-import {isAreaStratagem,validStratagemPoint,stratagemAreaTargets,stratagemHasEffect,chooseStratagemPoint,stratagemAreaContains} from './stratagem-area.mjs';
+import {isAreaStratagem,validStratagemPoint,stratagemAreaTargets,stratagemHasEffect,chooseStratagemPoint,stratagemAreaContains,firestormAmount} from './stratagem-area.mjs';
 import {resolveTraitEvent} from './trait-effects.mjs';
 import {traitImmune,validTraitState,mechanicEntries,traitEligible} from './trait-mechanics.mjs';
 import {appendBattleLog,BATTLE_LOG_LIMIT,BATTLE_LOG_KINDS} from './battle-log.mjs';
 import {recordBattleEffects} from './battle-journal.mjs';
 import {mapNode,mapNodes} from './road-network.mjs';
 import {beginUnitRetreat,validRetreatAt} from './battle-retreat.mjs';
-import {defenseLine} from './defense-line.mjs';
+import {defenseLine,insideDefenseLine,shouldReturnToDefense} from './defense-line.mjs';
 import {STATUS_DEFINITIONS,CONTROL_STATUSES,statusValue,hidden,detected,breakStealth,remedy,needsRemedy,createDecoy,decoyTargets,hitDecoy,armEntryStatuses,contactIntentFactor,statusNotice} from './battle-status-rules.mjs';
 import {shieldLayers} from './tactics.mjs';
 import {DEMO_ROAD_DESIGNS} from './data/design/roads.mjs';
@@ -43,7 +43,10 @@ import {validateMapDocument} from './battle-map-document.mjs';
 import {arrivalConditionMet,sameArrivalCondition} from './reinforcement-arrival.mjs';
 import {applyBattleEvents,validBattleEventStatus} from './battle-events.mjs';
 import {relationshipInfo,validRelationshipScores,validRelationshipTypes} from './relationships.mjs';
-import {hexDistance, hexNeighbors, hexBeyond} from './hex-grid.mjs';
+import {hexDistance, hexNeighbors, hexBeyond, approachNeighbors} from './hex-grid.mjs';
+import {tacticShapeTargets,tacticShapeCells} from './tactic-positioning.mjs';
+import {createTacticAim,tacticAimTargets,validTacticAim} from './tactic-aim.mjs';
+import {reserveEntryCells,validReserveEntryPoint,planReserveEntriesAI} from './reserve-entry.mjs';
 import { TROOPS, unitAttributes, disciplineDuration, isRear } from './unit-stats.mjs';
 import {BATTLE_MAPS} from './data/design/battle-maps.mjs';
 import {intentIncome, hasPassive, initialPassiveState, moved as recordMovement, recordBasicAttack, passiveDamageMultiplier, passiveDamageTaken, supportMultiplier, SKILL_ROUTES, commonRouteName} from './passives.mjs';
@@ -75,7 +78,7 @@ export const SKILL_THRESHOLDS = { cao:100, dun:85, liao:95, chu:80, jia:100, yu:
 export const skillThreshold = unit => Math.min(...unitTactics(unit).map(s=>s.threshold));
 import {availableBattleCommanders,STRATAGEMS,OFFICER_STRATAGEMS,officerStratagems,commanderStratagems,selectStratagemSource,stratagemProfile,stratagemEffectText} from './stratagems.mjs';
 export {STRATAGEMS,OFFICER_STRATAGEMS,officerStratagems} from './stratagems.mjs';
-export const COMMAND_RESOURCE = { capacity:12000 };
+export const COMMAND_RESOURCE = { capacity:9000 };
 // Automatic appointment must consider commands that the leader cannot supply.
 // Explicit appointments in campaigns and player-managed armies stay untouched.
 export function chooseArmyAdvisor(army) {
@@ -289,7 +292,7 @@ function garrisonUnits(city) {
   return Array.from({ length: count }, (_, i) => ({ id: `g-${city.id}-${i}`, name: `${city.name}${['守将', '校尉', '都尉', '偏将', '参军', '牙将'][i]}`, courtesy: '守军', leadership: 72, force: 70, intellect: 65, politics:65, skill: '据险固守', trait: '守土有责', equipment:emptyEquipment(),type: types[i], formation: types[i] === 'archer' ? 'back' : 'front', troops: Math.floor(city.garrison / count) + (i === 0 ? city.garrison % count : 0), wounded: 0, first: true }));
 }
 export function combatUnit(u, armyId, side, morale) {
-  return { ...structuredClone(u), ...(generatedOfficer(u)||officerProfile(u.id)), level:u.level??1,merit:u.merit??0,skillRouteType:u.skillRouteType||u.type,formType:null,formReadyTick:0,passiveState:initialPassiveState(),traitState:{},bondState:{},participated:false,contribution:emptyContribution(),attackCarry:0,armyId, side, retreatAt:u.retreatAt??null,withdrawing:false,disengage:null,hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, intentRoutApplied:false, tacticRecoveryUntil:0, cast: null, skillReady:{}, tacticCasts:{}, tacticRestored:{}, tacticCommandRestored:{}, tacticUseBonus:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
+  return { ...structuredClone(u), ...(generatedOfficer(u)||officerProfile(u.id)), level:u.level??1,merit:u.merit??0,skillRouteType:u.skillRouteType||u.type,formType:null,formReadyTick:0,passiveState:initialPassiveState(),traitState:{},bondState:{},participated:false,contribution:emptyContribution(),attackCarry:0,armyId, side, reserveEntry:null,retreatAt:u.retreatAt??null,withdrawing:false,disengage:null,hp: u.troops, maxHp: u.troops, initial: u.troops, battleDamage:0, healed:0, moveProgress:0, status: 'reserve', x: -1, y: -1, morale, cooldown: 0, intent:0, intentRoutApplied:false, tacticRecoveryUntil:0, cast: null, skillReady:{}, tacticCasts:{}, tacticRestored:{}, tacticCommandRestored:{}, tacticUseBonus:{}, statuses:{}, skillCasts: 0, action: '候命', effect: null };
 }
 export function configureUnitTactics(state,unitId,ids) {
   if(state.battle&&!isDeploying(state.battle))return '开战后战法锁定，暂停也不能更换';
@@ -328,9 +331,10 @@ export function startBattle(state,{deferEnemyDeployment=false}={}) {
 export const activeUnits = (b, side) => b.sides[side].units.filter(u => u.status === 'active' && u.hp > 0);
 export {deployBattleUnit as deployUnit} from './battle-deployment.mjs';
 import {deployBattleUnit} from './battle-deployment.mjs';
-export function reserveDeploymentUnit(b,id,toId=null) {
+export function reserveDeploymentUnit(b,id,toId=null,side=0) {
   if(!isBattleCouncil(b))return '只能在开战前调整或援军军议中调整后备';
-  const units=b.sides[0].units,u=units.find(u=>u.id===id&&u.hp>0&&['active','reserve'].includes(u.status));
+  if(![0,1].includes(side))return '请选择本方军团';
+  const units=b.sides[side].units,u=units.find(u=>u.id===id&&u.hp>0&&['active','reserve'].includes(u.status));
   if(!u)return '请选择我军部队';
   if(isReinforcementCouncil(b)&&u.status!=='reserve')return '在场部队不能重新布置';
   if(toId===id)return null;
@@ -356,6 +360,7 @@ export function configureBattleTerrain(b,terrain) {
 
   if(b.terrain===terrain)return null;
   b.terrain=terrain;
+  for(const u of b.sides.flatMap(s=>s.units))u.reserveEntry=null;
   if(b.mapData&&b.mapData.terrain!==terrain){delete b.mapData;delete b.mapId;}
   if(b.mapId&&!b.mapData&&BATTLE_MAPS[b.mapId]?.terrain!==terrain)delete b.mapId;
   // Reset both armies so changing water lanes cannot strand either side.
@@ -395,12 +400,9 @@ const distance = hexDistance;
 function battleLog(b, text) { appendBattleLog(b,text); }
 function random(b) { b.seed = (Math.imul(b.seed, 1664525) + 1013904223) >>> 0; return b.seed / 4294967296; }
 function spawn(b, unit) {
-  const x = unit.side === 0 ? ({ front: 3, middle: 2, back: 1, left: 3, right: 3 }[unit.formation]) : ({ front: 10, middle: 11, back: 12, left: 10, right: 10 }[unit.formation]);
-  const preferredY = unit.formation === 'left' ? 0 : unit.formation === 'right' ? 7 : 3.5;
-  const cells = [];
-  for (let y = 0; y < GRID.rows; y++) for (let col = 0; col < GRID.cols; col++) cells.push({ x: col, y });
-  const occupied = b.sides.flatMap(s => s.units).filter(u => u.status === 'active');
-  const open = cells.filter(c => canOccupy(b,unit,c.x,c.y) && !occupied.some(u => u.x === c.x && u.y === c.y)).sort((a, c) => Math.abs(a.x - x) * 5 + Math.abs(a.y - preferredY) - Math.abs(c.x - x) * 5 - Math.abs(c.y - preferredY));
+  // Default, player-selected and AI entries share the real home deployment
+  // area. A blocked entrance waits; it cannot search the enemy half for space.
+  const open = reserveEntryCells(b,unit);
   if (!open.length) return false;
   unit.x = open[0].x; unit.y = open[0].y; unit.status = 'active'; unit.action = '列阵';syncCombatForm(b,unit);
   if(b.deploymentLocked)armEntryStatuses(b,unit,unitTactics(unit));
@@ -435,6 +437,7 @@ export function planBattleCouncilAI(b,side=1){
   configureBattleIntent(b,b.siege?(b.siege.attackerSide===side?'siege':'hold'):'annihilate',side);
   fillSlots(b,side,{ai:true});planEnemyArmy(b,side);
  }else fillSlots(b,side,{ai:true});
+ planReserveEntriesAI(b,side);
  // Existing retreat thresholds are retained. Reinforcement councils never
  // move active troops, rewrite intentions, change loadouts or reset resources.
 }
@@ -449,6 +452,7 @@ export function planBattleCouncilsAI(b,aiSides=[1]){
   if(u.status==='active'){u.status='reserve';u.x=-1;u.y=-1;}
   u.formation=['spear','halberd'].includes(u.type)?'front':u.type==='cavalry'?'left':'back';
   u.formType=null;u.formReadyTick=initial.tick;
+  u.reserveEntry=null;
  }
  for(const side of [0,1])fillSlots(initial,side,{ai:false});
  // Both controllers observe this same neutral board, independent of preview
@@ -464,7 +468,7 @@ export function planBattleCouncilsAI(b,aiSides=[1]){
  }
  for(const {side,army} of proposals){
   for(const proposed of army.units){
-   const u=b.sides[side].units.find(u=>u.id===proposed.id);u.formation=proposed.formation;
+   const u=b.sides[side].units.find(u=>u.id===proposed.id);u.formation=proposed.formation;u.reserveEntry=structuredClone(proposed.reserveEntry);
    if(!validLoadout(u,u.tactics))configureTactics(u,proposed.tactics);
    if(proposed.status!=='active')continue;
    if(!validFrontline(b,side,[...activeUnits(b,side),u])||!spawn(b,u))throw Error('AI战前方案无法合法上阵');
@@ -564,10 +568,7 @@ export function issueCommand(b, command, targetId = null, side = 0, {ai=side===1
     }
     else if(effect==='heal') {for(const u of targets)healWounded(b,u,profile.strength,false,provider||u);}
     else if(effect==='firestorm') {
-      const allies=activeUnits(b,side),allTargets=activeUnits(b,other).filter(u=>isTargetable(b,u));
-      const totalPower=allies.reduce((sum,u)=>sum+unitAttributes(u,b).strategyPower,0);
-      const amount=Math.max(0,Math.floor(totalPower*(18/280)*profile.strength/Math.max(1,allTargets.length)));
-      for(const u of targets)setStatus(b,u,'burn',profile.duration,{sourceId:profile.id,sourceName:profile.name,sourceSkillName:strategy.name,amount:Math.floor(amount*(1+(combatFamily(u)==='ship'?(strategy.shipFireBonus||0):0)))});
+      for(const u of targets)setStatus(b,u,'burn',profile.duration,{sourceId:profile.id,sourceName:profile.name,sourceSkillName:strategy.name,amount:firestormAmount(b,strategy,profile,side,u)});
     }
     else if (strategy.field) {
       const target=b.sides[strategy.side===0?side:other],until=b.tick+profile.duration+1;
@@ -690,11 +691,11 @@ function pickTarget(b, unit, inRangeOnly = false, reachableOnly = false) {
     return score(a) - score(c) || a.id.localeCompare(c.id);
   })[0];
 }
-function findMoveRoute(b, unit, target, retreat = false, supportRange = null, ignoredBuildings = null) {
+function findMoveRoute(b, unit, target, retreat = false, supportRange = null, ignoredBuildings = null, returning = false) {
   const occupied = b.sides.flatMap(s => s.units).filter(u => u.status === 'active' && u !== unit);
   // Breadth-first pathfinding handles blocked allies without passing through them.
-  const inLine = retreat ? ()=>true : defenseLine(b,unit,target);
-  const goal = retreat ? p => p.x === (unit.side === 0 ? 0 : 13) : p => inLine(p) && distance(p, target) <= (supportRange??attackRange(b,unit)) && (supportRange!==null||distance(p,target)>=(unitAttributes(unit,b).minRange||0)&&canStrikeFrom(b,unit,target,p));
+  const inLine = retreat ? ()=>true : returning ? p=>unit.side===0?p.x<=Math.max(4,unit.x):p.x>=Math.min(9,unit.x) : defenseLine(b,unit,target);
+  const goal = returning ? p=>insideDefenseLine(unit,p) : retreat ? p => p.x === (unit.side === 0 ? 0 : 13) : p => inLine(p) && distance(p, target) <= (supportRange??attackRange(b,unit)) && (supportRange!==null||distance(p,target)>=(unitAttributes(unit,b).minRange||0)&&canStrikeFrom(b,unit,target,p));
   const queue = [{ x: unit.x, y: unit.y, path: [] }], visited = new Set([`${unit.x},${unit.y}`]);
   let route = null, contactRoute = null;
   while (queue.length) {
@@ -705,8 +706,7 @@ function findMoveRoute(b, unit, target, retreat = false, supportRange = null, ig
       contactRoute ??= node.path;
       continue;
     }
-    const neighbors = hexNeighbors(node);
-    neighbors.sort((a, c) => distance({x:a[0],y:a[1]},target) - distance({x:c[0],y:c[1]},target));
+    const neighbors = approachNeighbors(node,target,unit.side);
     for (const [x, y] of neighbors) {
       const key = `${x},${y}`;
       const cleared=ignoredBuildings&&canTraverseTerrain(b,unit,x,y)&&battleBuildings(b).some(a=>a.hp>0&&a.x===x&&a.y===y&&ignoredBuildings.has(a.id));
@@ -732,14 +732,14 @@ function moved(b,u,from,target=null){
  syncCombatForm(b,u,target);
  recordMovement(b,u,from);
 }
-function moveUnit(b, unit, target, retreat = false, supportRange = null) {
+function moveUnit(b, unit, target, retreat = false, supportRange = null, returning = false) {
   const guards=interceptorsAt(b,unit,unit,true);
-  if(guards.length&&!unit.disengage){unit.disengage={targetId:retreat?null:target.id,guards:guards.map(e=>e.id),readyTick:b.tick+1};unit.cast=null;unit.action='脱战准备';return true;}
+  if(guards.length&&!unit.disengage){unit.disengage={targetId:retreat||returning?null:target.id,guards:guards.map(e=>e.id),readyTick:b.tick+1};unit.cast=null;unit.action='脱战准备';return true;}
   if(unit.disengage&&b.tick<unit.disengage.readyTick){unit.action='脱战准备';return true;}
 
   const speed=unitAttributes(unit,b).move;
   if(speed<=0){unit.moveProgress=0;unit.action='固守 / 迟滞';return true;}
-  const paths=findMoveRoute(b,unit,target,retreat,supportRange),route=paths.route??paths.contactRoute;
+  const paths=findMoveRoute(b,unit,target,retreat,supportRange,null,returning),route=paths.route??paths.contactRoute;
   if (route?.length) {
     unit.moveProgress=(unit.moveProgress||0)+speed;const steps=Math.floor(unit.moveProgress);unit.moveProgress-=steps;
     if(!steps){unit.action='迟滞行军';return true;}
@@ -747,10 +747,10 @@ function moveUnit(b, unit, target, retreat = false, supportRange = null) {
     const contact=route.findIndex(p=>interceptorsAt(b,unit,p,retreat||!!unit.disengage).length);
     const transition=route.findIndex(p=>(terrainAt(b,p.x,p.y)==='water')!==(terrainAt(b,unit.x,unit.y)==='water'));
     const next = route[Math.min(route.length, steps,transition<0?Infinity:transition+1,unit.disengage?1:Infinity,contact<0?Infinity:contact+1) - 1];
-    const from={x:unit.x,y:unit.y};unit.x = next.x; unit.y = next.y;moved(b,unit,from,retreat?null:target);unit.disengage=null; unit.action = retreat ? '撤离' : `接近${target.name}`;
+    const from={x:unit.x,y:unit.y};unit.x = next.x; unit.y = next.y;moved(b,unit,from,retreat?null:target);unit.disengage=null; unit.action = retreat ? '撤离' : returning ? '返回防线' : `接近${target.name}`;
     if(!retreat)ambushContact(b,unit);
   } else unit.action = retreat ? '等待撤离' : b.siege?.gate.side===unit.side ? '守护城门' : '调整阵线';
-  return route!==null;
+  return returning ? !!route?.length : route!==null;
 }
 function ambushContact(b,u){
   if(!hasStatus(b,u,'stealth'))return false;
@@ -959,9 +959,21 @@ function applyControl(b,u,steps,key='confuse',source={}) {
   if(hasStatus(b,u,'resolve')||hasStatus(b,u,'magicImmune')||traitImmune(u,key))return;
   setStatus(b,u,key,steps,source);setStatus(b,u,'resolve',steps+3,{...source,sourceNote:'受控保护'});
 }
-function finishTacticInner(b,u,s,target) {
+function spendTactic(b,u,s){
+ u.participated=true;u.skillCasts=(u.skillCasts||0)+1;u.tacticCasts[s.id]=(u.tacticCasts[s.id]||0)+1;
+ const before=u.intent;u.intent=Math.max(0,u.intent-s.intentCost);u.tacticRecoveryUntil=b.tick+TACTIC_RECOVERY_STEPS;
+ return {before,cost:s.intentCost,after:u.intent};
+}
+function finishTacticInner(b,u,s,target,impact=null) {
   if(u.withdrawing||u.disengage||b.sides[u.side].retreat||u.status!=='active'||u.hp<=0)return false;
   breakStealth(b,u,'施放战法');
+  if(s.geometry&&!impact){
+    const aim=createTacticAim(b,u,s,target,s.geometry.reach??attackRange(b,u));
+    if(!aim.cells.some(p=>p.x===target.x&&p.y===target.y))return false;
+    u.tacticAim=aim;const intentPayment=spendTactic(b,u,s);
+    combatEffect(b,u,target,true,0,'cast',s,{text:'蓄势',intentPayment,tacticGeometry:{kind:s.geometry.kind,cells:aim.cells}});
+    traitEvent(b,u,'cast',{target});u.action=s.name+' · 蓄势';return true;
+  }
   // Invalid movement casts must not consume a relationship roll.
   if(s.effect==='lure'&&!lureCell(b,u,target)||s.effect==='retreatShot'&&!retreatCell(b,u)||['rush','terror'].includes(s.effect)&&routeTo(b,u,target,3)===null)return false;
   const before=snapshotTactic(b);
@@ -1043,7 +1055,7 @@ function finishTacticInner(b,u,s,target) {
    }else switch(s.effect) {
     case 'status':{const targets=s.statusKey==='link'?activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)&&distance(u,t)<=s.range).sort((a,c)=>Number(c===target)-Number(a===target)||a.id.localeCompare(c.id)).slice(0,s.targets):[target];for(const t of targets){status(t,s.statusKey,s.steps,{sourceId:u.id,...(s.statusKey==='link'?{group:u.id+':'+b.tick}:{} )});signal(t);}break;}
     case 'remedy':remedy(b,target,s.remedy);signal(target);break;
-    case 'cleave':activeUnits(b,1-u.side).filter(t=>distance(u,t)===1).sort((a,c)=>a.id.localeCompare(c.id)).slice(0,3).forEach((t,i)=>{if(u.hp>0)hit(t,.95,i===0);});break;
+    case 'cleave':(impact?.targets||tacticShapeTargets(b,u,s,target,activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)),1)).forEach((t,i)=>{if(u.hp>0)hit(t,.95,i===0);});break;
     case 'bulwark':status(u,'bulwark',10);signal();break;
     case 'riposte':status(u,'riposte',8,{lastTick:0});signal();break;
     case 'blight':hit(target,.7);if(target.hp>0)status(target,'plague',s.steps,{sourceId:u.id,amount:Math.round(power*.025)});break;
@@ -1079,7 +1091,7 @@ function finishTacticInner(b,u,s,target) {
     case 'anchor':status(u,'anchored',8);signal();break;
     case 'boarding':heal(target,.1);gainIntent(target,boosted(20,target,'intent'),u);signal(target);break;
     case 'famous': {
-      const targets=famousTargets(b,u,s,target);
+      const targets=impact?.targets||famousTargets(b,u,s,target);
       if(!targets.length)return false;
       if(s.selfCost){
         const loss=takeCasualties(b,u,Math.min(u.hp-1,Math.floor(u.hp*s.selfCost)));
@@ -1091,7 +1103,7 @@ function finishTacticInner(b,u,s,target) {
         if(s.mode==='attack'){
           // Snapshot conditions before this cast applies its own hit intent or debuffs.
           const opening=tacticOpening(b,s,t);
-          const scale=s.scale+(s.execute&&t.hp/t.maxHp<.4?s.execute:0)+opening.scale;
+          const scale=(s.scale+(s.execute&&t.hp/t.maxHp<.4?s.execute:0)+opening.scale)*(s.geometry&&t!==target?s.geometry.secondaryScale??1:1);
           if(opening.setup||opening.highIntent)signal(t,opening.setup?'乘隙追击':'高战意反制',{openingTrigger:opening.setup?'setup':'highIntent'});
           for(let i=0;i<(s.hits||1)&&t.hp>0;i++){hit(t,scale,!charged);charged=true;}
           if(t.hp<=0)continue;
@@ -1133,7 +1145,7 @@ function finishTacticInner(b,u,s,target) {
       const targets=areaTacticTargets(b,u,s,target,s.range),scale=hasStatus(b,target,'burn')?1.25:.85;
       targets.forEach((t,i)=>{hit(t,scale,i===0);if(t.hp>0)status(t,'burn',6,{sourceId:u.id,amount:boosted(power*(6/280+.04)*100/(100+unitAttributes(t,b).discipline),null,null,false)});});status(u,'strategyAttack',16);status(u,'burningAttack',12,{powerStat:'strategyPower',rate:6/280+.04});break;
     }
-    case 'rally':for(const a of basicSupportTargets(b,u,s)){const amount=boosted(24+Math.round(power*.02),a,'intent',false);gainIntent(a,amount,u);signal(a,`战意 +${amount}`);}break;
+    case 'rally':for(const a of basicSupportTargets(b,u,s)){const amount=boosted(24+Math.round(power*.02),a,'intent',false),before=a.intent;gainIntent(a,amount,u);signal(a,`战意 +${a.intent-before}`,{intentRestored:a.intent-before});}break;
     case 'taunt':if(status(target,'taunt',4,{sourceId:u.id}))signal(target,'挑衅 · 引战');break;
     case 'cleanse':remedy(b,target,'calm');status(target,'resolve',3);status(target,'shield',8,{amount:boosted(target.maxHp*(.08+power/8000),target,'shield',false)});signal(target,'解围 · 护盾');break;
     case 'screen':for(const a of basicSupportTargets(b,u,s)){heal(a,.08+power/10000,false);status(a,'shield',6,{amount:boosted(a.maxHp*.04,a,'shield')});signal(a,'救护 · 护盾');}break;
@@ -1157,13 +1169,12 @@ function finishTacticInner(b,u,s,target) {
     }
     case 'valor':status(u,'valor',8);status(u,'armorBreak',8,{potency:1});signal(u,`攻击 +${(25*factor).toFixed(1)}% · 防御 −20%`);break;
     case 'scatter': {
-      const targets=areaTacticTargets(b,u,s,target,attackRange(b,u));
+      const targets=impact?.targets||areaTacticTargets(b,u,s,target,attackRange(b,u));
       targets.forEach((t,i)=>hit(t,.85,i===0));break;
     }
     case 'thrust': {
-      const next=hexBeyond(u,target);
-      const behind=activeUnits(b,1-u.side).find(t=>t.x===next.x&&t.y===next.y);
-      hit(target,1.3);if(behind)hit(behind,1.1,false);break;
+      const targets=impact?.targets||tacticShapeTargets(b,u,s,target,activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)),s.geometry.reach);
+      targets.forEach((t,i)=>hit(t,i?1.1:1.3,i===0));break;
     }
     case 'strike':hit(target,exposedTarget(b,target)?2.5:1.7);break;
     case 'repeat':hit(target,.95);if(target.hp>0)hit(target,.95,false);break;
@@ -1214,8 +1225,16 @@ function finishTacticInner(b,u,s,target) {
     const amount=Math.min(cap,Math.floor(sustainDamage*sustain.shield));
     if(amount>0){setStatus(b,u,'shield',sustain.steps,{amount,source:u.id+':'+s.id,label:u.name+' · '+s.name});signal(u,'浴血护盾 +'+amount);}
   }
-  traitEvent(b,u,'cast',{target});
+  if(!impact)traitEvent(b,u,'cast',{target});
   const castEvents=b.effects.slice(effectStart).filter(e=>e.from===u.id&&!e.ongoing);
+  if(s.geometry&&castEvents.length){
+    const event=castEvents.find(e=>e.skill)||castEvents.find(e=>e.decoyDamage>0);
+    if(event){
+      // Decoy hits retain their separate durability packet and receive the
+      // actual tactic identity; they never become real troop damage.
+      Object.assign(event,{skill:true,label:s.name,visual:s.visual,tacticGeometry:{kind:s.geometry.kind,cells:impact?.aim.cells||tacticShapeCells(b,origin,s,target,s.geometry.reach??attackRange(b,u))}});
+    }
+  }
   if(castEvents.length){castEvents[0].outcome=tacticOutcome(b,u,before,b.effects.slice(effectStart));castEvents[0].castPower=power;}
   const effective=castEvents.some(e=>e.damage>0||e.healing>0||e.shieldAbsorbed>0||e.resolution?.success||e.tacticUseChange)||b.sides.flatMap(side=>side.units).some(t=>{
     const old=before.get(t.id);return old&&(t.intent!==old.intent||t.x!==old.x||t.y!==old.y||JSON.stringify(t.statuses)!==JSON.stringify(old.statuses)||JSON.stringify(t.skillReady)!==JSON.stringify(old.ready));
@@ -1237,12 +1256,21 @@ function finishTacticInner(b,u,s,target) {
   if(partner&&!linked)battleLog(b,partner.name+' → '+u.name+'：关系 '+relation.score+'，'+relation.chance+'% 连携判定未成功，战法正常生效。');
   if(['relay','screen','bandage','regrowth','purify','boarding'].includes(s.effect)){u.cooldown=unitAttributes(u,b).attackInterval;u.attackCarry=0;}
   u.participated=true;target.participated=true;
-  u.skillCasts=(u.skillCasts||0)+1;u.tacticCasts[s.id]=(u.tacticCasts[s.id]||0)+1;
-  const intentBeforeCost=u.intent;
-  u.intent=Math.max(0,u.intent-s.intentCost);
-  u.tacticRecoveryUntil=b.tick+TACTIC_RECOVERY_STEPS;
-  if(castEvents.length)castEvents[0].intentPayment={before:intentBeforeCost,cost:s.intentCost,after:u.intent};
+  if(!impact){const payment=spendTactic(b,u,s);if(castEvents.length)castEvents[0].intentPayment=payment;}
   u.action=s.name;if(!castEvents.length)appendBattleLog(b,`${u.name}发动「${s.name}」：无即时数值变化。`,'tactic',u.side);return true;
+}
+function resolveTacticAims(b,sequence){
+ for(const side of sequence)for(const u of b.sides[side].units){
+  const aim=u.tacticAim;if(!aim)continue;
+  const s=TACTICS_BOOK[aim.skillId],interrupted=u.hp<=0||u.status!=='active'||u.withdrawing||u.disengage||b.sides[side].retreat||u.x!==aim.origin.x||u.y!==aim.origin.y||['stun','confuse','seal','stasis'].some(key=>hasStatus(b,u,key));
+  if(!interrupted&&aim.resolveAt>b.tick)continue;
+  u.tacticAim=null;
+  const targets=interrupted?[]:tacticAimTargets(b,u,aim,s);
+  if(!targets.length){
+   const target=b.sides[1-side].units.find(t=>t.id===aim.targetId);
+   combatEffect(b,u,target,true,0,'impact',s,{x:aim.point.x,y:aim.point.y,fromX:aim.origin.x,fromY:aim.origin.y,missed:true,text:interrupted?'蓄势中断':'落空',tacticGeometry:{kind:s.geometry.kind,cells:aim.cells}});
+  }else finishTactic(b,u,s,targets[0],{aim,targets});
+ }
 }
 function triggerPreparedDecoy(b,u){
   const mark=u.preparedDecoy;
@@ -1368,6 +1396,9 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
       if (unit.x === (side === 0 ? 0 : 13)) { unit.status = 'withdrawn'; unit.action = '已撤离'; battleLog(b, `${unit.name}所部成功撤离。`); }
       continue;
     }
+    if(shouldReturnToDefense(b,unit)&&!unit.tacticAim&&!tauntTarget(b,unit,attackRange(b,unit))){
+      if(moveUnit(b,unit,b.siege.gate,false,null,true))continue;
+    }
     if(unit.disengage){
       const target=[...b.sides[1-side].units,...battleBuildings(b).filter(a=>a.side!==side)].find(e=>e.id===unit.disengage.targetId&&(e.status==='active'||['gate','building'].includes(e.type))&&e.hp>0&&isTargetable(b,e));
       // A moving guard or newly occupied cell can invalidate an earlier order.
@@ -1375,6 +1406,7 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
       const meaningful=target&&(target.type!=='building'||facilityTargetValue(b,target)>0||pickTarget(b,unit)?.id===target.id);
       if(meaningful&&findMoveRoute(b,unit,target).route!==null){moveUnit(b,unit,target);continue;}unit.disengage=null;
     }
+    if(unit.tacticAim){unit.action=TACTICS_BOOK[unit.tacticAim.skillId].name+' · 蓄势';continue;}
     if(syncCombatForm(b,unit,pickTarget(b,unit))){unit.action='展开兵器';continue;}
     if(ambushContact(b,unit))continue;
     const ready = readyTactic(b,unit,attackRange(b,unit));
@@ -1416,6 +1448,7 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
       }
     }
   }
+  resolveTacticAims(b,sequence);
   confirmScheduledArrivals(b,pauseForReinforcements,{conditionsOnly:true,aiSides});
   if(!b.reinforcementCouncil)fillControllerSlots(b,aiSides);
   const counts = [0,1].map(side => remainingUnits(b,side).length + (b.siege?.gate.side === side && b.siege.gate.hp > 0 && !b.sides[side].retreat && !(remainingUnits(b,side).length===0&&b.sides[side].units.some(u=>u.status==='withdrawn')) ? 1 : 0));
@@ -1487,6 +1520,7 @@ export function settleBattle(state) {
   if (b.result.winner === 0) { state.victories++; state.fame += 30; state.gold += 300; }
   state.report = { id: b.id, city: city.name, winner: b.result.winner, reason: b.result.reason, tick: b.tick, stats, growth, appointments, captured: oldOwner !== city.owner, owner: city.owner, reward: b.result.winner === 0 ? 300 : 0 };
   log(state, `${city.name}之战${b.result.winner === 0 ? '告捷' : b.result.winner === 1 ? '失利' : '未分胜负'}，我军阵亡 ${stats[0].killed} 人，伤兵 ${stats[0].wounded} 人。`, b.result.winner === 0 ? 'good' : 'war');
+  if(state.testScenario)state.report.participation=b.sides.map(side=>side.units.map(u=>({id:u.id,name:u.name,entered:!!u.entryStatusesApplied,arrived:u.arrivalConfirmed!==false&&(u.arrivalTick||0)<=b.tick})));
   if (b.siege) state.report.gate = { remaining:b.siege.gate.hp, initial:b.siege.gate.maxHp, side:b.siege.gate.side };
   preparePostbattleAppointments(state,b,[...context.attackingIds,...context.defenderIds]);
   state.battle = null;
@@ -1666,6 +1700,9 @@ export function validateSave(value, { strategic = false } = {}) {
         }
         require(!unitIds.has(u.id) && u.side === index && typeof u.armyId === 'string' && (armyIds.has(u.armyId) || u.armyId === `city:${b.cityId}`)); unitIds.add(u.id);
         require(number(u.intent,COMBAT.intentCap),'战意数据无效');
+        require(validReserveEntryPoint(b,u,u.reserveEntry),'后备入场位置无效');
+        require(validTacticAim(b,u,u.tacticAim,TACTICS_BOOK),'战法蓄势或锁定覆盖格无效');
+        if(u.tacticAim)require(allLearnedTacticIds(u).includes(u.tacticAim.skillId),'蓄势战法未获得');
         require(Number.isFinite(u.moveProgress)&&u.moveProgress>=0&&u.moveProgress<1,'移动进度无效');
         const ps=u.passiveState;
         require(ps&&Number.isSafeInteger(ps.moveCount)&&ps.moveCount>=0,'人物特性移动记录无效');
@@ -1800,6 +1837,8 @@ export function validateSave(value, { strategic = false } = {}) {
       if(e.commandRestored!==undefined)require(e.abilityKind==='trait'&&number(e.commandRestored,COMMAND_RESOURCE.capacity),'特性军略恢复记录无效');
       if(e.sharedTargets!==undefined||e.damageShare!==undefined)require(!e.skill&&Number.isInteger(e.sharedTargets)&&e.sharedTargets>=2&&e.sharedTargets<=6&&e.damageShare===1/e.sharedTargets,'普攻分摊记录无效');
       if(e.castPower!==undefined)require(Number.isFinite(e.castPower)&&e.castPower>=0&&e.castPower<=100000,'战法威力记录无效');
+      if(e.tacticGeometry!==undefined){const g=e.tacticGeometry;require(e.skill&&g&&['line','fan','burst'].includes(g.kind)&&Array.isArray(g.cells)&&g.cells.length>0&&g.cells.length<=25&&g.cells.every(p=>p&&Object.keys(p).sort().join(',')==='x,y'&&Number.isInteger(p.x)&&p.x>=0&&p.x<14&&Number.isInteger(p.y)&&p.y>=0&&p.y<8)&&new Set(g.cells.map(p=>p.x+':'+p.y)).size===g.cells.length,'战法覆盖格记录无效');}
+      if(e.missed!==undefined)require(e.missed===true&&e.skill&&e.phase==='impact'&&e.tacticGeometry&&e.damage===0&&!e.shieldAbsorbed&&!e.healing,'战法落空记录无效');
       if(e.bondCritical!==undefined)require(e.bondCritical==='bondFinisher'&&!e.skill&&!e.ongoing&&e.critical===true&&e.critChance===1&&b.sides.flatMap(s=>s.units).some(u=>u.id===e.from&&(u.bondGrowth.levels.bondFinisher||0)>0),'锐锋暴击来源无效');
       else if(e.critical!==undefined||e.critChance!==undefined)require(typeof e.critical==='boolean'&&Number.isFinite(e.critChance)&&e.critChance>=.05&&e.critChance<=.3&&e.skill&&!e.ongoing,'暴击判定无效');
       if(e.resolution!==undefined){const r=e.resolution;require(r&&Object.hasOwn(CHANCE_EFFECT_NAMES,r.effect)&&Number.isFinite(r.chance)&&typeof r.success==='boolean'&&typeof r.immune==='boolean'&&(r.immune?r.chance===0&&!r.success:r.chance>=.25&&r.chance<=.95),'效果成功判定无效');}
@@ -1826,6 +1865,7 @@ export function validateSave(value, { strategic = false } = {}) {
     if (scenario?.gateHp) require(r.gate && r.gate.initial === scenario.gateHp && number(r.gate.remaining,r.gate.initial) && r.gate.side === (scenario.defending||scenario.id==='defense'?0:1), '城门战报无效');
     else require(r.gate === undefined && r.reason !== '城门失守', '城门战报无效');
     for (const s of r.stats) { require(s && faction(s.faction)); for (const key of ['initial', 'remaining', 'wounded', 'killed']) require(number(s[key])); require(s.initial === s.remaining + s.wounded + s.killed); }
+    if(scenario)require(Array.isArray(r.participation)&&r.participation.length===2&&r.participation.every(team=>Array.isArray(team)&&team.length<=60&&new Set(team.map(u=>u.id)).size===team.length&&team.every(u=>Object.hasOwn(OFFICER_BY_ID,u.id)&&text(u.name,20)&&typeof u.entered==='boolean'&&typeof u.arrived==='boolean'&&(!u.entered||u.arrived))),'上阵战报无效');
     require(Array.isArray(r.growth)&&r.growth.length<=(scenario?60:15)&&new Set(r.growth.map(g=>g?.id)).size===r.growth.length&&r.growth.every(g=>validMeritGrowth(g)&&Object.hasOwn(OFFICER_BY_ID,g.id)&&text(g.name,20)&&[0,1].includes(g.side)&&number(g.before,10)&&g.before>=1&&number(g.after,10)&&g.after>=1&&Number.isSafeInteger(g.gained)&&g.contribution&&Object.keys(emptyContribution()).every(key=>number(g.contribution[key]))&&number(g.score)&&number(g.award)&&Array.isArray(g.unlocked)&&g.unlocked.length<=100&&g.unlocked.every(s=>text(s,20))),'成长战报无效');
   }
   return value;
@@ -1850,8 +1890,13 @@ function settleIntentRouts(b){
  // Valor protection for the remaining segments of the same attack or tactic.
  for(const u of fallen){
   u.intentRoutApplied=true;
+  // Use the saved opening roster and initial troop counts, including fallen
+  // starters. Casualties, healing and later reserves never change the baseline.
+  const army=b.sides[u.side],starters=army.units.filter(v=>army.bondReserve.starters.includes(v.id));
+  const average=starters.reduce((sum,v)=>sum+v.initial,0)/starters.length;
+  const scale=starters.length?Math.min(1,Math.max(INTENT_STATE.minimumDefeatScale,u.initial/average)):1;
   for(const ally of activeUnits(b,u.side)){
-   const loss=INTENT_STATE.defeatLoss+(distance(u,ally)<=INTENT_STATE.defeatRadius?INTENT_STATE.nearbyDefeatLoss:0),before=ally.intent;
+   const loss=Math.round((INTENT_STATE.defeatLoss+(distance(u,ally)<=INTENT_STATE.defeatRadius?INTENT_STATE.nearbyDefeatLoss:0))*scale),before=ally.intent;
    ally.intent=Math.max(0,before-loss);
    if(ally.intent<before)combatEffect(b,u,ally,false,0,'impact',{name:'友军溃败',visual:'banner'},{ongoing:true,text:u.name+'溃败 · 战意 −'+(before-ally.intent),intentDrained:before-ally.intent});
   }

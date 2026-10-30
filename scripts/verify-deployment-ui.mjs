@@ -37,7 +37,7 @@ try {
   await page.evaluate(()=>localStorage.setItem('sango-art-mode','builtin'));await page.reload();await unit.waitFor();
   await page.locator('.roster-side-0 [data-inspect="'+id+'"]').dragTo(cell(2,0));await page.locator('[data-action="deployment-confirm"]').click();
   assert.deepEqual(await position(unit),await position(cell(2,0)),'drag with art disabled');
-  await page.setViewportSize({width:390,height:844});
+  await page.setViewportSize({width:844,height:390});
   await page.locator('.roster-side-0 [data-inspect="'+id+'"]').click();await page.locator('[data-action="deployment-select"]').click();await cell(3,0).click();await page.screenshot({path:'outputs/target-selection-ui/deployment-preview-mobile.png',fullPage:true});await page.locator('[data-action="deployment-confirm"]').click();
   assert.deepEqual(await position(unit),await position(cell(3,0)),'mobile click placement');
   const reserve=page.locator('.council-unit').first(),reserveId=await reserve.getAttribute('data-inspect'),fieldPosition=await position(unit);await reserve.click();await page.locator('[data-action="deployment-select"]').click();await page.locator('.roster-side-0 [data-inspect="'+id+'"]').click();await page.locator('[data-action="deployment-confirm"]').click();assert.deepEqual(await position(page.locator('[data-unit="'+reserveId+'"]')),fieldPosition,'explicit mobile placement swaps reserve with active unit');assert.ok(await page.locator('.council-unit[data-inspect="'+id+'"]').count());

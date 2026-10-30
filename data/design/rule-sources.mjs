@@ -9,6 +9,6 @@ export const RULE_SOURCES=Object.freeze({
  'officer-fate-rules':['officer-fates.mjs','personnel-movement.mjs'],
  'relations-cooperation':['relationships.mjs','domestic-cooperation.mjs'],
  'progression-learning':['data/design/progression.mjs','tactic-learning.mjs','data/design/assignments.mjs'],
- 'formation-deployment':['data/design/bandits.mjs','bandit-state.mjs','bandits.mjs','troop-capacity.mjs','strategic-campaign.mjs','engine.mjs'],
- 'ai-parameters':['officer-recommendation.mjs','battle-ai.mjs','strategic-ai.mjs','strategic-personnel.mjs','data/design/strategic-planning-rules.mjs','data/design/economy-rules.mjs'],
+ 'formation-deployment':['hex-grid.mjs','data/design/bandits.mjs','bandit-state.mjs','bandits.mjs','troop-capacity.mjs','strategic-campaign.mjs','engine.mjs','combat-rules.mjs','defense-line.mjs','reserve-entry.mjs','tactic-positioning.mjs','tactic-aim.mjs','data/design/tactics.mjs','data/design/bonds.mjs','bonds.mjs','bond-battlefield.mjs'],
+ 'ai-parameters':['officer-recommendation.mjs','battle-ai.mjs','strategic-ai.mjs','strategic-concentration.mjs','strategic-personnel.mjs','data/design/strategic-planning-rules.mjs','data/design/economy-rules.mjs'],
 });

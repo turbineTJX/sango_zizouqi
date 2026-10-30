@@ -104,7 +104,10 @@ test('malformed and old saves are rejected rather than repaired',()=>{
 });
 
 test('melee withdrawal spends an action disengaging, does not cast, and moves without passing through enemies',()=>{
- const {s,b,units}=scene(),u=units[0],e=b.sides[1].units[0];lockDeployment(b);quiet(b);
+ const {s,b,units}=scene(),u=units[0],e=b.sides[1].units[0];
+ // Keep this fixed-contact fixture independent of automatic starting lanes.
+ for(const [i,v] of units.filter(v=>v.status==='active').entries())assert.equal(deployUnit(b,v.id,0,i),null);
+ lockDeployment(b);quiet(b);
  Object.assign(u,{x:4,y:3,retreatAt:1500});wound(u,.5);Object.assign(e,{x:5,y:3});
  for(const v of b.sides.flatMap(x=>x.units).filter(v=>v!==u))v.statuses.root={until:999};
  stepBattle(b);assert.equal(u.x,4);assert.equal(u.y,3);assert.ok(u.disengage);assert.equal(u.action,'脱战准备');

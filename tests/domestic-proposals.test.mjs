@@ -126,3 +126,13 @@ test('replacing a construction executor updates their own chance without a new p
  assert.equal(assignDomestic(s,c.id,'technology',replacement.id),null);beginDomesticTurn(s);const next=assignmentFor(s,replacement.id);
  assert.equal(next.action.id,id);assert.notEqual(next.action.chance,chance);assert.equal(next.action.chance,actionChance(s,c,replacement,ACTIONS.build_workshop,next.action.targetId));assert.equal(next.proposal,null);assert.equal(c.gold,cost);restore(s);
 });
+
+
+test('future approval policy leaves existing proposals and resources untouched',()=>{
+ const {s,c,a}=fixture();beginExecution(s);const proposal=structuredClone(a.proposal),gold=c.gold;
+ assert.ok(proposal);assert.equal(setDomesticAutoApprove(s,true,{approvePending:false}),null);
+ assert.deepEqual(a.proposal,proposal);assert.equal(c.gold,gold);assert.equal(a.action,null);
+ assert.equal(restore(s).campaign.domestic.autoApprove,true);
+ assert.equal(decideDomesticProposal(s,proposal.id,true),null);assert.ok(a.action);assert.equal(c.gold,gold-a.action.cost);
+ assert.equal(setDomesticAutoApprove(s,false,{approvePending:false}),null);assert.ok(a.action);
+});

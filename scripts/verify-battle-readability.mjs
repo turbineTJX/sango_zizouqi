@@ -13,7 +13,7 @@ const state=createScenario('custom-battle',20261024,null,null,{seed:20261024,ter
  enemyTeam:[['shao','spear'],['yan','cavalry'],['wen','halberd'],['he','archer'],['ju','archer'],['tian','spear']].map(entry)});
 planBattleCouncilsAI(state.battle,[0,1]);lockDeployment(state.battle);
 if(shieldDemo)assert.ok(state.battle.sides[0].units.some(u=>u.statuses.shield?.amount>0),'legal opening shields must exist before playback');
-const out=shieldDemo?'work/battle-feedback-20261024':'work/battle-casting-20261024',port=4299,captureAnimation=process.argv.includes('--animation');await mkdir(out,{recursive:true});
+const out=process.env.SANGO_BATTLE_UI_OUT||(shieldDemo?'work/battle-feedback-20261024':'work/battle-casting-20261024'),port=4299,captureAnimation=process.argv.includes('--animation');await mkdir(out,{recursive:true});
 async function recordAnimation(page,path,count,observe=async()=>{}){
  const board=await page.locator('#battle-board').boundingBox(),frames=[];
  const clip={x:Math.floor(board.x),y:Math.floor(board.y)-45,width:Math.floor(board.width),height:Math.floor(board.height)+60};let info;
@@ -58,6 +58,8 @@ try{
  await page.evaluate(async()=>{
   const {BattleEffects}=await import('./battle-effects.mjs');const original=BattleEffects.prototype.update;
   BattleEffects.prototype.update=function(b,options){window.fx=this;window.actualBattle=b;return original.call(this,b,options);};
+  const {BattleArt}=await import('./art-battle.mjs'),updateArt=BattleArt.prototype.update;
+  BattleArt.prototype.update=function(...args){window.bodyView=this;return updateArt.apply(this,args);};
  });
  await page.locator('[data-action="settings"]').first().click();
  await page.locator('#import-file').setInputFiles({name:'readability.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(state))});
@@ -67,7 +69,7 @@ try{
  await page.locator('[data-unit="jia"] .unit-map-caption b').click();
  assert.equal(await page.locator('#inspect-unit').inputValue(),'jia');
  await page.locator('.modal .close-button').click();
- await page.clock.install();await page.locator('[data-action="pause"]').click();
+ await page.clock.install({time:new Date('2026-10-27T01:00:00Z')});await page.clock.pauseAt(new Date('2026-10-27T01:01:00Z'));await page.locator('[data-action="pause"]').click();
  const captured=new Set(),samples=[],feedbackSeen=new Set();let animation=null,shieldAnimation=null;
  async function feedbackSnapshot(){
   const state=await page.evaluate(()=>({
@@ -119,19 +121,36 @@ try{
   if(captured.size===4||view.result)break;
  }
  assert.ok(captured.has('exchange'));assert.ok(captured.has('focus'));assert.ok(captured.has('major'));assert.ok(captured.has('impact'));
+ assert.ok(await page.locator('#tactic-result').isHidden());
+ let defeat=null;const defeatFrames=[];
+ for(let i=0;i<700;i++){
+  defeat=await page.evaluate(()=>{const u=[...bodyView.units.values()].find(u=>u.defeated&&fx.clock>=u.deathFxAt&&fx.clock<u.deathFxAt+150),hit=u&&fx.actions.flatMap(a=>a.events).find(e=>e.to===u.id&&e.defeated&&e.damage>0);return hit?{from:hit.from,to:hit.to,damage:hit.damage,start:u.deathFxAt,clock:fx.clock,tick:actualBattle.tick}:null;});
+  if(defeat)break;await page.clock.runFor(100);
+ }
+ assert.ok(defeat&&defeat.damage>0);await page.screenshot({path:out+'/defeat.png'});
+ if(captureAnimation){
+  await recordAnimation(page,out+'/defeat.gif',24,async()=>defeatFrames.push(await page.evaluate(id=>{const obj=bodyView.models?.objects.get('unit-'+id);return {clock:fx.clock,visible:obj?.root.visible,fall:obj?.flagDrop||0,model:obj?.key,native:!!obj?.model?.userData.nativeTroop,bodies:bodyView.bodies.get(id)?.length||0};},defeat.to)));
+  await writeFile(out+'/defeat-trace.json',JSON.stringify({defeat,defeatFrames},null,2));
+  assert.ok(defeatFrames.some(f=>f.visible&&f.fall>1),JSON.stringify({defeat,defeatFrames}));
+ }
  if(shieldDemo)for(const key of ['absorption','damage','broken','status'])assert.ok(feedbackSeen.has(key),'missing real feedback: '+key);
  // Freeze every presentation channel on pause, including a queued action.
  await page.locator('[data-action="pause"]').click();await page.clock.runFor(50);
  const frozen=await page.evaluate(()=>({clock:fx.clock,battle:JSON.stringify(actualBattle),pixels:fx.canvas.toDataURL()}));
  await page.clock.runFor(1200);assert.deepEqual(await page.evaluate(()=>({clock:fx.clock,battle:JSON.stringify(actualBattle),pixels:fx.canvas.toDataURL()})),frozen);
- await page.setViewportSize({width:390,height:844});await page.clock.runFor(50);await page.screenshot({path:out+'/mobile.png'});
+ await page.setViewportSize({width:844,height:390});await page.clock.runFor(50);await page.screenshot({path:out+'/mobile.png'});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  const labels=await page.locator('.unit-map-caption').evaluateAll(xs=>xs.map(el=>{const r=el.getBoundingClientRect();return {name:el.querySelector('b').textContent,x:r.x,y:r.y,w:r.width,h:r.height};}));
- for(let i=0;i<labels.length;i++)for(let j=0;j<i;j++){const a=labels[i],b=labels[j];assert.ok(a.x+a.w<=b.x+1||b.x+b.w<=a.x+1||a.y+a.h<=b.y+1||b.y+b.h<=a.y+1,`overlapping flags: ${a.name}, ${b.name}`);}
+ // Dense fights may overlap locally; identities must stay near their soldiers.
+ const distances=await page.locator('.unit-map-caption').evaluateAll(xs=>xs.map(el=>{
+  const p=el.getBoundingClientRect(),u=el.closest('[data-unit]').getBoundingClientRect(),b=el.closest('#battle-board').getBoundingClientRect();
+  const x=Math.max(b.x+2,Math.min(b.right-p.width-2,u.x+u.width/2-p.width/2)),y=Math.max(b.y+2,Math.min(b.bottom-p.height-2,u.bottom+3));
+  return Math.hypot(p.x-x,p.y-y);
+ }));assert.ok(distances.every(d=>d<=91),'identity flags cannot drift to distant units');
  const rosterBoxes=await page.locator('.roster-side').evaluateAll(xs=>xs.map(el=>{const r=el.getBoundingClientRect();return {x:r.x,right:r.right};}));
  assert.ok(rosterBoxes[0].right<=rosterBoxes[1].x+1,'both mobile rosters must have separate columns');
  await page.locator('[data-action="speed"]').click();await page.locator('[data-action="speed"]').click();assert.equal(await page.locator('[data-action="speed"]').innerText(),'4×');
  await page.emulateMedia({reducedMotion:'reduce'});await page.locator('[data-action="pause"]').click();await page.clock.runFor(1600);await page.screenshot({path:out+'/reduced.png'});
- assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({captured:[...captured],samples,labels,rosterBoxes,errors,paused:true,speed4:true,captionInspection:true,modelMotion,animation,shieldAnimation,feedbackSeen:[...feedbackSeen]},null,2));
+ assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({captured:[...captured],samples,labels,rosterBoxes,errors,paused:true,speed4:true,captionInspection:true,defeat,defeatFrames,modelMotion,animation,shieldAnimation,feedbackSeen:[...feedbackSeen]},null,2));
  console.log(JSON.stringify({passed:true,out,captured:[...captured],samples,errors}));
 }finally{await browser?.close();server.kill();}

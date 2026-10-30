@@ -22,12 +22,13 @@ for(const key of Object.keys(STRATAGEMS))for(const side of [0,1])test(key+' side
  if(s.effect==='heal'){own.hp-=1000;own.battleDamage+=1000;}
  if(s.effect==='cleanse')setStatus(b,own,'burn',20,{amount:10,sourceId:foe.id});
  const point=chooseStratagemPoint(b,s,side),targets=point?stratagemAreaTargets(b,s,point,side):b.sides[side].units.filter(u=>u.status==='active');
+ const beforeStatuses=new Map(b.sides.flatMap(s=>s.units).map(u=>[u.id,structuredClone(u.statuses)]));
  assert.equal(resource.commandProgress,COMMAND_RESOURCE.capacity);assert.equal(issueCommand(b,key,point,side),null);
  const tick=b.tick;assert.equal(resource.commandProgress,0);assert.equal(resource.commandReady[key],tick+s.cooldown);assert.ok(stratagemEffectText(resource.lastCommand.source).includes('冷却 '+s.cooldown));
  if(['shield','heal','cleanse','invincible','ambush','stun','magicImmunity','rapidAdvance'].includes(s.effect)){
   const status={shield:'shield',cleanse:'resolve',invincible:'commandInvincible',ambush:'stealth',stun:'stun',magicImmunity:'magicImmune',rapidAdvance:'rapidAdvance'}[s.effect];
   if(s.effect==='heal')assert.equal(battleWounded(own),0);else assert.ok(targets.some(u=>hasStatus(b,u,status)));
-  if(point)for(const u of b.sides[s.side?1-side:side].units)if(u.status!=='active'||!stratagemAreaContains(s,point,u))assert.ok(!hasStatus(b,u,status));
+  if(point)for(const u of b.sides[s.side?1-side:side].units)if(u.status!=='active'||!stratagemAreaContains(s,point,u))assert.deepEqual(u.statuses[status],beforeStatuses.get(u.id)[status]);
  }
  const saved=validateSave(structuredClone(state));for(let n=0;n<Math.max(s.duration,8)+2&&!b.result;n++){stepBattle(b,{aiSides:[]});stepBattle(saved.battle,{aiSides:[]});assert.deepEqual(saved.battle,b);}
  const before=structuredClone(b);assert.match(issueCommand(b,key,point,side),/冷却/);assert.deepEqual(b,before);
@@ -53,7 +54,8 @@ test('broad dispel clears control, fire, disease and debuffs, preserves food sho
 });
 test('shield is substantial, affects selected troops only, saves its source and rejects forged layers',()=>{
  const state=scene('fortify'),b=state.battle,u=b.sides[0].units[0],point={x:u.x,y:u.y};
- assert.equal(issueCommand(b,'fortify',point),null);assert.equal(shieldAmount(b,u),Math.round(u.maxHp*selectStratagemSource(b.sides[0].commanders,'fortify').strength));validateSave(structuredClone(state));
+ const prior=shieldAmount(b,u),amount=Math.round(u.maxHp*selectStratagemSource(b.sides[0].commanders,'fortify').strength);
+ assert.equal(issueCommand(b,'fortify',point),null);assert.equal(shieldAmount(b,u),Math.min(u.maxHp,prior+amount));assert.equal(u.statuses.shield.layers.find(l=>l.sourceCommand==='fortify').amount,amount);validateSave(structuredClone(state));
  for(const mutate of [l=>l.sourceId='chu',l=>l.castTick++,l=>l.amount=u.maxHp]){const bad=structuredClone(state),v=bad.battle.sides[0].units.find(v=>v.id===u.id),l=v.statuses.shield.layers.find(l=>l.sourceCommand);mutate(l);v.statuses.shield.amount=v.statuses.shield.layers.reduce((n,l)=>n+l.amount,0);v.statuses.shield.until=Math.max(...v.statuses.shield.layers.map(l=>l.until));assert.throws(()=>validateSave(bad));}
 });
 test('manual invulnerability blocks incoming damage while units still perform real legal actions; later damage resumes',()=>{
@@ -61,7 +63,7 @@ test('manual invulnerability blocks incoming damage while units still perform re
  for(const unit of [u,enemy]){delete unit.statuses.phalanx;unit.cooldown=0;}
  Object.assign(u,{x:5,y:3});Object.assign(enemy,{x:6,y:3});
  assert.equal(issueCommand(b,'invincible',{x:5,y:3}),null);const hp=u.hp,foeHp=enemy.hp;
- const copy=validateSave(structuredClone(state));for(let n=0;n<b.lastCommand.source.duration;n++){stepBattle(b,{aiSides:[]});stepBattle(copy.battle,{aiSides:[]});assert.deepEqual(copy.battle,b);assert.equal(u.hp,hp);}
- assert.ok(enemy.hp<foeHp,'invincible unit can attack');assert.ok(!hasStatus(b,u,'stasis'));
+ let attack=false;const copy=validateSave(structuredClone(state));for(let n=0;n<b.lastCommand.source.duration;n++){stepBattle(b,{aiSides:[]});stepBattle(copy.battle,{aiSides:[]});assert.deepEqual(copy.battle,b);assert.equal(u.hp,hp);attack ||= b.effects.some(e=>e.from===u.id&&e.to===enemy.id&&(e.damage>0||e.shieldAbsorbed>0));}
+ assert.ok(attack,'invincible unit can attack through existing formation shields');assert.ok(!hasStatus(b,u,'stasis'));
  for(let n=0;n<12;n++)stepBattle(b,{aiSides:[]});assert.ok(u.hp<hp,'damage resumes after protection');
 });

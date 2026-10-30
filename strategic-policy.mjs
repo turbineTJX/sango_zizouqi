@@ -10,7 +10,7 @@ export function chooseFactionStrategy(context,profile,previous,candidates,{activ
  const neighbors=Object.fromEntries(context.neighbors.map(f=>{const pressure=context.enemies.filter(a=>a.faction===f).reduce((n,a)=>n+a.power,0);
   return [f,{mode:context.hostile[f]?'defend':'peace',pressure,reason:context.hostile[f]?'保留边境守备':'维持现有和平关系'}];}));
  const ownPower=context.ownCities.reduce((n,c)=>n+(c.power??c.troops),0),pressure=context.enemies.reduce((n,a)=>n+a.power,0);
- const goals=candidates.map(c=>({...c}));
+ let goals=candidates.map(c=>({...c}));
  const threatened=context.ownCities.filter(c=>c.besieged||context.enemies.some(a=>a.next===c.id||a.location===c.id)).sort((a,b)=>Number(b.besieged)-Number(a.besieged)||a.id.localeCompare(b.id));
  if(threatened.length)goals.push({kind:'defend',targetFaction:null,targetCity:threatened[0].id,staging:threatened[0].id,ready:true,
   score:R.defensePriority,reason:'实际来袭或围城，优先保境'});
@@ -23,9 +23,15 @@ export function chooseFactionStrategy(context,profile,previous,candidates,{activ
  goals.forEach((g,i)=>{g.id=g.candidateId||key(g)+':'+i;g.utility=runStrategicAlgorithm('goalEvaluator',algorithms,{candidate:g,context,profile,rules:R}).score;});
  if(new Set(goals.map(g=>g.id)).size!==goals.length)throw Error('战略候选编号重复');
  goals.sort((a,b)=>b.utility-a.utility||key(a).localeCompare(key(b)));
+ // Keep geographical choices rather than eight near-identical rosters for
+ // the first city examined. All variants have passed the common admission
+ // checks and the registered evaluator has scored them before this pruning.
+ const incumbent=previous.goal&&goals.find(g=>key(g)===key(previous.goal));
+ const targets=new Map();for(const g of goals.filter(g=>g.kind==='capture'))if(!targets.has(g.targetCity))targets.set(g.targetCity,g);
+ const retained=incumbent?.kind==='capture'?[...targets.values()].filter(g=>g!==incumbent).slice(0,R.candidateLimit-1).concat(incumbent):[...targets.values()].slice(0,R.candidateLimit);
+ goals=goals.filter(g=>g.kind!=='capture'||retained.includes(g));
  const selectedId=runStrategicAlgorithm('selector',algorithms,{context,profile,candidates:goals,previousGoal:previous.goal,rules:R});
  let best=goals.find(g=>g.id===selectedId);
- const incumbent=previous.goal&&goals.find(g=>key(g)===key(previous.goal));
  // The fallback has no committed operation to protect. Do not let a previous
  // development/recovery choice suppress a better lawful military candidate.
  if(!force&&incumbent&&!['develop','recover'].includes(incumbent.kind)&&best.utility<incumbent.utility+R.switchMargin)best=incumbent;

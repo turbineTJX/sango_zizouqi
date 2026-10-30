@@ -1,6 +1,11 @@
-import test from 'node:test';import assert from 'node:assert/strict';import{createScenario}from'../scenarios.mjs';import{lockDeployment,stepBattle,validateSave,reserveDeploymentUnit}from'../engine.mjs';import{setStatus,hasStatus,unitTactics}from'../tactics.mjs';import{OFFICER_DESIGNS as O}from'../data/design/officers.mjs';import{splitPeachDamage,peachInvincible}from'../bond-reserves-peach.mjs';import{grantBondEntries,bondAttributes}from'../bonds.mjs';import{bondSummary}from'../bond-display.mjs';
+import test from 'node:test';import assert from 'node:assert/strict';import{createScenario}from'../scenarios.mjs';import{lockDeployment,stepBattle,validateSave,reserveDeploymentUnit,deployUnit}from'../engine.mjs';import{setStatus,hasStatus,unitTactics}from'../tactics.mjs';import{OFFICER_DESIGNS as O}from'../data/design/officers.mjs';import{splitPeachDamage,peachInvincible}from'../bond-reserves-peach.mjs';import{grantBondEntries,bondAttributes}from'../bonds.mjs';import{bondSummary}from'../bond-display.mjs';
 const id=n=>Object.values(O).find(o=>o.name===n).id,team=names=>names.map(name=>({id:id(name),type:'spear',troops:4000,level:10}));
-function scene(own=['刘备','关羽','张飞'],enemy=['吕布','典韦','许褚'],side=0){return createScenario('custom-battle',8585,20,null,{seed:8585,terrain:'land',ownTeam:team(side?enemy:own),enemyTeam:team(side?own:enemy)});}
+function scene(own=['刘备','关羽','张飞'],enemy=['吕布','典韦','许褚'],side=0){
+ const s=createScenario('custom-battle',8585,20,null,{seed:8585,terrain:'land',ownTeam:team(side?enemy:own),enemyTeam:team(side?own:enemy)});
+ // These fixtures isolate Peach damage budgets from opening formation shields.
+ for(const side of [0,1])for(const [i,u]of s.battle.sides[side].units.filter(u=>u.status==='active').entries())assert.equal(deployUnit(s.battle,u.id,side?13:0,i,side),null);
+ return s;
+}
 function quiet(b){for(const u of b.sides.flatMap(s=>s.units)){u.cooldown=999;u.skillReady=Object.fromEntries(u.tactics.map(id=>[id,999]));u.retreatAt=null;}}
 function burn(b,u,amount){const source=b.sides[1-u.side].units[0];setStatus(b,u,'burn',2,{amount,sourceId:source.id,sourceName:source.name,sourceSkillName:'火矢'});}
 function hp(u,n){u.hp=n;u.battleDamage=u.initial-n;u.healed=0;}

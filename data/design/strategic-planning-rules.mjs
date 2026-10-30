@@ -3,6 +3,7 @@ export const STRATEGIC_PLANNING_RULES=Object.freeze({
  version:13,traceLimit:12,candidateLimit:8,pairLimit:32,forceVariants:3,assemblyDays:10,
  switchMargin:20,peacePressureRatio:.65,
  preparationTurns:2,preparationPenalty:12,uncertaintyPerDay:2,maximumUncertainty:20,
+ concentration:Object.freeze({partialUnits:6,minimumGapProgress:.1,stallDays:10,restDays:20}),
  peacePriority:35,defensePriority:100,resourcePriority:1.3,
  personnel:Object.freeze({frontKeepOfficers:2,frontGuardUnits:2,frontGuardTroops:2000,frontMilitaryWeight:.6,rearCivilianWeight:.4,frontDepartureWeight:.35}),
  victory:Object.freeze({territoryValue:24,endgameValue:24,regionalValue:18,completionValue:24,eliminationValue:35,connectionValue:20,corridorValue:6,maxCorridors:3,focusValue:12,focusSwitchMargin:20,maxBonus:140,observedStockShare:.35,observedStockGoldPerPoint:100,maxObservedStockBonus:120}),

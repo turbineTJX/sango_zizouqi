@@ -88,7 +88,7 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   }
  }
  const pool=Object.values(tables.bonds||{});
- check(pool.filter(d=>d.grade==='basic').length===25&&pool.filter(d=>d.grade==='advanced').length===6,'bonds','共享池须为二十五种低级、六种高级');
+ check(pool.filter(d=>d.grade==='basic').length===27&&pool.filter(d=>d.grade==='advanced').length===6,'bonds','共享池须为二十七种低级、六种高级');
  check(BOND_TRIPLE_OFFICERS.length<10&&new Set(BOND_TRIPLE_OFFICERS).size===BOND_TRIPLE_OFFICERS.length,'bondAssignments','三羁绊指定名单须少于十人');
  check(Object.values(tables.bondAssignments||{}).filter(a=>Object.keys(a).length===3).length<10,'bondAssignments','三羁绊持有者须少于十人');
  for(const [id,d] of Object.entries(tables.bonds||{})){
@@ -146,6 +146,11 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   if(d.special==='reserveEntry')check(d.slots?.join(',')==='1,2,3'&&tierNumbers('intent',1,100)&&d.intent.every(Number.isInteger)&&tierNumbers('entrySteps',1,12)&&d.entrySteps.every(Number.isInteger)&&tierNumbers('entryShield',0,.4),path,'蓄锐入场参数无效');
   if(d.special==='formationTiles')check(d.entryDuration?.length===d.thresholds.length&&d.entryDuration.every(n=>Number.isInteger(n)&&n>0&&n<=24)&&numeric(d.holderMultiplier,1,2)&&Number.isInteger(d.fullDuration)&&d.fullDuration>=Math.max(...d.entryDuration)&&d.fullDuration<=30,path,'军阵参数无效');
   if(d.special==='formationTiles')check(['land','forest','hill','marsh','river','naval','mixed'].every(key=>Array.isArray(d.patterns?.[key])&&d.patterns[key].length===3&&new Set(d.patterns[key].map(p=>String(p))).size===3&&d.patterns[key].every(p=>Array.isArray(p)&&p.length===2&&Number.isInteger(p[0])&&p[0]>=0&&p[0]<5&&Number.isInteger(p[1])&&p[1]>=0&&p[1]<8)),path,'军阵阵位无效');
+  if(d.special==='openingFormation'){
+   check(tierNumbers('completeShield',0,1)&&Number.isInteger(d.completeSteps)&&d.completeSteps>0&&d.completeSteps<=60,path,'成阵护盾参数无效');
+   check(Array.isArray(d.formationSlots)&&d.formationSlots.length===3&&d.formationSlots.every(s=>typeof s.name==='string'&&Array.isArray(s.stats)&&s.stats.length>0&&new Set(s.stats).size===s.stats.length&&s.stats.every(k=>['attack','defense','discipline','martialPower','strategyPower','attackSpeed'].includes(k))&&s.values?.length===d.thresholds.length&&s.values.every(v=>numeric(v,Number.EPSILON,1))),path,'开场阵法属性无效');
+   check(['land','forest','hill','marsh','river','naval','mixed'].every(key=>Array.isArray(d.patterns?.[key])&&d.patterns[key].length===3&&new Set(d.patterns[key].map(p=>String(p))).size===3&&d.patterns[key].every(p=>Array.isArray(p)&&p.length===2&&Number.isInteger(p[0])&&p[0]>=0&&p[0]<5&&Number.isInteger(p[1])&&p[1]>=0&&p[1]<8)),path,'开场阵法阵位无效');
+  }
   if(d.special==='routMomentum')check(d.killBonus?.length===d.thresholds.length&&d.killBonus.every(n=>numeric(n,0,.1))&&d.burstSpeed?.length===d.thresholds.length&&d.burstSpeed.every(n=>numeric(n,0,.5))&&Number.isInteger(d.killGoal)&&d.killGoal>=2&&d.killGoal<=5&&Number.isInteger(d.burstDuration)&&d.burstDuration>0&&d.burstDuration<=16,path,'破军参数无效');
   if(d.special==='valorRamp')check(d.stackRates?.length===d.thresholds.length&&d.stackRates.every(n=>numeric(n,0,.1))&&Number.isInteger(d.maxStacks)&&d.maxStacks>0&&d.maxStacks<=8&&numeric(d.rallyIntent,1,30),path,'奋战参数无效');
   check(/^\p{Script=Han}{2}$/u.test(d.name),path,'羁绊名称须为两个汉字');
@@ -154,7 +159,7 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(['attack','defense','move','attackSpeed','siege','martialPower','strategyPower','discipline'].includes(d.stat)&&['attack','defense','move','attackSpeed','siege','martialPower','strategyPower','discipline'].includes(d.extra),path,'羁绊属性未接入');
   check(Array.isArray(d.values)&&d.values.length===d.thresholds.length&&d.values.every(n=>numeric(n,0,1))&&numeric(d.extraValue,0,1),path,'羁绊数值无效');
   check(numeric(d.specialValue,0,1),path,'羁绊特殊效果数值无效');
-  check(['attackPower','defenseArmor','rapidAttack','intentIncome','hitIntentDeny','songAttack','crusherAttack','doubtPulse','lureAttack','fireAttack','chainAttack','antiCavalry','ignoreZoc','rearStrike','surrounded','gateStrike','formation','woundedStrike','lowIntent','escort','command','entryZoc','entryPower','entryIntent','commandStrength','beautyHit','swornLink','reserveEntry','valorIntent','swiftBurst','physicalGuard','distantStrike','lastStand','scholarPower','spreadGuard','finishStrike','counterHorse','siegeStrike','steadyDiscipline','nearAllySpeed','isolatedStrike','formationTiles','routMomentum'].includes(d.special),path,'羁绊特殊效果未接入');
+  check(['attackPower','defenseArmor','rapidAttack','intentIncome','hitIntentDeny','swiftBurst','songAttack','crusherAttack','doubtPulse','lureAttack','fireAttack','chainAttack','antiCavalry','ignoreZoc','rearStrike','surrounded','gateStrike','formation','woundedStrike','lowIntent','escort','command','entryZoc','entryPower','entryIntent','commandStrength','beautyHit','swornLink','reserveEntry','valorIntent','physicalGuard','distantStrike','lastStand','scholarPower','spreadGuard','finishStrike','counterHorse','siegeStrike','steadyDiscipline','nearAllySpeed','isolatedStrike','formationTiles','openingFormation','routMomentum'].includes(d.special),path,'羁绊特殊效果未接入');
  }
  validateTechnologyDesigns(tables,check);const techIds=new Set(tables.technologies.records.map(r=>r.id));
  for(const [id,t] of Object.entries(tables.troops)){
@@ -168,6 +173,8 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(t.beats===null||exists(tables.troops,t.beats),'troops.'+id+'.beats','克制兵种不存在');
  }
  for(const [id,t] of Object.entries(tables.tactics)){
+  if(t.geometry!==undefined){const g=t.geometry;check(g&&['line','fan','burst'].includes(g.kind)&&Object.keys(g).every(k=>['kind','reach','radius','maxTargets','secondaryScale','delay'].includes(k))&&Number.isInteger(g.maxTargets)&&g.maxTargets>=1&&g.maxTargets<=3&&(g.kind==='burst'?Number.isInteger(g.radius)&&g.radius>=0&&g.radius<=2:Number.isInteger(g.reach)&&g.reach>=1&&g.reach<=5)&&(g.kind!=='fan'||g.reach===1)&&(g.secondaryScale===undefined||numeric(g.secondaryScale,0,1))&&Number.isInteger(g.delay)&&g.delay>=1&&g.delay<=2,'tactics.'+id+'.geometry','战法形状、射程或蓄势时长无效');}
+  if(t.supportPosition!==undefined)check(['front','column','flanks'].includes(t.supportPosition)&&(['rally','screen'].includes(t.effect)||t.effect==='famous'&&t.mode==='support'),'tactics.'+id+'.supportPosition','站位支援须绑定已接入的友军支援战法');
   if(t.effect==='undermine')check(numeric(t.suppression,0,1)&&Number.isInteger(t.steps)&&t.steps>0&&Number.isInteger(t.targets)&&t.targets>0&&numeric(t.range,1)&&numeric(t.radius,0),'tactics.'+id,'抑气比例、范围或持续无效');
   if(t.selfStatus!==undefined)check(Object.hasOwn(STATUS_DEFINITIONS,t.selfStatus)&&Number.isInteger(t.selfStatusSteps)&&t.selfStatusSteps>0,'tactics.'+id+'.selfStatus','自身状态或时长无效');
   if(t.regrowthFraction!==undefined)check(numeric(t.regrowthFraction,0,1)&&Number.isInteger(t.regrowthSteps)&&t.regrowthSteps>0&&t.mode==='support','tactics.'+id+'.regrowth','休整参数无效');

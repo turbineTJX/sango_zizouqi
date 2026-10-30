@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,supplyConnection} from './helpers/auto-domestic-campaign.mjs';
 import {initializeStrategicAI,planStrategicAI,validateStrategicAI,safeStrategicTransportRoute,factionStrategicProfile} from '../strategic-ai.mjs';
 import {drawFactionTemperament} from '../strategic-temperament.mjs';
-import {strategicSupportObjectives} from '../strategic-support-ai.mjs';
+import {strategicSupportObjectives,planStrategicSupport} from '../strategic-support-ai.mjs';
+import {plannedOfficer} from '../strategic-intent.mjs';
 import {initializeVision,updateVision} from '../strategic-vision.mjs';
 import {makeOfficer} from '../engine.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
@@ -51,6 +52,46 @@ test('an existing corridor mission adds timely real guards after a visible threa
 
 test('a hopeless guard expedition leaves the real home garrison and food intact',()=>{
  const {s,source,foe}=scene();foe.units[0].troops=30000;updateVision(s);const grain=source.grain,ids=source.units.map(u=>u.id);planStrategicAI(s);assert.equal(s.campaign.ai.supports.length,0);assert.equal(source.grain,grain);assert.deepEqual(source.units.map(u=>u.id),ids);
+});
+
+// Isolate interruption policy; execution still pays and departs through the
+// common faction-order handler. This is not a natural campaign fixture.
+function committedSupportScene({disconnected=false,late=false,poor=false,overwhelming=false}={}){
+ const f=scene();const {s,source,rear,node,foe}=f;
+ const c=disconnected||late?rear:source;
+ if(c!==source){c.units=source.units;source.units=[];c.units.forEach(u=>u.homeCity=c.id);c.grain=20000;}
+ if(late){s.roads.push([rear.id,source.id]);s.roadSegments[[rear.id,source.id].sort().join(':')]={distance:1000};}
+ if(poor)c.grain=0;
+ if(overwhelming)foe.units[0].troops=30000;
+ const p={id:1,faction:'yuan',phase:'prepare',staging:c.id,target:'town-37',officerIds:c.units.map(u=>u.id),origins:[{cityId:c.id,officerIds:c.units.map(u=>u.id),grain:4500}],reserves:{[c.id]:4500},requirements:[],tasks:[]};
+ s.campaign.ai.plans.push(p);updateVision(s);
+ const cancelled=[],commands=[];
+ const callbacks={availableUnits:(world,city)=>city.units.filter(u=>!plannedOfficer(world,u.id)),retreatArmy:()=>assert.fail('no moving columns should be recalled'),
+  cancelPlan:(world,plan,reason)=>{cancelled.push({id:plan.id,reason});plan.phase='cancelled';plan.reserves={};},
+  commandUnits:(world,city,units,target)=>{const result=requestFactionOrder(world,'yuan',{kind:'expedition',cityId:city.id,officerIds:units.map(u=>u.id),leader:units[0].id,advisor:units.at(-1).id,target},'now');commands.push(result);return !!result.applied;}};
+ return {...f,c,p,cancelled,commands,callbacks};
+}
+test('support preserves an unrelated offensive when its troops have no route or cannot arrive in time',()=>{
+ for(const options of [{disconnected:true},{late:true}]){
+  const f=committedSupportScene(options),before=serializeCampaign(f.s);
+  assert.ok(strategicSupportObjectives(f.s,'yuan').some(q=>q.kind==='guard'&&q.target===f.node.id));
+  planStrategicSupport(f.s,'yuan',f.callbacks);
+  assert.deepEqual(f.cancelled,[]);assert.deepEqual(f.commands,[]);assert.equal(serializeCampaign(f.s),before);
+ }
+});
+test('support does not cancel an offensive when released troops still lack food or sufficient strength',()=>{
+ for(const options of [{poor:true},{overwhelming:true}]){
+  const f=committedSupportScene(options),before=serializeCampaign(f.s);
+  planStrategicSupport(f.s,'yuan',f.callbacks);
+  assert.deepEqual(f.cancelled,[]);assert.deepEqual(f.commands,[]);assert.equal(serializeCampaign(f.s),before);
+ }
+});
+test('support releases a feasible nearby commitment and actually pays for the replacement guard mission',()=>{
+ const f=committedSupportScene(),before=f.c.grain,men=f.c.units.reduce((n,u)=>n+u.troops,0);
+ planStrategicSupport(f.s,'yuan',f.callbacks);
+ assert.deepEqual(f.cancelled.map(p=>p.id),[f.p.id]);assert.equal(f.commands.length,1);assert.ok(f.commands[0].applied);
+ const mission=f.s.campaign.ai.supports.find(q=>q.kind==='guard'),army=f.s.armies.find(a=>a.target===f.node.id&&a.faction==='yuan');
+ assert.ok(mission&&army);assert.equal(f.c.grain+army.supply,before);assert.equal(f.c.units.reduce((n,u)=>n+u.troops,0)+army.units.reduce((n,u)=>n+u.troops,0),men);
 });
 
 test('AI reinforcements walk to an ongoing field battle and enter its actual reserve pool',()=>{

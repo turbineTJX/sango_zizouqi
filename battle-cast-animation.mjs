@@ -19,12 +19,16 @@ export function castFrame(progress){
   fade:Math.min(1,p/.07,(1-p)/.2)};
 }
 export function castPose(progress,kind='strike'){
- const {p,windup}=castFrame(progress),release=Math.sin(clamp((p-.24)/.28)*Math.PI),settle=1-smooth((p-.52)/.48);
+ const {p,windup}=castFrame(progress),release=smooth((p-.24)/.28),settle=1-smooth((p-.6)/.4);
  const magic=['heal','shield','support','control','fire'].includes(kind);
- return {reach:magic?-.045*windup*settle:(p<.24?-.09*windup:release*(kind==='charge'?.3:.2)),
-  lift:magic?(.08*windup+.07*release)*settle:release*.025,
-  lean:magic?-.11*windup*settle:release*.14,
+ return {reach:magic?-.045*windup*settle:(p<.24?-.09*windup:((kind==='charge'?.34:.23)*release-.09*(1-release))*settle),
+  lift:magic?(.08*windup+.07*release)*settle:release*.025*settle,
+  lean:magic?-.11*windup*settle:(p<.24?-.06*windup:(.17*release-.06*(1-release))*settle),
   squash:magic?0:Math.sin(windup*Math.PI)*.045};
+}
+export function actorCastProgress(progress,event){
+ const p=clamp(progress),delay=event?.partnerIndex===undefined?0:Math.min(3,event.partnerIndex)*.045;
+ return p<.52?clamp((p-delay)/(.52-delay))*.52:p;
 }
 export function castProjectile(from,to,flight,cell,kind='strike',lane=0){
  const t=smooth(flight),arc=kind==='volley'?.95:['heal','shield','support'].includes(kind)?.55:.32;
@@ -50,7 +54,7 @@ export function unitCastAction(actions,id){
   const event=action.events.find(e=>e.from===id&&(e.militaryOrder||!e.ongoing&&e.damageKind!=='dot'&&!e.enchantment)&&(e.skill||e.damage>0||e.shieldAbsorbed>0||e.skill===false&&!e.abilityKind));
   if(event)return {action,event};
   const combo=action.events.find(e=>e.combo?.actors?.some(a=>a.id===id));
-  if(combo)return {action,event:{...combo,from:id,skill:true,presentationKind:'support'}};
+  if(combo)return {action,event:{...combo,from:id,skill:true,presentationKind:'support',partnerIndex:combo.combo.actors.findIndex(a=>a.id===id)}};
  }
  return null;
 }
@@ -106,8 +110,8 @@ export function drawCastTarget(fx,e,progress,from,to,cell){
   }
  }
  if(kind==='charge'&&f.phase==='release'&&!fx.reduced){
-  const t=smooth(f.flight),x=from.x+(to.x-from.x)*t,y=from.y+(to.y-from.y)*t;
-  for(let i=0;i<3;i++)streak(c,x-cell*.08*i,y+cell*.06,0,cell*.1,'#ae9c79',.24,2.5);
+  const t=smooth(f.flight),x=from.x+(to.x-from.x)*t,y=from.y+(to.y-from.y)*t,angle=Math.atan2(to.y-from.y,to.x-from.x);
+  for(let i=0;i<3;i++)streak(c,x-Math.cos(angle)*cell*.08*i,y-Math.sin(angle)*cell*.08*i+cell*.06,angle,cell*.14,'#ae9c79',.3,2.5);
  }
  if(f.p<.52){c.restore();return;}
  const q=f.impact,fade=f.fade*(1-q),failed=e.resolution&&!e.resolution.success||/免疫|未命中|未生效|无效|未触发|未成功/.test(e.text||'');

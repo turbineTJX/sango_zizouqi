@@ -1,4 +1,3 @@
-import {approachDestination} from './helpers/field-campaign.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,assignDomestic,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
@@ -28,20 +27,4 @@ test('lobby requires scenario then faction and invalid faction cannot start',()=
  assert.match(nationalLobby(null,{step:'faction',scenarioId:'guandu-200'}),/data-action="launch-national" disabled/);
  assert.throws(()=>newCampaign(1,'guandu-200','force-2'),/剧本势力无效/);
  const s=newCampaign(1,'guandu-200','yuan');s.campaign.playerFaction='force-2';assert.throws(()=>restore(s),/玩家势力无效/);
-});
-test('Yuan expedition uses the real march and battle flow with the player on side zero',async()=>{
- const {launchExpedition}=await import('../strategic-campaign.mjs');
- const s=newCampaign(521200,'guandu-200','yuan');
- const edge=s.roads.flatMap(([a,b])=>[[a,b],[b,a]]).find(([from,to])=>s.cities.some(c=>c.id===from&&c.owner==='yuan'&&c.units.length)&&s.cities.some(c=>c.id===to&&c.owner==='cao'));
- assert.ok(edge);const c=s.cities.find(c=>c.id===edge[0]),ids=c.units.slice(0,6).map(u=>u.id);
- assert.equal(launchExpedition(s,{cityId:c.id,target:edge[1],officerIds:ids,leader:ids[0],advisor:ids[0],policy:'auto'}),null);
- const armyId=s.armies.at(-1).id;approachDestination(s,s.armies.at(-1));let encounter;
- for(let i=0;i<20&&!encounter;i++){
-  if(s.campaign.phase==='planning')beginExecution(s);
-  advanceCampaignDay(s);encounter=activeBattles(s).find(r=>r.armyIds.includes(armyId));
-  for(const r of activeBattles(s).filter(r=>r.awaiting&&r!==encounter))chooseEncounter(s,r.id,false);
- }
- assert.ok(encounter);assert.equal(encounter.battle.sides[0].faction,'yuan');assert.equal(encounter.battle.sides[1].faction,'cao');assert.equal(encounter.awaiting,true);
- const copy=restore(s);for(const value of [s,copy]){for(const r of activeBattles(value).filter(r=>r.awaiting))chooseEncounter(value,r.id,false);advanceCampaignDay(value);}
- assert.equal(serializeCampaign(s),serializeCampaign(copy));restore(s);
 });

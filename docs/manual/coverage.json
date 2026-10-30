@@ -1,0 +1,865 @@
+{
+  "date": "2026-10-29",
+  "workflows": 106,
+  "chapters": 14,
+  "screenshots": 137,
+  "referenceHash": "f22b1842ddb6ee6c2c1053c97746e408467687b9604333cbe98321007cf704fa",
+  "items": [
+    {
+      "id": "action-85",
+      "name": "开始普通模式",
+      "screenshots": [
+        "lobby",
+        "scenarios",
+        "faction"
+      ]
+    },
+    {
+      "id": "action-86",
+      "name": "全 AI 观察",
+      "screenshots": [
+        "scenarios",
+        "faction"
+      ]
+    },
+    {
+      "id": "action-87",
+      "name": "开始历史战役",
+      "screenshots": [
+        "custom",
+        "custom-review"
+      ]
+    },
+    {
+      "id": "action-88",
+      "name": "编辑自定义战役",
+      "screenshots": [
+        "custom-editor",
+        "custom-army",
+        "custom-reinforcements",
+        "custom-review"
+      ]
+    },
+    {
+      "id": "action-89",
+      "name": "编辑单支战役军团",
+      "screenshots": [
+        "custom-army",
+        "custom-select",
+        "custom-roles",
+        "custom-army-review"
+      ]
+    },
+    {
+      "id": "action-90",
+      "name": "新建或修改地图",
+      "screenshots": [
+        "map-editor",
+        "map-preview",
+        "map-library"
+      ]
+    },
+    {
+      "id": "action-91",
+      "name": "管理地图包",
+      "screenshots": [
+        "map-library"
+      ]
+    },
+    {
+      "id": "action-92",
+      "name": "重试战役",
+      "screenshots": [
+        "standalone-report"
+      ]
+    },
+    {
+      "id": "action-1",
+      "name": "打开城市命令",
+      "screenshots": [
+        "map",
+        "city-menu"
+      ]
+    },
+    {
+      "id": "action-2",
+      "name": "查找空闲人员",
+      "screenshots": [
+        "city-directory"
+      ]
+    },
+    {
+      "id": "action-3",
+      "name": "查找军团或战线",
+      "screenshots": [
+        "army-menu",
+        "battle-history"
+      ]
+    },
+    {
+      "id": "action-4",
+      "name": "查阅人物与部队",
+      "screenshots": [
+        "personnel",
+        "officer",
+        "battle-unit"
+      ]
+    },
+    {
+      "id": "action-5",
+      "name": "查询敌情",
+      "screenshots": [
+        "intelligence-menu",
+        "intelligence-directory",
+        "scout-report"
+      ]
+    },
+    {
+      "id": "action-6",
+      "name": "查看城内与建筑",
+      "screenshots": [
+        "city-interior",
+        "building-detail"
+      ]
+    },
+    {
+      "id": "action-7",
+      "name": "地图选点",
+      "screenshots": [
+        "expedition-route",
+        "transport-relay"
+      ]
+    },
+    {
+      "id": "action-8",
+      "name": "委任内政负责人",
+      "screenshots": [
+        "domestic",
+        "direction",
+        "appointment",
+        "appointment-selected"
+      ]
+    },
+    {
+      "id": "action-9",
+      "name": "改任内政方向",
+      "screenshots": [
+        "direction",
+        "appointment",
+        "timing"
+      ]
+    },
+    {
+      "id": "action-10",
+      "name": "解除内政",
+      "screenshots": [
+        "direction-assigned",
+        "timing"
+      ]
+    },
+    {
+      "id": "action-11",
+      "name": "任命或更换太守",
+      "screenshots": [
+        "city-menu",
+        "governor"
+      ]
+    },
+    {
+      "id": "action-12",
+      "name": "解除太守",
+      "screenshots": [
+        "governor-assigned"
+      ]
+    },
+    {
+      "id": "action-13",
+      "name": "调整全势力内政优先级",
+      "screenshots": [
+        "affairs"
+      ]
+    },
+    {
+      "id": "action-14",
+      "name": "补齐全势力委任",
+      "screenshots": [
+        "affairs"
+      ]
+    },
+    {
+      "id": "action-15",
+      "name": "同意一项内政提案",
+      "screenshots": [
+        "proposals",
+        "proposals-approved"
+      ]
+    },
+    {
+      "id": "action-16",
+      "name": "暂缓提案",
+      "screenshots": [
+        "proposals"
+      ]
+    },
+    {
+      "id": "action-17",
+      "name": "同意本页提案",
+      "screenshots": [
+        "proposals",
+        "proposals-approved"
+      ]
+    },
+    {
+      "id": "action-18",
+      "name": "设置后续自动同意",
+      "screenshots": [
+        "proposals-policy"
+      ]
+    },
+    {
+      "id": "action-19",
+      "name": "修改城市保留预算",
+      "screenshots": [
+        "budget",
+        "budget-draft",
+        "budget-saved"
+      ]
+    },
+    {
+      "id": "action-20",
+      "name": "安排人才工作",
+      "screenshots": [
+        "domestic",
+        "direction",
+        "talent"
+      ]
+    },
+    {
+      "id": "action-21",
+      "name": "派遣侦察",
+      "screenshots": [
+        "scout-source",
+        "scout-route",
+        "scout-running",
+        "scout-landscape"
+      ]
+    },
+    {
+      "id": "action-22",
+      "name": "调整侦察路线",
+      "screenshots": [
+        "scout-route"
+      ]
+    },
+    {
+      "id": "action-23",
+      "name": "查看报告",
+      "screenshots": [
+        "scout-contacts",
+        "scout-report"
+      ]
+    },
+    {
+      "id": "action-24",
+      "name": "停止侦察",
+      "screenshots": [
+        "scout-running"
+      ]
+    },
+    {
+      "id": "action-25",
+      "name": "新增城内部队",
+      "screenshots": [
+        "troop-list",
+        "troop-officer",
+        "troop-edit",
+        "troop-configured",
+        "troop-review"
+      ]
+    },
+    {
+      "id": "action-26",
+      "name": "调整城内部队",
+      "screenshots": [
+        "troop-list",
+        "troop-edit",
+        "troop-review"
+      ]
+    },
+    {
+      "id": "action-27",
+      "name": "解散城内部队",
+      "screenshots": [
+        "troop-list",
+        "troop-disband",
+        "troop-disband-review"
+      ]
+    },
+    {
+      "id": "action-28",
+      "name": "从现有部队出征",
+      "screenshots": [
+        "expedition-select",
+        "expedition-roles",
+        "expedition-route",
+        "expedition-review",
+        "expedition-landscape"
+      ]
+    },
+    {
+      "id": "action-29",
+      "name": "出征前临时编制",
+      "screenshots": [
+        "expedition-select",
+        "troop-list",
+        "troop-edit",
+        "expedition-select"
+      ]
+    },
+    {
+      "id": "action-30",
+      "name": "移除已选部队",
+      "screenshots": [
+        "expedition-select",
+        "expedition-landscape"
+      ]
+    },
+    {
+      "id": "action-31",
+      "name": "讨伐贼寨",
+      "screenshots": [
+        "bandit",
+        "bandit-expedition",
+        "expedition-roles",
+        "expedition-review"
+      ]
+    },
+    {
+      "id": "action-32",
+      "name": "增援与护路",
+      "screenshots": [
+        "expedition-select",
+        "expedition-route",
+        "march-route"
+      ]
+    },
+    {
+      "id": "action-33",
+      "name": "下达调动或改令",
+      "screenshots": [
+        "army-menu",
+        "march-route",
+        "march-review"
+      ]
+    },
+    {
+      "id": "action-34",
+      "name": "返城或驻守节点",
+      "screenshots": [
+        "march-route",
+        "march-review"
+      ]
+    },
+    {
+      "id": "action-35",
+      "name": "重置行军路线",
+      "screenshots": [
+        "march-route"
+      ]
+    },
+    {
+      "id": "action-36",
+      "name": "切换行军方式",
+      "screenshots": [
+        "army-menu",
+        "march-mode"
+      ]
+    },
+    {
+      "id": "action-37",
+      "name": "调整军团编制",
+      "screenshots": [
+        "army-adjust",
+        "army-roles",
+        "army-review"
+      ]
+    },
+    {
+      "id": "action-38",
+      "name": "拆分军团",
+      "screenshots": [
+        "army-split",
+        "army-roles",
+        "army-split-review"
+      ]
+    },
+    {
+      "id": "action-39",
+      "name": "合并军团",
+      "screenshots": [
+        "army-merge",
+        "army-merge-review"
+      ]
+    },
+    {
+      "id": "action-40",
+      "name": "征募整补",
+      "screenshots": [
+        "army-recruit",
+        "army-recruit-review"
+      ]
+    },
+    {
+      "id": "action-41",
+      "name": "纯人员调任",
+      "screenshots": [
+        "transfer-person",
+        "transfer-empty",
+        "transport-review"
+      ]
+    },
+    {
+      "id": "action-42",
+      "name": "携兵或携物资运输",
+      "screenshots": [
+        "transfer-person",
+        "transport",
+        "transport-review",
+        "transport-landscape"
+      ]
+    },
+    {
+      "id": "action-43",
+      "name": "接力运输",
+      "screenshots": [
+        "transport-options",
+        "transport-relay",
+        "transport-review"
+      ]
+    },
+    {
+      "id": "action-44",
+      "name": "分批运粮",
+      "screenshots": [
+        "transport-cycles"
+      ]
+    },
+    {
+      "id": "action-45",
+      "name": "立即执行",
+      "screenshots": [
+        "timing"
+      ]
+    },
+    {
+      "id": "action-46",
+      "name": "完成后执行",
+      "screenshots": [
+        "timing",
+        "waiting"
+      ]
+    },
+    {
+      "id": "action-47",
+      "name": "返回修改",
+      "screenshots": [
+        "timing"
+      ]
+    },
+    {
+      "id": "action-48",
+      "name": "取消等待命令",
+      "screenshots": [
+        "waiting"
+      ]
+    },
+    {
+      "id": "action-49",
+      "name": "设置外交目标",
+      "screenshots": [
+        "diplomacy"
+      ]
+    },
+    {
+      "id": "action-50",
+      "name": "设置外交底线",
+      "screenshots": [
+        "diplomacy-budget"
+      ]
+    },
+    {
+      "id": "action-51",
+      "name": "委任使臣",
+      "screenshots": [
+        "diplomacy-appoint"
+      ]
+    },
+    {
+      "id": "action-52",
+      "name": "解除使臣或取消待任",
+      "screenshots": [
+        "diplomat-assigned"
+      ]
+    },
+    {
+      "id": "action-53",
+      "name": "批准外交方案",
+      "screenshots": [
+        "diplomacy-proposal",
+        "diplomacy-terms",
+        "diplomacy-approved"
+      ]
+    },
+    {
+      "id": "action-54",
+      "name": "交涉或否决方案",
+      "screenshots": [
+        "diplomacy-proposal"
+      ]
+    },
+    {
+      "id": "action-55",
+      "name": "查看履约",
+      "screenshots": [
+        "diplomacy-approved",
+        "diplomacy-terms"
+      ]
+    },
+    {
+      "id": "action-56",
+      "name": "释放本方所俘人员",
+      "screenshots": [
+        "prisoner",
+        "release-confirm",
+        "release-result"
+      ]
+    },
+    {
+      "id": "action-57",
+      "name": "赎回己方被俘人员",
+      "screenshots": [
+        "captive",
+        "ransom-confirm",
+        "ransom-result"
+      ]
+    },
+    {
+      "id": "action-58",
+      "name": "通过外交交换俘虏",
+      "screenshots": [
+        "prisoner-exchange"
+      ]
+    },
+    {
+      "id": "action-59",
+      "name": "授予宝物",
+      "screenshots": [
+        "treasures",
+        "treasure-grant",
+        "treasure-equipped"
+      ]
+    },
+    {
+      "id": "action-60",
+      "name": "装备／卸下",
+      "screenshots": [
+        "treasure-equipped"
+      ]
+    },
+    {
+      "id": "action-61",
+      "name": "收回城库",
+      "screenshots": [
+        "treasure-equipped"
+      ]
+    },
+    {
+      "id": "action-62",
+      "name": "查看效果与锁定",
+      "screenshots": [
+        "treasures",
+        "treasure-equipped"
+      ]
+    },
+    {
+      "id": "action-63",
+      "name": "处理新战线",
+      "screenshots": [
+        "encounter",
+        "defense",
+        "encounter-control"
+      ]
+    },
+    {
+      "id": "action-64",
+      "name": "临时守城编制",
+      "screenshots": [
+        "defense",
+        "defense-manual",
+        "troop-edit"
+      ]
+    },
+    {
+      "id": "action-65",
+      "name": "自动编制守城",
+      "screenshots": [
+        "defense",
+        "defense-auto"
+      ]
+    },
+    {
+      "id": "action-66",
+      "name": "放弃无兵守城",
+      "screenshots": [
+        "defense",
+        "defense-confirm",
+        "defense-result"
+      ]
+    },
+    {
+      "id": "action-67",
+      "name": "任命参战指挥",
+      "screenshots": [
+        "battle-appointments",
+        "reinforcement-roles"
+      ]
+    },
+    {
+      "id": "action-68",
+      "name": "排列出阵顺序",
+      "screenshots": [
+        "council"
+      ]
+    },
+    {
+      "id": "action-69",
+      "name": "调整首发站位",
+      "screenshots": [
+        "battle-unit",
+        "deployment-preview"
+      ]
+    },
+    {
+      "id": "action-70",
+      "name": "设置后备入场位置",
+      "screenshots": [
+        "council",
+        "reserve-position"
+      ]
+    },
+    {
+      "id": "action-71",
+      "name": "设置战斗意图",
+      "screenshots": [
+        "battle-intent"
+      ]
+    },
+    {
+      "id": "action-72",
+      "name": "设置自动撤离人数",
+      "screenshots": [
+        "retreat-settings"
+      ]
+    },
+    {
+      "id": "action-73",
+      "name": "设置撤离目的地",
+      "screenshots": [
+        "retreat-node"
+      ]
+    },
+    {
+      "id": "action-74",
+      "name": "重置阵型",
+      "screenshots": [
+        "battle-intent"
+      ]
+    },
+    {
+      "id": "action-75",
+      "name": "开始战斗",
+      "screenshots": [
+        "battlefield",
+        "council"
+      ]
+    },
+    {
+      "id": "action-76",
+      "name": "查看战场与部队",
+      "screenshots": [
+        "battlefield",
+        "battle-unit"
+      ]
+    },
+    {
+      "id": "action-77",
+      "name": "暂停与变速",
+      "screenshots": [
+        "battlefield",
+        "stratagem-result"
+      ]
+    },
+    {
+      "id": "action-78",
+      "name": "施放全军型军略",
+      "screenshots": [
+        "stratagem-army",
+        "stratagem-army-result"
+      ]
+    },
+    {
+      "id": "action-79",
+      "name": "施放范围军略",
+      "screenshots": [
+        "stratagem-list",
+        "stratagem-area",
+        "stratagem-landscape",
+        "stratagem-result"
+      ]
+    },
+    {
+      "id": "action-80",
+      "name": "全军撤退",
+      "screenshots": [
+        "stratagem-army"
+      ]
+    },
+    {
+      "id": "action-81",
+      "name": "援军抵达军议",
+      "screenshots": [
+        "reinforcement",
+        "reinforcement-roles"
+      ]
+    },
+    {
+      "id": "action-82",
+      "name": "查看或接管其他战线",
+      "screenshots": [
+        "battle-history",
+        "encounter-control"
+      ]
+    },
+    {
+      "id": "action-83",
+      "name": "核阅战果",
+      "screenshots": [
+        "battle-report",
+        "standalone-report"
+      ]
+    },
+    {
+      "id": "action-84",
+      "name": "战后补任",
+      "screenshots": [
+        "postbattle-roles"
+      ]
+    },
+    {
+      "id": "action-93",
+      "name": "执行本旬",
+      "screenshots": [
+        "map",
+        "harvest"
+      ]
+    },
+    {
+      "id": "action-94",
+      "name": "处理奏报",
+      "screenshots": [
+        "reports"
+      ]
+    },
+    {
+      "id": "action-95",
+      "name": "查看旬收获",
+      "screenshots": [
+        "harvest"
+      ]
+    },
+    {
+      "id": "action-96",
+      "name": "查看当前动态与日志",
+      "screenshots": [
+        "journal",
+        "officer"
+      ]
+    },
+    {
+      "id": "action-97",
+      "name": "查看战史与回放",
+      "screenshots": [
+        "battle-history",
+        "battle-report"
+      ]
+    },
+    {
+      "id": "action-98",
+      "name": "查看整局结果",
+      "screenshots": [
+        "ending"
+      ]
+    },
+    {
+      "id": "action-99",
+      "name": "新建手动存档",
+      "screenshots": [
+        "settings",
+        "save-create",
+        "saves"
+      ]
+    },
+    {
+      "id": "action-100",
+      "name": "读取存档",
+      "screenshots": [
+        "saves"
+      ]
+    },
+    {
+      "id": "action-101",
+      "name": "覆盖或删除手动档",
+      "screenshots": [
+        "saves",
+        "save-overwrite",
+        "save-delete"
+      ]
+    },
+    {
+      "id": "action-102",
+      "name": "导出当前进度",
+      "screenshots": [
+        "save-transfer"
+      ]
+    },
+    {
+      "id": "action-103",
+      "name": "导入文件",
+      "screenshots": [
+        "save-transfer"
+      ]
+    },
+    {
+      "id": "action-104",
+      "name": "调整声音与表现",
+      "screenshots": [
+        "settings"
+      ]
+    },
+    {
+      "id": "action-105",
+      "name": "查阅指引",
+      "screenshots": [
+        "guide"
+      ]
+    },
+    {
+      "id": "action-106",
+      "name": "设置指引偏好",
+      "screenshots": [
+        "settings",
+        "guide"
+      ]
+    }
+  ]
+}

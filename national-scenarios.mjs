@@ -17,7 +17,35 @@ const extraFactions=Object.fromEntries(Object.entries(EXTRA_FACTION_DESIGNS).map
 const sourceFactions=Object.fromEntries(REFERENCE_SCENARIO.forces.map(f=>{const id=referenceFaction(f.sourceId);return [id,{...NATIONAL_MAP.forces[id],name:f.name,short:f.name.slice(0,1),leaderSourceId:f.leaderSourceId}];}));
 export const NATIONAL_FACTIONS={...NATIONAL_MAP.forces,...sourceFactions,...extraFactions};
 export const NATIONAL_SCENARIOS=Object.freeze(NATIONAL_SCENARIO_DESIGNS.map(spec=>({...spec,factions:spec.factions|| (spec.layout==='reference'?REFERENCE_SCENARIO.forces.map(f=>referenceFaction(f.sourceId)):Object.keys(spec.cityGroups))})));
-export const nationalScenario=id=>NATIONAL_SCENARIOS.find(s=>s.id===id);
+// Audit-only scenario inputs are registered explicitly by a headless harness.
+// They do not enter the game lobby, replace an original scenario, or change any
+// movement/economy/combat rule. Save validation uses the same registered map.
+const auditScenarios=new Map();
+const freezeAudit=value=>{if(value&&typeof value==='object'){Object.values(value).forEach(freezeAudit);Object.freeze(value);}return value;};
+export function registerCampaignAuditScenario(input){
+ const {spec,world,roster,talentIds}=structuredClone(input);
+ const check=(ok,message)=>{if(!ok)throw Error('局部战略验证输入无效：'+message);};
+ check(/^audit-local-[a-z0-9-]+$/.test(spec?.id)&&!nationalScenario(spec.id),'编号已存在或不属于验证空间');
+ check(spec.auditOnly===true&&spec.rosterDistribution==='reference'&&spec.kind==='historical'&&Number.isSafeInteger(spec.year),'剧本元数据');
+ check(Array.isArray(spec.factions)&&spec.factions.length>=2&&new Set(spec.factions).size===spec.factions.length&&spec.factions.every(f=>NATIONAL_FACTIONS[f]),'势力');
+ check(Array.isArray(world?.cities)&&world.cities.length>=2&&world.cities.length<=12,'城市数量');
+ const source=nationalWorld(spec.sourceScenario),cities=new Map(source.cities.map(c=>[c.id,c])),nodes=new Map(source.junctions.map(n=>[n.id,n]));
+ check(new Set(world.cities.map(c=>c.id)).size===world.cities.length,'重复城市');
+ for(const c of world.cities){const original=cities.get(c.id);check(original&&spec.factions.includes(c.owner)&&JSON.stringify({...c,owner:original.owner})===JSON.stringify(original),'城市必须保留原始公共地理');}
+ check(spec.factions.every(f=>world.cities.some(c=>c.owner===f)),'势力缺少初始城市');
+ check(Array.isArray(world.junctions)&&world.junctions.every(n=>JSON.stringify(n)===JSON.stringify(nodes.get(n.id))),'节点');
+ const ids=new Set([...world.cities,...world.junctions].map(n=>n.id)),edgeKey=e=>[...e].sort().join(':');
+ check(Array.isArray(world.roads)&&world.roads.length&&world.roads.every(e=>e.length===2&&e.every(id=>ids.has(id))&&source.roads.some(x=>JSON.stringify(x)===JSON.stringify(e))),'道路不得新增或穿过范围外城市');
+ check(new Set(world.roads.map(edgeKey)).size===world.roads.length,'重复道路');
+ check(Object.keys(world.roadSegments).length===world.roads.length&&world.roads.every(e=>JSON.stringify(world.roadSegments[edgeKey(e)])===JSON.stringify(source.roadSegments[edgeKey(e)])),'路程、地形与通道保持原样');
+ const reached=new Set([world.cities[0].id]);let changed=true;while(changed){changed=false;for(const [a,b]of world.roads)if(reached.has(a)!==reached.has(b)){reached.add(a);reached.add(b);changed=true;}}
+ check(ids.size===reached.size,'局部地图须连通');
+ check(Array.isArray(roster)&&new Set(roster.map(o=>o.id)).size===roster.length&&roster.every(o=>OFFICER_CATALOG.some(u=>u.id===o.id&&scenarioOfficerEligible(spec,u))&&world.cities.some(c=>c.id===o.cityId&&c.owner===o.faction)),'真实人员与所属城');
+ check(spec.factions.every(f=>roster.some(o=>o.faction===f&&OFFICER_CATALOG.find(u=>u.id===o.id)?.sourceId===NATIONAL_FACTIONS[f].leaderSourceId)),'各势力须有实际君主');
+ check(Array.isArray(talentIds)&&new Set(talentIds).size===talentIds.length&&talentIds.every(id=>OFFICER_CATALOG.some(u=>u.id===id)),'在野人员范围');
+ const entry=freezeAudit({spec,world,roster,talentIds});auditScenarios.set(spec.id,entry);return spec.id;
+}
+export const nationalScenario=id=>NATIONAL_SCENARIOS.find(s=>s.id===id)||auditScenarios.get(id)?.spec;
 // Talent uses catalogue dates only in historical campaigns. No fabricated dates
 // or locations are assigned to the timeless heroes scenario.
 export function talentScenarioEntry(id,u,cities){
@@ -25,7 +53,7 @@ export function talentScenarioEntry(id,u,cities){
  const year=historical?Math.max(spec.year,(u.birthYear||spec.year-16)+16,u.profileSource?.yearAvailable||spec.year):null;
  const earliestTurn=year===null?null:Math.max(0,(year-spec.year)*36);
  const source=(spec?.rosterDistribution==='reference'?REFERENCE_SCENARIO.people.find(p=>p.sourceId===u.sourceId)?.citySourceId:null)??u.profileSource?.BelongCity,city=cities.find(c=>c.sourceId===source&&c.kind==='city');
- return {autoEligible:u.sourceKind==='common'&&u.profileSource.description>0,activityCityIds:city?[city.id]:[],earliestTurn,latestTurn:earliestTurn};
+ return {autoEligible:u.sourceKind==='common'&&u.profileSource.description>0&&(!spec?.auditOnly||auditScenarios.get(id).talentIds.includes(u.id)),activityCityIds:city?[city.id]:[],earliestTurn,latestTurn:earliestTurn};
 }
 const key=n=>NATIONAL_MAP.cities.find(c=>c.sourceId===n).id;
 const guanduOwners={};
@@ -42,6 +70,7 @@ export function scenarioCityOwners(spec){
  return owners;
 }
 export function nationalWorld(id){
+ if(auditScenarios.has(id))return structuredClone(auditScenarios.get(id).world);
  if(!nationalScenario(id))throw new Error('未知天下剧本');
  const cities=NATIONAL_MAP.cities.map(c=>({...c,water:c.kind==='port'||[9,11,23,24,25,26,27,28,30,31,32,33,34,35,36,39].includes(c.sourceId),garrison:0}));
  const owners=scenarioCityOwners(nationalScenario(id)),allowed=nationalScenario(id).factions;
@@ -93,6 +122,7 @@ function referenceRoster(spec,cities){
  return [...placed.values()];
 }
 export function nationalRoster(id,cities){
+ if(auditScenarios.has(id))return structuredClone(auditScenarios.get(id).roster);
  const spec=nationalScenario(id);if(!spec)throw Error('未知天下剧本');if(spec.rosterDistribution==='reference')return referenceRoster(spec,cities);
  const common=OFFICER_CATALOG.filter(u=>u.sourceKind==='common'),bySource=new Map(common.map(u=>[u.sourceId,u]));
  const placed=new Map(),capital={cao:'xuchang',yuan:'ye','force-2':key(15),'force-4':key(22),sunce:key(23),'force-7':key(30),liuzhang:key(40),'force-10':key(37),'force-13':key(1)};

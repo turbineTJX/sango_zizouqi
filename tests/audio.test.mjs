@@ -50,7 +50,8 @@ test('music loops contain finite playable notes and return to their exact writte
   assert.ok(events>70);assert.deepEqual(scorePulse(scene,0),scorePulse(scene,track.bars*8));
  }
  assert.deepEqual(scorePulse('missing',0),[]);
- assert.equal(Object.keys(SOUND_CUES).length,19);
+ assert.equal(Object.keys(SOUND_CUES).length,22);
+ for(const key of ['rout','retreat','withdraw','reinforcement'])assert.ok(SOUND_CUES[key].length>=2);
 });
 
 test('unavailable audio and corrupt or blocked preference storage never stop gameplay',async()=>{

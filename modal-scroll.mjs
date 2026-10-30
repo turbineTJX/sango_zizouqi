@@ -1,7 +1,7 @@
 // UI-only state: never persisted with a campaign or battle save.
 export function createModalScrollMemory(){
  const saved=new Map();let renderedKey=null;
- const selector='.unit-muster-list,.modal-body,.task-candidate-list,.personnel-table-wrap,.combat-comparison,.catalog-pages,.roster-table,.snapshot-tables,.text-detail-scroll';
+ const selector='.unit-muster-list,.modal-body,.task-candidate-list,.personnel-table-wrap,.combat-comparison,.catalog-pages,.roster-table,.snapshot-tables,.text-detail-scroll,.command-target-layout>aside,.command-sidebar-scroll';
  const containers=root=>[...root.querySelectorAll(selector)];
  const rowId=row=>{
   const el=row.querySelector('[data-scenario-choice],[data-personnel-choice],[data-military-unit],[data-officer],[data-inspect],[data-id]');
@@ -14,7 +14,7 @@ export function createModalScrollMemory(){
    saved.set(renderedKey,containers(root).map((el,index)=>{
     const rows=[...el.querySelectorAll('tbody tr')],edge=el.getBoundingClientRect().top,header=el.querySelector('thead')?.offsetHeight||0;
     const row=el.matches('.task-candidate-list')?rows.find(r=>r.getBoundingClientRect().bottom>edge+header):null;
-    return {key:identify(el,index),top:el.scrollTop,left:el.scrollLeft,id:row&&rowId(row),offset:row?row.getBoundingClientRect().top-edge:0,order:rows.map(rowId).join('|')};
+    return {key:identify(el,index),top:el.scrollTop,left:el.scrollLeft,id:row&&rowId(row),offset:row?row.getBoundingClientRect().top-edge:0,order:rows.map(rowId).join('|'),details:el.matches('.command-sidebar-scroll')?[...el.querySelectorAll('details')].map(d=>d.open):null};
    }));
    if(saved.size>100)saved.delete(saved.keys().next().value);
   },
@@ -25,6 +25,7 @@ export function createModalScrollMemory(){
    const positions=saved.get(key)||[];
    containers(root).forEach((el,index)=>{
     const position=positions.find(p=>p.key===identify(el,index));if(!position)return;
+    if(position.details)[...el.querySelectorAll('details')].forEach((d,i)=>d.open=!!position.details[i]);
     el.scrollTop=position.top;el.scrollLeft=position.left;
     // Keep the same visible person when tab content changes row heights.
     // Sorting uses the numeric scroll position, rather than chasing a moved row.

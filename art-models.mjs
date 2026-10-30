@@ -8,10 +8,11 @@ import {terrainAt} from './battlefield.mjs';
 import {sampleCurve} from './art-assets.mjs';
 import {unitModelKey} from './unit-appearance.mjs';
 import {createSiegeModel} from './art-siege-models.mjs';
-import {castPose,unitCastAction} from './battle-cast-animation.mjs';
+import {castPose,unitCastAction,actorCastProgress} from './battle-cast-animation.mjs';
 import {actionImpacts,feedbackReaction} from './battle-feedback.mjs';
-import {unitStatusMotion} from './battle-unit-motion.mjs';
+import {unitStatusMotion,casualtyFrame} from './battle-unit-motion.mjs';
 import {createTroopModel,animateTroopModel,troopModelAnchors} from './art-troop-models.mjs';
+import {transitionFrame} from './battle-transitions.mjs';
 const hitWhite=new T.Color(0xffffff);
 
 export class ModelLayer {
@@ -70,21 +71,25 @@ export class ModelLayer {
   if(this.w!==w||this.h!==h){this.w=w;this.h=h;this.renderer.setSize(w,h,false);this.camera.right=w;this.camera.top=h;this.camera.updateProjectionMatrix();}
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hits=presentation?.hits||actionImpacts(presentation?.actions||[]);
-  for(const [id,obj]of this.objects){const d=this.wanted.get(id);if(!d)continue;let p=hexCenter(d.x,d.y);const u=d.unit,moving=u?.moveAt!==undefined&&clock-u.moveAt<.48;
-   const death=u?.deadAt!==undefined?Math.max(0,Math.min(1,u.deathFxAt!==undefined?((presentation?.clock??0)-u.deathFxAt)/600:(clock-u.deadAt)/.6)):0;
+  for(const [id,obj]of this.objects){const d=this.wanted.get(id);if(!d)continue;let p=hexCenter(d.x,d.y);const u=d.unit;
+   const transition=u&&presentation?.transition?.(u.id),arrival=transition?transitionFrame(transition,presentation.clock,{reduced}):null;
+   const moving=!!arrival?.walking||u?.moveAt!==undefined&&clock-u.moveAt<.48;
+   const death=u?.deadAt!==undefined?Math.max(0,Math.min(1,u.deathFxAt!==undefined?((presentation?.clock??0)-u.deathFxAt)/(u.deathDuration||600):(clock-u.deadAt)/.6)):0;
+   const casualty=casualtyFrame(death,{reduced,defeated:u?.defeated!==false});
+   if(arrival&&transition.kind!=='rout')casualty.opacity=arrival.opacity;
    obj.root.visible=death<1;
    if(u&&presentation?.position)p=presentation.position(u);
    else if(moving&&u.from&&!reduced){const t=Math.max(0,Math.min(1,(clock-u.moveAt)/.48));p={x:u.from.x+(p.x-u.from.x)*t,y:u.from.y+(p.y-u.from.y)*t};}
    const scale=Math.min(w/14.5/obj.width,h/6.25/obj.height)*d.size;obj.root.scale.setScalar(scale);obj.root.position.set(p.x*w,h-p.y*h+h/6.25*.12,0);
    const nativeTroop=!!obj.model?.userData.nativeTroop;
-   if(u&&d.key.startsWith('builtin:')&&!nativeTroop)obj.tilt.rotation.y=(u.target?u.target.x<p.x:u.side===1)?Math.PI:0;
+   if(u&&d.key.startsWith('builtin:')&&!nativeTroop)obj.tilt.rotation.y=(arrival?arrival.facing<0:u.target?u.target.x<p.x:u.side===1)?Math.PI:0;
    const curve=this.pack.animations?.move;obj.root.rotation.z=0;
    const status=unitStatusMotion(u?presentation?.statuses?.(u.id)||[]:[],(presentation?.clock??clock*1000)/1000,0,reduced);
    const reaction=u&&presentation?feedbackReaction(hits,u.id,presentation.clock):null;
    if(moving&&curve&&!reduced&&!nativeTroop)obj.root.position.y+=sampleCurve(curve.keys,clock%curve.duration)*h/6.25*.4;
    const casting=u&&presentation?unitCastAction(presentation.actions,u.id):null,action=casting?.action;
    if(!reduced&&action&&!status.blocked&&!nativeTroop){
-    const progress=(presentation.clock-action.start)/action.duration,pose=castPose(progress,casting.event.presentationKind);
+    const progress=actorCastProgress((presentation.clock-action.start)/action.duration,casting.event),pose=castPose(progress,casting.event.presentationKind);
     const e=casting.event,target=hexCenter(e.x??d.x,e.y??d.y),dx=(target.x-p.x)*w,dy=(target.y-p.y)*h,len=Math.hypot(dx,dy)||1;
     obj.root.rotation.z=pose.lean*(u.side?-1:1);obj.root.position.y+=pose.lift*w/14.5-dy/len*pose.reach*w/14.5;obj.root.position.x+=dx/len*pose.reach*w/14.5;
    }
@@ -96,11 +101,11 @@ export class ModelLayer {
     playModelClip(obj,kind,reduced?0:action?(presentation.clock-action.start)/action.duration:clock*status.gait);
     if(nativeTroop){
      const event=casting?.event,target=event?hexCenter(event.x??d.x,event.y??d.y):moving?hexCenter(d.x,d.y):u.target;
-     const facing=target&&Math.hypot(target.x-p.x,target.y-p.y)>.0001?Math.atan2((target.x-p.x)*w,-(target.y-p.y)*h):obj.facing??(u.side===1?-1.05:1.05);obj.facing=facing;
-     const progress=action?(presentation.clock-action.start)/action.duration:1,walking=action?event?.presentationKind==='charge'&&progress>=.24&&progress<.52:moving;
-     const moveProgress=action?(progress-.24)/.28:Math.max(0,Math.min(1,(clock-(u.moveAt??clock))/.48));
+     const facing=arrival?arrival.facing*Math.PI/2:target&&Math.hypot(target.x-p.x,target.y-p.y)>.0001?Math.atan2((target.x-p.x)*w,-(target.y-p.y)*h):obj.facing??(u.side===1?-1.05:1.05);obj.facing=facing;
+     const progress=action?actorCastProgress((presentation.clock-action.start)/action.duration,event):1,walking=action?event?.presentationKind==='charge'&&progress>=.24&&progress<.52:moving;
+     const moveProgress=arrival?.walking?arrival.p:action?(progress-.24)/.28:Math.max(0,Math.min(1,(clock-(u.moveAt??clock))/.48));
      const absorbed=hits.find(hit=>hit.to===u.id&&hit.absorbed>0&&!hit.damage&&presentation.clock>=hit.start&&presentation.clock<hit.start+180),guardImpact=absorbed?Math.sin((presentation.clock-absorbed.start)/180*Math.PI):0;
-     animateTroopModel(obj,{time:(presentation?.clock??clock*1000)/1000,progress,moving:walking,moveProgress,kind:event?.presentationKind||'strike',statuses:presentation?.statuses?.(u.id)||[],reduced,facing,death,compact,reaction:reaction?.recoil||0,guardImpact});
+     animateTroopModel(obj,{time:(presentation?.clock??clock*1000)/1000,progress,moving:walking,moveProgress,kind:event?.presentationKind||'strike',statuses:presentation?.statuses?.(u.id)||[],reduced,facing,death:u?.defeated===false?0:death,compact,reaction:reaction?.recoil||0,guardImpact});
     }
    }
    if(reaction&&!reduced){
@@ -111,7 +116,7 @@ export class ModelLayer {
    for(const f of obj.flashMaterials||[]){
     const flash=reduced?0:reaction?.flash||0;
     if(f.color){f.material.color.copy(f.color);if(statusTint)f.material.color.lerp(statusTint,status.tintAmount);f.material.color.lerp(hitWhite,flash*.85);}
-    if(f.opacity!==undefined){f.material.opacity=f.opacity*status.opacity*(1-death);f.material.transparent=f.transparent||status.opacity<1||death>0;}
+    if(f.opacity!==undefined){f.material.opacity=f.opacity*status.opacity*casualty.opacity;f.material.transparent=f.transparent||status.opacity<1||casualty.opacity<1;}
     if(f.emissive){f.material.emissive.copy(f.emissive).lerp(hitWhite,flash);f.material.emissiveIntensity=(f.intensity||0)+flash*.75;}
    }
   }

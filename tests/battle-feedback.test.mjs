@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {BattleFeedback,actionImpacts,feedbackReaction} from '../battle-feedback.mjs';
+import {BattleFeedback,actionImpacts,feedbackReaction,impactProfile} from '../battle-feedback.mjs';
 import {BattleSignals} from '../battle-signals.mjs';
 import {createScenario} from './helpers/scenarios.mjs';
 import {lockDeployment,stepBattle} from '../engine.mjs';
@@ -10,6 +10,16 @@ import {STATUS_DEFINITIONS} from '../data/design/battle-statuses.mjs';
 const shield=n=>({key:'shield',name:'护盾',tone:'buff',state:{amount:n,until:10}});
 const unit=statuses=>({id:'target',x:6,y:3,statuses});
 const action=(events,start=0)=>({start,duration:1000,important:true,events:events.map(e=>({from:'caster',to:'target',name:'施法者',x:6,y:3,fromX:2,fromY:3,skill:true,...e}))});
+test('impact weight follows real loss proportion, with shield blocks and DOT kept distinct',()=>{
+ const basic={damage:60,targetInitial:3000},before=JSON.stringify(basic),light=impactProfile(basic),heavy=impactProfile({...basic,damage:900});
+ assert.ok(heavy.recoil>light.recoil&&heavy.flash>light.flash);
+ assert.ok(impactProfile({...basic,critical:true}).recoil>light.recoil);
+ assert.ok(impactProfile({...basic,defeated:true}).recoil>light.recoil);
+ assert.ok(impactProfile({...basic,targetInitial:9000}).recoil<light.recoil);
+ assert.equal(impactProfile({damage:0,shieldAbsorbed:900,defeated:true}).recoil,0);
+ assert.ok(impactProfile({...basic,ongoing:true}).recoil<light.recoil);
+ assert.equal(JSON.stringify(basic),before);
+});
 function canvas(){
  const labels=[],calls=[];
  const c=new Proxy({}, {get:(_,key)=>(...args)=>{for(const n of args)if(typeof n==='number')assert.ok(Number.isFinite(n),String(key));calls.push(key);}});

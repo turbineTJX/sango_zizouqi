@@ -15,7 +15,7 @@ test('real legal deployment grants tile-only first-entry benefits, doubles holde
  const marks=formationCells(b,0),arranged=[own.find(u=>u.id===id('曹仁')),own.find(u=>u.id===id('于禁')),own.find(u=>u.id===id('霍峻'))];for(let i=0;i<3;i++)assert.equal(deployUnit(b,arranged[i].id,marks[i].x,marks[i].y),null);
  assert.equal(formationBoost(b,arranged[0]),0);lockDeployment(b);assert.equal(sideBonds(b,0).bondGuard.tier,3);assert.equal(formationBoost(b,arranged[0]),.28);assert.equal(formationBoost(b,arranged[1]),.28);assert.equal(formationBoost(b,own.find(u=>u.id===id('郝昭'))),0);
  assert.ok(arranged.every(u=>u.bondFormation.complete));const snapshot=structuredClone(arranged[0].bondFormation);grantBondEntries(b);assert.deepEqual(arranged[0].bondFormation,snapshot);const copy=validateSave(structuredClone(s));for(let i=0;i<8&&!b.result;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(s,copy);
- assert.ok(bondAttributes(b,arranged[0]).attack.some(v=>v.label==='军阵阵位'));const bad=structuredClone(s);bad.battle.sides[0].units[0].bondFormation.tier=4;assert.throws(()=>validateSave(bad));
+ assert.ok(bondAttributes(b,arranged[0]).attack.some(v=>v.label==='天覆阵位'));const bad=structuredClone(s);bad.battle.sides[0].units[0].bondFormation.tier=4;assert.throws(()=>validateSave(bad));
  b.tick=snapshot.tick+D.bondGuard.fullDuration+1;assert.equal(formationBoost(b,arranged[0]),0);
 });
 test('unmarked and reserved troops cannot retroactively receive a formation bonus by moving onto a tile',()=>{

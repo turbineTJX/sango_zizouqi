@@ -28,10 +28,15 @@ export function startPersonnelJourney(s,o,path=null){
  o.journey={route:route||[],progress:0,blocked:route?'':'道路不通'};
  updatePersonnelETA(s,o);
 }
+// A relay finishes its handoff before continuing on the following day.
+// Preview and live ETA share the real carrier speed, including cargo traits.
+export function personnelRouteDays(s,o,route,{progress=0,relay=null}={}){
+ let from=o.location,cost=-progress,days=0;const speed=personnelSpeed(o);
+ for(const to of route){cost+=roadCost(s,from,to);from=to;if(to===relay){days+=Math.ceil(cost/speed);cost=0;}}
+ return days+Math.ceil(cost/speed);
+}
 function updatePersonnelETA(s,o){
- let from=o.location,cost=-o.journey.progress;
- for(const to of o.journey.route){cost+=roadCost(s,from,to);from=to;}
- o.remainingDays=Math.max(1,Math.ceil(cost/personnelSpeed(o)));
+ o.remainingDays=Math.max(1,personnelRouteDays(s,o,o.journey.route,{progress:o.journey.progress}));
 }
 function handoffGrain(s,o,traffic,t0=0,t1=1){
  if(!o.cargo?.grain||o.journey.progress!==0||transportEnemy(s,o,o.location,0,0,t0,t1,traffic))return;

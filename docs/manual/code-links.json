@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "shared": [
+    "app.js",
+    "index.html",
+    "styles.css",
+    "classical.css",
+    "ui-icons.mjs",
+    "modal-scroll.mjs",
+    "page-guides.mjs",
+    "page-guide-view.mjs",
+    "page-guide-targets.mjs",
+    "page-guides.css"
+  ],
+  "groups": [
+    {
+      "name": "地图与查询",
+      "chapters": [
+        "地图与查询"
+      ],
+      "sources": [
+        "campaign-info.mjs",
+        "campaign-info-status.mjs",
+        "faction-directory.mjs",
+        "national-map-view.mjs",
+        "map-object-menu.mjs",
+        "strategic-map-camera.mjs",
+        "strategic-view.mjs",
+        "strategic-hud.mjs",
+        "city-scene.mjs",
+        "city-scene.css",
+        "detail-panels.mjs",
+        "ui-detail-table.mjs"
+      ]
+    },
+    {
+      "name": "战略页面与地图选路",
+      "chapters": [
+        "地图与查询",
+        "内政与城市人事",
+        "侦察",
+        "城市部队与出征",
+        "军团行军与整军",
+        "调任与运输",
+        "执行时机与等待命令",
+        "外交与俘虏",
+        "宝物",
+        "时间与结果查阅"
+      ],
+      "sources": [
+        "strategic.css",
+        "strategic-workspace.css",
+        "strategic-dom.mjs",
+        "strategic-context.mjs",
+        "map-target-picker.mjs",
+        "map-route-editor.mjs",
+        "road-network-view.mjs",
+        "road-network.mjs",
+        "data/design/road-network.mjs"
+      ]
+    },
+    {
+      "name": "内政人事",
+      "chapters": [
+        "内政与城市人事"
+      ],
+      "exclude": [
+        "修改城市保留预算",
+        "安排人才工作"
+      ],
+      "sources": [
+        "domestic.mjs",
+        "domestic-direction-view.mjs",
+        "domestic-proposal-view.mjs",
+        "domestic-staffing.mjs",
+        "domestic-feedback.mjs",
+        "faction-affairs.mjs",
+        "city-personnel.mjs",
+        "data/design/domestic-actions.mjs",
+        "data/design/domestic-decision-rules.mjs"
+      ]
+    },
+    {
+      "name": "城市预算",
+      "actions": [
+        "修改城市保留预算"
+      ],
+      "sources": [
+        "city-budget.mjs",
+        "finance-view.mjs",
+        "city-resources.mjs",
+        "data/design/economy-rules.mjs"
+      ]
+    },
+    {
+      "name": "人才工作",
+      "actions": [
+        "安排人才工作"
+      ],
+      "sources": [
+        "talent-view.mjs",
+        "talent-core.mjs",
+        "talent-lifecycle.mjs",
+        "data/design/talent-rules.mjs",
+        "domestic.mjs",
+        "domestic-direction-view.mjs",
+        "domestic-proposal-view.mjs"
+      ]
+    },
+    {
+      "name": "侦察与情报",
+      "chapters": [
+        "侦察"
+      ],
+      "actions": [
+        "查询敌情"
+      ],
+      "sources": [
+        "scouting.mjs",
+        "scouting-view.mjs",
+        "scouting-state.mjs",
+        "strategic-vision.mjs",
+        "data/design/strategic-scouting-rules.mjs"
+      ]
+    },
+    {
+      "name": "编制与出征",
+      "chapters": [
+        "城市部队与出征"
+      ],
+      "sources": [
+        "strategic-command.mjs",
+        "city-units.mjs",
+        "army-setup-view.mjs",
+        "army-muster.css",
+        "troop-choice.mjs",
+        "troop-allocation.mjs",
+        "troop-equipment.mjs",
+        "army-appointments.mjs",
+        "army-appointments-view.mjs"
+      ]
+    },
+    {
+      "name": "贼寨讨伐",
+      "actions": [
+        "讨伐贼寨"
+      ],
+      "sources": [
+        "bandits.mjs",
+        "bandit-view.mjs",
+        "bandit-state.mjs",
+        "data/design/bandits.mjs"
+      ]
+    },
+    {
+      "name": "军团行军与整军",
+      "chapters": [
+        "军团行军与整军"
+      ],
+      "sources": [
+        "army-management.mjs",
+        "army-details.mjs",
+        "army-inspection.mjs",
+        "strategic-movement.mjs",
+        "army-supply.mjs",
+        "army-trait-rules.mjs",
+        "military-flow.mjs",
+        "army-setup-view.mjs",
+        "army-appointments.mjs",
+        "army-appointments-view.mjs",
+        "data/design/movement-rules.mjs"
+      ]
+    },
+    {
+      "name": "调任与运输",
+      "chapters": [
+        "调任与运输"
+      ],
+      "sources": [
+        "personnel-movement.mjs",
+        "strategic-personnel.mjs",
+        "city-logistics.mjs",
+        "strategic-command.mjs",
+        "strategic-roster.mjs",
+        "data/design/movement-rules.mjs",
+        "data/design/supply-rules.mjs"
+      ]
+    },
+    {
+      "name": "执行时机与等待命令",
+      "chapters": [
+        "执行时机与等待命令"
+      ],
+      "sources": [
+        "strategic-orders.mjs",
+        "strategic-order-view.mjs",
+        "decision-summary-view.mjs",
+        "command-protection.mjs"
+      ]
+    },
+    {
+      "name": "外交与俘虏",
+      "chapters": [
+        "外交与俘虏"
+      ],
+      "sources": [
+        "diplomacy.mjs",
+        "diplomacy-view.mjs",
+        "diplomacy-relations.mjs",
+        "officer-fates.mjs",
+        "data/design/diplomacy-rules.mjs",
+        "data/design/officer-fate-rules.mjs"
+      ]
+    },
+    {
+      "name": "宝物",
+      "chapters": [
+        "宝物"
+      ],
+      "sources": [
+        "treasures.mjs",
+        "treasure-view.mjs",
+        "treasure-statuses.mjs",
+        "data/design/treasures.mjs"
+      ]
+    },
+    {
+      "name": "战前准备与布阵",
+      "chapters": [
+        "战前准备与布阵"
+      ],
+      "sources": [
+        "battle-deployment.mjs",
+        "battle-council.mjs",
+        "battle-appointments.mjs",
+        "battle-appointments-view.mjs",
+        "battle-retreat.mjs",
+        "strategic-retreat.mjs",
+        "strategic-intent.mjs",
+        "siege-defense.mjs",
+        "military-flow.mjs",
+        "defense-line.mjs",
+        "scenario-setup.mjs",
+        "army-setup-view.mjs",
+        "data/design/formation-deployment.mjs"
+      ]
+    },
+    {
+      "name": "战斗与战后",
+      "chapters": [
+        "战斗与战后"
+      ],
+      "sources": [
+        "battlefield.mjs",
+        "battle-info.mjs",
+        "battle-presentation.mjs",
+        "battle-presentation.css",
+        "battle-experience-view.mjs",
+        "battle-transition-events.mjs",
+        "battle-transitions.mjs",
+        "reinforcement-arrival.mjs",
+        "battle-council.mjs",
+        "battle-appointments.mjs",
+        "battle-appointments-view.mjs",
+        "postbattle-appointments.mjs",
+        "battle-retreat.mjs",
+        "battle-log.mjs",
+        "campaign-replay.mjs",
+        "battle-journal.mjs"
+      ]
+    },
+    {
+      "name": "军略",
+      "actions": [
+        "施放全军型军略",
+        "施放范围军略",
+        "全军撤退"
+      ],
+      "sources": [
+        "stratagems.mjs",
+        "stratagem-area.mjs",
+        "stratagem-area-view.mjs",
+        "stratagem-zones.mjs",
+        "data/design/stratagems.mjs",
+        "data/design/stratagem-attributes.mjs"
+      ]
+    },
+    {
+      "name": "开始游戏与编辑",
+      "chapters": [
+        "开始游戏与编辑"
+      ],
+      "exclude": [
+        "新建或修改地图",
+        "管理地图包"
+      ],
+      "sources": [
+        "campaign-lobby.mjs",
+        "campaign-lobby.css",
+        "national-lobby.mjs",
+        "national-scenarios.mjs",
+        "custom-battle.mjs",
+        "scenario-setup.mjs",
+        "battle-generator.mjs",
+        "historical-battle-library.mjs",
+        "scenario-catalog.mjs",
+        "army-setup-view.mjs",
+        "data/design/historical-battles.mjs"
+      ]
+    },
+    {
+      "name": "地图编辑器",
+      "actions": [
+        "新建或修改地图",
+        "管理地图包"
+      ],
+      "sources": [
+        "battle-map-editor.mjs",
+        "battle-map-editor.css",
+        "battle-map-library.mjs",
+        "battle-map-document.mjs",
+        "battle-map-validation.mjs",
+        "battle-map-view.mjs",
+        "data/design/battle-map-categories.mjs",
+        "data/design/battle-maps.mjs",
+        "data/design/battle-terrain.mjs"
+      ]
+    },
+    {
+      "name": "时间与结果查阅",
+      "chapters": [
+        "时间与结果查阅"
+      ],
+      "sources": [
+        "player-time.mjs",
+        "activity-nodes.mjs",
+        "harvest-summary.mjs",
+        "report-presentation.mjs",
+        "reward-presentation.mjs",
+        "reward-reports.css",
+        "officer-activity-view.mjs",
+        "campaign-ending.mjs",
+        "campaign-ending-view.mjs",
+        "campaign-ending.css",
+        "battle-journal.mjs",
+        "campaign-replay.mjs"
+      ]
+    },
+    {
+      "name": "存档与设置",
+      "chapters": [
+        "存档与设置"
+      ],
+      "sources": [
+        "save-storage.mjs",
+        "save-archives.mjs",
+        "game-save-validation.mjs",
+        "runtime-platform.mjs",
+        "game-audio.mjs",
+        "audio.css",
+        "presentation-style.mjs"
+      ]
+    }
+  ]
+}

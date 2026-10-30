@@ -1,9 +1,21 @@
-import {HEX_GRID,hexCenter,insideHexGrid} from './hex-grid.mjs';
+import {HEX_GRID,hexCenter,insideHexGrid,sideCell} from './hex-grid.mjs';
 import {isTargetable} from './engagement.mjs';
 import {CONTROL_STATUSES,STATUS_DEFINITIONS,statusOn} from './battle-status-rules.mjs';
 import {traitImmune} from './trait-mechanics.mjs';
 import {bondBlocksEffect} from './bonds.mjs';
 import {STRATAGEMS,availableBattleCommanders,selectStratagemSource} from './stratagems.mjs';
+import {unitAttributes} from './unit-stats.mjs';
+import {combatFamily} from './troop-equipment.mjs';
+
+// The preview and actual burn share the same budget, including enemies outside
+// the selected rectangle. This is raw damage before each victim's mitigation.
+export function firestormAmount(b,s,profile,side,target){
+ const active=units=>units.filter(u=>u.status==='active'&&u.hp>0);
+ const power=active(b.sides[side].units).reduce((sum,u)=>sum+unitAttributes(u,b).strategyPower,0);
+ const count=active(b.sides[1-side].units).filter(u=>isTargetable(b,u)).length;
+ const amount=Math.max(0,Math.floor(power*(18/280)*profile.strength/Math.max(1,count)));
+ return Math.floor(amount*(1+(combatFamily(target)==='ship'?(s.shipFireBonus||0):0)));
+}
 
 export const AREA_HEIGHT=HEX_GRID.height*2/Math.sqrt(3);
 export const areaPosition=u=>{const p=hexCenter(u.x,u.y);return {x:p.x*HEX_GRID.width,y:p.y*AREA_HEIGHT};};
@@ -53,7 +65,7 @@ export function chooseStratagemPoint(b,s,side){
    (s.effect!=='firestorm'||!((u.statuses?.burn?.until||0)>b.tick)));
  if(!useful.length)return null;
  const centers=useful.map(u=>({x:u.x,y:u.y}));
- for(let y=0;y<HEX_GRID.rows;y++)for(let x=0;x<HEX_GRID.cols;x++)centers.push({x,y});
+ for(let y=0;y<HEX_GRID.rows;y++)for(let x=0;x<HEX_GRID.cols;x++)centers.push(sideCell({x,y},side));
  let best=null,count=0;
  for(const center of centers)for(const rotation of s.scope.shape==='rectangle'?[0,90]:[0]){
    const point={...center,rotation},covered=useful.filter(u=>stratagemAreaContains(s,point,u)).length;

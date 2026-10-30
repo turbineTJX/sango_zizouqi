@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,issueCommand,COMMAND_RESOURCE,validateSave,stepBattle} from '../engine.mjs';
 import {STRATAGEMS,OFFICER_STRATAGEMS} from '../stratagems.mjs';
 import {stratagemAreaContains,chooseStratagemPoint} from '../stratagem-area.mjs';
+import {areaPreview} from '../stratagem-area-view.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
 function scene(leader='person-246',advisor='yu'){
  const s=newGame();appointTestCommanders(s,leader,advisor);orderArmy(s,'a1','guandu');advanceTurn(s);startBattle(s);lockDeployment(s.battle);s.battle.commandProgress=COMMAND_RESOURCE.capacity;return s;
@@ -26,8 +27,11 @@ test('missing, malformed and empty selection leave resources and effects unchang
 test('fire only applies inside rectangle and does not concentrate excluded target budget',()=>{
  const s=scene(),b=s.battle,enemy=b.sides[1].units.filter(u=>u.status==='active');
  const p={x:enemy[0].x,y:enemy[0].y};
+ const beforePreview=JSON.stringify(b),preview=areaPreview(b,STRATAGEMS['zhou-redcliffs'],{point:p});
+ assert.equal(JSON.stringify(b),beforePreview);
  const clone=structuredClone(b);assert.equal(issueCommand(b,'zhou-redcliffs',p),null);
  const amount=enemy[0].statuses.burn.amount;
+ assert.match(preview.controls,new RegExp('每队基础灼伤 '+amount+'/回合'));assert.match(preview.controls,/不是敌军兵力百分比/);
  const other=clone.sides[1].units.filter(u=>u.status==='active');other[0].x=2;other[0].y=2;
  assert.equal(issueCommand(clone,'zhou-redcliffs',{x:2,y:2}),null);
  assert.equal(other[0].statuses.burn.amount,amount);

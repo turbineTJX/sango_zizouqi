@@ -43,14 +43,14 @@ export function groupBattleActions(events){
 export function scheduleBattleActions(events,{clock=0,speed=1,isMajor=()=>false}={}){
  let cursor=clock,end=clock;
  return groupBattleActions(events).map(group=>{
-  const e=group.events[0],major=isMajor(group.events),important=major||e.skill&&!e.ongoing&&!e.enchantment;
-  // Ordinary attacks overlap slightly in engine order. A skill gets a clean
-  // source/trajectory/impact window; the next action cannot cover its result.
+  const major=isMajor(group.events),important=major;
+  // Routine actions share a beat, with their hits still in recorded order.
+  // Only a featured cast separates the preceding and following exchanges.
   if(important)cursor=Math.max(cursor,end);
-  const duration=major?clamp(1900/Math.sqrt(speed),1400,2300):important?Math.max(560,820/Math.sqrt(speed)):Math.max(280,520/Math.sqrt(speed));
+  const duration=major?clamp(1900/Math.sqrt(speed),1400,2300):480/speed;
   const action={...group,major,important,start:cursor,duration,end:cursor+duration};
   end=Math.max(end,action.end);
-  cursor=important?action.end:cursor+Math.max(22,48/Math.sqrt(speed));
+  cursor=important?action.end:cursor+16/speed;
   return action;
  });
 }
@@ -73,12 +73,18 @@ export function placeBattleCaptions(entries,width,height,previous=new Map()){
  const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.width+padding,b.x+b.width+padding)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.y+a.height+padding,b.y+b.height+padding)-Math.max(a.y,b.y));
  for(const entry of [...entries].sort((a,b)=>a.id.localeCompare(b.id))){
   const {id,x,y}=entry,w=Math.min(entry.width,width-4),h=Math.min(entry.height,height-4);
-  const offsets=[[0,0],[0,-h-12],[0,h+8],[-w*.65,-h*.6],[w*.65,-h*.6],[-w,0],[w,0],[0,-h*2-16],[0,h*2+16]];
-  for(let radius=1;radius<=4;radius++)for(let dy=-radius;dy<=radius;dy++)for(let dx=-radius;dx<=radius;dx++)if(Math.max(Math.abs(dx),Math.abs(dy))===radius)offsets.push([dx*(w+padding),dy*(h+padding)]);
-  const candidates=offsets.map(([dx,dy])=>({x:clamp(x-w/2+dx,2,width-w-2),y:clamp(y+dy,2,height-h-2),width:w,height:h}));
+  const hex=width/14.5,maxDistance=hex*.85;
+  const anchor={x:clamp(x-w/2,2,width-w-2),y:clamp(y+hex*.3,2,height-h-2)};
+  const offsets=[[0,0],[0,-h-hex*.6],[0,-h/2-hex*.3]];
+  // A crowded label may overlap locally, but must not become another unit's
+  // apparent nameplate. Focus raises the actual unit and its own caption.
+  for(let dy=-2;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)offsets.push([dx*hex*.35,dy*hex*.35]);
+  let candidates=offsets.map(([dx,dy])=>({x:clamp(anchor.x+dx,2,width-w-2),y:clamp(anchor.y+dy,2,height-h-2),width:w,height:h})).filter(p=>Math.hypot(p.x+w/2-x,p.y+h/2-y)<=maxDistance);
+  if(!candidates.length)candidates=[{x:clamp(x-w/2,2,width-w-2),y:clamp(y-h/2,2,height-h-2),width:w,height:h}];
   const old=previous.get(id);
-  const cost=p=>placed.reduce((n,q)=>n+overlap(p,q)*1000,0)+Math.hypot(p.x+w/2-x,p.y-y)+(old?Math.hypot(p.x-old.x,p.y-old.y)*.12:0);
-  candidates.sort((a,b)=>cost(a)-cost(b));const best=candidates[0];placed.push(best);result.set(id,best);
+  const cost=p=>placed.reduce((n,q)=>n+overlap(p,q),0)+Math.hypot(p.x-anchor.x,p.y-anchor.y)*2+(old?Math.hypot(p.x-old.x,p.y-old.y)*.12:0);
+  candidates.sort((a,b)=>cost(a)-cost(b));let best=candidates[0];
+  placed.push(best);result.set(id,best);
  }
  return result;
 }

@@ -67,6 +67,28 @@ test('failed trigger and failed activity give no relationship reward; failure co
  const noYield=example(['breakthrough'],r=>r.success&&r.actual===0);assert.equal(noYield.r.relationGain,0);assert.equal(events(noYield.s).filter(e=>e.phase==='cooperation').length,1);restore(noYield.s);
 });
 
+test('failed research cooperation cannot count rounded progress as a bonus and remains saveable',()=>{
+ const {s,c,r}=example(['breakthrough'],r=>!r.success&&r.applied&&r.after>0);
+ assert.equal(r.before,r.after);assert.equal(r.actual,0);assert.equal(r.relationGain,0);
+ const fork=restore(s);advance(s,21);advance(fork,21);assert.equal(serializeCampaign(s),serializeCampaign(fork));
+ const forged=JSON.parse(serializeCampaign(s)),record=forged.campaign.domestic.cooperation[c.id+':technology'];
+ Object.assign(record,{success:false,applied:true,before:1,after:1.0001,actual:.0001,relationGain:0});
+ assert.throws(()=>validateCampaign(forged));
+});
+
+test('failed repair cooperation cannot claim saved fractional work as an extra result',()=>{
+ for(const carry of [-.49,.49]){
+  const {s,r}=example(['inspect'],r=>!r.success&&r.applied&&r.after>0,({s,c})=>{
+   setBuildingLevel(c,'walls',1,c.id,{hp:1000});beginExecution(s);
+   const a=s.campaign.domestic.assignments.find(a=>a.action?.key==='inspect');assert.ok(a);
+   while(a.action.remaining>1)advance(s,s.campaign.day+1);
+   // Legal residual work at the saved precision boundary; no extra material.
+   a.action.repairCarry=carry;restore(s);
+  });
+  assert.equal(r.before,r.after);assert.equal(r.actual,0);assert.equal(r.relationGain,0);restore(s);
+ }
+});
+
 test('group cap is independent of officer count, and UI/refresh preserve deterministic results',()=>{
  const {s,c}=setup(9,['fair'],3);advance(s,9);const fork=restore(s),rng=s.campaign.domestic.seed;strategicView(s,{city:c.id});assert.equal(s.campaign.domestic.seed,rng);
  advance(s,11);advance(fork,11);assert.equal(serializeCampaign(s),serializeCampaign(fork));assert.equal(s.campaign.domestic.events.filter(e=>e.phase==='cooperation').length,1);

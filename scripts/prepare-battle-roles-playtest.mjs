@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {resolve,join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const root=resolve('work/battle-roles-prototype'),runtime=join(root,'window-v3/runtime'),out=join(root,'demos');mkdirSync(out,{recursive:true});
+const E=await import(pathToFileURL(join(runtime,'engine.mjs')));
+for(const recipe of ['guan','zhou']){
+ const s=JSON.parse(readFileSync(join(root,'dev-window-v3/battles',recipe+'-stars-plain-open-75431001-0-fixed-start.json')));
+ E.validateSave(structuredClone(s));writeFileSync(join(out,recipe+'-start.json'),JSON.stringify(s));
+ while(!s.battle.result&&s.battle.commandProgress<E.COMMAND_RESOURCE.capacity)E.stepBattle(s.battle,{aiSides:[1],pauseForReinforcements:false});
+ assert.ok(!s.battle.result&&s.battle.commandProgress===E.COMMAND_RESOURCE.capacity);E.validateSave(structuredClone(s));
+ writeFileSync(join(out,recipe+'-ready.json'),JSON.stringify(s));console.log(recipe+' actual first full command gauge at tick '+s.battle.tick);
+}
+writeFileSync(join(root,'play.html'),`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>三层分工 · 实战试验</title><style>body{background:#f3f0e7;color:#1c3439;font:17px/1.8 'Microsoft YaHei',sans-serif;max-width:960px;margin:60px auto;padding:24px}h1{font-size:36px}article{background:white;border:1px solid #d5ddda;border-radius:16px;padding:24px;margin:20px 0}button,a{font:inherit}button{background:#186a6b;color:white;border:0;border-radius:8px;padding:12px 20px;margin:8px;cursor:pointer}small{color:#597077}.error{color:#a63227}</style><p>三国 · 君临 / 本机试验</p><h1>看准一次交锋，再下军略</h1><p>战法自动发动；励军让附近友军在护盾吸收直击时仍获得受击战意；金城汤池集中保护较小范围。此版同时缩减了开场成阵护盾，保留阵位属性。</p><article><h2>关羽 · 突破前排</h2><button data-save="guan-start">从开战开始</button><button data-save="guan-ready">从军略首次就绪开始</button></article><article><h2>周瑜 · 火攻协同</h2><button data-save="zhou-start">从开战开始</button><button data-save="zhou-ready">从军略首次就绪开始</button></article><p>开局暂停，使用游戏原有军略按钮选择落点并确认，再继续战斗。同一开局可以重玩，比较保护主将、保护辅助、延后使用的差别。</p><small>两个样例均为开发种子；对照结果另用独立种子检验。点击会重置此试验地址的试炼进度，正式游戏的存档位于另一地址。当前版仅包含两名主将与“励军”个性样例。</small><p id="message"></p><script type="module">import {writeSavedGame} from './save-storage.mjs';import {validateSave} from './engine.mjs';for(const b of document.querySelectorAll('[data-save]'))b.onclick=async()=>{try{document.querySelector('#message').textContent='正在载入…';const r=await fetch('/demos/'+b.dataset.save+'.json');if(!r.ok)throw Error('找不到试验存档');const s=validateSave(await r.json());await writeSavedGame('sango-historical-battle-v1',JSON.stringify(s));location.href='/#historical-battle';}catch(e){document.querySelector('#message').className='error';document.querySelector('#message').textContent=e.message;}};</script></html>`);

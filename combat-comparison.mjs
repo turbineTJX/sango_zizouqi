@@ -31,6 +31,15 @@ export function relationshipMatrix(s,units,candidates=units,{attribute=null,lock
   return '<td class="relationship-score" style="--bond-opacity:'+(0.04+Math.max(0,Math.min(100,score))/100*.3).toFixed(3)+'" aria-label="'+esc(u.name)+'与'+esc(v.name)+'的友好度 '+score+'">'+score+'</td>';
  }).join('')+'</tr>').join('')+'</tbody></table></div>';
 }
+export function expeditionSelectionMarkup(s,units,candidates,reasons=new Map()){
+ const selected=new Set(units.map(u=>u.id));
+ const lineup=`<div class="selection-lineup"><b role="status">已选 ${units.length} / 10 队</b><span class="selected-unit-strip">${units.map(u=>`<span class="selected-unit-chip">${esc(u.name)} <small>统${u.leadership} 武${u.force} 智${u.intellect}</small><button type="button" data-action="campaign-selection-remove" data-id="${esc(u.id)}" aria-label="移除${esc(u.name)}" title="移除${esc(u.name)}">×</button></span>`).join('')||'尚未选择'}</span></div>`;
+ const rows=candidates.map(u=>{
+  const work=assignmentFor(s,u.id)?.action,reason=reasons.get(u.id),relations=units.filter(v=>v.id!==u.id).map(v=>({name:v.name,...relationshipInfo(u.id,v.id,s.relationshipScores,s.relationshipTypes)})).sort((a,b)=>b.score-a.score);
+  return `<tr class="${selected.has(u.id)?'selected':''}"><td><input type="checkbox" data-command-army-unit="${esc(u.id)}" aria-label="选择${esc(u.name)}部队" ${selected.has(u.id)?'checked':''} ${!selected.has(u.id)&&(reason||units.length>=10)?'disabled':''}></td><td><button data-action="campaign-person-detail" data-officer="${esc(u.id)}">${esc(u.name)}<small>${TROOPS[u.type]?.name} · ${['C','B','A','S'][troopAptitude(u,u.type)]}${!reason&&!work?' · 待命':''}</small></button>${reason||work?`<small>${esc(reason||'事务余 '+Math.ceil(work.remaining)+' 天')}</small>`:''}</td><td>${u.troops.toLocaleString()}</td><td>${u.leadership}</td><td>${u.force}</td><td>${u.intellect}</td><td>${unitTactics(u).map(t=>abilityButton('tactic',t.id,t.name)).join('')||'—'}</td><td>${personalBondsMarkup(u)}</td><td>${relations.slice(0,2).map(r=>`<small>${esc(r.name)} ${r.score}</small>`).join('')||'—'}</td></tr>`;
+ });
+ return `<section class="expedition-selection">${lineup}${bondsMarkup(units)}${table(['选择','部队','兵力','统率','武力','智力','战法','羁绊','友好度'],rows)}<details class="decision-details"><summary>连携矩阵</summary>${relationshipMatrix(s,units,candidates)}</details></section>`;
+}
 export function combatComparison(s,units,roles=null,{prefix='本军',appointments='',only=null,relationCandidates=units,relationPicker={}}={}){
  const traits=[...new Set(units.flatMap(u=>officerTraits(u).filter(id=>PASSIVES[id]?.domain==='battle')))];
  const overview=table(['武将','兵种','适性','兵力','羁绊'],units.map(u=>`<tr><td>${esc(u.name)}</td><td>${TROOPS[u.type]?.name||u.type}</td><td>${['C','B','A','S'][troopAptitude(u,u.type)]}</td><td>${Math.round(u.hp??u.troops)}</td><td>${personalBondsMarkup(u)}</td></tr>`));
